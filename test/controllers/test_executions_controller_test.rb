@@ -90,7 +90,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
       te = @first_task.test_executions.create
       delete :destroy, id: te.id
       assert_response 204, 'response should be No Content on test_execution destroy'
-      assert_equal nil, TestExecution.where(_id: te.id).first, 'Should have deleted test execution'
+      assert_nil TestExecution.where(_id: te.id).first, 'Should have deleted test execution'
     end
   end
 
@@ -120,7 +120,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
       te = @first_task.test_executions.create
       delete :destroy, task_id: 'bad_id', id: te.id
       assert_response 204, 'response should be No Content on test_execution destroy'
-      assert_equal nil, TestExecution.where(_id: te.id).first, 'Should have deleted test execution'
+      assert_nil TestExecution.where(_id: te.id).first, 'Should have deleted test execution'
     end
   end
 

@@ -12,7 +12,7 @@ class RecordTest < ActiveSupport::TestCase
     assert_equal @bundle, record.bundle, 'A record should know what bundle it is assocaitated with if any'
     record = Record.new
     record.save
-    assert_equal nil, record.bundle, 'A record not associated with a bundle should return nil'
+    assert_nil record.bundle, 'A record not associated with a bundle should return nil'
   end
 
   def test_record_should_be_able_to_find_original
