@@ -88,7 +88,7 @@ class TestExecutionHelper < ActiveSupport::TestCase
 
     assert_equal 1, errors_hash['QRDA Errors']
     assert_equal 2, errors_hash['Reporting Errors']
-    assert_equal nil, errors_hash['Submission Errors']
+    assert_nil errors_hash['Submission Errors']
   end
 
   def test_get_select_history_message
