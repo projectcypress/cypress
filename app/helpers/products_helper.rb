@@ -111,7 +111,6 @@ module ProductsHelper
   #   all tasks must pass to return 'passing'
   #   if one test fails, return 'failing'
   def tasks_status(tasks)
-    return tasks.first.status if tasks.count == 0
     return 'passing' if tasks.all?(&:passing?)
     return 'failing' if tasks.any?(&:failing?)
     return 'errored' if tasks.any?(&:errored?)

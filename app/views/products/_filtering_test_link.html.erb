@@ -11,6 +11,7 @@
 
 <% parent_reloading = false unless (defined? parent_reloading) %>
 <% tasks = with_c3_task(task) %>
+<% should_reload = should_reload_product_test_link?(tasks) %>
 
 <% if test.state != :ready %>
   <% if test.state == :queued %>
@@ -38,7 +39,7 @@
     <%= link_to 'retry', new_task_test_execution_path(task), :class => "label label-warning" %>
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
   <% when 'incomplete' %>
-    <% if should_reload_product_test_link?(tasks) %>
+    <% if should_reload %>
       <i class = 'fa fa-fw fa-gavel fa-spin text-testing' aria-hidden = 'true'></i>
       <%= link_to 'testing...', new_task_test_execution_path(task), :class => 'label label-default' %>
     <% else %>
@@ -52,8 +53,7 @@
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
   <% end %>
 <% end %>
-
-<% if should_reload_product_test_link?(tasks) && !parent_reloading %>
+<% if should_reload && !parent_reloading %>
   <script>
   $(document).ready(function() {
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'filtering_test_link', task_id: "<%= task.id.to_s %>" }});
