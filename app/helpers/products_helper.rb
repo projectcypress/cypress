@@ -75,15 +75,18 @@ module ProductsHelper
 
   # input tasks should be array of (c1 or c2 task) and (c3 task if c3 was selected on product)
   # true if the task's product test is still building or if there is a test execution currently running
-  def should_reload_product_test_link?(tasks)
-    return true if tasks.first.product_test.state != :ready && tasks.first.product_test.state != :errored
-    return true if tasks.any? { |task| task.most_recent_execution && task.most_recent_execution.state == :pending }
+  def should_reload_product_test_link?(task_status, test)
+    # We should reload if the test is in any state other than ready or errored
+    return true unless [:ready, :errored].include? test.state
+    # We should reload if any tasks are pending
+    return true if task_status.eql? 'pending'
     false
   end
 
   def should_reload_product_test_status_display?(tests)
     tests.each do |test|
-      if should_reload_product_test_link?(with_c3_task(test.cat1_task)) || should_reload_product_test_link?(with_c3_task(test.cat3_task))
+      if should_reload_product_test_link?(tasks_status(with_c3_task(test.cat1_task)), test) ||
+         should_reload_product_test_link?(tasks_status(with_c3_task(test.cat3_task)), test)
         return true
       end
     end
@@ -91,10 +94,8 @@ module ProductsHelper
   end
 
   def measure_test_running_for_row?(task)
-    return true if task.product_test.state != :ready && task.product_test.state != :errored
-    executions = [task.most_recent_execution]
-    executions << task.most_recent_execution.sibling_execution if task.most_recent_execution
-    return true if executions.compact.any? { |execution| execution.state == :pending }
+    return true unless [:ready, :errored].include? task.product_test.state
+    return true if task.most_recent_execution && task.most_recent_execution.status_with_sibling == 'incomplete'
     false
   end
 
@@ -114,6 +115,7 @@ module ProductsHelper
     return 'passing' if tasks.all?(&:passing?)
     return 'failing' if tasks.any?(&:failing?)
     return 'errored' if tasks.any?(&:errored?)
+    return 'pending' if tasks.any?(&:pending?)
     return 'incomplete' if tasks.any?(&:incomplete?)
     'unstarted'
   end

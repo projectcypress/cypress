@@ -11,7 +11,8 @@
 
 <% parent_reloading = false unless (defined? parent_reloading) %>
 <% tasks = with_c3_task(task) %>
-<% should_reload = should_reload_product_test_link?(tasks) %>
+<% status = tasks_status(tasks) %>
+<% should_reload = should_reload_product_test_link?(status, test) %>
 
 <% if test.state != :ready %>
   <% if test.state == :queued %>
@@ -25,7 +26,7 @@
   <strong class="text-info">Internal Error</strong>
   <% end %>
 <% else %>
-  <% case tasks_status(tasks) %>
+  <% case status %>
   <% when 'passing' %>
     <i class = 'fa fa-fw fa-check-circle text-success' aria-hidden="true"></i>
     <%= link_to 'view', new_task_test_execution_path(task), :class => "label label-success" %>
@@ -38,21 +39,16 @@
     <i class = 'fa fa-fw fa-exclamation-circle text-warning' aria-hidden="true"></i>
     <%= link_to 'retry', new_task_test_execution_path(task), :class => "label label-warning" %>
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
-  <% when 'incomplete' %>
-    <% if should_reload %>
-      <i class = 'fa fa-fw fa-gavel fa-spin text-testing' aria-hidden = 'true'></i>
-      <%= link_to 'testing...', new_task_test_execution_path(task), :class => 'label label-default' %>
-    <% else %>
-      <i class = 'fa fa-fw fa-play-circle text-info' aria-hidden="true"></i>
-      <%= link_to 'start', new_task_test_execution_path(task), :class => "label label-info" %>
-      <%= render partial: '/products/product_test_upload', locals: { task: task } %>
-    <% end %>
+  <% when 'pending'%>
+    <i class = 'fa fa-fw fa-gavel fa-spin text-testing' aria-hidden = 'true'></i>
+    <%= link_to 'testing...', new_task_test_execution_path(task), :class => 'label label-default' %>
   <% else %>
     <i class = 'fa fa-fw fa-play-circle text-info' aria-hidden="true"></i>
     <%= link_to 'start', new_task_test_execution_path(task), :class => "label label-info" %>
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
   <% end %>
 <% end %>
+
 <% if should_reload && !parent_reloading %>
   <script>
   $(document).ready(function() {
