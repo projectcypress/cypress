@@ -143,25 +143,25 @@ class ProductsHelperTest < ActiveJob::TestCase
     task = pt.tasks.build
     pt.save!
     task.save!
-    assert_equal true, should_reload_product_test_link?([task])
+    assert_equal true, should_reload_product_test_link?(tasks_status([task]), pt)
 
     # product test is ready, task is pending
     pt = ProductTest.new(:state => :ready, :name => 'my product test name 2', :measure_ids => measure_ids, :product => product)
     tasks = build_tasks_with_test_execution_states([:pending]).each { |tsk| tsk.product_test = pt }
     pt.save!
-    assert_equal true, should_reload_product_test_link?(tasks)
+    assert_equal true, should_reload_product_test_link?(tasks_status(tasks), pt)
 
-    # product test is ready, task is not pending
+    # product test is ready, task is completed execution and is in a passing state
     pt = ProductTest.new(:state => :ready, :name => 'my product test name 3', :measure_ids => measure_ids, :product => product)
-    tasks = build_tasks_with_test_execution_states([:other_state]).each { |tsk| tsk.product_test = pt }
+    tasks = build_tasks_with_test_execution_states([:passed]).each { |tsk| tsk.product_test = pt }
     pt.save!
-    assert_equal false, should_reload_product_test_link?(tasks)
+    assert_equal false, should_reload_product_test_link?(tasks_status(tasks), pt)
 
     # product test is ready, one task not pending while other task is pending
     pt = ProductTest.new(:state => :ready, :name => 'my product test name 4', :measure_ids => measure_ids, :product => product)
-    tasks = build_tasks_with_test_execution_states([:other_state, :pending]).each { |tsk| tsk.product_test = pt }
+    tasks = build_tasks_with_test_execution_states([:passed, :pending]).each { |tsk| tsk.product_test = pt }
     pt.save!
-    assert_equal true, should_reload_product_test_link?(tasks)
+    assert_equal true, should_reload_product_test_link?(tasks_status(tasks), pt)
   end
 
   def setup_product_test_and_task_for_should_reload_measure_test_row_test
@@ -209,16 +209,19 @@ class ProductsHelperTest < ActiveJob::TestCase
   def test_tasks_status
     assert_equal 'passing', tasks_status(build_tasks_with_test_execution_states([:passed]))
     assert_equal 'failing', tasks_status(build_tasks_with_test_execution_states([:failed]))
-    assert_equal 'incomplete', tasks_status(build_tasks_with_test_execution_states([:other_state]))
+    # As soon as a task has a test execution created then the state is considered pending.
+    assert_equal 'pending', tasks_status(build_tasks_with_test_execution_states([:other_state]))
+    # If a task does not have any test executions associated then it is considered incomplete.
+    assert_equal 'incomplete', tasks_status([Task.new])
 
     assert_equal 'passing', tasks_status(build_tasks_with_test_execution_states([:passed, :passed]))
     assert_equal 'failing', tasks_status(build_tasks_with_test_execution_states([:passed, :failed]))
-    assert_equal 'incomplete', tasks_status(build_tasks_with_test_execution_states([:passed, :other_state]))
+    assert_equal 'pending', tasks_status(build_tasks_with_test_execution_states([:passed, :other_state]))
 
     assert_equal 'failing', tasks_status(build_tasks_with_test_execution_states([:failed, :failed]))
     assert_equal 'failing', tasks_status(build_tasks_with_test_execution_states([:failed, :other_state]))
 
-    assert_equal 'incomplete', tasks_status(build_tasks_with_test_execution_states([:other_state, :other_state]))
+    assert_equal 'pending', tasks_status(build_tasks_with_test_execution_states([:other_state, :other_state]))
   end
 
   def build_tasks_with_test_execution_states(states)

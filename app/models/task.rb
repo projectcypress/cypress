@@ -30,7 +30,7 @@ class Task
   end
 
   # Defines methods for checking task status (task.passing?, etc)
-  %w(passing failing errored incomplete).each do |task_state|
+  %w(passing failing errored pending incomplete).each do |task_state|
     define_method "#{task_state}?" do
       status == task_state
     end
@@ -46,8 +46,8 @@ class Task
         'failing'
       elsif recent_execution.errored?
         'errored'
-      else
-        'incomplete'
+      else # Test is not any of the above states but does exist, assume pending state
+        'pending'
       end
     end
   end
