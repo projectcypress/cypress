@@ -17,25 +17,29 @@ $(document).on('page:load', ready_run_once);
 var pop_up;
 pop_up = function(){
 
-	var pop_up = document.getElementById('code_lookup');
-	pop_up.classList.toggle('show');
+    var pop_up = document.getElementById('code_lookup');
+    pop_up.classList.toggle('show');
 }
 
-function lookupFunction() {
-    // Declare variables
-    var input, filter, ul, li, a, i;
-    input = document.getElementById('lookupFilter');
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("lookup_codes");
-    li = ul.getElementsByTagName('li');
+function lookupFunction(event) {
+// Declare variables
+var input, filter, ul, li, a, i;
+input = document.getElementById('lookupFilter');
+filter = input.value.toUpperCase();
+ul = document.getElementById("lookup_codes");
+li = ul.getElementsByTagName('li');
 
-    // Loop through all list items, and hide those who don't match the search query
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
+// Loop through all list items, and hide those who don't match the search query
+for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("i")[0];
+    if(a.innerHTML.toUpperCase().indexOf(filter) > -1){
+        li[i].style.display = "";
+    } else {
+        li[i].style.display = "none";
     }
-}
+} 
+
+};
+
+
+
