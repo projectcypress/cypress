@@ -11,8 +11,9 @@ class C3Cat3Task < Task
     @validators << ::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version) if measure.type == 'ep'
   end
 
-  def execute(file, sibling_execution_id)
+  def execute(file, user, sibling_execution_id)
     te = test_executions.create(expected_results: expected_results, artifact: Artifact.new(file: file))
+    te.user = user
     te.save!
     TestExecutionJob.perform_later(te, self, validate_reporting: product_test.product.c3_test)
     te.sibling_execution_id = sibling_execution_id

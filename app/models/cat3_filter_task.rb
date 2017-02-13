@@ -8,8 +8,9 @@ class Cat3FilterTask < Task
                    ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
   end
 
-  def execute(file)
+  def execute(file, user)
     te = test_executions.create(expected_results: product_test.expected_results)
+    te.user = user
     te.artifact = Artifact.new(file: file)
     te.save!
     TestExecutionJob.perform_later(te, self)

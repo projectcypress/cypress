@@ -28,7 +28,7 @@ class Cat1FilterTaskTest < ActiveSupport::TestCase
     testfile = Tempfile.new(['good_results_debug_file', '.zip'])
     testfile.write task.good_results
     perform_enqueued_jobs do
-      te = task.execute(testfile)
+      te = task.execute(testfile, User.first)
       te.reload
       assert_empty te.execution_errors, 'test execution with known good results should have no errors'
     end

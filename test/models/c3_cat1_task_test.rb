@@ -20,7 +20,7 @@ class C3Cat1TaskTest < ActiveSupport::TestCase
     c1_task = @test.tasks.create!({}, C1Task)
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_extra_file.zip'))
     perform_enqueued_jobs do
-      te = @task.execute(zip, c1_task)
+      te = @task.execute(zip, User.first, c1_task)
       te.reload
       assert_empty te.execution_errors.where(file_name: '2_Alice_Wise.xml'), 'should be no errors from extra file'
       # expected errors: none

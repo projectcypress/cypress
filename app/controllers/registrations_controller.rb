@@ -12,6 +12,9 @@ class RegistrationsController < Devise::RegistrationsController
 
   def edit
     @title = 'Edit User'
+    # @test_executions = TestExecution.accessible_by(current_user)#.order(:updated_at => :desc)
+
+    @test_executions = current_user.test_executions
     super
   end
 

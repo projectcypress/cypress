@@ -18,7 +18,7 @@ class TestExecutionsController < ApplicationController
 
   def create
     authorize! :execute_task, @task.product_test.product.vendor
-    @test_execution = @task.execute(results_params)
+    @test_execution = @task.execute(results_params, current_user)
     respond_with(@test_execution) do |f|
       if @task.is_a? C1ChecklistTask
         f.html { redirect_to product_checklist_test_path(@task.product_test.product, @task.product_test) }
