@@ -7,6 +7,7 @@
 %>
 
 <% execution = task.most_recent_execution %>
+<% status_with_sibling = execution ? execution.status_with_sibling : nil %>
 <% c3_execution = execution ? execution.sibling_execution : nil %>
 <% should_include_c3 = task.product_test.product.c3_test %>
 
@@ -37,7 +38,7 @@
         <% end %>
       <td>
         <% unless execution.nil? %>
-          <% case execution.status_with_sibling %>
+          <% case status_with_sibling %>
           <% when 'passing' %>
             <i aria-hidden = 'true' class = 'fa fa-fw fa-check text-success'></i>
             <strong class = 'text-success'>Passing</strong>
@@ -60,7 +61,7 @@
   </tbody>
 </table>
 
-<% if !execution.nil? && execution.executions_pending? %>
+<% if !execution.nil? && status_with_sibling == 'incomplete' %>
   <script>
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'checklist_execution_results', task_id: "<%= task.id.to_s %>" }});
   </script>
