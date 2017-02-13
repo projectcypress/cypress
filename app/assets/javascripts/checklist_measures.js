@@ -16,7 +16,7 @@ $(document).on('page:load', ready_run_once);
 
 var pop_up;
 pop_up = function(){
-
+    
     var pop_up = document.getElementById('code_lookup');
     pop_up.classList.toggle('show');
 }
