@@ -28,7 +28,7 @@ class C1TaskTest < ActiveSupport::TestCase
     task = @product_test.tasks.create({}, C1Task)
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip)
+      te = task.execute(zip, User.first)
       te.reload
       assert te.execution_errors.where(:msg_type => :error).empty?, 'should be no errors for good cat I archive'
     end
@@ -39,7 +39,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.c1_test = true
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_many_files.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip)
+      te = task.execute(zip, User.first)
       te.reload
       assert_equal 1, te.execution_errors.where(:msg_type => :error).count, 'should be 1 error from cat I archive'
       assert_equal 1, te.execution_errors.where(:message => '4 files expected but was 5', :msg_type => :error).count
@@ -51,7 +51,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.c1_test = true
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_wrong_names.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip)
+      te = task.execute(zip, User.first)
       te.reload
       assert_equal 2, te.execution_errors.where(:msg_type => :error).count, 'should be 2 errors from cat I archive'
       assert_equal 'Patient name \'GP_PEDS CPPP\' declared in file not found in test records', te.execution_errors[0].message
@@ -65,7 +65,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.c3_test = true
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip'))
     perform_enqueued_jobs do
-      te = c1_task.execute(zip)
+      te = c1_task.execute(zip, User.first)
       assert_equal c3_task.test_executions.first.id.to_s, te.sibling_execution_id
     end
   end
@@ -75,7 +75,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.c1_test = true
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_much_data.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip)
+      te = task.execute(zip, User.first)
       te.reload
       assert_equal 1, te.execution_errors.by_file('0_Dental_Peds_A.xml').where(:message => '["2.16.840.1.113883.10.20.22.4.49:", '\
         '"2.16.840.1.113883.10.20.24.3.23:"] are not valid Patient Data Section QDM entries for this QRDA Version', :msg_type => :warning).count
@@ -87,7 +87,7 @@ class C1TaskTest < ActiveSupport::TestCase
     task = ptest.tasks.create({}, C3Cat1Task)
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_much_data.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip, nil)
+      te = task.execute(zip, User.first, nil)
       te.reload
       assert_equal 18, te.execution_errors.by_file('0_Dental_Peds_A.xml').count
       assert_equal 5, te.execution_errors.by_file('0_Dental_Peds_A.xml').where(validator: 'QRDA Cat 1 R3 Validator').count
@@ -114,7 +114,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.c1_test = true
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_bad_calculation.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip)
+      te = task.execute(zip, User.first)
       te.reload
       # 1 NUMER and 2 DENEX population
       assert_equal 3, te.execution_errors.where(:msg_type => :error).count, 'should be 3 calculation errors from cat I archive'
@@ -126,7 +126,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.c1_test = true
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_extra_file.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip)
+      te = task.execute(zip, User.first)
       te.reload
       assert_equal 2, te.execution_errors.where(:msg_type => :error).count, 'should be 2 error from cat I archive with extra file'
       assert_equal 1, te.execution_errors.where(:file_name => '2_Alice_Wise.xml', :msg_type => :error).count, 'should be 1 error for the extra file'
@@ -144,7 +144,7 @@ class C1TaskTest < ActiveSupport::TestCase
     testfile = Tempfile.new(['good_results_debug_file', '.zip'])
     testfile.write task.good_results
     perform_enqueued_jobs do
-      te = task.execute(testfile)
+      te = task.execute(testfile, User.first)
       te.reload
       assert_equal 0, te.execution_errors.where(:msg_type => :error).count, 'test execution with known good results should have no errors'
     end

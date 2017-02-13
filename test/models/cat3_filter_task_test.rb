@@ -29,7 +29,7 @@ class Cat3FilterTaskTest < ActiveSupport::TestCase
     xml = Tempfile.new(['good_results_debug_file', '.xml'])
     xml.write task.good_results
     perform_enqueued_jobs do
-      te = task.execute(xml)
+      te = task.execute(xml, User.first)
       te.reload
       assert_empty te.execution_errors, 'test execution with known good results should not have any errors'
     end

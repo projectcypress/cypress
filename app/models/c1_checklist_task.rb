@@ -16,11 +16,12 @@ class C1ChecklistTask < Task
     @validators
   end
 
-  def execute(file)
+  def execute(file, user)
     te = test_executions.new(artifact: Artifact.new(file: file))
+    te.user = user
     te.save!
     TestExecutionJob.perform_later(te, self)
-    te.sibling_execution_id = product_test.tasks.c3_checklist_task.execute(file, te.id).id if product_test.product.c3_test
+    te.sibling_execution_id = product_test.tasks.c3_checklist_task.execute(file, user, te.id).id if product_test.product.c3_test
     te.save
     te
   end

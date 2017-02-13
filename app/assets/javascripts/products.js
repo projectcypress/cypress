@@ -15,6 +15,14 @@ ready = function() {
     info: false
   });
 
+  $('.user_tests_table').DataTable({
+    searching: false,
+    paging: false,
+    stateSave: true, /* preserves order on reload */
+    info: false,
+    order: [[4, 'desc']]
+  });
+
  $('.vendor-table').DataTable({
     searching: false,
     paging: false,
