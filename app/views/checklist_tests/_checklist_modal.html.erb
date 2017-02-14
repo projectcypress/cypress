@@ -1,0 +1,23 @@
+  <div class = "modal-dialog" id ="lookupModal-dialog">
+    <div class="modal-content" id="lookupModal-content">
+      <div class= "modal-header" id= "lookupModal-header">
+        <button type="button" class="close" id="lookupModal-close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="lookupModal-title"> List of codes</h4>
+      </div>
+      <div class="modal-body" id="lookupModal-body">
+        <input type="text" id="lookupFilter" onkeyup="lookupFunction()" onkeydown="if (event.keyCode == 13) {return false;}" placeholder="Filter codes">
+        <ul class='list-unstyled' id="lookup_codes">
+         <% valuessets.each do |vs| %>
+         <% lookup_codevalues(vs, product_test.bundle).each do |pair_string| %>
+         <li class="value-set-list" id="vs_pair_list"><i><%= pair_string %></i></li>
+         <% end %>
+         <% end %>
+       </ul>
+     </div>
+     <div class="modal-footer" id="lookupModal-footer">
+      <button type="button" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+
+

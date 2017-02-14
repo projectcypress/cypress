@@ -9,120 +9,128 @@
 %>
 
 <%= bootstrap_nested_form_for([product, product_test], :url => { :controller => 'checklist_tests', :action => 'update' }) do |f| %>
-  <div class = 'panel-group' id = '<%= measure.cms_id %>' disabled = true>
-    <div class = 'panel panel-default'>
-      <div class = 'panel-heading'>
-        <h1 class='panel-title'>
-          <%= "#{measure.cms_id} #{measure.name}" %>
-        </h1>
-      </div>
-      <div class = 'panel-body'>
-        <div class = 'checklist-panel'>
-          <table class = 'table table-condensed'>
-            <thead>
-              <tr>
-                <th class = 'col-sm-1' scope = 'col'>Validated in QRDA</th>
-                <th class = 'col-sm-2' scope = 'col'>Data Criteria</th>
-                <th class = 'col-sm-1' scope = 'col'>Section</th>
-                <th class = 'col-sm-1' scope = 'col'>Required Attributes</th>
-                <th class = 'col-sm-3' scope = 'col'>Value Set(s)</th>
-                <th class = 'col-sm-3' scope = 'col'>Recorded Code/Attribute Value</th>
-                <th>
+<div class = 'panel-group' id = '<%= measure.cms_id %>' disabled = true>
+  <div class = 'panel panel-default'>
+    <div class = 'panel-heading'>
+      <h1 class='panel-title'>
+        <%= "#{measure.cms_id} #{measure.name}" %>
+      </h1>
+    </div>
+    <div class = 'panel-body'>
+      <div class = 'checklist-panel'>
+        <table class = 'table table-condensed'>
+          <thead>
+            <tr>
+              <th class = 'col-sm-1' scope = 'col'>Validated in QRDA</th>
+              <th class = 'col-sm-2' scope = 'col'>Data Criteria</th>
+              <th class = 'col-sm-1' scope = 'col'>Section</th>
+              <th class = 'col-sm-1' scope = 'col'>Required Attributes</th>
+              <th class = 'col-sm-3' scope = 'col'>Value Set(s)</th>
+              <th class = 'col-sm-3' scope = 'col'>Recorded Code/Attribute Value</th>
+              <th>
               </tr>
             </thead>
             <tbody>
               <%= f.fields_for :checked_criteria, product_test.checked_criteria.all(measure_id: measure.id) do |criteria_field| %>
-                <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
-                <% if criteria.key?('description') %>
-                  <tr>
-                    <td rowspan="3">
-                      <% if criteria_field.object.passed_qrda %>
-                        <span class="sr-only">Passes QRDA</span>
-                        <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
-                      <% else %>
-                        <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
-                      <% end %>
-                    </td>
-                    <% valuessets = criteria_field.object.get_all_valuesets_for_dc(measure) %>
-                    <% if valuessets.empty? %>
-                      <td rowspan="3"/>
-                      <tr>
-                        <td/>
-                      <td/>
-                      <td/>
-                    </tr>
-                    <% else %>
-                      <td rowspan="3"><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
-                      <tr>
-                      <td> <strong>Valuesets</strong> </td>
-                      <td/>
-                      <td><span>
-                        <ul class='list-unstyled'>
+              <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
+              <% if criteria.key?('description') %>
+              <tr>
+                <td rowspan="3">
+                  <% if criteria_field.object.passed_qrda %>
+                  <span class="sr-only">Passes QRDA</span>
+                  <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
+                  <% else %>
+                  <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
+                  <% end %>
+                </td>
+                <% valuessets = criteria_field.object.get_all_valuesets_for_dc(measure) %>
+                <% if valuessets.empty? %>
+                <td rowspan="3"/>
+                <tr>
+                  <td/>
+                  <td/>
+                  <td/>
+                </tr>
+                <% else %>
+                <td rowspan="3"><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
+                <tr>
+                  <td> <strong>Valuesets</strong> </td>
+                  <td/>
+                  <td>
+                    <div type = "button" class ="value-set-group set-menu" data-toggle="modal" data-target="#lookupModal">
+                      <ul class="value-set-list">
                         <% valuessets.each do |vs| %>
-                        <li class="valueset-listitem"><%= "#{lookup_valueset_name(vs)}" %></li>
+                        <li class="value-set-item-header"><%= "#{lookup_valueset_name(vs)}" %></li>
+                        <li class="value-set-item-oid"><%= vs %></li>
                         <% end %>
-                        </ul>
-                      </span></td>
-                      <td>
-                        <% if criteria_field.object.complete?.nil? %>
-                          <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
-                        <% elsif criteria_field.object.code_complete %>
-                          <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
-                        <% else %>
-                          <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
-                        <% end %>
-                        <%= criteria_field.text_field :code, hide_label: false %>
-                      </td>
-                    </tr>
-                    <% end %>
-                    <tr>
-                      <td> <strong> Attributes </strong> </td>
-                    <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
-                    <td><%= render partial: 'checklist_tests/field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value']} if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %></td>
-                    <% if coded_attribute?(criteria) %>
-                      <td>
-                        <% if criteria_field.object.complete?.nil? %>
-                          <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
-                        <% elsif criteria_field.object.attribute_complete %>
-                          <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
-                        <% else %>
-                          <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
-                        <% end %>
-                        <%= criteria_field.text_field :attribute_code, hide_label: false %>
-                      </td>
-                    <% elsif criteria['value'] && criteria['value'].type != 'CD' || criteria['field_values'] %>
-                      <td>
-                        <% if criteria_field.object.complete?.nil? %>
-                          <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
-                        <% elsif criteria_field.object.result_complete %>
-                          <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
-                        <% else %>
-                          <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
-                        <% end %>
-                        <%= criteria_field.text_field :recorded_result, hide_label: false %>
-                      </td>
+                      </ul>
+                    </div>
+                    <div id="lookupModal" class="modal fade" role="dialog">
+                      <%= render partial: 'checklist_modal', locals: { valuessets: valuessets, product_test: product_test} %>
+                    </div> 
+                  </td>
+                  <td>
+                    <% if criteria_field.object.complete?.nil? %>
+                    <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
+                    <% elsif criteria_field.object.code_complete %>
+                    <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
                     <% else %>
-                      </td>
+                    <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
                     <% end %>
-                  </tr>
-                  </tr>
+                    <%= criteria_field.text_field :code, hide_label: false %>
+                  </td>
+                </tr>
                 <% end %>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <% if product_test.status != 'passing' %>
-          <div class = 'panel-footer'>
-            <%= f.submit 'Save', class: 'btn btn-default' %>
-            <span class = 'small-indent'></span>
-          </div>
-        <% else %>
-          <div class = 'panel-footer'>
-            <%= f.submit 'Save', class: 'btn btn-danger', disabled: true %>
-            <span class = 'small-indent'></span>
-          </div>
-        <% end %>
+                <tr>
+                  <td> <strong> Attributes </strong> </td>
+                  <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
+                  <td>
+                    <%= render partial: 'checklist_tests/field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value'], product_test: product_test } if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %>
+                  </td>
+                  <% if coded_attribute?(criteria) %>
+                  <td>
+                    <% if criteria_field.object.complete?.nil? %>
+                    <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
+                    <% elsif criteria_field.object.attribute_complete %>
+                    <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
+                    <% else %>
+                    <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
+                    <% end %>
+                    <%= criteria_field.text_field :attribute_code, hide_label: false %>
+                  </td>
+                  <% elsif criteria['value'] && criteria['value'].type != 'CD' || criteria['field_values'] %>
+                  <td>
+                    <% if criteria_field.object.complete?.nil? %>
+                    <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
+                    <% elsif criteria_field.object.result_complete %>
+                    <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
+                    <% else %>
+                    <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
+                    <% end %>
+                    <%= criteria_field.text_field :recorded_result, hide_label: false %>
+                  </td>
+                  <% else %>
+                </td>
+                <% end %>
+              </tr>
+            </tr>
+            <% end %>
+            <% end %>
+          </tbody>
+        </table>
       </div>
+      <% if product_test.status != 'passing' %>
+      <div class = 'panel-footer'>
+        <%= f.submit 'Save', class: 'btn btn-default' %>
+        <span class = 'small-indent'></span>
+      </div>
+      <% else %>
+      <div class = 'panel-footer'>
+        <%= f.submit 'Save', class: 'btn btn-danger', disabled: true %>
+        <span class = 'small-indent'></span>
+      </div>
+      <% end %>
     </div>
   </div>
+</div>
 <% end %>
