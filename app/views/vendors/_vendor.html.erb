@@ -1,5 +1,16 @@
 <% vendor_statuses = vendor_statuses(vendor) %>
-<tr>
+<tr id="vendor-status-<%=vendor.id%>">
+  <td>
+    <%= button_to vendor_favorite_path(vendor), remote: true, :class => "btn btn-link btn-pop" do %>
+      <% if (vendor.favorite_user_ids.include? current_user.id)  %>
+        <i class="fa fa-fw fa-star" aria-hidden="true"></i>
+        <span class="sr-only">vendor favorited</span>
+      <% else %>
+        <i class="fa fa-fw fa-star-o" aria-hidden="true"></i>
+        <span class="sr-only">vendor not favorited</span>
+      <% end %>
+    <% end %>
+  </td>
   <th scope="row"><div class = "abbreviated"><%= link_to vendor.name, vendor_path(vendor) %></div></th>
   <td>
     <% if vendor_statuses['total'] == 0 %>

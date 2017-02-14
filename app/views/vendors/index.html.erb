@@ -10,21 +10,47 @@
     <i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Vendor
   <% end %>
 
-  <h1>All Vendors</h1>
-  <table class="table vendor-table">
-    <thead>
-      <tr>
-        <th scope="col">Vendor</th>
-        <th scope="col">Products</th>
-        <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-check text-success"></i> Passing</th>
-        <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-times text-danger"></i> Failing</th>
-        <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-exclamation text-warning"></i> Errored</th>
-        <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-circle-o text-info"></i> Incomplete</th>
-        <th scope="col"><span class="sr-only">Actions</span></th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render partial: 'vendor', collection: @vendors %>
-    </tbody>
-  </table>
+  <% @favorites = @vendors.select{ |v| v.favorite_user_ids.include? current_user.id} %>
+  <% unless @favorites.empty? %>
+    <h1>Favorite Vendors</h1>
+    <table class="table vendor-table-favorite">
+      <thead>
+        <tr>
+          <th scope="col"><span class="sr-only">Actions</span></th>
+          <th scope="col">Vendor</th>
+          <th scope="col">Products</th>
+          <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-check text-success"></i> Passing</th>
+          <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-times text-danger"></i> Failing</th>
+          <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-exclamation text-warning"></i> Errored</th>
+          <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-circle-o text-info"></i> Incomplete</th>
+          <th scope="col"><span class="sr-only">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'vendor', collection: @favorites %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <% @non_favorites = @vendors.select{ |v| !v.favorite_user_ids.include? current_user.id} %>
+  <% unless @non_favorites.empty? %>
+    <h1>Vendors</h1>
+    <table class="table vendor-table">
+      <thead>
+        <tr>
+          <th scope="col"><span class="sr-only">Actions</span></th>
+          <th scope="col">Vendor</th>
+          <th scope="col">Products</th>
+          <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-check text-success"></i> Passing</th>
+          <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-times text-danger"></i> Failing</th>
+          <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-exclamation text-warning"></i> Errored</th>
+          <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-circle-o text-info"></i> Incomplete</th>
+          <th scope="col"><span class="sr-only">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'vendor', collection: @non_favorites %>
+      </tbody>
+    </table>
+  <% end %>
 <% end %>

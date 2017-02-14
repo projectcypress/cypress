@@ -2,14 +2,14 @@ require 'api'
 
 class VendorsController < ApplicationController
   include API::Controller
-  before_action :set_vendor, only: [:show, :update, :destroy, :edit]
-  before_action :authorize_vendor, only: [:show, :update, :destroy, :edit]
+  before_action :set_vendor, only: [:show, :update, :destroy, :edit, :favorite]
+  before_action :authorize_vendor, only: [:show, :update, :destroy, :edit, :favorite]
 
   # breadcrumbs
   add_breadcrumb 'Dashboard', :vendors_path
   add_breadcrumb 'Add Vendor', :new_vendor_path, only: [:new, :create]
 
-  respond_to :js, only: [:show]
+  respond_to :js, only: [:show, :favorite]
 
   def index
     # get all of the vendors that the user can see
@@ -19,7 +19,14 @@ class VendorsController < ApplicationController
 
   def show
     add_breadcrumb 'Vendor: ' + @vendor.name, :vendor_path
-    @products = Product.where(vendor_id: @vendor.id).order_by(state: 'desc').page(params[:page]).per(5)
+    product_arr = Product.where(vendor_id: @vendor.id).order_by(state: 'desc').sort_by { |a| (a.favorite_user_ids.include? current_user.id) ? 0 : 1 }
+    @products_fav = product_arr.select { |p| p.favorite_user_ids.include? current_user.id }
+
+    # paginate non-favorites
+    products_nonfav = product_arr.select { |p| !(p.favorite_user_ids.include? current_user.id) }
+    @nonfav_count = products_nonfav.count
+    @products_nonfav = Kaminari.paginate_array(products_nonfav).page(params[:page]).per(5)
+    @products = product_arr
     respond_with(@vendor)
   end
 
@@ -69,6 +76,14 @@ class VendorsController < ApplicationController
     respond_with(@vendor) do |f|
       f.html { redirect_to root_path }
     end
+  end
+
+  def favorite
+    user_id = current_user.id
+    deleted_value = @vendor.favorite_user_ids.delete(user_id)
+    @vendor.favorite_user_ids.push(user_id) if deleted_value.nil?
+    @vendor.save!
+    respond_with(@vendor)
   end
 
   private

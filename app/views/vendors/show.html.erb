@@ -8,20 +8,28 @@
     <% end %>
   </p>
 <% else %>
-  <h1><%= @products.count %> Products</h1>
-  <div class="vendor-product-status infinite-scroll">
-    <%= render partial: 'product_status_table', collection: @products, as: :product, locals: { show_product_link: true } %>
-  </div>
-  <% unless @products.current_page == @products.total_pages %>
-    <div class="text-center scroll-link-wrapper">
-      <p id="view-more">
-        <!-- Error should only show up when the page is not properly infinitely scrolling -->
-        <%= link_to('Loading Error - Try Again?', url_for(page: @products.current_page + 1)) %>
-      </p>
-      <p id="loading-more" class="default-hidden">
-        <i class="fa fa-fw fa-refresh fa-spin inline-icon info-icon"></i>
-        Loading More Products
-      </p>
+  <% unless @products_fav.empty? %>
+    <h1><%= pluralize(@products_fav.count, 'Favorite Product') %></h1>
+    <div class="vendor-product-status-favorite">
+      <%= render partial: 'product_status_table', collection: @products_fav, as: :product, locals: { show_product_link: true } %>
     </div>
+  <% end %>
+  <% unless @products_nonfav.empty? %>
+    <h1><%= pluralize(@nonfav_count, 'Product') %></h1>
+    <div class="vendor-product-status infinite-scroll">
+      <%= render partial: 'product_status_table', collection: @products_nonfav, as: :product, locals: { show_product_link: true } %>
+    </div>
+    <% unless @products_nonfav.current_page == @products_nonfav.total_pages %>
+      <div class="text-center scroll-link-wrapper">
+        <p id="view-more">
+          <!-- Error should only show up when the page is not properly infinitely scrolling -->
+          <%= link_to('Loading Error - Try Again?', url_for(page: @products_nonfav.current_page + 1)) %>
+        </p>
+        <p id="loading-more" class="default-hidden">
+          <i class="fa fa-fw fa-refresh fa-spin inline-icon info-icon"></i>
+          Loading More Products
+        </p>
+      </div>
+    <% end %>
   <% end %>
 <% end %>

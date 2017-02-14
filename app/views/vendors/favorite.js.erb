@@ -1,0 +1,7 @@
+<% if (@vendor.favorite_user_ids.include? current_user.id) %>
+    $('#vendor-status-<%=@vendor.id%> td .button_to button i.fa-star-o').removeClass('fa-star-o').addClass('fa-star');
+    $('#vendor-status-<%=@vendor.id%> td .button_to button span').text("vendor favorited"); 
+<% else %>
+    $('#vendor-status-<%=@vendor.id%> td .button_to button i.fa-star').removeClass('fa-star').addClass('fa-star-o');
+    $('#vendor-status-<%=@vendor.id%> td .button_to button span').text("vendor not favorited");
+<% end %>

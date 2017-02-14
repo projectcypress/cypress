@@ -22,6 +22,13 @@ ready = function() {
     info: false
   });
 
+  $('.vendor-table-favorite').DataTable({
+    searching: false,
+    paging: false,
+    stateSave: true, /* preserves order on reload */
+    info: false
+  });
+
 
   $('#filtering_test_status_display').DataTable({
     searching: false,
