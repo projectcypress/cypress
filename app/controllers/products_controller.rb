@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   include API::Controller
-  before_action :set_vendor, only: [:index, :new, :create, :report, :patients]
+  before_action :set_vendor, only: [:index, :new, :create, :report, :patients, :favorite]
   before_action :set_product, except: [:index, :new, :create]
   before_action :set_measures, only: [:new, :edit, :update, :report]
   before_action :authorize_vendor
@@ -8,9 +8,10 @@ class ProductsController < ApplicationController
 
   respond_to :html, except: [:index]
   respond_to :json, :xml, except: [:new, :edit, :update]
+  respond_to :js, only: [:favorite]
 
   def index
-    @products = @vendor.products
+    @products = @vendor.products.sort_by { |a| (a.favorite_user_ids.include? current_user.id) ? 0 : 1 }
     respond_with(@products.to_a)
   end
 
@@ -88,6 +89,13 @@ class ProductsController < ApplicationController
     criteria_list = crit_exists ? render_to_string(file: 'checklist_tests/print_criteria.html.erb', layout: 'report') : nil
     file = Cypress::CreateDownloadZip.create_total_test_zip(@product, criteria_list, 'qrda')
     send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "#{@product.name}_#{@product.id}.zip".tr(' ', '_')
+  end
+
+  def favorite
+    deleted_value = @product.favorite_user_ids.delete(current_user.id)
+    @product.favorite_user_ids.push(current_user.id) if deleted_value.nil?
+    @product.save!
+    respond_with(@product)
   end
 
   private

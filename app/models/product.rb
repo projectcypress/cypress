@@ -23,6 +23,7 @@ class Product
   field :allow_duplicate_names, type: Boolean, default: false
   field :measure_selection, type: String
   field :measure_ids, type: Array
+  field :favorite_user_ids, type: Array, default: []
 
   delegate :effective_date, :to => :bundle
 

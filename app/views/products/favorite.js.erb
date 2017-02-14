@@ -1,0 +1,7 @@
+<% if (@product.favorite_user_ids.include? current_user.id) %>
+    $('#product-status-<%=@product.id%> th .button_to button i.fa-star-o').removeClass('fa-star-o').addClass('fa-star');
+    $('#product-status-<%@product.id%> th .button_to button span').text("product favorited");
+<% else %>
+    $('#product-status-<%=@product.id%> th .button_to button i.fa-star').removeClass('fa-star').addClass('fa-star-o');
+    $('#product-status-<%=@product.id%> th .button_to button span').text("product not favorited");
+<% end %>

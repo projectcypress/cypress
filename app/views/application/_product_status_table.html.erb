@@ -13,9 +13,18 @@
 
 <table class="table table-condensed table-product-status <%= not_certifying %>">
   <thead>
-    <tr>
+    <tr id="product-status-<%=product.id%>">
       <% if show_product_link %>
         <th scope="col" rowspan="2" class="product-name">
+          <%= button_to vendor_product_favorite_path(product.vendor_id, product), remote: true, :class => "btn btn-link btn-pop" do %>
+            <% if (product.favorite_user_ids.include? current_user.id) %>
+              <i class="fa fa-fw fa-star" aria-hidden="true"></i>
+              <span class="sr-only">product favorited</span>
+            <% else %>
+              <i class="fa fa-fw fa-star-o" aria-hidden="true"></i>
+              <span class="sr-only">product not favorited</span>
+            <% end %>
+          <% end %>
           <%= link_to product.name, vendor_product_path(product.vendor_id, product) %>
         </th>
       <% else %>
