@@ -1,0 +1,43 @@
+
+
+
+.value-set-group {
+  @extend .btn; 
+  padding: 4px;
+  text-align: left;
+  color: $headings-color;
+  border: 0;
+  width: 100%;
+}
+
+.set-menu {
+  @extend .btn;
+  background-color: $panel-inner-border;
+  border-bottom-color: $headings-color; 
+  box-shadow: 0;
+  
+  &:hover {
+      color: $headings-color;
+      background-color: $gray-lighter;
+      border: 0;
+    } 
+}
+
+.value-set-list {
+  @extend .list-group;
+  margin-bottom: 8px;
+  background-color: $panel-inner-border;
+}
+
+.value-set-item-header {
+  @extend .list-group-item;
+  font-weight: bold;
+  padding: 2px 8px;
+  background-color: $list-group-bg;
+}
+
+.value-set-item-oid {
+  @extend .list-group-item;
+  padding: 2px 8px;
+  background-color: $list-group-bg;
+}
