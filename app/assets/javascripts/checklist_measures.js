@@ -14,6 +14,7 @@ ready_run_once = function() {
 $(document).ready(ready_run_once);
 $(document).on('page:load', ready_run_once);
 
+/* exported lookupFunction */ 
 function lookupFunction(event) {
 // Declare variables
 var input, filter, ul, li, a, i;
