@@ -57,12 +57,12 @@ module ChecklistTestsHelper
   end
 
   def lookup_valueset_name(oid)
-    msg=''
+    msg = ''
     vs = HealthDataStandards::SVS::ValueSet.where(oid: oid)
     return oid unless vs && vs.first
-      msg += "#{vs.first.display_name}"
-  end
-  
+    msg += "#{vs.first.display_name}"
+  end  
+
   def lookup_codevalues(oid, bundle)
     vs = HealthDataStandards::SVS::ValueSet.where(oid: oid)
     return [] unless vs && vs.first

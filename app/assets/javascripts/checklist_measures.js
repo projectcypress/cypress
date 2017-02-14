@@ -30,13 +30,4 @@ for (i = 0; i < li.length; i++) {
     } else {
         li[i].style.display = "none";
     }
-} 
-
-};
-
-
-
-
-
-
-
+}}
