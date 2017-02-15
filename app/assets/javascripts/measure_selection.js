@@ -123,6 +123,25 @@ function UpdateMeasureSet(bundle_id) {
       });
 }
 
+function HookupProductSearch() {
+  // Fetch the currently selected bundle from the list on the top of the page.
+  var bundle_id = $('input[name="product[bundle_id]"]:checked').val()
+  // Remove or urlencode any special characters from the search query
+  var current_search = encodeURIComponent($('#product_search_measures').val().replace(/[!'()*]/g, ""))
+  // Searchbox is #product_search_measures which is currently the parent.
+  var searchbox = $(this)
+
+  $.ajax({
+    url: "/bundles/" + bundle_id + "/measures/filtered/" + current_search,
+    type: "GET",
+    dataType: "json",
+    success: function(data, textStatus, xhr) {
+      filterVisibleMeasures(searchbox, data.measures)
+      filterVisibleMeasureTabs(searchbox, data.measure_tabs)
+    }
+  });
+}
+
 // these pieces need to run every time the bundle is changed
 // (they act on the measures which have been reloaded by ajax,
 //  not the controls which are fixed)
@@ -149,6 +168,16 @@ ready_run_on_refresh_bundle = function() {
   // Trigger change events for already-checked inputs
   $('.measure-group .measure-checkbox:checked').trigger('change');
   $('input[name="product[measure_selection]"]:checked').trigger('change');
+
+  // Disable enter key from submitting the add or edit product form when in the measure search box
+  $('#product_search_measures').keypress(function(event) {
+    if (event.keyCode == 13) {
+      return false;
+    }
+  });
+
+  // Filter the available measures when a user types in the measure filter box
+  $('#product_search_measures').on('keyup', HookupProductSearch);
 };
 
 // these pieces should run only once, at page load
@@ -204,33 +233,6 @@ ready_run_once = function() {
       var selection = $(this).val();
       UpdateMeasureSet(selection);
     }
-  });
-
-  // Disable enter key from submitting the add or edit product form when in the measure search box
-  $('#product_search_measures').keypress(function(event) {
-    if (event.keyCode == 13) {
-      return false;
-    }
-  });
-
-  // Filter the available measures when a user types in the measure filter box
-  $('#product_search_measures').on('keyup', function () {
-    // Fetch the currently selected bundle from the list on the top of the page.
-    var bundle_id = $('input[name="product[bundle_id]"]:checked').val()
-    // Remove or urlencode any special characters from the search query
-    var current_search = encodeURIComponent($('#product_search_measures').val().replace(/[!'()*]/g, ""))
-    // Searchbox is #product_search_measures which is currently the parent.
-    var searchbox = $(this)
-
-    $.ajax({
-      url: "/bundles/" + bundle_id + "/measures/filtered/" + current_search,
-      type: "GET",
-      dataType: "json",
-      success: function(data, textStatus, xhr) {
-        filterVisibleMeasures(searchbox, data.measures)
-        filterVisibleMeasureTabs(searchbox, data.measure_tabs)
-      }
-    });
   });
 
   // run this piece once too
