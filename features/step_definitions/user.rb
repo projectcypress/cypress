@@ -16,7 +16,8 @@ end
 
 When(/^I click Sign up$/) do
   page.click_link_or_button 'Sign up'
-  sleep(1) # Gross, but otherwise this randomly fails @SS
+  # Sign up should be one of the only pages with the text Confirm Password
+  page.has_text?('Confirm Password')
 end
 
 When(/^I fill in the form with correct information$/) do
