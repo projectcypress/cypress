@@ -159,6 +159,9 @@ def wait_for_all_delayed_jobs_to_run
 end
 
 Before do
+  # Make the window larger in order to account for navbar larger collapse point
+  Capybara.page.current_window.resize_to(1200, 800)
+
   Mongoid.default_client['users'].drop
   Mongoid.default_client['vendors'].drop
   Mongoid.default_client['products'].drop
