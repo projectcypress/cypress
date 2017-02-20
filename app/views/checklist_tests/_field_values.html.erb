@@ -14,8 +14,8 @@
  </ul>
 </div>
 <div id="<%= "lookupModal-negation#{index}" %>" class="modal fade" role="dialog">
-  <%= render partial: 'checklist_modal', locals: { valuessets: [negation], product_test: product_test} %>
-</div> 
+  <%= render partial: 'checklist_modal', locals: { valuessets: [negation], product_test: product_test, index: index, is_attribute: true } %>
+</div>
 <% elsif result %>
 <% if result.type == 'CD' && result['code_list_id'] %>
 <div type="button" class="value-set-group set-menu" data-toggle="modal" data-target="<%= "#lookupModal-result#{index}" %>">          
@@ -25,7 +25,7 @@
  </ul>
 </div>
 <div id="<%= "lookupModal-result#{index}" %>" class="modal fade" role="dialog">
-  <%= render partial: 'checklist_modal', locals: { valuessets: [result], product_test: product_test} %>
+  <%= render partial: 'checklist_modal', locals: { valuessets: [result], product_test: product_test, index: index, is_attribute: true } %>
 </div>
 <% end %>
 <% else %>
@@ -39,7 +39,7 @@
 </ul>
 </div>
 <div id="<%= "lookupModal-fieldvalues#{index}" %>" class="modal fade" role="dialog">
-  <%= render partial: 'checklist_modal', locals: { valuessets: [fv_val['code_list_id']], product_test: product_test} %>
+  <%= render partial: 'checklist_modal', locals: { valuessets: [fv_val['code_list_id']], product_test: product_test, index: index, is_attribute: true } %>
 </div>
 
 <% when 'IVL_PQ' %>
