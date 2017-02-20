@@ -31,7 +31,8 @@
               </tr>
             </thead>
             <tbody>
-              <%= f.fields_for :checked_criteria, product_test.checked_criteria.all(measure_id: measure.id) do |criteria_field| %>
+              <% product_test.checked_criteria.all(measure_id: measure.id).each.with_index do |checked_criteria,index| %>
+              <%= f.fields_for :checked_criteria, checked_criteria do |criteria_field| %>
               <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
               <% if criteria.key?('description') %>
               <tr>
@@ -57,7 +58,7 @@
                   <td> <strong>Valuesets</strong> </td>
                   <td/>
                   <td>
-                    <div type = "button" class ="value-set-group set-menu" data-toggle="modal" data-target="#lookupModal">
+                    <div type = "button" class ="value-set-group set-menu" data-toggle="modal" data-target="<%= "#lookupModal#{index}" %>">
                       <ul class="value-set-list">
                         <% valuessets.each do |vs| %>
                         <li class="value-set-item-header"><%= "#{lookup_valueset_name(vs)}" %></li>
@@ -65,7 +66,7 @@
                         <% end %>
                       </ul>
                     </div>
-                    <div id="lookupModal" class="modal fade" role="dialog">
+                    <div id="<%= "lookupModal#{index}" %>" class="modal fade" role="dialog">
                       <%= render partial: 'checklist_modal', locals: { valuessets: valuessets, product_test: product_test} %>
                     </div> 
                   </td>
@@ -85,7 +86,7 @@
                   <td> <strong> Attributes </strong> </td>
                   <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
                   <td>
-                    <%= render partial: 'checklist_tests/field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value'], product_test: product_test } if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %>
+                    <%= render partial: 'checklist_tests/field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value'], product_test: product_test, index: index } if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %>
                   </td>
                   <% if coded_attribute?(criteria) %>
                   <td>
@@ -114,6 +115,7 @@
                 <% end %>
               </tr>
             </tr>
+            <% end %>
             <% end %>
             <% end %>
           </tbody>
