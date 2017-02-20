@@ -67,7 +67,7 @@
                       </ul>
                     </div>
                     <div id="<%= "lookupModal#{index}" %>" class="modal fade" role="dialog">
-                      <%= render partial: 'checklist_modal', locals: { valuessets: valuessets, product_test: product_test} %>
+                      <%= render partial: 'checklist_modal', locals: { valuessets: valuessets, product_test: product_test, index: index, is_attribute: false } %>
                     </div> 
                   </td>
                   <td>

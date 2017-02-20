@@ -15,12 +15,12 @@ $(document).ready(ready_run_once);
 $(document).on('page:load', ready_run_once);
 
 /* exported lookupFunction */
-function lookupFunction(event) {
+function lookupFunction(index,is_att) {
 // Declare variables
 var input, filter, ul, li, a, i;
-input = document.getElementById('lookupFilter');
+input = document.getElementById("lookupFilter"+index+is_att);
 filter = input.value.toUpperCase();
-ul = document.getElementById("lookup_codes");
+ul = document.getElementById("lookup_codes"+index+is_att);
 li = ul.getElementsByTagName('li');
 
 // Loop through all list items, and hide those who don't match the search query
