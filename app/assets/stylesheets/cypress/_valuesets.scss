@@ -8,13 +8,13 @@
   color: $headings-color;
   border: 0;
   width: 100%;
+  box-shadow: $navbar-shadow;
 }
 
 .set-menu {
-  @extend .btn;
   background-color: $panel-inner-border;
-  border-bottom-color: $headings-color; 
-  box-shadow: 0;
+  border-bottom-color: $gray-lighter; 
+  box-shadow: $navbar-shadow;
   
   &:hover {
       color: $headings-color;
@@ -26,18 +26,19 @@
 .value-set-list {
   @extend .list-group;
   margin-bottom: 8px;
-  background-color: $panel-inner-border;
+  background-color: $list-group-bg;
 }
 
 .value-set-item-header {
   @extend .list-group-item;
   font-weight: bold;
   padding: 2px 8px;
-  background-color: $list-group-bg;
+  background-color: $gray-lighter;
 }
 
 .value-set-item-oid {
   @extend .list-group-item;
   padding: 2px 8px;
+  margin-bottom: 8px;
   background-color: $list-group-bg;
 }
