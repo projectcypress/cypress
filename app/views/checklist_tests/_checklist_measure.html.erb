@@ -58,7 +58,8 @@
                   <td> <strong>Valuesets</strong> </td>
                   <td/>
                   <td>
-                    <div type = "button" class ="value-set-group set-menu" data-toggle="modal" data-target="<%= "#lookupModal#{index}" %>">
+                    <% modal_index = "#{measure.cms_id}_#{index}" %>
+                    <div type = "button" class ="value-set-group set-menu" data-toggle="modal" data-target="<%= "#lookupModal#{modal_index}" %>">
                       <ul class="value-set-list">
                         <% valuessets.each do |vs| %>
                         <li class="value-set-item-header"><%= "#{lookup_valueset_name(vs)}" %></li>
@@ -66,8 +67,8 @@
                         <% end %>
                       </ul>
                     </div>
-                    <div id="<%= "lookupModal#{index}" %>" class="modal fade" role="dialog">
-                      <%= render partial: 'checklist_modal', locals: { valuessets: valuessets, product_test: product_test, index: index, is_attribute: false } %>
+                    <div id="<%= "lookupModal#{modal_index}" %>" class="modal fade" role="dialog">
+                      <%= render partial: 'checklist_modal', locals: { valuessets: valuessets, product_test: product_test, index: modal_index, is_attribute: false } %>
                     </div> 
                   </td>
                   <td>
