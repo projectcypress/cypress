@@ -5,7 +5,7 @@
         <h4 class="modal-title" id="lookupModal-title"> List of codes</h4>
       </div>
       <div class="modal-body" id="lookupModal-body">
-        <input type="text" id="<%= "lookupFilter#{index}#{is_attribute}" %>" onkeyup="<%= "lookupFunction(#{index},#{is_attribute})" %>" onkeydown="if (event.keyCode == 13) {return false;}" placeholder="Filter codes">
+        <input type="text" id="<%= "lookupFilter#{index}#{is_attribute}" %>" onkeyup="<%= "lookupFunction('#{index}',#{is_attribute})" %>" onkeydown="if (event.keyCode == 13) {return false;}" placeholder="Filter codes">
         <ul class='list-unstyled' id="<%= "lookup_codes#{index}#{is_attribute}" %>">
          <% valuessets.each do |vs| %>
          <% lookup_codevalues(vs, product_test.bundle).each do |pair_string| %>
