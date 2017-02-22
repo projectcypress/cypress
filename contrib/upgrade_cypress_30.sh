@@ -196,6 +196,15 @@ if [ "$CVU_FOUND" = "true" ]; then
   systemctl restart cypress-validation-utility
 fi
 
+echo "Upgrading Mongo Version..."
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
+echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+apt-get update
+apt-get -y install libc6 mongodb-org mongodb-org-mongos mongodb-org-server mongodb-org-shell mongodb-org-tools
+
+echo "restarting Mongo Service..."
+systemctl restart mongod
+
 echo "Installing NTP service..."
 apt-get -y --fix-missing install ntp
 
