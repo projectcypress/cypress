@@ -27,6 +27,20 @@ class TestExecutionTest < ActiveSupport::TestCase
     assert te.passing?, 'te.passing? not returning true when execution is passing'
   end
 
+  def test_errored_should_contain_backtrace
+    se = StandardError.new('message')
+    se.set_backtrace(%w(line1 line2))
+
+    te = TestExecution.new
+    te.save
+
+    te.errored(se)
+
+    assert_equal te.backtrace, "message\nline1\nline2", 'te.errored doesn\'t set the correct backtrace message'
+
+    assert te.errored?, 'te.errored? not returning true when execution is errored'
+  end
+
   def test_qrda_reporting_and_submission_errors
     qrda_errors = [
       { validator: 'CDA SDTC Validator' },
