@@ -9,6 +9,7 @@ class TestExecution
   field :expected_results, type: Hash
   field :reported_results, type: Hash
   field :qrda_type, type: String
+  field :backtrace, type: String
   # a sibling test execution is a c3 test execution if the current execution is a c1 or c2 execution. vice versa
   #   and nil if c3 execution does not exist
   field :sibling_execution_id, type: String
@@ -44,8 +45,9 @@ class TestExecution
     end
     conditionally_add_task_specific_errors(file_count)
     execution_errors.only_errors.count > 0 ? fail : pass
-  rescue
-    errored
+  rescue => e
+    errored(e)
+    logger.error("Encountered an exception in Test Execution #{id}: #{e.message}, backgrace:\n#{e.backtrace}")
   end
 
   def conditionally_add_task_specific_errors(file_count)
@@ -92,8 +94,9 @@ class TestExecution
     save
   end
 
-  def errored
+  def errored(e = nil)
     self.state = :errored
+    self.backtrace = e.message + "\n" + e.backtrace.join("\n")
     save
   end
 
