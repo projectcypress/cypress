@@ -39,13 +39,13 @@
                           <td><span>
                             <ul class='list-unstyled'>
                               <% valuessets.each do |vs| %>
-                              <li class="valueset-listitem"><%= "#{lookup_valueset_name(vs)}" %></li>
+                              <li class="valueset-listitem"><%= "#{lookup_valueset_long_name(vs)}" %></li>
                               <% end %>
                             </ul>
                           </span></td>
                         <% end %>
                         <td style="vertical-align:top"><%= checklist_test_criteria_attribute(measure, criteria) %></td>
-                        <td style="vertical-align:top"><%= render partial: 'checklist_tests/field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value']} if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %></td>
+                        <td style="vertical-align:top"><%= render partial: 'checklist_tests/field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value'], disable_modal: true } if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %></td>
                       </tr>
                     <% end %>
                   <% end %>
