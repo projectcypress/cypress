@@ -23,9 +23,13 @@
 .table-product-status {
   margin: 0 0 4em;
 
-  > thead > tr:nth-child(1) > th:not(.product-name) {
+  > thead > tr:nth-child(1) > th:not(.product-name):not(.status-heading) {
     border: 1px $gray-light solid;
     text-align: center;
+  }
+
+  > thead > tr > th {
+    border-bottom: 0;
   }
 
   > thead > tr:nth-child(2) > th,
