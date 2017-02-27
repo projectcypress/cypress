@@ -3,7 +3,7 @@
   - Logic Coverage <%= coverage_for_measure(@measure.hqmf_id, @measure.sub_id, @measure.bundle_id) %>%
 <% end %>
 </h1>
-<% if (@measure && records_by_measure(@records, @measure).length > 0) || !@measure %>
+<% if (@measure && records_by_measure(@records, @measure).length > 0) || (!@measure && @records.length > 0) %>
 <table class="table table-condensed table-hover">
   <thead>
     <tr>
@@ -65,5 +65,5 @@
 </table>
 
 <% else %>
-<p>No patient results for this measure.</p>
+<p>No patient results for the current criteria.</p>
 <% end %>
