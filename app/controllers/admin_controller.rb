@@ -9,6 +9,7 @@ class AdminController < ApplicationController
     @system_usage_stats = Vmstat.snapshot
     render locals: {
       banner_message: Cypress::AppConfig['banner_message'],
+      warning_message: Cypress::AppConfig['warning_message'],
       banner: Cypress::AppConfig['banner'],
       smtp_settings: Rails.application.config.action_mailer.smtp_settings,
       mode: application_mode,
