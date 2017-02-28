@@ -35,4 +35,14 @@
 $(function() {
   Turbolinks.enableProgressBar();
   $('.breadcrumb').breadcrumb();
+
+  $(document).on('ajaxComplete',function(e){
+    $(e.delegateTarget.activeElement).blur();
+  });
+
+  $(document).on('submit',function(e){
+    window.setTimeout(function(){
+      $(e.delegateTarget.activeElement).blur();
+    }, 1500);
+  });
 });
