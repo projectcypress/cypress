@@ -222,6 +222,8 @@ When(/^the user cancels removing the product$/) do
   page.click_button 'Edit Product'
   page.click_button 'Delete Product'
   page.find('div.modal-footer').find('button', text: 'Cancel').click
+  # This makes us wait until the modal has completely closed
+  page.has_no_text?('Remove Permanently')
   page.find('div.panel-footer').click_button 'Cancel'
 end
 
