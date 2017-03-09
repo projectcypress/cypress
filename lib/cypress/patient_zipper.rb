@@ -22,8 +22,9 @@ module Cypress
   end
 
   class QRDAExporter
-    C3EXPORTER = HealthDataStandards::Export::Cat1.new('r3')
-    C3_1EXPORTER = HealthDataStandards::Export::Cat1.new('r3_1')
+    C3EXPORTER = GoCDATools::Export::GoExporter.instance
+    C3_1EXPORTER = GoCDATools::Export::GoExporter.instance
+
     attr_accessor :measures
     attr_accessor :start_time
     attr_accessor :end_time
@@ -36,11 +37,12 @@ module Cypress
 
     def export(patient)
       cms_compatible = true if patient.product_test && patient.product_test.product.c3_test
+      value_sets = Bundle.find(patient.bundle_id).value_sets
       case patient.bundle.qrda_version
       when 'r3'
-        C3EXPORTER.export(patient, measures, start_time, end_time, nil, 'r3', cms_compatible)
+        C3EXPORTER.export_with_ffi(patient.to_json, measures.to_json, value_sets.to_json, start_time, end_time, 'r3')
       when 'r3_1'
-        C3_1EXPORTER.export(patient, measures, start_time, end_time, nil, 'r3_1', cms_compatible)
+        C3_1EXPORTER.export_with_ffi(patient.to_json, measures.to_json, value_sets.to_json, start_time, end_time, 'r3_1')
       end
     end
   end

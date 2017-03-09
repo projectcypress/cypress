@@ -8,7 +8,12 @@ gem 'mongoid', '~> 5.0.0'
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson_ext'
 
+gem 'os'
+
 gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'mongoid5'
+
+gem 'go-cda-tools', git: 'https://github.com/projectcypress/go-cda-tools.git', branch: 'master'
+# gem 'go-cda-tools', path: '../go-cda-tools'
 
 gem 'quality-measure-engine',
     git: 'https://github.com/projectcypress/quality-measure-engine.git', branch: 'bump_mongoid'
