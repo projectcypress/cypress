@@ -18,6 +18,13 @@ GIT
     bootstrap_form (2.4.0)
 
 GIT
+  remote: https://github.com/projectcypress/go-cda-tools.git
+  revision: d28de80126d7b380c67e662d6fc0973fdbd245c9
+  branch: master
+  specs:
+    go-cda-tools (0.0.0)
+
+GIT
   remote: https://github.com/projectcypress/health-data-standards.git
   revision: 0c855e5658d166eacc351fc786da12d5068926dc
   branch: mongoid5
@@ -293,6 +300,7 @@ GEM
       mini_portile2 (~> 2.1.0)
     origin (2.3.0)
     orm_adapter (0.5.0)
+    os (0.9.6)
     overcommit (0.34.2)
       childprocess (~> 0.5.8)
       iniparse (~> 1.4)
@@ -480,6 +488,7 @@ DEPENDENCIES
   factory_girl_rails
   faker (~> 1.5.0)
   font-awesome-sass
+  go-cda-tools!
   health-data-standards!
   jasny-bootstrap-rails
   jbuilder (~> 2.0)
@@ -498,6 +507,7 @@ DEPENDENCIES
   mongoid_rails_migrations!
   nested_form
   newrelic_rpm
+  os
   overcommit
   parallel_tests
   poltergeist
