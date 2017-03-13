@@ -41,7 +41,7 @@ end
 When(/^a user creates a product with (.*) certifications and visits that product page$/) do |certs|
   certs = certs.split(', ')
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
-  product_name = "my product #{rand}"
+  product_name = "mp #{rand}"
   page.fill_in 'Name', with: product_name
   page.find('#product_c1_test').click if certs.include? 'c1'
   page.find('#product_c2_test').click if certs.include? 'c2'
