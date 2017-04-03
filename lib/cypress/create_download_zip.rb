@@ -27,12 +27,12 @@ module Cypress
       end
     end
 
-    def self.create_total_test_zip(product, criteria_list, format = 'qrda')
+    def self.create_total_test_zip(product, criteria_list, filtering_list, format = 'qrda')
       file = Tempfile.new("all-patients-#{Time.now.to_i}")
       Zip::ZipOutputStream.open(file.path) do |z|
         add_measure_zips(z, product.product_tests.measure_tests, format)
         add_checklist_zips(z, product.product_tests.checklist_tests, criteria_list)
-        add_filtering_zips(z, product.product_tests.filtering_tests, format) unless product.product_tests.filtering_tests.empty?
+        add_filtering_zips(z, product.product_tests.filtering_tests, format, filtering_list) unless product.product_tests.filtering_tests.empty?
       end
       file
     end
@@ -117,9 +117,10 @@ module Cypress
       end
     end
 
-    def self.add_filtering_zips(z, filtering_tests, format)
+    def self.add_filtering_zips(z, filtering_tests, format, filtering_list)
       pt = filtering_tests.first
       add_file_to_zip(z, "filteringtest_#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_'), pt.patient_archive.read)
+      add_file_to_zip(z, 'filtering_criteria.html', filtering_list)
     end
   end
 end

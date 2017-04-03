@@ -70,9 +70,7 @@ class ProductsController < ApplicationController
   def destroy
     @product.destroy
     flash_comment(@product.name, 'danger', 'removed')
-    respond_with(@product) do |f|
-      f.html { redirect_to vendor_path(@product.vendor_id) }
-    end
+    respond_with(@product) { |f| f.html { redirect_to vendor_path(@product.vendor_id) } }
   end
 
   # always responds with a zip file containing information on the certification status of the product
@@ -86,8 +84,10 @@ class ProductsController < ApplicationController
   # always responds with a zip file of (.qrda.zip files of (qrda category I documents))
   def patients
     crit_exists = !@product.product_tests.checklist_tests.empty?
+    filt_exists = !@product.product_tests.filtering_tests.empty?
     criteria_list = crit_exists ? render_to_string(file: 'checklist_tests/print_criteria.html.erb', layout: 'report') : nil
-    file = Cypress::CreateDownloadZip.create_total_test_zip(@product, criteria_list, 'qrda')
+    filtering_list = filt_exists ? render_to_string(file: 'checklist_tests/print_filtering.html.erb', layout: 'report') : nil
+    file = Cypress::CreateDownloadZip.create_total_test_zip(@product, criteria_list, filtering_list, 'qrda')
     send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "#{@product.name}_#{@product.id}.zip".tr(' ', '_')
   end
 
