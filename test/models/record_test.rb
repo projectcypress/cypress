@@ -27,4 +27,31 @@ class RecordTest < ActiveSupport::TestCase
     r = Record.find('51703a883054cf84390000d4')
     assert_equal 2, r.calculation_results.count, 'record should have 2 calculated results'
   end
+
+  def record_demographics_equal?(r1, r2)
+    r1.first == r2.first && r1.last == r2.last && r1.gender == r2.gender &&
+      r1.birthdate == r2.birthdate && r1.race.code == r2.race.code && r1.ethnicity.code == r2.ethnicity.code
+  end
+
+  def test_record_duplicate_randomization
+    random = Random.new_seed
+    prng1 = Random.new(random)
+    prng2 = Random.new(random)
+
+    r1 = Record.new(
+      first: 'Robert', last: 'Johnson', gender: 'M', birthdate: '477542400',
+      race: Cypress::AppConfig['randomization']['races'].sample(random: prng1),
+      ethnicity: Cypress::AppConfig['randomization']['ethnicities'].sample(random: prng1))
+
+    r2 = Record.new(
+      first: 'Robert', last: 'Johnson', gender: 'M', birthdate: '477542400',
+      race: Cypress::AppConfig['randomization']['races'].sample(random: prng2),
+      ethnicity: Cypress::AppConfig['randomization']['ethnicities'].sample(random: prng2))
+
+    assert(record_demographics_equal?(r1, r2), 'The two records should be equal')
+    r1copy = r1.duplicate_randomization(random: prng1)
+    r2copy = r2.duplicate_randomization(random: prng2)
+    assert(record_demographics_equal?(r1copy, r2copy), 'The two records should be equal')
+    assert(!record_demographics_equal?(r1, r1copy), 'The two records should not be equal')
+  end
 end
