@@ -7,6 +7,7 @@ require 'rails/test_unit/railtie'
 require_relative '../lib/hash'
 
 CAT1_CONFIG = YAML.load(File.read(File.expand_path('../cat1checklist.yml', __FILE__)))
+NAMES_RANDOM = YAML.load(File.read(File.expand_path('../names.yml', __FILE__)))
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

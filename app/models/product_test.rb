@@ -91,7 +91,7 @@ class ProductTest
       unless ids.nil? || ids.empty?
         dups = records.find(ids)
         (prng.rand(3) + 1).times do
-          recs << dups.sample(random: prng)
+          recs << dups.sample(random: prng).duplicate_randomization(random: prng)
         end
       end
     end
