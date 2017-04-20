@@ -330,7 +330,7 @@ class ProductsControllerTest < ActionController::TestCase
       assert_response 200, 'response should be OK on product index'
       response_products = Hash.from_trusted_xml(response.body)
       assert response_products['products']
-      assert_equal vendor.products.count, response_products['products']['product'].count, 'response body should have all products for vendor'
+      assert_equal vendor.products.count, response_products['products']['products'].count, 'response body should have all products for vendor'
     end
   end
 
