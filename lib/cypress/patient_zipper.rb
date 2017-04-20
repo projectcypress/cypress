@@ -37,12 +37,12 @@ module Cypress
 
     def export(patient)
       cms_compatible = true if patient.product_test && patient.product_test.product.c3_test
-      value_sets = Bundle.find(patient.bundle_id).value_sets
+      value_sets = HealthDataStandards::SVS::ValueSet.where(:oid.in => measures.map(&:oids).flatten, bundle_id: patient.bundle.id)
       case patient.bundle.qrda_version
       when 'r3'
-        C3EXPORTER.export_with_ffi(patient.to_json, measures.to_json, value_sets.to_json, start_time, end_time, 'r3')
+        C3EXPORTER.export_with_ffi(patient.to_json(:include => :provider), measures.to_json, value_sets.to_json, start_time, end_time, 'r3')
       when 'r3_1'
-        C3_1EXPORTER.export_with_ffi(patient.to_json, measures.to_json, value_sets.to_json, start_time, end_time, 'r3_1')
+        C3_1EXPORTER.export_with_ffi(patient.to_json(:include => :provider), measures.to_json, value_sets.to_json, start_time, end_time, 'r3_1')
       end
     end
   end
