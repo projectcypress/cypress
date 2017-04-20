@@ -24,6 +24,7 @@ module Cypress
   class QRDAExporter
     C3EXPORTER = HealthDataStandards::Export::Cat1.new('r3')
     C3_1EXPORTER = HealthDataStandards::Export::Cat1.new('r3_1')
+    C4EXPORTER = HealthDataStandards::Export::Cat1.new('r4')
     attr_accessor :measures
     attr_accessor :start_time
     attr_accessor :end_time
@@ -41,6 +42,8 @@ module Cypress
         C3EXPORTER.export(patient, measures, start_time, end_time, nil, 'r3', cms_compatible)
       when 'r3_1'
         C3_1EXPORTER.export(patient, measures, start_time, end_time, nil, 'r3_1', cms_compatible)
+      when 'r4'
+        C4EXPORTER.export(patient, measures, start_time, end_time, nil, 'r4', cms_compatible)
       end
     end
   end
