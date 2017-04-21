@@ -1,5 +1,5 @@
-<% if Cypress::AppConfig['banner'] %>
+<% if Settings.current.banner %>
   <div class="alert alert-warning">
-    <%= Cypress::AppConfig['warning_message'] %>
+    <%= Settings.current.warning_message %>
   </div>
 <% end #if %>

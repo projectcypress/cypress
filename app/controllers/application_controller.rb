@@ -28,18 +28,18 @@ class ApplicationController < ActionController::Base
   end
 
   def mode_internal?
-    Cypress::AppConfig['auto_approve'] && Cypress::AppConfig['ignore_roles'] && Cypress::AppConfig['enable_debug_features'] &&
-      Cypress::AppConfig['default_role'].nil?
+    Settings.current.auto_approve && Settings.current.ignore_roles && Settings.current.enable_debug_features &&
+      (Settings.current.default_role.nil? || Settings.current.default_role.empty?)
   end
 
   def mode_demo?
-    Cypress::AppConfig['auto_approve'] && !Cypress::AppConfig['ignore_roles'] && Cypress::AppConfig['enable_debug_features'] &&
-      Cypress::AppConfig['default_role'] == :user
+    Settings.current.auto_approve && !Settings.current.ignore_roles && Settings.current.enable_debug_features &&
+      Settings.current.default_role == :user
   end
 
   def mode_atl?
-    !Cypress::AppConfig['auto_approve'] && !Cypress::AppConfig['ignore_roles'] && !Cypress::AppConfig['enable_debug_features'] &&
-      Cypress::AppConfig['default_role'].nil?
+    !Settings.current.auto_approve && !Settings.current.ignore_roles && !Settings.current.enable_debug_features &&
+      (Settings.current.default_role.nil? || Settings.current.default_role.empty?)
   end
 
   def application_mode
@@ -72,11 +72,7 @@ class ApplicationController < ActionController::Base
   # they will not be running if the pid directory is not avaialable which will cause an
   # exception to be thrown
   def check_backend_jobs
-    running = false
-    begin
-      running = !Dir.new(Cypress::AppConfig['pid_dir']).entries.empty?
-    rescue
-    end
+    running = !Dir["#{APP_CONSTANTS['pid_dir']}/*"].empty?
 
     unless running
       alert_msg = "The backend processes for setting up tests and performing measure calculations are not running.
@@ -87,7 +83,7 @@ class ApplicationController < ActionController::Base
 
   def check_bundle_installed
     unless any_bundle
-      install_instr = Cypress::AppConfig['references']['install_guide']
+      install_instr = APP_CONSTANTS['references']['install_guide']
 
       install_instr_link = view_context.link_to install_instr['title'], install_instr['url']
 

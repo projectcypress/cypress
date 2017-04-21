@@ -113,10 +113,10 @@ class Record
     when 0 # gender
       rec.gender = rec.gender == 'M' ? 'F' : 'M'
     when 1 # race
-      rsamples = Cypress::AppConfig['randomization']['races'].sample(2, random: random)
+      rsamples = APP_CONSTANTS['randomization']['races'].sample(2, random: random)
       rec.race = rec.race != rsamples[0] ? rsamples[0] : rsamples[1]
     when 2 # ethnicity
-      esamples = Cypress::AppConfig['randomization']['ethnicities'].sample(2, random: random)
+      esamples = APP_CONSTANTS['randomization']['ethnicities'].sample(2, random: random)
       rec.ethnicity = rec.ethnicity != esamples[0] ? esamples[0] : esamples[1]
     end
     rec

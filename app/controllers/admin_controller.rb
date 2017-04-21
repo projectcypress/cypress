@@ -8,13 +8,13 @@ class AdminController < ApplicationController
     @users = User.excludes(id: current_user.id).order_by(email:  1)
     @system_usage_stats = Vmstat.snapshot
     render locals: {
-      banner_message: Cypress::AppConfig['banner_message'],
-      warning_message: Cypress::AppConfig['warning_message'],
-      banner: Cypress::AppConfig['banner'],
+      banner_message: Settings.current.banner_message,
+      warning_message: Settings.current.warning_message,
+      banner: Settings.current.banner,
       smtp_settings: Rails.application.config.action_mailer.smtp_settings,
       mode: application_mode,
       mode_settings: application_mode_settings,
-      debug_features: Cypress::AppConfig['enable_debug_features']
+      debug_features: Settings.current.enable_debug_features
     }
   end
 
@@ -24,44 +24,44 @@ class AdminController < ApplicationController
   end
 
   def application_mode_settings
-    settings_hash = { auto_approve: Cypress::AppConfig['auto_approve'], ignore_roles: Cypress::AppConfig['ignore_roles'],
-                      debug_features: Cypress::AppConfig['enable_debug_features'] }
-    settings_hash[:default_role] = if Cypress::AppConfig['default_role'].nil?
+    settings_hash = { auto_approve: Settings.current.auto_approve, ignore_roles: Settings.current.ignore_roles,
+                      debug_features: Settings.current.enable_debug_features }
+    settings_hash[:default_role] = if Settings.current.default_role.nil? || Settings.current.default_role.empty?
                                      'None'
-                                   elsif Cypress::AppConfig['default_role'] == :atl
+                                   elsif Settings.current.default_role == :atl
                                      'ATL'
                                    else
-                                     Cypress::AppConfig['default_role'].to_s.humanize
+                                     Settings.current.default_role.to_s.humanize
                                    end
     settings_hash
   end
 
   def mode_internal
-    Cypress::AppConfig['auto_approve'] = true
-    Cypress::AppConfig['ignore_roles'] = true
-    Cypress::AppConfig['default_role'] = nil
-    Cypress::AppConfig['enable_debug_features'] = true
+    Settings.current.update(auto_approve: true,
+                            ignore_roles: true,
+                            default_role: nil,
+                            enable_debug_features: true)
   end
 
   def mode_demo
-    Cypress::AppConfig['auto_approve'] = true
-    Cypress::AppConfig['ignore_roles'] = false
-    Cypress::AppConfig['default_role'] = :user
-    Cypress::AppConfig['enable_debug_features'] = true
+    Settings.current.update(auto_approve: true,
+                            ignore_roles: false,
+                            default_role: ':user',
+                            enable_debug_features: true)
   end
 
   def mode_atl
-    Cypress::AppConfig['auto_approve'] = false
-    Cypress::AppConfig['ignore_roles'] = false
-    Cypress::AppConfig['default_role'] = nil
-    Cypress::AppConfig['enable_debug_features'] = false
+    Settings.current.update(auto_approve: false,
+                            ignore_roles: false,
+                            default_role: nil,
+                            enable_debug_features: false)
   end
 
   def mode_custom(settings)
-    Cypress::AppConfig['auto_approve'] = settings['auto_approve'] == 'enable'
-    Cypress::AppConfig['ignore_roles'] = settings['ignore_roles'] == 'enable'
-    Cypress::AppConfig['default_role'] = settings['default_role'] == 'None' ? nil : settings['default_role'].underscore.to_sym
-    Cypress::AppConfig['enable_debug_features'] = settings['debug_features'] == 'enable'
+    Settings.current.update(auto_approve: settings['auto_approve'] == 'enable',
+                            ignore_roles: settings['ignore_roles'] == 'enable',
+                            default_role: settings['default_role'] == 'None' ? nil : settings['default_role'].underscore.to_sym,
+                            enable_debug_features: settings['debug_features'] == 'enable')
   end
 
   private
