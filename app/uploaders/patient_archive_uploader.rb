@@ -5,7 +5,7 @@ class PatientArchiveUploader < CarrierWave::Uploader::Base
   process :set_content_type
 
   def store_dir
-    "#{Cypress::AppConfig['file_upload_root']}/product_test/#{model.id}"
+    "#{APP_CONSTANTS['file_upload_root']}/product_test/#{model.id}"
   end
 
   def uploaded_filename

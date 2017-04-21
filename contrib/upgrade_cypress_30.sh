@@ -19,8 +19,10 @@ fi
 
 # Function takes 1 parameter which is the name of the tag to pull, in $1
 function pull_git_tag() {
-  # Backup the users config before we start the upgrade and preserve file permissions
-  cp --preserve config/cypress.yml config/cypress.yml.old
+  # If the users config has legacy config options in it then back it up and preserve file permissions
+  if grep -q default_bundle "config/cypress.yml"; then
+    cp --preserve config/cypress.yml config/cypress.yml.old
+  fi
   # Try to run the commands as the cypress user, if we get a nonzero return value then try again
   # as root.
   sudo -u cypress git -c user.name=tmp -c user.email=tmp@tmp.com stash
@@ -32,16 +34,8 @@ function pull_git_tag() {
     # pull in case we're on a branch
     sudo -u cypress git pull
     sudo -u cypress git stash pop
-    rc=$?
-    if [[ $rc != 0 ]]; then
-      echo "Unable to merge cypress config cleanly."
-      sudo -u cypress git reset HEAD config/cypress.yml
-      sudo -u cypress git checkout config/cypress.yml
-      sudo -u cypress git stash drop
-      sudo -u cypress mv config/cypress.yml config/cypress.yml.new
-      sudo -u cypress mv config/cypress.yml.old config/cypress.yml
-      ucf config/cypress.yml.new config/cypress.yml
-    fi
+    sudo -u cypress git reset HEAD
+    sudo -u cypress git checkout config/cypress.yml
   else
     echo "Handling previous error..."
     echo "We do NOT have permission to pull cypress as the user cypress, using root to run git commands."
@@ -51,17 +45,8 @@ function pull_git_tag() {
     # pull in case we're on a branch
     git pull
     git stash pop
-    rc=$?
-    if [[ $rc != 0 ]]; then
-      cp config/cypress.yml config/cypress.yml.old
-      echo "Unable to merge cypress config cleanly."
-      git reset HEAD config/cypress.yml
-      git checkout config/cypress.yml
-      git stash drop
-      mv config/cypress.yml config/cypress.yml.new
-      mv config/cypress.yml.old config/cypress.yml
-      ucf config/cypress.yml.new config/cypress.yml
-    fi
+    git reset HEAD
+    git checkout config/cypress.yml
   fi
 }
 
@@ -129,6 +114,13 @@ function cypress_cvu_shared_upgrade_commands() {
 function upgrade_cypress() {
   echo "Running Cypress Upgrade Commands"
   cypress_cvu_shared_upgrade_commands
+  sudo -E -u cypress env PATH="$PATH" bundle exec rake db:migrate
+  if [ -f "config/cypress.yml.old" ]; then
+    # Grab the environment variables from cypress.service and pass them to the rake task
+    export ENVIRONMENT=$(grep "Environment=" /etc/systemd/system/cypress.service | sed 's/Environment=//g')
+    sudo -E -u cypress env PATH="$PATH" bundle exec rake cypress:import:config[config/cypress.yml.old,"$ENVIRONMENT"]
+    mv config/cypress.yml.old config/cypress.yml.bak # Move the file to a new location so subsequent upgrades to not overwrite settings
+  fi
 }
 
 function upgrade_cvu() {

@@ -27,14 +27,9 @@ Mongoid.logger.level = Logger::INFO
 class ActiveSupport::TestCase
   def teardown
     drop_database
-  end
-
-  def setup_fakefs
-    # Clone the cypress config yaml path whenever we use FakeFS in order to avoid
-    # File not Found errors when calling Cypress::AppConfig
-    FakeFS::FileSystem.clone(File.expand_path("#{Rails.root}/config/cypress.yml"))
-    # Fix rails autoloading when using FakeFS, see https://github.com/fakefs/fakefs/issues/170
-    FakeFS::FileSystem.clone(File.join(::Rails.root, 'app'))
+    # Not clearing the rails settings cache means that settings are left in an inconsistent state
+    # when the database is dropped.
+    Rails.cache.delete('settings')
   end
 
   def create_rack_test_file(filename, type)

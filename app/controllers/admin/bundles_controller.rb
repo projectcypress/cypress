@@ -15,12 +15,12 @@ module Admin
     end
 
     def set_default
-      unless @bundle.version == Cypress::AppConfig['default_bundle']
+      unless @bundle.version == Settings.current.default_bundle
         Bundle.where(active: true).update_all(active: false)
         @bundle.active = true
         @bundle.save!
         Bundle.find_by(id: @bundle.id).active = true
-        Cypress::AppConfig['default_bundle'] = @bundle.version
+        Settings.current.update(default_bundle: @bundle.version)
       end
       redirect_to admin_path(anchor: 'bundles')
     end
@@ -35,9 +35,9 @@ module Admin
         end
 
         bundle_file = params['file']
-        FileUtils.mkdir_p(Cypress::AppConfig['bundle_file_path'])
+        FileUtils.mkdir_p(APP_CONSTANTS['bundle_file_path'])
         file_name = generate_file_path
-        file_path = File.join(Cypress::AppConfig['bundle_file_path'], file_name)
+        file_path = File.join(APP_CONSTANTS['bundle_file_path'], file_name)
         FileUtils.mv(temp_file_path, file_path)
         BundleUploadJob.perform_later(file_path, bundle_file.original_filename)
         redirect_to admin_path(anchor: 'bundles')
