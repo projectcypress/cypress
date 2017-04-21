@@ -107,6 +107,8 @@ class ProductTest
     car = ::Validators::CalculatingAugmentedRecords.new(measures, [], id)
     dups = records.find(ids)
 
+    recs, dups = randomize_clinical_data(recs, dups, random)
+
     (random.rand(3) + 1).times do
       prng_repeat = Random.new(rand_seed.to_i)
       dup_rec, rec_augments, old_rec = dups.sample(random: random).duplicate_randomization(random: prng_repeat)
@@ -120,6 +122,14 @@ class ProductTest
       end
     end
     recs
+  end
+
+  def randomize_clinical_data(recs, dups, random)
+    # Pic a record to clinically randomize, then delete it from dups (so it doesn't get duplicated also)
+    # And delete it from recs so we don't return the whole patient too
+    clinical_record = dups.shuffle(random: random).pop
+    recs.delete(clinical_record)
+    [recs.concat(Cypress::ClinicalRandomizer.randomize(clinical_record, random: random)), dups]
   end
 
   def calculate
