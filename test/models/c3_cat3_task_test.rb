@@ -11,6 +11,10 @@ class C3Cat3TaskTest < ActiveSupport::TestCase
     @test.product.c3_test = true
     @test.product.c2_test = true
     @task = @test.tasks.create({}, C3Cat3Task)
+    @bundle = Bundle.find('4fdb62e01d41c820f6000001')
+    @bundle.measure_period_start = 1_420_070_400
+    @bundle.effective_date = 1_451_520_000
+    @bundle.save!
   end
 
   def test_task_should_include_c3_cat3_validators

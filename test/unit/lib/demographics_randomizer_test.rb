@@ -3,6 +3,7 @@ require 'fileutils'
 
 class DemographicsRandomizerTest < ActiveSupport::TestCase
   setup do
+    collection_fixtures('bundles')
     @first = 'Xyntash'
     @last = 'Zygadoo'
     @race = { 'code' => 'NA', 'name' => 'NA', 'codeSystem' => 'NA' }
@@ -33,6 +34,7 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
       addresses: [@address],
       insurance_providers: [@insurance_provider]
     )
+    @record.bundle_id = Bundle.find('4fdb62e01d41c820f6000001').id
     @prng = Random.new(Random.new_seed)
   end
 
