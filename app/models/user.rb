@@ -10,7 +10,7 @@ class User
 
   # confirmable
   field  :confirmation_token, type: String
-  field  :confirmed_at, type: Time, default: proc { Cypress::AppConfig['auto_confirm'] ? Time.now.in_time_zone : nil }
+  field  :confirmed_at, type: Time, default: proc { Settings.current.auto_confirm ? Time.now.in_time_zone : nil }
   field  :confirmation_sent_at, type: Time
   ## Database authenticatable
   field :email,              type: String, default: ''
@@ -48,7 +48,7 @@ class User
   index(invitation_token: 1)
   index(invitation_by_id: 1)
 
-  field :approved, type: Boolean, default: Cypress::AppConfig['auto_approve'] || false
+  field :approved, type: Boolean, default: Settings.current.auto_approve || false
 
   validates :terms_and_conditions, :acceptance => true, :on => :create, :allow_nil => false
 
@@ -95,7 +95,7 @@ class User
   # field :locked_at,       type: Time
 
   def associate_points_of_contact
-    if Cypress::AppConfig['auto_associate_pocs']
+    if Settings.current.auto_associate_pocs
       Vendor.where('points_of_contact.email' => email).each do |vendor|
         add_role :vendor, vendor
       end
@@ -103,11 +103,11 @@ class User
   end
 
   def assign_default_role
-    dr = Cypress::AppConfig['default_role']
-    add_role dr if dr
+    dr = Settings.current.default_role
+    add_role dr unless dr.nil? || dr.empty?
   end
 
   def user_role?(*args)
-    has_role?(*args) || Cypress::AppConfig['ignore_roles']
+    has_role?(*args) || Settings.current.ignore_roles
   end
 end

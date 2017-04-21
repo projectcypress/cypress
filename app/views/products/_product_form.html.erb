@@ -14,7 +14,7 @@
             <div id="certifications_errors_container"></div>
 
             <%= f.form_group help: "Select the certification type Cypress should use to certify this product" do %>
-              <% Cypress::AppConfig['certifications'].each do |c, certification| %>
+              <% APP_CONSTANTS['certifications'].each do |c, certification| %>
                 <% if c == 'C1' || c == 'C2' || c == 'C3' || c == 'C4'%>
                   <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: !@product.new_record?, data: {
                     'parsley-required': '',
@@ -33,7 +33,7 @@
         </div>
 
         <div class="col-md-6">
-          <% if Cypress::AppConfig['enable_debug_features']%>
+          <% if Settings.current.enable_debug_features %>
             <fieldset>
               <legend class="control-label">Records Options</legend>
               <%= f.form_group help: "Recommended for most robust testing." do %>

@@ -20,7 +20,7 @@ class BundleUploadJob < ActiveJob::Base
       @bundle.active = false
       @bundle.save!
     else
-      Cypress::AppConfig['default_bundle'] = @bundle.version
+      Settings.current.default_bundle = @bundle.version
     end
     MplDownloadCreateJob.perform_later(@bundle.id.to_s)
   end

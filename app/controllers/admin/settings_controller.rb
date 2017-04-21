@@ -7,9 +7,9 @@ module Admin
     def edit
       add_breadcrumb 'Edit Settings', :edit_settings_path
       render locals: {
-        banner_message: Cypress::AppConfig['banner_message'],
-        warning_message: Cypress::AppConfig['warning_message'],
-        banner: Cypress::AppConfig['banner'],
+        banner_message: Settings.current.banner_message,
+        warning_message: Settings.current.warning_message,
+        banner: Settings.current.banner,
         smtp_settings: Rails.application.config.action_mailer.smtp_settings,
         mode: application_mode,
         mode_settings: application_mode_settings,
@@ -19,28 +19,14 @@ module Admin
 
     def update
       update_application_mode params[:mode], params[:custom_options]
-      update_banner params
-      update_mailer_settings params
+      # Grab the parameters we are able to update directly and throw them to the settings model update method
+      update_settings = params.select { |key, _| key.match(/mailer|banner|message/) }
+      Settings.current.update(update_settings)
+      Settings.apply_mailer_settings
       redirect_to admin_path(anchor: 'application_settings')
     end
 
     private
-
-    def update_banner(settings)
-      Cypress::AppConfig['banner_message'] = settings['banner_message']
-      Cypress::AppConfig['warning_message'] = settings['warning_message']
-      Cypress::AppConfig['banner'] = settings['banner'] == '1'
-    end
-
-    def update_mailer_settings(settings)
-      settings.each_pair do |key, val|
-        key_str = key.to_s
-        next unless key_str.include? 'mailer_'
-        val = val == '' ? nil : val.to_i if key_str == 'mailer_port'
-        env_config_key = key_str.sub('mailer_', '').to_sym
-        Rails.application.config.action_mailer.smtp_settings[env_config_key] = val
-      end
-    end
 
     def update_application_mode(mode_name, options = {})
       if mode_name == 'internal'
