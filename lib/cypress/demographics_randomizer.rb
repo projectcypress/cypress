@@ -49,18 +49,18 @@ module Cypress
 
     def self.randomize_insurance_provider(record)
       ip = InsuranceProvider.new
-      randomize_payer(ip, record.birthdate)
+      randomize_payer(ip, record)
       ip.financial_responsibility_type = { 'code' => 'SELF', 'codeSystem' => 'HL7 Relationship Code' }
       ip.member_id = Faker::Number.number(10)
       ip.start_time = get_random_payer_start_date(record)
       record.insurance_providers = [ip]
     end
 
-    def self.randomize_payer(insurance_provider, birthdate)
+    def self.randomize_payer(insurance_provider, record)
       payer = Cypress::AppConfig['randomization']['payers'].sample
       # if the payer is Medicare and the patient is < 65 years old at the beginning of the measurement period, try again
       while payer['name'] == 'Medicare' &&
-            Time.at(birthdate).in_time_zone > Time.new(Cypress::AppConfig['effective_date']['year']).in_time_zone.years_ago(65)
+            Time.at(record.birthdate).in_time_zone > Time.at(record.bundle.effective_date).in_time_zone.years_ago(65)
         payer = Cypress::AppConfig['randomization']['payers'].sample
       end
       insurance_provider.codes = {}
