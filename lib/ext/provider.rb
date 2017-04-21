@@ -4,7 +4,7 @@ class Provider
   def self.default_provider(options = {})
     prov = where(default: true, specialty: default_specialty(options[:measure_type])).first
     if prov.nil?
-      prov = Provider.new(Cypress::AppConfig['default_provider'])
+      prov = Provider.new(APP_CONSTANTS['default_provider'])
       prov[:default] = true
       prov.specialty = default_specialty(options[:measure_type])
       prov.save

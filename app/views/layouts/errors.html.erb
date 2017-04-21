@@ -17,8 +17,8 @@
 </head>
 <body>
 
-  <% if Cypress::AppConfig['banner'] %>
-    <div class="demo"><%= Cypress::AppConfig['banner_message'] %></div>
+  <% if Settings.current.banner %>
+    <div class="demo"><%= Settings.current.banner_message %></div>
   <% end %>
 
   <main aria-label="main section" id="main-content" class="container" role="main">

@@ -1,4 +1,10 @@
-default_bundle: "3.0.0"
+# This file is only for constants, it is NOT meant to be modified directly! Modifying this file will result in Cypress
+# upgrades failing to complete successfully.
+
+# These settings are kept in the constants file with the assumption that the end user should not be overriding them.
+bundle_file_path: 'temp/bundles'
+file_upload_root: 'data/upload/'
+pid_dir: './tmp/delayed_pids'
 
 # Specify the folder to look for the schematron files in based on bundle version these folders are in ./resources/schematron/
 # Schematron files need to be named:
@@ -26,51 +32,6 @@ version_config:
       CMSQRDA1PQRSSchematronValidator_warnings:
         - "The 2017 CMS EC QRDA Category I submission rules haven't been finalized yet"
 
-enable_logging: false
-
-#set to true to enable a banner at the top of every page with the "banner_message" text from below
-banner: false
-banner_message: "This server is for demonstration purposes; data on it will be removed every Saturday at 11:59 PM Eastern Time"
-warning_message: "This warning banner provides privacy and security notices consistent with applicable federal laws, directives, and other federal guidance for accessing this Government system, which includes all devices/storage media attached to this system. This system is provided for Government-authorized use only. Unauthorized or improper use of this system is prohibited and may result in disciplinary action and/or civil and criminal penalties. At any time, and for any lawful Government purpose, the government may monitor, record, and audit your system usage and/or intercept, search and seize any communication or data transiting or stored on this system. Therefore, you have no reasonable expectation of privacy. Any communication or data transiting or stored on this system may be disclosed or used for any lawful Government purpose."
-
-# mailer settings
-website_domain: <%= ENV["WEBSITE_DOMAIN"] %>
-website_port: <%= ENV["WEBSITE_PORT"] || 80 %>
-mailer_address: <%= ENV["MAILER_ADDRESS"] %>
-mailer_port: <%= ENV["MAILER_PORT"] %>
-mailer_domain: <%= ENV["MAILER_DOMAIN"] %>
-mailer_user_name: <%= ENV["MAILER_USER_NAME"] %>
-mailer_password: <%= ENV["MAILER_PASSWORD"] %>
-mailer_authentication: :plain
-
-bundle_file_path: "temp/bundles"
-
-# ignore roles completely -- this is essientially the same as everyone in the system being an admin, default true
-ignore_roles: <%= if ENV['IGNORE_ROLES'].nil? then true else ENV['IGNORE_ROLES'] end %>
-
-# enable the "debug features" such as allowing QA testers to produce known good results for a task, default true
-enable_debug_features: <%= if ENV['ENABLE_DEBUG_FEATURES'].nil? then true else ENV['ENABLE_DEBUG_FEATURES'] end %>
-
-# the default role to assign to a user upon at creation -- this should be either admin,atl, user or nil
-# a user without a role will not be able to create or view any vendors .  You may want to set this to nil
-# when an admin is required to approve new users and have the admin set the role there, default :user
-default_role: <%= if !ENV["DEFAULT_ROLE"].nil? && ENV["DEFAULT_ROLE"].empty? then nil else (ENV["DEFAULT_ROLE"] || ":user") end %>
-# wheather or not users are automatically approved without admin intervention, default true
-auto_approve: <%= if ENV['AUTO_APPROVE'].nil? then true else ENV['AUTO_APPROVE'] end %>
-# sets whether or not Users are automatically linked to a Vendor based off the vendors points of contacts. Setting to true will
-# auto associate a User to a vendor when a user is created and a vendor point of contanct contains the same email address as the
-# user.  Likewise if a point of contact is added to a vendor and a User in the system has the same email address then the user
-# will be associated with the vendor.  The association is also automatically updated/rmoved when the user is removed from the system
-# or the point of contact is removed or updated from the vendor.  Setting this to true will also enable the devise plugin confirmable
-# which will require users to confirm their registration via an email link sent to their address.
-# Setting this to false disables the automatic associations as well as the devise confirmable pluggin
-auto_associate_pocs: false
-
-auto_confirm: true
-
-file_upload_root: "data/upload/"
-
-pid_dir: "./tmp/delayed_pids"
 # Configuration for values to use when randomizing patients in test decks
 # Names and nicknames added in a separate YML file
 randomization:
