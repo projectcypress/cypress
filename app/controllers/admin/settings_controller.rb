@@ -10,7 +10,8 @@ module Admin
         banner_message: Settings.current.banner_message,
         warning_message: Settings.current.warning_message,
         banner: Settings.current.banner,
-        smtp_settings: Rails.application.config.action_mailer.smtp_settings,
+        default_url_options: Settings.fetch_url_settings,
+        smtp_settings: Settings.fetch_smtp_settings,
         mode: application_mode,
         mode_settings: application_mode_settings,
         roles: %w(User ATL Admin None)
@@ -20,9 +21,8 @@ module Admin
     def update
       update_application_mode params[:mode], params[:custom_options]
       # Grab the parameters we are able to update directly and throw them to the settings model update method
-      update_settings = params.select { |key, _| key.match(/mailer|banner|message/) }
+      update_settings = params.select { |key, _| key.match(/website|mailer|banner|message/) }
       Settings.current.update(update_settings)
-      Settings.apply_mailer_settings
       redirect_to admin_path(anchor: 'application_settings')
     end
 

@@ -38,7 +38,7 @@ class Admin::UsersControllerTest < ActionController::TestCase
 
   test 'Admin can update user' do
     v = Vendor.find('4f57a8791d41c851eb000002')
-    Settings.current.update(default_role: nil)
+    Settings.current.update(default_role: '')
     u = User.create(email: 'admin_test@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
 
     for_each_logged_in_user([ADMIN]) do
