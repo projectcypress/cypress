@@ -1,7 +1,7 @@
 <%
   # local variables:
   #
-  #   banner, banner_message, smtp_settings, mode, mode_settings, debug_features
+  #   banner, banner_message, smtp_settings, default_url_options mode, mode_settings, debug_features
 %>
 <div class="inline-block pull-right">
   <%= button_to edit_admin_settings_path, :method => :get, :class => "btn btn-default" do %>
@@ -28,6 +28,8 @@
   <div class="col-sm-6">
     <legend>Mailer</legend>
     <dl class="dl-horizontal configured-mailer">
+      <dt>Cypress URL</dt><dd><%= default_url_options.host.present? ? default_url_options.host : 'not configured' %></dd>
+      <dt>Cypress Port</dt><dd><%= default_url_options.port.present? ? default_url_options.port : 'not configured' %></dd>
       <dt>SMTP Server</dt><dd><%= smtp_settings.address.present? ? smtp_settings.address : 'not configured' %></dd>
       <dt>Port</dt><dd><%= smtp_settings.port.present? ? smtp_settings.port : 'not configured' %></dd>
       <dt>Domain</dt><dd><%= smtp_settings.domain.present? ? smtp_settings.domain : 'not configured' %></dd>
