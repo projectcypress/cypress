@@ -28,10 +28,10 @@ class Settings
   field :ignore_roles, type: Boolean, default: (ENV['IGNORE_ROLES'].nil? ? true : ENV['IGNORE_ROLES'].to_boolean)
   # enable the "debug features" such as allowing QA testers to produce known good results for a task, default true
   field :enable_debug_features, type: Boolean, default: (ENV['ENABLE_DEBUG_FEATURES'].nil? ? true : ENV['ENABLE_DEBUG_FEATURES'].to_boolean)
-  # the default role to assign to a user upon at creation -- this should be either admin,atl, user or nil
-  # a user without a role will not be able to create or view any vendors .  You may want to set this to nil
+  # the default role to assign to a user upon at creation -- this should be either admin, atl, user or empty string
+  # a user without a role will not be able to create or view any vendors.  You may want to set this to ''
   # when an admin is required to approve new users and have the admin set the role there, default :user
-  field :default_role, type: Symbol, default: ((!ENV['DEFAULT_ROLE'].nil? && ENV['DEFAULT_ROLE'].empty?) ? nil : (ENV['DEFAULT_ROLE'] || :user))
+  field :default_role, type: Symbol, default: (ENV['DEFAULT_ROLE'] || :user)
   field :auto_approve, type: Boolean, default: (ENV['AUTO_APPROVE'].nil? ? true : ENV['AUTO_APPROVE'].to_boolean)
   # sets whether or not Users are automatically linked to a Vendor based off the vendors points of contacts. Setting to true will
   # auto associate a User to a vendor when a user is created and a vendor point of contanct contains the same email address as the
@@ -58,7 +58,7 @@ class Settings
 
   validate :instance_is_singleton
 
-  after_update :sync_bundle
+  after_update :sync_bundle, :check_server_restart
   after_save :clear_settings_cache
   before_destroy :clear_settings_cache
 
@@ -69,15 +69,22 @@ class Settings
     end
   end
 
+  # This will only work if run from an initializer on startup. If run during regular app operation the settings will
+  # only be applied to one thread.
   def self.apply_mailer_settings
+    ActionMailer::Base.default_url_options = Cypress::Application.config.action_mailer.default_url_options = fetch_url_settings
+    ActionMailer::Base.smtp_settings = Cypress::Application.config.action_mailer.smtp_settings = fetch_smtp_settings
+
+    # Clear server restart required warning
+    current.update(server_needs_restart: false)
+
+    true
+  end
+
+  def self.fetch_smtp_settings
     settings_instance = current
 
-    ActionMailer::Base.default_url_options = Cypress::Application.config.action_mailer.default_url_options = {
-      host: settings_instance.website_domain,
-      port: settings_instance.website_port
-    }
-
-    ActionMailer::Base.smtp_settings = Cypress::Application.config.action_mailer.smtp_settings = {
+    {
       address: settings_instance.mailer_address,
       port: settings_instance.mailer_port,
       domain: settings_instance.mailer_domain,
@@ -86,8 +93,15 @@ class Settings
       authentication: settings_instance.mailer_authentication,
       enable_starttls_auto: true
     }
+  end
 
-    true
+  def self.fetch_url_settings
+    settings_instance = current
+
+    {
+      host: settings_instance.website_domain,
+      port: settings_instance.website_port
+    }
   end
 
   private
@@ -99,6 +113,13 @@ class Settings
         bundle.active = bundle.version == default_bundle
         bundle.save!
       end
+    end
+  end
+
+  # Check to see if mailer settings have been changed, since they require a server restart
+  def check_server_restart
+    if changed.any? { |field| /mailer|website/ =~ field }
+      set(server_needs_restart: true)
     end
   end
 
