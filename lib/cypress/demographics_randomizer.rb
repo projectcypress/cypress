@@ -23,8 +23,8 @@ module Cypress
     end
 
     def self.assign_random_name(record, prng)
-      record.first = Cypress::AppConfig['randomization']['names']['first'][record.gender].sample(random: prng)
-      record.last = Cypress::AppConfig['randomization']['names']['last'].sample(random: prng)
+      record.first = NAMES_RANDOM['first'][record.gender].sample(random: prng)
+      record.last = NAMES_RANDOM['last'].sample(random: prng)
     end
 
     def self.randomize_race(record, prng)
