@@ -14,6 +14,11 @@
 
       <fieldset>
         <legend>Email Settings</legend>
+        <%= render :partial => 'alert', locals: { alert_type: 'warning', messages: 'The Cypress service must be restarted after configuring email settings.' } %>
+        <div class="row">
+          <%= f.text_field :website_domain, wrapper: { class: "col-sm-10" },  label: "Cypress Instance URL", value: default_url_options.host %>
+          <%= f.number_field :website_port, wrapper: { class: "col-sm-2" }, label: "Instance Port", value: default_url_options.port, min: 1, max: 65535 %>
+        </div>
         <div class="row">
           <%= f.text_field :mailer_address, wrapper: { class: "col-sm-10" },  label: "SMTP Server", value: smtp_settings.address %>
           <%= f.number_field :mailer_port, wrapper: { class: "col-sm-2" }, label: "Port", value: smtp_settings.port, min: 1, max: 65535 %>
