@@ -6,7 +6,7 @@
     "default_pwd": "CypressPwd",
     "cypress_version": "v3.1.0",
     "cvu_version": "v3.1.0",
-    "chef_version": "12.17",
+    "chef_version": "12.19",
     "vpc_id": "",
     "subnet_id": ""
   },
@@ -89,10 +89,10 @@
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
-        "http://releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso",
-        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso"
+        "http://releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso"
       ],
-      "iso_checksum": "23e97cd5d4145d4105fbf29878534049",
+      "iso_checksum": "2bce60d18248df9980612619ff0b34e6",
       "iso_checksum_type": "md5",
       "ssh_username": "{{user `default_user`}}",
       "ssh_password": "{{user `default_pwd`}}",
@@ -147,10 +147,10 @@
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
-        "http://releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso",
-        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso"
+        "http://releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso"
       ],
-      "iso_checksum": "23e97cd5d4145d4105fbf29878534049",
+      "iso_checksum": "2bce60d18248df9980612619ff0b34e6",
       "iso_checksum_type": "md5",
       "ssh_username": "{{user `default_user`}}",
       "ssh_password": "{{user `default_pwd`}}",
@@ -205,10 +205,10 @@
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
-        "http://releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso",
-        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso"
+        "http://releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso"
       ],
-      "iso_checksum": "23e97cd5d4145d4105fbf29878534049",
+      "iso_checksum": "2bce60d18248df9980612619ff0b34e6",
       "iso_checksum_type": "md5",
       "ssh_username": "{{user `default_user`}}",
       "ssh_password": "{{user `default_pwd`}}",
