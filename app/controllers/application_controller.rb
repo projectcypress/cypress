@@ -1,10 +1,11 @@
+# rubocop:disable Metrics/ClassLength
 class ApplicationController < ActionController::Base
   include Roar::Rails::ControllerAdditions
 
   # Prevent CSRF attacks with a null session
   protect_from_forgery :with => :exception, :unless => -> { request.format.json? || request.format.xml? }
 
-  before_action :authenticate_user!, :check_bundle_installed, :check_backend_jobs, except: [:page_not_found, :server_error]
+  before_action :restrict_basic_auth, :authenticate_user!, :check_bundle_installed, :check_backend_jobs, except: [:page_not_found, :server_error]
   around_action :catch_not_found
 
   helper_method :mode_internal?, :mode_demo?, :mode_atl?
@@ -94,6 +95,13 @@ class ApplicationController < ActionController::Base
       flash.now[:no_bundle_alert] = "There are no bundles currently available.
                                       Please follow the #{install_instr_link} to get started.".html_safe
     end
+  end
+
+  # Clear basic auth token if user is not using the JSON API. This fixes a bug where basic auth
+  # causes the application to enter an inconsistent state by clearing any basic auth credentials
+  # if the application is not accessed via a JSON endpoint.
+  def restrict_basic_auth
+    request.env['HTTP_AUTHORIZATION'] = '' unless request.format.eql? Mime::JSON
   end
 
   def set_vendor
