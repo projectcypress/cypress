@@ -19,7 +19,7 @@ class Admin::SettingsControllerTest < ActionController::TestCase
     assert_equal 'example.com', Settings.current.mailer_domain
     assert_equal 'testuser', Settings.current.mailer_user_name
     assert_equal 'password123', Settings.current.mailer_password
-    assert_equal 'Custom', @controller.application_mode
+    assert_equal 'Custom', Settings.current.application_mode
     assert_equal false, Settings.current.auto_approve
     assert_equal false, Settings.current.ignore_roles
     assert_equal :admin, Settings.current.default_role

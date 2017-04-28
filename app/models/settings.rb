@@ -71,37 +71,52 @@ class Settings
 
   # This will only work if run from an initializer on startup. If run during regular app operation the settings will
   # only be applied to one thread.
-  def self.apply_mailer_settings
+  def apply_mailer_settings
     ActionMailer::Base.default_url_options = Cypress::Application.config.action_mailer.default_url_options = fetch_url_settings
     ActionMailer::Base.smtp_settings = Cypress::Application.config.action_mailer.smtp_settings = fetch_smtp_settings
 
     # Clear server restart required warning
-    current.update(server_needs_restart: false)
+    update(server_needs_restart: false)
 
     true
   end
 
-  def self.fetch_smtp_settings
-    settings_instance = current
-
+  def fetch_smtp_settings
     {
-      address: settings_instance.mailer_address,
-      port: settings_instance.mailer_port,
-      domain: settings_instance.mailer_domain,
-      user_name: settings_instance.mailer_user_name,
-      password: settings_instance.mailer_password,
-      authentication: settings_instance.mailer_authentication,
+      address: mailer_address,
+      port: mailer_port,
+      domain: mailer_domain,
+      user_name: mailer_user_name,
+      password: mailer_password,
+      authentication: mailer_authentication,
       enable_starttls_auto: true
     }
   end
 
-  def self.fetch_url_settings
-    settings_instance = current
-
+  def fetch_url_settings
     {
-      host: settings_instance.website_domain,
-      port: settings_instance.website_port
+      host: website_domain,
+      port: website_port
     }
+  end
+
+  def application_mode
+    return 'Internal' if mode_internal?
+    return 'Demo' if mode_demo?
+    return 'ATL' if mode_atl?
+    'Custom'
+  end
+
+  def mode_internal?
+    auto_approve && ignore_roles && enable_debug_features && (default_role.nil? || default_role.empty?)
+  end
+
+  def mode_demo?
+    auto_approve && !ignore_roles && enable_debug_features && default_role == :user
+  end
+
+  def mode_atl?
+    !auto_approve && !ignore_roles && !enable_debug_features && (default_role.nil? || default_role.empty?)
   end
 
   private

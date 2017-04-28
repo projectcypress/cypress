@@ -65,7 +65,7 @@ module RecordsHelper
 
   def hide_patient_calculation?
     # Hide measure calculation if Cypress is in ATL Mode and the current user is not an ATL or admin
-    mode_atl? && (!current_user.user_role?('admin') && !current_user.user_role?('atl'))
+    Settings.current.mode_atl? && (!current_user.user_role?('admin') && !current_user.user_role?('atl'))
   end
 
   def population_label(bundle, pop)
