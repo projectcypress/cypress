@@ -7,8 +7,6 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!, :check_bundle_installed, :check_backend_jobs, except: [:page_not_found, :server_error]
   around_action :catch_not_found
 
-  helper_method :mode_internal?, :mode_demo?, :mode_atl?
-
   rescue_from CanCan::AccessDenied do |exception|
     render text: exception, status: 401
   end
@@ -25,28 +23,6 @@ class ApplicationController < ActionController::Base
       format.html { render template: 'errors/500', layout: 'layouts/errors', status: 500 }
       format.all  { render text: '500 Server Error', status: 500 }
     end
-  end
-
-  def mode_internal?
-    Settings.current.auto_approve && Settings.current.ignore_roles && Settings.current.enable_debug_features &&
-      (Settings.current.default_role.nil? || Settings.current.default_role.empty?)
-  end
-
-  def mode_demo?
-    Settings.current.auto_approve && !Settings.current.ignore_roles && Settings.current.enable_debug_features &&
-      Settings.current.default_role == :user
-  end
-
-  def mode_atl?
-    !Settings.current.auto_approve && !Settings.current.ignore_roles && !Settings.current.enable_debug_features &&
-      (Settings.current.default_role.nil? || Settings.current.default_role.empty?)
-  end
-
-  def application_mode
-    return 'Internal' if mode_internal?
-    return 'Demo' if mode_demo?
-    return 'ATL' if mode_atl?
-    'Custom'
   end
 
   private

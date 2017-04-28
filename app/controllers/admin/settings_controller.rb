@@ -10,9 +10,9 @@ module Admin
         banner_message: Settings.current.banner_message,
         warning_message: Settings.current.warning_message,
         banner: Settings.current.banner,
-        default_url_options: Settings.fetch_url_settings,
-        smtp_settings: Settings.fetch_smtp_settings,
-        mode: application_mode,
+        default_url_options: Settings.current.fetch_url_settings,
+        smtp_settings: Settings.current.fetch_smtp_settings,
+        mode: Settings.current.application_mode,
         mode_settings: application_mode_settings,
         roles: %w(User ATL Admin None)
       }

@@ -13,7 +13,7 @@ class AdminController < ApplicationController
       banner: Settings.current.banner,
       default_url_options: Rails.application.config.action_mailer.default_url_options,
       smtp_settings: Rails.application.config.action_mailer.smtp_settings,
-      mode: application_mode,
+      mode: Settings.current.application_mode,
       mode_settings: application_mode_settings,
       debug_features: Settings.current.enable_debug_features,
       server_needs_restart: Settings.current.server_needs_restart
