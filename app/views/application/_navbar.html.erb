@@ -34,7 +34,7 @@
             Master Patient List
             <% end %>
           </li>
-          <% if mode_internal? || mode_demo? %>
+          <% if Settings.current.mode_internal? || Settings.current.mode_demo? %>
           <li>
           <%= link_to '/cvu', class: 'navbar-item', target: '_blank'   do %>
               <i class="fa fa-fw fa-check-square-o" aria-hidden="true"></i>
