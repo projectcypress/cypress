@@ -8,6 +8,7 @@ namespace :tmp do
       Vendor.each(&:status)
     end
 
+    desc "Rebuilds the MPL Download .zip for all installed bundles"
     task mpl_download_rebuild: [:environment] do
       puts 'Rebuilding all MPL Downloads...'
       Bundle.all.each do |bundle|
@@ -21,5 +22,9 @@ end
 
 Rake::Task['tmp:cache:clear'].enhance do
   Rake::Task['tmp:cache:rebuild'].invoke
+  Rake::Task['tmp:cache:mpl_download_rebuild'].invoke
+end
+
+Rake::Task['bundle:download_and_install'].enhance do
   Rake::Task['tmp:cache:mpl_download_rebuild'].invoke
 end
