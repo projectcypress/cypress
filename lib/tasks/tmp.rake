@@ -8,7 +8,7 @@ namespace :tmp do
       Vendor.each(&:status)
     end
 
-    desc "Rebuilds the MPL Download .zip for all installed bundles"
+    desc 'Rebuilds the MPL Download .zip for all installed bundles'
     task mpl_download_rebuild: [:environment] do
       puts 'Rebuilding all MPL Downloads...'
       Bundle.all.each do |bundle|
