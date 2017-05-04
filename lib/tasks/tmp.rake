@@ -12,8 +12,8 @@ namespace :tmp do
     task mpl_download_rebuild: [:environment] do
       puts 'Rebuilding all MPL Downloads...'
       Bundle.all.each do |bundle|
-        puts "\tBuilding MPL download for bundle #{bundle.version}"
-        MplDownloadCreateJob.perform_now(bundle.id)
+        puts "\tEnqueuing MPL download for bundle #{bundle.version}"
+        bundle.mpl_prepare
       end
       puts 'done'
     end

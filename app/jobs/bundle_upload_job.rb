@@ -22,6 +22,6 @@ class BundleUploadJob < ActiveJob::Base
     else
       Settings.current.default_bundle = @bundle.version
     end
-    MplDownloadCreateJob.perform_later(@bundle.id.to_s)
+    @bundle.mpl_prepare
   end
 end

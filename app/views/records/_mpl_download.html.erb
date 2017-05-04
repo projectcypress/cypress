@@ -1,6 +1,28 @@
-<div class="radio download-btn" style="">
+<% current_mpl_status = bundle.mpl_prepare %>
+<% if current_mpl_status == :ready %>
   <span class="sr-only">Download <%= bundle.title %></span>
   <%= link_to download_mpl_records_path(bundle), :method => :get, :class => "btn btn-xs btn-default" do %>
     Download <span class="sr-only"><%= bundle.title %></span>
   <% end %>
+<% else %>
+  <span class="sr-only">Preparing download for <%= bundle.title %></span>
+  <i class="fa fa-fw fa-refresh fa-spin inline-icon info-icon"></i> Preparing Download
+<% end %>
 </div>
+<% unless current_mpl_status == :ready %>
+  <script>
+    $(document).ready(function() {
+      $.ajax({
+        url: "<%= request.env['PATH_INFO'] %>",
+        type: "GET",
+        dataType: 'script',
+        data: { partial: 'mpl_download', mpl_bundle_id: '<%= bundle.id %>' },
+        complete: function(data) {
+          if(data.status != 200) {
+            $('.download-btn#<%= bundle.id %>').html('<b>Error:</b> Please reload webpage')
+          }
+        }
+      });
+    });
+  </script>
+<% end %>

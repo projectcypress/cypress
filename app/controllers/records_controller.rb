@@ -1,6 +1,8 @@
 class RecordsController < ApplicationController
   before_action :set_record_source, only: [:index, :show, :by_measure]
 
+  respond_to :js, only: [:index]
+
   def index
     unless Bundle.default
       @records = []
@@ -44,13 +46,14 @@ class RecordsController < ApplicationController
     if BSON::ObjectId.legal?(params[:format])
       bundle = Bundle.find(BSON::ObjectId.from_string(params[:format]))
 
-      unless File.exist?(bundle.mpl_path)
-        MplDownloadCreateJob.perform_now(bundle.id.to_s)
+      if bundle.mpl_status != :ready
+        flash[:info] = 'This bundle is currently preparing for download.'
+        redirect_to :back
+      else
+        file = File.new(bundle.mpl_path)
+        expires_in 1.month, public: true
+        send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "bundle_#{bundle.version}_mpl.zip"
       end
-
-      file = File.new(bundle.mpl_path)
-      expires_in 1.month, public: true
-      send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "bundle_#{bundle.version}_mpl.zip"
     else
       render nothing: true, status: 400
     end
