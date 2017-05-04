@@ -14,6 +14,21 @@ And(/^there is only 1 bundle installed$/) do
   visit '/records/' # force reload the page
 end
 
+And(/^the Master Patient List zip is not already built$/) do
+  Bundle.all.each do |bundle|
+    FileUtils.rm_rf(bundle.mpl_path)
+  end
+  visit '/records/' # force reload the page
+end
+
+Then(/^the user should see (.*) for all MPL downloads$/) do |download_text|
+  page.assert_text 'Annual Update Bundle'
+  mpl_download_div = page.all('.download-btn')
+  mpl_download_div.each do |mpl_download|
+    assert mpl_download.has_text?(download_text)
+  end
+end
+
 Then(/^the user should see a list of patients$/) do
   page.assert_text 'All Patients'
   assert page.has_selector?('table tbody tr', count: @bundle.records.length), 'different count'
@@ -69,6 +84,17 @@ Then(/^the user should see records for that bundle$/) do
   assert page.has_selector?('table tbody tr', count: @other_bundle.records.length), 'different number'
 end
 
+When(/^the Master Patient List zip is ready for download$/) do
+  wait_for_all_delayed_jobs_to_run
+end
+
+Then(/^the user should see a Download button$/) do
+  mpl_download_div = page.all('.download-btn')
+  mpl_download_div.each do |mpl_download|
+    mpl_download.find('.btn').has_text? 'Download'
+  end
+end
+
 When(/^the user visits a record$/) do
   @bundle = Bundle.default
   @record = @bundle.records.find_by(_id: '4efa05ada9ffcce9010000dc')
@@ -93,4 +119,13 @@ Then(/^the user sees details$/) do
   @measures.each do |m|
     page.assert_text m.display_name
   end
+end
+
+When(/^the user clicks a Download button$/) do
+  # Only worry about the first download link since we can't check much with the response anyway
+  page.all('.download-btn').first.click_link 'Download'
+end
+
+Then(/^a zip file should be downloaded$/) do
+  assert_match(/attachment; filename=\".*\.zip\"/, page.response_headers['Content-Disposition'])
 end
