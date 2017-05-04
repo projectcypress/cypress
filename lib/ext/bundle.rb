@@ -35,6 +35,25 @@ class Bundle
     File.join(Rails.root, 'tmp', 'cache', "bundle_#{id}_mpl.zip")
   end
 
+  def mpl_status
+    if File.exist?(mpl_path)
+      :ready
+    elsif MplDownloadCreateJob.trackers.where(options: { bundle_id: id.to_s }, :status.in => [:queued, :working]).count > 0
+      :building
+    else
+      :unbuilt
+    end
+  end
+
+  def mpl_prepare
+    if mpl_status == :unbuilt
+      MplDownloadCreateJob.perform_later(id.to_s)
+      :building
+    else
+      mpl_status
+    end
+  end
+
   def major_version
     version.split('.')[0]
   end
