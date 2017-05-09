@@ -125,4 +125,5 @@ end
 group :production do
   gem 'unicorn-rails'
   gem 'newrelic_rpm'
+  gem 'lograge'
 end
