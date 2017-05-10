@@ -7,13 +7,8 @@ class Record
   index test_id: 1
   index bundle_id: 1
 
-  def calcuation_results
-    HealthDataStandards::CQM::PatientCache.where('value.patient_id' => id)
-                                          .order_by(['value.last', :asc])
-  end
-
   def destroy
-    calcuation_results.destroy
+    calculation_results.destroy
     delete
   end
 
