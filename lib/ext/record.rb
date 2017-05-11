@@ -53,18 +53,21 @@ class Record
 
   def duplicate_randomization(random: Random.new)
     rec = clone
-    rec = randomize_record_name_or_birth(rec, random: random)
-    randomize_demographics(rec, random: random)
+    changed = { medical_record_number: medical_record_number, first: [first, first], last: [last, last] }
+    rec, changed = randomize_record_name_or_birth(rec, changed, random: random)
+    randomize_demographics(rec, changed, random: random)
   end
 
   private
 
-  def randomize_record_name_or_birth(rec, random: Random.new)
+  def randomize_record_name_or_birth(rec, changed, random: Random.new)
     case random.rand(3) # random chooses which part of the record is modified
     when 0 # first name
       rec = randomize_record_name_first(rec, random: random)
+      changed[:first] = [first, rec.first]
     when 1 # last name
       rec = randomize_record_name_last(rec, random: random)
+      changed[:last] = [last, rec.last]
     when 2 # birthdate
       rec.birthdate = DateTime.strptime(rec.birthdate.to_s, '%s').change(
         case random.rand(3)
@@ -72,8 +75,9 @@ class Record
         when 1 then { day: random.rand(28) + 1 }
         when 2 then { month: random.rand(12) + 1 }
         end).strftime('%s').to_i
+      changed[:birthdate] = [birthdate, rec.birthdate]
     end
-    rec
+    [rec, changed]
   end
 
   def randomize_record_name_first(rec, random: Random.new)
@@ -103,17 +107,18 @@ class Record
     rec_name
   end
 
-  def randomize_demographics(rec, random: Random.new)
+  def randomize_demographics(rec, changed, random: Random.new)
     case random.rand(3) # now, randomize demographics
     when 0 # gender
-      rec.gender = rec.gender == 'M' ? 'F' : 'M'
+      rec.gender = %w(M F).sample(random: random)
+      changed[:gender] = [gender, rec.gender]
     when 1 # race
-      rsamples = APP_CONSTANTS['randomization']['races'].sample(2, random: random)
-      rec.race = rec.race != rsamples[0] ? rsamples[0] : rsamples[1]
+      rec.race = APP_CONSTANTS['randomization']['races'].sample(random: random)
+      changed[:race] = [race.code, rec.race.code]
     when 2 # ethnicity
-      esamples = APP_CONSTANTS['randomization']['ethnicities'].sample(2, random: random)
-      rec.ethnicity = rec.ethnicity != esamples[0] ? esamples[0] : esamples[1]
+      rec.ethnicity = APP_CONSTANTS['randomization']['ethnicities'].sample(random: random)
+      changed[:ethnicity] = [ethnicity.code, rec.ethnicity.code]
     end
-    rec
+    [rec, changed, self]
   end
 end

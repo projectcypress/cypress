@@ -52,7 +52,8 @@ module Validators
     end
 
     def validate_name(doc_name, options)
-      return true if @names[doc_name]
+      return true if @names[doc_name] ||
+                     !options['task'].augmented_records.index { |r| doc_name == "#{r[:first][1].strip} #{r[:last][1].strip}".upcase }.nil?
       @can_continue = false
       return false if @options[:suppress_errors]
       add_error("Patient name '#{doc_name}' declared in file not found in test records",
@@ -110,8 +111,10 @@ module Validators
       @can_continue = true
       doc = build_document(document)
       doc_name = build_doc_name(doc)
-      mrn = @names[doc_name]
-      @found_names << doc_name if mrn
+      aug_rec = options['task'].augmented_records.detect { |r| doc_name == "#{r[:first][1].strip} #{r[:last][1].strip}".upcase }
+      mrn = @names[doc_name] || (aug_rec ? aug_rec.medical_record_number : nil)
+      @found_names << ((@names[doc_name] ? doc_name : nil) ||
+                       "#{aug_rec[:first][0].strip} #{aug_rec[:last][0].strip}".upcase) if mrn
       return unless validate_name(doc_name, options)
 
       validate_smg_data(doc, doc_name, mrn, options)
