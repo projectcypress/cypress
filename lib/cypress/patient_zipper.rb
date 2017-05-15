@@ -23,7 +23,6 @@ module Cypress
 
   class QRDAExporter
     C3EXPORTER = GoCDATools::Export::GoExporter.instance
-    C3_1EXPORTER = GoCDATools::Export::GoExporter.instance
 
     attr_accessor :measures
     attr_accessor :start_time
@@ -39,15 +38,16 @@ module Cypress
         @valueset_json_map[bundle.id] = value_sets.to_json
       end
       @measures_json = @measures.to_json
+      C3EXPORTER.export_init(@measures_json, @valueset_json_map[@measures.first.bundle_id])
     end
 
     def export(patient)
       cms_compatible = true if patient.product_test && patient.product_test.product.c3_test
       case patient.bundle.qrda_version
       when 'r3'
-        C3EXPORTER.export_with_ffi(patient.to_json(:include => :provider), @measures_json, @valueset_json_map[patient.bundle.id], start_time, end_time, 'r3')
+        C3EXPORTER.export_with_ffi(patient.to_json(:include => :provider), start_time, end_time, 'r3')
       when 'r3_1'
-        C3_1EXPORTER.export_with_ffi(patient.to_json(:include => :provider), @measures_json, @valueset_json_map[patient.bundle.id], start_time, end_time, 'r3_1')
+        C3EXPORTER.export_with_ffi(patient.to_json(:include => :provider), start_time, end_time, 'r3_1')
       end
     end
   end
