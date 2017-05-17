@@ -72,7 +72,9 @@ When(/^the user cancels removing a vendor$/) do
   visit '/'
   page.click_button 'Edit Vendor'
   page.click_button 'Delete Vendor'
-  page.find('div.modal-footer').find('button', text: 'Cancel').click
+  page.within 'div.modal-footer' do
+    find('button', text: 'Cancel').click
+  end
   page.click_button 'Cancel', visible: true
 end
 
