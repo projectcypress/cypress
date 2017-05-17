@@ -33,7 +33,7 @@ module Cypress
       @measures = measures.to_a
       @start_time = start_time
       @end_time = end_time
-      @valueset_json_map = Hash.new
+      @valueset_json_map = {}
       Bundle.all.each do |bundle|
         value_sets = HealthDataStandards::SVS::ValueSet.where(:oid.in => @measures.map(&:oids).flatten, bundle_id: bundle.id)
         @valueset_json_map[bundle.id] = value_sets.to_json
@@ -42,12 +42,14 @@ module Cypress
     end
 
     def export(patient)
-      cms_compatible = true if patient.product_test && patient.product_test.product.c3_test
+      cms_compatibility = patient.product_test && patient.product_test.product.c3_test
       case patient.bundle.qrda_version
       when 'r3'
-        C3EXPORTER.export_with_ffi(patient.to_json(:include => :provider), @measures_json, @valueset_json_map[patient.bundle.id], start_time, end_time, 'r3')
+        C3EXPORTER.export_with_ffi(patient.to_json(:include => :provider), @measures_json, @valueset_json_map[patient.bundle.id],
+                                   start_time, end_time, 'r3', cms_compatibility)
       when 'r3_1'
-        C3_1EXPORTER.export_with_ffi(patient.to_json(:include => :provider), @measures_json, @valueset_json_map[patient.bundle.id], start_time, end_time, 'r3_1')
+        C3_1EXPORTER.export_with_ffi(patient.to_json(:include => :provider), @measures_json, @valueset_json_map[patient.bundle.id],
+                                     start_time, end_time, 'r3_1', cms_compatibility)
       end
     end
   end
