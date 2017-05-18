@@ -21,14 +21,14 @@ module Validators
         result_key = expected_result['population_ids'].dup
         reported_result, _errors = extract_results_by_ids(expected_result['measure_id'], result_key, @document)
         @reported_results[key] = reported_result
-        match_calculation_results(expected_result, reported_result)
+        match_calculation_results(expected_result, reported_result, options)
       end
       options[:reported_result_target].reported_results = reported_results if options[:reported_result_target]
     end
 
     private
 
-    def match_calculation_results(expected_result, reported_result)
+    def match_calculation_results(expected_result, reported_result, options)
       measure_id = expected_result['measure_id']
       check_for_reported_results_population_ids(expected_result, reported_result, measure_id)
       ids = expected_result['population_ids'].dup
@@ -51,8 +51,8 @@ module Validators
           report_sup_val = reported_sup.nil? ? nil : reported_sup[sup_key]
           # keys_and_ids used to hold information that is displayed with an execution error. the variable also rhymes
           keys_and_ids = { measure_id: measure_id, pop_key: pop_key, pop_id: pop_id, sup_key: sup_key }
-          check_supplemental_data_expected_not_reported(expect_sup_val, report_sup_val, keys_and_ids)
-          check_supplemental_data_reported_not_expected(expect_sup_val, report_sup_val, keys_and_ids)
+          check_supplemental_data_expected_not_reported(expect_sup_val, report_sup_val, keys_and_ids, options)
+          check_supplemental_data_reported_not_expected(expect_sup_val, report_sup_val, keys_and_ids, options)
         end
       end
     end
@@ -98,19 +98,26 @@ module Validators
       end
     end
 
-    def check_supplemental_data_expected_not_reported(expect_sup_val, report_sup_val, keys_and_ids)
+    def check_supplemental_data_expected_not_reported(expect_sup_val, report_sup_val, keys_and_ids, options)
       expect_sup_val.each_pair do |code, expect_val|
-        if report_sup_val.nil? || (code != 'UNK' && expect_val != report_sup_val[code])
-          report_val = report_sup_val.nil? ? 0 : report_sup_val[code]
-          add_sup_data_error(keys_and_ids, code, expect_val, report_val)
-        end
+        next unless report_sup_val.nil? ||
+                    ((code != 'UNK' && expect_val != report_sup_val[code]) &&
+                     !CalculatingAugmentedRecords.augmented_sup_val_expected?(options['task'], keys_and_ids, code,
+                                                                              { expect: expect_sup_val[code], report: report_sup_val[code] },
+                                                                              @modified_population_labels))
+        report_val = report_sup_val.nil? ? 0 : report_sup_val[code]
+        add_sup_data_error(keys_and_ids, code, expect_val, report_val)
       end
     end
 
-    def check_supplemental_data_reported_not_expected(expect_sup_val, report_sup_val, keys_and_ids)
+    def check_supplemental_data_reported_not_expected(expect_sup_val, report_sup_val, keys_and_ids, options)
       return if report_sup_val.nil?
       report_sup_val.each_pair do |code, report_val|
-        add_sup_data_error(keys_and_ids, code, 0, report_val) if report_val > 0 && expect_sup_val[code].nil?
+        next unless report_val > 0 && expect_sup_val[code].nil? &&
+                    !CalculatingAugmentedRecords.augmented_sup_val_expected?(options['task'], keys_and_ids, code,
+                                                                             { expect: expect_sup_val[code], report: report_sup_val[code] },
+                                                                             @modified_population_labels)
+        add_sup_data_error(keys_and_ids, code, 0, report_val)
       end
     end
 

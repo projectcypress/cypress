@@ -49,9 +49,9 @@ class RecordTest < ActiveSupport::TestCase
       ethnicity: APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng2))
 
     assert(record_demographics_equal?(r1, r2), 'The two records should be equal')
-    r1copy = r1.duplicate_randomization(random: prng1)
-    r2copy = r2.duplicate_randomization(random: prng2)
-    assert(record_demographics_equal?(r1copy, r2copy), 'The two records should be equal')
-    assert(!record_demographics_equal?(r1, r1copy), 'The two records should not be equal')
+    r1copy_set = r1.duplicate_randomization(random: prng1)
+    r2copy_set = r2.duplicate_randomization(random: prng2)
+    assert(record_demographics_equal?(r1copy_set[0], r2copy_set[0]), 'The two records should be equal')
+    assert(!record_demographics_equal?(r1, r1copy_set[0]), 'The two records should not be equal')
   end
 end
