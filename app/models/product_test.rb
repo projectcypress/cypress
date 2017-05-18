@@ -18,6 +18,8 @@ class ProductTest
 
   has_many :records, :dependent => :destroy, :foreign_key => :test_id
 
+  field :augmented_records, type: Array, default: []
+
   field :expected_results, type: Hash
   # this the hqmf id of the measure
   field :measure_ids, type: Array
@@ -89,10 +91,7 @@ class ProductTest
       prng = Random.new(rand_seed.to_i)
       ids = results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
       unless ids.nil? || ids.empty?
-        dups = records.find(ids)
-        (prng.rand(3) + 1).times do
-          recs << dups.sample(random: prng).duplicate_randomization(random: prng)
-        end
+        recs = sample_and_duplicate_records(recs, ids, random: prng)
       end
     end
     Cypress::PatientZipper.zip(file, recs, :qrda)
@@ -102,6 +101,25 @@ class ProductTest
     Cypress::PatientZipper.zip(file, recs, :html)
     self.html_archive = file
     save
+  end
+
+  def sample_and_duplicate_records(recs, ids, random: Random.new)
+    car = ::Validators::CalculatingAugmentedRecords.new(measures, [], id)
+    dups = records.find(ids)
+
+    (random.rand(3) + 1).times do
+      prng_repeat = Random.new(rand_seed.to_i)
+      dup_rec, rec_augments, old_rec = dups.sample(random: random).duplicate_randomization(random: prng_repeat)
+      if car.validate_calculated_results(dup_rec, 'effective_date' => effective_date)
+        augmented_records << rec_augments
+        recs << dup_rec
+      else
+        augmented_records << { medical_record_number: old_rec.medical_record_number,
+                               first: [old_rec.first, old_rec.first], last: [old_rec.last, old_rec.last] }
+        recs << old_rec
+      end
+    end
+    recs
   end
 
   def calculate
