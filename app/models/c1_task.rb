@@ -41,6 +41,12 @@ class C1Task < Task
     Cypress::CreateDownloadZip.create_zip(records, 'qrda').read
   end
 
+  def last_updated_with_sibling
+    sibling = product_test.tasks.c3_cat1_task
+    return updated_at unless sibling
+    [updated_at, sibling.updated_at].max
+  end
+
   # returns combined status including c3_cat1 task
   def status_with_sibling
     sibling = product_test.tasks.c3_cat1_task

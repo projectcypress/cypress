@@ -179,19 +179,14 @@ class ProductsHelperTest < ActiveJob::TestCase
     # product test with :pending state should need reloading
     assert_equal true, measure_test_running_for_row?(task)
 
-    # product test with :ready state should not need reloading
-    product_test.state = :ready
-    product_test.save!
-    assert_equal false, measure_test_running_for_row?(task)
-
     # if task has a pending most recent execution then needs reloading
     execution = task.test_executions.create!(:state => :pending)
     assert_equal true, measure_test_running_for_row?(task)
 
-    # if task has a passing most recent execution then does not need reloading
+    # if task has a passing most recent execution and it has been less than 30 seconds then the page does need reloading
     execution.state = :passed
     execution.save!
-    assert_equal false, measure_test_running_for_row?(task)
+    assert_equal true, measure_test_running_for_row?(task)
 
     # if execution has a sibling execution that is pending then needs reloading
     sibling_task = product_test.tasks.create!
@@ -200,9 +195,37 @@ class ProductsHelperTest < ActiveJob::TestCase
     execution.save!
     assert_equal true, measure_test_running_for_row?(task)
 
-    # if both executions are finished then does not need reloading
+    # if both executions are finished and it has been less than 30 seconds then the page does need reloading
     sibling_execution.state = :failed
     sibling_execution.save!
+    assert_equal true, measure_test_running_for_row?(task)
+  end
+
+  def test_should_not_reload_measure_test_row
+    product_test, task = setup_product_test_and_task_for_should_reload_measure_test_row_test
+
+    # product test with :ready state should not need reloading
+    product_test.state = :ready
+    product_test.save!
+    assert_equal false, measure_test_running_for_row?(task)
+
+    # if task has a passing most recent execution and it has been more than 30 seconds then the page doesn't need reloading
+    execution = task.test_executions.create!(:state => :passed, :updated_at => Time.now.utc - 1.minute)
+    assert_equal false, measure_test_running_for_row?(task)
+
+    sibling_task = product_test.tasks.create!
+
+    # if both executions are finished and it has been more than 30 seconds then the page does not need reloading
+    sibling_task = product_test.tasks.create!
+    sibling_execution = sibling_task.test_executions.create!(
+      :sibling_execution_id => execution.id,
+      :state => :failed
+    )
+    sibling_execution.updated_at = Time.now.utc - 1.minute
+    sibling_execution.save!
+    execution.sibling_execution_id = sibling_execution.id
+    execution.updated_at = Time.now.utc - 1.minute
+    execution.save!
     assert_equal false, measure_test_running_for_row?(task)
   end
 

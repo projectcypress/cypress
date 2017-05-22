@@ -40,6 +40,12 @@ class C2Task < Task
     c3c.generate_cat3
   end
 
+  def last_updated_with_sibling
+    sibling = product_test.tasks.c3_cat3_task
+    return updated_at unless sibling
+    [updated_at, sibling.updated_at].max
+  end
+
   # returns combined status including c3_cat3 task
   def status_with_sibling
     sibling = product_test.tasks.c3_cat3_task

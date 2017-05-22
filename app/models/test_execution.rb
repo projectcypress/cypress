@@ -125,6 +125,12 @@ class TestExecution
     'failing' # failing if status's do not match
   end
 
+  def last_updated_with_sibling
+    sibling = sibling_execution
+    return updated_at unless sibling
+    [updated_at, sibling.updated_at].max
+  end
+
   # checks
   def executions_pending?
     c3_execution = sibling_execution
