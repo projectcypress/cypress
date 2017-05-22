@@ -522,11 +522,10 @@ end
 
 Then(/^the user should see a cat I test (.*) for product test (.*)$/) do |task_status, product_test_number|
   html_id_for_measure_test_table_row = "##{measure_tests_table_row_wrapper_id(nth_measure_test(product_test_number).tasks.c1_task)}"
-
-  # html_id = td_div_id_for_cat1_task_for_product_test(product_test_number)
   measure_table_row_element = page.find(html_id_for_measure_test_table_row, visible: false)
-  # byebug
-  measure_table_row_element.assert_text task_status_to_execution_status_message(task_status)
+  using_wait_time 35 do # This can take significantly longer than other tests due to the 10 second ajax wait for some requests
+    measure_table_row_element.assert_text task_status_to_execution_status_message(task_status)
+  end
 end
 
 Then(/^the user should see a cat III test (.*) for product test (.*)$/) do |task_status, product_test_number|
@@ -544,7 +543,9 @@ end
 Then(/^the user should see a cat III test (.*) for filtering test (.*)$/) do |task_status, filtering_test_number|
   html_id = td_div_id_for_cat3_task_for_filtering_test(filtering_test_number)
   html_elem = page.find(html_id, visible: false)
-  html_elem.assert_text task_status_to_task_link_text(task_status)
+  using_wait_time 35 do # This can take significantly longer than other tests due to the 10 second ajax wait for some requests
+    html_elem.assert_text task_status_to_task_link_text(task_status)
+  end
 end
 
 def task_status_to_execution_status_message(task_status)
