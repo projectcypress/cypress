@@ -121,7 +121,8 @@ Scenario: Can Multi Upload to the Same Task on a Measure Test Multiple Times wit
   And the user visits the product page
   And the user switches to the c1 measure test tab
   And the user uploads a cat I document to product test 1
-  And the user visits the product page
+  Then the user should see a cat I test testing for product test 1
+  When the user visits the product page
   And the user switches to the c1 measure test tab
   Then the user should see a cat I test testing for product test 1
   When all test executions for product test 1 have the state of passed
@@ -151,7 +152,8 @@ Scenario: Can Multi Upload to the Same Task on a Filtering Test Multiple Times w
   And the user visits the product page
   And the user switches to the filtering test tab
   And the user uploads a cat III document to filtering test 1
-  And the user visits the product page
+  Then the user should see a cat III test testing for filtering test 1
+  When the user visits the product page
   And the user switches to the filtering test tab
   Then the user should see a cat III test testing for filtering test 1
   When all test executions for filtering test 1 have the state of passed
