@@ -131,15 +131,22 @@ function HookupProductSearch() {
   // Searchbox is #product_search_measures which is currently the parent.
   var searchbox = $(this)
 
-  $.ajax({
-    url: "/bundles/" + bundle_id + "/measures/filtered/" + current_search,
-    type: "GET",
-    dataType: "json",
-    success: function(data, textStatus, xhr) {
-      filterVisibleMeasures(searchbox, data.measures)
-      filterVisibleMeasureTabs(searchbox, data.measure_tabs)
-    }
-  });
+  var ajaxReq, timer
+  clearTimeout(timer)
+  if (ajaxReq) ajaxReq.abort();
+
+  timer = setTimeout(function(){
+    ajaxReq = $.ajax({
+      url: "/bundles/" + bundle_id + "/measures/filtered/" + current_search,
+      type: "GET",
+      dataType: "json",
+      success: function(data, textStatus, xhr) {
+        ajaxReq = null
+        filterVisibleMeasures(searchbox, data.measures)
+        filterVisibleMeasureTabs(searchbox, data.measure_tabs)
+      }
+    });
+  }, 200);
 }
 
 // these pieces need to run every time the bundle is changed
