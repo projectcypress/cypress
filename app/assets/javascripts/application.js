@@ -37,7 +37,9 @@ $(function() {
   $('.breadcrumb').breadcrumb();
 
   $(document).on('ajaxComplete',function(e){
-    $(e.delegateTarget.activeElement).blur();
+    if(e.delegateTarget.activeElement.tagName.toLowerCase() == 'button') {
+      $(e.delegateTarget.activeElement).blur();
+    }
   });
 
   $(document).on('submit',function(e){
