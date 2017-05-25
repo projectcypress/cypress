@@ -40,20 +40,11 @@ module Validators
         check_population(expected_result, reported_result, pop_key, stratification, measure_id)
         # Check supplemental data elements
         ex_sup = (expected_result['supplemental_data'] || {})[pop_key]
-        reported_sup = (reported_result[:supplemental_data] || {})[pop_key]
         next unless stratification.nil? && ex_sup
 
-        sup_keys = ex_sup.keys.reject(&:blank?)
+        keys_and_ids = { measure_id: measure_id, pop_key: pop_key, pop_id: pop_id }
 
-        # for each supplemental data item (RACE, ETHNICITY, PAYER, SEX)
-        sup_keys.each do |sup_key|
-          expect_sup_val = (ex_sup[sup_key] || {}).reject { |k, v| (k.blank? || v.blank? || v == 'UNK') }
-          report_sup_val = reported_sup.nil? ? nil : reported_sup[sup_key]
-          # keys_and_ids used to hold information that is displayed with an execution error. the variable also rhymes
-          keys_and_ids = { measure_id: measure_id, pop_key: pop_key, pop_id: pop_id, sup_key: sup_key }
-          check_supplemental_data_expected_not_reported(expect_sup_val, report_sup_val, keys_and_ids, options)
-          check_supplemental_data_reported_not_expected(expect_sup_val, report_sup_val, keys_and_ids, options)
-        end
+        check_sup_keys(ex_sup, reported_result, keys_and_ids, stratification, options)
       end
     end
 
@@ -98,35 +89,22 @@ module Validators
       end
     end
 
-    def check_supplemental_data_expected_not_reported(expect_sup_val, report_sup_val, keys_and_ids, options)
-      expect_sup_val.each_pair do |code, expect_val|
-        next unless report_sup_val.nil? ||
-                    ((code != 'UNK' && expect_val != report_sup_val[code]) &&
-                     !CalculatingAugmentedResults.augmented_sup_val_expected?(options['task'], keys_and_ids, code,
-                                                                              { expect: expect_sup_val[code], report: report_sup_val[code] },
-                                                                              @modified_population_labels))
-        report_val = report_sup_val.nil? ? 0 : report_sup_val[code]
-        add_sup_data_error(keys_and_ids, code, expect_val, report_val)
-      end
-    end
+    def check_sup_keys(ex_sup, reported_result, keys_and_ids, stratification, options)
+      esr = ExpectedSupplementalResults.new
+      sup_keys = ex_sup.keys.reject(&:blank?)
+      reported_sup = (reported_result[:supplemental_data] || {})[keys_and_ids[:pop_key]]
 
-    def check_supplemental_data_reported_not_expected(expect_sup_val, report_sup_val, keys_and_ids, options)
-      return if report_sup_val.nil?
-      report_sup_val.each_pair do |code, report_val|
-        next unless report_val > 0 && expect_sup_val[code].nil? &&
-                    !CalculatingAugmentedResults.augmented_sup_val_expected?(options['task'], keys_and_ids, code,
-                                                                             { expect: expect_sup_val[code], report: report_sup_val[code] },
-                                                                             @modified_population_labels)
-        add_sup_data_error(keys_and_ids, code, 0, report_val)
+      # for each supplemental data item (RACE, ETHNICITY, PAYER, SEX)
+      sup_keys.each do |sup_key|
+        expect_sup_val = (ex_sup[sup_key] || {}).reject { |k, v| (k.blank? || v.blank? || v == 'UNK') }
+        report_sup_val = reported_sup.nil? ? nil : reported_sup[sup_key]
+        # keys_and_ids used to hold information that is displayed with an execution error. the variable also rhymes
+        keys_and_ids[:sup_key] = sup_key
+        esr.check_supplemental_data_matches_pop_sums(report_sup_val, keys_and_ids, reported_result, stratification)
+        esr.check_supplemental_data_expected_not_reported(expect_sup_val, report_sup_val, keys_and_ids, @modified_population_labels, options)
+        esr.check_supplemental_data_reported_not_expected(expect_sup_val, report_sup_val, keys_and_ids, @modified_population_labels, options)
       end
-    end
-
-    def add_sup_data_error(keys_and_ids, code, expect_val, report_val)
-      error_details = { type: 'supplemental_data', population_key: keys_and_ids.pop_key,
-                        population_id: keys_and_ids.pop_id, data_type: keys_and_ids.sup_key,
-                        code: code, expected_value: expect_val, reported_value: report_val }
-      options = { location: '/', measure_id: keys_and_ids.measure_id, error_details: error_details, file_name: @file_name }
-      add_error('supplemental data error', options)
+      @errors.nil? ? (@errors = esr.errors) : @errors.concat(esr.errors || [])
     end
   end
 end
