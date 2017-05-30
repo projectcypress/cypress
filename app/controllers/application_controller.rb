@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ClassLength
 class ApplicationController < ActionController::Base
   include Roar::Rails::ControllerAdditions
 
