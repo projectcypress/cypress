@@ -233,8 +233,8 @@ module Cypress
         cda:id[@root = "2.16.840.1.113883.4.6"]/@extension)
       tin_xpath = %(/cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/
         cda:representedOrganization/cda:id[@root = "2.16.840.1.113883.4.2"]/@extension)
-      counter += 1 if provider.filters['tin'] == (doc.at_xpath(tin_xpath).value)
-      counter += 1 if provider.filters['npi'] == (doc.at_xpath(npi_xpath).value)
+      counter += 1 if provider.filters['tin'] == doc.at_xpath(tin_xpath).value
+      counter += 1 if provider.filters['npi'] == doc.at_xpath(npi_xpath).value
       if provider.key?('address') && counter == 2
         address = provider['address']
         address_xpath = %(/cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/
