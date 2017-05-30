@@ -1,16 +1,16 @@
 module Validators
   # This is a set of helper methods to validate reported supplemental values associated
   # with a population key against reported ones.
-  class ExpectedSupplementalResults
+  class ExpectedSupplementalResults < QrdaFileValidator
     include Validators::Validator
 
     def check_supplemental_data_matches_pop_sums(report_sup_val, keys_and_ids, reported_result, stratification)
       pop_sum = reported_result[keys_and_ids[:pop_key]] ? reported_result[keys_and_ids[:pop_key]] : 0
       sup_sum = 0
-      report_sup_val.each { |sup_set| sup_sum += sup_set[1] }
+      report_sup_val.each { |sup_set| sup_sum += sup_set[1] } unless report_sup_val.nil?
       if pop_sum != sup_sum
-        err = %(Reported #{keys_and_ids[:pop_key]} #{reported_result[:population_ids][keys_and_ids[:pop_key]]} value #{pop_sum} does not match
-        sum #{sup_sum} of supplemental key #{keys_and_ids[:sup_key]} values)
+        err = %(Reported #{keys_and_ids[:pop_key]} #{reported_result[:population_ids][keys_and_ids[:pop_key]]} value #{pop_sum} does not match \
+sum #{sup_sum} of supplemental key #{keys_and_ids[:sup_key]} values)
         error_details = { type: 'population', population_id: reported_result[:population_ids][keys_and_ids[:pop_key]],
                           stratification: stratification, expected_value: pop_sum, reported_value: sup_sum }
         options = { location: '/', measure_id: keys_and_ids[:measure_id], error_details: error_details, file_name: @file_name }
