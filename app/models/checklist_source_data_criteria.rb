@@ -10,8 +10,11 @@ class ChecklistSourceDataCriteria
 
   field :recorded_result, type: String
   field :code, type: String
+  field :negated_valueset, type: Boolean
   field :attribute_code, type: String
   field :passed_qrda, type: Boolean
+  field :selected_negated_valueset, type: String
+  field :additional_code, type: String
 
   field :code_complete, type: Boolean
   field :attribute_complete, type: Boolean
