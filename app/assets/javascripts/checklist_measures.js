@@ -32,3 +32,14 @@ for (i = 0; i < li.length; i++) {
         li[i].style.display = "none";
     }
 }}
+
+$(document).ready(function(){
+        $('#modifyrecord').on('click', function(event) {
+             event.preventDefault();
+             $('.hide-me').hide();
+             $('.show-me').show();
+
+        });
+    });
+
+
