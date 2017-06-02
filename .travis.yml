@@ -1,8 +1,9 @@
+dist: trusty
+sudo: false
 language: ruby
 cache:
   - bundler
   - node_modules
-sudo: false
 addons:
   apt:
     sources:
@@ -24,9 +25,6 @@ notifications:
     secure: NfcNb3LCyd7/ACYc6mDoBJZlBFIV5wKMMWs0On2DNeaDoD/EKCbQRQQVOHEvfsaqOM+5zmi9giYaV7cV+Gl+zfehZ/Q69x89YjWWVFeAp5QGDzoCnM7oaaTXygla52sfcL9Oi3rLgTWyjqMSS7tM2DW5d/V+iEjyilmavsUvRbU=
 before_install:
   - . $HOME/.nvm/nvm.sh
-  - nvm install stable
-  - nvm use stable
-  - npm install
   - mkdir $PWD/travis-phantomjs
   - curl -sSL https://github.com/Medium/phantomjs/releases/download/v2.1.1/phantomjs-2.1.1-linux-x86_64.tar.bz2 -o $PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2
   - tar -xvf $PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C $PWD/travis-phantomjs
@@ -36,6 +34,7 @@ before_script:
   - git config --global user.name "Travis CI"
   - npm install eslint
   - cp ./.travis/mongoid.yml ./config/mongoid.yml
+  - mongod --version
 script:
   - bundle exec brakeman -qAzw1
   - bundle exec bundle-audit check --update
