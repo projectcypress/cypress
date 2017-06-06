@@ -33,6 +33,15 @@ for (i = 0; i < li.length; i++) {
     }
 }}
 
-function handleClick(cb){
-  console.log("yay")
+$(document).ready(function(){
+        $('#modifyrecord').on('click', function(event) {   
+             event.preventDefault();     
+             $('.hide-me').hide();
+             $('.show-me').show();
+
+        });
+    });
+
+function handleClick(cb) {
+  console.log("" + cb.checked);
 }
