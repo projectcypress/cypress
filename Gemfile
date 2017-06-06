@@ -8,7 +8,7 @@ gem 'mongoid', '~> 5.0.0'
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson_ext'
 
-gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'mongoid5'
+gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'mongoid5_qrda4'
 
 gem 'quality-measure-engine',
     git: 'https://github.com/projectcypress/quality-measure-engine.git', branch: 'bump_mongoid'
