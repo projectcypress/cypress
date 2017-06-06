@@ -213,8 +213,6 @@ class ProductsHelperTest < ActiveJob::TestCase
     execution = task.test_executions.create!(:state => :passed, :updated_at => Time.now.utc - 1.minute)
     assert_equal false, measure_test_running_for_row?(task)
 
-    sibling_task = product_test.tasks.create!
-
     # if both executions are finished and it has been more than 30 seconds then the page does not need reloading
     sibling_task = product_test.tasks.create!
     sibling_execution = sibling_task.test_executions.create!(

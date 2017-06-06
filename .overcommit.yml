@@ -18,6 +18,7 @@
 PreCommit:
   RuboCop:
     enabled: true
+    on_warn: 'fail'
   EsLint:
     enabled: true
     exclude: ['vendor/assets/javascripts/**/*', 'test/fixtures/**/*']
