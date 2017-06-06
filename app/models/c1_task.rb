@@ -1,9 +1,5 @@
-require 'validators/smoking_gun_validator'
-require 'validators/qrda_cat1_validator'
-
 class C1Task < Task
   include Mongoid::Attributes::Dynamic
-  include ::Validators
 
   # C1 = Record and Export
   #  - Record all the data needed to calculate CQMs
@@ -13,8 +9,8 @@ class C1Task < Task
   # do that validation here
   def validators
     if product_test.product.c1_test
-      @validators = [CalculatingSmokingGunValidator.new(product_test.measures, product_test.records, product_test.id),
-                     QrdaCat1Validator.new(product_test.bundle, false, product_test.product.c3_test, true, product_test.measures)]
+      @validators = [::Validators::CalculatingSmokingGunValidator.new(product_test.measures, product_test.records, product_test.id),
+                     ::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.product.c3_test, true, product_test.measures)]
     else
       # A C1 task is created whenever C3 is selected.  If C1 isn't also selected, this task doesn't perform any validations
       @validators = []
