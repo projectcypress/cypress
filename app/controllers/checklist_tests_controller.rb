@@ -3,7 +3,7 @@ class ChecklistTestsController < ProductTestsController
 
   before_action :set_measures, only: [:show]
   before_action :set_measure, only: [:measure]
-  respond_to :js, only: [:show]
+  respond_to :js, only: [:show, :modify]
 
   def create
     @product_test = @product.product_tests.build({ name: 'c1 visual', measure_ids: @product.measure_ids }, ChecklistTest)
@@ -54,6 +54,9 @@ class ChecklistTestsController < ProductTestsController
     send_data zip, type: 'application/zip', disposition: 'attachment', filename: filename
   end
 
+  def modify
+
+  end
   private
 
   def set_breadcrumbs

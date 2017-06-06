@@ -13,7 +13,12 @@
   <div class = 'panel panel-default'>
     <div class = 'panel-heading'>
       <h1 class='panel-title'>
+       <% if !hide_patient_calculation?%>
         <%= "#{measure.cms_id} #{measure.name}" %>
+        <button class='btn btn-default' id='modifyrecord'>Edit Test</button>
+        <%else%>
+        <%= "#{measure.cms_id} #{measure.name}" %>
+        <%end%>
       </h1>
     </div>
     <div class = 'panel-body'>
@@ -21,20 +26,15 @@
         <table class = 'table table-condensed'>
           <thead>
             <tr>
-             <% unless !hide_patient_calculation? %>
-              <th class = 'col-sm-1' scope = 'col'>Validated in QRDA</th>
-              <th class = 'col-sm-2' scope = 'col'>Data Criteria</th>
-              <% end %>
+              <th class = 'col-sm-1 hide-me' id='non_atl_mode' scope = 'col'>Validated in QRDA</th>
+              <th class = 'col-sm-2 hide-me' id='non_atl_mode' scope = 'col'>Data Criteria</th>
               <th class = 'col-sm-1' scope = 'col'>Section</th>
               <th class = 'col-sm-1' scope = 'col'>Required Attributes</th>
               <th class = 'col-sm-3' scope = 'col'>Value Set(s)</th>
               <th class = 'col-sm-3' scope = 'col'>Recorded Code/Attribute Value</th>
-              <% if !hide_patient_calculation? %>
-              <th class = 'col-sm-3' scope = 'col'>Toggle Neagtion</th>
+              <th class = 'col-sm-3 show-me' style='display: none;' scope = 'col'>Toggle Neagtion</th>
               <th>
-              <%else%>
               <th>
-              <%end%>
               </tr>
             </thead>
             <tbody>
@@ -43,8 +43,7 @@
               <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
               <% if criteria.key?('description') %>
               <tr>
-                <% unless !hide_patient_calculation? %>
-                <td rowspan="3">
+                <td rowspan="3" class='hide-me'>
                   <% if criteria_field.object.passed_qrda %>
                   <span class="sr-only">Passes QRDA</span>
                   <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
@@ -52,7 +51,6 @@
                   <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
                   <% end %>
                 </td>
-                <%end%>
                 <% valuessets = criteria_field.object.get_all_valuesets_for_dc(measure) %>
                 <% if valuessets.empty? %>
                 <td rowspan="3"/>
@@ -62,8 +60,7 @@
                   <td/>
                 </tr>
                 <% else %>
-                <% unless !hide_patient_calculation? %>
-                <td rowspan="3"><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
+                <td rowspan="3" class='hide-me'><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
                 <%end%>
                 <tr>
                   <td> <strong>Valuesets</strong> </td>
@@ -100,18 +97,13 @@
                       <%= criteria_field.text_field :code, hide_label: false %>
                     <% end %>
                   </td>
-                 <% if !hide_patient_calculation? %>
-                  <td id= "atl_mode">
-                   <label class="label toggle">
-                    <input type="checkbox" class="toggle_input" id="toggle-negate" onclick= "handleClick(this);" />
-                    <div class="toggle-control"></div>
-                   </label>
+                  <td class='show-me' style='display: none;'>
+                   <label class='label toggle'>
+                    <%= criteria_field.check_box :negated_valueset, {class: 'toggle-input', label: false} %>
+                    <div class='toggle-control'></div>
+                   </label> 
                    </td>
-                  <%else%>
-                  </td>
-                  <%end%>
                 </tr>
-                <% end %>
                 <tr>
                   <td> <strong> Attributes </strong> </td>
                   <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
