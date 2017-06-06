@@ -10,7 +10,7 @@ module Validators
     def initialize(bundle, is_c3_validation_task, test_has_c3, test_has_c1, measures = [])
       @test_has_c3 = test_has_c3
       @measures = measures
-      format_validators = if bundle.qrda_version == 'r3' 
+      format_validators = if bundle.qrda_version == 'r3'
                             [CDA.instance, Cat1.instance]
                           elsif bundle.qrda_version == 'r3_1'
                             [CDA.instance, Cat1R31.instance]
