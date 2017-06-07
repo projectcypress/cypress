@@ -39,11 +39,11 @@
   <div type="button" class="value-set-group set-menu" data-toggle="modal" data-target="<%= "#lookupModal-result#{index}" %>">          
     <ul class="value-set-list">
      <li class="value-set-item-header"><%= "#{lookup_valueset_name(result.code_list_id)}" %></li>
-     <li class="value-set-item-oid"><%= result %></li>
+     <li class="value-set-item-oid"><%= result.code_list_id %></li>
    </ul>
   </div>
   <div id="<%= "lookupModal-result#{index}" %>" class="modal fade" role="dialog">
-    <%= render partial: 'checklist_modal', locals: { valuessets: [result], product_test: product_test, index: index, is_attribute: true } %>
+    <%= render partial: 'checklist_modal', locals: { valuessets: [result.code_list_id], product_test: product_test, index: index, is_attribute: true } %>
   </div>
   <% end %>
   <% else %>
