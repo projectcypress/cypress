@@ -9,7 +9,7 @@ module Validators
       reason_template, nodes = template_nodes(source_criteria, checked_criteria)
       # if the checked criteria has a code, the code and attributes will be checked
       # if the checked criteria does not have a code (e.g. Transfers), on the attiributes will be checked
-      if checked_criteria.code
+      if checked_criteria.code || checked_criteria.negated_valueset
         # a codenode is a node, that includes the appropriate code
         codenodes = []
         # looks through every valueset associated with the source data criteria
@@ -17,7 +17,7 @@ module Validators
           # once you find a matching node, you can stop
           next unless codenodes.empty?
           # If there is a negation, search for the code within the template
-          codenodes = find_template_with_code(nodes, template, valueset, checked_criteria.code, reason_template)
+          codenodes = find_template_with_code(nodes, template, valueset, checked_criteria, reason_template)
           # When you get nodes that include a code, determine if it meets additinal criteria
           passing = passing_dc?(codenodes, source_criteria, checked_criteria)
         end
@@ -87,21 +87,25 @@ module Validators
     end
 
     # searches all nodes to find ones with the correct template, valueset and code
-    def find_template_with_code(nodes, template, valueset, code, reason_template)
-      return find_reason_code(nodes, template, valueset, code) if reason_template
+    # cc is short for Checked_Criteria
+    def find_template_with_code(nodes, template, valueset, cc, reason_template)
+      return find_reason_code(nodes, template, valueset, cc) if reason_template
       # if it isn't a reason, the file node is the first
-      codenodes = nodes.first.xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{code}']")
+      codenodes = nodes.first.xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{cc.code}']")
       codenodes || []
     end
 
-    def find_reason_code(nodes, template, valueset, code)
+    # cc is short for Checked_Criteria
+    def find_reason_code(nodes, template, valueset, cc)
       # Return node once a matching node is found
       nodes.each do |node|
         # the negated device, order does not have a template id.
         if template == '2.16.840.1.113883.10.20.24.3.9'
-          cn = node.parent.parent.parent.at_xpath("//*[@sdtc:valueSet='#{valueset}' and @code='#{code}']")
+          cn = node.parent.parent.parent.at_xpath("//*[@sdtc:valueSet='#{valueset}' and @code='#{cc.code}']")
+        elsif cc.negated_valueset
+          cn = node.parent.parent.parent.at_xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @nullFlavor='NA']")
         else
-          cn = node.parent.parent.parent.at_xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{code}']")
+          cn = node.parent.parent.parent.at_xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{cc.code}']")
         end
         return [cn] unless cn.nil?
       end
