@@ -34,14 +34,10 @@ for (i = 0; i < li.length; i++) {
 }}
 
 $(document).ready(function(){
-        $('#modifyrecord').on('click', function(event) {   
-             event.preventDefault();     
+        $('#modifyrecord').on('click', function(event) {
+             event.preventDefault();
              $('.hide-me').hide();
              $('.show-me').show();
 
         });
     });
-
-function handleClick(cb) {
-  console.log("" + cb.checked);
-}

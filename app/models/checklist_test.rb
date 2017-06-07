@@ -77,8 +77,8 @@ class ChecklistTest < ProductTest
     checklist_measures << value[0].hqmf_id
     measure_criteria_map[value[0]].each do |criteria_key|
       checked_criterias.push(measure_id: value[0].id.to_s,
-                              source_data_criteria: criteria_key,
-                              negated_valueset: negate_valueset?(value[0], criteria_key))
+                             source_data_criteria: criteria_key,
+                             negated_valueset: negate_valueset?(value[0], criteria_key))
     end
   end
 
