@@ -19,7 +19,7 @@ module ChecklistTestsHelper
       ''
     end
   end
- 
+
   def fulfills_reference(measure, referenced_criteria)
     data_criterias = measure.data_criteria
     data_criterias.each do |data_criteria|
