@@ -86,6 +86,8 @@
                   <td>
                     <% if criteria_field.object.complete?.nil? %>
                     <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
+                    <% elsif criteria_field.object.negated_valueset %>
+                    <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
                     <% elsif criteria_field.object.code_complete %>
                     <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
                     <% else %>
