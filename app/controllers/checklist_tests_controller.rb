@@ -55,8 +55,8 @@ class ChecklistTestsController < ProductTestsController
   end
 
   def modify
-
   end
+
   private
 
   def set_breadcrumbs

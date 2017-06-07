@@ -92,16 +92,15 @@
                     <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
                     <% end %>
                     <% if criteria_field.object.negated_valueset %> 
-                   <%= select_tag 'selected_negated_valueset', options_for_select(valuessets.collect{ |vs| [lookup_valueset_long_name(vs), vs]})%>                    
+                   <%= select_tag 'selected_negated_valueset', options_for_select(valuessets.collect{ |vs| [lookup_valueset_long_name(vs), vs]}), {style: 'max-width: 100px;'} %>                    
                     <% else %>
                       <%= criteria_field.text_field :code, hide_label: false %>
                     <% end %>
                   </td>
                   <td class='show-me' style='display: none;'>
-                   <!--<label class='label toggle'> -->
-                    <%= criteria_field.check_box :negated_valueset%>
-                   <!-- <div class='toggle-control'></div>
-                   </label> -->
+                    <%= criteria_field.check_box :negated_valueset, label_class: 'label toggle' do %> 
+                    <div class='toggle-control'></div>
+                    <%end%>
                    </td>
                 </tr>
                 <tr>

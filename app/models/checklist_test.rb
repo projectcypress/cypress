@@ -72,22 +72,22 @@ class ChecklistTest < ProductTest
 
     # create checked criteria
     measure_ranks.reverse_each do |value|
-      next if checklist_measures.include? value[0].hqmf_id # skip submeasures
-      next if checklist_measures.size > max_num_checklist_measures - 1 # skip if four checklist measures already exist
-      checklist_measures << value[0].hqmf_id
-      measure_criteria_map[value[0]].each do |criteria_key|
-        checked_criterias.push(measure_id: value[0].id.to_s,
-                               source_data_criteria: criteria_key,
-                               negated_valueset: negate_valueset?(value[0], criteria_key))
-      end
-    end 
+    next if checklist_measures.include? value[0].hqmf_id # skip submeasures
+    next if checklist_measures.size > max_num_checklist_measures - 1 # skip if four checklist measures already exist
+    checklist_measures << value[0].hqmf_id
+    measure_criteria_map[value[0]].each do |criteria_key|
+      checked_criterias.push(measure_id: value[0].id.to_s,
+                              source_data_criteria: criteria_key,
+                              negated_valueset: negate_valueset?(value[0], criteria_key))
+    end
+  end
 
     # Measure ids updated to the ones selected for measure test
     self.measure_ids = checklist_measures
     self.checked_criteria = checked_criterias
     save!
   end
-  
+
   def criteria_map_and_measure_ranks(prng)
     measure_criteria_map = {}
     measure_rank_map = {}
