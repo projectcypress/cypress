@@ -87,7 +87,7 @@ class ChecklistTest < ProductTest
     self.checked_criteria = checked_criterias
     save!
   end
-
+  
   def criteria_map_and_measure_ranks(prng)
     measure_criteria_map = {}
     measure_rank_map = {}
