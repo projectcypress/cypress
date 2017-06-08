@@ -15,7 +15,7 @@
       <h1 class='panel-title'>
        <% if !hide_patient_calculation?%>
         <%= "#{measure.cms_id} #{measure.name}" %>
-        <button class='btn btn-default' id='modifyrecord'>Edit Test</button>
+        <button class='btn btn-default' type='button' id='modifyrecord'>Edit Test</button>
         <%else%>
         <%= "#{measure.cms_id} #{measure.name}" %>
         <%end%>
