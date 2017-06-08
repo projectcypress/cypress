@@ -3,7 +3,7 @@ class ChecklistTestsController < ProductTestsController
 
   before_action :set_measures, only: [:show]
   before_action :set_measure, only: [:measure]
-  respond_to :js, only: [:show, :modify]
+  respond_to :js, only: [:show]
 
   def create
     @product_test = @product.product_tests.build({ name: 'c1 visual', measure_ids: @product.measure_ids }, ChecklistTest)
@@ -52,9 +52,6 @@ class ChecklistTestsController < ProductTestsController
     zip = Cypress::CreateDownloadZip.create_c1_criteria_zip(@product.product_tests.checklist_tests.first, criteria_list).read
     filename = "#{@product.name}_#{@product.id}_c1_checklist_criteria.zip".tr(' ', '_')
     send_data zip, type: 'application/zip', disposition: 'attachment', filename: filename
-  end
-
-  def modify
   end
 
   private

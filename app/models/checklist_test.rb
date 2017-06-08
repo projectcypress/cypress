@@ -72,10 +72,10 @@ class ChecklistTest < ProductTest
       next if checklist_measures.size > max_num_checklist_measures - 1 # skip if four checklist measures already exist
       checklist_measures << value[0].hqmf_id
       measure_criteria_map[value[0]].each do |criteria_key|
-      checked_criterias.push(measure_id: value[0].id.to_s,
-                             source_data_criteria: criteria_key,
-                             negated_valueset: negate_valueset?(value[0], criteria_key))
-    end
+        checked_criterias.push(measure_id: value[0].id.to_s,
+                               source_data_criteria: criteria_key,
+                               negated_valueset: negate_valueset?(value[0], criteria_key))
+      end
     end
 
     # Measure ids updated to the ones selected for measure test
