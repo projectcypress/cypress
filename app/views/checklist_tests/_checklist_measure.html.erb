@@ -15,7 +15,7 @@
       <h1 class='panel-title'>
        <% if !hide_patient_calculation?%>
         <%= "#{measure.cms_id} #{measure.name}" %>
-        <button class='btn btn-default' id='modifyrecord'>Edit Test</button>
+        <button class='btn btn-default' type='button' id='modifyrecord'>Edit Test</button>
         <%else%>
         <%= "#{measure.cms_id} #{measure.name}" %>
         <%end%>
@@ -32,7 +32,7 @@
               <th class = 'col-sm-1' scope = 'col'>Required Attributes</th>
               <th class = 'col-sm-3' scope = 'col'>Value Set(s)</th>
               <th class = 'col-sm-3' scope = 'col'>Recorded Code/Attribute Value</th>
-              <th class = 'col-sm-3 show-me' style='display: none;' scope = 'col'>Toggle Neagtion</th>
+              <th class = 'col-sm-3 show-me' style='display: none;' scope = 'col'>Toggle Negation</th>
               <th>
               <th>
               <th>
