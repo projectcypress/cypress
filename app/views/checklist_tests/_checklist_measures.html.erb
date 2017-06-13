@@ -11,6 +11,6 @@
   <% end %>
 </div>
 
-<% @product_test.measures.sort_by(&:cms_int).each do |measure| %>
-  <%= render partial: 'checklist_measure', locals: { product: @product_test.product, product_test: @product_test, measure: measure } %>
-<% end %>
+
+  <%= render partial: 'checklist_measure', locals: { product: @product_test.product, product_test: @product_test, measures: @product_test.measures } %>
+
