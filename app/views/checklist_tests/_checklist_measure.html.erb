@@ -13,7 +13,12 @@
   <div class = 'panel panel-default'>
     <div class = 'panel-heading'>
       <h1 class='panel-title'>
+       <% if !hide_patient_calculation?%>
         <%= "#{measure.cms_id} #{measure.name}" %>
+        <button class='btn btn-default' type='button' id='modifyrecord'>Edit Test</button>
+        <%else%>
+        <%= "#{measure.cms_id} #{measure.name}" %>
+        <%end%>
       </h1>
     </div>
     <div class = 'panel-body'>
@@ -21,12 +26,15 @@
         <table class = 'table table-condensed'>
           <thead>
             <tr>
-              <th class = 'col-sm-1' scope = 'col'>Validated in QRDA</th>
-              <th class = 'col-sm-2' scope = 'col'>Data Criteria</th>
+              <th class = 'col-sm-1 hide-me' id='non_atl_mode' scope = 'col'>Validated in QRDA</th>
+              <th class = 'col-sm-2 hide-me' id='non_atl_mode' scope = 'col'>Data Criteria</th>
               <th class = 'col-sm-1' scope = 'col'>Section</th>
               <th class = 'col-sm-1' scope = 'col'>Required Attributes</th>
               <th class = 'col-sm-3' scope = 'col'>Value Set(s)</th>
               <th class = 'col-sm-3' scope = 'col'>Recorded Code/Attribute Value</th>
+              <th class = 'col-sm-3 show-me' style='display: none;' scope = 'col'>Toggle Negation</th>
+              <th>
+              <th>
               <th>
               </tr>
             </thead>
@@ -36,7 +44,7 @@
               <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
               <% if criteria.key?('description') %>
               <tr>
-                <td rowspan="3">
+                <td rowspan="3" class='hide-me'>
                   <% if criteria_field.object.passed_qrda %>
                   <span class="sr-only">Passes QRDA</span>
                   <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
@@ -53,11 +61,14 @@
                   <td/>
                 </tr>
                 <% else %>
-                <td rowspan="3"><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
+                <td rowspan="3" class='hide-me'><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
                 <tr>
                   <td> <strong>Valuesets</strong> </td>
                   <td/>
                   <td>
+                  <%if criteria_field.object.negated_valueset %>
+                     <%= 'Negate entire Valueset' %>
+                    <% else %>
                     <% modal_index = "#{measure.cms_id}_#{index}" %>
                     <div type = "button" class ="value-set-group set-menu" data-toggle="modal" data-target="<%= "#lookupModal#{modal_index}" %>">
                       <ul class="value-set-list">
@@ -70,19 +81,31 @@
                     <div id="<%= "lookupModal#{modal_index}" %>" class="modal fade" role="dialog">
                       <%= render partial: 'checklist_modal', locals: { valuessets: valuessets, product_test: product_test, index: modal_index, is_attribute: false } %>
                     </div> 
+                    <% end %>
                   </td>
                   <td>
                     <% if criteria_field.object.complete?.nil? %>
                     <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
+                    <% elsif criteria_field.object.negated_valueset %>
+                    <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
                     <% elsif criteria_field.object.code_complete %>
                     <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
                     <% else %>
                     <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
                     <% end %>
-                    <%= criteria_field.text_field :code, hide_label: false %>
+                    <% if criteria_field.object.negated_valueset %> 
+                   <%= criteria_field.select :selected_negated_valueset, valuessets.collect{ |vs| ["#{lookup_valueset_name(vs)} - #{vs}", vs] } %>                    
+                    <% else %>
+                      <%= criteria_field.text_field :code, hide_label: false %>
+                    <% end %>
                   </td>
+                  <td class='show-me' style='display: none;'>
+                    <%= criteria_field.check_box :negated_valueset, label_class: 'label toggle' do %> 
+                    <div class='toggle-control'></div>
+                    <%end%>
+                   </td>
                 </tr>
-                <% end %>
+                <%end%>
                 <tr>
                   <td> <strong> Attributes </strong> </td>
                   <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
