@@ -42,6 +42,13 @@ module Validators
       record = HealthDataStandards::Import::Cat1::PatientImporter.instance.parse_cat1(doc)
       record.test_id = te.id
       record.medical_record_number = rand(1_000_000_000_000_000)
+      record.entries.each do |entry|
+        # If the entry is negated, there is a NA codeset and there is only one code, find a code to use for calcuation
+        if entry.negationInd == true && entry.codes.key?('NA_VALUESET') && entry.codes.size == 1
+          valueset = HealthDataStandards::SVS::ValueSet.where(oid: entry.codes['NA_VALUESET'].first, bundle_id: @bundle.id)
+          entry.add_code(valueset.first.concepts.first['code'], valueset.first.concepts.first['code_system_name'])
+        end
+      end
       record.save
       record
     rescue
