@@ -39,7 +39,6 @@ module Cypress
       address = Address.new
       address.use = 'HP'
       address.street = ["#{Faker::Address.street_address} #{Faker::Address.street_suffix}"]
-      #address.street.push(Faker::Address.secondary_address) if [true, false].sample
       address.city = Faker::Address.city
       address.state = Faker::Address.state_abbr
       address.zip = Faker::Address.zip(address.state)
