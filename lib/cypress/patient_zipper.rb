@@ -24,6 +24,7 @@ module Cypress
   class QRDAExporter
     C3EXPORTER = GoCDATools::Export::GoExporter.instance
     C3_1EXPORTER = GoCDATools::Export::GoExporter.instance
+    C4EXPORTER = GoCDATools::Export::GoExporter.instance
 
     attr_accessor :measures
     attr_accessor :start_time
@@ -50,6 +51,9 @@ module Cypress
       when 'r3_1'
         C3_1EXPORTER.export_with_ffi(patient.to_json(:include => :provider), @measures_json, @valueset_json_map[patient.bundle.id],
                                      start_time, end_time, 'r3_1', cms_compatibility)
+      when 'r4'
+        C4EXPORTER.export_with_ffi(patient.to_json(:include => :provider), @measures_json, @valueset_json_map[patient.bundle.id],
+                                     start_time, end_time, 'r4', cms_compatibility)
       end
     end
   end
