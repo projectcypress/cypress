@@ -7,11 +7,11 @@
 #   measure      (Measure)       should be a measure that belongs to the checklist test
 
 %>
-<%= bootstrap_nested_form_for([measures, product, product_test], :url => { :controller => 'checklist_tests', :action => 'update' }) do |f| %>
+<%= bootstrap_nested_form_for([@measures, product, product_test], :url => { :controller => 'checklist_tests', :action => 'update' }) do |f| %>
 <% if !hide_patient_calculation? %>
   <div><button class='btn btn-default' type='button' id="modifyrecord">Edit Test</button></div>
 <% end %>
-<% measures.sort_by(&:cms_int).each.with_index do |measure, measure_index| %>
+<% @measures.sort_by(&:cms_int).each.with_index do |measure, measure_index| %>
   <div class = 'panel-group' id = '<%= measure.cms_id %>' disabled = true>
     <div class = 'panel panel-default'>
       <div class = 'panel-heading'>

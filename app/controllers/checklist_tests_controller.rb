@@ -43,6 +43,7 @@ class ChecklistTestsController < ProductTestsController
 
   def measure
     @product = @product_test.product
+    @measures = @product_test.measures
     set_breadcrumbs
     add_breadcrumb "Measure: #{@measure.cms_id}", measure_checklist_test_path(@product_test, @measure)
   end
