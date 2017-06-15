@@ -20,7 +20,7 @@ module Validators
       refs
     end
 
-    def update_entries(record, refs)
+    def update_entries(record, bundle, refs)
       record.entries.each do |entry|
         entry._id = if refs.include?(entry.cda_identifier.extension)
                       BSON::ObjectId.from_string(entry.cda_identifier.extension)
@@ -29,7 +29,7 @@ module Validators
                     end
         # If the entry is negated, there is a NA codeset and there is only one code, find a code to use for calcuation
         if entry.negationInd && entry.codes.key?('NA_VALUESET') && entry.codes.size == 1
-          valueset = HealthDataStandards::SVS::ValueSet.where(oid: entry.codes['NA_VALUESET'].first, bundle_id: @bundle.id)
+          valueset = HealthDataStandards::SVS::ValueSet.where(oid: entry.codes['NA_VALUESET'].first, bundle_id: bundle.id)
           entry.add_code(valueset.first.concepts.first['code'], valueset.first.concepts.first['code_system_name'])
         end
       end

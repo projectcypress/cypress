@@ -48,7 +48,7 @@ module Validators
       update_conditions(record)
       # When imported from go, entry ids need to be updated to reflected references
       # When imported from go, negated enries need to lookup a related code
-      update_entries(record, resolve_references(record))
+      update_entries(record, @bundle, resolve_references(record))
       record.save
       record
     rescue
