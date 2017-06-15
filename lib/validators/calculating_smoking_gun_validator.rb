@@ -1,7 +1,6 @@
 module Validators
   class CalculatingSmokingGunValidator < SmokingGunValidator
     include Validators::Validator
-    include Validators::GoImport
     def initialize(measures, records, test_id, options = {})
       @measures = measures
       super
@@ -45,10 +44,10 @@ module Validators
       record.medical_record_number = rand(1_000_000_000_000_000)
       # When imported from go, conditions that are unresolved need to have a stop_time added
       # When imported from go, diagnoses need to have a status_code of null
-      update_conditions(record)
+      Cypress::GoImport.update_conditions(record)
       # When imported from go, entry ids need to be updated to reflected references
       # When imported from go, negated enries need to lookup a related code
-      update_entries(record, @bundle, resolve_references(record))
+      Cypress::GoImport.update_entries(record, @bundle, Cypress::GoImport.resolve_references(record))
       record.save
       record
     rescue

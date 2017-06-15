@@ -1,4 +1,3 @@
-include Validators::GoImport
 module Cypress
   class Cat3Calculator
     attr_accessor :correlation_id, :measure, :bundle, :mre, :qr
@@ -69,8 +68,8 @@ module Cypress
 
     def import_cat1_file(doc)
       record = GoCDATools::Import::GoImporter.instance.parse_with_ffi(doc)
-      update_conditions(record)
-      update_entries(record, @bundle, resolve_references(record))
+      Cypress::GoImport.update_conditions(record)
+      Cypress::GoImport.update_entries(record, @bundle, Cypress::GoImport.resolve_references(record))
       record.test_id = @correlation_id
       record.medical_record_number = rand(1_000_000_000_000_000)
       record.save

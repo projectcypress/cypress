@@ -1,6 +1,6 @@
-module Validators
+module Cypress
   module GoImport
-    def update_conditions(record)
+    def self.update_conditions(record)
       record.conditions.each do |condition|
         if condition.status_code['HL7 ActStatus'] && condition.status_code['HL7 ActStatus'][0] == ''
           condition.status_code['HL7 ActStatus'][0] = nil
@@ -9,7 +9,7 @@ module Validators
       end
     end
 
-    def resolve_references(record)
+    def self.resolve_references(record)
       refs = []
       record.entries.each do |entry|
         entry.references.each do |ref|
@@ -20,7 +20,7 @@ module Validators
       refs
     end
 
-    def update_entries(record, bundle, refs)
+    def self.update_entries(record, bundle, refs)
       record.entries.each do |entry|
         entry._id = if refs.include?(entry.cda_identifier.extension)
                       BSON::ObjectId.from_string(entry.cda_identifier.extension)
