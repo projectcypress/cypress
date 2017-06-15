@@ -33,9 +33,8 @@ class Cat3FilterTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(xml, User.first)
       te.reload
-      # We will need to update this.  There are 16 errors for the supplemental error checks
-      # This test is not currently passing in all of the relevant information
-      assert_equal 16, te.execution_errors.length, 'test execution with known good results should not have any errors'
+      assert_empty te.execution_errors, 'test execution with known good results should not have any errors'
+      assert te.passing?, 'test execution with known good results should pass'
     end
   end
 end
