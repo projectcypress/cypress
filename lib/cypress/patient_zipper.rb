@@ -22,9 +22,7 @@ module Cypress
   end
 
   class QRDAExporter
-    C3EXPORTER = GoCDATools::Export::GoExporter.instance
-    C3_1EXPORTER = GoCDATools::Export::GoExporter.instance
-    C4EXPORTER = GoCDATools::Export::GoExporter.instance
+    QRDA_EXPORTER = GoCDATools::Export::GoExporter.instance
 
     attr_accessor :measures
     attr_accessor :start_time
@@ -34,27 +32,17 @@ module Cypress
       @measures = measures.to_a
       @start_time = start_time
       @end_time = end_time
-      @valueset_json_map = {}
-      Bundle.all.each do |bundle|
-        value_sets = HealthDataStandards::SVS::ValueSet.where(:oid.in => @measures.map(&:oids).flatten, bundle_id: bundle.id)
-        @valueset_json_map[bundle.id] = value_sets.to_json
+      if @measures.blank?
+        @value_sets = '[]'
+      else
+        @value_sets = HealthDataStandards::SVS::ValueSet.where(:oid.in => @measures.map(&:oids).flatten, bundle_id: @measures.first.bundle_id)
       end
-      @measures_json = @measures.to_json
+      QRDA_EXPORTER.load_measures_and_value_sets(@measures.to_json, @value_sets.to_json)
     end
 
     def export(patient)
       cms_compatibility = patient.product_test && patient.product_test.product.c3_test
-      case patient.bundle.qrda_version
-      when 'r3'
-        C3EXPORTER.export_with_ffi(patient.to_json(:include => :provider), @measures_json, @valueset_json_map[patient.bundle.id],
-                                   start_time, end_time, 'r3', cms_compatibility)
-      when 'r3_1'
-        C3_1EXPORTER.export_with_ffi(patient.to_json(:include => :provider), @measures_json, @valueset_json_map[patient.bundle.id],
-                                     start_time, end_time, 'r3_1', cms_compatibility)
-      when 'r4'
-        C4EXPORTER.export_with_ffi(patient.to_json(:include => :provider), @measures_json, @valueset_json_map[patient.bundle.id],
-                                   start_time, end_time, 'r4', cms_compatibility)
-      end
+      QRDA_EXPORTER.export_with_ffi(patient.to_json(:include => :provider), start_time, end_time, patient.bundle.qrda_version, cms_compatibility)
     end
   end
 
