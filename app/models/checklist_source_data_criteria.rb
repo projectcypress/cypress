@@ -7,6 +7,7 @@ class ChecklistSourceDataCriteria
 
   field :measure_id, type: String
   field :source_data_criteria, type: String # this is the name of the source_data_criteria
+  field :replacement_data_criteria, type: String
 
   field :recorded_result, type: String
   field :code, type: String
@@ -25,6 +26,14 @@ class ChecklistSourceDataCriteria
     result_completed?
     attribute_code_matches_valueset?
     code_matches_valueset?
+  end
+
+  def change_criteria
+    if replacement_data_criteria != source_data_criteria
+      checklist_test.checked_criteria.create(measure_id: measure_id, source_data_criteria: replacement_data_criteria,
+                                             negated_valueset: false, replacement_data_criteria: replacement_data_criteria)
+      delete
+    end
   end
 
   def checklist_complete?
