@@ -23,6 +23,7 @@ class ChecklistTestsController < ProductTestsController
     @product = @product_test.product
     @product_test.update_attributes(checklist_test_params)
     @product_test.checked_criteria.each(&:validate_criteria)
+    @product_test.checked_criteria.each(&:change_criteria)
     @product_test.save!
     respond_to do |format|
       format.html { redirect_to product_checklist_test_path(@product, @product_test) }
@@ -73,7 +74,13 @@ class ChecklistTestsController < ProductTestsController
   end
 
   def checklist_test_params
-    params[:product_test].permit(checked_criteria_attributes: [:id, :_destroy, :code, :attribute_code, :recorded_result,
-                                                               :negated_valueset, :selected_negated_valueset])
+    params[:product_test].permit(checked_criteria_attributes: [:id,
+                                                               :_destroy,
+                                                               :code,
+                                                               :attribute_code,
+                                                               :recorded_result,
+                                                               :negated_valueset,
+                                                               :selected_negated_valueset,
+                                                               :replacement_data_criteria])
   end
 end
