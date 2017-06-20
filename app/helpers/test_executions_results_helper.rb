@@ -45,16 +45,28 @@ module TestExecutionsResultsHelper
   end
 
   def population_errors_by_population_id(errors, population_id)
-    population_errors = errors.select do |err|
+    [population_errors(errors, population_id), stratification_errors(errors, population_id),
+     pop_sum_errors(errors, population_id), supplemental_errors(errors, population_id)]
+  end
+
+  def population_errors(errors, population_id)
+    errors.select do |err|
       err.error_details['population_id'] == population_id && !err.error_details['stratification'] && err.error_details['type'] == 'population'
     end
-    stratification_errors = errors.select do |err|
+  end
+
+  def stratification_errors(errors, population_id)
+    errors.select do |err|
       err.error_details['population_id'] == population_id && err.error_details['stratification'] && err.error_details['type'] == 'population'
     end
-    supplemental_errors = errors.select do |err|
-      err.error_details['population_id'] == population_id && err.error_details['type'] == 'supplemental_data'
-    end
-    [population_errors, stratification_errors, supplemental_errors]
+  end
+
+  def pop_sum_errors(errors, population_id)
+    errors.select { |err| err.error_details['population_id'] == population_id && err.error_details['type'] == 'population_sum' }
+  end
+
+  def supplemental_errors(errors, population_id)
+    errors.select { |err| err.error_details['population_id'] == population_id && err.error_details['type'] == 'supplemental_data' }
   end
 
   # Iterates through supplemental data errors to find populations that have errors messages.

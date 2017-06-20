@@ -15,6 +15,17 @@ class TestExecutionHelper < ActiveSupport::TestCase
                         'health_data_standards_svs_value_sets')
     load_library_functions
     @vendor = Vendor.create(name: 'test_vendor_name')
+    @errors = []
+    @errors << { message: 'pop_error',
+                 error_details: { 'population_id' => 'IPP', 'stratification' => false, 'type' => 'population' } }
+    @errors << { message: 'strat_error',
+                 error_details: { 'population_id' => 'IPP', 'stratification' => true, 'type' => 'population' } }
+    @errors << { message: 'not correct',
+                 error_details: { 'population_id' => 'IPOP', 'stratification' => false, 'type' => 'population' } }
+    @errors << { message: 'pop_sum_error',
+                 error_details: { 'population_id' => 'IPP', 'stratification' => false, 'type' => 'population_sum' } }
+    @errors << { message: 'sup_error',
+                 error_details: { 'population_id' => 'IPP', 'stratification' => false, 'type' => 'supplemental_data' } }
   end
 
   def setup_product_tests(c1, c2, c3, c4, filters)
@@ -110,6 +121,34 @@ class TestExecutionHelper < ActiveSupport::TestCase
 
     assert_not_includes msg, 'Most Recent'
     assert_includes msg, '(passing)'
+  end
+
+  def test_population_errors
+    pop_errors = population_errors(@errors, 'IPP')
+
+    assert_equal 1, pop_errors.length
+    assert_equal 'pop_error', pop_errors[0].message
+  end
+
+  def test_stratification_errors
+    strat_errors = stratification_errors(@errors, 'IPP')
+
+    assert_equal 1, strat_errors.length
+    assert_equal 'strat_error', strat_errors[0].message
+  end
+
+  def test_pop_sum_errors
+    psum_errors = pop_sum_errors(@errors, 'IPP')
+
+    assert_equal 1, psum_errors.length
+    assert_equal 'pop_sum_error', psum_errors[0].message
+  end
+
+  def test_supplemental_errors
+    sup_errors = supplemental_errors(@errors, 'IPP')
+
+    assert_equal 1, sup_errors.length
+    assert_equal 'sup_error', sup_errors[0].message
   end
 
   # -1 is first before second
