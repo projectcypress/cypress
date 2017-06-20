@@ -90,7 +90,7 @@ module Validators
     end
 
     def check_sup_keys(ex_sup, reported_result, keys_and_ids, stratification, options)
-      esr = ExpectedSupplementalResults.new
+      esr = ExpectedSupplementalResults.new(@file_name)
       sup_keys = ex_sup.keys.reject(&:blank?)
       reported_sup = (reported_result[:supplemental_data] || {})[keys_and_ids[:pop_key]]
 

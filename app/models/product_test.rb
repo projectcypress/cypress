@@ -108,10 +108,9 @@ class ProductTest
     dups = records.find(ids)
 
     recs, dups = randomize_clinical_data(recs, dups, random)
-
-    (random.rand(3) + 1).times do
+    dups.sample(random.rand(1..3), random: random).each do |rec|
       prng_repeat = Random.new(rand_seed.to_i)
-      dup_rec, rec_augments, old_rec = dups.sample(random: random).duplicate_randomization(random: prng_repeat)
+      dup_rec, rec_augments, old_rec = rec.duplicate_randomization(random: prng_repeat)
       if car.validate_calculated_results(dup_rec, 'effective_date' => effective_date)
         augmented_records << rec_augments
         recs << dup_rec
