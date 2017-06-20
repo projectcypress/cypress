@@ -127,7 +127,9 @@ class ProductTest
   def randomize_clinical_data(recs, dups, random)
     # Pic a record to clinically randomize, then delete it from dups (so it doesn't get duplicated also)
     # And delete it from recs so we don't return the whole patient too
-    clinical_record = dups.shuffle(random: random).pop
+    return [recs, dups] if dups.count < 2
+    clinical_record = dups.sample(random: random)
+    dups.delete(clinical_record)
     recs.delete(clinical_record)
     [recs.concat(Cypress::ClinicalRandomizer.randomize(clinical_record, random: random)), dups]
   end
