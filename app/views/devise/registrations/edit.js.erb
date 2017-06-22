@@ -1,0 +1,9 @@
+
+
+$('.recent-activity-table').html("<%= escape_javascript render partial: 'recent_activity', locals: { test_executions: @test_executions } %>");
+Turbolinks.ProgressBar.done();
+
+$('.activity-paginate').click(function (event) {
+  Turbolinks.ProgressBar.start();
+  Turbolinks.ProgressBar.advanceTo(25);
+});

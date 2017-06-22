@@ -6,6 +6,8 @@ class RegistrationsController < Devise::RegistrationsController
   before_action :configure_permitted_parameters
   before_action :load_test_executions, only: [:edit, :update]
 
+  respond_to :js, only: [:edit]
+
   def new
     @title = 'Create Account'
     super
@@ -19,7 +21,8 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def load_test_executions
-    @test_executions = current_user.test_executions
+    @all_executions = current_user.test_executions.order([:updated_at, :desc])
+    @test_executions = Kaminari.paginate_array(@all_executions).page(params[:page]).per(15)
   end
 
   def configure_permitted_parameters

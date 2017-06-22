@@ -50,7 +50,7 @@ gem 'local_time'
 # gem 'therubyracer', platforms: :ruby
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks', '2.5.3'
+gem 'turbolinks', git: 'https://github.com/turbolinks/turbolinks-classic', branch: 'master'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # A set of responders modules to dry up your Rails 4.2+ app.
