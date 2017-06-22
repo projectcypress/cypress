@@ -1,0 +1,60 @@
+<p align="center">
+<% unless @test_executions.current_page == 1%>
+  <%= link_to('Previous Page', url_for(page: @test_executions.current_page - 1), class: "activity-paginate", remote: true) %>
+<% end %>
+|
+<% unless @test_executions.current_page == @test_executions.total_pages %>
+  <%= link_to('Next Page', url_for(page: @test_executions.current_page + 1), class: "activity-paginate", remote: true) %>
+<% end %>
+</p>
+
+<table style="padding-bottom: 30px;" class = 'table table-hover user_tests_table'>
+  <thead>
+    <th scope = 'col' class = 'col-sm-2 pointer-on-hover'>Product</th>
+    <th scope = 'col' class = 'col-sm-4 pointer-on-hover'>Test Name</th>
+    <th scope = 'col' class = 'col-sm-2 no-wrap pointer-on-hover'>Task</th>
+    <th scope = 'col' class = 'col-sm-2 no-wrap pointer-on-hover'>Results</th>
+    <th scope = 'col' class = 'col-sm-2'>Last Updated</th>
+  </thead>
+
+
+  <tbody>
+
+    <% test_executions.each do |test_execution| %>
+      <% task = test_execution.task %>
+      <tr>
+        <% test = task.product_test %>
+        <td data-order="<%= test.product.name %>"><%= link_to test.product.name, vendor_product_path(test.product.vendor_id, test.product) %><%=" (#{test.product.vendor.name})"%></td>
+        <td><%= link_to "#{test.cms_id} #{test.name}", new_task_test_execution_path(task) %></td>
+
+        <% case task._type %>
+        <% when "C1ChecklistTask" %>
+          <td>C1 (Sample)</td>
+        <% when "C1Task" %>
+          <td>C1 (QRDA-I)</td>
+        <% when "C2Task" %>
+          <td>C2 (QRDA-III)</td>
+        <% when "C3ChecklistTask" %>
+          <td>C3 (Sample)</td>
+        <% when "C3Cat1Task" %>
+          <td>C3 (QRDA-I)</td>
+        <% when "C3Cat3Task" %>
+          <td>C3 (QRDA-III)</td>
+        <% when "Cat1FilterTask" %>
+          <td>C4 (QRDA-I)</td>
+        <% when "Cat3FilterTask" %>
+          <td>C4 (QRDA-III)</td>
+        <% else%>
+          <td>Undefined</td>
+        <% end %>
+
+        <td data-order="<%= set_sorting(test, task.status) %>">
+          <%= render partial: 'execution_status_message', locals: { execution: test_execution, test_state: test.state } %>
+        </td>
+        <td class="no-wrap" data-order="<%= test_execution.updated_at %>">
+          <i class="fa fa-fw fa-clock-o" aria-hidden="true"></i><%= local_time_ago(test_execution.updated_at) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

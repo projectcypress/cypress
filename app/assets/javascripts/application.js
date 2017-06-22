@@ -33,7 +33,7 @@
 //= require_tree .
 
 $(function() {
-  Turbolinks.enableProgressBar();
+  Turbolinks.ProgressBar.enable();
   $('.breadcrumb').breadcrumb();
 
   $(document).on('ajaxComplete',function(e){

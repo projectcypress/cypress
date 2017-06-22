@@ -1,4 +1,6 @@
 /*eslint max-statements: ["error", 15]*/
+/*global Turbolinks */
+/*eslint no-undef: "error"*/
 var assignmentsReady = function(){
   var assignmentIndex = 1000;
   var  addAssignment = function(e){
@@ -46,6 +48,11 @@ ready = function() {
   });
 
   $customModeButtons.trigger('change');
+
+  $('.activity-paginate').click(function (event) {
+    Turbolinks.ProgressBar.start();
+    Turbolinks.ProgressBar.advanceTo(25);
+  });
 };
 
 $(document).ready(ready);
