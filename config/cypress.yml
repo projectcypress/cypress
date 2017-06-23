@@ -21,9 +21,11 @@ version_config:
       qrda_version: "r3"
       qrda3_version: "r1"
       modified_population_labels:
+      default_negation_codes:
   '~>2016.0.0':
       modified_population_labels:
         IPP: 'IPOP'
+      default_negation_codes:
       schematron: "2016.0.0"
       qrda_version: "r3_1"
       qrda3_version: "r2"
@@ -35,6 +37,13 @@ version_config:
       schematron: "2017.0.0"
       qrda_version: "r4"
       qrda3_version: "r2"
+      default_negation_codes:
+        2.16.840.1.113883.3.526.3.1184:
+          code: "854901"
+          codeSystem: "RxNorm"
+        2.16.840.1.113883.3.526.3.1174:
+          code: "854901"
+          codeSystem: "RxNorm"
       CMSQRDA3SchematronValidator_warnings:
         - "The 2017 CMS EC QRDA Category III submission rules haven't been finalized yet"
       CMSQRDA1HQRSchematronValidator_warnings:
