@@ -15,6 +15,10 @@ class Bundle
     delete
   end
 
+  def default_negation_codes
+    ApplicationController.helpers.config_for_version(version).default_negation_codes
+  end
+
   def qrda_version
     ApplicationController.helpers.config_for_version(version).qrda_version
   end
