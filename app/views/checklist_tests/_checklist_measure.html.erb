@@ -40,7 +40,7 @@
                   <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
                   <% if criteria.key?('description') %>
                     <tr>
-                      <td rowspan="3" class='hide-me'>
+                      <td rowspan="3" class='data-criteria hide-me'>
                         <% if criteria_field.object.passed_qrda %>
                           <span class="sr-only">Passes QRDA</span>
                           <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
@@ -97,10 +97,15 @@
                           </td>
                           <% if criteria.negation %>
                           <td class='show-me' style='display: none;'>
-
-                            <%= criteria_field.check_box :negated_valueset, label_class: 'label toggle' do %>
+                            <%= criteria_field.check_box :negated_valueset, label_class: 'label toggle', onclick: "lookupLabelFunction(#{index})" do %>
                               <div class="toggle-control"></div>
                             <% end %>
+                            <div class='negation_toggle' id="<%= "code#{index}" %>" style='display: none;'>
+                              <%= criteria_field.label(:criteria_field, "Toggle to negate entire valueset", class: "title_label") %>
+                            </div>
+                            <div id="<%= "vs#{index}" %>">
+                              <%= criteria_field.label(:criteria_field, "Toggle to negate single code", class: "title_label") %>
+                            </div>
                            </td>
                           <% else %>
                             <td/>
