@@ -1,10 +1,11 @@
 module RecordsHelper
-  SECTIONS = %w(allergies care_goals conditions encounters immunizations
+  SECTIONS = %w(allergies asessments care_goals conditions encounters immunizations
                 medical_equipment medications procedures results communications
                 family_history social_history vital_signs support advance_directives
                 insurance_providers functional_statuses).freeze
   FIELDS = %w(name principalDiagnosis values dose dischargeDisposition route
-              administrationTiming fulfillmentHistory reason direction ordinality
+              administrationTiming fulfillmentHistory r
+              eason direction ordinality
               transferFrom laterality anatomical_location diagnosis).freeze
   SUBFIELDS = %w(title scalar value unit units description period dispenseDate quantityDispensed time).freeze
   CV_POPULATION_KEYS = %w(IPP MSRPOPL MSRPOPLEX OBSERV).freeze
