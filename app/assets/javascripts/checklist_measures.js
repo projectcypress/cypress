@@ -3,14 +3,14 @@ function lookupLabelFunction(index) {
 // Declare variables
   var input, input2, checkbox;
   input = document.getElementById("code"+index);
-  if(input != null){
+  if(input !== null){
     input2 = document.getElementById("vs"+index);
     checkbox = document.getElementById("product_test_checked_criteria_attributes_"+index+"_negated_valueset");
     if(checkbox.checked == true){
-      input.style["display"] = "none"
+      input.style.display = "none"
       input2.style = ""
     } else {
-      input2.style["display"] = "none"
+      input2.style.display = "none"
       input.style = ""
     }
   }
@@ -28,7 +28,7 @@ ready_run_once = function() {
 
   // For each criteria, lookup if its a negated code or vs, to set toggle lable
   var li = document.getElementsByClassName("data-criteria");
-  for (i = 0; i < li.length; i++) {
+  for (var i = 0; i < li.length; i++) {
     lookupLabelFunction(i)
   }
 
