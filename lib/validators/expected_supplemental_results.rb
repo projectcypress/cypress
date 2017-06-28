@@ -25,25 +25,41 @@ sum #{sup_sum} of supplemental key #{keys_and_ids[:sup_key]} values)
 
     def check_supplemental_data_expected_not_reported(expect_sup_val, report_sup_val, keys_and_ids, modified_population_labels, options)
       expect_sup_val.each_pair do |code, expect_val|
+        report_val = get_translated_report_val(report_sup_val, code, keys_and_ids[:sup_key])
         next unless report_sup_val.nil? ||
-                    ((code != 'UNK' && expect_val != report_sup_val[code]) &&
+                    ((code != 'UNK' && expect_val != report_val) &&
                      !CalculatingAugmentedResults.augmented_sup_val_expected?(options['task'], keys_and_ids, code,
-                                                                              { expect: expect_sup_val[code], report: report_sup_val[code] },
+                                                                              { expect: expect_val, report: report_val },
                                                                               modified_population_labels))
         report_val = report_sup_val.nil? ? 0 : report_sup_val[code]
         add_sup_data_error(keys_and_ids, code, expect_val, report_val)
       end
     end
 
+    def get_translated_report_val(report_sup_val, code, sup_key)
+      return nil if report_sup_val.nil?
+      payer = APP_CONSTANTS['randomization']['payers'].find { |p| p['code'].to_s == code }
+      code_cms = payer ? payer['codeCMS'] : ''
+      return report_sup_val[code] if sup_key != 'PAYER' || !report_sup_val[code].nil? || report_sup_val[code_cms].nil?
+      report_sup_val[code_cms]
+    end
+
     def check_supplemental_data_reported_not_expected(expect_sup_val, report_sup_val, keys_and_ids, modified_population_labels, options)
       return if report_sup_val.nil?
       report_sup_val.each_pair do |code, report_val|
+        code = get_untranslated_code(code, keys_and_ids[:sup_key])
         next unless report_val > 0 && expect_sup_val[code].nil? &&
                     !CalculatingAugmentedResults.augmented_sup_val_expected?(options['task'], keys_and_ids, code,
-                                                                             { expect: expect_sup_val[code], report: report_sup_val[code] },
+                                                                             { expect: expect_sup_val[code], report: report_val },
                                                                              modified_population_labels)
         add_sup_data_error(keys_and_ids, code, 0, report_val)
       end
+    end
+
+    def get_untranslated_code(code, sup_key)
+      return code if sup_key != 'PAYER'
+      payer = APP_CONSTANTS['randomization']['payers'].find { |p| p['codeCMS'].to_s == code }
+      payer ? payer['code'].to_s : code
     end
 
     def add_sup_data_error(keys_and_ids, code, expect_val, report_val)

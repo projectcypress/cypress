@@ -73,14 +73,17 @@ randomization:
       code       : 1
       name       : Medicare
       codeSystem : SOP
+      codeCMS    : A
     - type       : MC
       code       : 2
       name       : Medicaid
       codeSystem : SOP
+      codeCMS    : B
     - type       : OT
       code       : 349
       name       : Other
       codeSystem : SOP
+      codeCMS    : D
 references:
   bundles:
     previous:
