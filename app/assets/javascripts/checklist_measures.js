@@ -1,3 +1,21 @@
+/* exported lookupLabelFunction */
+function lookupLabelFunction(index) {
+// Declare variables
+  var input, input2, checkbox;
+  input = document.getElementById("code"+index);
+  if(input !== null){
+    input2 = document.getElementById("vs"+index);
+    checkbox = document.getElementById("product_test_checked_criteria_attributes_"+index+"_negated_valueset");
+    if(checkbox.checked == true){
+      input.style.display = "none"
+      input2.style = ""
+    } else {
+      input2.style.display = "none"
+      input.style = ""
+    }
+  }
+}
+
 // these pieces should run only once, at page load
 var ready_run_once;
 ready_run_once = function() {
@@ -8,6 +26,11 @@ ready_run_once = function() {
     $('.btn-danger').attr('disabled', false);
   });
 
+  // For each criteria, lookup if its a negated code or vs, to set toggle lable
+  var li = document.getElementsByClassName("data-criteria");
+  for (var i = 0; i < li.length; i++) {
+    lookupLabelFunction(i)
+  }
 
 };
 
