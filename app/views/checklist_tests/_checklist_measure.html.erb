@@ -111,7 +111,7 @@
                             <td/>
                           <% end %>
                           <td class='show-me' style='display: none;'>
-                            <%= criteria_field.select :replacement_data_criteria, available_data_criteria(measure, criteria), :selected => criteria_field.object.source_data_criteria, class: 'show-me' %>
+                            <%= criteria_field.select :replacement_data_criteria, available_data_criteria(measure, criteria, criteria_field.object.source_data_criteria), :selected => criteria_field.object.source_data_criteria, class: 'show-me' %>
                           <td>
                         </tr>
                       <% end %>

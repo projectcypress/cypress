@@ -27,9 +27,8 @@ module ChecklistTestsHelper
     end
   end
 
-  def available_data_criteria(measure, criteria)
+  def available_data_criteria(measure, criteria, original_sdc)
     dc_hash = {}
-    og_dsc = ''
     og_string = ''
     measure.data_criteria.each do |dc|
       next if substituable_data_criteria?(dc)
@@ -38,11 +37,10 @@ module ChecklistTestsHelper
       # Store the original data source criteria and display string, makes sure you can reselect the orignal criteria
       # This is important for when the same criteria is used in multiple ways in the same measure
       if dc[dc.keys[0]].source_data_criteria == criteria.source_data_criteria
-        og_dsc = dc.keys[0]
         og_string = dc_string
       end
     end
-    dc_hash[og_string] = og_dsc
+    dc_hash[og_string] = original_sdc
     Hash[dc_hash.sort]
   end
 
