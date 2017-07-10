@@ -9,7 +9,7 @@ addons:
       - sourceline: 'deb http://repo.mongodb.org/apt/ubuntu precise/mongodb-org/3.4 multiverse'
         key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x9ECBEC467F0CEB10'
     packages:
-      - mongodb-org-server
+      - mongodb-org-server=3.4.5
 services:
   - mongodb
 branches:
