@@ -5,6 +5,11 @@ RUN apt-get update \
     && apt-get install -y nodejs tzdata \
     && rm -rf /var/lib/apt/lists/*
 
+# Install ruby 2.3.4 in order to match what we are developing against.
+RUN bash -lc 'rvm install ruby-2.3.4'
+RUN bash -lc 'rvm --default use ruby-2.3.4'
+RUN gem install bundler
+
 ENV RAILS_ENV production
 ENV RAILS_SERVE_STATIC_FILES 1
 
@@ -29,11 +34,9 @@ RUN mkdir -p tmp
 # we are able to do the bundle install earlier on which means it is cached more often.
 RUN chown -R app:app .
 
-RUN rm -f /etc/service/nginx/down
-
-RUN rm /etc/nginx/sites-enabled/default
-ADD docker-nginx.conf /etc/nginx/sites-enabled/cypress.conf
-ADD docker-nginx-env.conf /etc/nginx/main.d/nginx-env.conf
+RUN mkdir /etc/service/unicorn
+ADD docker_unicorn_start.sh /etc/service/unicorn/run
+RUN chmod 755 /etc/service/unicorn/run
 
 RUN mkdir /etc/service/cypress_delayed_job_1
 ADD docker_delayed_job.sh /etc/service/cypress_delayed_job_1/run
