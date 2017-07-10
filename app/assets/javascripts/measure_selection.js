@@ -124,8 +124,11 @@ function UpdateMeasureSet(bundle_id) {
 }
 
 function HookupProductSearch() {
+  // Get all bundles listed on the page
+  var bundles = $('input[name="product[bundle_id]"]')
   // Fetch the currently selected bundle from the list on the top of the page.
-  var bundle_id = $('input[name="product[bundle_id]"]:checked').val()
+  // If there are multiple bundles then grab only the one that is checked.
+  var bundle_id = bundles.filter(':checked').val() || bundles.val()
   // Remove or urlencode any special characters from the search query
   var current_search = encodeURIComponent($('#product_search_measures').val().replace(/[!'()*]/g, ""))
   // Searchbox is #product_search_measures which is currently the parent.
