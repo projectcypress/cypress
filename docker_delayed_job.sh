@@ -7,5 +7,5 @@ PID_FULL_PATH="$PID_FOLDER/$PID_NAME"
 cd /home/app/cypress
 mkdir -p $PID_FOLDER
 touch $PID_FULL_PATH
-exec /sbin/setuser app bundle exec rake jobs:work >>log/$PROCESS_NAME.log 2>&1
+exec /sbin/setuser app bundle exec rake jobs:work >> log/$PROCESS_NAME.log 2>&1
 rm $PID_FULL_PATH

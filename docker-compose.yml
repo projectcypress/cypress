@@ -14,9 +14,7 @@ services:
     env_file: .env-prod
     restart: unless-stopped
   mongodb:
-    image: mongo
+    image: mongo:3.4.5
     volumes:
       - /data/db
-    ports:
-      - "27017:27017"
     restart: unless-stopped
