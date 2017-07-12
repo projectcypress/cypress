@@ -29,7 +29,7 @@ class ChecklistSourceDataCriteria
   end
 
   def change_criteria
-    if replacement_data_criteria != source_data_criteria
+    if replacement_data_criteria && replacement_data_criteria != source_data_criteria
       checklist_test.checked_criteria.create(measure_id: measure_id, source_data_criteria: replacement_data_criteria,
                                              negated_valueset: false, replacement_data_criteria: replacement_data_criteria)
       delete

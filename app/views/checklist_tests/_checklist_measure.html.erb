@@ -55,6 +55,10 @@
                           <td/>
                           <td/>
                           <td/>
+                          <td/>
+                          <td rowspan="2" class='show-me' style='display: none;'>
+                            <%= criteria_field.select :replacement_data_criteria, available_data_criteria(measure, criteria, criteria_field.object.source_data_criteria), :selected => criteria_field.object.source_data_criteria, class: 'show-me' %>
+                          <td>
                         </tr>
                       <% else %>
                         <td rowspan="3"><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
@@ -97,13 +101,13 @@
                           </td>
                           <% if criteria.negation %>
                           <td class='show-me' style='display: none;'>
-                            <%= criteria_field.check_box :negated_valueset, label_class: 'label toggle', onclick: "lookupLabelFunction(#{index})" do %>
+                            <%= criteria_field.check_box :negated_valueset, label_class: 'label toggle', onclick: "lookupLabelFunction(#{criteria_field.index})" do %>
                               <div class="toggle-control"></div>
                             <% end %>
-                            <div class='negation_toggle' id="<%= "code#{index}" %>" style='display: none;'>
+                            <div class='negation_toggle' id="<%= "code#{criteria_field.index}" %>" style='display: none;'>
                               <%= criteria_field.label(:criteria_field, "Toggle to negate entire valueset", class: "title_label") %>
                             </div>
-                            <div id="<%= "vs#{index}" %>">
+                            <div id="<%= "vs#{criteria_field.index}" %>">
                               <%= criteria_field.label(:criteria_field, "Toggle to negate single code", class: "title_label") %>
                             </div>
                            </td>
