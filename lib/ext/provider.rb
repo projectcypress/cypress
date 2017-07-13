@@ -19,6 +19,7 @@ class Provider
     prov.family_name = NAMES_RANDOM['last'].sample
     prov.npi = NpiGenerator.generate
     prov.tin = rand.to_s[2..10]
+    prov.ccn = rand(1..66).to_s.rjust(2, '0') + rand(1..9899).to_s
     prov.specialty = default_specialty(options[:measure_type])
     prov.save!
     prov
