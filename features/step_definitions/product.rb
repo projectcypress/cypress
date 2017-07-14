@@ -350,7 +350,7 @@ end
 
 # one indexed. ex.) mesure_test_number == 1 is the first measure test created
 def nth_measure_test(measure_test_number)
-  @product.product_tests.measure_tests.sort { |x, y| x.created_at <=> y.created_at }[measure_test_number.to_i - 1]
+  @product.product_tests.measure_tests.sort_by(&:created_at)[measure_test_number.to_i - 1]
 end
 
 def td_div_id_for_cat1_task_for_filtering_test(filtering_test_number)
@@ -362,14 +362,14 @@ def td_div_id_for_cat3_task_for_filtering_test(filtering_test_number)
 end
 
 def nth_filtering_test(filtering_test_number)
-  @product.product_tests.filtering_tests.sort { |x, y| x.created_at <=> y.created_at }[filtering_test_number.to_i - 1]
+  @product.product_tests.filtering_tests.sort_by(&:created_at)[filtering_test_number.to_i - 1]
 end
 
 def attach_zip_to_multi_upload(html_id)
   show_hidden_upload_field(html_id)
 
   # attach zip file to multi-upload field
-  zip_path = File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip')
+  zip_path = Rails.root.join 'test/fixtures/product_tests/ep_qrda_test_good.zip'
   page.find(html_id, visible: false).attach_file('test_execution[results]', zip_path, visible: false)
 end
 
@@ -377,7 +377,7 @@ def attach_xml_to_multi_upload(html_id)
   show_hidden_upload_field(html_id)
 
   # attach zip file to multi-upload field
-  xml_path = File.join(Rails.root, 'test/fixtures/product_tests/cms111v3_catiii.xml')
+  xml_path = Rails.root.join 'test/fixtures/product_tests/cms111v3_catiii.xml'
   page.find(html_id, visible: false).attach_file('test_execution[results]', xml_path, visible: false)
 end
 
