@@ -30,6 +30,18 @@ When(/^the user creates a product with tasks (.*)$/) do |tasks|
   Record.create!(test_id: @product_test.id, provider_performances: [provider_performance])
 end
 
+# task_names should be either 'c1', 'c2', or both
+When(/^the user waits for results then views task (.*)$/) do |task_names|
+  wait_for_all_delayed_jobs_to_run
+  task = task_names.include?('c1') ? @product_test.tasks.c1_task : @product_test.tasks.c2_task
+  visit new_task_test_execution_path(task)
+end
+
+When(/^the user views the uploaded xml$/) do
+  # page.click_button 'View Uploaded XML with Errors'
+  visit file_result_test_execution_path(@product_test.tasks.c2_task.most_recent_execution, route_file_name('cms111v3_catiii.xml'))
+end
+
 #   A N D   #
 
 # only include one task_name for task_names
@@ -51,6 +63,10 @@ And(/^the product test state is set to ready$/) do
     pt.state = :ready
     pt.save!
   end
+end
+
+And(/^the user clicks the (.*) button$/) do |button_name|
+  page.find('button', text: button_name).click
 end
 
 And(/^the product test state is not set to ready$/) do
@@ -76,16 +92,17 @@ And(/^the user uploads an invalid file$/) do
   page.find('#submit-upload').click
 end
 
-# task_names should be either 'c1', 'c2', or both
-When(/^the user waits for results then views task (.*)$/) do |task_names|
-  wait_for_all_delayed_jobs_to_run
-  task = task_names.include?('c1') ? @product_test.tasks.c1_task : @product_test.tasks.c2_task
-  visit new_task_test_execution_path(task)
+And(/^the user should see no execution results$/) do
+  page.assert_no_text 'Results'
 end
 
-When(/^the user views the uploaded xml$/) do
-  # page.click_button 'View Uploaded XML with Errors'
-  visit file_result_test_execution_path(@product_test.tasks.c2_task.most_recent_execution, route_file_name('cms111v3_catiii.xml'))
+And(/^the user changes the selected bundle$/) do
+  page.all('[name=product\[bundle_id\]]').each do |bundle|
+    unless bundle.checked?
+      bundle.click
+      break
+    end
+  end
 end
 
 # # # # # # # #
@@ -140,12 +157,6 @@ end
 
 Then(/^the user should see an error message saying the upload was invalid$/) do
   assert_text 'Invalid file upload'
-end
-
-#   A N D   #
-
-And(/^the user should see no execution results$/) do
-  page.assert_no_text 'Results'
 end
 
 Then(/^the user should see a link to view the the uploaded xml$/) do
