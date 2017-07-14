@@ -230,7 +230,7 @@ ready_run_once = function() {
     $(event.currentTarget).closest('alert').find('.close').click();
   });
 
-  $('.clear-measures-btn').on('click', function(event) {
+  $(document).on('click', '.clear-measures-btn', function(event) {
     $('.measure-group .measure-checkbox').prop('checked', false).change();
     this.blur();
     // $('clear-measures-btn').setAttribute("aria-pressed", false);

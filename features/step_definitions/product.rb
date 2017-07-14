@@ -57,6 +57,11 @@ When(/^a user creates a product with (.*) certifications and visits that product
   @product = Product.find_by(name: product_name)
 end
 
+When(/^the user has one bundle and navigates to the create product page$/) do
+  Bundle.where(active: nil).destroy_all
+  steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
+end
+
 When(/^the user creates a product using appropriate information$/) do
   @product = build_product
   steps %( When the user creates a product with name #{@product.name} for vendor #{@vendor.name} )
@@ -420,7 +425,11 @@ end
 # V V V Measure Selection V V V
 
 Then(/^the group of measures should no longer be selected$/) do
-  page.has_unchecked_field?('input.measure-group-all')
+  assert_equal false, page.find('input.measure-group-all').checked?
+end
+
+Then(/^there should be (\d+) measures selected$/) do |selected_measure_count|
+  assert_equal selected_measure_count.to_i, page.all('.measure-checkbox:checked', visible: false).count
 end
 
 Then(/^all measures should still be selected$/) do
