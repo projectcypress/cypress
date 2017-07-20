@@ -182,24 +182,74 @@ class ProductTest
   private
 
   def master_patient_ids
-    mpl_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.IPP' => { '$gt' => 0 }).collect do |pcv|
+    mpl_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids },
+                                 'value.test_id' => nil, 'value.IPP' => { '$gt' => 0 }).collect do |pcv|
       pcv.value['medical_record_id']
     end
     mpl_ids.uniq!
     if product.randomize_records
-      denom_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.DENOM' => { '$gt' => 0 }).collect do |pcv|
-        pcv.value['medical_record_id']
-      end
-      denom_ids.uniq!
-      msrpopl_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.MSRPOPL' => { '$gt' => 0 }).collect do |pcv|
-        pcv.value['medical_record_id']
-      end
-      msrpopl_ids.uniq!
+      denom_ids = pick_denom_ids
+
+      msrpopl_ids = pick_msrpopl_ids
+
       ipp_ids = (mpl_ids - denom_ids - msrpopl_ids)
-      ipp_ids = ipp_ids.sample(rand((ipp_ids.count / 2.0).ceil..(ipp_ids.count)))
+
+      # Pick some IDs from the IPP. If we've already got a lot of patients, only pick a couple more, otherwise pick 1/2 or more
+      ipp_ids = if (mpl_ids.count + denom_ids.count + msrpopl_ids.count) > 50
+                  ipp_ids.sample(10)
+                else
+                  ipp_ids.sample(rand((ipp_ids.count / 2.0).ceil..(ipp_ids.count)))
+                end
       return ipp_ids + denom_ids + msrpopl_ids
     end
     mpl_ids
+  end
+
+  def pick_denom_ids
+    denom_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids },
+                                   'value.test_id' => nil, 'value.DENOM' => { '$gt' => 0 }).collect do |pcv|
+      pcv.value['medical_record_id']
+    end
+    denom_ids.uniq!
+
+    # If there are a lot of patients in denom_ids (usually when the IPP and denominator are the same thing),
+    # pull out the numerator/Denex/Denexcep patients as high value, then sample from the rest to get to 60
+    if denom_ids.count > 50
+      numer_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.test_id' => nil)
+                              .any_of({ 'value.NUMER' => { '$gt' => 0 } },
+                                      { 'value.DENEXCEP' => { '$gt' => 0 } },
+                                      'value.DENEX' => { '$gt' => 0 }).collect do |pcv|
+        pcv.value['medical_record_id']
+      end
+      numer_ids.uniq!
+      numer_ids = numer_ids.sample(50)
+      denom_ids = numer_ids + denom_ids.sample(50 - numer_ids.count)
+    end
+    denom_ids
+  end
+
+  def pick_msrpopl_ids
+    msrpopl_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids },
+                                     'value.test_id' => nil, 'value.MSRPOPL' => { '$gt' => 0 }).collect do |pcv|
+      pcv.value['medical_record_id']
+    end
+    msrpopl_ids.uniq!
+
+    # If there are a lot of patients in the MSRPOPL results above, (usually if there are a lot of MSRPOPLEX values)
+    # pull out only those patients with more than one episode in the MSRPOPL
+    # and those patients with only 1 episode in the MSRPOPL but none in the MSRPOPLEX
+    if msrpopl_ids.count > 50
+      numer_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.test_id' => nil)
+                              .any_of({ 'value.MSRPOPL' => { '$gt' => 1 } },
+                                      '$and' => [{ 'value.MSRPOPL' => { '$eq' => 1 } }, { 'value.MSRPOPLEX' => { '$eq' => 0 } }])
+                              .collect do |pcv|
+        pcv.value['medical_record_id']
+      end
+      numer_ids.uniq!
+      numer_ids = numer_ids.sample(50)
+      msrpopl_ids = numer_ids + msrpopl_ids.sample(50 - numer_ids.count)
+    end
+    msrpopl_ids
   end
 
   def generate_random_seed
