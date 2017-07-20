@@ -47,13 +47,13 @@
             <%= bootstrap_form_tag do |f| %>
               <%= f.form_group :bundle_id do %>
                 <% Bundle.all.each do |bundle| %>
-                <div style="display: inline-block">
-                  <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox",
-                                     checked: bundle == @bundle %>
-                </div>
-                <div class="radio download-btn" id='<%= bundle.id %>'>
-                  <%= render partial: "mpl_download", locals: { bundle: bundle } %>
-                </div>
+                  <div style="display: inline-block">
+                    <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox",
+                                       checked: bundle == @bundle %>
+                  </div>
+                  <div class="radio download-btn" id='<%= bundle.id %>'>
+                    <%= render partial: "mpl_download", locals: { bundle: bundle } %>
+                  </div>
                 <% end # bundle loop %>
               <% end # form_group %>
             <% end # form tag %>
