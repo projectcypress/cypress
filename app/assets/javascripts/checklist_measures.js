@@ -7,11 +7,11 @@ function lookupLabelFunction(index) {
     input2 = document.getElementById("vs"+index);
     checkbox = document.getElementById("product_test_checked_criteria_attributes_"+index+"_negated_valueset");
     if(checkbox.checked == true){
-      input.style.display = "none"
-      input2.style = ""
+      $("div#code"+index).hide()
+      $("div#vs"+index).show()
     } else {
-      input2.style.display = "none"
-      input.style = ""
+      $("div#vs"+index).hide()
+      $("div#code"+index).show()
     }
   }
 }
