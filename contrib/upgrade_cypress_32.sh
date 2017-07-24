@@ -166,6 +166,7 @@ echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb
 apt-get update
 # Major bug in mongodb 3.4.6 that breaks MapReduce. Better to downgrade than to allow that version to be used.
 apt-get -y --allow-downgrades install libc6 mongodb-org=3.4.5 mongodb-org-mongos=3.4.5 mongodb-org-server=3.4.5 mongodb-org-shell=3.4.5 mongodb-org-tools=3.4.5
+apt-mark hold mongodb-org mongodb-org-mongos mongodb-org-server mongodb-org-shell mongodb-org-tools
 
 echo "restarting Mongo Service..."
 systemctl restart mongod
