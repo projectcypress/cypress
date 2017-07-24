@@ -16,5 +16,5 @@
 # end
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
-  inflect.uncountable %w( medical_equipment )
+  inflect.uncountable %w( medical_equipment family_history social_history )
 end
