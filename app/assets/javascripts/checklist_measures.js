@@ -1,10 +1,9 @@
 /* exported lookupLabelFunction */
 function lookupLabelFunction(index) {
 // Declare variables
-  var input, input2, checkbox;
+  var input, checkbox;
   input = document.getElementById("code"+index);
   if(input !== null){
-    input2 = document.getElementById("vs"+index);
     checkbox = document.getElementById("product_test_checked_criteria_attributes_"+index+"_negated_valueset");
     if(checkbox.checked == true){
       $("div#code"+index).hide()
