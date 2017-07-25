@@ -23,7 +23,7 @@ module Validators
         end
       elsif checked_criteria.attribute_code # CMS188v6
         valueset = source_criteria[:field_values].values[0].code_list_id
-        codenodes = find_template_with_code([@file], template, valueset, checked_criteria.attribute_code, reason_template)
+        codenodes = find_template_with_attribute([@file], template, valueset, checked_criteria.attribute_code)
         passing = true unless codenodes.empty?
       end
       if passing
@@ -92,6 +92,12 @@ module Validators
       return find_reason_code(nodes, template, valueset, cc) if reason_template
       # if it isn't a reason, the file node is the first
       codenodes = nodes.first.xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{cc.code}']")
+      codenodes || []
+    end
+
+    # searches all nodes to find ones with the correct template, valueset and attribute code
+    def find_template_with_attribute(nodes, template, valueset, attribute_code)
+      codenodes = nodes.first.xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{attribute_code}']")
       codenodes || []
     end
 
