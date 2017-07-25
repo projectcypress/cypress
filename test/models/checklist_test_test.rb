@@ -63,6 +63,8 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal 'incomplete', checklist_test.status
     task.test_executions.create!(:state => :passed)
     assert_equal 'passing', checklist_test.status
+    task.test_executions.create!(:state => :failed)
+    assert_equal 'failing', checklist_test.status
   end
 
   def create_checklist_test_for_product_with_measure_id(product, measure_id)
