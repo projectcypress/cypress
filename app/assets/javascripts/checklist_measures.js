@@ -31,7 +31,11 @@ ready_run_once = function() {
   for (var i = 0; i < li.length; i++) {
     lookupLabelFunction(i)
   }
-
+  $(document).on('click', '#modify_record', function(event) {
+    event.preventDefault();
+    $('.hide-me').hide();
+    $('.show-me').show();
+  });
 };
 
 $(document).ready(ready_run_once);
@@ -55,14 +59,3 @@ for (i = 0; i < li.length; i++) {
         li[i].style.display = "none";
     }
 }}
-
-$(document).ready(function(){
-        $('#modifyrecord').on('click', function(event) {
-             event.preventDefault();
-             $('.hide-me').hide();
-             $('.show-me').show();
-
-        });
-    });
-
-
