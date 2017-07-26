@@ -66,7 +66,7 @@ class MeasureTestTest < ActiveJob::TestCase
       patient = pt.records.find_by(first: 'Selena')
       assert_equal 'Selena', patient.first, 'Patient name should not be randomized'
       assert_equal 'Lotherberg', patient.last, 'Patient name should not be randomized'
-      assert_equal '19', patient.medical_record_number, 'Patient record # should not be randomized'
+      assert_equal '0989db70-4d42-0135-8680-20999b0ed66f', patient.medical_record_number, 'Patient record # should not be randomized'
 
       pt.reload
       assert_not_nil pt.patient_archive, 'Product test should have archived patient records'
