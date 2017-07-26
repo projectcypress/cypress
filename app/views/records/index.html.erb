@@ -65,7 +65,7 @@
 
 <% end %>
 
-<% cache [@records, @measure] do %>
+<% cache [@records, @measure, hide_patient_calculation?] do %>
   <div class="row">
     <div id="records_list" class="col-sm-12">
       <%= render partial: 'records_list', locals: { records: @records } %>
