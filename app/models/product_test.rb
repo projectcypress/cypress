@@ -187,6 +187,7 @@ class ProductTest
       pcv.value['medical_record_id']
     end
     mpl_ids.uniq!
+    mpl_ids.keep_if { |id| id[8] == '-' }
     if product.randomize_records
       denom_ids = pick_denom_ids
 
@@ -222,6 +223,7 @@ class ProductTest
         pcv.value['medical_record_id']
       end
       numer_ids.uniq!
+      numer_ids.keep_if { |id| id[8] == '-' }
       numer_ids = numer_ids.sample(50)
       denom_ids = numer_ids + denom_ids.sample(50 - numer_ids.count)
     end
@@ -246,6 +248,7 @@ class ProductTest
         pcv.value['medical_record_id']
       end
       numer_ids.uniq!
+      numer_ids.keep_if { |id| id[8] == '-' }
       numer_ids = numer_ids.sample(50)
       msrpopl_ids = numer_ids + msrpopl_ids.sample(50 - numer_ids.count)
     end
