@@ -4,7 +4,7 @@ module TestExecutionsResultsHelper
   def get_select_history_message(execution, is_most_recent)
     msg = ''
     msg << 'Most Recent - ' if is_most_recent
-    msg << execution.created_at.in_time_zone.strftime('%B %e, %Y %l:%M%P')
+    msg << local_time(execution.created_at)
     case execution.status_with_sibling
     when 'passing' then msg << ' (passing)'
     when 'incomplete' then msg << ' (in progress)'
