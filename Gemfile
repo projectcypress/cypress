@@ -80,7 +80,6 @@ gem 'devise', '4.1.1'
 gem 'cancancan'
 gem 'rolify'
 gem 'devise_invitable'
-gem 'daemons'
 
 gem 'mongoid_rails_migrations', git: 'https://github.com/adacosta/mongoid_rails_migrations.git', branch: 'master'
 
