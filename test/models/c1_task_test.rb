@@ -26,6 +26,7 @@ class C1TaskTest < ActiveSupport::TestCase
 
   def test_should_be_able_to_test_a_good_archive_of_qrda_files
     task = @product_test.tasks.create({}, C1Task)
+    @product_test.product.c1_test = true
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, User.first)
@@ -62,6 +63,7 @@ class C1TaskTest < ActiveSupport::TestCase
   def test_should_have_c3_execution_as_sibling_test_execution_when_c3_task_exists
     c1_task = @product_test.tasks.create!({}, C1Task)
     c3_task = @product_test.tasks.create!({}, C3Cat1Task)
+    @product_test.product.c1_test = true
     @product_test.product.c3_test = true
     zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip'))
     perform_enqueued_jobs do

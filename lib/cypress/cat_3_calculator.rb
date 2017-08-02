@@ -68,8 +68,8 @@ module Cypress
 
     def import_cat1_file(doc)
       record = GoCDATools::Import::GoImporter.instance.parse_with_ffi(doc)
-      Cypress::GoImport.update_conditions(record)
-      Cypress::GoImport.update_entries(record, @bundle, Cypress::GoImport.resolve_references(record))
+      # When imported from go, negated enries need to lookup a related code
+      Cypress::GoImport.replace_negated_codes(record, @bundle)
       record.test_id = @correlation_id
       record.medical_record_number = rand(1_000_000_000_000_000)
       record.save

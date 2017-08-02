@@ -42,12 +42,8 @@ module Validators
       record = GoCDATools::Import::GoImporter.instance.parse_with_ffi(doc)
       record.test_id = te.id
       record.medical_record_number = rand(1_000_000_000_000_000)
-      # When imported from go, conditions that are unresolved need to have a stop_time added
-      # When imported from go, diagnoses need to have a status_code of null
-      Cypress::GoImport.update_conditions(record)
-      # When imported from go, entry ids need to be updated to reflected references
       # When imported from go, negated enries need to lookup a related code
-      Cypress::GoImport.update_entries(record, @bundle, Cypress::GoImport.resolve_references(record))
+      Cypress::GoImport.replace_negated_codes(record, @bundle)
       record.save
       record
     rescue
