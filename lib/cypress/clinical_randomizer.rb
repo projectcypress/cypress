@@ -65,21 +65,22 @@ module Cypress
       # Find a split point so each cloned record gets at least one entry type (hence, at least one entry)
       split_point = random.rand(1..(entry_types.size - 1))
 
-      record_1 = set_record_sections_for_type(record_1, record, entry_types, split_point)
-      record_2 = set_record_sections_for_type(record_2, record, entry_types, split_point)
+      record_1 = set_record_sections_for_type(record_1, record, entry_types, 0, split_point)
+      record_2 = set_record_sections_for_type(record_2, record, entry_types, split_point, entry_types.size)
 
       [record_1, record_2]
     end
 
-    def self.set_record_sections_for_type(new_record, old_record, entry_types, split_point)
+    def self.set_record_sections_for_type(new_record, old_record, entry_types, start_point, end_point)
       Record::Sections.each do |section|
         new_record.send section.to_s + '=', [] unless section == :insurance_providers
       end
 
-      entry_types.take(split_point).each do |elem|
+      entry_types[start_point...end_point].each do |elem|
         type = get_entry_type(elem)
         new_record.send(type).push old_record.send(type)
       end
+
       new_record
     end
 
