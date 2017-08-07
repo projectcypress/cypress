@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery :with => :exception, :unless => -> { request.format.json? || request.format.xml? }
 
   before_action :restrict_basic_auth, :authenticate_user!, :check_bundle_installed, :check_backend_jobs,
-                :check_remaining_disk_space, :except => %i[page_not_found server_error]
+                :check_remaining_disk_space, except: %i(page_not_found server_error)
   around_action :catch_not_found
 
   rescue_from CanCan::AccessDenied do |exception|
