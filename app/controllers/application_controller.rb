@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks with a null session
   protect_from_forgery :with => :exception, :unless => -> { request.format.json? || request.format.xml? }
 
-  before_action :restrict_basic_auth, :authenticate_user!, :check_bundle_installed, :check_backend_jobs, except: [:page_not_found, :server_error]
+  before_action :restrict_basic_auth, :authenticate_user!, :check_bundle_installed, :check_backend_jobs,
+                :check_remaining_disk_space, :except => %i[page_not_found server_error]
   around_action :catch_not_found
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -44,6 +45,19 @@ class ApplicationController < ActionController::Base
     bundle
   end
 
+  def check_remaining_disk_space
+    Vmstat.snapshot.disks.each do |disk|
+      disk_percentage = 100 - ((disk.available_blocks / disk.total_blocks.to_f) * 100).round
+      disk_full_msg = "Your disk is #{disk_percentage}% full, please check your remaining hard disk space and " \
+                      'clean up old tests in order to ensure continued stable operation of the Cypress application.'
+      if disk_percentage >= 95
+        flash.now[:disk_space_danger] = disk_full_msg
+      elsif disk_percentage >= 80
+        flash.now[:disk_space_warning] = disk_full_msg
+      end
+    end
+  end
+
   # if the jobs are not running then there will be no pid files in the pid direectory
   # they will not be running if the pid directory is not avaialable which will cause an
   # exception to be thrown
@@ -51,9 +65,9 @@ class ApplicationController < ActionController::Base
     running = !Dir["#{APP_CONSTANTS['pid_dir']}/*"].empty?
 
     unless running
-      alert_msg = "The backend processes for setting up tests and performing measure calculations are not running.
-                    Please refer to the Cypress installation manual for instructions on starting the processes."
-      flash[:backend_job_alert] = alert_msg.html_safe
+      alert_msg = 'The backend processes for setting up tests and performing measure calculations are not running.
+                    Please refer to the Cypress installation manual for instructions on starting the processes.'
+      flash[:backend_job_warning] = alert_msg
     end
   end
 

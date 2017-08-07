@@ -32,7 +32,10 @@
 
       <% flash.each do |type, messages| %>
         <% unless type.to_s == 'timedout' %>
-        <% alert_type = %w(success warning danger).include?(type) ? type : 'info' %>
+        <!-- This splits the type set in flash[:flash_type] out into ['flash', 'type'] and
+        then finds the common elements between that array and ['success', 'warning', 'danger'] -->
+        <% common_elements = type.split(/_/) & %w(success warning danger) %>
+        <% alert_type = common_elements.empty? ? 'info' : common_elements.first %>
         <%= render :partial => 'alert', locals: {
               alert_type: alert_type,
               messages: messages } %>
