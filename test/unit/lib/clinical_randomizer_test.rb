@@ -53,6 +53,10 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
 
     assert record_1.entries.count > 0, 'Record_1 should have at least 1 entry'
     assert record_2.entries.count > 0, 'Record_2 should have at least 1 entry'
+    # This gets the unique set of types for each record's entries, then gets the intersection of them.
+    # Ideally the arrays would be completely distinct, e.g. the intersection would be an empty set.
+    assert_equal record_1.entries.collect(&:_type).uniq & record_2.entries.collect(&:_type).uniq, [], 'Records contain elements of the same type'
+    assert_equal @record_2.entries.collect(&:_type).uniq.sort, (record_1.entries.collect(&:_type).uniq + record_2.entries.collect(&:_type).uniq).sort, 'Records should contain all the types in the parent record'
 
     record_1, record_2 = Cypress::ClinicalRandomizer.split_by_type(@record, Random.new)
     assert_equal record_1.entries.length, 1, 'First split record should have 1 entry if it falls back to split_by_date'
