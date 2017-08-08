@@ -50,11 +50,7 @@ class ApplicationController < ActionController::Base
       disk_percentage = 100 - ((disk.available_blocks / disk.total_blocks.to_f) * 100).round
       disk_full_msg = "Your disk is #{disk_percentage}% full, please check your remaining hard disk space and " \
                       'clean up old tests in order to ensure continued stable operation of the Cypress application.'
-      if disk_percentage >= 95
-        flash.now[:disk_space_danger] = disk_full_msg
-      elsif disk_percentage >= 80
-        flash.now[:disk_space_warning] = disk_full_msg
-      end
+      flash.now[:disk_space_danger] = disk_full_msg if disk_percentage >= 95
     end
   end
 
