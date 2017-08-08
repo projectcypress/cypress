@@ -31,7 +31,7 @@ module ChecklistTestsHelper
     dc_hash = {}
     og_string = ''
     measure.data_criteria.each do |dc|
-      next if substituable_data_criteria?(dc)
+      next if unsubstituable_data_criteria?(dc)
       dc_string = dc[dc.keys[0]].negation ? "#{dc[dc.keys[0]].description} - negation" : dc[dc.keys[0]].description
       dc_hash[dc_string] = dc.keys[0]
       # Store the original data source criteria and display string, makes sure you can reselect the orignal criteria
@@ -44,14 +44,10 @@ module ChecklistTestsHelper
     Hash[dc_hash.sort]
   end
 
-  # A data criteria can be uesd for subtitution if it isn't derived (e.g., Occurrence A of, or birthtime)
-  def substituable_data_criteria?(criteria)
-    if criteria[criteria.keys[0]].definition == 'derived' || criteria[criteria.keys[0]].type == 'derived' ||
-       (criteria[criteria.keys[0]].type == 'characteristic' && criteria[criteria.keys[0]].property == 'birthtime')
-      return true
-    else
-      return false
-    end
+  # A data criteria cannot be used for subtitution if it is derived (e.g., Occurrence A of), or birthtime
+  def unsubstituable_data_criteria?(criteria)
+    cr0 = criteria[criteria.keys[0]]
+    cr0['definition'] == 'derived' || cr0['type'] == 'derived' || (cr0['type'] == 'characteristic' && cr0['property'] == 'birthtime')
   end
 
   # argument fv stands for field_value (Hash)
