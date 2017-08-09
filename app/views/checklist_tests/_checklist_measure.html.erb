@@ -123,7 +123,7 @@
                         <td> <strong> Attributes </strong> </td>
                         <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
                         <td>
-                          <%= render partial: 'checklist_tests/field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value'], product_test: product_test, index: index, disable_modal: false } if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %>
+                          <%= render partial: 'checklist_tests/field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value'], product_test: product_test, index: criteria_field.index, disable_modal: false } if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %>
                         </td>
                         <% if coded_attribute?(criteria) %>
                           <td class='hide-me'>
