@@ -26,12 +26,12 @@
       "ami_name": "cypress_{{ user `cypress_version` }}",
       "ami_block_device_mappings": [ {
         "device_name": "/dev/sda1",
-        "volume_size": 20,
+        "volume_size": 40,
         "delete_on_termination": "true"
       }],
       "launch_block_device_mappings": [ {
         "device_name": "/dev/sda1",
-        "volume_size": 20,
+        "volume_size": 40,
         "delete_on_termination": "true"
       }]
     },
@@ -50,12 +50,12 @@
       "ami_name": "cypress_cvu_{{ user `cypress_version` }}",
       "ami_block_device_mappings": [ {
         "device_name": "/dev/sda1",
-        "volume_size": 20,
+        "volume_size": 40,
         "delete_on_termination": "true"
       }],
       "launch_block_device_mappings": [ {
         "device_name": "/dev/sda1",
-        "volume_size": 20,
+        "volume_size": 40,
         "delete_on_termination": "true"
       }]
     },
@@ -74,12 +74,12 @@
       "ami_name": "cvu_{{ user `cvu_version` }}",
       "ami_block_device_mappings": [ {
         "device_name": "/dev/sda1",
-        "volume_size": 20,
+        "volume_size": 40,
         "delete_on_termination": "true"
       }],
       "launch_block_device_mappings": [ {
         "device_name": "/dev/sda1",
-        "volume_size": 20,
+        "volume_size": 40,
         "delete_on_termination": "true"
       }]
     },
