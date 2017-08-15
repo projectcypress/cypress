@@ -28,7 +28,7 @@ ADD . /home/app/cypress
 
 # If the tmp directory doesn't exist then the app will not be able to run.
 # By creating it here it will get chowned correctly by the next declaration.
-RUN mkdir -p tmp
+RUN mkdir -p tmp public/data
 
 # This line is a duplicate however it is done to significantly speed up testing. With this line twice
 # we are able to do the bundle install earlier on which means it is cached more often.
