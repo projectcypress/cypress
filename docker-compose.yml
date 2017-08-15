@@ -4,6 +4,10 @@ services:
   cypress:
     build:
       context: .
+    volumes:
+      - /home/app/cypress/public/data
+    tmpfs:
+      - /home/app/cypress/tmp:size=2g,uid=9999
     environment:
       - MONGO_PORT_27017_TCP_ADDR=mongodb
       - MONGO_PORT_27017_TCP_PORT=27017
