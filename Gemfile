@@ -39,7 +39,7 @@ gem 'uglifier', '>= 1.3.0'
 # Bake the best breadcrumbs
 gem 'breadcrumbs_on_rails'
 # Help our forms
-gem 'bootstrap_form', git: 'https://github.com/bootstrap-ruby/rails-bootstrap-forms.git', branch: 'master'
+gem 'bootstrap_form'
 gem 'jasny-bootstrap-rails'
 gem 'nested_form'
 
@@ -106,6 +106,8 @@ group :development, :test do
   gem 'rails_best_practices'
   gem 'scss_lint', :require => false
   gem 'selenium-webdriver'
+  gem 'rails-perftest'
+  gem 'ruby-prof', '~> 0.15.9'
 end
 
 group :development do

@@ -1,10 +1,10 @@
 require 'simplecov'
 
-SimpleCov.start 'rails'
+# SimpleCov.start 'rails'
 # MiniTest changes mean that our coverage suddenly dropped, since more controllers are being tested.
 # We dropped the value to 77 to be able to get pull requests pulled in. Needs to be brought back up as coverage goes back up.
-SimpleCov.minimum_coverage 77
-Mongo::Logger.logger.level = Logger::WARN
+# SimpleCov.minimum_coverage 77
+# Mongo::Logger.logger.level = Logger::WARN
 ENV['RAILS_ENV'] ||= 'test'
 ENV['IGNORE_ROLES'] ||= 'false'
 CAT1_CONFIG['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] = [{ 'ValueSet' => '1.5.6.7',
@@ -93,6 +93,17 @@ class ActiveSupport::TestCase
     collections.each do |collection|
       Mongoid.default_client[collection].drop
       Dir.glob(Rails.root.join('test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
+        fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
+        map_bson_ids(fixture_json)
+        Mongoid.default_client[collection].insert_one(fixture_json)
+      end
+    end
+  end
+
+  def perf_test_collection_fixtures(*collections)
+    collections.each do |collection|
+      Mongoid.default_client[collection].drop
+      Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, 'perf_test', '*.json')).each do |json_fixture_file|
         fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
         map_bson_ids(fixture_json)
         Mongoid.default_client[collection].insert_one(fixture_json)
