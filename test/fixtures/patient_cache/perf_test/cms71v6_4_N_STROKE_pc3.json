@@ -1,0 +1,368 @@
+{
+    "_id" : { "$oid" : "5995ad91e5f13187c6fb9a56" },
+    "value" : {
+        "IPP" : 1.0,
+        "patient_id" : { "$oid" : "5995ad47e5f13187c6f99d01" },
+        "medical_record_id" : "646e64f0-4d42-0135-8681-20999b0ed66f",
+        "first" : "4 N",
+        "last" : "STROKE",
+        "gender" : "F",
+        "birthdate" : -392619600.0,
+        "test_id" : null,
+        "provider_performances" : null,
+        "race" : {
+            "code" : "2028-9",
+            "name" : "Asian",
+            "codeSystem" : "CDC Race"
+        },
+        "ethnicity" : {
+            "code" : "2186-5",
+            "name" : "Not Hispanic or Latino",
+            "codeSystem" : "CDC Race"
+        },
+        "languages" : [],
+        "payer" : {
+            "code" : "349",
+            "codeSystem" : "SOP"
+        },
+        "measure_id" : "40280381-52FC-3A32-0153-6222B0B11EEE",
+        "sub_id" : "a",
+        "nqf_id" : "",
+        "effective_date" : 1483228799.0,
+        "MSRPOPL" : 1.0,
+        "MSRPOPLEX" : 1.0,
+        "values" : [],
+        "finalSpecifics" : {
+            "IPP" : [
+                [
+                    "59677dc702d4053da7000908"
+                ]
+            ],
+            "MSRPOPL" : [
+                [
+                    "59677dc702d4053da7000908"
+                ]
+            ],
+            "MSRPOPLEX" : [
+                [
+                    "59677dc702d4053da7000908"
+                ]
+            ]
+        },
+        "logger" : [
+            " IPP:",
+            "         called allTrue(5,[object Object],,function () {\n      var args = [func];\n      push.apply(args, arguments);\n      return wrapper.apply(this, args);\n    }):",
+            "                 During_2BD43F12_C09A_42F8_A4CA_95737436229A_4EFC61A0_9CD9_4C25_A696_D2A8583A236F:",
+            "                         called patient.encounters():",
+            "                         patient.encounters() -> 2 entries",
+            "                         matched -> 1 entries",
+            "                         MeasurePeriod:",
+            "                         MeasurePeriod -> true",
+            "                 During_2BD43F12_C09A_42F8_A4CA_95737436229A_4EFC61A0_9CD9_4C25_A696_D2A8583A236F -> true",
+            "                 Specific context",
+            "                         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "                         [\"59677dc702d4053da7000908\"]",
+            "                 ------",
+            "                 Intersecting (1):",
+            "                         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "                         [\"59677dc702d4053da7000908\"]",
+            "                 Intersected result:",
+            "                         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "                         [\"59677dc702d4053da7000908\"]",
+            "         allTrue -> true",
+            "         called allTrue(IPP,[object Object],,true):",
+            "                 Intersecting (1):",
+            "                         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "                         [\"59677dc702d4053da7000908\"]",
+            "                 Intersected result:",
+            "                         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "                         [\"59677dc702d4053da7000908\"]",
+            "         allTrue -> true",
+            " IPP -> true",
+            " Specific context",
+            "         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "         [\"59677dc702d4053da7000908\"]",
+            " ------",
+            " MSRPOPL:",
+            " MSRPOPL -> true",
+            " Intersecting (2):",
+            "         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "         [\"59677dc702d4053da7000908\"]",
+            " Intersected result:",
+            "         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "         [\"59677dc702d4053da7000908\"]",
+            " MSRPOPLEX:",
+            "         called atLeastOneTrue(8,[object Object],,function () {\n      var args = [func];\n      push.apply(args, arguments);\n      return wrapper.apply(this, args);\n    },function () {\n      var args = [func];\n      push.apply(args, arguments);\n      return wrapper.apply(this, args);\n    }):",
+            "                 prefix_08663cdf_2fc0_4872_864d_be2c764b0b7f_6BA5FA06_0526_47E6_98A2_0EA3862CFB45:",
+            "                         accessed codes: 2.16.840.1.113883.3.117.1.7.1.309",
+            "                 prefix_08663cdf_2fc0_4872_864d_be2c764b0b7f_6BA5FA06_0526_47E6_98A2_0EA3862CFB45 -> false",
+            "                 less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_629FCF13_5246_4549_9404_6010E0C36E5F_7D7DA5D9_A3B2_42C2_86F0_1FE92104EC8F:",
+            "                         EncounterInpatient_EncounterPerformed_2f356da9_9e4f_442a_9232_4a10ae95334c:",
+            "                                 matched -> 1 entries",
+            "                         EncounterInpatient_EncounterPerformed_2f356da9_9e4f_442a_9232_4a10ae95334c -> true",
+            "                         Specific context",
+            "                                 [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "                                 [\"*\"]",
+            "                         ------",
+            "                 less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_629FCF13_5246_4549_9404_6010E0C36E5F_7D7DA5D9_A3B2_42C2_86F0_1FE92104EC8F -> true",
+            "                 Specific context",
+            "                         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "                         [\"59677dc702d4053da7000908\"]",
+            "                 ------",
+            "         atLeastOneTrue -> true",
+            "         called atLeastOneTrue(MSRPOPLEX,[object Object],,true):",
+            "         atLeastOneTrue -> true",
+            " MSRPOPLEX -> true",
+            " Specific context",
+            "         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "         [\"59677dc702d4053da7000908\"]",
+            " ------",
+            " Intersecting (2):",
+            "         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "         [\"59677dc702d4053da7000908\"]",
+            "         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "         [\"59677dc702d4053da7000908\"]",
+            " Intersected result:",
+            "         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "         [\"59677dc702d4053da7000908\"]",
+            " OBSERV:",
+            "         GROUP_TIMEDIFF_2:",
+            "                 a28b7a0d_d523_41e5_9c0c_598e3c3ca994_40280381_3d27_5493_013d_61073db92a31:",
+            "                 a28b7a0d_d523_41e5_9c0c_598e3c3ca994_40280381_3d27_5493_013d_61073db92a31 -> true",
+            "                 Specific context",
+            "                         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "                         [\"59677dc702d4053da7000908\"]",
+            "                 ------",
+            "                 prefix_95175678_a1fb_4cc0_9ce2_54441e439cc1_40280381_3d27_5493_013d_61073db92a31:",
+            "                 prefix_95175678_a1fb_4cc0_9ce2_54441e439cc1_40280381_3d27_5493_013d_61073db92a31 -> true",
+            "                 Specific context",
+            "                         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "                         [\"59677dc702d4053da7000908\"]",
+            "                 ------",
+            "                 Intersecting (2):",
+            "                         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "                         [\"59677dc702d4053da7000908\"]",
+            "                         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "                         [\"59677dc702d4053da7000908\"]",
+            "                 Intersected result:",
+            "                         [\"OccurrenceA_EmergencyDepartmentVisit_EncounterPerformed_40280381_3d27_5493_013d_61073db92a31_source\"]",
+            "                         [\"59677dc702d4053da7000908\"]",
+            "         GROUP_TIMEDIFF_2 -> false",
+            " OBSERV -> false",
+            " VARIABLES:",
+            " VARIABLES -> false"
+        ],
+        "rationale" : {
+            "MeasurePeriod" : {
+                "results" : [
+                    {
+                        "id" : "undefined",
+                        "json" : {
+                            "start_time" : 1451606459.0,
+                            "end_time" : 1483228799.0,
+                            "codes" : {}
+                        }
+                    }
+                ],
+                "specifics" : {}
+            },
+            "During_2BD43F12_C09A_42F8_A4CA_95737436229A_4EFC61A0_9CD9_4C25_A696_D2A8583A236F" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000908",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "4525004"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Encounter",
+                            "description" : "Encounter, Performed: Emergency Department Visit",
+                            "start_time" : 1462082400,
+                            "end_time" : 1462089600,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "performed"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.79",
+                            "facility" : {
+                                "end_time" : 1462089600,
+                                "start_time" : 1462082400
+                            }
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "59677dc702d4053da7000908"
+                    ]
+                ]
+            },
+            "precondition_5" : true,
+            "precondition_IPP" : true,
+            "IPP" : true,
+            "MSRPOPL" : true,
+            "prefix_08663cdf_2fc0_4872_864d_be2c764b0b7f_6BA5FA06_0526_47E6_98A2_0EA3862CFB45" : false,
+            "EncounterInpatient_EncounterPerformed_2f356da9_9e4f_442a_9232_4a10ae95334c" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000909",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "32485007"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Encounter",
+                            "description" : "Encounter, Performed: Non Elective Inpatient Encounter",
+                            "start_time" : 1462089600,
+                            "end_time" : 1462270500,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "performed"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.79",
+                            "dischargeDisposition" : {
+                                "code_system" : "SNOMED-CT",
+                                "code" : "371828006",
+                                "title" : "Patient Expired"
+                            },
+                            "principalDiagnosis" : {
+                                "codes" : {
+                                    "SNOMED-CT" : [
+                                        "195189003"
+                                    ],
+                                    "ICD-9-CM" : [
+                                        "434.11"
+                                    ],
+                                    "ICD-10-CM" : [
+                                        "I63.011"
+                                    ]
+                                },
+                                "title" : "Ischemic Stroke"
+                            }
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "*"
+                    ]
+                ]
+            },
+            "less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_629FCF13_5246_4549_9404_6010E0C36E5F_7D7DA5D9_A3B2_42C2_86F0_1FE92104EC8F" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000908",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "4525004"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Encounter",
+                            "description" : "Encounter, Performed: Emergency Department Visit",
+                            "start_time" : 1462082400,
+                            "end_time" : 1462089600,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "performed"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.79",
+                            "facility" : {
+                                "end_time" : 1462089600,
+                                "start_time" : 1462082400
+                            }
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "59677dc702d4053da7000908"
+                    ]
+                ]
+            },
+            "precondition_8" : true,
+            "precondition_MSRPOPLEX" : true,
+            "MSRPOPLEX" : true,
+            "a28b7a0d_d523_41e5_9c0c_598e3c3ca994_40280381_3d27_5493_013d_61073db92a31" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000908",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "4525004"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Encounter",
+                            "description" : "Encounter, Performed: Emergency Department Visit",
+                            "start_time" : 1462082400,
+                            "end_time" : 1462089600,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "performed"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.79",
+                            "facility" : {
+                                "end_time" : 1462089600,
+                                "start_time" : 1462082400
+                            }
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "59677dc702d4053da7000908"
+                    ]
+                ]
+            },
+            "prefix_95175678_a1fb_4cc0_9ce2_54441e439cc1_40280381_3d27_5493_013d_61073db92a31" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000908",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "4525004"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Encounter",
+                            "description" : "Encounter, Performed: Emergency Department Visit",
+                            "start_time" : 1462082400,
+                            "end_time" : 1462089600,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "performed"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.79",
+                            "facility" : {
+                                "end_time" : 1462089600,
+                                "start_time" : 1462082400
+                            }
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "59677dc702d4053da7000908"
+                    ]
+                ]
+            },
+            "GROUP_TIMEDIFF_2" : false,
+            "OBSERV" : false,
+            "VARIABLES" : false
+        }
+    },
+    "bundle_id" : { "$oid" : "5995ad44e5f13187c6f99a72" }
+}

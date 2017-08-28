@@ -1,0 +1,125 @@
+{
+    "_id" : { "$oid": "59652218e5f131326284c77c" },
+    "augmented_records" : [],
+    "state" : "ready",
+    "_type" : "MeasureTest",
+    "name" : "Anticoagulation Therapy for Atrial Fibrillation/Flutter",
+    "measure_ids" : [
+        "40280382-5ABD-FA46-015B-168DAF752581"
+    ],
+    "product_id" : {"$oid" : "508a9cb2709357c1da000006"},
+    "cms_id" : "CMS71v7",
+    "rand_seed" : "219715930862157419244030906708503657005",
+    "expected_results" : {
+        "40280382-5ABD-FA46-015B-168DAF752581" : {
+            "population_ids" : {
+                "IPP" : "BECFDC40-BD14-4BA2-BCAB-E0F98F160D69",
+                "DENOM" : "2CECCBAF-6705-48C8-9FA3-2FF42243CEB1",
+                "DENEX" : "252F33D0-6E94-4C48-995E-700CA6CFBAC6",
+                "NUMER" : "110AA298-C650-4EDA-9C78-FA4FD7BD6EC0",
+                "DENEXCEP" : "14E42CA4-B9DC-4160-AFDA-82B3CA3B8389"
+            },
+            "IPP" : 18,
+            "DENOM" : 9,
+            "NUMER" : 1,
+            "antinumerator" : 3,
+            "DENEX" : 5,
+            "DENEXCEP" : 2,
+            "MSRPOPL" : 0,
+            "MSRPOPLEX" : 0,
+            "considered" : 18,
+            "execution_time" : 0,
+            "supplemental_data" : {
+                "IPP" : {
+                    "RACE" : {
+                        "2054-5" : 6,
+                        "2076-8" : 2,
+                        "1002-5" : 3,
+                        "2028-9" : 6,
+                        "2106-3" : 1
+                    },
+                    "ETHNICITY" : {
+                        "2135-2" : 3,
+                        "2186-5" : 15
+                    },
+                    "SEX" : {
+                        "M" : 7,
+                        "F" : 11
+                    },
+                    "PAYER" : {
+                        "349" : 18
+                    }
+                },
+                "DENOM" : {
+                    "RACE" : {
+                        "2028-9" : 1,
+                        "2076-8" : 1,
+                        "1002-5" : 3,
+                        "2054-5" : 4
+                    },
+                    "ETHNICITY" : {
+                        "2135-2" : 1,
+                        "2186-5" : 8
+                    },
+                    "SEX" : {
+                        "F" : 4,
+                        "M" : 5
+                    },
+                    "PAYER" : {
+                        "349" : 9
+                    }
+                },
+                "DENEX" : {
+                    "RACE" : {
+                        "2028-9" : 1,
+                        "2054-5" : 4
+                    },
+                    "ETHNICITY" : {
+                        "2186-5" : 4,
+                        "2135-2" : 1
+                    },
+                    "SEX" : {
+                        "M" : 2,
+                        "F" : 3
+                    },
+                    "PAYER" : {
+                        "349" : 5
+                    }
+                },
+                "NUMER" : {
+                    "RACE" : {
+                        "1002-5" : 1
+                    },
+                    "ETHNICITY" : {
+                        "2186-5" : 1
+                    },
+                    "SEX" : {
+                        "M" : 1
+                    },
+                    "PAYER" : {
+                        "349" : 1
+                    }
+                },
+                "DENEXCEP" : {
+                    "RACE" : {
+                        "2076-8" : 1,
+                        "1002-5" : 1
+                    },
+                    "ETHNICITY" : {
+                        "2186-5" : 2
+                    },
+                    "SEX" : {
+                        "F" : 1,
+                        "M" : 1
+                    },
+                    "PAYER" : {
+                        "349" : 2
+                    }
+                }
+            },
+            "measure_id" : "40280382-5ABD-FA46-015B-168DAF752581"
+        }
+    },
+    "patient_archive" : "product_test-59652218e5f131326284c77c.zip20170711-12960-1fm4f0m",
+    "html_archive" : "product_test-html-59652218e5f131326284c77c.zip20170711-12960-agf6e3"
+}

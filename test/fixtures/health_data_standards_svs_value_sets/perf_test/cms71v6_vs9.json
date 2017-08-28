@@ -1,0 +1,711 @@
+{
+    "_id" : { "$oid" : "5995ad51e5f13187c6f9d6ea" },
+    "bundle_id" : { "$oid" : "5995ad44e5f13187c6f99a72" },
+    "categories" : {
+        "CMS102v5" : [
+            "Attribute"
+        ],
+        "CMS104v5" : [
+            "Attribute"
+        ],
+        "CMS105v5" : [
+            "Attribute"
+        ],
+        "CMS107v5" : [
+            "Attribute"
+        ],
+        "CMS108v5" : [
+            "Attribute"
+        ],
+        "CMS61v6" : [
+            "Condition/Diagnosis/Problem"
+        ],
+        "CMS64v6" : [
+            "Condition/Diagnosis/Problem"
+        ],
+        "CMS71v6" : [
+            "Attribute"
+        ],
+        "CMS72v5" : [
+            "Attribute"
+        ],
+        "CMS91v6" : [
+            "Attribute"
+        ]
+    },
+    "display_name" : "Hemorrhagic Stroke",
+    "oid" : "2.16.840.1.113883.3.117.1.7.1.212",
+    "version" : "20160418",
+    "concepts" : [
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6eb" },
+            "black_list" : false,
+            "code" : "195155004",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Subarachnoid hemorrhage from carotid siphon and bifurcation (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6ec" },
+            "black_list" : false,
+            "code" : "195160000",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Intracranial subarachnoid hemorrhage from vertebral artery (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6ed" },
+            "black_list" : false,
+            "code" : "195165005",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Basal ganglia hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6ee" },
+            "black_list" : false,
+            "code" : "195167002",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "External capsule hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6ef" },
+            "black_list" : false,
+            "code" : "195168007",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Intracerebral hemorrhage with intraventricular hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6f0" },
+            "black_list" : false,
+            "code" : "195169004",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Intracerebral hemorrhage, multiple localized (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6f1" },
+            "black_list" : false,
+            "code" : "20908003",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Subcortical cerebral hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6f2" },
+            "black_list" : false,
+            "code" : "230706003",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Hemorrhagic cerebral infarction (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6f3" },
+            "black_list" : false,
+            "code" : "230707007",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Anterior cerebral circulation hemorrhagic infarction (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6f4" },
+            "black_list" : false,
+            "code" : "230708002",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Posterior cerebral circulation hemorrhagic infarction (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6f5" },
+            "black_list" : false,
+            "code" : "230709005",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Massive supratentorial cerebral hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6f6" },
+            "black_list" : false,
+            "code" : "230710000",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Lobar cerebral hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6f7" },
+            "black_list" : false,
+            "code" : "230711001",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Thalamic hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6f8" },
+            "black_list" : false,
+            "code" : "230712008",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Lacunar hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6f9" },
+            "black_list" : false,
+            "code" : "23276006",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Ventricular hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6fa" },
+            "black_list" : false,
+            "code" : "270907008",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Spontaneous intracranial subarachnoid hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6fb" },
+            "black_list" : false,
+            "code" : "274100004",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Cerebral hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6fc" },
+            "black_list" : false,
+            "code" : "276277008",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Subarachnoid hemorrhage from multiple aneurysms (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6fd" },
+            "black_list" : false,
+            "code" : "276278003",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Subarachnoid hemorrhage from anterior cerebral artery aneurysm (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6fe" },
+            "black_list" : false,
+            "code" : "276280009",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Subarachnoid hemorrhage from middle cerebral artery aneurysm (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d6ff" },
+            "black_list" : false,
+            "code" : "276281008",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Subarachnoid hemorrhage from posterior cerebral artery aneurysm (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d700" },
+            "black_list" : false,
+            "code" : "276282001",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Subarachnoid hemorrhage from anterior communicating artery aneurysm (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d701" },
+            "black_list" : false,
+            "code" : "276283006",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Subarachnoid hemorrhage from posterior communicating artery aneurysm (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d702" },
+            "black_list" : false,
+            "code" : "276284000",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Subarachnoid hemorrhage from basilar artery aneurysm (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d703" },
+            "black_list" : false,
+            "code" : "276285004",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Subarachnoid hemorrhage from posterior inferior cerebellar artery aneurysm (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d704" },
+            "black_list" : false,
+            "code" : "276286003",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Subarachnoid hemorrhage from carotid artery aneurysm (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d705" },
+            "black_list" : false,
+            "code" : "276722003",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Intracerebellar and posterior fossa hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d706" },
+            "black_list" : false,
+            "code" : "28318001",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Basilar hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d707" },
+            "black_list" : false,
+            "code" : "28837001",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Bulbar hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d708" },
+            "black_list" : false,
+            "code" : "42429001",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Cerebromeningeal hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d709" },
+            "black_list" : false,
+            "code" : "425957003",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Non-traumatic intracerebral ventricular hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d70a" },
+            "black_list" : false,
+            "code" : "430",
+            "code_system" : "2.16.840.1.113883.6.103",
+            "code_system_name" : "ICD-9-CM",
+            "code_system_version" : "2013",
+            "display_name" : "Subarachnoid hemorrhage",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d70b" },
+            "black_list" : false,
+            "code" : "431",
+            "code_system" : "2.16.840.1.113883.6.103",
+            "code_system_name" : "ICD-9-CM",
+            "code_system_version" : "2013",
+            "display_name" : "Intracerebral hemorrhage",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d70c" },
+            "black_list" : false,
+            "code" : "449020009",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Intraparenchymal hemorrhage of brain (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d70d" },
+            "black_list" : false,
+            "code" : "49422009",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Cortical hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d70e" },
+            "black_list" : false,
+            "code" : "52201006",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Internal capsule hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d70f" },
+            "black_list" : false,
+            "code" : "73020009",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Cerebral hemisphere hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d710" },
+            "black_list" : false,
+            "code" : "75038005",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Cerebellar hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d711" },
+            "black_list" : false,
+            "code" : "7713009",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Intrapontine hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d712" },
+            "black_list" : false,
+            "code" : "95454007",
+            "code_system" : "2.16.840.1.113883.6.96",
+            "code_system_name" : "SNOMED-CT",
+            "code_system_version" : "2015-09",
+            "display_name" : "Brain stem hemorrhage (disorder)",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d713" },
+            "black_list" : false,
+            "code" : "I60.00",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage from unspecified carotid siphon and bifurcation",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d714" },
+            "black_list" : false,
+            "code" : "I60.01",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage from right carotid siphon and bifurcation",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d715" },
+            "black_list" : false,
+            "code" : "I60.02",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage from left carotid siphon and bifurcation",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d716" },
+            "black_list" : false,
+            "code" : "I60.10",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage from unspecified middle cerebral artery",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d717" },
+            "black_list" : false,
+            "code" : "I60.11",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage from right middle cerebral artery",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d718" },
+            "black_list" : false,
+            "code" : "I60.12",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage from left middle cerebral artery",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d719" },
+            "black_list" : false,
+            "code" : "I60.2",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage from anterior communicating artery",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d71a" },
+            "black_list" : false,
+            "code" : "I60.30",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage from unspecified posterior communicating artery",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d71b" },
+            "black_list" : false,
+            "code" : "I60.31",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage from right posterior communicating artery",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d71c" },
+            "black_list" : false,
+            "code" : "I60.32",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage from left posterior communicating artery",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d71d" },
+            "black_list" : false,
+            "code" : "I60.4",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage from basilar artery",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d71e" },
+            "black_list" : false,
+            "code" : "I60.50",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage from unspecified vertebral artery",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d71f" },
+            "black_list" : false,
+            "code" : "I60.51",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage from right vertebral artery",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d720" },
+            "black_list" : false,
+            "code" : "I60.52",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage from left vertebral artery",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d721" },
+            "black_list" : false,
+            "code" : "I60.6",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage from other intracranial arteries",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d722" },
+            "black_list" : false,
+            "code" : "I60.7",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage from unspecified intracranial artery",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d723" },
+            "black_list" : false,
+            "code" : "I60.8",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Other nontraumatic subarachnoid hemorrhage",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d724" },
+            "black_list" : false,
+            "code" : "I60.9",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic subarachnoid hemorrhage, unspecified",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d725" },
+            "black_list" : false,
+            "code" : "I61.0",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic intracerebral hemorrhage in hemisphere, subcortical",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d726" },
+            "black_list" : false,
+            "code" : "I61.1",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic intracerebral hemorrhage in hemisphere, cortical",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d727" },
+            "black_list" : false,
+            "code" : "I61.2",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic intracerebral hemorrhage in hemisphere, unspecified",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d728" },
+            "black_list" : false,
+            "code" : "I61.3",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic intracerebral hemorrhage in brain stem",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d729" },
+            "black_list" : false,
+            "code" : "I61.4",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic intracerebral hemorrhage in cerebellum",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d72a" },
+            "black_list" : false,
+            "code" : "I61.5",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic intracerebral hemorrhage, intraventricular",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d72b" },
+            "black_list" : false,
+            "code" : "I61.6",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic intracerebral hemorrhage, multiple localized",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d72c" },
+            "black_list" : false,
+            "code" : "I61.8",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Other nontraumatic intracerebral hemorrhage",
+            "white_list" : false
+        },
+        {
+            "_id" : { "$oid" : "5995ad51e5f13187c6f9d72d" },
+            "black_list" : false,
+            "code" : "I61.9",
+            "code_system" : "2.16.840.1.113883.6.90",
+            "code_system_name" : "ICD-10-CM",
+            "code_system_version" : "2017",
+            "display_name" : "Nontraumatic intracerebral hemorrhage, unspecified",
+            "white_list" : false
+        }
+    ]
+}

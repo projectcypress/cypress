@@ -1,0 +1,1839 @@
+{
+    "_id" : { "$oid" : "5995ad45e5f13187c6f99aa1" },
+    "id" : "40280381-52FC-3A32-0153-1EC807F60E08",
+    "nqf_id" : "0436",
+    "hqmf_id" : "40280381-52FC-3A32-0153-1EC807F60E08",
+    "hqmf_set_id" : "03876D69-085B-415C-AE9D-9924171040C2",
+    "hqmf_version_number" : "6",
+    "cms_id" : "CMS71v6",
+    "name" : "Anticoagulation Therapy for Atrial Fibrillation/Flutter",
+    "description" : "Ischemic stroke patients with atrial fibrillation/flutter who are prescribed anticoagulation therapy at hospital discharge",
+    "type" : "eh",
+    "category" : "Stroke",
+    "map_fn" : "function() {\n          var patient = this;\n          var effective_date = <%= effective_date %>;\n          var enable_logging = <%= enable_logging %>;\n          var enable_rationale = <%= enable_rationale %>;\n          var short_circuit = <%= short_circuit %>;\n\n        <% if (!test_id.nil? && test_id.class==Moped::BSON::ObjectId) %>\n          var test_id = new ObjectId(\"<%= test_id %>\");\n        <% else %>\n          var test_id = null;\n        <% end %>\n\n          hqmfjs = {}\n          <%= init_js_frameworks %>\n\n          hqmfjs.effective_date = effective_date;\n          hqmfjs.test_id = test_id;\n\n          \n        var patient_api = new hQuery.Patient(patient);\n\n        \n        // #########################\n        // ##### DATA ELEMENTS #####\n        // #########################\n\n        hqmfjs.nqf_id = '0436';\n        hqmfjs.hqmf_id = '40280381-52FC-3A32-0153-1EC807F60E08';\n        hqmfjs.sub_id = null;\n        if (typeof(test_id) == 'undefined') hqmfjs.test_id = null;\n\n        OidDictionary = {'2.16.840.1.113762.1.4.1':{'AdministrativeGender':['F','M']},'2.16.840.1.113883.3.117.1.7.1.87':{'SNOMED-CT':['306701001','306703003','434781000124105']},'2.16.840.1.113883.3.117.1.7.1.309':{'SNOMED-CT':['371828006']},'2.16.840.1.113883.3.117.1.7.1.209':{'SNOMED-CT':['428361000124107']},'2.16.840.1.113762.1.4.1021.9':{'RxNorm':['1037042','1114195','11289','1364430','15202','235473','237057','321208','67108','67109','69646']},'2.16.840.1.113883.3.117.1.7.1.200':{'RxNorm':['1037045','1037179','1110708','1114198','1232082','1232086','1361029','1361226','1361568','1361574','1361577','1361607','1361615','1361853','1362024','1362026','1362027','1362029','1362030','1362048','1362052','1362054','1362055','1362057','1362059','1362060','1362061','1362062','1362063','1362065','1362831','1362935','1364435','1364445','1366636','1659195','1659197','308351','854228','854235','854238','854241','854245','854248','854252','854255','855288','855296','855302','855308','855312','855318','855324','855332','855338','855344','861356','861360','861363','861365','978725','978733','978736','978738','978740','978744','978746','978755','978759','978777']},'2.16.840.1.113883.3.117.1.7.1.203':{'ICD-10-PCS':['02560ZZ','02563ZZ','02564ZZ','02580ZZ','02583ZZ','02584ZZ'],'SNOMED-CT':['175095005','175125003','428290007','428663009','429211003']},'2.16.840.1.113883.3.117.1.7.1.424':{'SNOMED-CT':['183452005','32485007']},'2.16.840.1.113883.3.117.1.7.1.212':{'SNOMED-CT':['195155004','195160000','195165005','195167002','195168007','195169004','20908003','230706003','230707007','230708002','230709005','230710000','230711001','230712008','23276006','270907008','274100004','276277008','276278003','276280009','276281008','276282001','276283006','276284000','276285004','276286003','276722003','28318001','28837001','42429001','425957003','449020009','49422009','52201006','73020009','75038005','7713009','95454007'],'ICD-9-CM':['430','431'],'ICD-10-CM':['I60.00','I60.01','I60.02','I60.10','I60.11','I60.12','I60.2','I60.30','I60.31','I60.32','I60.4','I60.50','I60.51','I60.52','I60.6','I60.7','I60.8','I60.9','I61.0','I61.1','I61.2','I61.3','I61.4','I61.5','I61.6','I61.8','I61.9']},'2.16.840.1.113883.3.117.1.7.1.247':{'SNOMED-CT':['111297002','116288000','195185009','195186005','195189003','195190007','195212005','195213000','195216008','195217004','195230003','230690007','230691006','230692004','230693009','230694003','230695002','230696001','230698000','230699008','230700009','230701008','307363008','426107000'],'ICD-9-CM':['433.01','433.10','433.11','433.21','433.31','433.81','433.91','434.00','434.01','434.11','434.91','436'],'ICD-10-CM':['I63.00','I63.011','I63.012','I63.013','I63.019','I63.02','I63.031','I63.032','I63.033','I63.039','I63.09','I63.10','I63.111','I63.112','I63.113','I63.119','I63.12','I63.131','I63.132','I63.133','I63.139','I63.19','I63.20','I63.211','I63.212','I63.213','I63.219','I63.22','I63.231','I63.232','I63.233','I63.239','I63.29','I63.30','I63.311','I63.312','I63.313','I63.319','I63.321','I63.322','I63.323','I63.329','I63.331','I63.332','I63.333','I63.339','I63.341','I63.342','I63.343','I63.349','I63.39','I63.40','I63.411','I63.412','I63.413','I63.419','I63.421','I63.422','I63.423','I63.429','I63.431','I63.432','I63.433','I63.439','I63.441','I63.442','I63.443','I63.449','I63.49','I63.50','I63.511','I63.512','I63.513','I63.519','I63.521','I63.522','I63.523','I63.529','I63.531','I63.532','I63.533','I63.539','I63.541','I63.542','I63.543','I63.549','I63.59','I63.6','I63.8','I63.9']},'2.16.840.1.114222.4.11.836':{'CDC Race':['1002-5','2028-9','2054-5','2076-8','2106-3','2131-1']},'2.16.840.1.113883.3.117.1.7.1.202':{'SNOMED-CT':['195080001','233910005','233911009','282825002','300996004','314208002','425615007','426749004','426814001','427665004','440028005','440059007','49436004','5370000'],'ICD-9-CM':['427.31','427.32'],'ICD-10-CM':['I48.0','I48.1','I48.2','I48.3','I48.4','I48.91','I48.92']},'1.3.6.1.4.1.33895.1.3.0.45':{'SNOMED-CT':['133918004','182964004','385736008','385763009']},'2.16.840.1.113883.3.117.1.7.1.473':{'SNOMED-CT':['183932001','183964008','183966005','266721009','31438003','35688006','397745006','407563006','410529002','410534003','410536001','416098002','419511003','428024001','428119001','59037007','62014003','79899007']},'2.16.840.1.113883.3.117.1.7.1.93':{'SNOMED-CT':['105480006','182890002','182895007','182896008','182897004','182898009','182900006','182901005','182903008','183944003','183945002','183947005','183948000','275936005','371138003','385648002','406149000','413312003','416432009','443390004']},'2.16.840.1.114222.4.11.3591':{'Source of Payment Typology':['1','11','111','112','113','119','12','121','122','123','129','19','2','21','211','212','213','219','22','23','24','25','29','3','31','311','3111','3112','3113','3114','3115','3116','3119','312','3121','3122','3123','313','32','321','3211','3212','32121','32122','32123','32124','32125','32126','322','3221','3222','3223','3229','33','331','332','333','334','34','341','342','343','349','35','36','361','362','369','37','371','3711','3712','3713','372','379','38','381','3811','3812','3813','3819','382','389','39','4','41','42','43','44','5','51','511','512','513','514','515','519','52','521','522','523','529','53','54','55','59','6','61','611','612','613','619','62','63','64','69','7','71','72','73','79','8','81','82','821','822','823','83','84','85','89','9','91','92','93','94','95','951','953','954','959','96','98','99','9999']},'2.16.840.1.113883.3.117.1.7.1.207':{'SNOMED-CT':['428371000124100']},'2.16.840.1.113883.3.117.1.7.1.292':{'SNOMED-CT':['4525004']},'2.16.840.1.113883.3.117.1.7.1.308':{'SNOMED-CT':['445060000']},'2.16.840.1.114222.4.11.837':{'CDC Race':['2135-2','2186-5']}};\n\n        // Measure variables\nvar MeasurePeriod = {\n  \"low\": new TS(\"201201010000\", true),\n  \"high\": new TS(\"201212312359\", true)\n}\nhqmfjs.MeasurePeriod = function(patient) {\n  return [new hQuery.CodedEntry(\n    {\n      \"start_time\": MeasurePeriod.low.asDate().getTime()/1000,\n      \"end_time\": MeasurePeriod.high.asDate().getTime()/1000,\n      \"codes\": {}\n    }\n  )];\n}\nif (typeof effective_date === 'number') {\n  MeasurePeriod.high.date = new Date(1000*effective_date);\n  // add one minute before pulling off the year.  This turns 12-31-2012 23:59 into 1-1-2013 00:00 => 1-1-2012 00:00\n  MeasurePeriod.low.date = new Date(1000*(effective_date+60));\n  MeasurePeriod.low.date.setFullYear(MeasurePeriod.low.date.getFullYear()-1);\n}\n\n// Data critera\nhqmfjs.occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.GROUP_occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D(patient, initialSpecificContext)\n  );\n  events.specific_occurrence = 'occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D';\n\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.ComfortMeasures_InterventionOrder_0bb83a46_509d_4a86_bf82_ba3fa0a5e9bb = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"ordered\"], \"includeEventsWithoutStatus\": false, \"valueSetId\": \"1.3.6.1.4.1.33895.1.3.0.45\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.ComfortMeasures_InterventionPerformed_be018456_d5e7_4fa7_aaff_656af50e9ced = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"1.3.6.1.4.1.33895.1.3.0.45\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.prefix_37bff134_04e1_4218_9501_6085e908115a_40280381_3d61_56a7_013d_7f17992a5558 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.424\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"diagnosis\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.1.7.1.202\")));\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.e9d3bd3e_af52_4ed7_95b9_f9279685d3bd_40280381_3d61_56a7_013d_7f17992a5558 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.424\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"dischargeDisposition\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.1.7.1.87\")));\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.prefix_5591ae91_01cd_4221_bff6_6ec4ec92e4a7_40280381_3d61_56a7_013d_7f17992a5558 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.424\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"dischargeDisposition\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.1.7.1.207\")));\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.prefix_10fbb756_e544_4b3e_826d_505de77ecdf7_40280381_3d61_56a7_013d_7f17992a5558 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.424\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"dischargeDisposition\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.1.7.1.209\")));\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.prefix_421d6de7_6b4d_403a_9dd9_ab8fc88fd2c0_40280381_3d61_56a7_013d_7f17992a5558 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.424\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"principalDiagnosis\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.1.7.1.212\")));\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.prefix_2cf079b5_9057_478c_8fdd_35c4e0110411_40280381_3d61_56a7_013d_7f17992a5558 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.424\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"principalDiagnosis\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.1.7.1.247\")));\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.prefix_0a9f23c2_3482_45d3_8895_ed5444687fc4_40280381_3d61_56a7_013d_7f17992a5558 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.424\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"dischargeDisposition\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.1.7.1.308\")));\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.prefix_40842c3a_05db_4116_81e6_fa35ac48b66f_aefc94f3_43d0_422c_b601_388054d8cd40 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allMedications\", \"statuses\": [\"discharge\"], \"includeEventsWithoutStatus\": false, \"negated\": true, \"negationValueSetId\": \"2.16.840.1.113883.3.117.1.7.1.473\", \"valueSetId\": \"2.16.840.1.113762.1.4.1021.9\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.prefix_09aefec9_f14b_41d4_9ab9_5573c9bd6029_40280381_3d61_56a7_013d_7f17992a5558 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.424\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"dischargeDisposition\", new CodeList(getCodes(\"2.16.840.1.113883.3.117.1.7.1.309\")));\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.f1a8d712_d511_4015_8c8f_97a2961ad74c_aefc94f3_43d0_422c_b601_388054d8cd40 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allMedications\", \"statuses\": [\"discharge\"], \"includeEventsWithoutStatus\": false, \"negated\": true, \"negationValueSetId\": \"2.16.840.1.113883.3.117.1.7.1.93\", \"valueSetId\": \"2.16.840.1.113762.1.4.1021.9\"};\n  var events = patient.getEvents(eventCriteria);\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.afc5b778_4195_43bc_b8e1_b873944b1977_40280381_3d61_56a7_013d_7f17992a5558 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.424\"};\n  var events = patient.getEvents(eventCriteria);\n  events = filterEventsByField(events, \"lengthOfStay\", new IVL_PQ(null, new PQ(120, \"d\", true)));\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.Ethnicity_PatientCharacteristicEthnicity_40280381_3d61_56a7_013d_61a5141d0153 = function(patient, initialSpecificContext) {\n  var value = patient.ethnicity() || null;\n  matching = matchingValue(value, null);\n  matching.specificContext=hqmf.SpecificsManager.identity();\n  return matching;\n}\n\nhqmfjs.ONCAdministrativeSex_PatientCharacteristicSex_40280381_3d61_56a7_013d_61a5141d0151 = function(patient, initialSpecificContext) {\n  var value = patient.gender() || null;\n  matching = matchingValue(value, new CD(\"F\", \"Administrative Sex\"));\n  matching.specificContext=hqmf.SpecificsManager.identity();\n  return matching;\n}\n\nhqmfjs.Payer_PatientCharacteristicPayer_40280381_3d61_56a7_013d_61a5141d0154 = function(patient, initialSpecificContext) {\n  var value = patient.payer() || null;\n  if (value === null) {\n    matching = new Boolean(false);\n  } else {\n    matching = new Boolean(value.includedIn({\"Source of Payment Typology\":[\"1\",\"11\",\"111\",\"112\",\"113\",\"119\",\"12\",\"121\",\"122\",\"123\",\"129\",\"19\",\"2\",\"21\",\"211\",\"212\",\"213\",\"219\",\"22\",\"23\",\"24\",\"25\",\"29\",\"3\",\"31\",\"311\",\"3111\",\"3112\",\"3113\",\"3114\",\"3115\",\"3116\",\"3119\",\"312\",\"3121\",\"3122\",\"3123\",\"313\",\"32\",\"321\",\"3211\",\"3212\",\"32121\",\"32122\",\"32123\",\"32124\",\"32125\",\"32126\",\"322\",\"3221\",\"3222\",\"3223\",\"3229\",\"33\",\"331\",\"332\",\"333\",\"334\",\"34\",\"341\",\"342\",\"343\",\"349\",\"35\",\"36\",\"361\",\"362\",\"369\",\"37\",\"371\",\"3711\",\"3712\",\"3713\",\"372\",\"379\",\"38\",\"381\",\"3811\",\"3812\",\"3813\",\"3819\",\"382\",\"389\",\"39\",\"4\",\"41\",\"42\",\"43\",\"44\",\"5\",\"51\",\"511\",\"512\",\"513\",\"514\",\"515\",\"519\",\"52\",\"521\",\"522\",\"523\",\"529\",\"53\",\"54\",\"55\",\"59\",\"6\",\"61\",\"611\",\"612\",\"613\",\"619\",\"62\",\"63\",\"64\",\"69\",\"7\",\"71\",\"72\",\"73\",\"79\",\"8\",\"81\",\"82\",\"821\",\"822\",\"823\",\"83\",\"84\",\"85\",\"89\",\"9\",\"91\",\"92\",\"93\",\"94\",\"95\",\"951\",\"953\",\"954\",\"959\",\"96\",\"98\",\"99\",\"9999\"]}));\n  }\n  matching.specificContext=hqmf.SpecificsManager.identity();\n  return matching;\n}\n\nhqmfjs.Race_PatientCharacteristicRace_40280381_3d61_56a7_013d_61a5141d0152 = function(patient, initialSpecificContext) {\n  var value = patient.race() || null;\n  if (value === null) {\n    matching = new Boolean(false);\n  } else {\n    matching = new Boolean(value.includedIn({\"CDC Race\":[\"1002-5\",\"2028-9\",\"2054-5\",\"2076-8\",\"2106-3\",\"2131-1\"]}));\n  }\n  matching.specificContext=hqmf.SpecificsManager.identity();\n  return matching;\n}\n\nhqmfjs.EndsDuring_D7546170_E726_48CB_8233_202C12605B68_40280381_3d61_56a7_013d_7f17992a5558 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.424\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = EDU(events, hqmfjs.MeasurePeriod(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_960A691A_CD9B_415C_BA13_DC0DDC1557B0 = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.GROUP_occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_960A691A_CD9B_415C_BA13_DC0DDC1557B0(patient, initialSpecificContext)\n  );\n\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.GROUP_occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_960A691A_CD9B_415C_BA13_DC0DDC1557B0 = function(patient, initialSpecificContext) {\n  var events = INTERSECT(\n    hqmfjs.afc5b778_4195_43bc_b8e1_b873944b1977_40280381_3d61_56a7_013d_7f17992a5558(patient, initialSpecificContext),\n    hqmfjs.EndsDuring_D7546170_E726_48CB_8233_202C12605B68_40280381_3d61_56a7_013d_7f17992a5558(patient, initialSpecificContext)\n  );\n\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.GROUP_occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D(patient, initialSpecificContext)\n  );\n  events.specific_occurrence = 'occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D';\n\n  events.specificContext=new hqmf.SpecificOccurrence(Row.buildForDataCriteria(events.specific_occurrence, events))\n  return events;\n}\n\nhqmfjs.GROUP_occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D = function(patient, initialSpecificContext) {\n  var events = INTERSECT(\n    hqmfjs.afc5b778_4195_43bc_b8e1_b873944b1977_40280381_3d61_56a7_013d_7f17992a5558(patient, initialSpecificContext),\n    hqmfjs.EndsDuring_D7546170_E726_48CB_8233_202C12605B68_40280381_3d61_56a7_013d_7f17992a5558(patient, initialSpecificContext)\n  );\n\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.Agegrtr_thn_eql_18yearsat_A82A5E47_32E7_4ABC_94DF_6AA736BC6847_127D6E9A_EEEC_40CA_BD41_0598CD9ABD66 = function(patient, initialSpecificContext) {\n  var value = patient.birthtime() || null;\n  var events = value ? [value] : [];\n  events = SBS(events, hqmfjs.occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D(patient), new IVL_PQ(new PQ(18, \"a\", true), null));\n  events.specificContext=events.specificContext||hqmf.SpecificsManager.identity();\n  return events;\n}\n\nhqmfjs.StartsDuring_EE0530BC_9305_4C01_A098_B05A1699D76F_63DD3232_4F74_4FA2_B5CF_A7B7DC8BC5B9 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allMedications\", \"statuses\": [\"discharge\"], \"includeEventsWithoutStatus\": false, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.200\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = SDU(events, hqmfjs.occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.GROUP_qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE(patient, initialSpecificContext)\n  );\n\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.GROUP_qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.ComfortMeasures_InterventionOrder_0bb83a46_509d_4a86_bf82_ba3fa0a5e9bb(patient, initialSpecificContext),\n    hqmfjs.ComfortMeasures_InterventionPerformed_be018456_d5e7_4fa7_aaff_656af50e9ced(patient, initialSpecificContext)\n  );\n\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_9DC5E3E3_53DB_4C90_A5D9_50E40F8163B5_c8d72fd0_b060_4e95_ac9c_14018c0930c4 = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"encounters\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.292\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = EBCWS(events, hqmfjs.occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D(patient), new IVL_PQ(null, new PQ(1, \"h\", true)));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.StartsDuring_8C88BD00_1EB0_4A27_BD1E_071A7C76EBD7_AF9B2F20_2073_4918_A687_F1748D069B0C = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.GROUP_qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE(patient, initialSpecificContext)\n  );\n\n  if (events.length > 0 || !Logger.short_circuit) events = SDU(events, hqmfjs.less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_9DC5E3E3_53DB_4C90_A5D9_50E40F8163B5_c8d72fd0_b060_4e95_ac9c_14018c0930c4(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.StartsDuring_5EEED92E_CCBB_477D_86A2_5CB615C594CF_8E4FFD8C_C9A6_40C7_8F05_2713BDCB6047 = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.GROUP_qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE(patient, initialSpecificContext)\n  );\n\n  if (events.length > 0 || !Logger.short_circuit) events = SDU(events, hqmfjs.occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.Intersection_714C4A18_7AD0_47D2_B2DB_2F06AD90614C_C0988FA1_BA5B_410A_BC5A_DA616FB8CE9B = function(patient, initialSpecificContext) {\n  var events = INTERSECT(\n    hqmfjs.occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D(patient, initialSpecificContext),\n    hqmfjs.prefix_421d6de7_6b4d_403a_9dd9_ab8fc88fd2c0_40280381_3d61_56a7_013d_7f17992a5558(patient, initialSpecificContext)\n  );\n\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.Intersection_37030379_D252_4EF9_8E98_7923BAA77AF1_4E7FBB05_B5F3_4864_8C91_8A0B63834C3E = function(patient, initialSpecificContext) {\n  var events = INTERSECT(\n    hqmfjs.occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D(patient, initialSpecificContext),\n    hqmfjs.prefix_2cf079b5_9057_478c_8fdd_35c4e0110411_40280381_3d61_56a7_013d_7f17992a5558(patient, initialSpecificContext)\n  );\n\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.SatisfiesAny_63A42FB9_9B9B_428E_BDC6_052C0FAE34D8_29239B2E_2CBF_4496_9BA6_99B654A4AC0A = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.e9d3bd3e_af52_4ed7_95b9_f9279685d3bd_40280381_3d61_56a7_013d_7f17992a5558(patient, initialSpecificContext),\n    hqmfjs.prefix_0a9f23c2_3482_45d3_8895_ed5444687fc4_40280381_3d61_56a7_013d_7f17992a5558(patient, initialSpecificContext),\n    hqmfjs.prefix_09aefec9_f14b_41d4_9ab9_5573c9bd6029_40280381_3d61_56a7_013d_7f17992a5558(patient, initialSpecificContext),\n    hqmfjs.prefix_10fbb756_e544_4b3e_826d_505de77ecdf7_40280381_3d61_56a7_013d_7f17992a5558(patient, initialSpecificContext),\n    hqmfjs.prefix_5591ae91_01cd_4221_bff6_6ec4ec92e4a7_40280381_3d61_56a7_013d_7f17992a5558(patient, initialSpecificContext)\n  );\n\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.Intersection_BDD36E7D_8F1D_4A3D_9345_8D4767C01890_FBF31F71_F26C_4E2E_916C_8D5D8C46AAF9 = function(patient, initialSpecificContext) {\n  var events = INTERSECT(\n    hqmfjs.occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D(patient, initialSpecificContext),\n    hqmfjs.SatisfiesAny_63A42FB9_9B9B_428E_BDC6_052C0FAE34D8_29239B2E_2CBF_4496_9BA6_99B654A4AC0A(patient, initialSpecificContext)\n  );\n\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.StartsBeforeStartOf_85A6AA26_33A3_4E30_A208_14DA4679AEE1_40280381_3d61_56a7_013d_61a5141e015b = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProcedures\", \"statuses\": [\"performed\"], \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.203\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = SBS(events, hqmfjs.occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.StartsBeforeOrConcurrentWithEndOf_BD6DD207_09DD_4691_AA38_044F8728505F_85439cd3_7a96_425f_af18_bd3b450b617c = function(patient, initialSpecificContext) {\n  var eventCriteria = {\"type\": \"allProblems\", \"includeEventsWithoutStatus\": true, \"valueSetId\": \"2.16.840.1.113883.3.117.1.7.1.202\"};\n  var events = patient.getEvents(eventCriteria);\n  if (events.length > 0 || !Logger.short_circuit) events = SBCWE(events, hqmfjs.occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\nhqmfjs.Intersection_65F910C7_71D5_4C92_A3EE_8646F4B0BAC8_D36A037F_70F8_4212_84F0_4BBAAA626E65 = function(patient, initialSpecificContext) {\n  var events = INTERSECT(\n    hqmfjs.occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D(patient, initialSpecificContext),\n    hqmfjs.prefix_37bff134_04e1_4218_9501_6085e908115a_40280381_3d61_56a7_013d_7f17992a5558(patient, initialSpecificContext)\n  );\n\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.Union_A338ACE5_5D2B_4063_A10E_B763E439B8EC_852773E1_0476_4AF2_82E2_799A1330FF7B = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.StartsBeforeStartOf_85A6AA26_33A3_4E30_A208_14DA4679AEE1_40280381_3d61_56a7_013d_61a5141e015b(patient, initialSpecificContext),\n    hqmfjs.StartsBeforeOrConcurrentWithEndOf_BD6DD207_09DD_4691_AA38_044F8728505F_85439cd3_7a96_425f_af18_bd3b450b617c(patient, initialSpecificContext),\n    hqmfjs.Intersection_65F910C7_71D5_4C92_A3EE_8646F4B0BAC8_D36A037F_70F8_4212_84F0_4BBAAA626E65(patient, initialSpecificContext)\n  );\n\n  hqmf.SpecificsManager.setIfNull(events);\n  return events;\n}\n\nhqmfjs.StartsDuring_099CD955_FF49_4238_949D_4223CCFA6DC2_4BFC9BE1_EEDB_49D0_932C_5915FBBB218A = function(patient, initialSpecificContext) {\n  var events = UNION(\n    hqmfjs.prefix_40842c3a_05db_4116_81e6_fa35ac48b66f_aefc94f3_43d0_422c_b601_388054d8cd40(patient, initialSpecificContext),\n    hqmfjs.f1a8d712_d511_4015_8c8f_97a2961ad74c_aefc94f3_43d0_422c_b601_388054d8cd40(patient, initialSpecificContext)\n  );\n\n  if (events.length > 0 || !Logger.short_circuit) events = SDU(events, hqmfjs.occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D(patient));\n  if (events.length == 0) events.specificContext=hqmf.SpecificsManager.empty();\n  return events;\n}\n\n\n\n        // #########################\n        // ##### MEASURE LOGIC #####\n        // #########################\n\n        hqmfjs.initializeSpecifics = function(patient_api, hqmfjs) { hqmf.SpecificsManager.initialize(patient_api,hqmfjs,{\"id\":\"occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D\",\"type\":\"OCCAOF_QDM_VAR_SATISFIESALL_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_960A691A_CD9B_415C_BA13_DC0DDC1557B0_SOURCE\",\"function\":\"occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D\"}) }\n\n        // INITIAL PATIENT POPULATION\n        hqmfjs.IPP = function(patient, initialSpecificContext) {\n  population_criteria_fn = allTrue('IPP', patient, initialSpecificContext,\n    allTrue('5', patient, initialSpecificContext, hqmfjs.Agegrtr_thn_eql_18yearsat_A82A5E47_32E7_4ABC_94DF_6AA736BC6847_127D6E9A_EEEC_40CA_BD41_0598CD9ABD66,\n      atLeastOneTrue('4', patient, initialSpecificContext, hqmfjs.Intersection_37030379_D252_4EF9_8E98_7923BAA77AF1_4E7FBB05_B5F3_4864_8C91_8A0B63834C3E, hqmfjs.Intersection_714C4A18_7AD0_47D2_B2DB_2F06AD90614C_C0988FA1_BA5B_410A_BC5A_DA616FB8CE9B\n      )\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        // STRATIFICATION\n        hqmfjs.STRAT=null;\n        // DENOMINATOR\n        hqmfjs.DENOM = function(patient, initialSpecificContext) {\n  population_criteria_fn = allTrue('DENOM', patient, initialSpecificContext,\n    allTrue('8', patient, initialSpecificContext, hqmfjs.Intersection_37030379_D252_4EF9_8E98_7923BAA77AF1_4E7FBB05_B5F3_4864_8C91_8A0B63834C3E, hqmfjs.Union_A338ACE5_5D2B_4063_A10E_B763E439B8EC_852773E1_0476_4AF2_82E2_799A1330FF7B\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        // NUMERATOR\n        hqmfjs.NUMER = function(patient, initialSpecificContext) {\n  population_criteria_fn = allTrue('NUMER', patient, initialSpecificContext,\n    allTrue('10', patient, initialSpecificContext, hqmfjs.StartsDuring_EE0530BC_9305_4C01_A098_B05A1699D76F_63DD3232_4F74_4FA2_B5CF_A7B7DC8BC5B9\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        hqmfjs.NUMEX = function(patient) { return new Boolean(false); }\n        hqmfjs.DENEX = function(patient, initialSpecificContext) {\n  population_criteria_fn = atLeastOneTrue('DENEX', patient, initialSpecificContext,\n    atLeastOneTrue('16', patient, initialSpecificContext, hqmfjs.Intersection_BDD36E7D_8F1D_4A3D_9345_8D4767C01890_FBF31F71_F26C_4E2E_916C_8D5D8C46AAF9, hqmfjs.StartsDuring_8C88BD00_1EB0_4A27_BD1E_071A7C76EBD7_AF9B2F20_2073_4918_A687_F1748D069B0C, hqmfjs.StartsDuring_5EEED92E_CCBB_477D_86A2_5CB615C594CF_8E4FFD8C_C9A6_40C7_8F05_2713BDCB6047\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        hqmfjs.DENEXCEP = function(patient, initialSpecificContext) {\n  population_criteria_fn = atLeastOneTrue('DENEXCEP', patient, initialSpecificContext,\n    atLeastOneTrue('12', patient, initialSpecificContext, hqmfjs.StartsDuring_099CD955_FF49_4238_949D_4223CCFA6DC2_4BFC9BE1_EEDB_49D0_932C_5915FBBB218A\n    )\n  );\n  if (typeof(population_criteria_fn) == 'function') {\n  \treturn population_criteria_fn();\n  } else {\n  \treturn population_criteria_fn;\n  }\n};\n\n\n        // CV\n        hqmfjs.MSRPOPL = function(patient) { return new Boolean(true); }\n        hqmfjs.MSRPOPLEX = function(patient) { return new Boolean(false); }\n        hqmfjs.OBSERV = function(patient) { return new Boolean(false); }\n        // VARIABLES\n        hqmfjs.VARIABLES = function(patient, initialSpecificContext) {\nhqmfjs.occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_960A691A_CD9B_415C_BA13_DC0DDC1557B0(patient, initialSpecificContext);\nhqmfjs.qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE(patient, initialSpecificContext);\nreturn false;\n}\n        \n\n        var occurrenceId = [\"occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D\"];\n\n        hqmfjs.initializeSpecifics(patient_api, hqmfjs)\n\n        var population = function() {\n          return executeIfAvailable(hqmfjs.IPP, patient_api);\n        }\n        var stratification = null;\n        if (hqmfjs.STRAT) {\n          stratification = function() {\n            return hqmf.SpecificsManager.setIfNull(executeIfAvailable(hqmfjs.STRAT, patient_api));\n          }\n        }\n        var denominator = function() {\n          return executeIfAvailable(hqmfjs.DENOM, patient_api);\n        }\n        var numerator = function() {\n          return executeIfAvailable(hqmfjs.NUMER, patient_api);\n        }\n        var exclusion = function() {\n          return executeIfAvailable(hqmfjs.DENEX, patient_api);\n        }\n        var denexcep = function() {\n          return executeIfAvailable(hqmfjs.DENEXCEP, patient_api);\n        }\n        var numex = function() {\n          return executeIfAvailable(hqmfjs.NUMEX, patient_api);\n        }\n        var msrpopl = function() {\n          return executeIfAvailable(hqmfjs.MSRPOPL, patient_api);\n        }\n        var msrpoplex = function() {\n          return executeIfAvailable(hqmfjs.MSRPOPLEX, patient_api);\n        }\n        var observ = function(specific_context) {\n          \n          var observFunc = hqmfjs.OBSERV\n          if (typeof(observFunc)==='function')\n            return observFunc(patient_api, specific_context);\n          else\n            return [];\n        }\n\n        var variables = function() {\n          if (Logger.enable_rationale) {\n            return executeIfAvailable(hqmfjs.VARIABLES, patient_api);\n          }\n        }\n\n        var executeIfAvailable = function(optionalFunction, patient_api) {\n          if (typeof(optionalFunction)==='function') {\n            result = optionalFunction(patient_api);\n            \n            return result;\n          } else {\n            return false;\n          }\n        }\n\n        \n        if (typeof Logger != 'undefined') {\n          // clear out logger\n          Logger.logger = [];\n          Logger.rationale={};\n          if (typeof short_circuit == 'undefined') short_circuit = true;\n\n          // turn on logging if it is enabled\n          if (enable_logging || enable_rationale) {\n            injectLogger(hqmfjs, enable_logging, enable_rationale, short_circuit);\n          } else {\n            Logger.enable_rationale = false;\n            Logger.short_circuit = short_circuit;\n          }\n        }\n\n        try {\n          map(patient, population, denominator, numerator, exclusion, denexcep, msrpopl, msrpoplex, observ, occurrenceId,false,stratification, variables, numex);\n        } catch(err) {\n          print(err.stack);\n          throw err;\n        }\n\n        \n        };\n        ",
+    "continuous_variable" : false,
+    "episode_of_care" : true,
+    "hqmf_document" : {
+        "id" : "0436",
+        "hqmf_id" : "40280381-52FC-3A32-0153-1EC807F60E08",
+        "hqmf_set_id" : "03876D69-085B-415C-AE9D-9924171040C2",
+        "hqmf_version_number" : "6",
+        "title" : "Anticoagulation Therapy for Atrial Fibrillation/Flutter",
+        "description" : "Ischemic stroke patients with atrial fibrillation/flutter who are prescribed anticoagulation therapy at hospital discharge",
+        "cms_id" : "CMS71v6",
+        "population_criteria" : {
+            "IPP" : {
+                "conjunction?" : true,
+                "type" : "IPP",
+                "title" : "Initial Population",
+                "hqmf_id" : "B84791CD-6301-400F-91AE-463C227DE039",
+                "preconditions" : [
+                    {
+                        "id" : 5,
+                        "preconditions" : [
+                            {
+                                "id" : 1,
+                                "reference" : "Agegrtr_thn_eql_18yearsat_A82A5E47_32E7_4ABC_94DF_6AA736BC6847_127D6E9A_EEEC_40CA_BD41_0598CD9ABD66"
+                            },
+                            {
+                                "id" : 4,
+                                "preconditions" : [
+                                    {
+                                        "id" : 2,
+                                        "reference" : "Intersection_37030379_D252_4EF9_8E98_7923BAA77AF1_4E7FBB05_B5F3_4864_8C91_8A0B63834C3E"
+                                    },
+                                    {
+                                        "id" : 3,
+                                        "reference" : "Intersection_714C4A18_7AD0_47D2_B2DB_2F06AD90614C_C0988FA1_BA5B_410A_BC5A_DA616FB8CE9B"
+                                    }
+                                ],
+                                "conjunction_code" : "atLeastOneTrue"
+                            }
+                        ],
+                        "conjunction_code" : "allTrue"
+                    }
+                ]
+            },
+            "DENOM" : {
+                "conjunction?" : true,
+                "type" : "DENOM",
+                "title" : "Denominator",
+                "hqmf_id" : "04BB4F73-C2F0-483B-9E04-F0EB4E58D75B",
+                "preconditions" : [
+                    {
+                        "id" : 8,
+                        "preconditions" : [
+                            {
+                                "id" : 6,
+                                "reference" : "Intersection_37030379_D252_4EF9_8E98_7923BAA77AF1_4E7FBB05_B5F3_4864_8C91_8A0B63834C3E"
+                            },
+                            {
+                                "id" : 7,
+                                "reference" : "Union_A338ACE5_5D2B_4063_A10E_B763E439B8EC_852773E1_0476_4AF2_82E2_799A1330FF7B"
+                            }
+                        ],
+                        "conjunction_code" : "allTrue"
+                    }
+                ]
+            },
+            "NUMER" : {
+                "conjunction?" : true,
+                "type" : "NUMER",
+                "title" : "Numerator",
+                "hqmf_id" : "70200D05-A4EA-42D5-8BC1-54DC6694C138",
+                "preconditions" : [
+                    {
+                        "id" : 10,
+                        "preconditions" : [
+                            {
+                                "id" : 9,
+                                "reference" : "StartsDuring_EE0530BC_9305_4C01_A098_B05A1699D76F_63DD3232_4F74_4FA2_B5CF_A7B7DC8BC5B9"
+                            }
+                        ],
+                        "conjunction_code" : "allTrue"
+                    }
+                ]
+            },
+            "DENEXCEP" : {
+                "conjunction?" : true,
+                "type" : "DENEXCEP",
+                "title" : "Denominator Exceptions",
+                "hqmf_id" : "DA4DC42D-CD82-4F73-AD5B-EADB6664DF06",
+                "preconditions" : [
+                    {
+                        "id" : 12,
+                        "preconditions" : [
+                            {
+                                "id" : 11,
+                                "reference" : "StartsDuring_099CD955_FF49_4238_949D_4223CCFA6DC2_4BFC9BE1_EEDB_49D0_932C_5915FBBB218A"
+                            }
+                        ],
+                        "conjunction_code" : "atLeastOneTrue"
+                    }
+                ]
+            },
+            "DENEX" : {
+                "conjunction?" : true,
+                "type" : "DENEX",
+                "title" : "Denominator Exclusions",
+                "hqmf_id" : "7A83B526-E70B-4A55-BF27-3829C28845A9",
+                "preconditions" : [
+                    {
+                        "id" : 16,
+                        "preconditions" : [
+                            {
+                                "id" : 13,
+                                "reference" : "Intersection_BDD36E7D_8F1D_4A3D_9345_8D4767C01890_FBF31F71_F26C_4E2E_916C_8D5D8C46AAF9"
+                            },
+                            {
+                                "id" : 14,
+                                "reference" : "StartsDuring_8C88BD00_1EB0_4A27_BD1E_071A7C76EBD7_AF9B2F20_2073_4918_A687_F1748D069B0C"
+                            },
+                            {
+                                "id" : 15,
+                                "reference" : "StartsDuring_5EEED92E_CCBB_477D_86A2_5CB615C594CF_8E4FFD8C_C9A6_40C7_8F05_2713BDCB6047"
+                            }
+                        ],
+                        "conjunction_code" : "atLeastOneTrue"
+                    }
+                ]
+            }
+        },
+        "data_criteria" : {
+            "ComfortMeasures_InterventionOrder_0bb83a46_509d_4a86_bf82_ba3fa0a5e9bb" : {
+                "title" : "Comfort Measures",
+                "description" : "Intervention, Order: Comfort Measures",
+                "code_list_id" : "1.3.6.1.4.1.33895.1.3.0.45",
+                "type" : "interventions",
+                "definition" : "intervention",
+                "status" : "ordered",
+                "hard_status" : true,
+                "negation" : false,
+                "source_data_criteria" : "ComfortMeasures_InterventionOrder_0bb83a46_509d_4a86_bf82_ba3fa0a5e9bb_source",
+                "variable" : false
+            },
+            "ComfortMeasures_InterventionPerformed_be018456_d5e7_4fa7_aaff_656af50e9ced" : {
+                "title" : "Comfort Measures",
+                "description" : "Intervention, Performed: Comfort Measures",
+                "code_list_id" : "1.3.6.1.4.1.33895.1.3.0.45",
+                "type" : "interventions",
+                "definition" : "intervention",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "ComfortMeasures_InterventionPerformed_be018456_d5e7_4fa7_aaff_656af50e9ced_source",
+                "variable" : false
+            },
+            "prefix_37bff134_04e1_4218_9501_6085e908115a_40280381_3d61_56a7_013d_7f17992a5558" : {
+                "title" : "Non-Elective Inpatient Encounter",
+                "description" : "Encounter, Performed: Non-Elective Inpatient Encounter",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.424",
+                "type" : "encounters",
+                "definition" : "encounter",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Non_ElectiveInpatientEncounter_EncounterPerformed_40280381_3d61_56a7_013d_7f17992a5558_source",
+                "variable" : false,
+                "field_values" : {
+                    "DIAGNOSIS" : {
+                        "type" : "CD",
+                        "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.202",
+                        "title" : "Atrial Fibrillation/Flutter Grouping Value Set"
+                    }
+                }
+            },
+            "e9d3bd3e_af52_4ed7_95b9_f9279685d3bd_40280381_3d61_56a7_013d_7f17992a5558" : {
+                "title" : "Non-Elective Inpatient Encounter",
+                "description" : "Encounter, Performed: Non-Elective Inpatient Encounter",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.424",
+                "type" : "encounters",
+                "definition" : "encounter",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Non_ElectiveInpatientEncounter_EncounterPerformed_40280381_3d61_56a7_013d_7f17992a5558_source",
+                "variable" : false,
+                "field_values" : {
+                    "DISCHARGE_STATUS" : {
+                        "type" : "CD",
+                        "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.87",
+                        "title" : "Discharge To Acute Care Facility SNOMEDCT Value Set"
+                    }
+                }
+            },
+            "prefix_5591ae91_01cd_4221_bff6_6ec4ec92e4a7_40280381_3d61_56a7_013d_7f17992a5558" : {
+                "title" : "Non-Elective Inpatient Encounter",
+                "description" : "Encounter, Performed: Non-Elective Inpatient Encounter",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.424",
+                "type" : "encounters",
+                "definition" : "encounter",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Non_ElectiveInpatientEncounter_EncounterPerformed_40280381_3d61_56a7_013d_7f17992a5558_source",
+                "variable" : false,
+                "field_values" : {
+                    "DISCHARGE_STATUS" : {
+                        "type" : "CD",
+                        "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.207",
+                        "title" : "Discharged to Health Care Facility for Hospice Care SNOMEDCT Value Set"
+                    }
+                }
+            },
+            "prefix_10fbb756_e544_4b3e_826d_505de77ecdf7_40280381_3d61_56a7_013d_7f17992a5558" : {
+                "title" : "Non-Elective Inpatient Encounter",
+                "description" : "Encounter, Performed: Non-Elective Inpatient Encounter",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.424",
+                "type" : "encounters",
+                "definition" : "encounter",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Non_ElectiveInpatientEncounter_EncounterPerformed_40280381_3d61_56a7_013d_7f17992a5558_source",
+                "variable" : false,
+                "field_values" : {
+                    "DISCHARGE_STATUS" : {
+                        "type" : "CD",
+                        "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.209",
+                        "title" : "Discharged to Home for Hospice Care SNOMEDCT Value Set"
+                    }
+                }
+            },
+            "prefix_421d6de7_6b4d_403a_9dd9_ab8fc88fd2c0_40280381_3d61_56a7_013d_7f17992a5558" : {
+                "title" : "Non-Elective Inpatient Encounter",
+                "description" : "Encounter, Performed: Non-Elective Inpatient Encounter",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.424",
+                "type" : "encounters",
+                "definition" : "encounter",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Non_ElectiveInpatientEncounter_EncounterPerformed_40280381_3d61_56a7_013d_7f17992a5558_source",
+                "variable" : false,
+                "field_values" : {
+                    "PRINCIPAL_DIAGNOSIS" : {
+                        "type" : "CD",
+                        "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.212",
+                        "title" : "Hemorrhagic Stroke Grouping Value Set"
+                    }
+                }
+            },
+            "prefix_2cf079b5_9057_478c_8fdd_35c4e0110411_40280381_3d61_56a7_013d_7f17992a5558" : {
+                "title" : "Non-Elective Inpatient Encounter",
+                "description" : "Encounter, Performed: Non-Elective Inpatient Encounter",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.424",
+                "type" : "encounters",
+                "definition" : "encounter",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Non_ElectiveInpatientEncounter_EncounterPerformed_40280381_3d61_56a7_013d_7f17992a5558_source",
+                "variable" : false,
+                "field_values" : {
+                    "PRINCIPAL_DIAGNOSIS" : {
+                        "type" : "CD",
+                        "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.247",
+                        "title" : "Ischemic Stroke Grouping Value Set"
+                    }
+                }
+            },
+            "prefix_0a9f23c2_3482_45d3_8895_ed5444687fc4_40280381_3d61_56a7_013d_7f17992a5558" : {
+                "title" : "Non-Elective Inpatient Encounter",
+                "description" : "Encounter, Performed: Non-Elective Inpatient Encounter",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.424",
+                "type" : "encounters",
+                "definition" : "encounter",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Non_ElectiveInpatientEncounter_EncounterPerformed_40280381_3d61_56a7_013d_7f17992a5558_source",
+                "variable" : false,
+                "field_values" : {
+                    "DISCHARGE_STATUS" : {
+                        "type" : "CD",
+                        "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.308",
+                        "title" : "Left Against Medical Advice SNOMEDCT Value Set"
+                    }
+                }
+            },
+            "prefix_40842c3a_05db_4116_81e6_fa35ac48b66f_aefc94f3_43d0_422c_b601_388054d8cd40" : {
+                "title" : "Anticoagulant ingredient specific",
+                "description" : "Medication, Discharge: Anticoagulant ingredient specific",
+                "code_list_id" : "2.16.840.1.113762.1.4.1021.9",
+                "type" : "medications",
+                "definition" : "medication",
+                "status" : "discharge",
+                "hard_status" : true,
+                "negation" : true,
+                "negation_code_list_id" : "2.16.840.1.113883.3.117.1.7.1.473",
+                "source_data_criteria" : "prefix_40842c3a_05db_4116_81e6_fa35ac48b66f_aefc94f3_43d0_422c_b601_388054d8cd40_source",
+                "variable" : false
+            },
+            "prefix_09aefec9_f14b_41d4_9ab9_5573c9bd6029_40280381_3d61_56a7_013d_7f17992a5558" : {
+                "title" : "Non-Elective Inpatient Encounter",
+                "description" : "Encounter, Performed: Non-Elective Inpatient Encounter",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.424",
+                "type" : "encounters",
+                "definition" : "encounter",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Non_ElectiveInpatientEncounter_EncounterPerformed_40280381_3d61_56a7_013d_7f17992a5558_source",
+                "variable" : false,
+                "field_values" : {
+                    "DISCHARGE_STATUS" : {
+                        "type" : "CD",
+                        "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.309",
+                        "title" : "Patient Expired SNOMEDCT Value Set"
+                    }
+                }
+            },
+            "f1a8d712_d511_4015_8c8f_97a2961ad74c_aefc94f3_43d0_422c_b601_388054d8cd40" : {
+                "title" : "Anticoagulant ingredient specific",
+                "description" : "Medication, Discharge: Anticoagulant ingredient specific",
+                "code_list_id" : "2.16.840.1.113762.1.4.1021.9",
+                "type" : "medications",
+                "definition" : "medication",
+                "status" : "discharge",
+                "hard_status" : true,
+                "negation" : true,
+                "negation_code_list_id" : "2.16.840.1.113883.3.117.1.7.1.93",
+                "source_data_criteria" : "prefix_40842c3a_05db_4116_81e6_fa35ac48b66f_aefc94f3_43d0_422c_b601_388054d8cd40_source",
+                "variable" : false
+            },
+            "afc5b778_4195_43bc_b8e1_b873944b1977_40280381_3d61_56a7_013d_7f17992a5558" : {
+                "title" : "Non-Elective Inpatient Encounter",
+                "description" : "Encounter, Performed: Non-Elective Inpatient Encounter",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.424",
+                "type" : "encounters",
+                "definition" : "encounter",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Non_ElectiveInpatientEncounter_EncounterPerformed_40280381_3d61_56a7_013d_7f17992a5558_source",
+                "variable" : false,
+                "field_values" : {
+                    "LENGTH_OF_STAY" : {
+                        "type" : "IVL_PQ",
+                        "high" : {
+                            "type" : "PQ",
+                            "unit" : "d",
+                            "value" : "120",
+                            "inclusive?" : true,
+                            "derived?" : false
+                        }
+                    }
+                }
+            },
+            "Ethnicity_PatientCharacteristicEthnicity_40280381_3d61_56a7_013d_61a5141d0153" : {
+                "title" : "Ethnicity",
+                "description" : "Patient Characteristic Ethnicity: Ethnicity",
+                "code_list_id" : "2.16.840.1.114222.4.11.837",
+                "property" : "ethnicity",
+                "type" : "characteristic",
+                "definition" : "patient_characteristic_ethnicity",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Ethnicity_PatientCharacteristicEthnicity_40280381_3d61_56a7_013d_61a5141d0153_source",
+                "variable" : false,
+                "inline_code_list" : {
+                    "CDC Race" : [
+                        "2135-2",
+                        "2186-5"
+                    ]
+                }
+            },
+            "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3d61_56a7_013d_61a5141d0151" : {
+                "title" : "ONC Administrative Sex",
+                "description" : "Patient Characteristic Sex: ONC Administrative Sex",
+                "code_list_id" : "2.16.840.1.113762.1.4.1",
+                "property" : "gender",
+                "type" : "characteristic",
+                "definition" : "patient_characteristic_gender",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3d61_56a7_013d_61a5141d0151_source",
+                "variable" : false,
+                "value" : {
+                    "type" : "CD",
+                    "system" : "Administrative Sex",
+                    "code" : "F"
+                }
+            },
+            "Payer_PatientCharacteristicPayer_40280381_3d61_56a7_013d_61a5141d0154" : {
+                "title" : "Payer",
+                "description" : "Patient Characteristic Payer: Payer",
+                "code_list_id" : "2.16.840.1.114222.4.11.3591",
+                "property" : "payer",
+                "type" : "characteristic",
+                "definition" : "patient_characteristic_payer",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Payer_PatientCharacteristicPayer_40280381_3d61_56a7_013d_61a5141d0154_source",
+                "variable" : false,
+                "inline_code_list" : {
+                    "Source of Payment Typology" : [
+                        "1",
+                        "11",
+                        "111",
+                        "112",
+                        "113",
+                        "119",
+                        "12",
+                        "121",
+                        "122",
+                        "123",
+                        "129",
+                        "19",
+                        "2",
+                        "21",
+                        "211",
+                        "212",
+                        "213",
+                        "219",
+                        "22",
+                        "23",
+                        "24",
+                        "25",
+                        "29",
+                        "3",
+                        "31",
+                        "311",
+                        "3111",
+                        "3112",
+                        "3113",
+                        "3114",
+                        "3115",
+                        "3116",
+                        "3119",
+                        "312",
+                        "3121",
+                        "3122",
+                        "3123",
+                        "313",
+                        "32",
+                        "321",
+                        "3211",
+                        "3212",
+                        "32121",
+                        "32122",
+                        "32123",
+                        "32124",
+                        "32125",
+                        "32126",
+                        "322",
+                        "3221",
+                        "3222",
+                        "3223",
+                        "3229",
+                        "33",
+                        "331",
+                        "332",
+                        "333",
+                        "334",
+                        "34",
+                        "341",
+                        "342",
+                        "343",
+                        "349",
+                        "35",
+                        "36",
+                        "361",
+                        "362",
+                        "369",
+                        "37",
+                        "371",
+                        "3711",
+                        "3712",
+                        "3713",
+                        "372",
+                        "379",
+                        "38",
+                        "381",
+                        "3811",
+                        "3812",
+                        "3813",
+                        "3819",
+                        "382",
+                        "389",
+                        "39",
+                        "4",
+                        "41",
+                        "42",
+                        "43",
+                        "44",
+                        "5",
+                        "51",
+                        "511",
+                        "512",
+                        "513",
+                        "514",
+                        "515",
+                        "519",
+                        "52",
+                        "521",
+                        "522",
+                        "523",
+                        "529",
+                        "53",
+                        "54",
+                        "55",
+                        "59",
+                        "6",
+                        "61",
+                        "611",
+                        "612",
+                        "613",
+                        "619",
+                        "62",
+                        "63",
+                        "64",
+                        "69",
+                        "7",
+                        "71",
+                        "72",
+                        "73",
+                        "79",
+                        "8",
+                        "81",
+                        "82",
+                        "821",
+                        "822",
+                        "823",
+                        "83",
+                        "84",
+                        "85",
+                        "89",
+                        "9",
+                        "91",
+                        "92",
+                        "93",
+                        "94",
+                        "95",
+                        "951",
+                        "953",
+                        "954",
+                        "959",
+                        "96",
+                        "98",
+                        "99",
+                        "9999"
+                    ]
+                }
+            },
+            "Race_PatientCharacteristicRace_40280381_3d61_56a7_013d_61a5141d0152" : {
+                "title" : "Race",
+                "description" : "Patient Characteristic Race: Race",
+                "code_list_id" : "2.16.840.1.114222.4.11.836",
+                "property" : "race",
+                "type" : "characteristic",
+                "definition" : "patient_characteristic_race",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Race_PatientCharacteristicRace_40280381_3d61_56a7_013d_61a5141d0152_source",
+                "variable" : false,
+                "inline_code_list" : {
+                    "CDC Race" : [
+                        "1002-5",
+                        "2028-9",
+                        "2054-5",
+                        "2076-8",
+                        "2106-3",
+                        "2131-1"
+                    ]
+                }
+            },
+            "EndsDuring_D7546170_E726_48CB_8233_202C12605B68_40280381_3d61_56a7_013d_7f17992a5558" : {
+                "title" : "Non-Elective Inpatient Encounter",
+                "description" : "Encounter, Performed: Non-Elective Inpatient Encounter",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.424",
+                "type" : "encounters",
+                "definition" : "encounter",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Non_ElectiveInpatientEncounter_EncounterPerformed_40280381_3d61_56a7_013d_7f17992a5558_source",
+                "variable" : false,
+                "temporal_references" : [
+                    {
+                        "type" : "EDU",
+                        "reference" : "MeasurePeriod"
+                    }
+                ]
+            },
+            "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_960A691A_CD9B_415C_BA13_DC0DDC1557B0" : {
+                "title" : "EncounterInpatientNonElective",
+                "description" : "EncounterInpatientNonElective",
+                "children_criteria" : [
+                    "GROUP_occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_960A691A_CD9B_415C_BA13_DC0DDC1557B0"
+                ],
+                "derivation_operator" : "UNION",
+                "type" : "derived",
+                "definition" : "derived",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_960A691A_CD9B_415C_BA13_DC0DDC1557B0",
+                "variable" : true
+            },
+            "GROUP_occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_960A691A_CD9B_415C_BA13_DC0DDC1557B0" : {
+                "title" : "EncounterInpatientNonElective",
+                "description" : "EncounterInpatientNonElective",
+                "children_criteria" : [
+                    "afc5b778_4195_43bc_b8e1_b873944b1977_40280381_3d61_56a7_013d_7f17992a5558",
+                    "EndsDuring_D7546170_E726_48CB_8233_202C12605B68_40280381_3d61_56a7_013d_7f17992a5558"
+                ],
+                "derivation_operator" : "INTERSECT",
+                "type" : "derived",
+                "definition" : "satisfies_all",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "GROUP_occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_960A691A_CD9B_415C_BA13_DC0DDC1557B0",
+                "variable" : false
+            },
+            "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D" : {
+                "title" : "EncounterInpatientNonElective",
+                "description" : "EncounterInpatientNonElective",
+                "children_criteria" : [
+                    "GROUP_occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D"
+                ],
+                "derivation_operator" : "UNION",
+                "type" : "derived",
+                "definition" : "derived",
+                "hard_status" : false,
+                "negation" : false,
+                "specific_occurrence" : "A",
+                "specific_occurrence_const" : "OCCAOF_QDM_VAR_SATISFIESALL_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_960A691A_CD9B_415C_BA13_DC0DDC1557B0_SOURCE",
+                "source_data_criteria" : "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D",
+                "variable" : true
+            },
+            "GROUP_occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D" : {
+                "title" : "EncounterInpatientNonElective",
+                "description" : "EncounterInpatientNonElective",
+                "children_criteria" : [
+                    "afc5b778_4195_43bc_b8e1_b873944b1977_40280381_3d61_56a7_013d_7f17992a5558",
+                    "EndsDuring_D7546170_E726_48CB_8233_202C12605B68_40280381_3d61_56a7_013d_7f17992a5558"
+                ],
+                "derivation_operator" : "INTERSECT",
+                "type" : "derived",
+                "definition" : "satisfies_all",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "GROUP_occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D",
+                "variable" : false
+            },
+            "Agegrtr_thn_eql_18yearsat_A82A5E47_32E7_4ABC_94DF_6AA736BC6847_127D6E9A_EEEC_40CA_BD41_0598CD9ABD66" : {
+                "title" : "Birth Date",
+                "description" : "Patient Characteristic Birthdate: Birth Date",
+                "property" : "birthtime",
+                "type" : "characteristic",
+                "definition" : "patient_characteristic_birthdate",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Agegrtr_thn_eql_18yearsat_A82A5E47_32E7_4ABC_94DF_6AA736BC6847_127D6E9A_EEEC_40CA_BD41_0598CD9ABD66_source",
+                "variable" : false,
+                "temporal_references" : [
+                    {
+                        "type" : "SBS",
+                        "reference" : "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D",
+                        "range" : {
+                            "type" : "IVL_PQ",
+                            "low" : {
+                                "type" : "PQ",
+                                "unit" : "a",
+                                "value" : "18",
+                                "inclusive?" : true,
+                                "derived?" : false
+                            }
+                        }
+                    }
+                ]
+            },
+            "StartsDuring_EE0530BC_9305_4C01_A098_B05A1699D76F_63DD3232_4F74_4FA2_B5CF_A7B7DC8BC5B9" : {
+                "title" : "Anticoagulant Therapy",
+                "description" : "Medication, Discharge: Anticoagulant Therapy",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.200",
+                "type" : "medications",
+                "definition" : "medication",
+                "status" : "discharge",
+                "hard_status" : true,
+                "negation" : false,
+                "source_data_criteria" : "StartsDuring_EE0530BC_9305_4C01_A098_B05A1699D76F_63DD3232_4F74_4FA2_B5CF_A7B7DC8BC5B9_source",
+                "variable" : false,
+                "temporal_references" : [
+                    {
+                        "type" : "SDU",
+                        "reference" : "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D"
+                    }
+                ]
+            },
+            "qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE" : {
+                "title" : "InterventionComfortMeasures",
+                "description" : "InterventionComfortMeasures",
+                "children_criteria" : [
+                    "GROUP_qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE"
+                ],
+                "derivation_operator" : "UNION",
+                "type" : "derived",
+                "definition" : "derived",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE",
+                "variable" : true
+            },
+            "GROUP_qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE" : {
+                "title" : "InterventionComfortMeasures",
+                "description" : "InterventionComfortMeasures",
+                "children_criteria" : [
+                    "ComfortMeasures_InterventionOrder_0bb83a46_509d_4a86_bf82_ba3fa0a5e9bb",
+                    "ComfortMeasures_InterventionPerformed_be018456_d5e7_4fa7_aaff_656af50e9ced"
+                ],
+                "derivation_operator" : "UNION",
+                "type" : "derived",
+                "definition" : "derived",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "GROUP_qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE",
+                "variable" : false
+            },
+            "less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_9DC5E3E3_53DB_4C90_A5D9_50E40F8163B5_c8d72fd0_b060_4e95_ac9c_14018c0930c4" : {
+                "title" : "Emergency Department Visit",
+                "description" : "Encounter, Performed: Emergency Department Visit",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.292",
+                "type" : "encounters",
+                "definition" : "encounter",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_9DC5E3E3_53DB_4C90_A5D9_50E40F8163B5_c8d72fd0_b060_4e95_ac9c_14018c0930c4_source",
+                "variable" : false,
+                "temporal_references" : [
+                    {
+                        "type" : "EBCWS",
+                        "reference" : "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D",
+                        "range" : {
+                            "type" : "IVL_PQ",
+                            "high" : {
+                                "type" : "PQ",
+                                "unit" : "h",
+                                "value" : "1",
+                                "inclusive?" : true,
+                                "derived?" : false
+                            }
+                        }
+                    }
+                ]
+            },
+            "StartsDuring_8C88BD00_1EB0_4A27_BD1E_071A7C76EBD7_AF9B2F20_2073_4918_A687_F1748D069B0C" : {
+                "title" : "InterventionComfortMeasures",
+                "description" : "InterventionComfortMeasures",
+                "children_criteria" : [
+                    "GROUP_qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE"
+                ],
+                "derivation_operator" : "UNION",
+                "type" : "derived",
+                "definition" : "derived",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE",
+                "variable" : true,
+                "temporal_references" : [
+                    {
+                        "type" : "SDU",
+                        "reference" : "less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_9DC5E3E3_53DB_4C90_A5D9_50E40F8163B5_c8d72fd0_b060_4e95_ac9c_14018c0930c4"
+                    }
+                ]
+            },
+            "StartsDuring_5EEED92E_CCBB_477D_86A2_5CB615C594CF_8E4FFD8C_C9A6_40C7_8F05_2713BDCB6047" : {
+                "title" : "InterventionComfortMeasures",
+                "description" : "InterventionComfortMeasures",
+                "children_criteria" : [
+                    "GROUP_qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE"
+                ],
+                "derivation_operator" : "UNION",
+                "type" : "derived",
+                "definition" : "derived",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE",
+                "variable" : true,
+                "temporal_references" : [
+                    {
+                        "type" : "SDU",
+                        "reference" : "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D"
+                    }
+                ]
+            },
+            "Intersection_714C4A18_7AD0_47D2_B2DB_2F06AD90614C_C0988FA1_BA5B_410A_BC5A_DA616FB8CE9B" : {
+                "title" : "Intersection_714C4A18-7AD0-47D2-B2DB-2F06AD90614C",
+                "description" : "Intersection_714C4A18-7AD0-47D2-B2DB-2F06AD90614C",
+                "children_criteria" : [
+                    "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D",
+                    "prefix_421d6de7_6b4d_403a_9dd9_ab8fc88fd2c0_40280381_3d61_56a7_013d_7f17992a5558"
+                ],
+                "derivation_operator" : "INTERSECT",
+                "type" : "derived",
+                "definition" : "derived",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Intersection_714C4A18_7AD0_47D2_B2DB_2F06AD90614C_C0988FA1_BA5B_410A_BC5A_DA616FB8CE9B",
+                "variable" : false
+            },
+            "Intersection_37030379_D252_4EF9_8E98_7923BAA77AF1_4E7FBB05_B5F3_4864_8C91_8A0B63834C3E" : {
+                "title" : "Intersection_37030379-D252-4EF9-8E98-7923BAA77AF1",
+                "description" : "Intersection_37030379-D252-4EF9-8E98-7923BAA77AF1",
+                "children_criteria" : [
+                    "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D",
+                    "prefix_2cf079b5_9057_478c_8fdd_35c4e0110411_40280381_3d61_56a7_013d_7f17992a5558"
+                ],
+                "derivation_operator" : "INTERSECT",
+                "type" : "derived",
+                "definition" : "derived",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Intersection_37030379_D252_4EF9_8E98_7923BAA77AF1_4E7FBB05_B5F3_4864_8C91_8A0B63834C3E",
+                "variable" : false
+            },
+            "SatisfiesAny_63A42FB9_9B9B_428E_BDC6_052C0FAE34D8_29239B2E_2CBF_4496_9BA6_99B654A4AC0A" : {
+                "title" : "SatisfiesAny_63A42FB9-9B9B-428E-BDC6-052C0FAE34D8",
+                "description" : "SatisfiesAny_63A42FB9-9B9B-428E-BDC6-052C0FAE34D8",
+                "children_criteria" : [
+                    "e9d3bd3e_af52_4ed7_95b9_f9279685d3bd_40280381_3d61_56a7_013d_7f17992a5558",
+                    "prefix_0a9f23c2_3482_45d3_8895_ed5444687fc4_40280381_3d61_56a7_013d_7f17992a5558",
+                    "prefix_09aefec9_f14b_41d4_9ab9_5573c9bd6029_40280381_3d61_56a7_013d_7f17992a5558",
+                    "prefix_10fbb756_e544_4b3e_826d_505de77ecdf7_40280381_3d61_56a7_013d_7f17992a5558",
+                    "prefix_5591ae91_01cd_4221_bff6_6ec4ec92e4a7_40280381_3d61_56a7_013d_7f17992a5558"
+                ],
+                "derivation_operator" : "UNION",
+                "type" : "derived",
+                "definition" : "satisfies_any",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "SatisfiesAny_63A42FB9_9B9B_428E_BDC6_052C0FAE34D8_29239B2E_2CBF_4496_9BA6_99B654A4AC0A",
+                "variable" : false
+            },
+            "Intersection_BDD36E7D_8F1D_4A3D_9345_8D4767C01890_FBF31F71_F26C_4E2E_916C_8D5D8C46AAF9" : {
+                "title" : "Intersection_BDD36E7D-8F1D-4A3D-9345-8D4767C01890",
+                "description" : "Intersection_BDD36E7D-8F1D-4A3D-9345-8D4767C01890",
+                "children_criteria" : [
+                    "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D",
+                    "SatisfiesAny_63A42FB9_9B9B_428E_BDC6_052C0FAE34D8_29239B2E_2CBF_4496_9BA6_99B654A4AC0A"
+                ],
+                "derivation_operator" : "INTERSECT",
+                "type" : "derived",
+                "definition" : "derived",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Intersection_BDD36E7D_8F1D_4A3D_9345_8D4767C01890_FBF31F71_F26C_4E2E_916C_8D5D8C46AAF9",
+                "variable" : false
+            },
+            "StartsBeforeStartOf_85A6AA26_33A3_4E30_A208_14DA4679AEE1_40280381_3d61_56a7_013d_61a5141e015b" : {
+                "title" : "Atrial Ablation",
+                "description" : "Procedure, Performed: Atrial Ablation",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.203",
+                "type" : "procedures",
+                "definition" : "procedure",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "StartsBeforeStartOf_85A6AA26_33A3_4E30_A208_14DA4679AEE1_40280381_3d61_56a7_013d_61a5141e015b_source",
+                "variable" : false,
+                "temporal_references" : [
+                    {
+                        "type" : "SBS",
+                        "reference" : "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D"
+                    }
+                ]
+            },
+            "StartsBeforeOrConcurrentWithEndOf_BD6DD207_09DD_4691_AA38_044F8728505F_85439cd3_7a96_425f_af18_bd3b450b617c" : {
+                "title" : "Atrial Fibrillation/Flutter",
+                "description" : "Diagnosis: Atrial Fibrillation/Flutter",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.202",
+                "type" : "conditions",
+                "definition" : "diagnosis",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "StartsBeforeOrConcurrentWithEndOf_BD6DD207_09DD_4691_AA38_044F8728505F_85439cd3_7a96_425f_af18_bd3b450b617c_source",
+                "variable" : false,
+                "temporal_references" : [
+                    {
+                        "type" : "SBCWE",
+                        "reference" : "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D"
+                    }
+                ]
+            },
+            "Intersection_65F910C7_71D5_4C92_A3EE_8646F4B0BAC8_D36A037F_70F8_4212_84F0_4BBAAA626E65" : {
+                "title" : "Intersection_65F910C7-71D5-4C92-A3EE-8646F4B0BAC8",
+                "description" : "Intersection_65F910C7-71D5-4C92-A3EE-8646F4B0BAC8",
+                "children_criteria" : [
+                    "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D",
+                    "prefix_37bff134_04e1_4218_9501_6085e908115a_40280381_3d61_56a7_013d_7f17992a5558"
+                ],
+                "derivation_operator" : "INTERSECT",
+                "type" : "derived",
+                "definition" : "derived",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Intersection_65F910C7_71D5_4C92_A3EE_8646F4B0BAC8_D36A037F_70F8_4212_84F0_4BBAAA626E65",
+                "variable" : false
+            },
+            "Union_A338ACE5_5D2B_4063_A10E_B763E439B8EC_852773E1_0476_4AF2_82E2_799A1330FF7B" : {
+                "title" : "Union_A338ACE5-5D2B-4063-A10E-B763E439B8EC",
+                "description" : "Union_A338ACE5-5D2B-4063-A10E-B763E439B8EC",
+                "children_criteria" : [
+                    "StartsBeforeStartOf_85A6AA26_33A3_4E30_A208_14DA4679AEE1_40280381_3d61_56a7_013d_61a5141e015b",
+                    "StartsBeforeOrConcurrentWithEndOf_BD6DD207_09DD_4691_AA38_044F8728505F_85439cd3_7a96_425f_af18_bd3b450b617c",
+                    "Intersection_65F910C7_71D5_4C92_A3EE_8646F4B0BAC8_D36A037F_70F8_4212_84F0_4BBAAA626E65"
+                ],
+                "derivation_operator" : "UNION",
+                "type" : "derived",
+                "definition" : "derived",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Union_A338ACE5_5D2B_4063_A10E_B763E439B8EC_852773E1_0476_4AF2_82E2_799A1330FF7B",
+                "variable" : false
+            },
+            "StartsDuring_099CD955_FF49_4238_949D_4223CCFA6DC2_4BFC9BE1_EEDB_49D0_932C_5915FBBB218A" : {
+                "title" : "StartsDuring_099CD955-FF49-4238-949D-4223CCFA6DC2",
+                "description" : "StartsDuring_099CD955-FF49-4238-949D-4223CCFA6DC2",
+                "children_criteria" : [
+                    "prefix_40842c3a_05db_4116_81e6_fa35ac48b66f_aefc94f3_43d0_422c_b601_388054d8cd40",
+                    "f1a8d712_d511_4015_8c8f_97a2961ad74c_aefc94f3_43d0_422c_b601_388054d8cd40"
+                ],
+                "derivation_operator" : "UNION",
+                "type" : "derived",
+                "definition" : "derived",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "StartsDuring_099CD955_FF49_4238_949D_4223CCFA6DC2_4BFC9BE1_EEDB_49D0_932C_5915FBBB218A",
+                "variable" : false,
+                "temporal_references" : [
+                    {
+                        "type" : "SDU",
+                        "reference" : "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D"
+                    }
+                ]
+            }
+        },
+        "source_data_criteria" : {
+            "ComfortMeasures_InterventionOrder_0bb83a46_509d_4a86_bf82_ba3fa0a5e9bb_source" : {
+                "title" : "Comfort Measures",
+                "description" : "Intervention, Order: Comfort Measures",
+                "code_list_id" : "1.3.6.1.4.1.33895.1.3.0.45",
+                "type" : "interventions",
+                "definition" : "intervention",
+                "status" : "ordered",
+                "hard_status" : true,
+                "negation" : false,
+                "source_data_criteria" : "ComfortMeasures_InterventionOrder_0bb83a46_509d_4a86_bf82_ba3fa0a5e9bb_source",
+                "variable" : false
+            },
+            "ComfortMeasures_InterventionPerformed_be018456_d5e7_4fa7_aaff_656af50e9ced_source" : {
+                "title" : "Comfort Measures",
+                "description" : "Intervention, Performed: Comfort Measures",
+                "code_list_id" : "1.3.6.1.4.1.33895.1.3.0.45",
+                "type" : "interventions",
+                "definition" : "intervention",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "ComfortMeasures_InterventionPerformed_be018456_d5e7_4fa7_aaff_656af50e9ced_source",
+                "variable" : false
+            },
+            "Non_ElectiveInpatientEncounter_EncounterPerformed_40280381_3d61_56a7_013d_7f17992a5558_source" : {
+                "title" : "Non-Elective Inpatient Encounter",
+                "description" : "Encounter, Performed: Non-Elective Inpatient Encounter",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.424",
+                "type" : "encounters",
+                "definition" : "encounter",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Non_ElectiveInpatientEncounter_EncounterPerformed_40280381_3d61_56a7_013d_7f17992a5558_source",
+                "variable" : false
+            },
+            "prefix_40842c3a_05db_4116_81e6_fa35ac48b66f_aefc94f3_43d0_422c_b601_388054d8cd40_source" : {
+                "title" : "Anticoagulant ingredient specific",
+                "description" : "Medication, Discharge: Anticoagulant ingredient specific",
+                "code_list_id" : "2.16.840.1.113762.1.4.1021.9",
+                "type" : "medications",
+                "definition" : "medication",
+                "status" : "discharge",
+                "hard_status" : true,
+                "negation" : false,
+                "source_data_criteria" : "prefix_40842c3a_05db_4116_81e6_fa35ac48b66f_aefc94f3_43d0_422c_b601_388054d8cd40_source",
+                "variable" : false
+            },
+            "Ethnicity_PatientCharacteristicEthnicity_40280381_3d61_56a7_013d_61a5141d0153_source" : {
+                "title" : "Ethnicity",
+                "description" : "Patient Characteristic Ethnicity: Ethnicity",
+                "code_list_id" : "2.16.840.1.114222.4.11.837",
+                "property" : "ethnicity",
+                "type" : "characteristic",
+                "definition" : "patient_characteristic_ethnicity",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Ethnicity_PatientCharacteristicEthnicity_40280381_3d61_56a7_013d_61a5141d0153_source",
+                "variable" : false,
+                "inline_code_list" : {
+                    "CDC Race" : [
+                        "2135-2",
+                        "2186-5"
+                    ]
+                }
+            },
+            "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3d61_56a7_013d_61a5141d0151_source" : {
+                "title" : "ONC Administrative Sex",
+                "description" : "Patient Characteristic Sex: ONC Administrative Sex",
+                "code_list_id" : "2.16.840.1.113762.1.4.1",
+                "property" : "gender",
+                "type" : "characteristic",
+                "definition" : "patient_characteristic_gender",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "ONCAdministrativeSex_PatientCharacteristicSex_40280381_3d61_56a7_013d_61a5141d0151_source",
+                "variable" : false,
+                "value" : {
+                    "type" : "CD",
+                    "system" : "Administrative Sex",
+                    "code" : "F"
+                }
+            },
+            "Payer_PatientCharacteristicPayer_40280381_3d61_56a7_013d_61a5141d0154_source" : {
+                "title" : "Payer",
+                "description" : "Patient Characteristic Payer: Payer",
+                "code_list_id" : "2.16.840.1.114222.4.11.3591",
+                "property" : "payer",
+                "type" : "characteristic",
+                "definition" : "patient_characteristic_payer",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Payer_PatientCharacteristicPayer_40280381_3d61_56a7_013d_61a5141d0154_source",
+                "variable" : false,
+                "inline_code_list" : {
+                    "Source of Payment Typology" : [
+                        "1",
+                        "11",
+                        "111",
+                        "112",
+                        "113",
+                        "119",
+                        "12",
+                        "121",
+                        "122",
+                        "123",
+                        "129",
+                        "19",
+                        "2",
+                        "21",
+                        "211",
+                        "212",
+                        "213",
+                        "219",
+                        "22",
+                        "23",
+                        "24",
+                        "25",
+                        "29",
+                        "3",
+                        "31",
+                        "311",
+                        "3111",
+                        "3112",
+                        "3113",
+                        "3114",
+                        "3115",
+                        "3116",
+                        "3119",
+                        "312",
+                        "3121",
+                        "3122",
+                        "3123",
+                        "313",
+                        "32",
+                        "321",
+                        "3211",
+                        "3212",
+                        "32121",
+                        "32122",
+                        "32123",
+                        "32124",
+                        "32125",
+                        "32126",
+                        "322",
+                        "3221",
+                        "3222",
+                        "3223",
+                        "3229",
+                        "33",
+                        "331",
+                        "332",
+                        "333",
+                        "334",
+                        "34",
+                        "341",
+                        "342",
+                        "343",
+                        "349",
+                        "35",
+                        "36",
+                        "361",
+                        "362",
+                        "369",
+                        "37",
+                        "371",
+                        "3711",
+                        "3712",
+                        "3713",
+                        "372",
+                        "379",
+                        "38",
+                        "381",
+                        "3811",
+                        "3812",
+                        "3813",
+                        "3819",
+                        "382",
+                        "389",
+                        "39",
+                        "4",
+                        "41",
+                        "42",
+                        "43",
+                        "44",
+                        "5",
+                        "51",
+                        "511",
+                        "512",
+                        "513",
+                        "514",
+                        "515",
+                        "519",
+                        "52",
+                        "521",
+                        "522",
+                        "523",
+                        "529",
+                        "53",
+                        "54",
+                        "55",
+                        "59",
+                        "6",
+                        "61",
+                        "611",
+                        "612",
+                        "613",
+                        "619",
+                        "62",
+                        "63",
+                        "64",
+                        "69",
+                        "7",
+                        "71",
+                        "72",
+                        "73",
+                        "79",
+                        "8",
+                        "81",
+                        "82",
+                        "821",
+                        "822",
+                        "823",
+                        "83",
+                        "84",
+                        "85",
+                        "89",
+                        "9",
+                        "91",
+                        "92",
+                        "93",
+                        "94",
+                        "95",
+                        "951",
+                        "953",
+                        "954",
+                        "959",
+                        "96",
+                        "98",
+                        "99",
+                        "9999"
+                    ]
+                }
+            },
+            "Race_PatientCharacteristicRace_40280381_3d61_56a7_013d_61a5141d0152_source" : {
+                "title" : "Race",
+                "description" : "Patient Characteristic Race: Race",
+                "code_list_id" : "2.16.840.1.114222.4.11.836",
+                "property" : "race",
+                "type" : "characteristic",
+                "definition" : "patient_characteristic_race",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Race_PatientCharacteristicRace_40280381_3d61_56a7_013d_61a5141d0152_source",
+                "variable" : false,
+                "inline_code_list" : {
+                    "CDC Race" : [
+                        "1002-5",
+                        "2028-9",
+                        "2054-5",
+                        "2076-8",
+                        "2106-3",
+                        "2131-1"
+                    ]
+                }
+            },
+            "Agegrtr_thn_eql_18yearsat_A82A5E47_32E7_4ABC_94DF_6AA736BC6847_127D6E9A_EEEC_40CA_BD41_0598CD9ABD66_source" : {
+                "title" : "Birth Date",
+                "description" : "Patient Characteristic Birthdate: Birth Date",
+                "property" : "birthtime",
+                "type" : "characteristic",
+                "definition" : "patient_characteristic_birthdate",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "Agegrtr_thn_eql_18yearsat_A82A5E47_32E7_4ABC_94DF_6AA736BC6847_127D6E9A_EEEC_40CA_BD41_0598CD9ABD66_source",
+                "variable" : false
+            },
+            "StartsDuring_EE0530BC_9305_4C01_A098_B05A1699D76F_63DD3232_4F74_4FA2_B5CF_A7B7DC8BC5B9_source" : {
+                "title" : "Anticoagulant Therapy",
+                "description" : "Medication, Discharge: Anticoagulant Therapy",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.200",
+                "type" : "medications",
+                "definition" : "medication",
+                "status" : "discharge",
+                "hard_status" : true,
+                "negation" : false,
+                "source_data_criteria" : "StartsDuring_EE0530BC_9305_4C01_A098_B05A1699D76F_63DD3232_4F74_4FA2_B5CF_A7B7DC8BC5B9_source",
+                "variable" : false
+            },
+            "less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_9DC5E3E3_53DB_4C90_A5D9_50E40F8163B5_c8d72fd0_b060_4e95_ac9c_14018c0930c4_source" : {
+                "title" : "Emergency Department Visit",
+                "description" : "Encounter, Performed: Emergency Department Visit",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.292",
+                "type" : "encounters",
+                "definition" : "encounter",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_9DC5E3E3_53DB_4C90_A5D9_50E40F8163B5_c8d72fd0_b060_4e95_ac9c_14018c0930c4_source",
+                "variable" : false
+            },
+            "StartsBeforeStartOf_85A6AA26_33A3_4E30_A208_14DA4679AEE1_40280381_3d61_56a7_013d_61a5141e015b_source" : {
+                "title" : "Atrial Ablation",
+                "description" : "Procedure, Performed: Atrial Ablation",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.203",
+                "type" : "procedures",
+                "definition" : "procedure",
+                "status" : "performed",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "StartsBeforeStartOf_85A6AA26_33A3_4E30_A208_14DA4679AEE1_40280381_3d61_56a7_013d_61a5141e015b_source",
+                "variable" : false
+            },
+            "StartsBeforeOrConcurrentWithEndOf_BD6DD207_09DD_4691_AA38_044F8728505F_85439cd3_7a96_425f_af18_bd3b450b617c_source" : {
+                "title" : "Atrial Fibrillation/Flutter",
+                "description" : "Diagnosis: Atrial Fibrillation/Flutter",
+                "code_list_id" : "2.16.840.1.113883.3.117.1.7.1.202",
+                "type" : "conditions",
+                "definition" : "diagnosis",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "StartsBeforeOrConcurrentWithEndOf_BD6DD207_09DD_4691_AA38_044F8728505F_85439cd3_7a96_425f_af18_bd3b450b617c_source",
+                "variable" : false
+            },
+            "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_960A691A_CD9B_415C_BA13_DC0DDC1557B0" : {
+                "title" : "EncounterInpatientNonElective",
+                "description" : "EncounterInpatientNonElective",
+                "children_criteria" : [
+                    "GROUP_occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_960A691A_CD9B_415C_BA13_DC0DDC1557B0"
+                ],
+                "derivation_operator" : "UNION",
+                "type" : "derived",
+                "definition" : "derived",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_960A691A_CD9B_415C_BA13_DC0DDC1557B0",
+                "variable" : true
+            },
+            "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D" : {
+                "title" : "EncounterInpatientNonElective",
+                "description" : "EncounterInpatientNonElective",
+                "children_criteria" : [
+                    "GROUP_occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D"
+                ],
+                "derivation_operator" : "UNION",
+                "type" : "derived",
+                "definition" : "derived",
+                "hard_status" : false,
+                "negation" : false,
+                "specific_occurrence" : "A",
+                "specific_occurrence_const" : "OCCAOF_QDM_VAR_SATISFIESALL_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_960A691A_CD9B_415C_BA13_DC0DDC1557B0_SOURCE",
+                "source_data_criteria" : "occAof_qdm_var_SatisfiesAll_89041435_C5AF_445E_9FC6_B8F31E9BFAA7_91D5A528_D02C_4214_AB38_591BB5CE8B2D",
+                "variable" : true
+            },
+            "qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE" : {
+                "title" : "InterventionComfortMeasures",
+                "description" : "InterventionComfortMeasures",
+                "children_criteria" : [
+                    "GROUP_qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE"
+                ],
+                "derivation_operator" : "UNION",
+                "type" : "derived",
+                "definition" : "derived",
+                "hard_status" : false,
+                "negation" : false,
+                "source_data_criteria" : "qdm_var_Union_721B9529_2F56_4FF6_9D37_12E695B844B4_448BF6A5_98AE_445B_AABF_130F6F8D9BAE",
+                "variable" : true
+            }
+        },
+        "attributes" : [
+            {
+                "code" : "OTH",
+                "value" : "71",
+                "name" : "eMeasure Identifier (Measure Authoring Tool)",
+                "code_obj" : {
+                    "type" : "CD",
+                    "null_flavor" : "OTH",
+                    "original_text" : "eMeasure Identifier (Measure Authoring Tool)"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "71",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "OTH",
+                "value" : "0436",
+                "name" : "NQF Number",
+                "code_obj" : {
+                    "type" : "CD",
+                    "null_flavor" : "OTH",
+                    "original_text" : "NQF Number"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "0436",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "COPY",
+                "value" : "Measure specifications are in the Public Domain.\n\nLOINC(R) is a registered trademark of the Regenstrief Institute.\n\nThis material contains SNOMED Clinical Terms(R) (SNOMED CT(C)) copyright 2004-2015 International Health Terminology Standards Development Organization. All rights reserved.",
+                "name" : "Copyright",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "COPY",
+                    "title" : "Copyright"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "Measure specifications are in the Public Domain.\n\nLOINC(R) is a registered trademark of the Regenstrief Institute.\n\nThis material contains SNOMED Clinical Terms(R) (SNOMED CT(C)) copyright 2004-2015 International Health Terminology Standards Development Organization. All rights reserved.",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "DISC",
+                "value" : "These performance measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications. The measures and specifications are provided without warranty.",
+                "name" : "Disclaimer",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "DISC",
+                    "title" : "Disclaimer"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "These performance measures are not clinical guidelines and do not establish a standard of medical care, and have not been tested for all potential applications. The measures and specifications are provided without warranty.",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "MSRSCORE",
+                "name" : "Measure Scoring",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "MSRSCORE",
+                    "title" : "Measure Scoring"
+                },
+                "value_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.1.11.20367",
+                    "code" : "PROPOR",
+                    "title" : "Proportion"
+                }
+            },
+            {
+                "code" : "MSRTYPE",
+                "name" : "Measure Type",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "MSRTYPE",
+                    "title" : "Measure Type"
+                },
+                "value_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.1.11.20368",
+                    "code" : "PROCESS",
+                    "title" : "PROCESS"
+                }
+            },
+            {
+                "code" : "ITMCNT",
+                "name" : "Items to count",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "ITMCNT",
+                    "title" : "Items to count"
+                },
+                "value_obj" : {
+                    "type" : "II",
+                    "root" : "40280381-3d61-56a7-013d-7f17992a5558",
+                    "extension" : "Non-ElectiveInpatientEncounter_EncounterPerformed"
+                }
+            },
+            {
+                "code" : "STRAT",
+                "value" : "None",
+                "name" : "Stratification",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "STRAT",
+                    "title" : "Stratification"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "None",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "MSRADJ",
+                "value" : "None",
+                "name" : "Risk Adjustment",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "MSRADJ",
+                    "title" : "Risk Adjustment"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "None",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "MSRAGG",
+                "value" : "None",
+                "name" : "Rate Aggregation",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "MSRAGG",
+                    "title" : "Rate Aggregation"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "None",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "RAT",
+                "value" : "Nonvalvular atrial fibrillation (NVAF) is a common arrhythmia and an important risk factor for stroke. It is one of several conditions and lifestyle factors that have been identified as risk factors for stroke. It has been estimated that over 2 million adults in the United States have NVAF. While the median age of patients with atrial fibrillation is 75 years, the incidence increases with advancing age. For example, The Framingham Heart Study noted a dramatic increase in stroke risk associated with atrial fibrillation with advancing age, from 1.5% for those 50 to 59 years of age to 23.5% for those 80 to 89 years of age. Furthermore, a prior stroke or transient ischemic attack (TIA) are among a limited number of predictors of high stroke risk within the population of patients with atrial fibrillation. Therefore, much emphasis has been placed on identifying methods for preventing recurrent ischemic stroke as well as preventing first stroke. Prevention strategies focus on the modifiable risk factors such as hypertension, smoking, and atrial fibrillation. Analysis of five placebo-controlled clinical trials investigating the efficacy of warfarin in the primary prevention of thromboembolic stroke, found the relative risk of thromboembolic stroke was reduced by 68% for atrial fibrillation patients treated with warfarin. The administration of anticoagulation therapy, unless there are contraindications, is an established effective strategy in preventing recurrent stroke in high stroke risk-atrial fibrillation patients with TIA or prior stroke.",
+                "name" : "Rationale",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "RAT",
+                    "title" : "Rationale"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "Nonvalvular atrial fibrillation (NVAF) is a common arrhythmia and an important risk factor for stroke. It is one of several conditions and lifestyle factors that have been identified as risk factors for stroke. It has been estimated that over 2 million adults in the United States have NVAF. While the median age of patients with atrial fibrillation is 75 years, the incidence increases with advancing age. For example, The Framingham Heart Study noted a dramatic increase in stroke risk associated with atrial fibrillation with advancing age, from 1.5% for those 50 to 59 years of age to 23.5% for those 80 to 89 years of age. Furthermore, a prior stroke or transient ischemic attack (TIA) are among a limited number of predictors of high stroke risk within the population of patients with atrial fibrillation. Therefore, much emphasis has been placed on identifying methods for preventing recurrent ischemic stroke as well as preventing first stroke. Prevention strategies focus on the modifiable risk factors such as hypertension, smoking, and atrial fibrillation. Analysis of five placebo-controlled clinical trials investigating the efficacy of warfarin in the primary prevention of thromboembolic stroke, found the relative risk of thromboembolic stroke was reduced by 68% for atrial fibrillation patients treated with warfarin. The administration of anticoagulation therapy, unless there are contraindications, is an established effective strategy in preventing recurrent stroke in high stroke risk-atrial fibrillation patients with TIA or prior stroke.",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "CRS",
+                "value" : "The administration of anticoagulation therapy, unless there are contraindications, is an established effective strategy in preventing recurrent stroke in high stroke risk atrial fibrillation patients with TIA or prior stroke",
+                "name" : "Clinical Recommendation Statement",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "CRS",
+                    "title" : "Clinical Recommendation Statement"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "The administration of anticoagulation therapy, unless there are contraindications, is an established effective strategy in preventing recurrent stroke in high stroke risk atrial fibrillation patients with TIA or prior stroke",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "IDUR",
+                "value" : "Improvement noted as an increase in rate",
+                "name" : "Improvement Notation",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "IDUR",
+                    "title" : "Improvement Notation"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "Improvement noted as an increase in rate",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "REF",
+                "value" : "Kernan, W.N., B. Ovbiagele, H. R. Black, D. M. Bravata, M. I. Chimowitz, M. D. Ezekowitz, M. C. Fang, M. Fisher, K. L. Furie, D. V. Heck, S. C. Johnston, S. E. Kasner, S. J. Kittner, P. H. Mitchell, M. W. Rich, D. Richardson, L. H. Schwamm, J. A. Wilson. \"Guidelines for the Prevention of Stroke in Patients with Stroke and Transient Ischemic Attack: A Guideline for Healthcare Professionals from the American Heart Association/American Stroke Association.\" [in eng.]  Stroke 45, no. 7 (May 2014): 2160-223.",
+                "name" : "Reference",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "REF",
+                    "title" : "Reference"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "Kernan, W.N., B. Ovbiagele, H. R. Black, D. M. Bravata, M. I. Chimowitz, M. D. Ezekowitz, M. C. Fang, M. Fisher, K. L. Furie, D. V. Heck, S. C. Johnston, S. E. Kasner, S. J. Kittner, P. H. Mitchell, M. W. Rich, D. Richardson, L. H. Schwamm, J. A. Wilson. \"Guidelines for the Prevention of Stroke in Patients with Stroke and Transient Ischemic Attack: A Guideline for Healthcare Professionals from the American Heart Association/American Stroke Association.\" [in eng.]  Stroke 45, no. 7 (May 2014): 2160-223.",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "REF",
+                "value" : "Goldstein, L. B., R. Adams, M. J. Alberts, L. J. Appel, L. M. Brass, C. D. Bushnell, A. Culebras, et al. \"Primary Prevention of Ischemic Stroke: A Guideline from the American Heart Association/American Stroke Association Stroke Council: Cosponsored by the Atherosclerotic Peripheral Vascular Disease Interdisciplinary Working Group; Cardiovascular Nursing Council; Clinical Cardiology Council; Nutrition, Physical Activity, and Metabolism Council; and the Quality of Care and Outcomes Research Interdisciplinary Working Group: The American Academy of Neurology Affirms the Value of This Guideline.\" [In eng]. Stroke 37, no. 6 (Jun 2006): 1583-633.",
+                "name" : "Reference",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "REF",
+                    "title" : "Reference"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "Goldstein, L. B., R. Adams, M. J. Alberts, L. J. Appel, L. M. Brass, C. D. Bushnell, A. Culebras, et al. \"Primary Prevention of Ischemic Stroke: A Guideline from the American Heart Association/American Stroke Association Stroke Council: Cosponsored by the Atherosclerotic Peripheral Vascular Disease Interdisciplinary Working Group; Cardiovascular Nursing Council; Clinical Cardiology Council; Nutrition, Physical Activity, and Metabolism Council; and the Quality of Care and Outcomes Research Interdisciplinary Working Group: The American Academy of Neurology Affirms the Value of This Guideline.\" [In eng]. Stroke 37, no. 6 (Jun 2006): 1583-633.",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "REF",
+                "value" : "Jauch, E. C., J. L. Saver, H. P. Adams, Jr., A. Bruno, J. J. Connors, B. M. Demaerschalk, P. Khatri, et al. \"Guidelines for the Early Management of Patients with Acute Ischemic Stroke: A Guideline for Healthcare Professionals from the American Heart Association/American Stroke Association.\" [In Eng]. Stroke (Jan 31 2013).",
+                "name" : "Reference",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "REF",
+                    "title" : "Reference"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "Jauch, E. C., J. L. Saver, H. P. Adams, Jr., A. Bruno, J. J. Connors, B. M. Demaerschalk, P. Khatri, et al. \"Guidelines for the Early Management of Patients with Acute Ischemic Stroke: A Guideline for Healthcare Professionals from the American Heart Association/American Stroke Association.\" [In Eng]. Stroke (Jan 31 2013).",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "REF",
+                "value" : "Saxena, R., and P. J. Koudstaal. \"Anticoagulants for Preventing Stroke in Patients with Nonrheumatic Atrial Fibrillation and a History of Stroke or Transient Ischemic Attack (Review).\" Cochrane Database Syst Rev, no. 4 (2011): CD000185.",
+                "name" : "Reference",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "REF",
+                    "title" : "Reference"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "Saxena, R., and P. J. Koudstaal. \"Anticoagulants for Preventing Stroke in Patients with Nonrheumatic Atrial Fibrillation and a History of Stroke or Transient Ischemic Attack (Review).\" Cochrane Database Syst Rev, no. 4 (2011): CD000185.",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "REF",
+                "value" : "Wann, L. S., A. B. Curtis, K. A. Ellenbogen, N. A. Estes, 3rd, M. D. Ezekowitz, W. M. Jackman, C. T. January, et al. \"2011 Accf/Aha/Hrs Focused Update on the Management of Patients with Atrial Fibrillation (Update on Dabigatran): A Report of the American College of Cardiology Foundation/American Heart Association Task Force on Practice Guidelines.\" [In eng]. J Am Coll Cardiol 57, no. 11 (Mar 15 2011): 1330-7.",
+                "name" : "Reference",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "REF",
+                    "title" : "Reference"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "Wann, L. S., A. B. Curtis, K. A. Ellenbogen, N. A. Estes, 3rd, M. D. Ezekowitz, W. M. Jackman, C. T. January, et al. \"2011 Accf/Aha/Hrs Focused Update on the Management of Patients with Atrial Fibrillation (Update on Dabigatran): A Report of the American College of Cardiology Foundation/American Heart Association Task Force on Practice Guidelines.\" [In eng]. J Am Coll Cardiol 57, no. 11 (Mar 15 2011): 1330-7.",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "DEF",
+                "value" : "None",
+                "name" : "Definition",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "DEF",
+                    "title" : "Definition"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "None",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "GUIDE",
+                "value" : "The \"Non-elective Inpatient Encounter\" value set intends to capture all non-scheduled hospitalizations. This value set is a subset of the \"Inpatient encounter\" value set, excluding concepts that specifically refer to elective hospital admissions. Non-elective admissions include emergency, urgent and unplanned admissions.",
+                "name" : "Guidance",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "GUIDE",
+                    "title" : "Guidance"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "The \"Non-elective Inpatient Encounter\" value set intends to capture all non-scheduled hospitalizations. This value set is a subset of the \"Inpatient encounter\" value set, excluding concepts that specifically refer to elective hospital admissions. Non-elective admissions include emergency, urgent and unplanned admissions.",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "TRANF",
+                "value" : "TBD",
+                "name" : "Transmission Format",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "TRANF",
+                    "title" : "Transmission Format"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "TBD",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "IPOP",
+                "value" : "Patients age 18 and older discharged from inpatient care (non-elective admissions) with a principal diagnosis of ischemic or hemorrhagic stroke and a length of stay less than or equal to 120 days",
+                "name" : "Initial Population",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "IPOP",
+                    "title" : "Initial Population"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "Patients age 18 and older discharged from inpatient care (non-elective admissions) with a principal diagnosis of ischemic or hemorrhagic stroke and a length of stay less than or equal to 120 days",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "DENOM",
+                "value" : "Patients with a principal diagnosis of ischemic stroke, and a history of atrial ablation, or current or history of atrial fibrillation/flutter",
+                "name" : "Denominator",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "DENOM",
+                    "title" : "Denominator"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "Patients with a principal diagnosis of ischemic stroke, and a history of atrial ablation, or current or history of atrial fibrillation/flutter",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "DENEX",
+                "value" : "*Patients with comfort measures documented\n*Patients admitted for elective carotid intervention. This exclusion is implicitly modeled by only including non-elective hospitalizations\n*Patients discharged to another hospital\n*Patients who left against medical advice\n*Patients who expired\n*Patients discharged to home for hospice care\n*Patients discharged to a health care facility for hospice care",
+                "name" : "Denominator Exclusions",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "DENEX",
+                    "title" : "Denominator Exclusions"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "*Patients with comfort measures documented\n*Patients admitted for elective carotid intervention. This exclusion is implicitly modeled by only including non-elective hospitalizations\n*Patients discharged to another hospital\n*Patients who left against medical advice\n*Patients who expired\n*Patients discharged to home for hospice care\n*Patients discharged to a health care facility for hospice care",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "NUMER",
+                "value" : "Patients prescribed anticoagulation therapy at hospital discharge",
+                "name" : "Numerator",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "NUMER",
+                    "title" : "Numerator"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "Patients prescribed anticoagulation therapy at hospital discharge",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "NUMEX",
+                "value" : "Not Applicable",
+                "name" : "Numerator Exclusions",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "NUMEX",
+                    "title" : "Numerator Exclusions"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "Not Applicable",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "DENEXCEP",
+                "value" : "Patients with a documented reason for not prescribing anticoagulation therapy at discharge",
+                "name" : "Denominator Exceptions",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "DENEXCEP",
+                    "title" : "Denominator Exceptions"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "Patients with a documented reason for not prescribing anticoagulation therapy at discharge",
+                    "media_type" : "text/plain"
+                }
+            },
+            {
+                "code" : "SDE",
+                "value" : "For every patient evaluated by this measure also identify payer, race, ethnicity and sex",
+                "name" : "Supplemental Data Elements",
+                "code_obj" : {
+                    "type" : "CD",
+                    "system" : "2.16.840.1.113883.5.4",
+                    "code" : "SDE",
+                    "title" : "Supplemental Data Elements"
+                },
+                "value_obj" : {
+                    "type" : "ED",
+                    "value" : "For every patient evaluated by this measure also identify payer, race, ethnicity and sex",
+                    "media_type" : "text/plain"
+                }
+            }
+        ],
+        "populations" : [
+            {
+                "IPP" : "IPP",
+                "DENOM" : "DENOM",
+                "NUMER" : "NUMER",
+                "DENEXCEP" : "DENEXCEP",
+                "DENEX" : "DENEX",
+                "id" : "PopulationCriteria1",
+                "title" : "Population Criteria Section"
+            }
+        ],
+        "measure_period" : {
+            "type" : "IVL_TS",
+            "low" : {
+                "type" : "TS",
+                "value" : "201201010000",
+                "inclusive?" : true,
+                "derived?" : false
+            },
+            "high" : {
+                "type" : "TS",
+                "value" : "201212312359",
+                "inclusive?" : true,
+                "derived?" : false
+            },
+            "width" : {
+                "type" : "PQ",
+                "unit" : "a",
+                "value" : "1",
+                "inclusive?" : true,
+                "derived?" : false
+            }
+        }
+    },
+    "oids" : [
+        "2.16.840.1.113762.1.4.1",
+        "2.16.840.1.113883.3.117.1.7.1.87",
+        "2.16.840.1.113883.3.117.1.7.1.309",
+        "2.16.840.1.113883.3.117.1.7.1.209",
+        "2.16.840.1.113762.1.4.1021.9",
+        "2.16.840.1.113883.3.117.1.7.1.200",
+        "2.16.840.1.113883.3.117.1.7.1.203",
+        "2.16.840.1.113883.3.117.1.7.1.424",
+        "2.16.840.1.113883.3.117.1.7.1.212",
+        "2.16.840.1.113883.3.117.1.7.1.247",
+        "2.16.840.1.114222.4.11.836",
+        "2.16.840.1.113883.3.117.1.7.1.202",
+        "1.3.6.1.4.1.33895.1.3.0.45",
+        "2.16.840.1.113883.3.117.1.7.1.473",
+        "2.16.840.1.113883.3.117.1.7.1.93",
+        "2.16.840.1.114222.4.11.3591",
+        "2.16.840.1.113883.3.117.1.7.1.207",
+        "2.16.840.1.113883.3.117.1.7.1.292",
+        "2.16.840.1.113883.3.117.1.7.1.308",
+        "2.16.840.1.114222.4.11.837"
+    ],
+    "population_ids" : {
+        "IPP" : "B84791CD-6301-400F-91AE-463C227DE039",
+        "DENOM" : "04BB4F73-C2F0-483B-9E04-F0EB4E58D75B",
+        "DENEX" : "7A83B526-E70B-4A55-BF27-3829C28845A9",
+        "NUMER" : "70200D05-A4EA-42D5-8BC1-54DC6694C138",
+        "DENEXCEP" : "DA4DC42D-CD82-4F73-AD5B-EADB6664DF06"
+    },
+    "bundle_id" : { "$oid" : "5995ad44e5f13187c6f99a72" }
+}

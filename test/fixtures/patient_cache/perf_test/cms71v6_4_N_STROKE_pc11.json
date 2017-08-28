@@ -1,0 +1,940 @@
+{
+    "_id" : { "$oid" : "5995ad94e5f13187c6fb9c75" },
+    "value" : {
+        "IPP" : 1.0,
+        "patient_id" : { "$oid" : "5995ad47e5f13187c6f99d01" },
+        "medical_record_id" : "646e64f0-4d42-0135-8681-20999b0ed66f",
+        "first" : "4 N",
+        "last" : "STROKE",
+        "gender" : "F",
+        "birthdate" : -392619600.0,
+        "test_id" : null,
+        "provider_performances" : null,
+        "race" : {
+            "code" : "2028-9",
+            "name" : "Asian",
+            "codeSystem" : "CDC Race"
+        },
+        "ethnicity" : {
+            "code" : "2186-5",
+            "name" : "Not Hispanic or Latino",
+            "codeSystem" : "CDC Race"
+        },
+        "languages" : [],
+        "payer" : {
+            "code" : "349",
+            "codeSystem" : "SOP"
+        },
+        "measure_id" : "40280381-528A-60FF-0152-989268E609A5",
+        "sub_id" : null,
+        "nqf_id" : "",
+        "effective_date" : 1483228799.0,
+        "DENOM" : 0.0,
+        "NUMER" : 0.0,
+        "DENEXCEP" : 0.0,
+        "DENEX" : 0.0,
+        "NUMEX" : 0.0,
+        "antinumerator" : 0.0,
+        "finalSpecifics" : {
+            "IPP" : [
+                [
+                    "59677dc702d4053da7000909"
+                ]
+            ],
+            "DENOM" : []
+        },
+        "logger" : [
+            " IPP:",
+            "         called atLeastOneTrue(4,[object Object],,function () {\n      var args = [func];\n      push.apply(args, arguments);\n      return wrapper.apply(this, args);\n    },function () {\n      var args = [func];\n      push.apply(args, arguments);\n      return wrapper.apply(this, args);\n    }):",
+            "                 Intersection_A9982F03_0AA3_4D61_8CDF_F4E07687123D_895D063C_BC8D_43B7_B397_76073A1A2EC3:",
+            "                         occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883:",
+            "                                 GROUP_occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883:",
+            "                                         d254d883_2cf5_480a_9c54_e89d40eae812_40280381_3d61_56a7_013d_8477cebf702a:",
+            "                                                 called patient.encounters():",
+            "                                                 patient.encounters() -> 2 entries",
+            "                                                 matched -> 1 entries",
+            "                                         d254d883_2cf5_480a_9c54_e89d40eae812_40280381_3d61_56a7_013d_8477cebf702a -> true",
+            "                                         Specific context",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                         ------",
+            "                                         EndsDuring_EA6731A0_458C_404F_B1AB_D70B49BABC11_40280381_3d61_56a7_013d_8477cebf702a:",
+            "                                                 MeasurePeriod:",
+            "                                                 MeasurePeriod -> true",
+            "                                         EndsDuring_EA6731A0_458C_404F_B1AB_D70B49BABC11_40280381_3d61_56a7_013d_8477cebf702a -> true",
+            "                                         Specific context",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                         ------",
+            "                                         Intersecting (2):",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                         Intersected result:",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                 GROUP_occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883 -> true",
+            "                                 Specific context",
+            "                                         [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                         [\"*\"]",
+            "                                 ------",
+            "                         occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883 -> true",
+            "                         Specific context",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"59677dc702d4053da7000909\"]",
+            "                         ------",
+            "                         prefix_819142ca_b201_4fac_a5e4_58adda35d81a_40280381_3d61_56a7_013d_8477cebf702a:",
+            "                                 accessed codes: 2.16.840.1.113883.3.117.1.7.1.247",
+            "                         prefix_819142ca_b201_4fac_a5e4_58adda35d81a_40280381_3d61_56a7_013d_8477cebf702a -> true",
+            "                         Specific context",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"*\"]",
+            "                         ------",
+            "                         Intersecting (2):",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"59677dc702d4053da7000909\"]",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"*\"]",
+            "                         Intersected result:",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"59677dc702d4053da7000909\"]",
+            "                 Intersection_A9982F03_0AA3_4D61_8CDF_F4E07687123D_895D063C_BC8D_43B7_B397_76073A1A2EC3 -> true",
+            "                 Specific context",
+            "                         [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                         [\"59677dc702d4053da7000909\"]",
+            "                 ------",
+            "                 Intersection_26056B88_0F89_42EB_BFC4_CD9182BA7DDF_4A0382C8_2F2C_4D28_BB45_085BE92A1B61:",
+            "                         occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883:",
+            "                                 GROUP_occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883:",
+            "                                         d254d883_2cf5_480a_9c54_e89d40eae812_40280381_3d61_56a7_013d_8477cebf702a:",
+            "                                         d254d883_2cf5_480a_9c54_e89d40eae812_40280381_3d61_56a7_013d_8477cebf702a -> true",
+            "                                         Specific context",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                         ------",
+            "                                         EndsDuring_EA6731A0_458C_404F_B1AB_D70B49BABC11_40280381_3d61_56a7_013d_8477cebf702a:",
+            "                                                 MeasurePeriod:",
+            "                                                 MeasurePeriod -> true",
+            "                                         EndsDuring_EA6731A0_458C_404F_B1AB_D70B49BABC11_40280381_3d61_56a7_013d_8477cebf702a -> true",
+            "                                         Specific context",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                         ------",
+            "                                         Intersecting (2):",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                         Intersected result:",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                 GROUP_occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883 -> true",
+            "                                 Specific context",
+            "                                         [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                         [\"*\"]",
+            "                                 ------",
+            "                         occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883 -> true",
+            "                         Specific context",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"59677dc702d4053da7000909\"]",
+            "                         ------",
+            "                         prefix_15e241c3_632d_4f20_aa1c_ac03d944e1de_40280381_3d61_56a7_013d_8477cebf702a:",
+            "                                 accessed codes: 2.16.840.1.113883.3.117.1.7.1.212",
+            "                         prefix_15e241c3_632d_4f20_aa1c_ac03d944e1de_40280381_3d61_56a7_013d_8477cebf702a -> false",
+            "                         Intersecting (2):",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"59677dc702d4053da7000909\"]",
+            "                         Intersected result:",
+            "                 Intersection_26056B88_0F89_42EB_BFC4_CD9182BA7DDF_4A0382C8_2F2C_4D28_BB45_085BE92A1B61 -> false",
+            "         atLeastOneTrue -> true",
+            "         called allTrue(5,[object Object],,function () {\n      var args = [func];\n      push.apply(args, arguments);\n      return wrapper.apply(this, args);\n    },true):",
+            "                 Agegrtr_thn_eql_18yearsat_3ED58E4E_F130_4D3A_8FF8_C9860D2C4920_930D0F6D_AA95_4430_9BE9_645E9C990FA7:",
+            "                         called patient.birthtime():",
+            "                         patient.birthtime() -> Tue Jul 23 1957 15:00:00 GMT-0400 (EDT)",
+            "                         occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883:",
+            "                                 GROUP_occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883:",
+            "                                         d254d883_2cf5_480a_9c54_e89d40eae812_40280381_3d61_56a7_013d_8477cebf702a:",
+            "                                         d254d883_2cf5_480a_9c54_e89d40eae812_40280381_3d61_56a7_013d_8477cebf702a -> true",
+            "                                         Specific context",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                         ------",
+            "                                         EndsDuring_EA6731A0_458C_404F_B1AB_D70B49BABC11_40280381_3d61_56a7_013d_8477cebf702a:",
+            "                                                 MeasurePeriod:",
+            "                                                 MeasurePeriod -> true",
+            "                                         EndsDuring_EA6731A0_458C_404F_B1AB_D70B49BABC11_40280381_3d61_56a7_013d_8477cebf702a -> true",
+            "                                         Specific context",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                         ------",
+            "                                         Intersecting (2):",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                         Intersected result:",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                 GROUP_occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883 -> true",
+            "                                 Specific context",
+            "                                         [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                         [\"*\"]",
+            "                                 ------",
+            "                         occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883 -> true",
+            "                         Specific context",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"59677dc702d4053da7000909\"]",
+            "                         ------",
+            "                 Agegrtr_thn_eql_18yearsat_3ED58E4E_F130_4D3A_8FF8_C9860D2C4920_930D0F6D_AA95_4430_9BE9_645E9C990FA7 -> true",
+            "                 Specific context",
+            "                         [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                         [\"59677dc702d4053da7000909\"]",
+            "                 ------",
+            "                 Intersecting (2):",
+            "                         [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                         [\"59677dc702d4053da7000909\"]",
+            "                         [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                         [\"59677dc702d4053da7000909\"]",
+            "                 Intersected result:",
+            "                         [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                         [\"59677dc702d4053da7000909\"]",
+            "         allTrue -> true",
+            "         called allTrue(IPP,[object Object],,true):",
+            "                 Intersecting (1):",
+            "                         [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                         [\"59677dc702d4053da7000909\"]",
+            "                 Intersected result:",
+            "                         [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                         [\"59677dc702d4053da7000909\"]",
+            "         allTrue -> true",
+            " IPP -> true",
+            " Specific context",
+            "         [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "         [\"59677dc702d4053da7000909\"]",
+            " ------",
+            " DENOM:",
+            "         called allTrue(7,[object Object],,function () {\n      var args = [func];\n      push.apply(args, arguments);\n      return wrapper.apply(this, args);\n    }):",
+            "                 Intersection_88482EBC_90F9_4C5F_885F_7D2727DA3391_4D6CEAF5_CCE2_4625_9302_59E5761BC9FF:",
+            "                         occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883:",
+            "                                 GROUP_occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883:",
+            "                                         d254d883_2cf5_480a_9c54_e89d40eae812_40280381_3d61_56a7_013d_8477cebf702a:",
+            "                                         d254d883_2cf5_480a_9c54_e89d40eae812_40280381_3d61_56a7_013d_8477cebf702a -> true",
+            "                                         Specific context",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                         ------",
+            "                                         EndsDuring_EA6731A0_458C_404F_B1AB_D70B49BABC11_40280381_3d61_56a7_013d_8477cebf702a:",
+            "                                                 MeasurePeriod:",
+            "                                                 MeasurePeriod -> true",
+            "                                         EndsDuring_EA6731A0_458C_404F_B1AB_D70B49BABC11_40280381_3d61_56a7_013d_8477cebf702a -> true",
+            "                                         Specific context",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                         ------",
+            "                                         Intersecting (2):",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                         Intersected result:",
+            "                                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                                 [\"*\"]",
+            "                                 GROUP_occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883 -> true",
+            "                                 Specific context",
+            "                                         [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                         [\"*\"]",
+            "                                 ------",
+            "                         occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883 -> true",
+            "                         Specific context",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"59677dc702d4053da7000909\"]",
+            "                         ------",
+            "                         f1ffabbd_a161_40a6_8932_f607f6694c42_40280381_3d61_56a7_013d_8477cebf702a:",
+            "                                 accessed codes: 2.16.840.1.113883.3.117.1.7.1.82",
+            "                         f1ffabbd_a161_40a6_8932_f607f6694c42_40280381_3d61_56a7_013d_8477cebf702a -> false",
+            "                         Intersecting (2):",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"59677dc702d4053da7000909\"]",
+            "                         Intersected result:",
+            "                 Intersection_88482EBC_90F9_4C5F_885F_7D2727DA3391_4D6CEAF5_CCE2_4625_9302_59E5761BC9FF -> false",
+            "                 Intersecting (1):",
+            "                 Intersected result:",
+            "         allTrue -> false",
+            "         called allTrue(DENOM,[object Object],,false):",
+            "                 Intersecting (1):",
+            "                 Intersected result:",
+            "         allTrue -> false",
+            " DENOM -> false",
+            " Intersecting (2):",
+            "         [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "         [\"59677dc702d4053da7000909\"]",
+            " Intersected result:",
+            " VARIABLES:",
+            "         occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_B3AAB19B_02F5_4ED7_B026_7A73670FFE54:",
+            "                 GROUP_occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_B3AAB19B_02F5_4ED7_B026_7A73670FFE54:",
+            "                         d254d883_2cf5_480a_9c54_e89d40eae812_40280381_3d61_56a7_013d_8477cebf702a:",
+            "                         d254d883_2cf5_480a_9c54_e89d40eae812_40280381_3d61_56a7_013d_8477cebf702a -> true",
+            "                         Specific context",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"*\"]",
+            "                         ------",
+            "                         EndsDuring_EA6731A0_458C_404F_B1AB_D70B49BABC11_40280381_3d61_56a7_013d_8477cebf702a:",
+            "                                 MeasurePeriod:",
+            "                                 MeasurePeriod -> true",
+            "                         EndsDuring_EA6731A0_458C_404F_B1AB_D70B49BABC11_40280381_3d61_56a7_013d_8477cebf702a -> true",
+            "                         Specific context",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"*\"]",
+            "                         ------",
+            "                         Intersecting (2):",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"*\"]",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"*\"]",
+            "                         Intersected result:",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"*\"]",
+            "                 GROUP_occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_B3AAB19B_02F5_4ED7_B026_7A73670FFE54 -> true",
+            "                 Specific context",
+            "                         [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                         [\"*\"]",
+            "                 ------",
+            "         occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_B3AAB19B_02F5_4ED7_B026_7A73670FFE54 -> true",
+            "         Specific context",
+            "                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                 [\"*\"]",
+            "         ------",
+            "         qdm_var_Union_A10D8AB8_A66C_4198_8AEB_ACBD9973F17E_8876D975_C675_4F0B_A0B4_855C9216E0E1:",
+            "                 GROUP_qdm_var_Union_A10D8AB8_A66C_4198_8AEB_ACBD9973F17E_8876D975_C675_4F0B_A0B4_855C9216E0E1:",
+            "                         ComfortMeasures_InterventionOrder_e1698114_9f7d_44ee_8fad_7c0d3c137ee8:",
+            "                                 called patient.allProcedures():",
+            "                                 called patient.procedures():",
+            "                                 patient.procedures() -> 5 entries",
+            "                                 called patient.immunizations():",
+            "                                 patient.immunizations() -> 0 entries",
+            "                                 called patient.medications():",
+            "                                 patient.medications() -> 1 entries",
+            "                                 patient.allProcedures() -> 6 entries",
+            "                                 matched -> 1 entries",
+            "                         ComfortMeasures_InterventionOrder_e1698114_9f7d_44ee_8fad_7c0d3c137ee8 -> true",
+            "                         Specific context",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"*\"]",
+            "                         ------",
+            "                         ComfortMeasures_InterventionPerformed_9f0f8376_2141_4492_8bb2_4845542f4b98:",
+            "                                 matched -> 1 entries",
+            "                         ComfortMeasures_InterventionPerformed_9f0f8376_2141_4492_8bb2_4845542f4b98 -> true",
+            "                         Specific context",
+            "                                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                                 [\"*\"]",
+            "                         ------",
+            "                 GROUP_qdm_var_Union_A10D8AB8_A66C_4198_8AEB_ACBD9973F17E_8876D975_C675_4F0B_A0B4_855C9216E0E1 -> true",
+            "                 Specific context",
+            "                         [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                         [\"*\"]",
+            "                 ------",
+            "         qdm_var_Union_A10D8AB8_A66C_4198_8AEB_ACBD9973F17E_8876D975_C675_4F0B_A0B4_855C9216E0E1 -> true",
+            "         Specific context",
+            "                 [\"occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883\"]",
+            "                 [\"*\"]",
+            "         ------",
+            " VARIABLES -> false"
+        ],
+        "rationale" : {
+            "d254d883_2cf5_480a_9c54_e89d40eae812_40280381_3d61_56a7_013d_8477cebf702a" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000909",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "32485007"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Encounter",
+                            "description" : "Encounter, Performed: Non Elective Inpatient Encounter",
+                            "start_time" : 1462089600,
+                            "end_time" : 1462270500,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "performed"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.79",
+                            "dischargeDisposition" : {
+                                "code_system" : "SNOMED-CT",
+                                "code" : "371828006",
+                                "title" : "Patient Expired"
+                            },
+                            "principalDiagnosis" : {
+                                "codes" : {
+                                    "SNOMED-CT" : [
+                                        "195189003"
+                                    ],
+                                    "ICD-9-CM" : [
+                                        "434.11"
+                                    ],
+                                    "ICD-10-CM" : [
+                                        "I63.011"
+                                    ]
+                                },
+                                "title" : "Ischemic Stroke"
+                            }
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "*"
+                    ]
+                ]
+            },
+            "MeasurePeriod" : {
+                "results" : [
+                    {
+                        "id" : "undefined",
+                        "json" : {
+                            "start_time" : 1451606459.0,
+                            "end_time" : 1483228799.0,
+                            "codes" : {}
+                        }
+                    }
+                ],
+                "specifics" : {}
+            },
+            "EndsDuring_EA6731A0_458C_404F_B1AB_D70B49BABC11_40280381_3d61_56a7_013d_8477cebf702a" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000909",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "32485007"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Encounter",
+                            "description" : "Encounter, Performed: Non Elective Inpatient Encounter",
+                            "start_time" : 1462089600,
+                            "end_time" : 1462270500,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "performed"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.79",
+                            "dischargeDisposition" : {
+                                "code_system" : "SNOMED-CT",
+                                "code" : "371828006",
+                                "title" : "Patient Expired"
+                            },
+                            "principalDiagnosis" : {
+                                "codes" : {
+                                    "SNOMED-CT" : [
+                                        "195189003"
+                                    ],
+                                    "ICD-9-CM" : [
+                                        "434.11"
+                                    ],
+                                    "ICD-10-CM" : [
+                                        "I63.011"
+                                    ]
+                                },
+                                "title" : "Ischemic Stroke"
+                            }
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "*"
+                    ]
+                ]
+            },
+            "GROUP_occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000909",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "32485007"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Encounter",
+                            "description" : "Encounter, Performed: Non Elective Inpatient Encounter",
+                            "start_time" : 1462089600,
+                            "end_time" : 1462270500,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "performed"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.79",
+                            "dischargeDisposition" : {
+                                "code_system" : "SNOMED-CT",
+                                "code" : "371828006",
+                                "title" : "Patient Expired"
+                            },
+                            "principalDiagnosis" : {
+                                "codes" : {
+                                    "SNOMED-CT" : [
+                                        "195189003"
+                                    ],
+                                    "ICD-9-CM" : [
+                                        "434.11"
+                                    ],
+                                    "ICD-10-CM" : [
+                                        "I63.011"
+                                    ]
+                                },
+                                "title" : "Ischemic Stroke"
+                            }
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "*"
+                    ]
+                ]
+            },
+            "occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_9DAC1FDF_7F65_4D2F_A482_C9C8EEA09883" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000909",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "32485007"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Encounter",
+                            "description" : "Encounter, Performed: Non Elective Inpatient Encounter",
+                            "start_time" : 1462089600,
+                            "end_time" : 1462270500,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "performed"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.79",
+                            "dischargeDisposition" : {
+                                "code_system" : "SNOMED-CT",
+                                "code" : "371828006",
+                                "title" : "Patient Expired"
+                            },
+                            "principalDiagnosis" : {
+                                "codes" : {
+                                    "SNOMED-CT" : [
+                                        "195189003"
+                                    ],
+                                    "ICD-9-CM" : [
+                                        "434.11"
+                                    ],
+                                    "ICD-10-CM" : [
+                                        "I63.011"
+                                    ]
+                                },
+                                "title" : "Ischemic Stroke"
+                            }
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "59677dc702d4053da7000909"
+                    ]
+                ]
+            },
+            "prefix_819142ca_b201_4fac_a5e4_58adda35d81a_40280381_3d61_56a7_013d_8477cebf702a" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000909",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "32485007"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Encounter",
+                            "description" : "Encounter, Performed: Non Elective Inpatient Encounter",
+                            "start_time" : 1462089600,
+                            "end_time" : 1462270500,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "performed"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.79",
+                            "dischargeDisposition" : {
+                                "code_system" : "SNOMED-CT",
+                                "code" : "371828006",
+                                "title" : "Patient Expired"
+                            },
+                            "principalDiagnosis" : {
+                                "codes" : {
+                                    "SNOMED-CT" : [
+                                        "195189003"
+                                    ],
+                                    "ICD-9-CM" : [
+                                        "434.11"
+                                    ],
+                                    "ICD-10-CM" : [
+                                        "I63.011"
+                                    ]
+                                },
+                                "title" : "Ischemic Stroke"
+                            }
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "*"
+                    ]
+                ]
+            },
+            "Intersection_A9982F03_0AA3_4D61_8CDF_F4E07687123D_895D063C_BC8D_43B7_B397_76073A1A2EC3" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000909",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "32485007"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Encounter",
+                            "description" : "Encounter, Performed: Non Elective Inpatient Encounter",
+                            "start_time" : 1462089600,
+                            "end_time" : 1462270500,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "performed"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.79",
+                            "dischargeDisposition" : {
+                                "code_system" : "SNOMED-CT",
+                                "code" : "371828006",
+                                "title" : "Patient Expired"
+                            },
+                            "principalDiagnosis" : {
+                                "codes" : {
+                                    "SNOMED-CT" : [
+                                        "195189003"
+                                    ],
+                                    "ICD-9-CM" : [
+                                        "434.11"
+                                    ],
+                                    "ICD-10-CM" : [
+                                        "I63.011"
+                                    ]
+                                },
+                                "title" : "Ischemic Stroke"
+                            }
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "59677dc702d4053da7000909"
+                    ]
+                ]
+            },
+            "prefix_15e241c3_632d_4f20_aa1c_ac03d944e1de_40280381_3d61_56a7_013d_8477cebf702a" : false,
+            "Intersection_26056B88_0F89_42EB_BFC4_CD9182BA7DDF_4A0382C8_2F2C_4D28_BB45_085BE92A1B61" : false,
+            "precondition_4" : true,
+            "Agegrtr_thn_eql_18yearsat_3ED58E4E_F130_4D3A_8FF8_C9860D2C4920_930D0F6D_AA95_4430_9BE9_645E9C990FA7" : {
+                "results" : [
+                    {
+                        "id" : {},
+                        "json" : {}
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "59677dc702d4053da7000909"
+                    ]
+                ]
+            },
+            "precondition_5" : true,
+            "precondition_IPP" : true,
+            "IPP" : true,
+            "f1ffabbd_a161_40a6_8932_f607f6694c42_40280381_3d61_56a7_013d_8477cebf702a" : false,
+            "Intersection_88482EBC_90F9_4C5F_885F_7D2727DA3391_4D6CEAF5_CCE2_4625_9302_59E5761BC9FF" : false,
+            "precondition_7" : false,
+            "precondition_DENOM" : false,
+            "DENOM" : false,
+            "GROUP_occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_B3AAB19B_02F5_4ED7_B026_7A73670FFE54" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000909",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "32485007"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Encounter",
+                            "description" : "Encounter, Performed: Non Elective Inpatient Encounter",
+                            "start_time" : 1462089600,
+                            "end_time" : 1462270500,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "performed"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.79",
+                            "dischargeDisposition" : {
+                                "code_system" : "SNOMED-CT",
+                                "code" : "371828006",
+                                "title" : "Patient Expired"
+                            },
+                            "principalDiagnosis" : {
+                                "codes" : {
+                                    "SNOMED-CT" : [
+                                        "195189003"
+                                    ],
+                                    "ICD-9-CM" : [
+                                        "434.11"
+                                    ],
+                                    "ICD-10-CM" : [
+                                        "I63.011"
+                                    ]
+                                },
+                                "title" : "Ischemic Stroke"
+                            }
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "*"
+                    ]
+                ]
+            },
+            "occAof_qdm_var_SatisfiesAll_0ACB5566_26C7_4689_84CB_D76C948C5EE0_B3AAB19B_02F5_4ED7_B026_7A73670FFE54" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000909",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "32485007"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Encounter",
+                            "description" : "Encounter, Performed: Non Elective Inpatient Encounter",
+                            "start_time" : 1462089600,
+                            "end_time" : 1462270500,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "performed"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.79",
+                            "dischargeDisposition" : {
+                                "code_system" : "SNOMED-CT",
+                                "code" : "371828006",
+                                "title" : "Patient Expired"
+                            },
+                            "principalDiagnosis" : {
+                                "codes" : {
+                                    "SNOMED-CT" : [
+                                        "195189003"
+                                    ],
+                                    "ICD-9-CM" : [
+                                        "434.11"
+                                    ],
+                                    "ICD-10-CM" : [
+                                        "I63.011"
+                                    ]
+                                },
+                                "title" : "Ischemic Stroke"
+                            }
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "*"
+                    ]
+                ]
+            },
+            "ComfortMeasures_InterventionOrder_e1698114_9f7d_44ee_8fad_7c0d3c137ee8" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000911",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "133918004"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Procedure",
+                            "description" : "Intervention, Order: Comfort Measures",
+                            "start_time" : 1462084200,
+                            "end_time" : 1462084200,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "ordered"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.45"
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "*"
+                    ]
+                ]
+            },
+            "ComfortMeasures_InterventionPerformed_9f0f8376_2141_4492_8bb2_4845542f4b98" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000912",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "133918004"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Procedure",
+                            "description" : "Intervention, Performed: Comfort Measures",
+                            "start_time" : 1462097700,
+                            "end_time" : 1462097700,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "performed"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.46"
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "*"
+                    ]
+                ]
+            },
+            "GROUP_qdm_var_Union_A10D8AB8_A66C_4198_8AEB_ACBD9973F17E_8876D975_C675_4F0B_A0B4_855C9216E0E1" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000911",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "133918004"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Procedure",
+                            "description" : "Intervention, Order: Comfort Measures",
+                            "start_time" : 1462084200,
+                            "end_time" : 1462084200,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "ordered"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.45"
+                        }
+                    },
+                    {
+                        "id" : "59677dc702d4053da7000912",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "133918004"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Procedure",
+                            "description" : "Intervention, Performed: Comfort Measures",
+                            "start_time" : 1462097700,
+                            "end_time" : 1462097700,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "performed"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.46"
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "*"
+                    ]
+                ]
+            },
+            "qdm_var_Union_A10D8AB8_A66C_4198_8AEB_ACBD9973F17E_8876D975_C675_4F0B_A0B4_855C9216E0E1" : {
+                "results" : [
+                    {
+                        "id" : "59677dc702d4053da7000911",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "133918004"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Procedure",
+                            "description" : "Intervention, Order: Comfort Measures",
+                            "start_time" : 1462084200,
+                            "end_time" : 1462084200,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "ordered"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.45"
+                        }
+                    },
+                    {
+                        "id" : "59677dc702d4053da7000912",
+                        "json" : {
+                            "codes" : {
+                                "SNOMED-CT" : [
+                                    "133918004"
+                                ]
+                            },
+                            "mood_code" : "EVN",
+                            "_type" : "Procedure",
+                            "description" : "Intervention, Performed: Comfort Measures",
+                            "start_time" : 1462097700,
+                            "end_time" : 1462097700,
+                            "status_code" : {
+                                "HL7 ActStatus" : [
+                                    "performed"
+                                ]
+                            },
+                            "oid" : "2.16.840.1.113883.3.560.1.46"
+                        }
+                    }
+                ],
+                "specifics" : [
+                    [
+                        "*"
+                    ]
+                ]
+            },
+            "VARIABLES" : false
+        }
+    },
+    "bundle_id" : { "$oid" : "5995ad44e5f13187c6f99a72" }
+}

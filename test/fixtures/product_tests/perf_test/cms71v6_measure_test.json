@@ -1,0 +1,126 @@
+{
+    "_id" : { "$oid" : "59a02432e5f131039c0aa448" },
+    "augmented_records" : [],
+    "state" : "ready",
+    "_type" : "MeasureTest",
+    "name" : "Anticoagulation Therapy for Atrial Fibrillation/Flutter",
+    "measure_ids" : [
+        "40280381-52FC-3A32-0153-1EC807F60E08"
+    ],
+    "cms_id" : "CMS71v6",
+    "product_id" : { "$oid" : "59a02432e5f131039c0aa447" },
+    "rand_seed" : "306235036742728611000954367026925637902",
+    "provider_id" : { "$oid" : "59a02449e5f131045a5de491" },
+    "expected_results" : {
+        "40280381-52FC-3A32-0153-1EC807F60E08" : {
+            "population_ids" : {
+                "IPP" : "B84791CD-6301-400F-91AE-463C227DE039",
+                "DENOM" : "04BB4F73-C2F0-483B-9E04-F0EB4E58D75B",
+                "DENEX" : "7A83B526-E70B-4A55-BF27-3829C28845A9",
+                "NUMER" : "70200D05-A4EA-42D5-8BC1-54DC6694C138",
+                "DENEXCEP" : "DA4DC42D-CD82-4F73-AD5B-EADB6664DF06"
+            },
+            "IPP" : 18,
+            "DENOM" : 9,
+            "NUMER" : 1,
+            "antinumerator" : 3,
+            "DENEX" : 5,
+            "DENEXCEP" : 2,
+            "MSRPOPL" : 0,
+            "MSRPOPLEX" : 0,
+            "considered" : 18,
+            "execution_time" : 1,
+            "supplemental_data" : {
+                "IPP" : {
+                    "RACE" : {
+                        "2106-3" : 1,
+                        "2054-5" : 7,
+                        "2028-9" : 5,
+                        "1002-5" : 3,
+                        "2076-8" : 2
+                    },
+                    "ETHNICITY" : {
+                        "2135-2" : 3,
+                        "2186-5" : 15
+                    },
+                    "SEX" : {
+                        "M" : 7,
+                        "F" : 11
+                    },
+                    "PAYER" : {
+                        "349" : 18
+                    }
+                },
+                "DENOM" : {
+                    "RACE" : {
+                        "2028-9" : 1,
+                        "2076-8" : 1,
+                        "1002-5" : 3,
+                        "2054-5" : 4
+                    },
+                    "ETHNICITY" : {
+                        "2186-5" : 8,
+                        "2135-2" : 1
+                    },
+                    "SEX" : {
+                        "F" : 4,
+                        "M" : 5
+                    },
+                    "PAYER" : {
+                        "349" : 9
+                    }
+                },
+                "DENEX" : {
+                    "RACE" : {
+                        "2054-5" : 4,
+                        "2028-9" : 1
+                    },
+                    "ETHNICITY" : {
+                        "2186-5" : 4,
+                        "2135-2" : 1
+                    },
+                    "SEX" : {
+                        "M" : 2,
+                        "F" : 3
+                    },
+                    "PAYER" : {
+                        "349" : 5
+                    }
+                },
+                "NUMER" : {
+                    "RACE" : {
+                        "1002-5" : 1
+                    },
+                    "ETHNICITY" : {
+                        "2186-5" : 1
+                    },
+                    "SEX" : {
+                        "M" : 1
+                    },
+                    "PAYER" : {
+                        "349" : 1
+                    }
+                },
+                "DENEXCEP" : {
+                    "RACE" : {
+                        "2076-8" : 1,
+                        "1002-5" : 1
+                    },
+                    "ETHNICITY" : {
+                        "2186-5" : 2
+                    },
+                    "SEX" : {
+                        "F" : 1,
+                        "M" : 1
+                    },
+                    "PAYER" : {
+                        "349" : 2
+                    }
+                }
+            },
+            "measure_id" : "40280381-52FC-3A32-0153-1EC807F60E08"
+        }
+    },
+    "patient_archive" : "product_test-59a02432e5f131039c0aa448.zip20170825-1114-z47dde",
+    "html_archive" : "product_test-html-59a02432e5f131039c0aa448.zip20170825-1114-jvnxkt"
+}
