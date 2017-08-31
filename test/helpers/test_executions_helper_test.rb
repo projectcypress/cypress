@@ -1,6 +1,7 @@
 require 'test_helper'
+include LocalTimeHelper
 
-class TestExecutionHelper < ActiveSupport::TestCase
+class TestExecutionHelperTest < ActionView::TestCase
   include TestExecutionsHelper
   include ActiveJob::TestHelper
 
