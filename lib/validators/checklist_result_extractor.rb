@@ -105,10 +105,7 @@ module Validators
     def find_reason_code(nodes, template, valueset, cc)
       # Return node once a matching node is found
       nodes.each do |node|
-        # the negated device, order does not have a template id.
-        if template == '2.16.840.1.113883.10.20.24.3.9'
-          cn = node.parent.parent.parent.at_xpath("//*[@sdtc:valueSet='#{valueset}' and @code='#{cc.code}']")
-        elsif cc.negated_valueset
+        if cc.negated_valueset
           cn = node.parent.parent.parent.at_xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @nullFlavor='NA']")
         else
           cn = node.parent.parent.parent.at_xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{cc.code}']")
