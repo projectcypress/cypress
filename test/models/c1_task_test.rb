@@ -35,6 +35,17 @@ class C1TaskTest < ActiveSupport::TestCase
     end
   end
 
+  def test_should_be_able_to_test_a_good_archive_of_augmented_qrda_files
+    task = @product_test.tasks.create({}, C1Task)
+    @product_test.product.c1_test = true
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good_aug.zip'))
+    perform_enqueued_jobs do
+      te = task.execute(zip, User.first)
+      te.reload
+      assert te.execution_errors.where(:msg_type => :error).empty?, 'should be no errors for good augmented cat I archive'
+    end
+  end
+
   def test_should_be_able_to_tell_when_wrong_number_of_documents_are_supplied_in_archive
     task = @product_test.tasks.create({}, C1Task)
     @product_test.product.c1_test = true
@@ -105,6 +116,18 @@ class C1TaskTest < ActiveSupport::TestCase
       te.reload
       # 1 NUMER and 2 DENEX population
       assert_equal 3, te.execution_errors.where(:msg_type => :error).count, 'should be 3 calculation errors from cat I archive'
+    end
+  end
+
+  def test_should_be_able_to_tell_when_calculation_errors_exist_in_augmented_files
+    task = @product_test.tasks.create({}, C1Task)
+    @product_test.product.c1_test = true
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_bad_calculation_aug.zip'))
+    perform_enqueued_jobs do
+      te = task.execute(zip, User.first)
+      te.reload
+      # 1 NUMER and 2 DENEX population
+      assert_equal 8, te.execution_errors.where(:msg_type => :error).count, 'should be 8 calculation errors from cat I archive'
     end
   end
 

@@ -51,17 +51,10 @@ module Validators
       nil
     end
 
-    def get_mrn(doc)
-      doc_name = build_doc_name(doc)
-      mrn = @names[doc_name]
-      return nil unless mrn
-      mrn
-    end
-
     def validate_calculated_results(doc, options)
       te = options['test_execution']
 
-      mrn = get_mrn(doc)
+      mrn, = get_record_identifiers(doc, options)
       return false unless mrn
 
       passed = true
@@ -107,9 +100,8 @@ module Validators
       @can_continue = true
       valid = validate_calculated_results(doc, options)
       if valid
-        doc_name = build_doc_name(doc)
-        mrn = @names[doc_name]
-        @found_names << doc_name if mrn
+        mrn, doc_name, aug_rec = get_record_identifiers(doc, options)
+        @found_names << ((@names[doc_name] ? doc_name : nil) || to_doc_name(aug_rec[:first][0], aug_rec[:last][0])) if mrn
         # we still need to validate that the returned record is one of the test records
         # and that it was expected to be returned (ie, in the IPP)
         validate_name(doc_name, options) && validate_expected_results(doc_name, mrn, options)

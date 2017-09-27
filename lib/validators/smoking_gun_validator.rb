@@ -16,7 +16,7 @@ module Validators
       @found_names = []
       init_data
       @names = Hash[*records.collect do |r|
-        ["#{r.first.strip} #{r.last.strip}".upcase,
+        [to_doc_name(r.first, r.last),
          r.medical_record_number]
       end.flatten]
       @can_continue = true
@@ -51,9 +51,21 @@ module Validators
       sg_errors
     end
 
+    def to_doc_name(first, last)
+      "#{first.strip} #{last.strip}".upcase
+    end
+
+    # Returns the medical record number the given document if it is found. Otherwise, returns
+    def get_record_identifiers(doc, options)
+      doc_name = build_doc_name(doc)
+      aug_rec = options['task'].augmented_records.detect { |r| doc_name == to_doc_name(r[:first][1], r[:last][1]) }
+      mrn = @names[doc_name] || (aug_rec ? aug_rec.medical_record_number : nil)
+      [mrn || nil, doc_name, aug_rec]
+    end
+
     def validate_name(doc_name, options)
       return true if @names[doc_name] ||
-                     !options['task'].augmented_records.index { |r| doc_name == "#{r[:first][1].strip} #{r[:last][1].strip}".upcase }.nil?
+                     !options['task'].augmented_records.index { |r| doc_name == to_doc_name(r[:first][1], r[:last][1]) }.nil?
       @can_continue = false
       return false if @options[:suppress_errors]
       add_error("Patient name '#{doc_name}' declared in file not found in test records",
@@ -110,11 +122,8 @@ module Validators
     def validate(document, options = {})
       @can_continue = true
       doc = build_document(document)
-      doc_name = build_doc_name(doc)
-      aug_rec = options['task'].augmented_records.detect { |r| doc_name == "#{r[:first][1].strip} #{r[:last][1].strip}".upcase }
-      mrn = @names[doc_name] || (aug_rec ? aug_rec.medical_record_number : nil)
-      @found_names << ((@names[doc_name] ? doc_name : nil) ||
-                       "#{aug_rec[:first][0].strip} #{aug_rec[:last][0].strip}".upcase) if mrn
+      mrn, doc_name, aug_rec = get_record_identifiers(doc, options)
+      @found_names << ((@names[doc_name] ? doc_name : nil) || to_doc_name(aug_rec[:first][0], aug_rec[:last][0])) if mrn
       return unless validate_name(doc_name, options)
 
       validate_smg_data(doc, doc_name, mrn, options)
