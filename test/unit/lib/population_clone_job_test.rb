@@ -61,6 +61,27 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     assert Provider.find(record.provider_performances.first.provider_id)
   end
 
+  def test_shifts_dates
+    pcj1 = Cypress::PopulationCloneJob.new('patient_ids' => %w(0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f),
+                                           'test_id' => '4f636b3f1d41c851eb000491',
+                                           'randomization_ids' => [])
+    pcj1.perform
+    record_no_shift = Record.where(test_id: '4f636b3f1d41c851eb000491').first
+    pcj2 = Cypress::PopulationCloneJob.new('patient_ids' => %w(0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f),
+                                           'test_id' => '4f636b3f1d41c851eb000492',
+                                           'randomization_ids' => [])
+    pcj2.perform
+    record_shift = Record.where(test_id: '4f636b3f1d41c851eb000492').first
+    # check that each entry has been shifted by a year
+    record_shift.entries.each_with_index do |entry, index|
+      shifted_time = entry.time
+      unshifted_time = record_no_shift.entries[index].time
+      assert_equal Time.zone.at(shifted_time).day, Time.zone.at(unshifted_time).day
+      assert_equal Time.zone.at(shifted_time).month, Time.zone.at(unshifted_time).month
+      assert_equal Time.zone.at(shifted_time).year, Time.zone.at(unshifted_time).year + 1
+    end
+  end
+
   def test_perform_two_patients_randomized_ids
     # ids passed in should clone just the 2 records
     pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w(0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f),

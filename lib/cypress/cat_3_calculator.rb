@@ -2,11 +2,13 @@ module Cypress
   class Cat3Calculator
     attr_accessor :correlation_id, :measure, :bundle, :mre, :qr
 
-    def initialize(measure_ids, bundle)
+    def initialize(measure_ids, bundle, effective_date_override = nil)
       @correlation_id = BSON::ObjectId.new
       filter = { :hqmf_id.in => measure_ids, :bundle_id => bundle.id }
       @measure = HealthDataStandards::CQM::Measure.top_level.where(filter).first
       @bundle = bundle
+      # The effective date can be overwritten with a date other than the one in the bundle
+      @effective_date = effective_date_override ? effective_date_override : bundle.effective_date
     end
 
     # Generates the QRDA/CDA header, using the header info above
@@ -76,7 +78,7 @@ module Cypress
     end
 
     def generate_cat3
-      ex_opts = { test_id: @correlation_id, effective_date: bundle.effective_date,
+      ex_opts = { test_id: @correlation_id, effective_date: @effective_date,
                   enable_logging: false, enable_rationale: false }
       filter = { hqmf_id: @measure.hqmf_id }
       HealthDataStandards::CQM::Measure.where(filter).each do |measure|
@@ -84,10 +86,10 @@ module Cypress
         qr.calculate({ 'prefilter' => { test_id: @correlation_id }, oid_dictionary: generate_oid_dictionary, bundle_id: @bundle.id }, false)
       end
       exporter = HealthDataStandards::Export::Cat3.new(@bundle.qrda3_version)
-      end_date = Time.at(@bundle.effective_date.to_i).in_time_zone
+      end_date = Time.at(@effective_date.to_i).in_time_zone
       xml = exporter.export(HealthDataStandards::CQM::Measure.top_level.where(hqmf_id: @measure.hqmf_id, bundle_id: @bundle.id),
                             generate_header,
-                            @bundle.effective_date.to_i,
+                            @effective_date.to_i,
                             end_date.years_ago(1) + 1,
                             end_date,
                             @bundle.qrda3_version,

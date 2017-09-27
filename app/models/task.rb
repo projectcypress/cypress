@@ -13,6 +13,7 @@ class Task
   delegate :records, :to => :product_test
   delegate :augmented_records, :to => :product_test
   delegate :effective_date, :to => :product_test
+  delegate :measure_period_start, :to => :product_test
   delegate :bundle, :to => :product_test
 
   %w(

@@ -20,6 +20,7 @@ class Product
   field :c4_test, type: Boolean
   field :randomize_records, type: Boolean, default: true
   field :duplicate_records, type: Boolean, default: true
+  field :shift_records, type: Boolean, default: false
   field :allow_duplicate_names, type: Boolean, default: false
   field :measure_selection, type: String
   field :measure_ids, type: Array
@@ -32,6 +33,16 @@ class Product
   validate :meets_required_certification_types?
   validate :valid_measure_ids?
   validates :vendor, presence: true
+
+  def measure_period_start
+    # If selected, move measure period start date forward to the beginning of the actual reporting period
+    shift_records ? (bundle.measure_period_start + bundle.start_date_offset) : bundle.measure_period_start
+  end
+
+  def effective_date
+    # If selected, move effective date forward to the end of the actual reporting period
+    shift_records ? (Time.at(measure_period_start).in_time_zone + 1.year - 1.second).to_i : bundle.effective_date
+  end
 
   def status
     Rails.cache.fetch("#{cache_key}/status") do

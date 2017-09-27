@@ -1,20 +1,20 @@
 module Cypress
   class ClinicalRandomizer
-    def self.randomize(record, random: Random.new)
+    def self.randomize(record, effective_date, measure_period_start, random: Random.new)
       case random.rand(2)
       when 0
-        split_by_date(record, random)
+        split_by_date(record, effective_date, measure_period_start, random)
       when 1
-        split_by_type(record, random)
+        split_by_type(record, effective_date, measure_period_start, random)
       end
     end
 
-    def self.split_by_date(record, random)
+    def self.split_by_date(record, effective_date, measure_period_start, random)
       record_1 = record.clone
       record_2 = record.clone
 
       # Find a date that splits the entries such that at least 1 is in each record
-      split_date = find_split_date(record, random)
+      split_date = find_split_date(record, effective_date, measure_period_start, random)
 
       # Sort the entries from earliest to latest so we can split them more easily
       entries = sort_by_start_time(record.entries)
@@ -54,13 +54,13 @@ module Cypress
       end
     end
 
-    def self.split_by_type(record, random)
+    def self.split_by_type(record, effective_date, measure_period_start, random)
       # Collect unique entry types from the record with populated entries
       entry_types = record.entries.collect(&:_type).uniq.shuffle(random: random)
       entry_types.delete('InsuranceProvider')
 
       # If there's only 1 entry type, split by date instead
-      return split_by_date(record, random) if entry_types.count < 2
+      return split_by_date(record, effective_date, measure_period_start, random) if entry_types.count < 2
 
       record_1 = record.clone
       record_2 = record.clone
@@ -101,10 +101,10 @@ module Cypress
       end
     end
 
-    def self.find_split_date(record, random)
+    def self.find_split_date(record, effective_date, measure_period_start, random)
       entries = sort_by_start_time(record.entries)
-      first_date = find_first_date_after(entries, record.bundle.measure_period_start)
-      last_date = find_last_date_before(entries, record.bundle.effective_date)
+      first_date = find_first_date_after(entries, measure_period_start)
+      last_date = find_last_date_before(entries, effective_date)
       if first_date && last_date && (first_date != last_date)
         return (last_date - first_date) * random.rand + first_date
       end

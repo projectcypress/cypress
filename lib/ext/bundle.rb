@@ -35,6 +35,12 @@ class Bundle
     ApplicationController.helpers.config_for_version(version).default_negation_codes
   end
 
+  # start data offset is the time in seconds to move data forward the number of year specified in config file
+  def start_date_offset
+    offset_years = ApplicationController.helpers.config_for_version(version).start_date_offset
+    (Time.at(measure_period_start).in_time_zone + offset_years.year).to_i - measure_period_start
+  end
+
   def qrda_version
     ApplicationController.helpers.config_for_version(version).qrda_version
   end

@@ -35,6 +35,30 @@ class C1TaskTest < ActiveSupport::TestCase
     end
   end
 
+  def test_should_fail_with_a_good_archive_of_unshifted_qrda_files_for_shifted_test
+    @product_test.product.shift_records = true
+    task = @product_test.tasks.create({}, C1Task)
+    @product_test.product.c1_test = true
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good.zip'))
+    perform_enqueued_jobs do
+      te = task.execute(zip, User.first)
+      te.reload
+      assert_equal false, te.execution_errors.where(:msg_type => :error).empty?, 'should be errors for unshifted cat I archive'
+    end
+  end
+
+  def test_should_be_able_to_test_a_good_archive_of_shifted_qrda_files_for_shifted_test
+    @product_test.product.shift_records = true
+    task = @product_test.tasks.create({}, C1Task)
+    @product_test.product.c1_test = true
+    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good_shift.zip'))
+    perform_enqueued_jobs do
+      te = task.execute(zip, User.first)
+      te.reload
+      assert te.execution_errors.where(:msg_type => :error).empty?, 'should be no errors for shifted good cat I archive'
+    end
+  end
+
   def test_should_be_able_to_test_a_good_archive_of_augmented_qrda_files
     task = @product_test.tasks.create({}, C1Task)
     @product_test.product.c1_test = true
