@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # # # # # # # #
 #   W H E N   #
 # # # # # # # #
@@ -17,10 +19,10 @@ end
 #   T H E N   #
 # # # # # # # #
 
-Then(/^the page should be accesible$/) do
+Then(/^the user should be able to access the page$/) do
   page.assert_text 'Application Settings'
 end
 
-Then(/^the page should not be accesible$/) do
+Then(/^the user should not be able to access the page$/) do
   page.assert_text 'not authorized'
 end
