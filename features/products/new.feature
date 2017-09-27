@@ -7,6 +7,7 @@ Background:
 Scenario: View Create Product Page
   When the user navigates to the create product page
   Then the default bundle should be pre-selected
+  Then the shift_records option should not be pre-selected
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 

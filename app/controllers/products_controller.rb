@@ -121,8 +121,8 @@ class ProductsController < ApplicationController
 
   def product_params
     params[:product][:name].strip! if params[:product][:name]
-    params.require(:product).permit(:name, :version, :description, :randomize_records, :duplicate_records, :bundle_id, :measure_selection,
-                                    :c1_test, :c2_test, :c3_test, :c4_test, measure_ids: [])
+    params.require(:product).permit(:name, :version, :description, :randomize_records, :duplicate_records, :shift_records, :bundle_id,
+                                    :measure_selection, :c1_test, :c2_test, :c3_test, :c4_test, measure_ids: [])
   end
 
   def edit_product_params

@@ -35,7 +35,7 @@ class C2Task < Task
 
   def good_results
     cat1_zip = Cypress::CreateDownloadZip.create_zip(records, 'qrda')
-    c3c = Cypress::Cat3Calculator.new(product_test.measure_ids, product_test.bundle)
+    c3c = Cypress::Cat3Calculator.new(product_test.measure_ids, product_test.bundle, product_test.effective_date)
     c3c.import_cat1_zip(cat1_zip)
     c3c.generate_cat3
   end

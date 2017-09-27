@@ -28,6 +28,26 @@ class ProducTest < ActiveSupport::TestCase
     assert pt.save, 'Should be able to create and save a Product'
   end
 
+  def test_offset
+    pt = Product.new(vendor: @vendor, name: 'test_product', c1_test: true, measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'],
+                     bundle_id: '4fdb62e01d41c820f6000001', shift_records: true)
+    pt.product_tests.build(name: 'test_product_test_name',
+                           measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'],
+                           bundle_id: '4fdb62e01d41c820f6000001').save!
+    # Test that start dates (bundle and shifted) are the same (and a year apart)
+    assert_equal Time.zone.at(pt.measure_period_start).min, Time.zone.at(pt.bundle.measure_period_start).min
+    assert_equal Time.zone.at(pt.measure_period_start).hour, Time.zone.at(pt.bundle.measure_period_start).hour
+    assert_equal Time.zone.at(pt.measure_period_start).day, Time.zone.at(pt.bundle.measure_period_start).day
+    assert_equal Time.zone.at(pt.measure_period_start).month, Time.zone.at(pt.bundle.measure_period_start).month
+    assert_equal Time.zone.at(pt.measure_period_start).year, Time.zone.at(pt.bundle.measure_period_start).year + 1
+    # Test that shifted effective time is the last minute of the same year as the measure period start
+    assert_equal Time.zone.at(pt.effective_date).year, Time.zone.at(pt.effective_date).year
+    assert_equal Time.zone.at(pt.effective_date).min, 59
+    assert_equal Time.zone.at(pt.effective_date).hour, 23
+    assert_equal Time.zone.at(pt.effective_date).day, 31
+    assert_equal Time.zone.at(pt.effective_date).month, 12
+  end
+
   def test_create_from_vendor
     pt = @vendor.products.build(name: 'test_product', c1_test: true, measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'], bundle_id: '4fdb62e01d41c820f6000001')
     pt.product_tests.build(name: 'test_product_test_name',

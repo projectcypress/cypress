@@ -427,6 +427,10 @@ Then(/^the user should see a notification saying the product was deprecated$/) d
   page.assert_text 'The bundle this product is using has been deprecated'
 end
 
+Then(/^the shift_records option should not be pre-selected$/) do
+  assert page.has_unchecked_field?('product_shift_records'), 'shift_records should not be selected'
+end
+
 # V V V Measure Selection V V V
 
 Then(/^the group of measures should no longer be selected$/) do
