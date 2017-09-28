@@ -8,6 +8,7 @@ class TestExecutionsController < ApplicationController
   before_action :set_task_from_test_execution, only: [:show, :file_result]
   before_action :set_product_test_from_task, only: [:show, :new, :file_result]
   before_action :add_breadcrumbs, only: [:show, :new]
+  before_action :check_bundle_deprecated, only: [:show, :index, :new]
 
   respond_to :js, only: [:show, :create]
 

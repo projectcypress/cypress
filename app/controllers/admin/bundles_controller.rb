@@ -2,7 +2,7 @@ module Admin
   class BundlesController < AdminController
     respond_to :html
 
-    before_action :find_bundle, only: [:set_default, :destroy]
+    before_action :find_bundle, only: [:set_default, :deprecate, :destroy]
 
     add_breadcrumb 'Add Bundle', :new_admin_bundle_path, only: [:new]
 
@@ -47,12 +47,23 @@ module Admin
       end
     end
 
+    def deprecate
+      bundle_title = @bundle.title
+      @bundle.deprecate
+
+      # clear this cache just in case it's pointing to the bundle just deprecated
+      Rails.cache.delete('any_installed_bundle')
+      flash_comment(bundle_title, 'danger', 'depreceated')
+      redirect_to admin_path(anchor: 'bundles')
+    end
+
     def destroy
+      bundle_title = @bundle.title
       @bundle.destroy
 
       # clear this cache just in case it's pointing to the bundle just deleted
       Rails.cache.delete('any_installed_bundle')
-
+      flash_comment(bundle_title, 'danger', 'deleted')
       redirect_to admin_path(anchor: 'bundles')
     end
 

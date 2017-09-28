@@ -1,7 +1,7 @@
 
 <%
 
-# this partial should only be used if the 'remove_modal' partial is also included
+# this partial should only be used if the 'action_modal' partial is also included
 #
 # local variables:
 #
@@ -21,13 +21,14 @@
 
   <div class = 'panel-body'>
     <p><%= message %></p>
-    <%= form_tag(delete_path, method: :delete) do %>
-      <%= button_tag "Delete #{type}".titleize, type: 'button', class: 'btn btn-danger',
-          data: { toggle: 'modal',
-                  target: '#remove_modal',
-                  object_type: type,
-                  object_name: name }
-      %>
-    <% end %>
+    <%= render partial: 'action_button', locals: {
+                    button_text: "Delete #{type}".titleize,
+                    button_classes: 'btn btn-danger',
+                    button_action: 'delete',
+                    object_name: name,
+                    object_type: type,
+                    action_path: delete_path,
+                    object_action: 'delete'
+              } %>
   </div>
 </div>

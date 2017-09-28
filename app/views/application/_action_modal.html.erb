@@ -1,22 +1,22 @@
-<div id = "remove_modal" class = "modal fade" role = "dialog">
+<div id = "action_modal" class = "modal fade" role = "dialog">
   <div class = "modal-dialog">
     <div class = "modal-content">
       <div class = "modal-header">
         <button type = "button" class = "close" data-dismiss = "modal">&times;</button>
-        <h1 class = "modal-title">Remove Permanently</h1>
+        <h1 class = "modal-title"></h1>
       </div>
       <div class = "modal-body">
         <p class = "warning_message"></p>
         <p>
-          Enter <strong class = "object_name"></strong> to delete <span class = "object_type"></span>.
+          Enter <strong class = "object_name"></strong> to <span class = "object_action"></span> <span class = "object_type"></span>.
         </p>
         <p>
-          <label class = "hide" for = "modal_name_input">Remove Name</label>
+          <label class = "hide" for = "modal_name_input"><span class = "object_action"></span> name</label>
           <input class = "confirm_object_name form-control" id = "modal_name_input" type = "text-field" />
         </p>
       </div>
       <div class = "modal-footer">
-        <button type = "button" class = "btn btn-danger" id = "modal_confirm_remove" disabled = true>Remove</button>
+        <button type = "button" class = "btn btn-danger" id = "modal_confirm_remove" disabled = true>Continue</button>
         <button type = "button" class = "btn btn-default" data-dismiss = "modal">Cancel</button>
       </div>
     </div>

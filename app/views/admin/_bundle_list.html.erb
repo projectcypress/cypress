@@ -14,25 +14,38 @@
   <tbody>
     <% @bundles.each do |bundle| %>
       <% unless bundle.respond_to?('done_importing') && !bundle.done_importing %>
-        <tr>
+        <tr class= "<%= 'danger' if bundle.deprecated? %>">
           <td> <%= bundle.title %> <%= '(Default)' if bundle.active %> </td>
           <td class = "text-center"><%= bundle.version %></td>
           <td class="text-center">
 
-            <% unless @disabled %>
+            <% if !@disabled && !bundle.active %>
 
-              <% unless bundle.active %>
+              <% unless bundle.deprecated? %>
                 <%= button_to "Set Default", set_default_admin_bundle_path(bundle), :method => :post, :class => "btn btn-xs btn-default" %>
-                <%= render partial: 'remove_button', locals: {
-                                button_text: 'Remove',
+                <%= render partial: 'action_button', locals: {
+                                button_text: 'Deprecate',
                                 button_classes: 'btn btn-xs btn-danger',
+                                button_action: 'post',
                                 object: bundle,
-                                object_type: 'bundle',
                                 object_name: bundle.title,
-                                object_path: admin_bundle_path(bundle),
-                                modal_message: 'Removing a bundle will also delete all associated products and test results.'
+                                object_action: 'deprecate',
+                                action_path: deprecate_admin_bundle_path(bundle),
+                                modal_title: 'Deprecate Bundle',
+                                modal_message: 'Deprecating a bundle will leave all products and test results, however new tests will not be able to created with this bundle.'
                           } %>
               <% end %>
+              <%= render partial: 'action_button', locals: {
+                              button_text: 'Remove',
+                              button_classes: 'btn btn-xs btn-danger',
+                              button_action: 'delete',
+                              object: bundle,
+                              object_name: bundle.title,
+                              action_path: admin_bundle_path(bundle),
+                              object_action: 'delete',
+                              modal_title: 'Remove Bundle',
+                              modal_message: 'Removing a bundle will also delete all associated products and test results.'
+                        } %>
             <% end %>
           </td>
         </tr>

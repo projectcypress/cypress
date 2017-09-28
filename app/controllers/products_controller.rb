@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
   before_action :set_product, except: [:index, :new, :create]
   before_action :set_measures, only: [:new, :edit, :update, :report]
   before_action :authorize_vendor
+  before_action :check_bundle_deprecated, only: [:show]
   add_breadcrumb 'Dashboard', :vendors_path
 
   respond_to :html, except: [:index]
@@ -106,7 +107,7 @@ class ProductsController < ApplicationController
   end
 
   def set_measures
-    @bundle = (@product && @product.bundle) ? @product.bundle : Bundle.default
+    @bundle = @product&.bundle ? @product.bundle : Bundle.default
     @measures = @bundle ? @bundle.measures.top_level.only(:cms_id, :sub_id, :name, :category, :hqmf_id, :type) : []
     @measures_categories = @measures.group_by(&:category)
   end

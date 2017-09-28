@@ -55,5 +55,5 @@
   <% end %>
 </div>
 
-  <%= render partial: 'remove_modal' %>
+  <%= render partial: 'action_modal' %>
 <%= render partial: 'remove_panel', locals: { name: @user.email, type: 'user', message: ' Be sure you want to do this.', delete_path: admin_user_path(@user) } %>

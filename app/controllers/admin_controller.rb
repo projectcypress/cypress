@@ -3,7 +3,7 @@ class AdminController < ApplicationController
   before_action :require_admin
 
   def show
-    @bundles = Bundle.all
+    @bundles = Bundle.order_by('deprecated asc').all
     # dont allow them to muck with their own account
     @users = User.excludes(id: current_user.id).order_by(email:  1)
     @system_usage_stats = Vmstat.snapshot
