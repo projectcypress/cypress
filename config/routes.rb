@@ -92,6 +92,7 @@ Rails.application.routes.draw do
     resources :bundles, except: [:update] do
       member do
         post :set_default
+        post :deprecate
       end
     end
     resources :trackers, only: [:destroy]

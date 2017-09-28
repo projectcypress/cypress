@@ -35,7 +35,7 @@
       <div class="col-md-7 col-sm-6">
         <h1>Annual Update Bundle</h1>
         <div class="col-md-12">
-          <% if Bundle.count == 1 %>
+          <% if Bundle.available.count == 1 %>
           <div class="radio" style="padding: 6px 12px; display: inline-block">
             <!-- label --> <%= @bundle.title %>
           </div>
@@ -46,7 +46,7 @@
             <!-- loop through bundles & use radio buttons -->
             <%= bootstrap_form_tag do |f| %>
               <%= f.form_group :bundle_id do %>
-                <% Bundle.all.each do |bundle| %>
+                <% Bundle.available.all.each do |bundle| %>
                   <div style="display: inline-block">
                     <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox",
                                        checked: bundle == @bundle %>

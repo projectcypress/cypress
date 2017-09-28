@@ -3,9 +3,23 @@
 Bundle = HealthDataStandards::CQM::Bundle
 class Bundle
   has_many :products, :dependent => :destroy
+
+  field :deprecated, type: Boolean, default: false
+
+  scope :available, -> { where(:deprecated.ne => true) }
+
   def results
     HealthDataStandards::CQM::PatientCache.where(bundle_id: id, 'value.test_id' => nil)
                                           .order_by(['value.last', :asc])
+  end
+
+  def title
+    return super unless deprecated?
+    self[:title] + ' (Deprecated)'
+  end
+
+  def deprecate
+    update_attribute(:deprecated, true)
   end
 
   def destroy

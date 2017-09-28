@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
     if Rails.cache.exist?('any_installed_bundle')
       bundle = Rails.cache.read('any_installed_bundle')
     else
-      bundle = HealthDataStandards::CQM::Bundle.all.sample
+      bundle = HealthDataStandards::CQM::Bundle.available.all.sample
       # Only cache the bundle if it is not nil
       Rails.cache.write('any_installed_bundle', bundle) if bundle
     end
@@ -65,6 +65,14 @@ class ApplicationController < ActionController::Base
                     Please refer to the Cypress installation manual for instructions on starting the processes.'
       flash[:backend_job_warning] = alert_msg
     end
+  end
+
+  def check_bundle_deprecated
+    deprecation_msg = 'The bundle this product is using has been deprecated. '\
+                      'You will still be able to run test executions however '\
+                      'no new products will be able to be created using this bundle.'
+    current_product = @product || @task&.product_test&.product
+    flash_comment(deprecation_msg, 'warning') if current_product&.bundle&.deprecated?
   end
 
   def check_bundle_installed
@@ -110,9 +118,13 @@ class ApplicationController < ActionController::Base
     @test_execution = params[:test_execution_id] ? TestExecution.find(params[:test_execution_id]) : TestExecution.find(params[:id])
   end
 
-  def flash_comment(name, notice_type, verb)
-    flash[notice_type] ||= [] # don't overwrite other messages of this type
-    flash[notice_type] << "'#{name}' was #{verb}." # message should be past tense to make grammatical sense
+  def flash_comment(string, notice_type, verb = nil)
+    flash.now[notice_type] ||= [] # don't overwrite other messages of this type
+    if verb
+      flash.now[notice_type] << "'#{string}' was #{verb}." # message should be past tense to make grammatical sense
+    else
+      flash.now[notice_type] << string
+    end
   end
 
   def authorize_request(vendor, auth_map = {})

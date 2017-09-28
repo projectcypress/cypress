@@ -3,7 +3,7 @@ class BundlesController < ApplicationController
   respond_to :xml, :json
 
   def index
-    @bundles = Bundle.all
+    @bundles = Bundle.available.all
     respond_with(@bundles.to_a)
   end
 

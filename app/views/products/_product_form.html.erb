@@ -45,13 +45,13 @@
 
           <fieldset>
             <legend class="control-label">Annual Update Bundle</legend>
-            <% if Bundle.count == 1 %>
+            <% if Bundle.available.count == 1 %>
               <label for="product_bundle_id" class="h5"> <%= @bundle.title %> </label>
               <%= hidden_field_tag 'product[bundle_id]', @bundle.id %>
-            <% elsif Bundle.count > 1 %>
+            <% elsif Bundle.available.count > 1 %>
               <!-- loop through bundles & use radio buttons -->
               <%= f.form_group :bundle_id, help: "Select the measure versions Cypress should use to certify this product." do %>
-                <% Bundle.all.each do |bundle| %>
+                <% Bundle.available.all.each do |bundle| %>
                   <%= f.radio_button :bundle_id, bundle.id, label: "#{bundle.title} #{bundle.version}", label_class: "btn btn-checkbox",
                                      checked: bundle == @bundle, disabled: !@product.new_record? %>
 

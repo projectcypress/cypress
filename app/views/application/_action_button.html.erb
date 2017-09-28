@@ -1,0 +1,31 @@
+<%
+# action_button partial should be used with action_modal partial.
+#   action_modal partial should be used once at the top of a page while
+#   action_button partial can be used multiple times in a page
+#
+# parameters:
+#   button_text    String  ex.) 'remove', [optional]
+#   button_classes String  ex.) 'btn btn-default', [optional]
+#   button_action  String  ex.) 'delete'
+#   object         Object  ex.) @product, (object class must have .name field) [optional if object_type
+#                                and object_name provided]
+#   action_path    String  ex.) vendor_product_path(@product.vendor, @product)
+#   modal_title    String  ex.) 'Remove Product'
+#   modal_message  String  ex.) 'Removing a product will aslo delete all
+#                                associated product tests and test results.'
+#   object_type    String  ex.) 'vendor', [optional, defaults to object.model_name.element]
+#   object_name    String  ex.) identifier of the object being deleted [optional, defaults to object.name]
+%>
+
+<% button_text ||= '' %>
+<% button_classes ||= '' %>
+<% button_action ||= 'delete' %>
+<% form_classes ||= '' %>
+<% object_type ||= object.model_name.element %>
+<% object_name ||= object.name %>
+<% modal_title ||= 'Remove Permanently' %>
+<% modal_message ||= '' %>
+
+<%= form_tag(action_path, method: button_action, class: 'inline-block') do %>
+  <%= button_tag button_text, type: 'button', class: button_classes, data: { toggle: 'modal', target: '#action_modal', object_type: object_type, object_name: object_name, object_action: object_action, title: modal_title, message: modal_message } %>
+<% end %>
