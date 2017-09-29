@@ -187,6 +187,10 @@ class ProductTest
       pcv.value['medical_record_id']
     end
     mpl_ids.uniq!
+
+    # All "Master Patients" has medical records numbers that are UUIDs following this pattern "007f5da0-4d3a-0135-867f-20999b0ed66f".
+    # These medical record numbers are set in the bundle. When patients are created for a test,
+    # they have a medical record number like "757442430658921". This "keep_if" statement makes sure we only returning an id for a Master Patient.
     mpl_ids.keep_if { |id| id[8] == '-' }
     if product.randomize_records
       denom_ids = pick_denom_ids
@@ -212,6 +216,7 @@ class ProductTest
       pcv.value['medical_record_id']
     end
     denom_ids.uniq!
+    denom_ids.keep_if { |id| id[8] == '-' }
 
     # If there are a lot of patients in denom_ids (usually when the IPP and denominator are the same thing),
     # pull out the numerator/Denex/Denexcep patients as high value, then sample from the rest to get to 60
@@ -236,6 +241,7 @@ class ProductTest
       pcv.value['medical_record_id']
     end
     msrpopl_ids.uniq!
+    msrpopl_ids.keep_if { |id| id[8] == '-' }
 
     # If there are a lot of patients in the MSRPOPL results above, (usually if there are a lot of MSRPOPLEX values)
     # pull out only those patients with more than one episode in the MSRPOPL
