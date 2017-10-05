@@ -71,7 +71,7 @@ class ApplicationController < ActionController::Base
     deprecation_msg = 'The bundle this product is using has been deprecated. '\
                       'You will still be able to run test executions however '\
                       'no new products will be able to be created using this bundle.'
-    current_product = @product || @task&.product_test&.product
+    current_product = @product || @task&.product_test&.product || @product_test&.product
     flash_comment(deprecation_msg, 'warning') if current_product&.bundle&.deprecated?
   end
 

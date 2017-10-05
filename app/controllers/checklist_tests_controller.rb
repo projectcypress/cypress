@@ -3,6 +3,7 @@ class ChecklistTestsController < ProductTestsController
 
   before_action :set_measures, only: [:show]
   before_action :set_measure, only: [:measure]
+  before_action :check_bundle_deprecated, only: [:show]
   respond_to :js, only: [:show]
 
   def create
@@ -51,7 +52,8 @@ class ChecklistTestsController < ProductTestsController
 
   def print_criteria
     criteria_list = render_to_string layout: 'report'
-    zip = Cypress::CreateDownloadZip.create_c1_criteria_zip(@product.product_tests.checklist_tests.first, criteria_list).read
+    checklist_test = @product.product_tests.checklist_tests.first
+    zip = Cypress::CreateDownloadZip.create_c1_criteria_zip(checklist_test, criteria_list).read
     filename = "#{@product.name}_#{@product.id}_c1_checklist_criteria.zip".tr(' ', '_')
     send_data zip, type: 'application/zip', disposition: 'attachment', filename: filename
   end
