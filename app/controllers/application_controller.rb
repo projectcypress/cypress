@@ -120,11 +120,13 @@ class ApplicationController < ActionController::Base
 
   def flash_comment(string, notice_type, verb = nil)
     flash.now[notice_type] ||= [] # don't overwrite other messages of this type
-    if verb
-      flash.now[notice_type] << "'#{string}' was #{verb}." # message should be past tense to make grammatical sense
-    else
-      flash.now[notice_type] << string
-    end
+
+    flash.now[notice_type] << if verb
+                                # message should be past tense to make grammatical sense
+                                "'#{string}' was #{verb}."
+                              else
+                                string
+                              end
   end
 
   def authorize_request(vendor, auth_map = {})
