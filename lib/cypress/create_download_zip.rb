@@ -63,6 +63,29 @@ module Cypress
     end
 
     def self.create_c1_criteria_zip(checklist_test, criteria_list)
+      file = Tempfile.new("c1_sample_criteria-#{Time.now.to_i}.zip")
+      # Archive records checks whether the archive has already been created and creates
+      # it if it has not.
+      c1_patient_zip = checklist_test.archive_records
+      Zip::ZipOutputStream.open(file.path) do |output_zip|
+        # Copy contents of existing c1_patient_zip into output file
+        Zip::InputStream.open(c1_patient_zip.path) do |patient_archive|
+          while (entry = patient_archive.get_next_entry)
+            add_file_to_zip(output_zip, entry.name, patient_archive.read)
+          end
+        end
+        # Add criteria_list to zip
+        add_file_to_zip(output_zip, 'criteria_list.html', criteria_list)
+      end
+      file
+    end
+
+    # The intent of this is to break the create c1 criteria zip out into 2 parts and pre-package
+    # the patients so that even if a measure is deprecated and the patient cache is deleted
+    # the user will still be able to Download All Patients and View Record Samples.
+    # It would be good to merge these back together when rails 5 comes out since rails 5
+    # supports calls to render outside of the controller.
+    def self.create_c1_patient_zip(checklist_test)
       file = Tempfile.new("c1_sample_patients-#{Time.now.to_i}.zip")
       example_patients = {}
       checklist_test.measures.each do |m|
@@ -70,7 +93,6 @@ module Cypress
       end
       formatter = formatter_for_patients(example_patients.values, 'html')
       Zip::ZipOutputStream.open(file.path) do |z|
-        add_file_to_zip(z, 'criteria_list.html', criteria_list)
         example_patients.each do |measure_id, patient|
           add_file_to_zip(z, "sample patient for #{measure_id}.html", formatter.export(patient))
         end

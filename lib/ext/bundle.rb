@@ -19,6 +19,8 @@ class Bundle
   end
 
   def deprecate
+    results.destroy
+    FileUtils.rm(mpl_path) if File.exist?(mpl_path)
     update_attribute(:deprecated, true)
   end
 

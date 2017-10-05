@@ -4,6 +4,11 @@ class ChecklistTest < ProductTest
   embeds_many :checked_criteria, class_name: 'ChecklistSourceDataCriteria'
   accepts_nested_attributes_for :checked_criteria, allow_destroy: true
 
+  after_create do |product_test|
+    product_test.queued
+    ProductTestSetupJob.perform_later(product_test)
+  end
+
   def status
     return 'incomplete' if measures.empty?
     return 'passing' if num_measures_complete == measures.count && !product.c3_test
@@ -111,6 +116,14 @@ class ChecklistTest < ProductTest
       # did not add ":validator_type =>", not sure if this will be an issue in execution show
       execution.execution_errors.build(:message => msg, :msg_type => :error, :validator => :qrda_cat1)
     end
+  end
+
+  def archive_records
+    if patient_archive.path.nil?
+      self.patient_archive = Cypress::CreateDownloadZip.create_c1_patient_zip(self)
+      save
+    end
+    patient_archive
   end
 
   def cms_id_from_measure_id(measure_id)
