@@ -26,6 +26,22 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
     @record_3.encounters.push Encounter.new(start_time: 1_301_615_999)
     @record_3.insurance_providers.push InsuranceProvider.new(start_time: @bundle.measure_period_start)
     @record_3.save!
+
+    @record_4 = Record.new(first: 'SplitDate', last: 'Same')
+    @record_4.bundle_id = @bundle.id
+    @record_4.encounters.push Encounter.new(start_time: 1_301_615_999)
+    @record_4.encounters.push Encounter.new(start_time: 1_301_615_999)
+    @record_4.insurance_providers.push InsuranceProvider.new(start_time: @bundle.measure_period_start)
+    @record_4.save!
+
+    @record_5 = Record.new(first: 'SplitDate', last: 'Same_plus')
+    @record_5.bundle_id = @bundle.id
+    @record_5.encounters.push Encounter.new(start_time: 1_301_000_000)
+    @record_5.encounters.push Encounter.new(start_time: 1_301_615_999)
+    @record_5.encounters.push Encounter.new(start_time: 1_301_615_999)
+    @record_5.encounters.push Encounter.new(start_time: 1_302_000_000)
+    @record_5.insurance_providers.push InsuranceProvider.new(start_time: @bundle.measure_period_start)
+    @record_5.save!
   end
 
   def test_split_by_date
@@ -80,5 +96,27 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
     record_1, record_2 = Cypress::ClinicalRandomizer.split_by_type(@record_3, Random.new)
     assert_equal 1, record_1.insurance_providers.length, 'Record should have an insurance provider'
     assert_equal 1, record_2.insurance_providers.length, 'Record should have an insurance provider'
+  end
+
+  def test_entries_on_split_date
+    record_1, record_2 = Cypress::ClinicalRandomizer.split_by_date(@record_4, Random.new)
+
+    assert_equal 3, record_1.entries.length, 'Record should have both entries (and a payer)'
+    assert_equal 1, record_2.entries.length, 'Second record should not have entries (other than payer)'
+
+    assert_equal 1, record_1.insurance_providers.length, 'Record 1 should have a payer'
+    assert_equal 1, record_2.insurance_providers.length, 'Record 2 should have a payer'
+  end
+
+  def test_entries_on_split_date_plus
+    record_1, record_2 = Cypress::ClinicalRandomizer.split_by_date(@record_5, Random.new)
+
+    assert_equal 6, record_1.entries.length + record_2.entries.length, 'There should be 6 entries total (4 entries plus both payers)'
+
+    assert record_1.entries.length >= 2, 'Record 1 should have at least 1 entry besides the payer'
+    assert record_2.entries.length >= 2, 'Record 1 should have at least 1 entry besides the payer'
+
+    assert_equal 1, record_1.insurance_providers.length, 'Record 1 should have a payer'
+    assert_equal 1, record_2.insurance_providers.length, 'Record 2 should have a payer'
   end
 end

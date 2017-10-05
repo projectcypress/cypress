@@ -24,23 +24,26 @@ module Cypress
         record_2.send section.to_s + '=', []
       end
       if split_date
-        entries.take_while { |ent| ent_before_split_date(ent, split_date) }.each do |ent|
-          record_1.send(get_entry_type(ent._type)).push ent
-        end
-        entries.drop_while { |ent| ent_before_or_equals_split_date(ent, split_date) }.each do |ent|
-          record_2.send(get_entry_type(ent._type)).push ent
-        end
+        record_1, record_2 = set_entries(entries, record_1, record_2, split_date)
+      else
+        entries.each { |ent| record_1.send(get_entry_type(ent._type)).push ent }
       end
 
       [record_1, record_2]
     end
 
-    def self.ent_before_split_date(ent, split_date)
-      (ent.start_time && ent.start_time < split_date) || (ent.time && ent.time < split_date)
+    def self.set_entries(entries, record_1, record_2, split_date)
+      entries.take_while { |ent| ent_before_split_date(ent, split_date) }.each do |ent|
+        record_1.send(get_entry_type(ent._type)).push ent
+      end
+      entries.drop_while { |ent| ent_before_split_date(ent, split_date) }.each do |ent|
+        record_2.send(get_entry_type(ent._type)).push ent
+      end
+      [record_1, record_2]
     end
 
-    def self.ent_before_or_equals_split_date(ent, split_date)
-      (ent.start_time && ent.start_time <= split_date) || (ent.time && ent.time <= split_date)
+    def self.ent_before_split_date(ent, split_date)
+      (ent.start_time && ent.start_time < split_date) || (ent.time && ent.time < split_date)
     end
 
     def self.get_entry_type(entry_type)
@@ -102,7 +105,7 @@ module Cypress
       entries = sort_by_start_time(record.entries)
       first_date = find_first_date_after(entries, record.bundle.measure_period_start)
       last_date = find_last_date_before(entries, record.bundle.effective_date)
-      if first_date && last_date
+      if first_date && last_date && (first_date != last_date)
         return (last_date - first_date) * random.rand + first_date
       end
       nil
