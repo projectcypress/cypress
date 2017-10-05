@@ -59,29 +59,30 @@
               <% end # form_group %>
             <% end # bundles.count %>
           </fieldset>
+          <% unless @bundle.deprecated %>
+            <fieldset id="measures_options">
+              <legend class="control-label">Measures Options</legend>
 
-          <fieldset id="measures_options">
-            <legend class="control-label">Measures Options</legend>
-
-            <% unless @product.new_record? %>
-              <%= render :partial => 'alert', locals: {
-                    alert_type: 'warning',
-                    messages: 'Changing selected measures will delete all associated product tests and test execution results for any removed measures. Be sure you want to do this before changing your selection.',
-                    confirmation: 'Yes, let me adjust my measures' } %>
-            <% end %>
-            <div id="simple_measures_errors_container"></div>
-            <%= f.form_group :measure_selection, help: "Indicate the clinical quality measures Cypress should use to certify this product. Testing will be performed on a measure-by-measure basis. Click 'Custom' to specify individual measures." do %>
-              <%= f.radio_button :measure_selection, "eh", label: "Eligible Hospital eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record?, data: {
-                'parsley-required': '',
-                'parsley-trigger': 'blur change focusout',
-                'parsley-class-handler': "#measures_options",
-                'parsley-error-message': 'Must select measures.',
-                'parsley-errors-container': "#simple_measures_errors_container" } %>
-              <%= f.radio_button :measure_selection, "ep", label: "Eligible Professional eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record? %>
-              <%= f.radio_button :measure_selection, "all", label: "All eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record? %>
-              <%= f.radio_button :measure_selection, "custom", label: "Custom...", label_class: "btn btn-checkbox", disabled: !@product.new_record? %>
-            <% end %>
-          </fieldset>
+              <% unless @product.new_record? %>
+                <%= render :partial => 'alert', locals: {
+                      alert_type: 'warning',
+                      messages: 'Changing selected measures will delete all associated product tests and test execution results for any removed measures. Be sure you want to do this before changing your selection.',
+                      confirmation: 'Yes, let me adjust my measures' } %>
+              <% end %>
+              <div id="simple_measures_errors_container"></div>
+              <%= f.form_group :measure_selection, help: "Indicate the clinical quality measures Cypress should use to certify this product. Testing will be performed on a measure-by-measure basis. Click 'Custom' to specify individual measures." do %>
+                <%= f.radio_button :measure_selection, "eh", label: "Eligible Hospital eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record?, data: {
+                  'parsley-required': '',
+                  'parsley-trigger': 'blur change focusout',
+                  'parsley-class-handler': "#measures_options",
+                  'parsley-error-message': 'Must select measures.',
+                  'parsley-errors-container': "#simple_measures_errors_container" } %>
+                <%= f.radio_button :measure_selection, "ep", label: "Eligible Professional eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record? %>
+                <%= f.radio_button :measure_selection, "all", label: "All eCQMs", label_class: "btn btn-checkbox", disabled: !@product.new_record? %>
+                <%= f.radio_button :measure_selection, "custom", label: "Custom...", label_class: "btn btn-checkbox", disabled: !@product.new_record? %>
+              <% end %>
+            </fieldset>
+          <% end %>
         </div>
       </div>
 
