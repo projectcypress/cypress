@@ -1,8 +1,6 @@
 class AddProductArchiveToChecklistTest < Mongoid::Migration
   def self.up
-    ChecklistTest.each do |checklist_test|
-      checklist_test.archive_records
-    end
+    ChecklistTest.each(&:archive_records)
   end
 
   def self.down

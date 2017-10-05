@@ -1,5 +1,6 @@
 inherit_from: .rubocop_todo.yml
 AllCops:
+  TargetRubyVersion: 2.3
   Exclude:
     - 'bin/**/*'
     - 'lib/tasks/cucumber.rake'
@@ -16,7 +17,7 @@ Metrics/MethodLength:
   CountComments: false  # count full line comments?
   Max: 20
 Metrics/ClassLength:
-  Max: 110
+  Max: 120
   Exclude:
     - 'test/**/*'
     - 'lib/cypress/api_measure_evaluator.rb'
