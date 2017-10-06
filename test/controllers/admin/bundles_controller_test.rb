@@ -117,4 +117,28 @@ class Admin::BundlesControllerTest < ActionController::TestCase
       assert_response 401
     end
   end
+
+  test 'should be able to deprecate bundle' do
+    for_each_logged_in_user([ADMIN]) do
+      orig_bundle_count = Bundle.available.count
+      orig_measure_count = Measure.count
+      orig_record_count = Record.count
+      id = '4fdb62e01d41c820f6000001'
+
+      post :deprecate, id: id
+
+      assert_equal 0, Bundle.available.where(_id: id).count, 'Should have deprecated bundle'
+      assert_equal orig_bundle_count - 1, Bundle.available.count, 'Should have deprecated Bundle'
+      assert orig_measure_count == Measure.count, 'Should not have removed measures in the bundle'
+      assert orig_record_count == Record.count, 'Should not have removed records in the bundle'
+    end
+  end
+
+  test 'should not allow non admins to deprecate bundle' do
+    for_each_logged_in_user([USER, OWNER, VENDOR]) do
+      id = Bundle.default._id
+      delete :deprecate, id: id
+      assert_response 401
+    end
+  end
 end

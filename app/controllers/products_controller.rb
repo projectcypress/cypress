@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   before_action :set_product, except: [:index, :new, :create]
   before_action :set_measures, only: [:new, :edit, :update, :report]
   before_action :authorize_vendor
-  before_action :check_bundle_deprecated, only: [:show]
+  before_action :check_bundle_deprecated, only: [:show, :edit]
   add_breadcrumb 'Dashboard', :vendors_path
 
   respond_to :html, except: [:index]

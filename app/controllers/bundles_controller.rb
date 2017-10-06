@@ -8,7 +8,7 @@ class BundlesController < ApplicationController
   end
 
   def show
-    @bundle = Bundle.find(params['id'])
+    @bundle = Bundle.available.find(params['id'])
     respond_with(@bundle)
   end
 end

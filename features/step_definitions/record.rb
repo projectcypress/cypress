@@ -5,7 +5,7 @@ When(/^the user visits the records page$/) do
   visit '/records/'
   @bundle = Bundle.default
   @other_bundle = Bundle.where('$or' => [{ 'active' => false }, { :active.exists => false }]).sample
-  @measure = @bundle.measures.find_by(hqmf_id: '8A4D92B2-3946-CDAE-0139-7944ACB700BD')
+  @measure = @bundle.measures.find_by(hqmf_id: '8A4D92B2-3946-CDAE-0139-7944ACB700BD') unless @bundle.measures.count.eql? 0
 end
 
 And(/^there is only 1 bundle installed$/) do
@@ -128,4 +128,8 @@ end
 
 Then(/^a zip file should be downloaded$/) do
   assert_match(/attachment; filename=\".*\.zip\"/, page.response_headers['Content-Disposition'])
+end
+
+Then(/^the user should not see deprecated bundles$/) do
+  page.assert_no_text '(Deprecated)'
 end

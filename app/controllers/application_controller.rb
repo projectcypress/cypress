@@ -72,8 +72,10 @@ class ApplicationController < ActionController::Base
                       'You will still be able to run test executions however '\
                       'no new products will be able to be created using this bundle.'
     current_product = @product || @task&.product_test&.product || @product_test&.product
-    flash.now['warning'] ||= []
-    flash.now['warning'] << deprecation_msg if current_product&.bundle&.deprecated?
+    if current_product&.bundle&.deprecated?
+      flash.now['warning'] ||= []
+      flash.now['warning'] << deprecation_msg
+    end
   end
 
   def check_bundle_installed

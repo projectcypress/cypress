@@ -78,7 +78,7 @@ class RecordsController < ApplicationController
 
   # sets the record source to bundle for the master patient list
   def set_record_source_bundle
-    @source = @bundle = Bundle.find(params[:bundle_id])
+    @source = @bundle = Bundle.available.find(params[:bundle_id])
     add_breadcrumb 'Master Patient List', bundle_records_path(@bundle)
     @title = 'Master Patient List'
   end
