@@ -198,42 +198,43 @@ When(/^the user cancels creating a product$/) do
   page.click_button 'Cancel'
 end
 
-When(/^the user changes the name of the product$/) do
+When(/^the user views the product$/) do
   page.click_link @product.name
+end
+
+When(/^the user views the edit page of the product$/) do
+  steps %( When the user views the product )
   page.click_button 'Edit Product'
+end
+
+When(/^the user changes the name of the product$/) do
+  steps %( When the user views the edit page of the product )
   @product_other = FactoryGirl.build(:product)
   page.fill_in 'Name', with: @product_other.name
   page.click_button 'Edit Product'
 end
 
 When(/^the user removes the product$/) do
-  page.click_link @product.name
-  page.click_button 'Edit Product'
+  steps %( When the user views the edit page of the product )
   page.click_button 'Delete Product'
   page.fill_in 'delete name', with: @product.name
   page.click_button 'Continue', visible: true
 end
 
 When(/^the user removes the product from the vendor page$/) do
-  page.click_link @product.name
-  page.click_button 'Edit Product'
+  steps %( When the user views the edit page of the product )
   page.click_button 'Delete Product'
   page.fill_in 'delete name', with: @product.name
   page.find('div.modal-footer').find('button', text: 'Continue').click
 end
 
 When(/^the user cancels removing the product$/) do
-  page.click_link @product.name
-  page.click_button 'Edit Product'
+  steps %( When the user views the edit page of the product )
   page.click_button 'Delete Product'
   page.find('div.modal-footer').find('button', text: 'Cancel').click
   # This makes us wait until the modal has completely closed
   page.has_no_text?('Remove Permanently')
   page.find('div.panel-footer').click_button 'Cancel'
-end
-
-When(/^the user views the product$/) do
-  page.click_link @product.name
 end
 
 When(/^all product tests have a state of ready$/) do
@@ -422,6 +423,10 @@ Then(/^the default bundle should be pre-selected$/) do
   end
 end
 
+Then(/^the user should see a notification saying the product was deprecated$/) do
+  page.assert_text 'The bundle this product is using has been deprecated'
+end
+
 # V V V Measure Selection V V V
 
 Then(/^the group of measures should no longer be selected$/) do
@@ -555,6 +560,14 @@ Then(/^the user should see a cat III test (.*) for filtering test (.*)$/) do |ta
   using_wait_time 35 do # This can take significantly longer than other tests due to the 10 second ajax wait for some requests
     html_elem.assert_text task_status_to_task_link_text(task_status)
   end
+end
+
+Then(/^the user should see the Measures Options heading$/) do
+  page.assert_text 'Measures Options'
+end
+
+Then(/^the user should not see the Measures Options heading$/) do
+  page.assert_no_text 'Measures Options'
 end
 
 def task_status_to_execution_status_message(task_status)

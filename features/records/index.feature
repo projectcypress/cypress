@@ -11,6 +11,11 @@ Scenario: View Master Patient List Page
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
+Scenario: View Master Patient List Page, Deprecated Bundle
+  When the user visits the records page
+  And the default bundle has been deprecated
+  Then the user should not see deprecated bundles
+
 Scenario: View Master Patient List Page, Single Bundle
   When the user visits the records page
   And there is only 1 bundle installed
