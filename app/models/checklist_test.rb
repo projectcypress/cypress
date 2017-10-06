@@ -4,9 +4,8 @@ class ChecklistTest < ProductTest
   embeds_many :checked_criteria, class_name: 'ChecklistSourceDataCriteria'
   accepts_nested_attributes_for :checked_criteria, allow_destroy: true
 
-  after_create do |product_test|
-    product_test.queued
-    ProductTestSetupJob.perform_later(product_test)
+  after_create do |checklist_test|
+    ChecklistTestSetupJob.perform_later(checklist_test)
   end
 
   def status

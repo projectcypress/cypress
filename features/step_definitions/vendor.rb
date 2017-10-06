@@ -64,8 +64,8 @@ When(/^the user removes the vendor$/) do
   visit '/'
   page.click_button 'Edit Vendor'
   page.click_button 'Delete Vendor'
-  page.fill_in 'Remove Name', with: @vendor.name
-  page.click_button 'Remove'
+  page.fill_in 'delete name', with: @vendor.name
+  page.click_button 'Continue'
 end
 
 When(/^the user cancels removing a vendor$/) do

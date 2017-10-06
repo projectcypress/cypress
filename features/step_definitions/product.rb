@@ -210,16 +210,16 @@ When(/^the user removes the product$/) do
   page.click_link @product.name
   page.click_button 'Edit Product'
   page.click_button 'Delete Product'
-  page.fill_in 'Remove Name', with: @product.name
-  page.click_button 'Remove', visible: true
+  page.fill_in 'delete name', with: @product.name
+  page.click_button 'Continue', visible: true
 end
 
 When(/^the user removes the product from the vendor page$/) do
   page.click_link @product.name
   page.click_button 'Edit Product'
   page.click_button 'Delete Product'
-  page.fill_in 'Remove Name', with: @product.name
-  page.find('div.modal-footer').find('button', text: 'Remove').click
+  page.fill_in 'delete name', with: @product.name
+  page.find('div.modal-footer').find('button', text: 'Continue').click
 end
 
 When(/^the user cancels removing the product$/) do

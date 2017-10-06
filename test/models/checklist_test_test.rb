@@ -11,7 +11,7 @@ class ChecklistTestTest < ActiveJob::TestCase
   end
 
   def test_create
-    assert_enqueued_jobs 0
+    assert_enqueued_jobs 1
     assert @test.valid?, 'product test should be valid with product, name, and measure_id'
     assert @test.checked_criteria? == false
     @test.create_checked_criteria
