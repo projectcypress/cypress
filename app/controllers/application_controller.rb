@@ -72,7 +72,8 @@ class ApplicationController < ActionController::Base
                       'You will still be able to run test executions however '\
                       'no new products will be able to be created using this bundle.'
     current_product = @product || @task&.product_test&.product || @product_test&.product
-    flash_comment(deprecation_msg, 'warning') if current_product&.bundle&.deprecated?
+    flash.now['warning'] ||= []
+    flash.now['warning'] << deprecation_msg if current_product&.bundle&.deprecated?
   end
 
   def check_bundle_installed
@@ -118,15 +119,9 @@ class ApplicationController < ActionController::Base
     @test_execution = params[:test_execution_id] ? TestExecution.find(params[:test_execution_id]) : TestExecution.find(params[:id])
   end
 
-  def flash_comment(string, notice_type, verb = nil)
-    flash.now[notice_type] ||= [] # don't overwrite other messages of this type
-
-    flash.now[notice_type] << if verb
-                                # message should be past tense to make grammatical sense
-                                "'#{string}' was #{verb}."
-                              else
-                                string
-                              end
+  def flash_comment(name, notice_type, verb)
+    flash[notice_type] ||= [] # don't overwrite other messages of this type
+    flash[notice_type] << "'#{name}' was #{verb}." # message should be past tense to make grammatical sense
   end
 
   def authorize_request(vendor, auth_map = {})

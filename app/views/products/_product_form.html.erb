@@ -59,7 +59,7 @@
               <% end # form_group %>
             <% end # bundles.count %>
           </fieldset>
-          <% unless @bundle.deprecated %>
+          <% unless @bundle&.deprecated %>
             <fieldset id="measures_options">
               <legend class="control-label">Measures Options</legend>
 
