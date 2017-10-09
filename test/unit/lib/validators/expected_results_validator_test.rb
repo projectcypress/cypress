@@ -91,6 +91,8 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     @record1.save!
     @validator.validate(file, 'task' => @task)
     errors = @validator.errors
+    # Note: the 16 errors here are the same as the test_validate_missing_supplemental_data test (we are using the same task)
+    # The importance here is that no new errors are introduced when changing the gender count in accordance with the augmented records
     assert_equal 16, errors.length, 'should error on missing supplemental data' # 13 errors related to pop sums
     errors.each { |e| (assert_equal :result_validation, e.validator_type) }
     assert_equal 13, errors.count { |e| !pop_sum_err_regex.match(e.message).nil? }
@@ -106,6 +108,8 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     @record3.save!
     @validator.validate(file, 'task' => @task)
     errors = @validator.errors
+    # Note: the 16 errors here are the same as the test_validate_missing_supplemental_data test (we are using the same task)
+    # The importance here is that no new errors are introduced when changing the gender count in accordance with the augmented records
     assert_equal 16, errors.length, 'should error on missing supplemental data' # 13 errors related to pop sums
     errors.each { |e| (assert_equal :result_validation, e.validator_type) }
     assert_equal 13, errors.count { |e| !pop_sum_err_regex.match(e.message).nil? }
@@ -123,6 +127,8 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     @record3.save!
     @validator.validate(file, 'task' => @task)
     errors = @validator.errors
+    # Note: the 16 errors here are the same as the test_validate_missing_supplemental_data test (we are using the same task)
+    # The importance here is that no new errors are introduced when changing the gender count in accordance with the augmented records
     assert_equal 16, errors.length, 'should error on missing supplemental data' # 13 errors related to pop sums
     errors.each { |e| (assert_equal :result_validation, e.validator_type) }
     assert_equal 13, errors.count { |e| !pop_sum_err_regex.match(e.message).nil? }
