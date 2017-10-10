@@ -44,7 +44,7 @@ class FilteringTest < ProductTest
     # select a random patient
     prng = Random.new(rand_seed.to_i)
     random_mrn = ''
-    while random_mrn[8] != '-'
+    until ApplicationController.helpers.mpl_id?(random_mrn)
       random_mrn = master_patient_ids.sample(random: prng)
     end
     rand_record = records.find_by(original_medical_record_number: random_mrn)
