@@ -54,6 +54,7 @@ module FilteringTestsHelper
     return unless filter_tests
     test = filter_tests.pop
     test.generate_records
+    test.archive_records
     test.save
     test.queued
     ProductTestSetupJob.perform_later(test)
