@@ -88,7 +88,7 @@ class ProductTest
     file = Tempfile.new("product_test-#{id}.zip")
     recs = records.to_a
 
-    if product.duplicate_records
+    if product.duplicate_records && _type != 'FilteringTest'
       prng = Random.new(rand_seed.to_i)
       ids = results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
       unless ids.nil? || ids.empty?
