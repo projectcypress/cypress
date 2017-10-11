@@ -43,17 +43,13 @@ class FilteringTest < ProductTest
     return unless options && options['filters']
     # select a random patient
     prng = Random.new(rand_seed.to_i)
-    random_mrn = ''
-    until ApplicationController.helpers.mpl_id?(random_mrn)
-      random_mrn = master_patient_ids.sample(random: prng)
-    end
-    rand_record = records.find_by(original_medical_record_number: random_mrn)
+    mpl_ids = master_patient_ids
+    rand_record = records.select { |r| r.original_medical_record_number.in?(mpl_ids) }.sample
     # iterate over the filters and assign random codes
     params = { measures: measures, records: records, incl_addr: incl_addr, effective_date: created_at, prng: prng }
     options['filters'].each do |k, _v|
       options['filters'][k] = Cypress::CriteriaPicker.send(k, rand_record, params)
     end
-
     save!
   end
 
