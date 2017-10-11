@@ -12,6 +12,18 @@ class FilteringTest < ProductTest
     save
   end
 
+  def archive_records
+    # If a filtering test for this product already has an archive, use it and copy the augmented records.
+    # Otherwise, create them.
+    if !product.product_tests.filtering_tests.where(:patient_archive.ne => nil).empty?
+      first_filter_test = product.product_tests.filtering_tests.find_by(:patient_archive.ne => nil)
+      self.augmented_records = first_filter_test.augmented_records
+      self.patient_archive = first_filter_test.patient_archive
+    else
+      super
+    end
+  end
+
   def cat1_task
     cat1_tasks = tasks.select { |task| task.is_a? Cat1FilterTask }
     if cat1_tasks.empty?
