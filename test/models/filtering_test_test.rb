@@ -30,6 +30,34 @@ class FilteringTestTest < ActiveJob::TestCase
     options_assertions(ft)
   end
 
+  def test_consistency_of_augmented_records_between_filter_tests
+    criteria = %w(races ethnicities genders payers providers problems age)
+    options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
+    ft = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
+                           measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'])
+    augmented_record = { 'medical_record_number' => '1507738392_3',
+                         'first' => %w(Joseph Joseph), 'last' => %w(Freeman F), 'gender' => %w(M F) }
+    ft.save!
+    ft.generate_records
+    ft.reload
+    ft.pick_filter_criteria
+    ft.augmented_records = [augmented_record]
+    ft.archive_records
+    ft2 = created_second_ft
+    assert_equal ft.augmented_records, ft2.augmented_records
+  end
+
+  def created_second_ft
+    criteria = %w(races ethnicities genders payers providers problems age)
+    options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
+    ft2 = FilteringTest.new(name: 'test_for_measure_1b', product: @product, incl_addr: true, options: options,
+                            measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'])
+    ft2.save!
+    ft2.reload
+    ft2.archive_records
+    ft2
+  end
+
   def test_problem_filter
     criteria = %w(problems)
     options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
