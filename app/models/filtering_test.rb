@@ -15,8 +15,12 @@ class FilteringTest < ProductTest
   def archive_records
     # If a filtering test for this product already has an archive, use it and copy the augmented records.
     # Otherwise, create them.
-    if !product.product_tests.filtering_tests.where(:patient_archive.ne => nil).empty?
-      first_filter_test = product.product_tests.filtering_tests.find_by(:patient_archive.ne => nil)
+    first_filter_test = begin
+                          product.product_tests.filtering_tests.find_by(:patient_archive.ne => nil)
+                        rescue
+                          nil
+                        end
+    if first_filter_test
       self.augmented_records = first_filter_test.augmented_records
       self.patient_archive = first_filter_test.patient_archive
     else
