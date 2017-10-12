@@ -4,8 +4,8 @@
     "aws_secret_key": "",
     "default_user": "ubuntu",
     "default_pwd": "CypressPwd",
-    "cypress_version": "v3.2.0",
-    "cvu_version": "v3.2.0",
+    "cypress_version": "v3.2.2",
+    "cvu_version": "v3.2.2",
     "chef_version": "12.21",
     "vpc_id": "",
     "subnet_id": ""
@@ -17,7 +17,7 @@
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
       "region": "us-east-1",
-      "source_ami": "ami-cd0f5cb6",
+      "source_ami": "ami-d651b8ac",
       "instance_type": "t2.small",
       "vpc_id": "{{user `vpc_id`}}",
       "subnet_id": "{{user `subnet_id`}}",
@@ -41,7 +41,7 @@
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
       "region": "us-east-1",
-      "source_ami": "ami-cd0f5cb6",
+      "source_ami": "ami-d651b8ac",
       "instance_type": "t2.small",
       "vpc_id": "{{user `vpc_id`}}",
       "subnet_id": "{{user `subnet_id`}}",
@@ -65,7 +65,7 @@
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
       "region": "us-east-1",
-      "source_ami": "ami-cd0f5cb6",
+      "source_ami": "ami-d651b8ac",
       "instance_type": "t2.small",
       "vpc_id": "{{user `vpc_id`}}",
       "subnet_id": "{{user `subnet_id`}}",
@@ -89,11 +89,11 @@
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
-        "http://releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso",
-        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso"
+        "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso"
       ],
-      "iso_checksum": "2bce60d18248df9980612619ff0b34e6",
-      "iso_checksum_type": "md5",
+      "iso_checksum": "f3532991e031cae75bcf5e695afb844dd278fff9",
+      "iso_checksum_type": "sha1",
       "ssh_username": "{{user `default_user`}}",
       "ssh_password": "{{user `default_pwd`}}",
       "http_directory": "./install_files",
@@ -147,11 +147,11 @@
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
-        "http://releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso",
-        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso"
+        "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso"
       ],
-      "iso_checksum": "2bce60d18248df9980612619ff0b34e6",
-      "iso_checksum_type": "md5",
+      "iso_checksum": "f3532991e031cae75bcf5e695afb844dd278fff9",
+      "iso_checksum_type": "sha1",
       "ssh_username": "{{user `default_user`}}",
       "ssh_password": "{{user `default_pwd`}}",
       "http_directory": "./install_files",
@@ -205,11 +205,11 @@
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
-        "http://releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso",
-        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso"
+        "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso"
       ],
-      "iso_checksum": "2bce60d18248df9980612619ff0b34e6",
-      "iso_checksum_type": "md5",
+      "iso_checksum": "f3532991e031cae75bcf5e695afb844dd278fff9",
+      "iso_checksum_type": "sha1",
       "ssh_username": "{{user `default_user`}}",
       "ssh_password": "{{user `default_pwd`}}",
       "http_directory": "./install_files",
@@ -265,6 +265,7 @@
   },
   {
     "type": "shell",
+    "environment_vars": [ "DEBIAN_FRONTEND=noninteractive" ],
     "execute_command": "echo '{{user `default_pwd`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
     "inline": [
       "apt-get update",
@@ -279,10 +280,12 @@
   {
     "type": "shell",
     "execute_command": "echo '{{user `default_pwd`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+    "expect_disconnect": true,
     "inline": [ "shutdown -r now" ]
   },
   {
     "type": "shell",
+    "expect_disconnect": true,
     "inline": [ "sleep 10" ]
   },
   {
