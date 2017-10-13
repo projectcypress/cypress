@@ -6,6 +6,11 @@ Cypress
 
 Cypress is the rigorous and repeatable testing tool of Electronic Health Records (EHRs) and EHR modules in calculating Meaningful Use (MU) Stage 2 Clinical Quality Measures (CQMs). The Cypress tool is open source and freely available for use or adoption by the health IT community including EHR vendors and testing labs. Cypress serves as the official testing tool for the 2014 EHR Certification program supported by the Office of the National Coordinator for Health IT (ONC).
 
+Issues Reporting
+================
+To report issues with alpha/beta releases, please submit tickets to [GitHub](https://github.com/projectcypress/cypress/issues)
+To report issues with production releases, please submit tickets to [JIRA](https://oncprojectracking.healthit.gov/support/projects/CYPRESS/issues)
+
 Quality Measures
 ----------------
 
