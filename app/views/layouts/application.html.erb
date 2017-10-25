@@ -36,9 +36,9 @@
         then finds the common elements between that array and ['success', 'warning', 'danger'] -->
         <% common_elements = type.split(/_/) & %w(success warning danger) %>
         <% alert_type = common_elements.empty? ? 'info' : common_elements.first %>
-        <%= render :partial => 'alert', locals: {
-              alert_type: alert_type,
-              messages: messages } %>
+        <%= render 'alert',
+              :alert_type => alert_type,
+              :messages => messages %>
         <% end %>
       <% end %>
     </div>

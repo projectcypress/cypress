@@ -1,10 +1,10 @@
 <div class="vendors edit_vendor_page">
 
 
-  <%= render partial: 'action_modal' %>
+  <%= render 'action_modal' %>
 
-  <%= render :partial => 'vendor_form', locals: {submit_text: 'Save Changes'} %>
+  <%= render 'vendor_form', :vendor => @vendor, :submit_text => 'Save Changes' %>
 
-  <%= render partial: 'remove_panel', locals: { name: @vendor.name, type: 'vendor', message: 'Removing a vendor will also delete all associated products, product tests, and test execution results. Be sure you want to do this.', delete_path: vendor_path(@vendor) } %>
+  <%= render 'remove_panel', :name => @vendor.name, :type => 'vendor', :message => 'Removing a vendor will also delete all associated products, product tests, and test execution results. Be sure you want to do this.', :delete_path => vendor_path(@vendor) %>
 
 </div>

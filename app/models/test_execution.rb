@@ -137,4 +137,12 @@ class TestExecution
     return state == :pending unless c3_execution
     state == :pending || c3_execution.state == :pending
   end
+
+  def errored_or_sibling_errored?
+    errored? || (sibling_execution && sibling_execution.errored?)
+  end
+
+  def incomplete_or_sibling_incomplete?
+    incomplete? || (sibling_execution && sibling_execution.incomplete?)
+  end
 end

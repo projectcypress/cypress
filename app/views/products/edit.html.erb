@@ -1,5 +1,5 @@
-<%= render partial: 'action_modal' %>
+<%= render 'action_modal' %>
 
-<%= render :partial => 'product_form', locals: { submit_text: "Edit Product" } %>
+<%= render 'product_form', :submit_text => "Edit Product", :product => @product, :bundle => @bundle, :measures_categories => @measures_categories, :selected_measure_ids => @selected_measure_ids %>
 
-<%= render partial: 'remove_panel', locals: { name: @product.name, type: 'product', message: 'Removing a product will also delete all associated product tests and test execution results. Be sure you want to do this.', delete_path: vendor_product_path(@product.vendor_id, @product) } %>
+<%= render 'remove_panel', :name => @product.name, :type => 'product', :message => 'Removing a product will also delete all associated product tests and test execution results. Be sure you want to do this.', :delete_path => vendor_product_path(@product.vendor_id, @product) %>

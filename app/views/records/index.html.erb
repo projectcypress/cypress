@@ -40,7 +40,7 @@
             <!-- label --> <%= @bundle.title %>
           </div>
           <div class="radio download-btn" id=<%= @bundle.id %>>
-            <%= render partial: "mpl_download", locals: { bundle: @bundle } %>
+            <%= render "mpl_download", :bundle => @bundle %>
           </div>
           <% else %>
             <!-- loop through bundles & use radio buttons -->
@@ -52,7 +52,7 @@
                                        checked: bundle == @bundle %>
                   </div>
                   <div class="radio download-btn" id='<%= bundle.id %>'>
-                    <%= render partial: "mpl_download", locals: { bundle: bundle } %>
+                    <%= render "mpl_download", :bundle => bundle %>
                   </div>
                 <% end # bundle loop %>
               <% end # form_group %>
@@ -68,7 +68,7 @@
 <% cache [@records, @measure, hide_patient_calculation?] do %>
   <div class="row">
     <div id="records_list" class="col-sm-12">
-      <%= render partial: 'records_list', locals: { records: @records } %>
+      <%= render 'records_list', :records => @records, :measure => @measure, :product_test => @product_test, :bundle => @bundle, :task => @task %>
     </div>
   </div>
 <% end #cache records %>
@@ -104,7 +104,7 @@
   // rerender the records list to show records from all measures if no value searched
   $('#search_measures').on('blur', function() {
     if (!$(this).val()) {
-      $("#records_list").html("<%= escape_javascript(render partial: 'records_list', locals: { records: @records } ) %>");
+      $("#records_list").html("<%= escape_javascript(render 'records_list', :records => @records, :measure => @measure, :product_test => @product_test, :bundle => @bundle, :task => @task ) %>");
     }
   })
 </script>

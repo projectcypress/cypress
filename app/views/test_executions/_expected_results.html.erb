@@ -1,29 +1,29 @@
-<% if @task.is_a? Cat1FilterTask %>
-  <h1>Expected Patient Records (<%= @task.records.count %>)</h1>
+<% if task.is_a? Cat1FilterTask %>
+  <h1>Expected Patient Records (<%= task.records.count %>)</h1>
   <p>
-    <% @task.records.all.each_with_index do |r, index| %>
-      <% link_text = index < @task.records.all.size - 1 ? full_name(r) + ',' : full_name(r) %>
-      <%= link_to link_text, record_path(r, task_id: @task._id) %>
+    <% task.records.all.each_with_index do |r, index| %>
+      <% link_text = index < task.records.all.size - 1 ? full_name(r) + ',' : full_name(r) %>
+      <%= link_to link_text, record_path(r, task_id: task._id) %>
     <% end %>
   </p>
 
-<% elsif @task.product_test.expected_results %>
+<% elsif task.product_test_expected_results %>
 <h1>Expected Aggregate Results</h1>
 <table class="table table-condensed table-hover">
   <thead>
     <tr>
       <th scope="col">Measure Name</th>
-      <% population_keys = @task.product_test.expected_results.first[1].population_ids.keys %>
+      <% population_keys = task.product_test_expected_results.first[1].population_ids.keys %>
       <% population_keys.each do |population| %>
-        <th scope="col" class="text-center"><%= population_label(@task.bundle, population) %></th>
+        <th scope="col" class="text-center"><%= population_label(task.bundle, population) %></th>
       <% end %>
     </tr>
   </thead>
   <tbody>
     <!-- Only show records that are part of the measures IPP-->
-    <% @task.product_test.expected_results.each do |expected_result| %>
+    <% task.product_test_expected_results.each do |expected_result| %>
       <tr>
-        <% mes = if @task.product_test.expected_results.size > 1
+        <% mes = if task.product_test_expected_results.size > 1
                     HealthDataStandards::CQM::Measure.where(hqmf_id: expected_result[1]['measure_id'], sub_id: expected_result[0][-1,1]).first
                  else
                     HealthDataStandards::CQM::Measure.where(hqmf_id: expected_result[1]['measure_id']).first
@@ -32,7 +32,7 @@
         <% expected_result[1].population_ids.keys().each do |population| %>
           <% if population_keys.include? population %>
             <td class="text-center">
-              <%= render partial: 'expected_result_icon', locals: { result: expected_result[1][population] } %>
+              <%= render 'expected_result_icon', :result => expected_result[1][population] %>
             </td>
           <% end %>
         <% end %>

@@ -8,9 +8,9 @@ class C1Task < Task
   # Also, if the parent product test includes a C3 Task,
   # do that validation here
   def validators
-    if product_test.product.c1_test
+    if product_test.c1_test
       @validators = [::Validators::CalculatingSmokingGunValidator.new(product_test.measures, product_test.records, product_test.id),
-                     ::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.product.c3_test, true, product_test.measures)]
+                     ::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.c3_test, true, product_test.measures)]
     else
       # A C1 task is created whenever C3 is selected.  If C1 isn't also selected, this task doesn't perform any validations
       @validators = []
@@ -23,7 +23,7 @@ class C1Task < Task
     te.user = user
     te.save!
     TestExecutionJob.perform_later(te, self)
-    te.sibling_execution_id = product_test.tasks.c3_cat1_task.execute(file, user, te.id).id if product_test.product.c3_test
+    te.sibling_execution_id = product_test.tasks.c3_cat1_task.execute(file, user, te.id).id if product_test.c3_test
     te.save
     te
   end

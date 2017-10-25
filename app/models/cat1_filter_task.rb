@@ -10,8 +10,8 @@ class Cat1FilterTask < Task
     @validators = [::Validators::CalculatingSmokingGunValidator.new(product_test.measures, records, product_test.id),
                    QrdaCat1Validator.new(product_test.bundle,
                                          false,
-                                         product_test.product.c3_test,
-                                         product_test.product.c1_test,
+                                         product_test.c3_test,
+                                         product_test.c1_test,
                                          product_test.measures),
                    ::Validators::ProviderTypeValidator.new]
     @validators

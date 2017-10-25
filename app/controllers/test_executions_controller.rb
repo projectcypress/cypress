@@ -20,6 +20,7 @@ class TestExecutionsController < ApplicationController
   def create
     authorize! :execute_task, @task.product_test.product.vendor
     @test_execution = @task.execute(results_params, current_user)
+    @curr_task = Task.find(params[:task_id])
     respond_with(@test_execution) do |f|
       if @task.is_a? C1ChecklistTask
         f.html { redirect_to product_checklist_test_path(@task.product_test.product, @task.product_test) }
@@ -80,10 +81,11 @@ class TestExecutionsController < ApplicationController
   end
 
   def add_breadcrumbs
+    product = @product_test.product
     add_breadcrumb 'Dashboard', :vendors_path
-    add_breadcrumb 'Vendor: ' + @product_test.product.vendor.name, vendor_path(@product_test.product.vendor)
-    add_breadcrumb 'Product: ' + @product_test.product.name, vendor_product_path(@product_test.product.vendor, @product_test.product)
-    add_breadcrumb 'Record Sample Test', product_checklist_test_path(@product_test.product, @product_test) if @product_test.is_a? ChecklistTest
+    add_breadcrumb 'Vendor: ' + product.vendor_name, vendor_path(product.vendor)
+    add_breadcrumb 'Product: ' + product.name, vendor_product_path(product.vendor, product)
+    add_breadcrumb 'Record Sample Test', product_checklist_test_path(product, @product_test) if @product_test.is_a? ChecklistTest
     add_test_execution_breadcrumb
   end
 
@@ -102,9 +104,5 @@ class TestExecutionsController < ApplicationController
     elsif params[:test_execution]
       params[:test_execution][:results]
     end
-  end
-
-  def file_params
-    params.require(:file_name)
   end
 end

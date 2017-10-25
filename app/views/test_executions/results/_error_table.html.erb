@@ -22,7 +22,7 @@
       <tr>
         <td><%= error.message %></td>
         <td>
-          <% unless error.location.nil? || error.location == '/' || ['C3Cat1Task', 'C3Cat3Task'].include?(error.test_execution.task._type) %>
+          <% unless error.empty_location_or_c3_error? %>
             <% line_num = get_line_number(error) %>
             <a class = 'execution_error_link' href = <%= "#error_#{error.id}" %> data-line-number = <%= line_num %>>jump to error</a>
           <% end %>

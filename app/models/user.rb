@@ -92,7 +92,7 @@ class User
 
   def associate_points_of_contact
     if Settings.current.auto_associate_pocs
-      Vendor.where('points_of_contact.email' => email).each do |vendor|
+      Vendor.where('points_of_contact.email' => email).by_updated_at.each do |vendor|
         add_role :vendor, vendor
       end
     end
@@ -105,5 +105,23 @@ class User
 
   def user_role?(*args)
     has_role?(*args) || Settings.current.ignore_roles
+  end
+
+  def assign_roles_and_email(params)
+    self.roles = []
+    add_role params[:role]
+    self.email = params[:user][:email] if params[:user] && params[:user][:email]
+    assignments = params[:assignments].values if params[:assignments]
+    (assignments || []).each do |ass|
+      add_role(ass[:role], Vendor.find(ass[:vendor_id]))
+    end
+    save
+  end
+
+  def unlock
+    self.locked_at = nil
+    self.failed_attempts = 0
+    self.unlock_token = nil
+    save
   end
 end

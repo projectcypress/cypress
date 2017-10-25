@@ -1,1 +1,1 @@
-<%= render :partial => 'product_form', locals: { submit_text: "Add Product" } %>
+<%= render 'product_form', :submit_text => "Add Product", :product => @product, bundle: @bundle, :measures_categories => @measures_categories, :selected_measure_ids => @selected_measure_ids %>

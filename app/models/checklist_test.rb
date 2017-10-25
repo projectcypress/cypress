@@ -125,9 +125,7 @@ class ChecklistTest < ProductTest
     patient_archive
   end
 
-  def cms_id_from_measure_id(measure_id)
-    Measure.find_by(_id: measure_id).cms_id
-  rescue
-    'cms id not found'
+  def most_recent_task_execution_incomplete?
+    tasks.any? && tasks[0].most_recent_execution && tasks[0].most_recent_execution.incomplete?
   end
 end

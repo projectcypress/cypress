@@ -9,10 +9,10 @@ class C2Task < Task
   # Also, if the parent product test includes a C3 Task,
   # do that validation here
   def validators
-    if product_test.product.c2_test
+    if product_test.c2_test
       @validators = [::Validators::QrdaCat3Validator.new(product_test.expected_results,
                                                          false,
-                                                         product_test.product.c3_test,
+                                                         product_test.c3_test,
                                                          true,
                                                          product_test.bundle),
                      ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
@@ -28,7 +28,7 @@ class C2Task < Task
     te.user = user
     te.save!
     TestExecutionJob.perform_later(te, self)
-    te.sibling_execution_id = product_test.tasks.c3_cat3_task.execute(file, user, te.id).id if product_test.product.c3_test
+    te.sibling_execution_id = product_test.tasks.c3_cat3_task.execute(file, user, te.id).id if product_test.c3_test
     te.save
     te
   end

@@ -13,7 +13,7 @@ class Record
   end
 
   def product_test
-    ProductTest.where('_id' => test_id).first
+    ProductTest.where('_id' => test_id).most_recent
   end
 
   def bundle

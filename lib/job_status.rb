@@ -13,7 +13,7 @@ module Job
           block.call
           job.tracker.finished
           job.tracker.destroy
-        rescue Exception => e
+        rescue => e
           tracker.failed e
         end
       end

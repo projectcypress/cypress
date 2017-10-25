@@ -1,27 +1,5 @@
 module ProductsHelper
   # used in product create
-  def measure_checkbox_attributes(measure, category, selected_measure_ids)
-    {
-      :class => 'measure-checkbox',
-      :id => "product_measure_ids_#{measure.hqmf_id}",
-      :multiple => true,
-      :checked => selected_measure_ids && selected_measure_ids.include?(measure.hqmf_id),
-      'data-category' => category.tr(" '", '_'),
-      'data-measure-type' => measure.type,
-      'data-parsley-mincheck' => '1',
-      'data-parsley-required' => '',
-      'data-parsley-multiple' => 'multiple_measure_checkboxes',
-      'data-parsley-error-message' => 'Must select measures',
-      'data-parsley-errors-container' => '#measures_errors_container',
-      'aria-labelledby' => 'select_custom_measures'
-    }
-  end
-
-  def measure_checkbox_should_be_skipped?(product_test_form, product_tests, cur_measure, first_iteration)
-    return !first_iteration unless product_tests.any? { |test| test['measure_ids'] && test.measure_ids.first == cur_measure.hqmf_id }
-    product_test_form.object.measure_ids.first != cur_measure.hqmf_id
-  end
-
   def should_show_product_tests_tab?(product, test_type)
     case test_type
     when 'MeasureTest'
@@ -94,7 +72,7 @@ module ProductsHelper
   end
 
   def measure_test_running_for_row?(task)
-    return true unless [:ready, :errored].include? task.product_test.state
+    return true unless [:ready, :errored].include? task.product_test_state
     return true if task.most_recent_execution && task.most_recent_execution.status_with_sibling == 'incomplete'
     # Check if the task has been refreshed within the past 30 seconds. If it has then keep refreshing until
     # the database has a chance to settle.

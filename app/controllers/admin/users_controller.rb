@@ -15,14 +15,7 @@ module Admin
 
     def update
       @user = User.find(params[:id])
-      @user.roles = []
-      @user.add_role params[:role]
-      @user.email = params[:user][:email] if params[:user] && params[:user][:email]
-      assignments = params[:assignments].values if params[:assignments]
-      (assignments || []).each do |ass|
-        @user.add_role(ass[:role], Vendor.find(ass[:vendor_id]))
-      end
-      @user.save
+      @user.assign_roles_and_email(params)
       flash[:notice] = 'Successfully updated user.'
       redirect_to_admin
     end
@@ -41,10 +34,7 @@ module Admin
 
     def unlock
       @user = User.find(params[:id])
-      @user.locked_at = nil
-      @user.failed_attempts = 0
-      @user.unlock_token = nil
-      @user.save
+      @user.unlock
       redirect_to_admin
     end
 

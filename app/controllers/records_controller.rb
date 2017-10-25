@@ -24,6 +24,7 @@ class RecordsController < ApplicationController
           value: by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id, sub_id: m.sub_id) }
       end.to_json.html_safe
     end
+    @mpl_bundle = Bundle.find(params[:mpl_bundle_id]) if params[:mpl_bundle_id]
   end
 
   def show
@@ -99,7 +100,7 @@ class RecordsController < ApplicationController
   def breadcrumbs_for_test_path
     add_breadcrumb 'Dashboard', :vendors_path
     add_breadcrumb 'Vendor: ' + @product_test.product.vendor.name, vendor_path(@product_test.product.vendor)
-    add_breadcrumb 'Product: ' + @product_test.product.name, vendor_product_path(@product_test.product.vendor, @product_test.product)
+    add_breadcrumb 'Product: ' + @product_test.product_name, vendor_product_path(@product_test.product.vendor, @product_test.product)
     add_breadcrumb 'Test: ' + @product_test.name, new_task_test_execution_path(@task.id)
     add_breadcrumb 'Patient List', records_path(task_id: @task.id)
   end

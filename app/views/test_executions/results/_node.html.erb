@@ -77,7 +77,7 @@
         <%= render :partial=>"test_executions/results/node" , :locals => { :doc=>child, :error_map=>error_map, :error_attributes=>error_attributes, :execution_errors=>execution_errors } %>
       <% when :cdata %>
         <% # JB: this partial currently does not exist. I am leaving this here to error in that situation %>
-        <%=  render :partial=>"cdata", :locals => { :cdata=>child } %>
+        <%=  render "cdata", :cdata => child %>
       <% when :comment %>
         <% begin %>
           <div class="comment indent"><%= child.to_s %></div>

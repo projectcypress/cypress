@@ -21,14 +21,14 @@
 
   <div class = 'panel-body'>
     <p><%= message %></p>
-    <%= render partial: 'action_button', locals: {
-                    button_text: "Delete #{type}".titleize,
-                    button_classes: 'btn btn-danger',
-                    button_action: 'delete',
-                    object_name: name,
-                    object_type: type,
-                    action_path: delete_path,
-                    object_action: 'delete'
-              } %>
+    <%= render 'action_button',
+                    :button_text => "Delete #{type}".titleize,
+                    :button_classes => 'btn btn-danger',
+                    :button_action => 'delete',
+                    :object_name => name,
+                    :object_type => type,
+                    :action_path => delete_path,
+                    :object_action => 'delete'
+               %>
   </div>
 </div>

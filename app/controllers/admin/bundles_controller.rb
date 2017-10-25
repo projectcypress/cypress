@@ -15,13 +15,7 @@ module Admin
     end
 
     def set_default
-      unless @bundle.version == Settings.current.default_bundle
-        Bundle.where(active: true).update_all(active: false)
-        @bundle.active = true
-        @bundle.save!
-        Bundle.find_by(id: @bundle.id).active = true
-        Settings.current.update(default_bundle: @bundle.version)
-      end
+      @bundle.update_default
       redirect_to admin_path(anchor: 'bundles')
     end
 

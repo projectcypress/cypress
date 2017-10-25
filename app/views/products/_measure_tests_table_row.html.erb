@@ -16,13 +16,13 @@
 <td><%= link_to test.name, new_task_test_execution_path(task) %></td>
 <% if include_first_task(test.product, task._type) %>
   <td data-order="<%= set_sorting(test, task.status) %>">
-    <%= render partial: 'execution_status_message', locals: { execution: task.most_recent_execution, test_state: test.state } %>
+    <%= render 'execution_status_message', :execution => task.most_recent_execution, :test_state => test.state %>
   </td>
 <% end %>
 <% if include_c3 %>
   <% sibling_execution = task.most_recent_execution ? task.most_recent_execution.sibling_execution : nil %>
   <td data-order="<%= set_sorting(test, task.status) %>">
-    <%= render partial: 'execution_status_message', locals: { execution: sibling_execution, test_state: test.state } %>
+    <%= render 'execution_status_message', :execution => sibling_execution, :test_state => test.state %>
   </td>
 <% end %>
 <td id = "<%= id_for_html_wrapper_of_task(task) %>" class="no-wrap" data-order="<%= set_sorting(test, task.status) %>">

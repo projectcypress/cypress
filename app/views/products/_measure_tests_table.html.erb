@@ -8,17 +8,17 @@
 %>
 <% # Convert get_c1_tasks into a boolean if it is a string. %>
 <% get_c1_tasks = get_c1_tasks.eql? "true" if get_c1_tasks.is_a? String %>
-<% tasks = measure_test_tasks(@product, get_c1_tasks) %>
+<% tasks = measure_test_tasks(product, get_c1_tasks) %>
 <% return unless tasks.any? %>
 
 <% first_results_col_label = tasks.first.is_a?(C1Task) ? 'C1 Results' : 'C2 Results' %>
-<% include_c3 = @product.c3_test %>
+<% include_c3 = product.c3_test %>
 
 <table class = 'table table-hover measure_tests_table'>
   <thead>
     <th scope = 'col' class = 'col-sm-1 no-wrap pointer-on-hover'>CMS ID</th>
     <th scope = 'col' class = 'col-sm-4 pointer-on-hover'>Measure Name</th>
-    <% if include_first_task(@product, tasks.first._type) %>
+    <% if include_first_task(product, tasks.first._type) %>
       <th scope = 'col' class = 'col-sm-2 no-wrap pointer-on-hover'><%= first_results_col_label %></th>
     <% end %>
     <% if include_c3 %>
@@ -30,7 +30,7 @@
   <tbody>
     <% tasks.each do |task| %>
       <tr id = '<%= measure_tests_table_row_wrapper_id(task) %>'>
-        <%= render partial: 'measure_tests_table_row', locals: { task: task, parent_reloading: true} %>
+        <%= render 'measure_tests_table_row', :task => task, :parent_reloading => true %>
       </tr>
     <% end %>
   </tbody>

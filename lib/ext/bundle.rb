@@ -84,6 +84,16 @@ class Bundle
     version.split('.')[0]
   end
 
+  def update_default
+    unless version == Settings.current.default_bundle
+      Bundle.where(active: true).update_all(active: false)
+      self.active = true
+      save!
+      Bundle.find_by(id: id).active = true
+      Settings.current.update(default_bundle: version)
+    end
+  end
+
   def self.default
     find_by(active: true)
   rescue

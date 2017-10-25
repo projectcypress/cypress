@@ -3,7 +3,7 @@
 # local variable 'tests' should be filtering_tests
 
 %>
-<% tests = @product.product_tests.filtering_tests %>
+<% tests = product.product_tests.filtering_tests %>
 
 <table class = 'table' id = 'filtering_test_status_display'>
   <thead>
@@ -23,10 +23,10 @@
           <% end %>
         </td>
         <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(test.cat1_task) %>">
-          <%= render partial: 'filtering_test_link', locals: { test: test, task: test.cat1_task, parent_reloading: true } %>
+          <%= render 'filtering_test_link', :test => test, :task => test.cat1_task, :parent_reloading => true %>
         </td>
         <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(test.cat3_task) %>">
-          <%= render partial: 'filtering_test_link', locals: { test: test, task: test.cat3_task, parent_reloading: true } %>
+          <%= render 'filtering_test_link', :test => test, :task => test.cat3_task, :parent_reloading => true %>
         </td>
         <td class="no-wrap"><i class="fa fa-fw fa-clock-o" aria-hidden="true"></i>
           <%= local_time_ago(test.updated_at) %></td>

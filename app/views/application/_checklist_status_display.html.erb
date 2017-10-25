@@ -12,7 +12,7 @@
 <% checklist_test = product.product_tests.checklist_tests.first %>
 <% return unless checklist_test %>
 
-<% if checklist_test.tasks.any? && checklist_test.tasks[0].most_recent_execution && checklist_test.tasks[0].most_recent_execution.incomplete? %>
+<% if checklist_test.most_recent_task_execution_incomplete? %>
   <script>
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'checklist_status_display' }});
   </script>
@@ -26,7 +26,7 @@
   </thead>
   <tbody>
     <% checklist_test.measures.sort_by(&:cms_int).each do |measure| %>
-      <% link_path = has_many_measures ? measure_checklist_test_path(checklist_test, measure) : product_checklist_test_path(@product, checklist_test, anchor: "#{measure.cms_id}") %>
+      <% link_path = has_many_measures ? measure_checklist_test_path(checklist_test, measure) : product_checklist_test_path(product, checklist_test, anchor: "#{measure.cms_id}") %>
       <tr>
         <td><%= link_to "#{measure.cms_id} #{measure.name}", link_path %></td>
         <td class="no-wrap">

@@ -9,7 +9,7 @@
   <% cat1_task = @task.product_test.tasks.cat1_filter_task %>
   <% cat3_task = @task.product_test.tasks.cat3_filter_task %>
 <% end %>
-<%= render partial: 'application/certification_bar', locals: { product: @product_test.product, active_certs: current_certifications(@task._type, @product_test.product.c3_test) } %>
+<%= render partial: 'application/certification_bar', locals: { product: @product_test.product, active_certs: current_certifications(@task._type, @product_test.c3_test) } %>
 <% unless @task.is_a?(C1ChecklistTask) || @task.is_a?(C3ChecklistTask) %>
   <div class="panel clearfix">
     <%= button_to new_task_test_execution_path(iterate_task(@task, 'prev').id), :method => :get, :class => "btn btn-default pull-left" do %>
@@ -21,26 +21,26 @@
   </div>
 <% end %>
 <div class = 'row'>
-  <%= render partial: 'test_info', locals: { task: @task } %>
-  <%= render partial: 'task_status_wrapper', locals: { task: cat1_task, current_task: displaying_cat1 } if cat1_task %>
-  <%= render partial: 'task_status_wrapper', locals: { task: cat3_task, current_task: !displaying_cat1 } if cat3_task %>
+  <%= render 'test_info', :task => @task %>
+  <%= render 'task_status_wrapper', :task => cat1_task, :current_task => displaying_cat1 if cat1_task %>
+  <%= render 'task_status_wrapper', :task => cat3_task, :current_task => !displaying_cat1 if cat3_task %>
 </div>
 
 <div class = 'test-steps'>
   <% if viewing_measure_test %>
     <% steps = [
       { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },
-      { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test.state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
+      { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test_state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
   <% elsif @task.product_test.is_a? FilteringTest %>
     <% steps = [
       { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },
       { title: 'Filter Patients', partial: 'filter_instructions', disable: false, disable_msg: '' },
-      { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test.state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
+      { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test_state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
   <% elsif @task.product_test.is_a? ChecklistTest %>
     <% steps = [
-      { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test.state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
+      { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test_state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
   <% end %>
 
@@ -52,13 +52,13 @@
         </h1>
       </div>
       <div class="panel-body">
-        <%= render partial: step.partial, locals: { disable: step.disable, disable_msg: step.disable_msg, product_test: @product_test, task: @task } %>
+        <%= render step.partial, :disable => step.disable, :disable_msg => step.disable_msg, :product_test => @product_test, :task => @task %>
       </div>
     </div>
   <% end %>
 </div>
 
-<%= render partial: 'expected_results', locals: { task: @task } if should_display_expected_results(@task) %>
+<%= render 'expected_results', :task => @task if should_display_expected_results(@task) %>
 
 <% if @task.most_recent_execution %>
   <div class = 'panel panel-<%= execution_status_class(@test_execution) %>' id = 'results_panel'>
@@ -76,7 +76,7 @@
       </h1>
     </div>
     <div class = 'panel-body' id = 'display_execution_results' >
-      <%= render partial: 'execution_results', locals: { execution: @test_execution } %>
+      <%= render 'execution_results', :execution => @test_execution %>
     </div>
   </div>
 <% end %>

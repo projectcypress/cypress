@@ -1,10 +1,10 @@
 <p align="center">
-<% unless @test_executions.current_page == 1%>
-  <%= link_to('Previous Page', url_for(page: @test_executions.current_page - 1), class: "activity-paginate", remote: true) %>
+<% unless test_executions.current_page == 1%>
+  <%= link_to('Previous Page', url_for(page: test_executions.current_page - 1), class: "activity-paginate", remote: true) %>
 <% end %>
 |
-<% unless @test_executions.current_page == @test_executions.total_pages %>
-  <%= link_to('Next Page', url_for(page: @test_executions.current_page + 1), class: "activity-paginate", remote: true) %>
+<% unless test_executions.current_page == test_executions.total_pages %>
+  <%= link_to('Next Page', url_for(page: test_executions.current_page + 1), class: "activity-paginate", remote: true) %>
 <% end %>
 </p>
 
@@ -49,7 +49,7 @@
         <% end %>
 
         <td data-order="<%= set_sorting(test, task.status) %>">
-          <%= render partial: 'execution_status_message', locals: { execution: test_execution, test_state: test.state } %>
+          <%= render 'execution_status_message', :execution => test_execution, :test_state => test.state %>
         </td>
         <td class="no-wrap" data-order="<%= test_execution.updated_at %>">
           <i class="fa fa-fw fa-clock-o" aria-hidden="true"></i><%= local_time_ago(test_execution.updated_at) %>

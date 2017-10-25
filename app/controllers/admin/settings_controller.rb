@@ -6,16 +6,7 @@ module Admin
 
     def edit
       add_breadcrumb 'Edit Settings', :edit_settings_path
-      render locals: {
-        banner_message: Settings.current.banner_message,
-        warning_message: Settings.current.warning_message,
-        banner: Settings.current.banner,
-        default_url_options: Settings.current.fetch_url_settings,
-        smtp_settings: Settings.current.fetch_smtp_settings,
-        mode: Settings.current.application_mode,
-        mode_settings: application_mode_settings,
-        roles: %w(User ATL Admin None)
-      }
+      render locals: Settings.locals_edit(application_mode_settings)
     end
 
     def update
@@ -38,10 +29,6 @@ module Admin
       elsif mode_name == 'custom'
         mode_custom options
       end
-    end
-
-    def valid_port?(port_str)
-      true if (1..65_535).cover?(port_str.to_i)
     end
   end
 end

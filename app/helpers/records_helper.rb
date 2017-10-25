@@ -59,8 +59,8 @@ module RecordsHelper
     display_text
   end
 
-  def coverage_for_measure(measure_id, sub_id, bundle_id)
-    QueryCache.where(measure_id: measure_id, sub_id: sub_id, bundle_id: bundle_id, test_id: nil).first['bonnie_coverage']
+  def coverage_for_measure(measure)
+    QueryCache.where(measure_id: measure.measure_id, sub_id: measure.sub_id, bundle_id: measure.bundle_id, test_id: nil).first['bonnie_coverage']
   end
 
   def hide_patient_calculation?
