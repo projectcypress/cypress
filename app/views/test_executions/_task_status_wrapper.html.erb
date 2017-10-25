@@ -17,7 +17,7 @@
   <a class = 'task-switch-link' href = '<%= new_task_test_execution_path(task) %>'>
 <% end %>
 
-<%= render partial: 'task_status', locals: { task: task, current_task: current_task } %>
+<%= render 'task_status', :task => task, :current_task => current_task %>
 
 <% if current_task %>
   </div>

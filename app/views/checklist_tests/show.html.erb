@@ -1,7 +1,7 @@
 <% product = @product %>
 <% has_many_measures = @product_test.measures.count > CAT1_CONFIG['number_of_checklist_measures'] %>
 
-<%= render partial: 'application/certification_bar', locals: { product: product, active_certs: [true, false, product.c3_test, false] } %>
+<%= render 'application/certification_bar', :product => product, :active_certs => [true, false, product.c3_test, false] %>
 
 <div class="panel-actions pull-right">
   <%= button_to print_criteria_product_checklist_test_path(@product, @product_test), :method => :get, :class => "btn btn-default" do %>
@@ -14,7 +14,7 @@
     <div class="panel-heading">
       <h1 class="panel-title test-step">1<i class="fa fa-fw fa-bolt" aria-hidden="true"></i>Record Sample Instructions</h1>
     </div>
-    <%= render partial: 'checklist_instructions', locals: { instructions: APP_CONSTANTS['tests']['ChecklistTest']['instructions'] } %>
+    <%= render 'checklist_instructions', :instructions => APP_CONSTANTS['tests']['ChecklistTest']['instructions'] %>
   </div>
 </div>
 <div class = 'test-steps'>
@@ -25,7 +25,7 @@
       </h1>
     </div>
     <div class="panel-body">
-      <%= render partial: 'test_executions/execution_upload', locals: { disable: disable_qrda_submission?, product_test: @product_test, task: @product_test.tasks.c1_checklist_task } %>
+      <%= render 'test_executions/execution_upload', :disable => disable_qrda_submission?, :product_test => @product_test, :task => @product_test.tasks.c1_checklist_task %>
     </div>
   </div>
 </div>
@@ -38,16 +38,16 @@
     </div>
     <div class = 'panel-body'>
       <div id = 'display_checklist_execution_results'>
-        <%= render partial: 'checklist_execution_results', locals: { task: @product_test.tasks.c1_checklist_task } %>
+        <%= render 'checklist_execution_results', :task => @product_test.tasks.c1_checklist_task %>
       </div>
       <div id = 'display_checklist_status' >
-        <%= render partial: 'checklist_status_display', locals: { product: product, has_many_measures: has_many_measures } %>
+        <%= render 'checklist_status_display', :product => product, :has_many_measures => has_many_measures %>
       </div>
     </div>
   </div>
 </div>
 <% unless has_many_measures %>
   <div id = 'display_checklist_measures' >
-    <%= render partial: 'checklist_measures', locals: { product_test: @product_test, product: @product_test.product } %>
+    <%= render 'checklist_measures', :product_test => @product_test, :product => @product_test.product, :measures => @measures %>
   </div>
 <% end %>

@@ -17,15 +17,13 @@ class ChecklistTestsController < ProductTestsController
   def show
     @product = @product_test.product
     set_breadcrumbs
+    @task = Task.find(params[:task_id]) if params[:task_id]
     respond_with(@product, @product_test, &:js)
   end
 
   def update
     @product = @product_test.product
-    @product_test.update_attributes(checklist_test_params)
-    @product_test.checked_criteria.each(&:validate_criteria)
-    @product_test.checked_criteria.reverse_each(&:change_criteria)
-    @product_test.save!
+    @product_test.update_with_checklist_tests(checklist_test_params)
     respond_to do |format|
       format.html { redirect_to product_checklist_test_path(@product, @product_test) }
     end
@@ -62,7 +60,7 @@ class ChecklistTestsController < ProductTestsController
 
   def set_breadcrumbs
     add_breadcrumb 'Dashboard', :vendors_path
-    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor_id)
+    add_breadcrumb 'Vendor: ' + @product.vendor_name, vendor_path(@product.vendor_id)
     add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor_id, @product)
     add_breadcrumb 'Record Sample', product_checklist_test_path(@product, @product_test)
   end

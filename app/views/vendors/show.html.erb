@@ -1,4 +1,4 @@
-<%= render partial: 'header_vendor', locals: { vendor: @vendor } %>
+<%= render 'header_vendor', :vendor => @vendor %>
 
 <% if @vendor.products.empty? %>
   <p class="lead">

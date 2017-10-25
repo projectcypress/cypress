@@ -1,13 +1,12 @@
 <% if params[:partial] == 'mpl_download' %>
   <% # Can't pass this as bundle_id since bundle_id refers to the active bundle in this context %>
-  <% bundle = Bundle.find(params[:mpl_bundle_id]) %>
-  <% if bundle.mpl_status == :ready %>
+  <% if @mpl_bundle.mpl_status == :ready %>
     <% # don't wait. just load the MPL download %>
-    $('.download-btn#<%= bundle.id %>').html("<%= escape_javascript render partial: 'mpl_download', locals: { bundle: bundle } %>");
+    $('.download-btn#<%= @mpl_bundle.id %>').html("<%= escape_javascript render 'mpl_download', :bundle => @mpl_bundle %>");
   <% else %>
     <% # wait 2 seconds. then reload the partial %>
     setTimeout(function(){
-      $('.download-btn#<%= bundle.id %>').html("<%= escape_javascript render partial: 'mpl_download', locals: { bundle: bundle } %>");
+      $('.download-btn#<%= @mpl_bundle.id %>').html("<%= escape_javascript render 'mpl_download', :bundle => @mpl_bundle %>");
     }, 2000);
   <% end %>
 <% end %>

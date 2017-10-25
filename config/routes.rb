@@ -83,13 +83,13 @@ Rails.application.routes.draw do
     resource :settings, only: [:show, :edit, :update]
     get 'users/send_invitation'
     get :download_logs
-    resources :users do
+    resources :users, except: [:new, :create] do
       member do
         get :unlock
         get :toggle_approved
       end
     end
-    resources :bundles, except: [:update] do
+    resources :bundles, except: [:show, :edit, :update] do
       member do
         post :set_default
         post :deprecate

@@ -1,7 +1,7 @@
 <div class="panel panel-default">
-<div class="panel-heading"><h1 class='panel-title'><%= submit_text %><%= @vendor.name ? ": "+ @vendor.name : "" %></h1></div>
+<div class="panel-heading"><h1 class='panel-title'><%= submit_text %><%= vendor.name ? ": "+ vendor.name : "" %></h1></div>
 
-<%= bootstrap_nested_form_for @vendor, html: {id: "add_vendor_form", "data-parsley-validate": ''} do |f| %>
+<%= bootstrap_nested_form_for vendor, html: {id: "add_vendor_form", "data-parsley-validate": ''} do |f| %>
   <div class="panel-body">
     <%= f.text_field :name, label: 'Vendor Name', autocomplete: 'off', required: '', 'data-parsley-required': '', 'data-parsley-trigger': 'change'%>
     <%= f.text_field :vendor_id, label: 'Vendor ID' %>

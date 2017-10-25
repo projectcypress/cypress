@@ -12,14 +12,14 @@
     <div class="panel-heading">
       <h1 class="panel-title test-step">1<i class="fa fa-fw fa-bolt" aria-hidden="true"></i>Checklist Instructions</h1>
     </div>
-    <%= render partial: 'checklist_instructions', locals: { instructions: APP_CONSTANTS['tests']['ChecklistTest']['instructions'] } %>
+    <%= render 'checklist_instructions', :instructions => APP_CONSTANTS['tests']['ChecklistTest']['instructions'] %>
   </div>
 </div>
 
 <div id='save_options'>
   <% unless @product_test.status != 'passing' %>
-    <%= render :partial => 'alert', locals: { alert_type: 'warning', messages: 'Saving this checklist will overide previous results.', confirmation: 'Yes, let me save this checklist' } %>
+    <%= render 'alert', :alert_type => 'warning', :messages => 'Saving this checklist will overide previous results.', :confirmation => 'Yes, let me save this checklist' %>
   <% end %>
 </div>
 
-<%= render partial: 'checklist_measure', locals: { product: @product_test.product, product_test: @product_test, measure: @measure } %>
+<%= render 'checklist_measure', :product => @product_test.product, :product_test => @product_test, :measures => @measures, :measure => @measure %>

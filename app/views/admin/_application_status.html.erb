@@ -4,9 +4,9 @@
   <% end %>
 </div>
 
-<% cpu_count = @system_usage_stats.cpus.count %>
+<% cpu_count = system_usage_stats.cpus.count %>
 <legend>Average CPU Usage (<%= pluralize(cpu_count, "CPU") %>)</legend>
-<% @system_usage_stats.load_average.each_pair do |key, avg_load| %>
+<% system_usage_stats.load_average.each_pair do |key, avg_load| %>
   <b><%= "Past #{key.to_s}".humanize %></b>
   <% percentage = (avg_load > cpu_count) ? 100 : (avg_load / cpu_count * 100).round %>
   <div class="progress">
@@ -19,7 +19,7 @@
 
 <legend>Memory Usage</legend>
 <div class="progress">
-  <% memory_usage = @system_usage_stats.memory %>
+  <% memory_usage = system_usage_stats.memory %>
   <% total_memory = memory_usage.wired + memory_usage.active + memory_usage.inactive + memory_usage.free %>
   <% wired_percentage_used = (memory_usage.wired / total_memory.to_f) * 100 %>
   <div class="progress-bar progress-bar-striped progress-bar-danger active" role="progressbar" style="width:<%= wired_percentage_used %>%">
@@ -36,7 +36,7 @@
 </div>
 
 <legend>Disk Usage</legend>
-<% @system_usage_stats.disks.each do |disk| %>
+<% system_usage_stats.disks.each do |disk| %>
   <b>Mount point <%= disk.mount %></b>
   <% percentage = 100 - ((disk.available_blocks / disk.total_blocks.to_f) * 100).round %>
   <div class="progress">

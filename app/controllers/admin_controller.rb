@@ -7,17 +7,8 @@ class AdminController < ApplicationController
     # dont allow them to muck with their own account
     @users = User.excludes(id: current_user.id).order_by(email:  1)
     @system_usage_stats = Vmstat.snapshot
-    render locals: {
-      banner_message: Settings.current.banner_message,
-      warning_message: Settings.current.warning_message,
-      banner: Settings.current.banner,
-      default_url_options: Rails.application.config.action_mailer.default_url_options,
-      smtp_settings: Rails.application.config.action_mailer.smtp_settings,
-      mode: Settings.current.application_mode,
-      mode_settings: application_mode_settings,
-      debug_features: Settings.current.enable_debug_features,
-      server_needs_restart: Settings.current.server_needs_restart
-    }
+    locals_admin_show = Settings.locals_admin_show(application_mode_settings)
+    render locals: { locals_admin_show: locals_admin_show, server_needs_restart: locals_admin_show.server_needs_restart }
   end
 
   def download_logs
@@ -26,16 +17,7 @@ class AdminController < ApplicationController
   end
 
   def application_mode_settings
-    settings_hash = { auto_approve: Settings.current.auto_approve, ignore_roles: Settings.current.ignore_roles,
-                      debug_features: Settings.current.enable_debug_features }
-    settings_hash[:default_role] = if Settings.current.default_role.nil? || Settings.current.default_role.empty?
-                                     'None'
-                                   elsif Settings.current.default_role == :atl
-                                     'ATL'
-                                   else
-                                     Settings.current.default_role.to_s.humanize
-                                   end
-    settings_hash
+    Settings.admin_settings_hash
   end
 
   def mode_internal

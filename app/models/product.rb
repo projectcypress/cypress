@@ -3,7 +3,8 @@ class Product
   include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps
 
-  default_scope -> { order(:updated_at => :desc) }
+  scope :by_updated_at, -> { order(:updated_at => :desc) }
+  scope :ordered_for_vendors, -> { by_updated_at.order_by(state: 'desc') }
 
   belongs_to :vendor, index: true, touch: true
   has_many :product_tests, :dependent => :destroy
@@ -34,6 +35,8 @@ class Product
   validate :meets_required_certification_types?
   validate :valid_measure_ids?
   validates :vendor, presence: true
+
+  delegate :name, :to => :vendor, :prefix => true
 
   def measure_period_start
     # If selected, move measure period start date forward to the beginning of the actual reporting period
@@ -74,10 +77,6 @@ class Product
     end
   end
 
-  def at_least_one_measure?
-    errors.add(:measure_tests, 'Product must specify at least one measure for testing.') unless product_tests.any?
-  end
-
   # updates product attributes and adds / removes measure tests
   # replaces checklist tests if any c1 checklist measures are removed
   # replaces all filtering tests and creates new filtering tests
@@ -108,6 +107,10 @@ class Product
       checklist_test.tasks.create!({}, C1ChecklistTask)
       checklist_test.tasks.create!({}, C3ChecklistTask) if c3_test
     end
+  end
+
+  def self.most_recent
+    by_updated_at.first
   end
 
   # This method does nothing more than attempt to cleanup a lot of data instead of making rails do it,

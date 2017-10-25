@@ -19,14 +19,13 @@ class VendorsController < ApplicationController
 
   def show
     add_breadcrumb 'Vendor: ' + @vendor.name, :vendor_path
-    product_arr = Product.where(vendor_id: @vendor.id).order_by(state: 'desc').sort_by { |a| (a.favorite_user_ids.include? current_user.id) ? 0 : 1 }
-    @products_fav = product_arr.select { |p| p.favorite_user_ids.include? current_user.id }
+    @products_fav = @vendor.favorite_products(current_user)
 
     # paginate non-favorites
-    products_nonfav = product_arr.select { |p| !(p.favorite_user_ids.include? current_user.id) }
+    products_nonfav = @vendor.products.ordered_for_vendors.select { |p| !(p.favorite_user_ids.include? current_user.id) }
     @nonfav_count = products_nonfav.count
     @products_nonfav = Kaminari.paginate_array(products_nonfav).page(params[:page]).per(5)
-    @products = product_arr
+    @products = @vendor.products.ordered_for_vendors
     respond_with(@vendor)
   end
 

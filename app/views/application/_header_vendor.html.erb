@@ -1,48 +1,48 @@
 <div class="panel panel-primary">
   <div class="panel-body">
     <div class="panel-actions pull-right">
-      <% unless @vendor.products.empty? %>
-        <%= button_to new_vendor_product_path(@vendor), :method => :get, :class => "btn btn-primary" do %>
+      <% unless vendor.products.empty? %>
+        <%= button_to new_vendor_product_path(vendor), :method => :get, :class => "btn btn-primary" do %>
           <i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Product
         <% end %>
       <% end %>
-      <%= button_to edit_vendor_path(@vendor), :method => :get, :class => "btn btn-default" do %>
+      <%= button_to edit_vendor_path(vendor), :method => :get, :class => "btn btn-default" do %>
         <i class="fa fa-fw fa-wrench" aria-hidden="true"></i> Edit Vendor
       <% end %>
     </div>
 
-    <h1 class="summary-title"><%= @vendor.name %> <% if @vendor.vendor_id? %>(ID: <%= @vendor.vendor_id %>)<% end %></h1>
+    <h1 class="summary-title"><%= vendor.name %> <% if vendor.vendor_id? %>(ID: <%= vendor.vendor_id %>)<% end %></h1>
 
-    <% if @vendor.url? || @vendor.address? || !@vendor.points_of_contact.empty? %>
+    <% if vendor.header_fields? %>
       <ul class="fa-ul vendor-details">
-        <% if @vendor.url? %>
+        <% if vendor.url? %>
           <li>
             <i class="fa-li fa fa-globe" aria-hidden="true"></i>
-            <a href="<%= website_link(@vendor.url) %>">
-              <span class="sr-only">Website for vendor <%= @vendor.name %></span>
-              <%= website_link(@vendor.url) %>
+            <a href="<%= website_link(vendor.url) %>">
+              <span class="sr-only">Website for vendor <%= vendor.name %></span>
+              <%= website_link(vendor.url) %>
             </a>
           </li>
         <% end %>
-        <% if @vendor.address? %>
+        <% if vendor.address? %>
           <li>
             <i class="fa-li fa fa-home" aria-hidden="true"></i>
-            <span class="sr-only">Address for vendor <%= @vendor.name %></span>
-            <%= formatted_vendor_address(@vendor) %>
+            <span class="sr-only">Address for vendor <%= vendor.name %></span>
+            <%= formatted_vendor_address(vendor) %>
           </li>
         <% end %>
-        <% if !@vendor.points_of_contact.empty? %>
-          <% @vendor.points_of_contact.each do |poc| %>
+        <% if !vendor.points_of_contact.empty? %>
+          <% vendor.points_of_contact.each do |poc| %>
             <li class="point-of-contact">
               <i class="fa-li fa fa-user" aria-hidden="true"></i>
-              <span class="sr-only">Point of contact for vendor <%= @vendor.name %></span>
+              <span class="sr-only">Point of contact for vendor <%= vendor.name %></span>
               <%= poc.name %> <%= "(#{poc.contact_type})" if poc.contact_type? %>
               <% if poc.email? || poc.phone? %>
                 <ul class="fa-ul">
                   <% if poc.email? %>
                     <li>
                       <i class="fa-li fa fa-envelope" aria-hidden="true"></i>
-                      <a href="mailto:<%= poc.email %>?subject=Cypress%20testing%20for%20<%= @vendor.name %>">
+                      <a href="mailto:<%= poc.email %>?subject=Cypress%20testing%20for%20<%= vendor.name %>">
                         <span class="sr-only">Email for <%= poc.name %></span>
                         <%= poc.email %>
                       </a>

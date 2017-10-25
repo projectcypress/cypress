@@ -1,15 +1,15 @@
 
 <% if params[:partial] == 'execution_results' %>
-  <% if @test_execution.incomplete? || (@test_execution.sibling_execution && @test_execution.sibling_execution.incomplete?) %>
+  <% if @test_execution.incomplete_or_sibling_incomplete? %>
     <%# wait 2 seconds. then reload the page %>
     setTimeout(function(){
-      $('#display_execution_results').html("<%= escape_javascript render partial: 'execution_results', locals: { execution: @test_execution } %>");
+      $('#display_execution_results').html("<%= escape_javascript render 'execution_results', :execution => @test_execution %>");
     }, 2000);
   <% else %>
     <%# don't wait. just load the test executions %>
-    $('#display_execution_results').html("<%= escape_javascript render partial: 'execution_results', locals: { execution: @test_execution } %>");
+    $('#display_execution_results').html("<%= escape_javascript render 'execution_results', :execution => @test_execution %>");
     <%# load the status table after test execution is displayed %>
-    $('#task_status_display').html("<%= escape_javascript render partial: 'task_status', locals: { task: @task, current_task: true } %>");
+    $('#task_status_display').html("<%= escape_javascript render 'task_status', :task => @task, :current_task => true %>");
 
     <%# update panel color %>
     $("#results_panel").removeClass("panel-info").addClass("panel-<%= execution_status_class(@test_execution) %>");
@@ -23,9 +23,9 @@
 <% elsif params[:partial] == 'execution_download' %>
   <% unless @product_test.state == :ready %>
     setTimeout(function(){
-      $('#display_execution_download').html("<%= escape_javascript render partial: 'execution_download', locals: { product_test: @product_test } %>");
+      $('#display_execution_download').html("<%= escape_javascript render 'execution_download', :product_test => @product_test %>");
     }, 2000);
   <% else %>
-    $('#display_execution_download').html("<%= escape_javascript render partial: 'execution_download', locals: { product_test: @product_test } %>");
+    $('#display_execution_download').html("<%= escape_javascript render 'execution_download', :product_test => @product_test %>");
   <% end %>
 <% end %>

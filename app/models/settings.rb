@@ -11,19 +11,8 @@ class Settings
   field :enable_logging, type: Boolean, default: false
   # set to true to enable a banner at the top of every page with the "banner_message" text from below
   field :banner, type: Boolean, default: false
-  field :banner_message, type: String, default: 'This server is for demonstration purposes; data on it will be removed every '\
-                                                'Saturday at 11:59 PM Eastern Time'
-  field :warning_message, type: String, default: 'This warning banner provides privacy and security notices consistent with '\
-                                                 'applicable federal laws, directives, and other federal guidance for accessing '\
-                                                 'this Government system, which includes all devices/storage media attached to '\
-                                                 'this system. This system is provided for Government-authorized use only. '\
-                                                 'Unauthorized or improper use of this system is prohibited and may result in '\
-                                                 'disciplinary action and/or civil and criminal penalties. At any time, and for '\
-                                                 'any lawful Government purpose, the government may monitor, record, and audit '\
-                                                 'your system usage and/or intercept, search and seize any communication or data '\
-                                                 'transiting or stored on this system. Therefore, you have no reasonable expectation '\
-                                                 'of privacy. Any communication or data transiting or stored on this system may be '\
-                                                 'disclosed or used for any lawful Government purpose.'
+  field :banner_message, type: String, default: I18n.t('settings.messages.banner')
+  field :warning_message, type: String, default: I18n.t('settings.messages.warning')
   # ignore roles completely -- this is essentially the same as everyone in the system being an admin, default true
   field :ignore_roles, type: Boolean, default: (ENV['IGNORE_ROLES'].nil? ? true : ENV['IGNORE_ROLES'].to_boolean)
   # enable the "debug features" such as allowing QA testers to produce known good results for a task, default true
@@ -67,6 +56,36 @@ class Settings
     Rails.cache.fetch('settings') do
       first_or_create
     end
+  end
+
+  def self.locals_edit(application_mode_settings)
+    {
+      banner_message: current.banner_message, warning_message: current.warning_message, mode: current.application_mode,
+      banner: current.banner, default_url_options: current.fetch_url_settings,
+      smtp_settings: current.fetch_smtp_settings, mode_settings: application_mode_settings, roles: %w(User ATL Admin None)
+    }
+  end
+
+  def self.locals_admin_show(application_mode_settings)
+    {
+      banner_message: current.banner_message, warning_message: current.warning_message, mode: current.application_mode,
+      banner: current.banner, default_url_options: Rails.application.config.action_mailer.default_url_options,
+      smtp_settings: Rails.application.config.action_mailer.smtp_settings, mode_settings: application_mode_settings,
+      debug_features: current.enable_debug_features, server_needs_restart: current.server_needs_restart
+    }
+  end
+
+  def self.admin_settings_hash
+    settings_hash = { auto_approve: current.auto_approve, ignore_roles: current.ignore_roles,
+                      debug_features: current.enable_debug_features }
+    settings_hash[:default_role] = if current.default_role.nil? || current.default_role.empty?
+                                     'None'
+                                   elsif current.default_role == :atl
+                                     'ATL'
+                                   else
+                                     current.default_role.to_s.humanize
+                                   end
+    settings_hash
   end
 
   # This will only work if run from an initializer on startup. If run during regular app operation the settings will

@@ -6,7 +6,7 @@ class ProductTest
   include GlobalID::Identification
   include HealthDataStandards::CQM
 
-  default_scope -> { order(:updated_at => :desc) }
+  scope :by_updated_at, -> { order(:updated_at => :desc) }
 
   # TODO: Use real attributes?
   scope :measure_tests, -> { where(_type: 'MeasureTest') }
@@ -37,9 +37,11 @@ class ProductTest
   mount_uploader :patient_archive, PatientArchiveUploader
   mount_uploader :html_archive, PatientArchiveUploader
 
+  delegate :name, :version, :to => :product, :prefix => true
   delegate :effective_date, :to => :product
   delegate :measure_period_start, :to => :product
   delegate :bundle, :to => :product
+  delegate :c1_test, :c2_test, :c3_test, :to => :product
 
   before_create :generate_random_seed
 
@@ -178,6 +180,17 @@ class ProductTest
 
   def end_date
     Time.at(effective_date).in_time_zone
+  end
+
+  def update_with_checklist_tests(checklist_test_params)
+    update_attributes(checklist_test_params)
+    checked_criteria.each(&:validate_criteria)
+    checked_criteria.reverse_each(&:change_criteria)
+    save!
+  end
+
+  def self.most_recent
+    by_updated_at.first
   end
 
   private

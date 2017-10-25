@@ -67,13 +67,13 @@ module Cypress
       continuing = true
       while continuing
         sleep(2)
-        continuing = ProductTest.where(state: 'pending', product: product).count > 0
+        continuing = ProductTest.where(state: 'pending', product: product).by_updated_at.count > 0
       end
       @logger.info 'done'
     end
 
     def upload_all_cat3s
-      upload_cat3s(Product.where(name: 'MeasureEvaluationProduct').first.product_tests)
+      upload_cat3s(Product.where(name: 'MeasureEvaluationProduct').most_recent.product_tests)
     end
 
     def upload_cat3s(tests)
@@ -102,7 +102,7 @@ module Cypress
     end
 
     def upload_all_cat1s
-      upload_cat1s(Product.where(name: 'MeasureEvaluationProduct').first.product_tests)
+      upload_cat1s(Product.where(name: 'MeasureEvaluationProduct').most_recent.product_tests)
     end
 
     def upload_cat1s(tests)

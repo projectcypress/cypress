@@ -62,4 +62,8 @@ class ExecutionError
       true if execution_error.has_attribute?('validator_type') && execution_error[:validator_type] == :submission_validation
     end
   end
+
+  def empty_location_or_c3_error?
+    location.nil? || location == '/' || %w(C3Cat1Task C3Cat3Task).include?(test_execution.task._type)
+  end
 end

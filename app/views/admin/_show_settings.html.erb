@@ -29,7 +29,7 @@
     <legend>Mailer</legend>
     <dl class="dl-horizontal configured-mailer">
       <% if server_needs_restart %>
-        <%= render :partial => 'alert', locals: { alert_type: 'warning', messages: 'You have changed the following settings however you have not reloaded Cypress. Any emails sent before reload will still use the following settings.' } %>
+        <%= render 'alert', :alert_type => 'warning', :messages => 'You have changed the following settings however you have not reloaded Cypress. Any emails sent before reload will still use the following settings.' %>
       <% end %>
       <dt>Cypress URL</dt><dd><%= default_url_options.host.present? ? default_url_options.host : 'not configured' %></dd>
       <dt>Cypress Port</dt><dd><%= default_url_options.port.present? ? default_url_options.port : 'not configured' %></dd>

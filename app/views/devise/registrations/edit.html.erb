@@ -1,4 +1,4 @@
-<%= render partial: 'action_modal' %>
+<%= render 'action_modal' %>
 
 <div  style="padding-bottom: 20px;">
   <h3>Account Details </h3>
@@ -16,7 +16,7 @@
 <h3>Recent Activity </h3>
 
   <div class="recent-activity-table">
-    <%= render partial: 'recent_activity', locals: {test_executions: @test_executions} %>
+    <%= render 'recent_activity', :test_executions => @test_executions %>
   </div>
 
 <div class="panel panel-default">
@@ -42,4 +42,4 @@
   <% end %>
 </div>
 
-<%= render partial: 'remove_panel', locals: { name: resource.email, type: 'account', message: 'Once you delete your account you cannot get it back. Be sure you want to do this.', delete_path: registration_path(resource_name) } %>
+<%= render 'remove_panel', :name => resource.email, :type => 'account', :message => 'Once you delete your account you cannot get it back. Be sure you want to do this.', :delete_path => registration_path(resource_name) %>

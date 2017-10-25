@@ -1,16 +1,16 @@
 
-<% if @product_test.tasks.first.most_recent_execution && @product_test.tasks.first.most_recent_execution.incomplete? %>
+<% if product_test.tasks.first.most_recent_execution && product_test.tasks.first.most_recent_execution.incomplete? %>
   <script>
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'checklist_measures' }});
   </script>
 <% end %>
 
 <div id='save_options'>
-  <% unless @product_test.status != 'passing' %>
-    <%= render :partial => 'alert', locals: { alert_type: 'warning', messages: 'Saving this checklist will override previous results.', confirmation: 'Yes, let me save this checklist' } %>
+  <% unless product_test.status != 'passing' %>
+    <%= render 'alert', :alert_type => 'warning', :messages => 'Saving this checklist will override previous results.', :confirmation => 'Yes, let me save this checklist' %>
   <% end %>
 </div>
 
 
-  <%= render partial: 'checklist_measure', locals: { product: @product_test.product, product_test: @product_test } %>
+  <%= render 'checklist_measure', :product => product_test.product, :product_test => product_test, :measures => measures %>
 

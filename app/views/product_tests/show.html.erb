@@ -1,8 +1,8 @@
 <h1><%= "#{@product_test.cms_id} #{@product_test.name}" %></h1>
 
-<% c1 = @product_test.product.c1_test %>
-<% c2 = @product_test.product.c2_test %>
-<% c3 = @product_test.product.c3_test %>
+<% c1 = @product_test.c1_test %>
+<% c2 = @product_test.c2_test %>
+<% c3 = @product_test.c3_test %>
 
 <% tab_label_1 = 'C1 and C3' if c1 && c3 %>
 <% tab_label_1 = 'C1' if c1 && !c3 %>
@@ -17,10 +17,10 @@
       <dt>Vendor</dt>
       <dd><%= @product_test.product.vendor.name %></dd>
       <dt>Product</dt>
-      <dd><%= @product_test.product.name %></dd>
-      <% unless @product_test.product.version.blank? %>
+      <dd><%= @product_test.product_name %></dd>
+      <% unless @product_test.product_version.blank? %>
       <dt>Version:</dt>
-      <dd><%= @product_test.product.version %></dd>
+      <dd><%= @product_test.product_version %></dd>
       <% end %>
     </dl>
 
@@ -101,12 +101,12 @@
           <p class = 'description'>
             <%= "Upload your CAT 1 zip file to get test results for #{tab_label_1} certifications. This will automatically run a test execution." %>
           </p>
-          <%= render partial: 'test_execution_upload', locals: { disable: false, task: @product_test.tasks.c1_task } %>
+          <%= render 'test_execution_upload', :disable => false, :task => @product_test.tasks.c1_task %>
         </div>
       </div>
       <hr>
       <h1 class="test-result">CAT 1 Test Results for <%= "#{@product_test.name}" %></h1>
-      <%= render partial: "test_execution_results", locals: { task: @product_test.tasks.c1_task } %>
+      <%= render "test_execution_results", :task => @product_test.tasks.c1_task %>
     <% if c1 && c2 %>
       </div>
     <% end %>
@@ -124,12 +124,12 @@
           <p class = 'description'>
             <%= "Upload your CAT 3 XML file to get test results for #{tab_label_2} certifications. This will automatically run a test execution." %>
           </p>
-          <%= render partial: 'test_execution_upload', locals: { disable: false, task: @product_test.tasks.c2_task } %>
+          <%= render 'test_execution_upload', :disable => false, :task => @product_test.tasks.c2_task %>
         </div>
       </div>
       <hr>
       <h1 class = 'test-result'><%= "CAT 3 Test Results for #{@product_test.name}" %></h1>
-      <%= render partial: "test_execution_results", locals: { task: @product_test.tasks.c2_task } %>
+      <%= render "test_execution_results", :task => @product_test.tasks.c2_task %>
     <% if c1 && c2 %>
       </div>
     <% end %>
