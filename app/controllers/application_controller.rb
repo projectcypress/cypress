@@ -109,12 +109,12 @@ class ApplicationController < ActionController::Base
 
   def set_product_test
     @product_test = params[:product_test_id] ? ProductTest.find(params[:product_test_id]) : ProductTest.find(params[:id])
-    @title = "#{@product_test.product.name} C1 Record Sample" if @product_test.is_a?(ChecklistTest)
+    @title = "#{@product_test.product_name} C1 Record Sample" if @product_test.is_a?(ChecklistTest)
   end
 
   def set_task
     @task = params[:task_id] ? Task.find(params[:task_id]) : Task.find(params[:id])
-    @title = "#{@task.product_test.product.name} #{@task.product_test.cms_id} #{@task._type.titleize}"
+    @title = "#{@task.product_test.product_name} #{@task.product_test_cms_id} #{@task._type.titleize}"
   end
 
   def set_test_execution

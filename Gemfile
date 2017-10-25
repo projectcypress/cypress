@@ -105,6 +105,7 @@ group :development, :test do
   gem 'parallel_tests'
   gem 'pry'
   gem 'pry-nav'
+  gem 'rails_best_practices'
 end
 
 group :development do

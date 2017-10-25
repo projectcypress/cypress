@@ -34,6 +34,8 @@ class Product
   validate :valid_measure_ids?
   validates :vendor, presence: true
 
+  delegate :name, :to => :vendor, :prefix => true
+
   def measure_period_start
     # If selected, move measure period start date forward to the beginning of the actual reporting period
     shift_records ? (bundle.measure_period_start + bundle.start_date_offset) : bundle.measure_period_start

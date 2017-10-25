@@ -9,12 +9,14 @@ class Task
   has_many :test_executions
   delegate :start_date, :to => :product_test
   delegate :end_date, :to => :product_test
-  delegate :measures, :to => :product_test
+  delegate :measures, :measure_ids, :to => :product_test
   delegate :records, :to => :product_test
   delegate :augmented_records, :to => :product_test
   delegate :effective_date, :to => :product_test
   delegate :measure_period_start, :to => :product_test
   delegate :bundle, :to => :product_test
+  delegate :name, :state, :to => :product_test, :prefix => true
+  delegate :cms_id, :expected_results, :to => :product_test, :prefix => true
 
   %w(
     C1Task C1ChecklistTask C3ChecklistTask C2Task C3Cat1Task

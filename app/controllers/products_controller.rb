@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor_id)
+    add_breadcrumb 'Vendor: ' + @product.vendor_name, vendor_path(@product.vendor_id)
     add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor_id, @product)
     respond_with(@product, &:js)
   end
@@ -46,7 +46,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    add_breadcrumb 'Vendor: ' + @product.vendor.name, vendor_path(@product.vendor_id)
+    add_breadcrumb 'Vendor: ' + @product.vendor_name, vendor_path(@product.vendor_id)
     add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor_id, @product)
     add_breadcrumb 'Edit Product', :edit_vendor_path
     @selected_measure_ids = @product.measure_ids

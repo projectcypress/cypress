@@ -5,7 +5,7 @@ class C3Cat1Task < Task
     @validators = [::Validators::SmokingGunValidator.new(product_test.measures, product_test.records, product_test.id,
                                                          suppress_errors: true, validate_inclusion_only: true),
                    ::Validators::MeasurePeriodValidator.new,
-                   ::Validators::QrdaCat1Validator.new(product_test.bundle, true, true, product_test.product.c1_test, product_test.measures)]
+                   ::Validators::QrdaCat1Validator.new(product_test.bundle, true, true, product_test.c1_test, product_test.measures)]
     @validators << cms_cat1_schematron_validator if product_test.bundle.cms_schematron
     @validators
   end
@@ -23,7 +23,7 @@ class C3Cat1Task < Task
     te = test_executions.create(expected_results: expected_results, artifact: Artifact.new(file: file))
     te.user = user
     te.save!
-    TestExecutionJob.perform_later(te, self, validate_reporting: product_test.product.c3_test)
+    TestExecutionJob.perform_later(te, self, validate_reporting: product_test.c3_test)
     te.sibling_execution_id = sibling_execution_id
     te.save
     te

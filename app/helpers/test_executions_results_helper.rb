@@ -29,7 +29,7 @@ module TestExecutionsResultsHelper
       #{supp_data_errors.first.error_details['population_id']}.)
     elsif !stratification_errors.blank?
       %(The following errors were identified for
-      #{@task.product_test.expected_results.first[1].population_ids.key(stratification_errors.first.error_details['population_id'])}
+      #{@task.product_test_expected_results.first[1].population_ids.key(stratification_errors.first.error_details['population_id'])}
       #{stratification_errors.first.error_details['population_id']}.)
     end
   end
