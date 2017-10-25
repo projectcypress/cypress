@@ -155,6 +155,8 @@ GEM
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     cliver (0.3.2)
+    code_analyzer (0.4.8)
+      sexp_processor
     coderay (1.1.1)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -353,6 +355,14 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails_best_practices (1.19.0)
+      activesupport
+      code_analyzer (>= 0.4.8)
+      erubis
+      i18n
+      json
+      require_all
+      ruby-progressbar
     railties (4.2.9)
       actionpack (= 4.2.9)
       activesupport (= 4.2.9)
@@ -368,6 +378,7 @@ GEM
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
       uber (< 0.2.0)
+    require_all (1.4.0)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
     rest-client (1.8.0)
@@ -408,6 +419,7 @@ GEM
     selenium-webdriver (3.4.4)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
+    sexp_processor (4.10.0)
     simplecov (0.12.0)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
@@ -517,6 +529,7 @@ DEPENDENCIES
   pry-nav
   quality-measure-engine!
   rails (~> 4.2.7)
+  rails_best_practices
   remotipart (~> 1.2)
   responders
   roar-rails

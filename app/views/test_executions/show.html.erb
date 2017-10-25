@@ -9,7 +9,7 @@
   <% cat1_task = @task.product_test.tasks.cat1_filter_task %>
   <% cat3_task = @task.product_test.tasks.cat3_filter_task %>
 <% end %>
-<%= render partial: 'application/certification_bar', locals: { product: @product_test.product, active_certs: current_certifications(@task._type, @product_test.product.c3_test) } %>
+<%= render partial: 'application/certification_bar', locals: { product: @product_test.product, active_certs: current_certifications(@task._type, @product_test.c3_test) } %>
 <% unless @task.is_a?(C1ChecklistTask) || @task.is_a?(C3ChecklistTask) %>
   <div class="panel clearfix">
     <%= button_to new_task_test_execution_path(iterate_task(@task, 'prev').id), :method => :get, :class => "btn btn-default pull-left" do %>
@@ -30,17 +30,17 @@
   <% if viewing_measure_test %>
     <% steps = [
       { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },
-      { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test.state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
+      { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test_state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
   <% elsif @task.product_test.is_a? FilteringTest %>
     <% steps = [
       { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },
       { title: 'Filter Patients', partial: 'filter_instructions', disable: false, disable_msg: '' },
-      { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test.state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
+      { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test_state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
   <% elsif @task.product_test.is_a? ChecklistTest %>
     <% steps = [
-      { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test.state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
+      { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test_state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
   <% end %>
 

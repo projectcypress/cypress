@@ -37,9 +37,11 @@ class ProductTest
   mount_uploader :patient_archive, PatientArchiveUploader
   mount_uploader :html_archive, PatientArchiveUploader
 
+  delegate :name, :version, :to => :product, :prefix => true
   delegate :effective_date, :to => :product
   delegate :measure_period_start, :to => :product
   delegate :bundle, :to => :product
+  delegate :c1_test, :c2_test, :c3_test, :to => :product
 
   before_create :generate_random_seed
 

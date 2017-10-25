@@ -1,7 +1,7 @@
 class C3Cat3Task < Task
   def validators
     @validators = [::Validators::MeasurePeriodValidator.new,
-                   ::Validators::QrdaCat3Validator.new(product_test.expected_results, true, true, product_test.product.c2_test, product_test.bundle)]
+                   ::Validators::QrdaCat3Validator.new(product_test.expected_results, true, true, product_test.c2_test, product_test.bundle)]
     cms_cat3_schematron_validator if product_test.bundle.cms_schematron
     @validators
   end
@@ -15,7 +15,7 @@ class C3Cat3Task < Task
     te = test_executions.create(expected_results: expected_results, artifact: Artifact.new(file: file))
     te.user = user
     te.save!
-    TestExecutionJob.perform_later(te, self, validate_reporting: product_test.product.c3_test)
+    TestExecutionJob.perform_later(te, self, validate_reporting: product_test.c3_test)
     te.sibling_execution_id = sibling_execution_id
     te.save
     te

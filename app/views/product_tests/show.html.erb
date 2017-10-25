@@ -1,8 +1,8 @@
 <h1><%= "#{@product_test.cms_id} #{@product_test.name}" %></h1>
 
-<% c1 = @product_test.product.c1_test %>
-<% c2 = @product_test.product.c2_test %>
-<% c3 = @product_test.product.c3_test %>
+<% c1 = @product_test.c1_test %>
+<% c2 = @product_test.c2_test %>
+<% c3 = @product_test.c3_test %>
 
 <% tab_label_1 = 'C1 and C3' if c1 && c3 %>
 <% tab_label_1 = 'C1' if c1 && !c3 %>
@@ -17,10 +17,10 @@
       <dt>Vendor</dt>
       <dd><%= @product_test.product.vendor.name %></dd>
       <dt>Product</dt>
-      <dd><%= @product_test.product.name %></dd>
-      <% unless @product_test.product.version.blank? %>
+      <dd><%= @product_test.product_name %></dd>
+      <% unless @product_test.product_version.blank? %>
       <dt>Version:</dt>
-      <dd><%= @product_test.product.version %></dd>
+      <dd><%= @product_test.product_version %></dd>
       <% end %>
     </dl>
 

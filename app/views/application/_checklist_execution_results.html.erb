@@ -32,9 +32,9 @@
         </td>
       <% end %>
       <% # for both c1 and c3 executions (if they exist) %>
-        <td><%= render partial: 'execution_status_message', locals: { execution: execution, test_state: task.product_test.state } %></td>
+        <td><%= render partial: 'execution_status_message', locals: { execution: execution, test_state: task.product_test_state } %></td>
         <% if should_include_c3 %>
-        <td><%= render partial: 'execution_status_message', locals: { execution: c3_execution, test_state: task.product_test.state } %></td>
+        <td><%= render partial: 'execution_status_message', locals: { execution: c3_execution, test_state: task.product_test_state } %></td>
         <% end %>
       <td>
         <% unless execution.nil? %>

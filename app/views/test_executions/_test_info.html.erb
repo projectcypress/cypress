@@ -7,11 +7,11 @@
 <div class = 'col-sm-4'>
   <h1><%= info_title_for_product_test(task.product_test) %></h1>
   <% unless task.product_test.is_a? ChecklistTest %>
-    <strong>Measure: </strong><span><%= task.product_test.name %></span><br/>
+    <strong>Measure: </strong><span><%= task.product_test_name %></span><br/>
   <% end %>
-  <strong>HQMF ID: </strong><span><%= @task.product_test.measure_ids.join(',') %></span><br/>
+  <strong>HQMF ID: </strong><span><%= @task.measure_ids.join(',') %></span><br/>
   <% unless task.product_test.is_a? ChecklistTest %>
-    <strong>CMS ID: </strong><span><%= task.product_test.cms_id %></span><br/>
+    <strong>CMS ID: </strong><span><%= task.product_test_cms_id %></span><br/>
   <% end %>
 
   <% # display provider information if the product test is a measure test %>
