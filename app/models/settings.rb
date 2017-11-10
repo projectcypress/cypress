@@ -33,7 +33,6 @@ class Settings
   field :auto_confirm, type: Boolean, default: true
   field :bundle_file_path, type: String, default: 'temp/bundles'
   field :file_upload_root, type: String, default: 'data/upload/'
-  field :pid_dir, type: String, default: './tmp/delayed_pids'
   field :server_needs_restart, type: Boolean, default: false
 
   field :website_domain, type: String, default: (Rails.env == 'production' ? ENV['WEBSITE_DOMAIN'] : 'localhost')
