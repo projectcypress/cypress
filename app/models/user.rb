@@ -48,7 +48,7 @@ class User
   index(invitation_token: 1)
   index(invitation_by_id: 1)
 
-  field :approved, type: Boolean, default: Settings.current.auto_approve || false
+  field :approved, type: Boolean, default: proc { Settings.current.auto_approve || false }
 
   validates :terms_and_conditions, :acceptance => true, :on => :create, :allow_nil => false
 
