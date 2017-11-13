@@ -4,9 +4,9 @@
     "aws_secret_key": "",
     "default_user": "ubuntu",
     "default_pwd": "CypressPwd",
-    "cypress_version": "v3.2.3",
-    "cvu_version": "v3.2.3",
-    "chef_version": "12.21",
+    "cypress_version": "cypress_3.2.2-1510599792",
+    "cvu_version": "cypress-validation-utility_3.2.2-production-1510258734",
+    "chef_version": "13.8.5",
     "vpc_id": "",
     "subnet_id": ""
   },
@@ -89,10 +89,10 @@
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
-        "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
-        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso"
+        "http://releases.ubuntu.com/16.04.4/ubuntu-16.04.4-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/16.04.4/ubuntu-16.04.4-server-amd64.iso"
       ],
-      "iso_checksum": "f3532991e031cae75bcf5e695afb844dd278fff9",
+      "iso_checksum": "ee834fbeb94cc55972b38caafa2029c29625e2e8",
       "iso_checksum_type": "sha1",
       "ssh_username": "{{user `default_user`}}",
       "ssh_password": "{{user `default_pwd`}}",
@@ -292,7 +292,7 @@
     "type": "chef-solo",
     "cookbook_paths": ["cookbooks"],
     "install_command": "set -x; curl -L https://www.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v {{ user `chef_version` }}",
-    "run_list": [ "recipe[apt]", "recipe[git]", "recipe[cypress::install_cypress]" ],
+    "run_list": [ "recipe[apt]", "recipe[cypress::install_cypress]" ],
     "json": {
       "cypress": {
           "cypress_git_revision": "{{ user `cypress_version` }}",
@@ -305,7 +305,7 @@
     "type": "chef-solo",
     "cookbook_paths": ["cookbooks"],
     "install_command": "set -x; curl -L https://www.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v {{ user `chef_version` }}",
-    "run_list": [ "recipe[apt]", "recipe[git]", "recipe[cypress::install_cvu]" ],
+    "run_list": [ "recipe[apt]", "recipe[cypress::install_cvu]" ],
     "json": {
       "cypress": {
           "cvu_git_revision": "{{ user `cvu_version` }}",
@@ -318,7 +318,7 @@
     "type": "chef-solo",
     "cookbook_paths": ["cookbooks"],
     "install_command": "set -x; curl -L https://www.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v {{ user `chef_version` }}",
-    "run_list": [ "recipe[apt]", "recipe[git]", "recipe[cypress::default]" ],
+    "run_list": [ "recipe[apt]", "recipe[cypress::default]" ],
     "json": {
       "cypress": {
           "cypress_git_revision": "{{ user `cypress_version` }}",
