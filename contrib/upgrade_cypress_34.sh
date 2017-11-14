@@ -18,6 +18,7 @@ if [ $(dpkg-query -W -f='${Status}' cypress 2>/dev/null | grep -c "ok installed"
 then
   printf "${GREEN}---> Attempting to upgrade Cypress...${NC}\n"
   apt-get -y install cypress
+  apt-mark hold cypress
   cypress rake db:migrate
   systemctl restart cypress
 else
@@ -29,6 +30,7 @@ if [ $(dpkg-query -W -f='${Status}' cypress-validation-utility 2>/dev/null | gre
 then
   printf "${GREEN}---> Attempting to upgrade Cypress Validation Utility...${NC}\n"
   apt-get -y install cypress-validation-utility
+  apt-mark hold cypress-validation-utility
   systemctl restart cypress-validation-utility
 else
   printf "${RED}---> Cypress Validation Utility not found, continuing...${NC}\n"
