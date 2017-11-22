@@ -14,6 +14,7 @@ class Product
   field :name, type: String
   field :version, type: String
   field :description, type: String
+  field :cert_edition, type: String, default: "2015"
   field :c1_test, type: Boolean
   field :c2_test, type: Boolean
   field :c3_test, type: Boolean
