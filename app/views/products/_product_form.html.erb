@@ -9,6 +9,16 @@
           <%= f.text_field :version %>
           <%= f.text_area :description %>
 
+          <legend class="control-label">Certification Edition</legend>
+          <div class="radio">
+            <%= f.form_group :cert_edition, help: "Select the certification edition." do %>
+              <%= f.radio_button :cert_edition, "2014", label: "2014 Edition", label_class: "btn btn-checkbox",
+                                 checked: @product.cert_edition == "2014"%>
+              <%= f.radio_button :cert_edition, "2015", label: "2015 Edition", label_class: "btn btn-checkbox",
+                                 checked: @product.cert_edition == "2015"%>
+            <% end # form_group %>
+          </div>
+
           <fieldset id="certification_options">
             <legend class="control-label">Certification Types</legend>
             <div id="certifications_errors_container"></div>
