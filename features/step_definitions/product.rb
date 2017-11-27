@@ -307,6 +307,10 @@ And(/^the user uploads a cat III document to filtering test (.*)$/) do |filterin
   attach_xml_to_multi_upload(html_id)
 end
 
+And(/^the user chooses the "(.*)" Certification Edition$/) do |certification_edition|
+  page.find("#product_cert_edition_#{certification_edition}").click
+end
+
 When(/^all test executions for product test (.*) have the state of (.*)$/) do |product_test_number, execution_state|
   give_all_test_executions_state(nth_measure_test(product_test_number), execution_state)
 end
@@ -490,6 +494,21 @@ Then(/^the user should see the the appropriate tabs$/) do
     title, description, html_id = title_description_and_html_id_for(@product, 'FilteringTest')
     assert_tab_and_content_exist(title, description, html_id)
   end
+end
+
+Then(/^"(.*)" checkbox should be (\w*)$/) do |element, state|
+  checkbox = page.find('label', text: element).find('input')
+  case state
+  when 'enabled', 'disabled'
+    # Convert state from disabled/enabled to true/false
+    state = (state.eql? 'disabled') ? true : false
+    result = checkbox.disabled?
+  when 'checked', 'unchecked'
+    # Convert state from checked/unchecked to true/false
+    state = (state.eql? 'checked') ? true : false
+    result = checkbox.checked?
+  end
+  assert_equal state, result
 end
 
 def assert_tab_and_content_exist(title, description, html_id)

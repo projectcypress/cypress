@@ -123,6 +123,20 @@ function UpdateMeasureSet(bundle_id) {
       });
 }
 
+// Allows the enabling or disabling of a checkbox by passing true or false
+// as the second parameter. True means disabled and false means enabled.
+function setCheckboxDisabled(element, state) {
+  $(element).prop("disabled", state);
+
+  if (state) {
+    $(element).parent().addClass('disabled');
+    $(element).prop("checked", false);
+  }
+  else {
+    $(element).parent().removeClass('disabled');
+  }
+}
+
 function HookupProductSearch() {
   // Get all bundles listed on the page
   var bundles = $('input[name="product[bundle_id]"]')
@@ -242,6 +256,21 @@ ready_run_once = function() {
     if ($(this).attr('disabled') != true) {
       var selection = $(this).val();
       UpdateMeasureSet(selection);
+    }
+  });
+
+  // Changing the certification edition
+  $('.btn-checkbox input[name="product[cert_edition]"]').on('change', function() {
+    if ($(this).attr('disabled') != true) {
+      var edition = $(this).val();
+      if (edition == '2014') {
+        setCheckboxDisabled('#product_duplicate_records', true);
+        setCheckboxDisabled('#product_c4_test', true);
+      }
+      else if (edition == '2015') {
+        setCheckboxDisabled('#product_duplicate_records', false);
+        setCheckboxDisabled('#product_c4_test', false);
+      }
     }
   });
 
