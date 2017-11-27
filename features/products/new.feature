@@ -83,6 +83,19 @@ Scenario: Filtering properly hides irrelevant measures and tabs
   And the user types "A fake measure" into the measure filter box
   Then "A fake measure" is active on the screen
 
+Scenario: Changing certification type updates options appropriately
+  When the user navigates to the create product page
+  And the user chooses the "2014" Certification Edition
+  Then "C4 Test" checkbox should be disabled
+  Then "Duplicate Records" checkbox should be disabled
+
+Scenario: Changing certification type back and forth updates options appropriately
+  When the user navigates to the create product page
+  And the user chooses the "2014" Certification Edition
+  And the user chooses the "2015" Certification Edition
+  Then "C4 Test" checkbox should be enabled
+  Then "Duplicate Records" checkbox should be enabled
+
 Scenario: Successful Cancel Create Product
   When the user cancels creating a product
   Then the user should not see the product
