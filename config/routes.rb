@@ -41,7 +41,13 @@ Rails.application.routes.draw do
       get :html_patients
     end
     resources :tasks, only: [:index, :show]
-    resources :records, only: [:index, :show]
+    resources :records, only: [:index] do
+      collection do
+        resources :tasks, controller: :records, only: [:by_filter_task] do
+          get :by_filter_task
+        end
+      end
+    end
   end
 
   resources :tasks, only: [:show] do

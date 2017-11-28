@@ -1,5 +1,5 @@
 class RecordsController < ApplicationController
-  before_action :set_record_source, only: [:index, :show, :by_measure]
+  before_action :set_record_source, only: [:index, :show, :by_measure, :by_filter_task]
 
   respond_to :js, only: [:index]
 
@@ -41,6 +41,10 @@ class RecordsController < ApplicationController
       @measure = @source.measures.find_by(hqmf_id: params[:measure_id], sub_id: params[:sub_id])
       expires_in 1.week, public: true
     end
+  end
+
+  def by_filter_task
+    @records = @product_test.filtered_records
   end
 
   def download_mpl
