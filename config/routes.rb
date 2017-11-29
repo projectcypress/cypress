@@ -43,7 +43,7 @@ Rails.application.routes.draw do
     resources :tasks, only: [:index, :show]
     resources :records, only: [:index] do
       collection do
-        resources :tasks, controller: :records, only: [:by_filter_task] do
+        resources :tasks, :controller => :records, :only => [:by_filter_task] do
           get :by_filter_task
         end
       end
