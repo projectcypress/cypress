@@ -20,6 +20,23 @@
       <% end %>
     </tr>
   </thead>
+  <% if @measure && !(@product_test && hide_patient_calculation?) %>
+  <tfoot style="border-top: 2px solid #ddd;">
+      <!-- will show aggregate record populations -->
+      <tr>
+        <th scope="row">Total</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <!-- will show calculation results for product test records -->
+          <% @measure.population_ids.keys().each do |population| %>
+            <td class="text-center">
+              <%= render partial: 'calculation_result_icon', locals: { result: pop_sum(@records, @measure, population), episode_of_care: @measure.episode_of_care } %>
+            </td>
+          <% end %>
+      </tr>
+  </tfoot>
+  <% end %>
   <tbody>
     <!-- Only show records that are part of the measures IPP-->
     <% if measure && !product_test %>

@@ -20,43 +20,7 @@
 <% cache [@records, @measure, hide_patient_calculation?] do %>
   <div class="row">
     <div id="records_list" class="col-sm-12">
-      <%= render partial: 'records_list', locals: { records: @records } %>
+      <%= render 'records_list', :records => @records, :measure => @measure, :product_test => @product_test, :bundle => @bundle, :task => @task %>
     </div>
   </div>
 <% end #cache records %>
-
-<script type="text/javascript">
-  // initialize jQueryUI Autocomplete for searching measures
-  $('#search_measures').autocomplete({
-    delay: 500,
-    source: <%= @measure_dropdown %>, // autocomplete suggestions
-    select: function(event, data) {  // fired on item select
-      // gets records by measure via AJAX and rerender the records list.
-      // data.item.value provides the URL for the selected measure
-      $.get(data.item.value);
-      // autocomplete's default action is to populate the input with the selected value
-      // prevent the user from seeing an ugly URL in their search box here
-      event.preventDefault();
-    },
-    focus: function(event, data) { event.preventDefault(); } // fired on item focus
-  });
-
-  // add and remove some classes from the generated autocomplete widget
-  $('#search_measures').data('ui-autocomplete')._renderItem = function(ul, item) {
-    return $('<li class="list-group-item">').append(item.label).appendTo(ul);
-  }
-  $('#search_measures').data('ui-autocomplete')._renderMenu = function(ul, items) {
-    var that = this;
-    $.each(items, function(index, item) {
-      that._renderItemData(ul, item);
-    });
-    $(ul).removeClass('ui-widget ui-widget-content').addClass('list-group');
-  }
-
-  // rerender the records list to show records from all measures if no value searched
-  $('#search_measures').on('blur', function() {
-    if (!$(this).val()) {
-      $("#records_list").html("<%= escape_javascript(render partial: 'records_list', locals: { records: @records } ) %>");
-    }
-  })
-</script>

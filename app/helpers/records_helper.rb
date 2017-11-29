@@ -25,6 +25,17 @@ module RecordsHelper
     record.first + ' ' + record.last if record
   end
 
+  def pop_sum(records, measure, population)
+    records.reduce(0) do |sum, r|
+      result_value = get_result_value(r.calculation_results, measure, population)
+      if result_value
+        sum + result_value
+      else
+        sum
+      end
+    end
+  end
+
   def get_result_value(results, measure, population)
     result_value = results.where('value.measure_id' => measure.hqmf_id).where('value.sub_id' => measure.sub_id)
     result_value.first.value[population].to_i if result_value.first
