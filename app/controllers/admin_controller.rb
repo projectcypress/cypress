@@ -5,7 +5,7 @@ class AdminController < ApplicationController
   def show
     @bundles = Bundle.order_by('deprecated asc').all
     # dont allow them to muck with their own account
-    @users = User.excludes(id: current_user.id).order_by(email:  1)
+    @users = User.excludes(id: current_user.id).order_by(email: 1)
     @system_usage_stats = Vmstat.snapshot
     locals_admin_show = Settings.locals_admin_show(application_mode_settings)
     render locals: { locals_admin_show: locals_admin_show, server_needs_restart: locals_admin_show.server_needs_restart }

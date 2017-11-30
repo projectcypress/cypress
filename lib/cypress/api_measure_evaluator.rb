@@ -47,8 +47,8 @@ module Cypress
     end
 
     def filter_out_populations(doc)
-      population_names = %w(denominator initialPopulation denominatorExclusions denominatorExceptions numerator
-                            measurePopulation measurePopulationExclusions MeasureObservations)
+      population_names = %w[denominator initialPopulation denominatorExclusions denominatorExceptions numerator
+                            measurePopulation measurePopulationExclusions MeasureObservations]
       population_names.each do |population_name|
         population_xpath = %(/cda:QualityMeasureDocument/cda:component/cda:populationCriteriaSection/cda:component
           //cda:id[@extension = '#{population_name}'])
@@ -337,7 +337,7 @@ module Cypress
     end
 
     def create_new_vendor(vendor_name)
-      jdata = { vendor: { name: vendor_name } }
+      jdata = { :vendor => { :name => vendor_name } }
       RestClient::Request.execute(:method => :post,
                                   :url => "#{@cypress_host}/vendors",
                                   :user => @username,
@@ -348,15 +348,15 @@ module Cypress
 
     def create_new_product(bundle_id, vendor_link, product_name, measure_list, skip_c1_test)
       c1_test = skip_c1_test ? '0' : '1'
-      jdata = { product: { bundle_id: bundle_id,
-                           name: product_name,
-                           measure_ids: measure_list,
-                           c1_test: c1_test,
-                           c2_test: '1',
-                           c3_test: '1',
-                           c4_test: '1',
-                           duplicate_records: '0',
-                           randomize_records: '0' } }
+      jdata = { :product => { :bundle_id => bundle_id,
+                              :name => product_name,
+                              :measure_ids => measure_list,
+                              :c1_test => c1_test,
+                              :c2_test => '1',
+                              :c3_test => '1',
+                              :c4_test => '1',
+                              :duplicate_records => '0',
+                              :randomize_records => '0' } }
       RestClient::Request.execute(:method => :post,
                                   :timeout => 90_000_000,
                                   :url => "#{vendor_link}/products",
@@ -400,9 +400,9 @@ module Cypress
 
     def download_test_patients(product_test_link, file_name = nil)
       file_name = product_test_link.split('/')[2] unless file_name
-      resource = RestClient::Resource.new("#{@cypress_host}#{product_test_link}", timeout: 90_000_000,
-                                                                                  user: @username,
-                                                                                  password: @password)
+      resource = RestClient::Resource.new("#{@cypress_host}#{product_test_link}", :timeout => 90_000_000,
+                                                                                  :user => @username,
+                                                                                  :password => @password)
       begin
         response = resource.get
         if !response.empty?
@@ -419,14 +419,14 @@ module Cypress
     end
 
     def upload_test_execution(task_execution_path, product_test_id, is_cat_1, skip_c1_test = nil)
-      resource = RestClient::Resource.new("#{@cypress_host}#{task_execution_path}", user: @username,
-                                                                                    password: @password,
-                                                                                    headers: { :accept => :json })
+      resource = RestClient::Resource.new("#{@cypress_host}#{task_execution_path}", :user => @username,
+                                                                                    :password => @password,
+                                                                                    :headers => { :accept => :json })
       if is_cat_1
-        resource.post(results: File.new("tmp/#{product_test_id}.zip"))
+        resource.post(:results => File.new("tmp/#{product_test_id}.zip"))
         File.delete("tmp/#{product_test_id}.zip")
       else
-        resource.post(results: File.new("tmp/#{product_test_id}.xml"))
+        resource.post(:results => File.new("tmp/#{product_test_id}.xml"))
         verify_population_ids(product_test_id) if @hqmf_path
         File.delete("tmp/#{product_test_id}.xml")
         File.delete("tmp/#{product_test_id}.zip") if skip_c1_test
@@ -454,10 +454,8 @@ module Cypress
 
     def extract_link(object_with_links, type_of_link)
       object_with_links = object_with_links.first if object_with_links.is_a?(Array)
-      if object_with_links['links']
-        object_with_links['links'].each do |link|
-          return link['href'] if link['rel'] == type_of_link
-        end
+      object_with_links['links']&.each do |link|
+        return link['href'] if link['rel'] == type_of_link
       end
     end
 

@@ -2,14 +2,14 @@ require 'api'
 
 class VendorsController < ApplicationController
   include API::Controller
-  before_action :set_vendor, only: [:show, :update, :destroy, :edit, :favorite]
-  before_action :authorize_vendor, only: [:show, :update, :destroy, :edit, :favorite]
+  before_action :set_vendor, only: %i[show update destroy edit favorite]
+  before_action :authorize_vendor, only: %i[show update destroy edit favorite]
 
   # breadcrumbs
   add_breadcrumb 'Dashboard', :vendors_path
-  add_breadcrumb 'Add Vendor', :new_vendor_path, only: [:new, :create]
+  add_breadcrumb 'Add Vendor', :new_vendor_path, only: %i[new create]
 
-  respond_to :js, only: [:show, :favorite]
+  respond_to :js, only: %i[show favorite]
 
   def index
     # get all of the vendors that the user can see
@@ -22,7 +22,7 @@ class VendorsController < ApplicationController
     @products_fav = @vendor.favorite_products(current_user)
 
     # paginate non-favorites
-    products_nonfav = @vendor.products.ordered_for_vendors.select { |p| !(p.favorite_user_ids.include? current_user.id) }
+    products_nonfav = @vendor.products.ordered_for_vendors.reject { |p| (p.favorite_user_ids.include? current_user.id) }
     @nonfav_count = products_nonfav.count
     @products_nonfav = Kaminari.paginate_array(products_nonfav).page(params[:page]).per(5)
     @products = @vendor.products.ordered_for_vendors
@@ -92,8 +92,8 @@ class VendorsController < ApplicationController
   end
 
   def vendor_params
-    params[:vendor][:name].strip! if params[:vendor][:name]
+    params[:vendor][:name]&.strip!
     params.require(:vendor).permit(:name, :vendor_id, :url, :address, :state, :zip,
-                                   points_of_contact_attributes: [:id, :name, :email, :phone, :contact_type, :_destroy])
+                                   :points_of_contact_attributes => %i[id name email phone contact_type _destroy])
   end
 end

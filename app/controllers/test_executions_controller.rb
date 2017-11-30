@@ -3,14 +3,14 @@ class TestExecutionsController < ApplicationController
   include TestExecutionsHelper
   include Cypress::ErrorCollector
 
-  before_action :set_test_execution, only: [:show, :destroy, :file_result]
-  before_action :set_task, only: [:index, :new, :create]
-  before_action :set_task_from_test_execution, only: [:show, :file_result]
-  before_action :set_product_test_from_task, only: [:show, :new, :file_result]
-  before_action :add_breadcrumbs, only: [:show, :new]
-  before_action :check_bundle_deprecated, only: [:show, :index, :new]
+  before_action :set_test_execution, only: %i[show destroy file_result]
+  before_action :set_task, only: %i[index new create]
+  before_action :set_task_from_test_execution, only: %i[show file_result]
+  before_action :set_product_test_from_task, only: %i[show new file_result]
+  before_action :add_breadcrumbs, only: %i[show new]
+  before_action :check_bundle_deprecated, only: %i[show index new]
 
-  respond_to :js, only: [:show, :create]
+  respond_to :js, only: %i[show create]
 
   def index
     @test_executions = @task.test_executions
@@ -63,10 +63,10 @@ class TestExecutionsController < ApplicationController
 
   def rescue_create
     alert = 'Invalid file upload. Please make sure you upload an XML or zip file.'
-    error_response = { errors: [{ field: 'results',
-                                  messages: ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III'] }] }
+    error_response = { :errors => [{ :field => 'results',
+                                     :messages => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III'] }] }
     respond_with(@test_execution) do |f|
-      f.html { redirect_to new_task_test_execution_path(task_id: @task.id), flash: { alert: alert.html_safe } }
+      f.html { redirect_to new_task_test_execution_path(:task_id => @task.id), :flash => { :alert => alert.html_safe } }
       f.json { render :json => error_response, :status => :unprocessable_entity }
       f.xml  { render :xml => error_response[:errors].to_xml(:root => :errors, :skip_types => true), :status => :unprocessable_entity }
     end
@@ -91,7 +91,7 @@ class TestExecutionsController < ApplicationController
 
   def add_test_execution_breadcrumb
     if @task.most_recent_execution
-      add_breadcrumb 'Test: ' + @product_test.name, task_test_execution_path(task_id: @task.id, id: @task.most_recent_execution.id)
+      add_breadcrumb 'Test: ' + @product_test.name, task_test_execution_path(:task_id => @task.id, :id => @task.most_recent_execution.id)
     else
       add_breadcrumb 'Test: ' + @product_test.name, ''
     end

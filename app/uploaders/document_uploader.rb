@@ -9,7 +9,7 @@ class DocumentUploader < CarrierWave::Uploader::Base
   end
 
   def extension_white_list
-    %w(xml zip)
+    %w[xml zip]
   end
 
   def uploaded_filename

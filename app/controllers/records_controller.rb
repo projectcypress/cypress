@@ -1,5 +1,5 @@
 class RecordsController < ApplicationController
-  before_action :set_record_source, only: [:index, :show, :by_measure, :by_filter_task]
+  before_action :set_record_source, only: %i[index show by_measure by_filter_task]
 
   respond_to :js, only: [:index]
 

@@ -82,11 +82,9 @@ class Measure
     end # end begin recue
     description = "#{HQMF::DataCriteria.title_for_template_id(template).titleize}: #{data_criteria.title}"
     result << { description: description, oid: value_set_oid, template: qrda_template, rationale: rationale[data_criteria.id] }
-    if data_criteria.temporal_references
-      data_criteria.temporal_references.each do |temporal_reference|
-        next if temporal_reference.reference.id == 'MeasurePeriod'
-        result.concat loop_data_criteria(hqmf, hqmf.data_criteria(temporal_reference.reference.id), rationale)
-      end # end  data_criteria.temporal_references.each do |temporal_reference|
+    data_criteria.temporal_references&.each do |temporal_reference|
+      next if temporal_reference.reference.id == 'MeasurePeriod'
+      result.concat loop_data_criteria(hqmf, hqmf.data_criteria(temporal_reference.reference.id), rationale)
     end # end if data_criteria.temporal_references
     result
   end

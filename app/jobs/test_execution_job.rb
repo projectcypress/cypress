@@ -1,4 +1,4 @@
-class TestExecutionJob < ActiveJob::Base
+class TestExecutionJob < ApplicationJob
   include Job::Status
   queue_as :default
 

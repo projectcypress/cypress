@@ -8,7 +8,7 @@ class MeasureTestTest < ActiveJob::TestCase
   end
 
   def test_more_than_one_measure
-    pt = @product.product_tests.build({ name: 'mtest', measure_ids: %w(8A4D92B2-397A-48D2-0139-C648B33D5582 0002) }, MeasureTest)
+    pt = @product.product_tests.build({ name: 'mtest', measure_ids: %w[8A4D92B2-397A-48D2-0139-C648B33D5582 0002] }, MeasureTest)
     assert_equal false,  pt.valid?, 'product test should not be valid without a '
     assert_equal false,  pt.save, 'should not be able to save product test with more than 1 measure id'
     errors = pt.errors

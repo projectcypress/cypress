@@ -11,7 +11,7 @@ module Validators
         true && previously_passed
       else
         comp = true
-        %w(IPP DENOM NUMER DENEX DENEXCEP MSRPOPL MSRPOPLEXCEP values).each do |pop|
+        %w[IPP DENOM NUMER DENEX DENEXCEP MSRPOPL MSRPOPLEXCEP values].each do |pop|
           original_value, calculated_value, pop = extract_calcuated_and_original_results(original, calculated, pop)
           next unless original_value != calculated_value
           pop_statment = options[:population_ids][pop]

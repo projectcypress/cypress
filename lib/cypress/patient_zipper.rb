@@ -49,7 +49,7 @@ module Cypress
   HTML_EXPORTER = HealthDataStandards::Export::HTML.new
 
   class PatientZipper
-    FORMAT_EXTENSIONS = { html: 'html', qrda: 'xml', json: 'json' }.freeze
+    FORMAT_EXTENSIONS = { :html => 'html', :qrda => 'xml', :json => 'json' }.freeze
 
     def self.zip(file, patients, format)
       patients = apply_sort_to patients

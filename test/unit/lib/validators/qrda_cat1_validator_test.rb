@@ -12,7 +12,7 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
   end
 
   def test_validate_good_file
-    file = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good/0_Dental_Peds_A.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_test_good', '0_Dental_Peds_A.xml')).read
     @validator_with_c3.validate(file, task: @task)
     assert_empty @validator_with_c3.errors
 
@@ -21,7 +21,7 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
   end
 
   def test_validate_too_much_data_error
-    file = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_much_data/0_Dental_Peds_A.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_test_too_much_data', '0_Dental_Peds_A.xml')).read
     @validator_with_c3.validate(file, task: @task)
 
     errors = @validator_with_c3.errors
@@ -41,7 +41,7 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
   end
 
   def test_bad_schema
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/cat_1/bad_schema.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_1', 'bad_schema.xml')).read
     @validator_with_c3.validate(file, task: @task)
 
     errors = @validator_with_c3.errors

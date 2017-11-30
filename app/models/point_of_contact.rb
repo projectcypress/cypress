@@ -27,7 +27,7 @@ class PointOfContact
   end
 
   def remove_vendor_role
-    user.remove_role(:vendor, vendor) if user
+    user&.remove_role(:vendor, vendor)
   end
 
   def add_vendor_role

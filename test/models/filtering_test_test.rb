@@ -19,7 +19,7 @@ class FilteringTestTest < ActiveJob::TestCase
   end
 
   def test_pick_filter_criteria
-    criteria = %w(races ethnicities genders payers providers problems age)
+    criteria = %w[races ethnicities genders payers providers problems age]
     options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
     ft = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
                            measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'])
@@ -31,7 +31,7 @@ class FilteringTestTest < ActiveJob::TestCase
   end
 
   def test_problem_filter
-    criteria = %w(problems)
+    criteria = %w[problems]
     options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
     ft = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
                            measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'])
@@ -96,12 +96,12 @@ class FilteringTestTest < ActiveJob::TestCase
     # create new tests with same seed
     seed = Random.new_seed
     options = { 'filters' => {} }
-    test_1 = @product.product_tests.build({ name: 'test_for_measure_1a',
-                                            measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
-                                            options: options }, FilteringTest)
-    test_2 = @product.product_tests.build({ name: 'test_for_measure_1a',
-                                            measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
-                                            options: options }, FilteringTest)
+    test_1 = @product.product_tests.build({ :name => 'test_for_measure_1a',
+                                            :measure_ids => ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+                                            :options => options }, FilteringTest)
+    test_2 = @product.product_tests.build({ :name => 'test_for_measure_1a',
+                                            :measure_ids => ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+                                            :options => options }, FilteringTest)
     test_1.save!
     test_2.save!
 

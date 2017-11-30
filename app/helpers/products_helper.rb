@@ -3,13 +3,13 @@ module ProductsHelper
   def should_show_product_tests_tab?(product, test_type)
     case test_type
     when 'MeasureTest'
-      return product.product_tests.measure_tests.any?
+      product.product_tests.measure_tests.any?
     when 'FilteringTest'
-      return product.product_tests.filtering_tests.any?
+      product.product_tests.filtering_tests.any?
     when 'ChecklistTest'
-      return product.c1_test # should not check for existance of checklist test since there a user can delete checklist tests
+      product.c1_test # should not check for existance of checklist test since there a user can delete checklist tests
     else
-      return product.product_tests.any?
+      product.product_tests.any?
     end
   end
 
@@ -55,7 +55,7 @@ module ProductsHelper
   # true if the task's product test is still building or if there is a test execution currently running
   def should_reload_product_test_link?(task_status, test)
     # We should reload if the test is in any state other than ready or errored
-    return true unless [:ready, :errored].include? test.state
+    return true unless %i[ready errored].include? test.state
     # We should reload if any tasks are pending
     return true if task_status.eql? 'pending'
     false
@@ -72,7 +72,7 @@ module ProductsHelper
   end
 
   def measure_test_running_for_row?(task)
-    return true unless [:ready, :errored].include? task.product_test_state
+    return true unless %i[ready errored].include? task.product_test_state
     return true if task.most_recent_execution && task.most_recent_execution.status_with_sibling == 'incomplete'
     # Check if the task has been refreshed within the past 30 seconds. If it has then keep refreshing until
     # the database has a chance to settle.
@@ -121,7 +121,7 @@ module ProductsHelper
   # yields test_type, title, and description for each tab that should be displayed on product show page
   #   also yeilds html_id which should be used as the html id of the <div> tag that holds the content for each tab
   def each_tab(product)
-    %w(ChecklistTest MeasureTest FilteringTest).each do |test_type|
+    %w[ChecklistTest MeasureTest FilteringTest].each do |test_type|
       next unless should_show_product_tests_tab?(product, test_type)
       if test_type == 'MeasureTest'
         title, description, html_id = title_description_and_html_id_for(product, test_type, true)

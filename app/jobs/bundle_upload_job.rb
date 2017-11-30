@@ -1,4 +1,4 @@
-class BundleUploadJob < ActiveJob::Base
+class BundleUploadJob < ApplicationJob
   include Job::Status
   DEFAULT_OPTIONS = { delete_existing: false, update_measures: false, exclude_results: false }.freeze
   after_enqueue do |job|

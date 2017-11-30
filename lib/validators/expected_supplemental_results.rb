@@ -12,7 +12,7 @@ module Validators
     def check_supplemental_data_matches_pop_sums(report_sup_val, keys_and_ids, expect_sup_val, stratification)
       pop_sum = expect_sup_val.values.reduce(:+) || 0
       sup_sum = 0
-      report_sup_val.each { |sup_set| sup_sum += sup_set[1] } unless report_sup_val.nil?
+      report_sup_val&.each { |sup_set| sup_sum += sup_set[1] }
       if pop_sum != sup_sum
         err = %(Reported #{keys_and_ids[:pop_key]} #{keys_and_ids[:pop_id]} value #{pop_sum} does not match \
 sum #{sup_sum} of supplemental key #{keys_and_ids[:sup_key]} values)

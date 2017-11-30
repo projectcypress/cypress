@@ -1,14 +1,14 @@
 module RecordsHelper
-  SECTIONS = %w(allergies assessments care_goals conditions encounters immunizations
+  SECTIONS = %w[allergies assessments care_goals conditions encounters immunizations
                 medical_equipment medications procedures results communications
                 family_history social_history vital_signs support advance_directives
-                insurance_providers functional_statuses).freeze
-  FIELDS = %w(name principalDiagnosis values dose dischargeDisposition route
+                insurance_providers functional_statuses].freeze
+  FIELDS = %w[name principalDiagnosis values dose dischargeDisposition route
               administrationTiming fulfillmentHistory reason direction ordinality
-              transferFrom laterality anatomical_location diagnosis).freeze
-  SUBFIELDS = %w(title scalar value unit units description period dispenseDate quantityDispensed time).freeze
-  CV_POPULATION_KEYS = %w(IPP MSRPOPL MSRPOPLEX OBSERV).freeze
-  PROPORTION_POPULATION_KEYS = %w(IPP DENOM NUMER DENEX DENEXCEP).freeze
+              transferFrom laterality anatomical_location diagnosis].freeze
+  SUBFIELDS = %w[title scalar value unit units description period dispenseDate quantityDispensed time].freeze
+  CV_POPULATION_KEYS = %w[IPP MSRPOPL MSRPOPLEX OBSERV].freeze
+  PROPORTION_POPULATION_KEYS = %w[IPP DENOM NUMER DENEX DENEXCEP].freeze
 
   def full_gender_name(gender)
     case gender
@@ -43,24 +43,22 @@ module RecordsHelper
 
   def records_by_measure(records, measure)
     # Returns array of records that have at least one calculation result for the given measure id
-    records.select { |r| !r.calculation_results.where('value.measure_id' => measure.hqmf_id).where('value.sub_id' => measure.sub_id).empty? }
+    records.reject { |r| r.calculation_results.where('value.measure_id' => measure.hqmf_id).where('value.sub_id' => measure.sub_id).empty? }
   end
 
   def display_field(field)
     display_text = ''
     return '' if field.nil?
     return field if field.is_a? String
-    return display_time(field) + "\n" if field.is_a? Fixnum
+    return display_time(field) + "\n" if field.is_a? Integer
     if field.is_a? Array
       field.each { |sub| display_text += display_field(sub) + "\n" }
     else
       field.each do |key, subfield|
         display_text += display_field(subfield) + ' ' if SUBFIELDS.include? key
       end
-      if field['codes']
-        field['codes'].each do |code_system, code|
-          display_text += "\n" + code_system + ': ' + code.join(', ')
-        end
+      field['codes']&.each do |code_system, code|
+        display_text += "\n" + code_system + ': ' + code.join(', ')
       end
       if field['code_system']
         display_text += "\n" + field['code_system'] + ': ' + field['code']

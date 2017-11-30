@@ -1,4 +1,4 @@
-class MeasureEvaluationJob < ActiveJob::Base
+class MeasureEvaluationJob < ApplicationJob
   queue_as :default
   include Job::Status
   def perform(test_or_task, options)

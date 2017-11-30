@@ -22,7 +22,7 @@ module ProductTestRepresenter
       property :street, getter: ->(_) { self['street'].first }
       property :city
       property :state
-      property :zip, getter: -> (_) { self['zip'] }
+      property :zip, getter: ->(_) { self['zip'] }
       property :country
     end
 
@@ -51,8 +51,8 @@ module ProductTestRepresenter
                        :wrap => :filters, :as => :filters
 
   self.links = {
-    self: proc { product_product_test_path(product, self) },
-    tasks: proc { product_test_tasks_path(self) },
-    patients: proc { patients_product_test_path(self) }
+    :self => proc { product_product_test_path(product, self) },
+    :tasks => proc { product_test_tasks_path(self) },
+    :patients => proc { patients_product_test_path(self) }
   }
 end

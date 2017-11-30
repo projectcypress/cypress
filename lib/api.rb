@@ -9,7 +9,7 @@ module API
       plural_xml_representer    = make_plural_xml_representer(singular_name, singular_xml_representer)
 
       target.respond_to :html
-      target.respond_to :json, :xml, except: [:new, :edit]
+      target.respond_to :json, :xml, except: %i[new edit]
       target.represents :json, entity: singular_json_representer, collection: plural_json_representer
       target.represents :xml,  entity: singular_xml_representer,  collection: plural_xml_representer
     end
@@ -80,7 +80,7 @@ module API
 
     def serialize_json_errors(errors)
       json = {}
-      json[:errors] = errors.to_h.map { |field, messages| { field: field, messages: [messages].flatten } }
+      json[:errors] = errors.to_h.map { |field, messages| { :field => field, :messages => [messages].flatten } }
       json
     end
 

@@ -59,10 +59,10 @@ class ProductTestTest < ActiveJob::TestCase
 
     # create tests with same seed
     seed = Random.new_seed
-    test_1 = @product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'],
-                                            bundle_id: '4fdb62e01d41c820f6000001', rand_seed: seed }, MeasureTest)
-    test_2 = @product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'],
-                                            bundle_id: '4fdb62e01d41c820f6000001', rand_seed: seed }, MeasureTest)
+    test_1 = @product.product_tests.build({ :name => 'mtest', :measure_ids => ['8A4D92B2-397A-48D2-0139-C648B33D5582'],
+                                            :bundle_id => '4fdb62e01d41c820f6000001', :rand_seed => seed }, MeasureTest)
+    test_2 = @product.product_tests.build({ :name => 'mtest', :measure_ids => ['8A4D92B2-397A-48D2-0139-C648B33D5582'],
+                                            :bundle_id => '4fdb62e01d41c820f6000001', :rand_seed => seed }, MeasureTest)
 
     assert_equal test_1.rand_seed, test_2.rand_seed, 'random repeatability error: random seeds don\'t match'
 
@@ -126,9 +126,9 @@ class ProductTestTest < ActiveJob::TestCase
 
     # assert patient_1.compare_sections(patient_2), 'random repeatability error: sections different'
     # compare patient sections
-    sections = [:allergies, :care_goals, :conditions, :encounters, :immunizations, :medical_equipment,
-                :medications, :procedures, :results, :communications, :family_history, :social_history, :vital_signs, :support, :advance_directives,
-                :functional_statuses] # skip insurance provider section
+    sections = %i[allergies care_goals conditions encounters immunizations medical_equipment
+                  medications procedures results communications family_history social_history vital_signs support advance_directives
+                  functional_statuses] # skip insurance provider section
     sections.each do |sec|
       assert_equal (patient_1.send sec), (patient_2.send sec), 'error'
     end
@@ -143,7 +143,7 @@ class ProductTestTest < ActiveJob::TestCase
 
   def create_test_executions_with_state(product_test, state)
     product_test.tasks.each do |task|
-      test_execution = task.test_executions.build(state: state)
+      test_execution = task.test_executions.build(:state => state)
       test_execution.save!
     end
   end

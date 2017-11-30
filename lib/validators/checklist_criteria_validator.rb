@@ -50,7 +50,7 @@ module Validators
         '2.16.840.1.113883.3.560.1.402' => "//cda:patient/cda:administrativeGenderCode[@code='#{checked_criteria.code}']"
       }
       results = @file.xpath(xpath_map[hqmf_oid])
-      unless results.blank?
+      if results.present?
         checked_criteria.passed_qrda = true
         checked_criteria.save
       end

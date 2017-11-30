@@ -26,10 +26,10 @@ gem 'faker', '~> 1.5.0'
 gem 'sass-rails', '~> 5.0.4'
 # Dependencies for CMS Assets Framework
 gem 'bootstrap-sass', '~> 3.3.5'
+gem 'font-awesome-sass'
 gem 'jquery-rails', '~> 4.0.4'
 gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'modernizr-rails', '~> 2.7.1'
-gem 'font-awesome-sass'
 
 # Add pagination support
 gem 'kaminari-mongoid'
@@ -40,8 +40,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'breadcrumbs_on_rails'
 # Help our forms
 gem 'bootstrap_form', git: 'https://github.com/bootstrap-ruby/rails-bootstrap-forms.git', branch: 'master'
-gem 'nested_form'
 gem 'jasny-bootstrap-rails'
+gem 'nested_form'
 
 gem 'jquery-datatables-rails', '~> 3.3.0'
 
@@ -62,7 +62,7 @@ gem 'roar-rails'
 gem 'sdoc', '~> 0.4.0', :group => :doc
 
 gem 'carrierwave'
-gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
 # AJAX file uploads
 gem 'remotipart', '~> 1.2'
@@ -77,12 +77,12 @@ gem 'vmstat'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Devise is the gem we use for user authentication
-gem 'devise', '4.1.1'
 gem 'cancancan'
-gem 'rolify'
+gem 'devise', '4.1.1'
 gem 'devise_invitable'
+gem 'rolify'
 
-gem 'mongoid_rails_migrations', git: 'https://github.com/adacosta/mongoid_rails_migrations.git', branch: 'master'
+gem 'mongoid_rails_migrations', :git => 'https://github.com/adacosta/mongoid_rails_migrations.git', :branch => 'master'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -91,22 +91,21 @@ gem 'mongoid_rails_migrations', git: 'https://github.com/adacosta/mongoid_rails_
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'rubocop', '0.39', require: false
+  gem 'rubocop', '0.49', :require => false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'axe-matchers'
   gem 'byebug'
-  gem 'overcommit'
-  gem 'cucumber-rails', require: false
-  gem 'database_cleaner'
-  gem 'poltergeist'
-  gem 'scss_lint', require: false
   gem 'capybara'
   gem 'capybara-accessible'
   gem 'rails_best_practices'
-  gem 'axe-matchers'
-  gem 'selenium-webdriver'
-  gem 'parallel_tests'
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
+  gem 'overcommit'
+  gem 'poltergeist'
   gem 'pry'
   gem 'pry-nav'
+  gem 'scss_lint', :require => false
+  gem 'selenium-webdriver'
 end
 
 group :development do
@@ -116,18 +115,18 @@ group :development do
 end
 
 group :test do
-  gem 'mocha', require: false
+  gem 'brakeman', :require => false
+  gem 'bundler-audit'
   gem 'factory_girl_rails'
+  gem 'launchy'
   gem 'minitest'
   gem 'minitest-rails'
   gem 'minitest-reporters'
-  gem 'simplecov', require: false
-  gem 'brakeman', require: false
-  gem 'bundler-audit'
-  gem 'launchy'
+  gem 'mocha', :require => false
+  gem 'simplecov', :require => false
 end
 
 group :production do
-  gem 'unicorn-rails'
   gem 'newrelic_rpm'
+  gem 'unicorn-rails'
 end

@@ -103,8 +103,8 @@ class TestExecutionHelper < ActiveSupport::TestCase
   end
 
   def test_get_select_history_message
-    setup_product_tests(true, true, false, true, filt1: 'val1')
-    execution = @product_test.tasks.find_by(_type: 'C1Task').test_executions.create
+    setup_product_tests(true, true, false, true, :filt1 => 'val1')
+    execution = @product_test.tasks.find_by(:_type => 'C1Task').test_executions.create
 
     execution.execution_errors.create(:message => 'qrda error 1', :msg_type => :error, :validator_type => :xml_validation)
     execution.execution_errors.create(:message => 'result error 1', :msg_type => :error, :validator_type => :result_validation)
@@ -154,16 +154,16 @@ class TestExecutionHelper < ActiveSupport::TestCase
   # -1 is first before second
   #  1 is second before first
   def test_compare_error_locations_across_files
-    a = { file_name: nil }
-    b = { file_name: 'beta' }
+    a = { :file_name => nil }
+    b = { :file_name => 'beta' }
     assert_equal 1, compare_error_locations_across_files(a, b)
 
-    a = { file_name: 'alpha' }
-    b = { file_name: 'beta' }
+    a = { :file_name => 'alpha' }
+    b = { :file_name => 'beta' }
     assert_equal(-1, compare_error_locations_across_files(a, b))
 
-    a = { file_name: 'delta', location: '/div[1]/div[1]/div[2]' }
-    b = { file_name: 'delta', location: '/div[1]/div[2]/div[1]' }
+    a = { :file_name => 'delta', :location => '/div[1]/div[1]/div[2]' }
+    b = { :file_name => 'delta', :location => '/div[1]/div[2]/div[1]' }
     assert_equal(-1, compare_error_locations_across_files(a, b))
   end
 

@@ -15,21 +15,21 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
 
   def setup_augmented_records
     @augmented_record1 = { 'medical_record_number' => '098718e0-4d42-0135-8680-12999b0ed66f',
-                           'first' => %w(Ivan Ivan), 'last' => %w(Mcguire Mcguirn), 'gender' => %w(M F) }
+                           'first' => %w[Ivan Ivan], 'last' => %w[Mcguire Mcguirn], 'gender' => %w[M F] }
     @record1 = Record.new(first: 'Ivan', last: 'Mcguire', medical_record_number: '098718e0-4d42-0135-8680-12999b0ed66f')
     pc1 = HealthDataStandards::CQM::PatientCache.new(value: { 'IPP' => 1.000000, 'patient_id' => @record1.id })
     pc1.save!
     @record1.save!
 
     @augmented_record2 = { 'medical_record_number' => '198718e0-4d42-0135-8680-12999b0ed66f',
-                           'first' => %w(Jill J), 'last' => %w(Mcguire Mcguirn), 'gender' => %w(F M) }
+                           'first' => %w[Jill J], 'last' => %w[Mcguire Mcguirn], 'gender' => %w[F M] }
     @record2 = Record.new(first: 'Jill', last: 'Mcguire', medical_record_number: '198718e0-4d42-0135-8680-12999b0ed66f')
     pc2 = HealthDataStandards::CQM::PatientCache.new(value: { 'IPP' => 1.000000, 'patient_id' => @record2.id })
     pc2.save!
     @record2.save!
 
     @augmented_record3 = { 'medical_record_number' => '298718e0-4d42-0135-8680-12999b0ed66f',
-                           'first' => %w(Joe John), 'last' => %w(Mcguire Mcguirn), 'gender' => %w(M M) }
+                           'first' => %w[Joe John], 'last' => %w[Mcguire Mcguirn], 'gender' => %w[M M] }
     @record3 = Record.new(first: 'Joe', last: 'Mcguire', medical_record_number: '298718e0-4d42-0135-8680-12999b0ed66f')
     pc3 = HealthDataStandards::CQM::PatientCache.new(value: { 'IPP' => 1.000000, 'patient_id' => @record3.id })
     pc3.save!
@@ -37,7 +37,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   end
 
   def test_validate_good_file
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_good.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'ep_test_qrda_cat3_good.xml')).read
 
     @validator.validate(file, 'task' => @task)
     assert_equal 10, @validator.errors.length # 10 errors related to pop sums
@@ -45,7 +45,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   end
 
   def test_validate_good_qrda_1_1_file
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_good_1_1.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'ep_test_qrda_cat3_good_1_1.xml')).read
     @task.bundle.version = '2016.0.0'
     @validator.validate(file, 'task' => @task)
     assert_equal 10, @validator.errors.length # 10 errors related to pop sums
@@ -53,7 +53,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   end
 
   def test_validate_bad_qrda_1_1_file
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_1_1_not_ipop.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'ep_test_qrda_cat3_1_1_not_ipop.xml')).read
     @task.bundle.version = '2016.0.0'
     @validator.validate(file, 'task' => @task)
     assert_equal 43, @validator.errors.length, 'should error on missing measure entry' # 7 errors related to pop sums
@@ -62,7 +62,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   end
 
   def test_validate_missing_stratifications
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_stratification.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'ep_test_qrda_cat3_missing_stratification.xml')).read
     @validator.validate(file, 'task' => @task)
 
     errors = @validator.errors
@@ -74,7 +74,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   end
 
   def test_validate_missing_supplemental_data
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_supplemental.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'ep_test_qrda_cat3_missing_supplemental.xml')).read
     @validator.validate(file, 'task' => @task)
 
     errors = @validator.errors
@@ -85,7 +85,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   end
 
   def test_validate_augmented_results_one_augmented_patient
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_supplemental_extra_female.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'ep_test_qrda_cat3_missing_supplemental_extra_female.xml')).read
     @task.product_test.augmented_records = [@augmented_record1]
     @record1.test_id = @task.product_test.id
     @record1.save!
@@ -100,7 +100,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   end
 
   def test_validate_augmented_results_two_augmented_patients
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_supplemental_extra_female.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'ep_test_qrda_cat3_missing_supplemental_extra_female.xml')).read
     @task.product_test.augmented_records = [@augmented_record1, @augmented_record3]
     @record1.test_id = @task.product_test.id
     @record1.save!
@@ -117,7 +117,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   end
 
   def test_validate_augmented_results_three_augmented_patients_with_opposing_values
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_supplemental_extra_male.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'ep_test_qrda_cat3_missing_supplemental_extra_male.xml')).read
     @task.product_test.augmented_records = [@augmented_record1, @augmented_record2, @augmented_record3]
     @record1.test_id = @task.product_test.id
     @record1.save!
@@ -136,7 +136,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   end
 
   def test_validate_augmented_results_three_augmented_patients_reporting_extra_male
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_supplemental_two_extra_male.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'ep_test_qrda_cat3_missing_supplemental_two_extra_male.xml')).read
     @task.product_test.augmented_records = [@augmented_record1, @augmented_record2, @augmented_record3]
     @record1.test_id = @task.product_test.id
     @record1.save!
@@ -160,7 +160,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   end
 
   def test_validate_extra_data
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_extra_supplemental.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'ep_test_qrda_cat3_extra_supplemental.xml')).read
     @validator.validate(file, 'task' => @task)
 
     errors = @validator.errors

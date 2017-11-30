@@ -18,7 +18,7 @@ module Cypress
     def initialize(options)
       @options = options
 
-      %w(randomize_demographics generate_provider randomization_ids).each { |k| @options.delete k } if @options['disable_randomization']
+      %w[randomize_demographics generate_provider randomization_ids].each { |k| @options.delete k } if @options['disable_randomization']
 
       @generated_providers = [] if @options['generate_provider']
     end
@@ -89,7 +89,7 @@ module Cypress
     end
 
     def unnumerify(patient)
-      [%w(0 ZERO), %w(1 ONE), %w(2 TWO), %w(3 THREE), %w(4 FOUR), %w(5 FIVE), %w(6 SIX), %w(7 SEVEN), %w(8 EIGHT), %w(9 NINE)].each do |replacement|
+      [%w[0 ZERO], %w[1 ONE], %w[2 TWO], %w[3 THREE], %w[4 FOUR], %w[5 FIVE], %w[6 SIX], %w[7 SEVEN], %w[8 EIGHT], %w[9 NINE]].each do |replacement|
         patient.first.gsub!(replacement[0], replacement[1])
         patient.last.gsub!(replacement[0], replacement[1])
       end

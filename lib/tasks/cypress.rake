@@ -9,8 +9,8 @@ namespace :cypress do
       before = Vendor.all.count
       Vendor.destroy_all
       diff = before - Vendor.all.count
-      QME::QualityReport.destroy_all(test_id: { '$ne' => nil })
-      Record.destroy_all(test_id: { '$ne' => nil })
+      QME::QualityReport.destroy_all(:test_id => { '$ne' => nil })
+      Record.destroy_all(:test_id => { '$ne' => nil })
       Artifact.destroy_all
       puts "removed #{diff} Vendors"
     end
@@ -23,11 +23,11 @@ namespace :cypress do
       puts 'done'
     end
 
-    task all: [:environment, :database, :temp_files]
+    task :all => %i[environment database temp_files]
   end
 
   namespace :import do
-    task :config, [:config_file, :environment] => :environment do |_, args|
+    task :config, %i[config_file environment] => :environment do |_, args|
       if File.exist?(args.config_file)
         # Get rid of the first and last quote on the string, split on all spaces
         # This loads "AUTO_APPROVE=true" "ENABLE_DEBUG_FEATURES="... into the environment
@@ -41,7 +41,7 @@ namespace :cypress do
         # Get all of the keys from the Settings model
         settings_keys = Settings.fields.keys
         # Fetch and parse the contents of the yaml config file
-        yaml_content = YAML.load(ERB.new(File.read(args.config_file)).result)
+        yaml_content = YAML.safe_load(ERB.new(File.read(args.config_file)).result)
         # Filter the yaml content to only contain the keys we store in the database
         yaml_content.select! { |key, _| settings_keys.include? key }
         # Save those keys in the database.

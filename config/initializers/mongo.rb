@@ -14,7 +14,7 @@ module QME
 
   base_fields = [['value.measure_id', 1], ['value.sub_id', 1], ['value.effective_date', 1], ['value.test_id', 1], ['value.manual_exclusion', 1]]
 
-  %w(population denominator numerator antinumerator exclusions).each do |group|
+  %w[population denominator numerator antinumerator exclusions].each do |group|
     patient_cache.indexes.create_one(Hash[*base_fields.clone.concat([["value.#{group}", 1]]).flatten(1)], name: "#{group}_index")
   end
 

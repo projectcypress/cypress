@@ -14,7 +14,7 @@ class XmlViewHelperTest < ActiveSupport::TestCase
     product_test.product.c1_test = true
     task = product_test.tasks.create({}, C1Task)
 
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_too_much_data_and_missing_template_ids.zip'))
+    zip = File.new(Rails.root.join('test/fixtures/product_tests/ep_qrda_test_too_much_data_and_missing_template_ids.zip'))
 
     perform_enqueued_jobs do
       @te = task.execute(zip, User.first)

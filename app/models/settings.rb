@@ -62,7 +62,7 @@ class Settings
     {
       banner_message: current.banner_message, warning_message: current.warning_message, mode: current.application_mode,
       banner: current.banner, default_url_options: current.fetch_url_settings,
-      smtp_settings: current.fetch_smtp_settings, mode_settings: application_mode_settings, roles: %w(User ATL Admin None)
+      smtp_settings: current.fetch_smtp_settings, mode_settings: application_mode_settings, roles: %w[User ATL Admin None]
     }
   end
 
@@ -78,7 +78,7 @@ class Settings
   def self.admin_settings_hash
     settings_hash = { auto_approve: current.auto_approve, ignore_roles: current.ignore_roles,
                       debug_features: current.enable_debug_features }
-    settings_hash[:default_role] = if current.default_role.nil? || current.default_role.empty?
+    settings_hash[:default_role] = if current.default_role.blank?
                                      'None'
                                    elsif current.default_role == :atl
                                      'ATL'
@@ -127,7 +127,7 @@ class Settings
   end
 
   def mode_internal?
-    auto_approve && ignore_roles && enable_debug_features && (default_role.nil? || default_role.empty?)
+    auto_approve && ignore_roles && enable_debug_features && default_role.blank?
   end
 
   def mode_demo?
@@ -135,7 +135,7 @@ class Settings
   end
 
   def mode_atl?
-    !auto_approve && !ignore_roles && !enable_debug_features && (default_role.nil? || default_role.empty?)
+    !auto_approve && !ignore_roles && !enable_debug_features && default_role.blank?
   end
 
   private
@@ -163,6 +163,6 @@ class Settings
 
   def instance_is_singleton
     singleton = Settings.first
-    errors.add(:base, 'Only one settings instance is allowed') if self != singleton && !singleton.nil?
+    errors.add(:base, 'Only one settings instance is allowed') if singleton != self && !singleton.nil?
   end
 end

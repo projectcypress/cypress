@@ -7,19 +7,19 @@ class Vendor
   scope :by_updated_at, -> { order(:updated_at => :desc) }
 
   has_many :products, :dependent => :destroy
-  embeds_many :points_of_contact, class_name: 'PointOfContact', cascade_callbacks: true
+  embeds_many :points_of_contact, :class_name => 'PointOfContact', :cascade_callbacks => true
 
-  accepts_nested_attributes_for :points_of_contact, allow_destroy: true, reject_if: -> (poc) { poc[:name].blank? }
+  accepts_nested_attributes_for :points_of_contact, :allow_destroy => true, :reject_if => ->(poc) { poc[:name].blank? }
 
-  field :name, type: String
-  field :vendor_id, type: String
-  field :url, type: String
-  field :address, type: String
-  field :state, type: String
-  field :zip, type: String
-  field :favorite_user_ids, type: Array, default: []
+  field :name, :type => String
+  field :vendor_id, :type => String
+  field :url, :type => String
+  field :address, :type => String
+  field :state, :type => String
+  field :zip, :type => String
+  field :favorite_user_ids, :type => Array, :default => []
 
-  validates :name, presence: true, uniqueness: { message: 'Vendor name was already taken. Please choose another.' }
+  validates :name, :presence => true, :uniqueness => { :message => 'Vendor name was already taken. Please choose another.' }
 
   def self.accessible_by(user)
     # if admin or atl or ignore_roles get them all
@@ -31,7 +31,7 @@ class Vendor
       user.roles.each do |role|
         vids << role.resource_id if role.resource_type == 'Vendor'
       end
-      Vendor.in(_id: vids)
+      Vendor.in(:_id => vids)
     end
   end
 
@@ -44,7 +44,7 @@ class Vendor
     product_test_ids = product_tests.pluck(:_id)
     ProductTest.destroy_by_ids(product_test_ids)
 
-    Product.in(id: product_ids).delete
+    Product.in(:id => product_ids).delete
 
     super
   end
@@ -64,7 +64,7 @@ class Vendor
     end
   end
 
-  %w(passing failing errored incomplete).each do |product_state|
+  %w[passing failing errored incomplete].each do |product_state|
     define_method "products_#{product_state}_count" do
       product_counts = Rails.cache.fetch("#{cache_key}/product_counts") do
         products.includes(:product_tests).group_by(&:status)

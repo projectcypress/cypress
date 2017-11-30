@@ -5,30 +5,30 @@ class ApplicationController < ActionController::Base
   protect_from_forgery :with => :exception, :unless => -> { request.format.json? || request.format.xml? }
 
   before_action :restrict_basic_auth, :authenticate_user!, :check_bundle_installed, :check_backend_jobs,
-                :check_remaining_disk_space, except: %i(page_not_found server_error)
+                :check_remaining_disk_space, :except => %i[page_not_found server_error]
   around_action :catch_not_found
 
   rescue_from CanCan::AccessDenied do |exception|
-    render text: exception, status: 401
+    render :text => exception, :status => 401
   end
 
   def page_not_found
     respond_to do |format|
-      format.html { render template: 'errors/404', layout: 'layouts/errors', status: 404 }
-      format.all  { render text: '404 Not Found', status: 404 }
+      format.html { render :template => 'errors/404', :layout => 'layouts/errors', :status => 404 }
+      format.all  { render :text => '404 Not Found', :status => 404 }
     end
   end
 
   def server_error
     respond_to do |format|
-      format.html { render template: 'errors/500', layout: 'layouts/errors', status: 500 }
-      format.all  { render text: '500 Server Error', status: 500 }
+      format.html { render :template => 'errors/500', :layout => 'layouts/errors', :status => 500 }
+      format.all  { render :text => '500 Server Error', :status => 500 }
     end
   end
 
   private
 
-  DEFAULT_AUTH_MAPPING = { read: %w(show index), manage: %w(new create update destroy delete edit) }.freeze
+  DEFAULT_AUTH_MAPPING = { :read => %w[show index], :manage => %w[new create update destroy delete edit] }.freeze
   # Overwriting the sign_out redirect path method
   def after_sign_out_path_for(_resource_or_scope)
     user_session_path

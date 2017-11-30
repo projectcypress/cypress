@@ -10,34 +10,34 @@ class Product
   scope :by_updated_at, -> { order(:updated_at => :desc) }
   scope :ordered_for_vendors, -> { by_updated_at.order_by(state: 'desc') }
 
-  belongs_to :vendor, index: true, touch: true
+  belongs_to :vendor, :index => true, :touch => true
   has_many :product_tests, :dependent => :destroy
-  accepts_nested_attributes_for :product_tests, allow_destroy: true
-  belongs_to :bundle, index: true
+  accepts_nested_attributes_for :product_tests, :allow_destroy => true
+  belongs_to :bundle, :index => true
   # NOTE: more relationships must be defined
 
-  field :name, type: String
-  field :version, type: String
-  field :description, type: String
-  field :cert_edition, type: String, default: '2015'
+  field :name, :type => String
+  field :version, :type => String
+  field :description, :type => String
+  field :cert_edition, :type => String, :default => '2015'
   %i(c1_test c2_test c3_test c4_test).each do |test|
-    field test, type: Boolean, default: false
+    field test, :type => Boolean, :default => false
   end
-  field :randomize_records, type: Boolean, default: true
-  field :duplicate_records, type: Boolean
-  field :shift_records, type: Boolean, default: false
-  field :allow_duplicate_names, type: Boolean, default: false
-  field :measure_selection, type: String
-  field :measure_ids, type: Array
-  field :favorite_user_ids, type: Array, default: []
+  field :randomize_records, :type => Boolean, :default => true
+  field :duplicate_records, :type => Boolean
+  field :shift_records, :type => Boolean, :default => false
+  field :allow_duplicate_names, :type => Boolean, :default => false
+  field :measure_selection, :type => String
+  field :measure_ids, :type => Array
+  field :favorite_user_ids, :type => Array, :default => []
 
   delegate :effective_date, :to => :bundle
 
-  validates :name, presence: true, uniqueness: { :scope => :vendor, :message => 'Product name was already taken. Please choose another.' }
+  validates :name, :presence => true, :uniqueness => { :scope => :vendor, :message => 'Product name was already taken. Please choose another.' }
 
   validate :meets_required_certification_types?
   validate :valid_measure_ids?
-  validates :vendor, presence: true
+  validates :vendor, :presence => true
 
   delegate :name, :to => :vendor, :prefix => true
 
@@ -72,11 +72,11 @@ class Product
   end
 
   def valid_measure_ids?
-    if measure_ids.nil? || measure_ids.empty?
+    if measure_ids.blank?
       errors.add(:measure_ids, 'must select at least one')
     else
       mids = measure_ids.uniq
-      errors.add(:measure_ids, 'must be valid hqmf ids') unless bundle.measures.top_level.where(hqmf_id: { '$in' => mids }).length >= mids.count
+      errors.add(:measure_ids, 'must be valid hqmf ids') unless bundle.measures.top_level.where(:hqmf_id => { '$in' => mids }).length >= mids.count
     end
   end
 
@@ -95,17 +95,17 @@ class Product
     new_ids = product_params['measure_ids'] ? product_params['measure_ids'] : old_ids
     update_attributes(product_params)
     (new_ids - old_ids).each do |measure_id|
-      m = bundle.measures.top_level.find_by(hqmf_id: measure_id)
-      product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest)
+      m = bundle.measures.top_level.find_by(:hqmf_id => measure_id)
+      product_tests.build({ :name => m.name, :measure_ids => [measure_id], :cms_id => m.cms_id }, MeasureTest)
     end
     # remove measure and checklist tests if their measure ids have been removed
-    product_tests.in(measure_ids: (old_ids - new_ids)).destroy
+    product_tests.in(:measure_ids => (old_ids - new_ids)).destroy
   end
 
   # builds a checklist test if product does not have a checklist test
   def add_checklist_test
     if product_tests.checklist_tests.empty? && c1_test
-      checklist_test = product_tests.create!({ name: 'c1 visual', measure_ids: measure_ids }, ChecklistTest)
+      checklist_test = product_tests.create!({ :name => 'c1 visual', :measure_ids => measure_ids }, ChecklistTest)
       checklist_test.create_checked_criteria
       checklist_test.tasks.create!({}, C1ChecklistTask)
       checklist_test.tasks.create!({}, C3ChecklistTask) if c3_test
@@ -142,7 +142,7 @@ class Product
     reload_relations
 
     return if product_tests.filtering_tests.any?
-    criteria = %w(races ethnicities genders payers age).shuffle
+    criteria = %w[races ethnicities genders payers age].shuffle
     filter_tests = []
     filter_tests.concat [build_filtering_test(measure, criteria[0, 2]), build_filtering_test(measure, criteria[2, 2])]
     filter_tests << build_filtering_test(measure, ['providers'], 'NPI, TIN & Provider Location')
@@ -169,7 +169,7 @@ class Product
   def build_filtering_test(measure, criteria, display_name = '', incl_addr = true)
     # construct options hash from criteria array and create the test
     options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
-    product_tests.create({ name: measure.name, product: self, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,
-                           incl_addr: incl_addr, display_name: display_name, options: options }, FilteringTest)
+    product_tests.create({ :name => measure.name, :product => self, :measure_ids => [measure.hqmf_id], :cms_id => measure.cms_id,
+                           :incl_addr => incl_addr, :display_name => display_name, :options => options }, FilteringTest)
   end
 end

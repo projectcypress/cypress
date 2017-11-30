@@ -293,7 +293,7 @@ class ProducTest < ActiveSupport::TestCase
     assert_equal 'passing', product.status
 
     # one failing product test will fail the product
-    product_test = product.product_tests.build({ name: 'my product test 2', measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'] }, MeasureTest)
+    product_test = product.product_tests.build({ :name => 'my product test 2', :measure_ids => ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'] }, MeasureTest)
     product_test.save!
     product_test.tasks.first.test_executions.create!(:state => :failed)
     assert_equal 'failing', product.status
@@ -301,8 +301,8 @@ class ProducTest < ActiveSupport::TestCase
 
   def test_product_status_failing_if_one_product_test_are_fails
     measure_id = '40280381-4BE2-53B3-014C-0F589C1A1C39'
-    product = Product.new(vendor: @vendor, name: 'my product', c1_test: true, measure_ids: [measure_id], bundle_id: '4fdb62e01d41c820f6000001')
-    product_test = product.product_tests.build({ name: "my product test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
+    product = Product.new(:vendor => @vendor, :name => 'my product', :c1_test => true, :measure_ids => [measure_id], :bundle_id => '4fdb62e01d41c820f6000001')
+    product_test = product.product_tests.build({ :name => "my product test for measure id #{measure_id}", :measure_ids => [measure_id] }, MeasureTest)
     product_test.save!
     product_test.tasks.first.test_executions.build(:state => :passed)
     product.save!
@@ -310,12 +310,12 @@ class ProducTest < ActiveSupport::TestCase
 
   def create_complete_checklist_test_for_product(product, measure_id)
     # id_of_measure is _id attribute on measure. checked_criteria use this mongoid id as a unique identifier for measures to avoid submeasures
-    id_of_measure = Measure.top_level.where(hqmf_id: measure_id, bundle_id: product.bundle_id).first.id
-    criterias = [ChecklistSourceDataCriteria.new(code: 'my code', attribute_code: 'my attribute code', recorded_result: 'my recorded result',
-                                                 code_complete: true, attribute_complete: true, result_complete: true,
-                                                 passed_qrda: true, measure_id: id_of_measure)]
-    checklist_test = product.product_tests.build({ name: 'my checklist test', checked_criteria: criterias,
-                                                   measure_ids: [measure_id] }, ChecklistTest)
+    id_of_measure = Measure.top_level.where(:hqmf_id => measure_id, :bundle_id => product.bundle_id).first.id
+    criterias = [ChecklistSourceDataCriteria.new(:code => 'my code', :attribute_code => 'my attribute code', :recorded_result => 'my recorded result',
+                                                 :code_complete => true, :attribute_complete => true, :result_complete => true,
+                                                 :passed_qrda => true, :measure_id => id_of_measure)]
+    checklist_test = product.product_tests.build({ :name => 'my checklist test', :checked_criteria => criterias,
+                                                   :measure_ids => [measure_id] }, ChecklistTest)
     checklist_test.save!
   end
 end

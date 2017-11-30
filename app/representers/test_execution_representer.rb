@@ -11,6 +11,6 @@ module TestExecutionRepresenter
   }
 
   self.embedded = {
-    execution_errors: [:file_name, :location, :message, :msg_type, :stratification, :validator_type, :validator]
+    execution_errors: %i[file_name location message msg_type stratification validator_type validator]
   }
 end

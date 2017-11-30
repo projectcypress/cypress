@@ -14,7 +14,7 @@ module Cypress
 
     def self.bundle_directory(bundle, path)
       records = bundle.records
-      %w(html qrda).each do |format|
+      %w[html qrda].each do |format|
         extensions = { html: 'html', qrda: 'xml' }
         formatter = formatter_for_patients(records, format)
         FileUtils.mkdir_p(File.join(path, "#{format}_records/"))

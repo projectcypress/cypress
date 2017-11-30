@@ -9,31 +9,31 @@ class ProductTest
   scope :by_updated_at, -> { order(:updated_at => :desc) }
 
   # TODO: Use real attributes?
-  scope :measure_tests, -> { where(_type: 'MeasureTest') }
-  scope :checklist_tests, -> { where(_type: 'ChecklistTest') }
-  scope :filtering_tests, -> { where(_type: 'FilteringTest') }
+  scope :measure_tests, -> { where(:_type => 'MeasureTest') }
+  scope :checklist_tests, -> { where(:_type => 'ChecklistTest') }
+  scope :filtering_tests, -> { where(:_type => 'FilteringTest') }
 
-  belongs_to :product, index: true, touch: true
+  belongs_to :product, :index => true, :touch => true
   has_many :tasks, :dependent => :destroy
 
   has_many :records, :dependent => :destroy, :foreign_key => :test_id
 
-  field :augmented_records, type: Array, default: []
+  field :augmented_records, :type => Array, :default => []
 
-  field :expected_results, type: Hash
+  field :expected_results, :type => Hash
   # this the hqmf id of the measure
-  field :measure_ids, type: Array
+  field :measure_ids, :type => Array
   # Test Details
-  field :name, type: String
-  field :cms_id, type: String
-  field :description, type: String
+  field :name, :type => String
+  field :cms_id, :type => String
+  field :description, :type => String
   field :state, :type => Symbol, :default => :pending
-  field :rand_seed, type: String
+  field :rand_seed, :type => String
 
-  field :status_message, type: String
-  validates :name, presence: true
-  validates :product, presence: true
-  validates :measure_ids, presence: true
+  field :status_message, :type => String
+  validates :name, :presence => true
+  validates :product, :presence => true
+  validates :measure_ids, :presence => true
   mount_uploader :patient_archive, PatientArchiveUploader
   mount_uploader :html_archive, PatientArchiveUploader
 
@@ -73,7 +73,7 @@ class ProductTest
     # long after the parent data was destroyed.
     Artifact.where(:test_execution_id.in => test_execution_ids).destroy
     HealthDataStandards::CQM::PatientCache.where(:'value.patient_id'.in => record_ids).delete
-    ProductTest.in(id: product_test_ids).delete
+    ProductTest.in(:id => product_test_ids).delete
   end
 
   def generate_records(job_id = nil)
@@ -82,7 +82,7 @@ class ProductTest
       random_ids = if product.slim_test_deck?
                      []
                    else
-                     bundle.records.where(test_id: nil).pluck('medical_record_number').uniq
+                     bundle.records.where(:test_id => nil).pluck('medical_record_number').uniq
                    end
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'randomization_ids' => random_ids,
                                       'randomize_demographics' => true, 'generate_provider' => product.c4_test, 'job_id' => job_id).perform
@@ -98,8 +98,8 @@ class ProductTest
     if product.duplicate_records && _type != 'FilteringTest'
       prng = Random.new(rand_seed.to_i)
       ids = results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
-      unless ids.nil? || ids.empty?
-        recs = sample_and_duplicate_records(recs, ids, random: prng)
+      if ids.present?
+        recs = sample_and_duplicate_records(recs, ids, :random => prng)
       end
     end
     Cypress::PatientZipper.zip(file, recs, :qrda)
@@ -116,15 +116,15 @@ class ProductTest
     dups = records.find(ids)
 
     recs, dups = randomize_clinical_data(recs, dups, random)
-    dups.sample(random.rand(1..3), random: random).each do |rec|
+    dups.sample(random.rand(1..3), :random => random).each do |rec|
       prng_repeat = Random.new(rand_seed.to_i)
-      dup_rec, rec_augments, old_rec = rec.duplicate_randomization(random: prng_repeat)
+      dup_rec, rec_augments, old_rec = rec.duplicate_randomization(:random => prng_repeat)
       if car.validate_calculated_results(dup_rec, 'effective_date' => effective_date)
         augmented_records << rec_augments
         recs << dup_rec
       else
-        augmented_records << { medical_record_number: old_rec.medical_record_number,
-                               first: [old_rec.first, old_rec.first], last: [old_rec.last, old_rec.last] }
+        augmented_records << { :medical_record_number => old_rec.medical_record_number,
+                               :first => [old_rec.first, old_rec.first], :last => [old_rec.last, old_rec.last] }
         recs << old_rec
       end
     end
@@ -135,10 +135,10 @@ class ProductTest
     # Pic a record to clinically randomize, then delete it from dups (so it doesn't get duplicated also)
     # And delete it from recs so we don't return the whole patient too
     return [recs, dups] if dups.count < 2
-    clinical_record = dups.sample(random: random)
+    clinical_record = dups.sample(:random => random)
     dups.delete(clinical_record)
     recs.delete(clinical_record)
-    [recs.concat(Cypress::ClinicalRandomizer.randomize(clinical_record, effective_date, measure_period_start, random: random)), dups]
+    [recs.concat(Cypress::ClinicalRandomizer.randomize(clinical_record, effective_date, measure_period_start, :random => random)), dups]
   end
 
   def calculate
@@ -146,7 +146,7 @@ class ProductTest
   end
 
   def measures
-    bundle.measures.in(hqmf_id: measure_ids)
+    bundle.measures.in(:hqmf_id => measure_ids)
   end
 
   def execute(_params)
@@ -157,7 +157,7 @@ class ProductTest
     PatientCache.where('value.test_id' => id).order_by(['value.last', :asc])
   end
 
-  [:ready, :queued, :building, :errored].each do |test_state|
+  %i[ready queued building errored].each do |test_state|
     define_method test_state do
       self.state = test_state
       save

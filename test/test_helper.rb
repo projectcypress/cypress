@@ -33,7 +33,7 @@ class ActiveSupport::TestCase
   end
 
   def create_rack_test_file(filename, type)
-    Rack::Test::UploadedFile.new(File.new(File.join(Rails.root, filename)), type)
+    Rack::Test::UploadedFile.new(File.new(Rails.root.join(filename)), type)
   end
 
   def drop_database
@@ -89,7 +89,7 @@ class ActiveSupport::TestCase
   def collection_fixtures(*collections)
     collections.each do |collection|
       Mongoid.default_client[collection].drop
-      Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
+      Dir.glob(Rails.root.join('test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
         fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
         map_bson_ids(fixture_json)
         Mongoid.default_client[collection].insert_one(fixture_json)
@@ -98,14 +98,12 @@ class ActiveSupport::TestCase
   end
 
   def load_library_functions
-    Dir.glob(File.join(Rails.root, 'test', 'fixtures', 'library_functions', '*.js')).each do |js_path|
+    Dir.glob(Rails.root.join('test', 'fixtures', 'library_functions', '*.js')).each do |js_path|
       fn = "function () {\n #{File.read(js_path)} \n }"
       name = File.basename(js_path, '.js')
       Mongoid.default_client['system.js'].replace_one({ '_id' => name },
                                                       { '_id' => name,
-                                                        'value' => BSON::Code.new(fn)
-                                                      }, upsert: true
-                                                     )
+                                                        'value' => BSON::Code.new(fn) }, upsert: true)
     end
   end
 

@@ -18,15 +18,15 @@ class Task
   delegate :name, :state, :to => :product_test, :prefix => true
   delegate :cms_id, :expected_results, :to => :product_test, :prefix => true
 
-  %w(
+  %w[
     C1Task C1ChecklistTask C3ChecklistTask C2Task C3Cat1Task
     C3Cat3Task Cat1FilterTask Cat3FilterTask
-  ).each do |task_type|
+  ].each do |task_type|
     # Define methods for fetching specific types of tasks,
     # for example (Task.c1_task, Task.cat1_filter_task, etc)
     define_singleton_method task_type.underscore do
       begin
-        find_by(_type: task_type)
+        find_by(:_type => task_type)
       rescue
         false
       end
@@ -34,7 +34,7 @@ class Task
   end
 
   # Defines methods for checking task status (task.passing?, etc)
-  %w(passing failing errored pending incomplete).each do |task_state|
+  %w[passing failing errored pending incomplete].each do |task_state|
     define_method "#{task_state}?" do
       status == task_state
     end
@@ -59,6 +59,6 @@ class Task
   # returns the most recent execution for this task
   # if there are none, returns nil
   def most_recent_execution
-    test_executions.any? ? test_executions.order_by(created_at: 'desc').limit(1).first : nil
+    test_executions.any? ? test_executions.order_by(:created_at => 'desc').limit(1).first : nil
   end
 end
