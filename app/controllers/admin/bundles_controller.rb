@@ -2,7 +2,7 @@ module Admin
   class BundlesController < AdminController
     respond_to :html
 
-    before_action :find_bundle, only: [:set_default, :deprecate, :destroy]
+    before_action :find_bundle, only: %i[set_default deprecate destroy]
 
     add_breadcrumb 'Add Bundle', :new_admin_bundle_path, only: [:new]
 

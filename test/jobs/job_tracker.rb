@@ -1,17 +1,16 @@
 require 'test_helper'
 
 class JobStatusTest < ActiveJob::TestCase
-  class FailedJob < ActiveJob::Base
+  class FailedJob < ApplicationJob
     include Job::Status
     def perform
       raise 'Failed'
     end
   end
 
-  class PassingJob < ActiveJob::Base
+  class PassingJob < ApplicationJob
     include Job::Status
-    def perform
-    end
+    def perform; end
   end
 
   test 'should be able to track queued jobs' do

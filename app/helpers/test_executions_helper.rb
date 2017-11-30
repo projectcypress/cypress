@@ -88,10 +88,10 @@ module TestExecutionsHelper
 
   def execution_status_class(execution)
     case execution.status_with_sibling
-    when 'incomplete' then return 'info'
-    when 'passing' then return 'success'
-    when 'errored' then return 'warning'
-    else return 'danger'
+    when 'incomplete' then 'info'
+    when 'passing' then 'success'
+    when 'errored' then 'warning'
+    else 'danger'
     end
   end
 

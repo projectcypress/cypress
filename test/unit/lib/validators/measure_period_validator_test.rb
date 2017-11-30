@@ -9,7 +9,7 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
   end
 
   def test_file_with_good_mp
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_measure.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'ep_test_qrda_cat3_missing_measure.xml')).read
 
     # measure_period_start and effective dates are set using milliseconds (below are for 2015)
     @test_execution.task.bundle.measure_period_start = 1_420_070_400
@@ -19,7 +19,7 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
   end
 
   def test_file_with_unshifted_mp_for_shifted_product_test
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_missing_measure.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'ep_test_qrda_cat3_missing_measure.xml')).read
 
     @test_execution.task.product_test.product.shift_records = true
     # measure_period_start and effective dates are set using milliseconds (below are for 2015)
@@ -31,7 +31,7 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
   end
 
   def test_file_with_shifted_mp_for_shifted_product_test
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_dates_shifted.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'ep_test_qrda_cat3_dates_shifted.xml')).read
 
     @test_execution.task.product_test.product.shift_records = true
     # measure_period_start and effective dates are set using milliseconds (below are for 2015)
@@ -43,7 +43,7 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
   end
 
   def test_file_with_bad_mp
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_bad_mp.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'ep_test_qrda_cat3_bad_mp.xml')).read
     # measure_period_start and effective dates are set using milliseconds (below are for 2015)
     @test_execution.task.bundle.measure_period_start = 1_420_070_400
     @test_execution.task.bundle.effective_date = 1_451_606_399

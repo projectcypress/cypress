@@ -46,8 +46,7 @@ class ProductsHelperTest < ActiveJob::TestCase
 
   def setup_filtering_tests
     @product.product_tests.create!({ name: 'Filter Test 1', cms_id: 'SomeCMSID', measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
-                                     options: { filters: { filt1: ['val1'], filt2: ['val2'] } }
-                                   }, FilteringTest)
+                                     options: { filters: { filt1: ['val1'], filt2: ['val2'] } } }, FilteringTest)
     @product.product_tests.filtering_tests.each do |test|
       test.tasks.build({}, Cat1FilterTask)
       test.tasks.build({}, Cat3FilterTask)
@@ -159,15 +158,15 @@ class ProductsHelperTest < ActiveJob::TestCase
 
     # product test is ready, one task not pending while other task is pending
     pt = ProductTest.new(:state => :ready, :name => 'my product test name 4', :measure_ids => measure_ids, :product => product)
-    tasks = build_tasks_with_test_execution_states([:passed, :pending]).each { |tsk| tsk.product_test = pt }
+    tasks = build_tasks_with_test_execution_states(%i[passed pending]).each { |tsk| tsk.product_test = pt }
     pt.save!
     assert_equal true, should_reload_product_test_link?(tasks_status(tasks), pt)
   end
 
   def setup_product_test_and_task_for_should_reload_measure_test_row_test
     measure_ids = ['8A4D92B2-397A-48D2-0139-B0DC53B034A7']
-    vendor = Vendor.create!(name: "my vendor #{rand}")
-    product = vendor.products.create!(name: "my product #{rand}", measure_ids: measure_ids, bundle_id: '4fdb62e01d41c820f6000001', c1_test: true)
+    vendor = Vendor.create!(:name => "my vendor #{rand}")
+    product = vendor.products.create!(:name => "my product #{rand}", :measure_ids => measure_ids, :bundle_id => '4fdb62e01d41c820f6000001', :c1_test => true)
     product_test = product.product_tests.create!(:state => :pending, :name => "my product test #{rand}", :measure_ids => measure_ids)
     task = product_test.tasks.create!
     [product_test, task]
@@ -235,14 +234,14 @@ class ProductsHelperTest < ActiveJob::TestCase
     # If a task does not have any test executions associated then it is considered incomplete.
     assert_equal 'incomplete', tasks_status([Task.new])
 
-    assert_equal 'passing', tasks_status(build_tasks_with_test_execution_states([:passed, :passed]))
-    assert_equal 'failing', tasks_status(build_tasks_with_test_execution_states([:passed, :failed]))
-    assert_equal 'pending', tasks_status(build_tasks_with_test_execution_states([:passed, :other_state]))
+    assert_equal 'passing', tasks_status(build_tasks_with_test_execution_states(%i[passed passed]))
+    assert_equal 'failing', tasks_status(build_tasks_with_test_execution_states(%i[passed failed]))
+    assert_equal 'pending', tasks_status(build_tasks_with_test_execution_states(%i[passed other_state]))
 
-    assert_equal 'failing', tasks_status(build_tasks_with_test_execution_states([:failed, :failed]))
-    assert_equal 'failing', tasks_status(build_tasks_with_test_execution_states([:failed, :other_state]))
+    assert_equal 'failing', tasks_status(build_tasks_with_test_execution_states(%i[failed failed]))
+    assert_equal 'failing', tasks_status(build_tasks_with_test_execution_states(%i[failed other_state]))
 
-    assert_equal 'pending', tasks_status(build_tasks_with_test_execution_states([:other_state, :other_state]))
+    assert_equal 'pending', tasks_status(build_tasks_with_test_execution_states(%i[other_state other_state]))
   end
 
   def build_tasks_with_test_execution_states(states)
@@ -250,7 +249,7 @@ class ProductsHelperTest < ActiveJob::TestCase
     states.each do |state|
       task = Task.new
       task.save!
-      task.test_executions.create!(state: state)
+      task.test_executions.create!(:state => state)
       tasks << task
     end
     tasks
@@ -258,10 +257,10 @@ class ProductsHelperTest < ActiveJob::TestCase
 
   def test_with_c3_task
     measure_ids = ['8A4D92B2-397A-48D2-0139-B0DC53B034A7']
-    product = Product.new(vendor: Vendor.find('4f57a8791d41c851eb000002'), name: 'my product', c1_test: true, c2_test: true, bundle_id: '4fdb62e01d41c820f6000001',
-                          measure_ids: measure_ids)
+    product = Product.new(:vendor => Vendor.find('4f57a8791d41c851eb000002'), :name => 'my product', :c1_test => true, :c2_test => true, :bundle_id => '4fdb62e01d41c820f6000001',
+                          :measure_ids => measure_ids)
     product.save!
-    pt = ProductTest.new(name: 'my product test name 1', measure_ids: measure_ids, product: product)
+    pt = ProductTest.new(:name => 'my product test name 1', :measure_ids => measure_ids, :product => product)
     pt.save!
     c1_task = pt.tasks.build({}, C1Task)
     c2_task = pt.tasks.build({}, C2Task)
@@ -407,16 +406,16 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_title_for
-    assert_equal 'C1 Sample', title_for(Product.new(c1: true), 'ChecklistTest')
-    assert_equal 'C1 + C3 Sample', title_for(Product.new(c1_test: true, c3_test: true), 'ChecklistTest')
+    assert_equal 'C1 Sample', title_for(Product.new(:c1 => true), 'ChecklistTest')
+    assert_equal 'C1 + C3 Sample', title_for(Product.new(:c1_test => true, :c3_test => true), 'ChecklistTest')
 
-    assert_equal 'C1 (QRDA-I)', title_for(Product.new(c1_test: true), 'MeasureTest', true)
-    assert_equal 'C1 + C3 (QRDA-I)', title_for(Product.new(c1_test: true, c3_test: true), 'MeasureTest', true)
+    assert_equal 'C1 (QRDA-I)', title_for(Product.new(:c1_test => true), 'MeasureTest', true)
+    assert_equal 'C1 + C3 (QRDA-I)', title_for(Product.new(:c1_test => true, :c3_test => true), 'MeasureTest', true)
 
-    assert_equal 'C2 (QRDA-III)', title_for(Product.new(c2_test: true), 'MeasureTest', false)
-    assert_equal 'C2 + C3 (QRDA-III)', title_for(Product.new(c2_test: true, c3_test: true), 'MeasureTest', false)
+    assert_equal 'C2 (QRDA-III)', title_for(Product.new(:c2_test => true), 'MeasureTest', false)
+    assert_equal 'C2 + C3 (QRDA-III)', title_for(Product.new(:c2_test => true, :c3_test => true), 'MeasureTest', false)
 
-    assert_equal 'C4 (QRDA-I and QRDA-III)', title_for(Product.new(c4_test: true), 'FilteringTest')
+    assert_equal 'C4 (QRDA-I and QRDA-III)', title_for(Product.new(:c4_test => true), 'FilteringTest')
   end
 
   def test_measure_test_tasks

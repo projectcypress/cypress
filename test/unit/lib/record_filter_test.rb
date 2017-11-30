@@ -9,7 +9,7 @@ class RecordFilterTest < ActiveSupport::TestCase
   end
 
   def test_filter_gender
-    selected_gender = %w(M F).sample
+    selected_gender = %w[M F].sample
     filters = { 'genders' => [selected_gender] }
 
     filtered_records = Cypress::RecordFilter.filter(@all_records, filters, {}).to_a
@@ -24,7 +24,7 @@ class RecordFilterTest < ActiveSupport::TestCase
   end
 
   def test_filter_race
-    selected_race = %w(2106-3 2028-9 2054-5).sample
+    selected_race = %w[2106-3 2028-9 2054-5].sample
     filters = { 'races' => [selected_race] }
 
     filtered_records = Cypress::RecordFilter.filter(@all_records, filters, {}).to_a
@@ -39,7 +39,7 @@ class RecordFilterTest < ActiveSupport::TestCase
   end
 
   def test_filter_ethnicity
-    selected_ethn = %w(2186-5 2135-2).sample
+    selected_ethn = %w[2186-5 2135-2].sample
 
     filters = { 'ethnicities' => [selected_ethn] }
 
@@ -167,11 +167,11 @@ class RecordFilterTest < ActiveSupport::TestCase
 
   # helper function to calculate age
   def age_on_date(dob, now)
-    now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
+    now.year - dob.year - (now.month > dob.month || (now.month == dob.month && now.day >= dob.day) ? 0 : 1)
   end
 
   def test_filter_payer
-    selected_payer = %w('Medicaid Medicare Other).sample
+    selected_payer = %w['Medicaid Medicare Other].sample
     filters = { 'payers' => [selected_payer] }
 
     filtered_records = Cypress::RecordFilter.filter(@all_records, filters, {}).to_a
@@ -191,7 +191,7 @@ class RecordFilterTest < ActiveSupport::TestCase
   end
 
   def test_filter_problem
-    selected_problem = %w(2.16.840.1.113883.3.464.1003.102.12.1023 2.16.840.1.113883.3.526.3.378).sample
+    selected_problem = %w[2.16.840.1.113883.3.464.1003.102.12.1023 2.16.840.1.113883.3.526.3.378].sample
 
     filters = { 'problems' => { oid: [selected_problem], hqmf_ids: ['2.16.840.1.113883.3.560.1.2'] } }
 

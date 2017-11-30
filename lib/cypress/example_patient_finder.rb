@@ -1,7 +1,7 @@
 module Cypress
   class ExamplePatientFinder
     def self.find_example_patient(measure)
-      populations = measure.continuous_variable ? %w(IPP MSRPOPL MSRPOPLEX OBSERV) : %w(IPP DENOM NUMER DENEX DENEXCEP)
+      populations = measure.continuous_variable ? %w[IPP MSRPOPL MSRPOPLEX OBSERV] : %w[IPP DENOM NUMER DENEX DENEXCEP]
       example_patient = example_patient_by_pop(measure, populations, populations[1])
       example_patient = !example_patient.nil? ? example_patient : example_patient_by_pop(measure, populations, 'IPP')
       # if you still don't have a patient, find one from sub population a
@@ -31,7 +31,7 @@ module Cypress
 
     def self.population_matches_for_patient(result_value, measure)
       sum = 0
-      populations = measure.continuous_variable ? %w(IPP MSRPOPL MSRPOPLEX OBSERV) : %w(IPP DENOM NUMER DENEX DENEXCEP)
+      populations = measure.continuous_variable ? %w[IPP MSRPOPL MSRPOPLEX OBSERV] : %w[IPP DENOM NUMER DENEX DENEXCEP]
       populations.each do |pop|
         value = get_result_value(result_value, pop)
         sum += value unless value.nil?

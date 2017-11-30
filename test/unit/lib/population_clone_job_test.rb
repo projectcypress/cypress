@@ -24,7 +24,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
 
   def test_perform_two_patients
     # ids passed in should clone just the 2 records
-    pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w(0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f),
+    pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w[0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f],
                                           'test_id' => '4f636b3f1d41c851eb000491',
                                           'randomization_ids' => [])
     pcj.perform
@@ -34,7 +34,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
 
   def test_assigns_default_provider
     # ids passed in should clone just the 2 records
-    pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w(0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f),
+    pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w[0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f],
                                           'test_id' => '4f636b3f1d41c851eb000491',
                                           'randomization_ids' => [])
     pcj.perform
@@ -48,7 +48,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     # 0 providers to start
     assert_equal 0, Provider.count
     # ids passed in should clone just the 2 records
-    pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w(0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f),
+    pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w[0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f],
                                           'test_id' => '4f636b3f1d41c851eb000491',
                                           'randomization_ids' => [],
                                           'generate_provider' => true)
@@ -62,12 +62,12 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   end
 
   def test_shifts_dates
-    pcj1 = Cypress::PopulationCloneJob.new('patient_ids' => %w(0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f),
+    pcj1 = Cypress::PopulationCloneJob.new('patient_ids' => %w[0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f],
                                            'test_id' => '4f636b3f1d41c851eb000491',
                                            'randomization_ids' => [])
     pcj1.perform
     record_no_shift = Record.where(test_id: '4f636b3f1d41c851eb000491').first
-    pcj2 = Cypress::PopulationCloneJob.new('patient_ids' => %w(0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f),
+    pcj2 = Cypress::PopulationCloneJob.new('patient_ids' => %w[0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f],
                                            'test_id' => '4f636b3f1d41c851eb000492',
                                            'randomization_ids' => [])
     pcj2.perform
@@ -84,11 +84,11 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
 
   def test_perform_two_patients_randomized_ids
     # ids passed in should clone just the 2 records
-    pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w(0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f),
+    pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w[0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f],
                                           'test_id' => '4f636b3f1d41c851eb000491',
-                                          'randomization_ids' => %w(0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f
+                                          'randomization_ids' => %w[0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f
                                                                     0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f
-                                                                    0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f))
+                                                                    0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f])
     pcj.perform
     r_count = Record.count
     assert r_count >= 18 && r_count <= 22,
@@ -100,7 +100,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
 
   def test_perform_two_patients_randomized_names
     # Clone two and ensure they have random (new) names
-    pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w(0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f),
+    pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w[0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f],
                                           'test_id' => '4f636b3f1d41c851eb000491',
                                           'randomize_demographics' => true)
     pcj.perform

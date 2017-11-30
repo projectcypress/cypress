@@ -1,4 +1,4 @@
-class MplDownloadCreateJob < ActiveJob::Base
+class MplDownloadCreateJob < ApplicationJob
   include Job::Status
   after_enqueue do |job|
     tracker = job.tracker
@@ -8,7 +8,7 @@ class MplDownloadCreateJob < ActiveJob::Base
   def perform(bundle_id)
     tracker.log('Creating Download')
     bundle = Bundle.find(bundle_id)
-    path = File.join(Rails.root, 'tmp', 'cache', 'bundle_download', bundle.id.to_s)
+    path = Rails.root.join('tmp', 'cache', 'bundle_download', bundle.id.to_s)
     Cypress::CreateDownloadZip.bundle_directory(bundle, path)
     zfg = ZipFileGenerator.new(path, bundle.mpl_path)
     zfg.write

@@ -23,7 +23,7 @@ module Validators
         @reported_results[key] = reported_result
         match_calculation_results(expected_result, reported_result, options)
       end
-      options[:reported_result_target].reported_results = reported_results if options[:reported_result_target]
+      options[:reported_result_target]&.reported_results = reported_results
     end
 
     private
@@ -36,7 +36,7 @@ module Validators
       stratification = ids.delete('stratification')
       stratification ||= ids.delete('STRAT')
       ids.each do |pop_key, pop_id|
-        next unless expected_result[pop_key].present?
+        next if expected_result[pop_key].blank?
         check_population(expected_result, reported_result, pop_key, stratification, measure_id)
         # Check supplemental data elements
         ex_sup = (expected_result['supplemental_data'] || {})[pop_key]

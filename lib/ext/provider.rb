@@ -15,7 +15,7 @@ class Provider
   def self.generate_provider(options = {})
     prov = Provider.new
     Cypress::DemographicsRandomizer.randomize_address(prov)
-    prov.given_name = NAMES_RANDOM['first'][%w(M F).sample].sample
+    prov.given_name = NAMES_RANDOM['first'][%w[M F].sample].sample
     prov.family_name = NAMES_RANDOM['last'].sample
     prov.npi = NpiGenerator.generate
     prov.tin = rand.to_s[2..10]

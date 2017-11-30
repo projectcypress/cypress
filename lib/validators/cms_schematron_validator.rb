@@ -20,10 +20,8 @@ module Validators
       doc = get_document(file)
       class_name = self.class.to_s.split('::')[-1]
       default_errors = ApplicationController.helpers.config_for_version(@bundle_version)["#{class_name}_warnings"]
-      if default_errors
-        default_errors.each do |error|
-          add_warning error, :validator_type => :xml_validation, :file_name => @options[:file_name], :cms => true
-        end
+      default_errors&.each do |error|
+        add_warning error, :validator_type => :xml_validation, :file_name => @options[:file_name], :cms => true
       end
       if @validator
         errors = @validator.validate(doc, options)
@@ -41,21 +39,21 @@ module Validators
 
   class CMSQRDA3SchematronValidator < CMSSchematronValidator
     def initialize(bundle_version = Settings.current.default_bundle)
-      super(File.join(Rails.root, 'resources', 'schematron', schematron_folder_for_bundle_version(bundle_version), 'EP', 'EP_CAT_III.sch'),
+      super(Rails.root.join('resources', 'schematron', schematron_folder_for_bundle_version(bundle_version), 'EP', 'EP_CAT_III.sch'),
             'CMS QRDA 3 Schematron Validator', bundle_version)
     end
   end
 
   class CMSQRDA1HQRSchematronValidator < CMSSchematronValidator
     def initialize(bundle_version = Settings.current.default_bundle)
-      super(File.join(Rails.root, 'resources', 'schematron', schematron_folder_for_bundle_version(bundle_version), 'EH', 'EH_CAT_I.sch'),
+      super(Rails.root.join('resources', 'schematron', schematron_folder_for_bundle_version(bundle_version), 'EH', 'EH_CAT_I.sch'),
             'CMS QRDA 1 HQR Schematron Validator', bundle_version)
     end
   end
 
   class CMSQRDA1PQRSSchematronValidator < CMSSchematronValidator
     def initialize(bundle_version = Settings.current.default_bundle)
-      super(File.join(Rails.root, 'resources', 'schematron', schematron_folder_for_bundle_version(bundle_version), 'EP', 'EP_CAT_I.sch'),
+      super(Rails.root.join('resources', 'schematron', schematron_folder_for_bundle_version(bundle_version), 'EP', 'EP_CAT_I.sch'),
             'CMS QRDA 1 PQRS Schematron Validator', bundle_version)
     end
   end

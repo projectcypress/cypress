@@ -69,7 +69,7 @@ module Validators
       @can_continue = false
       return false if @options[:suppress_errors]
       add_error("Patient name '#{doc_name}' declared in file not found in test records",
-                file_name: options[:file_name])
+                :file_name => options[:file_name])
       false
     end
 
@@ -78,7 +78,7 @@ module Validators
       @can_continue = false
       return nil if @options[:suppress_errors]
       add_error("Patient '#{doc_name}' not expected to be returned.",
-                file_name: options[:file_name])
+                :file_name => options[:file_name])
       # cannot go any further here so call it quits and return
       nil
     end
@@ -91,8 +91,10 @@ module Validators
         next unless patient_sgd
         patient_sgd.each do |dc|
           next if dc[:template] == 'N/A'
-          add_error("Cannot find expected entry with templateId = #{dc[:template]} with valueset #{dc[:oid]}",
-                    file_name: options[:file_name]) if find_dc_nodes(doc, dc).empty?
+          if find_dc_nodes(doc, dc).empty?
+            add_error("Cannot find expected entry with templateId = #{dc[:template]} with valueset #{dc[:oid]}",
+                      :file_name => options[:file_name])
+          end
         end
       end
     end
@@ -113,7 +115,7 @@ module Validators
     end
 
     def build_document(document)
-      doc = (document.is_a? Nokogiri::XML::Document) ? document : Nokogiri::XML(document.to_s)
+      doc = document.is_a? Nokogiri::XML::Document ? document : Nokogiri::XML(document.to_s)
       doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
       doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
       doc

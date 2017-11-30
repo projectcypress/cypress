@@ -22,12 +22,12 @@ module TestExecutionsResultsHelper
   # # # # # # # # # # # # # # # #
 
   def error_table_heading(population_errors, stratification_errors, supp_data_errors)
-    if !population_errors.blank?
+    if population_errors.present?
       %(#{population_errors.first.message}. The following errors were also identified for this population.)
-    elsif !supp_data_errors.blank?
+    elsif supp_data_errors.present?
       %(The following errors were identified for #{supp_data_errors.first.error_details['population_key']}
       #{supp_data_errors.first.error_details['population_id']}.)
-    elsif !stratification_errors.blank?
+    elsif stratification_errors.present?
       %(The following errors were identified for
       #{@task.product_test_expected_results.first[1].population_ids.key(stratification_errors.first.error_details['population_id'])}
       #{stratification_errors.first.error_details['population_id']}.)

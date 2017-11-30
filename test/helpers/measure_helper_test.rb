@@ -74,7 +74,7 @@ class MeasureHelperTest < ActiveSupport::TestCase
   def product_test_with_test_execution_with_state(state)
     test = ProductTest.new(:state => :ready)
     task = test.tasks.build
-    task.test_executions.build(state: state)
+    task.test_executions.build(:state => state)
     test
   end
 end

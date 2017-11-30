@@ -9,17 +9,17 @@ class C2Task < Task
   # Also, if the parent product test includes a C3 Task,
   # do that validation here
   def validators
-    if product_test.c2_test
-      @validators = [::Validators::QrdaCat3Validator.new(product_test.expected_results,
+    @validators = if product_test.c2_test
+                    [::Validators::QrdaCat3Validator.new(product_test.expected_results,
                                                          false,
                                                          product_test.c3_test,
                                                          true,
                                                          product_test.bundle),
                      ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
-    else
-      # A C2 task is created whenever C3 is selected.  If C2 isn't also selected, this task doesn't perform any validations
-      @validators = []
-    end
+                  else
+                    # A C2 task is created whenever C3 is selected.  If C2 isn't also selected, this task doesn't perform any validations
+                    []
+                  end
     @validators
   end
 

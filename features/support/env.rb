@@ -89,20 +89,20 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 
 # Make these rules throw errors instead of warnings.
 # Rules list: https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules
-Capybara::Accessible::Auditor.severe_rules = %w(
-  'AX_COLOR_01',
-  'AX_FOCUS_01',
-  'AX_FOCUS_02',
-  'AX_FOCUS_03',
-  'AX_VIDEO_01',
-  'AX_ARIA_06',
-  'AX_ARIA_07',
-  'AX_ARIA_11',
-  'AX_ARIA_13',
-  'AX_HTML_01',
-  'AX_TITLE_01',
-  'AX_TEXT_04'
-)
+Capybara::Accessible::Auditor.severe_rules = %w[
+  AX_COLOR_01
+  AX_FOCUS_01
+  AX_FOCUS_02
+  AX_FOCUS_03
+  AX_VIDEO_01
+  AX_ARIA_06
+  AX_ARIA_07
+  AX_ARIA_11
+  AX_ARIA_13
+  AX_HTML_01
+  AX_TITLE_01
+  AX_TEXT_04
+]
 
 # to allow CSS and Javascript to be loaded when we use save_and_open_page, the
 # development server must be running at localhost:3000 as specified below or
@@ -119,7 +119,7 @@ Capybara.asset_host = 'http://localhost:3000'
 def collection_fixtures(*collections)
   collections.each do |collection|
     Mongoid.default_client[collection].drop
-    Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
+    Dir.glob(Rails.root.join('test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
       fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
       map_bson_ids(fixture_json)
       Mongoid.default_client[collection].insert_one(fixture_json)

@@ -11,7 +11,7 @@ module VendorRepresenter
   property :updated_at
 
   self.embedded = {
-    points_of_contact: [:name, :email, :phone, :contact_type]
+    points_of_contact: %i[name email phone contact_type]
   }
 
   self.links = {

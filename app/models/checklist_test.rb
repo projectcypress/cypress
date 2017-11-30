@@ -52,7 +52,7 @@ class ChecklistTest < ProductTest
 
   def measure_status(measure_id)
     criterias = checked_criteria.select { |criteria| criteria.measure_id == measure_id.to_s }
-    return 'not_started' if criterias.count { |criteria| criteria.complete?.nil? } == criterias.count
+    return 'not_started' if criterias.count == criterias.count { |criteria| criteria.complete?.nil? }
     pass_count = criterias.count(&:complete?)
     pass_count == criterias.count ? 'passed' : 'failed'
   end

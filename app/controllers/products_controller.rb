@@ -1,18 +1,18 @@
 class ProductsController < ApplicationController
   include API::Controller
-  before_action :set_vendor, only: [:index, :new, :create, :report, :patients, :favorite]
-  before_action :set_product, except: [:index, :new, :create]
-  before_action :set_measures, only: [:new, :edit, :update, :report]
+  before_action :set_vendor, only: %i[index new create report patients favorite]
+  before_action :set_product, except: %i[index new create]
+  before_action :set_measures, only: %i[new edit update report]
   before_action :authorize_vendor
-  before_action :check_bundle_deprecated, only: [:show, :edit]
+  before_action :check_bundle_deprecated, only: %i[show edit]
   add_breadcrumb 'Dashboard', :vendors_path
 
   respond_to :html, except: [:index]
-  respond_to :json, :xml, except: [:new, :edit, :update]
+  respond_to :json, :xml, except: %i[new edit update]
   respond_to :js, only: [:favorite]
 
   def index
-    @products = @vendor.products.sort_by { |a| (a.favorite_user_ids.include? current_user.id) ? 0 : 1 }
+    @products = @vendor.products.sort_by { |a| a.favorite_user_ids.include? current_user.id ? 0 : 1 }
     respond_with(@products.to_a)
   end
 
@@ -104,7 +104,7 @@ class ProductsController < ApplicationController
 
   def authorize_vendor
     vendor = @vendor || @product.vendor
-    authorize_request(vendor, read: %w(report patients))
+    authorize_request(vendor, read: %w[report patients])
   end
 
   def set_measures
@@ -121,13 +121,13 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params[:product][:name].strip! if params[:product][:name]
+    params[:product][:name]&.strip!
     params.require(:product).permit(:name, :version, :description, :randomize_records, :duplicate_records, :shift_records, :bundle_id,
                                     :measure_selection, :cert_edition, :c1_test, :c2_test, :c3_test, :c4_test, measure_ids: [])
   end
 
   def edit_product_params
-    params[:product][:name].strip! if params[:product][:name]
+    params[:product][:name]&.strip!
     params.require(:product).permit(:name, :version, :description, :measure_selection, measure_ids: [])
   end
 end

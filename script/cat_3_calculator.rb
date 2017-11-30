@@ -89,8 +89,7 @@ _captured_output = capture_output do
     options = { delete_existing: true,
                 type: nil,
                 update_measures: true,
-                exclude_results: true
-    }
+                exclude_results: true }
     bundle_path = 'bundles/bundle-latest.zip'
     bundle = File.open(bundle_path)
     importer = HealthDataStandards::Import::Bundle::Importer

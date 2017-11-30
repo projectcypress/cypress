@@ -4,12 +4,12 @@ Bundle = HealthDataStandards::CQM::Bundle
 class Bundle
   has_many :products, :dependent => :destroy
 
-  field :deprecated, type: Boolean, default: false
+  field :deprecated, :type => Boolean, :default => false
 
   scope :available, -> { where(:deprecated.ne => true) }
 
   def results
-    HealthDataStandards::CQM::PatientCache.where(bundle_id: id, 'value.test_id' => nil)
+    HealthDataStandards::CQM::PatientCache.where(:bundle_id => id, 'value.test_id' => nil)
                                           .order_by(['value.last', :asc])
   end
 
@@ -26,7 +26,7 @@ class Bundle
 
   def destroy
     results.destroy
-    Product.where(bundle_id: id).destroy_all
+    Product.where(:bundle_id => id).destroy_all
     FileUtils.rm(mpl_path) if File.exist?(mpl_path)
     delete
   end
@@ -58,13 +58,13 @@ class Bundle
   end
 
   def mpl_path
-    File.join(Rails.root, 'tmp', 'cache', "bundle_#{id}_mpl.zip")
+    Rails.root.join('tmp', 'cache', "bundle_#{id}_mpl.zip")
   end
 
   def mpl_status
     if File.exist?(mpl_path)
       :ready
-    elsif MplDownloadCreateJob.trackers.where(options: { bundle_id: id.to_s }, :status.in => [:queued, :working]).count > 0
+    elsif MplDownloadCreateJob.trackers.where(:options => { :bundle_id => id.to_s }, :status.in => %i[queued working]).count > 0
       :building
     else
       :unbuilt
@@ -95,13 +95,13 @@ class Bundle
   end
 
   def self.default
-    find_by(active: true)
+    find_by(:active => true)
   rescue
     most_recent
   end
 
   def self.most_recent
-    where(version: pluck(:version).max_by { |v| v.split('.').map(&:to_i) }).first
+    where(:version => pluck(:version).max_by { |v| v.split('.').map(&:to_i) }).first
   end
 
   def self.first

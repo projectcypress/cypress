@@ -13,7 +13,7 @@ And(/^the user has created a vendor with a product selecting C4 testing$/) do
   @product = @vendor.products.create!(name: 'test_product_name', c1_test: true, c4_test: true, measure_ids: measure_ids, bundle_id: bundle_id)
   @m_test = @product.product_tests.create!({ name: 'Measure Test 1', cms_id: 'CMS31v3', measure_ids: measure_ids }, MeasureTest)
 
-  criteria = %w(races ethnicities)
+  criteria = %w[races ethnicities]
   options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
   @f_test_1 = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
                                 measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'])
@@ -23,7 +23,7 @@ And(/^the user has created a vendor with a product selecting C4 testing$/) do
   @f_test_1.pick_filter_criteria
   @f_test_1.calculate
 
-  criteria = %w(genders age)
+  criteria = %w[genders age]
   options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
   @f_test_2 = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
                                 measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'])

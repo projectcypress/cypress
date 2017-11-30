@@ -4,8 +4,7 @@ module Validators
 
     self.validator = :measure_period
 
-    def initialize
-    end
+    def initialize; end
 
     def validate(file, options = {})
       @document = get_document(file)

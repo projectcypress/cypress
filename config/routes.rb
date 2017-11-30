@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :vendors do
     post :favorite
-    resources :products, only: [:show, :index, :new, :create, :edit, :update, :destroy, :favorite] do
+    resources :products, only: %i[show index new create edit update destroy favorite] do
       post :favorite
       member do
         get :patients
@@ -16,10 +16,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :products, only: [:show, :edit, :update, :destroy, :favorite] do
+  resources :products, only: %i[show edit update destroy favorite] do
     post :favorite
-    resources :product_tests, only: [:index, :show]
-    resources :checklist_tests, only: [:create, :show, :update, :destroy] do
+    resources :product_tests, only: %i[index show]
+    resources :checklist_tests, only: %i[create show update destroy] do
       member do
         get :print_criteria
       end
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :checklist_tests, only: [:create, :show, :update, :destroy] do
+  resources :checklist_tests, only: %i[create show update destroy] do
     member do
       get 'measure/:measure_id', action: 'measure', as: 'measure'
     end
@@ -40,8 +40,8 @@ Rails.application.routes.draw do
       get :patients
       get :html_patients
     end
-    resources :tasks, only: [:index, :show]
-    resources :records, only: [:index] do
+    resources :tasks, only: %i[index show]
+    resources :records, only: %i[index show] do
       collection do
         resources :tasks, :controller => :records, :only => [:by_filter_task] do
           get :by_filter_task
@@ -54,17 +54,17 @@ Rails.application.routes.draw do
     member do
       get :good_results
     end
-    resources :test_executions, only: [:index, :show, :new, :create, :destroy]
+    resources :test_executions, only: %i[index show new create destroy]
   end
 
-  resources :test_executions, only: [:show, :destroy] do
+  resources :test_executions, only: %i[show destroy] do
     member do
       get 'file_result/:file_name', action: 'file_result', as: 'file_result'
     end
   end
 
-  resources :bundles, only: [:index, :show] do
-    resources :records, only: [:index, :show] do
+  resources :bundles, only: %i[index show] do
+    resources :records, only: %i[index show] do
       collection do
         get :by_measure
       end
@@ -77,7 +77,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :records, only: [:index, :show] do
+  resources :records, only: %i[index show] do
     collection do
       get :download_mpl
     end
@@ -86,7 +86,7 @@ Rails.application.routes.draw do
   resource :admin, only: [:show], controller: 'admin'
 
   namespace 'admin' do
-    resource :settings, only: [:show, :edit, :update]
+    resource :settings, only: %i[show edit update]
     get 'users/send_invitation'
     get :download_logs
     resources :users, except: [:new, :create] do

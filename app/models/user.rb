@@ -100,7 +100,7 @@ class User
 
   def assign_default_role
     dr = Settings.current.default_role
-    add_role dr unless dr.nil? || dr.empty?
+    add_role dr if dr.present?
   end
 
   def user_role?(*args)

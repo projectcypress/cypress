@@ -13,7 +13,7 @@ class QrdaCat3ValidatorTest < ActiveSupport::TestCase
   end
 
   def test_validate_good_file
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_good.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'ep_test_qrda_cat3_good.xml')).read
 
     @validator_with_c3.validate(file)
     assert_empty @validator_with_c3.errors

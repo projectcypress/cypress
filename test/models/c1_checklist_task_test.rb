@@ -27,7 +27,7 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
 
   def test_task_good_results_should_pass
     task = @checklist_test.tasks[0]
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_checklist_correct_codes.zip'))
+    zip = File.new(Rails.root.join('test/fixtures/product_tests/c1_checklist_correct_codes.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, User.first)
       te.reload
@@ -39,7 +39,7 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
 
   def test_task_bad_results_should_fail
     task = @checklist_test.tasks[0]
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_checklist_incorrect_codes.zip'))
+    zip = File.new(Rails.root.join('test/fixtures/product_tests/c1_checklist_incorrect_codes.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, User.first)
       te.reload
@@ -51,7 +51,7 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
   def test_execute_should_not_execute_a_sibling_execution_on_c3_checklist_task_if_c3_not_selected
     Task.destroy_all
     task = @checklist_test.tasks.create!({}, C1ChecklistTask)
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_checklist_correct_codes.zip'))
+    zip = File.new(Rails.root.join('test/fixtures/product_tests/c1_checklist_correct_codes.zip'))
     perform_enqueued_jobs do
       execution = task.execute(zip, User.first)
       assert execution
@@ -71,7 +71,7 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
 
     task = @checklist_test.tasks.create!({}, C1ChecklistTask)
     @checklist_test.tasks.create!({}, C3ChecklistTask)
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_checklist_correct_codes.zip'))
+    zip = File.new(Rails.root.join('test/fixtures/product_tests/c1_checklist_correct_codes.zip'))
     perform_enqueued_jobs do
       execution = task.execute(zip, User.first)
       assert execution

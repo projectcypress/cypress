@@ -41,12 +41,14 @@ class RecordTest < ActiveSupport::TestCase
     r1 = Record.new(
       first: 'Robert', last: 'Johnson', gender: 'M', birthdate: '477542400',
       race: APP_CONSTANTS['randomization']['races'].sample(random: prng1),
-      ethnicity: APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng1))
+      ethnicity: APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng1)
+    )
 
     r2 = Record.new(
       first: 'Robert', last: 'Johnson', gender: 'M', birthdate: '477542400',
       race: APP_CONSTANTS['randomization']['races'].sample(random: prng2),
-      ethnicity: APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng2))
+      ethnicity: APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng2)
+    )
 
     assert(record_demographics_equal?(r1, r2), 'The two records should be equal')
     r1copy_set = r1.duplicate_randomization(random: prng1)

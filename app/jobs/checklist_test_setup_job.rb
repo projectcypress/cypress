@@ -1,4 +1,4 @@
-class ChecklistTestSetupJob < ActiveJob::Base
+class ChecklistTestSetupJob < ApplicationJob
   queue_as :product_test_setup
   include Job::Status
   def perform(checklist_test)

@@ -26,12 +26,12 @@ class Record
 
   def age_at(date)
     dob = Time.at(birthdate).in_time_zone
-    date.year - dob.year - ((date.month > dob.month || (date.month == dob.month && date.day >= dob.day)) ? 0 : 1)
+    date.year - dob.year - (date.month > dob.month || (date.month == dob.month && date.day >= dob.day) ? 0 : 1)
   end
 
   def original_record
     if self['original_medical_record_number']
-      return bundle.records.where('medical_record_number' => self['original_medical_record_number']).first
+      bundle.records.where('medical_record_number' => self['original_medical_record_number']).first
     end
   end
 
@@ -74,7 +74,8 @@ class Record
         when 0 then { day: 1, month: 1 }
         when 1 then { day: random.rand(28) + 1 }
         when 2 then { month: random.rand(12) + 1 }
-        end).strftime('%s').to_i
+        end
+      ).strftime('%s').to_i
       changed[:birthdate] = [birthdate, rec.birthdate]
     end
     [rec, changed]
@@ -86,7 +87,7 @@ class Record
     when 1 then rec.first = replace_random_char(rec.first.clone, random: random) # insert incorrect letter
     when 2 # nickname
       nicknames = NAMES_RANDOM['nicknames'][rec.gender][rec.first]
-      rec.first = (nicknames.nil? || nicknames.empty?) ? rec.first[0] : nicknames.sample(random: random)
+      rec.first = nicknames.blank? ? rec.first[0] : nicknames.sample(random: random)
     end
     rec
   end
@@ -110,7 +111,7 @@ class Record
   def randomize_demographics(rec, changed, random: Random.new)
     case random.rand(3) # now, randomize demographics
     when 0 # gender
-      rec.gender = %w(M F).sample(random: random)
+      rec.gender = %w[M F].sample(random: random)
       changed[:gender] = [gender, rec.gender]
     when 1 # race
       rec.race = APP_CONSTANTS['randomization']['races'].sample(random: random)

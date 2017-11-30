@@ -6,8 +6,7 @@ module Validators
 
     PROVIDER_TYPE_SELECTOR = '/cda:ClinicalDocument/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:code/@code'.freeze
 
-    def initialize
-    end
+    def initialize; end
 
     def validate(file, options = {})
       @document = get_document(file)

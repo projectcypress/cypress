@@ -86,20 +86,20 @@ end
 
 # should create a test that includes codes for all checked criteria and produces no test execution errors
 When(/^the user uploads a Cat I file and waits for results$/) do
-  upload_and_submit(File.join(Rails.root, 'test/fixtures/product_tests/test_record_sample_upload_mr_testy.zip'))
+  upload_and_submit(Rails.root.join('test/fixtures/product_tests/test_record_sample_upload_mr_testy.zip'))
   wait_for_all_delayed_jobs_to_run
 end
 
 # should create a test that does not include codes for all checked criteria and produces test execution errors
 When(/^the user uploads a bad Cat I file and waits for results$/) do
-  upload_and_submit(File.join(Rails.root, 'test/fixtures/product_tests/c1_checklist_incorrect_codes.zip'))
+  upload_and_submit(Rails.root.join('test/fixtures/product_tests/c1_checklist_incorrect_codes.zip'))
   wait_for_all_delayed_jobs_to_run
 end
 
 # should create a test that includes codes for all checked criteria but produces test execution errors
 # input should be either 'c1' or 'c3'
 When(/^the user uploads a Cat I file that produces a qrda error on (.*) task's execution and waits for results$/) do |certification_type|
-  upload_and_submit(File.join(Rails.root, 'test/fixtures/product_tests/test_record_sample_upload_mr_testy.zip'))
+  upload_and_submit(Rails.root.join('test/fixtures/product_tests/test_record_sample_upload_mr_testy.zip'))
   execution = @test.tasks.c1_checklist_task.most_recent_execution if certification_type == 'c1'
   execution = @test.tasks.c3_checklist_task.most_recent_execution if certification_type == 'c3'
   execution.execution_errors.create!(message: "my execution error #{rand}", msg_type: 'error')
@@ -117,7 +117,7 @@ When(/^the user visits the individual measure checklist page for measure (.*)$/)
 end
 
 def nth_measure(measure_number)
-  @test.measures.sort { |x, y| x.created_at <=> y.created_at }[measure_number.to_i - 1]
+  @test.measures.sort_by(&:created_at)[measure_number.to_i - 1]
 end
 
 # # # # # # # #
@@ -165,7 +165,7 @@ Then(/^the user should see upload results for (.*) certifications$/) do |certifi
   end
 
   # make sure certification types that should not be there are not there
-  (%w(C1 C3) - certification_types).each do |cert_type|
+  (%w[C1 C3] - certification_types).each do |cert_type|
     assert page.find('#display_checklist_execution_results').assert_no_text "#{cert_type} Upload Results"
   end
 end

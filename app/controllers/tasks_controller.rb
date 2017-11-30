@@ -1,8 +1,8 @@
 class TasksController < ApplicationController
   include API::Controller
 
-  before_action :set_task, only: [:edit, :update, :destroy, :show, :good_results]
-  before_action :set_product_test, only: [:index, :new]
+  before_action :set_task, only: %i[edit update destroy show good_results]
+  before_action :set_product_test, only: %i[index new]
   before_action :authorize_vendor
 
   respond_to :html, only: []
@@ -18,7 +18,7 @@ class TasksController < ApplicationController
 
   def index
     # only get C1, C2, and C4 tasks (no C3)
-    @tasks = @product_test.tasks.any_in(_type: %w(C1Task C2Task Cat1FilterTask Cat3FilterTask))
+    @tasks = @product_test.tasks.any_in(_type: %w[C1Task C2Task Cat1FilterTask Cat3FilterTask])
     respond_with(@tasks.to_a)
   end
 
@@ -29,11 +29,11 @@ class TasksController < ApplicationController
   def good_results
     redirect_to(:back) && return unless Settings.current.enable_debug_features
     task_type = @task._type
-    redirect_to(:back) && return if %w(C3Cat1Task C3Cat3Task).include? task_type
+    redirect_to(:back) && return if %w[C3Cat1Task C3Cat3Task].include? task_type
 
-    file_type = if %w(C1Task Cat1FilterTask).include? task_type
+    file_type = if %w[C1Task Cat1FilterTask].include? task_type
                   'zip'
-                elsif %w(C2Task Cat3FilterTask).include? task_type
+                elsif %w[C2Task Cat3FilterTask].include? task_type
                   'xml'
                 end
 

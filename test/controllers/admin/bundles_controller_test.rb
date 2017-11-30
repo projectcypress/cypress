@@ -34,7 +34,7 @@ class Admin::BundlesControllerTest < ActionController::TestCase
 
       upload = Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/bundles/minimal_bundle.zip'), 'application/zip')
       perform_enqueued_jobs do
-        post :create, file: upload
+        post :create, params: { file: upload }
         assert_performed_jobs 2
         assert_equal orig_bundle_count + 1, Bundle.count, 'Should have added 1 new Bundle'
         assert orig_measure_count < Measure.count, 'Should have added new measures in the bundle'
@@ -46,7 +46,7 @@ class Admin::BundlesControllerTest < ActionController::TestCase
   test 'should deny access to import for non admin users ' do
     for_each_logged_in_user([USER, OWNER, VENDOR]) do
       upload = Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/bundles/minimal_bundle.zip'), 'application/zip')
-      post :create, file: upload
+      post :create, params: { file: upload }
       assert_response 401
     end
   end
@@ -58,7 +58,7 @@ class Admin::BundlesControllerTest < ActionController::TestCase
       upload = Rack::Test::UploadedFile.new(Rails.root.join('test/fixtures/artifacts/qrda.zip'), 'application/zip')
       assert_equal 0, BundleUploadJob.trackers.count, 'should be 0 trackers in db'
       perform_enqueued_jobs do
-        post :create, file: upload
+        post :create, params: { file: upload }
         assert_performed_jobs 1
         assert_equal 1, BundleUploadJob.trackers.count, 'should be 1 tracker in db'
         assert_equal :failed, BundleUploadJob.trackers.first.status, 'Status of tracker should be failed '
@@ -74,7 +74,7 @@ class Admin::BundlesControllerTest < ActionController::TestCase
       active_bundle = Bundle.default
       inactive_bundle = Bundle.where('$or' => [{ 'active' => false }, { :active.exists => false }]).sample
 
-      post :set_default, id: inactive_bundle._id
+      post :set_default, params: { id: inactive_bundle._id }
 
       active_bundle.reload
       inactive_bundle.reload
@@ -89,7 +89,7 @@ class Admin::BundlesControllerTest < ActionController::TestCase
       flunk 'Should have at least 2 test bundles' if Bundle.count < 2
       inactive_bundle = Bundle.where('$or' => [{ 'active' => false }, { :active.exists => false }]).sample
 
-      post :set_default, id: inactive_bundle._id
+      post :set_default, params: { id: inactive_bundle._id }
       assert_response 401
     end
   end
@@ -101,7 +101,7 @@ class Admin::BundlesControllerTest < ActionController::TestCase
       orig_record_count = Record.count
       id = '4fdb62e01d41c820f6000001'
 
-      delete :destroy, id: id
+      delete :destroy, params: { id: id }
 
       assert_equal 0, Bundle.where(_id: id).count, 'Should have deleted bundle'
       assert_equal orig_bundle_count - 1, Bundle.count, 'Should have deleted Bundle'
@@ -113,7 +113,7 @@ class Admin::BundlesControllerTest < ActionController::TestCase
   test 'should not allow non admins to remove bundle' do
     for_each_logged_in_user([USER, OWNER, VENDOR]) do
       id = Bundle.default._id
-      delete :destroy, id: id
+      delete :destroy, params: { id: id }
       assert_response 401
     end
   end
@@ -125,7 +125,7 @@ class Admin::BundlesControllerTest < ActionController::TestCase
       orig_record_count = Record.count
       id = '4fdb62e01d41c820f6000001'
 
-      post :deprecate, id: id
+      post :deprecate, params: { id: id }
 
       assert_equal 0, Bundle.available.where(_id: id).count, 'Should have deprecated bundle'
       assert_equal orig_bundle_count - 1, Bundle.available.count, 'Should have deprecated Bundle'
@@ -137,7 +137,7 @@ class Admin::BundlesControllerTest < ActionController::TestCase
   test 'should not allow non admins to deprecate bundle' do
     for_each_logged_in_user([USER, OWNER, VENDOR]) do
       id = Bundle.default._id
-      delete :deprecate, id: id
+      delete :deprecate, params: { id: id }
       assert_response 401
     end
   end

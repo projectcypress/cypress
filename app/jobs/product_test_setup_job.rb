@@ -1,4 +1,4 @@
-class ProductTestSetupJob < ActiveJob::Base
+class ProductTestSetupJob < ApplicationJob
   queue_as :product_test_setup
   include Job::Status
   def perform(product_test)

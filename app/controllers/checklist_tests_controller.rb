@@ -74,13 +74,13 @@ class ChecklistTestsController < ProductTestsController
   end
 
   def checklist_test_params
-    params[:product_test].permit(checked_criteria_attributes: [:id,
-                                                               :_destroy,
-                                                               :code,
-                                                               :attribute_code,
-                                                               :recorded_result,
-                                                               :negated_valueset,
-                                                               :selected_negated_valueset,
-                                                               :replacement_data_criteria])
+    params[:product_test].permit(checked_criteria_attributes: %i[id
+                                                                 _destroy
+                                                                 code
+                                                                 attribute_code
+                                                                 recorded_result
+                                                                 negated_valueset
+                                                                 selected_negated_valueset
+                                                                 replacement_data_criteria])
   end
 end
