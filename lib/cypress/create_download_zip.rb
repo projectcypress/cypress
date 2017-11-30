@@ -33,6 +33,7 @@ module Cypress
         add_measure_zips(z, product.product_tests.measure_tests, format)
         add_checklist_zips(z, product.product_tests.checklist_tests, criteria_list)
         add_filtering_zips(z, product.product_tests.filtering_tests, format, filtering_list) unless product.product_tests.filtering_tests.empty?
+        add_html_files(z, product.product_tests, format) unless (product.cert_edition == "2015" && product.c2_test)
       end
       file
     end
@@ -143,6 +144,12 @@ module Cypress
       pt = filtering_tests.first
       add_file_to_zip(z, "filteringtest_#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_'), pt.patient_archive.read)
       add_file_to_zip(z, 'filtering_criteria.html', filtering_list)
+    end
+
+    def self.add_html_files(z, tests, format)
+      tests.each do |pt|
+        add_file_to_zip(z, "htmlpatients_#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_'), pt.html_archive.read) unless pt[:html_archive].nil?
+      end
     end
   end
 end
