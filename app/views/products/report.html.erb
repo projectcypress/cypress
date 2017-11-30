@@ -13,6 +13,8 @@
     <dd><%= @product.name %></dd>
     <dt>Bundle</dt>
     <dd><%= "#{@bundle.title} v#{@bundle.version}" %></dd>
+    <dt>Certification Edition</dt>
+    <dd><%= @product.cert_edition %></dd>
     <dt>Cypress Version</dt>
     <dd><%= Cypress::Application::VERSION %></dd>
   </dl>
