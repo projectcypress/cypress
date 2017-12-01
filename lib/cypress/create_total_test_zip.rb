@@ -1,6 +1,5 @@
 module Cypress
   class CreateTotalTestZip
-
     def self.create_total_test_zip(product, criteria_list, filtering_list, format = 'qrda')
       file = Tempfile.new("all-patients-#{Time.now.to_i}")
       Zip::ZipOutputStream.open(file.path) do |z|
@@ -34,7 +33,8 @@ module Cypress
 
     def self.add_html_files(z, tests, format)
       tests.each do |pt|
-        CreateDownloadZip.add_file_to_zip(z, "htmlpatients_#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_'), pt.html_archive.read) unless pt[:html_archive].nil?
+        CreateDownloadZip.add_file_to_zip(z, "htmlpatients_#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_'),
+                                          pt.html_archive.read) unless pt[:html_archive].nil?
       end
     end
   end
