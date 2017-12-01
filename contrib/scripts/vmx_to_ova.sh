@@ -22,7 +22,7 @@ fi
 
 for vmx in "output-${PACKER_BUILD_NAME}"/*.vmx; do
   name=$(basename "${vmx}" .vmx).ova
-  ovftool --compress=9 -o "${vmx}" "output-${PACKER_BUILD_NAME}/${name}"
+  ovftool --shaAlgorithm=sha1 --compress=9 -o "${vmx}" "output-${PACKER_BUILD_NAME}/${name}"
 done
 
 # Cleanup all files that are not the ova
