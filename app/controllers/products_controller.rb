@@ -88,7 +88,7 @@ class ProductsController < ApplicationController
     filt_exists = !@product.product_tests.filtering_tests.empty?
     criteria_list = crit_exists ? render_to_string(file: 'checklist_tests/print_criteria.html.erb', layout: 'report') : nil
     filtering_list = filt_exists ? render_to_string(file: 'checklist_tests/print_filtering.html.erb', layout: 'report') : nil
-    file = Cypress::CreateDownloadZip.create_total_test_zip(@product, criteria_list, filtering_list, 'qrda')
+    file = Cypress::CreateTotalTestZip.create_total_test_zip(@product, criteria_list, filtering_list, 'qrda')
     send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "#{@product.name}_#{@product.id}.zip".tr(' ', '_')
   end
 
