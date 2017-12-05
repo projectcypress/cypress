@@ -27,7 +27,7 @@
         <% end %>
         <%= ': ' %>
       <% end %>
-      <%= "#{test.cms_id} #{test.name}" %>
+      <%= "#{test.cms_id} #{test.name}" unless task.product_test.is_a?(ChecklistTest) %>
     </strong>
     <ul>
       <% execution = c3 ? task.most_recent_execution.sibling_execution : task.most_recent_execution %>
