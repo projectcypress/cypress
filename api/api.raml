@@ -4,7 +4,7 @@ version: v1
 baseUri: https://{domain}
 securitySchemes:
   - basic:
-      description: This API supports Basic Authentication.\n
+      description: This API supports Basic Authentication.
       type: Basic Authentication
 securedBy:
   - basic
@@ -182,7 +182,7 @@ baseUriParameters:
     body:
       multipart/form-data:
         formParameters:
-          file:
+          results:
             description: Artifact to be tested
             required: true
             type: file
@@ -241,4 +241,4 @@ baseUriParameters:
           200:
             body:
                application/json:
-                schema: !include schema/json/measures.json                
+                schema: !include schema/json/measures.json
