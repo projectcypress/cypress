@@ -121,6 +121,18 @@ class Product
     super
   end
 
+  def slim_test_deck?
+    cert_edition == '2014' || !c2_test
+  end
+
+  def test_deck_max
+    if slim_test_deck?
+      5
+    else
+      50
+    end
+  end
+
   # - - - - - - - - - #
   #   P R I V A T E   #
   # - - - - - - - - - #
