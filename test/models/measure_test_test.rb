@@ -76,6 +76,29 @@ class MeasureTestTest < ActiveJob::TestCase
     end
   end
 
+  def test_create_task_2014_edition
+    product = @vendor.products.create(name: 'test_product', c1_test: true, randomize_records: true, cert_edition: '2014',
+                                      bundle_id: '4fdb62e01d41c820f6000001', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'])
+    pt = product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'],
+                                       bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
+    pt.create_tasks
+    assert pt.tasks.c1_task, 'product test should have a c1_task'
+    assert_equal false, pt.tasks.cat1_filter_task, 'product test for 2014 certification should not have a C4 task'
+    assert_equal false, pt.tasks.cat3_filter_task, 'product test for 2014 certification should not have a C4 task'
+
+    perform_enqueued_jobs do
+      assert pt.save, 'should be able to save valid product test'
+      assert_performed_jobs 1
+      assert pt.records.count > 0, 'product test creation should have created random number of test records'
+      pt.reload
+      assert_not_nil pt.patient_archive, 'Product test should have archived patient records'
+      assert_not_nil pt.html_archive, 'Product test should have archived patient HTMLs'
+      assert pt.records.count < count_zip_entries(pt.patient_archive.file.path), 'Archive should contain more files than the test'
+      assert count_zip_entries(pt.html_archive.file.path) == count_zip_entries(pt.patient_archive.file.path), 'QRDA Archive and HTML archive should have same # files'
+      assert_not_nil pt.expected_results, 'Product test should have expected results'
+    end
+  end
+
   def test_create_task_c2
     @product.c2_test = true
     pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'] }, MeasureTest)

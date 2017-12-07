@@ -78,7 +78,12 @@ class ProductTest
 
   def generate_records(job_id = nil)
     if product.randomize_records
-      random_ids = bundle.records.where(test_id: nil).pluck('medical_record_number').uniq
+      # If we're using a "slim test deck", don't pass in any random IDs
+      if product.slim_test_deck?
+        random_ids = []
+      else
+        random_ids = bundle.records.where(test_id: nil).pluck('medical_record_number').uniq
+      end
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'randomization_ids' => random_ids,
                                       'randomize_demographics' => true, 'generate_provider' => product.c4_test, 'job_id' => job_id).perform
     else
@@ -211,8 +216,8 @@ class ProductTest
       ipp_ids = (mpl_ids - denom_ids - msrpopl_ids)
 
       # Pick some IDs from the IPP. If we've already got a lot of patients, only pick a couple more, otherwise pick 1/2 or more
-      ipp_ids = if (mpl_ids.count + denom_ids.count + msrpopl_ids.count) > 50
-                  ipp_ids.sample(10)
+      ipp_ids = if (mpl_ids.count + denom_ids.count + msrpopl_ids.count) > product.test_deck_max
+                  ipp_ids.sample(product.test_deck_max / 2)
                 else
                   ipp_ids.sample(rand((ipp_ids.count / 2.0).ceil..(ipp_ids.count)))
                 end
@@ -222,6 +227,11 @@ class ProductTest
   end
 
   def pick_denom_ids
+    numer_id = PatientCache.where('value.measure_id' => { '$in' => measure_ids },
+                                   'value.test_id' => nil, 'value.NUMER' => { '$gt' => 0 }).collect do |pcv|
+      pcv.value['medical_record_id']
+    end.sample
+    
     denom_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids },
                                    'value.test_id' => nil, 'value.DENOM' => { '$gt' => 0 }).collect do |pcv|
       pcv.value['medical_record_id']
@@ -230,8 +240,11 @@ class ProductTest
     denom_ids.keep_if { |id| ApplicationController.helpers.mpl_id?(id) }
 
     # If there are a lot of patients in denom_ids (usually when the IPP and denominator are the same thing),
-    # pull out the numerator/Denex/Denexcep patients as high value, then sample from the rest to get to 60
-    if denom_ids.count > 50
+    # pull out the numerator/Denex/Denexcep patients as high value, then sample from the rest to get to test_deck_max
+    # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product, 
+    # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
+    # also, numer_id ensures we get at least one patient who is in the Numerator
+    if denom_ids.count > (product.test_deck_max - 1)
       numer_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.test_id' => nil)
                               .any_of({ 'value.NUMER' => { '$gt' => 0 } },
                                       { 'value.DENEXCEP' => { '$gt' => 0 } },
@@ -240,10 +253,10 @@ class ProductTest
       end
       numer_ids.uniq!
       numer_ids.keep_if { |id| ApplicationController.helpers.mpl_id?(id) }
-      numer_ids = numer_ids.sample(50)
-      denom_ids = numer_ids + denom_ids.sample(50 - numer_ids.count)
+      numer_ids = numer_ids.sample(product.test_deck_max - 1)
+      denom_ids = numer_ids + denom_ids.sample(product.test_deck_max - numer_ids.count - 1)
     end
-    denom_ids
+    denom_ids << numer_id
   end
 
   def pick_msrpopl_ids
@@ -257,7 +270,9 @@ class ProductTest
     # If there are a lot of patients in the MSRPOPL results above, (usually if there are a lot of MSRPOPLEX values)
     # pull out only those patients with more than one episode in the MSRPOPL
     # and those patients with only 1 episode in the MSRPOPL but none in the MSRPOPLEX
-    if msrpopl_ids.count > 50
+    # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product, 
+    # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
+    if msrpopl_ids.count > product.test_deck_max
       numer_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.test_id' => nil)
                               .any_of({ 'value.MSRPOPL' => { '$gt' => 1 } },
                                       '$and' => [{ 'value.MSRPOPL' => { '$eq' => 1 } }, { 'value.MSRPOPLEX' => { '$eq' => 0 } }])
@@ -266,8 +281,8 @@ class ProductTest
       end
       numer_ids.uniq!
       numer_ids.keep_if { |id| ApplicationController.helpers.mpl_id?(id) }
-      numer_ids = numer_ids.sample(50)
-      msrpopl_ids = numer_ids + msrpopl_ids.sample(50 - numer_ids.count)
+      numer_ids = numer_ids.sample(product.test_deck_max)
+      msrpopl_ids = numer_ids + msrpopl_ids.sample(product.test_deck_max - numer_ids.count)
     end
     msrpopl_ids
   end
