@@ -89,7 +89,8 @@ class MeasureTestTest < ActiveJob::TestCase
     perform_enqueued_jobs do
       assert pt.save, 'should be able to save valid product test'
       assert_performed_jobs 1
-      assert pt.records.count > 0, 'product test creation should have created random number of test records'
+      assert pt.records.count.positive?, 'product test creation should have created random number of test records'
+      assert pt.records.count < 10, 'product tests for 2014 editions should have fewer than 10 records'
       pt.reload
       assert_not_nil pt.patient_archive, 'Product test should have archived patient records'
       assert_not_nil pt.html_archive, 'Product test should have archived patient HTMLs'
