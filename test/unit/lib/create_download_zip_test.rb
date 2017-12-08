@@ -2,20 +2,17 @@ require 'test_helper'
 require 'fileutils'
 
 class CreateDownloadZipTest < ActiveSupport::TestCase
-
   setup do
     collection_fixtures('records', 'bundles', 'vendors', 'products', 'product_tests', 'tasks', 'test_executions')
-
   end
 
   test 'Should create appropriate html' do
-
-    product2014 = Product.where('cert_edition'=>'2014').first
-    product2015C1 = Product.where('cert_edition'=>'2015', 'c2_test'=>false).first
-    product2015C2 = Product.where('cert_edition'=>'2015', 'c2_test'=>true).first
+    product_2014 = Product.where('cert_edition' => '2014').first
+    product_2015_c1 = Product.where('cert_edition' => '2015', 'c2_test' => false).first
+    product_2015_c2 = Product.where('cert_edition' => '2015', 'c2_test' => true).first
     # byebug
 
-    [product2014, product2015C1, product2015C2].each do |product|
+    [product_2014, product_2015_c1, product_2015_c2].each do |product|
       # next if(!product)
       # product_test = product.product_tests.build({ name: "mtest #{rand}", measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'] }, MeasureTest)
 
@@ -27,7 +24,7 @@ class CreateDownloadZipTest < ActiveSupport::TestCase
       file = Cypress::CreateTotalTestZip.create_total_test_zip(product, nil, nil, 'qrda')
 
       Zip::File.open(file) do |zip_file|
-        if (product.cert_edition == '2015' && product.c2_test)
+        if product.cert_edition == '2015' && product.c2_test
           assert_empty zip_file.glob('*.html.zip')
         else
           assert_not_empty zip_file.glob('*.html.zip')
@@ -35,5 +32,4 @@ class CreateDownloadZipTest < ActiveSupport::TestCase
       end
     end
   end
-
 end
