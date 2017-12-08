@@ -126,11 +126,8 @@ class Product
   end
 
   def test_deck_max
-    if slim_test_deck?
-      5
-    else
-      50
-    end
+    return 5 if slim_test_deck?
+    50
   end
 
   # - - - - - - - - - #
