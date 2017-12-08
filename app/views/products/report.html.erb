@@ -61,7 +61,7 @@
   <% if @product.c1_test %>
     <h2>C1 Record Sample</h2>
     <% unless @product.product_tests.checklist_tests.count == 0 %>
-      <%= render 'checklist_status_display', :product => @product %>
+      <%= render 'checklist_status_display', :product => @product, :is_report => true%>
     <% else %>
       <p><%= render partial: 'products/report/status_icon', locals: { passing: false } %> Record Sample has not been started.</p>
     <% end %>
