@@ -3,6 +3,8 @@ class Product
   include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps
 
+  before_save :enforce_cert_edition_settings
+
   scope :by_updated_at, -> { order(:updated_at => :desc) }
   scope :ordered_for_vendors, -> { by_updated_at.order_by(state: 'desc') }
 
@@ -147,6 +149,18 @@ class Product
     criteria = ApplicationController.helpers.measure_has_diagnosis_criteria?(measure) ? ['problems'] : criteria.values_at(4, (0..3).to_a.sample)
     filter_tests << build_filtering_test(measure, criteria)
     ApplicationController.helpers.generate_filter_records(filter_tests)
+  end
+
+  # When the 2014 certification edition is enabled, duplicate_records is always disabled.
+  # Since the default for duplicate_records is true, we override it here. We also make sure
+  # that c4_test is not somehow set to true.
+  def enforce_cert_edition_settings
+    if cert_edition.eql? '2014'
+      self.duplicate_records = false
+      self.c4_test = false
+    end
+
+    true
   end
 
   def build_filtering_test(measure, criteria, display_name = '', incl_addr = true)

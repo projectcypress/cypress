@@ -127,7 +127,6 @@ function UpdateMeasureSet(bundle_id) {
 // as the second parameter. True means disabled and false means enabled.
 function setCheckboxDisabled(element, state) {
   $(element).prop("disabled", state);
-
   if (state) {
     $(element).parent().addClass('disabled');
     $(element).prop("checked", false);
@@ -269,6 +268,7 @@ ready_run_once = function() {
       }
       else if (edition == '2015') {
         setCheckboxDisabled('#product_duplicate_records', false);
+        $('#product_duplicate_records').prop("checked", true);
         setCheckboxDisabled('#product_c4_test', false);
       }
     }

@@ -19,7 +19,7 @@ class ProducTest < ActiveSupport::TestCase
     drop_database
   end
 
-  def test_create
+  def test_create_2015_certification
     pt = Product.new(vendor: @vendor, name: 'test_product', c1_test: true, measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'], bundle_id: '4fdb62e01d41c820f6000001')
     pt.product_tests.build(name: 'test_product_test_name',
                            measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'],
@@ -29,14 +29,16 @@ class ProducTest < ActiveSupport::TestCase
     assert_equal pt.cert_edition, '2015'
   end
 
-  def test_create_2014ce
-    pt = Product.new(vendor: @vendor, name: 'test_product', cert_edition: '2014', c1_test: true, measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'], bundle_id: '4fdb62e01d41c820f6000001')
+  def test_create_2014_certification
+    pt = Product.new(vendor: @vendor, name: 'test_product', c1_test: true, measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'], bundle_id: '4fdb62e01d41c820f6000001', cert_edition: '2014')
     pt.product_tests.build(name: 'test_product_test_name',
                            measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'],
                            bundle_id: '4fdb62e01d41c820f6000001').save!
     assert pt.valid?, 'record should be valid'
     assert pt.save, 'Should be able to create and save a 2014 cert edition Product'
     assert_equal pt.cert_edition, '2014'
+    assert_equal pt.randomize_records, true
+    assert_equal pt.duplicate_records, false
   end
 
   def test_offset
