@@ -1,3 +1,5 @@
+$background-color: rgba(#000, .00);
+
 @mixin darker-hover($border-color, $name) {
   $darker-border-color: darken($border-color, 15%);
   border-color: darken($border-color, 5%);
@@ -68,4 +70,9 @@
 .download-btn {
   padding: 6px 12px;
   display: inline-block;
+}
+
+.modal-btn {
+  box-shadow: none;
+  border-color: $background-color;
 }

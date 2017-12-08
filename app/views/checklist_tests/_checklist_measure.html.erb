@@ -11,7 +11,7 @@
 <% if !hide_patient_calculation? %>
   <div id='modify_record'><button class='btn btn-default' type='button' id="modifyrecord">Edit Test</button></div>
 <% end %>
-<% measures.sort_by(&:cms_int).each.with_index do |measure, measure_index| %>
+<% @measures.sort_by(&:cms_int).each do |measure, measure_index| %>
   <div class = 'panel-group' id = '<%= measure.cms_id %>' disabled = true>
     <div class = 'panel panel-default'>
       <div class = 'panel-heading'>
@@ -69,8 +69,7 @@
                             <% if criteria_field.object.negated_valueset %>
                                <%= 'Negate entire Valueset' %>
                             <% else %>
-                              <% modal_index = "#{measure.cms_id}_#{index}" %>
-                              <div type = "button" class ="value-set-group set-menu" data-toggle="modal" data-target="<%= "#lookupModal#{modal_index}" %>">
+                              <div type = "button" class ="value-set-group set-menu" data-toggle="modal" data-target="<%= "#lookupModal#{criteria_field.index}" %>">
                                 <ul class="value-set-list">
                                   <% valuessets.each do |vs| %>
                                   <li class="value-set-item-header"><%= "#{lookup_valueset_name(vs)}" %></li>
@@ -78,8 +77,8 @@
                                   <% end %>
                                 </ul>
                               </div>
-                              <div id="<%= "lookupModal#{modal_index}" %>" class="modal fade" role="dialog">
-                                <%= render 'checklist_modal', :valuessets => valuessets, :product_test => product_test, :index => modal_index, :is_attribute => false %>
+                              <div id="<%= "lookupModal#{criteria_field.index}" %>" class="modal fade" role="dialog">
+                                <%= render partial: 'checklist_modal', locals: { valuessets: valuessets, product_test: product_test, index: criteria_field.index, is_attribute: false } %>
                               </div>
                             <% end %>
                           </td>

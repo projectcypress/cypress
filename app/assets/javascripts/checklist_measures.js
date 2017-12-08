@@ -35,6 +35,25 @@ ready_run_once = function() {
     $('.hide-me').hide();
     $('.show-me').show();
   });
+
+  $(document).on('click', 'button.modal-btn', function(event) {
+    event.preventDefault();
+    var currentTarget = event.currentTarget;
+    var index_value = $(currentTarget).data("index-value");
+    var attribute_value = $(currentTarget).data("attribute-value");
+    var code_string = $(currentTarget).data("code-string");
+    var input_box_type
+    if (attribute_value == false){
+      input_box_type = "code";
+      document.getElementById("product_test_checked_criteria_attributes_" + index_value + "_" + input_box_type).value = code_string;
+      $('#lookupModal' + index_value).modal('hide');
+    }
+    if (attribute_value == true){
+      input_box_type ="attribute_code";
+      document.getElementById("product_test_checked_criteria_attributes_" + index_value + "_" + input_box_type).value = code_string;
+      $('#lookupModal-negation' + index_value).modal('hide') && $('#lookupModal-fieldvalues' + index_value).modal('hide') && $('#lookupModal-result' + index_value).modal('hide');
+    }
+  });
 };
 
 $(document).ready(ready_run_once);

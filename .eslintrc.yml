@@ -56,7 +56,9 @@ rules:
   max-len: 'off'
   max-nested-callbacks: error
   max-params: error
-  max-statements: error
+  max-statements: 
+    - error
+    - 20
   max-statements-per-line: 'off'
   new-parens: error
   newline-after-var: 'off'
