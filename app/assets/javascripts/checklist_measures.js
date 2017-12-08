@@ -51,7 +51,7 @@ ready_run_once = function() {
     if (attribute_value == true){
       input_box_type ="attribute_code";
       document.getElementById("product_test_checked_criteria_attributes_" + index_value + "_" + input_box_type).value = code_string;
-      $('#lookupModal-negation' + index_value).modal('hide');
+      $('#lookupModal-negation' + index_value).modal('hide') && $('#lookupModal-fieldvalues' + index_value).modal('hide') && $('#lookupModal-result' + index_value).modal('hide');
     }
   });
 };
