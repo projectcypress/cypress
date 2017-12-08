@@ -79,11 +79,11 @@ class ProductTest
   def generate_records(job_id = nil)
     if product.randomize_records
       # If we're using a "slim test deck", don't pass in any random IDs
-      if product.slim_test_deck?
-        random_ids = []
-      else
-        random_ids = bundle.records.where(test_id: nil).pluck('medical_record_number').uniq
-      end
+      random_ids = if product.slim_test_deck?
+                     []
+                   else
+                     bundle.records.where(test_id: nil).pluck('medical_record_number').uniq
+                   end
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'randomization_ids' => random_ids,
                                       'randomize_demographics' => true, 'generate_provider' => product.c4_test, 'job_id' => job_id).perform
     else
@@ -201,13 +201,11 @@ class ProductTest
   private
 
   def master_patient_ids
-    mpl_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids },
-                                 'value.test_id' => nil, 'value.IPP' => { '$gt' => 0 }).collect do |pcv|
-      pcv.value['medical_record_id']
-    end
-    mpl_ids.uniq!
+    mpl_ids = get_record_ids(PatientCache.where('value.measure_id' => { '$in' => measure_ids },
+                                                'value.test_id' => nil, 'value.IPP' => { '$gt' => 0 }))
 
-    mpl_ids.keep_if { |id| ApplicationController.helpers.mpl_id?(id) }
+    mpl_ids = uniq_mpl_ids(mpl_ids)
+
     if product.randomize_records
       denom_ids = pick_denom_ids
 
@@ -227,64 +225,64 @@ class ProductTest
   end
 
   def pick_denom_ids
-    numer_id = PatientCache.where('value.measure_id' => { '$in' => measure_ids },
-                                   'value.test_id' => nil, 'value.NUMER' => { '$gt' => 0 }).collect do |pcv|
-      pcv.value['medical_record_id']
-    end.sample
-    
-    denom_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids },
-                                   'value.test_id' => nil, 'value.DENOM' => { '$gt' => 0 }).collect do |pcv|
-      pcv.value['medical_record_id']
-    end
-    denom_ids.uniq!
-    denom_ids.keep_if { |id| ApplicationController.helpers.mpl_id?(id) }
+    # numer_id ensures we get at least one patient who is in the Numerator, no matter what
+    numer_id = get_record_ids(PatientCache.where('value.measure_id' => { '$in' => measure_ids },
+                                                 'value.test_id' => nil, 'value.NUMER' => { '$gt' => 0 })).sample
+
+    denom_ids = get_record_ids(PatientCache.where('value.measure_id' => { '$in' => measure_ids },
+                                                  'value.test_id' => nil, 'value.DENOM' => { '$gt' => 0 }))
+    denom_ids = uniq_mpl_ids(denom_ids)
 
     # If there are a lot of patients in denom_ids (usually when the IPP and denominator are the same thing),
-    # pull out the numerator/Denex/Denexcep patients as high value, then sample from the rest to get to test_deck_max
-    # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product, 
+    # pull out the numerator/Denex/Denexcep patients as high value (this is numer_ids), then sample from the rest to get to test_deck_max
+    # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product,
     # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
-    # also, numer_id ensures we get at least one patient who is in the Numerator
     if denom_ids.count > (product.test_deck_max - 1)
-      numer_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.test_id' => nil)
+      high_value_ids = get_record_ids(PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.test_id' => nil)
                               .any_of({ 'value.NUMER' => { '$gt' => 0 } },
                                       { 'value.DENEXCEP' => { '$gt' => 0 } },
-                                      'value.DENEX' => { '$gt' => 0 }).collect do |pcv|
-        pcv.value['medical_record_id']
-      end
-      numer_ids.uniq!
-      numer_ids.keep_if { |id| ApplicationController.helpers.mpl_id?(id) }
-      numer_ids = numer_ids.sample(product.test_deck_max - 1)
-      denom_ids = numer_ids + denom_ids.sample(product.test_deck_max - numer_ids.count - 1)
+                                      'value.DENEX' => { '$gt' => 0 }))
+      high_value_ids = uniq_mpl_ids(high_value_ids)
+      high_value_ids = high_value_ids.sample(product.test_deck_max - 1)
+      denom_ids = high_value_ids + denom_ids.sample(product.test_deck_max - high_value_ids.count - 1)
     end
-    denom_ids << numer_id
+    (denom_ids << numer_id).uniq
   end
 
   def pick_msrpopl_ids
-    msrpopl_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids },
-                                     'value.test_id' => nil, 'value.MSRPOPL' => { '$gt' => 0 }).collect do |pcv|
-      pcv.value['medical_record_id']
-    end
+    msrpopl_ids = get_record_ids(PatientCache.where('value.measure_id' => { '$in' => measure_ids },
+                                                    'value.test_id' => nil, 'value.MSRPOPL' => { '$gt' => 0 }))
     msrpopl_ids.uniq!
     msrpopl_ids.keep_if { |id| ApplicationController.helpers.mpl_id?(id) }
 
     # If there are a lot of patients in the MSRPOPL results above, (usually if there are a lot of MSRPOPLEX values)
     # pull out only those patients with more than one episode in the MSRPOPL
     # and those patients with only 1 episode in the MSRPOPL but none in the MSRPOPLEX
-    # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product, 
+    # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product,
     # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if msrpopl_ids.count > product.test_deck_max
-      numer_ids = PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.test_id' => nil)
-                              .any_of({ 'value.MSRPOPL' => { '$gt' => 1 } },
-                                      '$and' => [{ 'value.MSRPOPL' => { '$eq' => 1 } }, { 'value.MSRPOPLEX' => { '$eq' => 0 } }])
-                              .collect do |pcv|
-        pcv.value['medical_record_id']
-      end
-      numer_ids.uniq!
-      numer_ids.keep_if { |id| ApplicationController.helpers.mpl_id?(id) }
+      numer_ids = get_record_ids(
+        PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.test_id' => nil)
+                                .any_of({ 'value.MSRPOPL' => { '$gt' => 1 } },
+                                        '$and' => [{ 'value.MSRPOPL' => { '$eq' => 1 } }, { 'value.MSRPOPLEX' => { '$eq' => 0 } }])
+      )
+      numer_ids = uniq_mpl_ids(numer_ids)
       numer_ids = numer_ids.sample(product.test_deck_max)
       msrpopl_ids = numer_ids + msrpopl_ids.sample(product.test_deck_max - numer_ids.count)
     end
     msrpopl_ids
+  end
+
+  def uniq_mpl_ids(ids)
+    ids.uniq!
+    ids.keep_if { |id| ApplicationController.helpers.mpl_id?(id) }
+    ids
+  end
+
+  def get_record_ids(populations)
+    populations.collect do |pcv|
+      pcv.value['medical_record_id']
+    end
   end
 
   def generate_random_seed
