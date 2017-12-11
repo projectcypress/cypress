@@ -30,3 +30,15 @@ Scenario: Successful Upload CAT 3 XML File to Filter Task
   When the user views the CAT 3 test for the first filter task
   And the user uploads a CAT 3 XML file
   Then the user should see test results
+
+Scenario: Successful hide View Expected Result for Filter Task for non admin
+  When the user is not an admin
+  And the user has viewed the CAT 1 test for the first filter task
+  Then the user should not see the View Expected Result option
+
+Scenario: Successful View Expected Result for Filtering Test for admin
+  When the user is changed to an admin
+  And the user has viewed the CAT 1 test for the first filter task
+  And the user views the Expected Result Patient List page
+  Then the user should see a list of expected patients
+  Then the user should see a Total row
