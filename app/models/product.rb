@@ -1,3 +1,5 @@
+# rubocop:disable ClassLength
+
 class Product
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
