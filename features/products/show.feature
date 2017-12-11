@@ -5,43 +5,43 @@ Background:
   And the user has created a vendor with a product
 
 Scenario: Successful Select C1 and View Tabs
-  When a user creates a product with c1 certifications and visits that product page
+  When a user creates a 2015 product with c1 certifications and visits that product page
   Then the user should see the the appropriate tabs
 
 Scenario: Successful Select C2 and View Tabs
-  When a user creates a product with c2 certifications and visits that product page
+  When a user creates a 2015 product with c2 certifications and visits that product page
   Then the user should see the the appropriate tabs
 
 Scenario: Successful Select C1 and C3 and View Tabs
-  When a user creates a product with c1, c3 certifications and visits that product page
+  When a user creates a 2015 product with c1, c3 certifications and visits that product page
   Then the user should see the the appropriate tabs
 
 Scenario: Successful Select C1 and C4 and View Tabs
-  When a user creates a product with c1, c4 certifications and visits that product page
+  When a user creates a 2015 product with c1, c4 certifications and visits that product page
   Then the user should see the the appropriate tabs
 
 Scenario: Successful Select C2 and C3 and View Tabs
-  When a user creates a product with c2, c3 certifications and visits that product page
+  When a user creates a 2015 product with c2, c3 certifications and visits that product page
   Then the user should see the the appropriate tabs
 
 Scenario: Successful Select C2 and C4 and View Tabs
-  When a user creates a product with c2, c4 certifications and visits that product page
+  When a user creates a 2015 product with c2, c4 certifications and visits that product page
   Then the user should see the the appropriate tabs
 
 Scenario: Successful Select C1 and C2 and C3 and View Tabs
-  When a user creates a product with c1, c2, c3 certifications and visits that product page
+  When a user creates a 2015 product with c1, c2, c3 certifications and visits that product page
   Then the user should see the the appropriate tabs
 
 Scenario: Successful Select C1 and C2 and C4 and View Tabs
-  When a user creates a product with c1, c2, c4 certifications and visits that product page
+  When a user creates a 2015 product with c1, c2, c4 certifications and visits that product page
   Then the user should see the the appropriate tabs
 
 Scenario: Successful Select C1 and C2 and C3 and C4 and View Tabs
-  When a user creates a product with c1, c2, c3, c4 certifications and visits that product page
+  When a user creates a 2015 product with c1, c2, c3, c4 certifications and visits that product page
   Then the user should see the the appropriate tabs
 
 Scenario: Successful Download All Patients
-  When a user creates a product with c2 certifications and visits that product page
+  When a user creates a 2015 product with c2 certifications and visits that product page
   And all product tests have a state of ready
   And the user visits the product page
   Then the user should be able to download all patients
@@ -49,7 +49,7 @@ Scenario: Successful Download All Patients
   Then the page should be accessible according to: wcag2aa
 
 Scenario: Cannot View Download All Patients
-  When a user creates a product with c2 certifications and visits that product page
+  When a user creates a 2015 product with c2 certifications and visits that product page
   And all product tests do not have a state of ready
   And the user visits the product page
   Then the user should not be able to download all patients
@@ -57,7 +57,7 @@ Scenario: Cannot View Download All Patients
   Then the page should be accessible according to: wcag2aa
 
 Scenario: Can Download Report
-  When a user creates a product with c2 certifications and visits that product page
+  When a user creates a 2015 product with c2 certifications and visits that product page
   And all product tests have a state of ready
   And the user visits the product page
   Then the user should be able to download the report
@@ -66,13 +66,13 @@ Scenario: Cannot Download Report when not an ATL
   Given the user is signed in as a non admin
   Given the user has created a vendor
   Given the user is owner of the vendor
-  When a user creates a product with c2 certifications and visits that product page
+  When a user creates a 2015 product with c2 certifications and visits that product page
   And all product tests have a state of ready
   And the user visits the product page
   Then the user should not be able to download the report
 
 Scenario: Can Multi Upload Cat I
-  When a user creates a product with c1, c2 certifications and visits that product page
+  When a user creates a 2015 product with c1, c2 certifications and visits that product page
   And all product tests have a state of ready
   And the user adds cat I tasks to all product tests
   And the user visits the product page
@@ -81,14 +81,14 @@ Scenario: Can Multi Upload Cat I
   Then the user should see a cat I test testing for product test 1
 
 Scenario: Can Multi Upload Cat III
-  When a user creates a product with c2 certifications and visits that product page
+  When a user creates a 2015 product with c2 certifications and visits that product page
   And all product tests have a state of ready
   And the user visits the product page
   And the user uploads a cat III document to product test 1
   Then the user should see a cat III test testing for product test 1
 
 Scenario: Can Multi Upload To Filtering Test
-  When a user creates a product with c1, c4 certifications and visits that product page
+  When a user creates a 2015 product with c1, c4 certifications and visits that product page
   And the user adds a product test
   And filtering tests are added to product
   And all product tests have a state of ready
@@ -100,7 +100,7 @@ Scenario: Can Multi Upload To Filtering Test
   And the user should see a cat III test testing for filtering test 1
 
 Scenario: Can Multi Upload to the Same Task on a Measure Test Multiple Times
-  When a user creates a product with c1 certifications and visits that product page
+  When a user creates a 2015 product with c1 certifications and visits that product page
   And the user adds a product test
   And all product tests have a state of ready
   And the user adds cat I tasks to all product tests
@@ -114,7 +114,7 @@ Scenario: Can Multi Upload to the Same Task on a Measure Test Multiple Times
   Then the user should see a cat I test testing for product test 1
 
 Scenario: Can Multi Upload to the Same Task on a Measure Test Multiple Times with page reload before test completion
-  When a user creates a product with c1 certifications and visits that product page
+  When a user creates a 2015 product with c1 certifications and visits that product page
   And the user adds a product test
   And all product tests have a state of ready
   And the user adds cat I tasks to all product tests
@@ -131,7 +131,7 @@ Scenario: Can Multi Upload to the Same Task on a Measure Test Multiple Times wit
   Then the user should see a cat I test testing for product test 1
 
 Scenario: Can Multi Upload to the Same Task on a Filtering Test Multiple Times
-  When a user creates a product with c1, c4 certifications and visits that product page
+  When a user creates a 2015 product with c1, c4 certifications and visits that product page
   And the user adds a product test
   And filtering tests are added to product
   And all product tests have a state of ready
@@ -145,7 +145,7 @@ Scenario: Can Multi Upload to the Same Task on a Filtering Test Multiple Times
   Then the user should see a cat III test testing for filtering test 1
 
 Scenario: Can Multi Upload to the Same Task on a Filtering Test Multiple Times with page reload before test completion
-  When a user creates a product with c1, c4 certifications and visits that product page
+  When a user creates a 2015 product with c1, c4 certifications and visits that product page
   And the user adds a product test
   And filtering tests are added to product
   And all product tests have a state of ready

@@ -18,12 +18,11 @@ class Product
   field :version, type: String
   field :description, type: String
   field :cert_edition, type: String, default: '2015'
-  field :c1_test, type: Boolean
-  field :c2_test, type: Boolean
-  field :c3_test, type: Boolean
-  field :c4_test, type: Boolean
+  %i(c1_test c2_test c3_test c4_test).each do |test|
+    field test, type: Boolean, default: false
+  end
   field :randomize_records, type: Boolean, default: true
-  field :duplicate_records, type: Boolean, default: true
+  field :duplicate_records, type: Boolean
   field :shift_records, type: Boolean, default: false
   field :allow_duplicate_names, type: Boolean, default: false
   field :measure_selection, type: String
@@ -158,6 +157,8 @@ class Product
     if cert_edition.eql? '2014'
       self.duplicate_records = false
       self.c4_test = false
+    elsif (cert_edition.eql? '2015') && duplicate_records.nil?
+      self.duplicate_records = c2_test
     end
 
     true
