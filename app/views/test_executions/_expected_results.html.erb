@@ -1,13 +1,4 @@
-<% if task.is_a? Cat1FilterTask %>
-  <h1>Expected Patient Records (<%= task.records.count %>)</h1>
-  <p>
-    <% task.records.all.each_with_index do |r, index| %>
-      <% link_text = index < task.records.all.size - 1 ? full_name(r) + ',' : full_name(r) %>
-      <%= link_to link_text, record_path(r, task_id: task._id) %>
-    <% end %>
-  </p>
-
-<% elsif task.product_test_expected_results %>
+<% if task.product_test_expected_results %>
 <h1>Expected Aggregate Results</h1>
 <table class="table table-condensed table-hover">
   <thead>

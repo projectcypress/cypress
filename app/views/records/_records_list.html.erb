@@ -25,7 +25,9 @@
       <!-- will show aggregate record populations -->
       <tr>
         <th scope="row">Total</th>
-        <td></td>
+        <% if product_test && (current_user.user_role?('atl') || current_user.user_role?('admin'))%>
+          <td></td>
+        <%end%>
         <td></td>
         <td></td>
         <!-- will show calculation results for product test records -->

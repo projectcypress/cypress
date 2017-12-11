@@ -43,7 +43,6 @@ module RecordsHelper
 
   def records_by_measure(records, measure)
     # Returns array of records that have at least one calculation result for the given measure id
-
     records.select { |r| !r.calculation_results.where('value.measure_id' => measure.hqmf_id).where('value.sub_id' => measure.sub_id).empty? }
   end
 
@@ -71,7 +70,8 @@ module RecordsHelper
   end
 
   def coverage_for_measure(measure)
-    QueryCache.where(measure_id: measure.measure_id, sub_id: measure.sub_id, bundle_id: measure.bundle_id, test_id: nil).first['bonnie_coverage']
+    query_cache_first = QueryCache.where(measure_id: measure.measure_id, sub_id: measure.sub_id, bundle_id: measure.bundle_id, test_id: nil).first
+    query_cache_first ? query_cache_first['bonnie_coverage'] : nil
   end
 
   def hide_patient_calculation?

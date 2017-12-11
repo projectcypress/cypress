@@ -31,7 +31,7 @@
     <%= link_to 'View Patients', { controller: 'records', task_id: task.id}, method: :get %>
     <% if (task.is_a?(Cat1FilterTask) || task.is_a?(Cat3FilterTask)) && should_display_expected_results(task) %>
       <br/>
-      <%= link_to 'View Expected Result Patients', product_test_task_by_filter_task_path(task.product_test, task),  method: :get %>
+      <%= link_to 'View Expected Result', product_test_task_by_filter_task_path(task.product_test, task),  method: :get %>
     <% end %>
     <% if Settings.current.enable_debug_features %>
       <br/>
