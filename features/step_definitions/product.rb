@@ -37,12 +37,17 @@ end
 #   W H E N   #
 # # # # # # # #
 
+When(/^debug mode is (.*)$/) do |debug_mode_value|
+  Settings.current.update(enable_debug_features: debug_mode_value.to_boolean)
+end
+
 # certs argument stands for certifications and should be a comma separated list of some of these values: c1, c2, c3, c4
-When(/^a user creates a product with (.*) certifications and visits that product page$/) do |certs|
+When(/^a user creates a (.*) product with (.*) certifications and visits that product page$/) do |cert_edition, certs|
   certs = certs.split(', ')
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
   product_name = "mp #{rand}"
   page.fill_in 'Name', with: product_name
+  page.choose("#{cert_edition} Edition")
   page.find('#product_c1_test').click if certs.include? 'c1'
   page.find('#product_c2_test').click if certs.include? 'c2'
   page.find('#product_c3_test').click if certs.include? 'c3'
@@ -309,6 +314,10 @@ end
 
 And(/^the user chooses the "(.*)" Certification Edition$/) do |certification_edition|
   page.find("#product_cert_edition_#{certification_edition}").click
+end
+
+And(/^the user chooses the "(.*)" Certification Type$/) do |certification_type|
+  page.find("#product_#{certification_type}_test").click
 end
 
 When(/^all test executions for product test (.*) have the state of (.*)$/) do |product_test_number, execution_state|
@@ -591,6 +600,10 @@ end
 
 Then(/^the user should not see the Measures Options heading$/) do
   page.assert_no_text 'Measures Options'
+end
+
+Then(/^the product value for (.*) should be (.*)$/) do |method, value|
+  assert_equal value.to_s, @product.send(method).to_s
 end
 
 def task_status_to_execution_status_message(task_status)

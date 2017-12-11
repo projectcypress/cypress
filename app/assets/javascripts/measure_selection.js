@@ -126,13 +126,15 @@ function UpdateMeasureSet(bundle_id) {
 // Allows the enabling or disabling of a checkbox by passing true or false
 // as the second parameter. True means disabled and false means enabled.
 function setCheckboxDisabled(element, state) {
-  $(element).prop("disabled", state);
+  var children = $(element).closest('div.checkbox').find('*').addBack();
   if (state) {
-    $(element).parent().addClass('disabled');
-    $(element).prop("checked", false);
+    $(children).addClass('disabled');
+    $(children).prop('disabled', true);
+    $(element).prop('checked', false);
   }
   else {
-    $(element).parent().removeClass('disabled');
+    $(children).removeClass('disabled');
+    $(children).prop('disabled', false);
   }
 }
 
@@ -268,8 +270,20 @@ ready_run_once = function() {
       }
       else if (edition == '2015') {
         setCheckboxDisabled('#product_duplicate_records', false);
-        $('#product_duplicate_records').prop("checked", true);
         setCheckboxDisabled('#product_c4_test', false);
+        $('.btn-checkbox input[name="product[c2_test]"]').trigger('change');
+      }
+    }
+  });
+
+  // Check Duplicate Records on C2 Test check
+  $('.btn-checkbox input[name="product[c2_test]"]').on('change', function() {
+    if ($(this).attr('disabled') != true) {
+      var edition = $('.btn-checkbox input[name="product[cert_edition]"]:checked').val();
+      var c2_checked = $(this).prop('checked');
+      if (edition == '2015') {
+        setCheckboxDisabled('#product_duplicate_records', !c2_checked);
+        $('.btn-checkbox input[name="product[duplicate_records]"]').prop('checked', c2_checked);
       }
     }
   });
