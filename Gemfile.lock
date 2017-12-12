@@ -27,27 +27,6 @@ GIT
       os (~> 0.9.6)
 
 GIT
-  remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 548eefb22a606282f2e362646c5ae1e2aae133a6
-  branch: mongoid5
-  specs:
-    health-data-standards (3.6.1)
-      activesupport (~> 4.2.0)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (~> 5.0.0)
-      mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.1)
-      protected_attributes (~> 1.0.5)
-      rest-client (~> 1.8.0)
-      rubyzip (~> 1.2.1)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
   remote: https://github.com/projectcypress/quality-measure-engine.git
   revision: 2fd3fc4d2a9e7ce58b7a856ae8ef74e0d08c172d
   branch: bump_mongoid
@@ -226,7 +205,22 @@ GEM
     gherkin (4.0.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
-    highline (1.7.8)
+    health-data-standards (3.7.0)
+      activesupport (~> 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 5.0.0)
+      mongoid-tree (~> 2.0.0)
+      nokogiri (~> 1.8.1)
+      protected_attributes (~> 1.0.5)
+      rest-client (~> 1.8.0)
+      rubyzip (~> 1.2.1)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+    highline (1.7.10)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.8.6)
@@ -491,7 +485,7 @@ DEPENDENCIES
   faker (~> 1.5.0)
   font-awesome-sass
   go-cda-tools!
-  health-data-standards!
+  health-data-standards (~> 3.7.0)
   jasny-bootstrap-rails
   jbuilder (~> 2.0)
   jquery-datatables-rails (~> 3.3.0)

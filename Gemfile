@@ -10,7 +10,8 @@ gem 'bson_ext'
 
 gem 'os'
 
-gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'mongoid5'
+# gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'mongoid5'
+gem 'health-data-standards', '~> 3.7.0'
 
 gem 'go-cda-tools', git: 'https://github.com/projectcypress/go-cda-tools.git', branch: 'master'
 # gem 'go-cda-tools', path: '../go-cda-tools'
