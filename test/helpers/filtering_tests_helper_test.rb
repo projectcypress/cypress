@@ -31,7 +31,7 @@ class FilteringTestsHelperTest < ActiveSupport::TestCase
     assert_equal display_filter_val('ethnicities', @filters.ethnicities), ['Hispanic or Latino (code: 2135-2)']
     assert_equal display_filter_val('genders', @filters.genders), ['F']
     assert_equal display_filter_val('payers', @filters.payers), ['Medicare']
-    assert_equal display_filter_val('problems', @filters.problems), ['Preventive Care- Initial Office Visit, 0 to 17 (code: 2.16.840.1.113883.3.464.1003.101.12.1022)']
+    assert_equal display_filter_val('problems', @filters.problems), ['SNOMEDCT codes in Preventive Care- Initial Office Visit, 0 to 17 (code: 2.16.840.1.113883.3.464.1003.101.12.1022)']
   end
 
   def test_display_filter_val_age
