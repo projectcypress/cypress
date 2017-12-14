@@ -11,8 +11,8 @@ class Settings
   field :enable_logging, type: Boolean, default: false
   # set to true to enable a banner at the top of every page with the "banner_message" text from below
   field :banner, type: Boolean, default: false
-  field :banner_message, type: String, default: I18n.t('settings.messages.banner')
-  field :warning_message, type: String, default: I18n.t('settings.messages.warning')
+  field :banner_message, type: String, default: APP_CONSTANTS['default_banner_message']
+  field :warning_message, type: String, default: APP_CONSTANTS['default_warning_message']
   # ignore roles completely -- this is essentially the same as everyone in the system being an admin, default true
   field :ignore_roles, type: Boolean, default: (ENV['IGNORE_ROLES'].nil? ? true : ENV['IGNORE_ROLES'].to_boolean)
   # enable the "debug features" such as allowing QA testers to produce known good results for a task, default true
