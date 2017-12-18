@@ -33,7 +33,7 @@
         <!-- will show calculation results for product test records -->
           <% measure.population_ids.keys().each do |population| %>
             <td class="text-center">
-              <%= render partial: 'calculation_result_icon', :result => pop_sum(records, measure, population), :episode_of_care => measure.episode_of_care  %>
+              <%= render 'calculation_result_icon', :result => pop_sum(records, measure, population), :episode_of_care => measure.episode_of_care  %>
             </td>
           <% end %>
       </tr>

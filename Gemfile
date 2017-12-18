@@ -101,6 +101,7 @@ group :development, :test do
   gem 'scss_lint', require: false
   gem 'capybara'
   gem 'capybara-accessible'
+  gem 'rails_best_practices'
   gem 'axe-matchers'
   gem 'selenium-webdriver'
   gem 'parallel_tests'
