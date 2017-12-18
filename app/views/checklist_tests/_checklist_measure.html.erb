@@ -11,7 +11,7 @@
 <% if !hide_patient_calculation? %>
   <div id='modify_record'><button class='btn btn-default' type='button' id="modifyrecord">Edit Test</button></div>
 <% end %>
-<% @measures.sort_by(&:cms_int).each do |measure, measure_index| %>
+<% measures.sort_by(&:cms_int).each do |measure, measure_index| %>
   <div class = 'panel-group' id = '<%= measure.cms_id %>' disabled = true>
     <div class = 'panel panel-default'>
       <div class = 'panel-heading'>
@@ -78,7 +78,7 @@
                                 </ul>
                               </div>
                               <div id="<%= "lookupModal#{criteria_field.index}" %>" class="modal fade" role="dialog">
-                                <%= render partial: 'checklist_modal', locals: { valuessets: valuessets, product_test: product_test, index: criteria_field.index, is_attribute: false } %>
+                                <%= render partial: 'checklist_modal', :valuessets => valuessets, :product_test => product_test, :index => criteria_field.index, :is_attribute => false %>
                               </div>
                             <% end %>
                           </td>

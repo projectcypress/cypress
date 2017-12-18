@@ -15,13 +15,13 @@
               <%= f.radio_button :cert_edition, "2014",
                                  label: "2014 Edition",
                                  label_class: "btn btn-checkbox",
-                                 disabled: !@product.new_record?,
-                                 checked: @product.cert_edition == "2014" %>
+                                 disabled: !product.new_record?,
+                                 checked: product.cert_edition == "2014" %>
               <%= f.radio_button :cert_edition, "2015",
                                  label: "2015 Edition",
                                  label_class: "btn btn-checkbox",
-                                 disabled: !@product.new_record?,
-                                 checked: @product.cert_edition == "2015" %>
+                                 disabled: !product.new_record?,
+                                 checked: product.cert_edition == "2015" %>
             <% end # form_group %>
           </div>
 
