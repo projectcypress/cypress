@@ -78,7 +78,7 @@
                                 </ul>
                               </div>
                               <div id="<%= "lookupModal#{criteria_field.index}" %>" class="modal fade" role="dialog">
-                                <%= render partial: 'checklist_modal', :valuessets => valuessets, :product_test => product_test, :index => criteria_field.index, :is_attribute => false %>
+                                <%= render 'checklist_modal', :valuessets => valuessets, :product_test => product_test, :index => criteria_field.index, :is_attribute => false %>
                               </div>
                             <% end %>
                           </td>
