@@ -8,13 +8,6 @@ ready = function() {
   $('.product-test-tabs').tabs();
   $('.product-test-tabs > ul > li').removeClass("ui-corner-top");
 
-  $('.measure_tests_table').DataTable({
-    searching: false,
-    paging: false,
-    stateSave: true, /* preserves order on reload */
-    info: false
-  });
-
   $('.user_tests_table').DataTable({
     searching: false,
     paging: false,

@@ -28,13 +28,23 @@
     <th scope = 'col' class = 'col-sm-1'>Last Updated</th>
   </thead>
   <tbody>
-    <% tasks.each do |task| %>
+    <% tasks.sort_by { |t| cms_int(t.product_test.cms_id) }.each do |task| %>
       <tr id = '<%= measure_tests_table_row_wrapper_id(task) %>'>
         <%= render 'measure_tests_table_row', :task => task, :parent_reloading => true %>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<script>
+  $('.measure_tests_table').DataTable({
+    destroy: true,
+    searching: false,
+    paging: false,
+    stateSave: true, /* preserves order on reload */
+    info: false
+  });
+</script>
 
 <% if should_reload_measure_test_table?(tasks) %>
   <script>
