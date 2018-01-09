@@ -39,7 +39,7 @@ ready = function() {
   });
 
   /* submit upload when file is attached */
-  $('.multi-upload-field').on('change', function(ev) {
+  $(document).on('change', '.multi-upload-field', function(ev) {
     $(this).parent().siblings('.multi-upload-submit').click();
   });
 };
