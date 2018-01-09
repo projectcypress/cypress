@@ -29,7 +29,7 @@
 //= require assets_framework/breadcrumb
 //= require jquery_nested_form
 //= require jasny-bootstrap.min
-//= require local_time
+//= require local-time
 //= require_tree .
 
 $(function() {
