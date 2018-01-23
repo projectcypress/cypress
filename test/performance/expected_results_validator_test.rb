@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'rails/performance_test_help'
 
-class ExpectedResultsValidatorTest < ActionDispatch::PerformanceTest
+class ExpectedResultsValidatorPerfTest < ActionDispatch::PerformanceTest
   include ::Validators
   # self.profile_options = { runs: 1, metrics: [:wall_time, :process_time] }
 

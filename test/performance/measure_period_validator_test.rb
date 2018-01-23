@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'rails/performance_test_help'
 
-class MeasurePeriodValidatorTest < ActionDispatch::PerformanceTest
+class MeasurePeriodValidatorPerfTest < ActionDispatch::PerformanceTest
   def setup
     collection_fixtures('bundles', 'product_tests', 'products', 'tasks', 'test_executions')
     @validator = ::Validators::MeasurePeriodValidator.new

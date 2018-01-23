@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'rails/performance_test_help'
 
-class TestExecutionTest < ActionDispatch::PerformanceTest
+class TestExecutionPerfTest < ActionDispatch::PerformanceTest
   self.profile_options = { runs: 1, metrics: [:wall_time, :process_time] }
   # Refer to the documentation for all available options
   # self.profile_options = { runs: 5, metrics: [:wall_time, :memory],

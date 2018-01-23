@@ -1,0 +1,1223 @@
+{
+  "_id": { "$oid": "5a5e98bfc60ac17e08010d04" },
+  "birthdate": -156344400,
+  "bundle_id" : { "$oid" : "5995ad44e5f13187c6f99a72" },
+  "calc_results": [],
+  "conditions": [
+    {
+      "_id": { "$oid": "5a567d98c60ac11d1cce607d" },
+      "anatomical_location": null,
+      "anatomical_target": null,
+      "causeOfDeath": null,
+      "codes": {
+        "SNOMED-CT": [
+          "266267005"
+        ],
+        "ICD-9-CM": [
+          "451.2"
+        ],
+        "ICD-10-CM": [
+          "I80.209"
+        ]
+      },
+      "description": "Diagnosis: Venous Thromboembolism",
+      "end_time": 1477036800,
+      "health_record_field": null,
+      "laterality": null,
+      "mood_code": "EVN",
+      "name": null,
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.10.20.28.3.110",
+      "ordinality": null,
+      "priority": null,
+      "reason": null,
+      "severity": null,
+      "specifics": null,
+      "start_time": 1461182400,
+      "status_code": {
+        "HL7 ActStatus": [
+          null
+        ]
+      },
+      "time": null,
+      "time_of_death": null,
+      "type": null
+    }
+  ],
+  "created_at": "2015-09-28T14:01:46.908Z",
+  "deathdate": null,
+  "description": "",
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": { "$oid": "5a567d98c60ac11d1cce607e" },
+      "admitTime": null,
+      "admitType": null,
+      "codes": {
+        "SNOMED-CT": [
+          "4525004"
+        ]
+      },
+      "description": "Encounter, Performed: Emergency Department Visit",
+      "dischargeDisposition": null,
+      "dischargeTime": null,
+      "end_time": 1461182400,
+      "facility": {
+        "_id": { "$oid": "5a567d98c60ac11d1cce607f" },
+        "code": null,
+        "end_time": 1461182400,
+        "name": null,
+        "start_time": 1461175200
+      },
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "reason": null,
+      "specifics": null,
+      "start_time": 1461175200,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    },
+    {
+      "_id": { "$oid": "5a567d98c60ac11d1cce6080" },
+      "admitTime": null,
+      "admitType": null,
+      "codes": {
+        "SNOMED-CT": [
+          "32485007"
+        ]
+      },
+      "description": "Encounter, Performed: Non Elective Inpatient Encounter",
+      "dischargeDisposition": {
+        "code_system": "SNOMED-CT",
+        "code": "428371000124100",
+        "title": "Discharged to Health Care Facility for Hospice Care"
+      },
+      "dischargeTime": null,
+      "end_time": 1461340800,
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "principalDiagnosis": {
+        "_id": { "$oid": "5a567d98c60ac11d1cce6081" },
+        "codes": {
+          "SNOMED-CT": [
+            "195189003"
+          ],
+          "ICD-9-CM": [
+            "434.11"
+          ],
+          "ICD-10-CM": [
+            "I63.011"
+          ]
+        },
+        "title": "Ischemic Stroke"
+      },
+      "reason": null,
+      "specifics": null,
+      "start_time": 1461182400,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    }
+  ],
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "expected_values": [
+    {
+      "measure_id": "7D374C6A-3821-4333-A1BC-4531005D77B8",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "7D374C6A-3821-4333-A1BC-4531005D77B8",
+      "population_index": 1,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "E1CB05E0-97D5-40FC-B456-15C5DBF44309",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "EBFA203E-ACC1-4228-906C-855C4BF11310",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "0924FBAE-3FDB-4D0A-AAB7-9F354E699FDE",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+      "population_index": 0,
+      "IPP": 1,
+      "MSRPOPL": 1,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 1,
+      "OBSERV": null
+    },
+    {
+      "measure_id": "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+      "population_index": 1,
+      "STRAT": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 0
+    },
+    {
+      "measure_id": "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+      "population_index": 2,
+      "STRAT": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 0
+    },
+    {
+      "measure_id": "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+      "population_index": 3,
+      "STRAT": 1,
+      "IPP": 1,
+      "MSRPOPL": 1,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 1,
+      "OBSERV": null
+    },
+    {
+      "measure_id": "84B9D0B5-0CAF-4E41-B345-3492A23C2E9F",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "9A033274-3D9B-11E1-8634-00237D5BF174",
+      "population_index": 0,
+      "IPP": 1,
+      "MSRPOPL": 1,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 0,
+      "OBSERV": [
+        120
+      ]
+    },
+    {
+      "measure_id": "9A033274-3D9B-11E1-8634-00237D5BF174",
+      "population_index": 1,
+      "STRAT": 1,
+      "IPP": 1,
+      "MSRPOPL": 1,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 0,
+      "OBSERV": [
+        120
+      ]
+    },
+    {
+      "measure_id": "9A033274-3D9B-11E1-8634-00237D5BF174",
+      "population_index": 2,
+      "STRAT": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 0
+    },
+    {
+      "measure_id": "909CF4B4-7A85-4ABF-A1C7-CB597ED1C0B6",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "03876D69-085B-415C-AE9D-9924171040C2",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "93F3479F-75D8-4731-9A3F-B7749D8BCD37",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 1,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "6F069BB2-B3C4-4BF4-ADC5-F6DD424A10B7",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 1,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "2838875A-07B5-4BF0-BE04-C3EB99F53975",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "BB481284-30DD-4383-928C-82385BBF1B17",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "7DC26160-E615-4CC2-879C-75985189EC1A",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 1,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 1,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "1F503318-BB8D-4B91-AF63-223AE0A2328E",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 1,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "217FDF0D-3D64-4720-9116-D5E5AFA27F2C",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "BCCE43DD-08E3-46C3-BFDD-0B1B472690F0",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 1,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "7FE69617-FA28-4305-A2B8-CEB6BCD9693D",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "979F21BD-3F93-4CDD-8273-B23DFE9C0513",
+      "population_index": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 0
+    },
+    {
+      "measure_id": "979F21BD-3F93-4CDD-8273-B23DFE9C0513",
+      "population_index": 1,
+      "STRAT": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 0
+    },
+    {
+      "measure_id": "979F21BD-3F93-4CDD-8273-B23DFE9C0513",
+      "population_index": 2,
+      "STRAT": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 0
+    },
+    {
+      "measure_id": "FD7CA18D-B56D-4BCA-AF35-71CE36B15246",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "32CFC834-843A-4F45-B359-8E158EAC4396",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+      "population_index": 1,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+      "population_index": 2,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+      "population_index": 3,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+      "population_index": 4,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+      "population_index": 5,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+      "population_index": 6,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+      "population_index": 7,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+      "population_index": 1,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+      "population_index": 2,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+      "population_index": 3,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+      "population_index": 4,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+      "population_index": 5,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+      "population_index": 6,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+      "population_index": 7,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D78CE034-8288-4012-A31E-7F485A74F2A9",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FF796FD9-F99D-41FD-B8C2-57D0A59A5D8D",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "8243EAE0-BBD7-4107-920B-FC3DB04B9584",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "8243EAE0-BBD7-4107-920B-FC3DB04B9584",
+      "population_index": 1,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FA91BA68-1E66-4A23-8EB2-BAA8E6DF2F2F",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    }
+  ],
+  "expired": false,
+  "first": "ONESEVEN",
+  "gender": "M",
+  "has_measure_history": false,
+  "insurance_providers": [
+    {
+      "_id": { "$oid": "5a567d98c60ac11d1cce6088" },
+      "codes": {
+        "SOP": [
+          "349"
+        ]
+      },
+      "description": null,
+      "end_time": null,
+      "financial_responsibility_type": {
+        "code": "SELF",
+        "codeSystem": "HL7 Relationship Code"
+      },
+      "health_record_field": null,
+      "member_id": "1234567890",
+      "mood_code": "EVN",
+      "name": "Other",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": null,
+      "payer": {
+        "_id": { "$oid": "5a567d98c60ac11d1cce6089" },
+        "name": "Other"
+      },
+      "reason": null,
+      "relationship": null,
+      "specifics": null,
+      "start_time": 1199163600,
+      "status_code": null,
+      "time": null,
+      "type": "OT"
+    }
+  ],
+  "is_shared": false,
+  "languages": [],
+  "last": "VTE",
+  "marital_status": null,
+  "measure_ids": [
+    "979F21BD-3F93-4CDD-8273-B23DFE9C0513",
+    "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+    "7FE69617-FA28-4305-A2B8-CEB6BCD9693D",
+    "93F3479F-75D8-4731-9A3F-B7749D8BCD37",
+    "E1CB05E0-97D5-40FC-B456-15C5DBF44309",
+    "6F069BB2-B3C4-4BF4-ADC5-F6DD424A10B7",
+    "03876D69-085B-415C-AE9D-9924171040C2",
+    "1F503318-BB8D-4B91-AF63-223AE0A2328E",
+    "7DC26160-E615-4CC2-879C-75985189EC1A",
+    "FD7CA18D-B56D-4BCA-AF35-71CE36B15246",
+    "BCCE43DD-08E3-46C3-BFDD-0B1B472690F0",
+    "0924FBAE-3FDB-4D0A-AAB7-9F354E699FDE",
+    "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+    "FA91BA68-1E66-4A23-8EB2-BAA8E6DF2F2F",
+    "9A033274-3D9B-11E1-8634-00237D5BF174",
+    "FF796FD9-F99D-41FD-B8C2-57D0A59A5D8D",
+    "EBFA203E-ACC1-4228-906C-855C4BF11310",
+    "2838875A-07B5-4BF0-BE04-C3EB99F53975",
+    "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+    "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+    "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+    "217FDF0D-3D64-4720-9116-D5E5AFA27F2C",
+    "32CFC834-843A-4F45-B359-8E158EAC4396",
+    "BB481284-30DD-4383-928C-82385BBF1B17",
+    "909CF4B4-7A85-4ABF-A1C7-CB597ED1C0B6",
+    "8243EAE0-BBD7-4107-920B-FC3DB04B9584",
+    "84B9D0B5-0CAF-4E41-B345-3492A23C2E9F",
+    "D78CE034-8288-4012-A31E-7F485A74F2A9",
+    "7D374C6A-3821-4333-A1BC-4531005D77B8",
+    null
+  ],
+  "measures": null,
+  "medical_record_assigner": "2.16.840.1.113883.4.572",
+  "medical_record_number": "647a05d0-4d42-0135-8681-20999b0ed66f",
+  "medications": [
+    {
+      "_id": { "$oid": "5a567d98c60ac11d1cce6082" },
+      "active_datetime": null,
+      "administrationTiming": {
+        "period": {
+          "value": "1",
+          "unit": "h"
+        }
+      },
+      "allowedAdministrations": null,
+      "anatomical_approach": null,
+      "codes": {
+        "RxNorm": [
+          "1658720"
+        ]
+      },
+      "cumulativeMedicationDuration": null,
+      "deliveryMethod": null,
+      "description": "Medication, Administered: Unfractionated Heparin",
+      "dose": {
+        "value": "1000",
+        "unit": "unit(s)"
+      },
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": 1461184200,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "health_record_field": null,
+      "indication": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.14",
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "reason": null,
+      "route": {
+        "code_system": "SNOMED-CT",
+        "code": "418114005",
+        "title": "Intravenous route"
+      },
+      "signed_datetime": null,
+      "specifics": null,
+      "start_time": 1461180600,
+      "statusOfMedication": null,
+      "status_code": {
+        "HL7 ActStatus": [
+          "administered"
+        ]
+      },
+      "time": null,
+      "typeOfMedication": null,
+      "vehicle": null
+    },
+    {
+      "_id": { "$oid": "5a567d98c60ac11d1cce6083" },
+      "active_datetime": null,
+      "administrationTiming": {
+        "period": {
+          "value": "1",
+          "unit": "d"
+        }
+      },
+      "allowedAdministrations": null,
+      "anatomical_approach": null,
+      "codes": {
+        "RxNorm": [
+          "855318"
+        ]
+      },
+      "cumulativeMedicationDuration": null,
+      "deliveryMethod": null,
+      "description": "Medication, Administered: Warfarin",
+      "dose": {
+        "value": "1",
+        "unit": "tablet(s)"
+      },
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": 1461184200,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "health_record_field": null,
+      "indication": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.14",
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "reason": null,
+      "route": null,
+      "signed_datetime": null,
+      "specifics": null,
+      "start_time": 1461184200,
+      "statusOfMedication": null,
+      "status_code": {
+        "HL7 ActStatus": [
+          "administered"
+        ]
+      },
+      "time": null,
+      "typeOfMedication": null,
+      "vehicle": null
+    }
+  ],
+  "notes": "51yo male; DExcl 108\n*4qdes\n*Ischemic stroke pt admitted through ED. Later ordered for comfort measures.",
+  "origin_data": [],
+  "original_medical_record_number": "647a05d0-4d42-0135-8681-20999b0ed66f",
+  "procedures": [
+    {
+      "_id": { "$oid": "5a567d98c60ac11d1cce6084" },
+      "anatomical_approach": null,
+      "anatomical_target": null,
+      "codes": {
+        "LOINC": [
+          "69399-4"
+        ]
+      },
+      "description": "Diagnostic Study, Performed: VTE Diagnostic Test",
+      "end_time": 1461179700,
+      "health_record_field": null,
+      "incisionTime": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.3",
+      "ordinality": null,
+      "performer_id": null,
+      "qdm_status": null,
+      "radiation_dose": null,
+      "radiation_duration": null,
+      "reaction": null,
+      "reason": null,
+      "source": null,
+      "specifics": null,
+      "start_time": 1461177900,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null,
+      "values": [
+        {
+          "_id": { "$oid": "5a567d98c60ac11d1cce6085" },
+          "codes": {
+            "SNOMED-CT": [
+              "1001000119102"
+            ]
+          },
+          "description": "VTE Confirmed"
+        }
+      ]
+    },
+    {
+      "_id": { "$oid": "5a567d98c60ac11d1cce6086" },
+      "anatomical_approach": null,
+      "anatomical_target": null,
+      "codes": {
+        "SNOMED-CT": [
+          "133918004"
+        ]
+      },
+      "description": "Intervention, Order: Comfort Measures",
+      "end_time": 1461181500,
+      "health_record_field": null,
+      "incisionTime": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.45",
+      "ordinality": null,
+      "performer_id": null,
+      "qdm_status": null,
+      "radiation_dose": null,
+      "radiation_duration": null,
+      "reaction": null,
+      "reason": null,
+      "source": null,
+      "specifics": null,
+      "start_time": 1461181500,
+      "status_code": {
+        "HL7 ActStatus": [
+          "ordered"
+        ]
+      },
+      "time": null
+    },
+    {
+      "_id": { "$oid": "5a567d98c60ac11d1cce6087" },
+      "anatomical_approach": null,
+      "anatomical_target": null,
+      "codes": {
+        "SNOMED-CT": [
+          "133918004"
+        ]
+      },
+      "description": "Intervention, Performed: Comfort Measures",
+      "end_time": 1461186000,
+      "health_record_field": null,
+      "incisionTime": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.46",
+      "ordinality": null,
+      "performer_id": null,
+      "qdm_status": null,
+      "radiation_dose": null,
+      "radiation_duration": null,
+      "reaction": null,
+      "reason": null,
+      "source": null,
+      "specifics": null,
+      "start_time": 1461186000,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    }
+  ],
+  "provider_performances": [
+    {
+      "_id": { "$oid": "5a5e98bfc60ac17e08010d05" },
+      "end_date": null,
+      "provider_id": { "$oid": "5a5e98bfc60ac17e08010c10" },
+      "start_date": null
+    }
+  ],
+  "race": {
+    "code": "2106-3",
+    "name": "White",
+    "codeSystem": "CDC Race"
+  },
+  "religious_affiliation": null,
+  "results_exceed_storage": false,
+  "results_size": 2,
+  "source_data_criteria": [
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "Emergency Department Visit",
+      "description": "Encounter, Performed: Emergency Department Visit",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
+      "type": "encounters",
+      "id": "less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_90CE0C50_BD21_40FA_BF4A_A299D22E633D_21BCFFC9_3A52_49D5_AA92_8A3608FA874D",
+      "start_date": 1461175200000,
+      "end_date": 1461182400000,
+      "value": [],
+      "references": null,
+      "field_values": {
+        "FACILITY_LOCATION_DEPARTURE_DATETIME": {
+          "type": "TS",
+          "value": 1461182400000
+        },
+        "FACILITY_LOCATION_ARRIVAL_DATETIME": {
+          "type": "TS",
+          "value": 1461175200000
+        }
+      },
+      "hqmf_set_id": "6F069BB2-B3C4-4BF4-ADC5-F6DD424A10B7",
+      "cms_id": "CMS73v5",
+      "criteria_id": "153ddb0c880er",
+      "codes": {
+        "SNOMED-CT": [
+          "4525004"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "59677eac02d4053da7000a98",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": false,
+      "definition": "diagnostic_study",
+      "status": "performed",
+      "title": "VTE Diagnostic Test",
+      "description": "Diagnostic Study, Performed: VTE Diagnostic Test",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.276",
+      "type": "diagnostic_studies",
+      "id": "OccurrenceA_VTEDiagnosticTest_DiagnosticStudyPerformed_641f0acb_ff2e_4a3a_85de_23dd7827fa7c_source",
+      "start_date": 1461177900000,
+      "end_date": 1461179700000,
+      "value": [
+        {
+          "type": "CD",
+          "code_list_id": "2.16.840.1.113883.3.117.1.7.1.407",
+          "title": "VTE Confirmed"
+        }
+      ],
+      "references": null,
+      "field_values": {},
+      "hqmf_set_id": "6F069BB2-B3C4-4BF4-ADC5-F6DD424A10B7",
+      "cms_id": "CMS73v5",
+      "criteria_id": "15c641f7d86sr",
+      "codes": {
+        "LOINC": [
+          "69399-4"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "59677eac02d4053da7000a9d",
+      "code_source": "USER_DEFINED"
+    },
+    {
+      "negation": false,
+      "definition": "medication",
+      "status": "administered",
+      "title": "Unfractionated Heparin",
+      "description": "Medication, Administered: Unfractionated Heparin",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.218",
+      "type": "medications",
+      "id": "d4220b14_0fd0_449e_9f58_82cbc30c4728_40280381_3d27_5493_013d_4be146955c91_source",
+      "start_date": 1461180600000,
+      "end_date": 1461184200000,
+      "value": [],
+      "references": null,
+      "field_values": {
+        "ROUTE": {
+          "type": "CD",
+          "code_list_id": "2.16.840.1.113883.3.117.1.7.1.222",
+          "title": "Intravenous route"
+        }
+      },
+      "hqmf_set_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "cms_id": "CMS108v5",
+      "criteria_id": "15c642217c7kz",
+      "codes": {
+        "RxNorm": [
+          "1658720"
+        ]
+      },
+      "fulfillments": null,
+      "dose_value": "1000",
+      "dose_unit": "unit(s)",
+      "frequency_value": "1",
+      "frequency_unit": "h",
+      "negation_code_list_id": "",
+      "coded_entry_id": "59677eac02d4053da7000a9b",
+      "code_source": "USER_DEFINED"
+    },
+    {
+      "negation": false,
+      "definition": "intervention",
+      "status": "ordered",
+      "title": "Comfort Measures",
+      "description": "Intervention, Order: Comfort Measures",
+      "code_list_id": "1.3.6.1.4.1.33895.1.3.0.45",
+      "type": "interventions",
+      "id": "ComfortMeasures_InterventionOrder_f04dbcdd_fbb8_43d2_b8a7_66d008530eeb",
+      "start_date": 1461181500000,
+      "end_date": 1461181500000,
+      "value": [],
+      "references": null,
+      "field_values": {},
+      "hqmf_set_id": "6F069BB2-B3C4-4BF4-ADC5-F6DD424A10B7",
+      "cms_id": "CMS73v5",
+      "criteria_id": "153ddb5d66dJN",
+      "codes": {
+        "SNOMED-CT": [
+          "133918004"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "59677eac02d4053da7000a9f",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "Non-Elective Inpatient Encounter",
+      "description": "Encounter, Performed: Non Elective Inpatient Encounter",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.424",
+      "type": "encounters",
+      "id": "Non_ElectiveInpatientEncounter_EncounterPerformed_40280381_3d61_56a7_013d_7fb74aae595e",
+      "start_date": 1461182400000,
+      "end_date": 1461340800000,
+      "value": [],
+      "references": null,
+      "field_values": {
+        "DISCHARGE_STATUS": {
+          "type": "CD",
+          "code_list_id": "2.16.840.1.113883.3.117.1.7.1.207",
+          "title": "Discharged To Health Care Facility For Hospice Care"
+        },
+        "PRINCIPAL_DIAGNOSIS": {
+          "type": "CD",
+          "code_list_id": "2.16.840.1.113883.3.117.1.7.1.247",
+          "codeset": "",
+          "code": "",
+          "title": "Ischemic Stroke",
+          "codes": {
+            "SNOMED-CT": [
+              "195189003"
+            ],
+            "ICD-9-CM": [
+              "434.11"
+            ],
+            "ICD-10-CM": [
+              "I63.011"
+            ]
+          }
+        }
+      },
+      "hqmf_set_id": "7DC26160-E615-4CC2-879C-75985189EC1A",
+      "cms_id": "CMS102v5",
+      "criteria_id": "153d30fe5a4so",
+      "codes": {
+        "SNOMED-CT": [
+          "32485007"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "59677eac02d4053da7000a99",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": false,
+      "definition": "diagnosis",
+      "title": "Venous Thromboembolism",
+      "description": "Diagnosis: Venous Thromboembolism",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.279",
+      "type": "conditions",
+      "id": "VenousThromboembolism_Diagnosis_aedc882e_f4cc_4e9c_afba_dde0ea78e4b3_source",
+      "start_date": 1461182400000,
+      "end_date": 1477036800000,
+      "value": [],
+      "references": null,
+      "field_values": {},
+      "hqmf_set_id": "6F069BB2-B3C4-4BF4-ADC5-F6DD424A10B7",
+      "cms_id": "CMS73v5",
+      "criteria_id": "15c64237d10Iv",
+      "codes": {
+        "SNOMED-CT": [
+          "266267005"
+        ],
+        "ICD-9-CM": [
+          "451.2"
+        ],
+        "ICD-10-CM": [
+          "I80.209"
+        ]
+      },
+      "coded_entry_id": "59677eac02d4053da7000a97",
+      "code_source": "USER_DEFINED"
+    },
+    {
+      "negation": false,
+      "definition": "medication",
+      "status": "administered",
+      "title": "Warfarin",
+      "description": "Medication, Administered: Warfarin",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.232",
+      "type": "medications",
+      "id": "Warfarin_MedicationAdministered_40280381_3d27_5493_013d_4be146955c95_source",
+      "start_date": 1461184200000,
+      "end_date": 1461184200000,
+      "value": [],
+      "references": null,
+      "field_values": {},
+      "hqmf_set_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "cms_id": "CMS108v5",
+      "criteria_id": "15c6422d529us",
+      "codes": {
+        "RxNorm": [
+          "855318"
+        ]
+      },
+      "fulfillments": null,
+      "dose_value": "1",
+      "dose_unit": "tablet(s)",
+      "frequency_value": "1",
+      "frequency_unit": "d",
+      "negation_code_list_id": "",
+      "coded_entry_id": "59677eac02d4053da7000a9c",
+      "code_source": "USER_DEFINED"
+    },
+    {
+      "negation": false,
+      "definition": "intervention",
+      "status": "performed",
+      "title": "Comfort Measures",
+      "description": "Intervention, Performed: Comfort Measures",
+      "code_list_id": "1.3.6.1.4.1.33895.1.3.0.45",
+      "type": "interventions",
+      "id": "ComfortMeasures_InterventionPerformed_f5ab7743_11b1_4f73_99d4_87dfcfd859d3",
+      "start_date": 1461186000000,
+      "end_date": 1461186000000,
+      "value": [],
+      "references": null,
+      "field_values": {},
+      "hqmf_set_id": "6F069BB2-B3C4-4BF4-ADC5-F6DD424A10B7",
+      "cms_id": "CMS73v5",
+      "criteria_id": "153ddb6932bNX",
+      "codes": {
+        "SNOMED-CT": [
+          "133918004"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "59677eac02d4053da7000aa0",
+      "code_source": "DEFAULT"
+    },
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "test_id": { "$oid": "59a02432e5f131039c0aa448" },
+  "title": null,
+  "updated_at": "2017-07-17T17:22:11.462Z",
+  "version": 10
+}

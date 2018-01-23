@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'rails/performance_test_help'
 
-class CalculatingSmokingGunValidatorTest < ActionDispatch::PerformanceTest
+class CalculatingSmokingGunValidatorPerfTest < ActionDispatch::PerformanceTest
   def setup
     perf_test_collection_fixtures('bundles', 'health_data_standards_svs_value_sets', 'measures', 'patient_cache', 'product_tests', 'products',
                                   'providers', 'records', 'tasks', 'test_executions', 'vendors')
