@@ -83,7 +83,7 @@ class ActiveSupport::TestCase
       elsif v.is_a? Array
         json[k] = map_array(v)
       elsif %w[create_at updated_at].include?(k)
-        json[k] = Time.at.local(v).in_time_zone
+        json[k] = Time.parse(v).in_time_zone
       end
     end
     json

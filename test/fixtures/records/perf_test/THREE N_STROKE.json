@@ -1,0 +1,1505 @@
+{
+  "_id": { "$oid": "5a5e98bfc60ac17e08010c37" },
+  "birthdate": -454050000,
+  "bundle_id" : { "$oid" : "5995ad44e5f13187c6f99a72" },
+  "calc_results": [],
+  "conditions": [
+    {
+      "_id": { "$oid": "5a567d99c60ac11d1cce6183" },
+      "anatomical_location": null,
+      "anatomical_target": null,
+      "causeOfDeath": null,
+      "codes": {
+        "ICD-9-CM": [
+          "427.31"
+        ],
+        "ICD-10-CM": [
+          "I48.1"
+        ],
+        "SNOMED-CT": [
+          "49436004"
+        ]
+      },
+      "description": "Diagnosis: Atrial Fibrillation/Flutter",
+      "end_time": null,
+      "health_record_field": null,
+      "laterality": null,
+      "mood_code": "EVN",
+      "name": null,
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.10.20.28.3.110",
+      "ordinality": null,
+      "priority": null,
+      "reason": null,
+      "severity": null,
+      "specifics": null,
+      "start_time": 829994400,
+      "status_code": {
+        "HL7 ActStatus": [
+          null
+        ]
+      },
+      "time": null,
+      "time_of_death": null,
+      "type": null
+    }
+  ],
+  "created_at": "2015-09-05T20:34:37.256Z",
+  "deathdate": null,
+  "description": "",
+  "effective_time": null,
+  "encounters": [
+    {
+      "_id": { "$oid": "5a567d99c60ac11d1cce6184" },
+      "admitTime": null,
+      "admitType": null,
+      "codes": {
+        "SNOMED-CT": [
+          "4525004"
+        ]
+      },
+      "description": "Encounter, Performed: Emergency Department Visit",
+      "dischargeDisposition": null,
+      "dischargeTime": null,
+      "end_time": 1461131700,
+      "facility": {
+        "_id": { "$oid": "5a567d99c60ac11d1cce6185" },
+        "code": null,
+        "end_time": 1461131700,
+        "name": null,
+        "start_time": 1461124800
+      },
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "reason": null,
+      "specifics": null,
+      "start_time": 1461124800,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    },
+    {
+      "_id": { "$oid": "5a567d99c60ac11d1cce6186" },
+      "admitTime": null,
+      "admitType": null,
+      "codes": {
+        "SNOMED-CT": [
+          "32485007"
+        ]
+      },
+      "description": "Encounter, Performed: Non Elective Inpatient Encounter",
+      "dischargeDisposition": {
+        "code_system": "SNOMED-CT",
+        "code": "445060000",
+        "title": "Left Against Medical Advice"
+      },
+      "dischargeTime": null,
+      "end_time": 1461226500,
+      "health_record_field": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.79",
+      "performer_id": null,
+      "principalDiagnosis": {
+        "_id": { "$oid": "5a567d99c60ac11d1cce6187" },
+        "codes": {
+          "SNOMED-CT": [
+            "195189003"
+          ],
+          "ICD-9-CM": [
+            "434.11"
+          ],
+          "ICD-10-CM": [
+            "I63.011"
+          ]
+        },
+        "title": "Ischemic Stroke"
+      },
+      "reason": null,
+      "specifics": null,
+      "start_time": 1461132000,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    }
+  ],
+  "ethnicity": {
+    "code": "2186-5",
+    "name": "Not Hispanic or Latino",
+    "codeSystem": "CDC Race"
+  },
+  "expected_values": [
+    {
+      "measure_id": "7D374C6A-3821-4333-A1BC-4531005D77B8",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "7D374C6A-3821-4333-A1BC-4531005D77B8",
+      "population_index": 1,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "E1CB05E0-97D5-40FC-B456-15C5DBF44309",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "EBFA203E-ACC1-4228-906C-855C4BF11310",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "0924FBAE-3FDB-4D0A-AAB7-9F354E699FDE",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+      "population_index": 0,
+      "IPP": 1,
+      "MSRPOPL": 1,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 1,
+      "OBSERV": null
+    },
+    {
+      "measure_id": "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+      "population_index": 1,
+      "STRAT": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 0
+    },
+    {
+      "measure_id": "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+      "population_index": 2,
+      "STRAT": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 0
+    },
+    {
+      "measure_id": "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+      "population_index": 3,
+      "STRAT": 1,
+      "IPP": 1,
+      "MSRPOPL": 1,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 1,
+      "OBSERV": null
+    },
+    {
+      "measure_id": "84B9D0B5-0CAF-4E41-B345-3492A23C2E9F",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "9A033274-3D9B-11E1-8634-00237D5BF174",
+      "population_index": 0,
+      "IPP": 1,
+      "MSRPOPL": 1,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 0,
+      "OBSERV": [
+        115
+      ]
+    },
+    {
+      "measure_id": "9A033274-3D9B-11E1-8634-00237D5BF174",
+      "population_index": 1,
+      "STRAT": 1,
+      "IPP": 1,
+      "MSRPOPL": 1,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 0,
+      "OBSERV": [
+        115
+      ]
+    },
+    {
+      "measure_id": "9A033274-3D9B-11E1-8634-00237D5BF174",
+      "population_index": 2,
+      "STRAT": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 0
+    },
+    {
+      "measure_id": "909CF4B4-7A85-4ABF-A1C7-CB597ED1C0B6",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "03876D69-085B-415C-AE9D-9924171040C2",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 1,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "93F3479F-75D8-4731-9A3F-B7749D8BCD37",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 1,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "6F069BB2-B3C4-4BF4-ADC5-F6DD424A10B7",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "2838875A-07B5-4BF0-BE04-C3EB99F53975",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 1
+    },
+    {
+      "measure_id": "BB481284-30DD-4383-928C-82385BBF1B17",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "7DC26160-E615-4CC2-879C-75985189EC1A",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 1,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 1,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "1F503318-BB8D-4B91-AF63-223AE0A2328E",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 1,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "217FDF0D-3D64-4720-9116-D5E5AFA27F2C",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 1,
+      "DENEX": 1,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "BCCE43DD-08E3-46C3-BFDD-0B1B472690F0",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "7FE69617-FA28-4305-A2B8-CEB6BCD9693D",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "979F21BD-3F93-4CDD-8273-B23DFE9C0513",
+      "population_index": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 0
+    },
+    {
+      "measure_id": "979F21BD-3F93-4CDD-8273-B23DFE9C0513",
+      "population_index": 1,
+      "STRAT": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 0
+    },
+    {
+      "measure_id": "979F21BD-3F93-4CDD-8273-B23DFE9C0513",
+      "population_index": 2,
+      "STRAT": 0,
+      "IPP": 0,
+      "MSRPOPL": 0,
+      "OBSERV_UNIT": " mins",
+      "MSRPOPLEX": 0
+    },
+    {
+      "measure_id": "FD7CA18D-B56D-4BCA-AF35-71CE36B15246",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "32CFC834-843A-4F45-B359-8E158EAC4396",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+      "population_index": 1,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+      "population_index": 2,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+      "population_index": 3,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+      "population_index": 4,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+      "population_index": 5,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+      "population_index": 6,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+      "population_index": 7,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+      "population_index": 1,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+      "population_index": 2,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+      "population_index": 3,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+      "population_index": 4,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+      "population_index": 5,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+      "population_index": 6,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+      "population_index": 7,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "D78CE034-8288-4012-A31E-7F485A74F2A9",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FF796FD9-F99D-41FD-B8C2-57D0A59A5D8D",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "8243EAE0-BBD7-4107-920B-FC3DB04B9584",
+      "population_index": 0,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "8243EAE0-BBD7-4107-920B-FC3DB04B9584",
+      "population_index": 1,
+      "IPP": 0,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    },
+    {
+      "measure_id": "FA91BA68-1E66-4A23-8EB2-BAA8E6DF2F2F",
+      "population_index": 0,
+      "IPP": 1,
+      "DENOM": 0,
+      "DENEX": 0,
+      "NUMER": 0,
+      "DENEXCEP": 0
+    }
+  ],
+  "expired": false,
+  "first": "THREE N",
+  "gender": "M",
+  "has_measure_history": false,
+  "insurance_providers": [
+    {
+      "_id": { "$oid": "5a567d99c60ac11d1cce6195" },
+      "codes": {
+        "SOP": [
+          "349"
+        ]
+      },
+      "description": null,
+      "end_time": null,
+      "financial_responsibility_type": {
+        "code": "SELF",
+        "codeSystem": "HL7 Relationship Code"
+      },
+      "health_record_field": null,
+      "member_id": "1234567890",
+      "mood_code": "EVN",
+      "name": "Other",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": null,
+      "payer": {
+        "_id": { "$oid": "5a567d99c60ac11d1cce6196" },
+        "name": "Other"
+      },
+      "reason": null,
+      "relationship": null,
+      "specifics": null,
+      "start_time": 1199163600,
+      "status_code": null,
+      "time": null,
+      "type": "OT"
+    }
+  ],
+  "is_shared": false,
+  "languages": [],
+  "last": "STROKE",
+  "marital_status": null,
+  "measure_ids": [
+    "979F21BD-3F93-4CDD-8273-B23DFE9C0513",
+    "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+    "7FE69617-FA28-4305-A2B8-CEB6BCD9693D",
+    "93F3479F-75D8-4731-9A3F-B7749D8BCD37",
+    "E1CB05E0-97D5-40FC-B456-15C5DBF44309",
+    "6F069BB2-B3C4-4BF4-ADC5-F6DD424A10B7",
+    "03876D69-085B-415C-AE9D-9924171040C2",
+    "1F503318-BB8D-4B91-AF63-223AE0A2328E",
+    "7DC26160-E615-4CC2-879C-75985189EC1A",
+    "FD7CA18D-B56D-4BCA-AF35-71CE36B15246",
+    "BCCE43DD-08E3-46C3-BFDD-0B1B472690F0",
+    "0924FBAE-3FDB-4D0A-AAB7-9F354E699FDE",
+    "38B0B5EC-0F63-466F-8FE3-2CD20DDD1622",
+    "FA91BA68-1E66-4A23-8EB2-BAA8E6DF2F2F",
+    "9A033274-3D9B-11E1-8634-00237D5BF174",
+    "FF796FD9-F99D-41FD-B8C2-57D0A59A5D8D",
+    "EBFA203E-ACC1-4228-906C-855C4BF11310",
+    "2838875A-07B5-4BF0-BE04-C3EB99F53975",
+    "3FD13096-2C8F-40B5-9297-B714E8DE9133",
+    "FEEA3922-F61F-4B05-98F9-B72A11815F12",
+    "D09ADD1D-30F5-462D-B677-3D17D9CCD664",
+    "217FDF0D-3D64-4720-9116-D5E5AFA27F2C",
+    "32CFC834-843A-4F45-B359-8E158EAC4396",
+    "BB481284-30DD-4383-928C-82385BBF1B17",
+    "909CF4B4-7A85-4ABF-A1C7-CB597ED1C0B6",
+    "8243EAE0-BBD7-4107-920B-FC3DB04B9584",
+    "84B9D0B5-0CAF-4E41-B345-3492A23C2E9F",
+    "D78CE034-8288-4012-A31E-7F485A74F2A9",
+    "7D374C6A-3821-4333-A1BC-4531005D77B8",
+    null
+  ],
+  "measures": null,
+  "medical_record_assigner": "2.16.840.1.113883.4.572",
+  "medical_record_number": "647253f0-4d42-0135-8681-20999b0ed66f",
+  "medications": [
+    {
+      "_id": { "$oid": "5a567d99c60ac11d1cce6188" },
+      "active_datetime": null,
+      "administrationTiming": {
+        "period": {
+          "value": "1",
+          "unit": "h"
+        }
+      },
+      "allowedAdministrations": 1,
+      "anatomical_approach": null,
+      "codes": {
+        "RxNorm": [
+          "8410"
+        ]
+      },
+      "cumulativeMedicationDuration": null,
+      "deliveryMethod": null,
+      "description": "Medication, Order: t-PA ingredient specific",
+      "dose": null,
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": 1461132600,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "health_record_field": null,
+      "indication": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": true,
+      "negationReason": {
+        "code_system": "SNOMED-CT",
+        "code": "183932001"
+      },
+      "oid": "2.16.840.1.113883.3.560.1.78",
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "reason": null,
+      "route": null,
+      "signed_datetime": null,
+      "specifics": null,
+      "start_time": 1461132600,
+      "statusOfMedication": null,
+      "status_code": {
+        "HL7 ActStatus": [
+          "ordered"
+        ]
+      },
+      "time": null,
+      "typeOfMedication": null,
+      "vehicle": null
+    },
+    {
+      "_id": { "$oid": "5a567d99c60ac11d1cce6189" },
+      "active_datetime": null,
+      "administrationTiming": {
+        "period": {
+          "value": "1",
+          "unit": "d"
+        }
+      },
+      "allowedAdministrations": null,
+      "anatomical_approach": null,
+      "codes": {
+        "RxNorm": [
+          "11289"
+        ]
+      },
+      "cumulativeMedicationDuration": null,
+      "deliveryMethod": null,
+      "description": "Medication, Discharge: Antithrombotic Ingredient Specific",
+      "dose": {
+        "value": "5",
+        "unit": "mg"
+      },
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": 1461225600,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "health_record_field": null,
+      "indication": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": true,
+      "negationReason": {
+        "code_system": "SNOMED-CT",
+        "code": "105480006"
+      },
+      "oid": "2.16.840.1.113883.3.560.1.200",
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "reason": null,
+      "route": null,
+      "signed_datetime": null,
+      "specifics": null,
+      "start_time": 1461225600,
+      "statusOfMedication": null,
+      "status_code": {
+        "HL7 ActStatus": [
+          "discharge"
+        ]
+      },
+      "time": null,
+      "typeOfMedication": null,
+      "vehicle": null
+    },
+    {
+      "_id": { "$oid": "5a567d99c60ac11d1cce618a" },
+      "active_datetime": null,
+      "administrationTiming": {
+        "period": {
+          "value": "1",
+          "unit": "d"
+        }
+      },
+      "allowedAdministrations": null,
+      "anatomical_approach": null,
+      "codes": {
+        "RxNorm": [
+          "11289"
+        ]
+      },
+      "cumulativeMedicationDuration": null,
+      "deliveryMethod": null,
+      "description": "Medication, Discharge: Antithrombotic ingredient specific",
+      "dose": {
+        "value": "5",
+        "unit": "mg"
+      },
+      "doseIndicator": null,
+      "doseRestriction": null,
+      "end_time": 1461225600,
+      "freeTextSig": null,
+      "fulfillmentInstructions": null,
+      "health_record_field": null,
+      "indication": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": true,
+      "negationReason": {
+        "code_system": "SNOMED-CT",
+        "code": "105480006"
+      },
+      "oid": "2.16.840.1.113883.3.560.1.200",
+      "patientInstructions": null,
+      "productForm": null,
+      "reaction": null,
+      "reason": null,
+      "route": null,
+      "signed_datetime": null,
+      "specifics": null,
+      "start_time": 1461225600,
+      "statusOfMedication": null,
+      "status_code": {
+        "HL7 ActStatus": [
+          "discharge"
+        ]
+      },
+      "time": null,
+      "typeOfMedication": null,
+      "vehicle": null
+    }
+  ],
+  "notes": "61yo male; Dexcl 71,72,102,104,105,108\n*6qdes\n*Ischemic stroke pt. with hx of Afib who received TPA before the stroke, elevating lab results. Leaves AMA, refusing discharge meds.",
+  "origin_data": [],
+  "original_medical_record_number": "647253f0-4d42-0135-8681-20999b0ed66f",
+  "procedures": [
+    {
+      "_id": { "$oid": "5a567d99c60ac11d1cce618b" },
+      "anatomical_approach": null,
+      "anatomical_target": null,
+      "codes": {
+        "SNOMED-CT": [
+          "307521008"
+        ]
+      },
+      "description": "Procedure, Performed: Intravenous Or Intra Arterial Thrombolytic (T Pa) Therapy",
+      "end_time": 1460977200,
+      "health_record_field": null,
+      "incisionTime": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.6",
+      "ordinality": null,
+      "performer_id": null,
+      "qdm_status": null,
+      "radiation_dose": null,
+      "radiation_duration": null,
+      "reaction": null,
+      "reason": null,
+      "source": null,
+      "specifics": null,
+      "start_time": 1460973600,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    },
+    {
+      "_id": { "$oid": "5a567d99c60ac11d1cce618c" },
+      "anatomical_approach": null,
+      "anatomical_target": null,
+      "codes": {
+        "SNOMED-CT": [
+          "128974000"
+        ]
+      },
+      "description": "Physical Exam, Performed: Baseline State",
+      "end_time": 1461123000,
+      "health_record_field": null,
+      "incisionTime": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.57",
+      "ordinality": null,
+      "performer_id": null,
+      "qdm_status": null,
+      "radiation_dose": null,
+      "radiation_duration": null,
+      "reaction": null,
+      "reason": null,
+      "source": null,
+      "specifics": null,
+      "start_time": 1461123000,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null
+    }
+  ],
+  "provider_performances": [
+    {
+      "_id": { "$oid": "5a5e98bfc60ac17e08010c38" },
+      "end_date": null,
+      "provider_id": { "$oid": "5a5e98bfc60ac17e08010c10" },
+      "start_date": null
+    }
+  ],
+  "race": {
+    "code": "2054-5",
+    "name": "Black or African American",
+    "codeSystem": "CDC Race"
+  },
+  "religious_affiliation": null,
+  "results_exceed_storage": false,
+  "results_size": 2,
+  "source_data_criteria": [
+    {
+      "negation": false,
+      "definition": "procedure",
+      "status": "performed",
+      "title": "Intravenous or Intra-arterial Thrombolytic (t-PA) Therapy",
+      "description": "Procedure, Performed: Intravenous Or Intra Arterial Thrombolytic (T Pa) Therapy",
+      "code_list_id": "2.16.840.1.113762.1.4.1045.21",
+      "type": "procedures",
+      "id": "IntravenousorIntra_arterialThrombolytic_t_PA_Therapy_ProcedurePerformed_ab769faa_565f_4bfa_8ac7_df46b25317d9",
+      "start_date": 1460973600000,
+      "end_date": 1460977200000,
+      "value": [],
+      "references": null,
+      "field_values": {},
+      "hqmf_set_id": "93F3479F-75D8-4731-9A3F-B7749D8BCD37",
+      "cms_id": "CMS72v5",
+      "criteria_id": "153a46475deAJ",
+      "codes": {
+        "SNOMED-CT": [
+          "307521008"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "596844a302d4053db8000d20",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": false,
+      "definition": "laboratory_test",
+      "status": "performed",
+      "title": "INR",
+      "description": "Laboratory Test, Performed: INR",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.213",
+      "type": "laboratory_tests",
+      "id": "ae671396_914c_4d8e_924c_4c8226eb289c_14e15596_b1b9_4ecd_bc8b_526d7a1ef8d7",
+      "start_date": 1461074400000,
+      "end_date": 1461074400000,
+      "value": [
+        {
+          "type": "PQ",
+          "value": "2.9",
+          "unit": ""
+        }
+      ],
+      "references": null,
+      "field_values": {},
+      "hqmf_set_id": "2838875A-07B5-4BF0-BE04-C3EB99F53975",
+      "cms_id": "CMS91v6",
+      "criteria_id": "1542a38be8cKA",
+      "codes": {
+        "LOINC": [
+          "6301-6"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "596844a302d4053db8000d22",
+      "code_source": "USER_DEFINED"
+    },
+    {
+      "negation": false,
+      "definition": "laboratory_test",
+      "status": "performed",
+      "title": "Prothrombin Time",
+      "description": "Laboratory Test, Performed: Prothrombin Time",
+      "code_list_id": "2.16.840.1.113762.1.4.1045.24",
+      "type": "laboratory_tests",
+      "id": "c80f88b2_325e_480c_b366_91a7154f1451_bf75d0f7_f31b_45a0_871e_20fbd75997dc_source",
+      "start_date": 1461074400000,
+      "end_date": 1461074400000,
+      "value": [
+        {
+          "type": "PQ",
+          "value": "22",
+          "unit": "seconds"
+        }
+      ],
+      "references": null,
+      "field_values": {},
+      "hqmf_set_id": "2838875A-07B5-4BF0-BE04-C3EB99F53975",
+      "cms_id": "CMS91v6",
+      "criteria_id": "15c6464396c8L",
+      "codes": {
+        "LOINC": [
+          "5964-2"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "596844a302d4053db8000d24",
+      "code_source": "USER_DEFINED"
+    },
+    {
+      "negation": false,
+      "definition": "laboratory_test",
+      "status": "performed",
+      "title": "Partial Thromboplastin Time",
+      "description": "Laboratory Test, Performed: Partial Thromboplastin Time",
+      "code_list_id": "2.16.840.1.113762.1.4.1045.25",
+      "type": "laboratory_tests",
+      "id": "b8c38e0b_a59b_4b1c_9cbb_6c9201bd15ec_6b7e653e_3c9f_4f1c_9872_aa65918f1a1c_source",
+      "start_date": 1461074400000,
+      "end_date": 1461074400000,
+      "value": [
+        {
+          "type": "PQ",
+          "value": "55",
+          "unit": "seconds"
+        }
+      ],
+      "references": null,
+      "field_values": {},
+      "hqmf_set_id": "2838875A-07B5-4BF0-BE04-C3EB99F53975",
+      "cms_id": "CMS91v6",
+      "criteria_id": "15c6464bd0092",
+      "codes": {
+        "LOINC": [
+          "3173-2"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "596844a302d4053db8000d26",
+      "code_source": "USER_DEFINED"
+    },
+    {
+      "negation": false,
+      "definition": "laboratory_test",
+      "status": "performed",
+      "title": "Platelet Count",
+      "description": "Laboratory Test, Performed: Platelet Count",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.267",
+      "type": "laboratory_tests",
+      "id": "prefix_75507554_9152_40e1_aaf6_863e0fa9f246_ddf2daee_1c4c_4173_b445_2aefe5e8a3c2_source",
+      "start_date": 1461074400000,
+      "end_date": 1461074400000,
+      "value": [
+        {
+          "type": "PQ",
+          "value": "90000",
+          "unit": ""
+        }
+      ],
+      "references": null,
+      "field_values": {},
+      "hqmf_set_id": "2838875A-07B5-4BF0-BE04-C3EB99F53975",
+      "cms_id": "CMS91v6",
+      "criteria_id": "15c64652ca4Ow",
+      "codes": {
+        "LOINC": [
+          "778-1"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "596844a302d4053db8000d28",
+      "code_source": "USER_DEFINED"
+    },
+    {
+      "negation": false,
+      "definition": "physical_exam",
+      "status": "performed",
+      "title": "Baseline State",
+      "description": "Physical Exam, Performed: Baseline State",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.417",
+      "type": "physical_exams",
+      "id": "less_thn_eql_120minutesEndsBeforeStartOf_997A5B1F_1417_4772_AF2A_40CF6B917950_0108BC6B_58D9_492E_9D66_7031F019B943_source",
+      "start_date": 1461123000000,
+      "end_date": 1461123000000,
+      "value": [],
+      "references": null,
+      "field_values": {},
+      "hqmf_set_id": "2838875A-07B5-4BF0-BE04-C3EB99F53975",
+      "cms_id": "CMS91v6",
+      "criteria_id": "15c64659ccbmF",
+      "codes": {
+        "SNOMED-CT": [
+          "128974000"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "596844a302d4053db8000d21",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "Emergency Department Visit",
+      "description": "Encounter, Performed: Emergency Department Visit",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.292",
+      "type": "encounters",
+      "id": "less_thn_eql_1hoursEndsBeforeOrConcurrentWithStartOf_6DE3856B_1866_467C_838A_B683031D15A8_c8d72fd0_b060_4e95_ac9c_14018c0930c4",
+      "start_date": 1461124800000,
+      "end_date": 1461131700000,
+      "value": [],
+      "references": null,
+      "field_values": {
+        "FACILITY_LOCATION_DEPARTURE_DATETIME": {
+          "type": "TS",
+          "value": 1461131700000
+        },
+        "FACILITY_LOCATION_ARRIVAL_DATETIME": {
+          "type": "TS",
+          "value": 1461124800000
+        }
+      },
+      "hqmf_set_id": "03876D69-085B-415C-AE9D-9924171040C2",
+      "cms_id": "CMS71v6",
+      "criteria_id": "153a4503760wW",
+      "codes": {
+        "SNOMED-CT": [
+          "4525004"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "596844a302d4053db8000d1a",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": false,
+      "definition": "encounter",
+      "status": "performed",
+      "title": "Non-Elective Inpatient Encounter",
+      "description": "Encounter, Performed: Non Elective Inpatient Encounter",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.424",
+      "type": "encounters",
+      "id": "Non_ElectiveInpatientEncounter_EncounterPerformed_40280381_3d61_56a7_013d_7f17992a5558",
+      "start_date": 1461132000000,
+      "end_date": 1461226500000,
+      "value": [],
+      "references": null,
+      "field_values": {
+        "DISCHARGE_STATUS": {
+          "type": "CD",
+          "code_list_id": "2.16.840.1.113883.3.117.1.7.1.308",
+          "title": "Left Against Medical Advice"
+        },
+        "PRINCIPAL_DIAGNOSIS": {
+          "type": "CD",
+          "code_list_id": "2.16.840.1.113883.3.117.1.7.1.247",
+          "codeset": "",
+          "code": "",
+          "title": "Ischemic Stroke",
+          "codes": {
+            "SNOMED-CT": [
+              "195189003"
+            ],
+            "ICD-9-CM": [
+              "434.11"
+            ],
+            "ICD-10-CM": [
+              "I63.011"
+            ]
+          }
+        }
+      },
+      "hqmf_set_id": "03876D69-085B-415C-AE9D-9924171040C2",
+      "cms_id": "CMS71v6",
+      "criteria_id": "153a45139bdAC",
+      "codes": {
+        "SNOMED-CT": [
+          "32485007"
+        ]
+      },
+      "negation_code_list_id": "",
+      "coded_entry_id": "596844a302d4053db8000d1b",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": true,
+      "definition": "medication",
+      "status": "ordered",
+      "title": "t-PA ingredient specific",
+      "description": "Medication, Order: t-PA ingredient specific",
+      "code_list_id": "2.16.840.1.113762.1.4.1021.6",
+      "type": "medications",
+      "id": "prefix_4d6695f1_2a32_464a_9fe7_57f0f117449f_68657734_972f_4d46_96b7_10d6fcc16aca_source",
+      "start_date": 1461132600000,
+      "end_date": 1461132600000,
+      "value": [],
+      "references": null,
+      "field_values": {},
+      "hqmf_set_id": "2838875A-07B5-4BF0-BE04-C3EB99F53975",
+      "cms_id": "CMS91v6",
+      "criteria_id": "15c6466a1c5ks",
+      "codes": {
+        "RxNorm": [
+          "8410"
+        ]
+      },
+      "fulfillments": null,
+      "administrations_value": "1",
+      "frequency_value": "1",
+      "frequency_unit": "h",
+      "negation_code_list_id": "2.16.840.1.113883.3.117.1.7.1.473",
+      "coded_entry_id": "596844a302d4053db8000d1d",
+      "code_source": "DEFAULT"
+    },
+    {
+      "negation": true,
+      "definition": "medication",
+      "status": "discharge",
+      "title": "Antithrombotic ingredient specific",
+      "description": "Medication, Discharge: Antithrombotic Ingredient Specific",
+      "code_list_id": "2.16.840.1.113762.1.4.1021.8",
+      "type": "medications",
+      "id": "prefix_38e31a77_3c8f_43f4_9278_73223b0d4698_000931f8_5fe8_4d03_a306_9a02bdc462da",
+      "start_date": 1461225600000,
+      "end_date": 1461225600000,
+      "value": [],
+      "references": null,
+      "field_values": {},
+      "hqmf_set_id": "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+      "cms_id": "CMS104v5",
+      "criteria_id": "153a48018bbG8",
+      "codes": {
+        "RxNorm": [
+          "11289"
+        ]
+      },
+      "fulfillments": null,
+      "dose_value": "5",
+      "dose_unit": "mg",
+      "frequency_value": "1",
+      "frequency_unit": "d",
+      "negation_code_list_id": "2.16.840.1.113883.3.117.1.7.1.93",
+      "coded_entry_id": "596844a302d4053db8000d1e",
+      "code_source": "USER_DEFINED"
+    },
+    {
+      "negation": true,
+      "definition": "medication",
+      "status": "discharge",
+      "title": "Antithrombotic ingredient specific",
+      "description": "Medication, Discharge: Antithrombotic ingredient specific",
+      "code_list_id": "2.16.840.1.113762.1.4.1021.8",
+      "type": "medications",
+      "id": "a180eb2f_24c9_423a_92de_7af74dd606ab_000931f8_5fe8_4d03_a306_9a02bdc462da_source",
+      "start_date": 1461225600000,
+      "end_date": 1461225600000,
+      "value": [],
+      "references": null,
+      "field_values": {},
+      "hqmf_set_id": "42BF391F-38A3-4C0F-9ECE-DCD47E9609D9",
+      "cms_id": "CMS104v5",
+      "criteria_id": "15c6468b8f1cI",
+      "codes": {
+        "RxNorm": [
+          "11289"
+        ]
+      },
+      "fulfillments": null,
+      "dose_value": "5",
+      "dose_unit": "mg",
+      "frequency_value": "1",
+      "frequency_unit": "d",
+      "negation_code_list_id": "2.16.840.1.113883.3.117.1.7.1.93",
+      "coded_entry_id": "596844a302d4053db8000d1f",
+      "code_source": "USER_DEFINED"
+    },
+    {
+      "negation": false,
+      "definition": "diagnosis",
+      "title": "Atrial Fibrillation/Flutter",
+      "description": "Diagnosis: Atrial Fibrillation/Flutter",
+      "code_list_id": "2.16.840.1.113883.3.117.1.7.1.202",
+      "type": "conditions",
+      "id": "StartsBeforeOrConcurrentWithEndOf_78D76D75_C50E_4F48_8B6D_E85FEDC7FEEA_85439cd3_7a96_425f_af18_bd3b450b617c",
+      "start_date": 829994400000,
+      "value": [],
+      "references": null,
+      "field_values": {},
+      "hqmf_set_id": "03876D69-085B-415C-AE9D-9924171040C2",
+      "cms_id": "CMS71v6",
+      "criteria_id": "153a454642bY5",
+      "codes": {
+        "ICD-9-CM": [
+          "427.31"
+        ],
+        "ICD-10-CM": [
+          "I48.1"
+        ],
+        "SNOMED-CT": [
+          "49436004"
+        ]
+      },
+      "coded_entry_id": "596844a302d4053db8000d19",
+      "code_source": "USER_DEFINED"
+    },
+    {
+      "id": "MeasurePeriod",
+      "start_date": 0,
+      "end_date": 0,
+      "references": null
+    }
+  ],
+  "test_id": { "$oid": "59a02432e5f131039c0aa448" },
+  "title": null,
+  "updated_at": "2017-07-17T17:22:11.413Z",
+  "version": 5,
+  "vital_signs": [
+    {
+      "_id": { "$oid": "5a567d99c60ac11d1cce618d" },
+      "codes": {
+        "LOINC": [
+          "6301-6"
+        ]
+      },
+      "description": "Laboratory Test, Performed: INR",
+      "end_time": 1461074400,
+      "health_record_field": null,
+      "interpretation": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.5",
+      "qdm_status": null,
+      "reaction": null,
+      "reason": null,
+      "referenceRange": null,
+      "referenceRangeHigh": null,
+      "referenceRangeLow": null,
+      "specifics": null,
+      "start_time": 1461074400,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null,
+      "values": [
+        {
+          "_id": { "$oid": "5a567d99c60ac11d1cce618e" },
+          "scalar": "2.9",
+          "units": ""
+        }
+      ]
+    },
+    {
+      "_id": { "$oid": "5a567d99c60ac11d1cce618f" },
+      "codes": {
+        "LOINC": [
+          "5964-2"
+        ]
+      },
+      "description": "Laboratory Test, Performed: Prothrombin Time",
+      "end_time": 1461074400,
+      "health_record_field": null,
+      "interpretation": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.5",
+      "qdm_status": null,
+      "reaction": null,
+      "reason": null,
+      "referenceRange": null,
+      "referenceRangeHigh": null,
+      "referenceRangeLow": null,
+      "specifics": null,
+      "start_time": 1461074400,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null,
+      "values": [
+        {
+          "_id": { "$oid": "5a567d99c60ac11d1cce6190" },
+          "scalar": "22",
+          "units": "seconds"
+        }
+      ]
+    },
+    {
+      "_id": { "$oid": "5a567d99c60ac11d1cce6191" },
+      "codes": {
+        "LOINC": [
+          "3173-2"
+        ]
+      },
+      "description": "Laboratory Test, Performed: Partial Thromboplastin Time",
+      "end_time": 1461074400,
+      "health_record_field": null,
+      "interpretation": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.5",
+      "qdm_status": null,
+      "reaction": null,
+      "reason": null,
+      "referenceRange": null,
+      "referenceRangeHigh": null,
+      "referenceRangeLow": null,
+      "specifics": null,
+      "start_time": 1461074400,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null,
+      "values": [
+        {
+          "_id": { "$oid": "5a567d99c60ac11d1cce6192" },
+          "scalar": "55",
+          "units": "seconds"
+        }
+      ]
+    },
+    {
+      "_id": { "$oid": "5a567d99c60ac11d1cce6193" },
+      "codes": {
+        "LOINC": [
+          "778-1"
+        ]
+      },
+      "description": "Laboratory Test, Performed: Platelet Count",
+      "end_time": 1461074400,
+      "health_record_field": null,
+      "interpretation": null,
+      "method": null,
+      "mood_code": "EVN",
+      "negationInd": null,
+      "negationReason": null,
+      "oid": "2.16.840.1.113883.3.560.1.5",
+      "qdm_status": null,
+      "reaction": null,
+      "reason": null,
+      "referenceRange": null,
+      "referenceRangeHigh": null,
+      "referenceRangeLow": null,
+      "specifics": null,
+      "start_time": 1461074400,
+      "status_code": {
+        "HL7 ActStatus": [
+          "performed"
+        ]
+      },
+      "time": null,
+      "values": [
+        {
+          "_id": { "$oid": "5a567d99c60ac11d1cce6194" },
+          "scalar": "90000",
+          "units": ""
+        }
+      ]
+    }
+  ]
+}

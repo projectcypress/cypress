@@ -13,10 +13,10 @@
   <templateId root="2.16.840.1.113883.10.20.24.1.1" extension="2016-02-01" />
   <!-- QDM-based QRDA templateId -->
   <templateId root="2.16.840.1.113883.10.20.24.1.2" extension="2016-02-01"/>
-  
+
     <!-- CMS QRDA templateId -->
     <templateId root="2.16.840.1.113883.10.20.24.1.3" extension="2016-03-01" />
-  
+
   <!-- This is the globally unique identifier for this QRDA document -->
   <id root="9b0dd4b0-b43f-4770-99a6-dc247e232e8e"/>
   <!-- QRDA document type code -->
@@ -27,25 +27,25 @@
   <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
   <languageCode code="en"/>
   <!-- reported patient -->
-  
+
   <recordTarget>
   <patientRole>
-    
-      
+
+
         <id extension="646e64f0-4d42-0135-8681-20999b0ed66f" root="2.16.840.1.113883.4.572" />
-        
+
           <id extension="646e64f0-4d42-0135-8681-20999b0ed66f" root="1.3.6.1.4.1.115" />
-        
-      
-    
+
+
+
     <addr use="HP">
-      
+
         <streetAddressLine>202 Burlington Rd.</streetAddressLine>
         <city>Bedford</city>
         <state>MA</state>
         <postalCode>01730</postalCode>
         <country>US</country>
-      
+
     </addr>
     <telecom use="WP" value="tel:+1-781-271-3000"/>
     <patient>
@@ -55,32 +55,32 @@
       </name>
       <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1" codeSystemName="HL7 AdministrativeGender"/>
       <birthTime value="19570723"/>
-      
+
         <raceCode code="2028-9"  codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
-      
-      
+
+
         <ethnicGroupCode code="2186-5"  codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238"/>
-      
-      
+
+
         <languageCommunication>
           <templateId root="2.16.840.1.113883.3.88.11.83.2" assigningAuthorityName="HITSP/C83"/>
           <templateId root="1.3.6.1.4.1.19376.1.5.3.1.2.1" assigningAuthorityName="IHE/PCC"/>
           <languageCode code="en"/>
         </languageCommunication>
-      
+
     </patient>
   </patientRole>
 </recordTarget>
 
 
-  
+
     <author>
       <time value="20170825141151+0000"/>
       <assignedAuthor>
         <!-- NPI -->
-        
+
           <id root="2.16.840.1.113883.4.6" extension="1930438282" />
-        
+
         <addr>
           <streetAddressLine>202 Burlington Rd.</streetAddressLine>
           <city>Bedford</city>
@@ -98,12 +98,12 @@
     <custodian>
       <assignedCustodian>
         <representedCustodianOrganization>
-          
+
             <!-- HQR Only -->
-            
+
               <id root="2.16.840.1.113883.4.336" extension="386709" />
-            
-          
+
+
           <name>Cypress Test Deck</name>
           <telecom use="WP" value="tel:(781)271-3000"/>
           <addr>
@@ -117,13 +117,13 @@
       </assignedCustodian>
     </custodian>
     <!-- This needs to take reporting program into account EH/EP-->
-    
+
       <informationRecipient>
         <intendedRecipient>
           <id root="2.16.840.1.113883.3.249.7" extension="HQR_EHR"/>
         </intendedRecipient>
       </informationRecipient>
-    
+
     <legalAuthenticator>
       <time value="20170825141151+0000"/>
       <signatureCode code="S"/>
@@ -149,18 +149,18 @@
         </representedOrganization>
       </assignedEntity>
     </legalAuthenticator>
-  
-  
+
+
     <participant typeCode="DEV">
       <associatedEntity classCode="RGPR">
         <id root="2.16.840.1.113883.3.2074.1" extension="0014ABC1D1EFG1H"/>
       </associatedEntity>
     </participant>
-  
+
   <documentationOf typeCode="DOC">
   <serviceEvent classCode="PCPR"> <!-- care provision -->
-  
-    
+
+
       <effectiveTime>
         <low nullFlavor='UNK'/>
         <high nullFlavor='UNK'/>
@@ -172,59 +172,59 @@
           <high nullFlavor='UNK'/>
         </time>
         <assignedEntity>
-          
-            
+
+
               <id root="2.16.840.1.113883.4.6" extension="1930438282" />
-            
-          
-            
-          
-            
+
+
+
+
+
               <id root="2.16.840.1.113883.4.336" extension="386709" />
-            
-          
-          
+
+
+
             <code code="282N00000X" codeSystemName="Healthcare Provider Taxonomy (HIPAA)" codeSystem="2.16.840.1.113883.6.101"/>
-          
-          
+
+
             <addr use="HP">
-    
+
       <streetAddressLine>4483 Schaden Mission Union</streetAddressLine>
-    
+
     <city>Mallieberg</city>
     <state>AL</state>
     <postalCode>35097</postalCode>
     <country>US</country>
 </addr>
 
-          
+
           <representedOrganization>
-            
-              
-            
-              
+
+
+
+
                 <id root="2.16.840.1.113883.4.2" extension="838372621" />
-              
-            
-              
-            
-            
+
+
+
+
+
               <addr use="HP">
-    
+
       <streetAddressLine>4483 Schaden Mission Union</streetAddressLine>
-    
+
     <city>Mallieberg</city>
     <state>AL</state>
     <postalCode>35097</postalCode>
     <country>US</country>
 </addr>
 
-            
+
           </representedOrganization>
         </assignedEntity>
       </performer>
-    
-  
+
+
   </serviceEvent>
 </documentationOf>
 
@@ -255,7 +255,7 @@
           </tr>
         </thead>
         <tbody>
-          
+
           <tr>
             <td>Anticoagulation Therapy for Atrial Fibrillation/Flutter</td>
             <td>03876D69-085B-415C-AE9D-9924171040C2</td>
@@ -263,12 +263,12 @@
             <td>40280381-52FC-3A32-0153-1EC807F60E08</td>
             <td></td>
           </tr>
-          
+
         </tbody>
       </table>
     </text>
     <!-- 1..* Organizers, each containing a reference to an eMeasure -->
-    
+
     <entry>
       <organizer classCode="CLUSTER" moodCode="EVN">
         <!-- This is the templateId for Measure Reference -->
@@ -292,7 +292,7 @@
         </reference>
       </organizer>
     </entry>
-    
+
   </section>
 </component>
 
@@ -300,9 +300,9 @@
   <section>
     <!-- This is the templateId for Reporting Parameters section -->
     <templateId root="2.16.840.1.113883.10.20.17.2.1"/>
-    
+
       <templateId root="2.16.840.1.113883.10.20.17.2.1.1" extension="2016-03-01" />
-    
+
     <code code="55187-9" codeSystem="2.16.840.1.113883.6.1"/>
     <title>Reporting Parameters</title>
     <text>
@@ -314,9 +314,9 @@
       <act classCode="ACT" moodCode="EVN">
         <!-- This is the templateId for Reporting Parameteres Act -->
         <templateId root="2.16.840.1.113883.10.20.17.3.8"/>
-        
+
           <templateId root="2.16.840.1.113883.10.20.17.3.8.1" extension="2016-03-01"/>
-        
+
         <id root="1.3.6.1.4.1.115" extension="8A81CFBE1B0AE1165C737E9CF415BB25" />
         <code code="252116004" codeSystem="2.16.840.1.113883.6.96" displayName="Observation Parameters"/>
         <effectiveTime>
@@ -334,16 +334,16 @@
     <templateId root="2.16.840.1.113883.10.20.17.2.4"/>
     <!-- This is the templateId for Patient Data QDM section -->
     <templateId root="2.16.840.1.113883.10.20.24.2.1" extension="2016-02-01" />
-    
+
       <templateId root="2.16.840.1.113883.10.20.24.2.1.1" extension="2016-03-01"/>
-    
+
 
     <code code="55188-7" codeSystem="2.16.840.1.113883.6.1"/>
     <title>Patient Data</title>
     <text>
 
     </text>
-    
+
       <entry>
   <act classCode="ACT" moodCode="EVN" >
     <!--Encounter performed Act -->
@@ -353,7 +353,7 @@
     <entryRelationship typeCode="SUBJ">
       <encounter classCode="ENC" moodCode="EVN">
         <!--  Encounter activities template -->
-        <templateId root="2.16.840.1.113883.10.20.22.4.49" extension="2015-08-01"/> 
+        <templateId root="2.16.840.1.113883.10.20.22.4.49" extension="2015-08-01"/>
         <!-- Encounter performed template -->
         <templateId root="2.16.840.1.113883.10.20.24.3.23" extension="2016-02-01" />
         <id root="1.3.6.1.4.1.115" extension="5995ad47e5f13187c6f99d05"/>
@@ -365,43 +365,43 @@
         <statusCode code="completed"/>
         <effectiveTime>
           <!-- We try to look for the admit/discharge times on the encounter if they are there. If not, we fall back to the typical start/end date. -->
-          
-          
+
+
           <low value='201605010800+0000'/>
           <high value='201605031015+0000'/>
         </effectiveTime>
-        
-          <sdtc:dischargeDispositionCode code="371828006" codeSystem="2.16.840.1.113883.6.96"/>
-        
-        
-        
-          
 
-        
-        
+          <sdtc:dischargeDispositionCode code="371828006" codeSystem="2.16.840.1.113883.6.96"/>
+
+
+
+
+
+
+
           <entryRelationship typeCode="REFR">
             <observation classCode="OBS" moodCode="EVN">
               <code code="8319008" codeSystem="2.16.840.1.113883.6.96" displayName="Principal Diagnosis" codeSystemName="SNOMED CT"/>
-              
-                
+
+
                   <value code="I63.011" codeSystem="2.16.840.1.113883.6.90"
     xsi:type="CD" sdtc:valueSet="2.16.840.1.113883.3.117.1.7.1.247">
     <originalText>Encounter, Performed: Emergency Department Visit</originalText>
     <translation code="195189003" codeSystem="2.16.840.1.113883.6.96"/>
     <translation code="434.11" codeSystem="2.16.840.1.113883.6.103"/>
 </value>
-                
-              
+
+
             </observation>
           </entryRelationship>
-        
-        
+
+
       </encounter>
     </entryRelationship>
   </act>
 </entry>
 
-    
+
       <entry>
   <act classCode="ACT" moodCode="EVN" >
     <!-- Consolidation CDA: Procedure Activity Act template -->
@@ -418,33 +418,33 @@
       <low value='201605011015+0000'/>
       <high value='201605011015+0000'/>
     </effectiveTime>
-    
 
-    
+
+
 
   </act>
 </entry>
-    
+
       <entry>
   <!-- Patient Characteristic Payer -->
   <observation classCode="OBS" moodCode="EVN">
     <templateId root="2.16.840.1.113883.10.20.24.3.55"/>
     <id root="1.3.6.1.4.1.115" extension="5995ad47e5f13187c6f99d11"/>
-    <code code="48768-6" codeSystemName="LOINC" codeSystem="2.16.840.1.113883.6.1" displayName="Payment source"/> 
+    <code code="48768-6" codeSystemName="LOINC" codeSystem="2.16.840.1.113883.6.1" displayName="Payment source"/>
     <statusCode code="completed"/>
     <effectiveTime>
       <!-- Attribute: Start Datetime -->
       <low value='200801010500+0000'/>
-      
+
     </effectiveTime>
     <value code="349" codeSystem="2.16.840.1.113883.3.221.5"
     xsi:type="CD" sdtc:valueSet="2.16.840.1.114222.4.11.3591">
     <originalText></originalText>
 </value>
 
-  </observation>            
+  </observation>
 </entry>
-    
+
       <entry>
   <act classCode="ACT" moodCode="EVN" >
     <!--Encounter performed Act -->
@@ -454,7 +454,7 @@
     <entryRelationship typeCode="SUBJ">
       <encounter classCode="ENC" moodCode="EVN">
         <!--  Encounter activities template -->
-        <templateId root="2.16.840.1.113883.10.20.22.4.49" extension="2015-08-01"/> 
+        <templateId root="2.16.840.1.113883.10.20.22.4.49" extension="2015-08-01"/>
         <!-- Encounter performed template -->
         <templateId root="2.16.840.1.113883.10.20.24.3.23" extension="2016-02-01" />
         <id root="1.3.6.1.4.1.115" extension="5995ad47e5f13187c6f99d03"/>
@@ -466,13 +466,13 @@
         <statusCode code="completed"/>
         <effectiveTime>
           <!-- We try to look for the admit/discharge times on the encounter if they are there. If not, we fall back to the typical start/end date. -->
-          
-          
+
+
           <low value='201605010600+0000'/>
           <high value='201605010800+0000'/>
         </effectiveTime>
-        
-        
+
+
           <participant typeCode="LOC">
             <!-- Facility Location template -->
             <templateId root="2.16.840.1.113883.10.20.24.3.100"/>
@@ -483,29 +483,29 @@
               <high value='201605010800+0000'/>
             </time>
             <participantRole classCode="SDLOC">
-              
+
                 <code nullFlavor="UNK"/>
-              
-              
+
+
               <telecom nullFlavor="UNK"/>
               <playingEntity classCode="PLC">
                 <name></name>
               </playingEntity>
             </participantRole>
           </participant>
-        
-        
-          
 
-        
-        
-        
+
+
+
+
+
+
       </encounter>
     </entryRelationship>
   </act>
 </entry>
 
-    
+
       <entry>
   <act classCode="ACT" moodCode="EVN">
     <!-- Conforms to C-CDA 2.1 Problem Concern Act (V3) -->
@@ -541,15 +541,15 @@
     <translation code="427.31" codeSystem="2.16.840.1.113883.6.103"/>
     <translation code="I48.1" codeSystem="2.16.840.1.113883.6.90"/>
 </value>
-        
-        
-        
+
+
+
       </observation>
     </entryRelationship>
   </act>
 </entry>
 
-    
+
       <entry>
   <act classCode="ACT" moodCode="RQO" >
     <!-- Plan of Care Activity Act template -->
@@ -574,11 +574,11 @@
         <id root="0ef98d22-443d-4686-a3ac-202f908f0052"/>
       </assignedAuthor>
     </author>
-    
+
 
   </act>
 </entry>
-    
+
 </section>
 </component>
 

@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'rails/performance_test_help'
 
-class QrdaCat1ValidatorTest < ActionDispatch::PerformanceTest
+class QrdaCat1ValidatorPerfTest < ActionDispatch::PerformanceTest
   include ::Validators
 
   def setup
