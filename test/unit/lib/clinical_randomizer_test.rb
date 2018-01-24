@@ -2,10 +2,9 @@ require 'test_helper'
 
 class ClinicalRandomizerTest < ActiveSupport::TestCase
   setup do
-    collection_fixtures('bundles', 'records')
-
     @record = Record.new(first: 'Foo', last: 'Bar')
-    @bundle = Bundle.find('4fdb62e01d41c820f6000001')
+    @bundle = FactoryGirl.create(:static_bundle)
+    @bundle.measure_period_start = 1_293_840_000
     @bundle.effective_date = 1_325_375_999
     @bundle.save!
     @record.bundle_id = @bundle.id

@@ -5,18 +5,29 @@ class ChecklistTestsControllerTest < ActionController::TestCase
   include ActiveJob::TestHelper
 
   setup do
-    collection_fixtures('vendors', 'products', 'product_tests', 'users', 'roles', 'bundles', 'measures')
-    @vendor = Vendor.find(EHR1)
-    @product = @vendor.products.find('4f57a88a1d41c851eb000004')
-    @test = @product.product_tests.find('4f58f8de1d41c851eb000478')
-    @test['_type'] = MeasureTest # each measure test should have a _type of MeasureTest and cms_id
-    @test['cms_id'] = 'CMS001'
-    @test.save!
+    FactoryGirl.create(:admin_user)
+    FactoryGirl.create(:user_user)
+    vendor_user = FactoryGirl.create(:vendor_user)
+    FactoryGirl.create(:other_user)
+    @user = FactoryGirl.create(:atl_user)
+    product = FactoryGirl.create(:product_static_bundle)
+    @vendor = product.vendor
+    add_user_to_vendor(vendor_user, @vendor)
+    @bundle = product.bundle
+    @test = product.product_tests.create!({ name: 'c1 visual', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
+
+    # collection_fixtures('vendors', 'products', 'product_tests', 'users', 'roles', 'bundles', 'measures')
+    # @vendor = Vendor.find(EHR1)
+    # @product = @vendor.products.find('4f57a88a1d41c851eb000004')
+    # @test = @product.product_tests.find('4f58f8de1d41c851eb000478')
+    # @test['_type'] = MeasureTest # each measure test should have a _type of MeasureTest and cms_id
+    # @test['cms_id'] = 'CMS001'
+    # @test.save!
   end
 
   test 'should be able to view measure' do
-    measure_ids = ['40280381-4B9A-3825-014B-C1A59E160733']
-    product = @vendor.products.create!(name: "my product #{rand}", c1_test: true, bundle_id: '4fdb62e01d41c820f6000001', measure_ids: measure_ids)
+    measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
+    product = @vendor.products.create!(name: "my product #{rand}", c1_test: true, bundle_id: @bundle.id, measure_ids: measure_ids)
     product.product_tests.create!({ name: "my measure test #{rand}", measure_ids: measure_ids }, MeasureTest)
     checklist_test = product.product_tests.create!({ name: "my measure test #{rand}", measure_ids: measure_ids }, ChecklistTest)
     measure = checklist_test.measures.first

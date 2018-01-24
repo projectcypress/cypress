@@ -3,7 +3,8 @@ class MeasuresControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
   setup do
-    collection_fixtures('bundles', 'measures', 'users')
+    FactoryGirl.create(:static_bundle)
+    FactoryGirl.create(:atl_user)
     sign_in User.find('4def93dd4f85cf8968000001')
   end
 

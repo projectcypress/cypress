@@ -3,7 +3,12 @@ class BundlesControllerTest < ActionController::TestCase
   include Devise::TestHelpers
   include ActiveJob::TestHelper
   setup do
-    collection_fixtures('bundles', 'measures', 'records', 'users', 'roles')
+    FactoryGirl.create(:admin_user)
+    FactoryGirl.create(:user_user)
+    FactoryGirl.create(:vendor_user)
+    FactoryGirl.create(:other_user)
+    @user = FactoryGirl.create(:atl_user)
+    FactoryGirl.create(:static_bundle)
     FileUtils.rm_rf(APP_CONSTANTS['bundle_file_path'])
   end
 

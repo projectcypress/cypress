@@ -3,7 +3,10 @@ require 'fileutils'
 
 class ProviderFilterTest < ActiveSupport::TestCase
   def setup
-    collection_fixtures('providers')
+    FactoryGirl.create(:tin_provider)
+    FactoryGirl.create(:npi_provider)
+    FactoryGirl.create(:combination_provider)
+    FactoryGirl.create(:default_provider)
 
     @all_providers = Provider.all
   end

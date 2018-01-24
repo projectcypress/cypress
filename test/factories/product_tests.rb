@@ -7,9 +7,9 @@ FactoryGirl.define do
       _type 'MeasureTest'
       cms_id 'CMS1234'
       aug_record = [{ medical_record_number: '1234',
-                      first: %w(Dental_Peds Denial_Peds),
-                      last: %w(A A),
-                      gender: %w(M M) }]
+                      first: %w[Dental_Peds Denial_Peds],
+                      last: %w[A A],
+                      gender: %w[M M] }]
       augmented_records { aug_record }
       expected_result = { 'BE65090C-EB1F-11E7-8C3F-9A214CF093AEa' =>
                           { 'measure_id' => 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE',
@@ -40,13 +40,12 @@ FactoryGirl.define do
                                                                   'SEX' => { 'F' => 1 },
                                                                   'PAYER' => { '1' => 1 } },
                                                      'NUMER' => {},
-                                                     'DENEX' => {} }
-                            } }
+                                                     'DENEX' => {} } } }
       expected_results { expected_result }
       measure_ids ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
       association :product, :factory => :product_static_bundle
       after(:create) do |pt|
-        create(:static_test_record, test_id: pt._id)
+        create(:static_test_record, :test_id => pt._id)
       end
     end
   end

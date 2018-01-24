@@ -35,14 +35,13 @@ FactoryGirl.define do
                                                                   'SEX' => { 'F' => 1 },
                                                                   'PAYER' => { '1' => 1 } },
                                                      'NUMER' => {},
-                                                     'DENEX' => {} }
-                          } }
+                                                     'DENEX' => {} } } }
       expected_results { expected_result }
 
       measure_ids ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
       association :product, :factory => :product_static_bundle
       after(:create) do |pt|
-        create(:static_test_record, test_id: pt._id)
+        create(:static_test_record, :test_id => pt._id)
       end
     end
   end

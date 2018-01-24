@@ -5,18 +5,7 @@ class Cat1FilterTaskTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   def setup
-    collection_fixtures('product_tests', 'products', 'bundles',
-                        'measures', 'records', 'patient_cache',
-                        'health_data_standards_svs_value_sets')
-
-    vendor = Vendor.create(name: 'test_vendor_name')
-    product = vendor.products.create(name: 'test_product', randomize_records: true, c2_test: true, c4_test: true,
-                                     bundle_id: '4fdb62e01d41c820f6000001', measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'])
-
-    options = { 'filters' => { 'genders' => ['F'] } }
-    @product_test = product.product_tests.create({ name: 'test_for_measure_1a',
-                                                   measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
-                                                   options: options }, FilteringTest)
+    @product_test = FactoryGirl.create(:static_filter_test)
   end
 
   def test_create

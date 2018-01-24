@@ -8,23 +8,34 @@ class TestExecutionsControllerTest < ActionController::TestCase
   include TestExecutionsHelper
 
   setup do
-    collection_fixtures('vendors', 'products', 'product_tests', 'tasks', 'test_executions', 'users', 'roles',
-                        'bundles', 'measures', 'health_data_standards_svs_value_sets', 'artifacts',
-                        'records', 'patient_populations', 'providers')
+    FactoryGirl.create(:admin_user)
+    FactoryGirl.create(:atl_user)
+    FactoryGirl.create(:user_user)
+    vendor_user = FactoryGirl.create(:vendor_user)
+    FactoryGirl.create(:other_user)
+    @product_test = FactoryGirl.create(:product_test_static_result)
+    @bundle_id = @product_test.bundle._id
+    # collection_fixtures('vendors', 'products', 'product_tests', 'tasks', 'test_executions', 'users', 'roles',
+    #                     'bundles', 'measures', 'health_data_standards_svs_value_sets', 'artifacts',
+    #                     'records', 'patient_populations', 'providers')
     load_library_functions
-    @vendor = Vendor.find(EHR1)
-    @first_product = @vendor.products.where(name: 'Vendor 1 Product 1').find('4f57a88a1d41c851eb000004')
-    @first_product.bundle = Bundle.default
-    @first_product.save
-    @first_test = @first_product.product_tests.where(name: 'vendor1 product1 test1').find('4f58f8de1d41c851eb000478')
-    @first_task = @first_test.tasks.find('4f57a88a1d41c851eb000010')
-    @first_execution = @first_task.test_executions.first
+    @vendor = @product_test.product.vendor
+    add_user_to_vendor(vendor_user, @vendor)
+    @first_product = @product_test.product
+    @first_test = @product_test
+    @first_c2_task = @first_test.tasks.c2_task
+    @first_c1_task = @first_test.tasks.c1_task
+    @first_execution = @first_c2_task.test_executions.first
   end
 
   def setup_c4
-    product = @vendor.products.build(name: "Product #{rand}", c1_test: true, c4_test: true, measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'], bundle_id: '4fdb62e01d41c820f6000001')
-    product.product_tests.build({ name: 'my filtering test', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
-                                  bundle_id: '4fdb62e01d41c820f6000001' }, FilteringTest)
+    product = @vendor.products.build(name: "Product #{rand}",
+                                     c1_test: true,
+                                     c4_test: true,
+                                     measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                     bundle_id: @bundle_id)
+    product.product_tests.build({ name: 'my filtering test', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                  bundle_id: @bundle_id }, FilteringTest)
     product.save!
     @task_cat1 = product.product_tests.find_by(name: 'my filtering test').tasks.where(_type: 'Cat1FilterTask').first
     @task_cat3 = product.product_tests.find_by(name: 'my filtering test').tasks.where(_type: 'Cat3FilterTask').first
@@ -32,7 +43,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   test 'should get show' do
     # change product test to measure test, create test execution for measure test
-    test = ProductTest.find('51703a883054cf84390000d3')
+    test = @product_test
     test._type = MeasureTest
     test.save!
     test = ProductTest.find(test.id) # reload test variable to it is a measure test instead of product test
@@ -47,13 +58,13 @@ class TestExecutionsControllerTest < ActionController::TestCase
     te.save!
 
     # add provider performance to each record associated with the measure test
-    provider = Provider.find('53b2c4414d4d32139c730000')
-    test.provider = provider
-    test.save!
-    test.records.each do |record|
-      pp = record.provider_performances.build(provider: provider)
-      pp.save!
-    end
+    # provider = Provider.find('53b2c4414d4d32139c730000')
+    # test.provider = provider
+    # test.save!
+    # test.records.each do |record|
+    #   pp = record.provider_performances.build(provider: provider)
+    #   pp.save!
+    # end
 
     # do this for admin,atl,user:owner and vendor -- need negative tests for non
     # access users
@@ -86,8 +97,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
     # do this for admin,atl,user:owner -- need negative tests for non
     # access users
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      @first_task.test_executions.destroy
-      te = @first_task.test_executions.create
+      @first_c2_task.test_executions.destroy
+      te = @first_c2_task.test_executions.create
       delete :destroy, id: te.id
       assert_response 204, 'response should be No Content on test_execution destroy'
       assert_nil TestExecution.where(_id: te.id).first, 'Should have deleted test execution'
@@ -99,7 +110,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     # do this for admin,atl,user:owner -- need negative tests for non
     # access users
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
-      te = @first_task.test_executions.create
+      te = @first_c2_task.test_executions.create
       delete :destroy, id: te.id
       assert_response 401
     end
@@ -107,9 +118,9 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   test 'should not be able to delete test execution if incorrect test_execution id' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      @first_task.test_executions.destroy
-      @first_task.test_executions.create
-      delete :destroy, task_id: @first_task.id, id: 'bad_id'
+      @first_c2_task.test_executions.destroy
+      @first_c2_task.test_executions.create
+      delete :destroy, task_id: @first_c2_task.id, id: 'bad_id'
       assert_response 404, 'response should be Not Found if no test_execution'
       assert_equal 'Not Found', response.message
     end
@@ -117,7 +128,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   test 'should be able to delete test execution if incorrect task id' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      te = @first_task.test_executions.create
+      te = @first_c2_task.test_executions.create
       delete :destroy, task_id: 'bad_id', id: te.id
       assert_response 204, 'response should be No Content on test_execution destroy'
       assert_nil TestExecution.where(_id: te.id).first, 'Should have deleted test execution'
@@ -132,17 +143,17 @@ class TestExecutionsControllerTest < ActionController::TestCase
     C1Task.any_instance.stubs(:validators).returns([])
     C1Task.any_instance.stubs(:records).returns([])
 
-    orig_count = @first_task.test_executions.count
+    orig_count = @first_c2_task.test_executions.count
 
-    zipfile = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'cms111v3_catiii.xml'))
+    zipfile = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml'))
     upload = Rack::Test::UploadedFile.new(zipfile, 'text/xml')
     i = 0
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       i += 1
-      post :create, task_id: @first_task.id, results: upload
+      post :create, task_id: @first_c2_task.id, results: upload
       assert_response 302
-      @first_task.reload
-      assert_equal @first_task.test_executions.count, orig_count + i, 'Should have added #{i} new TestExecution'
+      @first_c2_task.reload
+      assert_equal @first_c2_task.test_executions.count, orig_count + i, 'Should have added #{i} new TestExecution'
     end
   end
 
@@ -151,10 +162,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
     C1Task.any_instance.stubs(:validators).returns([])
     C1Task.any_instance.stubs(:records).returns([])
 
-    zipfile = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'cms111v3_catiii.xml'))
+    zipfile = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml'))
     upload = Rack::Test::UploadedFile.new(zipfile, 'text/xml')
     for_each_logged_in_user([OTHER_VENDOR]) do
-      post :create, task_id: @first_task.id, results: upload
+      post :create, task_id: @first_c2_task.id, results: upload
       assert_response 401
     end
   end
@@ -163,7 +174,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     # only need to do this for admin -- its checking error in file and the
     # access is already tested
     sign_in User.find(ADMIN)
-    task = C1Task.find('4f57a88a1d41c851eb000004')
+    task = @first_c1_task
     old_count = task.test_executions.count
     file = File.new(Rails.root.join('app', 'assets', 'images', 'icon.svg'))
     upload = Rack::Test::UploadedFile.new(file, 'image/svg')
@@ -176,7 +187,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     # only need to do this for admin -- its checking error in file and the
     # access is already tested
     sign_in User.find(ADMIN)
-    task = C1Task.find('4f57a88a1d41c851eb000004')
+    task = @first_c1_task
     task._type = 'C2Task'
     task.save!
     old_count = task.test_executions.count
@@ -236,19 +247,19 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   def create_execution_with_task_type(task_type)
     c1, c2, c4 = c1_c2_c4_from_task_type(task_type)
-    measure_ids = ['40280381-4BE2-53B3-014C-0F589C1A1C39']
-    product = @vendor.products.create!(name: "my product #{rand}", bundle_id: '4fdb62e01d41c820f6000001', measure_ids: measure_ids,
+    measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
+    product = @vendor.products.create!(name: "my product #{rand}", bundle_id: @bundle_id, measure_ids: measure_ids,
                                        c1_test: c1, c2_test: c2, c4_test: c4)
     test = product.product_tests.create!({ name: "my measure test #{rand}", measure_ids: measure_ids }, MeasureTest)
     task = create_task_from_task_type(test, task_type)
     execution = task.test_executions.create!
     case task_type
     when 'C1Task', 'Cat1FilterTask', 'C1ChecklistTask'
-      file_name = 'c1_checklist_incorrect_codes.zip'
+      file_name = 'cat_I/ep_qrda_test_good.zip'
     when 'C2Task', 'Cat3FilterTask'
-      file_name = 'cms111v3_catiii.xml'
+      file_name = 'cat_III/ep_test_qrda_cat3_good.xml'
     end
-    file = File.new(Rails.root.join("test/fixtures/product_tests/#{file_name}"))
+    file = Rails.root.join('test', 'fixtures', 'qrda', file_name)
     Artifact.create!(test_execution: execution, file: file)
     unzipped_file_name = execution.artifact.file_names.first
     execution.execution_errors.create!(:message => "my error message #{rand}", :msg_type => :my_msg_type, :file_name => unzipped_file_name)
@@ -372,9 +383,9 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   test 'should get index with json request' do
     make_first_task_type('C1Task')
-    @first_task.test_executions.create
+    @first_c2_task.test_executions.create
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :index, :format => :json, :task_id => @first_task.id
+      get :index, :format => :json, :task_id => @first_c2_task.id
       response_body = JSON.parse(response.body)
       assert_response 200, 'response should be OK on test_execution index'
       assert response_body.count.positive?
@@ -386,10 +397,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   test 'should get show with json request' do
     make_first_task_type('C1Task')
-    execution = @first_task.test_executions.build({})
+    execution = @first_c2_task.test_executions.build({})
     execution.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, :format => :json, :task_id => @first_task.id, :id => execution.id
+      get :show, :format => :json, :task_id => @first_c2_task.id, :id => execution.id
       response_body = JSON.parse(response.body)
       assert_response 200, 'response should be OK on test_execution show'
       assert_has_test_execution_attributes response_body
@@ -398,7 +409,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   test 'should get show with json request with no task_id' do
     make_first_task_type('C1Task')
-    execution = @first_task.test_executions.build({})
+    execution = @first_c2_task.test_executions.build({})
     execution.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       get :show, :format => :json, :id => execution.id
@@ -411,25 +422,25 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should create test_execution with json request' do
     make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :json, :task_id => @first_task.id, :results => zip_upload
+      post :create, :format => :json, :task_id => @first_c2_task.id, :results => zip_upload
       assert_response 201, 'response should be Created on test_execution creation'
       assert_not_nil JSON.parse(response.body)
       assert_equal 'pending', JSON.parse(response.body)['state']
-      assert response.location.end_with?(test_execution_path(@first_task.most_recent_execution)),
+      assert response.location.end_with?(test_execution_path(@first_c2_task.most_recent_execution)),
              'response location should be test_execution show'
     end
   end
 
   test 'should see execution_errors when test_execution is ready after json request' do
     make_first_task_type('C1Task')
-    @first_task.product_test = @first_product.product_tests.build({ :name => 'mtest', :measure_ids => ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
-                                                                    :bundle_id => '4fdb62e01d41c820f6000001' }, MeasureTest)
-    @first_task.product_test.save!
-    @first_task.save!
+    @first_c2_task.product_test = @first_product.product_tests.build({ :name => 'mtest', :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                                                       :bundle_id => @bundle_id }, MeasureTest)
+    @first_c2_task.product_test.save!
+    @first_c2_task.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       perform_enqueued_jobs do
-        post :create, :format => :json, :task_id => @first_task.id, :results => zip_upload
-        get :show, :format => :json, :task_id => @first_task.id, :id => @first_task.most_recent_execution.id
+        post :create, :format => :json, :task_id => @first_c2_task.id, :results => zip_upload
+        get :show, :format => :json, :task_id => @first_c2_task.id, :id => @first_c2_task.most_recent_execution.id
         assert_response 200, 'response should be OK on test_execution show'
         assert_not_equal 'pending', JSON.parse(response.body)['state']
       end
@@ -439,9 +450,9 @@ class TestExecutionsControllerTest < ActionController::TestCase
   # XML
 
   test 'should get index with xml request' do
-    @first_task.test_executions.create
+    @first_c2_task.test_executions.create
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :index, :format => :xml, :task_id => @first_task.id
+      get :index, :format => :xml, :task_id => @first_c2_task.id
       response_body = Hash.from_trusted_xml(response.body)
       assert_response 200, 'response should be OK on test_execution index'
       assert response_body['test_executions'].count.positive?
@@ -449,10 +460,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   test 'should get show with xml request' do
-    execution = @first_task.test_executions.build({})
+    execution = @first_c2_task.test_executions.build({})
     execution.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, :format => :xml, :task_id => @first_task.id, :id => execution.id
+      get :show, :format => :xml, :task_id => @first_c2_task.id, :id => execution.id
       response_body = Hash.from_trusted_xml(response.body)
       assert_response 200, 'response should be OK on test_execution show'
       assert_has_test_execution_attributes response_body['test_execution']
@@ -460,7 +471,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   test 'should get show with xml request with no task_id' do
-    execution = @first_task.test_executions.build({})
+    execution = @first_c2_task.test_executions.build({})
     execution.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       get :show, :format => :xml, :id => execution.id
@@ -472,11 +483,11 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   test 'should create test_execution with xml request' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :xml, :task_id => @first_task.id, :results => xml_upload
+      post :create, :format => :xml, :task_id => @first_c2_task.id, :results => xml_upload
       assert_response 201, 'response should be Created on test_execution creation'
       assert_not_nil Hash.from_trusted_xml(response.body)
       assert_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
-      assert response.location.end_with?(test_execution_path(@first_task.most_recent_execution)),
+      assert response.location.end_with?(test_execution_path(@first_c2_task.most_recent_execution)),
              'response location should be test_execution show'
     end
   end
@@ -484,12 +495,12 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should see execution_errors when test_execution is ready after xml request' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       perform_enqueued_jobs do
-        @first_task.product_test = @first_product.product_tests.build({ :name => 'mtest2',
-                                                                        :measure_ids => ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'] }, MeasureTest)
-        @first_task.product_test.save!
-        @first_task.save!
-        post :create, :format => :xml, :task_id => @first_task.id, :results => xml_upload
-        get :show, :format => :xml, :task_id => @first_task.id, :id => @first_task.most_recent_execution.id
+        @first_c2_task.product_test = @first_product.product_tests.build({ :name => 'mtest2',
+                                                                           :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+        @first_c2_task.product_test.save!
+        @first_c2_task.save!
+        post :create, :format => :xml, :task_id => @first_c2_task.id, :results => xml_upload
+        get :show, :format => :xml, :task_id => @first_c2_task.id, :id => @first_c2_task.most_recent_execution.id
         assert_response 200, 'response should be OK on test_execution show'
         assert_not_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
       end
@@ -501,7 +512,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should not get show with json request with bad test_execution id' do
     make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, :format => :json, :task_id => @first_task.id, :id => 'bad_id'
+      get :show, :format => :json, :task_id => @first_c2_task.id, :id => 'bad_id'
       assert_response 404, 'response should be Bad Request if no test_execution'
       assert_equal 'Not Found', response.message
     end
@@ -510,10 +521,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should not create test_execution with no upload' do
     make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :json, :task_id => @first_task.id
+      post :create, :format => :json, :task_id => @first_c2_task.id
       assert_response 422, 'response should be Unprocessable Entity if no results given'
       assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
-      post :create, :format => :xml, :task_id => @first_task.id
+      post :create, :format => :xml, :task_id => @first_c2_task.id
       assert_response 422, 'response should be Unprocessable Entity if no results given'
       assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
     end
@@ -522,10 +533,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should not create test_execution with json request with nil upload' do
     make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :json, :task_id => @first_task.id, :results => nil
+      post :create, :format => :json, :task_id => @first_c2_task.id, :results => nil
       assert_response 422, 'response should be Unprocessable Entity if nil results given'
       assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
-      post :create, :format => :xml, :task_id => @first_task.id, :results => nil
+      post :create, :format => :xml, :task_id => @first_c2_task.id, :results => nil
       assert_response 422, 'response should be Unprocessable Entity if no results given'
       assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
     end
@@ -534,10 +545,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should not create test_execution with json request if incorrect upload type' do
     make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :json, :task_id => @first_task.id, :results => xml_upload
+      post :create, :format => :json, :task_id => @first_c2_task.id, :results => xml_upload
       assert_response 422, 'response should be Unprocessable Entity if no test_execution'
       assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
-      post :create, :format => :xml, :task_id => @first_task.id, :results => xml_upload
+      post :create, :format => :xml, :task_id => @first_c2_task.id, :results => xml_upload
       assert_response 422, 'response should be Unprocessable Entity if no results given'
       assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
     end
@@ -552,12 +563,12 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   def zip_upload
-    zipfile = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_test_good.zip'))
+    zipfile = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip')
     Rack::Test::UploadedFile.new(zipfile, 'application/zip')
   end
 
   def xml_upload
-    xmlfile = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'cms111v3_catiii.xml'))
+    xmlfile = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')
     Rack::Test::UploadedFile.new(xmlfile, 'application/xml')
   end
 
@@ -566,7 +577,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   def make_first_task_type(type)
-    @first_task._type = type
-    @first_task.save!
+    @first_c2_task._type = type
+    @first_c2_task.save!
   end
 end

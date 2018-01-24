@@ -9,7 +9,7 @@ class HomeControllerTest < ActionController::TestCase
   end
 
   test 'should get index with logged in user' do
-    collection_fixtures('users')
+    FactoryGirl.create(:atl_user)
     sign_in User.find('4def93dd4f85cf8968000001')
 
     get :index

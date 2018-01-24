@@ -2,9 +2,9 @@ require 'test_helper'
 class TestExecutionTest < ActiveSupport::TestCase
   def setup
     drop_database
-    collection_fixtures('measures', 'bundles')
+    @bundle = FactoryGirl.create(:static_bundle)
     vendor = Vendor.create(name: 'test_vendor_name')
-    product = vendor.products.create(name: 'test_product', bundle_id: '4fdb62e01d41c820f6000001')
+    product = vendor.products.create(name: 'test_product', bundle_id: @bundle.id)
     @ptest = product.product_tests.build(name: 'ptest', measure_ids: ['1a'])
     @task = @ptest.tasks.build
   end
@@ -67,16 +67,16 @@ class TestExecutionTest < ActiveSupport::TestCase
   end
 
   def test_validate_artifact_builds_execution_errors_for_incomplete_checked_criteria
-    measure_ids = ['40280381-4B9A-3825-014B-C1A59E160733']
+    measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     vendor = Vendor.new(:name => "my vendor #{rand}")
     vendor.save!
-    product = vendor.products.create!(:name => "my product #{rand}", :measure_ids => measure_ids, :bundle_id => '4fdb62e01d41c820f6000001', :c1_test => true)
+    product = vendor.products.create!(:name => "my product #{rand}", :measure_ids => measure_ids, :bundle_id => @bundle.id, :c1_test => true)
     test = product.product_tests.create!({ :name => "my checklist test #{rand}", :measure_ids => measure_ids }, ChecklistTest)
     test.create_checked_criteria
     task = test.tasks.create!({}, C1ChecklistTask)
     execution = task.test_executions.build
 
-    zip = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'c1_checklist_incorrect_codes.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'c1_checklist_incorrect_codes.zip'))
     execution.artifact = Artifact.new(:file => zip)
 
     execution.validate_artifact(task.validators, execution.artifact, :task => task)
@@ -85,9 +85,9 @@ class TestExecutionTest < ActiveSupport::TestCase
   end
 
   def test_executions_pending
-    measure_ids = ['40280381-4B9A-3825-014B-C1A59E160733']
+    measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     vendor = Vendor.create!(:name => "my vendor #{rand}")
-    product = vendor.products.create!(:name => "my product #{rand}", :measure_ids => measure_ids, :bundle_id => '4fdb62e01d41c820f6000001', :c1_test => true,
+    product = vendor.products.create!(:name => "my product #{rand}", :measure_ids => measure_ids, :bundle_id => @bundle.id, :c1_test => true,
                                       :c3_test => true)
     test = product.product_tests.create!({ :name => "measure test for measure #{measure_ids.first}", :measure_ids => measure_ids }, MeasureTest)
     c1_task = test.tasks.create!({}, C1Task)

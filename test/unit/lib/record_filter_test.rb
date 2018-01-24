@@ -3,8 +3,7 @@ require 'fileutils'
 
 class RecordFilterTest < ActiveSupport::TestCase
   def setup
-    collection_fixtures('records', 'health_data_standards_svs_value_sets', 'providers')
-
+    bundle = FactoryGirl.create(:static_bundle)
     @all_records = Record.all
   end
 
@@ -171,11 +170,10 @@ class RecordFilterTest < ActiveSupport::TestCase
   end
 
   def test_filter_payer
-    selected_payer = %w['Medicaid Medicare Other].sample
+    selected_payer = %w[Medicaid Medicare Other].sample
     filters = { 'payers' => [selected_payer] }
 
     filtered_records = Cypress::RecordFilter.filter(@all_records, filters, {}).to_a
-
     @all_records.each do |r|
       if filtered_records.include? r
         assert(record_has_payer?(r, selected_payer), 'Filtered record set includes a record that does not match criteria')
@@ -191,16 +189,15 @@ class RecordFilterTest < ActiveSupport::TestCase
   end
 
   def test_filter_problem
-    selected_problem = %w[2.16.840.1.113883.3.464.1003.102.12.1023 2.16.840.1.113883.3.526.3.378].sample
+    selected_problem = %w[1.2.3.4].sample
 
     filters = { 'problems' => { oid: [selected_problem], hqmf_ids: ['2.16.840.1.113883.3.560.1.2'] } }
 
-    filtered_records = Cypress::RecordFilter.filter(@all_records, filters, bundle_id: '4fdb62e01d41c820f6000001').to_a
+    filtered_records = Cypress::RecordFilter.filter(@all_records, filters, bundle_id: @all_records.first.bundle_id).to_a
 
     code_sets = HealthDataStandards::SVS::ValueSet.where('oid' => selected_problem).pluck('concepts')
 
     relevant_codes = []
-
     code_sets.each do |code_set|
       code_set.each do |code|
         # problems come from SNOMED, per the rule
@@ -235,19 +232,13 @@ class RecordFilterTest < ActiveSupport::TestCase
   end
 
   def test_provider_filter
-    prov = Provider.find('53b2c4414d4d32139c730000')
+    filter_record = @all_records.sample
+    prov = Provider.find(filter_record.provider_performances.first.provider_id)
     prov_filters = { 'npis' => [prov.npi], 'tins' => [prov.tin] }
     filters = { 'providers' => prov_filters }
-
-    # assign the provider and make sure we can find it
-    patient = Record.find('4f5bb2ef1d41c841b3000502')
-
-    patient.provider_performances.build(provider: prov)
-    patient.save!
-
     filtered_records = Cypress::RecordFilter.filter(@all_records, filters, {}).to_a
 
-    assert filtered_records.include?(patient), 'should include the targeted patient in results'
+    assert filtered_records.include?(filter_record), 'should include the targeted patient in results'
   end
 
   def validate_record_count(all_records, filtered_records, expected_count = -1)
