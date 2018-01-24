@@ -1,7 +1,6 @@
 require 'test_helper'
 class AttributeExtractorTest < ActiveSupport::TestCase
   def setup
-    collection_fixtures('records', 'health_data_standards_svs_value_sets')
     @object = Object.new
     @object.extend(Validators::AttributeExtractor)
   end

@@ -18,8 +18,7 @@ FactoryGirl.define do
                                                  'definition' => 'diagnosis',
                                                  'hard_status' => false,
                                                  'negation' => false,
-                                                 'source_data_criteria' => 'DiagnosisActivePregnancy' }
-                                              },
+                                                 'source_data_criteria' => 'DiagnosisActivePregnancy' } },
                    'data_criteria' => { 'DiagnosisActivePregnancy' =>
                                         { 'title' => 'Pregnancy',
                                           'description' => 'Diagnosis, Active=> Pregnancy',
@@ -37,9 +36,7 @@ FactoryGirl.define do
                                               'title' => 'Principal'
                                             }
                                           },
-                                          'source_data_criteria' => 'DiagnosisActivePregnancy'
-                                        }
-                                      } }
+                                          'source_data_criteria' => 'DiagnosisActivePregnancy' } } }
       hqmf_document { hqmf_doc }
     end
     trait :no_diagnosis do
@@ -53,9 +50,7 @@ FactoryGirl.define do
                                                  'definition' => 'physical_exam',
                                                  'hard_status' => false,
                                                  'negation' => false,
-                                                 'source_data_criteria' => 'PhysicalExamFindingBmiPercentile'
-                                               }
-                                             },
+                                                 'source_data_criteria' => 'PhysicalExamFindingBmiPercentile' } },
                    'data_criteria' => { 'PhysicalExamFindingBmiPercentile_precondition_8' =>
                                         { 'title' => 'BMI percentile',
                                           'description' => 'Physical Exam, Finding=> BMI percentile',
@@ -69,10 +64,8 @@ FactoryGirl.define do
                                           'source_data_criteria' => 'PhysicalExamFindingBmiPercentile',
                                           'temporal_references' => [
                                             { 'type' => 'DURING',
-                                              'reference' => 'MeasurePeriod'
-                                            }
-                                          ]
-                                        } } }
+                                              'reference' => 'MeasurePeriod' }
+                                          ] } } }
       hqmf_document { hqmf_doc }
     end
 
@@ -544,7 +537,7 @@ FactoryGirl.define do
             'negation' => false,
             'source_data_criteria' => 'PatientCharacteristicPayerPayer',
             'inline_code_list' => {
-              'Source of Payment Typology' => %w(1 2 349)
+              'Source of Payment Typology' => %w[1 2 349]
             }
           },
           'OccurrenceAPregnancy1_precondition_4' => {
@@ -1557,7 +1550,7 @@ FactoryGirl.define do
             'negation' => false,
             'source_data_criteria' => 'PatientCharacteristicPayerPayer',
             'inline_code_list' => {
-              'Source of Payment Typology' => %w(1 2 349)
+              'Source of Payment Typology' => %w[1 2 349]
             }
           }
         }

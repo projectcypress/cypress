@@ -8,7 +8,7 @@ FactoryGirl.define do
       done_importing true
       name 'Static Bundle'
       version '2017.0.2'
-      extensions { %w(map_reduce_utils hqmf_utils) }
+      extensions { %w[map_reduce_utils hqmf_utils] }
       records { [] }
       measure_period_start 1_451_606_400 # Jan 1 2016
       effective_date 1_483_228_799 # Dec 31 2016

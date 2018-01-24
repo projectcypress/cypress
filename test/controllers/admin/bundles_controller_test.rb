@@ -5,12 +5,28 @@ module Admin
     include ActiveJob::TestHelper
 
     setup do
-      collection_fixtures('bundles', 'measures', 'records', 'users', 'roles')
+      FactoryGirl.create(:admin_user)
+      FactoryGirl.create(:user_user)
+      FactoryGirl.create(:vendor_user)
+      FactoryGirl.create(:other_user)
+      FactoryGirl.create(:bundle)
+      @static_bundle = FactoryGirl.create(:static_bundle)
       FileUtils.rm_rf(APP_CONSTANTS['bundle_file_path'])
     end
 
     teardown do
       load_library_functions
+    end
+
+    test 'should get index' do
+      for_each_logged_in_user([ADMIN]) do
+        get :index
+        assert_redirected_to %r{/admin#bundles}
+      end
+
+      teardown do
+        load_library_functions
+      end
     end
 
     test 'should get index' do
@@ -100,7 +116,7 @@ module Admin
         orig_bundle_count = Bundle.count
         orig_measure_count = Measure.count
         orig_record_count = Record.count
-        id = '4fdb62e01d41c820f6000001'
+        id = @static_bundle.id
 
         delete :destroy, id: id
 
@@ -124,7 +140,7 @@ module Admin
         orig_bundle_count = Bundle.available.count
         orig_measure_count = Measure.count
         orig_record_count = Record.count
-        id = '4fdb62e01d41c820f6000001'
+        id = @static_bundle.id
 
         post :deprecate, id: id
 

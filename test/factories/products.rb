@@ -37,9 +37,9 @@ FactoryGirl.define do
         p.save
       end
 
-      factory :product_static_bundle, traits: [:default]
-      factory :product_2014, traits: [:default_2014]
-      factory :product_no_c2, traits: [:no_c2]
+      factory :product_static_bundle, :traits => [:default]
+      factory :product_2014, :traits => [:default_2014]
+      factory :product_no_c2, :traits => [:no_c2]
     end
   end
 end
