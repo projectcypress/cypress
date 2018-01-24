@@ -2,17 +2,14 @@ require 'test_helper'
 
 class FilteringTestTest < ActiveJob::TestCase
   def setup
-    collection_fixtures('patient_cache', 'records', 'bundles', 'measures', 'health_data_standards_svs_value_sets')
-    vendor = Vendor.create(name: 'test_vendor_name')
-    @product = vendor.products.create(name: 'test_product', randomize_records: true, c2_test: true, c4_test: true,
-                                      bundle_id: '4fdb62e01d41c820f6000001', measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'])
+    @product = FactoryGirl.create(:product_static_bundle)
   end
 
   def test_create
-    assert_enqueued_jobs 0
+    assert_enqueued_jobs 1
     options = { 'filters' => {} }
     ft = @product.product_tests.build({ name: 'test_for_measure_1a',
-                                        measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+                                        measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                                         options: options }, FilteringTest)
 
     assert ft.valid?
@@ -22,7 +19,7 @@ class FilteringTestTest < ActiveJob::TestCase
     criteria = %w(races ethnicities genders payers providers problems age)
     options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
     ft = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
-                           measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'])
+                           measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
     ft.save!
     ft.generate_records
     ft.reload
@@ -34,7 +31,7 @@ class FilteringTestTest < ActiveJob::TestCase
     criteria = %w(problems)
     options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
     ft = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
-                           measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'])
+                           measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
     ft.save!
     ft.generate_records
     ft.reload
@@ -68,7 +65,7 @@ class FilteringTestTest < ActiveJob::TestCase
   def test_task_status_with_existing_tasks
     # valid filter test should call create_tasks after filter test is created
     test = @product.product_tests.create!({ name: 'test_for_measure_1a',
-                                            measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+                                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                                             options: { 'filters' => {} } }, FilteringTest)
     test.tasks.find_by(_type: 'Cat1FilterTask').test_executions.build(:state => :passed).save!
 
@@ -97,10 +94,10 @@ class FilteringTestTest < ActiveJob::TestCase
     seed = Random.new_seed
     options = { 'filters' => {} }
     test_1 = @product.product_tests.build({ name: 'test_for_measure_1a',
-                                            measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+                                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                                             options: options }, FilteringTest)
     test_2 = @product.product_tests.build({ name: 'test_for_measure_1a',
-                                            measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+                                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                                             options: options }, FilteringTest)
     test_1.save!
     test_2.save!

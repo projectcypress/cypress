@@ -2,7 +2,7 @@ require 'test_helper'
 
 class CachingTest < ActiveSupport::TestCase
   def setup
-    collection_fixtures('measures', 'bundles')
+    @bundle = FactoryGirl.create(:static_bundle)
 
     ActionController::Base.perform_caching = true
 
@@ -18,10 +18,10 @@ class CachingTest < ActiveSupport::TestCase
   end
 
   def setup_product_with_product_test
-    @product = Product.new(name: 'test_product_name', c1_test: true, measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'])
-    @product.bundle = Bundle.find('4fdb62e01d41c820f6000001')
+    @product = Product.new(name: 'test_product_name', c1_test: true, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+    @product.bundle = @bundle.id
     @product_test = ProductTest.new(name: 'test_product_test_name',
-                                    measure_ids: ['8A4D92B2-3887-5DF3-0139-0D01C6626E46'])
+                                    measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
     @product.vendor = @vendor
     @product_test.product = @product
     @product_test.save!

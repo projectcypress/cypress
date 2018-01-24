@@ -3,9 +3,15 @@ class RecordsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
   setup do
-    collection_fixtures('bundles', 'records', 'vendors', 'products', 'product_tests', 'tasks', 'users', 'measures', 'roles')
-    @vendor = Vendor.find(EHR1)
-    @first_product = @vendor.products.where(name: 'Vendor 1 Product 1').find('4f57a88a1d41c851eb000004')
+    FactoryGirl.create(:admin_user)
+    FactoryGirl.create(:atl_user)
+    FactoryGirl.create(:user_user)
+    vendor_user = FactoryGirl.create(:vendor_user)
+    FactoryGirl.create(:other_user)
+    @product_test = FactoryGirl.create(:product_test_static_result)
+    @record_id = @product_test.bundle.records.first.id
+    @bundle_id = @product_test.bundle._id
+    add_user_to_vendor(vendor_user, @product_test.product.vendor)
   end
 
   test 'should redirect from index to default bundle' do
@@ -27,7 +33,7 @@ class RecordsControllerTest < ActionController::TestCase
   test 'should get index scoped to bundle' do
     # do this for all users
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR, OTHER_VENDOR]) do
-      get :index, bundle_id: Bundle.where(:records.exists => true).find('4fdb62e01d41c820f6000001')
+      get :index, bundle_id: Bundle.where(:records.exists => true).find(@bundle_id)
       assert_response :success, "#{@user.email} should have access "
       assert assigns(:records)
       assert assigns(:source)
@@ -38,7 +44,7 @@ class RecordsControllerTest < ActionController::TestCase
   test 'should get show' do
     # do this for all users
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR, OTHER_VENDOR]) do
-      get :show, id: Bundle.where(:records.exists => true).find('4fdb62e01d41c820f6000001').records.find('4f5bb2ef1d41c841b3000589')
+      get :show, id: Bundle.where(:records.exists => true).find(@bundle_id).records.find(@record_id)
       assert_response :success, "#{@user.email} should have access "
       assert assigns(:record)
     end
@@ -47,7 +53,7 @@ class RecordsControllerTest < ActionController::TestCase
   # need negative tests for user that does not have owner or vendor access
   test 'should be able to restrict access to product test records unauthorized users ' do
     for_each_logged_in_user([OTHER_VENDOR]) do
-      task_id = @first_product.product_tests.where(name: 'vendor1 product1 test1').find('4f58f8de1d41c851eb000478').tasks.find('4f57a88a1d41c851eb000010')
+      task_id = @product_test.tasks.first.id
       get :index, task_id: task_id
       assert_response 401
     end

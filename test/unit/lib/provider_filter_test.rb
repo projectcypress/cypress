@@ -3,7 +3,10 @@ require 'fileutils'
 
 class ProviderFilterTest < ActiveSupport::TestCase
   def setup
-    collection_fixtures('providers')
+    FactoryGirl.create(:tin_provider)
+    FactoryGirl.create(:npi_provider)
+    FactoryGirl.create(:combination_provider)
+    FactoryGirl.create(:default_provider)
 
     @all_providers = Provider.all
   end
@@ -90,7 +93,6 @@ class ProviderFilterTest < ActiveSupport::TestCase
     filters = { 'tins' => [selected_tin], 'npis' => [selected_npi], 'addresses' => [selected_addr] }
 
     filtered_providers = Cypress::ProviderFilter.filter(@all_providers, filters, {}).to_a
-
     assert filtered_providers.count > 0, 'should have found a provider with the given npi/tin/address'
 
     @all_providers.each do |p|

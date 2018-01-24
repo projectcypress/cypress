@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::SettingsControllerTest < ActionController::TestCase
   setup do
-    collection_fixtures('users', 'roles')
+    FactoryGirl.create(:admin_user)
     @controller = Admin::SettingsController.new
   end
 

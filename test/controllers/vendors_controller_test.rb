@@ -5,7 +5,13 @@ class VendorsControllerTest < ActionController::TestCase
   include ApiTest
 
   setup do
-    collection_fixtures('vendors', 'products', 'users', 'roles')
+    @vendor = FactoryGirl.create(:vendor_with_points_of_contact)
+    FactoryGirl.create(:admin_user)
+    FactoryGirl.create(:atl_user)
+    FactoryGirl.create(:user_user)
+    FactoryGirl.create(:other_user)
+    @vendor_user = FactoryGirl.create(:vendor_user)
+    add_user_to_vendor(@vendor_user, @vendor)
   end
 
   test 'should get index' do
@@ -18,7 +24,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   test 'should get show' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, id: Vendor.find(EHR1).id
+      get :show, id: @vendor.id
       assert_response :success, "#{@user.email} should  have acces to vendor "
       assert assigns(:vendor)
       assert assigns(:products)
@@ -27,10 +33,11 @@ class VendorsControllerTest < ActionController::TestCase
 
   test 'should restrict access to show' do
     for_each_logged_in_user([OTHER_VENDOR]) do
-      get :show, id: Vendor.find(EHR1).id
+      get :show, id: @vendor.id
       assert_response 401, "#{@user.email} should not have acces to vendor "
     end
   end
+
   test 'should get new' do
     for_each_logged_in_user([ADMIN, ATL, USER]) do
       get :new
@@ -40,7 +47,7 @@ class VendorsControllerTest < ActionController::TestCase
   end
 
   test 'should restrict access to  new' do
-    for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
+    for_each_logged_in_user([VENDOR]) do
       get :new
       assert_response 401
     end
@@ -63,7 +70,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   test 'should get show with json request' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, :format => :json, :id => Vendor.find('4f57a8791d41c851eb000002').id
+      get :show, :format => :json, :id => @vendor.id
       assert_response :success, 'response should be OK on vendor show'
       assert assigns(:vendor)
       assert_not_nil JSON.parse(response.body)
@@ -95,7 +102,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   test 'should get error on invalid create vendor with json request' do
     for_each_logged_in_user([ADMIN, ATL, USER]) do
-      post :create, :format => :json, :vendor => { name: Vendor.find('4f57a8791d41c851eb000002').name, poc_attributes: { name: 'test poc' } }
+      post :create, :format => :json, :vendor => { name: @vendor.name, poc_attributes: { name: 'test poc' } }
       assert_response :unprocessable_entity, 'response should be Unprocessable Entity'
       assert_has_json_errors JSON.parse(response.body), 'name' => ['Vendor name was already taken. Please choose another.']
     end
@@ -111,7 +118,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   test 'should get success on update vendor with json request' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      patch :update, :format => :json, :id => Vendor.find(EHR1).id, :vendor => { name: "Vendor #{rand}" }
+      patch :update, :format => :json, :id => @vendor.id, :vendor => { name: "Vendor #{rand}" }
       assert_response :no_content, 'response should be No Content'
       assert_equal '', response.body
       assert assigns(:vendor)
@@ -121,7 +128,7 @@ class VendorsControllerTest < ActionController::TestCase
   test 'should get error on invalid update vendor with json request' do
     vendor_taken_name = Vendor.create(name: "Vendor #{rand}")
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      patch :update, :format => :json, :id => Vendor.find(EHR1).id, :vendor => { name: vendor_taken_name.name }
+      patch :update, :format => :json, :id => @vendor.id, :vendor => { name: vendor_taken_name.name }
       assert_response :unprocessable_entity, 'response should be Unprocessable Entity'
       assert_has_json_errors JSON.parse(response.body), 'name' => ['Vendor name was already taken. Please choose another.']
     end
@@ -169,7 +176,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   test 'should get show with xml request' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, :format => :xml, :id => Vendor.find('4f57a8791d41c851eb000002').id
+      get :show, :format => :xml, :id => @vendor.id
       assert_response :success, 'response should be OK on vendor show'
       assert assigns(:vendor)
       assert_not_equal '', response.body
@@ -193,7 +200,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   test 'should get error on invalid create vendor with xml request' do
     for_each_logged_in_user([ADMIN, ATL, USER]) do
-      post :create, :format => :xml, :vendor => { name: Vendor.find('4f57a8791d41c851eb000002').name, poc_attributes: { name: 'test poc' } }
+      post :create, :format => :xml, :vendor => { name: @vendor.name, poc_attributes: { name: 'test poc' } }
       assert_response :unprocessable_entity, 'response should be Unprocessable Entity'
       assert_has_xml_errors Hash.from_trusted_xml(response.body), 'name' => ['Vendor name was already taken. Please choose another.']
     end
@@ -220,7 +227,7 @@ class VendorsControllerTest < ActionController::TestCase
 
   test 'should get success on update vendor with xml request' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      patch :update, :format => :xml, :id => Vendor.find(EHR1).id, :vendor => { name: "Vendor #{rand}" }
+      patch :update, :format => :xml, :id => @vendor.id, :vendor => { name: "Vendor #{rand}" }
       assert_response :no_content, 'response should be No Content'
       assert_equal '', response.body
       assert assigns(:vendor)

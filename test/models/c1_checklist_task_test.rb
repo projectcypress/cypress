@@ -5,16 +5,8 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   def setup
-    collection_fixtures('product_tests', 'products', 'bundles',
-                        'measures', 'records', 'patient_cache',
-                        'health_data_standards_svs_value_sets')
-
-    vendor = Vendor.create(name: 'test_vendor_name')
-    product = vendor.products.create(name: 'test_product', randomize_records: true, c1_test: true,
-                                     bundle_id: '4fdb62e01d41c820f6000001', measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733'])
-
-    product.save!
-    @checklist_test = product.product_tests.build({ name: 'c1 visual', measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733'] }, ChecklistTest)
+    product = FactoryGirl.create(:product_static_bundle)
+    @checklist_test = product.product_tests.build({ name: 'c1 visual', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
     @checklist_test.save!
     @checklist_test.create_checked_criteria
     simplify_criteria
@@ -27,7 +19,7 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
 
   def test_task_good_results_should_pass
     task = @checklist_test.tasks[0]
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_checklist_correct_codes.zip'))
+    zip = File.new(File.join(Rails.root, 'test/fixtures/qrda/cat_I/c1_checklist_correct_codes.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, User.first)
       te.reload
@@ -39,7 +31,7 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
 
   def test_task_bad_results_should_fail
     task = @checklist_test.tasks[0]
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_checklist_incorrect_codes.zip'))
+    zip = File.new(File.join(Rails.root, 'test/fixtures/qrda/cat_I/c1_checklist_incorrect_codes.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, User.first)
       te.reload
@@ -51,7 +43,7 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
   def test_execute_should_not_execute_a_sibling_execution_on_c3_checklist_task_if_c3_not_selected
     Task.destroy_all
     task = @checklist_test.tasks.create!({}, C1ChecklistTask)
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_checklist_correct_codes.zip'))
+    zip = File.new(File.join(Rails.root, 'test/fixtures/qrda/cat_I/c1_checklist_correct_codes.zip'))
     perform_enqueued_jobs do
       execution = task.execute(zip, User.first)
       assert execution
@@ -71,7 +63,7 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
 
     task = @checklist_test.tasks.create!({}, C1ChecklistTask)
     @checklist_test.tasks.create!({}, C3ChecklistTask)
-    zip = File.new(File.join(Rails.root, 'test/fixtures/product_tests/c1_checklist_correct_codes.zip'))
+    zip = File.new(File.join(Rails.root, 'test/fixtures/qrda/cat_I/c1_checklist_correct_codes.zip'))
     perform_enqueued_jobs do
       execution = task.execute(zip, User.first)
       assert execution
@@ -84,15 +76,10 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
   end
 
   def simplify_criteria
-    criteria = @checklist_test.checked_criteria[0, 2]
-    criteria[0].source_data_criteria = 'DiagnosisActiveMajorDepressionIncludingRemission_precondition_40'
-    criteria[0].code = '14183003'
+    criteria = @checklist_test.checked_criteria[0, 1]
+    criteria[0].source_data_criteria = 'DiagnosisActivePregnancy'
+    criteria[0].code = '210'
     criteria[0].code_complete = true
-    criteria[0].attribute_code = '63161005'
-    criteria[0].attribute_complete = true
-    criteria[1].source_data_criteria = 'PatientCharacteristicEthnicityEthnicity'
-    criteria[1].code = '2186-5'
-    criteria[1].code_complete = true
     @checklist_test.checked_criteria = criteria
     @checklist_test.save!
   end

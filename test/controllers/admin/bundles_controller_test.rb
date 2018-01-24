@@ -4,7 +4,12 @@ class Admin::BundlesControllerTest < ActionController::TestCase
   include ActiveJob::TestHelper
 
   setup do
-    collection_fixtures('bundles', 'measures', 'records', 'users', 'roles')
+    FactoryGirl.create(:admin_user)
+    FactoryGirl.create(:user_user)
+    FactoryGirl.create(:vendor_user)
+    FactoryGirl.create(:other_user)
+    FactoryGirl.create(:bundle)
+    @static_bundle = FactoryGirl.create(:static_bundle)
     FileUtils.rm_rf(APP_CONSTANTS['bundle_file_path'])
   end
 
@@ -99,7 +104,7 @@ class Admin::BundlesControllerTest < ActionController::TestCase
       orig_bundle_count = Bundle.count
       orig_measure_count = Measure.count
       orig_record_count = Record.count
-      id = '4fdb62e01d41c820f6000001'
+      id = @static_bundle.id
 
       delete :destroy, id: id
 
@@ -123,7 +128,7 @@ class Admin::BundlesControllerTest < ActionController::TestCase
       orig_bundle_count = Bundle.available.count
       orig_measure_count = Measure.count
       orig_record_count = Record.count
-      id = '4fdb62e01d41c820f6000001'
+      id = @static_bundle.id
 
       post :deprecate, id: id
 
