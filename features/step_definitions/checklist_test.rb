@@ -7,9 +7,10 @@ include ProductsHelper
 #   A N D   #
 
 And(/^the user has created a vendor with a product selecting C1 testing with one measure$/) do
-  measure_ids = ['40280381-4B9A-3825-014B-C1A59E160733']
+  measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
   @vendor = FactoryGirl.create(:vendor)
-  @product = Product.new(vendor: @vendor, name: 'Product 1', c1_test: true, measure_ids: measure_ids, bundle_id: '4fdb62e01d41c820f6000001')
+  @bundle_id = Bundle.default._id
+  @product = Product.new(vendor: @vendor, name: 'Product 1', c1_test: true, measure_ids: measure_ids, bundle_id: @bundle_id)
   @product.product_tests.build({ name: 'test_for_measure_1a', measure_ids: measure_ids }, MeasureTest)
   checklist_test = @product.product_tests.build({ name: 'record sample test', measure_ids: measure_ids }, ChecklistTest)
   @product.save!
@@ -31,9 +32,9 @@ end
 
 # certification types should be a comma separated list either: 'c1' or 'c1, c3'
 When(/^the user creates a product that certifies (.*) and visits the record sample page$/) do |certification_types|
-  measure_ids = ['40280381-4B9A-3825-014B-C1A59E160733']
+  measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
   certification_types = certification_types.split(', ')
-  @product = @vendor.products.build(name: "my product #{rand}", measure_ids: measure_ids, bundle_id: '4fdb62e01d41c820f6000001')
+  @product = @vendor.products.build(name: "my product #{rand}", measure_ids: measure_ids, bundle_id: @bundle_id)
   @product.c1_test = true if certification_types.include? 'c1'
   @product.c3_test = true if certification_types.include? 'c3'
   @product.save!
@@ -70,36 +71,36 @@ When(/^the user fills out the record sample with good data$/) do
   simplify_source_data_criteria(@test)
   @test.save!
   visit product_checklist_test_path(@product, @test)
-  page.fill_in 'product_test[checked_criteria_attributes][0][code]', with: '14183003'
-  page.fill_in 'product_test[checked_criteria_attributes][0][attribute_code]', with: '63161005'
-  page.fill_in 'product_test[checked_criteria_attributes][1][code]', with: '2186-5'
+  page.fill_in 'product_test[checked_criteria_attributes][0][code]', with: '210'
+  page.fill_in 'product_test[checked_criteria_attributes][0][attribute_code]', with: '4896'
+  #page.fill_in 'product_test[checked_criteria_attributes][1][code]', with: '2186-5'
   page.click_button 'Save'
 end
 
 def simplify_source_data_criteria(test)
-  criterias = test.checked_criteria[0, 2] # only use first two criteria
-  criterias[0].source_data_criteria = 'DiagnosisActiveMajorDepressionIncludingRemission_precondition_40'
-  criterias[1].source_data_criteria = 'PatientCharacteristicEthnicityEthnicity'
+  criterias = test.checked_criteria[0, 1] # only use first criteria
+  #criterias[0].source_data_criteria = 'DiagnosisActiveMajorDepressionIncludingRemission_precondition_40'
+  #criterias[1].source_data_criteria = 'PatientCharacteristicEthnicityEthnicity'
   test.checked_criteria = criterias
   test.save!
 end
 
 # should create a test that includes codes for all checked criteria and produces no test execution errors
 When(/^the user uploads a Cat I file and waits for results$/) do
-  upload_and_submit(File.join(Rails.root, 'test/fixtures/product_tests/test_record_sample_upload_mr_testy.zip'))
+  upload_and_submit(File.join(Rails.root, 'test/fixtures/qrda/cat_I/c1_checklist_correct_codes.zip'))
   wait_for_all_delayed_jobs_to_run
 end
 
 # should create a test that does not include codes for all checked criteria and produces test execution errors
 When(/^the user uploads a bad Cat I file and waits for results$/) do
-  upload_and_submit(File.join(Rails.root, 'test/fixtures/product_tests/c1_checklist_incorrect_codes.zip'))
+  upload_and_submit(File.join(Rails.root, 'test/fixtures/qrda/cat_I/c1_checklist_incorrect_codes.zip'))
   wait_for_all_delayed_jobs_to_run
 end
 
 # should create a test that includes codes for all checked criteria but produces test execution errors
 # input should be either 'c1' or 'c3'
 When(/^the user uploads a Cat I file that produces a qrda error on (.*) task's execution and waits for results$/) do |certification_type|
-  upload_and_submit(File.join(Rails.root, 'test/fixtures/product_tests/test_record_sample_upload_mr_testy.zip'))
+  upload_and_submit(File.join(Rails.root, 'test/fixtures/qrda/cat_I/c1_checklist_correct_codes_bad_form.zip'))
   execution = @test.tasks.c1_checklist_task.most_recent_execution if certification_type == 'c1'
   execution = @test.tasks.c3_checklist_task.most_recent_execution if certification_type == 'c3'
   execution.execution_errors.create!(message: "my execution error #{rand}", msg_type: 'error')
@@ -129,7 +130,7 @@ Then(/^the user should see the checklist test$/) do
 end
 
 Then(/^the user should see a button to revisit the checklist test$/) do
-  assert page.find('#c1_sample').has_link? 'CMS159v4 Depression Remission at Twelve Months'
+  assert page.find('#c1_sample').has_link? 'CMS1234 Static Measure'
   # assert page.has_selector?("input[type = submit][value = 'View Test']")
 end
 
