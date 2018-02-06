@@ -16,7 +16,7 @@ FactoryGirl.define do
       trait :default do
         c1_test true
         c2_test true
-        vendor
+        association :vendor, name: 'Static Bundle Vendor'
       end
       trait :default_2014 do
         c1_test true

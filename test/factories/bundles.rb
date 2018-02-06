@@ -2,11 +2,13 @@ FactoryGirl.define do
   factory :bundle, class: Bundle do
     sequence(:name) { |i| "Bundle Name #{i}" }
     sequence(:version) { |i| "#{2017 + i}.0.0" }
+    sequence(:title) { |i| "Bundle Name #{i}" }
 
     factory :static_bundle do
       active true
       done_importing true
       name 'Static Bundle'
+      title 'Static Bundle'
       version '2017.0.2'
       extensions { %w[map_reduce_utils hqmf_utils] }
       records { [] }

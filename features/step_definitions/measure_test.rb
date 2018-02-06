@@ -7,7 +7,7 @@ include TestExecutionsHelper
 #   A N D   #
 
 And(/^the user has selected a measure$/) do
-  @measure = Measure.first
+  @measure = Measure.where(hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE').first
 end
 
 # # # # # # # #
@@ -15,17 +15,19 @@ end
 # # # # # # # #
 
 When(/^the user creates a product with tasks (.*)$/) do |tasks|
-  measure_ids = ['40280381-4BE2-53B3-014C-0F589C1A1C39']
+  measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
+  bundle_id = Bundle.default._id
   tasks = tasks.split(', ')
   @product = Product.new(vendor: @vendor, name: 'Product 1', measure_ids: measure_ids, c1_test: tasks.include?('c1'),
-                         c2_test: tasks.include?('c2'), c3_test: tasks.include?('c3'), c4_test: tasks.include?('c4'), bundle_id: @measure.bundle_id)
+                         c2_test: tasks.include?('c2'), c3_test: tasks.include?('c3'), c4_test: tasks.include?('c4'), bundle_id: bundle_id)
   @product.save!
   @product_test = @product.product_tests.create!({ name: @measure.name, measure_ids: measure_ids }, MeasureTest)
 
   # create record and assign provider for product test
-  provider = Provider.find('53b2c4414d4d32139c730000')
-  @product_test.provider = provider
-  @product_test.save!
+  @product_test.generate_provider
+  provider = @product_test.provider
+  #@product_test.provider = provider
+  #@product_test.save!
   provider_performance = ProviderPerformance.new(provider: provider, provider_id: provider.id)
   Record.create!(test_id: @product_test.id, provider_performances: [provider_performance])
 end
@@ -39,7 +41,7 @@ end
 
 When(/^the user views the uploaded xml$/) do
   # page.click_button 'View Uploaded XML with Errors'
-  visit file_result_test_execution_path(@product_test.tasks.c2_task.most_recent_execution, route_file_name('cms111v3_catiii.xml'))
+  visit file_result_test_execution_path(@product_test.tasks.c2_task.most_recent_execution, route_file_name('ep_test_qrda_cat3_good.xml'))
 end
 
 #   A N D   #
@@ -75,13 +77,13 @@ And(/^the product test state is not set to ready$/) do
 end
 
 And(/^the user uploads a CAT 1 zip file$/) do
-  zip_path = Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_test_good.zip')
+  zip_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip')
   page.attach_file('results', zip_path, visible: false)
   page.find('#submit-upload').click
 end
 
 And(/^the user uploads a CAT 3 XML file$/) do
-  xml_path = Rails.root.join('test', 'fixtures', 'product_tests', 'cms111v3_catiii.xml')
+  xml_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III' 'ep_test_qrda_cat3_good.xml')
   page.attach_file('results', xml_path, visible: false)
   page.find('#submit-upload').click
 end
