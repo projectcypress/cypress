@@ -3,8 +3,12 @@ class Admin::UsersControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
   def setup
-    collection_fixtures 'users', 'roles', 'vendors'
-    @user = User.find('4def93dd4f85cf8968000001')
+    FactoryGirl.create(:admin_user)
+    FactoryGirl.create(:user_user)
+    FactoryGirl.create(:vendor_user)
+    FactoryGirl.create(:other_user)
+    @user = FactoryGirl.create(:atl_user)
+    @vendor = FactoryGirl.create(:vendor)
   end
 
   test 'Admin can view index ' do
@@ -37,18 +41,17 @@ class Admin::UsersControllerTest < ActionController::TestCase
   end
 
   test 'Admin can update user' do
-    v = Vendor.find('4f57a8791d41c851eb000002')
     Settings.current.update(default_role: '')
     u = User.create(email: 'admin_test@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
 
     for_each_logged_in_user([ADMIN]) do
       assert !u.user_role?(:user)
-      assert !u.user_role?(:owner, v)
-      patch :update, :id => u.id, :role => :user, :assignments => { '0' => { :role => :owner, :vendor_id => v.id } }
+      assert !u.user_role?(:owner, @vendor)
+      patch :update, :id => u.id, :role => :user, :assignments => { '0' => { :role => :owner, :vendor_id => @vendor.id } }
       assert_response 302
       u.reload
       assert u.user_role?(:user)
-      assert u.user_role?(:owner, v)
+      assert u.user_role?(:owner, @vendor)
     end
   end
 

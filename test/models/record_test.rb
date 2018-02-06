@@ -2,8 +2,7 @@ require 'test_helper'
 
 class RecordTest < ActiveSupport::TestCase
   def setup
-    collection_fixtures('bundles', 'records', 'patient_cache')
-    @bundle = HealthDataStandards::CQM::Bundle.create(version: '1', name: 'test-bundle')
+    @bundle = FactoryGirl.create(:static_bundle)
   end
 
   def test_record_knows_bundle
@@ -24,8 +23,8 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   def test_record_should_be_able_to_find_calculation_results
-    r = Record.find('51703a883054cf84390000d4')
-    assert_equal 2, r.calculation_results.count, 'record should have 2 calculated results'
+    r = Record.where(first: 'Selena').first
+    assert_equal 1, r.calculation_results.count, 'record should have 1 calculated results'
   end
 
   def record_demographics_equal?(r1, r2)

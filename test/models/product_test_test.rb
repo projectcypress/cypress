@@ -2,15 +2,14 @@ require 'test_helper'
 
 class ProductTestTest < ActiveJob::TestCase
   def setup
-    collection_fixtures('patient_cache', 'records', 'bundles', 'measures')
-    @vendor = Vendor.create(name: 'test_vendor_name')
-    @product = @vendor.products.create(name: 'test_product', c2_test: true, randomize_records: true,
-                                       bundle_id: '4fdb62e01d41c820f6000001')
+    @vendor = FactoryGirl.create(:vendor)
+    @bundle = FactoryGirl.create(:static_bundle)
+    @product = @vendor.products.create(name: 'test_product', c2_test: true, randomize_records: true, bundle_id: @bundle.id)
   end
 
   def test_create
     assert_enqueued_jobs 0
-    pt = @product.product_tests.build(name: 'test_for_measure_1a', measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'])
+    pt = @product.product_tests.build(name: 'test_for_measure_1a', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
     assert pt.valid?, 'product test should be valid with product, name, and measure_id'
   end
 
@@ -24,9 +23,9 @@ class ProductTestTest < ActiveJob::TestCase
   end
 
   def test_status_passing
-    measure_id = '40280381-4BE2-53B3-014C-0F589C1A1C39'
+    measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
     vendor = Vendor.create!(name: 'my vendor')
-    product = vendor.products.build(name: 'my product', bundle_id: '4fdb62e01d41c820f6000001', c1_test: true, c2_test: true,
+    product = vendor.products.build(name: 'my product', bundle_id: @bundle.id, c1_test: true, c2_test: true,
                                     measure_ids: [measure_id])
     product.save!
     measure_test = product.product_tests.build({ name: "my measure test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
@@ -54,15 +53,15 @@ class ProductTestTest < ActiveJob::TestCase
     @product.randomize_records = true
     @product.duplicate_records = true
     @product.allow_duplicate_names = true
-    @product.measure_ids = ['8A4D92B2-397A-48D2-0139-C648B33D5582']
+    @product.measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     @product.save!
 
     # create tests with same seed
     seed = Random.new_seed
-    test_1 = @product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'],
-                                            bundle_id: '4fdb62e01d41c820f6000001', rand_seed: seed }, MeasureTest)
-    test_2 = @product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'],
-                                            bundle_id: '4fdb62e01d41c820f6000001', rand_seed: seed }, MeasureTest)
+    test_1 = @product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                            bundle_id: @bundle.id, rand_seed: seed }, MeasureTest)
+    test_2 = @product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                            bundle_id: @bundle.id, rand_seed: seed }, MeasureTest)
 
     assert_equal test_1.rand_seed, test_2.rand_seed, 'random repeatability error: random seeds don\'t match'
 

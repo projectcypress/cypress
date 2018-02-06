@@ -7,23 +7,19 @@ class ProductTestsControllerTest < ActionController::TestCase
   include ApiTest
 
   setup do
-    collection_fixtures('vendors', 'products', 'product_tests', 'users', 'roles', 'bundles', 'measures')
-    @vendor = Vendor.find(EHR1)
-    @product = @vendor.products.find('4f57a88a1d41c851eb000004')
-    @test = @product.product_tests.find('4f58f8de1d41c851eb000478')
-    @test['_type'] = MeasureTest # each measure test should have a _type of MeasureTest and cms_id
-    @test['cms_id'] = 'CMS001'
-    @test.save!
+    FactoryGirl.create(:admin_user)
+    FactoryGirl.create(:atl_user)
+    FactoryGirl.create(:user_user)
+    vendor_user = FactoryGirl.create(:vendor_user)
+    FactoryGirl.create(:other_user)
+    @test = FactoryGirl.create(:product_test_static_result)
+    @product = @test.product
+    add_user_to_vendor(vendor_user, @product.vendor)
   end
 
   test 'should be able to download zip file of patients' do
-    product = Product.create!(vendor: @vendor, name: 'Product 1', c1_test: true, bundle_id: '4fdb62e01d41c820f6000001',
-                              measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'])
-    product_test = product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
-                                                 bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
-    product_test.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :patients, :id => product_test.id, :format => :format_does_not_matter
+      get :patients, :id => @test.id, :format => :format_does_not_matter
       assert_response :success, "#{@user.email} should have access. response was #{response.status}"
       assert_not_nil assigns(:product_test)
       assert_equal 'application/zip', response.headers['Content-Type']
@@ -31,11 +27,8 @@ class ProductTestsControllerTest < ActionController::TestCase
   end
 
   test 'should restrict access to download zip' do
-    product_test = @product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'],
-                                                  bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
-    product_test.save!
     for_each_logged_in_user([OTHER_VENDOR]) do
-      get :patients, :id => product_test.id, :format => :format_does_not_matter
+      get :patients, :id => @test.id, :format => :format_does_not_matter
       assert_response 401
     end
   end
@@ -49,9 +42,9 @@ class ProductTestsControllerTest < ActionController::TestCase
   end
   # need negative tests for user that does not have owner or vendor access
 
-  # # # # # # #
-  #   A P I   #
-  # # # # # # #
+  # # # # # # # #
+  # #   A P I   #
+  # # # # # # # #
 
   # json
 

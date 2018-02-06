@@ -2,9 +2,7 @@ require 'test_helper'
 
 class MplDownloadCreateJobTest < ActiveJob::TestCase
   setup do
-    collection_fixtures('bundles', 'products')
-
-    @bundle = Bundle.find('4fdb62e01d41c820f6000001')
+    @bundle = FactoryGirl.create(:static_bundle)
     # Clean up MPL before and after running for consistency
     FileUtils.rm_rf(@bundle.mpl_path)
   end

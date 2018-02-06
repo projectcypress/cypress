@@ -18,6 +18,9 @@ include HealthDataStandards::CQM
 
 Mongoid.logger.level = Logger::INFO
 Mongo::Logger.logger.level = Logger::INFO
+CAT1_CONFIG['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] = [ { 'ValueSet' => '1.5.6.7',
+                                                           'Weight' => '0.954242509',
+                                                           'IsAttribute' => false } ]
 
 if ENV['IN_BROWSER']
   # On demand: non-headless tests via Selenium/WebDriver
@@ -116,16 +119,16 @@ Capybara.asset_host = 'http://localhost:3000'
 #   H E L P E R S   #
 # # # # # # # # # # #
 
-def collection_fixtures(*collections)
-  collections.each do |collection|
-    Mongoid.default_client[collection].drop
-    Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
-      fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
-      map_bson_ids(fixture_json)
-      Mongoid.default_client[collection].insert_one(fixture_json)
-    end
-  end
-end
+# def collection_fixtures(*collections)
+#   collections.each do |collection|
+#     Mongoid.default_client[collection].drop
+#     Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
+#       fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
+#       map_bson_ids(fixture_json)
+#       Mongoid.default_client[collection].insert_one(fixture_json)
+#     end
+#   end
+# end
 
 def value_or_bson(v)
   if v.is_a? Hash
@@ -166,6 +169,7 @@ Before do
   Mongoid.default_client['vendors'].drop
   Mongoid.default_client['products'].drop
   Mongoid.default_client['product_tests'].drop
-
-  collection_fixtures('patient_cache', 'records', 'bundles', 'measures', 'providers', 'query_cache', 'health_data_standards_svs_value_sets')
+  FactoryGirl.create(:static_bundle)
+  FactoryGirl.create(:bundle)
+  # collection_fixtures('patient_cache', 'records', 'bundles', 'measures', 'providers', 'query_cache', 'health_data_standards_svs_value_sets')
 end

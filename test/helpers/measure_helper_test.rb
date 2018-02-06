@@ -2,14 +2,12 @@ require 'test_helper'
 
 class MeasureHelperTest < ActiveSupport::TestCase
   def setup
-    collection_fixtures('measures', 'bundles')
-
-    @cpc_and_diag_msrs = ['40280381-4600-425F-0146-1F8D3B750FAC']
-    @cpc_msrs = ['40280381-4BE2-53B3-014C-0F589C1A1C39']
-    @diag_msrs = ['8A4D92B2-397A-48D2-0139-7CC6B5B8011E', '8A4D92B2-3946-CDAE-0139-7944ACB700BD']
-    @other_measures = ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD', '8A4D92B2-3887-5DF3-0139-0D01C6626E46']
-
-    @bundle = Bundle.find('4fdb62e01d41c820f6000001')
+    APP_CONSTANTS['CPC_measures'] = { '2016' => ['53e3f13d-e5cf-445f-8dda-3720aff84011','53e3f13d-e5cf-445f-8dda-3720aff84012'] }
+    @bundle = FactoryGirl.create(:static_bundle)
+    @cpc_and_diag_msrs = ['53e3f13d-e5cf-445f-8dda-3720aff84011']
+    @cpc_msrs = ['53e3f13d-e5cf-445f-8dda-3720aff84012']
+    @diag_msrs = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
+    @other_measures = ['53e3f13d-e5cf-445f-8dda-3720aff84015', '53e3f13d-e5cf-445f-8dda-3720aff84016']
   end
 
   def test_cpc_and_diagnosis_measures

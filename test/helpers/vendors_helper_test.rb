@@ -6,10 +6,11 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   def setup
     drop_database
-    collection_fixtures('records', 'measures', 'vendors', 'products', 'product_tests', 'bundles')
-
-    @product = Product.new(vendor: Vendor.find('4f57a8791d41c851eb000002'), name: 'test_product', c1_test: true, c2_test: true, c3_test: true, c4_test: true,
-                           bundle_id: '4fdb62e01d41c820f6000001', measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'])
+    product_test = FactoryGirl.create(:product_test_static_result)
+    @bundle = product_test.bundle
+    @vendor = product_test.product.vendor
+    @product = Product.new(vendor: @vendor.id, name: 'test_product', c1_test: true, c2_test: true, c3_test: true, c4_test: true,
+                           bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
     setup_checklist_test
     setup_measure_tests
     setup_filtering_tests
@@ -17,7 +18,7 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   def setup_checklist_test
     checklist_test = @product.product_tests.build({ name: 'c1 visual',
-                                                    measure_ids: ['40280381-43DB-D64C-0144-5571970A2685'] }, ChecklistTest)
+                                                    measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
     checklist_test.save!
     checked_criterias = []
     measures = Measure.top_level.where(:hqmf_id.in => checklist_test.measure_ids, :bundle_id => @product.bundle_id)
@@ -34,10 +35,10 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   def setup_measure_tests
     @product.product_tests.build({ name: 'test_product_test_name_1',
-                                   measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7']
+                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
                                  }, MeasureTest).save!
     @product.product_tests.build({ name: 'test_product_test_name_2',
-                                   measure_ids: ['8A4D92B2-3887-5DF3-0139-11B262260A92']
+                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
                                  }, MeasureTest).save!
     @product.product_tests.measure_tests.each do |test|
       test.tasks.build({}, C1Task)
@@ -66,7 +67,7 @@ class VendorsHelperTest < ActiveJob::TestCase
   end
 
   def setup_filtering_tests
-    @product.product_tests.create!({ name: 'Filter Test 1', cms_id: 'SomeCMSID', measure_ids: ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+    @product.product_tests.create!({ name: 'Filter Test 1', cms_id: 'SomeCMSID', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                                      options: { filters: { filt1: ['val1'], filt2: ['val2'] } }
                                    }, FilteringTest)
     @product.product_tests.filtering_tests.each do |test|
@@ -144,8 +145,8 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal 0, vendor_status['passing']
     assert_equal 0, vendor_status['errored']
     assert_equal 1, vendor_status['failing']
-    assert_equal 3, vendor_status['incomplete']
-    assert_equal 4, vendor_status['total']
+    assert_equal 1, vendor_status['incomplete']
+    assert_equal 2, vendor_status['total']
   end
 
   def test_status_to_css_classes

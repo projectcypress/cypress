@@ -4,7 +4,11 @@ class VendorTest < ActiveSupport::TestCase
   VENDOR = '4def93dd4f85cf8968000003'.freeze
   OTHER_VENDOR = '4def93dd4f85cf8968000004'.freeze
   def setup
-    collection_fixtures 'users'
+    FactoryGirl.create(:admin_user)
+    FactoryGirl.create(:atl_user)
+    FactoryGirl.create(:user_user)
+    FactoryGirl.create(:vendor_user)
+    FactoryGirl.create(:other_user)
     Vendor.destroy_all
   end
 
@@ -140,6 +144,7 @@ class VendorTest < ActiveSupport::TestCase
   end
 end
 
+require_relative '../helpers/caching_test'
 class VendorCachingTest < CachingTest
   def test_vendor_status_and_product_groups_are_not_cached_on_start
     assert !Rails.cache.exist?("#{@vendor.cache_key}/status"), 'cache key for vendor status should not exist'

@@ -7,6 +7,9 @@ SimpleCov.minimum_coverage 77
 Mongo::Logger.logger.level = Logger::WARN
 ENV['RAILS_ENV'] ||= 'test'
 ENV['IGNORE_ROLES'] ||= 'false'
+CAT1_CONFIG['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] = [ { 'ValueSet' => '1.5.6.7',
+                                                           'Weight' => '0.954242509',
+                                                           'IsAttribute' => false } ]
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
@@ -120,6 +123,15 @@ class ActiveSupport::TestCase
 
     EHR1 = '4f57a8791d41c851eb000002'.freeze
     EHR2 = '4f636aba1d41c851eb00048c'.freeze
+
+    def add_user_to_vendor(user, vendor)
+      test_params = { :user => { :email => user.email },
+                      :role => "vendor",
+                      :assignments => { "1001" => { :vendor_id => vendor.id.to_s,
+                                                    :role => "vendor" } } }
+      user.assign_roles_and_email(test_params)
+      user.save
+    end
 
     def for_each_logged_in_user(user_ids, &_block)
       User.find([user_ids]).each do |user|

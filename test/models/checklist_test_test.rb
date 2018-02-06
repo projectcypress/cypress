@@ -2,16 +2,11 @@ require 'test_helper'
 
 class ChecklistTestTest < ActiveJob::TestCase
   def setup
-    collection_fixtures('patient_cache', 'records', 'bundles', 'measures', 'health_data_standards_svs_value_sets')
-    vendor = Vendor.create!(name: 'test_vendor_name')
-    product = vendor.products.create!(name: 'test_product', c1_test: true, bundle_id: '4fdb62e01d41c820f6000001',
-                                      measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733'])
-    @test = product.product_tests.create!({ name: 'test_for_measure_1a',
-                                            measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733'] }, ChecklistTest)
+    product = FactoryGirl.create(:product_static_bundle)
+    @test = product.product_tests.create!({ name: 'c1 visual', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
   end
 
   def test_create
-    assert_enqueued_jobs 1
     assert @test.valid?, 'product test should be valid with product, name, and measure_id'
     assert @test.checked_criteria? == false
     @test.create_checked_criteria
@@ -26,7 +21,7 @@ class ChecklistTestTest < ActiveJob::TestCase
   def test_create_checked_criteria_with_existing_measure_tests
     product = @test.product
     product.c2_test = true
-    product.measure_ids << '8A4D92B2-397A-48D2-0139-C648B33D5582'
+    product.measure_ids << 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
     product.save!
     product.measure_ids.each do |measure_id|
       product.product_tests.create!({ name: "measure test with measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
@@ -42,7 +37,7 @@ class ChecklistTestTest < ActiveJob::TestCase
     # all incomplete checked criteria
     product = @test.product
     product.product_tests.each(&:destroy)
-    checklist_test = create_checklist_test_for_product_with_measure_id(product, '40280381-4BE2-53B3-014C-0F589C1A1C39')
+    checklist_test = create_checklist_test_for_product_with_measure_id(product, 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE')
     assert_equal 'incomplete', checklist_test.status
 
     # one complete checked criteria, all others incomplete
@@ -139,8 +134,8 @@ class ChecklistTestTest < ActiveJob::TestCase
   def test_appropriate_code_for_attribute_vs
     @test.create_checked_criteria
     checked_criteria = @test.checked_criteria[0]
-    checked_criteria.code = 'F32.9'
-    checked_criteria.attribute_code = '63161005'
+    checked_criteria.code = '210'
+    checked_criteria.attribute_code = '4896'
     checked_criteria.validate_criteria
     checked_criteria.save
     assert_equal true, checked_criteria.code_complete, 'code complete should be true when correct code is provided'
@@ -158,7 +153,7 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal @test.checked_criteria.count, execution.execution_errors.count
 
     # make one checked criteria complete
-    simplify_criteria(@test)
+    simplify_criteria
 
     execution = task.test_executions.build
     assert_equal 0, execution.execution_errors.count
@@ -167,26 +162,26 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal @test.checked_criteria.count - 1, execution.execution_errors.count, 'should have one less execution error'
   end
 
-  def simplify_criteria(test)
-    criterias = test.checked_criteria
-    criterias[0].source_data_criteria = 'DiagnosisActiveMajorDepressionIncludingRemission_precondition_40'
-    criterias[0].code = '14183003'
-    criterias[0].code_complete = true
-    criterias[0].attribute_code = '63161005'
-    criterias[0].attribute_complete = true
-    criterias[0].result_complete = true
-    criterias[0].passed_qrda = true
-    test.checked_criteria = criterias
-    test.save!
+  def simplify_criteria
+    criteria = @test.checked_criteria[0, 1]
+    criteria[0].source_data_criteria = 'DiagnosisActivePregnancy'
+    criteria[0].code = '210'
+    criteria[0].code_complete = true
+    criteria[0].attribute_code = '4896'
+    criteria[0].attribute_complete = true
+    criteria[0].result_complete = true
+    criteria[0].passed_qrda = true
+    @test.checked_criteria = criteria
+    @test.save!
   end
 
   def test_repeatability_with_random_seed
     # create new tests with same seed
     random = Random.new_seed
     test_1 = @test.product.product_tests.create!({ name: 'test_for_measure_1a',
-                                                   measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733'] }, ChecklistTest)
+                                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
     test_2 = @test.product.product_tests.create!({ name: 'test_for_measure_1a',
-                                                   measure_ids: ['40280381-4B9A-3825-014B-C1A59E160733'] }, ChecklistTest)
+                                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
 
     test_1.rand_seed = random
     test_2.rand_seed = random

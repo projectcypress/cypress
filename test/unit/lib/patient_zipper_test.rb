@@ -3,7 +3,11 @@ require 'fileutils'
 
 class PatientZipperTest < ActiveSupport::TestCase
   setup do
-    collection_fixtures('records', 'bundles', 'vendors', 'products', 'product_tests', 'tasks', 'test_executions')
+    record = FactoryGirl.create(:static_test_record)
+    pt = FactoryGirl.create(:product_test_static_result)
+    record.bundle_id = pt.bundle.id
+    record.test_id = pt.id
+    record.save
     @patients = Record.where('gender' => 'F')
   end
 
