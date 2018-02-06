@@ -5,7 +5,8 @@ include ProductsHelper
 # # # # # # # # # # #
 
 def build_product
-  Product.new(name: 'Product 1', measure_ids: ['40280381-4BE2-53B3-014C-0F589C1A1C39'], bundle_id: '4fdb62e01d41c820f6000001')
+  bundle = Bundle.default
+  Product.new(name: 'Product 1', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: bundle._id)
 end
 
 # # # # # # # # #
@@ -54,7 +55,7 @@ When(/^a user creates a (.*) product with (.*) certifications and visits that pr
   page.find('#product_c4_test').click if certs.include? 'c4'
   page.find('#product_measure_selection_custom').click
   page.all('#measure_tabs .ui-tabs-nav a')[1].click # should tab for "Behavioral Health Adult"
-  page.all('input.measure-checkbox')[1].click # should get measure for "Depression Remission at Twelve Months"
+  page.all('input.measure-checkbox')[0].click # should get measure for "Depression Remission at Twelve Months"
   page.click_button 'Add Product'
   page.click_link product_name
   # By running find_by after we have already clicked a link to the same product we are trying to find,
@@ -77,7 +78,7 @@ When(/^the user creates a product with name (.*) for vendor (.*)$/) do |product_
   page.fill_in 'Name', :with => product_name
   page.find('#product_c2_test').click
   page.find('#product_measure_selection_custom').click
-  page.all('#measure_tabs .ui-tabs-nav a')[2].click
+  page.all('#measure_tabs .ui-tabs-nav a')[1].click
   page.all('input.measure-checkbox')[0].click
   page.click_button 'Add Product'
 end
@@ -105,7 +106,7 @@ When(/^the user creates a product with no name$/) do
   page.fill_in 'Name', :with => @product.name
   page.find('#product_c1_test').click
   page.find('#product_measure_selection_custom').click
-  page.all('#measure_tabs .ui-tabs-nav a')[2].click
+  page.all('#measure_tabs .ui-tabs-nav a')[1].click
   page.all('input.measure-checkbox')[0].click
 end
 
@@ -122,7 +123,7 @@ When(/^the user creates a product with no task type$/) do
   @product = FactoryGirl.build(:product)
   page.fill_in 'Name', :with => @product.name
   page.find('#product_measure_selection_custom').click
-  page.all('#measure_tabs .ui-tabs-nav a')[2].click
+  page.all('#measure_tabs .ui-tabs-nav a')[1].click
   page.all('input.measure-checkbox')[0].click
 end
 
@@ -138,23 +139,23 @@ end
 
 When(/^the user creates a product with multiple measures from different groups$/) do
   steps %( When the user fills out all product information but measures )
-  page.all('#measure_tabs .ui-tabs-nav a')[2].click
+  page.all('#measure_tabs .ui-tabs-nav a')[0].click
   page.all('input.measure-checkbox')[0].click
-  page.all('#measure_tabs .ui-tabs-nav a')[3].click
+  page.all('#measure_tabs .ui-tabs-nav a')[1].click
   page.all('input.measure-checkbox')[0].click
   page.click_button 'Add Product'
 end
 
 When(/^the user creates a product with selecting a group of measures$/) do
   steps %( When the user fills out all product information but measures )
-  page.find("[href='#Miscellaneous_div']").click
+  #page.find("[href='#Miscellaneous_div']").click
   page.find('input.measure-group-all').click
   page.click_button 'Add Product'
 end
 
 When(/^the user creates a product with selecting a measure then deselecting that measure$/) do
   steps %( When the user fills out all product information but measures )
-  page.all('#measure_tabs .ui-tabs-nav a')[2].click
+  page.all('#measure_tabs .ui-tabs-nav a')[1].click
   page.all('input.measure-checkbox')[0].click
   page.all('input.measure-checkbox')[0].click
   page.click_button 'Add Product'
@@ -162,14 +163,14 @@ end
 
 When(/^the user creates a product with selecting a group of measures then deselecting that group$/) do
   steps %( When the user fills out all product information but measures )
-  page.find("[href='#Miscellaneous_div']").click
+  #page.find("[href='#Miscellaneous_div']").click
   page.find('input.measure-group-all').click
   page.find('input.measure-group-all').click
   page.click_button 'Add Product'
 end
 
 And(/^the user selects a group of measures but deselects one$/) do
-  page.find("[href='#Miscellaneous_div']").click
+  #page.find("[href='#Miscellaneous_div']").click
   page.find('input.measure-group-all').click
   page.all('input.measure-checkbox')[0].click
 end
@@ -250,7 +251,7 @@ When(/^all product tests have a state of ready$/) do
 end
 
 When(/^all product tests do not have a state of ready$/) do
-  pt = ProductTest.find_by(:cms_id => 'CMS155v1')
+  pt = ProductTest.find_by(:cms_id => 'CMS1234')
   pt.state = :nah_man_im_like_lightyears_away_from_bein_ready
   pt.save!
 end
@@ -262,7 +263,7 @@ end
 
 When(/^the user adds a product test$/) do
   # measure to add
-  measure_id = '40280381-43DB-D64C-0144-5571970A2685'
+  measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
   product = @product
   product.measure_ids << measure_id
   product.save!
@@ -383,16 +384,16 @@ def attach_zip_to_multi_upload(html_id)
   show_hidden_upload_field(html_id)
 
   # attach zip file to multi-upload field
-  zip_path = Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_test_good.zip')
-  page.find(html_id, :visible => false).attach_file('test_execution[results]', zip_path, :visible => false)
+  zip_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip')
+  page.find(html_id, visible: false).attach_file('test_execution[results]', zip_path, visible: false)
 end
 
 def attach_xml_to_multi_upload(html_id)
   show_hidden_upload_field(html_id)
 
   # attach zip file to multi-upload field
-  xml_path = Rails.root.join('test', 'fixtures', 'product_tests', 'cms111v3_catiii.xml')
-  page.find(html_id, :visible => false).attach_file('test_execution[results]', xml_path, :visible => false)
+  xml_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')
+  page.find(html_id, :visible => false).attach_file('test_execution[results]', xml_path, visible: false)
 end
 
 # show input file upload html element. this is a known issue with capybara. capybara is unable to find inputs with surrounding <label> tags

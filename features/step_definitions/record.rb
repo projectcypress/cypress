@@ -5,7 +5,7 @@ When(/^the user visits the records page$/) do
   visit '/records/'
   @bundle = Bundle.default
   @other_bundle = Bundle.where('$or' => [{ 'active' => false }, { :active.exists => false }]).sample
-  @measure = @bundle.measures.find_by(hqmf_id: '8A4D92B2-3946-CDAE-0139-7944ACB700BD') unless @bundle.measures.count.eql? 0
+  @measure = @bundle.measures.find_by(hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE') unless @bundle.measures.count.eql? 0
 end
 
 And(/^there is only 1 bundle installed$/) do
@@ -97,7 +97,7 @@ end
 
 When(/^the user visits a record$/) do
   @bundle = Bundle.default
-  @record = @bundle.records.find_by(_id: '4efa05ada9ffcce9010000dc')
+  @record = @bundle.records.where(bundle_id: @bundle._id).first
   visit "/records/#{@record.id}"
 end
 
