@@ -10,6 +10,14 @@ CAT1_CONFIG = YAML.safe_load(File.read(File.expand_path('../cat1checklist.yml', 
 APP_CONSTANTS = YAML.safe_load(ERB.new(File.read(File.expand_path('../cypress.yml', __FILE__))).result, [], [], true)
 NAMES_RANDOM = YAML.safe_load(File.read(File.expand_path('../names.yml', __FILE__)), [], [], true)
 
+# Append an additional measure HQMF ID during testing so product creation
+# does not fail.
+if Rails.env.test?
+    CAT1_CONFIG['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] = [ {  'ValueSet' => '1.5.6.7',
+                                                               'Weight' => '0.954242509',
+                                                               'IsAttribute' => false } ]
+end
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)

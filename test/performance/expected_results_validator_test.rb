@@ -6,18 +6,13 @@ class ExpectedResultsValidatorPerfTest < ActionDispatch::PerformanceTest
   # self.profile_options = { runs: 1, metrics: [:wall_time, :process_time] }
 
   def setup
-    collection_fixtures('product_tests', 'products', 'bundles',
-                        'measures', 'records', 'patient_cache',
-                        'health_data_standards_svs_value_sets')
-    @product_test = ProductTest.find('51703a6a3054cf8439000044')
+    @task = FactoryGirl.create(:task)
+    @product_test = @task.product_test
     @validator = ExpectedResultsValidator.new(@product_test.expected_results)
-    @task = C2Task.new
-    @task.product_test = @product_test
   end
 
   def test_validate_good_file
     file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_good.xml')).read
-
     @validator.validate(file, 'task' => @task)
     assert_equal 10, @validator.errors.length # 10 errors related to pop sums
     assert_equal 10, @validator.errors.count { |e| !pop_sum_err_regex.match(e.message).nil? }
@@ -25,7 +20,6 @@ class ExpectedResultsValidatorPerfTest < ActionDispatch::PerformanceTest
 
   def test_validate_good_qrda_1_1_file
     file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_good_1_1.xml')).read
-    @task.bundle.version = '2016.0.0'
     @validator.validate(file, 'task' => @task)
     assert_equal 10, @validator.errors.length # 10 errors related to pop sums
     assert_equal 10, @validator.errors.count { |e| !pop_sum_err_regex.match(e.message).nil? }
@@ -33,7 +27,6 @@ class ExpectedResultsValidatorPerfTest < ActionDispatch::PerformanceTest
 
   def test_validate_bad_qrda_1_1_file
     file = File.new(File.join(Rails.root, 'test/fixtures/qrda/ep_test_qrda_cat3_1_1_not_ipop.xml')).read
-    @task.bundle.version = '2016.0.0'
     @validator.validate(file, 'task' => @task)
     assert_equal 43, @validator.errors.length, 'should error on missing measure entry' # 7 errors related to pop sums
     assert_equal 19, @validator.errors.count { |e| !pop_sum_err_regex.match(e.message).nil? }
