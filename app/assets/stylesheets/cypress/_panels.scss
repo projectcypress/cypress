@@ -43,3 +43,47 @@
 .execution-information {
   padding: 1em;
 }
+
+@mixin darker-hover($border-color, $name) {
+  $darker-border-color: darken($border-color, 15%);
+  border-color: darken($border-color, 5%);
+
+  // for the buttons with dark backgrounds, add a shadow to text
+  @if $name != 'danger' {
+    @if $name != 'default' {
+      text-shadow: 1px 1px 2px transparentize($darker-border-color, .5),
+                  -1px -1px 2px transparentize($darker-border-color, .5);
+    }
+  }
+
+  &:hover,
+  &:focus {
+    // create namespaced animation for the background-color
+    @keyframes pulsate-#{$name} {
+      50% { background-color: $border-color; }
+    }
+
+    @include animation-name(pulsate-#{$name});
+    @include animation-duration(2s);
+    @include animation-delay(100);
+    @include animation-timing-function(linear);
+    @include animation-iteration-count(infinite);
+    color: $panel-inactive-heading-bg;
+    background-color: $panel-inactive-text;
+    border-color: $panel-inactive-border;
+  }
+}
+
+.panel-inactive .panel-heading {
+  @include transition-property(color, background-color);
+  @include transition-duration(.3s);
+  @include darker-hover($btn-default-border, 'default');
+  font-family: inherit;
+  letter-spacing: .05em;
+  box-shadow: none;
+
+  color: $panel-inactive-text;
+  background: $panel-inactive-heading-bg;
+  border: 1px solid $panel-inactive-border;
+  font-size: large;
+}

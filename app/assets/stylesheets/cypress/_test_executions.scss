@@ -30,8 +30,6 @@
 }
 
 .panel-inactive:hover {
-  background-color: $gray-lighter;
-
   .nested-link {
     text-decoration: underline;
   }
@@ -56,5 +54,10 @@
   .active-cert {
     color: $panel-primary-text;
     background: $panel-primary-heading-bg;
+  }
+
+  .inactive-cert {
+    font-weight: 200;
+    color: $panel-inactive-text;
   }
 }
