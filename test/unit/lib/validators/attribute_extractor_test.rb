@@ -197,7 +197,7 @@ class AttributeExtractorTest < ActiveSupport::TestCase
                              'title' => 'Right Grouping Value Set'
                            }
                          } }
-    file = File.new(Rails.root.join('test/fixtures/qrda/checklist/diagnosis_anatomical_location.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'diagnosis_anatomical_location.xml')).read
     doc = get_document(file)
     assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, '24028007', source_criteria)
   end
@@ -212,7 +212,7 @@ class AttributeExtractorTest < ActiveSupport::TestCase
                              'title' => 'Right'
                            }
                          } }
-    file = File.new(Rails.root.join('test/fixtures/qrda/checklist/diagnosis_laterality.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'diagnosis_laterality.xml')).read
     doc = get_document(file)
     assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, '24028007', source_criteria)
   end
@@ -227,7 +227,7 @@ class AttributeExtractorTest < ActiveSupport::TestCase
                              'title' => 'Moderate or Severe Grouping Value Set'
                            }
                          } }
-    file = File.new(Rails.root.join('test/fixtures/qrda/checklist/diagnosis_severity.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'diagnosis_severity.xml')).read
     doc = get_document(file)
     assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, '24484000', source_criteria)
   end
@@ -242,7 +242,7 @@ class AttributeExtractorTest < ActiveSupport::TestCase
                              'title' => 'Intravenous route SNOMEDCT Value Set'
                            }
                          } }
-    file = File.new(Rails.root.join('test/fixtures/qrda/checklist/medication_route.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'medication_route.xml')).read
     doc = get_document(file)
     assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, '418114005', source_criteria)
   end
@@ -257,7 +257,7 @@ class AttributeExtractorTest < ActiveSupport::TestCase
                              'mood' => ''
                            }
                          } }
-    file = File.new(Rails.root.join('test/fixtures/qrda/checklist/communication_fulfills.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'communication_fulfills.xml')).read
     doc = get_document(file)
     assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, '418114005', source_criteria)
   end
@@ -270,7 +270,7 @@ class AttributeExtractorTest < ActiveSupport::TestCase
                              'type' => 'ANYNonNull'
                            }
                          } }
-    file = File.new(Rails.root.join('test/fixtures/qrda/checklist/medication_with_cmd.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'medication_with_cmd.xml')).read
     doc = get_document(file)
     assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, nil, source_criteria)
   end

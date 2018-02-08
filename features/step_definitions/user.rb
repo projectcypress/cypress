@@ -11,7 +11,7 @@ end
 And(/^there are no bundles installed$/) do
   Bundle.destroy_all
   Rails.cache.clear
-  assert Bundle.count == 0
+  assert Bundle.count.zero?
 end
 
 When(/^I click Sign up$/) do

@@ -48,7 +48,7 @@ sum #{sup_sum} of supplemental key #{keys_and_ids[:sup_key]} values)
       return if report_sup_val.nil?
       report_sup_val.each_pair do |code, report_val|
         code = get_untranslated_code(code, keys_and_ids[:sup_key])
-        next unless report_val > 0 && expect_sup_val[code].nil? &&
+        next unless report_val.positive? && expect_sup_val[code].nil? &&
                     !CalculatingAugmentedResults.augmented_sup_val_expected?(options['task'], keys_and_ids, code,
                                                                              { expect: expect_sup_val[code], report: report_val },
                                                                              modified_population_labels)

@@ -22,7 +22,7 @@
     <strong>
       <% if c4 %>
         <% task.product_test.options.filters.each_with_index do |(key, _val), index| %>
-          <%= ' / ' unless index == 0 %>
+          <%= ' / ' unless index.zero? %>
           <%= key.titleize %>
         <% end %>
         <%= ': ' %>

@@ -4,7 +4,7 @@
 <% unless @product_test && hide_patient_calculation? %>
   <div class="col-md-6">
     <h2>Measure Information</h2>
-    <% if @measures.where(continuous_variable: true).length > 0 %>
+    <% if @measures.where(continuous_variable: true).length.positive? %>
       <table class="table table-condensed">
         <thead>
           <tr>
@@ -33,7 +33,7 @@
       </table>
     <% end %>
 
-    <% if @measures.where(continuous_variable: false).length > 0 %>
+    <% if @measures.where(continuous_variable: false).length.positive? %>
       <table class="table table-condensed">
         <thead>
           <tr>

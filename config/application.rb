@@ -6,9 +6,9 @@ require 'sprockets/railtie'
 require 'rails/test_unit/railtie'
 require_relative '../lib/hash'
 
-CAT1_CONFIG = YAML.load(File.read(File.expand_path('../cat1checklist.yml', __FILE__)))
-APP_CONSTANTS = YAML.load(ERB.new(File.read(File.expand_path('../cypress.yml', __FILE__))).result)
-NAMES_RANDOM = YAML.load(File.read(File.expand_path('../names.yml', __FILE__)))
+CAT1_CONFIG = YAML.safe_load(File.read(File.expand_path('../cat1checklist.yml', __FILE__)))
+APP_CONSTANTS = YAML.safe_load(ERB.new(File.read(File.expand_path('../cypress.yml', __FILE__))).result)
+NAMES_RANDOM = YAML.safe_load(File.read(File.expand_path('../names.yml', __FILE__)))
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

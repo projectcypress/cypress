@@ -194,7 +194,7 @@ class ProducTest < ActiveSupport::TestCase
     pt.product_tests.build({ name: 'first measure test', measure_ids: ['40280381-4BE2-53B3-014C-0F589C1A1C39'] }, MeasureTest)
     pt.save!
     pt.add_checklist_test
-    assert pt.product_tests.checklist_tests.count > 0
+    assert pt.product_tests.checklist_tests.count.positive?
     assert pt.product_tests.checklist_tests.first.measure_ids.include? '40280381-4BE2-53B3-014C-0F589C1A1C39'
 
     # test if old product test can be deleted (since measure with id ending in 1C39 was removed) and new checklist test created
@@ -203,7 +203,7 @@ class ProducTest < ActiveSupport::TestCase
     pt.measure_ids = ['40280381-4B9A-3825-014B-C1A59E160733']
     pt.save!
     pt.add_checklist_test
-    assert pt.product_tests.checklist_tests.count > 0
+    assert pt.product_tests.checklist_tests.count.positive?
     assert pt.product_tests.checklist_tests.first.measure_ids.include? '40280381-4B9A-3825-014B-C1A59E160733'
 
     # test checklist tests should not change if new measures are added to product

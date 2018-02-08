@@ -245,7 +245,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     assert_equal provider, ProductTest.find(test.id).provider
 
     assert_equal 8, records.count
-    assert records.all { |record| record.provider_performances.any? }
+    assert(records.all { |record| record.provider_performances.any? })
 
     # assert provider for each record on the measure test are the same
     first_provider = records.first.provider_performances.first.provider

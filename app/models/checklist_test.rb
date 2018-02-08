@@ -11,15 +11,13 @@ class ChecklistTest < ProductTest
   def status
     return 'incomplete' if measures.empty?
     return 'passing' if num_measures_complete == measures.count && !product.c3_test
-    if tasks.c1_checklist_task && tasks.c1_checklist_task.most_recent_execution
-      return tasks.c1_checklist_task.most_recent_execution.status_with_sibling
-    else
-      'incomplete'
-    end
+    return tasks.c1_checklist_task.most_recent_execution.status_with_sibling if tasks.c1_checklist_task &&
+                                                                                tasks.c1_checklist_task.most_recent_execution
+    'incomplete'
   end
 
   def num_measures_complete
-    return 0 if checked_criteria.count == 0
+    return 0 if checked_criteria.count.zero?
     num_complete = 0
     measures.each do |measure|
       criterias = checked_criteria.select { |criteria| criteria.measure_id == measure.id.to_s }
@@ -32,7 +30,7 @@ class ChecklistTest < ProductTest
     num_not_started = 0
     measures.each do |measure|
       criterias = checked_criteria.select { |criteria| criteria.measure_id == measure.id.to_s }
-      num_not_started += 1 unless criterias.count(&:complete?) > 0
+      num_not_started += 1 unless criterias.count(&:complete?).positive?
     end
     num_not_started
   end

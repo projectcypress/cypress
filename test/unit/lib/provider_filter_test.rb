@@ -15,7 +15,7 @@ class ProviderFilterTest < ActiveSupport::TestCase
 
     filtered_providers = Cypress::ProviderFilter.filter(@all_providers, filters, {}).to_a
 
-    assert filtered_providers.count > 0, 'should have found the provider with the given tin'
+    assert filtered_providers.count.positive?, 'should have found the provider with the given tin'
 
     @all_providers.each do |p|
       if filtered_providers.include? p
@@ -33,7 +33,7 @@ class ProviderFilterTest < ActiveSupport::TestCase
 
     filtered_providers = Cypress::ProviderFilter.filter(@all_providers, filters, {}).to_a
 
-    assert filtered_providers.count > 0, 'should have found the provider with the given npi'
+    assert filtered_providers.count.positive?, 'should have found the provider with the given npi'
 
     @all_providers.each do |p|
       if filtered_providers.include? p
@@ -51,7 +51,7 @@ class ProviderFilterTest < ActiveSupport::TestCase
 
     filtered_providers = Cypress::ProviderFilter.filter(@all_providers, filters, {}).to_a
 
-    assert filtered_providers.count > 0, 'should have found a provider with the given type'
+    assert filtered_providers.count.positive?, 'should have found a provider with the given type'
 
     @all_providers.each do |p|
       if filtered_providers.include? p
@@ -69,7 +69,7 @@ class ProviderFilterTest < ActiveSupport::TestCase
 
     filtered_providers = Cypress::ProviderFilter.filter(@all_providers, filters, {}).to_a
 
-    assert filtered_providers.count > 0, 'should have found a provider with the given address'
+    assert filtered_providers.count.positive?, 'should have found a provider with the given address'
 
     @all_providers.each do |p|
       should_be_included = address_in_list(selected_addr, p['addresses'])
@@ -91,7 +91,7 @@ class ProviderFilterTest < ActiveSupport::TestCase
 
     filtered_providers = Cypress::ProviderFilter.filter(@all_providers, filters, {}).to_a
 
-    assert filtered_providers.count > 0, 'should have found a provider with the given npi/tin/address'
+    assert filtered_providers.count.positive?, 'should have found a provider with the given npi/tin/address'
 
     @all_providers.each do |p|
       should_be_included = p.npi == selected_npi &&

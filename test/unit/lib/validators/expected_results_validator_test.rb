@@ -41,7 +41,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
 
     @validator.validate(file, 'task' => @task)
     assert_equal 10, @validator.errors.length # 10 errors related to pop sums
-    assert_equal 10, @validator.errors.count { |e| !pop_sum_err_regex.match(e.message).nil? }
+    assert_equal 10, (@validator.errors.count { |e| !pop_sum_err_regex.match(e.message).nil? })
   end
 
   def test_validate_good_qrda_1_1_file
@@ -49,7 +49,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     @task.bundle.version = '2016.0.0'
     @validator.validate(file, 'task' => @task)
     assert_equal 10, @validator.errors.length # 10 errors related to pop sums
-    assert_equal 10, @validator.errors.count { |e| !pop_sum_err_regex.match(e.message).nil? }
+    assert_equal 10, (@validator.errors.count { |e| !pop_sum_err_regex.match(e.message).nil? })
   end
 
   def test_validate_bad_qrda_1_1_file
@@ -57,8 +57,8 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     @task.bundle.version = '2016.0.0'
     @validator.validate(file, 'task' => @task)
     assert_equal 43, @validator.errors.length, 'should error on missing measure entry' # 7 errors related to pop sums
-    assert_equal 19, @validator.errors.count { |e| !pop_sum_err_regex.match(e.message).nil? }
-    assert_equal 3, @validator.errors.count { |e| e.message == 'Could not find value for Population IPOP' }
+    assert_equal 19, (@validator.errors.count { |e| !pop_sum_err_regex.match(e.message).nil? })
+    assert_equal 3, (@validator.errors.count { |e| e.message == 'Could not find value for Population IPOP' })
   end
 
   def test_validate_missing_stratifications
@@ -67,7 +67,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
 
     errors = @validator.errors
     assert_equal 11, errors.length, 'should error on missing stratifications' # 10 errors related to pop sums
-    assert_equal 10, errors.count { |e| !pop_sum_err_regex.match(e.message).nil? }
+    assert_equal 10, (errors.count { |e| !pop_sum_err_regex.match(e.message).nil? })
     assert_equal 1, (errors.count do |e|
       !/\ACould not find value for stratification [a-zA-Z\d\-]{36}  for Population \w+\z/.match(e.message).nil?
     end), 'should error on missing stratifications'
@@ -80,8 +80,8 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     errors = @validator.errors
     assert_equal 16, errors.length, 'should error on missing supplemental data' # 13 errors related to pop sums
     errors.each { |e| (assert_equal :result_validation, e.validator_type) }
-    assert_equal 13, errors.count { |e| !pop_sum_err_regex.match(e.message).nil? }
-    assert_equal 3, errors.count { |e| e.validator_type == :result_validation && e.message == 'supplemental data error' }
+    assert_equal 13, (errors.count { |e| !pop_sum_err_regex.match(e.message).nil? })
+    assert_equal 3, (errors.count { |e| e.validator_type == :result_validation && e.message == 'supplemental data error' })
   end
 
   def test_validate_augmented_results_one_augmented_patient
@@ -95,8 +95,8 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     # The importance here is that no new errors are introduced when changing the gender count in accordance with the augmented records
     assert_equal 16, errors.length, 'should error on missing supplemental data' # 13 errors related to pop sums
     errors.each { |e| (assert_equal :result_validation, e.validator_type) }
-    assert_equal 13, errors.count { |e| !pop_sum_err_regex.match(e.message).nil? }
-    assert_equal 3, errors.count { |e| e.validator_type == :result_validation && e.message == 'supplemental data error' }
+    assert_equal 13, (errors.count { |e| !pop_sum_err_regex.match(e.message).nil? })
+    assert_equal 3, (errors.count { |e| e.validator_type == :result_validation && e.message == 'supplemental data error' })
   end
 
   def test_validate_augmented_results_two_augmented_patients
@@ -112,8 +112,8 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     # The importance here is that no new errors are introduced when changing the gender count in accordance with the augmented records
     assert_equal 16, errors.length, 'should error on missing supplemental data' # 13 errors related to pop sums
     errors.each { |e| (assert_equal :result_validation, e.validator_type) }
-    assert_equal 13, errors.count { |e| !pop_sum_err_regex.match(e.message).nil? }
-    assert_equal 3, errors.count { |e| e.validator_type == :result_validation && e.message == 'supplemental data error' }
+    assert_equal 13, (errors.count { |e| !pop_sum_err_regex.match(e.message).nil? })
+    assert_equal 3, (errors.count { |e| e.validator_type == :result_validation && e.message == 'supplemental data error' })
   end
 
   def test_validate_augmented_results_three_augmented_patients_with_opposing_values
@@ -131,8 +131,8 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     # The importance here is that no new errors are introduced when changing the gender count in accordance with the augmented records
     assert_equal 16, errors.length, 'should error on missing supplemental data' # 13 errors related to pop sums
     errors.each { |e| (assert_equal :result_validation, e.validator_type) }
-    assert_equal 13, errors.count { |e| !pop_sum_err_regex.match(e.message).nil? }
-    assert_equal 3, errors.count { |e| e.validator_type == :result_validation && e.message == 'supplemental data error' }
+    assert_equal 13, (errors.count { |e| !pop_sum_err_regex.match(e.message).nil? })
+    assert_equal 3, (errors.count { |e| e.validator_type == :result_validation && e.message == 'supplemental data error' })
   end
 
   def test_validate_augmented_results_three_augmented_patients_reporting_extra_male
@@ -156,7 +156,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
                       reported_value: 1 }
 
     # The should be error messages when reported value is outside of the expected range.  In this example, the range is 2-3.
-    assert_equal 3, errors.count { |e| e.validator_type == :result_validation && e.error_details == error_details }
+    assert_equal 3, (errors.count { |e| e.validator_type == :result_validation && e.error_details == error_details })
   end
 
   def test_validate_extra_data
@@ -165,8 +165,8 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
 
     errors = @validator.errors
     assert_equal 12, errors.length, 'should error on additional supplemental data' # 11 errors related to pop sums
-    assert_equal 11, errors.count { |e| !pop_sum_err_regex.match(e.message).nil? }
-    assert_equal 1, errors.count { |e| e.message == 'supplemental data error' }
+    assert_equal 11, (errors.count { |e| !pop_sum_err_regex.match(e.message).nil? })
+    assert_equal 1, (errors.count { |e| e.message == 'supplemental data error' })
   end
 
   def pop_sum_err_regex

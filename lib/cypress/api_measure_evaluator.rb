@@ -418,11 +418,11 @@ module Cypress
       end
     end
 
-    def upload_test_execution(task_execution_path, product_test_id, is_cat_1, skip_c1_test = nil)
+    def upload_test_execution(task_execution_path, product_test_id, is_cat1, skip_c1_test = nil)
       resource = RestClient::Resource.new("#{@cypress_host}#{task_execution_path}", :user => @username,
                                                                                     :password => @password,
                                                                                     :headers => { :accept => :json })
-      if is_cat_1
+      if is_cat1
         resource.post(:results => File.new("tmp/#{product_test_id}.zip"))
         File.delete("tmp/#{product_test_id}.zip")
       else

@@ -1,5 +1,5 @@
 <% if params[:partial] == 'bundle_list' %>
-  <% if BundleUploadJob.trackers.or({ :status => :queued }, { :status => :working }).count > 0 %>
+  <% if BundleUploadJob.trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
     setTimeout(function(){
       $('#display_bundle_list').html("<%= escape_javascript render '/admin/bundle_list', :bundles => @bundles %>");
     }, 2000);

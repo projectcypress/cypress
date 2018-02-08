@@ -60,7 +60,7 @@
   <% # Record Sample Summary %>
   <% if @product.c1_test %>
     <h2>C1 Record Sample</h2>
-    <% unless @product.product_tests.checklist_tests.count == 0 %>
+    <% unless @product.product_tests.checklist_tests.count.zero? %>
       <%= render 'checklist_status_display', :product => @product, :is_report => true%>
     <% else %>
       <p><%= render partial: 'products/report/status_icon', locals: { passing: false } %> Record Sample has not been started.</p>
@@ -100,7 +100,7 @@
 
   <% if @product.c1_test %>
   <h2>C1 Record Sample</h2>
-    <% unless @product.product_tests.checklist_tests.count == 0 %>
+    <% unless @product.product_tests.checklist_tests.count.zero? %>
       <% check_test = @product.product_tests.checklist_tests.first %>
       <% check_test.measures.top_level.each do |measure| %>
         <strong><%= "#{measure.cms_id} #{measure.name}" %></strong>

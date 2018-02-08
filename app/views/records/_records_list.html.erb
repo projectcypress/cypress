@@ -3,7 +3,7 @@
   - Logic Coverage <%= coverage_for_measure(measure) %>%
 <% end %>
 </h1>
-<% if (measure && records_by_measure(records, measure).length > 0) || (!measure && records.length > 0) %>
+<% if (measure && records_by_measure(records, measure).length.positive?) || (!measure && records.length.positive?) %>
 <table class="table table-condensed table-hover">
   <thead>
     <tr>

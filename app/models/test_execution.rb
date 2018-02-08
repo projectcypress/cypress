@@ -44,7 +44,7 @@ class TestExecution
       execution_errors.concat validator.errors
     end
     conditionally_add_task_specific_errors(file_count)
-    execution_errors.only_errors.count > 0 ? fail : pass
+    execution_errors.only_errors.count.positive? ? fail : pass
   rescue => e
     errored(e)
     logger.error("Encountered an exception in Test Execution #{id}: #{e.message}, backgrace:\n#{e.backtrace}")

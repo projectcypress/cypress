@@ -134,7 +134,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
     orig_count = @first_task.test_executions.count
 
-    zipfile = File.new(Rails.root.join('test/fixtures/product_tests/cms111v3_catiii.xml'))
+    zipfile = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'cms111v3_catiii.xml'))
     upload = Rack::Test::UploadedFile.new(zipfile, 'text/xml')
     i = 0
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
@@ -151,7 +151,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     C1Task.any_instance.stubs(:validators).returns([])
     C1Task.any_instance.stubs(:records).returns([])
 
-    zipfile = File.new(Rails.root.join('test/fixtures/product_tests/cms111v3_catiii.xml'))
+    zipfile = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'cms111v3_catiii.xml'))
     upload = Rack::Test::UploadedFile.new(zipfile, 'text/xml')
     for_each_logged_in_user([OTHER_VENDOR]) do
       post :create, params: { task_id: @first_task.id, results: upload }
@@ -165,7 +165,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     sign_in User.find(ADMIN)
     task = C1Task.find('4f57a88a1d41c851eb000004')
     old_count = task.test_executions.count
-    file = File.new(Rails.root.join('app/assets/images/icon.svg'))
+    file = File.new(Rails.root.join('app', 'assets', 'images', 'icon.svg'))
     upload = Rack::Test::UploadedFile.new(file, 'image/svg')
     post :create, params: { task_id: task.id, results: upload }
 
@@ -180,7 +180,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     task._type = 'C2Task'
     task.save!
     old_count = task.test_executions.count
-    file = File.new(Rails.root.join('app/assets/images/icon.svg'))
+    file = File.new(Rails.root.join('app', 'assets', 'images', 'icon.svg'))
     upload = Rack::Test::UploadedFile.new(file, 'image/svg')
 
     post :create, params: { task_id: task.id, results: upload }
@@ -377,7 +377,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
       get :index, :params => { :format => :json, :task_id => @first_task.id }
       response_body = JSON.parse(response.body)
       assert_response 200, 'response should be OK on test_execution index'
-      assert response_body.count > 0
+      assert response_body.count.positive?
       response_body.each do |response_object|
         assert response_object
       end
@@ -444,7 +444,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
       get :index, :params => { :format => :xml, :task_id => @first_task.id }
       response_body = Hash.from_trusted_xml(response.body)
       assert_response 200, 'response should be OK on test_execution index'
-      assert response_body['test_executions'].count > 0
+      assert response_body['test_executions'].count.positive?
     end
   end
 
@@ -552,12 +552,12 @@ class TestExecutionsControllerTest < ActionController::TestCase
   end
 
   def zip_upload
-    zipfile = File.new(Rails.root.join('test/fixtures/product_tests/ep_qrda_test_good.zip'))
+    zipfile = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_test_good.zip'))
     Rack::Test::UploadedFile.new(zipfile, 'application/zip')
   end
 
   def xml_upload
-    xmlfile = File.new(Rails.root.join('test/fixtures/product_tests/cms111v3_catiii.xml'))
+    xmlfile = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'cms111v3_catiii.xml'))
     Rack::Test::UploadedFile.new(xmlfile, 'application/xml')
   end
 

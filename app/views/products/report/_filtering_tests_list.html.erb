@@ -15,7 +15,7 @@
   <% tasks.each do |task| %>
     <li>
       <% task.product_test.options.filters.each_with_index do |(key, val), index| %>
-        <%= ' , ' unless index == 0 %>
+        <%= ' , ' unless index.zero? %>
         <strong><%= "#{key.titleize}: " %></strong><%= display_filter_val(key, val) %>
       <% end %>
     </li>

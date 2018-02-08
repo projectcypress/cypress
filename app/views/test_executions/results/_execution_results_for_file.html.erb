@@ -12,7 +12,7 @@
 
 <% num_errors = error_result.keys.map { |s| error_result[s].execution_errors.count }.reduce(&:+) %>
 
-<% if num_errors == 0 %>
+<% if num_errors.zero? %>
   <p class = 'lead'><%= "#{file_name} - No problems found" %></p>
   <% return %>
 <% end %>
@@ -39,7 +39,7 @@
   </ul>
   <% error_result.each do |error_type, error_hash| %>
     <div id=<%= "#{error_type.tr(' ', '_')}_#{identifier}" %>>
-      <% if error_hash.execution_errors.count > 0 %>
+      <% if error_hash.execution_errors.count.positive? %>
         <% message_title = error_type == 'Other Warnings' || error_type == 'CMS Warnings' ? 'Warning' : 'Error' %>
 
         <% if error_type == "Reporting" %>

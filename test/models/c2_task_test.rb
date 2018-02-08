@@ -53,7 +53,7 @@ class C2TaskTest < ActiveSupport::TestCase
       te.reload
       # Missing strat for the 1 numerator that has data
       assert_equal 11, te.execution_errors.length # 10 errors related to pop sums
-      assert_equal 10, te.execution_errors.to_a.count { |e| !pop_sum_err_regex.match(e.message).nil? }
+      assert_equal 10, (te.execution_errors.to_a.count { |e| !pop_sum_err_regex.match(e.message).nil? })
       assert_equal 1, (te.execution_errors.to_a.count do |e|
         !/\ACould not find value for stratification [a-zA-Z\d\-]{36}  for Population \w+\z/.match(e.message).nil?
       end), 'should error on missing stratifications'
@@ -69,7 +69,7 @@ class C2TaskTest < ActiveSupport::TestCase
       te.reload
       # checked 3 times for each numerator -- we should do something about that
       assert_equal 16, te.execution_errors.length # 13 errors related to pop sums
-      assert_equal 13, te.execution_errors.to_a.count { |e| !pop_sum_err_regex.match(e.message).nil? }
+      assert_equal 13, (te.execution_errors.to_a.count { |e| !pop_sum_err_regex.match(e.message).nil? })
       assert_equal 3, te.execution_errors.to_a.count { |e| e.message == 'supplemental data error' }, 'should error on missing supplemental data'
       te.execution_errors.each do |ee|
         assert_equal :result_validation, ee.validator_type
@@ -86,8 +86,8 @@ class C2TaskTest < ActiveSupport::TestCase
       te.reload
       # 3 errors 1 for schema validation and 2 schematron issues for realmcode
       assert_equal 13, te.execution_errors.length # 10 errors related to pop sums
-      assert_equal 10, te.execution_errors.to_a.count { |e| !pop_sum_err_regex.match(e.message).nil? }
-      assert_equal 3, te.execution_errors.to_a.count { |ee| ee.validator_type == :xml_validation }, 'should error on bad schematron'
+      assert_equal 10, (te.execution_errors.to_a.count { |e| !pop_sum_err_regex.match(e.message).nil? })
+      assert_equal 3, (te.execution_errors.to_a.count { |ee| ee.validator_type == :xml_validation }), 'should error on bad schematron'
     end
   end
 
@@ -115,8 +115,8 @@ class C2TaskTest < ActiveSupport::TestCase
       te.reload
       # 1 Error for additional Race
       assert_equal 12, te.execution_errors.length
-      assert_equal 11, te.execution_errors.to_a.count { |e| !pop_sum_err_regex.match(e.message).nil? }
-      assert_equal 1, te.execution_errors.to_a.count { |e| e.message == 'supplemental data error' }, 'should error on additional supplemental data'
+      assert_equal 11, (te.execution_errors.to_a.count { |e| !pop_sum_err_regex.match(e.message).nil? })
+      assert_equal 1, (te.execution_errors.to_a.count { |e| e.message == 'supplemental data error' }), 'should error on additional supplemental data'
     end
   end
 

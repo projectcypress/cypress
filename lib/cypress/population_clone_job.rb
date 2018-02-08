@@ -66,7 +66,7 @@ module Cypress
 
       random_records.each do |patient|
         seconds = 1_944_000 # 60 secs per min * 60 min per hour * 24 hours in day * 10 days
-        plus_minus = prng.rand(2) == 0 ? 1 : -1 # use this to make move dates forward or backwards
+        plus_minus = prng.rand(2).zero? ? 1 : -1 # use this to make move dates forward or backwards
         date_shift = prng.rand(seconds) * plus_minus
         patient.shift_dates(date_shift)
         patients << patient

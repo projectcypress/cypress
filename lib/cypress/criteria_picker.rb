@@ -53,7 +53,7 @@ module Cypress
         hqmf_oid ||= HQMF::DataCriteria.template_id_for_definition(cr_hash['definition'], cr_hash['status'], cr_hash['negation'], 'r2')
         next unless Cypress::RecordFilter.filter(records,
                                                  { 'problems' => { oid: [cr_hash.code_list_id], hqmf_ids: [hqmf_oid] } },
-                                                 bundle_id: measure.bundle_id).count > 0
+                                                 bundle_id: measure.bundle_id).count.positive?
         code_list_id = cr_hash.code_list_id
         break
       end

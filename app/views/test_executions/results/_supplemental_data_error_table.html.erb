@@ -7,7 +7,7 @@
 
 %>
 
-<% return if errors.count == 0 %>
+<% return if errors.count.zero? %>
 <% pop_errors_hash.each do |pop_error_key, pop_error_value| %>
   <% population_errors, stratification_errors, pop_sum_errors, supp_data_errors = population_errors_by_population_id(errors, pop_error_key) %>
   <table class = 'table table-hover table-condensed'>
