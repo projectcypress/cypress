@@ -36,7 +36,7 @@ $body-bg:               #fff !default;
 $text-color:            $gray-dark !default;
 
 //** Global textual link color.
-$link-color:            darken($brand-primary, 5%) !default;
+$link-color:            darken(saturate($brand-primary, 40%), 12%) !default;
 //** Link hover color set via `darken()` function.
 $link-hover-color:      darken($link-color, 10%) !default;
 //** Link hover decoration.
@@ -177,7 +177,7 @@ $btn-danger-color:               $brand-danger !default;
 $btn-danger-bg:                  #fff !default;
 $btn-danger-border:              darken($btn-danger-color, 5%) !default;
 
-$btn-pop-color:                  $brand-primary-highlight !default;
+$btn-pop-color:                  desaturate($brand-primary-highlight, 40%) !default;
 $btn-pop-bg:                     Transparent !default;
 $btn-pop-border:                 Transparent !default;
 
@@ -734,6 +734,10 @@ $panel-primary-text:          lighten($brand-primary, 55%) !default;
 $panel-primary-heading-bg:    darken($brand-primary, 5%) !default;
 $panel-primary-border:        transparentize($brand-primary, 0.8) !default;
 
+$panel-inactive-text:          #555 !default;
+$panel-inactive-heading-bg:   #fff !default;
+$panel-inactive-border:       desaturate(darken($brand-primary, 10%), 35%) !default;
+
 $panel-success-text:          lighten($state-success-text, 60%) !default;
 $panel-success-heading-bg:    darken($brand-success, 10%) !default;
 $panel-success-border:        transparentize($brand-success, 0.8) !default;
@@ -808,7 +812,7 @@ $breadcrumb-bg:                 transparent !default;
 //** Breadcrumb text color
 $breadcrumb-color:              darken($brand-primary, 20%) !default;
 //** Text color of current page in the breadcrumb
-$breadcrumb-active-color:       darken($brand-primary, 35%) !default;
+$breadcrumb-active-color:       lighten($brand-primary, 60%) !default;
 //** Textual separator for between breadcrumb elements
 $breadcrumb-separator:          ">" !default;
 

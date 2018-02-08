@@ -34,9 +34,9 @@
     <% if !@task && !@product_test %>
       <div class="col-md-7 col-sm-6">
         <h1>Annual Update Bundle</h1>
-        <div class="col-md-12">
+        <div>
           <% if Bundle.available.count == 1 %>
-          <div class="radio" style="padding: 6px 12px; display: inline-block">
+          <div class="radio" style="padding: 6px 0px; display: inline-block">
             <!-- label --> <%= @bundle.title %>
           </div>
           <div class="radio download-btn" id=<%= @bundle.id %>>

@@ -11,6 +11,6 @@
 
 <div class = 'cert-bar'>
   <% ['C1', 'C2', 'C3', 'C4'].each_with_index do |cert, i| %>
-    <div class = 'text-center <%= "active-cert" if active_certs[i] %>'><%= cert if product_certs[i] %></div>
+    <div class = 'text-center <%= active_certs[i] ? "active-cert" : "inactive-cert" %>'><%= cert if product_certs[i] %></div>
   <% end %>
 </div>
