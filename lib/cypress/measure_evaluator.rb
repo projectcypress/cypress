@@ -67,7 +67,7 @@ module Cypress
       continuing = true
       while continuing
         sleep(2)
-        continuing = ProductTest.where(state: 'pending', product: product).by_updated_at.count > 0
+        continuing = ProductTest.where(state: 'pending', product: product).by_updated_at.count.positive?
       end
       @logger.info 'done'
     end

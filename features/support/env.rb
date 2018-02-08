@@ -145,7 +145,7 @@ def map_bson_ids(json)
       json[k] = v.map { |av| value_or_bson(av) }
     elsif v.is_a? Hash
       json[k] = value_or_bson(v)
-    elsif k == 'create_at' || k == 'updated_at'
+    elsif %w[create_at updated_at].include?(k)
       json[k] = Time.at.local(v).in_time_zone
     end
   end

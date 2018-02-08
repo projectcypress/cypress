@@ -46,7 +46,7 @@
     <span class="help-block">Please report this issue to the Cypress team at <a href="https://github.com/projectcypress/cypress/issues" target="_blank">https://github.com/projectcypress/cypress/issues</a> and include: the uploaded file, the measure being tested, and the error message received.</span>
   <% end %>
 
-  <% if collected_errors.nonfile.count > 0 %>
+  <% if collected_errors.nonfile.count.positive? %>
     <h2>Missing or Duplicate Files</h2>
     <ul class="fa-ul">
       <% collected_errors.nonfile.each do |error_message| %>
@@ -55,7 +55,7 @@
     </ul>
   <% end %>
 
-  <% if collected_errors.files.values.any? { |err| err.count > 0 } %>
+  <% if collected_errors.files.values.any? { |err| err.count.positive? } %>
     <h2><%= "Errors and " unless passing %>Warnings</h2>
     <div id="xml-tabs" class="hidden file-error-tabs short-tabs">
       <ul>
@@ -63,9 +63,9 @@
           <li>
             <a href=<%= "##{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>>
               <% total_errors = error_result.keys.map{ |s| error_result[s].execution_errors.count }.reduce(&:+) %>
-              <% if total_errors > 0 %>
+              <% if total_errors.positive? %>
                 <div class="file-name">
-                  <% if error_result.keys.any? { |s| s != 'Other Warnings' && s != 'CMS Warnings' && error_result[s].execution_errors.count > 0} %>
+                  <% if error_result.keys.any? { |s| s != 'Other Warnings' && s != 'CMS Warnings' && error_result[s].execution_errors.count.positive?} %>
                     <i aria-hidden='true' class='fa fa-fw fa-times text-danger'></i>
                   <% else %>
                     <i aria-hidden='true' class='fa fa-fw fa-exclamation-triangle text-warning'></i>

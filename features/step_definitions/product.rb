@@ -383,7 +383,7 @@ def attach_zip_to_multi_upload(html_id)
   show_hidden_upload_field(html_id)
 
   # attach zip file to multi-upload field
-  zip_path = Rails.root.join 'test/fixtures/product_tests/ep_qrda_test_good.zip'
+  zip_path = Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_test_good.zip')
   page.find(html_id, :visible => false).attach_file('test_execution[results]', zip_path, :visible => false)
 end
 
@@ -391,7 +391,7 @@ def attach_xml_to_multi_upload(html_id)
   show_hidden_upload_field(html_id)
 
   # attach zip file to multi-upload field
-  xml_path = Rails.root.join 'test/fixtures/product_tests/cms111v3_catiii.xml'
+  xml_path = Rails.root.join('test', 'fixtures', 'product_tests', 'cms111v3_catiii.xml')
   page.find(html_id, :visible => false).attach_file('test_execution[results]', xml_path, :visible => false)
 end
 

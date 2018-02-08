@@ -54,7 +54,7 @@
       <% total = values.inject(:+) %>
       <% classes = status_to_css_classes(status) %>
 
-      <tr <%= 'hidden' if (status == 'errored' && total == 0) %>>
+      <tr <%= 'hidden' if (status == 'errored' && total.zero?) %>>
         <th scope="row" class="test-status <%= classes['text'] %>">
           <i aria-hidden="true" class="fa fa-fw <%= classes['icon'] %>"></i>
           <span class="total_status_count"><%= total %></span>
@@ -62,7 +62,7 @@
         </th>
 
         <% values.each do |value| %>
-          <% if value > 0 %>
+          <% if value.positive? %>
             <td class="<%= classes['cell'] %> text-center"><%= value %></td>
           <% else %>
             <td></td>

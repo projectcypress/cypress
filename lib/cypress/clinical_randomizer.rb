@@ -10,8 +10,8 @@ module Cypress
     end
 
     def self.split_by_date(record, effective_date, measure_period_start, random)
-      record_1 = record.clone
-      record_2 = record.clone
+      record1 = record.clone
+      record2 = record.clone
 
       # Find a date that splits the entries such that at least 1 is in each record
       split_date = find_split_date(record, effective_date, measure_period_start, random)
@@ -20,26 +20,26 @@ module Cypress
       entries = sort_by_start_time(record.entries)
 
       Record::Sections.reject { |s| s == :insurance_providers }.each do |section|
-        record_1.send section.to_s + '=', []
-        record_2.send section.to_s + '=', []
+        record1.send section.to_s + '=', []
+        record2.send section.to_s + '=', []
       end
       if split_date
-        record_1, record_2 = set_entries(entries, record_1, record_2, split_date)
+        record1, record2 = set_entries(entries, record1, record2, split_date)
       else
-        entries.each { |ent| record_1.send(get_entry_type(ent._type)).push ent }
+        entries.each { |ent| record1.send(get_entry_type(ent._type)).push ent }
       end
 
-      [record_1, record_2]
+      [record1, record2]
     end
 
-    def self.set_entries(entries, record_1, record_2, split_date)
+    def self.set_entries(entries, record1, record2, split_date)
       entries.take_while { |ent| ent_before_split_date(ent, split_date) }.each do |ent|
-        record_1.send(get_entry_type(ent._type)).push ent
+        record1.send(get_entry_type(ent._type)).push ent
       end
       entries.drop_while { |ent| ent_before_split_date(ent, split_date) }.each do |ent|
-        record_2.send(get_entry_type(ent._type)).push ent
+        record2.send(get_entry_type(ent._type)).push ent
       end
-      [record_1, record_2]
+      [record1, record2]
     end
 
     def self.ent_before_split_date(ent, split_date)
@@ -62,16 +62,16 @@ module Cypress
       # If there's only 1 entry type, split by date instead
       return split_by_date(record, effective_date, measure_period_start, random) if entry_types.count < 2
 
-      record_1 = record.clone
-      record_2 = record.clone
+      record1 = record.clone
+      record2 = record.clone
 
       # Find a split point so each cloned record gets at least one entry type (hence, at least one entry)
       split_point = random.rand(1..(entry_types.size - 1))
 
-      record_1 = set_record_sections_for_type(record_1, record, entry_types, 0, split_point)
-      record_2 = set_record_sections_for_type(record_2, record, entry_types, split_point, entry_types.size)
+      record1 = set_record_sections_for_type(record1, record, entry_types, 0, split_point)
+      record2 = set_record_sections_for_type(record2, record, entry_types, split_point, entry_types.size)
 
-      [record_1, record_2]
+      [record1, record2]
     end
 
     def self.set_record_sections_for_type(new_record, old_record, entry_types, start_point, end_point)

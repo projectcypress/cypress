@@ -84,7 +84,7 @@ class FilteringTest < ProductTest
     end
 
     # for the rest, manually filter to get the record IDs and pass those in
-    if input_filters.count > 0
+    if input_filters.count.positive?
       filters['patients'] = Cypress::RecordFilter.filter(records, input_filters, effective_date: created_at,
                                                                                  bundle_id: measures.first.bundle_id).pluck(:_id)
     end

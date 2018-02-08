@@ -167,11 +167,11 @@ class ProductTest
   def status
     Rails.cache.fetch("#{cache_key}/status") do
       grouped_tasks = tasks.group_by(&:status)
-      if grouped_tasks.key?('failing') && grouped_tasks['failing'].count > 0
+      if grouped_tasks.key?('failing') && grouped_tasks['failing'].count.positive?
         'failing'
       elsif grouped_tasks.key?('passing') && grouped_tasks['passing'].count == tasks.size
         'passing'
-      elsif grouped_tasks.key?('errored') && grouped_tasks['errored'].count > 0
+      elsif grouped_tasks.key?('errored') && grouped_tasks['errored'].count.positive?
         'errored'
       else
         'incomplete'

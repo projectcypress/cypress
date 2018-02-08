@@ -158,12 +158,12 @@ class VendorCachingTest < CachingTest
 
   def test_adding_test_execution_updates_vendor_cache_key
     vendor_old_cache_key = Vendor.all.first.cache_key.to_s
-    task_2 = C2Task.new
-    task_2.product_test = @product_test
-    task_2.save!
-    test_execution_2 = TestExecution.new
-    test_execution_2.task = task_2
-    test_execution_2.save!
+    task2 = C2Task.new
+    task2.product_test = @product_test
+    task2.save!
+    test_execution2 = TestExecution.new
+    test_execution2.task = task2
+    test_execution2.save!
     vendor_new_cache_key = Vendor.all.first.cache_key.to_s
     refute_equal vendor_old_cache_key, vendor_new_cache_key, 'cache keys should be different'
   end
@@ -171,7 +171,7 @@ class VendorCachingTest < CachingTest
   def test_edditing_test_execution_updates_vendor_cache_key
     vendor_old_cache_key = Vendor.all.first.cache_key.to_s
     test_execution = TestExecution.all.first
-    test_execution.update_attribute(:state, :passed)
+    test_execution.update_attributes(:state, :passed)
     test_execution.save!
     vendor_new_cache_key = Vendor.all.first.cache_key.to_s
     refute_equal vendor_old_cache_key, vendor_new_cache_key, 'cache keys should be different'
@@ -179,17 +179,17 @@ class VendorCachingTest < CachingTest
 
   def test_adding_passing_then_failing_execution_changes_vendor_status
     test_execution = TestExecution.all.first
-    test_execution.update_attribute(:state, :passed)
+    test_execution.update_attributes(:state, :passed)
     test_execution.save!
     vendor_old_status = Vendor.all.first.status
 
-    task_2 = C2Task.new
-    task_2.product_test = @product_test
-    task_2.save!
-    test_execution_2 = TestExecution.new
-    test_execution_2.task = task_2
-    test_execution_2.state = :failed
-    test_execution_2.save!
+    task2 = C2Task.new
+    task2.product_test = @product_test
+    task2.save!
+    test_execution2 = TestExecution.new
+    test_execution2.task = task2
+    test_execution2.state = :failed
+    test_execution2.save!
     vendor_new_status = Vendor.all.first.status
 
     refute_equal vendor_old_status, vendor_new_status, "vendor's status should change from passing to failing"

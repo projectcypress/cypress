@@ -27,7 +27,7 @@ class C1TaskTest < ActiveSupport::TestCase
   def test_should_be_able_to_test_a_good_archive_of_qrda_files
     task = @product_test.tasks.create({}, C1Task)
     @product_test.product.c1_test = true
-    zip = File.new(Rails.root.join('test/fixtures/product_tests/ep_qrda_test_good.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_test_good.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, User.first)
       te.reload
@@ -39,7 +39,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.shift_records = true
     task = @product_test.tasks.create({}, C1Task)
     @product_test.product.c1_test = true
-    zip = File.new(Rails.root.join('test/fixtures/product_tests/ep_qrda_test_good.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_test_good.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, User.first)
       te.reload
@@ -51,7 +51,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.shift_records = true
     task = @product_test.tasks.create({}, C1Task)
     @product_test.product.c1_test = true
-    zip = File.new(Rails.root.join('test/fixtures/product_tests/ep_qrda_test_good_shift.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_test_good_shift.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, User.first)
       te.reload
@@ -62,7 +62,7 @@ class C1TaskTest < ActiveSupport::TestCase
   def test_should_be_able_to_test_a_good_archive_of_augmented_qrda_files
     task = @product_test.tasks.create({}, C1Task)
     @product_test.product.c1_test = true
-    zip = File.new(Rails.root.join('test/fixtures/product_tests/ep_qrda_test_good_aug.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_test_good_aug.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, User.first)
       te.reload
@@ -73,7 +73,7 @@ class C1TaskTest < ActiveSupport::TestCase
   def test_should_be_able_to_tell_when_wrong_number_of_documents_are_supplied_in_archive
     task = @product_test.tasks.create({}, C1Task)
     @product_test.product.c1_test = true
-    zip = File.new(Rails.root.join('test/fixtures/product_tests/ep_qrda_test_too_many_files.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_test_too_many_files.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, User.first)
       te.reload
@@ -85,7 +85,7 @@ class C1TaskTest < ActiveSupport::TestCase
   def test_should_be_able_to_tell_when_wrong_names_are_provided_in_documents
     task = @product_test.tasks.create({}, C1Task)
     @product_test.product.c1_test = true
-    zip = File.new(Rails.root.join('test/fixtures/product_tests/ep_qrda_test_wrong_names.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_test_wrong_names.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, User.first)
       te.reload
@@ -100,7 +100,7 @@ class C1TaskTest < ActiveSupport::TestCase
     c3_task = @product_test.tasks.create!({}, C3Cat1Task)
     @product_test.product.c1_test = true
     @product_test.product.c3_test = true
-    zip = File.new(Rails.root.join('test/fixtures/product_tests/ep_qrda_test_good.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_test_good.zip'))
     perform_enqueued_jobs do
       te = c1_task.execute(zip, User.first)
       assert_equal c3_task.test_executions.first.id.to_s, te.sibling_execution_id
@@ -110,7 +110,7 @@ class C1TaskTest < ActiveSupport::TestCase
   def test_should_return_warning_when_incorrect_templates_in_c1_without_c3
     task = @product_test.tasks.create({}, C1Task)
     @product_test.product.c1_test = true
-    zip = File.new(Rails.root.join('test/fixtures/product_tests/ep_qrda_test_too_much_data.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_test_too_much_data.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, User.first)
       te.reload
@@ -122,7 +122,7 @@ class C1TaskTest < ActiveSupport::TestCase
   def test_should_be_able_to_tell_when_potentialy_too_much_data_is_in_documents
     ptest = ProductTest.find('51703a883054cf84390000d3')
     task = ptest.tasks.create({}, C3Cat1Task)
-    zip = File.new(Rails.root.join('test/fixtures/product_tests/ep_qrda_test_too_much_data.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_test_too_much_data.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, User.first, nil)
       te.reload
@@ -134,7 +134,7 @@ class C1TaskTest < ActiveSupport::TestCase
   def test_should_be_able_to_tell_when_calculation_errors_exist
     task = @product_test.tasks.create({}, C1Task)
     @product_test.product.c1_test = true
-    zip = File.new(Rails.root.join('test/fixtures/product_tests/ep_qrda_bad_calculation.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_bad_calculation.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, User.first)
       te.reload
@@ -146,7 +146,7 @@ class C1TaskTest < ActiveSupport::TestCase
   def test_should_be_able_to_tell_when_calculation_errors_exist_in_augmented_files
     task = @product_test.tasks.create({}, C1Task)
     @product_test.product.c1_test = true
-    zip = File.new(Rails.root.join('test/fixtures/product_tests/ep_qrda_bad_calculation_aug.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_bad_calculation_aug.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, User.first)
       te.reload
@@ -158,7 +158,7 @@ class C1TaskTest < ActiveSupport::TestCase
   def test_task_should_error_when_extra_record_included
     task = @product_test.tasks.create({}, C1Task)
     @product_test.product.c1_test = true
-    zip = File.new(Rails.root.join('test/fixtures/product_tests/ep_qrda_extra_file.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_extra_file.zip'))
     perform_enqueued_jobs do
       te = task.execute(zip, User.first)
       te.reload

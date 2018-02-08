@@ -76,7 +76,7 @@ class TestExecutionTest < ActiveSupport::TestCase
     task = test.tasks.create!({}, C1ChecklistTask)
     execution = task.test_executions.build
 
-    zip = File.new(Rails.root.join('test/fixtures/product_tests/c1_checklist_incorrect_codes.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'c1_checklist_incorrect_codes.zip'))
     execution.artifact = Artifact.new(:file => zip)
 
     execution.validate_artifact(task.validators, execution.artifact, :task => task)

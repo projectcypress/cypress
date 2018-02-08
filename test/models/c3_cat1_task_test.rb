@@ -13,12 +13,12 @@ class C3Cat1TaskTest < ActiveSupport::TestCase
   end
 
   def test_task_should_include_c3_cat1_validators
-    assert @task.validators.any? { |v| v.is_a?(MeasurePeriodValidator) }
+    assert(@task.validators.any? { |v| v.is_a?(MeasurePeriodValidator) })
   end
 
   def test_task_should_not_error_when_extra_record_included
     c1_task = @test.tasks.create!({}, C1Task)
-    zip = File.new(Rails.root.join('test/fixtures/product_tests/ep_qrda_extra_file.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'product_tests', 'ep_qrda_extra_file.zip'))
     perform_enqueued_jobs do
       te = @task.execute(zip, User.first, c1_task)
       te.reload

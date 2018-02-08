@@ -3,7 +3,7 @@ include Cypress::ProductStatusValues
 module VendorsHelper
   def formatted_vendor_address(vendor)
     address = [vendor.address, vendor.state, vendor.zip].delete_if { |x| x == '' }
-    address.count > 0 ? address.join(', ') : nil
+    address.count.positive? ? address.join(', ') : nil
   end
 
   # return value is nested hash structured like this:

@@ -110,7 +110,7 @@ module TestExecutionsResultsHelper
   def error_to_line_number(error, doc)
     return 0 unless doc
     nodes = doc.search(error.location)
-    return 0 if nodes.count == 0 || nodes.first.class != Nokogiri::XML::Element
+    return 0 if nodes.count.zero? || nodes.first.class != Nokogiri::XML::Element
     nodes.first.line
   end
 

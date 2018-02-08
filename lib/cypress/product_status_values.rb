@@ -4,7 +4,7 @@ module Cypress
       h = {}
       statuses = %w[passing failing errored not_started total]
       h['Checklist'] = Hash[statuses.zip(checklist_status_vals(product.product_tests.checklist_tests.first, 'C1'))]
-      if h['Checklist']['total'] == 0
+      if h['Checklist']['total'].zero?
         default_number = CAT1_CONFIG['number_of_checklist_measures']
         h['Checklist']['not_started'] = product.measure_ids.size < default_number ? product.measure_ids.size : default_number
       end
@@ -24,7 +24,7 @@ module Cypress
       h = {}
       statuses = %w[passing failing errored not_started total]
       h['Checklist'] = Hash[statuses.zip(checklist_status_vals(product.product_tests.checklist_tests.first, 'C3'))]
-      if h['Checklist']['total'] == 0
+      if h['Checklist']['total'].zero?
         default_number = CAT1_CONFIG['number_of_checklist_measures']
         h['Checklist']['not_started'] = product.measure_ids.size < default_number ? product.measure_ids.size : default_number
       end

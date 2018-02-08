@@ -21,7 +21,7 @@ class Bundle
   def deprecate
     results.destroy
     FileUtils.rm(mpl_path) if File.exist?(mpl_path)
-    update_attribute(:deprecated, true)
+    update_attributes(:deprecated, true)
   end
 
   def destroy
@@ -64,7 +64,7 @@ class Bundle
   def mpl_status
     if File.exist?(mpl_path)
       :ready
-    elsif MplDownloadCreateJob.trackers.where(:options => { :bundle_id => id.to_s }, :status.in => %i[queued working]).count > 0
+    elsif MplDownloadCreateJob.trackers.where(:options => { :bundle_id => id.to_s }, :status.in => %i[queued working]).count.positive?
       :building
     else
       :unbuilt
@@ -86,7 +86,7 @@ class Bundle
 
   def update_default
     unless version == Settings.current.default_bundle
-      Bundle.where(active: true).update_all(active: false)
+      Bundle.where(active: true).each { |b| b.update(active: false) }
       self.active = true
       save!
       Bundle.find_by(id: id).active = true

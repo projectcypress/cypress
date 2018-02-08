@@ -52,7 +52,7 @@
   </tbody>
 </table>
 
-<% if BundleUploadJob.trackers.count > 0  %>
+<% if BundleUploadJob.trackers.count.positive?  %>
   <p>
   <h1>Current Bundle Import Jobs</h1>
   <table class="table table-hover">
@@ -82,7 +82,7 @@
       <% end %>
     </tbody>
   </table>
-  <% if BundleUploadJob.trackers.or({ :status => :queued }, { :status => :working }).count > 0 %>
+  <% if BundleUploadJob.trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
     <script>
       $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'bundle_list' }});
     </script>

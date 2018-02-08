@@ -18,9 +18,9 @@ module MeasuresHelper
     cpc_and_diag = cpc_msrs & with_diag
     # not all cpc measures have a diagnosis, for example CMS 138
 
-    return cpc_and_diag.sample if cpc_and_diag.count > 0
-    return cpc_msrs.sample if cpc_msrs.count > 0
-    return with_diag.sample if with_diag.count > 0
+    return cpc_and_diag.sample if cpc_and_diag.count.positive?
+    return cpc_msrs.sample if cpc_msrs.count.positive?
+    return with_diag.sample if with_diag.count.positive?
 
     available_measures.sample
   end

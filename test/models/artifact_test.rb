@@ -1,7 +1,7 @@
 require 'test_helper'
 class ArtifactTest < ActiveSupport::TestCase
   def test_should_be_able_to_tell_if_a_file_is_an_archive
-    filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
+    filename = Rails.root.join('test', 'fixtures', 'artifacts', 'qrda.zip')
     artifact = Artifact.new(file: File.new(filename))
 
     assert artifact.archive?, 'should be able to tell it is an archive'
@@ -9,7 +9,7 @@ class ArtifactTest < ActiveSupport::TestCase
 
   def test_should_be_able_to_read_file_from_archive
     expected = ['eh_test_results_bad.xml', 'eh_test_results.xml', 'qrda_cat3.xml', 'QRDA_CATIII_RI_AUG.xml']
-    filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
+    filename = Rails.root.join('test', 'fixtures', 'artifacts', 'qrda.zip')
     artifact = Artifact.new(file: File.new(filename))
     expected.each do |n|
       assert artifact.get_file(n)
@@ -19,11 +19,11 @@ class ArtifactTest < ActiveSupport::TestCase
   def test_should_be_able_to_list_file_names
     expected = ['eh_test_results_bad.xml', 'eh_test_results.xml', 'qrda_cat3.xml', 'QRDA_CATIII_RI_AUG.xml',
                 'expected_results.json']
-    filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
+    filename = Rails.root.join('test', 'fixtures', 'artifacts', 'qrda.zip')
     artifact = Artifact.new(file: File.new(filename))
     assert_equal expected.sort, artifact.file_names.sort
 
-    root = "#{Rails.root}/tmp/test/artifacts"
+    root = Rails.root.join('tmp', 'test', 'artifacts')
     FileUtils.mkdir_p(root)
     filename = "#{root}/good_file_extension.xml"
     FileUtils.touch(filename)
@@ -34,13 +34,13 @@ class ArtifactTest < ActiveSupport::TestCase
   end
 
   def test_should_be_able_to_give_file_count_for_archive
-    filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
+    filename = Rails.root.join('test', 'fixtures', 'artifacts', 'qrda.zip')
     artifact = Artifact.new(file: File.new(filename))
     assert_equal 5, artifact.file_count
   end
 
   def test_should_be_able_to_give_file_count_single_file
-    root = "#{Rails.root}/tmp/test/artifacts"
+    root = Rails.root.join('tmp', 'test', 'artifacts')
     FileUtils.mkdir_p(root)
     filename = "#{root}/good_file_extension.xml"
     FileUtils.touch(filename)
@@ -51,7 +51,7 @@ class ArtifactTest < ActiveSupport::TestCase
   def test_should_be_able_to_loop_over_archive_files
     expected = ['eh_test_results_bad.xml', 'eh_test_results.xml', 'qrda_cat3.xml', 'QRDA_CATIII_RI_AUG.xml']
     reported = {}
-    filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
+    filename = Rails.root.join('test', 'fixtures', 'artifacts', 'qrda.zip')
     artifact = Artifact.new(file: File.new(filename))
     artifact.each_file do |name, data|
       reported[name] = data
@@ -60,7 +60,7 @@ class ArtifactTest < ActiveSupport::TestCase
   end
 
   def test_should_be_able_to_loop_on_single_file
-    root = "#{Rails.root}/tmp/test/artifacts"
+    root = Rails.root.join('tmp', 'test', 'artifacts')
     FileUtils.mkdir_p(root)
     filename = "#{root}/good_file_extension.xml"
     FileUtils.touch(filename)
@@ -75,18 +75,18 @@ class ArtifactTest < ActiveSupport::TestCase
   end
 
   def test_should_be_able_to_ge_t_contents_for_a_given_file_name_in_an_archive
-    filename = "#{Rails.root}/test/fixtures/artifacts/qrda.zip"
+    filename = Rails.root.join('test', 'fixtures', 'artifacts', 'qrda.zip')
     artifact = Artifact.new(file: File.new(filename))
     data = artifact.get_archived_file('expected_results.json')
     # look at the first bit of the file data coming back and see if it matches what should be read
-    assert data.index(%!{ "_id" : ObjectId( "507885343054cf8d83000002" )!) == 0, 'should be able to read file from archive'
+    assert data.index(%!{ "_id" : ObjectId( "507885343054cf8d83000002" )!).zero?, 'should be able to read file from archive'
   end
 
   def test_c1_task_should_accept_zip_files_not_xml_files
     task = C1Task.new
     zip_execution = task.test_executions.build
     xml_execution = task.test_executions.build
-    root = "#{Rails.root}/tmp/test/artifacts"
+    root = Rails.root.join('tmp', 'test', 'artifacts')
     FileUtils.mkdir_p(root)
 
     zip_filename = "#{root}/good_file_extension.zip"
@@ -107,7 +107,7 @@ class ArtifactTest < ActiveSupport::TestCase
     task = C2Task.new
     zip_execution = task.test_executions.build
     xml_execution = task.test_executions.build
-    root = "#{Rails.root}/tmp/test/artifacts"
+    root = Rails.root.join('tmp', 'test', 'artifacts')
     FileUtils.mkdir_p(root)
 
     zip_filename = "#{root}/good_file_extension.zip"
@@ -125,7 +125,7 @@ class ArtifactTest < ActiveSupport::TestCase
   end
 
   def test_should_not_except_non_xml_or_zip_files
-    root = "#{Rails.root}/tmp/test/artifacts"
+    root = Rails.root.join('tmp', 'test', 'artifacts')
     FileUtils.mkdir_p(root)
 
     # generate a random set of bad file extensions and try to save

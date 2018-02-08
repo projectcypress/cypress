@@ -124,7 +124,7 @@ module Cypress
 
       provider_ids = providers.pluck(:_id)
 
-      return {} if provider_ids.count == 0
+      return {} if provider_ids.count.zero?
 
       provider_ids.collect! { |pid| BSON::ObjectId(pid) }
 

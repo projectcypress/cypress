@@ -1,6 +1,6 @@
 
 <% if params[:partial] == 'bulk_download' %>
-  <% if @product.product_tests.measure_tests.where(:state.nin => [:ready]).count > 0 %>
+  <% if @product.product_tests.measure_tests.where(:state.nin => [:ready]).count.positive? %>
     <% # wait 2 seconds. then reload the page %>
     setTimeout(function(){
       $('#display_bulk_download').html("<%= escape_javascript render 'bulk_download', :product => @product %>");

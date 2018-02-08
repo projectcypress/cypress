@@ -56,7 +56,7 @@ class FilteringTestTest < ActiveJob::TestCase
     age_filter = filter_test.options['filters']['age']
     assert_equal 1, age_filter.count == 1
     assert age_filter[:min] || age_filter[:max]
-    assert age_filter[:min] > 0 if age_filter[:min]
+    assert age_filter[:min].positive? if age_filter[:min]
   end
 
   def providers_assertions(filter_test)
@@ -96,27 +96,27 @@ class FilteringTestTest < ActiveJob::TestCase
     # create new tests with same seed
     seed = Random.new_seed
     options = { 'filters' => {} }
-    test_1 = @product.product_tests.build({ :name => 'test_for_measure_1a',
-                                            :measure_ids => ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
-                                            :options => options }, FilteringTest)
-    test_2 = @product.product_tests.build({ :name => 'test_for_measure_1a',
-                                            :measure_ids => ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
-                                            :options => options }, FilteringTest)
-    test_1.save!
-    test_2.save!
+    test1 = @product.product_tests.build({ :name => 'test_for_measure_1a',
+                                           :measure_ids => ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+                                           :options => options }, FilteringTest)
+    test2 = @product.product_tests.build({ :name => 'test_for_measure_1a',
+                                           :measure_ids => ['8A4D92B2-397A-48D2-0139-B0DC53B034A7'],
+                                           :options => options }, FilteringTest)
+    test1.save!
+    test2.save!
 
-    test_1.rand_seed = seed
-    test_2.rand_seed = seed
-    test_1.save!
-    test_2.save!
-    assert_equal test_1.rand_seed, test_2.rand_seed, 'random repeatability error: random seeds don\'t match'
+    test1.rand_seed = seed
+    test2.rand_seed = seed
+    test1.save!
+    test2.save!
+    assert_equal test1.rand_seed, test2.rand_seed, 'random repeatability error: random seeds don\'t match'
 
     # create tasks and test equivalence of randomized components
-    test_1.create_tasks
-    test_2.create_tasks
+    test1.create_tasks
+    test2.create_tasks
 
-    test_1.options['filters'].each do |k, _v|
-      assert_equal test_1.options['filters'][k], test_2.options['filters'][k], 'random repeatability error: filtering test filters do not match'
+    test1.options['filters'].each do |k, _v|
+      assert_equal test1.options['filters'][k], test2.options['filters'][k], 'random repeatability error: filtering test filters do not match'
     end
   end
 end

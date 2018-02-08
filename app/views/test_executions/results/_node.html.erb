@@ -23,7 +23,7 @@
   <% when :element %>
     <% prefix = doc.namespace.nil? ? "" : (doc.namespace.prefix || "") %>
     <% doc_name = prefix == "" ? doc.name : "#{prefix}:#{doc.name}" %>
-    <div <%=  (error_id && errors && errors.count > 0)? "class='error'".html_safe : '' %> >
+    <div <%=  (error_id && errors && errors.count.positive?)? "class='error'".html_safe : '' %> >
     <span class="markup">&lt;</span>
     <span class="start-tag "><%= doc_name %></span>
     <% doc.namespace_definitions.each do |ns| %>
@@ -50,10 +50,10 @@
     </div>
   <% end %>
 
-  <% if doc.children.length > 0 %>
+  <% if doc.children.length.positive? %>
     <% if node_type(doc.node_type) == :element %>
       <span class="markup">&gt;</span></div>
-      <% if error_id && errors && errors.count > 0%>
+      <% if error_id && errors && errors.count.positive? %>
         <% popup_title, popup_button_text, popup_content = popup_attributes(errors) %>
         <% # button to display popup with error message(s) %>
         <% btn_errors = '' %>

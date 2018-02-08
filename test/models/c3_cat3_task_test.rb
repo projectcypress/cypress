@@ -18,7 +18,7 @@ class C3Cat3TaskTest < ActiveSupport::TestCase
   end
 
   def test_task_should_include_c3_cat3_validators
-    assert @task.validators.any? { |v| v.is_a?(MeasurePeriodValidator) }
+    assert(@task.validators.any? { |v| v.is_a?(MeasurePeriodValidator) })
   end
 
   def test_should_cause_error_when_measure_is_not_included_in_report_with_c3

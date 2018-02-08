@@ -13,7 +13,7 @@
   </td>
   <th scope="row"><div class = "abbreviated"><%= link_to vendor.name, vendor_path(vendor) %></div></th>
   <td>
-    <% if vendor_statuses['total'] == 0 %>
+    <% if vendor_statuses['total'].zero? %>
       <%= button_to new_vendor_product_path(vendor), :method => :get, :class => "btn btn-primary btn-sm" do %>
         <i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Product
       <% end %>
@@ -23,7 +23,7 @@
   </td>
 
   <% %w(passing failing errored incomplete).each do |status| %>
-    <% if vendor_statuses[status] > 0 %>
+    <% if vendor_statuses[status].positive? %>
       <% classes = status_to_css_classes(status) %>
       <td class="<%= classes['cell'] %> text-center">
         <%= vendor_statuses[status] %>
