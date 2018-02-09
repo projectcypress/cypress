@@ -9,7 +9,7 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
     @checklist_test = product.product_tests.build({ name: 'c1 visual', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
     @checklist_test.save!
     @checklist_test.create_checked_criteria
-    simplify_criteria
+    simplify_criteria(@checklist_test)
     C1ChecklistTask.new(product_test: @checklist_test).save!
   end
 
@@ -73,14 +73,5 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
       sibling_task = task.test_executions.first.sibling_execution.task
       assert_equal 1, sibling_task.test_executions.count
     end
-  end
-
-  def simplify_criteria
-    criteria = @checklist_test.checked_criteria[0, 1]
-    criteria[0].source_data_criteria = 'DiagnosisActivePregnancy'
-    criteria[0].code = '210'
-    criteria[0].code_complete = true
-    @checklist_test.checked_criteria = criteria
-    @checklist_test.save!
   end
 end

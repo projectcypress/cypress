@@ -5,20 +5,26 @@ class QrdaCat1ValidatorPerfTest < ActionDispatch::PerformanceTest
   include ::Validators
 
   def setup
-    collection_fixtures('bundles', 'measures')
-    @bundle = Bundle.find('4fdb62e01d41c820f6000001')
-    @measures = Measure.in(hqmf_id: ['8A4D92B2-397A-48D2-0139-7CC6B5B8011E'])
-    @validator_with_c3 = QrdaCat1Validator.new(@bundle, false, true, @measures)
-    @validator_without_c3 = QrdaCat1Validator.new(@bundle, false, false, @measures)
-    @task = C1Task.new
+    @test_execution = FactoryGirl.create(:test_execution)
+    @task = @test_execution.task
+    @records = @task.records
+    @bundle = @task.bundle
+    @measures = @task.product_test.measures
+    mes, sd, ed = Cypress::PatientZipper::mes_start_end(@records)
+    test_record = @records.find_by(first: 'Dental_Peds')
+    file = Cypress::QRDAExporter.new(mes, sd, ed).export(test_record)
+    @doc = @test_execution.build_document(file)
   end
 
-  def test_validate_good_file
-    file = File.new(File.join(Rails.root, 'test/fixtures/product_tests/ep_qrda_test_good/0_Dental_Peds_A.xml')).read
-    @validator_with_c3.validate(file, task: @task)
-    assert_empty @validator_with_c3.errors
+  def test_validate_good_file_with_c3
+    @validator = QrdaCat1Validator.new(@bundle, false, true, @measures)
+    @validator.validate(@doc, task: @task)
+    assert_empty @validator.errors
+  end
 
-    @validator_without_c3.validate(file, task: @task)
-    assert_empty @validator_without_c3.errors
+  def test_validate_good_file_without_c3
+    @validator = QrdaCat1Validator.new(@bundle, false, false, @measures)
+    @validator.validate(@doc, task: @task)
+    assert_empty @validator.errors
   end
 end

@@ -152,27 +152,13 @@ class ChecklistTestTest < ActiveJob::TestCase
     execution.save!
     assert_equal @test.checked_criteria.count, execution.execution_errors.count
 
-    # make one checked criteria complete
-    simplify_criteria
+    simplify_criteria(@test, true)
 
     execution = task.test_executions.build
     assert_equal 0, execution.execution_errors.count
     @test.build_execution_errors_for_incomplete_checked_criteria(execution)
     execution.save!
     assert_equal @test.checked_criteria.count - 1, execution.execution_errors.count, 'should have one less execution error'
-  end
-
-  def simplify_criteria
-    criteria = @test.checked_criteria[0, 1]
-    criteria[0].source_data_criteria = 'DiagnosisActivePregnancy'
-    criteria[0].code = '210'
-    criteria[0].code_complete = true
-    criteria[0].attribute_code = '4896'
-    criteria[0].attribute_complete = true
-    criteria[0].result_complete = true
-    criteria[0].passed_qrda = true
-    @test.checked_criteria = criteria
-    @test.save!
   end
 
   def test_repeatability_with_random_seed

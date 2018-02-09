@@ -3,7 +3,7 @@ cache:
   - bundler
   - node_modules
 sudo: false
-dist: precise
+dist: trusty
 addons:
   apt:
     sources:
@@ -37,10 +37,19 @@ before_script:
   - git config --global user.name "Travis CI"
   - npm install eslint
   - cp ./.travis/mongoid.yml ./config/mongoid.yml
+env:
+  - TEST_SUITE=cucumber
+  - TEST_SUITE=audit
+  - TEST_SUITE=models
+  - TEST_SUITE=controllers
 script:
-  - bundle exec brakeman -qAzw1
-  - bundle exec bundle-audit check --update
-  - bundle exec overcommit --sign
-  - bundle exec overcommit --run
-  - travis_retry bundle exec rake test
-  - bundle exec cucumber
+  - 'if [ ${TEST_SUITE} = "cucumber" ]; then
+      bundle exec cucumber;
+    elif [ ${TEST_SUITE} = "audit" ]; then
+      bundle exec brakeman -qAzw1;
+      bundle exec bundle-audit check --update;
+      bundle exec overcommit --sign;
+      bundle exec overcommit --run;
+    else
+      bundle exec rake test:$TEST_SUITE;
+    fi'

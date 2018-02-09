@@ -7,9 +7,6 @@ require 'simplecov'
 # Mongo::Logger.logger.level = Logger::WARN
 ENV['RAILS_ENV'] ||= 'test'
 ENV['IGNORE_ROLES'] ||= 'false'
-CAT1_CONFIG['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] = [{ 'ValueSet' => '1.5.6.7',
-                                                         'Weight' => '0.954242509',
-                                                         'IsAttribute' => false }]
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
@@ -54,6 +51,21 @@ class ActiveSupport::TestCase
     return true if a1 == a2
     return false unless a1 && a2 # either one is nil
     a1.count == a2.count && (a1 - a2).empty? && (a2 - a1).empty?
+  end
+
+  def simplify_criteria(test, include_attribute_code=false)
+    criteria = test.checked_criteria[0, 1]
+    criteria[0].source_data_criteria = 'DiagnosisActivePregnancy'
+    criteria[0].code = '210'
+    criteria[0].code_complete = true
+    if include_attribute_code
+      criteria[0].attribute_code = '4896'
+      criteria[0].attribute_complete = true
+      criteria[0].result_complete = true
+      criteria[0].passed_qrda = true
+    end
+    test.checked_criteria = criteria
+    test.save!
   end
 
   def value_or_bson(v)
