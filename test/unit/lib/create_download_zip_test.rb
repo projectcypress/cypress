@@ -7,12 +7,12 @@ class CreateDownloadZipTest < ActiveSupport::TestCase
   end
 
   test 'Should create appropriate html' do
-    product_2014 = Product.where('cert_edition' => '2014').first
-    product_2015_c1 = Product.where('cert_edition' => '2015', 'c2_test' => false).first
-    product_2015_c2 = Product.where('cert_edition' => '2015', 'c2_test' => true).first
+    product2014 = Product.where('cert_edition' => '2014').first
+    product2015_c1 = Product.where('cert_edition' => '2015', 'c2_test' => false).first
+    product2015_c2 = Product.where('cert_edition' => '2015', 'c2_test' => true).first
     # byebug
 
-    [product_2014, product_2015_c1, product_2015_c2].each do |product|
+    [product2014, product2015_c1, product2015_c2].each do |product|
       # next if(!product)
       # product_test = product.product_tests.build({ name: "mtest #{rand}", measure_ids: ['8A4D92B2-35FB-4AA7-0136-5A26000D30BD'] }, MeasureTest)
 

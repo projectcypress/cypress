@@ -97,13 +97,13 @@ group :development, :test do
   gem 'byebug'
   gem 'capybara'
   gem 'capybara-accessible'
-  gem 'rails_best_practices'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'overcommit'
   gem 'poltergeist'
   gem 'pry'
   gem 'pry-nav'
+  gem 'rails_best_practices'
   gem 'scss_lint', :require => false
   gem 'selenium-webdriver'
 end

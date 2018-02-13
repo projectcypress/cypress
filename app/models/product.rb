@@ -8,7 +8,7 @@ class Product
   before_save :enforce_cert_edition_settings
 
   scope :by_updated_at, -> { order(:updated_at => :desc) }
-  scope :ordered_for_vendors, -> { by_updated_at.order_by(state: 'desc') }
+  scope :ordered_for_vendors, -> { by_updated_at.order_by(:state => 'desc') }
 
   belongs_to :vendor, :index => true, :touch => true
   has_many :product_tests, :dependent => :destroy
@@ -20,7 +20,7 @@ class Product
   field :version, :type => String
   field :description, :type => String
   field :cert_edition, :type => String, :default => '2015'
-  %i(c1_test c2_test c3_test c4_test).each do |test|
+  %i[c1_test c2_test c3_test c4_test].each do |test|
     field test, :type => Boolean, :default => false
   end
   field :randomize_records, :type => Boolean, :default => true

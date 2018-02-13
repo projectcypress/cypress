@@ -171,7 +171,7 @@ class VendorCachingTest < CachingTest
   def test_edditing_test_execution_updates_vendor_cache_key
     vendor_old_cache_key = Vendor.all.first.cache_key.to_s
     test_execution = TestExecution.all.first
-    test_execution.update_attributes(:state, :passed)
+    test_execution.update_attributes(:state => :passed)
     test_execution.save!
     vendor_new_cache_key = Vendor.all.first.cache_key.to_s
     refute_equal vendor_old_cache_key, vendor_new_cache_key, 'cache keys should be different'
@@ -179,7 +179,7 @@ class VendorCachingTest < CachingTest
 
   def test_adding_passing_then_failing_execution_changes_vendor_status
     test_execution = TestExecution.all.first
-    test_execution.update_attributes(:state, :passed)
+    test_execution.update_attributes(:state => :passed)
     test_execution.save!
     vendor_old_status = Vendor.all.first.status
 
