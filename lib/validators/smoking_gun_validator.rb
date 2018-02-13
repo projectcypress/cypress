@@ -115,7 +115,7 @@ module Validators
     end
 
     def build_document(document)
-      doc = document.is_a? Nokogiri::XML::Document ? document : Nokogiri::XML(document.to_s)
+      doc = document.is_a?(Nokogiri::XML::Document) ? document : Nokogiri::XML(document.to_s)
       doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
       doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
       doc

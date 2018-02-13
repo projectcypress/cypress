@@ -1,5 +1,5 @@
 require 'test_helper'
-class Admin
+module Admin
   class BundlesControllerTest < ActionController::TestCase
     include Devise::TestHelpers
     include ActiveJob::TestHelper
