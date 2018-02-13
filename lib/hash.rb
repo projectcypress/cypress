@@ -8,4 +8,8 @@ class Hash
       super
     end
   end
+
+  def respond_to_missing?(method_name, include_private = false)
+    super
+  end
 end

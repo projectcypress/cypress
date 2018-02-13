@@ -16,6 +16,10 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
       zip: '99999',
       country: 'ZZ'
     )
+    setup_secondary_instances
+  end
+
+  def setup_secondary_instances
     @insurance_provider = InsuranceProvider.new(
       codes: { 'NA' => 123 },
       name: 'NA',

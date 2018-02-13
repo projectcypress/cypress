@@ -21,6 +21,10 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
     @record2.conditions.push Condition.new(start_time: 1_317_513_600)
     @record2.save!
 
+    setup_secondary_instances
+  end
+
+  def setup_secondary_instances
     @record3 = Record.new(first: 'Insurance', last: 'Test')
     @record3.bundle_id = @bundle.id
     @record3.encounters.push Encounter.new(start_time: 1_301_615_999)
