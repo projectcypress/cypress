@@ -79,6 +79,6 @@ class Vendor
   end
 
   def favorite_products(current_user)
-    products.ordered_for_vendors.where(favorite_user_ids: current_user.id)
+    products.ordered_for_vendors.where(:favorite_user_ids => current_user.id)
   end
 end

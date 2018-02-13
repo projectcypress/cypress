@@ -30,7 +30,7 @@ namespace :cypress do
   task :add_admin, [:email] => :setup do |_, args|
     user = User.where(:email => args.email).first
     if user
-      user.update_attributes(:approved, true)
+      user.update_attributes(:approved => true)
       user.add_role :admin
       puts "Added admin role to user #{args.email}"
     else

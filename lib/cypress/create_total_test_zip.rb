@@ -28,15 +28,19 @@ module Cypress
     def self.add_filtering_zips(z, filtering_tests, format, filtering_list)
       pt = filtering_tests.first
       CreateDownloadZip.add_file_to_zip(z, "filteringtest_#{pt.cms_id}_#{pt.id}.#{format}.zip".tr(' ', '_'), pt.patient_archive.read)
-      CreateDownloadZip.add_file_to_zip(z, "filteringtest_#{pt.cms_id}_#{pt.id}.html.zip".tr(' ', '_'),
-                                        pt.html_archive.read) unless pt.product.c2_test
+      unless pt.product.c2_test
+        CreateDownloadZip.add_file_to_zip(z, "filteringtest_#{pt.cms_id}_#{pt.id}.html.zip".tr(' ', '_'),
+                                          pt.html_archive.read)
+      end
       CreateDownloadZip.add_file_to_zip(z, 'filtering_criteria.html', filtering_list)
     end
 
     def self.add_html_files(z, tests)
       tests.each do |pt|
-        CreateDownloadZip.add_file_to_zip(z, "#{pt.cms_id}_#{pt.id}.html.zip".tr(' ', '_'),
-                                          pt.html_archive.read) unless pt[:html_archive].nil? || (pt.is_a? FilteringTest)
+        unless pt[:html_archive].nil? || (pt.is_a? FilteringTest)
+          CreateDownloadZip.add_file_to_zip(z, "#{pt.cms_id}_#{pt.id}.html.zip".tr(' ', '_'),
+                                            pt.html_archive.read)
+        end
       end
     end
   end

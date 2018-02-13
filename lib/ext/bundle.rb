@@ -86,11 +86,11 @@ class Bundle
 
   def update_default
     unless version == Settings.current.default_bundle
-      Bundle.where(active: true).each { |b| b.update(active: false) }
+      Bundle.where(:active => true).each { |b| b.update(:active => false) }
       self.active = true
       save!
-      Bundle.find_by(id: id).active = true
-      Settings.current.update(default_bundle: version)
+      Bundle.find_by(:id => id).active = true
+      Settings.current.update(:default_bundle => version)
     end
   end
 

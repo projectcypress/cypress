@@ -38,7 +38,7 @@ end
 # # # # # # # #
 
 When(/^debug mode is (.*)$/) do |debug_mode_value|
-  Settings.current.update(enable_debug_features: debug_mode_value.to_boolean)
+  Settings.current.update(:enable_debug_features => debug_mode_value.to_boolean)
 end
 
 # certs argument stands for certifications and should be a comma separated list of some of these values: c1, c2, c3, c4
@@ -506,15 +506,15 @@ Then(/^the user should see the the appropriate tabs$/) do
 end
 
 Then(/^"(.*)" checkbox should be (\w*)$/) do |element, state|
-  checkbox = page.find('label', text: element).find('input')
+  checkbox = page.find('label', :text => element).find('input')
   case state
   when 'enabled', 'disabled'
     # Convert state from disabled/enabled to true/false
-    state = (state.eql? 'disabled') ? true : false
+    state = state.eql?('disabled') ? true : false
     result = checkbox.disabled?
   when 'checked', 'unchecked'
     # Convert state from checked/unchecked to true/false
-    state = (state.eql? 'checked') ? true : false
+    state = state.eql?('checked') ? true : false
     result = checkbox.checked?
   end
   assert_equal state, result
