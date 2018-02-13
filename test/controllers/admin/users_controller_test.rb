@@ -1,5 +1,5 @@
 require 'test_helper'
-class Admin
+module Admin
   class UsersControllerTest < ActionController::TestCase
     include Devise::TestHelpers
 

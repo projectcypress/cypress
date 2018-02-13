@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Admin
+module Admin
   class SettingsControllerTest < ActionController::TestCase
     setup do
       collection_fixtures('users', 'roles')
