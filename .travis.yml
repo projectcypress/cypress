@@ -51,5 +51,5 @@ script:
       bundle exec overcommit --sign;
       bundle exec overcommit --run;
     else
-      bundle exec rake test:$TEST_SUITE;
+      travis_retry bundle exec rake test:$TEST_SUITE;
     fi'
