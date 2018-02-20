@@ -3,7 +3,7 @@ require 'fileutils'
 
 class RecordFilterTest < ActiveSupport::TestCase
   def setup
-    bundle = FactoryGirl.create(:static_bundle)
+    FactoryGirl.create(:static_bundle)
     @all_records = Record.all
   end
 

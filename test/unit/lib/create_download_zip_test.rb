@@ -3,11 +3,11 @@ require 'fileutils'
 
 class CreateDownloadZipTest < ActiveSupport::TestCase
   test 'Should create appropriate html' do
-    product_2014 = FactoryGirl.create(:product_2014)
+    product2014 = FactoryGirl.create(:product_2014)
     product_2015_c1 = FactoryGirl.create(:product_no_c2)
     product_2015_c2 = FactoryGirl.create(:product_static_bundle)
 
-    [product_2014, product_2015_c1, product_2015_c2].each do |product|
+    [product2014, product_2015_c1, product_2015_c2].each do |product|
       pt = product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'],
                                          bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
       pt.create_tasks

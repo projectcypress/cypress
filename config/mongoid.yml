@@ -6,26 +6,26 @@ development:
     default:
       database: cypress_development
       hosts:
-        - <%= ENV.fetch('MONGO_PORT_27017_TCP_ADDR', 'localhost') %>:<%= ENV.fetch('MONGO_PORT_27017_TCP_PORT', '27017') %>
+        - <%= ENV.fetch('MONGO_PORT_27017_TCP_ADDR', '127.0.0.1') %>:<%= ENV.fetch('MONGO_PORT_27017_TCP_PORT', '27017') %>
 
 measure_eval:
   clients:
     default:
       database: cypress_eval
       hosts:
-        - <%= ENV.fetch('MONGO_PORT_27017_TCP_ADDR', 'localhost') %>:<%= ENV.fetch('MONGO_PORT_27017_TCP_PORT', '27017') %>
+        - <%= ENV.fetch('MONGO_PORT_27017_TCP_ADDR', '127.0.0.1') %>:<%= ENV.fetch('MONGO_PORT_27017_TCP_PORT', '27017') %>
 test:
   clients:
     default:
       database: cypress_test<%= ENV['TEST_ENV_NUMBER'] %>
       hosts:
-        - <%= ENV['TEST_DB_HOST'] || 'localhost' %>:27017
+        - <%= ENV['TEST_DB_HOST'] || '127.0.0.1' %>:27017
 production:
   clients:
     default:
       database: cypress_production
       hosts:
-        - <%= ENV.fetch('MONGO_PORT_27017_TCP_ADDR', 'localhost') %>:<%= ENV.fetch('MONGO_PORT_27017_TCP_PORT', '27017') %>
+        - <%= ENV.fetch('MONGO_PORT_27017_TCP_ADDR', '127.0.0.1') %>:<%= ENV.fetch('MONGO_PORT_27017_TCP_PORT', '27017') %>
 
   options:
     raise_not_found_error: false

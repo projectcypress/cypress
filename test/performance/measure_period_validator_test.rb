@@ -8,14 +8,14 @@ class MeasurePeriodValidatorPerfTest < ActionDispatch::PerformanceTest
   end
 
   def test_file_with_good_mp
-    file = File.new(Rails.root.join('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_good.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')).read
 
     @validator.validate(file, 'test_execution' => @test_execution)
     assert_empty @validator.errors
   end
 
   def test_file_with_bad_mp
-    file = File.new(Rails.root.join('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_bad_mp.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_bad_mp.xml')).read
     @validator.validate(file, 'test_execution' => @test_execution)
     errors = @validator.errors
 

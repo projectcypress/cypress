@@ -10,7 +10,7 @@ class QrdaCat1ValidatorPerfTest < ActionDispatch::PerformanceTest
     @records = @task.records
     @bundle = @task.bundle
     @measures = @task.product_test.measures
-    mes, sd, ed = Cypress::PatientZipper::mes_start_end(@records)
+    mes, sd, ed = Cypress::PatientZipper.mes_start_end(@records)
     test_record = @records.find_by(first: 'Dental_Peds')
     file = Cypress::QRDAExporter.new(mes, sd, ed).export(test_record)
     @doc = @test_execution.build_document(file)

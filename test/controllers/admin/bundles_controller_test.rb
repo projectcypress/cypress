@@ -23,17 +23,6 @@ module Admin
         get :index
         assert_redirected_to %r{/admin#bundles}
       end
-
-      teardown do
-        load_library_functions
-      end
-    end
-
-    test 'should get index' do
-      for_each_logged_in_user([ADMIN]) do
-        get :index
-        assert_redirected_to %r{/admin#bundles}
-      end
     end
 
     test 'should deny access to index for non admins ' do

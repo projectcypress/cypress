@@ -53,7 +53,7 @@ class ActiveSupport::TestCase
     a1.count == a2.count && (a1 - a2).empty? && (a2 - a1).empty?
   end
 
-  def simplify_criteria(test, include_attribute_code=false)
+  def simplify_criteria(test, include_attribute_code = false)
     criteria = test.checked_criteria[0, 1]
     criteria[0].source_data_criteria = 'DiagnosisActivePregnancy'
     criteria[0].code = '210'
@@ -115,7 +115,7 @@ class ActiveSupport::TestCase
   def perf_test_collection_fixtures(*collections)
     collections.each do |collection|
       Mongoid.default_client[collection].drop
-      Dir.glob(File.join(Rails.root, 'test', 'fixtures', collection, 'perf_test', '*.json')).each do |json_fixture_file|
+      Dir.glob(Rails.root.join('test', 'fixtures', collection, 'perf_test', '*.json')).each do |json_fixture_file|
         fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
         map_bson_ids(fixture_json)
         Mongoid.default_client[collection].insert_one(fixture_json)

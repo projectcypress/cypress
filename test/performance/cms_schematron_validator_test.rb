@@ -7,7 +7,7 @@ class CMSSchematronValidatorPerfTest < ActionDispatch::PerformanceTest
     @task = @test_execution.task
     @records = @task.records
     @product_test = @task.product_test
-    mes, sd, ed = Cypress::PatientZipper::mes_start_end(@records)
+    mes, sd, ed = Cypress::PatientZipper.mes_start_end(@records)
     test_record = @records.find_by(first: 'Dental_Peds')
     file = Cypress::QRDAExporter.new(mes, sd, ed).export(test_record)
     @cat1_doc = @test_execution.build_document(file)
@@ -16,7 +16,7 @@ class CMSSchematronValidatorPerfTest < ActionDispatch::PerformanceTest
   def test_hqr
     hqr_validator = ::Validators::CMSQRDA1HQRSchematronValidator.new(@product_test.bundle.version)
     hqr_validator.validate(@cat1_doc, 'task' => @task, 'test_execution' => @test_execution, validate_reporting: @product_test.product.c3_test,
-                           :file_name => 'Dental_Peds_A')
+                                      :file_name => 'Dental_Peds_A')
     assert_equal 5, hqr_validator.errors.count
   end
 
@@ -25,8 +25,7 @@ class CMSSchematronValidatorPerfTest < ActionDispatch::PerformanceTest
     c3c = Cypress::Cat3Calculator.new(@product_test.measure_ids, @product_test.bundle, @product_test.effective_date)
     c3c.import_cat1_file(@cat1_doc)
     qrda3_validator.validate(c3c.generate_cat3, 'task' => @task, 'test_execution' => @test_execution, validate_reporting: @product_test.product.c3_test,
-                             :file_name => 'CMS1234')
-    binding.pry
+                                                :file_name => 'CMS1234')
     assert_equal 8, qrda3_validator.errors.count
   end
 

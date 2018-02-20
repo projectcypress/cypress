@@ -6,17 +6,17 @@ development:
     default:
       database: cypress_development
       hosts:
-        - localhost:27017
+        - 127.0.0.1:27017
 test:
   clients:
     default:
       database: cypress_test
       hosts:
-        - <%= ENV['TEST_DB_HOST'] || 'localhost' %>:27017
+        - <%= ENV['TEST_DB_HOST'] || '127.0.0.1' %>:27017
 
 production:
   clients:
     default:
       database: cypress_production
       hosts:
-        - localhost:27017
+        - 127.0.0.1:27017

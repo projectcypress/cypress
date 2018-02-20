@@ -61,7 +61,7 @@ gem 'roar-rails'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', :group => :doc
 
-gem 'carrierwave'
+gem 'carrierwave', '~> 0.11'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
 # AJAX file uploads
@@ -97,17 +97,17 @@ group :development, :test do
   gem 'byebug'
   gem 'capybara'
   gem 'capybara-accessible'
-  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails', '1.4.4', :require => false
   gem 'database_cleaner'
   gem 'overcommit'
   gem 'poltergeist'
   gem 'pry'
   gem 'pry-nav'
+  gem 'rails-perftest'
   gem 'rails_best_practices'
+  gem 'ruby-prof', '~> 0.15.9'
   gem 'scss_lint', :require => false
   gem 'selenium-webdriver'
-  gem 'rails-perftest'
-  gem 'ruby-prof', '~> 0.15.9'
 end
 
 group :development do
