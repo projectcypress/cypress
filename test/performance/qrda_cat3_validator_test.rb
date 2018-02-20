@@ -6,7 +6,7 @@ class QrdaCat3ValidatorPerfTest < ActionDispatch::PerformanceTest
 
   def setup
     @product_test = FactoryGirl.create(:product_test_static_result)
-    @file = File.new(Rails.root.join('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_good.xml')).read
+    @file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')).read
   end
 
   def test_validate_good_file_with_c3

@@ -259,7 +259,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     when 'C2Task', 'Cat3FilterTask'
       file_name = 'cat_III/ep_test_qrda_cat3_good.xml'
     end
-    file = Rails.root.join('test', 'fixtures', 'qrda', file_name)
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', file_name))
     Artifact.create!(test_execution: execution, file: file)
     unzipped_file_name = execution.artifact.file_names.first
     execution.execution_errors.create!(:message => "my error message #{rand}", :msg_type => :my_msg_type, :file_name => unzipped_file_name)

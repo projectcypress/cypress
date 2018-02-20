@@ -93,20 +93,20 @@ class FilteringTestTest < ActiveJob::TestCase
     # create new tests with same seed
     seed = Random.new_seed
     options = { 'filters' => {} }
-    test_1 = @product.product_tests.build({ :name => 'test_for_measure_1a',
-                                            :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                            :options => options }, FilteringTest)
-    test_2 = @product.product_tests.build({ :name => 'test_for_measure_1a',
-                                            :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                            :options => options }, FilteringTest)
-    test_1.save!
-    test_2.save!
+    test1 = @product.product_tests.build({ :name => 'test_for_measure_1a',
+                                           :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                           :options => options }, FilteringTest)
+    test2 = @product.product_tests.build({ :name => 'test_for_measure_1a',
+                                           :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                           :options => options }, FilteringTest)
+    test1.save!
+    test2.save!
 
-    test_1.rand_seed = seed
-    test_2.rand_seed = seed
-    test_1.save!
-    test_2.save!
-    assert_equal test_1.rand_seed, test_2.rand_seed, 'random repeatability error: random seeds don\'t match'
+    test1.rand_seed = seed
+    test2.rand_seed = seed
+    test1.save!
+    test2.save!
+    assert_equal test1.rand_seed, test2.rand_seed, 'random repeatability error: random seeds don\'t match'
 
     # create tasks and test equivalence of randomized components
     test1.create_tasks

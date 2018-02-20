@@ -26,8 +26,8 @@ When(/^the user creates a product with tasks (.*)$/) do |tasks|
   # create record and assign provider for product test
   @product_test.generate_provider
   provider = @product_test.provider
-  #@product_test.provider = provider
-  #@product_test.save!
+  # @product_test.provider = provider
+  # @product_test.save!
   provider_performance = ProviderPerformance.new(provider: provider, provider_id: provider.id)
   Record.create!(test_id: @product_test.id, provider_performances: [provider_performance])
 end
@@ -83,7 +83,7 @@ And(/^the user uploads a CAT 1 zip file$/) do
 end
 
 And(/^the user uploads a CAT 3 XML file$/) do
-  xml_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III' 'ep_test_qrda_cat3_good.xml')
+  xml_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')
   page.attach_file('results', xml_path, visible: false)
   page.find('#submit-upload').click
 end

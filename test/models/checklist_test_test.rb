@@ -164,10 +164,10 @@ class ChecklistTestTest < ActiveJob::TestCase
   def test_repeatability_with_random_seed
     # create new tests with same seed
     random = Random.new_seed
-    test_1 = @test.product.product_tests.create!({ :name => 'test_for_measure_1a',
-                                                   :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
-    test_2 = @test.product.product_tests.create!({ :name => 'test_for_measure_1a',
-                                                   :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
+    test1 = @test.product.product_tests.create!({ :name => 'test_for_measure_1a',
+                                                  :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
+    test2 = @test.product.product_tests.create!({ :name => 'test_for_measure_1a',
+                                                  :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
 
     test1.rand_seed = random
     test2.rand_seed = random

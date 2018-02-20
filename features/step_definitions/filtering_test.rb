@@ -15,22 +15,22 @@ And(/^the user has created a vendor with a product selecting C4 testing$/) do
 
   criteria = %w[races ethnicities]
   options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
-  @f_test_1 = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
-                                measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
-  @f_test_1.save!
-  @f_test_1.generate_records
-  @f_test_1.reload
-  @f_test_1.pick_filter_criteria
-  @f_test_1.calculate
+  @f_test1 = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
+                               measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+  @f_test1.save!
+  @f_test1.generate_records
+  @f_test1.reload
+  @f_test1.pick_filter_criteria
+  @f_test1.calculate
 
-  criteria = %w(genders age)
+  criteria = %w[genders age]
   options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
-  @f_test_2 = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
-                                measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
-  @f_test_2.save!
-  @f_test_2.generate_records
-  @f_test_2.reload
-  @f_test_2.pick_filter_criteria
+  @f_test2 = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
+                               measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+  @f_test2.save!
+  @f_test2.generate_records
+  @f_test2.reload
+  @f_test2.pick_filter_criteria
 
   checklist_test = @product.product_tests.create!({ name: 'my checklist test', measure_ids: measure_ids }, ChecklistTest)
   checklist_test.tasks.create!({}, C1ChecklistTask)
@@ -44,8 +44,8 @@ And(/^the user visits the product show page with the filter test tab selected$/)
 end
 
 And(/^the first filter task state has been set to ready$/) do
-  @f_test1.state = :ready
-  @f_test1.save!
+  @f_test_1.state = :ready
+  @f_test_1.save!
 end
 
 # # # # # # # #
@@ -57,17 +57,17 @@ When(/^the user is changed to an admin$/) do
 end
 
 When(/^the user views the CAT 1 test for the first filter task$/) do
-  find(:xpath, "//a[@href='/tasks/#{@f_test1.cat1_task.id}/test_executions/new']").click
+  find(:xpath, "//a[@href='/tasks/#{@f_test_1.cat1_task.id}/test_executions/new']").click
 end
 
 When(/^the user views the CAT 3 test for the first filter task$/) do
-  find(:xpath, "//a[@href='/tasks/#{@f_test1.cat3_task.id}/test_executions/new']").click
+  find(:xpath, "//a[@href='/tasks/#{@f_test_1.cat3_task.id}/test_executions/new']").click
 end
 
 #   A N D   #
 
 And(/^the user views the CAT 3 test from the CAT 1 page$/) do
-  find(:xpath, "//a[@href='/tasks/#{@f_test1.cat3_task.id}/test_executions/new']").trigger('click')
+  find(:xpath, "//a[@href='/tasks/#{@f_test_1.cat3_task.id}/test_executions/new']").trigger('click')
 end
 
 And(/^the user has viewed the CAT 1 test for the first filter task$/) do
@@ -112,7 +112,7 @@ end
 
 Then(/^the user should see a list of expected patients$/) do
   page.assert_text 'Expected Result Patient List'
-  assert page.has_selector?('table tbody tr', count: @f_test1.filtered_records.length), 'different count'
+  assert page.has_selector?('table tbody tr', count: @f_test_1.filtered_records.length), 'different count'
 end
 
 Then(/^the user should see a Total row$/) do

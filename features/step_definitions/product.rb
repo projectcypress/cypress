@@ -148,7 +148,7 @@ end
 
 When(/^the user creates a product with selecting a group of measures$/) do
   steps %( When the user fills out all product information but measures )
-  #page.find("[href='#Miscellaneous_div']").click
+  # page.find("[href='#Miscellaneous_div']").click
   page.find('input.measure-group-all').click
   page.click_button 'Add Product'
 end
@@ -163,14 +163,14 @@ end
 
 When(/^the user creates a product with selecting a group of measures then deselecting that group$/) do
   steps %( When the user fills out all product information but measures )
-  #page.find("[href='#Miscellaneous_div']").click
+  # page.find("[href='#Miscellaneous_div']").click
   page.find('input.measure-group-all').click
   page.find('input.measure-group-all').click
   page.click_button 'Add Product'
 end
 
 And(/^the user selects a group of measures but deselects one$/) do
-  #page.find("[href='#Miscellaneous_div']").click
+  # page.find("[href='#Miscellaneous_div']").click
   page.find('input.measure-group-all').click
   page.all('input.measure-checkbox')[0].click
 end
@@ -385,7 +385,7 @@ def attach_zip_to_multi_upload(html_id)
 
   # attach zip file to multi-upload field
   zip_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip')
-  page.find(html_id, visible: false).attach_file('test_execution[results]', zip_path, visible: false)
+  page.find(html_id, :visible => false).attach_file('test_execution[results]', zip_path, :visible => false)
 end
 
 def attach_xml_to_multi_upload(html_id)
@@ -393,7 +393,7 @@ def attach_xml_to_multi_upload(html_id)
 
   # attach zip file to multi-upload field
   xml_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')
-  page.find(html_id, :visible => false).attach_file('test_execution[results]', xml_path, visible: false)
+  page.find(html_id, :visible => false).attach_file('test_execution[results]', xml_path, :visible => false)
 end
 
 # show input file upload html element. this is a known issue with capybara. capybara is unable to find inputs with surrounding <label> tags

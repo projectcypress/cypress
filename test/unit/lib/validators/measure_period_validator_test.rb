@@ -32,7 +32,7 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
   end
 
   def test_file_with_bad_mp
-    file = File.new(File.join(Rails.root, 'test/fixtures/qrda/cat_III/ep_test_qrda_cat3_shifted.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_shifted.xml')).read
     @validator.validate(file, 'test_execution' => @test_execution)
     errors = @validator.errors
 

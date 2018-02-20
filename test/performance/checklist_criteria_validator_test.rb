@@ -26,22 +26,22 @@ class ChecklistCriteriaValidatorPerfTest < ActionDispatch::PerformanceTest
   end
 
   def test_checklist_criteria_validator_correct_codes
-    zip = File.new(Rails.root.join('test/fixtures/qrda/cat_I/c1_checklist_correct_codes.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'c1_checklist_correct_codes.zip'))
 
-    Artifact.new(file: zip).each_file do |name, file|
+    Artifact.new(file: zip).each_file do |_name, file|
       doc = @test_execution.build_document(file)
       @validator.validate(doc)
-      assert_equal @checklist_test.checked_criteria.collect {|criteria| criteria.passed_qrda? }, [true]
+      assert_equal @checklist_test.checked_criteria.collect(&:passed_qrda?), [true]
     end
   end
 
   def test_checklist_criteria_validator_incorrect_codes
-    zip = File.new(Rails.root.join('test/fixtures/qrda/cat_I/c1_checklist_incorrect_codes.zip'))
+    zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'c1_checklist_incorrect_codes.zip'))
 
-    Artifact.new(file: zip).each_file do |name, file|
+    Artifact.new(file: zip).each_file do |_name, file|
       doc = @test_execution.build_document(file)
       @validator.validate(doc)
-      assert_equal @checklist_test.checked_criteria.collect {|criteria| criteria.passed_qrda? }, [false]
+      assert_equal @checklist_test.checked_criteria.collect(&:passed_qrda?), [false]
     end
   end
 end
