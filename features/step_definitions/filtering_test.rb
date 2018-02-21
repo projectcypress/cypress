@@ -44,8 +44,8 @@ And(/^the user visits the product show page with the filter test tab selected$/)
 end
 
 And(/^the first filter task state has been set to ready$/) do
-  @f_test_1.state = :ready
-  @f_test_1.save!
+  @f_test1.state = :ready
+  @f_test1.save!
 end
 
 # # # # # # # #
@@ -57,17 +57,17 @@ When(/^the user is changed to an admin$/) do
 end
 
 When(/^the user views the CAT 1 test for the first filter task$/) do
-  find(:xpath, "//a[@href='/tasks/#{@f_test_1.cat1_task.id}/test_executions/new']").click
+  find(:xpath, "//a[@href='/tasks/#{@f_test1.cat1_task.id}/test_executions/new']").click
 end
 
 When(/^the user views the CAT 3 test for the first filter task$/) do
-  find(:xpath, "//a[@href='/tasks/#{@f_test_1.cat3_task.id}/test_executions/new']").click
+  find(:xpath, "//a[@href='/tasks/#{@f_test1.cat3_task.id}/test_executions/new']").click
 end
 
 #   A N D   #
 
 And(/^the user views the CAT 3 test from the CAT 1 page$/) do
-  find(:xpath, "//a[@href='/tasks/#{@f_test_1.cat3_task.id}/test_executions/new']").trigger('click')
+  find(:xpath, "//a[@href='/tasks/#{@f_test1.cat3_task.id}/test_executions/new']").trigger('click')
 end
 
 And(/^the user has viewed the CAT 1 test for the first filter task$/) do
@@ -112,7 +112,7 @@ end
 
 Then(/^the user should see a list of expected patients$/) do
   page.assert_text 'Expected Result Patient List'
-  assert page.has_selector?('table tbody tr', count: @f_test_1.filtered_records.length), 'different count'
+  assert page.has_selector?('table tbody tr', count: @f_test1.filtered_records.length), 'different count'
 end
 
 Then(/^the user should see a Total row$/) do
