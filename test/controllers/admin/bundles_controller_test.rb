@@ -1,7 +1,6 @@
 require 'test_helper'
 module Admin
   class BundlesControllerTest < ActionController::TestCase
-    include Devise::TestHelpers
     include ActiveJob::TestHelper
 
     setup do

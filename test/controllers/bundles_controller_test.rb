@@ -1,6 +1,5 @@
 require 'test_helper'
 class BundlesControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
   include ActiveJob::TestHelper
   setup do
     FactoryGirl.create(:admin_user)

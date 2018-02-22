@@ -1,7 +1,5 @@
 require 'test_helper'
 class HomeControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
-
   test 'should get index without logged in user' do
     get :index
     assert_response :redirect
