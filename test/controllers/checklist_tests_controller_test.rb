@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class ChecklistTestsControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
   include ActiveJob::TestHelper
 
   setup do
