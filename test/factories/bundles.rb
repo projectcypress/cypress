@@ -16,6 +16,15 @@ FactoryGirl.define do
       effective_date 1_483_228_799 # Dec 31 2016
 
       after(:create) do |bundle|
+        # Load the extensions included in the bundle from the filesystem into mongo
+        Dir.glob(Rails.root.join('test', 'fixtures', 'library_functions', '*.js')).each do |js_path|
+          fn = "function () {\n #{File.read(js_path)} \n }"
+          name = File.basename(js_path, '.js')
+          Mongoid.default_client['system.js'].replace_one({ '_id' => name },
+                                                          { '_id' => name,
+                                                            'value' => BSON::Code.new(fn) }, upsert: true)
+        end
+
         # Always include a complete measure (BE65090C-EB1F-11E7-8C3F-9A214CF093AE)
         measure = create(:static_measure, bundle_id: bundle._id)
         measure['id'] = measure.hqmf_id
