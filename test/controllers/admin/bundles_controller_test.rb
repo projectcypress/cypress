@@ -14,10 +14,6 @@ module Admin
       FileUtils.rm_rf(APP_CONSTANTS['bundle_file_path'])
     end
 
-    teardown do
-      load_library_functions
-    end
-
     test 'should get index' do
       for_each_logged_in_user([ADMIN]) do
         get :index

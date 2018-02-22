@@ -9,9 +9,7 @@ class TestExecutionHelper < ActiveSupport::TestCase
   # # # # # # # # #
 
   def setup
-    drop_database
     @bundle = FactoryGirl.create(:static_bundle)
-    load_library_functions
     @vendor = Vendor.create(name: 'test_vendor_name')
     @errors = []
     @errors << { message: 'pop_error',
