@@ -25,10 +25,6 @@ Warden.test_mode!
 Mongoid.logger.level = Logger::INFO
 
 class ActiveSupport::TestCase
-  def setup
-    load_library_functions
-  end
-
   def teardown
     drop_database
     # Not clearing the rails settings cache means that settings are left in an inconsistent state
@@ -41,10 +37,12 @@ class ActiveSupport::TestCase
   end
 
   def drop_database
-    Mongoid::Config.purge!
     # purge the database instead of dropping it
     # because dropping it literally deletes the file
     # which then has to be recreated (which is slow)
+    Mongoid::Config.purge!
+    # Clear the mongo javascript functions between tests as well
+    Mongoid.default_client['system.js'].delete_many({})
   end
 
   def drop_collection(collection)
@@ -124,16 +122,6 @@ class ActiveSupport::TestCase
         map_bson_ids(fixture_json)
         Mongoid.default_client[collection].insert_one(fixture_json)
       end
-    end
-  end
-
-  def load_library_functions
-    Dir.glob(Rails.root.join('test', 'fixtures', 'library_functions', '*.js')).each do |js_path|
-      fn = "function () {\n #{File.read(js_path)} \n }"
-      name = File.basename(js_path, '.js')
-      Mongoid.default_client['system.js'].replace_one({ '_id' => name },
-                                                      { '_id' => name,
-                                                        'value' => BSON::Code.new(fn) }, upsert: true)
     end
   end
 

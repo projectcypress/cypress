@@ -1,7 +1,6 @@
 require 'test_helper'
 class TestExecutionTest < ActiveSupport::TestCase
   def setup
-    drop_database
     @bundle = FactoryGirl.create(:static_bundle)
     vendor = Vendor.create(name: 'test_vendor_name')
     product = vendor.products.create(name: 'test_product', bundle_id: @bundle.id)
