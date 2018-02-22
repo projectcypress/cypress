@@ -4,7 +4,6 @@ class C1TaskTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   def setup
-    load_library_functions
     @product_test = FactoryGirl.create(:product_test_static_result)
   end
 

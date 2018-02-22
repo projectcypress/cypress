@@ -25,6 +25,10 @@ Warden.test_mode!
 Mongoid.logger.level = Logger::INFO
 
 class ActiveSupport::TestCase
+  def setup
+    load_library_functions
+  end
+
   def teardown
     drop_database
     # Not clearing the rails settings cache means that settings are left in an inconsistent state

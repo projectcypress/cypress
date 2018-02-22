@@ -18,7 +18,6 @@ class TestExecutionsControllerTest < ActionController::TestCase
     # collection_fixtures('vendors', 'products', 'product_tests', 'tasks', 'test_executions', 'users', 'roles',
     #                     'bundles', 'measures', 'health_data_standards_svs_value_sets', 'artifacts',
     #                     'records', 'patient_populations', 'providers')
-    load_library_functions
     @vendor = @product_test.product.vendor
     add_user_to_vendor(vendor_user, @vendor)
     @first_product = @product_test.product
