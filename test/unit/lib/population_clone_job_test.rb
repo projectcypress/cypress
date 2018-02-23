@@ -11,8 +11,8 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   def test_perform_full_deck
     pcj = Cypress::PopulationCloneJob.new('test_id' => @pt.id)
     pcj.perform
-    assert_equal 3, Record.count
-    assert_equal 2, Record.where(test_id: @pt.id).count
+    assert_equal 19, Record.count
+    assert_equal 10, Record.where(test_id: @pt.id).count
   end
 
   # need a measure with a subset
@@ -34,13 +34,13 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   # end
 
   def test_assigns_default_provider
-    # ids passed in should clone just the 2 records
-    pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w[0989db70-4d42-0135-8680-20999b0ed66f],
+    # ids passed in should clone just the 1 record
+    pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w[1989db70-4d42-0135-8680-20999b0ed66f],
                                           'test_id' => @pt.id,
                                           'randomization_ids' => [])
     pcj.perform
     prov = Provider.where(default: true).first
-    assert_equal 3, Record.count
+    assert_equal 11, Record.count
     assert_equal 1, Record.where(test_id: @pt.id, 'provider_performances.provider_id' => prov.id).count
   end
 
@@ -120,7 +120,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
                                           'randomize_demographics' => true)
     pcj.perform
     new_records = Record.where(test_id: @pt.id)
-    assert_equal 2, new_records.count
+    assert_equal 10, new_records.count
     assert_races_are_random
   end
 

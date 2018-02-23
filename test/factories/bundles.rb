@@ -50,7 +50,9 @@ FactoryGirl.define do
         create(:value_set_payer, bundle: bundle)
 
         # Include a record that will evaluate against the static measure
-        create(:static_mpl_record, bundle_id: bundle._id)
+        9.times do
+          create(:static_mpl_record, bundle_id: bundle._id)
+        end
       end
     end
   end

@@ -1949,7 +1949,7 @@ hQuery.CodedEntry = (function() {
   };
 
   /**
-  Determines whether a coded entry contains sufficient information (code and at least
+  Determines whether a coded entry contains sufficient information (code and at least 
   one time stamp) to be usable
   @returns {boolean}
   */
@@ -2331,9 +2331,9 @@ hQuery.AdministrationTiming = (function() {
   };
 
   /**
-  Indicates whether it is the interval (time between dosing), or frequency
-  (number of doses in a time period) that is important. If instititutionSpecified is not
-  present or is set to false, then the time between dosing is important (every 8 hours).
+  Indicates whether it is the interval (time between dosing), or frequency 
+  (number of doses in a time period) that is important. If instititutionSpecified is not 
+  present or is set to false, then the time between dosing is important (every 8 hours). 
   If true, then the frequency of administration is important (e.g., 3 times per day).
   @returns {Boolean}
   */
@@ -2869,7 +2869,7 @@ hQuery.CauseOfDeath = (function() {
 This section is used to describe a patients problems/conditions. The types of conditions
 described have been constrained to the SNOMED CT Problem Type code set. An unbounded
 number of treating providers for the particular condition can be supplied.
-@exports Condition as hQuery.Condition
+@exports Condition as hQuery.Condition 
 @augments hQuery.CodedEntry
 */
 
@@ -3137,7 +3137,7 @@ var __hasProp = {}.hasOwnProperty,
 this.hQuery || (this.hQuery = {});
 
 /**
-This represents all interventional, surgical, diagnostic, or therapeutic procedures or
+This represents all interventional, surgical, diagnostic, or therapeutic procedures or 
 treatments pertinent to the patient.
 @class
 @augments hQuery.CodedEntry
@@ -3165,7 +3165,7 @@ hQuery.Procedure = (function(_super) {
   };
 
   /**
-  @returns {hQuery.CodedValue} A SNOMED code indicating the body site on which the
+  @returns {hQuery.CodedValue} A SNOMED code indicating the body site on which the 
   procedure was performed
   */
 
@@ -3500,7 +3500,7 @@ var __hasProp = {}.hasOwnProperty,
 this.hQuery || (this.hQuery = {});
 
 /**
-@class
+@class 
 @augments hQuery.CodedEntry
 @exports Allergy as hQuery.Allergy
 */
@@ -3517,14 +3517,14 @@ hQuery.Allergy = (function(_super) {
   /**
   Food and substance allergies use the Unique Ingredient Identifier(UNII) from the FDA
   http://www.fda.gov/ForIndustry/DataStandards/StructuredProductLabeling/ucm162523.htm
-
-  Allegies to a class of medication Shall contain a value descending from the NDF-RT concept types
-  of Mechanism of Action - N0000000223, Physiologic Effect - N0000009802 or
-  Chemical Structure - N0000000002. NUI will be used as the concept code.
-  For more information, please see the Web Site
+  
+  Allegies to a class of medication Shall contain a value descending from the NDF-RT concept types 
+  of Mechanism of Action - N0000000223, Physiologic Effect - N0000009802 or 
+  Chemical Structure - N0000000002. NUI will be used as the concept code. 
+  For more information, please see the Web Site 
   http://www.cancer.gov/cancertopics/terminologyresources/page5
-
-  Allergies to a specific medication shall use RxNorm for the values.
+  
+  Allergies to a specific medication shall use RxNorm for the values.  
   @returns {CodedValue}
   */
 
@@ -3554,7 +3554,7 @@ hQuery.Allergy = (function(_super) {
   };
 
   /**
-  This indicates the reaction that may be caused by the product or agent.
+  This indicates the reaction that may be caused by the product or agent.  
    It is defined by 2.16.840.1.113883.3.88.12.3221.6.2 and are SNOMED-CT codes.
   420134006   Propensity to adverse reactions (disorder)
   418038007   Propensity to adverse reactions to substance (disorder)
@@ -3610,7 +3610,7 @@ hQuery.Allergy = (function(_super) {
 this.hQuery || (this.hQuery = {});
 
 /**
-@class
+@class 
 
 @exports Provider as hQuery.Provider
 */
@@ -3701,7 +3701,7 @@ var __hasProp = {}.hasOwnProperty,
 this.hQuery || (this.hQuery = {});
 
 /**
-@class
+@class 
 @augments hQuery.CodedEntry
 @exports Language as hQuery.Language
 */
@@ -3785,8 +3785,8 @@ this.hQuery || (this.hQuery = {});
 
 /**
 
-The Social History Observation is used to define the patient's occupational, personal (e.g. lifestyle),
-social, and environmental history and health risk factors, as well as administrative data such as
+The Social History Observation is used to define the patient's occupational, personal (e.g. lifestyle), 
+social, and environmental history and health risk factors, as well as administrative data such as 
 marital status, race, ethnicity and religious affiliation. The types of conditions
 described have been constrained to the SNOMED CT code system using constrained code set, 2.16.840.1.113883.3.88.12.80.60:
 229819007   Tobacco use and exposure
@@ -3800,7 +3800,7 @@ described have been constrained to the SNOMED CT code system using constrained c
 105421008   Educational achievement
 
 note:  Social History is not part of the existing green c32.
-@exports Socialhistory as hQuery.Socialhistory
+@exports Socialhistory as hQuery.Socialhistory 
 @augments hQuery.CodedEntry
 */
 
@@ -3839,7 +3839,7 @@ this.hQuery || (this.hQuery = {});
 
 The plan of care contains data defining prospective or intended orders, interventions, encounters, services, and procedures for the patient.
 
-@exports CareGoal as hQuery.CareGoal
+@exports CareGoal as hQuery.CareGoal 
 @augments hQuery.CodedEntry
 */
 
@@ -3873,7 +3873,7 @@ The template identifier for this section is 2.16.840.1.113883.3.88.11.83.128
 C83-[CT-128-1] This section shall conform to the HL7 CCD section, and shall contain a templateId element whose root attribute is 2.16.840.1.113883.10.20.1.7.
 C83-[CT-128-2] This section SHALL conform to the IHE Medical Devices Section, and shall contain a templateId element whose root attribute is 1.3.6.1.4.1.19376.1.5.3.1.1.5.3.5
 
-@exports MedicalEquipment as hQuery.MedicalEquipment
+@exports MedicalEquipment as hQuery.MedicalEquipment 
 @augments hQuery.CodedEntry
 */
 

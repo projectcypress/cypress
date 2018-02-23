@@ -23,7 +23,7 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
   end
 
   def test_file_with_shifted_mp_for_shifted_product_test
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_dates_shifted.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_shifted.xml')).read
 
     @test_execution.task.product_test.product.shift_records = true
     @validator.validate(file, 'test_execution' => @test_execution)

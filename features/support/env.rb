@@ -135,5 +135,4 @@ Before do
   Mongoid.default_client['product_tests'].drop
   FactoryGirl.create(:static_bundle)
   FactoryGirl.create(:bundle)
-  # collection_fixtures('patient_cache', 'records', 'bundles', 'measures', 'providers', 'query_cache', 'health_data_standards_svs_value_sets')
 end
