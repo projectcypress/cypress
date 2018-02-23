@@ -14,12 +14,10 @@ class ChecklistCriteriaValidatorPerfTest < ActionDispatch::PerformanceTest
     criteria[0].source_data_criteria = 'DiagnosisActivePregnancy'
     criteria[0].code = '210'
     criteria[0].code_complete = true
-    if include_attribute
-      criteria[0].attribute_code = '4896'
-      criteria[0].attribute_complete = true
-      criteria[0].result_complete = true
-      criteria[0].passed_qrda = true
-    end
+    criteria[0].attribute_code = '4896'
+    criteria[0].attribute_complete = true
+    criteria[0].result_complete = true
+    criteria[0].passed_qrda = true
     @checklist_test.checked_criteria = criteria
     @checklist_test.save!
     @validator = ::Validators::ChecklistCriteriaValidator.new(@checklist_test)

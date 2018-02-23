@@ -45,7 +45,7 @@ env:
   - TEST_SUITE=helpers
   - TEST_SUITE=jobs
   - TEST_SUITE=units
-  - TEST_SUITE=profile
+  - TEST_SUITE=benchmark
 script:
   - 'if [ ${TEST_SUITE} = "cucumber" ]; then
       bundle exec cucumber;
