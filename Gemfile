@@ -45,7 +45,7 @@ gem 'nested_form'
 
 gem 'jquery-datatables-rails', '~> 3.3.0'
 
-gem 'local_time'
+gem 'local_time', '~> 2.0.0'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -61,7 +61,7 @@ gem 'roar-rails'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', :group => :doc
 
-gem 'carrierwave', '~> 0.11'
+gem 'carrierwave', '~> 0.11.2'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
 # AJAX file uploads
@@ -97,7 +97,7 @@ group :development, :test do
   gem 'byebug'
   gem 'capybara'
   gem 'capybara-accessible'
-  gem 'cucumber-rails', '1.4.4', :require => false
+  gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'overcommit'
   gem 'poltergeist'
