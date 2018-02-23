@@ -23,7 +23,7 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   def test_record_should_be_able_to_find_calculation_results
-    r = Record.where(first: 'Selena').first
+    r = Record.where(first: 'MPL record').first
     assert_equal 1, r.calculation_results.count, 'record should have 1 calculated results'
   end
 

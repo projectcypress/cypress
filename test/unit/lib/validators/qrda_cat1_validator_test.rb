@@ -34,7 +34,7 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
   end
 
   def test_bad_schema
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_1', 'sample_patient_bad_schema.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_bad_schema.xml')).read
     @validator_with_c3.validate(file, task: @task)
 
     errors = @validator_with_c3.errors

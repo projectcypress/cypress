@@ -232,13 +232,16 @@ class RecordFilterTest < ActiveSupport::TestCase
   end
 
   def test_provider_filter
-    filter_record = @all_records.sample
-    prov = Provider.find(filter_record.provider_performances.first.provider_id)
+    patient = Record.where(medical_record_number: '1989db70-4d42-0135-8680-20999b0ed66f').first
+    prov = Provider.default_provider
+    patient.provider_performances.build(provider: prov)
+    patient.save!
+
     prov_filters = { 'npis' => [prov.npi], 'tins' => [prov.tin] }
     filters = { 'providers' => prov_filters }
     filtered_records = Cypress::RecordFilter.filter(@all_records, filters, {}).to_a
 
-    assert filtered_records.include?(filter_record), 'should include the targeted patient in results'
+    assert filtered_records.include?(patient), 'should include the targeted patient in results'
   end
 
   def validate_record_count(all_records, filtered_records, expected_count = -1)

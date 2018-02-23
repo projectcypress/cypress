@@ -24,7 +24,7 @@ root.map = function(record, population, denominator, numerator, exclusion, denex
     value['logger'] = Logger.logger
     value['rationale'] = Logger.rationale
   }
-
+  
   emit(ObjectId(), value);
 };
 
@@ -41,15 +41,15 @@ root.extract_payer = function(record) {
 };
 
 root.calculate = function(record, population, denominator, numerator, exclusion, denexcep, occurrenceId, value) {
-
+  
   value = _.extend(value, {DENOM: 0, NUMER: 0, DENEXCEP: 0, DENEX: 0, antinumerator: 0});
-
+  
   var ipp = population()
   if (hqmf.SpecificsManager.validate(ipp)) {
     value.IPP = hqmf.SpecificsManager.countUnique(occurrenceId, ipp);
     var denom = hqmf.SpecificsManager.intersectSpecifics(denominator(), ipp, occurrenceId);
     if (hqmf.SpecificsManager.validate(denom)) {
-
+      
       value.DENOM = hqmf.SpecificsManager.countUnique(occurrenceId, denom);
       var exclusions = hqmf.SpecificsManager.intersectSpecifics(exclusion(), denom, occurrenceId);
       if (hqmf.SpecificsManager.validate(exclusions)) {
@@ -59,14 +59,14 @@ root.calculate = function(record, population, denominator, numerator, exclusion,
 
     }
 
-    // we need to check the denominator again to make sure we still have viable candidates after
+    // we need to check the denominator again to make sure we still have viable candidates after 
     // exclusions have been removed
     if (hqmf.SpecificsManager.validate(denom)) {
       var numer = hqmf.SpecificsManager.intersectSpecifics(numerator(), denom, occurrenceId);
       if (hqmf.SpecificsManager.validate(numer)) {
         value.NUMER = hqmf.SpecificsManager.countUnique(occurrenceId, numer);
       }
-
+      
       var excep = hqmf.SpecificsManager.intersectSpecifics(denexcep(), denom, occurrenceId);
       if (hqmf.SpecificsManager.validate(excep)) {
         excep = hqmf.SpecificsManager.exclude(occurrenceId, excep, numer);
@@ -75,14 +75,14 @@ root.calculate = function(record, population, denominator, numerator, exclusion,
       }
       value.antinumerator = value.DENOM-value.NUMER;
     }
-
+      
   }
   return value;
 };
 
 root.calculateCV = function(record, population, msrpopl, observ, occurrenceId, value) {
   value = _.extend(value, {MSRPOPL: 0, values: []});
-
+  
   var ipp = population()
   if (hqmf.SpecificsManager.validate(ipp)) {
     value.IPP = hqmf.SpecificsManager.countUnique(occurrenceId, ipp);
@@ -95,3 +95,5 @@ root.calculateCV = function(record, population, msrpopl, observ, occurrenceId, v
   }
   return value;
 };
+
+ 

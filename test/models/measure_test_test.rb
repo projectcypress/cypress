@@ -64,11 +64,11 @@ class MeasureTestTest < ActiveJob::TestCase
     perform_enqueued_jobs do
       assert pt.save, 'should be able to save valid product test'
       assert_performed_jobs 1
-      assert_equal 1, pt.records.count, 'product test creation should have created specific number of test records'
-      patient = pt.records.find_by(first: 'Selena')
-      assert_equal 'Selena', patient.first, 'Patient name should not be randomized'
-      assert_equal 'Lotherberg', patient.last, 'Patient name should not be randomized'
-      assert_equal '0989db70-4d42-0135-8680-20999b0ed66f', patient.medical_record_number, 'Patient record # should not be randomized'
+      assert_equal 9, pt.records.count, 'product test creation should have created specific number of test records'
+      patient = pt.records.find_by(first: 'MPL record', last: 'ONE')
+      assert_equal 'MPL record', patient.first, 'Patient name should not be randomized'
+      assert_equal 'ONE', patient.last, 'Patient name should not be randomized'
+      assert_equal '1989db70-4d42-0135-8680-20999b0ed66f', patient.medical_record_number, 'Patient record # should not be randomized'
 
       pt.reload
       assert_not_nil pt.patient_archive, 'Product test should have archived patient records'

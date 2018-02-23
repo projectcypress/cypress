@@ -3,11 +3,11 @@ FactoryGirl.define do
     sequence(:first) { |i| "Record Name #{i}" }
 
     factory :static_mpl_record do
-      first 'Selena'
-      last 'Lotherberg'
+      first 'MPL record'
+      sequence(:last, &:to_s)
       gender 'F'
       birthdate 915_179_400
-      medical_record_number '0989db70-4d42-0135-8680-20999b0ed66f'
+      sequence(:medical_record_number) { |i| "#{i}989db70-4d42-0135-8680-20999b0ed66f" }
       race_value = { 'code' => '1002-5',
                      'name' => 'American Indian or Alaska Native',
                      'codeSystem' => '2.16.840.1.113883.6.238' }
@@ -25,7 +25,6 @@ FactoryGirl.define do
                     'oid' => '2.16.840.1.113883.3.560.1.79',
                     'start_time' => 1_462_233_600,
                     'status_code' => { 'HL7 ActStatus' => ['performed'] } }]
-      provider_performances { [FactoryGirl.build(:provider_performance)] }
       after(:create) do |rec|
         values = FactoryGirl.build(:patient_cache_value, patient_id: rec._id)
         values['medical_record_id'] = rec.medical_record_number
