@@ -148,7 +148,6 @@ end
 
 When(/^the user creates a product with selecting a group of measures$/) do
   steps %( When the user fills out all product information but measures )
-  # page.find("[href='#Miscellaneous_div']").click
   page.find('input.measure-group-all').click
   page.click_button 'Add Product'
 end
@@ -163,14 +162,12 @@ end
 
 When(/^the user creates a product with selecting a group of measures then deselecting that group$/) do
   steps %( When the user fills out all product information but measures )
-  # page.find("[href='#Miscellaneous_div']").click
   page.find('input.measure-group-all').click
   page.find('input.measure-group-all').click
   page.click_button 'Add Product'
 end
 
 And(/^the user selects a group of measures but deselects one$/) do
-  # page.find("[href='#Miscellaneous_div']").click
   page.find('input.measure-group-all').click
   page.all('input.measure-checkbox')[0].click
 end

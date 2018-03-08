@@ -56,15 +56,6 @@ class TestExecutionsControllerTest < ActionController::TestCase
     te = task.test_executions.build
     te.save!
 
-    # add provider performance to each record associated with the measure test
-    # provider = Provider.find('53b2c4414d4d32139c730000')
-    # test.provider = provider
-    # test.save!
-    # test.records.each do |record|
-    #   pp = record.provider_performances.build(provider: provider)
-    #   pp.save!
-    # end
-
     # do this for admin,atl,user:owner and vendor -- need negative tests for non
     # access users
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
