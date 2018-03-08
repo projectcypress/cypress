@@ -262,11 +262,11 @@ class ProductsControllerTest < ActionController::TestCase
     end
   end
 
-  # # # # # # # #
-  # #   A P I   #
-  # # # # # # # #
+  # # # # # # #
+  #   A P I   #
+  # # # # # # #
 
-  # # JSON
+  # JSON
 
   test 'should get index with json request' do
     vendor = @vendor

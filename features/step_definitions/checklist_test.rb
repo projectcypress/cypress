@@ -73,14 +73,11 @@ When(/^the user fills out the record sample with good data$/) do
   visit product_checklist_test_path(@product, @test)
   page.fill_in 'product_test[checked_criteria_attributes][0][code]', with: '210'
   page.fill_in 'product_test[checked_criteria_attributes][0][attribute_code]', with: '4896'
-  # page.fill_in 'product_test[checked_criteria_attributes][1][code]', with: '2186-5'
   page.click_button 'Save'
 end
 
 def simplify_source_data_criteria(test)
   criterias = test.checked_criteria[0, 1] # only use first criteria
-  # criterias[0].source_data_criteria = 'DiagnosisActiveMajorDepressionIncludingRemission_precondition_40'
-  # criterias[1].source_data_criteria = 'PatientCharacteristicEthnicityEthnicity'
   test.checked_criteria = criterias
   test.save!
 end

@@ -42,9 +42,9 @@ class ProductTestsControllerTest < ActionController::TestCase
   end
   # need negative tests for user that does not have owner or vendor access
 
-  # # # # # # # #
-  # #   A P I   #
-  # # # # # # # #
+  # # # # # # #
+  #   A P I   #
+  # # # # # # #
 
   # json
 

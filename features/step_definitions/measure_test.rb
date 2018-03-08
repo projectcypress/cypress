@@ -26,8 +26,6 @@ When(/^the user creates a product with tasks (.*)$/) do |tasks|
   # create record and assign provider for product test
   @product_test.generate_provider
   provider = @product_test.provider
-  # @product_test.provider = provider
-  # @product_test.save!
   provider_performance = ProviderPerformance.new(provider: provider, provider_id: provider.id)
   Record.create!(test_id: @product_test.id, provider_performances: [provider_performance])
 end
