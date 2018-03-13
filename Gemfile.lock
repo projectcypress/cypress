@@ -130,6 +130,10 @@ GEM
     cliver (0.3.2)
     code_analyzer (0.4.8)
       sexp_processor
+    codecov (0.1.10)
+      json
+      simplecov
+      url
     coderay (1.1.1)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -409,11 +413,11 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
     sexp_processor (4.10.0)
-    simplecov (0.12.0)
+    simplecov (0.15.1)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.0)
+    simplecov-html (0.10.2)
     slop (3.6.0)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
@@ -444,6 +448,7 @@ GEM
     unicorn-rails (2.2.0)
       rack
       unicorn
+    url (0.3.2)
     uuid (2.3.8)
       macaddr (~> 1.0)
     virtus (1.0.5)
@@ -484,6 +489,7 @@ DEPENDENCIES
   capybara-accessible
   carrierwave (~> 0.11.2)
   carrierwave-mongoid
+  codecov
   cucumber-rails
   database_cleaner
   devise (= 4.1.1)
