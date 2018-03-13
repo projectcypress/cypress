@@ -1,9 +1,9 @@
 require 'simplecov'
+SimpleCov.start 'rails'
 
-# SimpleCov.start 'rails'
-# MiniTest changes mean that our coverage suddenly dropped, since more controllers are being tested.
-# We dropped the value to 77 to be able to get pull requests pulled in. Needs to be brought back up as coverage goes back up.
-# SimpleCov.minimum_coverage 77
+require 'codecov'
+SimpleCov.formatter = SimpleCov::Formatter::Codecov
+
 # Mongo::Logger.logger.level = Logger::WARN
 ENV['RAILS_ENV'] ||= 'test'
 ENV['IGNORE_ROLES'] ||= 'false'
