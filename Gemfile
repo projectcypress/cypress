@@ -122,7 +122,7 @@ group :test do
   gem 'codecov', :require => false
   gem 'factory_girl_rails'
   gem 'launchy'
-  gem 'minitest'
+  gem 'minitest', '5.10.3'
   gem 'minitest-rails'
   gem 'minitest-reporters'
   gem 'mocha', :require => false
