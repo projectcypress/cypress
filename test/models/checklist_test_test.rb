@@ -2,8 +2,8 @@ require 'test_helper'
 
 class ChecklistTestTest < ActiveJob::TestCase
   def setup
-    product = FactoryGirl.create(:product_static_bundle)
-    @test = product.product_tests.create!({ name: 'c1 visual', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
+    @product = FactoryGirl.create(:product_static_bundle)
+    @test = @product.product_tests.create!({ name: 'c1 visual', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
   end
 
   def test_create
@@ -19,29 +19,31 @@ class ChecklistTestTest < ActiveJob::TestCase
   end
 
   def test_create_checked_criteria_with_existing_measure_tests
-    product = @test.product
-    product.c2_test = true
-    product.measure_ids << 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
-    product.save!
-    product.measure_ids.each do |measure_id|
-      product.product_tests.create!({ name: "measure test with measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
+    @product.c2_test = true
+    @product.measure_ids << 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
+    @product.save!
+    @product.measure_ids.each do |measure_id|
+      @product.product_tests.create!({ name: "measure test with measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
     end
-
+    previous_num_checklist_measures = CAT1_CONFIG['number_of_checklist_measures']
     CAT1_CONFIG['number_of_checklist_measures'] = 1
     @test.create_checked_criteria
+    CAT1_CONFIG['number_of_checklist_measures'] = previous_num_checklist_measures
     assert @test.checked_criteria.count.positive?, 'should create multiple checked criteria'
     assert_equal 1, @test.measures.count, 'should create checked criteria for one measure since number_of_checked_measures is set to 1'
   end
 
   def test_status
-    # all incomplete checked criteria
-    product = @test.product
-    product.product_tests.each(&:destroy)
-    checklist_test = create_checklist_test_for_product_with_measure_id(product, 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE')
+    @product.product_tests.each(&:destroy!)
+
+    checklist_test = create_checklist_test_for_product_with_measure_id(@product, 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE')
     assert_equal 'incomplete', checklist_test.status
 
+    simplify_criteria(checklist_test)
+    checklist_test.checked_criteria << checklist_test.checked_criteria.first.clone
     # one complete checked criteria, all others incomplete
     complete_checked_criteria(checklist_test.checked_criteria.first)
+    # puts @product.product_tests.first.rand_seed if checklist_test.status == 'passing'
     assert_equal 'incomplete', checklist_test.status
 
     # all complete checked criteria
@@ -49,8 +51,8 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal 'passing', checklist_test.status
 
     # add a c1 checklist task with test execution
-    product.c3_test = true
-    product.save!
+    @product.c3_test = true
+    @product.save!
     assert_equal 'incomplete', checklist_test.status
     task = checklist_test.tasks.create!({}, C1ChecklistTask)
     assert_equal 'incomplete', checklist_test.status
