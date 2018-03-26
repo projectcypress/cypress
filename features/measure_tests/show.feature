@@ -18,6 +18,7 @@ Scenario: View Only C1 Execution Page
   And the user views task c1
   Then the user should only see the c1 execution page
   Then the user should see provider information
+  And the user should be able to click eCQM Specification link
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
@@ -41,6 +42,7 @@ Scenario: View C1 and C3 And C2 and C3 Execution Pages
   When the user creates a product with tasks c1, c2, c3
   And the user views task c1
   And the user switches to c2 and c3 certification
+  And the user should be able to click eCQM Specification link
   Then the user should see the c2 and c3 execution page
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
