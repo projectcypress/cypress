@@ -84,7 +84,7 @@ Scenario: Unsuccessful Upload CAT 1 Zip Because Incorrect File Type
   When the user creates a product with tasks c1
   And the user views task c1
   And the user uploads an invalid file
-  Then the user should see an error message saying the upload was invalid
+  Then the user should see an error message saying "Invalid file upload"
   And the user should see no execution results
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
@@ -93,7 +93,7 @@ Scenario: Unsuccessful Upload CAT 3 XML Because Incorrect File Type
   When the user creates a product with tasks c2
   And the user views task c2
   And the user uploads an invalid file
-  Then the user should see an error message saying the upload was invalid
+  Then the user should see an error message saying "Invalid file upload"
   And the user should see no execution results
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
@@ -204,7 +204,7 @@ Scenario: Unsuccessful Upload CAT 1 Zip Because Incorrect File Type on Deprecate
   And the user views task c1
   Then the user should see a notification saying the product was deprecated
   And the user uploads an invalid file
-  Then the user should see an error message saying the upload was invalid
+  Then the user should see an error message saying "Invalid file upload"
   And the user should see no execution results
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
@@ -215,7 +215,7 @@ Scenario: Unsuccessful Upload CAT 3 XML Because Incorrect File Type on Deprecate
   And the user views task c2
   Then the user should see a notification saying the product was deprecated
   And the user uploads an invalid file
-  Then the user should see an error message saying the upload was invalid
+  Then the user should see an error message saying "Invalid file upload"
   And the user should see no execution results
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa

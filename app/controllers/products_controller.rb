@@ -83,6 +83,11 @@ class ProductsController < ApplicationController
     send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "#{@product.name}_#{@product.id}_report.zip".tr(' ', '_')
   end
 
+  def supplemental_test_artifact
+    redirect_to :back, alert: 'Supplement Test Artifact does not exist for this product' if @product.supplemental_test_artifact.file.nil?
+    send_file @product.supplemental_test_artifact.file.path, disposition: 'attachment'
+  end
+
   # always responds with a zip file of (.qrda.zip files of (qrda category I documents))
   def patients
     crit_exists = !@product.product_tests.checklist_tests.empty?
@@ -122,12 +127,14 @@ class ProductsController < ApplicationController
 
   def product_params
     params[:product][:name]&.strip!
-    params.require(:product).permit(:name, :version, :description, :randomize_records, :duplicate_records, :shift_records, :bundle_id,
-                                    :measure_selection, :cert_edition, :c1_test, :c2_test, :c3_test, :c4_test, measure_ids: [])
+    params.require(:product).permit(:name, :version, :description, :randomize_records, :duplicate_records, :shift_records,
+                                    :bundle_id, :measure_selection, :cert_edition, :c1_test, :c2_test, :c3_test, :c4_test,
+                                    :supplemental_test_artifact, :remove_supplemental_test_artifact, measure_ids: [])
   end
 
   def edit_product_params
     params[:product][:name]&.strip!
-    params.require(:product).permit(:name, :version, :description, :measure_selection, measure_ids: [])
+    params.require(:product).permit(:name, :version, :description, :measure_selection, :supplemental_test_artifact,
+                                    :remove_supplemental_test_artifact, measure_ids: [])
   end
 end

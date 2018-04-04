@@ -16,6 +16,7 @@ Metrics/LineLength:
     - 'test/**/*'
 Metrics/BlockLength:
   Exclude:
+    - 'config/routes.rb'
     - 'test/factories/*'
 Metrics/MethodLength:
   CountComments: false  # count full line comments?

@@ -71,6 +71,25 @@ Scenario: Cannot Download Report when not an ATL
   And the user visits the product page
   Then the user should not be able to download the report
 
+Scenario: Cannot Download Supplemental Test Artifact when not an ATL
+  Given the user is signed in as a non admin
+  Given the user has created a vendor
+  Given the user is owner of the vendor
+  When a user creates a 2015 product with c2 certifications and a supplemental artifact and visits that product page
+  And all product tests have a state of ready
+  And the user visits the product page
+  Then the user should not be able to download the supplemental test artifact
+
+Scenario: Can Download a Supplemental Test Artifact
+  When a user creates a 2015 product with c2 certifications and a supplemental artifact and visits that product page
+  And all product tests have a state of ready
+  Then the user should be able to download the supplemental test artifact
+
+Scenario: Cannot Download a Supplemental Test Artifact when not uploaded
+  When a user creates a 2015 product with c2 certifications and visits that product page
+  And all product tests have a state of ready
+  Then the user should not be able to download the supplemental test artifact
+
 Scenario: Can Multi Upload Cat I
   When a user creates a 2015 product with c1, c2 certifications and visits that product page
   And all product tests have a state of ready
