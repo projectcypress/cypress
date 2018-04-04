@@ -14,6 +14,21 @@ end
 #   W H E N   #
 # # # # # # # #
 
+# Use this when you create a test that requires execution results
+When(/^the user creates a product with records with tasks (.*)$/) do |tasks|
+  measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
+  bundle_id = Bundle.default._id
+  tasks = tasks.split(', ')
+  @product = Product.new(vendor: @vendor, name: 'Product 1', measure_ids: measure_ids, c1_test: tasks.include?('c1'),
+                         c2_test: tasks.include?('c2'), c3_test: tasks.include?('c3'), c4_test: tasks.include?('c4'), bundle_id: bundle_id)
+  @product.save!
+  @product_test = @product.product_tests.create!({ name: @measure.name, measure_ids: measure_ids }, MeasureTest)
+
+  @product_test.generate_provider
+  @product_test.generate_records
+  MeasureEvaluationJob.perform_now(@product_test, {})
+end
+
 When(/^the user creates a product with tasks (.*)$/) do |tasks|
   measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
   bundle_id = Bundle.default._id
@@ -97,7 +112,7 @@ And(/^the user uploads an invalid file$/) do
 end
 
 And(/^the user should see no execution results$/) do
-  page.assert_no_text 'Results'
+  page.assert_no_text 'results_panel'
 end
 
 And(/^the user changes the selected bundle$/) do
