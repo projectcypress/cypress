@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
   before_action :set_product, except: %i[index new create]
   before_action :set_measures, only: %i[new edit update report]
   before_action :authorize_vendor
+  before_action :require_admin_atl, only: %i[report supplemental_test_artifact]
   before_action :check_bundle_deprecated, only: %i[show edit]
   add_breadcrumb 'Dashboard', :vendors_path
 
@@ -84,7 +85,7 @@ class ProductsController < ApplicationController
   end
 
   def supplemental_test_artifact
-    redirect_to :back, alert: 'Supplement Test Artifact does not exist for this product' if @product.supplemental_test_artifact.file.nil?
+    redirect_to(:back, alert: 'Supplement Test Artifact does not exist for this product') && return if @product.supplemental_test_artifact.file.nil?
     send_file @product.supplemental_test_artifact.file.path, disposition: 'attachment'
   end
 

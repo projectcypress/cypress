@@ -47,10 +47,4 @@ class AdminController < ApplicationController
                             default_role: settings['default_role'] == 'None' ? '' : settings['default_role'].underscore.to_sym,
                             enable_debug_features: settings['debug_features'] == 'enable')
   end
-
-  private
-
-  def require_admin
-    raise CanCan::AccessDenied.new, 'Forbidden' unless current_user.user_role? :admin
-  end
 end
