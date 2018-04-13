@@ -15,7 +15,7 @@ And(/^the user has created a vendor with a product selecting C4 testing$/) do
 
   criteria = %w[races ethnicities]
   options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
-  @f_test1 = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
+  @f_test1 = FilteringTest.new(name: 'test_for_measure_1a', cms_id: 'CMS31v3', product: @product, incl_addr: true, options: options,
                                measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
   @f_test1.save!
   @f_test1.generate_records

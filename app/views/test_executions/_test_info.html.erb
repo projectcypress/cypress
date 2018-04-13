@@ -11,7 +11,7 @@
   <% end %>
   <strong>HQMF ID: </strong><span><%= task.measure_ids.join(',') %></span><br/>
   <% unless task.product_test.is_a? ChecklistTest %>
-    <strong>CMS ID: </strong><span><%= task.product_test_cms_id %></span><br/>
+    <strong>CMS ID: </strong><span><%= task.product_test_cms_id%></span><span><%= link_to " (eCQM Specification)", "https://ecqi.healthit.gov/ecqm/measures/#{padded_cms_id(task.product_test_cms_id)}", :target => "_blank", :id => "ecqm-link" %></span><br/>
   <% end %>
 
   <% # display provider information if the product test is a measure test %>
