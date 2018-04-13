@@ -9,6 +9,6 @@ class SupplementUploader < CarrierWave::Uploader::Base
   end
 
   def extension_white_list
-    %w[doc docx xls xlsx ppt pptx jpg jpeg png]
+    %w[doc docx xls xlsx ppt pptx jpg jpeg pdf png zip]
   end
 end

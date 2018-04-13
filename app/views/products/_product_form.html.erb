@@ -50,7 +50,7 @@
             <legend class="control-label">Supplemental Test Artifact</legend>
             <br />
             <% supplement_file_errors = product.errors[:supplemental_test_artifact].empty? %>
-            <%= f.form_group class: supplement_file_errors ? '' : 'has-error', help: "Upload an additional file which will be available for download to anyone viewing this product" do %>
+            <%= f.form_group class: supplement_file_errors ? '' : 'has-error', help: "Upload an additional file which will be available for download to anyone viewing this product. Allowed filetypes are #{product.supplemental_test_artifact.extension_white_list.join(', ')}." do %>
               <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                 <div class="form-control" data-trigger="fileinput">
                   <i class="fa fa-fw fa-file fileinput-exists"></i>
