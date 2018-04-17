@@ -7,6 +7,8 @@ class Product
 
   before_save :enforce_cert_edition_settings
 
+  mount_uploader :supplemental_test_artifact, SupplementUploader
+
   scope :by_updated_at, -> { order(:updated_at => :desc) }
   scope :ordered_for_vendors, -> { by_updated_at.order_by(:state => 'desc') }
 

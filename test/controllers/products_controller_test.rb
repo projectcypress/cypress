@@ -200,14 +200,40 @@ class ProductsControllerTest < ActionController::TestCase
   # report
 
   test 'should generate a report' do
-    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+    for_each_logged_in_user([ADMIN, ATL]) do
       get :report, :format => :format_does_not_matter, :vendor_id => @vendor.id, :id => @first_product.id
       assert_response :success, "#{@user.email} should have access "
     end
   end
 
   test 'should restrict access to report to unauthorized users' do
-    for_each_logged_in_user([OTHER_VENDOR]) do
+    for_each_logged_in_user([OWNER, VENDOR, OTHER_VENDOR]) do
+      get :report, :vendor_id => @vendor.id, :id => @first_product.id
+      assert_response 401
+    end
+  end
+
+  test 'should download a supplemental test artifact' do
+    for_each_logged_in_user([ADMIN, ATL]) do
+      @first_product.supplemental_test_artifact = Rails.root.join('app', 'assets', 'images', 'cypress_bg_cropped.png').open
+      @first_product.save
+      get :supplemental_test_artifact, :vendor_id => @vendor.id, :id => @first_product.id
+      assert_response :success, "#{@user.email} should have access "
+    end
+  end
+
+  test 'should not download a supplemental test artifact if none exists' do
+    for_each_logged_in_user([ADMIN, ATL]) do
+      request.env['HTTP_REFERER'] = '/'
+      get :supplemental_test_artifact, :vendor_id => @vendor.id, :id => @first_product.id
+      assert_response :redirect, 'artifact was served even though none was uploaded'
+    end
+  end
+
+  test 'should restrict access to supplemental test artifacts to unauthorized users' do
+    for_each_logged_in_user([OWNER, VENDOR, OTHER_VENDOR]) do
+      @first_product.supplemental_test_artifact = Rails.root.join('app', 'assets', 'images', 'cypress_bg_cropped.png').open
+      @first_product.save
       get :report, :vendor_id => @vendor.id, :id => @first_product.id
       assert_response 401
     end

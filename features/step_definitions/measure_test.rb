@@ -159,10 +159,6 @@ Then(/^the user should see test results$/) do
   assert_text 'Results'
 end
 
-Then(/^the user should see an error message saying the upload was invalid$/) do
-  assert_text 'Invalid file upload'
-end
-
 Then(/^the user should see a link to view the the uploaded xml$/) do
   page.find(:xpath, "//input[@value='View Uploaded XML with Errors']")
 end

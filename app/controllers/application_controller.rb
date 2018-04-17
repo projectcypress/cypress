@@ -26,6 +26,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_admin
+    raise CanCan::AccessDenied.new, 'Forbidden' unless current_user.user_role? :admin
+  end
+
+  def require_admin_atl
+    raise CanCan::AccessDenied.new, 'Forbidden' unless current_user.user_role?(:admin) || current_user.user_role?(:atl)
+  end
+
   private
 
   DEFAULT_AUTH_MAPPING = { :read => %w[show index], :manage => %w[new create update destroy delete edit] }.freeze

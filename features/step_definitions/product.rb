@@ -43,17 +43,19 @@ When(/^debug mode is (.*)$/) do |debug_mode_value|
 end
 
 # certs argument stands for certifications and should be a comma separated list of some of these values: c1, c2, c3, c4
-When(/^a user creates a (.*) product with (.*) certifications and visits that product page$/) do |cert_edition, certs|
+When(/^a user creates a (.*) product with (.*) certifications( and a supplemental artifact)? and visits that product page$/) do |cert_ed, certs, sta|
   certs = certs.split(', ')
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
   product_name = "mp #{rand}"
+  file_path = Rails.root.join('app', 'assets', 'images', 'cypress_bg_cropped.png')
   page.fill_in 'Name', :with => product_name
-  page.choose("#{cert_edition} Edition")
+  page.choose("#{cert_ed} Edition")
   page.find('#product_c1_test').click if certs.include? 'c1'
   page.find('#product_c2_test').click if certs.include? 'c2'
   page.find('#product_c3_test').click if certs.include? 'c3'
   page.find('#product_c4_test').click if certs.include? 'c4'
   page.find('#product_measure_selection_custom').click
+  page.attach_file('product_supplemental_test_artifact', file_path, :visible => false) unless sta.nil?
   page.all('#measure_tabs .ui-tabs-nav a')[1].click # should tab for "Behavioral Health Adult"
   page.all('input.measure-checkbox')[0].click # should get measure for "Depression Remission at Twelve Months"
   page.click_button 'Add Product'
@@ -108,6 +110,20 @@ When(/^the user creates a product with no name$/) do
   page.find('#product_measure_selection_custom').click
   page.all('#measure_tabs .ui-tabs-nav a')[1].click
   page.all('input.measure-checkbox')[0].click
+end
+
+When(/^the user creates a product with a (in)?correct supplemental test artifact$/) do |nil_if_correct|
+  steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
+  @product = FactoryGirl.build(:product_static_name)
+  filename = (nil_if_correct ? 'icon.svg' : 'cypress_bg_cropped.png')
+  file_path = Rails.root.join('app', 'assets', 'images', filename)
+  page.fill_in 'Name', :with => @product.name
+  page.find('#product_c2_test').click
+  page.find('#product_measure_selection_custom').click
+  page.all('#measure_tabs .ui-tabs-nav a')[1].click
+  page.all('input.measure-checkbox')[0].click
+  page.attach_file('product_supplemental_test_artifact', file_path, :visible => false)
+  page.click_button 'Add Product'
 end
 
 When(/^the user creates two products with the same name$/) do
@@ -412,16 +428,8 @@ Then(/^the user should not be able to create a product$/) do
   page.assert_no_text "'#{@product.name}' was created."
 end
 
-Then(/^the user should see an error message saying the product name has been taken$/) do
-  page.assert_text 'name was already taken'
-end
-
-Then(/^the user should see an error message saying the product must certify to C1 or C2$/) do
-  page.assert_text 'Must certify to at least C1 or C2'
-end
-
-Then(/^the user should see an error message saying the product must have at least one measure$/) do
-  page.assert_text 'Must select measures'
+Then(/^the user should see an error message saying "(.*)"$/) do |assertion_text|
+  page.assert_text assertion_text
 end
 
 Then(/^the default bundle should be pre-selected$/) do
@@ -556,12 +564,12 @@ Then(/^the user should not be able to download all patients$/) do
   page.assert_text 'records are being built'
 end
 
-Then(/^the user should be able to download the report$/) do
-  page.assert_text 'Download Report'
+Then(/^the user should be able to download the (.*)$/) do |download_btn_name|
+  page.assert_text "Download #{download_btn_name.titleize}"
 end
 
-Then(/^the user should not be able to download the report$/) do
-  page.assert_no_text 'Download Report'
+Then(/^the user should not be able to download the (.*)$/) do |download_btn_name|
+  page.assert_no_text "Download #{download_btn_name.titleize}"
 end
 
 Then(/^the user should see a cat I test (.*) for product test (.*)$/) do |task_status, product_test_number|

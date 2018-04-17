@@ -76,3 +76,8 @@ $background-color: rgba(#000, .00);
   box-shadow: none;
   border-color: $background-color;
 }
+
+// Do not round file upload buttons on upload fields
+.input-group-addon.btn-file {
+  border-radius: 0 !important;
+}
