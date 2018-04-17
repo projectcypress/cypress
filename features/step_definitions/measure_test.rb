@@ -22,7 +22,7 @@ When(/^the user creates a product with records with tasks (.*)$/) do |tasks|
   @product = Product.new(vendor: @vendor, name: 'Product 1', measure_ids: measure_ids, c1_test: tasks.include?('c1'),
                          c2_test: tasks.include?('c2'), c3_test: tasks.include?('c3'), c4_test: tasks.include?('c4'), bundle_id: bundle_id)
   @product.save!
-  @product_test = @product.product_tests.create!({ name: @measure.name, measure_ids: measure_ids }, MeasureTest)
+  @product_test = @product.product_tests.create!({ name: @measure.name, measure_ids: measure_ids, cms_id: @measure.cms_id }, MeasureTest)
 
   @product_test.generate_provider
   @product_test.generate_records
