@@ -27,6 +27,14 @@ module Admin
       end
     end
 
+    test 'should get index without bundle install' do
+      Bundle.destroy_all
+      for_each_logged_in_user([ADMIN]) do
+        get :index
+        assert_redirected_to %r{/admin#bundles}
+      end
+    end
+
     test 'admin user should import new bundle successfully' do
       for_each_logged_in_user([ADMIN]) do
         orig_bundle_count = Bundle.count

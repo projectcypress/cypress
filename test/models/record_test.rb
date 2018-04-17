@@ -33,26 +33,28 @@ class RecordTest < ActiveSupport::TestCase
   end
 
   def test_record_duplicate_randomization
-    random = Random.new_seed
-    prng1 = Random.new(random)
-    prng2 = Random.new(random)
+    10.times do
+      random = Random.new_seed
+      prng1 = Random.new(random)
+      prng2 = Random.new(random)
 
-    r1 = Record.new(
-      first: 'Robert', last: 'Johnson', gender: 'M', birthdate: '477542400',
-      race: APP_CONSTANTS['randomization']['races'].sample(random: prng1),
-      ethnicity: APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng1)
-    )
+      r1 = Record.new(
+        first: 'Robert', last: 'Johnson', gender: 'M', birthdate: '477542400',
+        race: APP_CONSTANTS['randomization']['races'].sample(random: prng1),
+        ethnicity: APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng1)
+      )
 
-    r2 = Record.new(
-      first: 'Robert', last: 'Johnson', gender: 'M', birthdate: '477542400',
-      race: APP_CONSTANTS['randomization']['races'].sample(random: prng2),
-      ethnicity: APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng2)
-    )
+      r2 = Record.new(
+        first: 'Robert', last: 'Johnson', gender: 'M', birthdate: '477542400',
+        race: APP_CONSTANTS['randomization']['races'].sample(random: prng2),
+        ethnicity: APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng2)
+      )
 
-    assert(record_demographics_equal?(r1, r2), 'The two records should be equal')
-    r1copy_set = r1.duplicate_randomization(random: prng1)
-    r2copy_set = r2.duplicate_randomization(random: prng2)
-    assert(record_demographics_equal?(r1copy_set[0], r2copy_set[0]), 'The two records should be equal')
-    assert(!record_demographics_equal?(r1, r1copy_set[0]), 'The two records should not be equal')
+      assert(record_demographics_equal?(r1, r2), 'The two records should be equal')
+      r1copy_set = r1.duplicate_randomization(random: prng1)
+      r2copy_set = r2.duplicate_randomization(random: prng2)
+      assert(record_demographics_equal?(r1copy_set[0], r2copy_set[0]), 'The two records should be equal')
+      assert(!record_demographics_equal?(r1, r1copy_set[0]), 'The two records should not be equal')
+    end
   end
 end
