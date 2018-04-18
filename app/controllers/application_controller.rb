@@ -62,11 +62,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # if the jobs are not running then there will be no pid files in the pid direectory
-  # they will not be running if the pid directory is not avaialable which will cause an
-  # exception to be thrown
+  # Check the running processes to see if there is a delayed job runner running.
+  # The assumption here is that there is only 1 application running on this server
+  # and thus any background workers found will be dedicated to Cypress.
   def check_backend_jobs
-    running = !Dir["#{APP_CONSTANTS['pid_dir']}/*"].empty?
+    running = `pgrep -f jobs:work`.split("\n").count > 0
 
     unless running
       alert_msg = 'The backend processes for setting up tests and performing measure calculations are not running.

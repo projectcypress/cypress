@@ -1,126 +1,110 @@
 module Cypress
   class ClinicalRandomizer
-    def self.randomize(record, effective_date, measure_period_start, random: Random.new)
+    def self.randomize(patient, effective_date, measure_period_start, random: Random.new)
       case random.rand(2)
       when 0
-        split_by_date(record, effective_date, measure_period_start, random)
+        split_by_date(patient, effective_date, measure_period_start, random)
       when 1
-        split_by_type(record, effective_date, measure_period_start, random)
+        split_by_type(patient, effective_date, measure_period_start, random)
       end
     end
 
-    def self.split_by_date(record, effective_date, measure_period_start, random)
-      record1 = record.clone
-      record2 = record.clone
+    def self.split_by_date(patient, effective_date, measure_period_start, random)
+      patient1 = patient.clone
+      patient2 = patient.clone
 
-      # Find a date that splits the entries such that at least 1 is in each record
-      split_date = find_split_date(record, effective_date, measure_period_start, random)
+      # Find a date that splits the data_elements such that at least 1 is in each patient
+      split_date = find_split_date(patient, effective_date, measure_period_start, random)
 
-      # Sort the entries from earliest to latest so we can split them more easily
-      entries = sort_by_start_time(record.entries)
+      # Sort the data_elements from earliest to latest so we can split them more easily
+      data_elements = sort_by_start_time(patient.dataElements)
 
-      Record::Sections.reject { |s| s == :insurance_providers }.each do |section|
-        record1.send section.to_s + '=', []
-        record2.send section.to_s + '=', []
-      end
       if split_date
-        record1, record2 = set_entries(entries, record1, record2, split_date)
+        patient1, patient2 = set_data_elements(data_elements, patient1, patient2, split_date)
       else
-        entries.each { |ent| record1.send(get_entry_type(ent._type)).push ent }
+        #set all patient1 data elements
+        patient1.dataElements = data_elements
       end
 
-      [record1, record2]
+      [patient1, patient2]
     end
 
-    def self.set_entries(entries, record1, record2, split_date)
-      entries.take_while { |ent| ent_before_split_date(ent, split_date) }.each do |ent|
-        record1.send(get_entry_type(ent._type)).push ent
+    def self.set_data_elements(data_elements, patient1, patient2, split_date)
+      patient1.dataElements = []
+      patient2.dataElements = []
+      data_elements.take_while { |de| de_before_split_date(de, split_date) }.each do |de|
+        patient1.dataElements.push de
       end
-      entries.drop_while { |ent| ent_before_split_date(ent, split_date) }.each do |ent|
-        record2.send(get_entry_type(ent._type)).push ent
+      data_elements.drop_while { |de| de_before_split_date(de, split_date) }.each do |de|
+        patient2.dataElements.push de
       end
-      [record1, record2]
+      [patient1, patient2]
     end
 
-    def self.ent_before_split_date(ent, split_date)
-      (ent.start_time && ent.start_time < split_date) || (ent.time && ent.time < split_date)
+    def self.de_before_split_date(de, split_date)
+      # R2P TODO: how to split patient characteristic data elements?
+      de.authorDatetime && de.authorDatetime < split_date
     end
 
-    def self.get_entry_type(entry_type)
-      if entry_type == 'LabResult'
-        'results'
-      else
-        entry_type.tableize
-      end
+    def self.split_by_type(patient, effective_date, measure_period_start, random)
+      # Collect unique data element categories from the patient with populated entries
+      de_categories = patient.dataElements.collect(&:category).uniq.shuffle(random: random)
+      de_categories.delete('patient_characteristic')
+
+      # If there's only 1 data element category, split by date instead
+      return split_by_date(patient, effective_date, measure_period_start, random) if de_categories.count < 2
+
+      patient1 = patient.clone
+      patient2 = patient.clone
+
+      # Find a split point so each cloned patient gets at least one data element category (hence, at least one entry)
+      split_point = random.rand(1..(de_categories.size - 1))
+
+      patient1 = set_patient_de_for_category(patient1, patient, de_categories, 0, split_point)
+      patient2 = set_patient_de_for_category(patient2, patient, de_categories, split_point, entry_types.size)
+
+      [patient1, patient2]
     end
 
-    def self.split_by_type(record, effective_date, measure_period_start, random)
-      # Collect unique entry types from the record with populated entries
-      entry_types = record.entries.collect(&:_type).uniq.shuffle(random: random)
-      entry_types.delete('InsuranceProvider')
-
-      # If there's only 1 entry type, split by date instead
-      return split_by_date(record, effective_date, measure_period_start, random) if entry_types.count < 2
-
-      record1 = record.clone
-      record2 = record.clone
-
-      # Find a split point so each cloned record gets at least one entry type (hence, at least one entry)
-      split_point = random.rand(1..(entry_types.size - 1))
-
-      record1 = set_record_sections_for_type(record1, record, entry_types, 0, split_point)
-      record2 = set_record_sections_for_type(record2, record, entry_types, split_point, entry_types.size)
-
-      [record1, record2]
-    end
-
-    def self.set_record_sections_for_type(new_record, old_record, entry_types, start_point, end_point)
-      Record::Sections.each do |section|
-        new_record.send section.to_s + '=', [] unless section == :insurance_providers
+    def self.set_patient_de_for_category(new_patient, old_patient, categories, start_point, end_point)
+      new_patient.dataElements = []
+      categories[start_point...end_point].each do |cat|
+        old_cat_des = old_patient.get_data_elements(cat)
+        old_cat_des.each {|de| new_patient.dataElements push de }
       end
-
-      entry_types[start_point...end_point].each do |elem|
-        type = get_entry_type(elem)
-        new_record.send(type).push old_record.send(type)
-      end
-
       new_record
     end
 
-    def self.sort_by_start_time(entries)
-      entries.delete_if { |e| e._type == 'InsuranceProvider' }.sort do |x, y|
-        if x.start_time.nil? && x.time.nil?
-          -1
-        elsif y.start_time.nil? && x.time.nil?
-          1
-        else
-          x_time = x.start_time ? x.start_time : x.time
-          y_time = y.start_time ? y.start_time : y.time
-          x_time <=> y_time
-        end
-      end
+    def self.sort_by_start_time(data_elements)
+
+      data_elements.delete_if { |de| de.category == 'patient_characteristic' }
+      # TODO R2P: check there's an attribute reader for highClosed (and lowClosed)
+      #sort by start date (in convert start_date equivalent to authorDatetime)
+      data_elements.order_by(:authorDatetime.asc)
     end
 
-    def self.find_split_date(record, effective_date, measure_period_start, random)
-      entries = sort_by_start_time(record.entries)
-      first_date = find_first_date_after(entries, measure_period_start)
-      last_date = find_last_date_before(entries, effective_date)
+    def self.find_split_date(patient, effective_date, measure_period_start, random)
+      sorted_de = sort_by_start_time(patient.dataElements)
+
+      first_date = find_first_date_after(sorted_de, measure_period_start)
+      last_date = find_last_date_before(sorted_de, effective_date)
       if first_date && last_date && (first_date != last_date)
         return (last_date - first_date) * random.rand + first_date
       end
       nil
     end
 
-    def self.find_first_date_after(entries, date)
-      ents = entries.detect { |ent| (ent.start_time && ent.start_time > date) || (ent.time && ent.time > date) }
-      ents.try(:start_time) ? ents.try(:start_time) : ents.try(:time)
+    def self.find_first_date_after(sorted_de, date)
+      des = sorted_de.detect { |de| (de.authorDatetime && de.authorDatetime > date)}
+      des.try(:authorDatetime)
     end
 
-    def self.find_last_date_before(entries, date)
-      entries.each_cons(2) do |ents|
-        return ents[0].start_time if (ents[1].start_time && ents[1].start_time > date) || (ents[1].time && ents[1].time > date)
+    def self.find_last_date_before(sorted_de, date)
+      #pairwise enumeration across data elements
+      sorted_de.each_cons(2) do |des|
+        return des[0].authorDatetime if (des[1].authorDatetime && des[1].authorDatetime > date)
       end
-      entries.last.try(:start_time) ? entries.last.try(:start_time) : entries.last.try(:time)
+      sorted_de.last.try(:authorDatetime)
     end
   end
 end

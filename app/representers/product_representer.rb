@@ -8,8 +8,8 @@ module ProductRepresenter
   property :c2_test
   property :c3_test
   property :c4_test
-  property :randomize_records
-  property :duplicate_records
+  property :randomize_patients
+  property :duplicate_patients
   collection :measure_ids
   property :created_at
   property :updated_at

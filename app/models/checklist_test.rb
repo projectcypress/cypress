@@ -64,6 +64,7 @@ class ChecklistTest < ProductTest
     checklist_measures = []
     prng = Random.new(rand_seed.to_i)
 
+    #TODO CQL: access criteria for measure using new measure model (throughout checklist_test below)
     # For each measure selected iterate on finding interesting data criteria
     measure_criteria_map, measure_ranks = criteria_map_and_measure_ranks(prng)
 
@@ -115,7 +116,7 @@ class ChecklistTest < ProductTest
     end
   end
 
-  def archive_records
+  def archive_patients
     if patient_archive.path.nil?
       self.patient_archive = Cypress::CreateDownloadZip.create_c1_patient_zip(self)
       save

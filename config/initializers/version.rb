@@ -1,5 +1,5 @@
 module Cypress
   class Application
-    VERSION = '3.2.3'.freeze
+    VERSION = '4.0.0alpha1'.freeze
   end
 end

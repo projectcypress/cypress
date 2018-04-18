@@ -21,8 +21,8 @@ module RecordsHelper
     end
   end
 
-  def full_name(record)
-    record.first + ' ' + record.last if record
+  def full_name(patient)
+    patient.givenNames.join(' ') + ' ' + patient.familyName if patient
   end
 
   def pop_sum(records, measure, population)
@@ -37,13 +37,13 @@ module RecordsHelper
   end
 
   def get_result_value(results, measure, population)
-    result_value = results.where('value.measure_id' => measure.hqmf_id).where('value.sub_id' => measure.sub_id)
-    result_value.first.value[population].to_i if result_value.first
+    result_value = results.where('measure' => measure._id)
+    result_value.first[population].to_i if result_value.first
   end
 
   def records_by_measure(records, measure)
     # Returns array of records that have at least one calculation result for the given measure id
-    records.reject { |r| r.calculation_results.where('value.measure_id' => measure.hqmf_id).where('value.sub_id' => measure.sub_id).empty? }
+    records.reject { |r| r.calculation_results.where('measure' => measure._id).empty? }
   end
 
   def display_field(field)

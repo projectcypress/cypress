@@ -25,9 +25,9 @@ class Product
   %i[c1_test c2_test c3_test c4_test].each do |test|
     field test, :type => Boolean, :default => false
   end
-  field :randomize_records, :type => Boolean, :default => true
-  field :duplicate_records, :type => Boolean
-  field :shift_records, :type => Boolean, :default => false
+  field :randomize_patients, :type => Boolean, :default => true
+  field :duplicate_patients, :type => Boolean
+  field :shift_patients, :type => Boolean, :default => false
   field :allow_duplicate_names, :type => Boolean, :default => false
   field :measure_selection, :type => String
   field :measure_ids, :type => Array
@@ -45,12 +45,12 @@ class Product
 
   def measure_period_start
     # If selected, move measure period start date forward to the beginning of the actual reporting period
-    shift_records ? (bundle.measure_period_start + bundle.start_date_offset) : bundle.measure_period_start
+    shift_patients ? (bundle.measure_period_start + bundle.start_date_offset) : bundle.measure_period_start
   end
 
   def effective_date
     # If selected, move effective date forward to the end of the actual reporting period
-    shift_records ? (Time.at(measure_period_start).in_time_zone + 1.year - 1.second).to_i : bundle.effective_date
+    shift_patients ? (Time.at(measure_period_start).in_time_zone + 1.year - 1.second).to_i : bundle.effective_date
   end
 
   def status
@@ -144,6 +144,7 @@ class Product
     reload_relations
 
     return if product_tests.filtering_tests.any?
+    #TODO R2P: check new criteria names
     criteria = %w[races ethnicities genders payers age].shuffle
     filter_tests = []
     filter_tests.concat [build_filtering_test(measure, criteria[0, 2]), build_filtering_test(measure, criteria[2, 2])]
@@ -151,18 +152,18 @@ class Product
     filter_tests << build_filtering_test(measure, ['providers'], 'NPI & TIN', false)
     criteria = ApplicationController.helpers.measure_has_diagnosis_criteria?(measure) ? ['problems'] : criteria.values_at(4, (0..3).to_a.sample)
     filter_tests << build_filtering_test(measure, criteria)
-    ApplicationController.helpers.generate_filter_records(filter_tests)
+    ApplicationController.helpers.generate_filter_patients(filter_tests)
   end
 
-  # When the 2014 certification edition is enabled, duplicate_records is always disabled.
-  # Since the default for duplicate_records is true, we override it here. We also make sure
+  # When the 2014 certification edition is enabled, duplicate_patients is always disabled.
+  # Since the default for duplicate_patients is true, we override it here. We also make sure
   # that c4_test is not somehow set to true.
   def enforce_cert_edition_settings
     if cert_edition.eql? '2014'
-      self.duplicate_records = false
+      self.duplicate_patients = false
       self.c4_test = false
-    elsif (cert_edition.eql? '2015') && duplicate_records.nil?
-      self.duplicate_records = c2_test
+    elsif (cert_edition.eql? '2015') && duplicate_patients.nil?
+      self.duplicate_patients = c2_test
     end
 
     true
