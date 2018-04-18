@@ -1,0 +1,9 @@
+build_dependencies:
+  - mongodb-server
+dependencies:
+  - mongodb-org-server (= 3.4.5)
+before:
+  - mkdir -p /tmp/db
+  - /usr/bin/mongod --dbpath /tmp/db --fork --syslog
+targets:
+  ubuntu-16.04:

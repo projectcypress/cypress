@@ -51,7 +51,7 @@ module Cypress
 
       vendor = Vendor.find_or_create_by(name: 'MeasureEvaluationVendor')
       product = Product.find_or_create_by(name: 'MeasureEvaluationProduct', vendor_id: vendor.id, c1_test: true, c2_test: true, c3_test: true,
-                                          randomize_records: true, measure_ids: [opts[:measure].hqmf_id])
+                                          randomize_patients: true, measure_ids: [opts[:measure].hqmf_id])
 
       MeasureTest.find_or_create_by(name: opts[:measure].name, bundle: bundle.id, product: product,
                                     measure_ids: [opts[:measure].hqmf_id],
@@ -95,7 +95,7 @@ module Cypress
     end
 
     def generate_cat3(measure_ids, t)
-      zip = create_patient_zip(t.records)
+      zip = create_patient_zip(t.patients)
       c3c = Cypress::Cat3Calculator.new(measure_ids, t.bundle)
       c3c.import_cat1_zip(zip)
       c3c.generate_cat3
@@ -113,7 +113,7 @@ module Cypress
     end
 
     def upload_cat1(t)
-      zip = create_patient_zip(t.tasks.c1_task.records)
+      zip = create_patient_zip(t.tasks.c1_task.patients)
       FileUtils.mv zip, "#{File.dirname(zip)}/#{File.basename(zip)}.zip"
       zip2 = File.new("#{File.dirname(zip)}/#{File.basename(zip)}.zip")
       t.tasks.c1_task.execute(zip2)

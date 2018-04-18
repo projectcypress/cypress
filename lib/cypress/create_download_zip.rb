@@ -84,6 +84,7 @@ module Cypress
       formatter = formatter_for_patients(example_patients.values, 'html')
       Zip::ZipOutputStream.open(file.path) do |z|
         example_patients.each do |measure_id, patient|
+          # TODO R2P: format patients for export
           add_file_to_zip(z, "sample patient for #{measure_id}.html", formatter.export(patient))
         end
       end

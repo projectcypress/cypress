@@ -14,8 +14,10 @@ module Validators
                             [CDA.instance, Cat1.instance]
                           elsif bundle.qrda_version == 'r3_1'
                             [CDA.instance, Cat1R31.instance]
-                          else
+                          elsif bundle.qrda_version == 'r4'
                             [CDA.instance, Cat1R4.instance]
+                          else
+                            [CDA.instance, Cat1R5.instance]
                           end
       @validators = if is_c3_validation_task
                       [HealthDataStandards::Validate::DataValidator.new(bundle, measures.collect(&:hqmf_id))]

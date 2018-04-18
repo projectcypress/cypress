@@ -51,9 +51,10 @@ module FilteringTestsHelper
   end
 
   def generate_filter_records(filter_tests)
+    #TODO R2P: generate_filter_patients
     return unless filter_tests
     test = filter_tests.pop
-    test.generate_records
+    test.generate_patients
     test.save
     test.queued
     ProductTestSetupJob.perform_later(test)

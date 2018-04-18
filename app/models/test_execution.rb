@@ -31,6 +31,7 @@ class TestExecution
   def validate_artifact(validators, artifact, options = {})
     file_count = 0
 
+    # TODO R2P: change R/P model through all validators
     artifact.each_file do |name, file|
       doc = build_document(file)
       merged_options = options.merge(:file_name => name)
@@ -51,8 +52,8 @@ class TestExecution
   end
 
   def conditionally_add_task_specific_errors(file_count)
-    if (task.is_a?(C1Task) && task.product_test.product.c1_test) && file_count != task.records.count
-      execution_errors.build(:message => "#{task.records.count} files expected but was #{file_count}",
+    if (task.is_a?(C1Task) && task.product_test.product.c1_test) && file_count != task.patients.count
+      execution_errors.build(:message => "#{task.patients.count} files expected but was #{file_count}",
                              :msg_type => :error, :validator_type => :result_validation, :validator => :smoking_gun)
     end
     task.product_test.build_execution_errors_for_incomplete_checked_criteria(self) if task.is_a?(C1ChecklistTask)

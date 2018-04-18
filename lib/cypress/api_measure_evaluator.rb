@@ -355,8 +355,8 @@ module Cypress
                               :c2_test => '1',
                               :c3_test => '1',
                               :c4_test => '1',
-                              :duplicate_records => '0',
-                              :randomize_records => '0' } }
+                              :duplicate_patients => '0',
+                              :randomize_patients => '0' } }
       RestClient::Request.execute(:method => :post,
                                   :timeout => 90_000_000,
                                   :url => "#{vendor_link}/products",

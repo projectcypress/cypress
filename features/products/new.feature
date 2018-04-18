@@ -50,22 +50,22 @@ Scenario: Unsuccessful Create Product Because No Task Type Selected
 Scenario: Successful Create Product with debug mode off and C2 Type selected
   When debug mode is false
   When a user creates a 2015 product with c1, c2 certifications and visits that product page
-  Then the product value for randomize_records should be true
-  Then the product value for duplicate_records should be true
+  Then the product value for randomize_patients should be true
+  Then the product value for duplicate_patients should be true
   Then the product value for cert_edition should be 2015
 
 Scenario: Successful Create Product with debug mode off and C1 Type selected
   When debug mode is false
   When a user creates a 2015 product with c1 certifications and visits that product page
-  Then the product value for randomize_records should be true
-  Then the product value for duplicate_records should be false
+  Then the product value for randomize_patients should be true
+  Then the product value for duplicate_patients should be false
   Then the product value for cert_edition should be 2015
 
 Scenario: Successful Create Product with debug mode off in 2014 cert mode and C2 Type selected
   When debug mode is false
   When a user creates a 2014 product with c1, c2 certifications and visits that product page
-  Then the product value for randomize_records should be true
-  Then the product value for duplicate_records should be false
+  Then the product value for randomize_patients should be true
+  Then the product value for duplicate_patients should be false
   Then the product value for cert_edition should be 2014
 
 Scenario: Successful Create Product with Multiple Measures From Different Groups

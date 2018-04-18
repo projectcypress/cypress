@@ -40,15 +40,16 @@ class FilteringTest < ProductTest
   end
 
   def pick_filter_criteria
+    #TODO R2P: select from patients
     return unless options && options['filters']
     # select a random patient
     prng = Random.new(rand_seed.to_i)
     mpl_ids = master_patient_ids
-    rand_record = records.select { |r| r.original_medical_record_number.in?(mpl_ids) }.sample
+    rand_patient = patients.select { |r| r.original_medical_record_number.in?(mpl_ids) }.sample
     # iterate over the filters and assign random codes
-    params = { measures: measures, records: records, incl_addr: incl_addr, effective_date: created_at, prng: prng }
+    params = { measures: measures, patients: patients, incl_addr: incl_addr, effective_date: created_at, prng: prng }
     options['filters'].each do |k, _v|
-      options['filters'][k] = Cypress::CriteriaPicker.send(k, rand_record, params)
+      options['filters'][k] = Cypress::CriteriaPicker.send(k, rand_patient, params)
     end
     save!
   end
@@ -68,6 +69,7 @@ class FilteringTest < ProductTest
   # (E) Patient Insurance
   #
   def patient_cache_filter
+    #TODO R2P: pick patient cache filter using new model (find where options['filters'] is set)
     input_filters = (options['filters'] || {}).dup
     filters = {}
     # QME can handle races, ethnicities, genders, providers, and patient_ids (and languages)
@@ -83,16 +85,16 @@ class FilteringTest < ProductTest
       input_filters.delete 'providers'
     end
 
-    # for the rest, manually filter to get the record IDs and pass those in
+    # for the rest, manually filter to get the patient IDs and pass those in
     if input_filters.count.positive?
-      filters['patients'] = Cypress::RecordFilter.filter(records, input_filters, effective_date: created_at,
+      filters['patients'] = Cypress::PatientFilter.filter(patients, input_filters, effective_date: created_at,
                                                                                  bundle_id: measures.first.bundle_id).pluck(:_id)
     end
 
     filters
   end
 
-  def filtered_records
-    Cypress::RecordFilter.filter(records, options['filters'], effective_date: created_at, bundle_id: measures.first.bundle_id)
+  def filtered_patients
+    Cypress::PatientFilter.filter(patients, options['filters'], effective_date: created_at, bundle_id: measures.first.bundle_id)
   end
 end

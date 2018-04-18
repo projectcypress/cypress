@@ -9,7 +9,7 @@ module Validators
       expect_diff = [0, 0]
       key_to_field = { 'RACE' => :race, 'ETHNICITY' => :ethnicity, 'SEX' => :gender }
 
-      task.augmented_records.each do |rec_changes|
+      task.augmented_patients.each do |rec_changes|
         augmented_field = rec_changes[key_to_field[keys_and_ids[:sup_key]]]
         next unless augmented_record_in_population?(task, rec_changes, keys_and_ids, mod_pop_labels) &&
                     augmented_field && augmented_field[0] != augmented_field[1]
