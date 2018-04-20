@@ -11,7 +11,7 @@ gem 'bson_ext'
 gem 'os'
 
 gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi', :branch => 'better_codes_and_scalar_error'
-gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter.git', :branch => 'master'
+gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter.git', :branch => 'camelCase_updated'
 gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'master'
 
 gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'r5'
