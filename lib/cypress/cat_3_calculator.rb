@@ -2,6 +2,7 @@ module Cypress
   class Cat3Calculator
     attr_accessor :correlation_id, :measure, :bundle, :mre, :qr
 
+    #TODO R2P: use patient model throughout
     def initialize(measure_ids, bundle, effective_date_override = nil)
       @correlation_id = BSON::ObjectId.new
       filter = { :hqmf_id.in => measure_ids, :bundle_id => bundle.id }

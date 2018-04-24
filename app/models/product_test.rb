@@ -16,9 +16,10 @@ class ProductTest
   belongs_to :product, :index => true, :touch => true
   has_many :tasks, :dependent => :destroy
 
-  has_many :records, :dependent => :destroy, :foreign_key => :test_id
+  #TODO R2P: fix foreign key descriptor?
+  has_many :patients, :dependent => :destroy, :foreign_key => 'extendedData.correlation_id'
 
-  field :augmented_records, :type => Array, :default => []
+  field :augmented_patients, :type => Array, :default => []
 
   field :expected_results, :type => Hash
   # this the hqmf id of the measure
@@ -59,12 +60,12 @@ class ProductTest
   def self.destroy_by_ids(product_test_ids)
     tasks = Task.where(:product_test_id.in => product_test_ids)
     task_ids = tasks.pluck(:_id)
-    records = Record.where(:test_id.in => product_test_ids)
-    record_ids = records.pluck(:_id)
+    patients = QDM::Patient.where(:test_id.in => product_test_ids)
+    patient_ids = patients.pluck(:_id)
     test_executions = TestExecution.where(:task_id.in => task_ids)
     test_execution_ids = test_executions.pluck(:_id)
 
-    records.delete
+    patients.delete
     tasks.delete
     test_executions.delete
 
@@ -72,17 +73,20 @@ class ProductTest
     # carrierwave. Without this the system would be left with a lot of uploaded files on it
     # long after the parent data was destroyed.
     Artifact.where(:test_execution_id.in => test_execution_ids).destroy
-    HealthDataStandards::CQM::PatientCache.where(:'value.patient_id'.in => record_ids).delete
+    #TODO CQL: use new results model?
+    HealthDataStandards::CQM::PatientCache.where(:'value.patient_id'.in => patient_ids).delete
     ProductTest.in(:id => product_test_ids).delete
   end
 
-  def generate_records(job_id = nil)
-    if product.randomize_records
+  def generate_patients(job_id = nil)
+    if product.randomize_patients
       # If we're using a "slim test deck", don't pass in any random IDs
       random_ids = if product.slim_test_deck?
                      []
                    else
-                     bundle.records.where(:test_id => nil).pluck('medical_record_number').uniq
+                     # TODO R2P: check where(:'extendedData.correlation_id' => nil).pluck('extendedData.medical_record_number').uniq doesn't work
+                     #get medical record numbers for master patients (have no correlation (test) id)
+                     bundle.patients.where(:'extendedData.correlation_id' => nil).map {|mp| mp[:extendedData][:medical_record_number] }.uniq
                    end
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'randomization_ids' => random_ids,
                                       'randomize_demographics' => true, 'generate_provider' => product.c4_test, 'job_id' => job_id).perform
@@ -91,54 +95,56 @@ class ProductTest
     end
   end
 
-  def archive_records
+  def archive_patients
     file = Tempfile.new("product_test-#{id}.zip")
-    recs = records.to_a
-
-    if product.duplicate_records && _type != 'FilteringTest'
+    pat_arr = patients.to_a
+    if product.duplicate_patients && _type != 'FilteringTest'
       prng = Random.new(rand_seed.to_i)
       ids = results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
       if ids.present?
-        recs = sample_and_duplicate_records(recs, ids, :random => prng)
+        pat_arr = sample_and_duplicate_patients(pat_arr, ids, :random => prng)
       end
     end
-    Cypress::PatientZipper.zip(file, recs, :qrda)
+    Cypress::PatientZipper.zip(file, pat_arr, :qrda)
     self.patient_archive = file
 
-    file = Tempfile.new("product_test-html-#{id}.zip")
-    Cypress::PatientZipper.zip(file, recs, :html)
-    self.html_archive = file
+    # TODO R2P update HTML exporters
+    #file = Tempfile.new("product_test-html-#{id}.zip")
+    #Cypress::PatientZipper.zip(file, pat_arr, :html)
+    #self.html_archive = file
     save
   end
 
-  def sample_and_duplicate_records(recs, ids, random: Random.new)
+  def sample_and_duplicate_patients(pat_arr, ids, random: Random.new)
     car = ::Validators::CalculatingAugmentedRecords.new(measures, [], id)
-    dups = records.find(ids)
+    dups = patients.find(ids)
 
-    recs, dups = randomize_clinical_data(recs, dups, random)
-    dups.sample(random.rand(1..3), :random => random).each do |rec|
+    pat_arr, dups = randomize_clinical_data(pat_arr, dups, random)
+    #choose up to 3 duplicate patients
+    dups.sample(random.rand(1..3), :random => random).each do |pat|
       prng_repeat = Random.new(rand_seed.to_i)
-      dup_rec, rec_augments, old_rec = rec.duplicate_randomization(:random => prng_repeat)
-      if car.validate_calculated_results(dup_rec, 'effective_date' => effective_date)
-        augmented_records << rec_augments
-        recs << dup_rec
+      dup_pat, pat_augments, old_pat = pat.duplicate_randomization(:random => prng_repeat)
+      #only add if augmented patient validates
+      if car.validate_calculated_results(dup_pat, 'effective_date' => effective_date)
+        augmented_patients << pat_augments
+        pat_arr << dup_pat
       else
-        augmented_records << { :medical_record_number => old_rec.medical_record_number,
-                               :first => [old_rec.first, old_rec.first], :last => [old_rec.last, old_rec.last] }
-        recs << old_rec
+        augmented_patients << { :medical_record_number => old_pat.extendedData.medical_record_number,
+                               :first => [old_pat.first_names, old_pat.first_names], :last => [old_pat.familyName, old_pat.familyName] }
+        pat_arr << old_pat
       end
     end
-    recs
+    pat_arr
   end
 
-  def randomize_clinical_data(recs, dups, random)
-    # Pic a record to clinically randomize, then delete it from dups (so it doesn't get duplicated also)
-    # And delete it from recs so we don't return the whole patient too
-    return [recs, dups] if dups.count < 2
-    clinical_record = dups.sample(:random => random)
-    dups.delete(clinical_record)
-    recs.delete(clinical_record)
-    [recs.concat(Cypress::ClinicalRandomizer.randomize(clinical_record, effective_date, measure_period_start, :random => random)), dups]
+  def randomize_clinical_data(pat_arr, dups, random)
+    # Pick a patient to clinically randomize, then delete it from dups (so it doesn't get duplicated also)
+    # And delete it from pat_arr so we don't return the whole patient too
+    return [pat_arr, dups] if dups.count < 2
+    clinical_pat = dups.sample(:random => random)
+    dups.delete(clinical_pat)
+    pat_arr.delete(clinical_pat)
+    [pat_arr.concat(Cypress::ClinicalRandomizer.randomize(clinical_pat, effective_date, measure_period_start, :random => random)), dups]
   end
 
   def calculate
@@ -154,6 +160,7 @@ class ProductTest
   end
 
   def results
+    # TODO CQL: use new results model
     PatientCache.where('value.test_id' => id).order_by(['value.last', :asc])
   end
 
@@ -200,13 +207,34 @@ class ProductTest
 
   private
 
+  # Returns a listing of all ids for patients in the IPP
+  def patients_in_ipp_and_greater
+    IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) },
+                           'IPP' => { '$gt' => 0 }, 'extended_data.correlation_id' => bundle.id).distinct(:patient)
+  end
+
+  # Returns an id for a patient in the Numerator
+  def patient_in_numerator
+    IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) },
+                           'extended_data.correlation_id' => bundle.id, 'NUMER' => { '$gt' => 0 }).distinct(:patient).sample
+  end
+
+  # Returns a listing of all ids for patients in the Denominator
+  def patients_in_denominator_and_greater
+    IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) },
+                           'extended_data.correlation_id' => bundle.id, 'DENOM' => { '$gt' => 0 }).distinct(:patient)
+  end
+
+  # Returns a listing of all ids for patients in the Measure Population
+  def patients_in_measure_population_and_greater
+    IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) },
+                           'extended_data.correlation_id' => bundle.id, 'MSRPOPL' => { '$gt' => 0 }).distinct(:patient)
+  end
+
   def master_patient_ids
-    mpl_ids = get_record_ids(PatientCache.where('value.measure_id' => { '$in' => measure_ids },
-                                                'value.test_id' => nil, 'value.IPP' => { '$gt' => 0 }))
+    mpl_ids = patients_in_ipp_and_greater
 
-    mpl_ids = uniq_mpl_ids(mpl_ids)
-
-    if product.randomize_records
+    if product.randomize_patients
       denom_ids = pick_denom_ids
 
       msrpopl_ids = pick_msrpopl_ids
@@ -226,23 +254,18 @@ class ProductTest
 
   def pick_denom_ids
     # numer_id ensures we get at least one patient who is in the Numerator, no matter what
-    numer_id = get_record_ids(PatientCache.where('value.measure_id' => { '$in' => measure_ids },
-                                                 'value.test_id' => nil, 'value.NUMER' => { '$gt' => 0 })).sample
-
-    denom_ids = get_record_ids(PatientCache.where('value.measure_id' => { '$in' => measure_ids },
-                                                  'value.test_id' => nil, 'value.DENOM' => { '$gt' => 0 }))
-    denom_ids = uniq_mpl_ids(denom_ids)
+    numer_id = patient_in_numerator
+    denom_ids = patients_in_denominator_and_greater
 
     # If there are a lot of patients in denom_ids (usually when the IPP and denominator are the same thing),
     # pull out the numerator/Denex/Denexcep patients as high value (this is numer_ids), then sample from the rest to get to test_deck_max
     # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product,
     # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if denom_ids.count > (product.test_deck_max - 1)
-      high_value_ids = get_record_ids(PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.test_id' => nil)
-                              .any_of({ 'value.NUMER' => { '$gt' => 0 } },
-                                      { 'value.DENEXCEP' => { '$gt' => 0 } },
-                                      'value.DENEX' => { '$gt' => 0 }))
-      high_value_ids = uniq_mpl_ids(high_value_ids)
+      high_value_ids = IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) }, 'extended_data.correlation_id' => bundle.id)
+                                       .any_of({ 'NUMER' => { '$gt' => 0 } },
+                                               { 'DENEXCEP' => { '$gt' => 0 } },
+                                               'DENEX' => { '$gt' => 0 }).distinct(:patient)
       high_value_ids = high_value_ids.sample(product.test_deck_max - 1)
       denom_ids = high_value_ids + denom_ids.sample(product.test_deck_max - high_value_ids.count - 1)
     end
@@ -250,10 +273,7 @@ class ProductTest
   end
 
   def pick_msrpopl_ids
-    msrpopl_ids = get_record_ids(PatientCache.where('value.measure_id' => { '$in' => measure_ids },
-                                                    'value.test_id' => nil, 'value.MSRPOPL' => { '$gt' => 0 }))
-    msrpopl_ids.uniq!
-    msrpopl_ids.keep_if { |id| ApplicationController.helpers.mpl_id?(id) }
+    msrpopl_ids = patients_in_measure_population_and_greater
 
     # If there are a lot of patients in the MSRPOPL results above, (usually if there are a lot of MSRPOPLEX values)
     # pull out only those patients with more than one episode in the MSRPOPL
@@ -262,27 +282,14 @@ class ProductTest
     # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if msrpopl_ids.count > product.test_deck_max
       numer_ids = get_record_ids(
-        PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.test_id' => nil)
-                                .any_of({ 'value.MSRPOPL' => { '$gt' => 1 } },
-                                        '$and' => [{ 'value.MSRPOPL' => { '$eq' => 1 } }, { 'value.MSRPOPLEX' => { '$eq' => 0 } }])
+        IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) }, 'extended_data.correlation_id' => bundle.id)
+                        .any_of({ 'MSRPOPL' => { '$gt' => 1 } },
+                                '$and' => [{ 'MSRPOPL' => { '$eq' => 1 } }, { 'MSRPOPLEX' => { '$eq' => 0 } }]).distinct(:patient)
       )
-      numer_ids = uniq_mpl_ids(numer_ids)
       numer_ids = numer_ids.sample(product.test_deck_max)
       msrpopl_ids = numer_ids + msrpopl_ids.sample(product.test_deck_max - numer_ids.count)
     end
     msrpopl_ids
-  end
-
-  def uniq_mpl_ids(ids)
-    ids.uniq!
-    ids.keep_if { |id| ApplicationController.helpers.mpl_id?(id) }
-    ids
-  end
-
-  def get_record_ids(populations)
-    populations.collect do |pcv|
-      pcv.value['medical_record_id']
-    end
   end
 
   def generate_random_seed

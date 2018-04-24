@@ -1,5 +1,8 @@
 module Cypress
   class ExamplePatientFinder
+
+    #TODO R2P: get sample patients (for checklist test) with new model
+
     def self.find_example_patient(measure)
       populations = measure.continuous_variable ? %w[IPP MSRPOPL MSRPOPLEX OBSERV] : %w[IPP DENOM NUMER DENEX DENEXCEP]
       example_patient = example_patient_by_pop(measure, populations, populations[1])

@@ -1,8 +1,8 @@
 class C3Cat1Task < Task
   def validators
     # not using the "calculating" smoking gun validator here
-    # because we only want the record inclusion test from the regular version
-    @validators = [::Validators::SmokingGunValidator.new(product_test.measures, product_test.records, product_test.id,
+    # because we only want the record (patient) inclusion test from the regular version
+    @validators = [::Validators::SmokingGunValidator.new(product_test.measures, product_test.patients, product_test.id,
                                                          suppress_errors: true, validate_inclusion_only: true),
                    ::Validators::MeasurePeriodValidator.new,
                    ::Validators::QrdaCat1Validator.new(product_test.bundle, true, true, product_test.c1_test, product_test.measures)]

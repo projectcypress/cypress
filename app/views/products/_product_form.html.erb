@@ -79,8 +79,8 @@
             <fieldset>
               <legend class="control-label">Records Options</legend>
               <%= f.form_group help: "Recommended for most robust testing." do %>
-                <%= f.check_box :randomize_records, label: 'Randomize Records', label_class: "btn btn-checkbox", checked: product.new_record? ? true : product.randomize_records, disabled: !product.new_record? %>
-                <%= f.check_box :duplicate_records, label: 'Duplicate Records', label_class: "btn btn-checkbox disabled", checked: product.duplicate_records, disabled: true %>
+                <%= f.check_box :randomize_patients, label: 'Randomize Records', label_class: "btn btn-checkbox", checked: product.new_record? ? true : product.randomize_patients, disabled: !product.new_record? %>
+                <%= f.check_box :duplicate_patients, label: 'Duplicate Records', label_class: "btn btn-checkbox disabled", checked: product.duplicate_patients, disabled: true %>
               <% end %>
             </fieldset>
           <%end%>
@@ -101,7 +101,7 @@
               <% end # form_group %>
             <% end # bundles.count %>
             <%= f.form_group help: "Selecting Shift Records will move patient data forward into the appropriate reporting period. Otherwise patient data will remain in a previously completed calendar year." do %>
-              <%= f.check_box :shift_records, label: 'Shift Records', label_class: "btn btn-checkbox", checked: product.new_record? ? false : product.shift_records, disabled: !product.new_record? %>
+              <%= f.check_box :shift_patients, label: 'Shift Records', label_class: "btn btn-checkbox", checked: product.new_record? ? false : product.shift_patients, disabled: !product.new_record? %>
             <% end %>
           </fieldset>
           <% unless bundle&.deprecated %>

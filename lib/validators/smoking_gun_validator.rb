@@ -58,7 +58,7 @@ module Validators
     # Returns the medical record number the given document if it is found. Otherwise, returns
     def get_record_identifiers(doc, options)
       doc_name = build_doc_name(doc)
-      aug_rec = options['task'].augmented_records.detect { |r| doc_name == to_doc_name(r[:first][1], r[:last][1]) }
+      aug_rec = options['task'].augmented_patients.detect { |r| doc_name == to_doc_name(r[:first][1], r[:last][1]) }
       mrn = @names[doc_name] || (aug_rec ? aug_rec.medical_record_number : nil)
       [mrn || nil, doc_name, aug_rec]
     end

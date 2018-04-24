@@ -4,6 +4,7 @@ class ProductTestSetupJob < ApplicationJob
   def perform(product_test)
     product_test.building
     product_test.generate_provider if product_test.is_a? MeasureTest
+    #TODO R2P: records to patients name
     product_test.generate_records(@job_id) if product_test.records.count.zero?
     product_test.pick_filter_criteria if product_test.is_a? FilteringTest
     if product_test.respond_to? :patient_cache_filter

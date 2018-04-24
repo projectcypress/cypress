@@ -9,7 +9,7 @@ class C1Task < Task
   # do that validation here
   def validators
     if product_test.c1_test
-      @validators = [::Validators::CalculatingSmokingGunValidator.new(product_test.measures, product_test.records, product_test.id),
+      @validators = [::Validators::CalculatingSmokingGunValidator.new(product_test.measures, product_test.patients, product_test.id),
                      ::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.c3_test, true, product_test.measures)]
     else
       # A C1 task is created whenever C3 is selected.  If C1 isn't also selected, this task doesn't perform any validations
@@ -28,13 +28,14 @@ class C1Task < Task
     te
   end
 
-  def records
-    patient_ids = product_test.results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
-    product_test.records.in('_id' => patient_ids)
+  def patients
+    # TODO R2P: Collect using patient cache (calculation results)
+    patient_ids = product_test.patients.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
+    product_test.patients.in('_id' => patient_ids)
   end
 
   def good_results
-    Cypress::CreateDownloadZip.create_zip(records, 'qrda').read
+    Cypress::CreateDownloadZip.create_zip(patients, 'qrda').read
   end
 
   def last_updated_with_sibling

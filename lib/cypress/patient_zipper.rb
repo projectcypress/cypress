@@ -17,6 +17,7 @@ module Cypress
     end
 
     def export(patient)
+      # TODO R2P: make sure patient export works with HDS HTML exporter
       EXPORTER.export(patient, measures)
     end
   end
@@ -38,6 +39,7 @@ module Cypress
       cms_compatibility = patient.product_test && patient.product_test.product.c3_test
       case patient.bundle.qrda_version
       when 'r5'
+        # TODO R2P: make sure patient export works with HDS Cat1 R5 exporter
         C5EXPORTER.export(patient, measures, start_time, end_time, nil, 'r5', cms_compatibility)
       end
     end
@@ -50,12 +52,14 @@ module Cypress
 
     def self.zip(file, patients, format)
       patients = apply_sort_to patients
-      mes, sd, ed = mes_start_end(patients)
+      measures, sd, ed = measure_start_end(patients)
 
+
+      #TODO R2P: make sure patient exporter works (use correct one)
       formatter = if format.to_sym == :qrda
-                    Cypress::QRDAExporter.new(mes, sd, ed)
+                    Cypress::QRDAExporter.new(measures, sd, ed)
                   else
-                    Cypress::HTMLExporter.new(mes, sd, ed)
+                    Cypress::HTMLExporter.new(measures, sd, ed)
                   end
 
       Zip::ZipOutputStream.open(file.path) do |z|
@@ -64,6 +68,7 @@ module Cypress
           # safe_last_name = patient.last.delete("'")
           # next_entry_path = "#{i}_#{safe_first_name}_#{safe_last_name}"
           z.put_next_entry("#{next_entry_path(patient, i)}.#{FORMAT_EXTENSIONS[format.to_sym]}")
+          #TODO R2P: make sure using correct exporter
           z << if formatter == HealthDataStandards::Export::HTML
                  formatter.new.export(patient)
                else
@@ -74,18 +79,15 @@ module Cypress
     end
 
     def self.apply_sort_to(patients)
-      if patients.is_a? Array
-        patients.sort_by { |p| p.first + '_' + p.last }
-      else
-        patients.order_by(:first.asc, :last.asc)
-      end
+      patients.sort_by { |p| p.givenNames.join("_") + '_' + p.familyName }
     end
 
     def self.zip_patients_all_measures(file, measure_tests)
+      #TODO R2P: check exporter
       Zip::ZipOutputStream.open(file.path) do |zip|
         measure_tests.each do |measure_test|
           patients = measure_test.records.to_a
-          measures, start_date, end_date = mes_start_end(patients)
+          measures, start_date, end_date = measure_start_end(patients)
           formatter = Cypress::QRDAExporter.new(measures, start_date, end_date)
           measure_folder = "patients_#{measure_test.cms_id}"
 
@@ -97,7 +99,7 @@ module Cypress
       end
     end
 
-    def self.mes_start_end(patients)
+    def self.measure_start_end(patients)
       return unless patients.first
       first = patients.first
       ptest = first.product_test
