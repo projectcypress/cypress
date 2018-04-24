@@ -27,6 +27,7 @@ class MeasureEvaluationJob < ApplicationJob
     results = {}
     measures.each_with_index do |measure|
       dictionary = generate_oid_dictionary(measure, measure.bundle_id)
+      #TODO R2P: use new calculation engine
       qr = QME::QualityReport.find_or_create(measure['hqmf_id'], measure.sub_id, 'bundle_id' => product_test.bundle.id,
                                                                                  'effective_date' => product_test.effective_date,
                                                                                  'test_id' => product_test.id,
@@ -48,6 +49,7 @@ class MeasureEvaluationJob < ApplicationJob
   end
 
   def generate_oid_dictionary(measure, bundle_id)
+    #TODO CQL: check uses new model properly?
     valuesets = HealthDataStandards::CQM::Bundle.find(bundle_id).value_sets.in(oid: measure.oids)
     js = {}
     valuesets.each do |vs|

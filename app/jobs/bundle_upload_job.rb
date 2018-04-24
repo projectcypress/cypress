@@ -13,6 +13,7 @@ class BundleUploadJob < ApplicationJob
     options = DEFAULT_OPTIONS.merge(options)
     already_have_default = Bundle.where(active: true).exists?
 
+    #TODO R2P: use cqm-parsers or other adjustment for bundle import
     importer = HealthDataStandards::Import::Bundle::Importer
     @bundle = importer.import(bundle_file, options)
 
@@ -22,6 +23,8 @@ class BundleUploadJob < ApplicationJob
     else
       Settings.current.default_bundle = @bundle.version
     end
+
+    #create master patient list
     @bundle.mpl_prepare
   end
 end

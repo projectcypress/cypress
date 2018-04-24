@@ -52,6 +52,8 @@ module Cypress
       patients = apply_sort_to patients
       mes, sd, ed = mes_start_end(patients)
 
+
+      #TODO R2P: make sure patient exporter works (use correct one)
       formatter = if format.to_sym == :qrda
                     Cypress::QRDAExporter.new(mes, sd, ed)
                   else

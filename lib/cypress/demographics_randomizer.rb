@@ -5,6 +5,7 @@ module Cypress
   # demographics, call Cypress::DemographicsRandomizer.randomize(record)
   class DemographicsRandomizer
     def self.randomize(record, prng, allow_dups = false)
+      #TODO R2P: change to patient name and model throughout file
       randomize_name(record, prng, allow_dups)
       randomize_race(record, prng)
       randomize_ethnicity(record, prng)

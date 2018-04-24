@@ -77,11 +77,13 @@ class ProductTest
   end
 
   def generate_records(job_id = nil)
+    # TODO R2P: Change to generate patients
     if product.randomize_records
       # If we're using a "slim test deck", don't pass in any random IDs
       random_ids = if product.slim_test_deck?
                      []
                    else
+                     # TODO R2P: use patients (def bundle on patient object) and access medical_record_number
                      bundle.records.where(:test_id => nil).pluck('medical_record_number').uniq
                    end
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'randomization_ids' => random_ids,
@@ -92,6 +94,7 @@ class ProductTest
   end
 
   def archive_records
+    #TODO R2P: records to patients name
     file = Tempfile.new("product_test-#{id}.zip")
     recs = records.to_a
 
@@ -99,6 +102,7 @@ class ProductTest
       prng = Random.new(rand_seed.to_i)
       ids = results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
       if ids.present?
+        #TODO R2P: records to patients name
         recs = sample_and_duplicate_records(recs, ids, :random => prng)
       end
     end
@@ -112,6 +116,7 @@ class ProductTest
   end
 
   def sample_and_duplicate_records(recs, ids, random: Random.new)
+    #TODO R2P: change to use patient model
     car = ::Validators::CalculatingAugmentedRecords.new(measures, [], id)
     dups = records.find(ids)
 
@@ -132,6 +137,7 @@ class ProductTest
   end
 
   def randomize_clinical_data(recs, dups, random)
+    #TODO R2P: change to use patient model
     # Pic a record to clinically randomize, then delete it from dups (so it doesn't get duplicated also)
     # And delete it from recs so we don't return the whole patient too
     return [recs, dups] if dups.count < 2

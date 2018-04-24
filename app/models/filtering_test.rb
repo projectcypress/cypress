@@ -40,6 +40,7 @@ class FilteringTest < ProductTest
   end
 
   def pick_filter_criteria
+    #TODO R2P: select from patients
     return unless options && options['filters']
     # select a random patient
     prng = Random.new(rand_seed.to_i)
@@ -68,6 +69,7 @@ class FilteringTest < ProductTest
   # (E) Patient Insurance
   #
   def patient_cache_filter
+    #TODO R2P: pick patient cache filter using new model (find where options['filters'] is set)
     input_filters = (options['filters'] || {}).dup
     filters = {}
     # QME can handle races, ethnicities, genders, providers, and patient_ids (and languages)

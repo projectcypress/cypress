@@ -1,6 +1,7 @@
 module Cypress
   class ClinicalRandomizer
     def self.randomize(record, effective_date, measure_period_start, random: Random.new)
+      #TODO R2P: change to use patient name
       case random.rand(2)
       when 0
         split_by_date(record, effective_date, measure_period_start, random)
@@ -10,6 +11,7 @@ module Cypress
     end
 
     def self.split_by_date(record, effective_date, measure_period_start, random)
+      #TODO R2P: change to use patient model
       record1 = record.clone
       record2 = record.clone
 
@@ -75,6 +77,7 @@ module Cypress
     end
 
     def self.set_record_sections_for_type(new_record, old_record, entry_types, start_point, end_point)
+      #TODO R2P: change to use patient model
       Record::Sections.each do |section|
         new_record.send section.to_s + '=', [] unless section == :insurance_providers
       end

@@ -30,9 +30,11 @@ module Cypress
       prng = Random.new(@test.rand_seed.to_i)
 
       # if Shift records is selected, move all patient data into the actual reporting period
+      #TODO R2P: change shift_records name
       if @test.product.shift_records
         date_shift = @test.bundle.start_date_offset
         patients.each do |patient|
+          #TODO R2P: make sure shift dates is implemented on base patient model (or in ext as necessary)
           patient.shift_dates(date_shift)
         end
       end
@@ -53,6 +55,7 @@ module Cypress
       @test = ProductTest.find(options['test_id'])
       if options['patient_ids']
         # clone each of the patients identified in the :patient_ids parameter
+        #TODO R2P: change to patient model
         @test.bundle.records.where(test_id: nil).in(medical_record_number: options['patient_ids']).to_a
       else
         @test.bundle.records.where(test_id: nil).to_a
@@ -62,6 +65,7 @@ module Cypress
     def randomize_ids(patients, prng)
       how_many = prng.rand(5) + 1
       randomization_ids = options['randomization_ids'].shuffle(random: prng)[0..how_many]
+      #TODO R2P: change to patient name, model
       random_records = @test.bundle.records.where(test_id: nil).in(medical_record_number: randomization_ids).to_a
 
       random_records.each do |patient|
@@ -75,7 +79,9 @@ module Cypress
 
     # if provider argument is nil, this function will assign a new provider based on the @option['providers'] and @option['generate_provider'] options
     def clone_and_save_record(record, prng, provider = nil, allow_dups = false)
+      #TODO R2P: change to patient name
       cloned_patient = record.clone
+      # TODO R2P: use patient model
       unnumerify cloned_patient if record.first =~ /\d/ || record.last =~ /\d/
       cloned_patient[:original_medical_record_number] = cloned_patient.medical_record_number
       cloned_patient.medical_record_number = next_medical_record_number unless options['disable_randomization']
@@ -90,6 +96,7 @@ module Cypress
 
     def unnumerify(patient)
       [%w[0 ZERO], %w[1 ONE], %w[2 TWO], %w[3 THREE], %w[4 FOUR], %w[5 FIVE], %w[6 SIX], %w[7 SEVEN], %w[8 EIGHT], %w[9 NINE]].each do |replacement|
+        # TODO R2P: use patient model
         patient.first.gsub!(replacement[0], replacement[1])
         patient.last.gsub!(replacement[0], replacement[1])
       end
@@ -99,6 +106,7 @@ module Cypress
       entries_with_references = []
       entry_id_hash = {}
       index = 0
+      # TODO R2P: use new patient model
       cloned_patient.entries.each do |entry|
         entry_id_hash[entry.id.to_s] = BSON::ObjectId.new
         entry.id = entry_id_hash[entry.id.to_s]
@@ -109,6 +117,7 @@ module Cypress
     end
 
     def reconnect_references(cloned_patient, entries_with_references, entry_id_hash)
+      # TODO R2P: use new patient model
       entries_with_references.each do |entry_with_reference_index|
         entry_with_reference = cloned_patient.entries[entry_with_reference_index]
         entry_with_reference.references.each do |reference|
@@ -127,6 +136,7 @@ module Cypress
     end
 
     def patch_insurance_provider(patient)
+      #TODO R2P: change to patient model
       insurance_codes = { 'MA' => '1', 'MC' => '2', 'OT' => '349' }
       patient.insurance_providers.each { |ip| ip.codes['SOP'] = [insurance_codes[ip.type]] if ip.codes.empty? }
     end
@@ -142,6 +152,7 @@ module Cypress
                measure = @test.measures.first
                Provider.default_provider(measure_type: measure.type)
              end
+      # TODO R2P: change to patient model
       patient.provider_performances.build(provider: prov) if prov
     end
 
@@ -150,6 +161,7 @@ module Cypress
     end
 
     def assign_existing_provider(patient, provider)
+      # TODO R2P: change to patient model
       patient.provider_performances.each(&:destroy)
       patient.provider_performances.build(provider: provider)
     end
