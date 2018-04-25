@@ -11,8 +11,8 @@ gem 'bson_ext'
 gem 'os'
 
 gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi', :branch => 'better_codes_and_scalar_error'
-gem 'cqm-converter', :git => 'https://github.com/projecttacoma/cqm-converter.git', :branch => 'camelCase_updated'
-gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'master'
+gem 'cqm-converter'
+gem 'cqm-models'
 
 gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'r5'
 # gem 'health-data-standards', '~> 3.7.0'
@@ -90,6 +90,8 @@ gem 'mongoid_rails_migrations', :git => 'https://github.com/adacosta/mongoid_rai
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+gem 'bunny'
 
 group :development, :test do
   gem 'rubocop', '0.49', :require => false
