@@ -63,6 +63,7 @@ module Validators
       #   ex_opts = { 'test_id' => te.id, 'bundle_id' => @bundle.id,  'effective_date' => te.task.effective_date,
       #               'enable_logging' => true, 'enable_rationale' => true, 'oid_dictionary' => generate_oid_dictionary(measure, @bundle.id) }
       #   @mre = QME::MapReduce::Executor.new(measure.hqmf_id, measure.sub_id, ex_opts)
+        @calc = Cypress::JsEcqmCalc.new(record.id, [measure.id] {})
       #   results = @mre.get_patient_result(record.medical_record_number)
       #   original_results = QME::PatientCache.where('value.medical_record_id' => mrn, 'value.test_id' => @test_id,
       #                                              'value.measure_id' => measure.hqmf_id, 'value.sub_id' => measure.sub_id).first

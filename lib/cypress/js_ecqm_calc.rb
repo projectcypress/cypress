@@ -2,7 +2,7 @@ require 'bunny'
 require 'json'
 
 module Cypress
-    class Calculator
+    class JsEcqmCalc
 
         attr_accessor :patient_ids, :measure_ids, :options
 
