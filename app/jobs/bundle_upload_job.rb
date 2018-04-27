@@ -13,7 +13,7 @@ class BundleUploadJob < ApplicationJob
     options = DEFAULT_OPTIONS.merge(options)
     already_have_default = Bundle.where(active: true).exists?
 
-    importer = HealthDataStandards::Import::Bundle::Importer
+    importer = Cypress::CqlBundleImporter
     @bundle = importer.import(bundle_file, options)
 
     if already_have_default
