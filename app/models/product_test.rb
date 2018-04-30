@@ -208,14 +208,34 @@ class ProductTest
 
   private
 
+  # Returns a listing of all ids for patients in the IPP
+  def patients_in_ipp_and_greater
+    IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) },
+                           'IPP' => { '$gt' => 0 }, 'extended_data.correlation_id' => bundle.id).distinct(:patient)
+  end
+
+  # Returns an id for a patient in the Numerator
+  def patient_in_numerator
+    IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) },
+                           'extended_data.correlation_id' => bundle.id, 'NUMER' => { '$gt' => 0 }).distinct(:patient).sample
+  end
+
+  # Returns a listing of all ids for patients in the Denominator
+  def patients_in_denominator_and_greater
+    IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) },
+                           'extended_data.correlation_id' => bundle.id, 'DENOM' => { '$gt' => 0 }).distinct(:patient)
+  end
+
+  # Returns a listing of all ids for patients in the Measure Population
+  def patients_in_measure_population_and_greater
+    IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) },
+                           'extended_data.correlation_id' => bundle.id, 'MSRPOPL' => { '$gt' => 0 }).distinct(:patient)
+  end
+
   def master_patient_ids
-    #TODO CQL: use new results model
-    mpl_ids = get_medrec_ids(PatientCache.where('value.measure_id' => { '$in' => measure_ids },
-                                                'value.test_id' => nil, 'value.IPP' => { '$gt' => 0 }))
+    mpl_ids = patients_in_ipp_and_greater
 
-    mpl_ids = uniq_mpl_ids(mpl_ids)
-
-    if product.randomize_patients
+    if product.randomize_records
       denom_ids = pick_denom_ids
 
       msrpopl_ids = pick_msrpopl_ids
@@ -235,24 +255,18 @@ class ProductTest
 
   def pick_denom_ids
     # numer_id ensures we get at least one patient who is in the Numerator, no matter what
-    #TODO CQL: use new results model
-    numer_id = get_medrec_ids(PatientCache.where('value.measure_id' => { '$in' => measure_ids },
-                                                 'value.test_id' => nil, 'value.NUMER' => { '$gt' => 0 })).sample
-
-    denom_ids = get_medrec_ids(PatientCache.where('value.measure_id' => { '$in' => measure_ids },
-                                                  'value.test_id' => nil, 'value.DENOM' => { '$gt' => 0 }))
-    denom_ids = uniq_mpl_ids(denom_ids)
+    numer_id = patient_in_numerator
+    denom_ids = patients_in_denominator_and_greater
 
     # If there are a lot of patients in denom_ids (usually when the IPP and denominator are the same thing),
     # pull out the numerator/Denex/Denexcep patients as high value (this is numer_ids), then sample from the rest to get to test_deck_max
     # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product,
     # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if denom_ids.count > (product.test_deck_max - 1)
-      high_value_ids = get_medrec_ids(PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.test_id' => nil)
-                              .any_of({ 'value.NUMER' => { '$gt' => 0 } },
-                                      { 'value.DENEXCEP' => { '$gt' => 0 } },
-                                      'value.DENEX' => { '$gt' => 0 }))
-      high_value_ids = uniq_mpl_ids(high_value_ids)
+      high_value_ids = IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) }, 'extended_data.correlation_id' => bundle.id)
+                                       .any_of({ 'NUMER' => { '$gt' => 0 } },
+                                               { 'DENEXCEP' => { '$gt' => 0 } },
+                                               'DENEX' => { '$gt' => 0 }).distinct(:patient)
       high_value_ids = high_value_ids.sample(product.test_deck_max - 1)
       denom_ids = high_value_ids + denom_ids.sample(product.test_deck_max - high_value_ids.count - 1)
     end
@@ -260,11 +274,7 @@ class ProductTest
   end
 
   def pick_msrpopl_ids
-    #TODO CQL: use new results model
-    msrpopl_ids = get_medrec_ids(PatientCache.where('value.measure_id' => { '$in' => measure_ids },
-                                                    'value.test_id' => nil, 'value.MSRPOPL' => { '$gt' => 0 }))
-    msrpopl_ids.uniq!
-    msrpopl_ids.keep_if { |id| ApplicationController.helpers.mpl_id?(id) }
+    msrpopl_ids = patients_in_measure_population_and_greater
 
     # If there are a lot of patients in the MSRPOPL results above, (usually if there are a lot of MSRPOPLEX values)
     # pull out only those patients with more than one episode in the MSRPOPL
@@ -272,28 +282,15 @@ class ProductTest
     # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product,
     # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if msrpopl_ids.count > product.test_deck_max
-      numer_ids = get_medrec_ids(
-        PatientCache.where('value.measure_id' => { '$in' => measure_ids }, 'value.test_id' => nil)
-                                .any_of({ 'value.MSRPOPL' => { '$gt' => 1 } },
-                                        '$and' => [{ 'value.MSRPOPL' => { '$eq' => 1 } }, { 'value.MSRPOPLEX' => { '$eq' => 0 } }])
+      numer_ids = get_record_ids(
+        IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) }, 'extended_data.correlation_id' => bundle.id)
+                        .any_of({ 'MSRPOPL' => { '$gt' => 1 } },
+                                '$and' => [{ 'MSRPOPL' => { '$eq' => 1 } }, { 'MSRPOPLEX' => { '$eq' => 0 } }]).distinct(:patient)
       )
-      numer_ids = uniq_mpl_ids(numer_ids)
       numer_ids = numer_ids.sample(product.test_deck_max)
       msrpopl_ids = numer_ids + msrpopl_ids.sample(product.test_deck_max - numer_ids.count)
     end
     msrpopl_ids
-  end
-
-  def uniq_mpl_ids(ids)
-    ids.uniq!
-    ids.keep_if { |id| ApplicationController.helpers.mpl_id?(id) }
-    ids
-  end
-
-  def get_medrec_ids(patient_caches)
-    patient_caches.collect do |pcv|
-      pcv.value['medical_record_id']
-    end
   end
 
   def generate_random_seed
