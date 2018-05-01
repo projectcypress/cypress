@@ -101,6 +101,20 @@ module Cypress
       xml
     end
 
+    def generate_cat3_for_test(correlation_id)
+      exporter = HealthDataStandards::Export::Cat3.new(@bundle.qrda3_version)
+      end_date = Time.at(@effective_date.to_i).in_time_zone
+      xml = exporter.export(HealthDataStandards::CQM::Measure.top_level.where(hqmf_id: @measure.hqmf_id, bundle_id: @bundle.id),
+                            generate_header,
+                            @effective_date.to_i,
+                            end_date.years_ago(1) + 1,
+                            end_date,
+                            @bundle.qrda3_version,
+                            nil,
+                            correlation_id)
+      xml
+    end
+
     def clean_up
       QME::PatientCache.where(test_id: @correlation_id).destroy_all
       HealthDataStandards::CQM::QueryCache.where(test_id: @correlation_id).destroy_all

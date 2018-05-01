@@ -30,6 +30,7 @@ module Cypress
     attr_accessor :end_time
 
     def initialize(measures, start_time, end_time)
+      @qdm_patient_converter = CQM::Converter::QDMPatient.new
       @measures = measures.to_a
       @start_time = start_time
       @end_time = end_time
@@ -40,7 +41,9 @@ module Cypress
       case patient.bundle.qrda_version
       when 'r5'
         # TODO R2P: make sure patient export works with HDS Cat1 R5 exporter
-        C5EXPORTER.export(patient, measures, start_time, end_time, nil, 'r5', cms_compatibility)
+        hdsrecord = @qdm_patient_converter.to_hds(patient)
+        hdsrecord.bundle_id = patient.bundleId
+        C5EXPORTER.export(hdsrecord, measures, start_time, end_time, nil, 'r5', cms_compatibility)
       end
     end
   end
@@ -64,9 +67,6 @@ module Cypress
 
       Zip::ZipOutputStream.open(file.path) do |z|
         patients.each_with_index do |patient, i|
-          # safe_first_name = patient.first.delete("'")
-          # safe_last_name = patient.last.delete("'")
-          # next_entry_path = "#{i}_#{safe_first_name}_#{safe_last_name}"
           z.put_next_entry("#{next_entry_path(patient, i)}.#{FORMAT_EXTENSIONS[format.to_sym]}")
           #TODO R2P: make sure using correct exporter
           z << if formatter == HealthDataStandards::Export::HTML
@@ -110,8 +110,8 @@ module Cypress
     end
 
     def self.next_entry_path(patient, index)
-      safe_first_name = patient.first.delete("'")
-      safe_last_name = patient.last.delete("'")
+      safe_first_name = patient.givenNames.join(' ').delete("'")
+      safe_last_name = patient.familyName.delete("'")
       "#{index}_#{safe_first_name}_#{safe_last_name}"
     end
   end

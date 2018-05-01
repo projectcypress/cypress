@@ -27,48 +27,19 @@ class MeasureEvaluationJob < ApplicationJob
     results = {}
     erc = Cypress::ExpectedResultsCalculator.new(product_test.patients)
     measures.each_with_index do |measure|
-      dictionary = generate_oid_dictionary(measure, measure.bundle_id)
-      #TODO R2P: use new calculation engine
-      qr = QME::QualityReport.find_or_create(measure['hqmf_id'], measure.sub_id, 'bundle_id' => product_test.bundle.id,
-                                                                                 'effective_date' => product_test.effective_date,
-                                                                                 'test_id' => product_test.id,
-                                                                                 :filters => options['filters'],
-                                                                                 'enable_logging' => Settings.current.enable_logging,
-                                                                                 'enable_rationale' => true)
-
-      qr.calculate({ 'bundle_id' => product_test.bundle.id,
-                     'oid_dictionary' => dictionary,
-                     'prefilter' => { test_id: product_test.id } }, false)
-      qr.reload
-      result = qr.result
-      res = result.as_document
-      res.delete('_id')
-      res['measure_id'] = measure.hqmf_id
-      results[measure.key] = res
+      individual_results = IndividualResult.where('measure' => measure.id, 'extended_data.correlation_id' => product_test.id.to_s)
+      results[measure.key] = erc.aggregate_results(individual_results, measure.population_ids)
+      results[measure.key]['measure_id'] = measure.hqmf_id
+      create_query_cache_object(results[measure.key], product_test, measure)
     end
     results
   end
 
-  def generate_oid_dictionary(measure, bundle_id)
-    #TODO CQL: check uses new model properly?
-    valuesets = HealthDataStandards::CQM::Bundle.find(bundle_id).value_sets.in(oid: measure.oids)
-    js = {}
-    valuesets.each do |vs|
-      js[vs.oid] = cached_value(vs)
-    end
-    js.to_json
+  def create_query_cache_object(result, product_test, measure)
+    result['test_id'] = product_test.id
+    result['effective_date'] = product_test.effective_date
+    result['sub_id'] = measure.sub_id if measure.sub_id
+    Mongoid.default_client["query_cache"].insert_one(result)
   end
 
-  def cached_value(vs)
-    @loaded_valuesets ||= {}
-    return @loaded_valuesets[vs.oid] if @loaded_valuesets[vs.oid]
-    js = {}
-    vs.concepts.each do |con|
-      name = con.code_system_name
-      js[name] ||= []
-      js[name] << con.code.downcase unless js[name].index(con.code.downcase)
-    end
-    @loaded_valuesets[vs.oid] = js
-    js
-  end
 end

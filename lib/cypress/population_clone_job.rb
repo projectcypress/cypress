@@ -55,8 +55,7 @@ module Cypress
       @test = ProductTest.find(options['test_id'])
       if options['patient_ids']
         # clone each of the patients identified in the :patient_ids parameter
-        #TODO R2P: will this get us patients from the bundle?
-        @test.bundle.patients.where(:'extendedData.correlation_id' => nil).in(medical_record_number: options['patient_ids']).to_a
+        @test.bundle.patients.find(options['patient_ids']).to_a
       else
         @test.bundle.patients.where(:'extendedData.correlation_id' => nil).to_a
       end

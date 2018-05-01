@@ -16,8 +16,8 @@ module Validators
       @found_names = []
       init_data
       @names = Hash[*records.collect do |r|
-        [to_doc_name(r.first, r.last),
-         r.medical_record_number]
+        [to_doc_name(r.givenNames.join(' '), r.familyName),
+         r.id]
       end.flatten]
       @can_continue = true
       @options = options
@@ -27,8 +27,9 @@ module Validators
       @sgd = {}
       @expected_records = []
       @measures.each do |mes|
-        @sgd[mes.hqmf_id] = mes.smoking_gun_data('value.test_id' => @test_id)
-        @expected_records.concat @sgd[mes.hqmf_id].keys
+        @expected_records << IndividualResult.where('measure' => mes.id, 'extended_data.correlation_id' => @test_id.to_s).distinct(:patient)
+        #@sgd[mes.hqmf_id] = mes.smoking_gun_data('value.test_id' => @test_id)
+        #@expected_records.concat @sgd[mes.hqmf_id].keys
       end
       @expected_records = @expected_records.flatten.uniq
     end
