@@ -161,7 +161,7 @@ class ProductTest
 
   def results
     # TODO CQL: use new results model
-    PatientCache.where('value.test_id' => id).order_by(['value.last', :asc])
+    IndividualResult.where('extended_data.correlation_id' => id.to_s)
   end
 
   %i[ready queued building errored].each do |test_state|
