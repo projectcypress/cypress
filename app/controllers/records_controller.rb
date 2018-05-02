@@ -5,7 +5,7 @@ class RecordsController < ApplicationController
 
   def index
     unless Bundle.default
-      @records = []
+      @patients = []
       @measures = []
       add_breadcrumb 'Master Patient List', :records
 
@@ -14,7 +14,7 @@ class RecordsController < ApplicationController
 
     return redirect_to bundle_records_path(Bundle.default) unless params[:bundle_id] || params[:task_id]
     # TODO: Only show measures where there are patient results. CMS32v4 sub id c and d have no patients, for example.
-    @records = @source.records.order_by(first: 'asc')
+    @patients = @source.patients.order_by(first: 'asc')
     # create json with the display_name and url for each measure
     @measure_dropdown = Rails.cache.fetch("#{@source.cache_key}/measure_dropdown") do
       @source.measures

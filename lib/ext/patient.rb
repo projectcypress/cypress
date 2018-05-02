@@ -34,7 +34,7 @@ module QDM
 
     def calculation_results
       # TODO CQL: update result model
-      HealthDataStandards::CQM::PatientCache.where('value.patient_id' => id).where('value.IPP'.to_sym.gt => 0)
+      IndividualResult.where('patient' => id).where('IPP'.to_sym.gt => 0)
     end
 
     # R2P TODO: where to get provider_performances from
@@ -102,7 +102,7 @@ module QDM
     end
 
     def gender
-      gender_chars = patient.get_data_elements('patient_characteristic', 'gender')
+      gender_chars = get_data_elements('patient_characteristic', 'gender')
       if gender_chars && gender_chars.any? && gender_chars.first.dataElementCodes &&
         gender_chars.first.dataElementCodes.any?
         gender_chars.first.dataElementCodes.first[:code]
