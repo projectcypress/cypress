@@ -3,6 +3,7 @@ module Validators
     include Validators::Validator
     def initialize(measures, records, test_id, options = {})
       @measures = measures
+      @hds_record_converter = CQM::Converter::HDSRecord.new
       super
     end
 
@@ -39,13 +40,13 @@ module Validators
     end
 
     def parse_and_save_record(doc, te, options)
-      record = GoCDATools::Import::GoImporter.instance.parse_with_ffi(doc)
+      record = HealthDataStandards::Import::Cat1::PatientImporter.instance.parse_cat1(doc)
       record.test_id = te.id
       record.medical_record_number = rand(1_000_000_000_000_000)
-      # When imported from go, negated enries need to lookup a related code
-      Cypress::GoImport.replace_negated_codes(record, @bundle)
-      record.save
-      record
+      tempPatient =  @hds_record_converter.to_qdm(record)
+      tempPatient['extendedData']['test_id'] = nil
+      tempPatient.save
+      tempPatient
     rescue
       add_error('File failed import', file_name: options[:file_name])
       nil
@@ -54,21 +55,25 @@ module Validators
     def validate_calculated_results(doc, options)
       te = options['test_execution']
 
-      mrn, = get_record_identifiers(doc, options)
-      return false unless mrn
+      # mrn, = get_record_identifiers(doc, options)
+      # return false unless mrn
 
       passed = true
       record = parse_and_save_record(doc, te, options)
+      # require 'pry'
+      # binding.pry
       return false unless record
+      # This Logic will need to be updated with CQL calculations
       @measures.each do |measure|
-        ex_opts = { 'test_id' => te.id, 'bundle_id' => @bundle.id,  'effective_date' => te.task.effective_date,
-                    'enable_logging' => true, 'enable_rationale' => true, 'oid_dictionary' => generate_oid_dictionary(measure, @bundle.id) }
-        @mre = QME::MapReduce::Executor.new(measure.hqmf_id, measure.sub_id, ex_opts)
-        results = @mre.get_patient_result(record.medical_record_number)
-        original_results = QME::PatientCache.where('value.medical_record_id' => mrn, 'value.test_id' => @test_id,
-                                                   'value.measure_id' => measure.hqmf_id, 'value.sub_id' => measure.sub_id).first
-        options[:population_ids] = measure.population_ids
-        passed = compare_results(original_results, results, options, passed)
+      #   ex_opts = { 'test_id' => te.id, 'bundle_id' => @bundle.id,  'effective_date' => te.task.effective_date,
+      #               'enable_logging' => true, 'enable_rationale' => true, 'oid_dictionary' => generate_oid_dictionary(measure, @bundle.id) }
+      #   @mre = QME::MapReduce::Executor.new(measure.hqmf_id, measure.sub_id, ex_opts)
+        @calc = Cypress::JsEcqmCalc.new([record.id.to_s], [measure.id.to_s], {})
+      #   results = @mre.get_patient_result(record.medical_record_number)
+      #   original_results = QME::PatientCache.where('value.medical_record_id' => mrn, 'value.test_id' => @test_id,
+      #                                              'value.measure_id' => measure.hqmf_id, 'value.sub_id' => measure.sub_id).first
+      #   options[:population_ids] = measure.population_ids
+      #   passed = compare_results(original_results, results, options, passed)
       end
       record.destroy
       passed

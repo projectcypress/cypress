@@ -9,13 +9,13 @@ module Cypress
       criteria_types = []
       all_data_criteria = measure.all_data_criteria.shuffle(random: prng)
       dcs_with_attribute = all_data_criteria.clone.keep_if(&:field_values)
-      # Loads prioritized list of value sets for the measure in question
-      CAT1_CONFIG[measure.hqmf_id].each do |data_criteria_filter|
-        if data_criteria_filter['IsAttribute']
-          match_field_values(dcs_with_attribute, data_criteria_filter['ValueSet'], criterias, data_criteria_without_att, criteria_types)
-        else
-          match_data_criteria(all_data_criteria, data_criteria_filter['ValueSet'], criterias, data_criteria_without_att, criteria_types)
-        end
+      # Loads list of value sets for the measure in question
+      measure.oids.each do |oid|
+        currnet_count = dcs_with_attribute.size
+        match_field_values(dcs_with_attribute, oid, criterias, data_criteria_without_att, criteria_types)
+        # If a DC with attribute is found, go to next
+        next if dcs_with_attribute.size > currnet_count
+        match_data_criteria(all_data_criteria, oid, criterias, data_criteria_without_att, criteria_types)
       end
       # number of data criteria with attributes or negations
       interesting_criteria = criterias.size

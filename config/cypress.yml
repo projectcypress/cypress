@@ -4,7 +4,6 @@
 # These settings are kept in the constants file with the assumption that the end user should not be overriding them.
 bundle_file_path: 'temp/bundles'
 file_upload_root: 'data/upload/'
-pid_dir: './tmp/delayed_pids'
 
 # These were initially in I18n however for some reason I18n is not loaded when rake tasks are run, which means we often
 # end up getting translation missing errors.
@@ -21,39 +20,12 @@ default_warning_message: 'This warning banner provides privacy and security noti
 # In the case of none of them being valid it will default to the first one
 # modified_population_labels are used to indicate when the population code required by the qrda version differs from the population code in QME
 version_config:
-  '>2.9.0':
-      start_date_offset: 1
-      schematron: "bundle_2_9_9"
-      qrda_version: "r3"
-      qrda3_version: "r1"
-      modified_population_labels:
-      default_negation_codes:
-  '~>2016.0.0':
-      start_date_offset: 2
-      modified_population_labels:
-        IPP: 'IPOP'
-      default_negation_codes:
-      schematron: "2016.0.0"
-      qrda_version: "r3_1"
-      qrda3_version: "r2_1"
-      CMSQRDA3SchematronValidator_warnings:
-      CMSQRDA1HQRSchematronValidator_warnings:
-  '~>2016.0.2':
-      start_date_offset: 1
-      modified_population_labels:
-        IPP: 'IPOP'
-      default_negation_codes:
-      schematron: "2016.0.0"
-      qrda_version: "r3_1"
-      qrda3_version: "r2_1"
-      CMSQRDA3SchematronValidator_warnings:
-      CMSQRDA1HQRSchematronValidator_warnings:
-  '~>2017.0.0':
+  '~>2018.0.0':
       start_date_offset: 2
       modified_population_labels:
         IPP: 'IPOP'
       schematron: "2017.0.0"
-      qrda_version: "r4"
+      qrda_version: "r5"
       qrda3_version: "r2_1"
       default_negation_codes:
         2.16.840.1.113883.3.526.3.1184:

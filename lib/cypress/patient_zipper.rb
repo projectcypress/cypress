@@ -22,7 +22,7 @@ module Cypress
   end
 
   class QRDAExporter
-    QRDA_EXPORTER = GoCDATools::Export::GoExporter.instance
+    C5EXPORTER = HealthDataStandards::Export::Cat1.new('r5')
 
     attr_accessor :measures
     attr_accessor :start_time
@@ -32,17 +32,14 @@ module Cypress
       @measures = measures.to_a
       @start_time = start_time
       @end_time = end_time
-      if @measures.blank?
-        @value_sets = '[]'
-      else
-        @value_sets = HealthDataStandards::SVS::ValueSet.where(:oid.in => @measures.map(&:oids).flatten, bundle_id: @measures.first.bundle_id)
-      end
-      QRDA_EXPORTER.load_measures_and_value_sets(@measures.to_json, @value_sets.to_json)
     end
 
     def export(patient)
       cms_compatibility = patient.product_test && patient.product_test.product.c3_test
-      QRDA_EXPORTER.export_with_ffi(patient.to_json(:include => :provider), start_time, end_time, patient.bundle.qrda_version, cms_compatibility)
+      case patient.bundle.qrda_version
+      when 'r5'
+        C5EXPORTER.export(patient, measures, start_time, end_time, nil, 'r5', cms_compatibility)
+      end
     end
   end
 
