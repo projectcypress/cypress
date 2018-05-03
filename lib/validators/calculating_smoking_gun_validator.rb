@@ -64,9 +64,9 @@ module Validators
       # This Logic will need to be updated with CQL calculations
       @measures.each do |measure|
         result = Cypress::JsEcqmCalc.new([record.id.to_s],[measure.id.to_s],{ 'correlation_id': options.test_execution.id.to_s } )
-        original_results = IndividualResult.where('patient' => mrn, 'measure' => measure.id)
+        original_results = QDM::IndividualResult.where('patient_id' => mrn, 'measure_id' => measure.id)
         new_results = []
-        new_results = IndividualResult.where('patient' => record.id, 'measure' => measure.id, 'extended_data.correlation_id' => options.test_execution.id.to_s)
+        new_results = QDM::IndividualResult.where('patient_id' => record.id, 'measure_id' => measure.id, 'extendedData.correlation_id' => options.test_execution.id.to_s)
         options[:population_ids] = measure.population_ids
         passed = compare_results(original_results.first, new_results.first, options, passed)
       end

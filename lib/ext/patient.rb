@@ -34,7 +34,7 @@ module QDM
 
     def calculation_results
       # TODO CQL: update result model
-      IndividualResult.where('patient' => id).where('IPP'.to_sym.gt => 0)
+      QDM::IndividualResult.where('patient_id' => id).where('IPP'.to_sym.gt => 0)
     end
 
     # R2P TODO: where to get provider_performances from

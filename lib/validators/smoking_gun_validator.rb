@@ -27,7 +27,7 @@ module Validators
       @sgd = {}
       @expected_records = []
       @measures.each do |mes|
-        @expected_records << IndividualResult.where('measure' => mes.id, 'extended_data.correlation_id' => @test_id.to_s).distinct(:patient)
+        @expected_records << QDM::IndividualResult.where('measure_id' => mes.id, 'extendedData.correlation_id' => @test_id.to_s).distinct(:patient)
         #@sgd[mes.hqmf_id] = mes.smoking_gun_data('value.test_id' => @test_id)
         #@expected_records.concat @sgd[mes.hqmf_id].keys
       end
@@ -66,7 +66,7 @@ module Validators
 
     def validate_name(doc_name, options)
       return true if @names[doc_name] ||
-                     !options['task'].augmented_records.index { |r| doc_name == to_doc_name(r[:first][1], r[:last][1]) }.nil?
+                     !options['task'].augmented_patients.index { |r| doc_name == to_doc_name(r[:first][1], r[:last][1]) }.nil?
       @can_continue = false
       return false if @options[:suppress_errors]
       add_error("Patient name '#{doc_name}' declared in file not found in test records",

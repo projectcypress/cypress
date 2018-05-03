@@ -123,11 +123,11 @@ module Cypress
         contents.each do |document|
 
           # Replace ids in bundle, with ids created during import
-          document['patient'] = @patient_id_hash[document['patient']]
-          document['measure'] = @measure_id_hash[document['measure']]
-          document['extended_data'] = {} 
-          document['extended_data']['correlation_id'] = bundle.id
-          Mongoid.default_client["individual_results"].insert_one(document)
+          document['patient_id'] = @patient_id_hash[document['patient_id']]
+          document['measure_id'] = @measure_id_hash[document['measure_id']]
+          document['extendedData'] = {} 
+          document['extendedData']['correlation_id'] = bundle.id.to_s
+          Mongoid.default_client["qdm_individual_results"].insert_one(document)
         end
       end
       puts "\rLoading: Results Complete          "

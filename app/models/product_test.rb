@@ -161,7 +161,7 @@ class ProductTest
 
   def results
     # TODO CQL: use new results model
-    IndividualResult.where('extended_data.correlation_id' => id.to_s)
+    QDM::IndividualResult.where('extendedData.correlation_id' => id.to_s)
   end
 
   %i[ready queued building errored].each do |test_state|
@@ -209,26 +209,26 @@ class ProductTest
 
   # Returns a listing of all ids for patients in the IPP
   def patients_in_ipp_and_greater
-    IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) },
-                           'IPP' => { '$gt' => 0 }, 'extended_data.correlation_id' => bundle.id).distinct(:patient)
+    QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
+                           'IPP' => { '$gt' => 0 }, 'extendedData.correlation_id' => bundle.id).distinct(:patient)
   end
 
   # Returns an id for a patient in the Numerator
   def patient_in_numerator
-    IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) },
-                           'extended_data.correlation_id' => bundle.id, 'NUMER' => { '$gt' => 0 }).distinct(:patient).sample
+    QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
+                           'extendedData.correlation_id' => bundle.id, 'NUMER' => { '$gt' => 0 }).distinct(:patient).sample
   end
 
   # Returns a listing of all ids for patients in the Denominator
   def patients_in_denominator_and_greater
-    IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) },
-                           'extended_data.correlation_id' => bundle.id, 'DENOM' => { '$gt' => 0 }).distinct(:patient)
+    QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
+                           'extendedData.correlation_id' => bundle.id, 'DENOM' => { '$gt' => 0 }).distinct(:patient)
   end
 
   # Returns a listing of all ids for patients in the Measure Population
   def patients_in_measure_population_and_greater
-    IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) },
-                           'extended_data.correlation_id' => bundle.id, 'MSRPOPL' => { '$gt' => 0 }).distinct(:patient)
+    QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
+                           'extendedData.correlation_id' => bundle.id, 'MSRPOPL' => { '$gt' => 0 }).distinct(:patient)
   end
 
   def master_patient_ids
@@ -262,7 +262,7 @@ class ProductTest
     # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product,
     # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if denom_ids.count > (product.test_deck_max - 1)
-      high_value_ids = IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) }, 'extended_data.correlation_id' => bundle.id)
+      high_value_ids = QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, 'extendedData.correlation_id' => bundle.id)
                                        .any_of({ 'NUMER' => { '$gt' => 0 } },
                                                { 'DENEXCEP' => { '$gt' => 0 } },
                                                'DENEX' => { '$gt' => 0 }).distinct(:patient)
@@ -282,7 +282,7 @@ class ProductTest
     # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if msrpopl_ids.count > product.test_deck_max
       numer_ids = get_record_ids(
-        IndividualResult.where('measure' => { '$in' => measures.pluck(:_id) }, 'extended_data.correlation_id' => bundle.id)
+        QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, 'extendedData.correlation_id' => bundle.id)
                         .any_of({ 'MSRPOPL' => { '$gt' => 1 } },
                                 '$and' => [{ 'MSRPOPL' => { '$eq' => 1 } }, { 'MSRPOPLEX' => { '$eq' => 0 } }]).distinct(:patient)
       )
