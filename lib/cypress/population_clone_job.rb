@@ -1,5 +1,5 @@
 module Cypress
-  # This is Resque job that will create records for a ProductTest. Currently you have the choice between doing a full
+  # This is Resque job that will create patients for a ProductTest. Currently you have the choice between doing a full
   # clone of the test deck or a specific subset to cover the 3 core measures. In the near future we will support more
   # options to make very customized TD subsets. For now, a subset_id of 'core20' will mean the 3 core measures. If that
   # parameter does not exist, we copy the whole deck. For example:
@@ -24,13 +24,12 @@ module Cypress
     end
 
     def perform
-      # Clone AMA records from Mongo
+      # Clone AMA patients from Mongo
       patients = find_patients_to_clone
 
       prng = Random.new(@test.rand_seed.to_i)
 
-      # if Shift records is selected, move all patient data into the actual reporting period
-      #TODO R2P: change shift_records name
+      # if Shift patients is selected, move all patient data into the actual reporting period
       if @test.product.shift_patients
         date_shift = @test.bundle.start_date_offset
         patients.each do |patient|
@@ -38,20 +37,20 @@ module Cypress
           patient.shift_dates(date_shift)
         end
       end
-      # grab a random number of records and then randomize the dates between +- 10 days
+      # grab a random number of patients and then randomize the dates between +- 10 days
       randomize_ids(patients, prng) if options['randomization_ids']
 
-      # get single provider if @test is a measure test. measure tests have a single provider for each record while filtering tests can have different
-      # providers for each record
+      # get single provider if @test is a measure test. measure tests have a single provider for each patient while filtering tests can have different
+      # providers for each patient
       provider = @test.provider if @test.class == MeasureTest
 
       allow_dups = @test.product.allow_duplicate_names
 
-      patients.each { |patient| clone_and_save_record(patient, prng, provider, allow_dups) }
+      patients.each { |patient| clone_and_save_patient(patient, prng, provider, allow_dups) }
     end
 
     def find_patients_to_clone
-      # Clone AMA records from Mongo
+      # Clone AMA patients from Mongo
       @test = ProductTest.find(options['test_id'])
       if options['patient_ids']
         # clone each of the patients identified in the :patient_ids parameter
@@ -64,39 +63,36 @@ module Cypress
     def randomize_ids(patients, prng)
       how_many = prng.rand(5) + 1
       randomization_ids = options['randomization_ids'].shuffle(random: prng)[0..how_many]
-      #TODO R2P: change to patient name, model
-      random_records = @test.bundle.records.where(test_id: nil).in(medical_record_number: randomization_ids).to_a
+      random_patients = @test.bundle.patients.find(randomization_ids).to_a
 
-      random_records.each do |patient|
-        # seconds = 1_944_000 # 60 secs per min * 60 min per hour * 24 hours in day * 10 days
-        # plus_minus = prng.rand(2).zero? ? 1 : -1 # use this to make move dates forward or backwards
-        # date_shift = prng.rand(seconds) * plus_minus
-        # patient.shift_dates(date_shift)
+      random_patients.each do |patient|
+        seconds = 1_944_000 # 60 secs per min * 60 min per hour * 24 hours in day * 10 days
+        plus_minus = prng.rand(2).zero? ? 1 : -1 # use this to make move dates forward or backwards
+        date_shift = prng.rand(seconds) * plus_minus
+        patient.shift_dates(date_shift)
         patients << patient
       end
     end
 
     # if provider argument is nil, this function will assign a new provider based on the @option['providers'] and @option['generate_provider'] options
-    def clone_and_save_record(patient, prng, provider = nil, allow_dups = false)
+    def clone_and_save_patient(patient, prng, provider = nil, allow_dups = false)
       cloned_patient = patient.clone
-      unnumerify cloned_patient if patient.givenNames[0] =~ /\d/ || patient.familyName =~ /\d/
-      cloned_patient.extendedData[:original_medical_record_number] = cloned_patient.extendedData.medical_record_number
-      cloned_patient.extendedData[:original_patient] = patient.id
-      cloned_patient.extendedData[:medical_record_number] = next_medical_record_number unless options['disable_randomization']
-      cloned_patient.extendedData[:correlation_id] = options['test_id']
       # TODO R2P: use patient model
-      # DemographicsRandomizer.randomize(cloned_patient, prng, allow_dups) if options['randomize_demographics']
-      # patch_insurance_provider(record)
-      # randomize_entry_ids(cloned_patient) unless options['disable_randomization']
+      unnumerify cloned_patient if patient.givenNames.map{|n| n =~ /\d/}.any? || patient.familyName =~ /\d/
+      cloned_patient[:original_medical_record_number] = cloned_patient.extendedData[:medical_record_number]
+      cloned_patient.extendedData[:medical_record_number] = next_medical_record_number unless options['disable_randomization']
+      DemographicsRandomizer.randomize(cloned_patient, prng, allow_dups) if options['randomize_demographics']
+      cloned_patient.extendedData[:correlation_id] = options['test_id']
+      patch_insurance_provider(patient)
+      # randomize_entry_ids(cloned_patient) unless options['disable_randomization']... TODO R2P: priority 1.2
       # assign existing provider if provider argument is not nil (should be when @test is a measure test)
-      # provider ? assign_existing_provider(cloned_patient, provider) : assign_provider(cloned_patient)
+      # provider ? assign_existing_provider(cloned_patient, provider) : assign_provider(cloned_patient) ... TODO R2P: priority 1.2
       cloned_patient.save!
     end
 
     def unnumerify(patient)
       [%w[0 ZERO], %w[1 ONE], %w[2 TWO], %w[3 THREE], %w[4 FOUR], %w[5 FIVE], %w[6 SIX], %w[7 SEVEN], %w[8 EIGHT], %w[9 NINE]].each do |replacement|
-        # TODO R2P: use patient model
-        patient.givenNames[0].gsub!(replacement[0], replacement[1])
+        patient.givenNames.map{ |n| n.gsub!(replacement[0], replacement[1])}
         patient.familyName.gsub!(replacement[0], replacement[1])
       end
     end
@@ -135,9 +131,10 @@ module Cypress
     end
 
     def patch_insurance_provider(patient)
-      #TODO R2P: change to patient model
       insurance_codes = { 'MA' => '1', 'MC' => '2', 'OT' => '349' }
-      patient.insurance_providers.each { |ip| ip.codes['SOP'] = [insurance_codes[ip.type]] if ip.codes.empty? }
+      providers = JSON.parse(patient.extendedData.insurance_providers)
+      providers.each { |ip| ip.codes['SOP'] = [insurance_codes[ip.type]] if ip.codes.empty? }
+      patient.extendedData.insurance_providers =  JSON.generate(providers)
     end
 
     def assign_provider(patient)

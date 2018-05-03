@@ -86,7 +86,9 @@ class ProductTest
                    else
                      # TODO R2P: check where(:'extendedData.correlation_id' => nil).pluck('extendedData.medical_record_number').uniq doesn't work
                      #get medical record numbers for master patients (have no correlation (test) id)
-                     bundle.patients.where(:'extendedData.correlation_id' => nil).map {|mp| mp[:extendedData][:medical_record_number] }.uniq
+                     # bundle.patients.where(:'extendedData.correlation_id' => nil).map {|mp| mp[:extendedData][:medical_record_number] }.uniq
+                     #essentially getting master_patient_ids
+                     master_patient_ids
                    end
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'randomization_ids' => random_ids,
                                       'randomize_demographics' => true, 'generate_provider' => product.c4_test, 'job_id' => job_id).perform

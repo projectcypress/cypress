@@ -26,7 +26,7 @@ module QDM
       date.year - dob.year - (date.month > dob.month || (date.month == dob.month && date.day >= dob.day) ? 0 : 1)
     end
 
-    def original_record
+    def original_patient
       if self['original_medical_record_number']
         bundle.patients.where('extendedData.medical_record_number' => self['original_medical_record_number']).first
       end
@@ -65,12 +65,12 @@ module QDM
     end
 
     def randomize_patient_name_or_birth(patient, changed, random: Random.new)
-      case random.rand(3) # random chooses which part of the record is modified
+      case random.rand(3) # random chooses which part of the patient is modified
       when 0 # first name
         patient = randomize_patient_name_first(patient, random: random)
         changed[:first] = [first_names, patient.first_names]
       when 1 # last name
-        rec = randomize_patient_name_last(patient, random: random)
+        patient = randomize_patient_name_last(patient, random: random)
         changed[:last] = [givenName, patient.givenName]
       when 2 # birthdate
         patient.birthDatetime = DateTime.strptime(patient.birthDatetime.to_s, '%s').change(
@@ -222,18 +222,20 @@ module QDM
     #   Record::Sections.each {|section| self.dedup_section!(section)}
     # end
     #
-    # def shift_dates(date_diff)
-    #   self.birthdate = (self.birthdate.nil?) ? nil : self.birthdate + date_diff
-    #   self.deathdate = (self.deathdate.nil?) ? nil : self.deathdate + date_diff
-    #   self.provider_performances.each {|pp| pp.shift_dates(date_diff)}
-    #   Sections.each do |sec|
-    #     (self.send sec || []).each do |ent|
-    #       ent.shift_dates(date_diff)
-    #     end
-    #
-    #   end
-    #
-    # end
+    def shift_dates(date_diff)
+      self.birthDatetime = (self.birthDatetime.nil?) ? nil : self.birthDatetime + date_diff
+      #TODO R2P: are provider_performances still being used?
+      #TODO R2P: priority 1.2 (time shift should be implemented in model)
+      # self.provider_performances.each {|pp| pp.shift_dates(date_diff)}
+      #shift all dataElements
+      self.dataElements.each do |de|
+        de.expiredDatetime = (de.expiredDatetime.nil?) ? nil : de.expiredDatetime + date_diff if de.qdmStatus == 'patientCharacteristicExpired'
+        de.authorDatetime =  (de.authorDatetime.nil?) ? nil : de.authorDatetime + date_diff
+        de.prevalencePeriod.shift_dates(date_diff) if de.prevalencePeriod
+        de.relevantPeriod.shift_dates(date_diff) if de.relevantPeriod
+      end
+
+    end
     #
     # private
     #
