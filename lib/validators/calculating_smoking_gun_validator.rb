@@ -3,6 +3,8 @@ module Validators
     include Validators::Validator
     def initialize(measures, records, test_id, options = {})
       @measures = measures
+      @hqmf_map = HealthDataStandards::Export::QRDA::EntryTemplateResolver.hqmf_qrda_oid_map
+      @hds_record_converter = CQM::Converter::HDSRecord.new
       super
     end
 
@@ -38,12 +40,16 @@ module Validators
       [original_value, calculated_value, pop]
     end
 
+    def description_for_hqmf_oid(entry_oid)
+      hqmf_qrda_tuple = @hqmf_map.find { |map_tuple| map_tuple['hqmf_oid'] == entry_oid }
+      "#{hqmf_qrda_tuple['qrda_name']}:"
+    end
+
     def parse_and_save_record(doc, te, options)
       record = HealthDataStandards::Import::Cat1::PatientImporter.instance.parse_cat1(doc)
       record.test_id = te.id
       record.medical_record_number = rand(1_000_000_000_000_000)
-      #record.save
-      @hds_record_converter = CQM::Converter::HDSRecord.new
+      record.entries.each { |entry| entry.description = description_for_hqmf_oid(entry.oid) }
       patient = @hds_record_converter.to_qdm(record)
       patient.save
       patient
@@ -62,10 +68,10 @@ module Validators
       record = parse_and_save_record(doc, te, options)
       return false unless record
       # This Logic will need to be updated with CQL calculations
+      calc_job = Cypress::JsEcqmCalc.new([record.id.to_s], @measures.map { |mes| mes._id.to_s }, { 'correlation_id': options.test_execution.id.to_s } )
+      calc_job.sync_job
       @measures.each do |measure|
-        result = Cypress::JsEcqmCalc.new([record.id.to_s],[measure.id.to_s],{ 'correlation_id': options.test_execution.id.to_s } )
         original_results = QDM::IndividualResult.where('patient_id' => mrn, 'measure_id' => measure.id)
-        new_results = []
         new_results = QDM::IndividualResult.where('patient_id' => record.id, 'measure_id' => measure.id, 'extendedData.correlation_id' => options.test_execution.id.to_s)
         options[:population_ids] = measure.population_ids
         passed = compare_results(original_results.first, new_results.first, options, passed)
