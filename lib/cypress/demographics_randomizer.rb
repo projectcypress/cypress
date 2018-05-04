@@ -20,35 +20,46 @@ module Cypress
       @used_names[gender] ||= []
       loop do
         assign_random_name(patient, prng)
-        break if allow_dups || @used_names[gender].index("#{patient.first_names}-#{record.familyName}").nil?
+        break if allow_dups || @used_names[gender].index("#{patient.first_names}-#{patient.familyName}").nil?
       end
       @used_names[gender] << "#{patient.first_names}-#{patient.familyName}"
     end
 
     def self.assign_random_name(patient, prng)
-      patient.givenNames.each_with_index do |i,name|{
-        patient.givenNames[i] = NAMES_RANDOM['first'][patient.gender].sample(random: prng)
-      }
+      patient.givenNames.each_with_index {|i,name| patient.givenNames[i] = NAMES_RANDOM['first'][patient.gender].sample(random: prng)}
       patient.familyName = NAMES_RANDOM['last'].sample(random: prng)
     end
 
     def self.randomize_race(patient, prng)
-      record.race = APP_CONSTANTS['randomization']['races'].sample(random: prng)
+      #TODO R2P: check assignment
+      race_element = patient.get_data_elements('patient_characteristic','race').first
+      race_hash = APP_CONSTANTS['randomization']['races'].sample(random: prng)
+      race_element.dataElementCodes.first = {}
+      race_element.dataElementCodes.first.code = race_hash[:code]
+      race_element.dataElementCodes.first.codeSystem = race_hash[:code_system]
+      race_element.dataElementCodes.first.descriptor = race_hash[:display_name]
     end
 
     def self.randomize_ethnicity(patient, prng)
-      record.ethnicity = APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng)
+      #TODO R2P: check assignment
+      ethnicity_element = patient.get_data_elements('patient_characteristic','ethnicity').first
+      ethnicity_hash = APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng)
+      ethnicity_element.dataElementCodes.first = {}
+      ethnicity_element.dataElementCodes.first.code = ethnicity_hash[:code]
+      ethnicity_element.dataElementCodes.first.codeSystem = ethnicity_hash[:code_system]
+
     end
 
     def self.randomize_address(patient)
-      address = Address.new
+      #TODO R2P: hash into extendedData okay? (not in Master Patient object)
+      address = {}
       address.use = 'HP'
       address.street = ["#{Faker::Address.street_address} #{Faker::Address.street_suffix}"]
       address.city = Faker::Address.city
       address.state = Faker::Address.state_abbr
       address.zip = Faker::Address.zip(address.state)
       address.country = 'US'
-      record.addresses = [address]
+      patient.extendedData.addresses = [address]
     end
 
     def self.randomize_insurance_provider(patient)

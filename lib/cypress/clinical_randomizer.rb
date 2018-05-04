@@ -96,7 +96,7 @@ module Cypress
 
     def self.find_first_date_after(sorted_de, date)
       des = sorted_de.detect { |de| (de.authorDatetime && de.authorDatetime > date)}
-      des.try(:authorDatetime) ? des.try(:authorDatetime) : nil
+      des.try(:authorDatetime)
     end
 
     def self.find_last_date_before(sorted_de, date)
