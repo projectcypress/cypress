@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 4e97458485d815cd29beb4b9bff83c4dcf456374
+  revision: 915c981f99fab7c96967a393312351dcf86a1b95
   branch: r5
   specs:
     health-data-standards (4.0.3)
@@ -51,6 +51,27 @@ GIT
       coffee-rails (~> 4.1)
       rails (~> 4.2)
       sprockets-rails (~> 2.3)
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-converter
+  revision: 6aacee49ff3e665c4217046dbc66ec7df287718e
+  branch: master
+  specs:
+    cqm-converter (0.3.1)
+      activesupport
+      coffee-script
+      cqm-models (>= 0.7.2)
+      execjs
+      health-data-standards (= 4.0.3)
+      momentjs-rails
+      sprockets
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-models
+  revision: 532cda99c52c65f5225072bc60e8c5d59092e39e
+  branch: results_object
+  specs:
+    cqm-models (0.7.4)
 
 GIT
   remote: https://github.com/turbolinks/turbolinks-classic
@@ -103,7 +124,7 @@ GEM
     ansi (1.5.0)
     arel (6.0.4)
     ast (2.4.0)
-    autoprefixer-rails (8.3.0)
+    autoprefixer-rails (8.4.1)
       execjs
     axe-matchers (2.1.0)
       dumb_delegator (~> 0.8)
@@ -132,15 +153,16 @@ GEM
       amq-protocol (~> 2.3.0)
     byebug (10.0.2)
     cancancan (2.2.0)
-    capybara (2.18.0)
+    capybara (3.0.3)
       addressable
       mini_mime (>= 0.1.3)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (>= 2.0, < 4.0)
-    capybara-accessible (0.2.1)
-      capybara (~> 2.0)
+      nokogiri (~> 1.8)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      xpath (~> 3.0)
+    capybara-accessible (0.1.8)
+      capybara
+      selenium-webdriver
     carrierwave (0.11.2)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -171,15 +193,6 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
-    cqm-converter (0.3.0)
-      activesupport
-      coffee-script
-      cqm-models (= 0.7.2)
-      execjs
-      health-data-standards (= 4.0.3)
-      momentjs-rails
-      sprockets
-    cqm-models (0.7.2)
     crass (1.0.4)
     cucumber (3.1.0)
       builder (>= 2.1.2)
@@ -307,7 +320,7 @@ GEM
     modernizr-rails (2.7.1)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
-    mongo (2.5.1)
+    mongo (2.5.3)
       bson (>= 4.3.0, < 5.0.0)
     mongoid (5.0.2)
       activemodel (~> 4.0)
@@ -326,7 +339,7 @@ GEM
     multi_test (0.1.2)
     nested_form (0.3.2)
     netrc (0.11.0)
-    newrelic_rpm (5.0.0.342)
+    newrelic_rpm (5.1.0.344)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     origin (2.3.1)
@@ -338,8 +351,8 @@ GEM
     parallel (1.12.1)
     parser (2.5.1.0)
       ast (~> 2.4.0)
-    poltergeist (1.17.0)
-      capybara (~> 2.1)
+    poltergeist (1.18.0)
+      capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
@@ -375,13 +388,13 @@ GEM
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
     rails-perftest (0.0.7)
-    rails_best_practices (1.19.1)
+    rails_best_practices (1.19.2)
       activesupport
       code_analyzer (>= 0.4.8)
       erubis
       i18n
       json
-      require_all (~> 1.5.0)
+      require_all (~> 2.0)
       ruby-progressbar
     railties (4.2.10)
       actionpack (= 4.2.10)
@@ -401,7 +414,7 @@ GEM
       declarative (< 0.1.0)
       declarative-option (< 0.2.0)
       uber (< 0.2.0)
-    require_all (1.5.0)
+    require_all (2.0.0)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
@@ -529,8 +542,8 @@ DEPENDENCIES
   carrierwave-mongoid
   codecov
   cql_qdm_patientapi!
-  cqm-converter
-  cqm-models
+  cqm-converter!
+  cqm-models!
   cucumber-rails
   database_cleaner
   devise (= 4.1.1)
