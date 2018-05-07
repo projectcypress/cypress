@@ -23,18 +23,6 @@ Scenario: Unsuccessful Create Product Because No Name
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
-Scenario: Successful create Product with Supplemental Test Artifact
-  When the user creates a product with a correct supplemental test artifact
-  Then the user should see a notification saying the product was created
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
-
-Scenario: Successful create Product with Supplemental Test Artifact
-  When the user creates a product with a incorrect supplemental test artifact
-  Then the user should see an error message saying "You are not allowed to upload"
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
-
 Scenario: Unsuccessful Create Product Because Name Taken
   When the user creates two products with the same name
   Then the user should see an error message saying "name was already taken"
