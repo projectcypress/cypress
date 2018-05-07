@@ -210,25 +210,25 @@ class ProductTest
   # Returns a listing of all ids for patients in the IPP
   def patients_in_ipp_and_greater
     QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
-                           'IPP' => { '$gt' => 0 }, 'extendedData.correlation_id' => bundle.id).distinct(:patient)
+                           'IPP' => { '$gt' => 0 }, 'extendedData.correlation_id' => bundle.id.to_s).distinct(:patient)
   end
 
   # Returns an id for a patient in the Numerator
   def patient_in_numerator
     QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
-                           'extendedData.correlation_id' => bundle.id, 'NUMER' => { '$gt' => 0 }).distinct(:patient).sample
+                           'extendedData.correlation_id' => bundle.id.to_s, 'NUMER' => { '$gt' => 0 }).distinct(:patient).sample
   end
 
   # Returns a listing of all ids for patients in the Denominator
   def patients_in_denominator_and_greater
     QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
-                           'extendedData.correlation_id' => bundle.id, 'DENOM' => { '$gt' => 0 }).distinct(:patient)
+                           'extendedData.correlation_id' => bundle.id.to_s, 'DENOM' => { '$gt' => 0 }).distinct(:patient)
   end
 
   # Returns a listing of all ids for patients in the Measure Population
   def patients_in_measure_population_and_greater
     QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
-                           'extendedData.correlation_id' => bundle.id, 'MSRPOPL' => { '$gt' => 0 }).distinct(:patient)
+                           'extendedData.correlation_id' => bundle.id.to_s, 'MSRPOPL' => { '$gt' => 0 }).distinct(:patient)
   end
 
   def master_patient_ids
@@ -262,7 +262,7 @@ class ProductTest
     # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product,
     # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if denom_ids.count > (product.test_deck_max - 1)
-      high_value_ids = QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, 'extendedData.correlation_id' => bundle.id)
+      high_value_ids = QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, 'extendedData.correlation_id' => bundle.id.to_s)
                                        .any_of({ 'NUMER' => { '$gt' => 0 } },
                                                { 'DENEXCEP' => { '$gt' => 0 } },
                                                'DENEX' => { '$gt' => 0 }).distinct(:patient)
@@ -282,7 +282,7 @@ class ProductTest
     # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if msrpopl_ids.count > product.test_deck_max
       numer_ids = get_record_ids(
-        QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, 'extendedData.correlation_id' => bundle.id)
+        QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, 'extendedData.correlation_id' => bundle.id.to_s)
                         .any_of({ 'MSRPOPL' => { '$gt' => 1 } },
                                 '$and' => [{ 'MSRPOPL' => { '$eq' => 1 } }, { 'MSRPOPLEX' => { '$eq' => 0 } }]).distinct(:patient)
       )
