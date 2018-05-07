@@ -83,6 +83,10 @@ When(/^the user creates a product with name (.*) for vendor (.*)$/) do |product_
   page.all('#measure_tabs .ui-tabs-nav a')[1].click
   page.all('input.measure-checkbox')[0].click
   page.click_button 'Add Product'
+
+  # If we don't have a vendor then the database hasn't caught up yet
+  # Keep trying until we actually get a proper result
+  @product = Product.where(:name => product_name).first while @product&.vendor.nil?
 end
 
 When(/^the user navigates to the create product page$/) do
@@ -110,20 +114,6 @@ When(/^the user creates a product with no name$/) do
   page.find('#product_measure_selection_custom').click
   page.all('#measure_tabs .ui-tabs-nav a')[1].click
   page.all('input.measure-checkbox')[0].click
-end
-
-When(/^the user creates a product with a (in)?correct supplemental test artifact$/) do |nil_if_correct|
-  steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
-  @product = FactoryGirl.build(:product_static_name)
-  filename = (nil_if_correct ? 'icon.svg' : 'cypress_bg_cropped.png')
-  file_path = Rails.root.join('app', 'assets', 'images', filename)
-  page.fill_in 'Name', :with => @product.name
-  page.find('#product_c2_test').click
-  page.find('#product_measure_selection_custom').click
-  page.all('#measure_tabs .ui-tabs-nav a')[1].click
-  page.all('input.measure-checkbox')[0].click
-  page.attach_file('product_supplemental_test_artifact', file_path, :visible => false)
-  page.click_button 'Add Product'
 end
 
 When(/^the user creates two products with the same name$/) do
@@ -233,6 +223,14 @@ When(/^the user changes the name of the product$/) do
   page.click_button 'Edit Product'
 end
 
+When(/^the user uploads a (in)?correct supplemental test artifact to the product$/) do |nil_if_correct|
+  steps %( When the user views the edit page of the product )
+  filename = (nil_if_correct ? 'icon.svg' : 'cypress_bg_cropped.png')
+  file_path = Rails.root.join('app', 'assets', 'images', filename)
+  page.attach_file('product_supplemental_test_artifact', file_path, :visible => false)
+  page.click_button 'Edit Product'
+end
+
 When(/^the user removes the product$/) do
   steps %( When the user views the edit page of the product )
   page.click_button 'Delete Product'
@@ -286,14 +284,14 @@ When(/^the user adds a product test$/) do
   task.save!
 end
 
+#   A N D   #
+
 And(/^filtering tests are added to product$/) do
   product = @product
   product.c4_test = true
   product.save!
   product.add_filtering_tests
 end
-
-#   A N D   #
 
 # product test number the number of product test (1 indexed) for upload in order of most recently created
 And(/^the user uploads a cat I document to product test (.*)$/) do |product_test_number|
@@ -332,6 +330,12 @@ end
 
 And(/^the user chooses the "(.*)" Certification Type$/) do |certification_type|
   page.find("#product_#{certification_type}_test").click
+end
+
+And(/^the user removes the supplemental test artifact from the product$/) do
+  steps %( When the user views the edit page of the product )
+  page.find('input#product_remove_supplemental_test_artifact').set(true)
+  page.click_button 'Edit Product'
 end
 
 When(/^all test executions for product test (.*) have the state of (.*)$/) do |product_test_number, execution_state|
