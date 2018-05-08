@@ -26,7 +26,7 @@ module Cypress
     end
 
     def self.assign_random_name(patient, prng)
-      patient.givenNames.each_with_index {|i,name| patient.givenNames[i] = NAMES_RANDOM['first'][patient.gender].sample(random: prng)}
+      patient.givenNames.each_with_index {|name,i| patient.givenNames[i] = NAMES_RANDOM['first'][patient.gender].sample(random: prng)}
       patient.familyName = NAMES_RANDOM['last'].sample(random: prng)
     end
 
@@ -67,10 +67,10 @@ module Cypress
       #TODO R2P: check should create nil keys for new insurance provider? and startTime format works?
       # patient.extendedData.insurance_providers[0].each_key{|k| ip[key]=nil}
       randomize_payer(ip, patient)
-      ip.financial_responsibility_type = { 'code' => 'SELF', 'codeSystem' => 'HL7 Relationship Code' }
-      ip.member_id = Faker::Number.number(10)
-      ip.start_time = get_random_payer_start_date(patient)
-      patient.extendedData.insurance_providers = JSON.generate([ip])
+      ip['financial_responsibility_type'] = { 'code' => 'SELF', 'codeSystem' => 'HL7 Relationship Code' }
+      ip['member_id'] = Faker::Number.number(10)
+      ip['start_time'] = get_random_payer_start_date(patient)
+      patient.extendedData['insurance_providers'] = JSON.generate([ip])
     end
 
     def self.randomize_payer(insurance_provider, patient)
@@ -80,16 +80,16 @@ module Cypress
             Time.at(patient.birthDatetime).in_time_zone > Time.at(patient.bundle.effective_date).in_time_zone.years_ago(65)
         payer = APP_CONSTANTS['randomization']['payers'].sample
       end
-      insurance_provider.codes = {}
-      insurance_provider.codes[payer['codeSystem']] = []
-      insurance_provider.codes[payer['codeSystem']] << payer['code'].to_s
-      insurance_provider.name = payer['name']
-      insurance_provider.type = payer['type']
-      insurance_provider.payer = {"name"=> payer['name']}
+      insurance_provider['codes'] = {}
+      insurance_provider['codes'][payer['codeSystem']] = []
+      insurance_provider['codes'][payer['codeSystem']] << payer['code'].to_s
+      insurance_provider['name'] = payer['name']
+      insurance_provider['type'] = payer['type']
+      insurance_provider['payer'] = {'name'=> payer['name']}
     end
 
     def self.get_random_payer_start_date(patient)
-      start_times = patient.dataElements.map { |de| de.authorDatetime }.compact
+      start_times = patient.dataElements.map {|de| de.try(:authorDatetime) }.compact
       random_offset = rand(60 * 60 * 24 * 365)
       if !start_times.empty?
         [start_times.min - random_offset, patient.birthDatetime].max

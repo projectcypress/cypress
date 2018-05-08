@@ -20,6 +20,7 @@ class ProductTestSetupJob < ApplicationJob
     product_test.archive_patients if product_test.patient_archive.path.nil?
     product_test.ready
   rescue StandardError => e
+    product_test.backtrace = e.backtrace.join("\n")
     product_test.status_message = e.message
     product_test.errored
     product_test.save!

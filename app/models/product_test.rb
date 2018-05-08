@@ -31,6 +31,7 @@ class ProductTest
   field :state, :type => Symbol, :default => :pending
   field :rand_seed, :type => String
 
+  field :backtrace, :type => String
   field :status_message, :type => String
   validates :name, :presence => true
   validates :product, :presence => true

@@ -132,9 +132,9 @@ module Cypress
 
     def patch_insurance_provider(patient)
       insurance_codes = { 'MA' => '1', 'MC' => '2', 'OT' => '349' }
-      providers = JSON.parse(patient.extendedData.insurance_providers)
+      providers = JSON.parse(patient.extendedData['insurance_providers'])
       providers.each { |ip| ip.codes['SOP'] = [insurance_codes[ip.type]] if ip.codes.empty? }
-      patient.extendedData.insurance_providers =  JSON.generate(providers)
+      patient.extendedData['insurance_providers'] =  JSON.generate(providers)
     end
 
     def assign_provider(patient)

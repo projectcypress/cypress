@@ -14,8 +14,8 @@ module QDM
     end
 
     def bundle
-      if !self['bundle_id'].nil?
-        HealthDataStandards::CQM::Bundle.find(self['bundle_id'])
+      if !self['bundleId'].nil?
+        HealthDataStandards::CQM::Bundle.find(self['bundleId'])
       elsif !extendedData[:correlation_id].nil?
         ProductTest.find(extendedData[:correlation_id]).bundle
       end
@@ -71,7 +71,7 @@ module QDM
         changed[:first] = [first_names, patient.first_names]
       when 1 # last name
         patient = randomize_patient_name_last(patient, random: random)
-        changed[:last] = [givenName, patient.givenName]
+        changed[:last] = [familyName, patient.familyName]
       when 2 # birthdate
         patient.birthDatetime = DateTime.strptime(patient.birthDatetime.to_s, '%s').change(
           case random.rand(3)
@@ -105,9 +105,9 @@ module QDM
       gender_chars = get_data_elements('patient_characteristic', 'gender')
       if gender_chars && gender_chars.any? && gender_chars.first.dataElementCodes &&
         gender_chars.first.dataElementCodes.any?
-        gender_chars.first.dataElementCodes.first[:code]
+        gender_chars.first.dataElementCodes.first['code']
       else
-        patient.extendedData.notes.downcase.include?("female") ? 'F' : 'M'
+        raise 'Cannot find gender element'
       end
     end
 

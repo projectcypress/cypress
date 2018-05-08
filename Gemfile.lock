@@ -53,20 +53,6 @@ GIT
       sprockets-rails (~> 2.3)
 
 GIT
-  remote: https://github.com/projecttacoma/cqm-converter
-  revision: 6aacee49ff3e665c4217046dbc66ec7df287718e
-  branch: master
-  specs:
-    cqm-converter (0.3.1)
-      activesupport
-      coffee-script
-      cqm-models (>= 0.7.2)
-      execjs
-      health-data-standards (= 4.0.3)
-      momentjs-rails
-      sprockets
-
-GIT
   remote: https://github.com/projecttacoma/cqm-models
   revision: 532cda99c52c65f5225072bc60e8c5d59092e39e
   branch: results_object
@@ -80,6 +66,18 @@ GIT
   specs:
     turbolinks (3.0.0)
       coffee-rails
+
+PATH
+  remote: /Users/Laurend/Projects/Cypress/taco/cqm-converter
+  specs:
+    cqm-converter (0.3.1)
+      activesupport
+      coffee-script
+      cqm-models (>= 0.7.2)
+      execjs
+      health-data-standards (= 4.0.3)
+      momentjs-rails
+      sprockets
 
 GEM
   remote: https://rubygems.org/
