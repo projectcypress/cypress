@@ -30,13 +30,13 @@ module Cypress
       prng = Random.new(@test.rand_seed.to_i)
 
       # if Shift patients is selected, move all patient data into the actual reporting period
-      if @test.product.shift_patients
-        date_shift = @test.bundle.start_date_offset
-        patients.each do |patient|
-          #TODO R2P: make sure shift dates is implemented on base patient model (or in ext as necessary)
-          patient.shift_dates(date_shift)
-        end
-      end
+      # if @test.product.shift_patients
+      #   date_shift = @test.bundle.start_date_offset
+      #   patients.each do |patient|
+      #     #TODO R2P: make sure shift dates is implemented on base patient model (or in ext as necessary)
+      #     patient.shift_dates(date_shift)
+      #   end
+      # end
       # grab a random number of patients and then randomize the dates between +- 10 days
       randomize_ids(patients, prng) if options['randomization_ids']
 
@@ -69,7 +69,7 @@ module Cypress
         seconds = 1_944_000 # 60 secs per min * 60 min per hour * 24 hours in day * 10 days
         plus_minus = prng.rand(2).zero? ? 1 : -1 # use this to make move dates forward or backwards
         date_shift = prng.rand(seconds) * plus_minus
-        patient.shift_dates(date_shift)
+        #patient.shift_dates(date_shift)
         patients << patient
       end
     end
@@ -80,6 +80,7 @@ module Cypress
       # TODO R2P: use patient model
       unnumerify cloned_patient if patient.givenNames.map{|n| n =~ /\d/}.any? || patient.familyName =~ /\d/
       cloned_patient[:original_medical_record_number] = cloned_patient.extendedData[:medical_record_number]
+      cloned_patient.extendedData[:original_patient] = patient.id
       cloned_patient.extendedData[:medical_record_number] = next_medical_record_number unless options['disable_randomization']
       DemographicsRandomizer.randomize(cloned_patient, prng, allow_dups) if options['randomize_demographics']
       cloned_patient.extendedData[:correlation_id] = options['test_id']
