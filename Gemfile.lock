@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 915c981f99fab7c96967a393312351dcf86a1b95
+  revision: 9d668f7bfb2b83474f0d1b911b6cdbaf4b45ce1f
   branch: r5
   specs:
     health-data-standards (4.0.3)
@@ -51,20 +51,6 @@ GIT
       coffee-rails (~> 4.1)
       rails (~> 4.2)
       sprockets-rails (~> 2.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-converter
-  revision: 6aacee49ff3e665c4217046dbc66ec7df287718e
-  branch: master
-  specs:
-    cqm-converter (0.3.1)
-      activesupport
-      coffee-script
-      cqm-models (>= 0.7.2)
-      execjs
-      health-data-standards (= 4.0.3)
-      momentjs-rails
-      sprockets
 
 GIT
   remote: https://github.com/projecttacoma/cqm-models
@@ -193,6 +179,14 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    cqm-converter (0.3.2)
+      activesupport
+      coffee-script
+      cqm-models (>= 0.7.2)
+      execjs
+      health-data-standards (= 4.0.3)
+      momentjs-rails
+      sprockets
     crass (1.0.4)
     cucumber (3.1.0)
       builder (>= 2.1.2)
@@ -459,7 +453,7 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (3.11.0)
+    selenium-webdriver (3.12.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     sexp_processor (4.11.0)
@@ -542,7 +536,7 @@ DEPENDENCIES
   carrierwave-mongoid
   codecov
   cql_qdm_patientapi!
-  cqm-converter!
+  cqm-converter
   cqm-models!
   cucumber-rails
   database_cleaner
