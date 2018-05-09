@@ -87,7 +87,7 @@ module Cypress
       patch_insurance_provider(patient)
       # randomize_entry_ids(cloned_patient) unless options['disable_randomization']... TODO R2P: priority 1.2
       # assign existing provider if provider argument is not nil (should be when @test is a measure test)
-      # provider ? assign_existing_provider(cloned_patient, provider) : assign_provider(cloned_patient) ... TODO R2P: priority 1.2
+      provider ? assign_existing_provider(cloned_patient, provider) : assign_provider(cloned_patient)
       cloned_patient.save!
     end
 
@@ -149,8 +149,7 @@ module Cypress
                measure = @test.measures.first
                Provider.default_provider(measure_type: measure.type)
              end
-      # TODO R2P: change to patient model
-      patient.provider_performances.build(provider: prov) if prov
+      patient.extendedData['provider_performances'] = JSON.generate([{ provider_id: prov.id }]) if prov
     end
 
     def generate_provider
@@ -158,9 +157,7 @@ module Cypress
     end
 
     def assign_existing_provider(patient, provider)
-      # TODO R2P: change to patient model
-      patient.provider_performances.each(&:destroy)
-      patient.provider_performances.build(provider: provider)
+      patient.extendedData['provider_performances'] = JSON.generate([{ provider_id: provider.id }])
     end
   end
 end
