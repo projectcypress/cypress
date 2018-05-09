@@ -42,7 +42,7 @@ module Validators
 
     def description_for_hqmf_oid(entry_oid)
       hqmf_qrda_tuple = @hqmf_map.find { |map_tuple| map_tuple['hqmf_oid'] == entry_oid }
-      "#{hqmf_qrda_tuple['qrda_name']}:"
+      "#{hqmf_qrda_tuple['hqmf_name']}:"
     end
 
     def parse_and_save_record(doc, te, options)
@@ -50,6 +50,7 @@ module Validators
       record.test_id = te.id
       record.medical_record_number = rand(1_000_000_000_000_000)
       record.entries.each { |entry| entry.description = description_for_hqmf_oid(entry.oid) }
+      Cypress::GoImport.replace_negated_codes(record, @bundle)
       patient = @hds_record_converter.to_qdm(record)
       patient.save
       patient
