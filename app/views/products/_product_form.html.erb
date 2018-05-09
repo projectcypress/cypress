@@ -15,7 +15,9 @@
               <%= f.radio_button :cert_edition, "2014",
                                  label: "2014 Edition",
                                  label_class: "btn btn-checkbox",
-                                 disabled: !product.new_record?,
+                                 #  TODO: re-enable after 4.0.0alpha
+                                 #  disabled: !product.new_record?,
+                                 disabled: true,
                                  checked: product.cert_edition == "2014" %>
               <%= f.radio_button :cert_edition, "2015",
                                  label: "2015 Edition",
@@ -32,7 +34,8 @@
             <%= f.form_group help: "Select the certification type Cypress should use to certify this product" do %>
               <% APP_CONSTANTS['certifications'].each do |c, certification| %>
                 <% if c == 'C1' || c == 'C2' || c == 'C3' || c == 'C4'%>
-                  <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: !product.new_record?, data: {
+                <% #  TODO: re-enable c4 checkbox after 4.0.0alpha %>
+                  <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: !product.new_record? || c == 'C4', data: {
                     'parsley-required': '',
                     'parsley-trigger': 'change',
                     'parsley-class-handler': "#certification_options",
@@ -103,7 +106,8 @@
               <% end # form_group %>
             <% end # bundles.count %>
             <%= f.form_group help: "Selecting Shift Records will move patient data forward into the appropriate reporting period. Otherwise patient data will remain in a previously completed calendar year." do %>
-              <%= f.check_box :shift_patients, label: 'Shift Records', label_class: "btn btn-checkbox", checked: product.new_record? ? false : product.shift_patients, disabled: !product.new_record? %>
+              <% # TODO: re-enable shift records after 4.0.0alpha %>
+              <%= f.check_box :shift_patients, label: 'Shift Records', label_class: "btn btn-checkbox", checked: product.new_record? ? false : product.shift_patients, disabled: true %>
             <% end %>
           </fieldset>
           <% unless bundle&.deprecated %>
