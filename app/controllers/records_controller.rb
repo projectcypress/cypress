@@ -28,11 +28,11 @@ class RecordsController < ApplicationController
   end
 
   def show
-    @record = @source.records.find(params[:id])
+    @record = @source.patients.find(params[:id])
     @results = @record.calculation_results
-    @measures = @source.measures.where(:hqmf_id.in => @results.map(:value).map(&:measure_id)).where(:sub_id.in => @results.map(:value).map(&:sub_id))
+    @measures = @source.measures.where(:_id.in => @results.map(&:measure_id))
     expires_in 1.week, public: true
-    add_breadcrumb 'Patient: ' + @record.first + ' ' + @record.last, :record_path
+    add_breadcrumb 'Patient: ' + @record.first_names + ' ' + @record.familyName, :record_path
   end
 
   def by_measure
