@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.3.6'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.2.7'
 
@@ -10,11 +12,12 @@ gem 'bson_ext'
 
 gem 'os'
 
-# gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'mongoid5'
-gem 'health-data-standards', '~> 3.7.0'
+gem 'cql_qdm_patientapi', :git => 'https://github.com/projecttacoma/cql_qdm_patientapi', :branch => 'better_codes_and_scalar_error'
+gem 'cqm-converter'
+gem 'cqm-models', :git => 'https://github.com/projecttacoma/cqm-models', :branch => 'results_object'
 
-gem 'go-cda-tools', git: 'https://github.com/projectcypress/go-cda-tools.git', branch: 'master'
-# gem 'go-cda-tools', path: '../go-cda-tools'
+gem 'health-data-standards', :git => 'https://github.com/projectcypress/health-data-standards.git', branch: 'r5'
+# gem 'health-data-standards', '~> 3.7.0'
 
 gem 'quality-measure-engine',
     git: 'https://github.com/projectcypress/quality-measure-engine.git', branch: 'bump_mongoid'
@@ -89,6 +92,8 @@ gem 'mongoid_rails_migrations', :git => 'https://github.com/adacosta/mongoid_rai
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+gem 'bunny'
 
 group :development, :test do
   gem 'rubocop', '0.49', :require => false

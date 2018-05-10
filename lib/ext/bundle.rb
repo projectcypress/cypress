@@ -13,6 +13,10 @@ class Bundle
                                           .order_by(['value.last', :asc])
   end
 
+  def patients
+    Patient.where(bundleId: self._id.to_s, 'extendedData.correlation_id' => nil).order_by([["last", :asc]])
+  end
+
   def title
     return super unless deprecated?
     self[:title] + ' (Deprecated)'

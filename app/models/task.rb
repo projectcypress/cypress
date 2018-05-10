@@ -10,8 +10,8 @@ class Task
   delegate :start_date, :to => :product_test
   delegate :end_date, :to => :product_test
   delegate :measures, :measure_ids, :to => :product_test
-  delegate :records, :to => :product_test
-  delegate :augmented_records, :to => :product_test
+  delegate :patients, :to => :product_test
+  delegate :augmented_patients, :to => :product_test
   delegate :effective_date, :to => :product_test
   delegate :measure_period_start, :to => :product_test
   delegate :bundle, :to => :product_test

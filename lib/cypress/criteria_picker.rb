@@ -1,5 +1,6 @@
 module Cypress
   class CriteriaPicker
+    #TODO R2P: pick filter criteria using new model
     def self.races(record, _options = {})
       [record.race['code']]
     end

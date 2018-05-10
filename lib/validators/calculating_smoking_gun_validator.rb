@@ -3,6 +3,8 @@ module Validators
     include Validators::Validator
     def initialize(measures, records, test_id, options = {})
       @measures = measures
+      @hqmf_map = HealthDataStandards::Export::QRDA::EntryTemplateResolver.hqmf_qrda_oid_map
+      @hds_record_converter = CQM::Converter::HDSRecord.new
       super
     end
 
@@ -26,7 +28,7 @@ module Validators
 
     def extract_calcuated_and_original_results(original, calculated, pop)
       # set original value to 0 if it wasn't calculated
-      original_value = original.nil? || original.value[pop].nil? ? 0.0 : original.value[pop]
+      original_value = original.nil? || original[pop].nil? ? 0.0 : original[pop]
       # set calculated value to 0 if there is no calculation for the measure or population
       calculated_value = calculated.nil? || calculated[pop].nil? ? 0.0 : calculated[pop]
       if pop == 'values'
@@ -38,14 +40,20 @@ module Validators
       [original_value, calculated_value, pop]
     end
 
+    def description_for_hqmf_oid(entry_oid)
+      hqmf_qrda_tuple = @hqmf_map.find { |map_tuple| map_tuple['hqmf_oid'] == entry_oid }
+      "#{hqmf_qrda_tuple['hqmf_name']}:"
+    end
+
     def parse_and_save_record(doc, te, options)
-      record = GoCDATools::Import::GoImporter.instance.parse_with_ffi(doc)
+      record = HealthDataStandards::Import::Cat1::PatientImporter.instance.parse_cat1(doc)
       record.test_id = te.id
       record.medical_record_number = rand(1_000_000_000_000_000)
-      # When imported from go, negated enries need to lookup a related code
+      record.entries.each { |entry| entry.description = description_for_hqmf_oid(entry.oid) }
       Cypress::GoImport.replace_negated_codes(record, @bundle)
-      record.save
-      record
+      patient = @hds_record_converter.to_qdm(record)
+      patient.save
+      patient
     rescue
       add_error('File failed import', file_name: options[:file_name])
       nil
@@ -56,19 +64,18 @@ module Validators
 
       mrn, = get_record_identifiers(doc, options)
       return false unless mrn
-
       passed = true
+
       record = parse_and_save_record(doc, te, options)
       return false unless record
+      # This Logic will need to be updated with CQL calculations
+      calc_job = Cypress::JsEcqmCalc.new([record.id.to_s], @measures.map { |mes| mes._id.to_s }, { 'correlation_id': options.test_execution.id.to_s } )
+      calc_job.sync_job
       @measures.each do |measure|
-        ex_opts = { 'test_id' => te.id, 'bundle_id' => @bundle.id,  'effective_date' => te.task.effective_date,
-                    'enable_logging' => true, 'enable_rationale' => true, 'oid_dictionary' => generate_oid_dictionary(measure, @bundle.id) }
-        @mre = QME::MapReduce::Executor.new(measure.hqmf_id, measure.sub_id, ex_opts)
-        results = @mre.get_patient_result(record.medical_record_number)
-        original_results = QME::PatientCache.where('value.medical_record_id' => mrn, 'value.test_id' => @test_id,
-                                                   'value.measure_id' => measure.hqmf_id, 'value.sub_id' => measure.sub_id).first
+        original_results = QDM::IndividualResult.where('patient_id' => mrn, 'measure_id' => measure.id)
+        new_results = QDM::IndividualResult.where('patient_id' => record.id, 'measure_id' => measure.id, 'extendedData.correlation_id' => options.test_execution.id.to_s)
         options[:population_ids] = measure.population_ids
-        passed = compare_results(original_results, results, options, passed)
+        passed = compare_results(original_results.first, new_results.first, options, passed)
       end
       record.destroy
       passed

@@ -34,10 +34,10 @@ module Validators
       last = @document.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:family/text()')
       doc_name = "#{first.to_s.strip} #{last.to_s.strip}".upcase
 
-      aug_index = @options['task'].augmented_records.index { |r| doc_name == "#{r[:first][1].strip} #{r[:last][1].strip}".upcase }
+      aug_index = @options['task'].augmented_patients.index { |r| doc_name == "#{r[:first][1].strip} #{r[:last][1].strip}".upcase }
       if aug_index
-        first = @options['task'].augmented_records[aug_index]['first'][0]
-        last = @options['task'].augmented_records[aug_index]['last'][0]
+        first = @options['task'].augmented_patients[aug_index]['first'][0]
+        last = @options['task'].augmented_patients[aug_index]['last'][0]
       end
       [first, last]
     end

@@ -16,8 +16,8 @@ module Validators
       @found_names = []
       init_data
       @names = Hash[*records.collect do |r|
-        [to_doc_name(r.first, r.last),
-         r.medical_record_number]
+        [to_doc_name(r.givenNames.join(' '), r.familyName),
+         r.id]
       end.flatten]
       @can_continue = true
       @options = options
@@ -27,8 +27,9 @@ module Validators
       @sgd = {}
       @expected_records = []
       @measures.each do |mes|
-        @sgd[mes.hqmf_id] = mes.smoking_gun_data('value.test_id' => @test_id)
-        @expected_records.concat @sgd[mes.hqmf_id].keys
+        @expected_records << QDM::IndividualResult.where('measure_id' => mes.id, 'extendedData.correlation_id' => @test_id.to_s).distinct(:patient)
+        #@sgd[mes.hqmf_id] = mes.smoking_gun_data('value.test_id' => @test_id)
+        #@expected_records.concat @sgd[mes.hqmf_id].keys
       end
       @expected_records = @expected_records.flatten.uniq
     end
@@ -58,14 +59,14 @@ module Validators
     # Returns the medical record number the given document if it is found. Otherwise, returns
     def get_record_identifiers(doc, options)
       doc_name = build_doc_name(doc)
-      aug_rec = options['task'].augmented_records.detect { |r| doc_name == to_doc_name(r[:first][1], r[:last][1]) }
+      aug_rec = options['task'].augmented_patients.detect { |r| doc_name == to_doc_name(r[:first][1], r[:last][1]) }
       mrn = @names[doc_name] || (aug_rec ? aug_rec.medical_record_number : nil)
       [mrn || nil, doc_name, aug_rec]
     end
 
     def validate_name(doc_name, options)
       return true if @names[doc_name] ||
-                     !options['task'].augmented_records.index { |r| doc_name == to_doc_name(r[:first][1], r[:last][1]) }.nil?
+                     !options['task'].augmented_patients.index { |r| doc_name == to_doc_name(r[:first][1], r[:last][1]) }.nil?
       @can_continue = false
       return false if @options[:suppress_errors]
       add_error("Patient name '#{doc_name}' declared in file not found in test records",

@@ -2,6 +2,7 @@ module Cypress
   class Cat3Calculator
     attr_accessor :correlation_id, :measure, :bundle, :mre, :qr
 
+    #TODO R2P: use patient model throughout
     def initialize(measure_ids, bundle, effective_date_override = nil)
       @correlation_id = BSON::ObjectId.new
       filter = { :hqmf_id.in => measure_ids, :bundle_id => bundle.id }
@@ -69,9 +70,10 @@ module Cypress
     end
 
     def import_cat1_file(doc)
-      record = GoCDATools::Import::GoImporter.instance.parse_with_ffi(doc)
-      # When imported from go, negated enries need to lookup a related code
-      Cypress::GoImport.replace_negated_codes(record, @bundle)
+      doc = Nokogiri::XML(doc)
+      doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+      doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+      record = HealthDataStandards::Import::Cat1::PatientImporter.instance.parse_cat1(doc)
       record.test_id = @correlation_id
       record.medical_record_number = rand(1_000_000_000_000_000)
       record.save
@@ -96,6 +98,20 @@ module Cypress
                             nil,
                             @correlation_id)
       clean_up
+      xml
+    end
+
+    def generate_cat3_for_test(correlation_id)
+      exporter = HealthDataStandards::Export::Cat3.new(@bundle.qrda3_version)
+      end_date = Time.at(@effective_date.to_i).in_time_zone
+      xml = exporter.export(HealthDataStandards::CQM::Measure.top_level.where(hqmf_id: @measure.hqmf_id, bundle_id: @bundle.id),
+                            generate_header,
+                            @effective_date.to_i,
+                            end_date.years_ago(1) + 1,
+                            end_date,
+                            @bundle.qrda3_version,
+                            nil,
+                            correlation_id)
       xml
     end
 
