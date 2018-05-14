@@ -10,7 +10,7 @@ FactoryGirl.define do
                       first: %w[Dental_Peds Denial_Peds],
                       last: %w[A A],
                       gender: %w[M M] }]
-      augmented_records { aug_record }
+      augmented_patients { aug_record }
       expected_result = { 'BE65090C-EB1F-11E7-8C3F-9A214CF093AEa' =>
                           { 'measure_id' => 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE',
                             'sub_id' => 'a',
