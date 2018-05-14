@@ -2,7 +2,7 @@ language: ruby
 cache:
   - bundler
   - node_modules
-sudo: false
+sudo: required
 dist: trusty
 addons:
   apt:
@@ -11,8 +11,11 @@ addons:
         key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x9ECBEC467F0CEB10'
     packages:
       - mongodb-org-server=3.4.5
+env:
+  - CYPRESS_DB=cypress_test
 services:
   - mongodb
+  - rabbitmq
 branches:
   only:
   - master
@@ -25,17 +28,16 @@ notifications:
     secure: NfcNb3LCyd7/ACYc6mDoBJZlBFIV5wKMMWs0On2DNeaDoD/EKCbQRQQVOHEvfsaqOM+5zmi9giYaV7cV+Gl+zfehZ/Q69x89YjWWVFeAp5QGDzoCnM7oaaTXygla52sfcL9Oi3rLgTWyjqMSS7tM2DW5d/V+iEjyilmavsUvRbU=
 before_install:
   - . $HOME/.nvm/nvm.sh
-  - nvm install stable
+  - nvm install 10.0
   - nvm use stable
   - npm install -g eslint
-  - mkdir $PWD/travis-phantomjs
-  - curl -sSL https://github.com/Medium/phantomjs/releases/download/v2.1.1/phantomjs-2.1.1-linux-x86_64.tar.bz2 -o $PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2
-  - tar -xvf $PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C $PWD/travis-phantomjs
-  - export PATH=$PWD/travis-phantomjs/phantomjs-2.1.1-linux-x86_64/bin:$PATH
+  - git clone -b release https://github.com/projectcypress/js-ecqm-engine.git /tmp/js-ecqm-engine
 before_script:
   - git config --global user.email "travis@travis.ci"
   - git config --global user.name "Travis CI"
   - npm install eslint
+  - yarn install --cwd /tmp/js-ecqm-engine
+  - /tmp/js-ecqm-engine/bin/rabbit_worker.js &
   - cp ./.travis/mongoid.yml ./config/mongoid.yml
 env:
   - TEST_SUITE=cucumber
