@@ -32,7 +32,7 @@ class C1TaskTest < ActiveSupport::TestCase
   end
 
   def test_should_fail_with_a_good_archive_of_unshifted_qrda_files_for_shifted_test
-    @product_test.product.shift_records = true
+    @product_test.product.shift_patients = true
     task = @product_test.tasks.create({}, C1Task)
     @product_test.product.c1_test = true
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
@@ -44,7 +44,7 @@ class C1TaskTest < ActiveSupport::TestCase
   end
 
   def test_should_be_able_to_test_a_good_archive_of_shifted_qrda_files_for_shifted_test
-    @product_test.product.shift_records = true
+    @product_test.product.shift_patients = true
     task = @product_test.tasks.create({}, C1Task)
     @product_test.product.c1_test = true
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good_shift.zip'))
