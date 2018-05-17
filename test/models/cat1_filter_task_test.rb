@@ -5,7 +5,7 @@ class Cat1FilterTaskTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   def setup
-    @product_test = FactoryGirl.create(:static_filter_test)
+    @product_test = FactoryBot.create(:static_filter_test)
   end
 
   def test_create

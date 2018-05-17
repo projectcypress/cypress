@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TestExecutionJobTest < ActiveJob::TestCase
   def setup
-    @ptest = FactoryGirl.create(:product_test_static_result)
+    @ptest = FactoryBot.create(:product_test_static_result)
   end
 
   def test_can_queue_job

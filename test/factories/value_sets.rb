@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :value_set, class: HealthDataStandards::SVS::ValueSet do
     sequence(:display_name) { |i| "Value Set Name #{i}" }
     sequence(:oid) { |i| "1.#{i}.#{i + 1}.#{i + 2}" }

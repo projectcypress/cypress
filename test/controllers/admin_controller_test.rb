@@ -2,7 +2,7 @@ require 'test_helper'
 
 class AdminControllerTest < ActionController::TestCase
   setup do
-    FactoryGirl.create(:admin_user)
+    FactoryBot.create(:admin_user)
   end
 
   test 'should get show' do

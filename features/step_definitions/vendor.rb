@@ -3,7 +3,7 @@
 # # # # # # # # #
 
 Given(/^the user has created a vendor$/) do
-  @vendor = FactoryGirl.create(:vendor)
+  @vendor = FactoryBot.create(:vendor)
 end
 
 Given(/^the user is on the create vendor page$/) do
@@ -24,17 +24,17 @@ When(/^the user visits the create vendor page$/) do
 end
 
 When(/^the user creates a vendor with appropriate information$/) do
-  @vendor = FactoryGirl.build(:vendor)
+  @vendor = FactoryBot.build(:vendor)
   steps %( When the user creates a vendor with a name of #{@vendor.name} )
 end
 
 When(/^the user creates a vendor with no name$/) do
-  @vendor = FactoryGirl.build(:vendor_no_name)
+  @vendor = FactoryBot.build(:vendor_no_name)
   page.fill_in 'Vendor Name', with: @vendor.name
 end
 
 When(/^the user creates two vendors with the same name$/) do
-  @vendor = FactoryGirl.build(:vendor_static_name)
+  @vendor = FactoryBot.build(:vendor_static_name)
   steps %(
     When the user creates a vendor with a name of #{@vendor.name}
     When the user creates a vendor with a name of #{@vendor.name}
@@ -48,7 +48,7 @@ When(/^the user creates a vendor with a name of (.*)$/) do |name|
 end
 
 When(/^the user cancels creating a vendor$/) do
-  @vendor = FactoryGirl.build(:vendor)
+  @vendor = FactoryBot.build(:vendor)
   steps %( When the user visits the create vendor page )
   page.click_button 'Cancel'
 end

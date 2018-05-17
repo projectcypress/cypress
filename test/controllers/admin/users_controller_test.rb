@@ -4,12 +4,12 @@ module Admin
     include Devise::TestHelpers
 
     def setup
-      FactoryGirl.create(:admin_user)
-      FactoryGirl.create(:user_user)
-      FactoryGirl.create(:vendor_user)
-      FactoryGirl.create(:other_user)
-      @user = FactoryGirl.create(:atl_user)
-      @vendor = FactoryGirl.create(:vendor)
+      FactoryBot.create(:admin_user)
+      FactoryBot.create(:user_user)
+      FactoryBot.create(:vendor_user)
+      FactoryBot.create(:other_user)
+      @user = FactoryBot.create(:atl_user)
+      @vendor = FactoryBot.create(:vendor)
     end
 
     test 'Admin can view index ' do

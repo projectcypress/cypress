@@ -3,7 +3,7 @@ require 'fileutils'
 
 class Cat3CalculatorTest < ActiveSupport::TestCase
   setup do
-    bundle = FactoryGirl.create(:static_bundle)
+    bundle = FactoryBot.create(:static_bundle)
     @c3c = Cypress::Cat3Calculator.new(['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle)
     @result = QME::QualityReportResult.new(DENOM: 48, NUMER: 44, antinumerator: 4, DENEX: 0)
   end
@@ -37,7 +37,7 @@ class Cat3CalculatorTest < ActiveSupport::TestCase
     QME::QualityReport.any_instance.stubs(:result).returns(@result)
     QME::QualityReport.any_instance.stubs(:calculated?).returns(true)
     HealthDataStandards::Export::Cat3.any_instance.stubs(:export).returns(file)
-    record = FactoryGirl.create(:static_test_record)
+    record = FactoryBot.create(:static_test_record)
     record.test_id = @c3c.correlation_id
     record.save
     cat3 = @c3c.generate_cat3

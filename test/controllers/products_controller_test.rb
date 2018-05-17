@@ -7,12 +7,12 @@ class ProductsControllerTest < ActionController::TestCase
   include ApiTest
 
   setup do
-    FactoryGirl.create(:admin_user)
-    FactoryGirl.create(:atl_user)
-    FactoryGirl.create(:user_user)
-    vendor_user = FactoryGirl.create(:vendor_user)
-    FactoryGirl.create(:other_user)
-    @first_product = FactoryGirl.create(:product_static_bundle)
+    FactoryBot.create(:admin_user)
+    FactoryBot.create(:atl_user)
+    FactoryBot.create(:user_user)
+    vendor_user = FactoryBot.create(:vendor_user)
+    FactoryBot.create(:other_user)
+    @first_product = FactoryBot.create(:product_static_bundle)
     @bundle_id = @first_product.bundle._id.to_s
     @vendor = @first_product.vendor
     add_user_to_vendor(vendor_user, @vendor)

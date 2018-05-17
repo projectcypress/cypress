@@ -2,8 +2,8 @@ require 'test_helper'
 
 class ProductTestTest < ActiveJob::TestCase
   def setup
-    @vendor = FactoryGirl.create(:vendor)
-    @bundle = FactoryGirl.create(:static_bundle)
+    @vendor = FactoryBot.create(:vendor)
+    @bundle = FactoryBot.create(:static_bundle)
     @product = @vendor.products.create(name: 'test_product', c2_test: true, randomize_records: true, bundle_id: @bundle.id)
   end
 

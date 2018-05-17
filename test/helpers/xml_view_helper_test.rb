@@ -5,7 +5,7 @@ class XmlViewHelperTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   def setup
-    product_test = FactoryGirl.create(:product_test_static_result)
+    product_test = FactoryBot.create(:product_test_static_result)
     product_test.product.c1_test = true
     task = product_test.tasks.create({}, C1Task)
 

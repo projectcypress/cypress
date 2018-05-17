@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user, class: User do
     email 'test@test.com'
     password 'Cypre$$v3'

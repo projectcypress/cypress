@@ -8,12 +8,12 @@ class TestExecutionsControllerTest < ActionController::TestCase
   include TestExecutionsHelper
 
   setup do
-    FactoryGirl.create(:admin_user)
-    FactoryGirl.create(:atl_user)
-    FactoryGirl.create(:user_user)
-    vendor_user = FactoryGirl.create(:vendor_user)
-    FactoryGirl.create(:other_user)
-    @product_test = FactoryGirl.create(:product_test_static_result)
+    FactoryBot.create(:admin_user)
+    FactoryBot.create(:atl_user)
+    FactoryBot.create(:user_user)
+    vendor_user = FactoryBot.create(:vendor_user)
+    FactoryBot.create(:other_user)
+    @product_test = FactoryBot.create(:product_test_static_result)
     @bundle_id = @product_test.bundle._id
     # collection_fixtures('vendors', 'products', 'product_tests', 'tasks', 'test_executions', 'users', 'roles',
     #                     'bundles', 'measures', 'health_data_standards_svs_value_sets', 'artifacts',

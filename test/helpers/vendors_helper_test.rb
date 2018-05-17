@@ -6,7 +6,7 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   def setup
     drop_database
-    product_test = FactoryGirl.create(:product_test_static_result)
+    product_test = FactoryBot.create(:product_test_static_result)
     @bundle = product_test.bundle
     @vendor = product_test.product.vendor
     @product = Product.new(vendor: @vendor.id, name: 'test_product', c1_test: true, c2_test: true, c3_test: true, c4_test: true,
