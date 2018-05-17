@@ -8,7 +8,7 @@ include ProductsHelper
 
 And(/^the user has created a vendor with a product selecting C1 testing with one measure$/) do
   measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
-  @vendor = FactoryGirl.create(:vendor)
+  @vendor = FactoryBot.create(:vendor)
   @bundle_id = Bundle.default._id
   @product = Product.new(vendor: @vendor, name: 'Product 1', c1_test: true, measure_ids: measure_ids, bundle_id: @bundle_id)
   @product.product_tests.build({ name: 'test_for_measure_1a', measure_ids: measure_ids }, MeasureTest)

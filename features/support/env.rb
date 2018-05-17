@@ -139,6 +139,6 @@ Before do
   Mongoid.default_client['vendors'].drop
   Mongoid.default_client['products'].drop
   Mongoid.default_client['product_tests'].drop
-  FactoryGirl.create(:static_bundle)
-  FactoryGirl.create(:bundle)
+  FactoryBot.create(:static_bundle)
+  FactoryBot.create(:bundle)
 end

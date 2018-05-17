@@ -3,8 +3,8 @@ require 'helpers/caching_test'
 
 class ProducTest < ActiveSupport::TestCase
   def setup
-    @vendor = FactoryGirl.create(:vendor)
-    @bundle = FactoryGirl.create(:static_bundle)
+    @vendor = FactoryBot.create(:vendor)
+    @bundle = FactoryBot.create(:static_bundle)
 
     ActionController::Base.perform_caching = true
     @old_cache_store = ActionController::Base.cache_store

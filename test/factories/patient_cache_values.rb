@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :patient_cache_value, class: HealthDataStandards::CQM::PatientCacheValue do
     IPP 1
     DENOM 1

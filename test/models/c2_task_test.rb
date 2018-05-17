@@ -5,7 +5,7 @@ class C2TaskTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   def setup
-    @product_test = FactoryGirl.create(:product_test_static_result)
+    @product_test = FactoryBot.create(:product_test_static_result)
   end
 
   def test_create

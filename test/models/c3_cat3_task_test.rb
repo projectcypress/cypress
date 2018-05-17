@@ -4,7 +4,7 @@ class C3Cat3TaskTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   def setup
-    @test = FactoryGirl.create(:product_test_static_result)
+    @test = FactoryBot.create(:product_test_static_result)
     @test.product.c3_test = true
     @test.product.c2_test = true
     @task = @test.tasks.create({}, C3Cat3Task)

@@ -3,7 +3,7 @@ require 'rails/performance_test_help'
 
 class CMSSchematronValidatorPerfTest < ActionDispatch::PerformanceTest
   def setup
-    @test_execution = FactoryGirl.create(:test_execution)
+    @test_execution = FactoryBot.create(:test_execution)
     @task = @test_execution.task
     @records = @task.records
     @product_test = @task.product_test
