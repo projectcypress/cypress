@@ -2,12 +2,12 @@ require 'test_helper'
 class BundlesControllerTest < ActionController::TestCase
   include ActiveJob::TestHelper
   setup do
-    FactoryGirl.create(:admin_user)
-    FactoryGirl.create(:user_user)
-    FactoryGirl.create(:vendor_user)
-    FactoryGirl.create(:other_user)
-    @user = FactoryGirl.create(:atl_user)
-    FactoryGirl.create(:static_bundle)
+    FactoryBot.create(:admin_user)
+    FactoryBot.create(:user_user)
+    FactoryBot.create(:vendor_user)
+    FactoryBot.create(:other_user)
+    @user = FactoryBot.create(:atl_user)
+    FactoryBot.create(:static_bundle)
     FileUtils.rm_rf(APP_CONSTANTS['bundle_file_path'])
   end
 

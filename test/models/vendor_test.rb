@@ -4,11 +4,11 @@ class VendorTest < ActiveSupport::TestCase
   VENDOR = '4def93dd4f85cf8968000003'.freeze
   OTHER_VENDOR = '4def93dd4f85cf8968000004'.freeze
   def setup
-    FactoryGirl.create(:admin_user)
-    FactoryGirl.create(:atl_user)
-    FactoryGirl.create(:user_user)
-    FactoryGirl.create(:vendor_user)
-    FactoryGirl.create(:other_user)
+    FactoryBot.create(:admin_user)
+    FactoryBot.create(:atl_user)
+    FactoryBot.create(:user_user)
+    FactoryBot.create(:vendor_user)
+    FactoryBot.create(:other_user)
     Vendor.destroy_all
   end
 

@@ -1,8 +1,8 @@
 require 'test_helper'
 class MeasureTestTest < ActiveJob::TestCase
   def setup
-    @vendor = FactoryGirl.create(:vendor)
-    @bundle = FactoryGirl.create(:static_bundle)
+    @vendor = FactoryBot.create(:vendor)
+    @bundle = FactoryBot.create(:static_bundle)
     @product = @vendor.products.create(name: 'test_product', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: @bundle.id)
   end
 

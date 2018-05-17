@@ -2,8 +2,8 @@ require 'test_helper'
 
 class MeasureEvaluationJobTest < ActiveJob::TestCase
   def setup
-    vendor = FactoryGirl.create(:vendor)
-    @bundle = FactoryGirl.create(:static_bundle)
+    vendor = FactoryBot.create(:vendor)
+    @bundle = FactoryBot.create(:static_bundle)
     @result = QME::QualityReportResult.new(DENOM: 48, NUMER: 44, antinumerator: 4, DENEX: 0)
     @product = vendor.products.create(name: 'test_product', c2_test: true, randomize_records: true, bundle_id: @bundle.id,
                                       measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])

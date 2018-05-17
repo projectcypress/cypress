@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :bundle, class: Bundle do
     sequence(:name) { |i| "Bundle Name #{i}" }
     sequence(:version) { |i| "#{2017 + i}.0.0" }
@@ -41,7 +41,7 @@ FactoryGirl.define do
           random_measure['id'] = random_measure.hqmf_id
           random_measure.save
         end
-        FactoryGirl.reload
+        FactoryBot.reload
 
         # Include 40 valuesets
         40.times do

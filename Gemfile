@@ -125,7 +125,7 @@ group :test do
   gem 'brakeman', :require => false
   gem 'bundler-audit'
   gem 'codecov', :require => false
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'launchy'
   gem 'minitest', '5.10.3'
   gem 'minitest-rails'

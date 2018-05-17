@@ -5,7 +5,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   include HealthDataStandards::CQM
 
   def setup
-    @pt = FactoryGirl.create(:product_test_static_result)
+    @pt = FactoryBot.create(:product_test_static_result)
   end
 
   def test_perform_full_deck
