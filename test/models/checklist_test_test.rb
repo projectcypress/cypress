@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ChecklistTestTest < ActiveJob::TestCase
   def setup
-    @product = FactoryGirl.create(:product_static_bundle)
+    @product = FactoryBot.create(:product_static_bundle)
     @test = @product.product_tests.create!({ name: 'c1 visual', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
   end
 

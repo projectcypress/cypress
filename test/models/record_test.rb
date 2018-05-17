@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RecordTest < ActiveSupport::TestCase
   def setup
-    @bundle = FactoryGirl.create(:static_bundle)
+    @bundle = FactoryBot.create(:static_bundle)
   end
 
   def test_record_knows_bundle

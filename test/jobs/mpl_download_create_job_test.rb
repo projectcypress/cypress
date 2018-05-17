@@ -2,7 +2,7 @@ require 'test_helper'
 
 class MplDownloadCreateJobTest < ActiveJob::TestCase
   setup do
-    @bundle = FactoryGirl.create(:static_bundle)
+    @bundle = FactoryBot.create(:static_bundle)
     # Clean up MPL before and after running for consistency
     FileUtils.rm_rf(@bundle.mpl_path)
   end

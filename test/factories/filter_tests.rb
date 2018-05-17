@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :filter_test, class: FilteringTest do
     sequence(:name) { |i| "Product Test Name #{i}" }
 

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class FilteringTestTest < ActiveJob::TestCase
   def setup
-    @product = FactoryGirl.create(:product_static_bundle)
+    @product = FactoryBot.create(:product_static_bundle)
   end
 
   def test_create

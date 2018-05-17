@@ -15,7 +15,7 @@ end
 
 Given(/^the user is signed in as a non admin$/) do
   User.all.destroy # FIXME: there's gotta be a better way
-  @user = FactoryGirl.create(:user)
+  @user = FactoryBot.create(:user)
   @user.approved = true
   login_as @user, :scope => :user
   steps %( Given the user is on the sign in page )
@@ -108,7 +108,7 @@ end
 
 When(/^the user creates a product with no name$/) do
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
-  @product = FactoryGirl.build(:product_no_name)
+  @product = FactoryBot.build(:product_no_name)
   page.fill_in 'Name', :with => @product.name
   page.find('#product_c1_test').click
   page.find('#product_measure_selection_custom').click
@@ -117,7 +117,7 @@ When(/^the user creates a product with no name$/) do
 end
 
 When(/^the user creates two products with the same name$/) do
-  @product = FactoryGirl.build(:product_static_name)
+  @product = FactoryBot.build(:product_static_name)
   steps %(
     When the user creates a product with name #{@product.name} for vendor #{@vendor.name}
     When the user creates a product with name #{@product.name} for vendor #{@vendor.name}
@@ -126,7 +126,7 @@ end
 
 When(/^the user creates a product with no task type$/) do
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
-  @product = FactoryGirl.build(:product)
+  @product = FactoryBot.build(:product)
   page.fill_in 'Name', :with => @product.name
   page.find('#product_measure_selection_custom').click
   page.all('#measure_tabs .ui-tabs-nav a')[1].click
@@ -135,7 +135,7 @@ end
 
 When(/^the user fills out all product information but measures$/) do
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
-  @product = FactoryGirl.build(:product)
+  @product = FactoryBot.build(:product)
   page.fill_in 'Name', :with => @product.name
   page.find('#product_measure_selection_custom').click
   page.find('#product_c2_test').click
@@ -203,7 +203,7 @@ end
 
 When(/^the user cancels creating a product$/) do
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
-  @product = FactoryGirl.build(:product)
+  @product = FactoryBot.build(:product)
   page.click_button 'Cancel'
 end
 
@@ -218,7 +218,7 @@ end
 
 When(/^the user changes the name of the product$/) do
   steps %( When the user views the edit page of the product )
-  @product_other = FactoryGirl.build(:product)
+  @product_other = FactoryBot.build(:product)
   page.fill_in 'Name', :with => @product_other.name
   page.click_button 'Edit Product'
 end
