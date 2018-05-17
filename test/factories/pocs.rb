@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :poc, class: PointOfContact do
     sequence(:name) { |i| "Contact #{i}" }
     sequence(:email) { |i| "contact#{i}@example.com" }

@@ -58,7 +58,7 @@ end
 
 Given(/^a user has an account$/) do
   User.all.destroy # FIXME: there's gotta be a better way
-  @user = FactoryGirl.create(:user)
+  @user = FactoryBot.create(:user)
   @user.add_role :admin
 end
 

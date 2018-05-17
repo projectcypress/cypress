@@ -3,7 +3,7 @@ require 'fileutils'
 
 class DemographicsRandomizerTest < ActiveSupport::TestCase
   setup do
-    @bundle = FactoryGirl.create(:static_bundle)
+    @bundle = FactoryBot.create(:static_bundle)
     @first = 'Xyntash'
     @last = 'Zygadoo'
     @race = { 'code' => 'NA', 'name' => 'NA', 'codeSystem' => 'NA' }

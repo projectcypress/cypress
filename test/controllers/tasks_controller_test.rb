@@ -5,12 +5,12 @@ class TasksControllerTest < ActionController::TestCase
   include ApiTest
 
   setup do
-    FactoryGirl.create(:admin_user)
-    FactoryGirl.create(:atl_user)
-    FactoryGirl.create(:user_user)
-    vendor_user = FactoryGirl.create(:vendor_user)
-    FactoryGirl.create(:other_user)
-    @test = FactoryGirl.create(:product_test_static_result)
+    FactoryBot.create(:admin_user)
+    FactoryBot.create(:atl_user)
+    FactoryBot.create(:user_user)
+    vendor_user = FactoryBot.create(:vendor_user)
+    FactoryBot.create(:other_user)
+    @test = FactoryBot.create(:product_test_static_result)
     @product = @test.product
     @task = @test.tasks.first
     add_user_to_vendor(vendor_user, @product.vendor)

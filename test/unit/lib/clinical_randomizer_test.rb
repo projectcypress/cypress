@@ -3,7 +3,7 @@ require 'test_helper'
 class ClinicalRandomizerTest < ActiveSupport::TestCase
   setup do
     @record = Record.new(first: 'Foo', last: 'Bar')
-    @bundle = FactoryGirl.create(:static_bundle)
+    @bundle = FactoryBot.create(:static_bundle)
     @bundle.measure_period_start = 1_293_840_000
     @bundle.effective_date = 1_325_375_999
     @bundle.save!

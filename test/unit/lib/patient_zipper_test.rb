@@ -3,8 +3,8 @@ require 'fileutils'
 
 class PatientZipperTest < ActiveSupport::TestCase
   setup do
-    record = FactoryGirl.create(:static_test_record)
-    pt = FactoryGirl.create(:product_test_static_result)
+    record = FactoryBot.create(:static_test_record)
+    pt = FactoryBot.create(:product_test_static_result)
     record.bundle_id = pt.bundle.id
     record.test_id = pt.id
     record.save

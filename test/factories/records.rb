@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :record, class: Record do
     sequence(:first) { |i| "Record Name #{i}" }
 
@@ -26,7 +26,7 @@ FactoryGirl.define do
                     'start_time' => 1_462_233_600,
                     'status_code' => { 'HL7 ActStatus' => ['performed'] } }]
       after(:create) do |rec|
-        values = FactoryGirl.build(:patient_cache_value, patient_id: rec._id)
+        values = FactoryBot.build(:patient_cache_value, patient_id: rec._id)
         values['medical_record_id'] = rec.medical_record_number
         create(:patient_cache, value: values)
       end
@@ -55,9 +55,9 @@ FactoryGirl.define do
                     'oid' => '2.16.840.1.113883.3.560.1.79',
                     'start_time' => 1_462_233_600,
                     'status_code' => { 'HL7 ActStatus' => ['performed'] } }]
-      provider_performances { [FactoryGirl.build(:provider_performance)] }
+      provider_performances { [FactoryBot.build(:provider_performance)] }
       after(:create) do |rec|
-        values = FactoryGirl.build(:patient_cache_value, patient_id: rec._id)
+        values = FactoryBot.build(:patient_cache_value, patient_id: rec._id)
         values['test_id'] = rec.test_id
         values['medical_record_id'] = rec.medical_record_number
         create(:patient_cache, value: values)

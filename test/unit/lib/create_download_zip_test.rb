@@ -3,9 +3,9 @@ require 'fileutils'
 
 class CreateDownloadZipTest < ActiveSupport::TestCase
   test 'Should create appropriate html' do
-    product2014 = FactoryGirl.create(:product_2014)
-    product_2015_c1 = FactoryGirl.create(:product_no_c2)
-    product_2015_c2 = FactoryGirl.create(:product_static_bundle)
+    product2014 = FactoryBot.create(:product_2014)
+    product_2015_c1 = FactoryBot.create(:product_no_c2)
+    product_2015_c2 = FactoryBot.create(:product_static_bundle)
 
     [product2014, product_2015_c1, product_2015_c2].each do |product|
       pt = product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'],

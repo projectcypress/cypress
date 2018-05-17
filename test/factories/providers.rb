@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :provider, class: Provider do
     sequence(:given_name) { |i| "Given_Name #{i}" }
     specialty '200000000X'

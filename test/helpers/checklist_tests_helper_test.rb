@@ -25,7 +25,7 @@ class ChecklistTestsHelperTest < ActiveSupport::TestCase
   end
 
   def test_checklist_test_criteria_attribute
-    measure = FactoryGirl.create(:static_measure)
+    measure = FactoryBot.create(:static_measure)
     c1 = {}
     c2 = {}
     c3 = {}

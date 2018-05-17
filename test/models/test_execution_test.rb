@@ -1,7 +1,7 @@
 require 'test_helper'
 class TestExecutionTest < ActiveSupport::TestCase
   def setup
-    @bundle = FactoryGirl.create(:static_bundle)
+    @bundle = FactoryBot.create(:static_bundle)
     vendor = Vendor.create(name: 'test_vendor_name')
     product = vendor.products.create(name: 'test_product', bundle_id: @bundle.id)
     @ptest = product.product_tests.build(name: 'ptest', measure_ids: ['1a'])

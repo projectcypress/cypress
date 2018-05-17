@@ -4,7 +4,7 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
 
   def setup
     @validator = MeasurePeriodValidator.new
-    @test_execution = FactoryGirl.create(:test_execution)
+    @test_execution = FactoryBot.create(:test_execution)
   end
 
   def test_file_with_good_mp
