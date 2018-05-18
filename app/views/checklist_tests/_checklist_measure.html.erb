@@ -37,7 +37,7 @@
             <tbody>
               <% product_test.checked_criteria.all(measure_id: measure.id).each.with_index do |checked_criteria,index| %>
                 <%= f.fields_for :checked_criteria, checked_criteria do |criteria_field| %>
-                  <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
+                  <% criteria = measure[:source_data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
                   <% if criteria.key?('description') %>
                     <tr>
                       <td rowspan="3" class='data-criteria hide-me'>
@@ -73,7 +73,7 @@
                                 <ul class="value-set-list">
                                   <% valuessets.each do |vs| %>
                                   <li class="value-set-item-header"><%= "#{lookup_valueset_name(vs)}" %></li>
-                                  <li class="value-set-item-oid"><%= vs %></li>
+                                  <li class="value-set-item-oid"><%= direct_reference_code?(vs) ? '' : vs %></li>
                                   <% end %>
                                 </ul>
                               </div>
@@ -98,7 +98,7 @@
                               <%= criteria_field.text_field :code, hide_label: false, class: 'hide-me' %>
                             <% end %>
                           </td>
-                          <% if criteria.negation %>
+                          <% if checked_criteria.attribute_index && criteria['attributes'][checked_criteria.attribute_index]['attribute_name'] == "negationRationale" %>
                           <td class='show-me' style='display: none;'>
                             <%= criteria_field.check_box :negated_valueset, label_class: 'label toggle', onclick: "lookupLabelFunction(#{criteria_field.index})" do %>
                               <div class="toggle-control"></div>
@@ -120,11 +120,11 @@
                       <% end %>
                       <tr>
                         <td> <strong> Attributes </strong> </td>
-                        <td><%= checklist_test_criteria_attribute(measure, criteria) %></td>
+                        <td><%= checklist_test_criteria_attribute(criteria, checked_criteria.attribute_index) %></td>
                         <td>
-                          <%= render partial: 'checklist_tests/field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value'], product_test: product_test, index: criteria_field.index, disable_modal: false } if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %>
+                          <%= render partial: 'checklist_tests/field_values', locals: { attribute: criteria['attributes'][checked_criteria.attribute_index], result: criteria['value'], product_test: product_test, index: criteria_field.index, disable_modal: false } if criteria['attributes'] || criteria['value'] %>
                         </td>
-                        <% if coded_attribute?(criteria) %>
+                        <% if coded_attribute?(criteria, checked_criteria.attribute_index) %>
                           <td class='hide-me'>
                             <% if criteria_field.object.complete?.nil? %>
                               <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
@@ -135,7 +135,7 @@
                             <% end %>
                             <%= criteria_field.text_field :attribute_code, hide_label: false, class: 'hide-me' %>
                           </td>
-                        <% elsif criteria['value'] && criteria['value'].type != 'CD' || criteria['field_values'] %>
+                        <% elsif criteria['value'] && criteria['value'].type != 'CD' || criteria['attributes'] %>
                           <td class='hide-me'>
                             <% if criteria_field.object.complete?.nil? %>
                               <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
