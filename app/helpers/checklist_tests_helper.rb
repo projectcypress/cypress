@@ -4,15 +4,9 @@ module ChecklistTestsHelper
     @product_test.checked_criteria.group_by(&:measure_id).values.all? { |cc_group| cc_group.any? { |cc| !cc.checklist_complete? } }
   end
 
-  def checklist_test_criteria_attribute(measure, criteria)
-    if criteria[:field_values]
-      if criteria[:field_values].keys[0] == 'FLFS'
-        fulfills_reference(measure, criteria[:field_values]['FLFS'].reference)
-      else
-        criteria[:field_values].keys[0].tr('_', ' ').capitalize
-      end
-    elsif criteria[:negation]
-      'Negation Code'
+  def checklist_test_criteria_attribute(criteria, attribute_index)
+    if criteria[:attributes]
+      criteria[:attributes][attribute_index][:attribute_name]
     elsif criteria[:value] && criteria[:value][:system] != 'Administrative Sex'
       'Result'
     else
@@ -20,60 +14,32 @@ module ChecklistTestsHelper
     end
   end
 
-  def fulfills_reference(measure, referenced_criteria)
-    data_criterias = measure.data_criteria
-    data_criterias.each do |data_criteria|
-      return 'Fulfills - ' + data_criteria[referenced_criteria].description if data_criteria[referenced_criteria]
-    end
-  end
-
   def available_data_criteria(measure, criteria, original_sdc)
     dc_hash = {}
     og_string = ''
-    measure.data_criteria.each do |dc|
+    measure.source_data_criteria.each do |dc_key, dc|
       next if unsubstituable_data_criteria?(dc)
-      dc_string = dc[dc.keys[0]].negation ? "#{dc[dc.keys[0]].description} - negation" : dc[dc.keys[0]].description
-      dc_hash[dc_string] = dc.keys[0]
+      dc_hash[dc.description] = dc_key
       # Store the original data source criteria and display string, makes sure you can reselect the orignal criteria
       # This is important for when the same criteria is used in multiple ways in the same measure
-      og_string = dc_string if dc[dc.keys[0]].source_data_criteria == criteria.source_data_criteria
+      if dc.source_data_criteria == criteria.source_data_criteria
+        og_string = dc.description
+      end
     end
     dc_hash[og_string] = original_sdc
     Hash[dc_hash.sort]
   end
 
   # A data criteria cannot be used for subtitution if it is derived (e.g., Occurrence A of), or birthtime
-  def unsubstituable_data_criteria?(criteria)
-    cr0 = criteria[criteria.keys[0]]
-    cr0['definition'] == 'derived' || cr0['type'] == 'derived' || (cr0['type'] == 'characteristic' && cr0['property'] == 'birthtime')
+  def unsubstituable_data_criteria?(cr)
+    cr['negation'] || cr['definition'] == 'derived' || cr['type'] == 'derived' || (cr['type'] == 'characteristic' && cr['property'] == 'birthtime')
   end
 
-  # argument fv stands for field_value (Hash)
-  def length_of_stay_string(fv)
-    msg = ''
-    if fv['low']
-      msg += "#{fv['low']['value']} #{fv['low']['unit']}"
-      msg += less_than_symbol(fv['low']['inclusive?'])
-    end
-    msg += 'stay'
-    if fv['high']
-      msg += less_than_symbol(fv['high']['inclusive?'])
-      msg += "#{fv['high']['value']} #{fv['high']['unit']}"
-    end
-    msg
-  end
-
-  def less_than_symbol(inclusive)
-    inclusive ? ' &#8804; ' : ' < '
-  end
-
-  def coded_attribute?(criteria)
-    if criteria[:field_values]
-      true if criteria[:field_values].values[0].type == 'CD'
+  def coded_attribute?(criteria, attribute_index)
+    if criteria[:attributes]
+      true if criteria[:attributes][attribute_index][:attribute_valueset]
     elsif criteria[:value]
       true if criteria[:value].type == 'CD' && criteria[:value][:system] != 'Administrative Sex'
-    elsif criteria['negation_code_list_id']
-      true
     end
   end
 
@@ -94,5 +60,9 @@ module ChecklistTestsHelper
     return [] unless vs&.first
     # vs.first.concepts.map { |con| con.display_name + ":" + con.code }
     vs.first.concepts.map { |con| [con.display_name, con.code] }
+  end
+
+  def direct_reference_code?(valueset)
+    valueset[0, 3] == 'drc' ? true : false
   end
 end

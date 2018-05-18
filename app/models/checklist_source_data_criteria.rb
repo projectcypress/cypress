@@ -11,6 +11,7 @@ class ChecklistSourceDataCriteria
 
   field :recorded_result, type: String
   field :code, type: String
+  field :attribute_index, type: Integer
   field :negated_valueset, type: Boolean
   field :attribute_code, type: String
   field :passed_qrda, type: Boolean
@@ -30,8 +31,10 @@ class ChecklistSourceDataCriteria
 
   def change_criteria
     if replacement_data_criteria && replacement_data_criteria != source_data_criteria
+      replacement_attribute_index = checklist_test.attribute_index?(Measure.find_by(_id: measure_id), replacement_data_criteria)
       checklist_test.checked_criteria.create(measure_id: measure_id, source_data_criteria: replacement_data_criteria,
-                                             negated_valueset: false, replacement_data_criteria: replacement_data_criteria)
+                                             negated_valueset: false, replacement_data_criteria: replacement_data_criteria,
+                                             attribute_index: replacement_attribute_index)
       delete
     end
   end
@@ -58,13 +61,9 @@ class ChecklistSourceDataCriteria
     # validate if an attribute_code is required and is correct
     if attribute_code
       measure = Measure.find_by(_id: measure_id)
-      criteria = measure.hqmf_document[:data_criteria].select { |key| key == source_data_criteria }.values.first
-      valueset = if criteria[:field_values]
-                   [criteria[:field_values].values[0].code_list_id]
-                 elsif criteria[:value]
-                   [criteria[:value].code_list_id]
-                 else
-                   [criteria.negation_code_list_id]
+      criteria = measure[:source_data_criteria].select { |key| key == source_data_criteria }.values.first
+      valueset = if criteria[:attributes]
+                   [criteria[:attributes][attribute_index].attribute_valueset]
                  end
       self.attribute_complete = code_in_valuesets(valueset, attribute_code, measure.bundle_id)
     end
@@ -80,20 +79,21 @@ class ChecklistSourceDataCriteria
 
   def printable_name
     measure = Measure.find_by(_id: measure_id)
-    sdc = measure.hqmf_document[:data_criteria].select { |key, _value| key == source_data_criteria }.values.first
+    sdc = measure[:source_data_criteria].select { |key, _value| key == source_data_criteria }.values.first
     sdc['status'] ? "#{measure.cms_id} - #{sdc['definition']}, #{sdc['status']}" : "#{measure.cms_id} - #{sdc['definition']}"
   end
 
   # goes through all data criteria in a measure to find valuesets that have the same type, status and field values
   def get_all_valuesets_for_dc(measure_id)
     measure = Measure.find_by(_id: measure_id)
-    criteria = measure.hqmf_document[:data_criteria].select { |key| key == source_data_criteria }.values.first
+    measure.reload
+    criteria = measure[:source_data_criteria].select { |key| key == source_data_criteria }.values.first
     arr = []
     # if criteria is a characteristic, only return a single valueset
     if criteria['type'] == 'characteristic'
       arr << criteria.code_list_id
     else
-      valuesets = measure.all_data_criteria.map { |data_criteria| include_valueset(data_criteria, criteria) }
+      valuesets = measure[:source_data_criteria].map { |_data_criteria_key, data_criteria| include_valueset(data_criteria, criteria) }
       valuesets.uniq.each do |valueset|
         arr << valueset unless valueset.nil?
       end
@@ -104,30 +104,24 @@ class ChecklistSourceDataCriteria
   # data_criteria is from the measure defintion, criteria is for the specific checklist test
   def include_valueset(data_criteria, criteria)
     include_vset = false
-    if data_criteria.type.to_s == criteria['type'] && data_criteria.status == criteria['status']
+    if data_criteria.type.to_s == criteria['type'] && data_criteria['status'] == criteria['status']
       # value set should not be included if there is a negation, and the negation doesn't match
-      return nil if criteria.negation && criteria.negation_code_list_id != data_criteria.negation_code_list_id
       # if the criteria has a field_value, check it is the same as the data_criteria, else return true
-      include_vset = criteria['field_values'] ? compare_field_values(data_criteria, criteria) : true
+      include_vset = criteria['attributes'] ? compare_attributes(data_criteria, criteria) : true
     end
     data_criteria.code_list_id if include_vset
   end
 
   # data_criteria is from the measure defintion, criteria is for the specific checklist test
-  def compare_field_values(data_criteria, criteria)
-    include_vset = false
-    if data_criteria.field_values && criteria['field_values'].keys[0] == data_criteria.field_values.keys[0]
-      if data_criteria.field_values.values[0].type == 'CD'
-        include_vset = true if data_criteria.field_values.values[0].code_list_id == criteria['field_values'].values[0]['code_list_id']
-      else
-        include_vset = true
-      end
-    end
-    include_vset
+  def compare_attributes(data_criteria, criteria)
+    return false if data_criteria['attributes'].nil?
+    data_criteria.attributes.include? criteria.attributes[attribute_index]
   end
 
   # searches an array of valuesets for a code
   def code_in_valuesets(valuesets, input_code, bundle_id)
+    # if valueset is a "direct reference code" check to see if input_code matches ones of the "valuesets"
+    return true if valuesets.include? input_code
     !HealthDataStandards::SVS::ValueSet.where('concepts.code' => input_code, bundle_id: bundle_id).in(oid: valuesets).empty?
   end
 end
