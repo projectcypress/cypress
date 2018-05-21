@@ -37,7 +37,7 @@ class Cat3CalculatorTest < ActiveSupport::TestCase
     QME::QualityReport.any_instance.stubs(:result).returns(@result)
     QME::QualityReport.any_instance.stubs(:calculated?).returns(true)
     HealthDataStandards::Export::Cat3.any_instance.stubs(:export).returns(file)
-    record = FactoryBot.create(:static_test_record)
+    record = FactoryBot.create(:static_test_patient)
     record.test_id = @c3c.correlation_id
     record.save
     cat3 = @c3c.generate_cat3
