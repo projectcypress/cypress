@@ -3,12 +3,10 @@ require 'fileutils'
 
 class PatientZipperTest < ActiveSupport::TestCase
   setup do
-    record = FactoryBot.create(:static_test_record)
     pt = FactoryBot.create(:product_test_static_result)
-    record.bundle_id = pt.bundle.id
-    record.test_id = pt.id
-    record.save
-    @patients = Record.where('gender' => 'F')
+    patient = FactoryBot.create(:static_test_patient, bundleId: pt.bundle.id)
+    patient.save
+    @patients = Patient.where('gender' => 'F')
   end
 
   test 'Should create valid html file' do
