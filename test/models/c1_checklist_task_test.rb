@@ -5,7 +5,7 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   def setup
-    product = FactoryGirl.create(:product_static_bundle)
+    product = FactoryBot.create(:product_static_bundle)
     @checklist_test = product.product_tests.build({ name: 'c1 visual', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
     @checklist_test.save!
     @checklist_test.create_checked_criteria

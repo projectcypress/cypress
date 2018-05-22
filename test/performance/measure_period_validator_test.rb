@@ -4,7 +4,7 @@ require 'rails/performance_test_help'
 class MeasurePeriodValidatorPerfTest < ActionDispatch::PerformanceTest
   def setup
     @validator = ::Validators::MeasurePeriodValidator.new
-    @test_execution = FactoryGirl.create(:test_execution)
+    @test_execution = FactoryBot.create(:test_execution)
   end
 
   def test_file_with_good_mp

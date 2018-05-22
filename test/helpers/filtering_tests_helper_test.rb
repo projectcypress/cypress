@@ -4,7 +4,7 @@ class FilteringTestsHelperTest < ActiveSupport::TestCase
   include FilteringTestsHelper
 
   def setup
-    FactoryGirl.create(:static_bundle)
+    FactoryBot.create(:static_bundle)
     @filters = {
       providers: {
         npis: ['6892960108'],

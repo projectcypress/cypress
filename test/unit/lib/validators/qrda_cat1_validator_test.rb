@@ -3,7 +3,7 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
   include ::Validators
 
   def setup
-    @bundle = FactoryGirl.create(:static_bundle)
+    @bundle = FactoryBot.create(:static_bundle)
     @measures = [Measure.where(hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE').first]
     @validator_with_c3 = QrdaCat1Validator.new(@bundle, true, true, false, @measures)
     @validator_without_c3 = QrdaCat1Validator.new(@bundle, false, false, false, @measures)

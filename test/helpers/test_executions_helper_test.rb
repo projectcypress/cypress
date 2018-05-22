@@ -10,7 +10,7 @@ class TestExecutionHelper < ActiveSupport::TestCase
   # # # # # # # # #
 
   def setup
-    @bundle = FactoryGirl.create(:static_bundle)
+    @bundle = FactoryBot.create(:static_bundle)
     @vendor = Vendor.create(name: 'test_vendor_name')
     @errors = []
     @errors << { message: 'pop_error',

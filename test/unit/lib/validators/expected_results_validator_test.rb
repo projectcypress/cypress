@@ -3,7 +3,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   include ::Validators
 
   def setup
-    @product_test = FactoryGirl.create(:product_test_static_result)
+    @product_test = FactoryBot.create(:product_test_static_result)
     @validator = ExpectedResultsValidator.new(@product_test.expected_results)
     @task = C2Task.new
     @task.product_test = @product_test

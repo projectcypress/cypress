@@ -2,7 +2,7 @@ require 'test_helper'
 
 class CachingTest < ActiveSupport::TestCase
   def setup
-    @bundle = FactoryGirl.create(:static_bundle)
+    @bundle = FactoryBot.create(:static_bundle)
 
     ActionController::Base.perform_caching = true
 

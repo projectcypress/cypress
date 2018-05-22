@@ -6,7 +6,7 @@ class ExpectedResultsValidatorPerfTest < ActionDispatch::PerformanceTest
   # self.profile_options = { runs: 1, metrics: [:wall_time, :process_time] }
 
   def setup
-    @task = FactoryGirl.create(:task)
+    @task = FactoryBot.create(:task)
     @product_test = @task.product_test
     @validator = ExpectedResultsValidator.new(@product_test.expected_results)
   end

@@ -3,7 +3,7 @@ class QrdaCat3ValidatorTest < ActiveSupport::TestCase
   include ::Validators
 
   def setup
-    @product_test = FactoryGirl.create(:product_test_static_result)
+    @product_test = FactoryBot.create(:product_test_static_result)
 
     @validator_with_c3 = QrdaCat3Validator.new(@product_test.expected_results, true, true, true, @product_test.bundle)
     @validator_without_c3 = QrdaCat3Validator.new(@product_test.expected_results, false, false, true, @product_test.bundle)
