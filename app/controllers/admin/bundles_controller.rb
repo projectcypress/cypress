@@ -47,7 +47,7 @@ module Admin
 
       # clear this cache just in case it's pointing to the bundle just deprecated
       Rails.cache.delete('any_installed_bundle')
-      flash_comment(bundle_title, 'danger', 'depreceated')
+      flash_comment(bundle_title, 'danger', 'deprecated')
       redirect_to admin_path(anchor: 'bundles')
     end
 
