@@ -56,7 +56,7 @@ module Cypress
       file = Tempfile.new("c1_sample_criteria-#{Time.now.to_i}.zip")
       # Archive records checks whether the archive has already been created and creates
       # it if it has not.
-      c1_patient_zip = checklist_test.archive_records
+      c1_patient_zip = checklist_test.archive_patients
       Zip::ZipOutputStream.open(file.path) do |output_zip|
         # Copy contents of existing c1_patient_zip into output file
         Zip::InputStream.open(c1_patient_zip.path) do |patient_archive|
