@@ -87,6 +87,7 @@ FactoryBot.define do
       episode_of_care true
       sub_id 'a'
       hqmf_doc = source_measure
+      hqmf_document { hqmf_doc }
     end 
   end
 end
