@@ -41,7 +41,7 @@ FactoryBot.define do
       measure_ids ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
       association :product, :factory => :product_static_bundle
       after(:create) do |pt|
-        create(:static_test_record, :test_id => pt._id)
+        create(:static_test_patient, :bundleId => pt.bundle._id)
       end
     end
   end

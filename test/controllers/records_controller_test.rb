@@ -9,7 +9,6 @@ class RecordsControllerTest < ActionController::TestCase
     vendor_user = FactoryBot.create(:vendor_user)
     FactoryBot.create(:other_user)
     @product_test = FactoryBot.create(:product_test_static_result)
-    @record_id = @product_test.bundle.records.first.id
     @bundle_id = @product_test.bundle._id
     add_user_to_vendor(vendor_user, @product_test.product.vendor)
   end
