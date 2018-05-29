@@ -30,13 +30,13 @@ module Cypress
       prng = Random.new(@test.rand_seed.to_i)
 
       # if Shift patients is selected, move all patient data into the actual reporting period
-      # if @test.product.shift_patients
-      #   date_shift = @test.bundle.start_date_offset
-      #   patients.each do |patient|
-      #     #TODO R2P: make sure shift dates is implemented on base patient model (or in ext as necessary)
-      #     patient.shift_dates(date_shift)
-      #   end
-      # end
+      if @test.product.shift_patients
+        date_shift = @test.bundle.start_date_offset
+        patients.each do |patient|
+          #TODO R2P: make sure shift dates is implemented on base patient model (or in ext as necessary)
+          patient.shift_dates(date_shift)
+        end
+      end
       # grab a random number of patients and then randomize the dates between +- 10 days
       randomize_ids(patients, prng) if options['randomization_ids']
 
