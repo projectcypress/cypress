@@ -40,15 +40,16 @@ class FilteringTest < ProductTest
   end
 
   def pick_filter_criteria
-    # TODO: R2P: select from patients
     return unless options && options['filters']
     # select a random patient
     prng = Random.new(rand_seed.to_i)
     mpl_ids = master_patient_ids
-    rand_patient = patients.select { |r| r.original_medical_record_number.in?(mpl_ids) }.sample
+
+    rand_patient = patients.select { |p| p.extendedData['original_patient'].in?(mpl_ids) }.sample
     # iterate over the filters and assign random codes
     params = { measures: measures, patients: patients, incl_addr: incl_addr, effective_date: created_at, prng: prng }
     options['filters'].each do |k, _v|
+      #Note: typically just uses criteria from one random patient, not across several patients
       options['filters'][k] = Cypress::CriteriaPicker.send(k, rand_patient, params)
     end
     save!
