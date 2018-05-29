@@ -122,18 +122,5 @@ module QDM
     #
     # HDS helpers
     #
-    def shift_dates(date_diff)
-      self.birthDatetime = birthDatetime.nil? ? nil : birthDatetime + date_diff
-      # TODO: R2P: are provider_performances still being used?
-      # TODO R2P: priority 1.2 (time shift should be implemented in model)
-      # self.provider_performances.each {|pp| pp.shift_dates(date_diff)}
-      # shift all dataElements
-      dataElements.each do |de|
-        de.expiredDatetime = de.expiredDatetime.nil? ? nil : de.expiredDatetime + date_diff if de.qdmStatus == 'patientCharacteristicExpired'
-        de.authorDatetime =  de.authorDatetime.nil? ? nil : de.authorDatetime + date_diff
-        de.prevalencePeriod&.shift_dates(date_diff)
-        de.relevantPeriod&.shift_dates(date_diff)
-      end
-    end
   end
 end
