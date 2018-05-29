@@ -36,6 +36,19 @@ module QDM
       QDM::IndividualResult.where('patient_id' => id).where('IPP'.to_sym.gt => 0)
     end
 
+    def lookup_provider(include_address = nil)
+      #find with provider id hash i.e. "$oid"->value
+      provider = Provider.find(JSON.parse(extendedData['provider_performances']).first['provider_id'])
+      addresses = []
+      provider.addresses.each do |address|
+        addresses << { 'street' => address.street, 'city' => address.city, 'state' => address.state, 'zip' => address.zip,
+                       'country' => address.country }
+      end
+
+      return { 'npis' => [provider.npi], 'tins' => [provider.tin], 'addresses' => addresses } if include_address
+      { 'npis' => [provider.npi], 'tins' => [provider.tin] }
+    end
+
     def duplicate_randomization(random: Random.new)
       patient = clone
       changed = { medical_record_number: medical_record_number, first: [first_names, first_names], last: [familyName, familyName] }

@@ -9,7 +9,7 @@ module Cypress
         @patient_sup_map[patient.id]['SEX'] = patient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.55')[0].dataElementCodes[0].code
         @patient_sup_map[patient.id]['RACE'] = patient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.59')[0].dataElementCodes[0].code
         @patient_sup_map[patient.id]['ETHNICITY'] = patient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.56')[0].dataElementCodes[0].code
-        @patient_sup_map[patient.id]['PAYER'] = 1
+        @patient_sup_map[patient.id]['PAYER'] = JSON.parse(patient.extendedData.insurance_providers).first['codes']['SOP'].first
       end
     end
 

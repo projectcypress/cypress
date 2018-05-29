@@ -48,21 +48,20 @@ module FilteringTestsHelper
     arr
   end
 
-  def generate_filter_records(filter_tests)
-    # TODO: R2P: generate_filter_patients
+  def generate_filter_patients(filter_tests)
     return unless filter_tests
     test = filter_tests.pop
     test.generate_patients
     test.save
     test.queued
     ProductTestSetupJob.perform_later(test)
-    records = test.records
+    patients = test.patients
     filter_tests.each do |ft|
-      records.collect do |r|
-        r2 = r.clone
-        r2.test_id = ft.id
-        r2.save
-        r2
+      patients.collect do |p|
+        p2 = p.clone
+        p2.extendedData['correlation_id'] = ft.id
+        p2.save
+        p2
       end
       ft.save
       ft.queued
