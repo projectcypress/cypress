@@ -58,7 +58,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   #   T E S T S   #
   # # # # # # # # #
 
-  def test_generate_filter_records
+  def test_generate_filter_patients
     @product.product_tests = nil
     @product.add_filtering_tests
     @product.product_tests.filtering_tests.find_by(cms_id: 'CMS1234').records

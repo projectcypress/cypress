@@ -12,9 +12,9 @@ module Validators
       @document = get_document(file)
       @options = options
       first, last = extract_first_and_last_names
-      record = @options['task'].records.where(first: first, last: last).first
-      if record
-        expected_provider_types = record.provider_performances.collect { |pp| pp.provider.specialty }
+      patient = @options['task'].patients.select { |p| p.givenNames[0] == first.to_s && p.familyName == last.to_s }.first
+      if patient
+        expected_provider_types = [patient.provider.specialty]
 
         found_provider_types = @document.xpath(PROVIDER_TYPE_SELECTOR).map(&:value)
 
