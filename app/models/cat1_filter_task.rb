@@ -31,7 +31,7 @@ class Cat1FilterTask < Task
   end
 
   def records
-    patient_ids = product_test.results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
-    product_test.filtered_records.in('_id' => patient_ids)
+    patient_ids = product_test.results.where('IPP' => { '$gt' => 0 }).collect { |res| res.patient_id }
+    product_test.filtered_patients.select{|p| patient_ids.include?(p._id)}
   end
 end
