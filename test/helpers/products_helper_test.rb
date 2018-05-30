@@ -9,7 +9,7 @@ class ProductsHelperTest < ActiveJob::TestCase
     @bundle = FactoryBot.create(:static_bundle)
     @vendor = FactoryBot.create(:vendor)
     @product = @vendor.products.create(name: 'test_product', c1_test: true, c2_test: true, c3_test: true, c4_test: true, bundle_id: @bundle.id,
-                                       randomize_records: false, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+                                       randomize_patients: false, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
 
     setup_checklist_test
     setup_measure_tests

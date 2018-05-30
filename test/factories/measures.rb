@@ -2,9 +2,9 @@ FactoryBot.define do
   factory  :measure, :class =>  Measure do
     entry = Rails.root.join('test', 'fixtures', 'artifacts', 'cms127v7.json')
     source_measure = JSON.parse(File.read(entry),:max_nesting => 100)
-    sequence( :name) { |i| "Measure Name #{i}" }
-    sequence( :hqmf_id) { |i| "53e3f13d-e5cf-445f-8dda-3720aff8401#{i}" }
-    sequence( :hqmf_set_id) { |i| "7c00e09b-02dc-458b-8587-7f0347a443f#{i}" }
+    sequence(:name) { |i| "Measure Name #{i}" }
+    sequence(:hqmf_id) { |i| "53e3f13d-e5cf-445f-8dda-3720aff8401#{i}" }
+    sequence(:hqmf_set_id) { |i| "7c00e09b-02dc-458b-8587-7f0347a443f#{i}" }
     continuous_variable false
     category 'none'
     type 'ep'
@@ -80,7 +80,7 @@ FactoryBot.define do
       cms_id source_measure['cms_id']
       hqmf_id 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
       hqmf_set_id 'C621C7B6-EB1F-11E7-8C3F-9A214CF093AE'
-      
+
       continuous_variable source_measure['continuous_variable']
       category 'static'
       type 'ep'
@@ -95,6 +95,6 @@ FactoryBot.define do
       oids source_measure['oids']
       population_ids {source_measure['population_ids']}
 
-    end 
+    end
   end
 end

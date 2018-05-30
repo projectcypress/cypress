@@ -26,8 +26,8 @@ class ProducTest < ActiveSupport::TestCase
     assert pt.valid?, 'record should be valid'
     assert pt.save, 'Should be able to create and save a Product'
     assert_equal '2015', pt.cert_edition
-    assert_equal true, pt.randomize_records
-    assert_equal false, pt.duplicate_records
+    assert_equal true, pt.randomize_patients
+    assert_equal false, pt.duplicate_patients
   end
 
   def test_create_2015_certification_with_c2
@@ -38,8 +38,8 @@ class ProducTest < ActiveSupport::TestCase
     assert pt.valid?, 'record should be valid'
     assert pt.save, 'Should be able to create and save a Product'
     assert_equal '2015', pt.cert_edition
-    assert_equal true, pt.randomize_records
-    assert_equal true, pt.duplicate_records
+    assert_equal true, pt.randomize_patients
+    assert_equal true, pt.duplicate_patients
   end
 
   def test_create_2014_certification_no_c2
@@ -50,8 +50,8 @@ class ProducTest < ActiveSupport::TestCase
     assert pt.valid?, 'record should be valid'
     assert pt.save, 'Should be able to create and save a 2014 cert edition Product'
     assert_equal '2014', pt.cert_edition
-    assert_equal true, pt.randomize_records
-    assert_equal false, pt.duplicate_records
+    assert_equal true, pt.randomize_patients
+    assert_equal false, pt.duplicate_patients
   end
 
   def test_create_2014_certification_with_c2
@@ -62,8 +62,8 @@ class ProducTest < ActiveSupport::TestCase
     assert pt.valid?, 'record should be valid'
     assert pt.save, 'Should be able to create and save a Product'
     assert_equal '2014', pt.cert_edition
-    assert_equal true, pt.randomize_records
-    assert_equal false, pt.duplicate_records
+    assert_equal true, pt.randomize_patients
+    assert_equal false, pt.duplicate_patients
   end
 
   def test_offset

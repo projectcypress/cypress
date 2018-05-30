@@ -28,8 +28,6 @@ module Validators
       @expected_records = []
       @measures.each do |mes|
         @expected_records << QDM::IndividualResult.where('measure_id' => mes.id, 'extendedData.correlation_id' => @test_id.to_s).distinct(:patient)
-        #@sgd[mes.hqmf_id] = mes.smoking_gun_data('value.test_id' => @test_id)
-        #@expected_records.concat @sgd[mes.hqmf_id].keys
       end
       @expected_records = @expected_records.flatten.uniq
     end
