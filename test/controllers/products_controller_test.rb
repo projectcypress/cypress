@@ -495,6 +495,6 @@ class ProductsControllerTest < ActionController::TestCase
   end
 
   def assert_has_product_attributes(hash)
-    assert_has_attributes(hash, %w[name description randomize_records duplicate_records links], %w[self product_tests patients])
+    assert_has_attributes(hash, %w[name description randomize_patients duplicate_patients links], %w[self product_tests patients])
   end
 end

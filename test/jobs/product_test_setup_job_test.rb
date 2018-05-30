@@ -4,7 +4,7 @@ class ProductTestSetupJobTest < ActiveJob::TestCase
   def setup
     vendor = FactoryBot.create(:vendor)
     @bundle = FactoryBot.create(:static_bundle)
-    @product = vendor.products.create(name: 'test_product', c2_test: true, randomize_records: true, bundle_id: @bundle.id,
+    @product = vendor.products.create(name: 'test_product', c2_test: true, randomize_patients: true, bundle_id: @bundle.id,
                                       measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
   end
 

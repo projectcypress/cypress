@@ -42,7 +42,7 @@ FactoryBot.define do
         measure['cql_statement_dependencies'] = source_measure['cql_statement_dependencies']
         measure['populations_cql_map'] = source_measure['populations_cql_map']
         measure['id'] = measure.hqmf_id
-        
+
         # TODO find object ids for all of the oids in the measure
         valueset_id_list = []
         measure['value_set_oid_version_objects'].each do |vsv|
@@ -63,7 +63,7 @@ FactoryBot.define do
           random_measure.save
         end
 
-        # Include a record that will evaluate against the static measure
+        # Include a patient that will evaluate against the static measure
         9.times do
           create(:patient, bundleId: bundle._id)
         end
