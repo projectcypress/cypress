@@ -269,9 +269,8 @@ ready_run_once = function() {
         setCheckboxDisabled('#product_c4_test', true);
       }
       else if (edition == '2015') {
-        // TODO: re-enable this after 4.0.0alpha
-        // setCheckboxDisabled('#product_duplicate_patients', false);
-        // setCheckboxDisabled('#product_c4_test', false);
+        setCheckboxDisabled('#product_duplicate_patients', false);
+        setCheckboxDisabled('#product_c4_test', false);
         $('.btn-checkbox input[name="product[c2_test]"]').trigger('change');
       }
     }
@@ -283,9 +282,8 @@ ready_run_once = function() {
       var edition = $('.btn-checkbox input[name="product[cert_edition]"]:checked').val();
       var c2_checked = $(this).prop('checked');
       if (edition == '2015') {
-        // TODO: re-enable this after 4.0.0alpha
-        // setCheckboxDisabled('#product_duplicate_patients', !c2_checked);
-        // $('.btn-checkbox input[name="product[duplicate_patients]"]').prop('checked', c2_checked);
+        setCheckboxDisabled('#product_duplicate_patients', !c2_checked);
+        $('.btn-checkbox input[name="product[duplicate_patients]"]').prop('checked', c2_checked);
       }
     }
   });
