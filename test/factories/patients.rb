@@ -59,6 +59,10 @@ FactoryBot.define do
     ]
     dataElements dataElementsValue
 
+    after(:create) do |patient|
+      create(:individual_result, patient_id: patient._id, bundleId: patient.bundleId)
+    end
+
     factory :static_test_patient do
       familyName 'GP Geriatric'
       givenNames ['1 N']

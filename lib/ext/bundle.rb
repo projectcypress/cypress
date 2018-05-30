@@ -9,8 +9,7 @@ class Bundle
   scope :available, -> { where(:deprecated.ne => true) }
 
   def results
-    HealthDataStandards::CQM::PatientCache.where(:bundle_id => id, 'value.test_id' => nil)
-                                          .order_by(['value.last', :asc])
+    QDM::IndividualResult.where('extendedData.correlation_id' => id.to_s)
   end
 
   def patients
@@ -29,7 +28,7 @@ class Bundle
   end
 
   def destroy
-    results.destroy
+    patients.destroy
     Product.where(:bundle_id => id).destroy_all
     FileUtils.rm(mpl_path) if File.exist?(mpl_path)
     delete

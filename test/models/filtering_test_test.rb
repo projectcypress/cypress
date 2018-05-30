@@ -21,7 +21,7 @@ class FilteringTestTest < ActiveJob::TestCase
     ft = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
     ft.save!
-    ft.generate_records
+    ft.generate_patients
     ft.reload
     ft.pick_filter_criteria
     options_assertions(ft)
@@ -33,7 +33,7 @@ class FilteringTestTest < ActiveJob::TestCase
     ft = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
     ft.save!
-    ft.generate_records
+    ft.generate_patients
     ft.reload
     ft.pick_filter_criteria
     # There should be at least one record that meets the problem filter
