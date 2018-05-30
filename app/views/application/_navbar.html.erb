@@ -29,11 +29,10 @@
             <% end %>
           </li>
           <li <% if curr_page == :master_patient_list %>class="active"<% end %>>
-            <%# link_to records_path, class: 'navbar-item'   do %>
-            <%# TODO: re-enable this after 4.0.0alpha %>
-            <%# <i class="fa fa-fw fa-users" aria-hidden="true"></i> %>
-            <%# Master Patient List %>
-            <%# end %>
+            <%= link_to records_path, class: 'navbar-item'   do %>
+            <i class="fa fa-fw fa-users" aria-hidden="true"></i>
+            Master Patient List
+            <% end %>
           </li>
           <% if Settings.current.mode_internal? || Settings.current.mode_demo? %>
           <li>
