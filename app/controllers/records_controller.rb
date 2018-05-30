@@ -44,7 +44,7 @@ class RecordsController < ApplicationController
   end
 
   def by_filter_task
-    @records = @product_test.filtered_records
+    @records = @product_test.filtered_patients
   end
 
   def download_mpl
