@@ -25,7 +25,6 @@ class TestExecutionsControllerTest < ActionController::TestCase
     @first_c2_task = @first_test.tasks.c2_task
     @first_c1_task = @first_test.tasks.c1_task
     @first_execution = @first_c2_task.test_executions.first
-    puts "Test method: #{self.method_name}"
   end
 
   def setup_c4
