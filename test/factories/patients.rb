@@ -8,14 +8,16 @@ FactoryBot.define do
     birthDatetime 1_340_323_200
     extendedDataValue = {
       'medical_record_assigner' => 'Bonnie',
-      'notes' => "70yo female; DExcl 56,90 Num 127,130 DExcep 139,149\n*17qdes\n*Pt w h/o advancing dementia and heart failure. Suffered multiple fractures requiring surgery and occ therapy."
+      'notes' => "70yo female; DExcl 56,90 Num 127,130 DExcep 139,149\n*17qdes\n*Pt w h/o advancing dementia and heart failure. Suffered multiple fractures requiring surgery and occ therapy.",
+      "insurance_providers" => "[{\"codes\":{\"SOP\":[\"349\"]},\"name\":\"Other\",\"type\":\"OT\",\"payer\":{\"name\":\"Other\"},\"financial_responsibility_type\":{\"code\":\"SELF\",\"codeSystem\":\"HL7 Relationship Code\"},\"member_id\":\"1374589940\",\"start_time\":\"1949-05-23T13:24:00+00:00\"}]"
     }
     sequence(:extendedData) do |i|
       {
         'medical_record_number' => "#{i}989db70-4d42-0135-8680-20999b0ed66f"
       }.merge(extendedDataValue)
     end
-    dataElementsValue = [{
+    dataElementsValue = [
+      {
         "authorDatetime" => "2012-09-28T08:00:00.000+00:00",
         "category" => "procedure",
         "components" => [],
@@ -52,9 +54,57 @@ FactoryBot.define do
           }
         ],
         "hqmfOid" => "2.16.840.1.113883.10.20.28.3.55",
+        "description" => nil,
         "qdmStatus" => "gender",
         "qdmVersion" => "5.3",
         "_type" => "QDM::PatientCharacteristicSex"
+      },
+      {
+        "dataElementCodes" => [ 
+          {
+            "code" => "21112-8",
+            "codeSystem" => "LOINC"
+          }
+        ],
+        "_type" => "QDM::PatientCharacteristicBirthdate",
+        "hqmfOid" => "2.16.840.1.113883.10.20.28.3.54",
+        "description" => nil,
+        "category" => "patient_characteristic",
+        "qdmStatus" => "birthdate",
+        "qdmVersion" => "5.3",
+        "birthDatetime" => "1947-08-01T00:00:00+00:00"
+      },
+      {
+        "dataElementCodes" => [ 
+          {
+            "code" => "2186-5",
+            "codeSystem" => "cdcrec",
+            "descriptor" => "Not Hispanic or Latino",
+            "codeSystemOid" => "2.16.840.1.113883.6.238"
+          }
+        ],
+          "_type" => "QDM::PatientCharacteristicEthnicity",
+          "hqmfOid" => "2.16.840.1.113883.10.20.28.3.56",
+          "description" => nil,
+          "category" => "patient_characteristic",
+          "qdmStatus" => "ethnicity",
+          "qdmVersion" => "5.3"
+      },
+      {
+        "dataElementCodes" => [ 
+          {
+            "code" => "1002-5",
+            "codeSystem" => "cdcrec",
+            "descriptor" => "American Indian or Alaska Native",
+            "codeSystemOid" => "2.16.840.1.113883.6.238"
+          }
+        ],
+        "_type" => "QDM::PatientCharacteristicRace",
+        "hqmfOid" => "2.16.840.1.113883.10.20.28.3.59",
+        "description" => nil,
+        "category" => "patient_characteristic",
+        "qdmStatus" => "race",
+        "qdmVersion" => "5.3"
       }
     ]
     dataElements dataElementsValue

@@ -14,8 +14,8 @@ module Cypress
     def self.example_patient_by_pop(measure, _populations, pop)
       simplest = 100
       example_patient = nil
-      Bundle.find(measure.bundle_id).records.each do |record|
-        result_value = record.calculation_results.where('value.measure_id' => measure.hqmf_id).where('value.sub_id' => measure.sub_id)
+      Bundle.find(measure.bundle_id).patients.each do |record|
+        result_value = record.calculation_results.where('measure_id' => measure.id)
         match = get_result_value(result_value, pop)
         next unless match && match.positive?
         count = population_matches_for_patient(result_value, measure)
@@ -29,7 +29,7 @@ module Cypress
     end
 
     def self.get_result_value(result_value, population)
-      result_value.first.value[population].to_i if result_value.first
+      result_value.first[population].to_i if result_value.first
     end
 
     def self.population_matches_for_patient(result_value, measure)
