@@ -11,6 +11,7 @@ module Cypress
     attr_accessor :measures
 
     def initialize(measures, start_time, end_time)
+      @qdm_patient_converter = CQM::Converter::QDMPatient.new
       @measures = measures.to_a
       @start_time = start_time
       @end_time = end_time
@@ -18,7 +19,9 @@ module Cypress
 
     def export(patient)
       # TODO R2P: make sure patient export works with HDS HTML exporter
-      EXPORTER.export(patient, measures)
+      hdsrecord = @qdm_patient_converter.to_hds(patient)
+      hdsrecord.bundle_id = patient.bundleId
+      EXPORTER.export(hdsrecord, measures)
     end
   end
 
