@@ -490,6 +490,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
                                                                            :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
         @first_c2_task.product_test.save!
         @first_c2_task.save!
+        MeasureEvaluationJob.perform_now(@first_c2_task.product_test, {})
         post :create, :format => :xml, :task_id => @first_c2_task.id, :results => xml_upload
         get :show, :format => :xml, :task_id => @first_c2_task.id, :id => @first_c2_task.most_recent_execution.id
         assert_response 200, 'response should be OK on test_execution show'
