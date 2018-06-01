@@ -13,7 +13,7 @@ class Bundle
   end
 
   def patients
-    Patient.where(bundleId: self._id.to_s, 'extendedData.correlation_id' => nil).order_by([["last", :asc]])
+    Patient.where(:bundleId => _id.to_s, 'extendedData.correlation_id' => nil).order_by([['last', :asc]])
   end
 
   def title

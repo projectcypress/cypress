@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
   # The assumption here is that there is only 1 application running on this server
   # and thus any background workers found will be dedicated to Cypress.
   def check_backend_jobs
-    running = `pgrep -f jobs:work`.split("\n").count > 0
+    running = `pgrep -f jobs:work`.split("\n").count.positive?
 
     unless running
       alert_msg = 'The backend processes for setting up tests and performing measure calculations are not running.

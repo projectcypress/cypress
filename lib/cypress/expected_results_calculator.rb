@@ -1,6 +1,5 @@
 module Cypress
   class ExpectedResultsCalculator
-
     def initialize(product_test)
       @product_test = product_test
       @patient_sup_map = {}
@@ -13,7 +12,6 @@ module Cypress
         @patient_sup_map[patient.id]['PAYER'] = 1
       end
     end
-
 
     def aggregate_results_for_measures(measures)
       measures.each do |measure|
@@ -32,7 +30,7 @@ module Cypress
       end
       individual_results.each do |ir|
         measure_populations.each do |pop|
-          next if ir[pop].nil? || ir[pop] == 0
+          next if ir[pop].nil? || ir[pop].zero?
           @measure_result_hash[measure.key][pop] += ir[pop]
           increment_sup_info(@patient_sup_map[ir.patient_id], pop, @measure_result_hash[measure.key])
         end
@@ -43,7 +41,7 @@ module Cypress
     end
 
     def increment_sup_info(patient_sup, pop, single_measure_result_hash)
-      if !single_measure_result_hash['supplemental_data'][pop]
+      unless single_measure_result_hash['supplemental_data'][pop]
         single_measure_result_hash['supplemental_data'][pop] = { 'RACE' => {}, 'ETHNICITY' => {}, 'SEX' => {}, 'PAYER' => {} }
       end
       patient_sup.keys.each do |sup_type|
@@ -64,8 +62,7 @@ module Cypress
       qco['test_id'] = @product_test.id
       qco['effective_date'] = @product_test.effective_date
       qco['sub_id'] = measure.sub_id if measure.sub_id
-      Mongoid.default_client["query_cache"].insert_one(qco)
+      Mongoid.default_client['query_cache'].insert_one(qco)
     end
-
   end
- end
+end

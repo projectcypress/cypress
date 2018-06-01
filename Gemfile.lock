@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: c951fca8b0a95f06c05e1c902a87b2299d02c60d
+  revision: 390e98a1253ed6d677eb40d41658e181dda982bf
   branch: r5
   specs:
     health-data-standards (4.0.3)
@@ -33,7 +33,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/quality-measure-engine.git
-  revision: 2fd3fc4d2a9e7ce58b7a856ae8ef74e0d08c172d
+  revision: 607bae5ad1946992912056cabc64efdb77adff10
   branch: bump_mongoid
   specs:
     quality-measure-engine (3.1.2)
@@ -110,9 +110,9 @@ GEM
     ansi (1.5.0)
     arel (6.0.4)
     ast (2.4.0)
-    autoprefixer-rails (8.4.1)
+    autoprefixer-rails (8.5.2)
       execjs
-    axe-matchers (2.1.0)
+    axe-matchers (2.1.1)
       dumb_delegator (~> 0.8)
       virtus (~> 1.0)
     axiom-types (0.1.1)
@@ -120,14 +120,14 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     backports (3.11.3)
-    bcrypt (3.1.11)
+    bcrypt (3.1.12)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     bootstrap_form (2.7.0)
-    brakeman (4.2.1)
+    brakeman (4.3.0)
     breadcrumbs_on_rails (3.0.1)
     bson (4.3.0)
     bson_ext (1.5.1)
@@ -139,13 +139,13 @@ GEM
       amq-protocol (~> 2.3.0)
     byebug (10.0.2)
     cancancan (2.2.0)
-    capybara (3.0.3)
+    capybara (3.2.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
-      xpath (~> 3.0)
+      xpath (~> 3.1)
     capybara-accessible (0.1.8)
       capybara
       selenium-webdriver
@@ -201,7 +201,7 @@ GEM
       backports (>= 3.8.0)
       cucumber-tag_expressions (~> 1.1.0)
       gherkin (>= 5.0.0)
-    cucumber-expressions (5.0.17)
+    cucumber-expressions (5.0.18)
     cucumber-rails (1.6.0)
       capybara (>= 1.1.2, < 4)
       cucumber (>= 3.0.2, < 4)
@@ -232,25 +232,25 @@ GEM
       actionmailer (>= 4.1.0)
       devise (>= 4.0.0)
     diff-lcs (1.3)
-    diffy (3.2.0)
-    docile (1.3.0)
+    diffy (3.2.1)
+    docile (1.3.1)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     dumb_delegator (0.8.0)
     equalizer (0.0.11)
     erubis (2.7.0)
     execjs (2.7.0)
-    factory_bot (4.8.2)
+    factory_bot (4.10.0)
       activesupport (>= 3.0.0)
-    factory_bot_rails (4.8.2)
-      factory_bot (~> 4.8.2)
+    factory_bot_rails (4.10.0)
+      factory_bot (~> 4.10.0)
       railties (>= 3.0.0)
     faker (1.5.0)
       i18n (~> 0.5)
     ffi (1.9.23)
-    font-awesome-sass (5.0.9)
-      sass (>= 3.2)
-    gherkin (5.0.0)
+    font-awesome-sass (5.0.13)
+      sassc (>= 1.11)
+    gherkin (5.1.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     highline (1.7.10)
@@ -345,7 +345,7 @@ GEM
     parallel (1.12.1)
     parser (2.5.1.0)
       ast (~> 2.4.0)
-    poltergeist (1.18.0)
+    poltergeist (1.18.1)
       capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
@@ -447,6 +447,10 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sassc (1.11.4)
+      bundler
+      ffi (~> 1.9.6)
+      sass (>= 3.3.0)
     scss_lint (0.57.0)
       rake (>= 0.9, < 13)
       sass (~> 3.5.5)
@@ -485,7 +489,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
-    unicode-display_width (1.3.2)
+    unicode-display_width (1.3.3)
     unicorn (5.4.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -493,7 +497,7 @@ GEM
       rack
       unicorn
     url (0.3.2)
-    uuid (2.3.8)
+    uuid (2.3.9)
       macaddr (~> 1.0)
     virtus (1.0.5)
       axiom-types (~> 0.1)
@@ -511,7 +515,7 @@ GEM
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
-    xpath (3.0.0)
+    xpath (3.1.0)
       nokogiri (~> 1.8)
     zip-zip (0.3)
       rubyzip (>= 1.0.0)
@@ -593,4 +597,4 @@ RUBY VERSION
    ruby 2.3.7p456
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
