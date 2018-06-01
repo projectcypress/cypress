@@ -5,7 +5,7 @@ module Cypress
   # demographics, call Cypress::DemographicsRandomizer.randomize(record)
   class DemographicsRandomizer
     def self.randomize(patient, prng, allow_dups = false)
-      #TODO R2P: change to patient name and model throughout file
+      # TODO: R2P: change to patient name and model throughout file
       randomize_name(patient, prng, allow_dups)
       # randomize_race(patient, prng) TODO R2P: priority 1.3
       # randomize_ethnicity(patient, prng)
@@ -13,7 +13,7 @@ module Cypress
       randomize_insurance_provider(patient)
     end
 
-    #TODO: redundant with patient (formerly record) name randomization methods
+    # TODO: redundant with patient (formerly record) name randomization methods
     def self.randomize_name(patient, prng, allow_dups = false)
       gender = patient.gender
       @used_names ||= {}
@@ -26,13 +26,13 @@ module Cypress
     end
 
     def self.assign_random_name(patient, prng)
-      patient.givenNames.each_with_index {|name,i| patient.givenNames[i] = NAMES_RANDOM['first'][patient.gender].sample(random: prng)}
+      patient.givenNames.each_with_index { |_name, i| patient.givenNames[i] = NAMES_RANDOM['first'][patient.gender].sample(random: prng) }
       patient.familyName = NAMES_RANDOM['last'].sample(random: prng)
     end
 
     def self.randomize_race(patient, prng)
-      #TODO R2P: check assignment
-      race_element = patient.get_data_elements('patient_characteristic','race').first
+      # TODO: R2P: check assignment
+      race_element = patient.get_data_elements('patient_characteristic', 'race').first
       race_hash = APP_CONSTANTS['randomization']['races'].sample(random: prng)
       race_element.dataElementCodes.first = {}
       race_element.dataElementCodes.first.code = race_hash[:code]
@@ -41,17 +41,16 @@ module Cypress
     end
 
     def self.randomize_ethnicity(patient, prng)
-      #TODO R2P: check assignment
-      ethnicity_element = patient.get_data_elements('patient_characteristic','ethnicity').first
+      # TODO: R2P: check assignment
+      ethnicity_element = patient.get_data_elements('patient_characteristic', 'ethnicity').first
       ethnicity_hash = APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng)
       ethnicity_element.dataElementCodes.first = {}
       ethnicity_element.dataElementCodes.first.code = ethnicity_hash[:code]
       ethnicity_element.dataElementCodes.first.codeSystem = ethnicity_hash[:code_system]
-
     end
 
     def self.randomize_address(patient)
-      #TODO R2P: hash into extendedData okay? (not in Master Patient object)
+      # TODO: R2P: hash into extendedData okay? (not in Master Patient object)
       address = {}
       address.use = 'HP'
       address.street = ["#{Faker::Address.street_address} #{Faker::Address.street_suffix}"]
@@ -64,7 +63,7 @@ module Cypress
 
     def self.randomize_insurance_provider(patient)
       ip = {}
-      #TODO R2P: check should create nil keys for new insurance provider? and startTime format works?
+      # TODO: R2P: check should create nil keys for new insurance provider? and startTime format works?
       # patient.extendedData.insurance_providers[0].each_key{|k| ip[key]=nil}
       randomize_payer(ip, patient)
       ip['financial_responsibility_type'] = { 'code' => 'SELF', 'codeSystem' => 'HL7 Relationship Code' }
@@ -85,11 +84,11 @@ module Cypress
       insurance_provider['codes'][payer['codeSystem']] << payer['code'].to_s
       insurance_provider['name'] = payer['name']
       insurance_provider['type'] = payer['type']
-      insurance_provider['payer'] = {'name'=> payer['name']}
+      insurance_provider['payer'] = { 'name' => payer['name'] }
     end
 
     def self.get_random_payer_start_date(patient)
-      start_times = patient.dataElements.map {|de| de.try(:authorDatetime) }.compact
+      start_times = patient.dataElements.map { |de| de.try(:authorDatetime) }.compact
       random_offset = rand(60 * 60 * 24 * 365)
       if !start_times.empty?
         [start_times.min - random_offset, patient.birthDatetime].max

@@ -18,7 +18,7 @@ module Cypress
     end
 
     def export(patient)
-      # TODO R2P: make sure patient export works with HDS HTML exporter
+      # TODO: R2P: make sure patient export works with HDS HTML exporter
       hdsrecord = @qdm_patient_converter.to_hds(patient)
       hdsrecord.bundle_id = patient.bundleId
       EXPORTER.export(hdsrecord, measures)
@@ -43,7 +43,7 @@ module Cypress
       cms_compatibility = patient.product_test && patient.product_test.product.c3_test
       case patient.bundle.qrda_version
       when 'r5'
-        # TODO R2P: make sure patient export works with HDS Cat1 R5 exporter
+        # TODO: R2P: make sure patient export works with HDS Cat1 R5 exporter
         hdsrecord = @qdm_patient_converter.to_hds(patient)
         hdsrecord.bundle_id = patient.bundleId
         C5EXPORTER.export(hdsrecord, measures, start_time, end_time, nil, 'r5', cms_compatibility)
@@ -54,14 +54,13 @@ module Cypress
   HTML_EXPORTER = HealthDataStandards::Export::HTML.new
 
   class PatientZipper
-    FORMAT_EXTENSIONS = { :html => 'html', :qrda => 'xml', :json => 'json' }.freeze
+    FORMAT_EXTENSIONS = { html: 'html', qrda: 'xml', json: 'json' }.freeze
 
     def self.zip(file, patients, format)
       patients = apply_sort_to patients
       measures, sd, ed = measure_start_end(patients)
 
-
-      #TODO R2P: make sure patient exporter works (use correct one)
+      # TODO: R2P: make sure patient exporter works (use correct one)
       formatter = if format.to_sym == :qrda
                     Cypress::QRDAExporter.new(measures, sd, ed)
                   else
@@ -71,7 +70,7 @@ module Cypress
       Zip::ZipOutputStream.open(file.path) do |z|
         patients.each_with_index do |patient, i|
           z.put_next_entry("#{next_entry_path(patient, i)}.#{FORMAT_EXTENSIONS[format.to_sym]}")
-          #TODO R2P: make sure using correct exporter
+          # TODO: R2P: make sure using correct exporter
           z << if formatter == HealthDataStandards::Export::HTML
                  formatter.new.export(patient)
                else
@@ -82,11 +81,11 @@ module Cypress
     end
 
     def self.apply_sort_to(patients)
-      patients.sort_by { |p| p.givenNames.join("_") + '_' + p.familyName }
+      patients.sort_by { |p| p.givenNames.join('_') + '_' + p.familyName }
     end
 
     def self.zip_patients_all_measures(file, measure_tests)
-      #TODO R2P: check exporter
+      # TODO: R2P: check exporter
       Zip::ZipOutputStream.open(file.path) do |zip|
         measure_tests.each do |measure_test|
           patients = measure_test.records.to_a

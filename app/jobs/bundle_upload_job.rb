@@ -23,7 +23,7 @@ class BundleUploadJob < ApplicationJob
       Settings.current.default_bundle = @bundle.version
     end
 
-    #create master patient list
+    # create master patient list
     @bundle.mpl_prepare
   end
 end

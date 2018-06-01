@@ -3,7 +3,6 @@ Patient = QDM::Patient
 
 module QDM
   class Patient
-
     def destroy
       calculation_results.destroy
       delete
@@ -33,7 +32,7 @@ module QDM
     end
 
     def calculation_results
-      # TODO CQL: update result model
+      # TODO: CQL: update result model
       QDM::IndividualResult.where('patient_id' => id).where('IPP'.to_sym.gt => 0)
     end
 
@@ -42,10 +41,10 @@ module QDM
     #   provider = Provider.find(provider_performances.first['provider_id'])
     #   addresses = []
     #   provider.addresses.each do |address|
-    #     addresses << { 'street' => address.street, 'city' => address.city, 'state' => address.state, 'zip' => address.zip,
-    #                    'country' => address.country }
+    #     addresses << { 'street' => address.street, 'city' => address.city,
+    #                     'state' => address.state, 'zip' => address.zip,'country' => address.country }
     #   end
-    #
+
     #   return { 'npis' => [provider.npi], 'tins' => [provider.tin], 'addresses' => addresses } if include_address
     #   { 'npis' => [provider.npi], 'tins' => [provider.tin] }
     # end
@@ -56,10 +55,11 @@ module QDM
       patient, changed = randomize_patient_name_or_birth(patient, changed, random: random)
       randomize_demographics(patient, changed, random: random)
     end
+
     #
     # private
     #
-    #TODO R2P: use private keyword?
+    # TODO: R2P: use private keyword?
     def first_names
       givenNames.join(' ')
     end
@@ -94,7 +94,7 @@ module QDM
       when 2 # nickname
         givenNames.each_index do |idx|
           nicknames = NAMES_RANDOM['nicknames'][patient.gender][patient.givenNames[idx]]
-          #if no nicknames, use first initial
+          # if no nicknames, use first initial
           patient.givenNames[idx] = nicknames.blank? ? patient.givenNames[idx][0] : nicknames.sample(random: random)
         end
       end
@@ -104,7 +104,7 @@ module QDM
     def gender
       gender_chars = get_data_elements('patient_characteristic', 'gender')
       if gender_chars && gender_chars.any? && gender_chars.first.dataElementCodes &&
-        gender_chars.first.dataElementCodes.any?
+         gender_chars.first.dataElementCodes.any?
         gender_chars.first.dataElementCodes.first['code']
       else
         raise 'Cannot find gender element'
@@ -114,7 +114,7 @@ module QDM
     def randomize_patient_name_last(patient, random: Random.new)
       case random.rand(2)
       when 0 then patient.familyName = patient.familyName[0] # replace with initial
-      when 1 then patient.familyName  = replace_random_char(patient.familyName.clone, random: random) # insert incorrect letter
+      when 1 then patient.familyName = replace_random_char(patient.familyName.clone, random: random) # insert incorrect letter
       end
       patient
     end
@@ -128,7 +128,7 @@ module QDM
     end
 
     def randomize_demographics(patient, changed, random: Random.new)
-      # TODO R2P: demographics from patient model
+      # TODO: R2P: demographics from patient model
       # case random.rand(3) # now, randomize demographics
       # when 0 # gender
       #   rec.gender = %w[M F].sample(random: random)
@@ -223,18 +223,17 @@ module QDM
     # end
     #
     def shift_dates(date_diff)
-      self.birthDatetime = (self.birthDatetime.nil?) ? nil : self.birthDatetime + date_diff
-      #TODO R2P: are provider_performances still being used?
-      #TODO R2P: priority 1.2 (time shift should be implemented in model)
+      self.birthDatetime = birthDatetime.nil? ? nil : birthDatetime + date_diff
+      # TODO: R2P: are provider_performances still being used?
+      # TODO R2P: priority 1.2 (time shift should be implemented in model)
       # self.provider_performances.each {|pp| pp.shift_dates(date_diff)}
-      #shift all dataElements
-      self.dataElements.each do |de|
-        de.expiredDatetime = (de.expiredDatetime.nil?) ? nil : de.expiredDatetime + date_diff if de.qdmStatus == 'patientCharacteristicExpired'
-        de.authorDatetime =  (de.authorDatetime.nil?) ? nil : de.authorDatetime + date_diff
-        de.prevalencePeriod.shift_dates(date_diff) if de.prevalencePeriod
-        de.relevantPeriod.shift_dates(date_diff) if de.relevantPeriod
+      # shift all dataElements
+      dataElements.each do |de|
+        de.expiredDatetime = de.expiredDatetime.nil? ? nil : de.expiredDatetime + date_diff if de.qdmStatus == 'patientCharacteristicExpired'
+        de.authorDatetime =  de.authorDatetime.nil? ? nil : de.authorDatetime + date_diff
+        de.prevalencePeriod&.shift_dates(date_diff)
+        de.relevantPeriod&.shift_dates(date_diff)
       end
-
     end
     #
     # private
@@ -245,6 +244,5 @@ module QDM
     # def self.provider_query(provider_id, start_before, end_after)
     #   {'provider_performances' => {'$elemMatch' => {'provider_id' => provider_id, '$and'=>[{'$or'=>[{'start_date'=>nil},{'start_date'=>{'$lt'=>start_before}}]}, {'$or'=>[{'end_date'=>nil},{'end_date'=> {'$gt'=>end_after}}]}] } }}
     # end
-
   end
 end
