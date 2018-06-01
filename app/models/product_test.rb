@@ -16,7 +16,7 @@ class ProductTest
   belongs_to :product, :index => true, :touch => true
   has_many :tasks, :dependent => :destroy
 
-  #TODO R2P: fix foreign key descriptor?
+  # TODO: R2P: fix foreign key descriptor?
   has_many :patients, :dependent => :destroy, :foreign_key => 'extendedData.correlation_id', :class_name => 'QDM::Patient'
 
   field :augmented_patients, :type => Array, :default => []
@@ -74,7 +74,7 @@ class ProductTest
     # carrierwave. Without this the system would be left with a lot of uploaded files on it
     # long after the parent data was destroyed.
     Artifact.where(:test_execution_id.in => test_execution_ids).destroy
-    #TODO CQL: use new results model?
+    # TODO: CQL: use new results model?
     HealthDataStandards::CQM::PatientCache.where(:'value.patient_id'.in => patient_ids).delete
     ProductTest.in(:id => product_test_ids).delete
   end
@@ -85,10 +85,10 @@ class ProductTest
       random_ids = if product.slim_test_deck?
                      []
                    else
-                     # TODO R2P: check where(:'extendedData.correlation_id' => nil).pluck('extendedData.medical_record_number').uniq doesn't work
-                     #get medical record numbers for master patients (have no correlation (test) id)
+                     # TODO: R2P: check where(:'extendedData.correlation_id' => nil).pluck('extendedData.medical_record_number').uniq doesn't work
+                     # get medical record numbers for master patients (have no correlation (test) id)
                      # bundle.patients.where(:'extendedData.correlation_id' => nil).map {|mp| mp[:extendedData][:medical_record_number] }.uniq
-                     #essentially getting master_patient_ids
+                     # essentially getting master_patient_ids
                      master_patient_ids
                    end
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'randomization_ids' => random_ids,
@@ -111,10 +111,10 @@ class ProductTest
     Cypress::PatientZipper.zip(file, pat_arr, :qrda)
     self.patient_archive = file
 
-    # TODO R2P update HTML exporters
-    #file = Tempfile.new("product_test-html-#{id}.zip")
-    #Cypress::PatientZipper.zip(file, pat_arr, :html)
-    #self.html_archive = file
+    # TODO: R2P update HTML exporters
+    # file = Tempfile.new("product_test-html-#{id}.zip")
+    # Cypress::PatientZipper.zip(file, pat_arr, :html)
+    # self.html_archive = file
     save
   end
 
@@ -123,17 +123,17 @@ class ProductTest
     dups = patients.find(ids)
 
     pat_arr, dups = randomize_clinical_data(pat_arr, dups, random)
-    #choose up to 3 duplicate patients
+    # choose up to 3 duplicate patients
     dups.sample(random.rand(1..3), :random => random).each do |pat|
       prng_repeat = Random.new(rand_seed.to_i)
       dup_pat, pat_augments, old_pat = pat.duplicate_randomization(:random => prng_repeat)
-      #only add if augmented patient validates
+      # only add if augmented patient validates
       if car.validate_calculated_results(dup_pat, 'effective_date' => effective_date)
         augmented_patients << pat_augments
         pat_arr << dup_pat
       else
         augmented_patients << { :medical_record_number => old_pat.extendedData.medical_record_number,
-                               :first => [old_pat.first_names, old_pat.first_names], :last => [old_pat.familyName, old_pat.familyName] }
+                                :first => [old_pat.first_names, old_pat.first_names], :last => [old_pat.familyName, old_pat.familyName] }
         pat_arr << old_pat
       end
     end
@@ -163,7 +163,7 @@ class ProductTest
   end
 
   def results
-    # TODO CQL: use new results model
+    # TODO: CQL: use new results model
     QDM::IndividualResult.where('extendedData.correlation_id' => id.to_s)
   end
 
@@ -213,25 +213,25 @@ class ProductTest
   # Returns a listing of all ids for patients in the IPP
   def patients_in_ipp_and_greater
     QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
-                           'IPP' => { '$gt' => 0 }, 'extendedData.correlation_id' => bundle.id.to_s).distinct(:patient)
+                                'IPP' => { '$gt' => 0 }, 'extendedData.correlation_id' => bundle.id.to_s).distinct(:patient)
   end
 
   # Returns an id for a patient in the Numerator
   def patient_in_numerator
     QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
-                           'extendedData.correlation_id' => bundle.id.to_s, 'NUMER' => { '$gt' => 0 }).distinct(:patient).sample
+                                'extendedData.correlation_id' => bundle.id.to_s, 'NUMER' => { '$gt' => 0 }).distinct(:patient).sample
   end
 
   # Returns a listing of all ids for patients in the Denominator
   def patients_in_denominator_and_greater
     QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
-                           'extendedData.correlation_id' => bundle.id.to_s, 'DENOM' => { '$gt' => 0 }).distinct(:patient)
+                                'extendedData.correlation_id' => bundle.id.to_s, 'DENOM' => { '$gt' => 0 }).distinct(:patient)
   end
 
   # Returns a listing of all ids for patients in the Measure Population
   def patients_in_measure_population_and_greater
     QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
-                           'extendedData.correlation_id' => bundle.id.to_s, 'MSRPOPL' => { '$gt' => 0 }).distinct(:patient)
+                                'extendedData.correlation_id' => bundle.id.to_s, 'MSRPOPL' => { '$gt' => 0 }).distinct(:patient)
   end
 
   def master_patient_ids
@@ -266,9 +266,9 @@ class ProductTest
     # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if denom_ids.count > (product.test_deck_max - 1)
       high_value_ids = QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, 'extendedData.correlation_id' => bundle.id.to_s)
-                                       .any_of({ 'NUMER' => { '$gt' => 0 } },
-                                               { 'DENEXCEP' => { '$gt' => 0 } },
-                                               'DENEX' => { '$gt' => 0 }).distinct(:patient)
+                                            .any_of({ 'NUMER' => { '$gt' => 0 } },
+                                                    { 'DENEXCEP' => { '$gt' => 0 } },
+                                                    'DENEX' => { '$gt' => 0 }).distinct(:patient)
       high_value_ids = high_value_ids.sample(product.test_deck_max - 1)
       denom_ids = high_value_ids + denom_ids.sample(product.test_deck_max - high_value_ids.count - 1)
     end

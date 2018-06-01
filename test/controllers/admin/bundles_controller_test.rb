@@ -137,7 +137,6 @@ module Admin
         orig_results_count = QDM::IndividualResult.count
         id = @static_bundle.id
 
-
         post :deprecate, id: id
 
         assert_equal 0, Bundle.available.where(_id: id).count, 'Should have deprecated bundle'

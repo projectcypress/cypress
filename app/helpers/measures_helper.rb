@@ -10,7 +10,7 @@ module MeasuresHelper
   # 3) Measures with Diagnosis Criteria
   # 4) Random Measure
   def pick_measure_id_for_filtering_test(available_measures, bundle)
-    #TODO CQL: change how criteria is accessed based on new measure model
+    # TODO: CQL: change how criteria is accessed based on new measure model
     cpc_msrs = available_measures & APP_CONSTANTS['CPC_measures'].values.flatten
 
     # this seems slow but there doesn't seem to be any way to do it purely with mongo
@@ -27,7 +27,7 @@ module MeasuresHelper
   end
 
   def measure_has_diagnosis_criteria?(measure)
-    #TODO CQL: change measure model
+    # TODO: CQL: change measure model
     return false unless measure && measure.hqmf_document && measure.hqmf_document['source_data_criteria']
     measure.hqmf_document['source_data_criteria'].values.any? { |criteria| criteria['definition'] == 'diagnosis' }
   end

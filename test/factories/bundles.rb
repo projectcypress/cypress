@@ -6,7 +6,7 @@ FactoryBot.define do
 
     factory :static_bundle do
       entry = Rails.root.join('test', 'fixtures', 'artifacts', 'cms127v7.json')
-      source_measure = JSON.parse(File.read(entry),:max_nesting => 100)
+      source_measure = JSON.parse(File.read(entry), max_nesting: 100)
       active true
       done_importing true
       name 'Static Bundle'
@@ -43,10 +43,10 @@ FactoryBot.define do
         measure['populations_cql_map'] = source_measure['populations_cql_map']
         measure['id'] = measure.hqmf_id
 
-        # TODO find object ids for all of the oids in the measure
+        # TODO: find object ids for all of the oids in the measure
         valueset_id_list = []
         measure['value_set_oid_version_objects'].each do |vsv|
-          #valueset_id_list << HealthDataStandards::SVS::ValueSet.where(:oid => vsv.oid, :version => vsv.version).first.id
+          # valueset_id_list << HealthDataStandards::SVS::ValueSet.where(:oid => vsv.oid, :version => vsv.version).first.id
         end
         measure['value_sets'] = valueset_id_list
         measure.save

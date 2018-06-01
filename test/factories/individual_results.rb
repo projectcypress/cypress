@@ -8,7 +8,7 @@ FactoryBot.define do
     NUMER 0
     DENEXCEP 0
     DENEX 0
-    measure_id { Measure.find_by(hqmf_id: "BE65090C-EB1F-11E7-8C3F-9A214CF093AE")._id }
+    measure_id { Measure.find_by(hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE')._id }
 
     before :create do |result, options|
       result.extendedData = { correlation_id: options.bundleId }
