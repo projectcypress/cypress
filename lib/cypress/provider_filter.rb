@@ -1,7 +1,7 @@
 module Cypress
   class ProviderFilter
     def self.filter(providers, filters, options)
-      #TODO R2P: filter using new model, replace with patients
+      # TODO: R2P: filter using new model, replace with patients
       providers.where create_query(filters, options)
     end
 

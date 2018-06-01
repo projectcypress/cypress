@@ -22,7 +22,7 @@ module Cypress
       if split_date
         patient1, patient2 = set_data_elements(data_elements, patient1, patient2, split_date)
       else
-        #set all patient1 data elements
+        # set all patient1 data elements
         patient1.dataElements = data_elements
       end
 
@@ -70,16 +70,15 @@ module Cypress
       new_patient.dataElements = []
       categories[start_point...end_point].each do |cat|
         old_cat_des = old_patient.get_data_elements(cat)
-        old_cat_des.each {|de| new_patient.dataElements push de }
+        old_cat_des.each { |de| new_patient.dataElements push de }
       end
       new_record
     end
 
     def self.sort_by_start_time(data_elements)
-
       data_elements.delete_if { |de| de.category == 'patient_characteristic' }
-      # TODO R2P: check there's an attribute reader for highClosed (and lowClosed)
-      #sort by start date (in convert start_date equivalent to authorDatetime)
+      # TODO: R2P: check there's an attribute reader for highClosed (and lowClosed)
+      # sort by start date (in convert start_date equivalent to authorDatetime)
       data_elements.order_by(:authorDatetime.asc)
     end
 
@@ -95,14 +94,14 @@ module Cypress
     end
 
     def self.find_first_date_after(sorted_de, date)
-      des = sorted_de.detect { |de| (de.authorDatetime && de.authorDatetime > date)}
+      des = sorted_de.detect { |de| (de.authorDatetime && de.authorDatetime > date) }
       des.try(:authorDatetime)
     end
 
     def self.find_last_date_before(sorted_de, date)
-      #pairwise enumeration across data elements
+      # pairwise enumeration across data elements
       sorted_de.each_cons(2) do |des|
-        return des[0].authorDatetime if (des[1].authorDatetime && des[1].authorDatetime > date)
+        return des[0].authorDatetime if des[1].authorDatetime && des[1].authorDatetime > date
       end
       sorted_de.last.try(:authorDatetime)
     end

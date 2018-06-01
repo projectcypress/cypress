@@ -144,7 +144,7 @@ class Product
     reload_relations
 
     return if product_tests.filtering_tests.any?
-    #TODO R2P: check new criteria names
+    # TODO: R2P: check new criteria names
     criteria = %w[races ethnicities genders payers age].shuffle
     filter_tests = []
     filter_tests.concat [build_filtering_test(measure, criteria[0, 2]), build_filtering_test(measure, criteria[2, 2])]

@@ -29,14 +29,14 @@ class Provider
   end
 
   def self.randomize_provider_address(provider)
-      address = Address.new
-      address.use = 'HP'
-      address.street = ["#{Faker::Address.street_address} #{Faker::Address.street_suffix}"]
-      address.city = Faker::Address.city
-      address.state = Faker::Address.state_abbr
-      address.zip = Faker::Address.zip(address.state)
-      address.country = 'US'
-      provider.addresses = [address]
+    address = Address.new
+    address.use = 'HP'
+    address.street = ["#{Faker::Address.street_address} #{Faker::Address.street_suffix}"]
+    address.city = Faker::Address.city
+    address.state = Faker::Address.state_abbr
+    address.zip = Faker::Address.zip(address.state)
+    address.country = 'US'
+    provider.addresses = [address]
   end
 
   def self.default_specialty(measure_type)

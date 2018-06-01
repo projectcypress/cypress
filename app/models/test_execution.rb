@@ -31,7 +31,7 @@ class TestExecution
   def validate_artifact(validators, artifact, options = {})
     file_count = 0
 
-    # TODO R2P: change R/P model through all validators
+    # TODO: R2P: change R/P model through all validators
     artifact.each_file do |name, file|
       doc = build_document(file)
       merged_options = options.merge(:file_name => name)

@@ -51,7 +51,7 @@ module FilteringTestsHelper
   end
 
   def generate_filter_records(filter_tests)
-    #TODO R2P: generate_filter_patients
+    # TODO: R2P: generate_filter_patients
     return unless filter_tests
     test = filter_tests.pop
     test.generate_patients
