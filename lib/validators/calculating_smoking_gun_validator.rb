@@ -69,8 +69,9 @@ module Validators
       record = parse_and_save_record(doc, te, options)
       return false unless record
       # This Logic will need to be updated with CQL calculations
-      calc_job = Cypress::JsEcqmCalc.new([record.id.to_s], @measures.map { |mes| mes._id.to_s }, { 'correlation_id': options.test_execution.id.to_s } )
-      calc_job.sync_job
+      calc_job = Cypress::JsEcqmCalc.new({ 'correlation_id': options.test_execution.id.to_s })
+      calc_job.sync_job([record.id.to_s], @measures.map { |mes| mes._id.to_s })
+      calc_job.stop
       @measures.each do |measure|
         original_results = QDM::IndividualResult.where('patient_id' => mrn, 'measure_id' => measure.id)
         new_results = QDM::IndividualResult.where('patient_id' => record.id, 'measure_id' => measure.id, 'extendedData.correlation_id' => options.test_execution.id.to_s)
