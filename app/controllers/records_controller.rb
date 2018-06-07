@@ -60,7 +60,7 @@ class RecordsController < ApplicationController
         send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "bundle_#{bundle.version}_mpl.zip"
       end
     else
-      render nothing: true, status: 400
+      render :nothing => true, :status => :bad_request
     end
   end
 
@@ -94,7 +94,7 @@ class RecordsController < ApplicationController
     @product_test = @task.product_test
     @bundle = @product_test.bundle
     authorize! :read, @product_test.product.vendor
-    @measure = @product_test.measures.where(sub_id: params['sub_id']).first
+    @measure = @product_test.measures.where(:sub_id => params['sub_id']).first
     @measure ||= @product_test.measures.first
     @source = @product_test
     breadcrumbs_for_test_path
@@ -106,6 +106,6 @@ class RecordsController < ApplicationController
     add_breadcrumb 'Vendor: ' + @product_test.product.vendor.name, vendor_path(@product_test.product.vendor)
     add_breadcrumb 'Product: ' + @product_test.product_name, vendor_product_path(@product_test.product.vendor, @product_test.product)
     add_breadcrumb 'Test: ' + @product_test.name, new_task_test_execution_path(@task.id)
-    add_breadcrumb 'Patient List', records_path(task_id: @task.id)
+    add_breadcrumb 'Patient List', records_path(:task_id => @task.id)
   end
 end

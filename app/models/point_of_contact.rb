@@ -23,7 +23,7 @@ class PointOfContact
   end
 
   def vendor_role?
-    user && user.user_role?(:vendor, vendor)
+    user&.user_role?(:vendor, vendor)
   end
 
   def remove_vendor_role

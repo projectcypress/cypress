@@ -5,6 +5,12 @@ class ProductTestsController < ApplicationController
   before_action :set_product_test, only: %i[show update destroy patients measure html_patients]
   before_action :authorize_vendor
 
+  def measure; end
+
+  def update; end
+
+  def destroy; end
+
   def index
     @product_tests = @product.product_tests
     respond_with(@product_tests.to_a)

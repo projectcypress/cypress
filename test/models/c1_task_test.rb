@@ -16,7 +16,7 @@ class C1TaskTest < ActiveSupport::TestCase
     task = @product_test.tasks.create({}, C1Task)
 
     task.validators.each do |v|
-      assert !v.is_a?(MeasurePeriodValidator)
+      assert_not v.is_a?(MeasurePeriodValidator)
     end
   end
 

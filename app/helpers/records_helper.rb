@@ -60,9 +60,7 @@ module RecordsHelper
       field['codes']&.each do |code_system, code|
         display_text += "\n" + code_system + ': ' + code.join(', ')
       end
-      if field['code_system']
-        display_text += "\n" + field['code_system'] + ': ' + field['code']
-      end
+      display_text += "\n" + field['code_system'] + ': ' + field['code'] if field['code_system']
     end
     display_text
   end

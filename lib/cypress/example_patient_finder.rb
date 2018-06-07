@@ -16,7 +16,7 @@ module Cypress
       Bundle.find(measure.bundle_id).patients.each do |record|
         result_value = record.calculation_results.where('measure_id' => measure.id)
         match = get_result_value(result_value, pop)
-        next unless match && match.positive?
+        next unless match&.positive?
         count = population_matches_for_patient(result_value, measure)
         return record if [1, 2].include?(count)
         if count < simplest

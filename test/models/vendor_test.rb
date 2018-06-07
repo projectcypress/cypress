@@ -72,7 +72,7 @@ class VendorTest < ActiveSupport::TestCase
     p = PointOfContact.new(name: 'test_poc_name', email: 'vendor@test.com')
     p.vendor = v
     assert v.save!
-    assert !p.user.user_role?(:vendor, v), 'Point of contact users should not have vendor role'
+    assert_not p.user.user_role?(:vendor, v), 'Point of contact users should not have vendor role'
   end
 
   def test_updated_vendor_poc_cannot_be_associated_with_user_if_turned_off
@@ -84,7 +84,7 @@ class VendorTest < ActiveSupport::TestCase
     assert p.user.nil?, 'User for POC should be nil'
     p.email = 'vendor@test.com'
     p.save
-    assert !p.user.user_role?(:vendor, v), 'Point of contact users should not have vendor role'
+    assert_not p.user.user_role?(:vendor, v), 'Point of contact users should not have vendor role'
   end
 
   def test_changing_poc_email_updates_user_roles
@@ -103,7 +103,7 @@ class VendorTest < ActiveSupport::TestCase
     vu.reload
     assert (p.user.user_role? :vendor, v), 'Point of contact should have been associated with user'
     assert (p.user == vo), 'POC user should be same as other vendor '
-    assert !vu.user_role?(:vendor, v), 'Vendor role should have been removed from vendor user'
+    assert_not vu.user_role?(:vendor, v), 'Vendor role should have been removed from vendor user'
   end
 
   def test_vendor_with_multiple_pocs_can_be_saved
@@ -147,8 +147,8 @@ end
 require_relative '../helpers/caching_test'
 class VendorCachingTest < CachingTest
   def test_vendor_status_and_product_groups_are_not_cached_on_start
-    assert !Rails.cache.exist?("#{@vendor.cache_key}/status"), 'cache key for vendor status should not exist'
-    assert !Rails.cache.exist?("#{@vendor.cache_key}/product_counts"), 'cache key for vendor products count should not exist'
+    assert_not Rails.cache.exist?("#{@vendor.cache_key}/status"), 'cache key for vendor status should not exist'
+    assert_not Rails.cache.exist?("#{@vendor.cache_key}/product_counts"), 'cache key for vendor products count should not exist'
   end
 
   def test_vendor_status_is_cached_after_checking_status
@@ -170,21 +170,21 @@ class VendorCachingTest < CachingTest
     test_execution2.task = task2
     test_execution2.save!
     vendor_new_cache_key = Vendor.all.first.cache_key.to_s
-    refute_equal vendor_old_cache_key, vendor_new_cache_key, 'cache keys should be different'
+    assert_not_equal vendor_old_cache_key, vendor_new_cache_key, 'cache keys should be different'
   end
 
   def test_edditing_test_execution_updates_vendor_cache_key
     vendor_old_cache_key = Vendor.all.first.cache_key.to_s
     test_execution = TestExecution.all.first
-    test_execution.update_attributes(:state => :passed)
+    test_execution.update(:state => :passed)
     test_execution.save!
     vendor_new_cache_key = Vendor.all.first.cache_key.to_s
-    refute_equal vendor_old_cache_key, vendor_new_cache_key, 'cache keys should be different'
+    assert_not_equal vendor_old_cache_key, vendor_new_cache_key, 'cache keys should be different'
   end
 
   def test_adding_passing_then_failing_execution_changes_vendor_status
     test_execution = TestExecution.all.first
-    test_execution.update_attributes(:state => :passed)
+    test_execution.update(:state => :passed)
     test_execution.save!
     vendor_old_status = Vendor.all.first.status
 
@@ -197,6 +197,6 @@ class VendorCachingTest < CachingTest
     test_execution2.save!
     vendor_new_status = Vendor.all.first.status
 
-    refute_equal vendor_old_status, vendor_new_status, "vendor's status should change from passing to failing"
+    assert_not_equal vendor_old_status, vendor_new_status, "vendor's status should change from passing to failing"
   end
 end

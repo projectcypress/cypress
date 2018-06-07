@@ -1,6 +1,6 @@
-include Cypress::ProductStatusValues
-
 module VendorsHelper
+  include Cypress::ProductStatusValues
+
   def formatted_vendor_address(vendor)
     address = [vendor.address, vendor.state, vendor.zip].delete_if { |x| x == '' }
     address.count.positive? ? address.join(', ') : nil
