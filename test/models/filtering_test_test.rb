@@ -37,7 +37,7 @@ class FilteringTestTest < ActiveJob::TestCase
     ft.reload
     ft.pick_filter_criteria
     # There should be at least one record that meets the problem filter
-    assert !ft.filtered_records.empty?
+    assert_not ft.filtered_records.empty?
   end
 
   def options_assertions(filter_test)

@@ -14,7 +14,7 @@ class ProductTest
   scope :filtering_tests, -> { where(:_type => 'FilteringTest') }
 
   belongs_to :product, :index => true, :touch => true
-  has_many :tasks, :dependent => :destroy
+  has_many :tasks, :dependent => :destroy, :inverse_of => :product_test
 
   # TODO: R2P: fix foreign key descriptor?
   has_many :patients, :dependent => :destroy, :foreign_key => 'extendedData.correlation_id', :class_name => 'QDM::Patient'
@@ -104,9 +104,7 @@ class ProductTest
     if product.duplicate_patients && _type != 'FilteringTest'
       prng = Random.new(rand_seed.to_i)
       ids = results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
-      if ids.present?
-        pat_arr = sample_and_duplicate_patients(pat_arr, ids, :random => prng)
-      end
+      pat_arr = sample_and_duplicate_patients(pat_arr, ids, :random => prng) if ids.present?
     end
     Cypress::PatientZipper.zip(file, pat_arr, :qrda)
     self.patient_archive = file
@@ -198,7 +196,7 @@ class ProductTest
   end
 
   def update_with_checklist_tests(checklist_test_params)
-    update_attributes(checklist_test_params)
+    update(checklist_test_params)
     checked_criteria.each(&:validate_criteria)
     checked_criteria.reverse_each(&:change_criteria)
     save!
@@ -300,3 +298,4 @@ class ProductTest
     self.rand_seed = Random.new_seed.to_s unless rand_seed
   end
 end
+# rubocop:enable Metrics/ClassLength

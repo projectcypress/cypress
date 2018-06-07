@@ -39,7 +39,7 @@ class TestExecutionJobTest < ActiveJob::TestCase
 
     assert_enqueued_jobs 2
 
-    assert !te.incomplete?, 'test execution should not be incomplete after it is run'
+    assert_not te.incomplete?, 'test execution should not be incomplete after it is run'
     assert te.failing?, 'test execution with bad file should fail'
     assert te.execution_errors.only_errors.count.positive?, 'test execution should have errors'
   end

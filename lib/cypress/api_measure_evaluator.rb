@@ -4,7 +4,7 @@ module Cypress
   class ApiMeasureEvaluator
     def initialize(username, password, args = nil)
       @allowable_population_ids = []
-      @options = args ? args : {}
+      @options = args || {}
       @logger = Rails.logger
       @patient_link_product_test_hash = {}
       @patient_links_task_hash = {}
@@ -12,11 +12,7 @@ module Cypress
       @cat1_filter_hash = {}
       @filter_patient_link = nil
       @hqmf_path = @options[:hqmf_path]
-      @cypress_host = if @options[:cypress_host]
-                        @options[:cypress_host]
-                      else
-                        'http://localhost:3000'
-                      end
+      @cypress_host = @options[:cypress_host] || 'http://localhost:3000'
       @username = username
       @password = password
     end
@@ -180,7 +176,7 @@ module Cypress
         next unless filter_test_ready?(product_test)
         until File.exist?('tmp/filter_patients.zip')
           @filter_patient_link = extract_link(parsed_api_object(call_get_product_test(product_test)), 'patients') if @filter_patient_link.nil?
-          test_patients_already_downloaded = download_test_patients(@filter_patient_link, 'filter_patients') unless test_patients_already_downloaded
+          test_patients_already_downloaded ||= download_test_patients(@filter_patient_link, 'filter_patients')
           sleep(1)
         end
         parsed_product_test = parsed_api_object(call_get_product_test(product_test))
@@ -297,15 +293,9 @@ module Cypress
       if age_filter[0] == 'max'
         # Need to add a year e.g. you are 8 until you are 9.
         # This is currently simplistic, since it doesn't take birth 'time' into consideration
-        if filter_time < patient_birth_time + age_shit + 31_556_952
-          true
-        else
-          false
-        end
-      elsif filter_time > patient_birth_time + age_shit
-        true
+        filter_time < patient_birth_time + age_shit + 31_556_952
       else
-        false
+        filter_time > patient_birth_time + age_shit
       end
     end
 
@@ -399,7 +389,7 @@ module Cypress
     end
 
     def download_test_patients(product_test_link, file_name = nil)
-      file_name = product_test_link.split('/')[2] unless file_name
+      file_name ||= product_test_link.split('/')[2]
       resource = RestClient::Resource.new("#{@cypress_host}#{product_test_link}", :timeout => 90_000_000,
                                                                                   :user => @username,
                                                                                   :password => @password)

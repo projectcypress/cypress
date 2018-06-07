@@ -7,7 +7,7 @@ SimpleCov.formatter = SimpleCov::Formatter::Codecov
 # Mongo::Logger.logger.level = Logger::WARN
 ENV['RAILS_ENV'] ||= 'test'
 ENV['IGNORE_ROLES'] ||= 'false'
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 require 'rails/test_help'
 
 require 'minitest/spec'

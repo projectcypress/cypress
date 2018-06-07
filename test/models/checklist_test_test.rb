@@ -112,7 +112,7 @@ class ChecklistTestTest < ActiveJob::TestCase
 
   def test_get_valuesets_for_dc
     @test.create_checked_criteria
-    assert !@test.checked_criteria[0].get_all_valuesets_for_dc(@test.measures.first.id).empty?, 'should be atleast one valuset for a data criteria'
+    assert_not @test.checked_criteria[0].get_all_valuesets_for_dc(@test.measures.first.id).empty?, 'should be atleast one valuset for a data criteria'
   end
 
   def test_inappropriate_code_for_vs

@@ -19,9 +19,7 @@ module Validators
       @options = options
 
       # I don't like this right now but do it this way just to get things moving
-      if @is_c3_validation_task
-        add_errors Cat3PerformanceRate.instance.validate(@doc, file_name: @options[:file_name])
-      end
+      add_errors Cat3PerformanceRate.instance.validate(@doc, file_name: @options[:file_name]) if @is_c3_validation_task
       # Add if it isn't C3 or if it is and there isn't a C2
       if !@is_c3_validation_task || (@is_c3_validation_task && !@test_has_c2)
         add_errors Cat3Measure.instance.validate(@doc, file_name: @options[:file_name])
@@ -46,9 +44,7 @@ module Validators
       # The HDS validators hand back ValidationError objects, but we need ExecutionError objects
       errors.map do |error|
         type = :error
-        if error.validator && error.validator.upcase.include?('QRDA') && !@test_has_c3
-          type = :warning
-        end
+        type = :warning if error.validator&.upcase&.include?('QRDA') && !@test_has_c3
         add_issue error.message, type, :location => error.location, :validator => error.validator,
                                        :validator_type => :xml_validation, :file_name => error.file_name
       end

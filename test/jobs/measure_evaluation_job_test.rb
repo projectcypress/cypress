@@ -32,7 +32,7 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
                                               measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
       assert_performed_jobs 1
       ptest.reload
-      assert !ptest.expected_results.empty?
+      assert_not ptest.expected_results.empty?
       assert_equal ptest.expected_results.keys, ['BE65090C-EB1F-11E7-8C3F-9A214CF093AEa']
     end
   end
@@ -48,7 +48,7 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
       MeasureEvaluationJob.perform_later(task, {})
       assert_performed_jobs 2
       task.reload
-      assert !task.expected_results.empty?
+      assert_not task.expected_results.empty?
       assert_equal task.expected_results.keys, ['BE65090C-EB1F-11E7-8C3F-9A214CF093AEa']
     end
   end

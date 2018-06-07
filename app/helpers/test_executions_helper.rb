@@ -40,7 +40,7 @@ module TestExecutionsHelper
   end
 
   def get_error_counts_helper(execution)
-    return ['--', '--', '--'] unless execution && execution.failing?
+    return ['--', '--', '--'] unless execution&.failing?
     qrda = execution.execution_errors.qrda_errors.count
     reporting = execution.execution_errors.reporting_errors.count
     submit_errors = submit_warnings = 0

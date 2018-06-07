@@ -87,9 +87,7 @@ module Cypress
 
       first_date = find_first_date_after(sorted_de, measure_period_start)
       last_date = find_last_date_before(sorted_de, effective_date)
-      if first_date && last_date && (first_date != last_date)
-        return (last_date - first_date) * random.rand + first_date
-      end
+      return (last_date - first_date) * random.rand + first_date if first_date && last_date && (first_date != last_date)
       nil
     end
 

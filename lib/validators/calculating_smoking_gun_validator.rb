@@ -69,7 +69,7 @@ module Validators
       record = parse_and_save_record(doc, te, options)
       return false unless record
       # This Logic will need to be updated with CQL calculations
-      calc_job = Cypress::JsEcqmCalc.new({ 'correlation_id': options.test_execution.id.to_s })
+      calc_job = Cypress::JsEcqmCalc.new('correlation_id': options.test_execution.id.to_s)
       calc_job.sync_job([record.id.to_s], @measures.map { |mes| mes._id.to_s })
       calc_job.stop
       @measures.each do |measure|

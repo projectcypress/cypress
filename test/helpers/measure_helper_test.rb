@@ -45,7 +45,7 @@ class MeasureHelperTest < ActiveSupport::TestCase
   def assert_only_in_correct_set(item, correct, incorrect = [])
     assert item
     assert correct.include?(item)
-    assert !incorrect.include?(item)
+    assert_not incorrect.include?(item)
   end
 
   def test_should_reload_measure_test
@@ -54,15 +54,15 @@ class MeasureHelperTest < ActiveSupport::TestCase
 
     # product tests with no test executions should not be reloaded
     test.state = :ready
-    assert !ApplicationController.helpers.should_reload_measure_test?(test)
+    assert_not ApplicationController.helpers.should_reload_measure_test?(test)
     test.tasks.build
-    assert !ApplicationController.helpers.should_reload_measure_test?(test)
+    assert_not ApplicationController.helpers.should_reload_measure_test?(test)
 
     # product tests with test executions that are passing or failing should not be reloaded
     test = product_test_with_test_execution_with_state(:failing)
-    assert !ApplicationController.helpers.should_reload_measure_test?(test)
+    assert_not ApplicationController.helpers.should_reload_measure_test?(test)
     test = product_test_with_test_execution_with_state(:passing)
-    assert !ApplicationController.helpers.should_reload_measure_test?(test)
+    assert_not ApplicationController.helpers.should_reload_measure_test?(test)
 
     # product tests with test executions that are pending should be reloaded
     test = product_test_with_test_execution_with_state(:pending)
