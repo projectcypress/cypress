@@ -46,8 +46,8 @@ module Admin
       u = User.create(email: 'admin_test@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
 
       for_each_logged_in_user([ADMIN]) do
-        assert !u.user_role?(:user)
-        assert !u.user_role?(:owner, @vendor)
+        assert_not u.user_role?(:user)
+        assert_not u.user_role?(:owner, @vendor)
         patch :update, :id => u.id, :role => :user, :assignments => { '0' => { :role => :owner, :vendor_id => @vendor.id } }
         assert_response 302
         u.reload
@@ -116,7 +116,7 @@ module Admin
     test 'Admin can unlock a locked account ' do
       u = User.create(:email => 'admin_test@test.com', :password => 'TestTest!', :password_confirmation => 'TestTest!', :terms_and_conditions => '1', :locked_at => Time.now.in_time_zone)
       for_each_logged_in_user([ADMIN]) do
-        assert !u.locked_at.nil?
+        assert_not u.locked_at.nil?
         get :unlock, :id => u.id
         assert_response 302
         assert User.find(u.id).locked_at.nil?

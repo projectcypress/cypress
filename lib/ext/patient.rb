@@ -36,19 +36,6 @@ module QDM
       QDM::IndividualResult.where('patient_id' => id).where('IPP'.to_sym.gt => 0)
     end
 
-    # R2P TODO: where to get provider_performances from
-    # def lookup_provider(include_address = nil)
-    #   provider = Provider.find(provider_performances.first['provider_id'])
-    #   addresses = []
-    #   provider.addresses.each do |address|
-    #     addresses << { 'street' => address.street, 'city' => address.city,
-    #                     'state' => address.state, 'zip' => address.zip,'country' => address.country }
-    #   end
-
-    #   return { 'npis' => [provider.npi], 'tins' => [provider.tin], 'addresses' => addresses } if include_address
-    #   { 'npis' => [provider.npi], 'tins' => [provider.tin] }
-    # end
-
     def duplicate_randomization(random: Random.new)
       patient = clone
       changed = { medical_record_number: medical_record_number, first: [first_names, first_names], last: [familyName, familyName] }
@@ -103,7 +90,7 @@ module QDM
 
     def gender
       gender_chars = get_data_elements('patient_characteristic', 'gender')
-      if gender_chars && gender_chars.any? && gender_chars.first.dataElementCodes &&
+      if gender_chars&.any? && gender_chars.first.dataElementCodes &&
          gender_chars.first.dataElementCodes.any?
         gender_chars.first.dataElementCodes.first['code']
       else
@@ -129,98 +116,11 @@ module QDM
 
     def randomize_demographics(patient, changed, random: Random.new)
       # TODO: R2P: demographics from patient model
-      # case random.rand(3) # now, randomize demographics
-      # when 0 # gender
-      #   rec.gender = %w[M F].sample(random: random)
-      #   changed[:gender] = [gender, rec.gender]
-      # when 1 # race
-      #   rec.race = APP_CONSTANTS['randomization']['races'].sample(random: random)
-      #   changed[:race] = [race.code, rec.race.code]
-      # when 2 # ethnicity
-      #   rec.ethnicity = APP_CONSTANTS['randomization']['ethnicities'].sample(random: random)
-      #   changed[:ethnicity] = [ethnicity.code, rec.ethnicity.code]
-      # end
       [patient, changed, self]
     end
 
     #
     # HDS helpers
-    #
-
-    # def self.update_or_create(data)
-    #   existing = Record.where(medical_record_number: data.medical_record_number).first
-    #   if existing
-    #     existing.update_attributes!(data.attributes.except('_id'))
-    #     existing
-    #   else
-    #     data.save!
-    #     data
-    #   end
-    # end
-    #
-    # def providers
-    #   provider_performances.map {|pp| pp.provider }
-    # end
-    #
-    # def over_18?
-    #   Time.at(birthdate) < Time.now.years_ago(18)
-    # end
-    #
-    # def entries_for_oid(oid)
-    #   matching_entries_by_section = Sections.map do |section|
-    #     section_entries = self.send(section)
-    #     if section_entries.present?
-    #       section_entries.find_all { |entry| (entry.respond_to? :oid) ? entry.oid == oid : false}
-    #     else
-    #       []
-    #     end
-    #   end
-    #   matching_entries_by_section.flatten
-    # end
-    #
-    # def entries
-    #   Sections.map do |section|
-    #     self.send(section)
-    #   end.flatten
-    # end
-    #
-    # memoize :entries_for_oid
-    #
-    # # Remove duplicate entries from a section based on cda_identifier or id.
-    # # This method may lose information because it does not compare entries
-    # # based on clinical content
-    # def dedup_section_ignoring_content!(section)
-    #   unique_entries = self.send(section).uniq do |entry|
-    #     entry.references.each do |ref|
-    #       ref.resolve_referenced_id
-    #     end
-    #     entry.identifier
-    #   end
-    #   self.send("#{section}=", unique_entries)
-    # end
-    # def dedup_section_merging_codes_and_values!(section)
-    #   unique_entries = {}
-    #   self.send(section).each do |entry|
-    #     entry.references.each do |ref|
-    #       ref.resolve_referenced_id
-    #     end
-    #     if unique_entries[entry.identifier]
-    #       unique_entries[entry.identifier].codes = unique_entries[entry.identifier].codes.deep_merge(entry.codes){ |key, old, new| Array.wrap(old) + Array.wrap(new) }
-    #       unique_entries[entry.identifier].values.concat(entry.values)
-    #     else
-    #       unique_entries[entry.identifier] = entry
-    #     end
-    #
-    #   end
-    #   self.send("#{section}=", unique_entries.values)
-    # end
-    #
-    # def dedup_section!(section)
-    #   [:encounters, :procedures, :results].include?(section) ? dedup_section_merging_codes_and_values!(section) : dedup_section_ignoring_content!(section)
-    # end
-    # def dedup_record!
-    #   Record::Sections.each {|section| self.dedup_section!(section)}
-    # end
     #
     def shift_dates(date_diff)
       self.birthDatetime = birthDatetime.nil? ? nil : birthDatetime + date_diff
@@ -235,14 +135,5 @@ module QDM
         de.relevantPeriod&.shift_dates(date_diff)
       end
     end
-    #
-    # private
-    #
-    # def self.provider_queries(provider_id, effective_date)
-    #  {'$or' => [provider_query(provider_id, effective_date,effective_date), provider_query(provider_id, nil,effective_date), provider_query(provider_id, effective_date,nil)]}
-    # end
-    # def self.provider_query(provider_id, start_before, end_after)
-    #   {'provider_performances' => {'$elemMatch' => {'provider_id' => provider_id, '$and'=>[{'$or'=>[{'start_date'=>nil},{'start_date'=>{'$lt'=>start_before}}]}, {'$or'=>[{'end_date'=>nil},{'end_date'=> {'$gt'=>end_after}}]}] } }}
-    # end
   end
 end

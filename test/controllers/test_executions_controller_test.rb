@@ -143,7 +143,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
       post :create, task_id: @first_c2_task.id, results: upload
       assert_response 302
       @first_c2_task.reload
-      assert_equal @first_c2_task.test_executions.count, orig_count + i, 'Should have added #{i} new TestExecution'
+      assert_equal @first_c2_task.test_executions.count, orig_count + i, "Should have added #{i} new TestExecution"
     end
   end
 

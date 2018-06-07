@@ -8,17 +8,11 @@ module Cypress
     def self.create_query(input_filters, options)
       query_pieces = build_demographic_query(input_filters)
 
-      if input_filters['payers']
-        query_pieces << build_payer_query(input_filters['payers'])
-      end
+      query_pieces << build_payer_query(input_filters['payers']) if input_filters['payers']
 
-      if input_filters['age']
-        query_pieces << build_age_query(input_filters['age'], options)
-      end
+      query_pieces << build_age_query(input_filters['age'], options) if input_filters['age']
 
-      if input_filters['problems']
-        query_pieces << build_problem_query(input_filters['problems'], options)
-      end
+      query_pieces << build_problem_query(input_filters['problems'], options) if input_filters['problems']
 
       if input_filters['providers']
         prov_query = build_provider_query(input_filters['providers'], options)
@@ -31,17 +25,11 @@ module Cypress
     def self.build_demographic_query(input_filters)
       query_pieces = []
 
-      if input_filters['races']
-        query_pieces << { 'race.code' => { '$in' => input_filters['races'] } }
-      end
+      query_pieces << { 'race.code' => { '$in' => input_filters['races'] } } if input_filters['races']
 
-      if input_filters['ethnicities']
-        query_pieces << { 'ethnicity.code' => { '$in' => input_filters['ethnicities'] } }
-      end
+      query_pieces << { 'ethnicity.code' => { '$in' => input_filters['ethnicities'] } } if input_filters['ethnicities']
 
-      if input_filters['genders']
-        query_pieces << { 'gender' => { '$in' => input_filters['genders'] } }
-      end
+      query_pieces << { 'gender' => { '$in' => input_filters['genders'] } } if input_filters['genders']
 
       query_pieces
     end

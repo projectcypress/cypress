@@ -57,7 +57,7 @@ class VendorsController < ApplicationController
   def update
     add_breadcrumb 'Vendor: ' + @vendor.name, :vendor_path
     add_breadcrumb 'Edit Vendor', :edit_vendor_path
-    @vendor.update_attributes(vendor_params)
+    @vendor.update(vendor_params)
     @vendor.save!
     flash_comment(@vendor.name, 'info', 'edited')
     respond_with(@vendor) do |f|

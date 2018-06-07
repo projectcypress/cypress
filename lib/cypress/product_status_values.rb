@@ -55,7 +55,7 @@ module Cypress
     # returns the number of tasks with most recent test executions [passing, failing, errored, not_started, total]
     def checklist_status_vals_for_execution(test, cert_type)
       task = cert_type == 'C3' ? test.tasks.c3_checklist_task : test.tasks.c1_checklist_task
-      return [0, 0, 0, 0, 0] unless task && task.most_recent_execution
+      return [0, 0, 0, 0, 0] unless task&.most_recent_execution
       case task.most_recent_execution.status_with_sibling
       when 'passing' then [1, 0, 0, 0, 1]
       when 'failing' then [0, 1, 0, 0, 1]

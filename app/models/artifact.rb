@@ -58,7 +58,6 @@ class Artifact
     count
   end
 
-  #
   def get_file(name)
     data = nil
     if archive?
@@ -69,7 +68,6 @@ class Artifact
     data
   end
 
-  #
   def get_archived_file(name)
     data = nil
     encoding = name.encoding

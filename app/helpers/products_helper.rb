@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ModuleLength
 module ProductsHelper
   # used in product create
   def should_show_product_tests_tab?(product, test_type)
@@ -183,11 +184,11 @@ module ProductsHelper
       certifications = product.c3_test ? 'C1 and C3 certifications' : 'C1 certification'
       "Validate the EHR system for #{certifications} by entering specified patient data for the following measures."
     when 'MeasureTest'
-      if is_c1_measure_test
-        what_certifications_test_for = product.c3_test ? 'record and export (C1) and submit (C3)' : 'record and export (C1)'
-      else
-        what_certifications_test_for = product.c3_test ? 'import and calculate (C2) and submit (C3)' : 'import and calculate (C2)'
-      end
+      what_certifications_test_for = if is_c1_measure_test
+                                       product.c3_test ? 'record and export (C1) and submit (C3)' : 'record and export (C1)'
+                                     else
+                                       product.c3_test ? 'import and calculate (C2) and submit (C3)' : 'import and calculate (C2)'
+                                     end
       "Test the EHR system's ability to #{what_certifications_test_for} measure based data."
     when 'FilteringTest'
       'Test the EHR system\'s ability to filter patient records.'
@@ -225,3 +226,4 @@ module ProductsHelper
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength

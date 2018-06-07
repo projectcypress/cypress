@@ -8,21 +8,13 @@ module Cypress
     def self.create_query(input_filters, _options)
       query_pieces = []
 
-      if input_filters['npis']
-        query_pieces << create_cda_ident_query(input_filters['npis'], '2.16.840.1.113883.4.6')
-      end
+      query_pieces << create_cda_ident_query(input_filters['npis'], '2.16.840.1.113883.4.6') if input_filters['npis']
 
-      if input_filters['tins']
-        query_pieces << create_cda_ident_query(input_filters['tins'], '2.16.840.1.113883.4.2')
-      end
+      query_pieces << create_cda_ident_query(input_filters['tins'], '2.16.840.1.113883.4.2') if input_filters['tins']
 
-      if input_filters['types']
-        query_pieces << { 'specialty' => { '$in' => input_filters['types'] } }
-      end
+      query_pieces << { 'specialty' => { '$in' => input_filters['types'] } } if input_filters['types']
 
-      if input_filters['addresses']
-        query_pieces << create_address_query(input_filters['addresses'])
-      end
+      query_pieces << create_address_query(input_filters['addresses']) if input_filters['addresses']
 
       { '$and' => query_pieces }
     end

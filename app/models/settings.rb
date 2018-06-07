@@ -35,8 +35,8 @@ class Settings
   field :file_upload_root, type: String, default: 'data/upload/'
   field :server_needs_restart, type: Boolean, default: false
 
-  field :website_domain, type: String, default: (Rails.env == 'production' ? ENV['WEBSITE_DOMAIN'] : 'localhost')
-  field :website_port, type: Integer, default: (Rails.env == 'production' ? (ENV['WEBSITE_PORT'] || 80) : 3000)
+  field :website_domain, type: String, default: (Rails.env.production? ? ENV['WEBSITE_DOMAIN'] : 'localhost')
+  field :website_port, type: Integer, default: (Rails.env.production? ? (ENV['WEBSITE_PORT'] || 80) : 3000)
   field :mailer_address, type: String, default: (ENV['MAILER_ADDRESS'] || '')
   field :mailer_port, type: Integer, default: (ENV['MAILER_PORT'] || '')
   field :mailer_domain, type: String, default: (ENV['MAILER_DOMAIN'] || '')
@@ -151,9 +151,7 @@ class Settings
 
   # Check to see if mailer settings have been changed, since they require a server restart
   def check_server_restart
-    if changed.any? { |field| /mailer|website/ =~ field }
-      set(server_needs_restart: true)
-    end
+    set(server_needs_restart: true) if changed.any? { |field| /mailer|website/ =~ field }
   end
 
   def clear_settings_cache

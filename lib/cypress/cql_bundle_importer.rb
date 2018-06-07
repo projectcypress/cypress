@@ -14,6 +14,7 @@ module Cypress
     # @param [File] zip The bundle zip file.
     # @param [String] Type of measures to import, either 'ep', 'eh' or nil for all
     # @param [Boolean] keep_existing If true, delete all current collections related to patients and measures.
+    # rubocop:disable Metrics/MethodLength
     def self.import(zip, options = {})
       options = DEFAULTS.merge(options)
       @measure_id_hash = {}
@@ -24,9 +25,7 @@ module Cypress
         bundle = unpack_bundle(zip_file)
 
         bundle_versions = Hash[* HealthDataStandards::CQM::Bundle.where({}).collect { |b| [b._id, b.version] }.flatten]
-        if bundle_versions.invert[bundle.version]
-          raise "A bundle with version #{bundle.version} already exists in the database. "
-        end
+        raise "A bundle with version #{bundle.version} already exists in the database. " if bundle_versions.invert[bundle.version]
 
         # Store the bundle metadata.
         raise bundle.errors.full_messages.join(',') unless bundle.save
@@ -38,14 +37,15 @@ module Cypress
         unpack_and_store_results(zip_file, options[:type], bundle)
       end
 
-      return bundle
+      bundle
     ensure
       # If the bundle is nil or the bundle has never been saved then do not set done_importing or run save.
-      if bundle && bundle.created_at
+      if bundle&.created_at
         bundle.done_importing = true
         bundle.save
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     def self.unpack_bundle(zip)
       HealthDataStandards::CQM::Bundle.new(JSON.parse(zip.read(SOURCE_ROOTS[:bundle]), max_nesting: 100))
@@ -106,7 +106,7 @@ module Cypress
         #   reconnect_references(patient, source_data_with_references, source_data_reference_id_hash, source_data_id_hash)
         # end
         patient.save
-        report_progress('patients', (index * 100 / entries.length)) if index % 10 == 0
+        report_progress('patients', (index * 100 / entries.length)) if (index % 10).zero?
       end
       puts "\rLoading: Patients Complete          "
     end

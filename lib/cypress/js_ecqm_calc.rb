@@ -49,8 +49,6 @@ module Cypress
                           options: @options,
                           type: 'async')
       @queue.publish(message, persistent: true)
-
-      puts " [x] Sent #{message}"
     end
 
     def stop

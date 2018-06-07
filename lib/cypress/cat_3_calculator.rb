@@ -9,7 +9,7 @@ module Cypress
       @measure = HealthDataStandards::CQM::Measure.top_level.where(filter).first
       @bundle = bundle
       # The effective date can be overwritten with a date other than the one in the bundle
-      @effective_date = effective_date_override ? effective_date_override : bundle.effective_date
+      @effective_date = effective_date_override || bundle.effective_date
     end
 
     # Generates the QRDA/CDA header, using the header info above

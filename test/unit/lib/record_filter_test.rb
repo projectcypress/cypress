@@ -222,9 +222,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     search_fields.each do |search_field|
       next unless search_field
       search_field.each do |item|
-        if item.codes && item.codes['SNOMED-CT'] && (item.codes['SNOMED-CT'] & code_set) != []
-          return true
-        end
+        return true if item.codes && item.codes['SNOMED-CT'] && (item.codes['SNOMED-CT'] & code_set) != []
       end
     end
 
@@ -247,8 +245,6 @@ class RecordFilterTest < ActiveSupport::TestCase
   def validate_record_count(all_records, filtered_records, expected_count = -1)
     assert(all_records.count >= filtered_records.count, 'Filtered set of records is larger than original Unfiltered set')
 
-    if expected_count > -1
-      assert_equal(expected_count, filtered_records.count, 'Filtered set of records does not match expected count')
-    end
+    assert_equal(expected_count, filtered_records.count, 'Filtered set of records does not match expected count') if expected_count > -1
   end
 end

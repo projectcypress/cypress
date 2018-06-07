@@ -51,9 +51,7 @@ class ChecklistSourceDataCriteria
   end
 
   def result_completed?
-    if recorded_result
-      self.result_complete = recorded_result == '' ? false : true
-    end
+    self.result_complete = recorded_result != '' if recorded_result
   end
 
   def attribute_code_matches_valueset?
@@ -120,9 +118,7 @@ class ChecklistSourceDataCriteria
     include_vset = false
     if data_criteria.field_values && criteria['field_values'].keys[0] == data_criteria.field_values.keys[0]
       if data_criteria.field_values.values[0].type == 'CD'
-        if data_criteria.field_values.values[0].code_list_id == criteria['field_values'].values[0]['code_list_id']
-          include_vset = true
-        end
+        include_vset = true if data_criteria.field_values.values[0].code_list_id == criteria['field_values'].values[0]['code_list_id']
       else
         include_vset = true
       end

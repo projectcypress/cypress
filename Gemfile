@@ -96,7 +96,7 @@ gem 'mongoid_rails_migrations', :git => 'https://github.com/adacosta/mongoid_rai
 gem 'bunny'
 
 group :development, :test do
-  gem 'rubocop', '0.49', :require => false
+  gem 'rubocop', :require => false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'axe-matchers'
   gem 'byebug'
