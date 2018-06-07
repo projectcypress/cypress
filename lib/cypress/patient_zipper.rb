@@ -40,7 +40,7 @@ module Cypress
     end
 
     def export(patient)
-      cms_compatibility = patient.product_test && patient.product_test.product.c3_test
+      cms_compatibility = patient.product_test&.product&.c3_test
       case patient.bundle.qrda_version
       when 'r5'
         # TODO: R2P: make sure patient export works with HDS Cat1 R5 exporter

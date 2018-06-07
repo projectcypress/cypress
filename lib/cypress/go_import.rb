@@ -2,9 +2,7 @@ module Cypress
   module GoImport
     def self.replace_negated_codes(record, bundle)
       record.entries.each do |entry|
-        if entry.negationInd && entry.codes.key?('NA_VALUESET') && entry.codes.size == 1
-          select_negated_code(entry, bundle)
-        end
+        select_negated_code(entry, bundle) if entry.negationInd && entry.codes.key?('NA_VALUESET') && entry.codes.size == 1
       end
     end
 

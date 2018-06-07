@@ -140,10 +140,10 @@ class TestExecution
   end
 
   def errored_or_sibling_errored?
-    errored? || (sibling_execution && sibling_execution.errored?)
+    errored? || (sibling_execution&.errored?)
   end
 
   def incomplete_or_sibling_incomplete?
-    incomplete? || (sibling_execution && sibling_execution.incomplete?)
+    incomplete? || (sibling_execution&.incomplete?)
   end
 end

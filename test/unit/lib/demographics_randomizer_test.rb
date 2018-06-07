@@ -139,5 +139,3 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     assert_not_equal [@insurance_provider], @record.insurance_providers
   end
 end
-
-# rubocop:enable Metrics/ClassLength

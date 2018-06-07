@@ -41,13 +41,10 @@ module Validators
       validation_errors = @validators.inject([]) do |errors, validator|
         errors.concat validator.validate(doc, options)
       end
-
       validation_errors.each do |error|
         # errors for data criteria outside the measure definition are now warnings
         type = error.message.include?('data criteria outside') ? :warning : :error
-        if (error.validator && error.validator.upcase.include?('QRDA') || error.validator == 'QRDA QDM Template Validator') && !@test_has_c3
-          type = :warning
-        end
+        type = :warning if (error.validator&.upcase&.include?('QRDA') || error.validator == 'QRDA QDM Template Validator') && !@test_has_c3
         add_issue error.message, type, :message => error.message,
                                        :location => error.location, :validator => error.validator,
                                        :validator_type => :xml_validation, :file_name => error.file_name

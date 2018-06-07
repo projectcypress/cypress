@@ -321,7 +321,7 @@ end
 
 class ProductCachingTest < CachingTest
   def test_product_status_and_product_test_groups_are_not_cached_on_start
-    assert !Rails.cache.exist?("#{@product.cache_key}/status"), 'cache key for product status should not exist'
+    assert_not Rails.cache.exist?("#{@product.cache_key}/status"), 'cache key for product status should not exist'
   end
 
   def test_product_status_is_cached_after_checking_status

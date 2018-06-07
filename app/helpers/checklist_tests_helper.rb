@@ -36,9 +36,7 @@ module ChecklistTestsHelper
       dc_hash[dc_string] = dc.keys[0]
       # Store the original data source criteria and display string, makes sure you can reselect the orignal criteria
       # This is important for when the same criteria is used in multiple ways in the same measure
-      if dc[dc.keys[0]].source_data_criteria == criteria.source_data_criteria
-        og_string = dc_string
-      end
+      og_string = dc_string if dc[dc.keys[0]].source_data_criteria == criteria.source_data_criteria
     end
     dc_hash[og_string] = original_sdc
     Hash[dc_hash.sort]
@@ -81,19 +79,19 @@ module ChecklistTestsHelper
 
   def lookup_valueset_name(oid)
     vs = HealthDataStandards::SVS::ValueSet.where(oid: oid)
-    return oid unless vs && vs.first
+    return oid unless vs&.first
     vs.first.display_name
   end
 
   def lookup_valueset_long_name(oid)
     vs = HealthDataStandards::SVS::ValueSet.where(oid: oid)
-    return oid unless vs && vs.first
+    return oid unless vs&.first
     "#{vs.first.display_name}: #{oid}"
   end
 
   def lookup_codevalues(oid, bundle)
     vs = HealthDataStandards::SVS::ValueSet.where(oid: oid, bundle_id: bundle)
-    return [] unless vs && vs.first
+    return [] unless vs&.first
     # vs.first.concepts.map { |con| con.display_name + ":" + con.code }
     vs.first.concepts.map { |con| [con.display_name, con.code] }
   end

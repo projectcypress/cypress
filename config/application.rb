@@ -1,4 +1,4 @@
-require File.expand_path('../boot', __FILE__)
+require File.expand_path('boot', __dir__)
 
 require 'action_controller/railtie'
 require 'action_mailer/railtie'
@@ -6,9 +6,9 @@ require 'sprockets/railtie'
 require 'rails/test_unit/railtie'
 require_relative '../lib/hash'
 
-CAT1_CONFIG = YAML.safe_load(File.read(File.expand_path('../cat1checklist.yml', __FILE__)), [], [], true)
-APP_CONSTANTS = YAML.safe_load(ERB.new(File.read(File.expand_path('../cypress.yml', __FILE__))).result, [], [], true)
-NAMES_RANDOM = YAML.safe_load(File.read(File.expand_path('../names.yml', __FILE__)), [], [], true)
+CAT1_CONFIG = YAML.safe_load(File.read(File.expand_path('cat1checklist.yml', __dir__)), [], [], true)
+APP_CONSTANTS = YAML.safe_load(ERB.new(File.read(File.expand_path('cypress.yml', __dir__))).result, [], [], true)
+NAMES_RANDOM = YAML.safe_load(File.read(File.expand_path('names.yml', __dir__)), [], [], true)
 
 # Append an additional measure HQMF ID during testing so product creation
 # does not fail.

@@ -1,5 +1,4 @@
-# rubocop:disable ClassLength
-
+# rubocop:disable Metrics/ClassLength
 class Product
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
@@ -93,9 +92,9 @@ class Product
   end
 
   def add_measure_tests(product_params)
-    old_ids = measure_ids ? measure_ids : []
-    new_ids = product_params['measure_ids'] ? product_params['measure_ids'] : old_ids
-    update_attributes(product_params)
+    old_ids = measure_ids || []
+    new_ids = product_params['measure_ids'] || old_ids
+    update(product_params)
     (new_ids - old_ids).each do |measure_id|
       m = bundle.measures.top_level.find_by(:hqmf_id => measure_id)
       product_tests.build({ :name => m.name, :measure_ids => [measure_id], :cms_id => m.cms_id }, MeasureTest)
@@ -176,3 +175,4 @@ class Product
                            :incl_addr => incl_addr, :display_name => display_name, :options => options }, FilteringTest)
   end
 end
+# rubocop:enable Metrics/ClassLength

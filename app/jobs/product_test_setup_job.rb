@@ -7,10 +7,10 @@ class ProductTestSetupJob < ApplicationJob
     # TODO: R2P: records to patients name
     product_test.generate_patients(@job_id) if product_test.patients.count.zero?
     # product_test.pick_filter_criteria if product_test.is_a? FilteringTest #TODO R2P: priority 4
-    calc_job = Cypress::JsEcqmCalc.new({ 'correlation_id': product_test._id.to_s })
+    calc_job = Cypress::JsEcqmCalc.new('correlation_id': product_test._id.to_s)
     calc_job.sync_job(product_test.patients.map { |rec| rec._id.to_s }, product_test.measures.map { |mes| mes._id.to_s })
     calc_job.stop
-    # TODO support calculation for a filtered test deck
+    # TODO: support calculation for a filtered test deck
     # if product_test.respond_to? :patient_cache_filter
     #   MeasureEvaluationJob.perform_now(product_test, 'filters' => product_test.patient_cache_filter)
     # else

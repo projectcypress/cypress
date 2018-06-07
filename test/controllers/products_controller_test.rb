@@ -123,7 +123,7 @@ class ProductsControllerTest < ActionController::TestCase
       ids = %w[BE65090C-EB1F-11E7-8C3F-9A214CF093AE]
       pt = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ids, bundle_id: @bundle_id)
       ids.each do |mid|
-        pt.product_tests.build({ name: 'test_#{mid}',
+        pt.product_tests.build({ name: "test_#{mid}",
                                  measure_ids: [mid] }, MeasureTest).save!
       end
       pt.save!
@@ -144,7 +144,7 @@ class ProductsControllerTest < ActionController::TestCase
       ids = %w[BE65090C-EB1F-11E7-8C3F-9A214CF093AE]
       pt = Product.new(vendor: @vendor.id, name: "test_product_#{rand}", c1_test: true, measure_ids: ids, bundle_id: @bundle_id)
       ids.each do |mid|
-        pt.product_tests.build({ name: 'test_#{mid}',
+        pt.product_tests.build({ name: "test_#{mid}",
                                  measure_ids: [mid] }, MeasureTest).save!
       end
       pt.save!

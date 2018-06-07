@@ -21,6 +21,7 @@ module Cypress
       @measure_result_hash
     end
 
+    # rubocop:disable Metrics/AbcSize
     def aggregate_results_for_measure(measure)
       individual_results = QDM::IndividualResult.where('measure_id' => measure._id, 'extendedData.correlation_id' => @product_test.id.to_s)
       measure_populations = %w[DENOM NUMER DENEX DENEXCEP IPP MSRPOPL MSRPOPLEX]
@@ -39,6 +40,7 @@ module Cypress
       @measure_result_hash[measure.key]['population_ids'] = measure.population_ids
       create_query_cache_object(@measure_result_hash[measure.key], measure)
     end
+    # rubocop:enable Metrics/AbcSize
 
     def increment_sup_info(patient_sup, pop, single_measure_result_hash)
       unless single_measure_result_hash['supplemental_data'][pop]

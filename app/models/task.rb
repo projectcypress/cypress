@@ -5,8 +5,8 @@ class Task
   field :options, type: Hash
   field :expected_results, type: Hash
 
-  belongs_to :product_test, touch: true
-  has_many :test_executions
+  belongs_to :product_test, :inverse_of => :tasks, :touch => true
+  has_many :test_executions, :dependent => :destroy
   delegate :start_date, :to => :product_test
   delegate :end_date, :to => :product_test
   delegate :measures, :measure_ids, :to => :product_test

@@ -13,12 +13,20 @@ class TasksController < ApplicationController
   end
 
   rescue_from TypeNotFound do |exception|
-    render text: exception, status: 500
+    render :text => exception, :status => :internal_server_error
   end
+
+  def new; end
+
+  def edit; end
+
+  def update; end
+
+  def destroy; end
 
   def index
     # only get C1, C2, and C4 tasks (no C3)
-    @tasks = @product_test.tasks.any_in(_type: %w[C1Task C2Task Cat1FilterTask Cat3FilterTask])
+    @tasks = @product_test.tasks.any_in(:_type => %w[C1Task C2Task Cat1FilterTask Cat3FilterTask])
     respond_with(@tasks.to_a)
   end
 
@@ -41,7 +49,7 @@ class TasksController < ApplicationController
     pt = @task.product_test
     file_name = "#{pt.cms_id}_#{pt.id}.debug.#{file_type}".tr(' ', '_')
 
-    send_data file_content, type: "application/#{file_type}", disposition: 'attachment', filename: file_name
+    send_data file_content, :type => "application/#{file_type}", :disposition => 'attachment', :filename => file_name
   end
 
   private

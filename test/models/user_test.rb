@@ -23,7 +23,7 @@ class UserTest < ActiveSupport::TestCase
     assert v.save!
     assert p.user.nil?, 'POC should not have a user'
     u = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
-    assert !u.user_role?(:vendor, v), 'User should not be associated with the vendor'
+    assert_not u.user_role?(:vendor, v), 'User should not be associated with the vendor'
   end
 
   def test_assign_default_role

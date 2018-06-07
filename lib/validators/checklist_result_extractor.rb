@@ -105,11 +105,11 @@ module Validators
     def find_reason_code(nodes, template, valueset, cc)
       # Return node once a matching node is found
       nodes.each do |node|
-        if cc.negated_valueset
-          cn = node.parent.parent.parent.at_xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @nullFlavor='NA']")
-        else
-          cn = node.parent.parent.parent.at_xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{cc.code}']")
-        end
+        cn = if cc.negated_valueset
+               node.parent.parent.parent.at_xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @nullFlavor='NA']")
+             else
+               node.parent.parent.parent.at_xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{cc.code}']")
+             end
         return [cn] unless cn.nil?
       end
       []

@@ -89,7 +89,7 @@ module Admin
         inactive_bundle.reload
 
         assert inactive_bundle.active, 'new default bundle should be active'
-        assert !active_bundle.active, 'old default bundle should no longer be active'
+        assert_not active_bundle.active, 'old default bundle should no longer be active'
       end
     end
 

@@ -2,12 +2,12 @@
 module Cypress
   class MeasureEvaluator
     def initialize(args = nil)
-      @options = args ? args : {}
+      @options = args || {}
       @logger = Rails.logger
     end
 
     def evaluate_all_cat3(args = nil)
-      opts = args ? @options.merge(args) : @options
+      opts = args || @options
       generate_tests(opts)
 
       wait_for_calculations
@@ -16,7 +16,7 @@ module Cypress
     end
 
     def evaluate_all_cat1(args = nil)
-      opts = args ? @options.merge(args) : @options
+      opts = args || @options
       generate_tests(opts)
 
       wait_for_calculations
@@ -44,7 +44,7 @@ module Cypress
 
     def generate_test(args = nil)
       opts = args ? @options.merge(args) : @options
-      bundle_ver = opts[:version] ? opts[:version] : Settings.current.default_bundle
+      bundle_ver = opts[:version] || Settings.current.default_bundle
       bundle = Bundle.where(version: bundle_ver).first
 
       @logger.info "Generating test for #{opts[:measure].cms_id}"

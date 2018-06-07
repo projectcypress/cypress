@@ -43,9 +43,7 @@ module FilteringTestsHelper
     arr << { NPIs: val.npis.join(',') }
     arr << { TINs: val.tins.join(',') }
 
-    if val.key?('addresses') || val.key?(:addresses)
-      arr << { Addresses: val.addresses.map.map(&:values).map { |a| a.join(', ') }.join(' and ') }
-    end
+    arr << { Addresses: val.addresses.map.map(&:values).map { |a| a.join(', ') }.join(' and ') } if val.key?('addresses') || val.key?(:addresses)
 
     arr
   end
