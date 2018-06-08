@@ -250,9 +250,9 @@ class ProductTest
                 else
                   ipp_ids.sample(rand((ipp_ids.count / 2.0).ceil..(ipp_ids.count)))
                 end
-      return ipp_ids + denom_ids + msrpopl_ids
+      return (ipp_ids + denom_ids + msrpopl_ids).compact
     end
-    mpl_ids
+    mpl_ids.compact
   end
 
   def pick_denom_ids
@@ -284,11 +284,9 @@ class ProductTest
     # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product,
     # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if msrpopl_ids.count > product.test_deck_max
-      numer_ids = get_record_ids(
-        QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, 'extendedData.correlation_id' => bundle.id.to_s)
-                        .any_of({ 'MSRPOPL' => { '$gt' => 1 } },
-                                '$and' => [{ 'MSRPOPL' => { '$eq' => 1 } }, { 'MSRPOPLEX' => { '$eq' => 0 } }]).distinct(:patient)
-      )
+      numer_ids = QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, 'extendedData.correlation_id' => bundle.id.to_s)
+                                       .any_of({ 'MSRPOPL' => { '$gt' => 1 } },
+                                               '$and' => [{ 'MSRPOPL' => { '$eq' => 1 } }, { 'MSRPOPLEX' => { '$eq' => 0 } }]).distinct(:patient)
       numer_ids = numer_ids.sample(product.test_deck_max)
       msrpopl_ids = numer_ids + msrpopl_ids.sample(product.test_deck_max - numer_ids.count)
     end
