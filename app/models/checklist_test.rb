@@ -66,9 +66,7 @@ class ChecklistTest < ProductTest
     code_indexes = []
     time_indexes = []
     attributes.each_with_index do |attribute, index|
-      if attribute['attribute_name'] == 'negationRationale'
-        code_indexes << index
-      elsif %(authorDatetime prevalencePeriod relevantPeriod).include? attribute['attribute_name']
+      if %(authorDatetime prevalencePeriod relevantPeriod).include? attribute['attribute_name']
         time_indexes << index
       else
         code_indexes << index

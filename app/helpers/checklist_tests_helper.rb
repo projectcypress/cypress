@@ -22,9 +22,7 @@ module ChecklistTestsHelper
       dc_hash[dc.description] = dc_key
       # Store the original data source criteria and display string, makes sure you can reselect the orignal criteria
       # This is important for when the same criteria is used in multiple ways in the same measure
-      if dc.source_data_criteria == criteria.source_data_criteria
-        og_string = dc.description
-      end
+      og_string = dc.description if dc.source_data_criteria == criteria.source_data_criteria
     end
     dc_hash[og_string] = original_sdc
     Hash[dc_hash.sort]
@@ -63,6 +61,6 @@ module ChecklistTestsHelper
   end
 
   def direct_reference_code?(valueset)
-    valueset[0, 3] == 'drc' ? true : false
+    valueset[0, 3] == 'drc'
   end
 end
