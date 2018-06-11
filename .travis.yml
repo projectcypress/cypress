@@ -11,8 +11,6 @@ addons:
         key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x9ECBEC467F0CEB10'
     packages:
       - mongodb-org-server=3.4.5
-env:
-  - CYPRESS_DB=cypress_test
 services:
   - mongodb
   - rabbitmq
@@ -37,17 +35,17 @@ before_script:
   - git config --global user.name "Travis CI"
   - npm install eslint
   - yarn install --cwd /tmp/js-ecqm-engine
-  - /tmp/js-ecqm-engine/bin/rabbit_worker.js &
+  - CYPRESS_DB=cypress_test /tmp/js-ecqm-engine/bin/rabbit_worker.js &
   - cp ./.travis/mongoid.yml ./config/mongoid.yml
 env:
-  - TEST_SUITE=cucumber
+  # - TEST_SUITE=cucumber
   - TEST_SUITE=audit
-  - TEST_SUITE=models
+  # - TEST_SUITE=models
   - TEST_SUITE=controllers
-  - TEST_SUITE=helpers
-  - TEST_SUITE=jobs
-  - TEST_SUITE=units
-  - TEST_SUITE=benchmark
+  # - TEST_SUITE=helpers
+  # - TEST_SUITE=jobs
+  # - TEST_SUITE=units
+  # - TEST_SUITE=benchmark
 script:
   - 'if [ ${TEST_SUITE} = "cucumber" ]; then
       bundle exec cucumber;
