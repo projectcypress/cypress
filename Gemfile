@@ -11,10 +11,13 @@ gem 'mongoid', '~> 5.0.0'
 gem 'bson_ext'
 
 gem 'os'
+gem 'mustache'
 
 gem 'cql_qdm_patientapi', git: 'https://github.com/projecttacoma/cql_qdm_patientapi', branch: 'better_codes_and_scalar_error'
 gem 'cqm-converter'
+
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', branch: 'results_object'
+gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'qrda'
 
 gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'r5'
 # gem 'health-data-standards', '~> 3.7.0'

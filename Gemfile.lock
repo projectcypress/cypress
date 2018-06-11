@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: 390e98a1253ed6d677eb40d41658e181dda982bf
+  revision: bcb40b806921f45c983b7014b4e1b995c89d8920
   branch: r5
   specs:
     health-data-standards (4.0.3)
@@ -54,10 +54,31 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-models
-  revision: 024f6158416665207ba11c0986a6ea842435b881
+  revision: 25989824f82de6f47828bcc9e295e1cd083af8e4
   branch: results_object
   specs:
     cqm-models (0.7.4)
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-parsers
+  revision: 0c7785a4b41ff91bb5a1faf0dc0b17d027c464c1
+  branch: qrda
+  specs:
+    cqm-parsers (1.0.0)
+      activesupport (~> 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 5.0.0)
+      mongoid-tree (~> 2.0.0)
+      nokogiri (~> 1.8.1)
+      protected_attributes (~> 1.0.5)
+      rest-client (~> 1.8.0)
+      rubyzip (~> 1.2.1)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
 
 GIT
   remote: https://github.com/turbolinks/turbolinks-classic
@@ -332,6 +353,7 @@ GEM
       mongoid (>= 4.0, < 6.0)
     multi_json (1.13.1)
     multi_test (0.1.2)
+    mustache (1.0.5)
     nested_form (0.3.2)
     netrc (0.11.0)
     newrelic_rpm (5.1.0.344)
@@ -543,6 +565,7 @@ DEPENDENCIES
   cql_qdm_patientapi!
   cqm-converter
   cqm-models!
+  cqm-parsers!
   cucumber-rails
   database_cleaner
   devise (= 4.1.1)
@@ -566,6 +589,7 @@ DEPENDENCIES
   modernizr-rails (~> 2.7.1)
   mongoid (~> 5.0.0)
   mongoid_rails_migrations!
+  mustache
   nested_form
   newrelic_rpm
   os
