@@ -127,7 +127,7 @@ module Cypress
     end
 
     def self.unpack_json(entry)
-      JSON.parse(entry.get_input_stream.read, max_nesting: 100)
+      JSON.parse(entry.get_input_stream.read, max_nesting: false)
     end
 
     def self.report_progress(label, percent)
