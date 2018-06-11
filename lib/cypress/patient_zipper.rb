@@ -26,27 +26,22 @@ module Cypress
   end
 
   class QRDAExporter
-    C5EXPORTER = HealthDataStandards::Export::Cat1.new('r5')
-
     attr_accessor :measures
     attr_accessor :start_time
     attr_accessor :end_time
 
     def initialize(measures, start_time, end_time)
-      @qdm_patient_converter = CQM::Converter::QDMPatient.new
-      @measures = measures.to_a
+      @measures = measures
       @start_time = start_time
       @end_time = end_time
     end
 
     def export(patient)
       cms_compatibility = patient.product_test&.product&.c3_test
+      options = { provider: patient.provider, submission_program: cms_compatibility, start_time: start_time, end_time: end_time }
       case patient.bundle.qrda_version
       when 'r5'
-        # TODO: R2P: make sure patient export works with HDS Cat1 R5 exporter
-        hdsrecord = @qdm_patient_converter.to_hds(patient)
-        hdsrecord.bundle_id = patient.bundleId
-        C5EXPORTER.export(hdsrecord, measures, start_time, end_time, nil, 'r5', cms_compatibility)
+        Qrda1R5.new(patient, measures, options).render
       end
     end
   end
