@@ -85,7 +85,7 @@ module Cypress
       DemographicsRandomizer.randomize(cloned_patient, prng, allow_dups) if options['randomize_demographics']
       cloned_patient.extendedData[:correlation_id] = options['test_id']
       patch_insurance_provider(patient)
-      # randomize_entry_ids(cloned_patient) unless options['disable_randomization']... TODO R2P: priority 1.2
+      randomize_entry_ids(cloned_patient) unless options['disable_randomization']
       # assign existing provider if provider argument is not nil (should be when @test is a measure test)
       provider ? assign_existing_provider(cloned_patient, provider) : assign_provider(cloned_patient)
       cloned_patient.save!
@@ -103,9 +103,9 @@ module Cypress
       entry_id_hash = {}
       index = 0
       # TODO: R2P: use new patient model
-      cloned_patient.entries.each do |entry|
-        entry_id_hash[entry.id.to_s] = BSON::ObjectId.new
-        entry.id = entry_id_hash[entry.id.to_s]
+      cloned_patient.dataElements.each do |entry|
+        entry_id_hash[entry._id.to_s] = BSON::ObjectId.new
+        entry.id = entry_id_hash[entry._id.to_s]
         entries_with_references.push(index) unless entry['references'].nil?
         index += 1
       end
@@ -115,7 +115,7 @@ module Cypress
     def reconnect_references(cloned_patient, entries_with_references, entry_id_hash)
       # TODO: R2P: use new patient model
       entries_with_references.each do |entry_with_reference_index|
-        entry_with_reference = cloned_patient.entries[entry_with_reference_index]
+        entry_with_reference = cloned_patient.dataElements[entry_with_reference_index]
         entry_with_reference.references.each do |reference|
           old_id = reference['referenced_id']
           reference['referenced_id'] = entry_id_hash[old_id].to_s
