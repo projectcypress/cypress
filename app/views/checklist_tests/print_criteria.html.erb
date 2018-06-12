@@ -44,7 +44,7 @@
                             </ul>
                           </span></td>
                         <% end %>
-                        <td style="vertical-align:top"><%= checklist_test_criteria_attribute(criteria, checked_criteria.attribute_index) %></td>
+                        <td style="vertical-align:top"><%= checklist_test_criteria_attribute(criteria, criteria_field.object.attribute_index) %></td>
                         <td style="vertical-align:top"><%= render partial: 'checklist_tests/field_values', locals: { field_values: criteria['field_values'], result: criteria['value'], disable_modal: true } if criteria['attributes'] || criteria['value'] %></td>
                       </tr>
                     <% end %>
