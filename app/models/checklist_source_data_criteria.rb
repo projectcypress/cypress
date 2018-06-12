@@ -112,7 +112,7 @@ class ChecklistSourceDataCriteria
 
   # data_criteria is from the measure defintion, criteria is for the specific checklist test
   def compare_attributes(data_criteria, criteria)
-    return false if data_criteria['attributes'].nil?
+    return false unless data_criteria['attributes']
     data_criteria.attributes.include? criteria.attributes[attribute_index]
   end
 
