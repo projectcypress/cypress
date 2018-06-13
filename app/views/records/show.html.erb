@@ -69,41 +69,36 @@
       <dt>DOB</dt><dd><%= display_time(@record.birthDatetime) %></dd>
       <dt>Gender</dt><dd><%= full_gender_name(@record.gender) %></dd>
       <dt>Race</dt><dd><%= @record.get_data_elements('patient_characteristic','race').first['dataElementCodes'].first['descriptor'] %></dd>
-      <dt>Ethnicity</dt><dd><%= @record.get_data_elements('patient_characteristic','ethnicity').first['dataElementCodes'].first['descriptor'] %></dd>
-    </dl>
+      <dt>Ethnicity</dt><dd><%= @record.get_data_elements('patient_characteristic','ethnicity').first['dataElementCodes'].first['descriptor'] %></dd> 
+
+      </dl>
+
     <% RecordsHelper::SECTIONS.each do |s| %>
       <div class="panel panel-default patient-details">
         <div class="panel-heading"><h3 class='panel-title'><%= s.titleize %></h3></div>
-        <% if @record[s] %>
           <div class="panel-body">
-            <% @record[s].each do |dc| %>
-            <div class="entry">
-              <h4><%= dc['description'] %></h4>
-              <dl class="dl-horizontal">
-                <% dc['codes'].each do |code_system, code| %>
-                  <dt><%= code_system %></dt><dd><%= code.join(", ") %></dd>
+          <% @record.get_data_elements(s).each do |data| %> 
+              <div class="entry">
+              <h5><b>Date/Time:</b></h5> <h5><%= data['authorDatetime'] %></h5>
+              <h5><b>Description:</b></h5> <h5><%= data['description'] %></h5>
+              <h5><b> Principal Diagnosis:</b></h5> <h5><%= data['diagnoses'].first['descriptor'] if data['diagnoses'] && data['diagnoses'].any? %></h5>
+              <h5><b>Length Of Stay:</b></h5> <%= render 'units', :quantity => data['lengthOfStay'] %>
+              <h5><b>Dosage:</b></h5> <%= render 'units', :quantity => data['dosage'] %>
+              <h5><b>Results:</b></h5> <%= render 'units', :quantity => data['result'] if data['result'].is_a?(Hash)%>
+              <% if data['result'].is_a?(Array) %>
+
+              <% end %>
+              <h5><b>Dicharge Status :</b></h5> <h5><%= data['dischargeDisposition']['descriptor'] if data['dischargeDisposition'] != nil %></h5>
+              <h5><b>Facility Location :</b></h5> <h5><%= data['facilityLocations'].first['Code']['descriptor'] if data['facilityLocations'] && data['facilityLocations'].any? %></h5>
+                <% data['dataElementCodes'].each do |dec| %>
+                 <h5><b>Code :</b></h5>   <h5><dt><%= dec['code_system'] %></dt><dd><%= dec['code'] %></dd></h5><br>
                 <% end %>
               </dl>
-              <dl class="dl-horizontal">
-                <% if dc.respond_to?(:negationInd) && dc.negationInd %>
-                  <dt>Not Performed</dt><dd><%=HealthDataStandards::SVS::ValueSet.where({"concepts.code": dc.negationReason.code, "concepts.code_system_name": dc.negationReason.code_system}).first.concepts.select {|c| c.code == dc.negationReason.code}.first.display_name[/.*(?= )/] %></dd>
-                  <dt>Time</dt><dd><%=display_time_to_minutes(dc['start_time'])%></dd>
-                <%else%>
-                  <dt><%= "Start Time" if dc['start_time']%></dt> <dd><%= display_time_to_minutes(dc['start_time']) if dc['start_time'] %></dd>
-                  <dt><%="End Time" if dc['end_time']%></dt> <dd><%= display_time_to_minutes(dc['end_time']) if dc['end_time'] %></dd>
-                <%end%>
-                <br>
-                <% RecordsHelper::FIELDS.each do |f|%>
-                  <% if dc[f] %>
-                    <dt><%= ("Results" if f == 'values') || f.underscore.humanize.titleize%></dt>
-                    <dd><%= simple_format(display_field(dc[f]))%></dd>
-                  <%end%>
-                <%end%>
+              
               </dl>
             </div>
             <% end %>
           </div>
-        <% end %>
       </div>
     <% end %>
   </div>
