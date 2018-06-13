@@ -248,9 +248,9 @@ class ProductTest
                 else
                   ipp_ids.sample(rand((ipp_ids.count / 2.0).ceil..(ipp_ids.count)))
                 end
-      return (ipp_ids + denom_ids + msrpopl_ids).compact!
+      return (ipp_ids + denom_ids + msrpopl_ids).compact
     end
-    mpl_ids.compact!
+    mpl_ids.compact
   end
 
   def pick_denom_ids
