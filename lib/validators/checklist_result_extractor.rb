@@ -3,27 +3,19 @@ module Validators
     include Validators::AttributeExtractor
 
     # find all nodes that fulfill the data criteria
-    def find_dc_node(template, valuesets, checked_criteria, source_criteria)
+    def find_dc_node(template, checked_criteria, source_criteria)
       passing = false
       # find nodes to search for the criteria
       reason_template, nodes = template_nodes(source_criteria, checked_criteria)
       # if the checked criteria has a code, the code and attributes will be checked
       # if the checked criteria does not have a code (e.g. Transfers), on the attiributes will be checked
       if checked_criteria.code || checked_criteria.negated_valueset
-        # a codenode is a node, that includes the appropriate code
-        codenodes = []
-        # looks through every valueset associated with the source data criteria
-        valuesets.each do |valueset|
-          # once you find a matching node, you can stop
-          next unless codenodes.empty?
-          # If there is a negation, search for the code within the template
-          codenodes = find_template_with_code(nodes, template, valueset, checked_criteria, reason_template)
-          # When you get nodes that include a code, determine if it meets additinal criteria
-          passing = passing_dc?(codenodes, source_criteria, checked_criteria)
-        end
+        neg_vs = checked_criteria.negated_valueset ? checked_criteria['selected_negated_valueset'] : nil
+        codenodes = find_template_with_code(nodes, template, checked_criteria, reason_template, neg_vs)
+        # When you get nodes that include a code, determine if it meets additinal criteria
+        passing = passing_dc?(codenodes, source_criteria, checked_criteria)
       elsif checked_criteria.attribute_code # CMS188v6
-        valueset = source_criteria[:field_values].values[0].code_list_id
-        codenodes = find_template_with_attribute([@file], template, valueset, checked_criteria.attribute_code)
+        codenodes = find_template_with_attribute([@file], template, checked_criteria.attribute_code)
         passing = true unless codenodes.empty?
       end
       if passing
@@ -50,22 +42,22 @@ module Validators
       # if the attribute is a result that isn't a code
       # if the attribute is a result that is a code
       # if the attribute is defined as a field value
-      if source_criteria['value'] && source_criteria['value']['type'] != 'CD'
-        node.xpath('./cda:value').blank? ? false : true
-      elsif source_criteria['value'] && source_criteria['value']['type'] == 'CD'
-        result_xpath = "./cda:value[@code='#{checked_criteria.attribute_code}'] or ./cda:entryRelationship[@typeCode='REFR']" \
-                       "/cda:observation/cda:value[@code='#{checked_criteria.attribute_code}']"
-        node.xpath(result_xpath).blank? ? false : true
+      if source_criteria.attributes[checked_criteria.attribute_index]['attribute_name'] == 'result'
+        if source_criteria.attributes[checked_criteria.attribute_index]['attribute_valueset']
+          result_xpath = "./cda:value[@code='#{checked_criteria.attribute_code}'] or ./cda:entryRelationship[@typeCode='REFR']" \
+                         "/cda:observation/cda:value[@code='#{checked_criteria.attribute_code}']"
+          node.xpath(result_xpath).blank? ? false : true
+        else
+          node.xpath('./cda:value').blank? ? false : true
+        end
       else
-        find_attribute_values(node, checked_criteria.attribute_code, source_criteria)
+        find_attribute_values(node, checked_criteria.attribute_code, source_criteria, checked_criteria.attribute_index)
       end
     end
 
     # returns true if source criteria has a reason (or negation)
-    def source_criteria_has_reason(source_criteria)
-      if source_criteria['negation']
-        true
-      elsif source_criteria['field_values'] && source_criteria['field_values'].keys[0] == 'REASON'
+    def source_criteria_has_reason(source_criteria, index)
+      if source_criteria['attributes'] && (%w[reason negationRationale].include? source_criteria['attributes'][index].attribute_name)
         true
       else
         false
@@ -79,36 +71,35 @@ module Validators
       cc = checked_criteria
       # if the source criteria does not have a reason, the whole document is returned to search
       # if the source criteria has a reason, return the list of nodes with the correction reason value set
-      return false, [@file] unless source_criteria_has_reason(sc)
+      return false, [@file] unless source_criteria_has_reason(sc, checked_criteria.attribute_index)
       # get valueset from the negation code list or field_values
-      valueset = sc['negation'] ? sc['negation_code_list_id'] : sc.field_values['REASON'].code_list_id
       [true, @file.xpath("//cda:templateId[@root='2.16.840.1.113883.10.20.24.3.88']
-        /..//*[@sdtc:valueSet='#{valueset}' and @code='#{cc.attribute_code}']")]
+        /..//*[@code='#{cc.attribute_code}']")]
     end
 
     # searches all nodes to find ones with the correct template, valueset and code
     # cc is short for Checked_Criteria
-    def find_template_with_code(nodes, template, valueset, cc, reason_template)
-      return find_reason_code(nodes, template, valueset, cc) if reason_template
+    def find_template_with_code(nodes, template, cc, reason_template, negation_valueset = nil)
+      return find_reason_code(nodes, template, cc, negation_valueset) if reason_template
       # if it isn't a reason, the file node is the first
-      codenodes = nodes.first.xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{cc.code}']")
+      codenodes = nodes.first.xpath("//cda:templateId[@root='#{template}']/..//*[@code='#{cc.code}']")
       codenodes || []
     end
 
     # searches all nodes to find ones with the correct template, valueset and attribute code
-    def find_template_with_attribute(nodes, template, valueset, attribute_code)
-      codenodes = nodes.first.xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{attribute_code}']")
+    def find_template_with_attribute(nodes, template, attribute_code)
+      codenodes = nodes.first.xpath("//cda:templateId[@root='#{template}']/..//*[@code='#{attribute_code}']")
       codenodes || []
     end
 
     # cc is short for Checked_Criteria
-    def find_reason_code(nodes, template, valueset, cc)
+    def find_reason_code(nodes, template, cc, valueset)
       # Return node once a matching node is found
       nodes.each do |node|
         cn = if cc.negated_valueset
                node.parent.parent.parent.at_xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @nullFlavor='NA']")
              else
-               node.parent.parent.parent.at_xpath("//cda:templateId[@root='#{template}']/..//*[@sdtc:valueSet='#{valueset}' and @code='#{cc.code}']")
+               node.parent.parent.parent.at_xpath("//cda:templateId[@root='#{template}']/..//*[@code='#{cc.code}']")
              end
         return [cn] unless cn.nil?
       end

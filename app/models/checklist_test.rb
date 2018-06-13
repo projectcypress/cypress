@@ -55,8 +55,25 @@ class ChecklistTest < ProductTest
     pass_count == criterias.count ? 'passed' : 'failed'
   end
 
-  def negate_valueset?(measure, criteria_key)
-    measure.hqmf_document[:data_criteria].select { |key| key == criteria_key }.values.first.negation
+  def negate_valueset?(measure, criteria_key, att_index)
+    return false unless att_index
+    measure[:source_data_criteria].select { |key| key == criteria_key }.values.first.attributes[att_index]['attribute_name'] == 'negationRationale'
+  end
+
+  def attribute_index?(measure, criteria_key)
+    attributes = measure[:source_data_criteria].select { |key| key == criteria_key }.values.first['attributes']
+    return nil if attributes.blank?
+    code_indexes = []
+    time_indexes = []
+    attributes.each_with_index do |attribute, index|
+      if %(authorDatetime prevalencePeriod relevantPeriod).include? attribute['attribute_name']
+        time_indexes << index
+      else
+        code_indexes << index
+      end
+    end
+    return code_indexes.sample unless code_indexes.empty?
+    return time_indexes.sample unless time_indexes.empty?
   end
 
   def create_checked_criteria
@@ -64,7 +81,6 @@ class ChecklistTest < ProductTest
     checklist_measures = []
     prng = Random.new(rand_seed.to_i)
 
-    # TODO: CQL: access criteria for measure using new measure model (throughout checklist_test below)
     # For each measure selected iterate on finding interesting data criteria
     measure_criteria_map, measure_ranks = criteria_map_and_measure_ranks(prng)
 
@@ -72,14 +88,15 @@ class ChecklistTest < ProductTest
     measure_ranks, max_num_checklist_measures = shuffle_top_measures(measure_ranks, prng)
 
     # create checked criteria
-    measure_ranks.reverse_each do |value|
-      next if checklist_measures.include? value[0].hqmf_id # skip submeasures
+    measure_ranks.reverse_each do |measure, _rank|
+      measure.reload
+      next if checklist_measures.include? measure.hqmf_id # skip submeasures
       next if checklist_measures.size > max_num_checklist_measures - 1 # skip if four checklist measures already exist
-      checklist_measures << value[0].hqmf_id
-      measure_criteria_map[value[0]].each do |criteria_key|
-        checked_criterias.push(measure_id: value[0].id.to_s,
-                               source_data_criteria: criteria_key,
-                               negated_valueset: negate_valueset?(value[0], criteria_key))
+      checklist_measures << measure.hqmf_id
+      measure_criteria_map[measure].each do |criteria_key|
+        att_index = attribute_index?(measure, criteria_key)
+        checked_criterias.push(measure_id: measure.id.to_s, source_data_criteria: criteria_key, attribute_index: att_index,
+                               negated_valueset: negate_valueset?(measure, criteria_key, att_index))
       end
     end
 

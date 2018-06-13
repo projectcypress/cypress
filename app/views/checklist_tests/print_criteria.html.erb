@@ -27,7 +27,7 @@
                 </thead>
                 <tbody>
                   <%= f.fields_for :checked_criteria, checklist_test.checked_criteria.all(measure_id: measure.id) do |criteria_field| %>
-                    <% criteria = measure.hqmf_document[:data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
+                    <% criteria = measure[:source_data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
                     <% if criteria.key?('description') %>
                       <tr>
                         <% valuessets = criteria_field.object.get_all_valuesets_for_dc(measure) %>
@@ -44,8 +44,8 @@
                             </ul>
                           </span></td>
                         <% end %>
-                        <td style="vertical-align:top"><%= checklist_test_criteria_attribute(measure, criteria) %></td>
-                        <td style="vertical-align:top"><%= render partial: 'checklist_tests/field_values', locals: { field_values: criteria['field_values'], negation: criteria['negation_code_list_id'], result: criteria['value'], disable_modal: true } if criteria['field_values'] || criteria['negation_code_list_id'] || criteria['value'] %></td>
+                        <td style="vertical-align:top"><%= checklist_test_criteria_attribute(criteria, criteria_field.object.attribute_index) %></td>
+                        <td style="vertical-align:top"><%= render partial: 'checklist_tests/field_values', locals: { field_values: criteria['field_values'], result: criteria['value'], disable_modal: true } if criteria['attributes'] || criteria['value'] %></td>
                       </tr>
                     <% end %>
                   <% end %>
