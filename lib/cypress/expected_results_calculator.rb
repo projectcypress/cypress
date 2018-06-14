@@ -5,12 +5,16 @@ module Cypress
       @patient_sup_map = {}
       @measure_result_hash = {}
       @product_test.patients.each do |patient|
-        @patient_sup_map[patient.id] = {}
-        @patient_sup_map[patient.id]['SEX'] = patient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.55')[0].dataElementCodes[0].code
-        @patient_sup_map[patient.id]['RACE'] = patient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.59')[0].dataElementCodes[0].code
-        @patient_sup_map[patient.id]['ETHNICITY'] = patient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.56')[0].dataElementCodes[0].code
-        @patient_sup_map[patient.id]['PAYER'] = JSON.parse(patient.extendedData.insurance_providers).first['codes']['SOP'].first
+        add_patient_to_sup_map(@patient_sup_map, patient)
       end
+    end
+
+    def add_patient_to_sup_map(ps_map, patient)
+      ps_map[patient.id] = {}
+      ps_map[patient.id]['SEX'] = patient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.55')[0].dataElementCodes[0].code
+      ps_map[patient.id]['RACE'] = patient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.59')[0].dataElementCodes[0].code
+      ps_map[patient.id]['ETHNICITY'] = patient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.56')[0].dataElementCodes[0].code
+      ps_map[patient.id]['PAYER'] = JSON.parse(patient.extendedData.insurance_providers).first['codes']['SOP'].first
     end
 
     def aggregate_results_for_measures(measures)
