@@ -53,11 +53,25 @@ GIT
       sprockets-rails (~> 2.3)
 
 GIT
-  remote: https://github.com/projecttacoma/cqm-models
-  revision: 25989824f82de6f47828bcc9e295e1cd083af8e4
-  branch: results_object
+  remote: https://github.com/projecttacoma/cqm-converter
+  revision: afa4bdaac4ac6115ead5a81ca08fc18d2c59f682
+  branch: facilityLocationFix
   specs:
-    cqm-models (0.7.4)
+    cqm-converter (0.3.3)
+      activesupport
+      coffee-script
+      cqm-models (>= 0.7.2)
+      execjs
+      health-data-standards (= 4.0.3)
+      momentjs-rails
+      sprockets
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-models
+  revision: b85f92e339ce5adee20ff83a023911fe74455c5c
+  branch: results_object_mongoize
+  specs:
+    cqm-models (0.7.6)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers
@@ -200,14 +214,6 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
-    cqm-converter (0.3.2)
-      activesupport
-      coffee-script
-      cqm-models (>= 0.7.2)
-      execjs
-      health-data-standards (= 4.0.3)
-      momentjs-rails
-      sprockets
     crass (1.0.4)
     cucumber (3.1.0)
       builder (>= 2.1.2)
@@ -563,7 +569,7 @@ DEPENDENCIES
   carrierwave-mongoid
   codecov
   cql_qdm_patientapi!
-  cqm-converter
+  cqm-converter!
   cqm-models!
   cqm-parsers!
   cucumber-rails
