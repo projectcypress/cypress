@@ -43,7 +43,7 @@ module Cypress
 
         observ_values.concat get_observ_values(ir.episode_results)
       end
-      @measure_result_hash[measure.key]['OBSERV'] = median(observ_values)
+      @measure_result_hash[measure.key]['OBSERV'] = median(observ_values.reject(&:nil?))
       @measure_result_hash[measure.key]['measure_id'] = measure.hqmf_id
       @measure_result_hash[measure.key]['population_ids'] = measure.population_ids
       create_query_cache_object(@measure_result_hash[measure.key], measure)
