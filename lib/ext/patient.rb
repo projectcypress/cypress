@@ -37,7 +37,7 @@ module QDM
     end
 
     def lookup_provider(include_address = nil)
-      #find with provider id hash i.e. "$oid"->value
+      # find with provider id hash i.e. "$oid"->value
       provider = Provider.find(JSON.parse(extendedData['provider_performances']).first['provider_id'])
       addresses = []
       provider.addresses.each do |address|

@@ -49,7 +49,7 @@ class FilteringTest < ProductTest
     # iterate over the filters and assign random codes
     params = { measures: measures, patients: patients, incl_addr: incl_addr, effective_date: created_at, prng: prng }
     options['filters'].each do |k, _v|
-      #Note: typically just uses criteria from one random patient, not across several patients
+      # Note: typically just uses criteria from one random patient, not across several patients
       options['filters'][k] = Cypress::CriteriaPicker.send(k, rand_patient, params)
     end
     save!
