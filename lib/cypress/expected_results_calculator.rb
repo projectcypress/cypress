@@ -41,7 +41,7 @@ module Cypress
           increment_sup_info(@patient_sup_map[ir.patient_id], pop, @measure_result_hash[measure.key])
         end
 
-        observ_values.concat get_observ_values(ir.episode_results)
+        observ_values.concat get_observ_values(ir.episode_results) if ir.episode_results
       end
       @measure_result_hash[measure.key]['OBSERV'] = median(observ_values.reject(&:nil?))
       @measure_result_hash[measure.key]['measure_id'] = measure.hqmf_id
