@@ -1,13 +1,13 @@
 module Cypress
   class CriteriaPicker
-    #TODO R2P: pick filter criteria using new model
+    # TODO: R2P: pick filter criteria using new model
     def self.races(patient, _options = {})
-      race_element = patient.get_data_elements('patient_characteristic','race').first
+      race_element = patient.get_data_elements('patient_characteristic', 'race').first
       [race_element.dataElementCodes.first.code]
     end
 
     def self.ethnicities(patient, _options = {})
-      ethnicity_element = patient.get_data_elements('patient_characteristic','ethnicity').first
+      ethnicity_element = patient.get_data_elements('patient_characteristic', 'ethnicity').first
       [ethnicity_element.dataElementCodes.first.code]
     end
 
@@ -16,7 +16,7 @@ module Cypress
     end
 
     def self.payers(patient, _options = {})
-      #TODO R2P: Check just getting first ip name? (not all)
+      # TODO: R2P: Check just getting first ip name? (not all)
       [JSON.parse(patient.extendedData.insurance_providers).first['name']]
     end
 
@@ -51,14 +51,14 @@ module Cypress
       # determine which data criteira are diagnoses, and make sure we choose one that one of our records has
       # if we can't find one that matches a record, just use any diagnosis (fallback)
 
-      #randomize before iterating
+      # randomize before iterating
       measure.hqmf_document.source_data_criteria.to_a.shuffle(random: prng).each do |_criteria, cr_hash|
-        #find diagnosis criteria in measure
+        # find diagnosis criteria in measure
         next unless cr_hash.definition.eql? 'diagnosis'
         fallback_id = cr_hash['code_list_id']
         value_set = HealthDataStandards::SVS::ValueSet.where(oid: cr_hash['code_list_id']).first
 
-        #search through records for diagnosis criteria
+        # search through records for diagnosis criteria
         next unless find_problem_in_records(records, value_set)
         code_list_id = cr_hash['code_list_id']
         break
@@ -68,22 +68,21 @@ module Cypress
     end
 
     def self.find_problem_in_records(records, value_set)
-      #go through all record diagnoses
+      # go through all record diagnoses
       records.each do |r|
-        #TODO: check condition sufficient?
+        # TODO: check condition sufficient?
         r.conditions.each do |c|
           c['dataElementCodes'].each do |dec|
-            #check if snomed
+            # check if snomed
             next unless dec['codeSystem'] == 'SNOMED-CT'
-            #check code against all valueset concepts
+            # check code against all valueset concepts
             value_set['concepts'].each do |concept|
-              return true if concept['code']==dec['code']
+              return true if concept['code'] == dec['code']
             end
           end
         end
       end
-      false #no record diagnosis matches a code in this valueset
-
+      false # no record diagnosis matches a code in this valueset
     end
 
     def self.hqmf_oids_for_problem(problem_oid, measures)
