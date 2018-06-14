@@ -44,7 +44,7 @@ class ChecklistTest < ProductTest
       end
       Measure.where(:_id.in => m_ids)
     else
-      super
+      bundle.measures.in(:hqmf_id => measure_ids.sample(50))
     end
   end
 

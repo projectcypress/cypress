@@ -86,12 +86,12 @@ module Cypress
       @patient_links_task_hash.each do |patient_links|
         calcuate_cat_3(patient_links[0].split('/')[2], bundle_id)
         upload_test_execution(extract_test_execution_link(patient_links[1], 'C1'), patient_links[0].split('/')[2], true) unless skip_c1_test
-        upload_test_execution(extract_test_execution_link(patient_links[1], 'C2'), patient_links[0].split('/')[2], false, skip_c1_test)
+        #upload_test_execution(extract_test_execution_link(patient_links[1], 'C2'), patient_links[0].split('/')[2], false, skip_c1_test)
       end
       # sleep(4)
-      download_filter_data
-      calculate_filtered_cat3(bundle_id)
-      upload_c4_test_executions
+      #download_filter_data
+      #calculate_filtered_cat3(bundle_id)
+      #upload_c4_test_executions
       cleanup_hashes
     end
 
@@ -344,7 +344,7 @@ module Cypress
                               :c1_test => c1_test,
                               :c2_test => '1',
                               :c3_test => '1',
-                              :c4_test => '1',
+                              :c4_test => '0',
                               :duplicate_patients => '0',
                               :randomize_patients => '0' } }
       RestClient::Request.execute(:method => :post,
