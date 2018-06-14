@@ -64,15 +64,23 @@ module Validators
 
       mrn, = get_record_identifiers(doc, options)
       return false unless mrn
-      passed = true
 
       record = parse_and_save_record(doc, te, options)
       return false unless record
+
       # This Logic will need to be updated with CQL calculations
       calc_job = Cypress::JsEcqmCalc.new('correlation_id': options.test_execution.id.to_s,
                                          'effective_date': Time.at(te.task.effective_date).in_time_zone.to_formatted_s(:number))
       calc_job.sync_job([record.id.to_s], @measures.map { |mes| mes._id.to_s })
       calc_job.stop
+      passed = determine_passed
+
+      record.destroy
+      passed
+    end
+
+    def determine_passed
+      passed = true
       @measures.each do |measure|
         original_results = QDM::IndividualResult.where('patient_id' => mrn, 'measure_id' => measure.id)
         new_results = QDM::IndividualResult.where('patient_id' => record.id, 'measure_id' => measure.id,
@@ -80,7 +88,6 @@ module Validators
         options[:population_ids] = measure.population_ids
         passed = compare_results(original_results.first, new_results.first, options, passed)
       end
-      record.destroy
       passed
     end
 

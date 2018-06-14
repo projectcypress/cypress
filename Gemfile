@@ -10,8 +10,8 @@ gem 'mongoid', '~> 5.0.0'
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson_ext'
 
-gem 'os'
 gem 'mustache'
+gem 'os'
 
 gem 'cql_qdm_patientapi', git: 'https://github.com/projecttacoma/cql_qdm_patientapi', branch: 'better_codes_and_scalar_error'
 gem 'cqm-converter'
