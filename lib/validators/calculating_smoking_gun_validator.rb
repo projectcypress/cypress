@@ -73,13 +73,13 @@ module Validators
                                          'effective_date': Time.at(te.task.effective_date).in_time_zone.to_formatted_s(:number))
       calc_job.sync_job([record.id.to_s], @measures.map { |mes| mes._id.to_s })
       calc_job.stop
-      passed = determine_passed
+      passed = determine_passed(mrn, record, options)
 
       record.destroy
       passed
     end
 
-    def determine_passed
+    def determine_passed(mrn, record, options)
       passed = true
       @measures.each do |measure|
         original_results = QDM::IndividualResult.where('patient_id' => mrn, 'measure_id' => measure.id)
