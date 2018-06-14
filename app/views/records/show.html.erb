@@ -85,21 +85,21 @@
         <div class="panel-heading"><h3 class='panel-title'><%= s.titleize %></h3></div>
         <% if @record[s] %>
           <div class="panel-body">
-            <% @record[s].each do |dc| %>
+            <% @record[s].each do |get_data_elements| %>
               <div class="entry">
-            <h4><%= dc['description'] %></h4>
+            <h4><%= assessment_1['description'] %></h4>
               <dl class="dl-horizontal">
-                <% dc['codes'].each do |code_system, code| %>
-                  <dt><%= code_system %></dt><dd><%= code.join(", ") %></dd>
+                <% assessment_1['result'].each do |value, unit| %>
+                  <dt><%= value %></dt><dd><%= unit.join(", ") %></dd>
                 <% end %>
               </dl>
               <dl class="dl-horizontal">
                 <% if dc.respond_to?(:negationInd) && dc.negationInd %>
                   <dt>Not Performed</dt><dd><%=HealthDataStandards::SVS::ValueSet.where({"concepts.code": dc.negationReason.code, "concepts.code_system_name": dc.negationReason.code_system}).first.concepts.select {|c| c.code == dc.negationReason.code}.first.display_name[/.*(?= )/] %></dd>
-                  <dt>Time</dt><dd><%=display_time_to_minutes(dc['start_time'])%></dd>
+                  <dt>Time</dt><dd><%=display_time_to_minutes(assessment_1['start_time'])%></dd>
                 <%else%>
-                  <dt><%= "Start Time" if dc['start_time']%></dt> <dd><%= display_time_to_minutes(dc['start_time']) if dc['start_time'] %></dd>
-                  <dt><%="End Time" if dc['end_time']%></dt> <dd><%= display_time_to_minutes(dc['end_time']) if dc['end_time'] %></dd>
+                  <dt><%= "Start Time" if assessment_1['start_time']%></dt> <dd><%= display_time_to_minutes(dc['start_time']) if assessment_1['start_time'] %></dd>
+                  <dt><%="End Time" if assessment_1['end_time']%></dt> <dd><%= display_time_to_minutes(dc['end_time']) if assessment_1['end_time'] %></dd>
                 <%end%>
                 <br>   
 
@@ -117,4 +117,4 @@
       </div>
     <% end %>
   </div>
-</div> 
+</div>
