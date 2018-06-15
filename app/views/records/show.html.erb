@@ -87,19 +87,19 @@
           <div class="panel-body">
             <% @record[s].each do |get_data_elements| %>
               <div class="entry">
-            <h4><%= assessment_1['description'] %></h4>
+            <h4><%= get_data_elements['description'] %></h4>
               <dl class="dl-horizontal">
-                <% assessment_1['result'].each do |value, unit| %>
+                <% get_data_elements['result'].each do |value, unit| %>
                   <dt><%= value %></dt><dd><%= unit.join(", ") %></dd>
                 <% end %>
               </dl>
               <dl class="dl-horizontal">
                 <% if dc.respond_to?(:negationInd) && dc.negationInd %>
                   <dt>Not Performed</dt><dd><%=HealthDataStandards::SVS::ValueSet.where({"concepts.code": dc.negationReason.code, "concepts.code_system_name": dc.negationReason.code_system}).first.concepts.select {|c| c.code == dc.negationReason.code}.first.display_name[/.*(?= )/] %></dd>
-                  <dt>Time</dt><dd><%=display_time_to_minutes(assessment_1['start_time'])%></dd>
+                  <dt>Time</dt><dd><%=display_time_to_minutes(get_data_elements['start_time'])%></dd>
                 <%else%>
-                  <dt><%= "Start Time" if assessment_1['start_time']%></dt> <dd><%= display_time_to_minutes(dc['start_time']) if assessment_1['start_time'] %></dd>
-                  <dt><%="End Time" if assessment_1['end_time']%></dt> <dd><%= display_time_to_minutes(dc['end_time']) if assessment_1['end_time'] %></dd>
+                  <dt><%= "Start Time" if get_data_elements['start_time']%></dt> <dd><%= display_time_to_minutes(get_data_elements['start_time']) if get_data_elements['start_time'] %></dd>
+                  <dt><%="End Time" if get_data_elements['end_time']%></dt> <dd><%= display_time_to_minutes(get_data_elements['end_time']) if get_data_elements['end_time'] %></dd>
                 <%end%>
                 <br>   
 
