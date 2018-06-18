@@ -73,48 +73,31 @@
       <% encounter_1 = @record.get_data_elements('encounter').first %></dd>
       <dt>Race</dt><dd><%= @record.get_data_elements('patient_characteristic','race').first['dataElementCodes'].first['descriptor'] %></dd>
       <dt>Ethnicity</dt><dd><%= @record.get_data_elements('patient_characteristic','ethnicity').first['dataElementCodes'].first['descriptor'] %></dd> 
-      <dt>Assessment</dt><dd><%= assessment_1['description'] %></dd><br><%= assessment_1['result'] %></dd>
-      <dt>Condition</dt><dd><%= condition_1['description'] %></dd>
-      <dt>Encounter</dt><dd><%= encounter_1['lengthOfStay'] %></dd><br><%= encounter_1['description'] %></dd>
+      <dt>Assessment</dt><dd><%= assessment_1['description'] if assessment_1 %></dd>
+      <dt>Condition</dt><dd><%= condition_1['description'] if condition_1 %></dd>
+      <dt>Encounter</dt><dd><%= encounter_1['lengthOfStay'] if encounter_1%></dd><br><%= encounter_1['description'] %></dd>
 
 
       </dl>
-
-    <% RecordsHelper::SECTIONS.each do |s| %>
+    <% data = @record.get_data_elements %></dd>
+    <% #RecordsHelper::SECTIONS.each do |s| %>
       <div class="panel panel-default patient-details">
         <div class="panel-heading"><h3 class='panel-title'><%= s.titleize %></h3></div>
-        <% if @record[s] %>
           <div class="panel-body">
-            <% @record[s].each do |get_data_elements| %>
+          <% @record.get_data_elements(s).each do |data|%> 
               <div class="entry">
-            <h4><%= get_data_elements['description'] %></h4>
+            <h4><%= data['description'] %></h4>
               <dl class="dl-horizontal">
-                <% get_data_elements['result'].each do |value, unit| %>
-                  <dt><%= value %></dt><dd><%= unit.join(", ") %></dd>
+                <% data['dataElementCodes'].each do |dec| %>
+                  <dt><%= dec['code_system'] %></dt><dd><%= dec['code'] %></dd>
                 <% end %>
               </dl>
               <dl class="dl-horizontal">
-                <% if dc.respond_to?(:negationInd) && dc.negationInd %>
-                  <dt>Not Performed</dt><dd><%=HealthDataStandards::SVS::ValueSet.where({"concepts.code": dc.negationReason.code, "concepts.code_system_name": dc.negationReason.code_system}).first.concepts.select {|c| c.code == dc.negationReason.code}.first.display_name[/.*(?= )/] %></dd>
-                  <dt>Time</dt><dd><%=display_time_to_minutes(get_data_elements['start_time'])%></dd>
-                <%else%>
-                  <dt><%= "Start Time" if get_data_elements['start_time']%></dt> <dd><%= display_time_to_minutes(get_data_elements['start_time']) if get_data_elements['start_time'] %></dd>
-                  <dt><%="End Time" if get_data_elements['end_time']%></dt> <dd><%= display_time_to_minutes(get_data_elements['end_time']) if get_data_elements['end_time'] %></dd>
-                <%end%>
-                <br>   
-
-                <% RecordsHelper::FIELDS.each do |f|%> 
-                  <% if dc[f] %>
-                    <dt><%= ("Results" if f == 'values') || f.underscore.humanize.titleize%></dt>
-                    <dd><%= simple_format(display_field(dc[f]))%></dd>
-                  <%end%>
-                <%end%>
               </dl>
             </div>
             <% end %>
           </div>
-        <% end %>
       </div>
-    <% end %>
+    <% #end %>
   </div>
 </div>
