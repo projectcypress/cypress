@@ -136,7 +136,6 @@ module QDM
       # TODO: R2P: demographics from patient model
       [patient, changed, self]
     end
-
     #
     # HDS helpers
     #
