@@ -68,25 +68,23 @@
     <dl class="dl-horizontal">
       <dt>DOB</dt><dd><%= display_time(@record.birthDatetime) %></dd>
       <dt>Gender</dt><dd><%= full_gender_name(@record.gender) %></dd>
-      <% assessment_1 = @record.get_data_elements('assessment').first %></dd>
       <% condition_1 = @record.get_data_elements('condition').first %></dd>
       <% encounter_1 = @record.get_data_elements('encounter').first %></dd>
       <dt>Race</dt><dd><%= @record.get_data_elements('patient_characteristic','race').first['dataElementCodes'].first['descriptor'] %></dd>
       <dt>Ethnicity</dt><dd><%= @record.get_data_elements('patient_characteristic','ethnicity').first['dataElementCodes'].first['descriptor'] %></dd> 
-      <dt>Assessment</dt><dd><%= assessment_1['description'] if assessment_1 %></dd>
-      <dt>Condition</dt><dd><%= condition_1['description'] if condition_1 %></dd>
       <dt>Encounter</dt><dd><%= encounter_1['lengthOfStay'] if encounter_1%></dd><br><%= encounter_1['description'] %></dd>
 
 
       </dl>
-    <% data = @record.get_data_elements %></dd>
-    <% #RecordsHelper::SECTIONS.each do |s| %>
+
+    <% RecordsHelper::SECTIONS.each do |s| %>
       <div class="panel panel-default patient-details">
         <div class="panel-heading"><h3 class='panel-title'><%= s.titleize %></h3></div>
           <div class="panel-body">
           <% @record.get_data_elements(s).each do |data|%> 
               <div class="entry">
-            <h4><%= data['description'] %></h4>
+              Description <h4><%= data['description'] %></h4>
+              <h4><%= @record.get_data_elements('encounter').first['lengthOfStay'] if @record.get_data_elements('encounter')%></h4>
               <dl class="dl-horizontal">
                 <% data['dataElementCodes'].each do |dec| %>
                   <dt><%= dec['code_system'] %></dt><dd><%= dec['code'] %></dd>
@@ -98,6 +96,6 @@
             <% end %>
           </div>
       </div>
-    <% #end %>
+    <% end %>
   </div>
 </div>
