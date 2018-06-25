@@ -7,9 +7,9 @@ module Cypress
     def self.randomize(patient, prng, allow_dups = false)
       # TODO: R2P: change to patient name and model throughout file
       randomize_name(patient, prng, allow_dups)
-      # randomize_race(patient, prng) TODO R2P: priority 1.3
-      # randomize_ethnicity(patient, prng)
-      # randomize_address(patient)
+      randomize_race(patient, prng)
+      randomize_ethnicity(patient, prng)
+      randomize_address(patient)
       randomize_insurance_provider(patient)
     end
 
@@ -30,35 +30,63 @@ module Cypress
       patient.familyName = NAMES_RANDOM['last'].sample(random: prng)
     end
 
+    def self.randomize_gender(patient, prng)
+      rand_gender = %w[M F].sample(random: prng)
+      gender_chars = patient.get_data_elements('patient_characteristic', 'gender')
+      if gender_chars&.any? && gender_chars.first.dataElementCodes &&
+         gender_chars.first.dataElementCodes.any?
+        new_gender = gender_chars.first.dataElementCodes.first
+        new_gender['code'] = rand_gender
+        new_gender['descriptor'] = rand_gender
+        gender_chars.first.dataElementCodes << new_gender
+        gender_chars.first.dataElementCodes.shift
+      else
+        raise 'Cannot find gender element'
+      end
+    end
+
     def self.randomize_race(patient, prng)
-      # TODO: R2P: check assignment
-      race_element = patient.get_data_elements('patient_characteristic', 'race').first
+      race_element = patient.get_data_elements('patient_characteristic', 'race')
       race_hash = APP_CONSTANTS['randomization']['races'].sample(random: prng)
-      race_element.dataElementCodes.first = {}
-      race_element.dataElementCodes.first.code = race_hash[:code]
-      race_element.dataElementCodes.first.codeSystem = race_hash[:code_system]
-      race_element.dataElementCodes.first.descriptor = race_hash[:display_name]
+      if race_element&.any? && race_element.first.dataElementCodes &&
+         race_element.first.dataElementCodes.any?
+        new_race = race_element.first.dataElementCodes.first
+        new_race['code'] = race_hash['code']
+        new_race['codeSystemOid'] = race_hash['codeSystem']
+        new_race['descriptor'] = race_hash['name']
+        race_element.first.dataElementCodes << new_race
+        race_element.first.dataElementCodes.shift # get rid of existing dataElementCode
+      else
+        raise 'Cannot find race element'
+      end
     end
 
     def self.randomize_ethnicity(patient, prng)
-      # TODO: R2P: check assignment
-      ethnicity_element = patient.get_data_elements('patient_characteristic', 'ethnicity').first
+      ethnicity_element = patient.get_data_elements('patient_characteristic', 'ethnicity')
       ethnicity_hash = APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng)
-      ethnicity_element.dataElementCodes.first = {}
-      ethnicity_element.dataElementCodes.first.code = ethnicity_hash[:code]
-      ethnicity_element.dataElementCodes.first.codeSystem = ethnicity_hash[:code_system]
+      if ethnicity_element&.any? && ethnicity_element.first.dataElementCodes &&
+         ethnicity_element.first.dataElementCodes.any?
+        new_ethnicity = ethnicity_element.first.dataElementCodes.first
+        new_ethnicity['code'] = ethnicity_hash['code']
+        new_ethnicity['codeSystemOid'] = ethnicity_hash['codeSystem']
+        new_ethnicity['descriptor'] = ethnicity_hash ['name']
+        ethnicity_element.first.dataElementCodes << new_ethnicity
+        ethnicity_element.first.dataElementCodes.shift # get rid of existing dataElementCode
+      else
+        raise 'Cannot find ethnicity element'
+      end
     end
 
     def self.randomize_address(patient)
       # TODO: R2P: hash into extendedData okay? (not in Master Patient object)
       address = {}
-      address.use = 'HP'
-      address.street = ["#{Faker::Address.street_address} #{Faker::Address.street_suffix}"]
-      address.city = Faker::Address.city
-      address.state = Faker::Address.state_abbr
-      address.zip = Faker::Address.zip(address.state)
-      address.country = 'US'
-      patient.extendedData.addresses = [address]
+      address['use'] = 'HP'
+      address['street'] = ["#{Faker::Address.street_address} #{Faker::Address.street_suffix}"]
+      address['city'] = Faker::Address.city
+      address['state'] = Faker::Address.state_abbr
+      address['zip'] = Faker::Address.zip(address['state'])
+      address['country'] = 'US'
+      patient.extendedData['addresses'] = [address]
     end
 
     def self.randomize_insurance_provider(patient)
