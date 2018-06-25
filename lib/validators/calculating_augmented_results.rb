@@ -28,9 +28,9 @@ module Validators
     end
 
     def self.augmented_record_in_population?(task, rec_changes, keys_and_ids, mod_pop_labels)
-      ind = task.records.index { |r| r.medical_record_number == rec_changes.medical_record_number }
-      task.records[ind].calculation_results.each do |calc_results|
-        return true if calc_results.value[keys_and_ids[:pop_key]] || calc_results.value[mod_pop_labels.key(keys_and_ids[:pop_key])]
+      ind = task.patients.index { |r| r.id == rec_changes['original_patient_id'] }
+      task.patients[ind].calculation_results.each do |calc_results|
+        return true if calc_results[keys_and_ids[:pop_key]] || calc_results[mod_pop_labels.key(keys_and_ids[:pop_key])]
       end
       false
     end
