@@ -45,13 +45,9 @@ module Validators
       "#{hqmf_qrda_tuple['hqmf_name']}:"
     end
 
-    def parse_and_save_record(doc, te, options)
-      record = HealthDataStandards::Import::Cat1::PatientImporter.instance.parse_cat1(doc)
-      record.test_id = te.id
-      record.medical_record_number = rand(1_000_000_000_000_000)
-      record.entries.each { |entry| entry.description = description_for_hqmf_oid(entry.oid) }
-      Cypress::GoImport.replace_negated_codes(record, @bundle)
-      patient = @hds_record_converter.to_qdm(record)
+    def parse_and_save_record(doc)
+      patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+      Cypress::GoImport.replace_negated_codes(patient, @bundle)
       patient.save
       patient
     rescue
@@ -65,7 +61,7 @@ module Validators
       mrn, = get_record_identifiers(doc, options)
       return false unless mrn
 
-      record = parse_and_save_record(doc, te, options)
+      record = parse_and_save_record(doc)
       return false unless record
 
       # This Logic will need to be updated with CQL calculations
@@ -74,7 +70,6 @@ module Validators
       calc_job.sync_job([record.id.to_s], @measures.map { |mes| mes._id.to_s })
       calc_job.stop
       passed = determine_passed(mrn, record, options)
-
       record.destroy
       passed
     end
