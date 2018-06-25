@@ -2,23 +2,31 @@ version: "3"
 
 services:
   cypress:
-    build:
-      context: .
+    image: projectcypress/cypress
+    deploy:
+      labels:
+        - "com.docker.ucp.access.label=/Shared/gateway"
     volumes:
-      - /home/app/cypress/public/data
-    tmpfs:
-      - /home/app/cypress/tmp:size=2g,uid=9999
+      - cypress-tmp:/home/app/cypress/public/data
     environment:
       - MONGO_PORT_27017_TCP_ADDR=mongodb
       - MONGO_PORT_27017_TCP_PORT=27017
     ports:
       - "3000:3000"
-    links:
-      - mongodb:mongo
-    env_file: .env-prod
-    restart: unless-stopped
+    networks:
+      - cypress-net
   mongodb:
     image: mongo:3.4.5
     volumes:
       - /data/db
-    restart: unless-stopped
+    networks:
+      - cypress-net
+
+networks:
+  - cypress-net
+
+volumes:
+  cypress-tmp:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
