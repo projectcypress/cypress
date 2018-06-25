@@ -79,15 +79,18 @@
           <div class="panel-body">
           <% @record.get_data_elements(s).each do |data| %> 
               <div class="entry">
-              Description : <h4><%= data['description'] %></h4>
-              <%= render 'units', :quantity => data['lengthOfStay'] %>
-              <%= render 'units', :quantity => data['dosage'] %>
-              <%= render 'units', :quantity => data['result'] %>
-              <h4><%= data['diagnoses'].first['descriptor'] if data['diagnoses'] != nil %></h4>
-              <h4><%= data['dischargeDisposition']['descriptor'] if data['dischargeDisposition'] != nil %></h4>
-               <dl class="dl-horizontal">
+              <h5><b>Description:</b></h5> <h5><%= data['description'] %></h5>
+              <h5><b> Principal Diagnosis:</b></h5> <h5><%= data['diagnoses'].first['descriptor'] if data['diagnoses'] && data['diagnoses'].any? %></h5>
+              <h5><b>Length Of Stay:</b></h5> <%= render 'units', :quantity => data['lengthOfStay'] %>
+              <h5><b>Dosage:</b></h5> <%= render 'units', :quantity => data['dosage'] %>
+              <h5><b>Results:</b></h5> <%= render 'units', :quantity => data['result'] if data['result'].is_a?(Hash)%>
+              <% if data['result'].is_a?(Array) %>
+
+              <% end %>
+              <h5><b>Dicharge Status :</b></h5> <h5><%= data['dischargeDisposition']['descriptor'] if data['dischargeDisposition'] != nil %></h5>
+              <h5><b>Facility Location :</b></h5> <h5><%= data['facilityLocations'].first['Code']['descriptor'] if data['facilityLocations'] && data['facilityLocations'].any? %></h5>
                 <% data['dataElementCodes'].each do |dec| %>
-                  <dt><%= dec['code_system'] %></dt><dd><%= dec['code'] %></dd>
+                 <h5><b>Code :</b></h5>   <h5><dt><%= dec['code_system'] %></dt><dd><%= dec['code'] %></dd></h5><br>
                 <% end %>
               </dl>
               
