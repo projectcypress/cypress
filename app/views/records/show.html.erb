@@ -68,12 +68,8 @@
     <dl class="dl-horizontal">
       <dt>DOB</dt><dd><%= display_time(@record.birthDatetime) %></dd>
       <dt>Gender</dt><dd><%= full_gender_name(@record.gender) %></dd>
-      <% condition_1 = @record.get_data_elements('condition').first %></dd>
-      <% encounter_1 = @record.get_data_elements('encounter').first %></dd>
       <dt>Race</dt><dd><%= @record.get_data_elements('patient_characteristic','race').first['dataElementCodes'].first['descriptor'] %></dd>
       <dt>Ethnicity</dt><dd><%= @record.get_data_elements('patient_characteristic','ethnicity').first['dataElementCodes'].first['descriptor'] %></dd> 
-      <dt>Encounter</dt><dd><%= encounter_1['lengthOfStay'] if encounter_1%></dd><br><%= encounter_1['description'] %></dd>
-
 
       </dl>
 
@@ -81,16 +77,20 @@
       <div class="panel panel-default patient-details">
         <div class="panel-heading"><h3 class='panel-title'><%= s.titleize %></h3></div>
           <div class="panel-body">
-          <% @record.get_data_elements(s).each do |data|%> 
+          <% @record.get_data_elements(s).each do |data| %> 
               <div class="entry">
-              Description <h4><%= data['description'] %></h4>
-              <h4><%= @record.get_data_elements('encounter').first['lengthOfStay'] if @record.get_data_elements('encounter')%></h4>
-              <dl class="dl-horizontal">
+              Description : <h4><%= data['description'] %></h4>
+              <%= render 'units', :quantity => data['lengthOfStay'] %>
+              <%= render 'units', :quantity => data['dosage'] %>
+              <%= render 'units', :quantity => data['result'] %>
+              <h4><%= data['diagnoses'].first['descriptor'] if data['diagnoses'] != nil %></h4>
+              <h4><%= data['dischargeDisposition']['descriptor'] if data['dischargeDisposition'] != nil %></h4>
+               <dl class="dl-horizontal">
                 <% data['dataElementCodes'].each do |dec| %>
                   <dt><%= dec['code_system'] %></dt><dd><%= dec['code'] %></dd>
                 <% end %>
               </dl>
-              <dl class="dl-horizontal">
+              
               </dl>
             </div>
             <% end %>
