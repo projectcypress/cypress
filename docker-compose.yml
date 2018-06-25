@@ -3,9 +3,6 @@ version: "3"
 services:
   cypress:
     image: projectcypress/cypress
-    deploy:
-      labels:
-        - "com.docker.ucp.access.label=/Shared/gateway"
     volumes:
       - cypress-tmp:/home/app/cypress/public/data
     environment:
