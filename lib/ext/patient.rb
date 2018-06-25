@@ -51,7 +51,7 @@ module QDM
 
     def duplicate_randomization(random: Random.new)
       patient = clone
-      changed = { medical_record_number: medical_record_number, first: [first_names, first_names], last: [familyName, familyName] }
+      changed = { original_patient_id: id, first: [first_names, first_names], last: [familyName, familyName] }
       patient, changed = randomize_patient_name_or_birth(patient, changed, random: random)
       randomize_demographics(patient, changed, random: random)
     end
@@ -72,10 +72,10 @@ module QDM
     def randomize_patient_name_or_birth(patient, changed, random: Random.new)
       case random.rand(3) # random chooses which part of the patient is modified
       when 0 # first name
-        patient = randomize_patient_name_first(patient, random: random)
+        patient = Cypress::NameRandomizer.randomize_patient_name_first(patient, random: random)
         changed[:first] = [first_names, patient.first_names]
       when 1 # last name
-        patient = randomize_patient_name_last(patient, random: random)
+        patient = Cypress::NameRandomizer.randomize_patient_name_last(patient, random: random)
         changed[:last] = [familyName, patient.familyName]
       when 2 # birthdate
         patient.birthDatetime = DateTime.strptime(patient.birthDatetime.to_s, '%s').change(
@@ -90,22 +90,6 @@ module QDM
       [patient, changed]
     end
 
-    def randomize_patient_name_first(patient, random: Random.new)
-      case random.rand(3) # random chooses how to modify the field
-      when 0 then patient.givenNames = [patient.givenNames[0][0]] # replace with only first initial
-      when 1
-        rand_idx = random.rand(patient.givenNames.count)
-        patient.givenNames[rand_idx] = replace_random_char(patient.givenNames[rand_idx].clone, random: random) # insert incorrect letter
-      when 2 # nickname
-        givenNames.each_index do |idx|
-          nicknames = NAMES_RANDOM['nicknames'][patient.gender][patient.givenNames[idx]]
-          # if no nicknames, use first initial
-          patient.givenNames[idx] = nicknames.blank? ? patient.givenNames[idx][0] : nicknames.sample(random: random)
-        end
-      end
-      patient
-    end
-
     def gender
       gender_chars = get_data_elements('patient_characteristic', 'gender')
       if gender_chars&.any? && gender_chars.first.dataElementCodes &&
@@ -116,24 +100,38 @@ module QDM
       end
     end
 
-    def randomize_patient_name_last(patient, random: Random.new)
-      case random.rand(2)
-      when 0 then patient.familyName = patient.familyName[0] # replace with initial
-      when 1 then patient.familyName = replace_random_char(patient.familyName.clone, random: random) # insert incorrect letter
+    def race
+      race_element = get_data_elements('patient_characteristic', 'race')
+      if race_element&.any? && race_element.first.dataElementCodes &&
+         race_element.first.dataElementCodes.any?
+        race_element.first.dataElementCodes.first['code']
+      else
+        raise 'Cannot find race element'
       end
-      patient
     end
 
-    def replace_random_char(name, random: Random.new)
-      lowercases = ('a'..'z').to_a
-      lsamples = lowercases.sample(2, random: random)
-      name_pos = random.rand(name.length - 1) + 1
-      name[name_pos] = name[name_pos] != lsamples[0] ? lsamples[0] : lsamples[1]
-      name
+    def ethnicity
+      ethnicity_element = get_data_elements('patient_characteristic', 'ethnicity')
+      if ethnicity_element&.any? && ethnicity_element.first.dataElementCodes &&
+         ethnicity_element.first.dataElementCodes.any?
+        ethnicity_element.first.dataElementCodes.first['code']
+      else
+        raise 'Cannot find ethnicity element'
+      end
     end
 
     def randomize_demographics(patient, changed, random: Random.new)
-      # TODO: R2P: demographics from patient model
+      case random.rand(3) # now, randomize demographics
+      when 0 # gender
+        Cypress::DemographicsRandomizer.randomize_gender(patient, random)
+        changed[:gender] = [gender, patient.gender]
+      when 1 # race
+        Cypress::DemographicsRandomizer.randomize_race(patient, random)
+        changed[:race] = [race, patient.race]
+      when 2 # ethnicity
+        Cypress::DemographicsRandomizer.randomize_ethnicity(patient, random)
+        changed[:ethnicity] = [ethnicity, patient.ethnicity]
+      end
       [patient, changed, self]
     end
 

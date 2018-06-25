@@ -52,7 +52,7 @@ module Cypress
 
     def get_observ_values(episode_results)
       episode_results.collect_concat do |_id, episode_result|
-        next unless episode_result['MSRPOPL'].positive? && !episode_result['MSRPOPLEX'].positive?
+        next unless episode_result['MSRPOPL']&.positive? && !episode_result['MSRPOPLEX']&.positive?
         episode_result['values']
       end
     end

@@ -103,7 +103,8 @@ class ProductTest
     pat_arr = patients.to_a
     if product.duplicate_patients && _type != 'FilteringTest'
       prng = Random.new(rand_seed.to_i)
-      ids = results.where('value.IPP' => { '$gt' => 0 }).collect { |pc| pc.value.patient_id }
+      # ids of all patients in IPP
+      ids = results.where('IPP' => { '$gt' => 0 }).collect(&:patient_id)
       pat_arr = sample_and_duplicate_patients(pat_arr, ids, :random => prng) if ids.present?
     end
     Cypress::PatientZipper.zip(file, pat_arr, :qrda)
@@ -126,11 +127,11 @@ class ProductTest
       prng_repeat = Random.new(rand_seed.to_i)
       dup_pat, pat_augments, old_pat = pat.duplicate_randomization(:random => prng_repeat)
       # only add if augmented patient validates
-      if car.validate_calculated_results(dup_pat, 'effective_date' => effective_date)
+      if car.validate_calculated_results(dup_pat, :effective_date => effective_date, :orig_product_patient => old_pat)
         augmented_patients << pat_augments
         pat_arr << dup_pat
       else
-        augmented_patients << { :medical_record_number => old_pat.extendedData.medical_record_number,
+        augmented_patients << { :original_patient_id => old_pat.id,
                                 :first => [old_pat.first_names, old_pat.first_names], :last => [old_pat.familyName, old_pat.familyName] }
         pat_arr << old_pat
       end
@@ -141,11 +142,14 @@ class ProductTest
   def randomize_clinical_data(pat_arr, dups, random)
     # Pick a patient to clinically randomize, then delete it from dups (so it doesn't get duplicated also)
     # And delete it from pat_arr so we don't return the whole patient too
-    return [pat_arr, dups] if dups.count < 2
+    # TODO: check... why not randomize if there is one duplicate?
+    return [pat_arr, dups] if dups.count < 1
     clinical_pat = dups.sample(:random => random)
     dups.delete(clinical_pat)
     pat_arr.delete(clinical_pat)
-    [pat_arr.concat(Cypress::ClinicalRandomizer.randomize(clinical_pat, effective_date, measure_period_start, :random => random)), dups]
+    # Re-add clinically randomized patients (patient split in two across date or data element type)
+    # use end and start dates for correct comparison format
+    [pat_arr.concat(Cypress::ClinicalRandomizer.randomize(clinical_pat, end_date, start_date, :random => random)), dups]
   end
 
   def calculate
