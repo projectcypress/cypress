@@ -77,27 +77,9 @@
       <div class="panel panel-default patient-details">
         <div class="panel-heading"><h3 class='panel-title'><%= s.titleize %></h3></div>
           <div class="panel-body">
-          <% @record.get_data_elements(s).each do |data| %> 
-              <div class="entry">
-              <h5><b>Date/Time:</b></h5> <h5><%= data['authorDatetime'] %></h5>
-              <h5><b>Description:</b></h5> <h5><%= data['description'] %></h5>
-              <h5><b> Principal Diagnosis:</b></h5> <h5><%= data['diagnoses'].first['descriptor'] if data['diagnoses'] && data['diagnoses'].any? %></h5>
-              <h5><b>Length Of Stay:</b></h5> <%= render 'units', :quantity => data['lengthOfStay'] %>
-              <h5><b>Dosage:</b></h5> <%= render 'units', :quantity => data['dosage'] %>
-              <h5><b>Results:</b></h5> <%= render 'units', :quantity => data['result'] if data['result'].is_a?(Hash)%>
-              <% if data['result'].is_a?(Array) %>
-
-              <% end %>
-              <h5><b>Dicharge Status :</b></h5> <h5><%= data['dischargeDisposition']['descriptor'] if data['dischargeDisposition'] != nil %></h5>
-              <h5><b>Facility Location :</b></h5> <h5><%= data['facilityLocations'].first['Code']['descriptor'] if data['facilityLocations'] && data['facilityLocations'].any? %></h5>
-                <% data['dataElementCodes'].each do |dec| %>
-                 <h5><b>Code :</b></h5>   <h5><dt><%= dec['code_system'] %></dt><dd><%= dec['code'] %></dd></h5><br>
-                <% end %>
-              </dl>
-              
-              </dl>
-            </div>
-            <% end %>
+          <% @record.get_data_elements(s).each do |data| %>
+            <%= DataElement.new(data).render.html_safe %>      
+          <% end %>
           </div>
       </div>
     <% end %>
