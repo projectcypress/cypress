@@ -79,6 +79,7 @@
           <div class="panel-body">
           <% @record.get_data_elements(s).each do |data| %> 
               <div class="entry">
+              <h5><b>Date/Time:</b></h5> <h5><%= data['authorDatetime'] %></h5>
               <h5><b>Description:</b></h5> <h5><%= data['description'] %></h5>
               <h5><b> Principal Diagnosis:</b></h5> <h5><%= data['diagnoses'].first['descriptor'] if data['diagnoses'] && data['diagnoses'].any? %></h5>
               <h5><b>Length Of Stay:</b></h5> <%= render 'units', :quantity => data['lengthOfStay'] %>
