@@ -113,7 +113,7 @@ module Cypress
     def reconnect_references(cloned_patient, entries_with_references, entry_id_hash)
       entries_with_references.each do |entry_with_reference_index|
         entry_with_reference = cloned_patient.dataElements[entry_with_reference_index]
-        entry_with_reference.relatedTo.map! { |ref| entry_id_hash[ref.to_s] }
+        entry_with_reference.relatedTo.map! { |ref| entry_id_hash[ref.to_s] }.compact!
       end
     end
 
