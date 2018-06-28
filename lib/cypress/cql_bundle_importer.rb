@@ -86,29 +86,29 @@ module Cypress
       entries.each_with_index do |entry, index|
         patient = QDM::Patient.new(unpack_json(entry))
         patient['bundleId'] = bundle.id
-        @patient_id_hash[patient['extendedData.master_patient_id']] = patient['id']
 
-        # TODO: loop through source data criteria, if there are references adds ids to hash
-        # patient['source_data_criteria'].each do |data_criteria|
-        #   source_data_id_hash[data_criteria['criteria_id']] = index
-        #   if data_criteria['references'] != nil
-        #     source_data_with_references.push(index)
-        #     reference_ids = Array.new
-        #     data_criteria['references'].each do |reference|
-        #       reference_ids.push(reference['reference_id'])
-        #     end
-        #     source_data_reference_id_hash[data_criteria['criteria_id']] = reference_ids
-        #   end
-        #   index = index + 1
-        # end
-        # #if there are references, id references are reestablished
-        # if source_data_with_references.size > 0
-        #   reconnect_references(patient, source_data_with_references, source_data_reference_id_hash, source_data_id_hash)
-        # end
+        reconnect_references(patient)
+
+        @patient_id_hash[patient['extendedData.master_patient_id']] = patient['id']
         patient.save
         report_progress('patients', (index * 100 / entries.length)) if (index % 10).zero?
       end
       puts "\rLoading: Patients Complete          "
+    end
+
+    def self.reconnect_references(patient)
+      patient.dataElements.each do |data_element|
+        next unless data_element['relatedTo']
+        ref_array = []
+        oid_hash = {}
+        patient.dataElements.each do |de|
+          oid_hash[{ 'codes' => de['dataElementCodes'].map { |dec| dec['code'] }.flatten, 'start_time' => de['authorDatetime'].to_i }.hash] = de.id
+        end
+        data_element['relatedTo'].each do |ref|
+          ref_array << oid_hash[ref.hash]
+        end
+        data_element['relatedTo'] = ref_array
+      end
     end
 
     def self.unpack_and_store_results(zip, _type, bundle)

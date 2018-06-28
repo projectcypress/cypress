@@ -1,8 +1,9 @@
 module RecordsHelper
-  SECTIONS = %w[allergies assessments care_goals conditions encounters immunizations
-                medical_equipment medications procedures results communications
-                family_history social_history vital_signs support advance_directives
-                insurance_providers functional_statuses].freeze
+  SECTIONS = %w[adverse_event allergy assessment care_experience care_goal communication condition
+                device diagnostic_study encounter family_history functional_status immunization intervention
+                laboratory_test medical_equipment medication physical_exam preference provider_characteristic
+                procedure result risk_category_assessment social_history substance symptom system_characteristic
+                transfer vital_sign].freeze
   FIELDS = %w[name principalDiagnosis values dose dischargeDisposition route
               administrationTiming fulfillmentHistory reason direction ordinality
               transferFrom laterality anatomical_location diagnosis].freeze

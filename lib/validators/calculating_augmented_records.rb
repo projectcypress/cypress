@@ -9,33 +9,46 @@ module Validators
 
     # Functions related to individual record calculation results
     def parse_and_save_record(record)
-      record.test_id = @test_id
-      record.medical_record_number = rand(1_000_000_000_000_000)
+      record.extendedData['correlation_id'] = @test_id
+      record.extendedData['medical_record_number'] = rand(1_000_000_000_000_000)
       record.save
       record
     rescue
       nil
     end
 
+    # create a temporary saved record copy to do calculations on, then delete it
     def validate_calculated_results(rec, options)
-      mrn = rec.medical_record_number
-      return false unless mrn
-
-      passed = true
+      # mrn = rec.extendedData['medical_record_number']
+      # return false unless mrn
       record = parse_and_save_record(rec.clone)
-      @bundle = ProductTest.find(record.test_id).bundle
+      product_test = ProductTest.find(record.extendedData['correlation_id'])
+      @bundle = product_test.bundle
       return false unless record
-      @measures.each do |measure|
-        ex_opts = { 'test_id' => record.test_id, 'bundle_id' => @bundle.id, 'effective_date' => options['effective_date'],
-                    'enable_logging' => true, 'enable_rationale' => true, 'oid_dictionary' => generate_oid_dictionary(measure, @bundle.id) }
-        @mre = QME::MapReduce::Executor.new(measure.hqmf_id, measure.sub_id, ex_opts)
-        results = @mre.get_patient_result(record.medical_record_number)
-        original_results = QME::PatientCache.where('value.medical_record_id' => mrn, 'value.test_id' => @test_id,
-                                                   'value.measure_id' => measure.hqmf_id, 'value.sub_id' => measure.sub_id).first
-        options[:population_ids] = measure.population_ids
-        passed = compare_results(original_results, results, options, passed)
-      end
+
+      calc_job = Cypress::JsEcqmCalc.new('effective_date': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number))
+      results = calc_job.sync_job([record.id.to_s], product_test.measures.map { |mes| mes._id.to_s })
+      calc_job.stop
+
+      passed = compare_results(results, record, options)
       record.destroy
+      passed
+    end
+
+    def compare_results(results, record, options)
+      passed = true
+      results_hash = JSON.parse(results)['Individual']
+      @measures.each do |measure|
+        # compare results to patient as it was initially calculated for product test (use original product patient id before cloning)
+        orig_results = QDM::IndividualResult.where('patient_id': options[:orig_product_patient].id, 'measure_id': measure.id).first
+        new_results = results_hash[measure.id.to_s][record.id.to_s]
+        measure.population_ids.keys.each do |pop_id|
+          if orig_results[pop_id] != new_results[pop_id]
+            passed = false
+            break
+          end
+        end
+      end
       passed
     end
   end
