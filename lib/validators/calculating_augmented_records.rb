@@ -37,7 +37,7 @@ module Validators
 
     def compare_results(results, record, options)
       passed = true
-      results_hash = JSON.parse(results)['Individual']
+      results_hash = results['Individual']
       @measures.each do |measure|
         # compare results to patient as it was initially calculated for product test (use original product patient id before cloning)
         orig_results = QDM::IndividualResult.where('patient_id': options[:orig_product_patient].id, 'measure_id': measure.id).first
