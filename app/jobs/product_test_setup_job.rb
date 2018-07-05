@@ -23,7 +23,7 @@ class ProductTestSetupJob < ApplicationJob
     product_test.ready
   rescue StandardError => e
     product_test.backtrace = e.backtrace.join("\n")
-    product_test.status_message = e.message
+    product_test.status_message = e.message + ' on ' + e.backtrace.first.remove(Rails.root.to_s)
     product_test.errored
     product_test.save!
   end
