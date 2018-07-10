@@ -9,7 +9,8 @@ FactoryBot.define do
     extended_data_value = {
       'medical_record_assigner' => 'Bonnie',
       'notes' => "70yo female; DExcl 56,90 Num 127,130 DExcep 139,149\n*17qdes\n*Pt w h/o advancing dementia and heart failure. Suffered multiple fractures requiring surgery and occ therapy.",
-      'insurance_providers' => '[{"codes":{"SOP":["349"]},"name":"Other","type":"OT","payer":{"name":"Other"},"financial_responsibility_type":{"code":"SELF","codeSystem":"HL7 Relationship Code"},"member_id":"1374589940","start_time":"1949-05-23T13:24:00+00:00"}]'
+      'insurance_providers' => '[{"codes":{"SOP":["349"]},"name":"Other","type":"OT","payer":{"name":"Other"},"financial_responsibility_type":{"code":"SELF","codeSystem":"HL7 Relationship Code"},"member_id":"1374589940","start_time":"1949-05-23T13:24:00+00:00"}]',
+      'correlation_id' => ''
     }
     sequence(:extendedData) do |i|
       {

@@ -6,10 +6,11 @@ FactoryBot.define do
       name 'Static Result'
       _type 'MeasureTest'
       cms_id 'CMS1234'
-      aug_record = [{ medical_record_number: '1234',
-                      first: %w[Dental_Peds Denial_Peds],
-                      last: %w[A A],
-                      gender: %w[M M] }]
+      aug_record = [{ 'original_patient_id' => '',
+                      'medical_record_number' =>  '1234',
+                      'first' =>  %w[Dental_Peds Denial_Peds],
+                      'last' =>  %w[A A],
+                      'gender' =>  %w[M M] }]
       augmented_patients { aug_record }
       expected_result = { 'BE65090C-EB1F-11E7-8C3F-9A214CF093AEa' =>
                           { 'measure_id' => 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE',
@@ -45,7 +46,12 @@ FactoryBot.define do
       measure_ids ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
       association :product, :factory => :product_static_bundle
       after(:create) do |pt|
-        create(:static_test_patient, :bundleId => pt.bundle._id)
+        extended_data = { 'correlation_id' => pt.id }
+        patient = create(:static_test_patient, 'bundleId' => pt.bundle._id, 'extendedData' => extended_data)
+        patient.save
+        aug_record[0]['original_patient_id'] = patient._id
+        pt.augmented_patients = aug_record
+        pt.save
       end
     end
   end
