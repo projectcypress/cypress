@@ -103,6 +103,7 @@ group :development, :test do
   gem 'byebug'
   gem 'capybara'
   gem 'capybara-accessible'
+  gem 'cucumber', '~> 3.0.2', :require => false
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'overcommit'

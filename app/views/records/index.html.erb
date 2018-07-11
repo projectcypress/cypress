@@ -103,9 +103,9 @@
   }
 
   // rerender the records list to show records from all measures if no value searched
-  $('#search_measures').on('blur', function() {
+  $('#search_measures').on('keyup', function() {
     if (!$(this).val()) {
-      $("#records_list").html("<%= escape_javascript(render 'records_list', :patients => @records, :measure => @measure, :product_test => @product_test, :bundle => @bundle, :task => @task ) %>");
+      $("#records_list").html("<%= escape_javascript(render 'records_list', :patients => @patients, :measure => @measure, :product_test => @product_test, :bundle => @bundle, :task => @task ) %>");
     }
   })
 </script>

@@ -34,15 +34,16 @@ if ENV['IN_BROWSER']
   # IN_BROWSER=true bundle exec cucumber
   # or (to have a pause of 1 second between each step):
   # IN_BROWSER=true PAUSE=1 bundle exec cucumber
-  Capybara.default_driver = :accessible_selenium
+  Capybara.default_driver = :selenium
   AfterStep do
     sleep(ENV['PAUSE'].to_i || 0)
   end
 else
-  Capybara.default_driver    = :accessible_poltergeist
-  Capybara.javascript_driver = :accessible_poltergeist
+  Capybara.default_driver    = :poltergeist
+  Capybara.javascript_driver = :poltergeist
 end
 
+Capybara.server = :webrick
 Capybara.default_max_wait_time = 15
 # Capybara.ignore_hidden_elements = false
 

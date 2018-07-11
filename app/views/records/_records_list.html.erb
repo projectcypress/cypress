@@ -1,9 +1,14 @@
+<!-- Only grab measure records and result values once to avoid duplicate queries -->
+<% if measure && patients.length.positive? %>
+  <% measure_records = records_by_measure(patients, measure) %>
+  <% result_values = get_result_values(patients, [measure], measure.population_ids.keys(), 'patient_id') %>
+<% end %>
 <h1><%= measure ? measure.display_name : 'All' %> Patients
 <% if measure && coverage_for_measure(measure)%>
   - Logic Coverage <%= coverage_for_measure(measure) %>%
 <% end %>
 </h1>
-<% if (measure && records_by_measure(patients, measure).length.positive?) || (!measure && records.length.positive?) %>
+<% if (measure && measure_records.length.positive?) || (!measure  && patients.length.positive?) %>
 <table class="table table-condensed table-hover">
   <thead>
     <tr>
@@ -31,55 +36,23 @@
         <td></td>
         <td></td>
         <!-- will show calculation results for product test records -->
-          <% measure.population_ids.keys().each do |population| %>
+          <% pop_sums(result_values).each do |_, value| %>
             <td class="text-center">
-              <%= render 'calculation_result_icon', :result => pop_sum(patients, measure, population), :episode_of_care => measure.episode_of_care  %>
+              <%= render 'calculation_result_icon', :result => value, :episode_of_care => measure.episode_of_care  %>
             </td>
           <% end %>
       </tr>
   </tfoot>
   <% end %>
   <tbody>
-    <!-- Only show records that are part of the measures IPP-->
-    <% if measure && !product_test %>
-      <% records_by_measure(patients, measure).each do |r| %>
-        <tr>
-          <td><%= link_to full_name(r), bundle_record_path(bundle, r) %></td>
-          <td><%= display_time(r.birthdate) %></td>
-          <td><%= full_gender_name(r.gender) %></td>
-          <% measure.population_ids.keys().each do |population| %>
-            <td class="text-center">
-              <%= render 'calculation_result_icon', :result => get_result_value(r.calculation_results, measure, population), :episode_of_care => measure.episode_of_care %>
-            </td>
-          <% end %>
-        </tr>
-      <% end %>
-    <% else %>
-      <!-- will show all records -->
-      <% patients.each do |r| %>
-        <tr>
-          <% if product_test %>
-            <td><%= link_to full_name(r), record_path(:id => r.id, :task_id => task.id) %></td>
-          <% else %>
-            <td><%= link_to full_name(r), bundle_record_path(bundle, r) %></td>
-          <% end %>
-          <% if product_test && !hide_patient_calculation? %>
-            <% original_patient = r.bundle.patients.find(r.extendedData['original_patient']) %>
-            <td> <%="#{full_name(original_patient)}"%> </td>
-          <%end%>
-          <td><%= display_time(r.birthDatetime) %></td>
-          <td><%= full_gender_name(r.gender) %></td>
-          <!-- will show calculation results for product test records -->
-          <% if measure && !(product_test && hide_patient_calculation?) %>
-            <% measure.population_ids.keys().each do |population| %>
-              <td class="text-center">
-                <%= render 'calculation_result_icon', :result => get_result_value(r.calculation_results, measure, population), :episode_of_care => measure.episode_of_care %>
-              </td>
-            <% end %>
-          <% end %>
-        </tr>
-      <% end %>
-    <% end %>
+    <%= render 'calculation_results',
+      :patients => (measure && !product_test) ? measure_records : patients,
+      :product_test => product_test,
+      :result_values => result_values,
+      :bundle => bundle,
+      :measure => measure,
+      :task => task
+    %>
   </tbody>
 </table>
 

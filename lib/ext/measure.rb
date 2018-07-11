@@ -7,7 +7,7 @@ class Measure
   include HealthDataStandards::CQM
   field :bundle_id, type: BSON::ObjectId
   index bundle_id: 1
-  index id: 1, sub_id: 1
+  index id: 1, sub_id: 1, cms_int: 1
 
   def display_name
     sub_id ? "#{cms_id} (#{sub_id}) #{name}" : "#{cms_id} #{name}"

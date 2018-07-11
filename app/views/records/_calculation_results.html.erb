@@ -1,0 +1,36 @@
+<% patients.each do |r| %>
+  <tr>
+    <% if product_test %>
+      <td><%= link_to full_name(r), record_path(:id => r.id, :task_id => task.id) %></td>
+    <% else %>
+      <td><%= link_to full_name(r), bundle_record_path(bundle, r) %></td>
+    <% end %>
+    <% if product_test && !hide_patient_calculation? %>
+      <% original_patient = r.bundle.patients.find(r.extendedData['original_patient']) %>
+      <td> <%="#{full_name(original_patient)}"%> </td>
+    <%end%>
+    <td><%= display_time(r.birthDatetime) %></td>
+    <td><%= full_gender_name(r.gender) %></td>
+    <!-- will show calculation results for product test records -->
+    <% if measure && !(product_test && hide_patient_calculation?) %>
+      <% result_values[r.id].each do |_, value| %>
+        <td class="text-center">
+          <!-- This is the relevant piece of the calculation_result_icon partial ported over to here. Rendering each circle in its own partial is far too slow and causes the application to take up to 8 seconds longer to load on some pages. -->
+          <% if value && value.positive? %>
+            <span class="sr-only">Pass</span>
+            <span class="fa-stack result-marker">
+              <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
+              <i class="fa fa-circle-thin fa-stack-2x" aria-hidden="true"></i>
+              <% unless value == 1 && !measure.episode_of_care %>
+                <strong class="fa-stack-1x result-text"><span class="sr-only">value of </span><%= value %></strong>
+              <% end %>
+            </span>
+          <% else %>
+            <span class="sr-only">Fail</span>
+            <i class="fa fa-circle-thin fa-2x empty-marker" aria-hidden="true"></i>
+          <% end %>
+        </td>
+      <% end %>
+    <% end %>
+  </tr>
+<% end %>
