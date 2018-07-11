@@ -68,7 +68,7 @@ class ProducTest < ActiveSupport::TestCase
 
   def test_offset
     pt = Product.new(vendor: @vendor, name: 'test_product', c1_test: true, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                     bundle_id: @bundle.id, shift_records: true)
+                     bundle_id: @bundle.id, shift_patients: true)
     pt.product_tests.build(name: 'test_product_test_name',
                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                            bundle_id: @bundle.id).save!
@@ -77,7 +77,7 @@ class ProducTest < ActiveSupport::TestCase
     assert_equal Time.zone.at(pt.measure_period_start).hour, Time.zone.at(pt.bundle.measure_period_start).hour
     assert_equal Time.zone.at(pt.measure_period_start).day, Time.zone.at(pt.bundle.measure_period_start).day
     assert_equal Time.zone.at(pt.measure_period_start).month, Time.zone.at(pt.bundle.measure_period_start).month
-    assert_equal Time.zone.at(pt.measure_period_start).year, Time.zone.at(pt.bundle.measure_period_start).year + 2
+    assert_equal Time.zone.at(pt.measure_period_start).year, Time.zone.at(pt.bundle.measure_period_start).year + 7
     # Test that shifted effective time is the last minute of the same year as the measure period start
     assert_equal Time.zone.at(pt.effective_date).year, Time.zone.at(pt.effective_date).year
     assert_equal Time.zone.at(pt.effective_date).min, 59

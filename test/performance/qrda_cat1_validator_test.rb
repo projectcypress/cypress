@@ -7,11 +7,11 @@ class QrdaCat1ValidatorPerfTest < ActionDispatch::PerformanceTest
   def setup
     @test_execution = FactoryBot.create(:test_execution)
     @task = @test_execution.task
-    @records = @task.records
+    @records = @task.patients
     @bundle = @task.bundle
     @measures = @task.product_test.measures
     mes, sd, ed = Cypress::PatientZipper.mes_start_end(@records)
-    test_record = @records.find_by(first: 'Dental_Peds')
+    test_record = @records.find_by(firstNames: ['Dental_Peds'])
     file = Cypress::QRDAExporter.new(mes, sd, ed).export(test_record)
     @doc = @test_execution.build_document(file)
   end

@@ -131,7 +131,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     # do this for admin,atl,user:owner -- need negative tests for non
     # access users
     C1Task.any_instance.stubs(:validators).returns([])
-    C1Task.any_instance.stubs(:records).returns([])
+    C1Task.any_instance.stubs(:patients).returns([])
 
     orig_count = @first_c2_task.test_executions.count
 
@@ -150,7 +150,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   # need negative tests for user that does not have owner or vendor access
   test 'should be able to restrict access to create unauthorized users ' do
     C1Task.any_instance.stubs(:validators).returns([])
-    C1Task.any_instance.stubs(:records).returns([])
+    C1Task.any_instance.stubs(:patients).returns([])
 
     zipfile = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml'))
     upload = Rack::Test::UploadedFile.new(zipfile, 'text/xml')

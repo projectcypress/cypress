@@ -29,7 +29,7 @@ class C3Cat3TaskTest < ActiveSupport::TestCase
       te = @task.execute(xml, User.first, nil)
       te.reload
       assert_equal 1, te.execution_errors.length, 'should have 1 error for the invalid performance rate'
-      msg = 'Reported Performance Rate of 0.5 for Numerator FC6D029A-EB1F-11E7-8C3F-9A214CF093AE does not match expected value of 0.0.'
+      msg = 'Reported Performance Rate of 0.5 for Numerator D285D0D1-0AB5-4228-A5A3-F3DE5952F4AF does not match expected value of 0.0.'
       assert_equal msg, te.execution_errors[0].message
     end
   end

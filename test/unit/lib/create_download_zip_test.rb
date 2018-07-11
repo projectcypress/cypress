@@ -8,8 +8,9 @@ class CreateDownloadZipTest < ActiveSupport::TestCase
     product_2015_c2 = FactoryBot.create(:product_static_bundle)
 
     [product2014, product_2015_c1, product_2015_c2].each do |product|
-      pt = product.product_tests.build({ name: 'mtest', measure_ids: ['8A4D92B2-397A-48D2-0139-C648B33D5582'],
-                                         bundle_id: '4fdb62e01d41c820f6000001' }, MeasureTest)
+      pt = product.product_tests.build({ name: 'mtest', measure_ids: product.measure_ids }, MeasureTest)
+      pt.save
+      pt.generate_patients
       pt.create_tasks
       pt.archive_patients if pt.patient_archive.path.nil?
       pt.save!

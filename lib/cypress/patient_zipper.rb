@@ -86,7 +86,7 @@ module Cypress
       # TODO: R2P: check exporter
       Zip::ZipOutputStream.open(file.path) do |zip|
         measure_tests.each do |measure_test|
-          patients = measure_test.records.to_a
+          patients = measure_test.patients.to_a
           measures, start_date, end_date = measure_start_end(patients)
           formatter = Cypress::QRDAExporter.new(measures, start_date, end_date)
           measure_folder = "patients_#{measure_test.cms_id}"

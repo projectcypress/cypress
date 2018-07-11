@@ -82,7 +82,7 @@
               <legend class="control-label">Records Options</legend>
               <%= f.form_group help: "Recommended for most robust testing." do %>
                 <%= f.check_box :randomize_patients, label: 'Randomize Records', label_class: "btn btn-checkbox", checked: product.new_record? ? true : product.randomize_patients, disabled: !product.new_record? %>
-                <%= f.check_box :duplicate_patients, label: 'Duplicate Records', label_class: "btn btn-checkbox", checked: product.new_record? ? true : product.duplicate_patients, disabled: !product.new_record? %>
+                <%= f.check_box :duplicate_patients, label: 'Duplicate Records', label_class: "btn btn-checkbox", checked: product.duplicate_patients, disabled: true %>
               <% end %>
             </fieldset>
           <%end%>

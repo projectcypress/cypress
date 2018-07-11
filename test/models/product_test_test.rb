@@ -62,8 +62,9 @@ class ProductTestTest < ActiveJob::TestCase
                                            :bundle_id => @bundle.id, :rand_seed => seed }, MeasureTest)
     test2 = @product.product_tests.build({ :name => 'mtest', :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                                            :bundle_id => @bundle.id, :rand_seed => seed }, MeasureTest)
-
     assert_equal test1.rand_seed, test2.rand_seed, 'random repeatability error: random seeds don\'t match'
+
+    compare_product_tests(test1, test2)
 
     # create tasks (c1,c2,c3,c4)
     test1.create_tasks
@@ -87,9 +88,9 @@ class ProductTestTest < ActiveJob::TestCase
       compare_results(test1, test2)
 
       # compare records
-      test1.records.each_index do |x|
-        patient1 = test1.records.fetch(x)
-        patient2 = test2.records.fetch(x)
+      test1.patients.each_index do |x|
+        patient1 = test1.patients.fetch(x)
+        patient2 = test2.patients.fetch(x)
         compare_records(patient1, patient2)
       end
     end
@@ -110,34 +111,24 @@ class ProductTestTest < ActiveJob::TestCase
 
   def compare_records(patient1, patient2)
     # compare names
-    assert_equal patient1.first, patient2.first, 'random repeatability error: first names different'
-    assert_equal patient1.last, patient2.last, 'random repeatability error: last names different'
+    assert_equal patient1.first_names, patient2.first_names, 'random repeatability error: given names different'
+    assert_equal patient1.familyName, patient2.familyName, 'random repeatability error: family names different'
 
     # compare dates
-    assert_equal patient1.birthdate, patient2.birthdate, 'random repeatability error: birthdates different'
-    assert_equal patient1.deathdate, patient2.deathdate, 'random repeatability error: deathdates different'
-    patient1.provider_performances.each_index do |y|
-      provider_perform1 = patient1.provider_performances.fetch(y)
-      provider_perform2 = patient2.provider_performances.fetch(y)
-      assert_equal provider_perform1.start_date, provider_perform2.start_date, 'random repeatability error: provider performance start dates different'
-      assert_equal provider_perform1.end_date, provider_perform2.end_date, 'random repeatability error: provider performance end dates different'
-    end
+    assert_equal patient1.birthDatetime, patient2.birthDatetime, 'random repeatability error: birthdates different'
 
-    # assert patient1.compare_sections(patient2), 'random repeatability error: sections different'
-    # compare patient sections
-    sections = %i[allergies care_goals conditions encounters immunizations medical_equipment
-                  medications procedures results communications family_history social_history vital_signs support advance_directives
-                  functional_statuses] # skip insurance provider section
-    sections.each do |sec|
-      assert_equal (patient1.send sec), (patient2.send sec), 'error'
-    end
+    # compare extendedData
+    # patient1.extendedData.each{|k,v| assert_equal v, patient2[k], 'random repeatability error: extendedData different'}
 
-    # compare race, ethnicity, address, insurance
-    assert_equal patient1.race, patient2.race, 'random repeatability error: races different'
-    assert_equal patient1.ethnicity, patient2.ethnicity, 'random repeatability error: ethnicities different'
-    # assert_equal patient1.addresses, patient2.addresses, 'random repeatability error: addresses different'
-    # assert_equal patient1.insurance_providers, patient2.insurance_providers, 'random repeatability error: insurance providers different'
-    #-> cannot create equality for address and insurance with Faker lib?
+    # compare all dataElements (expect same order?)
+    patient1.dataElements.each_index do |x|
+      de1 = patient1.dataElements.fetch(x)
+      de2 = patient2.dataElements.fetch(x)
+      de1.attributes.each do |k, v|
+        assert_nil de2.attributes[k], 'random repeatability error: dataElements different, non-nil match' if v.nil?
+        assert_equal v, de2.attributes[k], 'random repeatability error: dataElements different' unless k == '_id'
+      end
+    end
   end
 
   def create_test_executions_with_state(product_test, state)

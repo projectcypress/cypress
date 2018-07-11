@@ -31,6 +31,8 @@ class VendorsHelperTest < ActiveJob::TestCase
     end
     checklist_test.checked_criteria = checked_criterias
     checklist_test.save!
+    checklist_test.tasks.create!({}, C1ChecklistTask)
+    checklist_test.tasks.create!({}, C3ChecklistTask)
   end
 
   def setup_measure_tests
@@ -215,7 +217,7 @@ class VendorsHelperTest < ActiveJob::TestCase
   def setup_checklist_status_vals_for_execution
     assert_equal 1, @product.product_tests.checklist_tests.count
     test = @product.product_tests.checklist_tests.first
-    [test, test.tasks.create!({}, C1ChecklistTask), test.tasks.create!({}, C3ChecklistTask)]
+    [test, test.tasks.c1_checklist_task, test.tasks.c3_checklist_task]
   end
 
   def test_checklist_status_vals_for_execution_both_executions_passing
@@ -265,7 +267,6 @@ class VendorsHelperTest < ActiveJob::TestCase
   def test_checklist_status_vals_with_checklist_status_vals_for_test_execution
     assert_equal 1, @product.product_tests.checklist_tests.count
     test = @product.product_tests.checklist_tests.first
-
     # make all passed
     test.checked_criteria.each do |criteria|
       criteria.code_complete = true
@@ -276,11 +277,8 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal [1, 0, 0, 0, 1], checklist_status_vals(test, 'C1')
 
     # add test executions that are failing
-    c1_task = test.tasks.create!({}, C1ChecklistTask)
-    c3_task = test.tasks.create!({}, C3ChecklistTask)
-    c1_task.test_executions.create!(:state => :failed, :_id => '12345', :sibling_execution_id => '54321')
-    c3_task.test_executions.create!(:state => :failed, :_id => '54321', :sibling_execution_id => '12345')
-
+    test.tasks.c1_checklist_task.test_executions.create!(:state => :failed, :_id => '12345', :sibling_execution_id => '54321')
+    test.tasks.c3_checklist_task.test_executions.create!(:state => :failed, :_id => '54321', :sibling_execution_id => '12345')
     assert_equal [1, 1, 0, 0, 2], checklist_status_vals(test, 'C1')
   end
 

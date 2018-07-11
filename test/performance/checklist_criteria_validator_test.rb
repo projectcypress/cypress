@@ -7,7 +7,7 @@ class ChecklistCriteriaValidatorPerfTest < ActionDispatch::PerformanceTest
   def setup
     @test_execution = FactoryBot.create(:test_execution)
     @task = @test_execution.task
-    @records = @task.records
+    @records = @task.patients
     @product = @task.product_test.product
     @checklist_test = @product.product_tests.checklist_tests.first
     criteria = @checklist_test.checked_criteria[0, 1]
