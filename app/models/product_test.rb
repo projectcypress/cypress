@@ -89,7 +89,7 @@ class ProductTest
                      # get medical record numbers for master patients (have no correlation (test) id)
                      # bundle.patients.where(:'extendedData.correlation_id' => nil).map {|mp| mp[:extendedData][:medical_record_number] }.uniq
                      # essentially getting master_patient_ids
-                     master_patient_ids
+                     bundle.patients.pluck(:_id)
                    end
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'randomization_ids' => random_ids,
                                       'randomize_demographics' => true, 'generate_provider' => product.c4_test, 'job_id' => job_id).perform
@@ -110,10 +110,9 @@ class ProductTest
     Cypress::PatientZipper.zip(file, pat_arr, :qrda)
     self.patient_archive = file
 
-    # TODO: R2P update HTML exporters
-    # file = Tempfile.new("product_test-html-#{id}.zip")
-    # Cypress::PatientZipper.zip(file, pat_arr, :html)
-    # self.html_archive = file
+    file = Tempfile.new("product_test-html-#{id}.zip")
+    Cypress::PatientZipper.zip(file, pat_arr, :html)
+    self.html_archive = file
     save
   end
 

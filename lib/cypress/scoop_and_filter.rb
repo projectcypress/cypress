@@ -2,7 +2,8 @@ module Cypress
   class ScoopAndFilter
     def initialize(measures)
       @relevant_codes = codes_in_measures(measures)
-      @demographic_oids = ['2.16.840.1.113883.10.20.28.3.55', '2.16.840.1.113883.10.20.28.3.59', '2.16.840.1.113883.10.20.28.3.56']
+      @demographic_oids = ['2.16.840.1.113883.10.20.28.3.55', '2.16.840.1.113883.10.20.28.3.59',
+                           '2.16.840.1.113883.10.20.28.3.56', '2.16.840.1.113883.10.20.28.3.54']
       @hqmf_oids_for_measures = get_all_hqmf_oids_definition_and_status(measures) - @demographic_oids
     end
 
