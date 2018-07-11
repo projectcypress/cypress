@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: https://github.com/projectcypress/health-data-standards.git
-  revision: bcb40b806921f45c983b7014b4e1b995c89d8920
+  revision: f439991b6ed4861cbe4da19454692f7c7d3ccd44
   branch: r5
   specs:
     health-data-standards (4.0.3)
@@ -215,20 +215,20 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     crass (1.0.4)
-    cucumber (3.1.0)
+    cucumber (3.0.2)
       builder (>= 2.1.2)
-      cucumber-core (~> 3.1.0)
-      cucumber-expressions (~> 5.0.4)
+      cucumber-core (~> 3.0.0)
+      cucumber-expressions (~> 4.0.3)
       cucumber-wire (~> 0.0.1)
       diff-lcs (~> 1.3)
-      gherkin (~> 5.0)
+      gherkin (~> 4.0)
       multi_json (>= 1.7.5, < 2.0)
       multi_test (>= 0.1.2)
-    cucumber-core (3.1.0)
+    cucumber-core (3.0.0)
       backports (>= 3.8.0)
-      cucumber-tag_expressions (~> 1.1.0)
-      gherkin (>= 5.0.0)
-    cucumber-expressions (5.0.18)
+      cucumber-tag_expressions (>= 1.0.1)
+      gherkin (>= 4.1.3)
+    cucumber-expressions (4.0.4)
     cucumber-rails (1.6.0)
       capybara (>= 1.1.2, < 4)
       cucumber (>= 3.0.2, < 4)
@@ -277,7 +277,7 @@ GEM
     ffi (1.9.23)
     font-awesome-sass (5.0.13)
       sassc (>= 1.11)
-    gherkin (5.1.0)
+    gherkin (4.1.3)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     highline (1.7.10)
@@ -342,7 +342,7 @@ GEM
     modernizr-rails (2.7.1)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
-    mongo (2.5.3)
+    mongo (2.6.1)
       bson (>= 4.3.0, < 5.0.0)
     mongoid (5.0.2)
       activemodel (~> 4.0)
@@ -363,7 +363,7 @@ GEM
     nested_form (0.3.2)
     netrc (0.11.0)
     newrelic_rpm (5.1.0.344)
-    nokogiri (1.8.3)
+    nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
     origin (2.3.1)
     orm_adapter (0.5.0)
@@ -572,6 +572,7 @@ DEPENDENCIES
   cqm-converter!
   cqm-models!
   cqm-parsers!
+  cucumber (~> 3.0.2)
   cucumber-rails
   database_cleaner
   devise (= 4.1.1)
