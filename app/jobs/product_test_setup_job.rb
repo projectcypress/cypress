@@ -23,7 +23,7 @@ class ProductTestSetupJob < ApplicationJob
     product_test.ready
   rescue StandardError => e
     product_test.backtrace = e.backtrace.join("\n")
-    product_test.status_message = e.message + ' on ' + e.backtrace.first.remove(Rails.root.to_s)
+    product_test.status_message = error_message(e)
     product_test.errored
     product_test.save!
   end
@@ -33,5 +33,11 @@ class ProductTestSetupJob < ApplicationJob
                                        'effective_date': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number))
     calc_job.sync_job(patient_ids, product_test.measures.map { |mes| mes._id.to_s })
     calc_job.stop
+  end
+
+  private
+
+  def error_message(error)
+    error.message + ' on ' + error.backtrace.first.remove(Rails.root.to_s)
   end
 end
