@@ -44,6 +44,26 @@ FactoryBot.define do
         '_type' => 'QDM::ProcedurePerformed'
       },
       {
+        'dataElementCodes' => [ 
+          {
+              'codeSystem' => 'SNOMED-CT',
+              'code' => '24'
+          }
+        ],
+        '_type' => 'QDM::Diagnosis',
+        'hqmfOid' => '2.16.840.1.113883.3.560.1.2',
+        'qrdaOid' => '2.16.840.1.113883.10.20.24.3.135',
+        'category' => 'condition',
+        'qdmVersion' => '5.3',
+        'description' => 'Diagnosis: Allergy to Eggs',
+        'prevalencePeriod' => {
+          'low' => '2012-09-28T08:00:00+00:00',
+          'high' => '2012-09-28T08:00:00+00:00',
+          'lowClosed' => true,
+          'highClosed' => true
+        },
+      },
+      {
         'category' => 'patient_characteristic',
         'dataElementCodes' => [
           {
