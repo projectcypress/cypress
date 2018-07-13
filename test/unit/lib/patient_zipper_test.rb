@@ -6,7 +6,7 @@ class PatientZipperTest < ActiveSupport::TestCase
     pt = FactoryBot.create(:product_test_static_result)
     patient = FactoryBot.create(:static_test_patient, bundleId: pt.bundle.id)
     patient.save
-    @patients = Patient.where('gender' => 'F')
+    @patients = Patient.all.to_a.select { |p| p.gender == 'F' }
   end
 
   test 'Should create valid html file' do
