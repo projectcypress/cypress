@@ -4,7 +4,7 @@ module Validators
     include HealthDataStandards::Validate
 
     self.validator = :cms_schematron
-    @bundle_version = Settings.current.default_bundle
+    @bundle_version = Settings.current&.default_bundle
 
     def initialize(schematron_file, name, bundle_version = Settings.current.default_bundle)
       @validator = Schematron::Validator.new(name, schematron_file) if File.exist?(schematron_file)
