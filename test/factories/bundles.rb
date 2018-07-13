@@ -53,12 +53,14 @@ FactoryBot.define do
 
         # Always include a random measure with a diagnosis
         diag_measure = create(:measure_with_diagnosis, bundle_id: bundle._id)
+        diag_measure['value_set_oid_version_objects'] = source_measure['value_set_oid_version_objects']
         diag_measure['id'] = diag_measure.hqmf_id
         diag_measure.save
 
         # Include 7 random measures
         7.times do
           random_measure = create(:measure_without_diagnosis, bundle_id: bundle._id)
+          random_measure['value_set_oid_version_objects'] = source_measure['value_set_oid_version_objects']
           random_measure['id'] = random_measure.hqmf_id
           random_measure.save
         end

@@ -7,16 +7,22 @@ class PatientZipperTest < ActiveSupport::TestCase
     patient = FactoryBot.create(:static_test_patient, bundleId: pt.bundle.id)
     patient.save
     @patients = Patient.all.to_a.select { |p| p.gender == 'F' }
+
+    prov = Provider.default_provider
+    prov_json = JSON.generate([{ provider_id: prov.id }])
+
+    @patients.each do |patient|
+      patient.extendedData['provider_performances'] = JSON.generate([{ provider_id: prov.id }])
+      patient.save!
+    end
   end
 
   test 'Should create valid html file' do
     format = :html
     filename = "pTest-#{Time.now.to_i}.html.zip"
     file = Tempfile.new(filename)
-
     Cypress::PatientZipper.zip(file, @patients, format)
     file.close
-
     count = 0
     Zip::ZipFile.foreach(file.path) do |zip_entry|
       if zip_entry.name.include?('.html') && !zip_entry.name.include?('__MACOSX')
@@ -49,7 +55,7 @@ class PatientZipperTest < ActiveSupport::TestCase
   end
 
   test 'Should create valid qrda file when not associated to test' do
-    @patients = Record.where('test_id' => nil)
+    @patients = Patient.where('extendedData.correlation_id' => nil)
 
     format = :qrda
     filename = "pTest-#{Time.now.to_i}.qrda.zip"

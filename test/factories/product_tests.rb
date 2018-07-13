@@ -46,7 +46,9 @@ FactoryBot.define do
       measure_ids ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
       association :product, :factory => :product_static_bundle
       after(:create) do |pt|
-        extended_data = { 'correlation_id' => pt.id }
+        extended_data = { 'correlation_id' => pt.id,
+                          'medical_record_number' => '1989db70-4d42-0135-8680-30999b0ed66f',
+                          'insurance_providers' => '[{"codes":{"SOP":["349"]},"name":"Other","type":"OT","payer":{"name":"Other"},"financial_responsibility_type":{"code":"SELF","codeSystem":"HL7 Relationship Code"},"member_id":"1374589940","start_time":"1949-05-23T13:24:00+00:00"}]'}
         patient = create(:static_test_patient, 'bundleId' => pt.bundle._id, 'extendedData' => extended_data)
         patient.save
         aug_record[0]['original_patient_id'] = patient._id
