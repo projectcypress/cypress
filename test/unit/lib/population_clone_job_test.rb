@@ -11,8 +11,8 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   def test_perform_full_deck
     pcj = Cypress::PopulationCloneJob.new('test_id' => @pt.id)
     pcj.perform
-    assert_equal 19, Record.count
-    assert_equal 10, Record.where(test_id: @pt.id).count
+    assert_equal 19, Patient.count
+    assert_equal 10, Patient.where('extendedData.correlation_id': @pt.id).count
   end
 
   # need a measure with a subset
@@ -35,13 +35,14 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
 
   def test_assigns_default_provider
     # ids passed in should clone just the 1 record
-    pcj = Cypress::PopulationCloneJob.new('patient_ids' => %w[1989db70-4d42-0135-8680-20999b0ed66f],
+    sample_patient = Patient.all.sample
+    pcj = Cypress::PopulationCloneJob.new('patient_ids' => [sample_patient.id],
                                           'test_id' => @pt.id,
                                           'randomization_ids' => [])
     pcj.perform
     prov = Provider.where(default: true).first
-    assert_equal 11, Record.count
-    assert_equal 1, Record.where(test_id: @pt.id, 'provider_performances.provider_id' => prov.id).count
+    assert_equal 11, Patient.count
+    assert_equal 1, Patient.where('extendedData.correlation_id': @pt.id, 'extendedData.provider_performances': { :$exists => true } ).count
   end
 
   # def test_assigns_generated_provider
@@ -119,7 +120,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
                                           'test_id' => @pt.id,
                                           'randomize_demographics' => true)
     pcj.perform
-    new_records = Record.where(test_id: @pt.id)
+    new_records = Patient.where('extendedData.correlation_id': @pt.id)
     assert_equal 10, new_records.count
     assert_races_are_random
   end
@@ -127,11 +128,11 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   def assert_races_are_random
     found_random = false
     old_record_races = {}
-    Record.where(test_id: nil).each do |record|
-      old_record_races["#{record.first} #{record.last}"] = record.race['code']
+    Patient.where('extendedData.correlation_id': nil).each do |record|
+      old_record_races["#{record.givenNames[0]} #{record.familyName}"] = record.race
     end
-    Record.where(test_id: @pt.id).each do |record|
-      found_random = true unless old_record_races["#{record.first} #{record.last}"] == record.race['code']
+    Patient.where('extendedData.correlation_id': @pt.id).each do |record|
+      found_random = true unless old_record_races["#{record.givenNames[0]} #{record.familyName}"] == record.race
     end
     assert found_random, 'Did not find any evidence that race was randomized.'
   end
