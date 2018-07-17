@@ -15,6 +15,9 @@ gem 'os'
 
 gem 'cql_qdm_patientapi', git: 'https://github.com/projecttacoma/cql_qdm_patientapi', branch: 'better_codes_and_scalar_error'
 gem 'cqm-converter', git: 'https://github.com/projecttacoma/cqm-converter', branch: 'master'
+
+# gem 'cqm-validators' , git: 'https://github.com/projecttacoma/cqm-validators', branch: 'cqm_validator_library'
+gem 'cqm-validators', path: '../cqm-validators'
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', branch: 'master'
 gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'qrda'
 gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'r5'

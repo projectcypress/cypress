@@ -1,8 +1,7 @@
 require 'validators/qrda_cat1_validator'
 module Validators
   class QrdaCat3Validator < QrdaFileValidator
-    include HealthDataStandards::Validate
-    include Validators::Validator
+    include ::CqmValidators
 
     self.validator = :qrda_cat3
 
