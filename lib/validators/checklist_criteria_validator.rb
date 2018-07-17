@@ -4,7 +4,7 @@ module Validators
   class ChecklistCriteriaValidator < QrdaFileValidator
     include Validators::ChecklistResultExtractor
     include Validators::Validator
-    include HealthDataStandards::Validate
+    include ::CqmValidators
 
     self.validator = :checklist
 

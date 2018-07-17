@@ -1,7 +1,7 @@
 module Validators
   class CMSSchematronValidator < QrdaFileValidator
     include Validators::Validator
-    include HealthDataStandards::Validate
+    include CqmValidators
 
     self.validator = :cms_schematron
     @bundle_version = Settings.current&.default_bundle

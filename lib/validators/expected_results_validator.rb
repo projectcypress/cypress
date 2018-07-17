@@ -1,6 +1,6 @@
 module Validators
   class ExpectedResultsValidator < QrdaFileValidator
-    include HealthDataStandards::Validate::ReportedResultExtractor
+    include ::CqmValidators::ReportedResultExtractor
     include Validators::Validator
     attr_accessor :reported_results
 
