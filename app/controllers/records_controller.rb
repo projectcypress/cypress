@@ -46,7 +46,7 @@ class RecordsController < ApplicationController
   end
 
   def by_filter_task
-    @records = @product_test.filtered_patients
+    @patients = Patient.where(:_id.in => @product_test.filtered_patients.map(&:id))
   end
 
   def download_mpl
