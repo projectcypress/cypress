@@ -29,7 +29,7 @@ before_install:
   - nvm install 10.0
   - nvm use stable
   - npm install -g eslint
-  - git clone -b release https://github.com/projectcypress/js-ecqm-engine.git /tmp/js-ecqm-engine
+  - git clone -b master https://github.com/projectcypress/js-ecqm-engine.git /tmp/js-ecqm-engine
 before_script:
   - git config --global user.email "travis@travis.ci"
   - git config --global user.name "Travis CI"
