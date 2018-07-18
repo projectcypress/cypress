@@ -31,12 +31,14 @@ class RecordsController < ApplicationController
     @record = @source.patients.find(params[:id])
     @results = @record.calculation_results
     @measures = @source.measures.where(:_id.in => @results.map(&:measure_id))
+    @continuous_measures = @measures.where(continuous_variable: true).sort_by { |m| [m.cms_int, m.sub_id] }
+    @non_continuous_measures = @measures.where(continuous_variable: false).sort_by { |m| [m.cms_int, m.sub_id] }
     expires_in 1.week, public: true
     add_breadcrumb 'Patient: ' + @record.first_names + ' ' + @record.familyName, :record_path
   end
 
   def by_measure
-    @records = @source.records
+    @patients = @source.patients.includes(:calculation_results)
     if params[:measure_id]
       @measure = @source.measures.find_by(hqmf_id: params[:measure_id], sub_id: params[:sub_id])
       expires_in 1.week, public: true
@@ -44,7 +46,7 @@ class RecordsController < ApplicationController
   end
 
   def by_filter_task
-    @records = @product_test.filtered_patients
+    @patients = Patient.where(:_id.in => @product_test.filtered_patients.map(&:id))
   end
 
   def download_mpl

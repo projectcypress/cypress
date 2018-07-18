@@ -38,7 +38,7 @@ before_script:
   - CYPRESS_DB=cypress_test /tmp/js-ecqm-engine/bin/rabbit_worker.js &
   - cp ./.travis/mongoid.yml ./config/mongoid.yml
 env:
-  # - TEST_SUITE=cucumber
+  - TEST_SUITE=cucumber
   - TEST_SUITE=audit
   # - TEST_SUITE=models
   - TEST_SUITE=controllers
@@ -48,12 +48,12 @@ env:
   # - TEST_SUITE=benchmark
 script:
   - 'if [ ${TEST_SUITE} = "cucumber" ]; then
-      bundle exec cucumber;
+      bundle exec cucumber features/records;
     elif [ ${TEST_SUITE} = "audit" ]; then
       bundle exec brakeman -qAzw1 &&
       bundle exec bundle-audit check --update &&
       bundle exec overcommit --sign &&
-      bundle exec overcommit --run
+      bundle exec overcommit --run;
     else
       RUBYOPT="-W0" bundle exec rake test:$TEST_SUITE;
     fi'

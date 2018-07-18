@@ -3,6 +3,8 @@ Patient = QDM::Patient
 
 module QDM
   class Patient
+    has_many :calculation_results, :foreign_key => :patient_id, :class_name => 'QDM::IndividualResult'
+
     def destroy
       calculation_results.destroy
       delete
@@ -31,11 +33,6 @@ module QDM
       end
     end
 
-    def calculation_results
-      # TODO: CQL: update result model
-      QDM::IndividualResult.where('patient_id' => id).where('IPP'.to_sym.gt => 0)
-    end
-
     def lookup_provider(include_address = nil)
       # find with provider id hash i.e. "$oid"->value
       provider = Provider.find(JSON.parse(extendedData['provider_performances']).first['provider_id'])
@@ -51,9 +48,9 @@ module QDM
 
     def duplicate_randomization(random: Random.new)
       patient = clone
-      changed = { original_patient_id: id, first: [first_names, first_names], last: [familyName, familyName] }
-      patient, changed = randomize_patient_name_or_birth(patient, changed, random: random)
-      randomize_demographics(patient, changed, random: random)
+      changed = { :original_patient_id => id, :first => [first_names, first_names], :last => [familyName, familyName] }
+      patient, changed = randomize_patient_name_or_birth(patient, changed, :random => random)
+      randomize_demographics(patient, changed, :random => random)
     end
 
     def provider
@@ -72,17 +69,17 @@ module QDM
     def randomize_patient_name_or_birth(patient, changed, random: Random.new)
       case random.rand(3) # random chooses which part of the patient is modified
       when 0 # first name
-        patient = Cypress::NameRandomizer.randomize_patient_name_first(patient, random: random)
+        patient = Cypress::NameRandomizer.randomize_patient_name_first(patient, :random => random)
         changed[:first] = [first_names, patient.first_names]
       when 1 # last name
-        patient = Cypress::NameRandomizer.randomize_patient_name_last(patient, random: random)
+        patient = Cypress::NameRandomizer.randomize_patient_name_last(patient, :random => random)
         changed[:last] = [familyName, patient.familyName]
       when 2 # birthdate
         patient.birthDatetime = DateTime.strptime(patient.birthDatetime.to_s, '%s').change(
           case random.rand(3)
-          when 0 then { day: 1, month: 1 }
-          when 1 then { day: random.rand(28) + 1 }
-          when 2 then { month: random.rand(12) + 1 }
+          when 0 then { :day => 1, :month => 1 }
+          when 1 then { :day => random.rand(28) + 1 }
+          when 2 then { :month => random.rand(12) + 1 }
           end
         ).strftime('%s').to_i
         changed[:birthdate] = [birthDatetime, patient.birthDatetime]
