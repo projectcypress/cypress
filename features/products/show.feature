@@ -149,19 +149,3 @@ Scenario: Can Multi Upload to the Same Task on a Filtering Test Multiple Times
   When the user uploads a cat III document to filtering test 1
   Then the user should see a cat III test testing for filtering test 1
 
-Scenario: Can Multi Upload to the Same Task on a Filtering Test Multiple Times with page reload before test completion
-  When a user creates a 2015 product with c1, c4 certifications and visits that product page
-  And the user adds a product test
-  And filtering tests are added to product
-  And all product tests have a state of ready
-  And the user visits the product page
-  And the user switches to the filtering test tab
-  And the user uploads a cat III document to filtering test 1
-  Then the user should see a cat III test testing for filtering test 1
-  When the user visits the product page
-  And the user switches to the filtering test tab
-  Then the user should see a cat III test testing for filtering test 1
-  When all test executions for filtering test 1 have the state of passed
-  Then the user should see a cat III test passing for filtering test 1
-  When the user uploads a cat III document to filtering test 1
-  Then the user should see a cat III test testing for filtering test 1
