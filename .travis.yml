@@ -35,7 +35,7 @@ before_script:
   - git config --global user.name "Travis CI"
   - npm install eslint
   - yarn install --cwd /tmp/js-ecqm-engine
-  - CYPRESS_DB=cypress_test /tmp/js-ecqm-engine/bin/rabbit_worker.js &
+  - NODE_ENV=test /tmp/js-ecqm-engine/bin/rabbit_worker.js &
   - cp ./.travis/mongoid.yml ./config/mongoid.yml
 env:
   - TEST_SUITE=cucumber
@@ -45,7 +45,6 @@ env:
   - TEST_SUITE=helpers
   - TEST_SUITE=jobs
   - TEST_SUITE=units
-  - TEST_SUITE=benchmark
 script:
   - 'if [ ${TEST_SUITE} = "cucumber" ]; then
       bundle exec cucumber;
