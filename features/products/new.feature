@@ -79,7 +79,7 @@ Scenario: Filtering does not clear selected measures
   When the user navigates to the create product page
   And the user chooses the custom measure option
   And the user manually selects all measures
-  And the user types "CMS1234" into the measure filter box
+  And the user types "CMS127v7" into the measure filter box
   And the user types "" into the measure filter box
   Then all measures should still be selected
 
@@ -95,14 +95,14 @@ Scenario: Clear all button functions when bundle is changed
 Scenario: Filtering properly hides irrelevant measures and tabs when one bundle is installed
   When the user has one bundle and navigates to the create product page
   And the user chooses the custom measure option
-  And the user types "CMS1234" into the measure filter box
-  Then "CMS1234" is active on the screen
+  And the user types "CMS127v7" into the measure filter box
+  Then "CMS127v7" is active on the screen
 
 Scenario: Filtering properly hides irrelevant measures and tabs
   When the user navigates to the create product page
   And the user chooses the custom measure option
-  And the user types "CMS1234" into the measure filter box
-  Then "CMS1234" is active on the screen
+  And the user types "CMS127v7" into the measure filter box
+  Then "CMS127v7" is active on the screen
 
 Scenario: Changing certification type updates options appropriately
   When the user navigates to the create product page

@@ -71,8 +71,8 @@ When(/^the user fills out the record sample with good data$/) do
   simplify_source_data_criteria(@test)
   @test.save!
   visit product_checklist_test_path(@product, @test)
-  page.fill_in 'product_test[checked_criteria_attributes][0][code]', with: '210'
-  page.fill_in 'product_test[checked_criteria_attributes][0][attribute_code]', with: '4896'
+  page.fill_in 'product_test[checked_criteria_attributes][0][code]', with: '4080'
+  page.fill_in 'product_test[checked_criteria_attributes][0][recorded_result]', with: '4896'
   page.click_button 'Save'
 end
 
@@ -127,7 +127,7 @@ Then(/^the user should see the checklist test$/) do
 end
 
 Then(/^the user should see a button to revisit the checklist test$/) do
-  assert page.find('#c1_sample').has_link? 'CMS1234 Static Measure'
+  assert page.find('#c1_sample').has_link? 'CMS127v7 Static Measure'
   # assert page.has_selector?("input[type = submit][value = 'View Test']")
 end
 
