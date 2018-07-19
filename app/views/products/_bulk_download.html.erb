@@ -19,7 +19,7 @@
   One or more of the product tests did not build correctly.
 <% else %>
   <p>Patient records are being built for each measure.</p>
-  <p><i class="fa fa-fw fa-refresh fa-spin inline-icon info-icon"></i><%= " #{num_measure_tests_ready} of #{num_measure_tests} measures ready" %></p>
+  <p><i class="fas fa-fw fa-spin fa-sync-alt"></i><%= " #{num_measure_tests_ready} of #{num_measure_tests} measures ready" %></p>
   <script>
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'bulk_download' }});
   </script>

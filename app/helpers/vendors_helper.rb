@@ -39,7 +39,7 @@ module VendorsHelper
       classes['text'] = 'text-warning'
     else
       classes['cell'] = 'status-not-started'
-      classes['icon'] = 'fa-circle-o'
+      classes['icon'] = 'fa-circle'
       classes['text'] = 'text-info'
     end
 

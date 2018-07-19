@@ -10,7 +10,7 @@
   <i aria-hidden='true' class = 'fa fa-fw fa-exclamation text-warning'</i>
   <strong class="text-info">Internal Error</strong>
 <% elsif !execution %>
-  <i aria-hidden = 'true' class = 'fa fa-fw fa-circle-o text-info'></i>
+  <i aria-hidden = 'true' class = 'far fa-fw fa-circle text-info'></i>
   <span class = 'text-info'>Not Started</span>
 <% else %>
   <% classes = status_to_css_classes(execution.status.capitalize) %>
@@ -25,7 +25,7 @@
     <i aria-hidden = 'true' class = 'fa fa-fw fa-exclamation text-warning'></i>
     <strong class = 'text-warning'>Errored</strong>
   <% else %>
-    <i aria-hidden = 'true' class = 'fa fa-fw fa-circle-o text-info'></i>
+    <i aria-hidden = 'true' class = 'far fa-fw fa-circle text-info'></i>
     <strong class = 'text-info'>In Progress</strong>
   <% end %>
 <% end %>
