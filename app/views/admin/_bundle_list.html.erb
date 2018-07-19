@@ -17,34 +17,31 @@
           <td class = "text-center"><%= bundle.version %></td>
           <td class="text-center">
 
-            <% if !bundle.active %>
-
-              <% unless bundle.deprecated? %>
-                <%= button_to "Set Default", set_default_admin_bundle_path(bundle), :method => :post, :class => "btn btn-xs btn-default" %>
-                <%= render 'action_button',
-                                :button_text => 'Deprecate',
-                                :button_classes => 'btn btn-xs btn-danger',
-                                :button_action => 'post',
-                                :object => bundle,
-                                :object_name => bundle.title,
-                                :object_action => 'deprecate',
-                                :action_path => deprecate_admin_bundle_path(bundle),
-                                :modal_title => 'Deprecate Bundle',
-                                :modal_message => 'Deprecating a bundle will leave all products and test results, however new tests will not be able to created with this bundle.'
-                           %>
-              <% end %>
+            <% unless bundle.deprecated? %>
+              <%= button_to "Set Default", set_default_admin_bundle_path(bundle), :method => :post, :class => "btn btn-xs btn-default" unless bundle.active %>
               <%= render 'action_button',
-                              :button_text => 'Remove',
+                              :button_text => 'Deprecate',
                               :button_classes => 'btn btn-xs btn-danger',
-                              :button_action => 'delete',
+                              :button_action => 'post',
                               :object => bundle,
                               :object_name => bundle.title,
-                              :action_path => admin_bundle_path(bundle),
-                              :object_action => 'delete',
-                              :modal_title => 'Remove Bundle',
-                              :modal_message => 'Removing a bundle will also delete all associated products and test results.'
+                              :object_action => 'deprecate',
+                              :action_path => deprecate_admin_bundle_path(bundle),
+                              :modal_title => 'Deprecate Bundle',
+                              :modal_message => 'Deprecating a bundle will leave all products and test results, however new tests will not be able to created with this bundle.'
                          %>
             <% end %>
+            <%= render 'action_button',
+                            :button_text => 'Remove',
+                            :button_classes => 'btn btn-xs btn-danger',
+                            :button_action => 'delete',
+                            :object => bundle,
+                            :object_name => bundle.title,
+                            :action_path => admin_bundle_path(bundle),
+                            :object_action => 'delete',
+                            :modal_title => 'Remove Bundle',
+                            :modal_message => 'Removing a bundle will also delete all associated products and test results.'
+                       %>
           </td>
         </tr>
       <% end %>
