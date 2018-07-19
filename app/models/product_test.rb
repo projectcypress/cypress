@@ -61,7 +61,7 @@ class ProductTest
   def self.destroy_by_ids(product_test_ids)
     tasks = Task.where(:product_test_id.in => product_test_ids)
     task_ids = tasks.pluck(:_id)
-    patients = QDM::Patient.where(:test_id.in => product_test_ids)
+    patients = QDM::Patient.where(:'extendedData.correlation_id'.in => product_test_ids)
     patient_ids = patients.pluck(:_id)
     test_executions = TestExecution.where(:task_id.in => task_ids)
     test_execution_ids = test_executions.pluck(:_id)
@@ -75,7 +75,7 @@ class ProductTest
     # long after the parent data was destroyed.
     Artifact.where(:test_execution_id.in => test_execution_ids).destroy
     # TODO: CQL: use new results model?
-    HealthDataStandards::CQM::PatientCache.where(:'value.patient_id'.in => patient_ids).delete
+    QDM::IndividualResult.where(:patient_id.in => patient_ids).delete
     ProductTest.in(:id => product_test_ids).delete
   end
 

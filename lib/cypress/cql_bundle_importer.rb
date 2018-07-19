@@ -14,7 +14,7 @@ module Cypress
     # @param [File] zip The bundle zip file.
     # @param [String] Type of measures to import, either 'ep', 'eh' or nil for all
     # @param [Boolean] keep_existing If true, delete all current collections related to patients and measures.
-    # rubocop:disable Metrics/MethodLength
+
     def self.import(zip, options = {})
       options = DEFAULTS.merge(options)
       @measure_id_hash = {}
@@ -23,9 +23,7 @@ module Cypress
       bundle = nil
       Zip::ZipFile.open(zip.path) do |zip_file|
         bundle = unpack_bundle(zip_file)
-
-        bundle_versions = Hash[* HealthDataStandards::CQM::Bundle.where({}).collect { |b| [b._id, b.version] }.flatten]
-        raise "A bundle with version #{bundle.version} already exists in the database. " if bundle_versions.invert[bundle.version]
+        check_bundle_versions(bundle)
 
         # Store the bundle metadata.
         raise bundle.errors.full_messages.join(',') unless bundle.save
@@ -45,7 +43,16 @@ module Cypress
         bundle.save
       end
     end
-    # rubocop:enable Metrics/MethodLength
+
+    def self.check_bundle_versions(bundle)
+      bundle_versions = Hash[* HealthDataStandards::CQM::Bundle.where(deprecated: false).collect { |b| [b.version, b.id] }.flatten]
+
+      # no bundles before 2018 and no non-deprecated bundles with same year
+      old_year_err = 'Please use bundles for year 2018 or later.'
+      raise old_year_err if bundle.version[0..3].to_i < 2018
+      same_year_err = "A non-deprecated bundle with year #{bundle.version[0..3]} already exists in the database. Please deprecate previous bundles."
+      raise same_year_err unless bundle_versions.select { |vers, _id| vers[0..3] == bundle.version[0..3] }.empty?
+    end
 
     def self.unpack_bundle(zip)
       HealthDataStandards::CQM::Bundle.new(JSON.parse(zip.read(SOURCE_ROOTS[:bundle]), max_nesting: 100))
