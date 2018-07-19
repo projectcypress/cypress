@@ -2,6 +2,11 @@
 // Helper functions //
 //////////////////////
 
+// The $.escapeSelector() can replace all instances of this function in jQuery 3
+function escapeCSS(str) {
+  return str.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, "\\$&");
+}
+
 function CheckMany(group) {
   if (group == 'all') {
     $('.measure-group .measure-checkbox:not(:checked)').prop('checked', true).change();
@@ -27,7 +32,7 @@ function ToggleCustomSelection(task) {
 }
 
 function UpdateGroupSelections(event) {
-  var measure_category = $(event.currentTarget).attr('data-category');
+  var measure_category = escapeCSS($(event.currentTarget).attr('data-category'));
   var $groupChecks = $('.measure-group .measure-checkbox[data-category='+ measure_category +']');
 
   var groupIsSelected = !$groupChecks.filter(':not(:checked)').length; // true if none are unchecked
@@ -40,14 +45,14 @@ function UpdateGroupSelections(event) {
   $('#measure_tabs .ui-tabs-nav').find('[href*='+ measure_category +'] .selected-number')
     .html(function() {
       if (number_checked > 0) {
-        return number_checked + '<i aria-hidden="true" class="fa fa-fw fa-check"></i>'
+        return number_checked + '<i aria-hidden="true" class="fas fa-fw fa-check"></i>'
       } else { return '' }
     });
 
   $('.select-measures .panel-title .selected-number')
     .html(function() {
       if ($('.measure-group .measure-checkbox:checked').length > 0) {
-        return $('.measure-group .measure-checkbox:checked').length + '<i aria-hidden="true" class="fa fa-fw fa-check"></i>'
+        return $('.measure-group .measure-checkbox:checked').length + '<i aria-hidden="true" class="fas fa-fw fa-check"></i>'
       } else { return '(0)' }
     });
 
@@ -175,7 +180,7 @@ ready_run_on_refresh_bundle = function() {
 
   // Checking a group of measures
   $('.measure-group-all').on('change', function () {
-    $(this).closest('.measure-group').find('.measure-checkbox[data-category='+$(this).attr('id')+']')
+    $(this).closest('.measure-group').find('.measure-checkbox[data-category='+ escapeCSS($(this).attr('id')) +']')
       .prop('checked', this.checked).change().trigger('groupclick');
   });
 
