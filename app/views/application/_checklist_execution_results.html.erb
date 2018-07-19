@@ -27,7 +27,7 @@
       <% unless execution.nil? %>
         <td><%= link_to 'View Results', new_task_test_execution_path(execution.task) %></td>
       <% else %>
-        <td>  <i aria-hidden = 'true' class = 'fa fa-fw fa-circle-o text-info'></i>
+        <td>  <i aria-hidden = 'true' class = 'far fa-fw fa-circle text-info'></i>
           <span class = 'text-info'>Not Started</span>
         </td>
       <% end %>
@@ -49,11 +49,11 @@
             <i aria-hidden = 'true' class = 'fa fa-fw fa-exclamation text-warning'></i>
             <strong class = 'text-warning'>Errored</strong>
           <% else %>
-            <i aria-hidden = 'true' class = 'fa fa-fw fa-circle-o text-info'></i>
+            <i aria-hidden = 'true' class = 'far fa-fw fa-circle text-info'></i>
             <strong class = 'text-info'>In Progress</strong>
           <% end %>
         <% else %>
-          <i aria-hidden = 'true' class = 'fa fa-fw fa-circle-o text-info'></i>
+          <i aria-hidden = 'true' class = 'far fa-fw fa-circle text-info'></i>
           <span class = 'text-info'>Not Started</span>
         <% end %>
       </td>

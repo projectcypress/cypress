@@ -51,14 +51,14 @@
           <% if current_user.user_role? :admin%>
             <li <% if curr_page == :admin %>class="active"<% end %>>
               <%= link_to admin_path, class: 'navbar-item'   do %>
-              <i class="fa fa-fw fa-gears" aria-hidden="true"></i>
+              <i class="fa fa-fw fa-cog" aria-hidden="true"></i>
               Admin
               <% end %>
             </li>
           <% end %>
           <li>
             <%= link_to destroy_user_session_path, class: 'navbar-item'  do %>
-                <i class="fa fa-fw fa-sign-out" aria-hidden="true"></i>
+                <i class="fa fa-fw fa-sign-out-alt" aria-hidden="true"></i>
                  Log Out
             <% end %>
           </li>

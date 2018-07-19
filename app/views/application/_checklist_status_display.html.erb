@@ -17,7 +17,7 @@
   <script>
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'checklist_status_display' }});
   </script>
-  <p class="lead row bg-info execution-status"><i class="fa fa-fw fa-refresh fa-spin text-info"></i> In Progress</p>
+  <p class="lead row bg-info execution-status"><i class="fas fa-fw fa-spin fa-sync-alt text-info"></i> In Progress</p>
 <% end %>
 
 <table class = 'table table-hover table-condensed'>

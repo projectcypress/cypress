@@ -68,12 +68,12 @@
         <td class="tracker-status">
           <%= tracker.status %>
           <% if tracker.status == :working %>
-            <i class="fa fa-fw fa-refresh fa-spin inline-icon info-icon"></i>
+            <i class="fas fa-fw fa-spin fa-sync-alt"></i>
           <% end %>
         </td>
         <td><%= tracker.log_message.last%></td>
         <td>
-          <%= link_to "", admin_tracker_path(tracker), :method => :delete, :class => "close fa fa-fw fa-close" if tracker.status == :failed %>
+          <%= link_to "", admin_tracker_path(tracker), :method => :delete, :class => "close fa fa-fw fa-times" if tracker.status == :failed %>
         </td>
       </tr>
       <% end %>
