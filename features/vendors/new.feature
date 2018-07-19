@@ -6,8 +6,7 @@ Background:
 
 Scenario: Successful Create Vendor
   When the user creates a vendor with appropriate information
-  Then the user should see a notification saying the vendor was created
-  And the user should see the vendor name
+  Then the user should see the vendor name
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 

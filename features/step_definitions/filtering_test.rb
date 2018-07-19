@@ -11,31 +11,24 @@ And(/^the user has created a vendor with a product selecting C4 testing$/) do
   bundle_id = Bundle.default._id
   @vendor = Vendor.create!(name: 'test_vendor_name')
   @product = @vendor.products.create!(name: 'test_product_name', c1_test: true, c4_test: true, measure_ids: measure_ids, bundle_id: bundle_id)
-  @m_test = @product.product_tests.create!({ name: 'Measure Test 1', cms_id: 'CMS31v3', measure_ids: measure_ids }, MeasureTest)
-
-  criteria = %w[races ethnicities]
-  options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
-  @f_test1 = FilteringTest.new(name: 'test_for_measure_1a', cms_id: 'CMS31v3', product: @product, incl_addr: true, options: options,
-                               measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
-  @f_test1.save!
-  @f_test1.generate_records
-  @f_test1.reload
-  @f_test1.pick_filter_criteria
-  @f_test1.calculate
-
-  criteria = %w[genders age]
-  options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
-  @f_test2 = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
-                               measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
-  @f_test2.save!
-  @f_test2.generate_records
-  @f_test2.reload
-  @f_test2.pick_filter_criteria
-
-  checklist_test = @product.product_tests.create!({ name: 'my checklist test', measure_ids: measure_ids }, ChecklistTest)
-  checklist_test.tasks.create!({}, C1ChecklistTask)
-
+  product_params = { 'name' => 'params',
+                     'version' => '',
+                     'description' => '',
+                     'randomize_patients' => '1',
+                     'duplicate_patients' => '1',
+                     'shift_patients' => '0',
+                     'bundle_id' => bundle_id,
+                     'measure_selection' => 'custom',
+                     'cert_edition' => '2015',
+                     'c1_test' => '1',
+                     'c2_test' => '0',
+                     'c3_test' => '0',
+                     'c4_test' => '1',
+                     'measure_ids' => measure_ids }
+  @product.update_with_measure_tests(product_params)
   wait_for_all_delayed_jobs_to_run
+  @f_test1 = @product.product_tests.filtering_tests[0]
+  @f_test2 = @product.product_tests.filtering_tests[1]
 end
 
 And(/^the user visits the product show page with the filter test tab selected$/) do
@@ -112,7 +105,7 @@ end
 
 Then(/^the user should see a list of expected patients$/) do
   page.assert_text 'Expected Result Patient List'
-  assert page.has_selector?('table tbody tr', count: @f_test1.filtered_records.length), 'different count'
+  assert page.has_selector?('table tbody tr', count: @f_test1.filtered_patients.length), 'different count'
 end
 
 Then(/^the user should see a Total row$/) do

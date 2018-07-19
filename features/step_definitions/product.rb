@@ -262,7 +262,7 @@ When(/^all product tests have a state of ready$/) do
 end
 
 When(/^all product tests do not have a state of ready$/) do
-  pt = ProductTest.find_by(:cms_id => 'CMS1234')
+  pt = ProductTest.find_by(:cms_id => 'CMS127v7')
   pt.state = :nah_man_im_like_lightyears_away_from_bein_ready
   pt.save!
 end
@@ -451,7 +451,7 @@ Then(/^the user should see a notification saying the product was deprecated$/) d
 end
 
 Then(/^the shift_records option should not be pre-selected$/) do
-  assert page.has_unchecked_field?('product_shift_records'), 'shift_records should not be selected'
+  assert page.has_unchecked_field?('product_shift_patients'), 'shift_records should not be selected'
 end
 
 # V V V Measure Selection V V V

@@ -6,13 +6,11 @@ Background:
 
 Scenario: Successful Edit Vendor
   When the user edits the vendor
-  Then the user should see a notification saying the vendor has been edited
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
 Scenario: Successful Remove Vendor
   When the user removes the vendor
-  Then the user should see a notification saying the vendor has been removed
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 

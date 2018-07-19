@@ -103,7 +103,6 @@ end
 
 Then(/^the user sees details$/) do
   page.assert_text "Patient Information for #{@patient.first_names} #{@patient.familyName}"
-  page.assert_text display_time(@patient.birthDatetime)
   page.assert_text full_gender_name(@patient.gender)
   SECTIONS.each do |section|
     page.assert_text section.titleize
