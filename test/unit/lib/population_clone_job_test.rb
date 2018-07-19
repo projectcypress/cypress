@@ -42,7 +42,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     pcj.perform
     prov = Provider.where(default: true).first
     assert_equal 11, Patient.count
-    patients_with_provider = Patient.where('extendedData.correlation_id': @pt.id, 'extendedData.provider_performances': { :$exists => true } )
+    patients_with_provider = Patient.where('extendedData.correlation_id': @pt.id, 'extendedData.provider_performances': { :$exists => true })
     assert_equal 1, patients_with_provider.keep_if { |pt| pt.provider.id == prov.id }.size
   end
 

@@ -7,9 +7,9 @@ FactoryBot.define do
     end
 
     familyName 'MPL record'
-    givenNames {["#{seq_id}"]}
+    givenNames { [seq_id.to_s] }
     qdmVersion '5.3'
-    birthDatetime DateTime.new(1940,1,1)
+    birthDatetime DateTime.new(1940, 1, 1).utc
     extended_data_value = {
       'medical_record_assigner' => 'Bonnie',
       'notes' => "70yo female; DExcl 56,90 Num 127,130 DExcep 139,149\n*17qdes\n*Pt w h/o advancing dementia and heart failure. Suffered multiple fractures requiring surgery and occ therapy.",
@@ -46,10 +46,10 @@ FactoryBot.define do
         '_type' => 'QDM::ProcedurePerformed'
       },
       {
-        'dataElementCodes' => [ 
+        'dataElementCodes' => [
           {
-              'codeSystem' => 'SNOMED-CT',
-              'code' => '24'
+            'codeSystem' => 'SNOMED-CT',
+            'code' => '24'
           }
         ],
         '_type' => 'QDM::Diagnosis',
@@ -63,7 +63,7 @@ FactoryBot.define do
           'high' => '2012-09-28T08:00:00+00:00',
           'lowClosed' => true,
           'highClosed' => true
-        },
+        }
       },
       {
         'category' => 'encounter',
@@ -158,7 +158,7 @@ FactoryBot.define do
     factory :static_test_patient do
       familyName 'A'
       givenNames ['Dental_Peds']
-      birthDatetime DateTime.new(1940,1,1)
+      birthDatetime DateTime.new(1940, 1, 1).utc
       extendedData do
         { 'medical_record_number' => '1234' }.merge(extended_data_value)
       end

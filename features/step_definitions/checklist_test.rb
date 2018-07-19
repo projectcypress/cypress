@@ -72,13 +72,15 @@ When(/^the user fills out the record sample with good data$/) do
   @test.save!
   visit product_checklist_test_path(@product, @test)
   page.fill_in 'product_test[checked_criteria_attributes][0][code]', with: '4080'
-  page.fill_in 'product_test[checked_criteria_attributes][0][recorded_result]', with: '4896'
+  page.fill_in 'product_test[checked_criteria_attributes][0][attribute_code]', with: '428361000124107'
   page.click_button 'Save'
 end
 
 def simplify_source_data_criteria(test)
-  criterias = test.checked_criteria[0, 1] # only use first criteria
-  test.checked_criteria = criterias
+  criteria = test.checked_criteria[0, 1]
+  criteria[0].source_data_criteria = 'EncounterInpatient_EncounterPerformed_59c3933e_c568_4119_b89d_c29b7c752ef3_source'
+  criteria[0].attribute_index = 1
+  test.checked_criteria = criteria
   test.save!
 end
 

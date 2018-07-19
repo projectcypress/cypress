@@ -8,8 +8,7 @@ class AttributeExtractorTest < ActiveSupport::TestCase
   def test_start_datetime
     source_criteria = {  'title' => 'Decision to Admit to Hospital Inpatient',
                          'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.295',
-                         'attributes' => [{ 'attribute_name' => 'authorDatetime', 'attribute_valueset' => nil }]
-                      }
+                         'attributes' => [{ 'attribute_name' => 'authorDatetime', 'attribute_valueset' => nil }] }
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_order_start_datetime.xml')).read
     code = '19951005'
     doc = get_document(file)

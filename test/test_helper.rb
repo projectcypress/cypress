@@ -64,9 +64,7 @@ class ActiveSupport::TestCase
     criteria[0].attribute_code = '428361000124107'
     criteria[0].attribute_complete = true
     criteria[0].result_complete = true
-    if include_attribute_code
-      criteria[0].passed_qrda = true
-    end
+    criteria[0].passed_qrda = true if include_attribute_code
     test.checked_criteria = criteria
     test.save!
   end
