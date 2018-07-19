@@ -9,11 +9,10 @@ class PatientZipperTest < ActiveSupport::TestCase
     @patients = Patient.all.to_a.select { |p| p.gender == 'F' }
 
     prov = Provider.default_provider
-    prov_json = JSON.generate([{ provider_id: prov.id }])
 
-    @patients.each do |patient|
-      patient.extendedData['provider_performances'] = JSON.generate([{ provider_id: prov.id }])
-      patient.save!
+    @patients.each do |p|
+      p.extendedData['provider_performances'] = JSON.generate([{ provider_id: prov.id }])
+      p.save!
     end
   end
 

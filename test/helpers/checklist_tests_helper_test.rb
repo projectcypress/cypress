@@ -4,12 +4,11 @@ class ChecklistTestsHelperTest < ActiveSupport::TestCase
   include ChecklistTestsHelper
 
   def test_checklist_test_criteria_attribute
-    measure = FactoryBot.create(:static_measure)
     c1 = {}
     c2 = {}
     c3 = {}
 
-    c1[:attributes] = [{:attribute_name => 'Test' }]
+    c1[:attributes] = [{ attribute_name: 'Test' }]
     assert_equal 'Test', checklist_test_criteria_attribute(c1, 0)
 
     c2[:value] = { type: 'IVL_PQ',

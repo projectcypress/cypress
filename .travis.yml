@@ -40,15 +40,15 @@ before_script:
 env:
   - TEST_SUITE=cucumber
   - TEST_SUITE=audit
-  # - TEST_SUITE=models
+  - TEST_SUITE=models
   - TEST_SUITE=controllers
-  # - TEST_SUITE=helpers
-  # - TEST_SUITE=jobs
-  # - TEST_SUITE=units
-  # - TEST_SUITE=benchmark
+  - TEST_SUITE=helpers
+  - TEST_SUITE=jobs
+  - TEST_SUITE=units
+  - TEST_SUITE=benchmark
 script:
   - 'if [ ${TEST_SUITE} = "cucumber" ]; then
-      bundle exec cucumber features/records;
+      bundle exec cucumber;
     elif [ ${TEST_SUITE} = "audit" ]; then
       bundle exec brakeman -qAzw1 &&
       bundle exec bundle-audit check --update &&

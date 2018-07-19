@@ -140,7 +140,7 @@ class C1TaskTest < ActiveSupport::TestCase
 
   def test_task_good_results_should_pass
     task = @product_test.tasks.create({}, C1Task)
-    testfile = Tempfile.new(['good_results_debug_file', '.zip']) 
+    testfile = Tempfile.new(['good_results_debug_file', '.zip'])
     testfile.write task.good_results
     perform_enqueued_jobs do
       te = task.execute(testfile, User.first)
@@ -149,7 +149,6 @@ class C1TaskTest < ActiveSupport::TestCase
       assert_equal 0, te.execution_errors.where(:msg_type => :error).count, 'test execution with known good results should have no errors'
     end
   end
-end
 
   # def test_should_be_able_to_tell_when_potentialy_too_much_data_is_in_documents
   #   # ptest = ProductTest.find('51703a883054cf84390000d3')
@@ -162,6 +161,7 @@ end
   #       'required by the measures. Valuesets in file not in measures tested 1.17.18.19\'', :msg_type => :warning).count
   #   end
   # end
+end
 
 require_relative '../helpers/caching_test'
 class C1TaskCachingTest < CachingTest

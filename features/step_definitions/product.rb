@@ -255,6 +255,7 @@ When(/^the user cancels removing the product$/) do
 end
 
 When(/^all product tests have a state of ready$/) do
+  wait_for_all_delayed_jobs_to_run
   ProductTest.all.each do |pt|
     pt.state = :ready
     pt.save!
@@ -339,10 +340,12 @@ And(/^the user removes the supplemental test artifact from the product$/) do
 end
 
 When(/^all test executions for product test (.*) have the state of (.*)$/) do |product_test_number, execution_state|
+  wait_for_all_delayed_jobs_to_run
   give_all_test_executions_state(nth_measure_test(product_test_number), execution_state)
 end
 
 When(/^all test executions for filtering test (.*) have the state of (.*)$/) do |filtering_test_number, execution_state|
+  wait_for_all_delayed_jobs_to_run
   give_all_test_executions_state(nth_filtering_test(filtering_test_number), execution_state)
 end
 

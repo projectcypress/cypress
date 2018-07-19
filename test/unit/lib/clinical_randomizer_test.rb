@@ -4,21 +4,21 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
   setup do
     @patient = Patient.new(givenNames: ['Foo'], familyName: 'Bar')
     @bundle = FactoryBot.create(:static_bundle)
-    @start = DateTime.new(2011,1,1,0,0,0)
-    @end = DateTime.new(2011,12,31,23,59,59)
+    @start = DateTime.new(2011, 1, 1, 0, 0, 0).utc
+    @end = DateTime.new(2011, 12, 31, 23, 59, 59).utc
     @bundle.measure_period_start = 1_293_840_000
     @bundle.effective_date = 1_325_375_999
     @patient.bundleId = @bundle.id
 
-    @patient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011,3,31,23,59,59), nil))
-    @patient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011,10,1,23,59,59), nil))
+    @patient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
+    @patient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 10, 1, 23, 59, 59).utc, nil))
     @patient.save!
 
     @patient2 = Patient.new(givenNames: ['Bar'], familyName: 'Foo')
     @patient2.bundleId = @bundle.id
-    @patient2.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011,3,31,23,59,59), nil))
-    @patient2.dataElements.push QDM::ProcedurePerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011,10,1,23,59,59), nil))
-    @patient2.dataElements.push QDM::Diagnosis.new(prevalencePeriod: QDM::Interval.new(DateTime.new(2011,10,2,0,0,0), nil))
+    @patient2.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
+    @patient2.dataElements.push QDM::ProcedurePerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 10, 1, 23, 59, 59).utc, nil))
+    @patient2.dataElements.push QDM::Diagnosis.new(prevalencePeriod: QDM::Interval.new(DateTime.new(2011, 10, 2, 0, 0, 0).utc, nil))
     @patient2.save!
 
     setup_secondary_instances
@@ -27,23 +27,23 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
   def setup_secondary_instances
     @patient3 = Patient.new(givenNames: ['Insurance'], familyName: 'Test')
     @patient3.bundleId = @bundle.id
-    @patient3.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011,3,31,23,59,59), nil))
+    @patient3.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
     @patient3.extendedData = { 'insurance_providers' => JSON.generate([{ start_time: @start }]) }
     @patient3.save!
 
     @patient4 = Patient.new(givenNames: ['SplitDate'], familyName: 'Same')
     @patient4.bundleId = @bundle.id
-    @patient4.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011,3,31,23,59,59), nil))
-    @patient4.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011,3,31,23,59,59), nil))
+    @patient4.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
+    @patient4.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
     @patient4.extendedData = { 'insurance_providers' => JSON.generate([{ start_time: @start }]) }
     @patient4.save!
 
     @patient5 = Patient.new(givenNames: ['SplitDate'], familyName: 'Same_plus')
     @patient5.bundleId = @bundle.id
-    @patient5.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011,3,24,20,53,20), nil))
-    @patient5.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011,3,31,23,59,59), nil))
-    @patient5.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011,3,31,23,59,59), nil))
-    @patient5.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011,4,5,10,40,0), nil))
+    @patient5.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 24, 20, 53, 20).utc, nil))
+    @patient5.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
+    @patient5.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
+    @patient5.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 4, 5, 10, 40, 0).utc, nil))
     @patient5.extendedData = { 'insurance_providers' => JSON.generate([{ start_time: @start }]) }
     @patient5.save!
   end
@@ -62,9 +62,9 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
   end
 
   def test_find_dates
-    detect_date = DateTime.new(2011,3,31,23,59,59)
-    assert_equal Cypress::ClinicalRandomizer.find_first_date_after(@patient.dataElements, detect_date), DateTime.new(2011,10,1,23,59,59), 'Should return the only entry after the detect_date'
-    assert_equal Cypress::ClinicalRandomizer.find_last_date_before(@patient.dataElements, detect_date), DateTime.new(2011,3,31,23,59,59), 'Should return the only entry before the detect_date'
+    detect_date = DateTime.new(2011, 3, 31, 23, 59, 59).utc
+    assert_equal Cypress::ClinicalRandomizer.find_first_date_after(@patient.dataElements, detect_date), DateTime.new(2011, 10, 1, 23, 59, 59).utc, 'Should return the only entry after the detect_date'
+    assert_equal Cypress::ClinicalRandomizer.find_last_date_before(@patient.dataElements, detect_date), DateTime.new(2011, 3, 31, 23, 59, 59).utc, 'Should return the only entry before the detect_date'
   end
 
   def test_randomize_by_type

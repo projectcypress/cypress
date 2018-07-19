@@ -231,7 +231,6 @@ class RecordFilterTest < ActiveSupport::TestCase
   def test_provider_filter
     patients = Patient.all
     prov = Provider.default_provider
-    prov_json = JSON.generate([{ provider_id: prov.id }])
 
     patients.each do |patient|
       patient.extendedData['provider_performances'] = JSON.generate([{ provider_id: prov.id }])
