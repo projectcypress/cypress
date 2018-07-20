@@ -45,7 +45,7 @@ module Validators
       "#{hqmf_qrda_tuple['hqmf_name']}:"
     end
 
-    def parse_and_save_record(doc)
+    def parse_and_save_record(doc, options)
       patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
       Cypress::GoImport.replace_negated_codes(patient, @bundle)
       patient.save
@@ -61,7 +61,7 @@ module Validators
       mrn, = get_record_identifiers(doc, options)
       return false unless mrn
 
-      record = parse_and_save_record(doc)
+      record = parse_and_save_record(doc, options)
       return false unless record
 
       # This Logic will need to be updated with CQL calculations
