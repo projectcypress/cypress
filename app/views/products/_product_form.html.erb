@@ -54,12 +54,12 @@
               <%= f.form_group class: supplement_file_errors ? '' : 'has-error', help: "Upload an additional file which will be available for download to anyone viewing this product. Allowed filetypes are #{product.supplemental_test_artifact.extension_white_list.join(', ')}." do %>
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                   <div class="form-control" data-trigger="fileinput">
-                    <i class="fa fa-fw fa-file fileinput-exists"></i>
+                    <%= icon('fas fileinput-exists', 'file', :"aria-hidden" => true) %>
                     <span class="fileinput-filename"></span>
                   </div>
                     <span class="input-group-addon btn btn-info btn-file active">
-                    <span class="fileinput-new" data-trigger="fileinput"><i class="fa fa-fw fa-mouse-pointer"></i> Select file</span>
-                    <span class="fileinput-exists" data-trigger="fileinput"><i class="fa fa-fw fa-refresh"></i> Change</span>
+                    <span class="fileinput-new" data-trigger="fileinput"><%= icon('fas', 'mouse-pointer', :"aria-hidden" => true) %> Select file</span>
+                    <span class="fileinput-exists" data-trigger="fileinput"><%= icon('fas', 'sync-alt', :"aria-hidden" => true) %> Change</span>
                     <span style="display:none;">
                       <%= f.file_field :supplemental_test_artifact, class: 'upload-results hidden', :aria => { label: 'supplemental_test_artifact_label' } %>
                     </span>

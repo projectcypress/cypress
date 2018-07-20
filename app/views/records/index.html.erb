@@ -15,7 +15,7 @@
       </div>
     <% end %>
     <%= button_to html_patients_product_test_path(@product_test), :method => :get, :class => "btn btn-default" do %>
-      <i class="fa fa-fw fa-download" aria-hidden="true"></i> Download HTML Patients
+      <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download HTML Patients
     <% end %>
   </div>
 

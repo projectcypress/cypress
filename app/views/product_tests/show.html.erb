@@ -27,13 +27,13 @@
     <div class="panel panel-info">
       <div class="panel-heading">
         <h1 class="panel-title test-step">
-          1 <i class="fa fa-fw fa-bolt" aria-hidden="true"></i> Download Test Deck
+          1 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> Download Test Deck
         </h1>
       </div>
       <div class="panel-body">
         <%= form_for @product_test, url: { action: 'patients' }, :html => { :method => 'GET' } do |f| %>
           <%= button_tag(type: 'submit', class: 'btn btn-info btn-block') do %>
-            <i class = 'fa fa-fw fa-download'></i> Download CAT 1 (.zip)
+            <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download CAT 1 (.zip)
           <% end %>
         <% end %>
       </div>
@@ -43,7 +43,7 @@
   <div class = 'col-sm-6'>
     <h1 class = 'pull-left'>Current Test Status</h1>
     <button class = 'btn btn-primary pull-right'>
-      <i class = 'fa fa-fw fa-download'></i> Download Full Report
+      <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download Full Report
     </button>
     <table class = 'table table-condensed'>
       <thead>
@@ -94,7 +94,7 @@
       <div class="panel panel-info">
         <div class="panel-heading">
           <h1 class="panel-title">
-            2 <i class="fa fa-fw fa-bolt" aria-hidden="true"></i> <%= "Upload for #{tab_label_1}" %>
+            2 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> <%= "Upload for #{tab_label_1}" %>
           </h1>
         </div>
         <div class="panel-body">
@@ -117,7 +117,7 @@
       <div class="panel panel-info">
         <div class="panel-heading">
           <h1 class="panel-title">
-            2 <i class="fa fa-fw fa-bolt" aria-hidden="true"></i> <%= "Upload for #{tab_label_2}" %>
+            2 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> <%= "Upload for #{tab_label_2}" %>
           </h1>
         </div>
         <div class="panel-body">

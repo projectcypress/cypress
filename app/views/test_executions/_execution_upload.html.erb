@@ -28,7 +28,7 @@
 <%= form_for(TestExecution.new, :html => { method: :post, :multipart => true }, url: task_test_executions_path(task)) do |f| %>
   <div class="fileinput fileinput-new input-group" data-provides="fileinput">
     <div class="form-control" data-trigger="fileinput">
-      <i class="fa fa-fw fa-file fileinput-exists"></i>
+      <%= icon('fas fa-fw fileinput-exists', 'file', :"aria-hidden" => true) %>
       <span class="fileinput-filename"></span>
     </div>
     <% if disable %>
@@ -36,10 +36,10 @@
     <% else %>
       <span class="input-group-addon btn btn-info btn-file active">
     <% end %>
-      <span class="fileinput-new" data-trigger="fileinput"><i class="fa fa-fw fa-mouse-pointer"></i> Select file</span>
-      <span class="fileinput-exists" data-trigger="fileinput"><i class="fa fa-fw fa-refresh"></i> Change</span>
+      <span class="fileinput-new" data-trigger="fileinput"><%= icon('fas', 'mouse-pointer', :"aria-hidden" => true) %> Select file</span>
+      <span class="fileinput-exists" data-trigger="fileinput"><%= icon('fas', 'sync-alt', :"aria-hidden" => true) %> Change</span>
       <%= file_field_tag :results, class: 'upload-results hidden', :disabled => disable, accept: accept_type, :aria => { label: 'execution_upload_label', hidden: true } %>
     </span>
-    <a id = 'submit-upload' class="input-group-addon fileinput-exists btn btn-success"><i class="fa fa-fw fa-upload"></i> Upload</a>
+    <a id = 'submit-upload' class="input-group-addon fileinput-exists btn btn-success"><%= icon('fas', 'upload', :"aria-hidden" => true) %> Upload</a>
   </div>
 <% end %>

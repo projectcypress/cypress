@@ -43,9 +43,9 @@
                       <td rowspan="3" class='data-criteria hide-me'>
                         <% if criteria_field.object.passed_qrda %>
                           <span class="sr-only">Passes QRDA</span>
-                          <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
+                          <%= icon('fas fa-fw text-success', 'check', :"aria-hidden" => true) %>
                         <% else %>
-                          <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
+                          <%= icon('fas fa-fw text-info invisible', 'play-circle', :"aria-hidden" => true) %>
                         <% end %>
                       </td>
                       <% valuessets = criteria_field.object.get_all_valuesets_for_dc(measure) %>
@@ -84,13 +84,13 @@
                           </td>
                           <td class='hide-me'>
                             <% if criteria_field.object.complete?.nil? %>
-                            <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
+                            <%= icon('fas fa-fw text-info invisible', 'play-circle', :"aria-hidden" => true) %>
                             <% elsif criteria_field.object.negated_valueset %>
-                            <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
+                            <%= icon('fas fa-fw text-success', 'check', :"aria-hidden" => true) %>
                             <% elsif criteria_field.object.code_complete %>
-                            <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
+                            <%= icon('fas fa-fw text-success', 'check', :"aria-hidden" => true) %>
                             <% else %>
-                            <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
+                            <%= icon('fas fa-fw text-danger', 'times', :"aria-hidden" => true) %>
                             <% end %>
                             <% if criteria_field.object.negated_valueset %>
                            <%= criteria_field.select :selected_negated_valueset, valuessets.collect{ |vs| ["#{lookup_valueset_name(vs)} - #{vs}", vs] }, class: 'hide-me' %>
@@ -127,22 +127,22 @@
                         <% if coded_attribute?(criteria, checked_criteria.attribute_index) %>
                           <td class='hide-me'>
                             <% if criteria_field.object.complete?.nil? %>
-                              <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
+                              <%= icon('fas fa-fw text-info invisible', 'play-circle', :"aria-hidden" => true) %>
                             <% elsif criteria_field.object.attribute_complete %>
-                              <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
+                              <%= icon('fas fa-fw text-success', 'check', :"aria-hidden" => true) %>
                             <% else %>
-                              <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
+                              <%= icon('fas fa-fw text-danger', 'times', :"aria-hidden" => true) %>
                             <% end %>
                             <%= criteria_field.text_field :attribute_code, hide_label: false, class: 'hide-me' %>
                           </td>
                         <% elsif criteria['value'] && criteria['value'].type != 'CD' || criteria['attributes'] %>
                           <td class='hide-me'>
                             <% if criteria_field.object.complete?.nil? %>
-                              <i class = 'fa fa-fw fa-play-circle text-info invisible' aria-hidden="true"></i>
+                              <%= icon('fas fa-fw text-info invisible', 'play-circle', :"aria-hidden" => true) %>
                             <% elsif criteria_field.object.result_complete %>
-                              <i class = 'fa fa-fw fa-check text-success' aria-hidden="true"></i>
+                              <%= icon('fas fa-fw text-success', 'check', :"aria-hidden" => true) %>
                             <% else %>
-                              <i class = 'fa fa-fw fa-times text-danger' aria-hidden="true"></i>
+                              <%= icon('fas fa-fw text-danger', 'times', :"aria-hidden" => true) %>
                             <% end %>
                             <%= criteria_field.text_field :recorded_result, hide_label: false, class: 'hide-me' %>
                           </td>

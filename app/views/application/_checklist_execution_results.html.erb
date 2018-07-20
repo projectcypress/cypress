@@ -27,7 +27,7 @@
       <% unless execution.nil? %>
         <td><%= link_to 'View Results', new_task_test_execution_path(execution.task) %></td>
       <% else %>
-        <td>  <i aria-hidden = 'true' class = 'far fa-fw fa-circle text-info'></i>
+        <td> <%= icon('far fa-fw text-info', 'circle', :"aria-hidden" => true) %>
           <span class = 'text-info'>Not Started</span>
         </td>
       <% end %>
@@ -40,20 +40,20 @@
         <% unless execution.nil? %>
           <% case status_with_sibling %>
           <% when 'passing' %>
-            <i aria-hidden = 'true' class = 'fa fa-fw fa-check text-success'></i>
+            <%= icon('fas fa-fw text-success', 'check', :"aria-hidden" => true) %>
             <strong class = 'text-success'>Passing</strong>
           <% when 'failing' %>
-            <i aria-hidden = 'true' class = 'fa fa-fw fa-times text-danger'></i>
+            <%= icon('fas fa-fw text-danger', 'times', :"aria-hidden" => true) %>
             <strong class = 'text-danger'>Failing</strong>
           <% when 'errored' %>
-            <i aria-hidden = 'true' class = 'fa fa-fw fa-exclamation text-warning'></i>
+            <%= icon('fas fa-fw text-warning', 'exclamation', :"aria-hidden" => true) %>
             <strong class = 'text-warning'>Errored</strong>
           <% else %>
-            <i aria-hidden = 'true' class = 'far fa-fw fa-circle text-info'></i>
+            <%= icon('far fa-fw text-info', 'circle', :"aria-hidden" => true) %>
             <strong class = 'text-info'>In Progress</strong>
           <% end %>
         <% else %>
-          <i aria-hidden = 'true' class = 'far fa-fw fa-circle text-info'></i>
+          <%= icon('far fa-fw text-info', 'circle', :"aria-hidden" => true) %>
           <span class = 'text-info'>Not Started</span>
         <% end %>
       </td>

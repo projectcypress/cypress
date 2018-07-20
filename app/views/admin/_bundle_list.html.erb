@@ -68,7 +68,7 @@
         <td class="tracker-status">
           <%= tracker.status %>
           <% if tracker.status == :working %>
-            <i class="fas fa-fw fa-spin fa-sync-alt"></i>
+            <%= icon('fas fa-fw', 'sync-alt', :"aria-hidden" => true) %>
           <% end %>
         </td>
         <td><%= tracker.log_message.last%></td>

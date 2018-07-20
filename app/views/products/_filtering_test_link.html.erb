@@ -16,34 +16,34 @@
 
 <% if test.state != :ready %>
   <% if test.state == :queued %>
-    <i class="far fa-fw fa-circle text-muted" aria-hidden="true"></i>
+    <%= icon('far fa-fw text-muted', 'circle', :"aria-hidden" => true) %>
     <span class="label label-default">queued</span>
   <% elsif test.state == :building %>
-    <i class="fa fa-fw fa-cog fa-spin" aria-hidden="true"></i>
+    <%= icon('fas fa-fw fa-spin', 'cog', :"aria-hidden" => true) %>
     <span class="label label-default">building</span>
   <% elsif test.state == :errored %>
-  <i aria-hidden='true' class = 'fa fa-fw fa-exclamation text-warning'</i>
+  <%= icon('fas fa-fw text-warning', 'exclamation', :"aria-hidden" => true) %>
   <strong class="text-info">Internal Error</strong>
   <% end %>
 <% else %>
   <% case status %>
   <% when 'passing' %>
-    <i class = 'fa fa-fw fa-check-circle text-success' aria-hidden="true"></i>
+    <%= icon('fas fa-fw text-success', 'check-circle', :"aria-hidden" => true) %>
     <%= link_to 'view', new_task_test_execution_path(task), :class => "label label-success" %>
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
   <% when 'failing'%>
-    <i class = 'fa fa-fw fa-play-circle text-danger' aria-hidden="true"></i>
+    <%= icon('fas fa-fw text-danger', 'play-circle', :"aria-hidden" => true) %>
     <%= link_to 'retry', new_task_test_execution_path(task), :class => "label label-danger" %>
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
   <% when 'errored'%>
-    <i class = 'fa fa-fw fa-exclamation-circle text-warning' aria-hidden="true"></i>
+    <%= icon('fas fa-fw text-warning', 'exclamation-circle', :"aria-hidden" => true) %>
     <%= link_to 'retry', new_task_test_execution_path(task), :class => "label label-warning" %>
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
   <% when 'pending'%>
-    <i class = 'fa fa-fw fa-gavel fa-spin text-testing' aria-hidden = 'true'></i>
+    <%= icon('fas fa-fw fa-spin text-testing', 'gavel', :"aria-hidden" => true) %>
     <%= link_to 'testing...', new_task_test_execution_path(task), :class => 'label label-default' %>
   <% else %>
-    <i class = 'fa fa-fw fa-play-circle text-info' aria-hidden="true"></i>
+    <%= icon('fas fa-fw text-info', 'play-circle', :"aria-hidden" => true) %>
     <%= link_to 'start', new_task_test_execution_path(task), :class => "label label-info" %>
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
   <% end %>

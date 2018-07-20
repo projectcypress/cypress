@@ -32,17 +32,15 @@
                     <% if value && value.positive? %>
                       <span class="sr-only">Pass</span>
                       <span class="fa-stack result-marker">
-                        <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
-                        <i class="fa fa-circle-thin fa-stack-2x" aria-hidden="true"></i>
+                        <%= icon('fas fa-stack-2x', 'circle', :"aria-hidden" => true) %>
                         <% unless value == 1 && !m.episode_of_care %>
                           <strong class="fa-stack-1x result-text"><span class="sr-only">value of </span><%= value %></strong>
                         <% end %>
                       </span>
                     <% else %>
                       <span class="sr-only">Fail</span>
-                      <i class="fa fa-circle-thin fa-2x empty-marker" aria-hidden="true"></i>
+                      <%= icon('far fa-2x empty-marker', 'circle', :"aria-hidden" => true) %>
                     <% end %>
-                    </span>
                   </td>
                 <% end %>
               </tr>

@@ -19,10 +19,10 @@
           <span>
             <%= button_to vendor_product_favorite_path(product.vendor_id, product), remote: true, :class => "btn btn-link btn-pop" do %>
               <% if (product.favorite_user_ids.include? current_user.id) %>
-                <i class="fas fa-fw fa-star" aria-hidden="true"></i>
+                <%= icon('fas fa-fw', 'star', :"aria-hidden" => true) %>
                 <span class="sr-only">product favorited</span>
               <% else %>
-                <i class="far fa-fw fa-star" aria-hidden="true"></i>
+                <%= icon('far fa-fw', 'star', :"aria-hidden" => true) %>
                 <span class="sr-only">product not favorited</span>
               <% end %>
             <% end %>
@@ -56,7 +56,7 @@
 
       <tr <%= 'hidden' if (status == 'errored' && total.zero?) %>>
         <th scope="row" class="test-status <%= classes['text'] %>">
-          <i aria-hidden="true" class="fa fa-fw <%= classes['icon'] %>"></i>
+          <%= icon("#{classes['type']} fa-fw", classes['icon'], :"aria-hidden" => true) %>
           <span class="total_status_count"><%= total %></span>
           <%= status.humanize %> Tests
         </th>

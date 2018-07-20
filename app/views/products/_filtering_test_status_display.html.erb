@@ -28,7 +28,7 @@
         <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(test.cat3_task) %>">
           <%= render 'filtering_test_link', :test => test, :task => test.cat3_task, :parent_reloading => true %>
         </td>
-        <td class="no-wrap"><i class="fa fa-fw fa-clock-o" aria-hidden="true"></i>
+        <td class="no-wrap"><%= icon('far fa-fw', 'clock', :"aria-hidden" => true) %>
           <%= local_time_ago(test.updated_at) %></td>
       </tr>
     <% end %>

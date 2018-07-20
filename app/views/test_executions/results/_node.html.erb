@@ -59,7 +59,7 @@
         <% btn_errors = '' %>
         <% errors.each { |error| btn_errors << " error_#{error.id}" } %>
         <button type = "button" class="btn btn-warning error-popup-btn pull-right <%= btn_errors %>" data-toggle="popover" data-placement = "bottom" title = '<%= popup_title %>' data-html = 'true' data-content = '<%= popup_content %>'>
-          <i class="fa fa-fw fa-comment" data-error="<%= %{error_#{error_id}} %>" aria-hidden="true"></i> <span><%= popup_button_text %></span>
+          <%= icon('fas fa-fw', 'comment', {:"aria-hidden" => true, :"data-error" => "error_#{error_id}"}) %> <span><%= popup_button_text %></span>
         </button>
       <% end %>
     <% end %>
