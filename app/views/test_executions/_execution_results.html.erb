@@ -7,7 +7,7 @@
 %>
 
 <% if execution.status_with_sibling == 'incomplete' %>
-  <p class="lead row bg-info execution-status"><i class="fas fa-fw fa-spin fa-sync-alt text-info"></i> In Progress</p>
+  <p class="lead row bg-info execution-status"><%= icon('fas fa-fw fa-spin text-info', 'sync-alt', :"aria-hidden" => true) %> In Progress</p>
   <p>You do not need to reload your browser. Results will automatically display when the tests are done running.</p>
   <% # ajax contacts test_execution's show controller action with format: 'js'. controller then directs to show.js.erb which will wait, then re-render %>
   <script>
@@ -21,19 +21,19 @@
     <% [execution, execution.sibling_execution].compact.each do |ex| %>
       <% ex_type = ex.task._type[0, 2] # get first two letters e.g. C1 or C3 %>
       <% if ex.errored? %>
-        <p class="lead row bg-warning execution-status"><i class="fa fa-fw fa-exclamation-circle text-warning" aria-hidden="true"></i> <%= ex_type %> Execution: An internal error occurred</p>
+        <p class="lead row bg-warning execution-status"><%= icon('fas fa-fw text-warning', 'exclamation-circle', :"aria-hidden" => true) %> <%= ex_type %> Execution: An internal error occurred</p>
       <% elsif ex.passing? %>
         <%= render partial: 'test_executions/results/passing_result', locals: { execution: ex, execution_type: ex_type } %>
       <% elsif ex.failing? %>
         <p class="lead row bg-danger execution-status">
-          <i class="fa fa-fw fa-times-circle text-danger" aria-hidden="true"></i> <%= ex_type %> Execution:
+          <%= icon('fas fa-fw text-danger', 'times-circle', :"aria-hidden" => true) %> <%= ex_type %> Execution:
           <%= execution_failure_message(ex) %>
         </p>
       <% end %>
     <% end %>
   <% else %>
     <p class="lead row bg-danger execution-status">
-      <i class="fa fa-fw fa-times-circle text-danger" aria-hidden="true"></i>
+      <%= icon('fas fa-fw text-danger', 'times-circle', :"aria-hidden" => true) %>
       <%= execution_failure_message(execution) %>
     </p>
   <% end %>
@@ -50,7 +50,7 @@
     <h2>Missing or Duplicate Files</h2>
     <ul class="fa-ul">
       <% collected_errors.nonfile.each do |error_message| %>
-        <li><i class="fa-li fa fa-times" aria-hidden="true"></i> <%= error_message %></li>
+        <li><%= icon('fas fa-li', 'times', :"aria-hidden" => true) %> <%= error_message %></li>
       <% end %>
     </ul>
   <% end %>
@@ -66,9 +66,9 @@
               <% if total_errors.positive? %>
                 <div class="file-name">
                   <% if error_result.keys.any? { |s| s != 'Other Warnings' && s != 'CMS Warnings' && error_result[s].execution_errors.count.positive?} %>
-                    <i aria-hidden='true' class='fa fa-fw fa-times text-danger'></i>
+                    <%= icon('fas fa-fw text-danger', 'times', :"aria-hidden" => true) %>
                   <% else %>
-                    <i aria-hidden='true' class='fa fa-fw fa-exclamation-triangle text-warning'></i>
+                    <%= icon('fas fa-fw text-warning', 'exclamation-triangle', :"aria-hidden" => true) %>
                   <% end %>
                   <%= file_name %>
                 </div>
@@ -80,7 +80,7 @@
                 </div>
               <% else %>
                 <div class="file-name">
-                  <i aria-hidden='true' class='fa fa-fw fa-check text-success'></i>
+                  <%= icon('fas fa-fw text-success', 'check', :"aria-hidden" => true) %>
                   <%= file_name %>
                   <span class="sr-only">no errors</span>
                 </div>

@@ -2,24 +2,24 @@
   <div class="btn-group" role="toolbar" aria-label="File error navigation">
     <div class="btn-group" role="group">
       <button type="button" class="btn btn-link nav-link nav-first">
-        <i class = "fa fa-fw fa-fast-backward" aria-hidden="true"></i> First
+        <%= icon('fas fa-fw', 'fast-backward', :"aria-hidden" => true) %> First
       </button>
 
       <button type="button" class="btn btn-link nav-link nav-prev">
-        <i class = "fa fa-fw fa-step-backward" aria-hidden="true"></i> Prev
+        <%= icon('fas fa-fw', 'step-backward', :"aria-hidden" => true) %> Prev
       </button>
 
       <button type="button" class="btn btn-link nav-link nav-next">
-        Next <i class = "fa fa-fw fa-step-forward" aria-hidden="true"></i>
+        Next <%= icon('fas fa-fw', 'step-forward', :"aria-hidden" => true) %>
       </button>
 
       <button type="button" class="btn btn-link nav-link nav-last">
-        Last <i class = "fa fa-fw fa-fast-forward" aria-hidden="true"></i>
+        Last <%= icon('fas fa-fw', 'fast-forward', :"aria-hidden" => true) %>
       </button>
     </div>
     <div class="btn-group" role="group">
       <a href="#results_panel" class="btn btn-link">
-        <i class = "fa fa-arrow-up"></i> Back to top
+        <%= icon('fas', 'arrow-up', :"aria-hidden" => true) %> Back to top
       </a>
     </div>
   </div>

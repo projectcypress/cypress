@@ -5,14 +5,14 @@
 
 <div class="panel-actions pull-right">
   <%= button_to print_criteria_product_checklist_test_path(@product, @product_test), :method => :get, :class => "btn btn-default" do %>
-    <i class="fa fa-fw fa-download" aria-hidden="true"></i> Download Criteria List
+    <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download Criteria List
   <% end %>
 </div>
 <h1>Record Sample</h1>
 <div class = 'test-steps'>
   <div class="panel panel-info">
     <div class="panel-heading">
-      <h1 class="panel-title test-step">1<i class="fa fa-fw fa-bolt" aria-hidden="true"></i>Record Sample Instructions</h1>
+      <h1 class="panel-title test-step"> 1 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> Record Sample Instructions</h1>
     </div>
     <%= render 'checklist_instructions', :instructions => APP_CONSTANTS['tests']['ChecklistTest']['instructions'] %>
   </div>
@@ -21,7 +21,7 @@
   <div class="panel panel-info">
     <div class="panel-heading disable">
       <h1 class="panel-title test-step disable">
-        <%= 2 %> <i class="fa fa-fw fa-bolt" aria-hidden="true"></i> <%= 'Upload Files' %>
+        2 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> <%= 'Upload Files' %>
       </h1>
     </div>
     <div class="panel-body">
@@ -33,7 +33,7 @@
   <div class = 'panel panel-info'>
     <div class = 'panel-heading'>
       <h1 class = 'panel-title test-step'>
-        3 <i class = 'fa fa-fw fa-bolt' aria-hidden = 'true'></i> View Results
+        3 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> View Results
       </h1>
     </div>
     <div class = 'panel-body'>

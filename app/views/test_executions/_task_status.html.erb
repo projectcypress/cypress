@@ -36,11 +36,12 @@
         </div>
         <div class = 'col-sm-6 text-left margin-top-1'>
           <% if task_status == 'passing' %>
-            <i class = 'fa fa-check text-success'></i><strong class = 'text-success'> Passing</strong>
+
+            <%= icon('fas text-success', 'check', :"aria-hidden" => true) %><strong class = 'text-success'> Passing</strong>
           <% elsif task_status == 'failing' %>
-            <i class = 'fa fa-times text-danger'></i><strong class = 'text-danger'> Failing</strong>
+            <%= icon('fas text-danger', 'times', :"aria-hidden" => true) %><strong class = 'text-danger'> Failing</strong>
           <% elsif task_status == 'errored' %>
-            <i class = 'fa fa-exclamation text-warning'></i><strong class = 'text-warning'> Internal Error</strong>
+            <%= icon('fas text-warning', 'exclamation', :"aria-hidden" => true) %><strong class = 'text-warning'> Internal Error</strong>
           <% else # incomplete (in progress b/c execution exists) %>
             <strong class = 'text-info'>In Progress...</strong>
           <% end %>

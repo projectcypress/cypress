@@ -11,16 +11,16 @@
   <div class="panel-body">
     <div class="panel-actions pull-right">
       <%= button_to edit_vendor_product_path(product.vendor_id, product), :method => :get, :class => "btn btn-default" do %>
-        <i class="fa fa-fw fa-wrench" aria-hidden="true"></i> Edit Product
+        <%= icon('fas fa-fw', 'wrench', :"aria-hidden" => true) %> Edit Product
       <% end %>
       <% if current_user.user_role?(:atl) || current_user.user_role?(:admin) %>
         <% unless product.supplemental_test_artifact.file.nil? %>
           <%= button_to supplemental_test_artifact_vendor_product_path(product.vendor_id, product), :method => :get, :class => "btn btn-default" do %>
-            <i class="fa fa-fw fa-download" aria-hidden="true"></i> Download Supplemental Test Artifact
+            <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download Supplemental Test Artifact
           <% end %>
         <% end %>
         <%= button_to report_vendor_product_path(product.vendor_id, product), :method => :get, :class => "btn btn-default" do %>
-          <i class="fa fa-fw fa-download" aria-hidden="true"></i> Download Report
+         <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download Report
         <% end %>
       <% end %>
     </div>

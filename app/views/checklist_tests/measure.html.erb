@@ -4,13 +4,13 @@
 
 <br/>
 <%= link_to(product_checklist_test_path(@product, @product_test), class: 'btn btn-primary') do %>
-  <i class = 'fa fa-fw fa-angle-left' aria-hidden = 'true'></i>Return to Record Sample
+  <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %>Return to Record Sample
 <% end %>
 
 <div class = 'test-steps'>
   <div class="panel panel-info">
     <div class="panel-heading">
-      <h1 class="panel-title test-step">1<i class="fa fa-fw fa-bolt" aria-hidden="true"></i>Checklist Instructions</h1>
+      <h1 class="panel-title test-step">1<%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %>Checklist Instructions</h1>
     </div>
     <%= render 'checklist_instructions', :instructions => APP_CONSTANTS['tests']['ChecklistTest']['instructions'] %>
   </div>
