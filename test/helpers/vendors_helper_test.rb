@@ -150,15 +150,19 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   def test_status_to_css_classes
     assert_equal 'status-passing', status_to_css_classes('passing')['cell']
-    assert_equal 'fa-check', status_to_css_classes('passing')['icon']
+    assert_equal 'check', status_to_css_classes('passing')['icon']
+    assert_equal 'fas', status_to_css_classes('passing')['type']
     assert_equal 'text-success', status_to_css_classes('passing')['text']
     assert_equal 'status-failing', status_to_css_classes('failing')['cell']
-    assert_equal 'fa-times', status_to_css_classes('failing')['icon']
+    assert_equal 'times', status_to_css_classes('failing')['icon']
+    assert_equal 'fas', status_to_css_classes('failing')['type']
     assert_equal 'text-danger', status_to_css_classes('failing')['text']
     assert_equal 'status-not-started', status_to_css_classes('not_started')['cell']
-    assert_equal 'fa-circle-o', status_to_css_classes('not_started')['icon']
+    assert_equal 'circle', status_to_css_classes('not_started')['icon']
+    assert_equal 'far', status_to_css_classes('not_started')['type']
     assert_equal 'text-info', status_to_css_classes('not_started')['text']
-    assert_equal 'fa-exclamation', status_to_css_classes('errored')['icon']
+    assert_equal 'exclamation', status_to_css_classes('errored')['icon']
+    assert_equal 'fas', status_to_css_classes('errored')['type']
     assert_equal 'status-errored', status_to_css_classes('errored')['cell']
     assert_equal 'text-warning', status_to_css_classes('errored')['text']
   end
