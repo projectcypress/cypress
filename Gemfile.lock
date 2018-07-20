@@ -95,20 +95,10 @@ GIT
       zip-zip (~> 0.3)
 
 GIT
-  remote: https://github.com/projecttacoma/cqm-validators
-  revision: 0a88dda78deb27105f1dbfe316a648207a02509a
-  branch: master
+PATH
+  remote: ../cqm-validators
   specs:
     cqm-validators (0.1.0)
-      nokogiri (~> 1.8.2)
-
-GIT
-  remote: https://github.com/turbolinks/turbolinks-classic
-  revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
-  branch: master
-  specs:
-    turbolinks (3.0.0)
-      coffee-rails
 
 GEM
   remote: https://rubygems.org/
@@ -580,11 +570,6 @@ DEPENDENCIES
   cqm-converter!
   cqm-models!
   cqm-parsers!
-<<<<<<< HEAD
-  cucumber (~> 3.0.2)
-=======
-  cqm-validators!
->>>>>>> cqm-validator gem version of cypress
   cucumber-rails
   database_cleaner
   devise (= 4.1.1)
