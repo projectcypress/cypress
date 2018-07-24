@@ -84,15 +84,12 @@ randomization:
       codeCMS    : D
 references:
   bundles:
-    previous:
-      title : 2015 Cypress 3.0 Test Bundle
-      url   : http://demo.projectcypress.org/bundles/bundle-3.0.0-2015.zip
     current:
-      title : 2016 Cypress 3.0 Test Bundle
-      url   : http://demo.projectcypress.org/bundles/bundle-3.0.0-2016.zip
+      title : Cypress bundle for the 2019 Reporting/Performance period (eCQM value sets as of May 4, 2018)
+      url   : https://cypressdemo.healthit.gov/measure_bundles/bundle-2018.zip
   install_guide:
-    title : Cypress 3.0 Initial Setup Instructions
-    url   : https://github.com/projectcypress/cypress/wiki/Cypress-3.0-Initial-Setup
+    title : Cypress Initial Setup Instructions
+    url   : https://github.com/projectcypress/cypress/wiki
 default_provider:
   given_name     : 'Mary'
   family_name    : 'Smith'
@@ -158,7 +155,7 @@ tests:
           - 'If a Data Criteria has value sets listed, an appropriate code needs to be entered into the "Recorded Code" text box.'
           - 'If an Attribute has a value set, an appropriate code needs to be entered into the "Recorded Attribute Code" text box.'
           - 'Codes are validated upon saving.'
-          - 'Result, Date Times, Cumulative Medication Durations, Fulfills, and Length of Stay are to be recorded as free text.  ATLs will record the values they have observed being entered into the system under test.'
+          - 'Result, Date Times, and Related To are to be recorded as free text.  ATLs will record the values they have observed being entered into the system under test.'
       - instruction: 'Create (at least) one patient for each measure below.   Patients may be created using a user interface, or may be created as a structured document to be imported into the system under test.'
         subinstructions:
         - 'There are no requirements on what format the structured data artifact must be.  Could be CCDA, QRDA, or other formats.'
@@ -170,15 +167,11 @@ tests:
       - 'C1'
 
 CPC_measures:
-# 2015 measure list from: https://innovation.cms.gov/Files/x/cpci-ecqm-manual.pdf
-  2015: ['40280381-4600-425F-0146-1F6F722B0F17','40280381-4600-425F-0146-1F5867D40E82','40280381-446B-B8C2-0145-3E1D974A66A3',
-         '40280381-4555-E1C1-0145-762289881C2E','40280381-4600-425F-0146-EE66F0005509','40280381-4555-E1C1-0145-762578A81C4C',
-         '40280381-4555-E1C1-0145-90AC70DE2C73','40280381-4600-425F-0146-1F68661E0ED5','40280381-4600-425F-0146-1F8D3B750FAC',
-         '40280381-4555-E1C1-0145-8652B6BD22D4','40280381-4555-E1C1-0145-672613970D15','40280381-4555-E1C1-0145-DD4E02E44678',
-         '40280381-4555-E1C1-0145-DC7DC26A44BF']
-# 2016 measure list from: https://downloads.cms.gov/files/cmmi/cpci-implementationguide2016.pdf
-  2016: ['40280381-4B9A-3825-014B-C290ABF408CA','40280381-4C18-79DF-014C-2DFA25F60C0E','40280381-4B9A-3825-014B-E10B1E0A13DB',
-         '40280381-4B9A-3825-014B-E0BC5EFD12F0','40280381-4BE2-53B3-014C-13F567921F71','40280381-4BE2-53B3-014C-0F589C1A1C39',
-         '40280381-4B9A-3825-014B-E0A9409212A3','40280381-4CC2-8FFD-014C-D8450C9A0848','40280381-4DE7-DB4D-014D-E861EA2D01A1',
-         '40280381-4B9A-3825-014B-E0C7AC461325','40280381-4BE2-53B3-014B-EBAF72D707C4','40280381-4B9A-3825-014B-C11AE59D069B',
-         '40280381-4BE2-53B3-014C-040DE60D10E1']
+# 2018 measure list from: https://innovation.cms.gov/Files/x/cpcplus-qualrptpy2018.pdf
+  2018: ['40280382-6258-7581-0162-92D6E6DB1680', '40280382-6258-7581-0162-9249C8AB1447', '40280382-6258-7581-0162-927500B514EF',
+'40280382-6258-7581-0162-92959376159D', '40280382-6258-7581-0162-92660F2414B9', '40280382-6258-7581-0162-9241A52A13FD',
+'40280382-6240-B6B9-0162-5467C36A0B71', '40280382-6258-7581-0162-92C7A9811647', '40280382-5FA6-FE85-0160-0ED2838423CA',
+'40280382-6258-7581-0162-63106F9201B2', '40280382-6258-7581-0162-AAAD978C1B8B', '40280382-6240-B6B9-0162-54815A310C2C',
+'40280382-6258-7581-0162-92A37A9B15DF', '40280382-6258-7581-0162-9208CE991364', '40280382-6240-B6B9-0162-5096917708E0',
+'40280382-6258-7581-0162-92877E281530', '40280382-6258-7581-0162-92CDAF46165E', '40280382-610B-E7A4-0161-9A6155603811',
+'40280382-6258-7581-0162-92106B67138D']
