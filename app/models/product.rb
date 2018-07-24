@@ -4,7 +4,7 @@ class Product
   include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps
 
-  before_save :enforce_cert_edition_settings
+  before_save :enforce_duplicate_patient_settings
 
   mount_uploader :supplemental_test_artifact, SupplementUploader
 
@@ -20,7 +20,6 @@ class Product
   field :name, :type => String
   field :version, :type => String
   field :description, :type => String
-  field :cert_edition, :type => String, :default => '2015'
   %i[c1_test c2_test c3_test c4_test].each do |test|
     field test, :type => Boolean, :default => false
   end
@@ -126,7 +125,7 @@ class Product
   end
 
   def slim_test_deck?
-    cert_edition == '2014' || !c2_test
+    !c2_test
   end
 
   def test_deck_max
@@ -154,16 +153,9 @@ class Product
     ApplicationController.helpers.generate_filter_patients(filter_tests)
   end
 
-  # When the 2014 certification edition is enabled, duplicate_patients is always disabled.
-  # Since the default for duplicate_patients is true, we override it here. We also make sure
-  # that c4_test is not somehow set to true.
-  def enforce_cert_edition_settings
-    if cert_edition.eql? '2014'
-      self.duplicate_patients = false
-      self.c4_test = false
-    elsif (cert_edition.eql? '2015') && duplicate_patients.nil?
-      self.duplicate_patients = c2_test
-    end
+  # Here we validate that duplicate_patients is set if c2_test is set
+  def enforce_duplicate_patient_settings
+    self.duplicate_patients = c2_test if duplicate_patients.nil?
 
     true
   end

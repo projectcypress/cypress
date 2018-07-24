@@ -37,24 +37,15 @@ Scenario: Unsuccessful Create Product Because No Task Type Selected
 
 Scenario: Successful Create Product with debug mode off and C2 Type selected
   When debug mode is false
-  When a user creates a 2015 product with c1, c2 certifications and visits that product page
+  When a user creates a product with c1, c2 certifications and visits that product page
   Then the product value for randomize_patients should be true
   Then the product value for duplicate_patients should be true
-  Then the product value for cert_edition should be 2015
 
 Scenario: Successful Create Product with debug mode off and C1 Type selected
   When debug mode is false
-  When a user creates a 2015 product with c1 certifications and visits that product page
+  When a user creates a product with c1 certifications and visits that product page
   Then the product value for randomize_patients should be true
   Then the product value for duplicate_patients should be false
-  Then the product value for cert_edition should be 2015
-
-Scenario: Successful Create Product with debug mode off in 2014 cert mode and C2 Type selected
-  When debug mode is false
-  When a user creates a 2014 product with c1, c2 certifications and visits that product page
-  Then the product value for randomize_patients should be true
-  Then the product value for duplicate_patients should be false
-  Then the product value for cert_edition should be 2014
 
 Scenario: Successful Create Product with Multiple Measures From Different Groups
   When the user creates a product with multiple measures from different groups
@@ -104,35 +95,18 @@ Scenario: Filtering properly hides irrelevant measures and tabs
   And the user types "CMS127v7" into the measure filter box
   Then "CMS127v7" is active on the screen
 
-Scenario: Changing certification type updates options appropriately
+Scenario: Options are appropriately enabled
   When the user navigates to the create product page
-  And the user chooses the "2014" Certification Edition
-  Then "C4 Test" checkbox should be disabled
-  Then "Duplicate Records" checkbox should be disabled
-
-Scenario: Changing certification type back and forth updates options appropriately
-  When the user navigates to the create product page
-  And the user chooses the "2014" Certification Edition
-  And the user chooses the "2015" Certification Edition
   Then "C4 Test" checkbox should be enabled
   Then "C4 Test" checkbox should be unchecked
 
-Scenario: Checking C2 Test updates Duplidate Records appropriately on 2015 cert edition
+Scenario: Checking C2 Test updates Duplicate Records
   When the user navigates to the create product page
-  And the user chooses the "2015" Certification Edition
   And the user chooses the "c2" Certification Type
   Then "Duplicate Records" checkbox should be enabled
   Then "Duplicate Records" checkbox should be checked
   Then "C4 Test" checkbox should be enabled
   Then "C4 Test" checkbox should be unchecked
-
-Scenario: Checking C2 Test updates Duplidate Records appropriately on 2015 cert edition
-  When the user navigates to the create product page
-  And the user chooses the "2014" Certification Edition
-  And the user chooses the "c2" Certification Type
-  Then "Duplicate Records" checkbox should be disabled
-  Then "Duplicate Records" checkbox should be unchecked
-  Then "C4 Test" checkbox should be disabled
 
 Scenario: Successful Cancel Create Product
   When the user cancels creating a product
