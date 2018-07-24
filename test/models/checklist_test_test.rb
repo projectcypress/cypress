@@ -126,6 +126,7 @@ class ChecklistTestTest < ActiveJob::TestCase
 
   def test_inappropriate_code_for_attribute_vs
     @test.create_checked_criteria
+    simplify_criteria(@test)
     checked_criteria = @test.checked_criteria[0]
     checked_criteria.attribute_code = 'thisalsoisntacode'
     checked_criteria.validate_criteria
