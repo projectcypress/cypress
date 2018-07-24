@@ -217,7 +217,7 @@
           <title>Reporting Parameters</title>
           <text>
             <list>
-              <item>Reporting period: January 1st, 2012 00:00 - December 31st, 2012 00:00</item>
+              <item>Reporting period: January 1st, 2017 00:00 - December 31st, 2017 00:00</item>
             </list>
           </text>
           <entry typeCode="DRIV">
@@ -227,8 +227,8 @@
               <id extension="2010-2011"/>
               <code code="252116004" codeSystem="2.16.840.1.113883.6.96" displayName="Observation Parameters"/>
               <effectiveTime>
-                <low value="20120101"/>
-                <high value="20121231"/>
+                <low value="20170101"/>
+                <high value="20171231"/>
               </effectiveTime>
             </act>
           </entry>
@@ -265,8 +265,8 @@
                   <effectiveTime>
                     <!-- We try to look for the admit/discharge times on the encounter if they are
                there. If not, we fall back to the typical start/end date. -->
-                    <low value="20120503000000"/>
-                    <high value="20120503000000"/>
+                    <low value="20170503000000"/>
+                    <high value="20170503000000"/>
                   </effectiveTime>
                 </encounter>
               </entryRelationship>

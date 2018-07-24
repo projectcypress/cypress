@@ -26,7 +26,7 @@ FactoryBot.define do
       measure_id 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
       population_ids population_ids_hash
       supplemental_data supplemental_data_hash
-      effective_date 1_356_998_399
+      effective_date 1_514_764_799
     end
   end
 end

@@ -9,7 +9,7 @@ FactoryBot.define do
       expected_result = { 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE' =>
                           { 'measure_id' => 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE',
                             'nqf_id' => '0024',
-                            'effective_date' => 1_293_840_000,
+                            'effective_date' => 1_514_764_799,
                             'filters' => nil,
                             'IPP' => 1,
                             'DENOM' => 1,

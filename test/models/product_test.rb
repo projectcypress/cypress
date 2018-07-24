@@ -51,7 +51,7 @@ class ProducTest < ActiveSupport::TestCase
     assert_equal Time.zone.at(pt.measure_period_start).hour, Time.zone.at(pt.bundle.measure_period_start).hour
     assert_equal Time.zone.at(pt.measure_period_start).day, Time.zone.at(pt.bundle.measure_period_start).day
     assert_equal Time.zone.at(pt.measure_period_start).month, Time.zone.at(pt.bundle.measure_period_start).month
-    assert_equal Time.zone.at(pt.measure_period_start).year, Time.zone.at(pt.bundle.measure_period_start).year + 7
+    assert_equal Time.zone.at(pt.measure_period_start).year, Time.zone.at(pt.bundle.measure_period_start).year + 2
     # Test that shifted effective time is the last minute of the same year as the measure period start
     assert_equal Time.zone.at(pt.effective_date).year, Time.zone.at(pt.effective_date).year
     assert_equal Time.zone.at(pt.effective_date).min, 59
