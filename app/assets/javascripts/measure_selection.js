@@ -265,31 +265,12 @@ ready_run_once = function() {
     }
   });
 
-  // Changing the certification edition
-  $('.btn-checkbox input[name="product[cert_edition]"]').on('change', function() {
-    if ($(this).attr('disabled') != true) {
-      var edition = $(this).val();
-      if (edition == '2014') {
-        setCheckboxDisabled('#product_duplicate_patients', true);
-        setCheckboxDisabled('#product_c4_test', true);
-      }
-      else if (edition == '2015') {
-        setCheckboxDisabled('#product_duplicate_patients', false);
-        setCheckboxDisabled('#product_c4_test', false);
-        $('.btn-checkbox input[name="product[c2_test]"]').trigger('change');
-      }
-    }
-  });
-
   // Check Duplicate Records on C2 Test check
   $('.btn-checkbox input[name="product[c2_test]"]').on('change', function() {
     if ($(this).attr('disabled') != true) {
-      var edition = $('.btn-checkbox input[name="product[cert_edition]"]:checked').val();
       var c2_checked = $(this).prop('checked');
-      if (edition == '2015') {
-        setCheckboxDisabled('#product_duplicate_patients', !c2_checked);
-        $('.btn-checkbox input[name="product[duplicate_patients]"]').prop('checked', c2_checked);
-      }
+      setCheckboxDisabled('#product_duplicate_patients', !c2_checked);
+      $('.btn-checkbox input[name="product[duplicate_patients]"]').prop('checked', c2_checked);
     }
   });
 

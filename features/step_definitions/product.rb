@@ -43,13 +43,11 @@ When(/^debug mode is (.*)$/) do |debug_mode_value|
 end
 
 # certs argument stands for certifications and should be a comma separated list of some of these values: c1, c2, c3, c4
-When(/^a user creates a (.*) product with (.*) certifications( and a supplemental artifact)? and visits that product page$/) do |cert_ed, certs, sta|
-  certs = certs.split(', ')
+When(/^a user creates a product with (.*) certifications( and a supplemental artifact)? and visits that product page$/) do |certs, sta|
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
   product_name = "mp #{rand}"
   file_path = Rails.root.join('app', 'assets', 'images', 'cypress_bg_cropped.png')
   page.fill_in 'Name', :with => product_name
-  page.choose("#{cert_ed} Edition")
   page.find('#product_c1_test').click if certs.include? 'c1'
   page.find('#product_c2_test').click if certs.include? 'c2'
   page.find('#product_c3_test').click if certs.include? 'c3'
@@ -323,10 +321,6 @@ end
 And(/^the user uploads a cat III document to filtering test (.*)$/) do |filtering_test_number|
   html_id = td_div_id_for_cat3_task_for_filtering_test(filtering_test_number)
   attach_xml_to_multi_upload(html_id)
-end
-
-And(/^the user chooses the "(.*)" Certification Edition$/) do |certification_edition|
-  page.find("#product_cert_edition_#{certification_edition}").click
 end
 
 And(/^the user chooses the "(.*)" Certification Type$/) do |certification_type|

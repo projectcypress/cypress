@@ -19,7 +19,6 @@ And(/^the user has created a vendor with a product selecting C4 testing$/) do
                      'shift_patients' => '0',
                      'bundle_id' => bundle_id,
                      'measure_selection' => 'custom',
-                     'cert_edition' => '2015',
                      'c1_test' => '1',
                      'c2_test' => '0',
                      'c3_test' => '0',
