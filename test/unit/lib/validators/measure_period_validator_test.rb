@@ -37,7 +37,7 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
     errors = @validator.errors
 
     assert_equal 2, errors.length, 'should have 2 errors for the invalid reporting period'
-    assert_equal 'Reported Measurement Period should start on 20120101', errors[0].message
-    assert_equal 'Reported Measurement Period should end on 20121231', errors[1].message
+    assert_equal 'Reported Measurement Period should start on 20170101', errors[0].message
+    assert_equal 'Reported Measurement Period should end on 20171231', errors[1].message
   end
 end

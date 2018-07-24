@@ -13,8 +13,8 @@ FactoryBot.define do
       title 'Static Bundle'
       version '2018.0.0.2'
       extensions { %w[map_reduce_utils hqmf_utils] }
-      measure_period_start 1_325_376_000 # Jan 1 2012
-      effective_date 1_356_998_399 # Dec 31 2012
+      measure_period_start 1_483_228_800 # Jan 1 2017
+      effective_date 1_514_764_799 # Dec 31 2017
 
       after(:create) do |bundle|
         # Load the extensions included in the bundle from the filesystem into mongo

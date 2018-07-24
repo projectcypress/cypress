@@ -20,7 +20,7 @@ FactoryBot.define do
     end
     data_elements_value = [
       {
-        'authorDatetime' => '2012-09-28T08:00:00.000+00:00',
+        'authorDatetime' => '2017-09-28T08:00:00.000+00:00',
         'category' => 'procedure',
         'components' => [],
         'dataElementCodes' => [
@@ -38,8 +38,8 @@ FactoryBot.define do
         'qdmStatus' => 'performed',
         'qdmVersion' => '5.3',
         'relevantPeriod' => {
-          'low' => '2012-09-28T08:00:00+00:00',
-          'high' => '2012-09-28T08:00:00+00:00',
+          'low' => '2017-09-28T08:00:00+00:00',
+          'high' => '2017-09-28T08:00:00+00:00',
           'lowClosed' => true,
           'highClosed' => true
         },
@@ -59,8 +59,8 @@ FactoryBot.define do
         'qdmVersion' => '5.3',
         'description' => 'Diagnosis: Allergy to Eggs',
         'prevalencePeriod' => {
-          'low' => '2012-09-28T08:00:00+00:00',
-          'high' => '2012-09-28T08:00:00+00:00',
+          'low' => '2017-09-28T08:00:00+00:00',
+          'high' => '2017-09-28T08:00:00+00:00',
           'lowClosed' => true,
           'highClosed' => true
         }
@@ -78,8 +78,8 @@ FactoryBot.define do
         'qdmStatus' => 'performed',
         'qdmVersion' => '5.3',
         'relevantPeriod' => {
-          'low' => '2012-09-28T08:00:00+00:00',
-          'high' => '2012-09-28T08:00:00+00:00',
+          'low' => '2017-09-28T08:00:00+00:00',
+          'high' => '2017-09-28T08:00:00+00:00',
           'lowClosed' => true,
           'highClosed' => true
         },
