@@ -43,66 +43,6 @@ GIT
       zip-zip
 
 GIT
-  remote: https://github.com/projecttacoma/cql_qdm_patientapi
-  revision: 90c60a616dc9f4466459cc41be0501aeba7421ac
-  branch: better_codes_and_scalar_error
-  specs:
-    cql_qdm_patientapi (1.0.4)
-      coffee-rails (~> 4.1)
-      rails (~> 4.2)
-      sprockets-rails (~> 2.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-converter
-  revision: 18d30d0d05abbf9edd87549aa2d3f06a3a122f5c
-  branch: master
-  specs:
-    cqm-converter (0.3.4)
-      activesupport
-      coffee-script
-      cqm-models (>= 0.7.2)
-      execjs
-      health-data-standards (>= 4.0.3)
-      momentjs-rails
-      sprockets
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-models
-  revision: 00d5c15613b0022b6fe9674577a8fb1b50a0f72b
-  branch: master
-  specs:
-    cqm-models (0.8.0)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-parsers
-  revision: 711a6aff4d9757baa3446f42984f2c38150b496f
-  branch: qrda
-  specs:
-    cqm-parsers (1.0.0)
-      activesupport (~> 4.2.0)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (~> 5.0.0)
-      mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.1)
-      protected_attributes (~> 1.0.5)
-      rest-client (~> 1.8.0)
-      rubyzip (~> 1.2.1)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-validators
-  revision: 0a88dda78deb27105f1dbfe316a648207a02509a
-  branch: master
-  specs:
-    cqm-validators (0.1.0)
-      nokogiri (~> 1.8.2)
-
-GIT
   remote: https://github.com/turbolinks/turbolinks-classic
   revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
   branch: master
@@ -153,7 +93,7 @@ GEM
     ansi (1.5.0)
     arel (6.0.4)
     ast (2.4.0)
-    autoprefixer-rails (8.5.2)
+    autoprefixer-rails (9.0.0)
       execjs
     axe-matchers (2.1.1)
       dumb_delegator (~> 0.8)
@@ -170,7 +110,7 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     bootstrap_form (2.7.0)
-    brakeman (4.3.0)
+    brakeman (4.3.1)
     breadcrumbs_on_rails (3.0.1)
     bson (4.3.0)
     bson_ext (1.5.1)
@@ -178,11 +118,11 @@ GEM
     bundler-audit (0.6.0)
       bundler (~> 1.2)
       thor (~> 0.18)
-    bunny (2.9.2)
+    bunny (2.11.0)
       amq-protocol (~> 2.3.0)
     byebug (10.0.2)
     cancancan (2.2.0)
-    capybara (3.2.0)
+    capybara (3.4.2)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -198,9 +138,9 @@ GEM
       json (>= 1.7)
       mime-types (>= 1.16)
       mimemagic (>= 0.3.0)
-    carrierwave-mongoid (1.0.0)
+    carrierwave-mongoid (1.1.0)
       carrierwave (>= 0.8, < 1.3)
-      mongoid (>= 3.0, < 7.0)
+      mongoid (>= 3.0, < 8.0)
       mongoid-grid_fs (>= 1.3, < 3.0)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
@@ -222,6 +162,36 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    cql_qdm_patientapi (1.1.4)
+      coffee-rails (~> 4.1)
+      rails (~> 4.2)
+      sprockets-rails (~> 2.3)
+    cqm-converter (0.3.4)
+      activesupport
+      coffee-script
+      cqm-models (>= 0.7.2)
+      execjs
+      health-data-standards (>= 4.0.3)
+      momentjs-rails
+      sprockets
+    cqm-models (0.8.2)
+    cqm-parsers (0.1.1)
+      activesupport (~> 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 5.0.0)
+      mongoid-tree (~> 2.0.0)
+      nokogiri (~> 1.8.3)
+      protected_attributes (~> 1.0.5)
+      rest-client (~> 1.8.0)
+      rubyzip (~> 1.2.1)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+    cqm-validators (0.1.0)
+      nokogiri (~> 1.8.2)
     crass (1.0.4)
     cucumber (3.0.2)
       builder (>= 2.1.2)
@@ -282,7 +252,7 @@ GEM
       railties (>= 3.0.0)
     faker (1.5.0)
       i18n (~> 0.5)
-    ffi (1.9.23)
+    ffi (1.9.25)
     font-awesome-sass (5.0.13)
       sassc (>= 1.11)
     gherkin (4.1.3)
@@ -320,7 +290,7 @@ GEM
     kgio (2.11.2)
     launchy (2.4.3)
       addressable (~> 2.3)
-    local_time (2.0.0)
+    local_time (2.0.1)
     log4r (1.1.10)
     loofah (2.2.2)
       crass (~> 1.0.2)
@@ -340,12 +310,12 @@ GEM
     minitest-rails (2.2.1)
       minitest (~> 5.7)
       railties (~> 4.1)
-    minitest-reporters (1.2.0)
+    minitest-reporters (1.3.1)
       ansi
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    mocha (1.5.0)
+    mocha (1.6.0)
       metaclass (~> 0.0.1)
     modernizr-rails (2.7.1)
     momentjs-rails (2.20.1)
@@ -360,9 +330,9 @@ GEM
     mongoid-compatibility (0.5.1)
       activesupport
       mongoid (>= 2.0)
-    mongoid-grid_fs (2.3.0)
+    mongoid-grid_fs (2.4.0)
       mime-types (>= 1.0, < 4.0)
-      mongoid (>= 3.0, < 7.0)
+      mongoid (>= 3.0, < 8.0)
     mongoid-tree (2.0.1)
       mongoid (>= 4.0, < 6.0)
     multi_json (1.13.1)
@@ -370,7 +340,7 @@ GEM
     mustache (1.0.5)
     nested_form (0.3.2)
     netrc (0.11.0)
-    newrelic_rpm (5.1.0.344)
+    newrelic_rpm (5.2.0.345)
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
     origin (2.3.1)
@@ -380,13 +350,13 @@ GEM
       childprocess (~> 0.6, >= 0.6.3)
       iniparse (~> 1.4)
     parallel (1.12.1)
-    parser (2.5.1.0)
+    parser (2.5.1.2)
       ast (~> 2.4.0)
     poltergeist (1.18.1)
       capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
-    powerpack (0.1.1)
+    powerpack (0.1.2)
     protected_attributes (1.0.9)
       activemodel (>= 4.0.1, < 5.0)
     pry (0.10.4)
@@ -419,7 +389,7 @@ GEM
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
     rails-perftest (0.0.7)
-    rails_best_practices (1.19.2)
+    rails_best_practices (1.19.3)
       activesupport
       code_analyzer (>= 0.4.8)
       erubis
@@ -462,7 +432,7 @@ GEM
       test_xml (>= 0.1.6)
       uber (< 0.2.0)
     rolify (5.2.0)
-    rubocop (0.57.1)
+    rubocop (0.57.2)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.5)
@@ -473,7 +443,7 @@ GEM
     ruby-prof (0.15.9)
     ruby-progressbar (1.9.0)
     rubyzip (1.2.1)
-    sass (3.5.6)
+    sass (3.5.7)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -484,8 +454,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    sassc (1.11.4)
-      bundler
+    sassc (1.12.1)
       ffi (~> 1.9.6)
       sass (>= 3.3.0)
     scss_lint (0.57.0)
@@ -494,7 +463,7 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (3.12.0)
+    selenium-webdriver (3.13.1)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     sexp_processor (4.11.0)
@@ -521,13 +490,13 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uber (0.1.0)
-    uglifier (4.1.10)
+    uglifier (4.1.16)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
     unicode-display_width (1.4.0)
-    unicorn (5.4.0)
+    unicorn (5.4.1)
       kgio (~> 2.6)
       raindrops (~> 0.7)
     unicorn-rails (2.2.1)
@@ -576,11 +545,11 @@ DEPENDENCIES
   carrierwave (~> 0.11.2)
   carrierwave-mongoid
   codecov
-  cql_qdm_patientapi!
-  cqm-converter!
-  cqm-models!
-  cqm-parsers!
-  cqm-validators!
+  cql_qdm_patientapi
+  cqm-converter (~> 0.3.4)
+  cqm-models (~> 0.8.2)
+  cqm-parsers (~> 0.1.1)
+  cqm-validators (~> 0.1.0)
   cucumber (~> 3.0.2)
   cucumber-rails
   database_cleaner
@@ -621,7 +590,7 @@ DEPENDENCIES
   responders
   roar-rails
   rolify
-  rubocop
+  rubocop (~> 0.57.1)
   ruby-prof (~> 0.15.9)
   sass-rails (~> 5.0.4)
   scss_lint
@@ -638,4 +607,4 @@ RUBY VERSION
    ruby 2.3.7p456
 
 BUNDLED WITH
-   1.16.3
+   1.16.2
