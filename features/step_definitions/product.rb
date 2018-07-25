@@ -43,13 +43,11 @@ When(/^debug mode is (.*)$/) do |debug_mode_value|
 end
 
 # certs argument stands for certifications and should be a comma separated list of some of these values: c1, c2, c3, c4
-When(/^a user creates a (.*) product with (.*) certifications( and a supplemental artifact)? and visits that product page$/) do |cert_ed, certs, sta|
-  certs = certs.split(', ')
+When(/^a user creates a product with (.*) certifications( and a supplemental artifact)? and visits that product page$/) do |certs, sta|
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
   product_name = "mp #{rand}"
   file_path = Rails.root.join('app', 'assets', 'images', 'cypress_bg_cropped.png')
   page.fill_in 'Name', :with => product_name
-  page.choose("#{cert_ed} Edition")
   page.find('#product_c1_test').click if certs.include? 'c1'
   page.find('#product_c2_test').click if certs.include? 'c2'
   page.find('#product_c3_test').click if certs.include? 'c3'
@@ -255,6 +253,7 @@ When(/^the user cancels removing the product$/) do
 end
 
 When(/^all product tests have a state of ready$/) do
+  wait_for_all_delayed_jobs_to_run
   ProductTest.all.each do |pt|
     pt.state = :ready
     pt.save!
@@ -262,7 +261,7 @@ When(/^all product tests have a state of ready$/) do
 end
 
 When(/^all product tests do not have a state of ready$/) do
-  pt = ProductTest.find_by(:cms_id => 'CMS1234')
+  pt = ProductTest.find_by(:cms_id => 'CMS127v7')
   pt.state = :nah_man_im_like_lightyears_away_from_bein_ready
   pt.save!
 end
@@ -324,10 +323,6 @@ And(/^the user uploads a cat III document to filtering test (.*)$/) do |filterin
   attach_xml_to_multi_upload(html_id)
 end
 
-And(/^the user chooses the "(.*)" Certification Edition$/) do |certification_edition|
-  page.find("#product_cert_edition_#{certification_edition}").click
-end
-
 And(/^the user chooses the "(.*)" Certification Type$/) do |certification_type|
   page.find("#product_#{certification_type}_test").click
 end
@@ -339,10 +334,12 @@ And(/^the user removes the supplemental test artifact from the product$/) do
 end
 
 When(/^all test executions for product test (.*) have the state of (.*)$/) do |product_test_number, execution_state|
+  wait_for_all_delayed_jobs_to_run
   give_all_test_executions_state(nth_measure_test(product_test_number), execution_state)
 end
 
 When(/^all test executions for filtering test (.*) have the state of (.*)$/) do |filtering_test_number, execution_state|
+  wait_for_all_delayed_jobs_to_run
   give_all_test_executions_state(nth_filtering_test(filtering_test_number), execution_state)
 end
 
@@ -451,7 +448,7 @@ Then(/^the user should see a notification saying the product was deprecated$/) d
 end
 
 Then(/^the shift_records option should not be pre-selected$/) do
-  assert page.has_unchecked_field?('product_shift_records'), 'shift_records should not be selected'
+  assert page.has_unchecked_field?('product_shift_patients'), 'shift_records should not be selected'
 end
 
 # V V V Measure Selection V V V

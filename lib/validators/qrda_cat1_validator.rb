@@ -3,7 +3,7 @@
 module Validators
   class QrdaCat1Validator < QrdaFileValidator
     include Validators::Validator
-    include HealthDataStandards::Validate
+    include ::CqmValidators
 
     self.validator = :qrda_cat1
 
@@ -20,12 +20,12 @@ module Validators
                             [CDA.instance, Cat1R5.instance]
                           end
       @validators = if is_c3_validation_task
-                      [HealthDataStandards::Validate::DataValidator.new(bundle, measures.collect(&:hqmf_id))]
+                      [CqmValidators::DataValidator.new(bundle, measures.collect(&:hqmf_id))]
                     else
                       format_validators
                     end
       @validators += format_validators if is_c3_validation_task && !test_has_c1
-      @validators << HealthDataStandards::Validate::QrdaQdmTemplateValidator.new(bundle.qrda_version)
+      @validators << CqmValidators::QrdaQdmTemplateValidator.new(bundle.qrda_version)
     end
 
     # Validates a QRDA Cat I file.  This routine will validate the file against the CDA schema as well as the

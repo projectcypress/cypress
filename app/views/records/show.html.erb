@@ -4,61 +4,50 @@
 <% unless @product_test && hide_patient_calculation? %>
   <div class="col-md-6">
     <h2>Measure Information</h2>
-    <% if @measures.where(continuous_variable: true).length.positive? %>
-      <table class="table table-condensed">
-        <thead>
-          <tr>
-            <td></td>
-            <% RecordsHelper::CV_POPULATION_KEYS.each do |population| %>
-              <th scope="col" class="text-center"><%= population_label(@bundle, population) %></th>
-            <% end %>
-          </tr>
-        </thead>
-        <tbody>
-          <% @measures.where(continuous_variable: true).sort_by{ |m| [m.cms_int, m.sub_id] }.each do |m| %>
+    <% {
+          @continuous_measures => RecordsHelper::CV_POPULATION_KEYS,
+          @non_continuous_measures => RecordsHelper::PROPORTION_POPULATION_KEYS
+        }.each do |measures, pop_keys| %>
+      <% if measures.length.positive? %>
+        <table class="table table-condensed">
+          <thead>
             <tr>
-              <th class="abbreviated" scope="row">
-                <%= m.display_name %>
-              </th>
-
-              <% RecordsHelper::CV_POPULATION_KEYS.each do |population| %>
-                <td class="text-center">
-                  <span class="sr-only">Measure <%= m.display_name %> population <%= population %> result: </span>
-                  <%= render 'calculation_result_icon', :result => get_result_value(@results, m, population), :episode_of_care => m.episode_of_care %>
-                </td>
+              <td></td>
+              <% pop_keys.each do |population| %>
+                <th scope="col" class="text-center"><%= population_label(@bundle, population) %></th>
               <% end %>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% end %>
-
-    <% if @measures.where(continuous_variable: false).length.positive? %>
-      <table class="table table-condensed">
-        <thead>
-          <tr>
-            <td></td>
-            <% RecordsHelper::PROPORTION_POPULATION_KEYS.each do |population| %>
-              <th scope="col" class="text-center"><%= population_label(@bundle, population) %></th>
+          </thead>
+          <tbody>
+            <% result_values = get_result_values([@record], measures, pop_keys, 'measure_id') %>
+            <% measures.each do |m| %>
+              <tr>
+                <th class="abbreviated" scope="row">
+                  <%= m.display_name %>
+                </th>
+                <% result_values[m.id].each do |population, value| %>
+                  <td class="text-center">
+                    <span class="sr-only">Measure <%= m.display_name %> population <%= population %> result: </span>
+                    <!-- This is the relevant piece of the calculation_result_icon partial ported over to here. Rendering each circle in its own partial is far too slow and causes the application to take up to 8 seconds longer to load on some pages. -->
+                    <% if value && value.positive? %>
+                      <span class="sr-only">Pass</span>
+                      <span class="fa-stack result-marker">
+                        <%= icon('fas fa-stack-2x', 'circle', :"aria-hidden" => true) %>
+                        <% unless value == 1 && !m.episode_of_care %>
+                          <strong class="fa-stack-1x result-text"><span class="sr-only">value of </span><%= value %></strong>
+                        <% end %>
+                      </span>
+                    <% else %>
+                      <span class="sr-only">Fail</span>
+                      <%= icon('far fa-2x empty-marker', 'circle', :"aria-hidden" => true) %>
+                    <% end %>
+                  </td>
+                <% end %>
+              </tr>
             <% end %>
-          </tr>
-        </thead>
-        <tbody>
-          <% @measures.where(continuous_variable: false).sort_by{ |m| [m.cms_int, m.sub_id] }.each do |m| %>
-            <tr>
-              <th class="abbreviated" scope="row">
-                <%= m.display_name %>
-              </th>
-              <% RecordsHelper::PROPORTION_POPULATION_KEYS.each do |population| %>
-                <td class="text-center">
-                  <span class="sr-only">Measure <%= m.display_name %> population <%= population %> result: </span>
-                  <%= render 'calculation_result_icon', :result => get_result_value(@results, m, population), :episode_of_care => m.episode_of_care %>
-                </td>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      <% end %>
     <% end %>
   </div>
 <% end %>
@@ -69,7 +58,7 @@
       <dt>DOB</dt><dd><%= display_time(@record.birthDatetime) %></dd>
       <dt>Gender</dt><dd><%= full_gender_name(@record.gender) %></dd>
       <dt>Race</dt><dd><%= @record.get_data_elements('patient_characteristic','race').first['dataElementCodes'].first['descriptor'] %></dd>
-      <dt>Ethnicity</dt><dd><%= @record.get_data_elements('patient_characteristic','ethnicity').first['dataElementCodes'].first['descriptor'] %></dd> 
+      <dt>Ethnicity</dt><dd><%= @record.get_data_elements('patient_characteristic','ethnicity').first['dataElementCodes'].first['descriptor'] %></dd>
 
       </dl>
 
@@ -78,7 +67,7 @@
         <div class="panel-heading"><h3 class='panel-title'><%= s.titleize %></h3></div>
           <div class="panel-body">
           <% @record.get_data_elements(s).each do |data| %>
-            <%= DataElement.new(data).render.html_safe %>      
+            <%= DataElement.new(data).render.html_safe %>
           <% end %>
           </div>
       </div>

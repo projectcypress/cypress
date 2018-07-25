@@ -25,8 +25,9 @@ When(/^the user creates a product with records with tasks (.*)$/) do |tasks|
   @product_test = @product.product_tests.create!({ name: @measure.name, measure_ids: measure_ids, cms_id: @measure.cms_id }, MeasureTest)
 
   @product_test.generate_provider
-  @product_test.generate_records
+  @product_test.generate_patients
   MeasureEvaluationJob.perform_now(@product_test, {})
+  wait_for_all_delayed_jobs_to_run
 end
 
 When(/^the user creates a product with tasks (.*)$/) do |tasks|

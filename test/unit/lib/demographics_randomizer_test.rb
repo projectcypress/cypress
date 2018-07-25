@@ -4,10 +4,14 @@ require 'fileutils'
 class DemographicsRandomizerTest < ActiveSupport::TestCase
   setup do
     @bundle = FactoryBot.create(:static_bundle)
-    @first = 'Xyntash'
-    @last = 'Zygadoo'
-    @race = { 'code' => 'NA', 'name' => 'NA', 'codeSystem' => 'NA' }
-    @ethnicity = { 'code' => 'NA', 'name' => 'NA', 'codeSystem' => 'NA' }
+    @given_names = ['Xyntash']
+    @family_name = 'Zygadoo'
+    @original_race_code = 'NA'
+    @original_gender_code = 'M'
+    @original_ethnicity_code = 'NA'
+    @race = QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => @original_race_code, 'codeSystem' => 'NA' }])
+    @ethnicity = QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => @original_ethnicity_code, 'codeSystem' => 'NA' }])
+    @gender = QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => @original_gender_code, 'codeSystem' => 'NA' }])
     @address = Address.new(
       use: 'H',
       street: ['123 Tregslofsterlang Lane'],
@@ -20,61 +24,59 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
   end
 
   def setup_secondary_instances
-    @insurance_provider = InsuranceProvider.new(
-      codes: { 'NA' => 123 },
-      name: 'NA',
-      type: 'NA',
-      payer: Organization.new(name: 'NA'),
-      member_id: '123',
-      start_time: 0
+    ip = {}
+    ip['codes'] = { 'NA' => 123 }
+    ip['member_id'] = '123'
+    ip['start_time'] = 0
+    ip['type'] = 'NA'
+    ip['name'] = 'NA'
+    ip['payer'] = { 'name' => 'NA' }
+    @insurance_provider = JSON.generate([ip])
+
+    @record = Patient.new(
+      givenNames: @given_names,
+      familyName: @family_name,
+      birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc,
+      dataElements: [@race, @gender, @ethnicity],
+      extendedData: { 'insurance_providers' => @insurance_provider, 'addresses' => [@address] }
     )
-    @record = Record.new(
-      first: @first,
-      last: @last,
-      birthdate: 360_820_800,
-      gender: 'M',
-      race: @race,
-      ethnicity: @ethnicity,
-      addresses: [@address],
-      insurance_providers: [@insurance_provider]
-    )
-    @record.bundle_id = @bundle.id
+    @record.bundleId = @bundle.id
     @prng = Random.new(Random.new_seed)
   end
 
   def test_randomize_name
     Cypress::DemographicsRandomizer.randomize_name(@record, @prng)
-    assert_not_equal @first, @record.first
-    assert_not_equal @last, @record.last
-    assert_equal @race, @record.race
-    assert_equal @ethnicity, @record.ethnicity
-    assert_equal [@address], @record.addresses
-    assert_equal [@insurance_provider], @record.insurance_providers
+    assert_not_equal @given_names, @record.givenNames
+    assert_not_equal @family_name, @record.familyName
+    assert_equal @original_race_code, @record.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code']
+    assert_equal @original_ethnicity_code, @record.get_data_elements('patient_characteristic', 'ethnicity').first.dataElementCodes.first['code']
+    assert_equal [@address], @record['extendedData']['addresses']
+    assert_equal @insurance_provider, @record['extendedData']['insurance_providers']
   end
 
   def test_randomize_race
     Cypress::DemographicsRandomizer.randomize_race(@record, @prng)
-    assert_not_equal @race, @record.race
-    assert_equal @first, @record.first
-    assert_equal @last, @record.last
-    assert_equal @ethnicity, @record.ethnicity
-    assert_equal [@address], @record.addresses
-    assert_equal [@insurance_provider], @record.insurance_providers
+    assert_not_equal @original_race_code, @record.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code']
+    assert_equal @given_names, @record.givenNames
+    assert_equal @family_name, @record.familyName
+    assert_equal @original_ethnicity_code, @record.get_data_elements('patient_characteristic', 'ethnicity').first.dataElementCodes.first['code']
+    assert_equal [@address], @record['extendedData']['addresses']
+    assert_equal @insurance_provider, @record['extendedData']['insurance_providers']
   end
 
   def test_randomize_ethnicity
     Cypress::DemographicsRandomizer.randomize_ethnicity(@record, @prng)
-    assert_not_equal @ethnicity, @record.ethnicity
-    assert_equal @first, @record.first
-    assert_equal @last, @record.last
-    assert_equal @race, @record.race
-    assert_equal [@address], @record.addresses
-    assert_equal [@insurance_provider], @record.insurance_providers
+    assert_not_equal @original_ethnicity_code, @record.get_data_elements('patient_characteristic', 'ethnicity').first.dataElementCodes.first['code']
+    assert_equal @given_names, @record.givenNames
+    assert_equal @family_name, @record.familyName
+    assert_equal @original_race_code, @record.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code']
+    assert_equal [@address], @record['extendedData']['addresses']
+    assert_equal @insurance_provider, @record['extendedData']['insurance_providers']
   end
 
   def test_randomize_address
     Cypress::DemographicsRandomizer.randomize_address(@record)
-    addr = @record.addresses[0]
+    addr = @record['extendedData']['addresses'][0]
     assert_not_equal @address, addr
     assert_not_equal @address.use, addr.use
     assert_not_equal @address.street, addr.street
@@ -82,36 +84,37 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     assert_not_equal @address.state, addr.state
     assert_not_equal @address.zip, addr.zip
     assert_not_equal @address.country, addr.country
-    assert_equal @first, @record.first
-    assert_equal @last, @record.last
-    assert_equal @race, @record.race
-    assert_equal @ethnicity, @record.ethnicity
-    assert_equal [@insurance_provider], @record.insurance_providers
+    assert_equal @given_names, @record.givenNames
+    assert_equal @family_name, @record.familyName
+    assert_equal @original_race_code, @record.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code']
+    assert_equal @original_ethnicity_code, @record.get_data_elements('patient_characteristic', 'ethnicity').first.dataElementCodes.first['code']
+    assert_equal @insurance_provider, @record['extendedData']['insurance_providers']
   end
 
   def test_randomize_insurance_provider
     Cypress::DemographicsRandomizer.randomize_insurance_provider(@record)
-    ip = @record.insurance_providers[0]
-    assert_not_equal @insurance_provider, ip
-    assert_not_equal @insurance_provider.codes, ip.codes
-    assert_not_equal @insurance_provider.name, ip.name
-    assert_not_equal @insurance_provider.type, ip.type
-    assert_not_equal @insurance_provider.payer.name, ip.payer.name
-    assert_not_equal @insurance_provider.member_id, ip.member_id
+    ip = JSON.parse(@record['extendedData']['insurance_providers'])[0]
+    original_ip = JSON.parse(@insurance_provider)[0]
+    assert_not_equal original_ip, ip
+    assert_not_equal original_ip.codes, ip.codes
+    assert_not_equal original_ip.name, ip.name
+    assert_not_equal original_ip.type, ip.type
+    assert_not_equal original_ip.payer.name, ip.payer.name
+    assert_not_equal original_ip.member_id, ip.member_id
     assert_equal 10, ip.member_id.length
-    assert_not_equal @insurance_provider.start_time, ip.start_time
-    assert ip.start_time >= @record.birthdate
-    assert ip.start_time < Time.now.to_i
+    assert_not_equal original_ip.start_time, ip.start_time
+    assert ip.start_time >= @record.birthDatetime
+    assert ip.start_time < Time.now.utc
     assert_payer_data_is_valid
-    assert_equal @first, @record.first
-    assert_equal @last, @record.last
-    assert_equal @race, @record.race
-    assert_equal @ethnicity, @record.ethnicity
-    assert_equal [@address], @record.addresses
+    assert_equal @given_names, @record.givenNames
+    assert_equal @family_name, @record.familyName
+    assert_equal @original_race_code, @record.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code']
+    assert_equal @original_ethnicity_code, @record.get_data_elements('patient_characteristic', 'ethnicity').first.dataElementCodes.first['code']
+    assert_equal [@address], @record['extendedData']['addresses']
   end
 
   def assert_payer_data_is_valid
-    ip = @record.insurance_providers[0]
+    ip = JSON.parse(@record['extendedData']['insurance_providers'])[0]
     assert %w[1 2 349].include? ip.codes['SOP'][0]
     case ip.codes['SOP'][0]
     when '1'
@@ -131,11 +134,11 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
 
   def test_randomize_all
     Cypress::DemographicsRandomizer.randomize(@record, @prng)
-    assert_not_equal @first, @record.first
-    assert_not_equal @last, @record.last
-    assert_not_equal @race, @record.race
-    assert_not_equal @ethnicity, @record.ethnicity
-    assert_not_equal [@address], @record.addresses
-    assert_not_equal [@insurance_provider], @record.insurance_providers
+    assert_not_equal @given_names, @record.givenNames
+    assert_not_equal @family_name, @record.familyName
+    assert_not_equal @original_race_code, @record.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code']
+    assert_not_equal @original_ethnicity_code, @record.get_data_elements('patient_characteristic', 'ethnicity').first.dataElementCodes.first['code']
+    assert_not_equal [@address], @record['extendedData']['addresses']
+    assert_not_equal [@insurance_provider], JSON.parse(@record['extendedData']['insurance_providers'])
   end
 end

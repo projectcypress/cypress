@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-7">
-    <p class="lead bg-success execution-status"><i class="fa fa-fw fa-check-circle text-success"></i> <%= execution_type + " Execution: " unless execution_type.nil? %>Passed</p>
+    <p class="lead bg-success execution-status"><%= icon('fas fa-fw text-success', 'check-circle', :"aria-hidden" => true) %> <%= execution_type + " Execution: " unless execution_type.nil? %>Passed</p>
     <div class="row">
       <div class="col-sm-6">
         <% if execution.task.product_test.is_a? MeasureTest %>
@@ -15,14 +15,14 @@
           <% if displaying_cat1?(execution.task) %>
             <% if cat3_task && cat3_task.status != "passing" %>
               <li>
-                <i class="fa-li fa fa-list" aria-hidden="true"></i>
+                <%= icon('fas fa-li', 'list', :"aria-hidden" => true) %>
                 <%= link_to "Try the associated QRDA Category III Measure Test", new_task_test_execution_path(cat3_task) %>
               </li>
             <% end %>
           <% else %>
             <% if cat1_task && cat1_task.status != "passing" %>
               <li>
-                <i class="fa-li fa fa-list" aria-hidden="true"></i>
+                <%= icon('fas fa-li', 'list', :"aria-hidden" => true) %>
                 <%= link_to "Try the associated QRDA Category I Measure Test", new_task_test_execution_path(cat1_task) %>
               </li>
             <% end %>
@@ -33,18 +33,18 @@
         <ul class="fa-ul">
           <% if execution.task.product_test.product.c1_test %>
             <li>
-              <i class="fa-li fa fa-list" aria-hidden="true"></i>
+              <%= icon('fas fa-li', 'list', :"aria-hidden" => true) %>
               <%= link_to 'Try a different Measure Test', vendor_product_path(execution.task.product_test.product.vendor.id, execution.task.product_test.product.id) + "#MeasureTest" %>
             </li>
             <li>
-              <i class="fa-li fa fa-eye" aria-hidden="true"></i>
+              <%= icon('fas fa-li', 'eye', :"aria-hidden" => true) %>
               <%= link_to 'Try a Record Sample', vendor_product_path(execution.task.product_test.product.vendor.id, execution.task.product_test.product.id) + "#ChecklistTest" %>
             </li>
           <% end %>
 
           <% if execution.task.product_test.product.c4_test %>
             <li>
-              <i class="fa-li fa fa-filter" aria-hidden="true"></i>
+              <%= icon('fas fa-li', 'filter', :"aria-hidden" => true) %>
               <%= link_to 'Try a Filtering Test', vendor_product_path(execution.task.product_test.product.vendor.id, execution.task.product_test.product.id) + "#FilteringTest" %>
             </li>
           <% end %>

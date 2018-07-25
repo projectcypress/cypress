@@ -13,10 +13,10 @@
 <% unless @task.is_a?(C1ChecklistTask) || @task.is_a?(C3ChecklistTask) %>
   <div class="panel clearfix">
     <%= button_to new_task_test_execution_path(iterate_task(@task, 'prev').id), :method => :get, :class => "btn btn-default pull-left" do %>
-      <i class="fa fa-fw fa-step-backward" aria-hidden="true"></i> Previous Test: <%= iterate_task(@task, 'prev').product_test.cms_id %>
+      <%= icon('fas fa-fw', 'step-backward', :"aria-hidden" => true) %> Previous Test: <%= iterate_task(@task, 'prev').product_test.cms_id %>
     <% end %>
     <%= button_to new_task_test_execution_path(iterate_task(@task, 'next').id), :method => :get, :class => "btn btn-default pull-right" do %>
-      Next Test: <%= iterate_task(@task, 'next').product_test.cms_id %> <i class="fa fa-fw fa-step-forward" aria-hidden="true"></i>
+      Next Test: <%= iterate_task(@task, 'next').product_test.cms_id %> <%= icon('fas fa-fw', 'step-forward', :"aria-hidden" => true) %>
     <% end %>
   </div>
 <% end %>
@@ -48,7 +48,7 @@
     <div class="panel panel-info">
       <div class="panel-heading">
         <h1 class="panel-title test-step">
-          <%= index + 1 %> <i class="fa fa-fw fa-bolt" aria-hidden="true"></i> <%= step.title %>
+          <%= index + 1 %> <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> <%= step.title %>
         </h1>
       </div>
       <div class="panel-body">

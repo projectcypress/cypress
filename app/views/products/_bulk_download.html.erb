@@ -12,14 +12,14 @@
   <p>This download contains a folder for each measure selected for this product. Inside these folders are XML documents for each patient associated with that measure.</p>
   <%= form_for product, url: patients_vendor_product_path(product.vendor_id, product), :html => { :method => 'GET' } do |f| %>
     <%= button_tag(type: 'submit', class: 'btn btn-primary') do %>
-      <i class = 'fa fa-fw fa-download'></i> Download All Patients (.zip)
+      <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download All Patients (.zip)
     <% end %>
   <% end %>
 <% elsif product.product_tests.measure_tests.where(state: :errored).count.positive? %>
   One or more of the product tests did not build correctly.
 <% else %>
   <p>Patient records are being built for each measure.</p>
-  <p><i class="fa fa-fw fa-refresh fa-spin inline-icon info-icon"></i><%= " #{num_measure_tests_ready} of #{num_measure_tests} measures ready" %></p>
+  <p><%= icon('fas fa-fw fa-spin', 'sync-alt', :"aria-hidden" => true) %><%= " #{num_measure_tests_ready} of #{num_measure_tests} measures ready" %></p>
   <script>
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'bulk_download' }});
   </script>

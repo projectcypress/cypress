@@ -7,25 +7,27 @@
 %>
 
 <% if test_state == :errored %>
-  <i aria-hidden='true' class = 'fa fa-fw fa-exclamation text-warning'</i>
+  <%= icon('fas fa-fw text-warning', 'exclamation', :"aria-hidden" => true) %>
+
   <strong class="text-info">Internal Error</strong>
 <% elsif !execution %>
-  <i aria-hidden = 'true' class = 'fa fa-fw fa-circle-o text-info'></i>
+  <%= icon('far fa-fw text-info', 'circle', :"aria-hidden" => true) %>
+
   <span class = 'text-info'>Not Started</span>
 <% else %>
   <% classes = status_to_css_classes(execution.status.capitalize) %>
   <% case execution.status %>
   <% when 'passing' %>
-    <i aria-hidden = 'true' class = 'fa fa-fw fa-check text-success'></i>
+    <%= icon('fas fa-fw text-success', 'check', :"aria-hidden" => true) %>
     <strong class = 'text-success'>Passed</strong>
   <% when 'failing' %>
-    <i aria-hidden = 'true' class = 'fa fa-fw fa-times text-danger'></i>
+    <%= icon('fas fa-fw text-danger', 'times', :"aria-hidden" => true) %>
     <strong class = 'text-danger'>Failed</strong>
   <% when 'errored' %>
-    <i aria-hidden = 'true' class = 'fa fa-fw fa-exclamation text-warning'></i>
+    <%= icon('fas fa-fw text-warning', 'exclamation', :"aria-hidden" => true) %>
     <strong class = 'text-warning'>Errored</strong>
   <% else %>
-    <i aria-hidden = 'true' class = 'fa fa-fw fa-circle-o text-info'></i>
+    <%= icon('far fa-fw text-info', 'circle', :"aria-hidden" => true) %>
     <strong class = 'text-info'>In Progress</strong>
   <% end %>
 <% end %>

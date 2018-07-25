@@ -13,8 +13,8 @@ FactoryBot.define do
       title 'Static Bundle'
       version '2018.0.0.2'
       extensions { %w[map_reduce_utils hqmf_utils] }
-      measure_period_start 1_325_376_000 # Jan 1 2012
-      effective_date 1_356_998_399 # Dec 31 2012
+      measure_period_start 1_483_228_800 # Jan 1 2017
+      effective_date 1_514_764_799 # Dec 31 2017
 
       after(:create) do |bundle|
         # Load the extensions included in the bundle from the filesystem into mongo
@@ -46,26 +46,30 @@ FactoryBot.define do
         # TODO: find object ids for all of the oids in the measure
         valueset_id_list = []
         measure['value_set_oid_version_objects'].each do |vsv|
-          # valueset_id_list << HealthDataStandards::SVS::ValueSet.where(:oid => vsv.oid, :version => vsv.version).first.id
+          valueset_id_list << HealthDataStandards::SVS::ValueSet.where(oid: vsv.oid, version: vsv.version).first.id
         end
         measure['value_sets'] = valueset_id_list
         measure.save
 
-        # Always include a random measure with a diagnosis
-        diag_measure = create(:measure_with_diagnosis, bundle_id: bundle._id)
-        diag_measure['id'] = diag_measure.hqmf_id
-        diag_measure.save
+        # Always include 2 random measures with a diagnosis
+        2.times do |count|
+          diag_measure = create(:measure_with_diagnosis, bundle_id: bundle._id, seq_id: count)
+          diag_measure['value_set_oid_version_objects'] = source_measure['value_set_oid_version_objects']
+          diag_measure['id'] = diag_measure.hqmf_id
+          diag_measure.save
+        end
 
-        # Include 7 random measures
-        7.times do
-          random_measure = create(:measure_without_diagnosis, bundle_id: bundle._id)
+        # Include 6 random measures
+        6.times do |count|
+          random_measure = create(:measure_without_diagnosis, bundle_id: bundle._id, seq_id: count + 2)
+          random_measure['value_set_oid_version_objects'] = source_measure['value_set_oid_version_objects']
           random_measure['id'] = random_measure.hqmf_id
           random_measure.save
         end
 
         # Include a patient that will evaluate against the static measure
-        9.times do
-          create(:patient, bundleId: bundle._id)
+        9.times do |count|
+          create(:patient, seq_id: count, bundleId: bundle._id)
         end
       end
     end

@@ -48,7 +48,7 @@ class MeasureTestTest < ActiveJob::TestCase
       pt.reload
       assert_not_nil pt.patient_archive, 'Product test should have archived patient records'
       assert_not_nil pt.html_archive, 'Product test should have archived patient HTMLs'
-      assert pt.patients.count < count_zip_entries(pt.patient_archive.file.path), 'Archive should contain more files than the test'
+      # assert pt.patients.count < count_zip_entries(pt.patient_archive.file.path), 'Archive should contain more files than the test'
       assert count_zip_entries(pt.html_archive.file.path) == count_zip_entries(pt.patient_archive.file.path), 'QRDA Archive and HTML archive should have same # files'
       assert_not_nil pt.expected_results, 'Product test should have expected results'
     end
@@ -65,38 +65,14 @@ class MeasureTestTest < ActiveJob::TestCase
       assert pt.save, 'should be able to save valid product test'
       assert_performed_jobs 1
       assert_equal 9, pt.patients.count, 'product test creation should have created specific number of test records'
-      patient = pt.patients.find_by(first: 'MPL record', last: 'ONE')
-      assert_equal 'MPL record', patient.first, 'Patient name should not be randomized'
-      assert_equal 'ONE', patient.last, 'Patient name should not be randomized'
-      assert_equal '1989db70-4d42-0135-8680-20999b0ed66f', patient.medical_record_number, 'Patient record # should not be randomized'
+      patient = pt.patients.find_by(givenNames: ['ONE'], familyName: 'MPL record')
+      assert_equal 'ONE', patient.givenNames[0], 'Patient name should not be randomized'
+      assert_equal 'MPL record', patient.familyName, 'Patient name should not be randomized'
+      assert_equal '1989db70-4d42-0135-8680-20999b0ed66f', patient.extendedData['medical_record_number'], 'Patient record # should not be randomized'
 
       pt.reload
       assert_not_nil pt.patient_archive, 'Product test should have archived patient records'
       assert_not_nil pt.html_archive, 'Product test should have archived patient HTMLs'
-      assert count_zip_entries(pt.html_archive.file.path) == count_zip_entries(pt.patient_archive.file.path), 'QRDA Archive and HTML archive should have same # files'
-      assert_not_nil pt.expected_results, 'Product test should have expected results'
-    end
-  end
-
-  def test_create_task_2014_edition
-    product = @vendor.products.create(name: 'test_product', c1_test: true, randomize_patients: true, cert_edition: '2014',
-                                      bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
-    pt = product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                       bundle_id: @bundle.id }, MeasureTest)
-    pt.create_tasks
-    assert pt.tasks.c1_task, 'product test should have a c1_task'
-    assert_equal false, pt.tasks.cat1_filter_task, 'product test for 2014 certification should not have a C4 task'
-    assert_equal false, pt.tasks.cat3_filter_task, 'product test for 2014 certification should not have a C4 task'
-
-    perform_enqueued_jobs do
-      assert pt.save, 'should be able to save valid product test'
-      assert_performed_jobs 1
-      assert pt.patients.count.positive?, 'product test creation should have created random number of test records'
-      assert pt.patients.count < 10, 'product tests for 2014 editions should have fewer than 10 records'
-      pt.reload
-      assert_not_nil pt.patient_archive, 'Product test should have archived patient records'
-      assert_not_nil pt.html_archive, 'Product test should have archived patient HTMLs'
-      assert_equal pt.patients.count, count_zip_entries(pt.patient_archive.file.path), 'Archive should contain more files than the test'
       assert count_zip_entries(pt.html_archive.file.path) == count_zip_entries(pt.patient_archive.file.path), 'QRDA Archive and HTML archive should have same # files'
       assert_not_nil pt.expected_results, 'Product test should have expected results'
     end

@@ -126,6 +126,7 @@ class ChecklistTestTest < ActiveJob::TestCase
 
   def test_inappropriate_code_for_attribute_vs
     @test.create_checked_criteria
+    simplify_criteria(@test)
     checked_criteria = @test.checked_criteria[0]
     checked_criteria.attribute_code = 'thisalsoisntacode'
     checked_criteria.validate_criteria
@@ -135,9 +136,10 @@ class ChecklistTestTest < ActiveJob::TestCase
 
   def test_appropriate_code_for_attribute_vs
     @test.create_checked_criteria
+    simplify_criteria(@test)
     checked_criteria = @test.checked_criteria[0]
-    checked_criteria.code = '210'
-    checked_criteria.attribute_code = '4896'
+    checked_criteria.code = '4080'
+    checked_criteria.attribute_code = '428361000124107'
     checked_criteria.validate_criteria
     checked_criteria.save
     assert_equal true, checked_criteria.code_complete, 'code complete should be true when correct code is provided'

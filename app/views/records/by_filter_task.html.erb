@@ -13,14 +13,14 @@
     </div>
   <% end %>
   <%= button_to good_results_task_path(@task), :method => :get, :class => "btn btn-default" do %>
-    <i class="fa fa-fw fa-download" aria-hidden="true"></i> Download HTML Patients
+    <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download HTML Patients
   <% end %>
 </div>
 
-<% cache [@records, @measure, hide_patient_calculation?] do %>
+<% cache [@patients, @measure, hide_patient_calculation?] do %>
   <div class="row">
     <div id="records_list" class="col-sm-12">
-      <%= render 'records_list', :patients => @records, :measure => @measure, :product_test => @product_test, :bundle => @bundle, :task => @task %>
+      <%= render 'records_list', :patients => @patients, :measure => @measure, :product_test => @product_test, :bundle => @bundle, :task => @task %>
     </div>
   </div>
 <% end #cache records %>

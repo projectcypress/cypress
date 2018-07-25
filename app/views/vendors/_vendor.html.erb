@@ -3,10 +3,10 @@
   <td>
     <%= button_to vendor_favorite_path(vendor), remote: true, :class => "btn btn-link btn-pop" do %>
       <% if (vendor.favorite_user_ids.include? current_user.id)  %>
-        <i class="fa fa-fw fa-star" aria-hidden="true"></i>
+        <%= icon('fas fa-fw', 'star', :"aria-hidden" => true) %>
         <span class="sr-only">vendor favorited</span>
       <% else %>
-        <i class="fa fa-fw fa-star-o" aria-hidden="true"></i>
+        <%= icon('far fa-fw', 'star', :"aria-hidden" => true) %>
         <span class="sr-only">vendor not favorited</span>
       <% end %>
     <% end %>
@@ -15,7 +15,7 @@
   <td>
     <% if vendor_statuses['total'].zero? %>
       <%= button_to new_vendor_product_path(vendor), :method => :get, :class => "btn btn-primary btn-sm" do %>
-        <i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Product
+        <%= icon('fas fa-fw', 'plus', :"aria-hidden" => true) %> Add Product
       <% end %>
     <% else %>
       <%= vendor_statuses['total'] %>
@@ -34,7 +34,7 @@
   <% end %>
   <td class="text-right">
     <%= button_to edit_vendor_path(vendor), :method => :get, :class => "btn btn-sm btn-default" do %>
-      <i class="fa fa-fw fa-wrench" aria-hidden="true"></i> Edit Vendor
+      <%= icon('fas fa-fw', 'wrench', :"aria-hidden" => true) %> Edit Vendor
     <% end %>
   </td>
 </tr>

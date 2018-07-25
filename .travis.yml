@@ -29,23 +29,22 @@ before_install:
   - nvm install 10.0
   - nvm use stable
   - npm install -g eslint
-  - git clone -b release https://github.com/projectcypress/js-ecqm-engine.git /tmp/js-ecqm-engine
+  - git clone -b master https://github.com/projectcypress/js-ecqm-engine.git /tmp/js-ecqm-engine
 before_script:
   - git config --global user.email "travis@travis.ci"
   - git config --global user.name "Travis CI"
   - npm install eslint
   - yarn install --cwd /tmp/js-ecqm-engine
-  - CYPRESS_DB=cypress_test /tmp/js-ecqm-engine/bin/rabbit_worker.js &
+  - NODE_ENV=test /tmp/js-ecqm-engine/bin/rabbit_worker.js &
   - cp ./.travis/mongoid.yml ./config/mongoid.yml
 env:
-  # - TEST_SUITE=cucumber
+  - TEST_SUITE=cucumber
   - TEST_SUITE=audit
-  # - TEST_SUITE=models
+  - TEST_SUITE=models
   - TEST_SUITE=controllers
-  # - TEST_SUITE=helpers
-  # - TEST_SUITE=jobs
-  # - TEST_SUITE=units
-  # - TEST_SUITE=benchmark
+  - TEST_SUITE=helpers
+  - TEST_SUITE=jobs
+  - TEST_SUITE=units
 script:
   - 'if [ ${TEST_SUITE} = "cucumber" ]; then
       bundle exec cucumber;
@@ -53,7 +52,7 @@ script:
       bundle exec brakeman -qAzw1 &&
       bundle exec bundle-audit check --update &&
       bundle exec overcommit --sign &&
-      bundle exec overcommit --run
+      bundle exec overcommit --run;
     else
       RUBYOPT="-W0" bundle exec rake test:$TEST_SUITE;
     fi'

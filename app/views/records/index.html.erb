@@ -15,7 +15,7 @@
       </div>
     <% end %>
     <%= button_to html_patients_product_test_path(@product_test), :method => :get, :class => "btn btn-default" do %>
-      <i class="fa fa-fw fa-download" aria-hidden="true"></i> Download HTML Patients
+      <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download HTML Patients
     <% end %>
   </div>
 
@@ -103,9 +103,9 @@
   }
 
   // rerender the records list to show records from all measures if no value searched
-  $('#search_measures').on('blur', function() {
+  $('#search_measures').on('keyup', function() {
     if (!$(this).val()) {
-      $("#records_list").html("<%= escape_javascript(render 'records_list', :patients => @records, :measure => @measure, :product_test => @product_test, :bundle => @bundle, :task => @task ) %>");
+      $("#records_list").html("<%= escape_javascript(render 'records_list', :patients => @patients, :measure => @measure, :product_test => @product_test, :bundle => @bundle, :task => @task ) %>");
     }
   })
 </script>

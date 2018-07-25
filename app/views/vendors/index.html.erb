@@ -2,12 +2,12 @@
   <p class="lead">
     Start EHR Certification with
     <%= button_to new_vendor_path, :method => :get, :class => "btn btn-primary btn-lg" do %>
-      <i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Vendor
+      <%= icon('fas fa-fw', 'plus', :"aria-hidden" => true) %> Add Vendor
     <% end %>
   </p>
 <% else %>
   <%= button_to new_vendor_path, :method => :get, :class => "btn btn-primary pull-right" do %>
-    <i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Vendor
+    <%= icon('fas fa-fw', 'plus', :"aria-hidden" => true) %> Add Vendor
   <% end %>
 
   <% @favorites = @vendors.select{ |v| v.favorite_user_ids.include? current_user.id} %>
@@ -19,10 +19,10 @@
           <th scope="col"><span class="sr-only">Actions</span></th>
           <th scope="col">Vendor</th>
           <th scope="col">Products</th>
-          <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-check text-success"></i> Passing</th>
-          <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-times text-danger"></i> Failing</th>
-          <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-exclamation text-warning"></i> Errored</th>
-          <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-circle-o text-info"></i> Incomplete</th>
+          <th scope="col"><%= icon('fas fa-fw text-success', 'check', :"aria-hidden" => true) %>Passing</th>
+          <th scope="col"><%= icon('fas fa-fw text-danger', 'times', :"aria-hidden" => true) %>Failing</th>
+          <th scope="col"><%= icon('fas fa-fw text-warning', 'exclamation', :"aria-hidden" => true) %>Errored</th>
+          <th scope="col"><%= icon('far fa-fw text-info', 'circle', :"aria-hidden" => true) %>Incomplete</th>
           <th scope="col"><span class="sr-only">Actions</span></th>
         </tr>
       </thead>
@@ -41,10 +41,10 @@
           <th scope="col"><span class="sr-only">Actions</span></th>
           <th scope="col">Vendor</th>
           <th scope="col">Products</th>
-          <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-check text-success"></i> Passing</th>
-          <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-times text-danger"></i> Failing</th>
-          <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-exclamation text-warning"></i> Errored</th>
-          <th scope="col"><i aria-hidden="true" class="fa fa-fw fa-circle-o text-info"></i> Incomplete</th>
+          <th scope="col"><%= icon('fas fa-fw text-success', 'check', :"aria-hidden" => true) %>Passing</th>
+          <th scope="col"><%= icon('fas fa-fw text-danger', 'times', :"aria-hidden" => true) %>Failing</th>
+          <th scope="col"><%= icon('fas fa-fw text-warning', 'exclamation', :"aria-hidden" => true) %>Errored</th>
+          <th scope="col"><%= icon('far fa-fw text-info', 'circle', :"aria-hidden" => true) %>Incomplete</th>
           <th scope="col"><span class="sr-only">Actions</span></th>
         </tr>
       </thead>

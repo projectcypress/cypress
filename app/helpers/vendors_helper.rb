@@ -22,28 +22,16 @@ module VendorsHelper
   # status should be 'Passing', 'Failing', or 'Not Complete'
   # used for each certification status on vendor show page
   def status_to_css_classes(status)
-    classes = {}
-
     case status
     when 'passing'
-      classes['cell'] = 'status-passing'
-      classes['icon'] = 'fa-check'
-      classes['text'] = 'text-success'
+      { 'cell' => 'status-passing', 'icon' => 'check', 'type' => 'fas', 'text' => 'text-success' }
     when 'failing'
-      classes['cell'] = 'status-failing'
-      classes['icon'] = 'fa-times'
-      classes['text'] = 'text-danger'
+      { 'cell' => 'status-failing', 'icon' => 'times', 'type' => 'fas', 'text' => 'text-danger' }
     when 'errored'
-      classes['cell'] = 'status-errored'
-      classes['icon'] = 'fa-exclamation'
-      classes['text'] = 'text-warning'
+      { 'cell' => 'status-errored', 'icon' => 'exclamation', 'type' => 'fas', 'text' => 'text-warning' }
     else
-      classes['cell'] = 'status-not-started'
-      classes['icon'] = 'fa-circle-o'
-      classes['text'] = 'text-info'
+      { 'cell' => 'status-not-started', 'icon' => 'circle', 'type' => 'far', 'text' => 'text-info' }
     end
-
-    classes
   end
 
   def vendor_statuses(vendor)

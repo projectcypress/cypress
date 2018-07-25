@@ -46,7 +46,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def setup_filtering_tests
-    @product.product_tests.create!({ name: 'Filter Test 1', cms_id: 'CMS1234', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+    @product.product_tests.create!({ name: 'Filter Test 1', cms_id: 'CMS127v7', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                                      options: { filters: { filt1: ['val1'], filt2: ['val2'] } } }, FilteringTest)
     @product.product_tests.filtering_tests.each do |test|
       test.tasks.build({}, Cat1FilterTask)
@@ -61,8 +61,8 @@ class ProductsHelperTest < ActiveJob::TestCase
   def test_generate_filter_patients
     @product.product_tests = nil
     @product.add_filtering_tests
-    @product.product_tests.filtering_tests.find_by(cms_id: 'CMS1234').records
-    # @product.product_tests.filtering_tests.each { |ft| assert ft.records == records }
+    @product.product_tests.filtering_tests.find_by(cms_id: 'CMS127v7').patients
+    # @product.product_tests.filtering_tests.each { |ft| assert ft.patients == patients }
   end
 
   def test_all_records_for_product

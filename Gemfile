@@ -13,10 +13,11 @@ gem 'bson_ext'
 gem 'mustache'
 gem 'os'
 
-gem 'cql_qdm_patientapi', git: 'https://github.com/projecttacoma/cql_qdm_patientapi', branch: 'better_codes_and_scalar_error'
-gem 'cqm-converter', git: 'https://github.com/projecttacoma/cqm-converter', branch: 'master'
-gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', branch: 'results_object_mongoize'
-gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'qrda'
+gem 'cql_qdm_patientapi'
+gem 'cqm-converter', '~> 0.3.4'
+gem 'cqm-models', '~> 0.8.2'
+gem 'cqm-parsers', '~> 0.1.1'
+gem 'cqm-validators', '~> 0.1.0'
 gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'r5'
 # gem 'health-data-standards', '~> 3.7.0'
 
@@ -30,7 +31,7 @@ gem 'faker', '~> 1.5.0'
 gem 'sass-rails', '~> 5.0.4'
 # Dependencies for CMS Assets Framework
 gem 'bootstrap-sass', '~> 3.3.5'
-gem 'font-awesome-sass'
+gem 'font-awesome-sass', '~> 5.0.13'
 gem 'jquery-rails', '~> 4.0.4'
 gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'modernizr-rails', '~> 2.7.1'
@@ -97,12 +98,13 @@ gem 'mongoid_rails_migrations', :git => 'https://github.com/adacosta/mongoid_rai
 gem 'bunny'
 
 group :development, :test do
-  gem 'rubocop', :require => false
+  gem 'rubocop', '~> 0.57.1', :require => false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'axe-matchers'
   gem 'byebug'
   gem 'capybara'
   gem 'capybara-accessible'
+  gem 'cucumber', '~> 3.0.2', :require => false
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'overcommit'

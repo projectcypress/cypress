@@ -25,7 +25,6 @@ class ProducTest < ActiveSupport::TestCase
                            bundle_id: @bundle.id).save!
     assert pt.valid?, 'record should be valid'
     assert pt.save, 'Should be able to create and save a Product'
-    assert_equal '2015', pt.cert_edition
     assert_equal true, pt.randomize_patients
     assert_equal false, pt.duplicate_patients
   end
@@ -37,38 +36,13 @@ class ProducTest < ActiveSupport::TestCase
                            bundle_id: @bundle.id).save!
     assert pt.valid?, 'record should be valid'
     assert pt.save, 'Should be able to create and save a Product'
-    assert_equal '2015', pt.cert_edition
     assert_equal true, pt.randomize_patients
     assert_equal true, pt.duplicate_patients
   end
 
-  def test_create_2014_certification_no_c2
-    pt = Product.new(vendor: @vendor, name: 'test_product', c1_test: true, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: @bundle.id, cert_edition: '2014')
-    pt.product_tests.build(name: 'test_product_test_name',
-                           measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                           bundle_id: @bundle.id).save!
-    assert pt.valid?, 'record should be valid'
-    assert pt.save, 'Should be able to create and save a 2014 cert edition Product'
-    assert_equal '2014', pt.cert_edition
-    assert_equal true, pt.randomize_patients
-    assert_equal false, pt.duplicate_patients
-  end
-
-  def test_create_2014_certification_with_c2
-    pt = Product.new(vendor: @vendor, name: 'test_product', c2_test: true, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: @bundle.id, cert_edition: '2014')
-    pt.product_tests.build(name: 'test_product_test_name',
-                           measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                           bundle_id: @bundle.id).save!
-    assert pt.valid?, 'record should be valid'
-    assert pt.save, 'Should be able to create and save a Product'
-    assert_equal '2014', pt.cert_edition
-    assert_equal true, pt.randomize_patients
-    assert_equal false, pt.duplicate_patients
-  end
-
   def test_offset
     pt = Product.new(vendor: @vendor, name: 'test_product', c1_test: true, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                     bundle_id: @bundle.id, shift_records: true)
+                     bundle_id: @bundle.id, shift_patients: true)
     pt.product_tests.build(name: 'test_product_test_name',
                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                            bundle_id: @bundle.id).save!

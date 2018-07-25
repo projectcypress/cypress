@@ -1,10 +1,13 @@
 FactoryBot.define do
   factory :measure, class: Measure do
     entry = Rails.root.join('test', 'fixtures', 'artifacts', 'cms127v7.json')
+    transient do
+      seq_id 1
+    end
     source_measure = JSON.parse(File.read(entry), max_nesting: 100)
-    sequence(:name) { |i| "Measure Name #{i}" }
-    sequence(:hqmf_id) { |i| "53e3f13d-e5cf-445f-8dda-3720aff8401#{i}" }
-    sequence(:hqmf_set_id) { |i| "7c00e09b-02dc-458b-8587-7f0347a443f#{i}" }
+    name { "Measure Name #{seq_id}" }
+    hqmf_id { "53e3f13d-e5cf-445f-8dda-3720aff8401#{seq_id}" }
+    hqmf_set_id { "7c00e09b-02dc-458b-8587-7f0347a443f#{seq_id}" }
     continuous_variable false
     category 'none'
     type 'ep'

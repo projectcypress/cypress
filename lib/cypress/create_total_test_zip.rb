@@ -6,7 +6,7 @@ module Cypress
         add_measure_zips(z, product.product_tests.measure_tests, format)
         add_checklist_zips(z, product.product_tests.checklist_tests, criteria_list)
         add_filtering_zips(z, product.product_tests.filtering_tests, format, filtering_list) unless product.product_tests.filtering_tests.empty?
-        add_html_files(z, product.product_tests) unless product.cert_edition == '2015' && product.c2_test
+        add_html_files(z, product.product_tests) unless product.c2_test
       end
       file
     end

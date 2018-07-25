@@ -61,7 +61,7 @@ class ProductTest
   def self.destroy_by_ids(product_test_ids)
     tasks = Task.where(:product_test_id.in => product_test_ids)
     task_ids = tasks.pluck(:_id)
-    patients = QDM::Patient.where(:test_id.in => product_test_ids)
+    patients = QDM::Patient.where(:'extendedData.correlation_id'.in => product_test_ids)
     patient_ids = patients.pluck(:_id)
     test_executions = TestExecution.where(:task_id.in => task_ids)
     test_execution_ids = test_executions.pluck(:_id)
@@ -75,7 +75,7 @@ class ProductTest
     # long after the parent data was destroyed.
     Artifact.where(:test_execution_id.in => test_execution_ids).destroy
     # TODO: CQL: use new results model?
-    HealthDataStandards::CQM::PatientCache.where(:'value.patient_id'.in => patient_ids).delete
+    QDM::IndividualResult.where(:patient_id.in => patient_ids).delete
     ProductTest.in(:id => product_test_ids).delete
   end
 
@@ -89,7 +89,7 @@ class ProductTest
                      # get medical record numbers for master patients (have no correlation (test) id)
                      # bundle.patients.where(:'extendedData.correlation_id' => nil).map {|mp| mp[:extendedData][:medical_record_number] }.uniq
                      # essentially getting master_patient_ids
-                     master_patient_ids
+                     bundle.patients.pluck(:_id)
                    end
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'randomization_ids' => random_ids,
                                       'randomize_demographics' => true, 'generate_provider' => product.c4_test, 'job_id' => job_id).perform
@@ -110,10 +110,9 @@ class ProductTest
     Cypress::PatientZipper.zip(file, pat_arr, :qrda)
     self.patient_archive = file
 
-    # TODO: R2P update HTML exporters
-    # file = Tempfile.new("product_test-html-#{id}.zip")
-    # Cypress::PatientZipper.zip(file, pat_arr, :html)
-    # self.html_archive = file
+    file = Tempfile.new("product_test-html-#{id}.zip")
+    Cypress::PatientZipper.zip(file, pat_arr, :html)
+    self.html_archive = file
     save
   end
 

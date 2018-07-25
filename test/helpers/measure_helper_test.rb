@@ -2,12 +2,12 @@ require 'test_helper'
 
 class MeasureHelperTest < ActiveSupport::TestCase
   def setup
-    APP_CONSTANTS['CPC_measures'] = { '2016' => ['53e3f13d-e5cf-445f-8dda-3720aff84011', '53e3f13d-e5cf-445f-8dda-3720aff84012'] }
+    APP_CONSTANTS['CPC_measures'] = { '2018' => ['53e3f13d-e5cf-445f-8dda-3720aff84011', '53e3f13d-e5cf-445f-8dda-3720aff84012'] }
     @bundle = FactoryBot.create(:static_bundle)
     @cpc_and_diag_msrs = ['53e3f13d-e5cf-445f-8dda-3720aff84011']
     @cpc_msrs = ['53e3f13d-e5cf-445f-8dda-3720aff84012']
-    @diag_msrs = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
-    @other_measures = ['53e3f13d-e5cf-445f-8dda-3720aff84015', '53e3f13d-e5cf-445f-8dda-3720aff84016']
+    @diag_msrs = ['53e3f13d-e5cf-445f-8dda-3720aff84010']
+    @other_measures = ['53e3f13d-e5cf-445f-8dda-3720aff84014', '53e3f13d-e5cf-445f-8dda-3720aff84015']
   end
 
   def test_cpc_and_diagnosis_measures

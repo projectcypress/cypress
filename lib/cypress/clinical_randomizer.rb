@@ -25,6 +25,7 @@ module Cypress
       else
         # set all patient1 data elements
         patient1.dataElements = data_elements
+        patient2.dataElements = []
       end
       patient1.dataElements.concat patient_char_de
       patient2.dataElements.concat patient_char_de

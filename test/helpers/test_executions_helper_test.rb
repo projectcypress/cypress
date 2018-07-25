@@ -75,7 +75,8 @@ class TestExecutionHelper < ActiveSupport::TestCase
 
   def test_get_error_counts_no_execution
     setup_product_tests(true, false, true, true, filt1: 'val1')
-    errors_hash = get_error_counts(false, @product_test.tasks.find_by(_type: 'C1Task'))
+
+    errors_hash = get_error_counts(nil, @product_test.tasks.find_by(_type: 'C1Task'))
 
     assert_equal '--', errors_hash['QRDA Errors']
     assert_equal '--', errors_hash['Reporting Errors']

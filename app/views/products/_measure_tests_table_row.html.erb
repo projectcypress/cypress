@@ -29,7 +29,7 @@
   <%= render partial: '/products/measure_test_link', locals: { test: test, task: task } %>
 </td>
 <td class="no-wrap" data-order="<%= task.updated_at %>">
-  <i class="fa fa-fw fa-clock-o" aria-hidden="true"></i><%= local_time_ago(task.updated_at) %>
+  <%= icon('far fa-fw', 'clock', :"aria-hidden" => true) %><%= local_time_ago(task.updated_at) %>
 </td>
 
 <% # Only reload if the measure_tests_table isn't reloading for us. (This currently only happens in create.js.erb) %>

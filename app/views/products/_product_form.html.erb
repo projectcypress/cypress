@@ -9,22 +9,6 @@
           <%= f.text_field :version %>
           <%= f.text_area :description %>
 
-          <legend class="control-label">Certification Edition</legend>
-          <div class="radio">
-            <%= f.form_group :cert_edition, help: "Select the certification edition." do %>
-              <%= f.radio_button :cert_edition, "2014",
-                                 label: "2014 Edition",
-                                 label_class: "btn btn-checkbox",
-                                 disabled: !product.new_record?,
-                                 checked: product.cert_edition == "2014" %>
-              <%= f.radio_button :cert_edition, "2015",
-                                 label: "2015 Edition",
-                                 label_class: "btn btn-checkbox",
-                                 disabled: !product.new_record?,
-                                 checked: product.cert_edition == "2015" %>
-            <% end # form_group %>
-          </div>
-
           <fieldset id="certification_options">
             <legend class="control-label">Certification Types</legend>
             <div id="certifications_errors_container"></div>
@@ -54,12 +38,12 @@
               <%= f.form_group class: supplement_file_errors ? '' : 'has-error', help: "Upload an additional file which will be available for download to anyone viewing this product. Allowed filetypes are #{product.supplemental_test_artifact.extension_white_list.join(', ')}." do %>
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                   <div class="form-control" data-trigger="fileinput">
-                    <i class="fa fa-fw fa-file fileinput-exists"></i>
+                    <%= icon('fas fileinput-exists', 'file', :"aria-hidden" => true) %>
                     <span class="fileinput-filename"></span>
                   </div>
                     <span class="input-group-addon btn btn-info btn-file active">
-                    <span class="fileinput-new" data-trigger="fileinput"><i class="fa fa-fw fa-mouse-pointer"></i> Select file</span>
-                    <span class="fileinput-exists" data-trigger="fileinput"><i class="fa fa-fw fa-refresh"></i> Change</span>
+                    <span class="fileinput-new" data-trigger="fileinput"><%= icon('fas', 'mouse-pointer', :"aria-hidden" => true) %> Select file</span>
+                    <span class="fileinput-exists" data-trigger="fileinput"><%= icon('fas', 'sync-alt', :"aria-hidden" => true) %> Change</span>
                     <span style="display:none;">
                       <%= f.file_field :supplemental_test_artifact, class: 'upload-results hidden', :aria => { label: 'supplemental_test_artifact_label' } %>
                     </span>
@@ -82,7 +66,7 @@
               <legend class="control-label">Records Options</legend>
               <%= f.form_group help: "Recommended for most robust testing." do %>
                 <%= f.check_box :randomize_patients, label: 'Randomize Records', label_class: "btn btn-checkbox", checked: product.new_record? ? true : product.randomize_patients, disabled: !product.new_record? %>
-                <%= f.check_box :duplicate_patients, label: 'Duplicate Records', label_class: "btn btn-checkbox", checked: product.new_record? ? true : product.duplicate_patients, disabled: !product.new_record? %>
+                <%= f.check_box :duplicate_patients, label: 'Duplicate Records', label_class: "btn btn-checkbox", checked: product.duplicate_patients, disabled: true %>
               <% end %>
             </fieldset>
           <%end%>

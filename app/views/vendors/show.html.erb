@@ -4,7 +4,7 @@
   <p class="lead">
     Start EHR Certification with
     <%= button_to new_vendor_product_path(@vendor), :method => :get, :class => "btn btn-primary btn-lg" do %>
-      <i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add Product
+      <%= icon('fas fa-fw', 'plus', :"aria-hidden" => true) %> Add Product
     <% end %>
   </p>
 <% else %>
@@ -26,7 +26,7 @@
           <%= link_to('Loading Error - Try Again?', url_for(page: @products_nonfav.current_page + 1)) %>
         </p>
         <p id="loading-more" class="default-hidden">
-          <i class="fa fa-fw fa-refresh fa-spin inline-icon info-icon"></i>
+          <%= icon('fas fa-fw fa-spin', 'sync-alt', :"aria-hidden" => true) %>
           Loading More Products
         </p>
       </div>

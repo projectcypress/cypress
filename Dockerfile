@@ -1,3 +1,7 @@
+# WARNING: This Dockerfile, and the associated docker-compose.yml,
+# are only functional for Cypress v3.x. Docker installation 
+# methods are not yet supported for Cypress v4, as of 2018-07-10
+
 FROM phusion/passenger-ruby23:latest
 
 RUN apt-get update \

@@ -31,7 +31,7 @@ end
 
 Then(/^the user should see a list of patients$/) do
   page.assert_text 'All Patients'
-  assert page.has_selector?('table tbody tr', count: @bundle.records.length), 'different count'
+  assert page.has_selector?('table tbody tr', count: @bundle.patients.length), 'different count'
 end
 
 And(/^the user should see a way to filter patients$/) do
@@ -70,7 +70,7 @@ end
 Then(/^the user should see results for that measure$/) do
   page.assert_text @measure.display_name + ' Patients'
 
-  records = records_by_measure(@bundle.records, @measure)
+  records = records_by_measure(@bundle.patients, @measure)
 
   assert page.has_selector?('table tbody tr', count: records.length), 'different number'
   assert page.has_selector?('.result-marker'), 'no result marker'
@@ -97,25 +97,22 @@ end
 
 When(/^the user visits a record$/) do
   @bundle = Bundle.default
-  @record = @bundle.records.where(bundle_id: @bundle._id).first
-  visit "/records/#{@record.id}"
+  @patient = @bundle.patients.first
+  visit "/records/#{@patient.id}"
 end
 
 Then(/^the user sees details$/) do
-  page.assert_text "Patient Information for #{@record.first} #{@record.last}"
-  page.assert_text display_time(@record.birthdate)
-  page.assert_text full_gender_name(@record.gender)
+  page.assert_text "Patient Information for #{@patient.first_names} #{@patient.familyName}"
+  page.assert_text full_gender_name(@patient.gender)
   SECTIONS.each do |section|
     page.assert_text section.titleize
 
-    next unless @record[section]
-    @record[section].each do |data_criteria|
+    next unless @patient[section]
+    @patient[section].each do |data_criteria|
       page.assert_text data_criteria['description']
     end
   end
-
-  result_value = @record.calculation_results.map(:value)
-  @measures = @bundle.measures.where(:hqmf_id.in => result_value.map(&:measure_id)).where(:sub_id.in => result_value.map(&:sub_id))
+  @measures = @bundle.measures.where(:_id.in => @patient.calculation_results.map(&:measure_id))
   @measures.each do |m|
     page.assert_text m.display_name
   end

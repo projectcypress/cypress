@@ -6,7 +6,7 @@
   <% end %>
 <% else %>
   <span class="sr-only">Preparing download for <%= bundle.title %></span>
-  <i class="fa fa-fw fa-refresh fa-spin inline-icon info-icon"></i> Preparing Download
+  <%= icon('fas fa-fw fa-spin', 'sync-alt', :"aria-hidden" => true) %> Preparing Download
 <% end %>
 <% unless current_mpl_status == :ready %>
   <script>

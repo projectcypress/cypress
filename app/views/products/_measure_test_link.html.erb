@@ -11,21 +11,21 @@
 
 <% if test.state != :ready %>
   <% if test.state == :queued %>
-    <i class="fa fa-fw fa-circle text-muted" aria-hidden="true"></i>
+    <%= icon('far fa-fw text-muted', 'circle', :"aria-hidden" => true) %>
     <span class="label label-default">queued</span>
   <% elsif test.state == :building %>
-    <i class="fa fa-fw fa-cog fa-spin" aria-hidden="true"></i>
+    <%= icon('fas fa-fw fa-spin', 'cog', :"aria-hidden" => true) %>
     <span class="label label-default">building</span>
   <% elsif test.state == :errored %>
-    <i class= 'fa fa-exclamation-triangle' aria-hidden="true"></i>
+    <%= icon('fas', 'exclamation-triangle', :"aria-hidden" => true) %>
   <% end %>
 <% else %>
   <% case tasks_status(tasks) %>
   <% when 'pending' %>
-    <i class = 'fa fa-fw fa-gavel fa-spin text-testing' aria-hidden = 'true'></i>
+    <%= icon('fas fa-fw fa-spin text-testing', 'gavel', :"aria-hidden" => true) %>
     <span class = 'label label-default'>testing...</span>
   <% else %>
-    <i class = 'fa fa-fw fa-gavel invisible' aria-hidden = 'true'></i>
+    <%= icon('fas fa-fw invisible', 'gavel', :"aria-hidden" => true) %>
     <%= render partial: '/products/product_test_upload', locals: { task: task, label_class: 'label-info' } %>
   <% end %>
 <% end %>
