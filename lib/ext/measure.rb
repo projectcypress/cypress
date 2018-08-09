@@ -14,8 +14,8 @@ class Measure
   end
 
   def value_sets
-    options = { oid: oids }
-    @value_sets ||= HealthDataStandards::SVS::ValueSet.in(options)
+    #options = { oid: oids }
+    @value_sets ||= HealthDataStandards::SVS::ValueSet.find(self['value_sets'])
     @value_sets
   end
 

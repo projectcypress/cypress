@@ -40,8 +40,10 @@ class ProductTestSetupJob < ApplicationJob
     #   value_set_map[vs['oid']][vs['version']] = vs
     # end
     # value_sets_by_oid_json = MultiJson.encode value_set_map
+    # TODO fix effectiveDateEnd and effectiveDate in cqm-execution.  effectiveDate is the end of the measurement period
     calc_job = Cypress::JsEcqmCalc.new('correlationId': correlation_id,
-                                       'effectiveDate': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number))
+                                       'effectiveDateEnd': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
+                                       'effectiveDate': Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
     calc_job.request(patients, measures.first)
   end
 
