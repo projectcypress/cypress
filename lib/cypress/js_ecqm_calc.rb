@@ -4,81 +4,50 @@ require 'securerandom'
 
 module Cypress
   class JsEcqmCalc
-    attr_accessor :patient_ids, :measure_ids, :options, :lock, :response,
+    CALCULATION_SERVICE_URL = 'http://localhost:8082/calculate'.freeze
+
+    attr_accessor :patients, :options, :response,
                   :connection, :channel, :queue, :reply_queue, :exchange, :call_id, :condition
 
     def initialize(options)
-      # @hds_record_converter = CQM::Converter::HDSRecord.new
-      @connection = Bunny.new
-      @connection.start
-      @channel = connection.create_channel
-      @queue = channel.queue('calculation_queue', durable: true)
-
       @options = options
     end
 
-    def sync_job(patient_ids, measure_ids)
-      @patient_ids = patient_ids
-      @measure_ids = measure_ids
-      setup_reply_queue
-      @exchange = @channel.default_exchange
+    def request(patients, measure)
+      @patients = patients
 
-      @call_id = SecureRandom.uuid
+      post_data = {
+        patients: @patients,
+        measure: measure,
+        valueSetsByOid: measure.value_sets_by_oid,
+        options: options
+      }
 
-      message = JSON.dump(patient_ids: @patient_ids,
-                          measure_ids: @measure_ids,
-                          options: @options,
-                          type: 'sync',
-                          reply_to: @reply_queue.name)
+      begin
+        response = RestClient::Request.execute(:method => :post, :url => CALCULATION_SERVICE_URL, :timeout => 120, 
+                                             :payload => post_data.to_json(methods: :_type), 
+                                             :headers => {content_type: 'application/json'})
+      rescue => e
+        e.response
+      end
 
-      @exchange.publish(message,
-                        routing_key: 'calculation_queue',
-                        correlation_id: @call_id,
-                        reply_to: @reply_queue.name,
-                        persistent: true)
+      r2 = results.map do |_, result|
+        result.map do |_, pop_criteria|
+          pop_criteria.slice('IPP', 'DENOM', 'DENEX', 'NUMER', 'measure_id', 'patient_id', 'extendedData')
+        end
+      end
 
-      @lock.synchronize { @condition.wait(@lock, timeout) }
+
 
       raise 'No result found. Are RabbitMQ and the calculation worker Running?' unless response
       return response['result'] if response['status'] == 'success'
       raise response['error'] || 'Calculation failed without an error message'
     end
 
-    def async_job(patient_ids, measure_ids)
-      @patient_ids = patient_ids
-      @measure_ids = measure_ids
-      message = JSON.dump(patient_ids: @patient_ids,
-                          measure_ids: @measure_ids,
-                          options: @options,
-                          type: 'async')
-      @queue.publish(message, persistent: true)
-    end
-
-    def stop
-      @channel.close
-      @connection.close
-    end
-
     private
 
     def timeout
       @options[:timeout] || 60
-    end
-
-    def setup_reply_queue
-      @lock = Mutex.new
-      @condition = ConditionVariable.new
-      that = self
-      @reply_queue = channel.queue('', exclusive: true)
-
-      @reply_queue.subscribe do |_delivery_info, properties, payload|
-        if properties[:correlation_id] == that.call_id
-          that.response = JSON.parse(payload.to_s)
-
-          # sends the signal to continue the execution of #call
-          that.lock.synchronize { that.condition.signal }
-        end
-      end
     end
   end
 end
