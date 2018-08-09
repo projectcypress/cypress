@@ -65,9 +65,11 @@ module Validators
       return false unless record
 
       # This Logic will need to be updated with CQL calculations
+      # TODO fix effectiveDateEnd and effectiveDate in cqm-execution.  effectiveDate is the end of the measurement period
       calc_job = Cypress::JsEcqmCalc.new('correlation_id': options.test_execution.id.to_s,
-                                         'effective_date': Time.at(te.task.effective_date).in_time_zone.to_formatted_s(:number))
-      new_results = calc_job.sync_job([record.id.to_s], @measures.map { |mes| mes._id.to_s })
+                                         'effectiveDateEnd': Time.at(te.effective_date).in_time_zone.to_formatted_s(:number),
+                                         'effectiveDate': Time.at(te.measure_period_start).in_time_zone.to_formatted_s(:number))
+      calc_job.sync_job([record.id.to_s], @measures.map { |mes| mes._id.to_s })
       calc_job.stop
       passed = determine_passed(mrn, record, new_results['Individual'], options)
       record.destroy
