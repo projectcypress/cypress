@@ -19,22 +19,30 @@ class ProductTestSetupJob < ApplicationJob
   def calculate_product_test(product_test)
     if product_test.is_a? FilteringTest
       product_test.pick_filter_criteria
-      unfiltered_patient_ids = product_test.patients.map { |rec| rec._id.to_s }
+      unfiltered_patients = product_test.patients
       # Perform calculation for unfiltered patient list, this is used for patient list view only.
-      do_calculation(product_test, unfiltered_patient_ids, "#{product_test._id}_unfiltered")
-      patient_ids = product_test.filtered_patients.map { |rec| rec._id.to_s }
+      do_calculation(product_test, unfiltered_patients, "#{product_test._id}_unfiltered")
+      patients = product_test.filtered_patients
     else
-      patient_ids = product_test.patients.map { |rec| rec._id.to_s }
+      patients = product_test.patients
     end
-    do_calculation(product_test, patient_ids, product_test._id.to_s)
+    do_calculation(product_test, patients, product_test._id.to_s)
   end
 
-  def do_calculation(product_test, patient_ids, correlation_id)
-    calc_job = Cypress::JsEcqmCalc.new('correlation_id': correlation_id,
-                                       'effective_date': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number))
-    results = calc_job.sync_job(patient_ids, product_test.measures.map { |mes| mes._id.to_s })
-    calc_job.stop
-    results
+  def do_calculation(product_test, patients, correlation_id)
+    measures = product_test.measures
+    # value_sets = product_test.bundle.value_sets.in(:oid.in => measures.collect(&:oids).flatten.uniq)
+    # value_set_map = {}
+    # value_sets.each do |vs|
+    #   if !value_set_map.key?(vs['oid'])
+    #     value_set_map[vs['oid']] = {}
+    #   end
+    #   value_set_map[vs['oid']][vs['version']] = vs
+    # end
+    # value_sets_by_oid_json = MultiJson.encode value_set_map
+    calc_job = Cypress::JsEcqmCalc.new('correlationId': correlation_id,
+                                       'effectiveDate': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number))
+    calc_job.request(patients, measures.first)
   end
 
   private

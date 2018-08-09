@@ -28,6 +28,7 @@ module Validators
 
       calc_job = Cypress::JsEcqmCalc.new('effective_date': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number))
       results = calc_job.sync_job([record.id.to_s], product_test.measures.map { |mes| mes._id.to_s })
+      binding.pry
       calc_job.stop
 
       passed = compare_results(results, record, options)
