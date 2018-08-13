@@ -23,13 +23,11 @@ module Validators
       # return false unless mrn
       record = parse_and_save_record(rec.clone)
       product_test = ProductTest.find(record.extendedData['correlation_id'])
-      @bundle = product_test.bundle
       return false unless record
-
-      calc_job = Cypress::JsEcqmCalc.new('effective_date': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number))
-      results = calc_job.sync_job([record.id.to_s], product_test.measures.map { |mes| mes._id.to_s })
-      binding.pry
-      calc_job.stop
+      calc_job = Cypress::CqmExecutionCalc.new([record], product_test.measures, product_test.value_sets_by_oid, options.test_execution.id.to_s,
+                                               'effectiveDateEnd': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
+                                               'effectiveDate': Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
+      results = calc_job.execute
 
       passed = compare_results(results, record, options)
       record.destroy
@@ -38,11 +36,10 @@ module Validators
 
     def compare_results(results, record, options)
       passed = true
-      results_hash = results['Individual']
       @measures.each do |measure|
         # compare results to patient as it was initially calculated for product test (use original product patient id before cloning)
         orig_results = QDM::IndividualResult.where('patient_id': options[:orig_product_patient].id, 'measure_id': measure.id).first
-        new_results = results_hash[measure.id.to_s][record.id.to_s]
+        new_results = results.select { |arr| arr.measure_id == measure.id && arr.patient_id == record.id }.first
         measure.population_ids.keys.each do |pop_id|
           if orig_results[pop_id] != new_results[pop_id]
             passed = false

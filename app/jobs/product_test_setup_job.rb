@@ -31,20 +31,11 @@ class ProductTestSetupJob < ApplicationJob
 
   def do_calculation(product_test, patients, correlation_id)
     measures = product_test.measures
-    # value_sets = product_test.bundle.value_sets.in(:oid.in => measures.collect(&:oids).flatten.uniq)
-    # value_set_map = {}
-    # value_sets.each do |vs|
-    #   if !value_set_map.key?(vs['oid'])
-    #     value_set_map[vs['oid']] = {}
-    #   end
-    #   value_set_map[vs['oid']][vs['version']] = vs
-    # end
-    # value_sets_by_oid_json = MultiJson.encode value_set_map
-    # TODO fix effectiveDateEnd and effectiveDate in cqm-execution.  effectiveDate is the end of the measurement period
-    calc_job = Cypress::JsEcqmCalc.new('correlationId': correlation_id,
-                                       'effectiveDateEnd': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
-                                       'effectiveDate': Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
-    calc_job.request(patients, measures.first)
+    # TODO: fix effectiveDateEnd and effectiveDate in cqm-execution.  effectiveDate is the end of the measurement period
+    calc_job = Cypress::CqmExecutionCalc.new(patients, measures, product_test.value_sets_by_oid, correlation_id,
+                                             'effectiveDateEnd': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
+                                             'effectiveDate': Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
+    calc_job.execute
   end
 
   private

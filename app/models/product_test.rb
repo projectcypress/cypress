@@ -168,6 +168,15 @@ class ProductTest
     QDM::IndividualResult.where('extendedData.correlation_id' => id.to_s)
   end
 
+  def value_sets_by_oid
+    value_sets = bundle.value_sets.in(:oid.in => measures.collect(&:oids).flatten.uniq)
+    value_set_map = {}
+    value_sets.map do |vs|
+      value_set_map[vs['oid']] = {} unless value_set_map.key?(vs['oid'])
+      value_set_map[vs['oid']][vs['version']] = vs
+    end
+  end
+
   %i[ready queued building errored].each do |test_state|
     define_method test_state do
       self.state = test_state
