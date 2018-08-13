@@ -13,8 +13,11 @@ class Measure
     sub_id ? "#{cms_id} (#{sub_id}) #{name}" : "#{cms_id} #{name}"
   end
 
+  def value_set_oids
+    oids
+  end
+
   def value_sets
-    #options = { oid: oids }
     @value_sets ||= HealthDataStandards::SVS::ValueSet.find(self['value_sets'])
     @value_sets
   end
@@ -25,15 +28,13 @@ class Measure
       if @value_sets_by_oid[vs.oid]
         # If there are multiple value sets with the same oid for the user, then keep the one with
         # the version corresponding to this measure.
-        if vs.version.include?(hqmf_set_id)
-          @value_sets_by_oid[vs.oid] = { vs.version => vs }
-        end
+        @value_sets_by_oid[vs.oid] = { vs.version => vs } if vs.version.include?(hqmf_set_id)
       else
         @value_sets_by_oid[vs.oid] = { vs.version => vs }
       end
     end
     @value_sets_by_oid
-end
+  end
 
   def cms_int
     return 0 unless cms_id

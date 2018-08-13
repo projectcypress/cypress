@@ -56,44 +56,34 @@ module Validators
     end
 
     def validate_calculated_results(doc, options)
-      te = options['test_execution']
-
       mrn, = get_record_identifiers(doc, options)
       return false unless mrn
 
       record = parse_and_save_record(doc, options)
       return false unless record
 
+      product_test = options['task'].product_test
+
       # This Logic will need to be updated with CQL calculations
       # TODO fix effectiveDateEnd and effectiveDate in cqm-execution.  effectiveDate is the end of the measurement period
-      calc_job = Cypress::JsEcqmCalc.new('correlation_id': options.test_execution.id.to_s,
-                                         'effectiveDateEnd': Time.at(te.effective_date).in_time_zone.to_formatted_s(:number),
-                                         'effectiveDate': Time.at(te.measure_period_start).in_time_zone.to_formatted_s(:number))
-      calc_job.sync_job([record.id.to_s], @measures.map { |mes| mes._id.to_s })
-      calc_job.stop
-      passed = determine_passed(mrn, record, new_results['Individual'], options)
+      calc_job = Cypress::CqmExecutionCalc.new([record], product_test.measures, product_test.value_sets_by_oid, options.test_execution.id.to_s,
+                                               'effectiveDateEnd': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
+                                               'effectiveDate': Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
+      results = calc_job.execute
+      passed = determine_passed(mrn, results, record, options)
       record.destroy
       passed
     end
 
-    def determine_passed(mrn, record, new_results, options)
+    def determine_passed(mrn, results, record, options)
       passed = true
       @measures.each do |measure|
-        original_results = QDM::IndividualResult.where('patient_id' => mrn, 'measure_id' => measure.id)
-        new_result = new_results[measure.id.to_s][record.id.to_s]
+        original_results = QDM::IndividualResult.where('patient_id' => mrn, 'measure_id' => measure.id).first
+        new_results = results.select { |arr| arr.measure_id == measure.id && arr.patient_id == record.id }.first
         options[:population_ids] = measure.population_ids
-        passed = compare_results(original_results.first, new_result, options, passed)
+        passed = compare_results(original_results, new_results, options, passed)
       end
       passed
-    end
-
-    def generate_oid_dictionary(measure, bundle_id)
-      valuesets = HealthDataStandards::CQM::Bundle.find(bundle_id).value_sets.in(oid: measure.oids)
-      js = {}
-      valuesets.each do |vs|
-        js[vs.oid] = cached_value(vs)
-      end
-      js.to_json
     end
 
     def cached_value(vs)
