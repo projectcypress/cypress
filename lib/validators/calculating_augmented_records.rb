@@ -24,7 +24,7 @@ module Validators
       record = parse_and_save_record(rec.clone)
       product_test = ProductTest.find(record.extendedData['correlation_id'])
       return false unless record
-      calc_job = Cypress::CqmExecutionCalc.new([record], product_test.measures, product_test.value_sets_by_oid, options.test_execution.id.to_s,
+      calc_job = Cypress::CqmExecutionCalc.new([record], product_test.measures, product_test.value_sets_by_oid, nil,
                                                'effectiveDateEnd': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
                                                'effectiveDate': Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
       results = calc_job.execute
