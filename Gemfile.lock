@@ -43,6 +43,27 @@ GIT
       zip-zip
 
 GIT
+  remote: https://github.com/projecttacoma/cqm-parsers.git
+  revision: 77093cc436d6f2e00bfc71a489cd3acb2dc42832
+  branch: qrda_3
+  specs:
+    cqm-parsers (0.1.1)
+      activesupport (~> 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 5.0.0)
+      mongoid-tree (~> 2.0.0)
+      nokogiri (~> 1.8.3)
+      protected_attributes (~> 1.0.5)
+      rest-client (~> 1.8.0)
+      rubyzip (~> 1.2.1)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+
+GIT
   remote: https://github.com/turbolinks/turbolinks-classic
   revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
   branch: master
@@ -175,21 +196,6 @@ GEM
       momentjs-rails
       sprockets
     cqm-models (0.8.2)
-    cqm-parsers (0.1.1)
-      activesupport (~> 4.2.0)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (~> 5.0.0)
-      mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.3)
-      protected_attributes (~> 1.0.5)
-      rest-client (~> 1.8.0)
-      rubyzip (~> 1.2.1)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
     cqm-validators (0.1.0)
       nokogiri (~> 1.8.2)
     crass (1.0.4)
@@ -548,7 +554,7 @@ DEPENDENCIES
   cql_qdm_patientapi
   cqm-converter (~> 0.3.4)
   cqm-models (~> 0.8.2)
-  cqm-parsers (~> 0.1.1)
+  cqm-parsers!
   cqm-validators (~> 0.1.0)
   cucumber (~> 3.0.2)
   cucumber-rails
