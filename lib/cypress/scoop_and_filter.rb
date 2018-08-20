@@ -11,7 +11,7 @@ module Cypress
     def codes_in_measures(measures)
       valuesets = measures.collect do |measure|
         measure['value_set_oid_version_objects'].collect do |valueset|
-          HealthDataStandards::SVS::ValueSet.where(oid: valueset.oid, version: valueset.version).to_a
+          ValueSet.where(oid: valueset.oid, version: valueset.version).to_a
         end
       end.flatten
       code_list = valuesets.collect(&:concepts).flatten

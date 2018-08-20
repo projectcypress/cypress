@@ -35,7 +35,7 @@ module FilteringTestsHelper
   end
 
   def problems_val(val)
-    ["SNOMEDCT codes in #{HealthDataStandards::SVS::ValueSet.where(oid: val[:oid].first).first.display_name} (code: #{val[:oid].first})"]
+    ["SNOMEDCT codes in #{ValueSet.where(oid: val[:oid].first).first.display_name} (code: #{val[:oid].first})"]
   end
 
   def providers_val(val)

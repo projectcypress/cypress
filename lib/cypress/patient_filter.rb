@@ -46,7 +46,7 @@ module Cypress
     def self.patient_missing_problems(patient, problem)
       # TODO: first... different versions of value set... which version do we want?
       # 2.16.840.1.113883.3.666.5.748
-      value_set = HealthDataStandards::SVS::ValueSet.where(oid: problem['oid'].first).first
+      value_set = ValueSet.where(oid: problem['oid'].first).first
       !Cypress::CriteriaPicker.find_problem_in_records([patient], value_set)
     end
   end

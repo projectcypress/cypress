@@ -56,7 +56,7 @@ module Cypress
         # find diagnosis criteria in measure
         next unless cr_hash.definition.eql? 'diagnosis'
         fallback_id = cr_hash['code_list_id']
-        value_set = HealthDataStandards::SVS::ValueSet.where(oid: cr_hash['code_list_id']).first
+        value_set = ValueSet.where(oid: cr_hash['code_list_id']).first
 
         # search through records for diagnosis criteria
         next unless find_problem_in_records(records, value_set)

@@ -61,9 +61,9 @@ module Cypress
     def self.unpack_and_store_valuesets(zip, bundle)
       entries = zip.glob(SOURCE_ROOTS[:valuesets])
       entries.each_with_index do |entry, index|
-        vs = HealthDataStandards::SVS::ValueSet.new(unpack_json(entry))
+        vs = ValueSet.new(unpack_json(entry))
         vs['bundle_id'] = bundle.id
-        HealthDataStandards::SVS::ValueSet.collection.insert_one(vs.as_document)
+        ValueSet.collection.insert_one(vs.as_document)
         report_progress('Value Sets', (index * 100 / entries.length)) if (index % 10).zero?
       end
       puts "\rLoading: Value Sets Complete          "
@@ -78,7 +78,7 @@ module Cypress
         measure['bundle_id'] = bundle.id
         value_sets = []
         measure.value_set_oid_version_objects.each do |vsv|
-          value_sets << HealthDataStandards::SVS::ValueSet.where(oid: vsv.oid, version: vsv.version).first.id
+          value_sets << ValueSet.where(oid: vsv.oid, version: vsv.version).first.id
         end
         measure['value_sets'] = value_sets
         mes = Mongoid.default_client['measures'].insert_one(measure)

@@ -194,7 +194,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     filters = { 'problems' => { 'oid' => [selected_problem], hqmf_ids: ['2.16.840.1.113883.3.560.1.2'] } }
     filtered_records = Cypress::PatientFilter.filter(@all_patients, filters, bundle_id: @all_patients.first.bundleId).to_a
 
-    code_sets = HealthDataStandards::SVS::ValueSet.where('oid' => selected_problem).pluck('concepts')
+    code_sets = ValueSet.where('oid' => selected_problem).pluck('concepts')
 
     relevant_codes = []
     code_sets.each do |code_set|
