@@ -287,7 +287,7 @@ module Cypress
 
     def compare_age(doc, age_filter, creation_time)
       age_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:birthTime/@value'
-      patient_birth_time = HealthDataStandards::Util::HL7Helper.timestamp_to_integer(doc.at_xpath(age_xpath).value)
+      patient_birth_time = DateTime.parse(doc.at_xpath(age_xpath).value).to_i
       filter_time = Time.parse(creation_time).to_i
       age_shit = 31_556_952 * age_filter[1]
       if age_filter[0] == 'max'
