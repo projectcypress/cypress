@@ -46,7 +46,6 @@ FactoryBot.define do
         patient.save
         ir_extended_data = { 'correlation_id' => pt.id.to_s }
         create(:individual_result, 'extendedData' => ir_extended_data, 'patient_id' => patient.id, 'measure_id' => pt.measures.first.id)
-        sqc = create(:static_query_cache)
         sqc['test_id'] = pt.id
         sqc.save
       end

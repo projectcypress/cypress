@@ -46,7 +46,6 @@ module Cypress
       @measure_result_hash[measure.key]['OBSERV'] = median(observ_values.reject(&:nil?))
       @measure_result_hash[measure.key]['measure_id'] = measure.hqmf_id
       @measure_result_hash[measure.key]['population_ids'] = measure.population_ids
-      create_query_cache_object(@measure_result_hash[measure.key], measure)
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -72,14 +71,6 @@ module Cypress
       else
         single_measure_result_hash['supplemental_data'][pop][sup_type][code] = 1
       end
-    end
-
-    def create_query_cache_object(result, measure)
-      qco = result
-      qco['test_id'] = @product_test.id
-      qco['effective_date'] = @product_test.effective_date
-      qco['sub_id'] = measure.sub_id if measure.sub_id
-      Mongoid.default_client['query_cache'].insert_one(qco)
     end
 
     private
