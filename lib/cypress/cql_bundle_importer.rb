@@ -45,7 +45,7 @@ module Cypress
     end
 
     def self.check_bundle_versions(bundle)
-      bundle_versions = Hash[* HealthDataStandards::CQM::Bundle.where(deprecated: false).collect { |b| [b.version, b.id] }.flatten]
+      bundle_versions = Hash[* Bundle.where(deprecated: false).collect { |b| [b.version, b.id] }.flatten]
 
       # no bundles before 2018 and no non-deprecated bundles with same year
       old_year_err = 'Please use bundles for year 2018 or later.'
@@ -55,7 +55,7 @@ module Cypress
     end
 
     def self.unpack_bundle(zip)
-      HealthDataStandards::CQM::Bundle.new(JSON.parse(zip.read(SOURCE_ROOTS[:bundle]), max_nesting: 100))
+      Bundle.new(JSON.parse(zip.read(SOURCE_ROOTS[:bundle]), max_nesting: 100))
     end
 
     def self.unpack_and_store_valuesets(zip, bundle)

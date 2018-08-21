@@ -16,7 +16,7 @@ module QDM
 
     def bundle
       if !self['bundleId'].nil?
-        HealthDataStandards::CQM::Bundle.find(self['bundleId'])
+        Bundle.find(self['bundleId'])
       elsif !extendedData[:correlation_id].nil?
         ProductTest.find(extendedData[:correlation_id]).bundle
       end

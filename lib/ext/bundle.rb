@@ -1,11 +1,28 @@
-# yes this is a bit ugly as it is aliasing The bundle class but it
-# works for now until we can truley unify these items accross applications
-Bundle = HealthDataStandards::CQM::Bundle
 class Bundle
-  has_many :products, :dependent => :destroy
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  include Mongoid::Attributes::Dynamic
+  store_in collection: 'bundles'
 
+  field :title, type: String
+  field :name, type: String
+  field :version, type: String
+  field :license, type: String
+  field :extensions, type: Array
+  field :measures, type: Array
+  field :effective_date
+  field :measure_period_start
+  field :records, type: Array
+  field :active, type: Boolean
   field :deprecated, :type => Boolean, :default => false
+  field :done_importing, type: Boolean, default: false
 
+  validates_presence_of :version
+
+  has_many :value_sets, class_name: "ValueSet", inverse_of: :bundle
+  has_many :products, :dependent => :destroy
+  
+  scope :active, -> {where(active: true)}
   scope :available, -> { where(:deprecated.ne => true) }
 
   def results
@@ -14,6 +31,10 @@ class Bundle
 
   def patients
     Patient.where(:bundleId => _id.to_s, 'extendedData.correlation_id' => nil).order_by([['last', :asc]])
+  end
+
+  def measures
+    HealthDataStandards::CQM::Measure.where({bundle_id: self.id}).order_by([["id", :asc],["sub_id",:asc]])
   end
 
   def title
@@ -32,6 +53,13 @@ class Bundle
     Product.where(:bundle_id => id).destroy_all
     FileUtils.rm(mpl_path) if File.exist?(mpl_path)
     delete
+  end
+
+  def delete
+    self.measures.destroy
+    self.patients.destroy
+    self.value_sets.destroy
+    super
   end
 
   def default_negation_codes
@@ -105,6 +133,10 @@ class Bundle
 
   def self.most_recent
     where(:version => pluck(:version).max_by { |v| v.split('.').map(&:to_i) }).first
+  end
+
+  def self.latest_bundle_id
+    desc(:exported).first.try(:_id)
   end
 
   def self.first

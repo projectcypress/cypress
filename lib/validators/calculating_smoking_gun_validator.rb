@@ -87,7 +87,7 @@ module Validators
     end
 
     def generate_oid_dictionary(measure, bundle_id)
-      valuesets = HealthDataStandards::CQM::Bundle.find(bundle_id).value_sets.in(oid: measure.oids)
+      valuesets = Bundle.find(bundle_id).value_sets.in(oid: measure.oids)
       js = {}
       valuesets.each do |vs|
         js[vs.oid] = cached_value(vs)

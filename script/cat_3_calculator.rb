@@ -85,7 +85,7 @@ _captured_output = capture_output do
 
   Mongoid.load!('config/mongoid.yml', :measure_eval)
 
-  if HealthDataStandards::CQM::Bundle.first.nil?
+  if Bundle.first.nil?
     options = { delete_existing: true,
                 type: nil,
                 update_measures: true,
@@ -104,7 +104,7 @@ _captured_output = capture_output do
   QME::PatientCache.destroy_all
 
   HealthDataStandards::Import::BulkRecordImporter.import_archive(zipfile)
-  bundle = HealthDataStandards::CQM::Bundle.first
+  bundle = Bundle.first
 
   measure_ids.each do |id|
     measures = HealthDataStandards::CQM::Measure.where(hqmf_id: id)
