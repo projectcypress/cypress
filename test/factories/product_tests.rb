@@ -53,8 +53,6 @@ FactoryBot.define do
         aug_record[0]['original_patient_id'] = patient._id
         ir_extended_data = { 'correlation_id' => pt.id.to_s }
         create(:individual_result, 'extendedData' => ir_extended_data, 'patient_id' => patient.id, 'measure_id' => pt.measures.first.id)
-        sqc['test_id'] = pt.id
-        sqc.save
         pt.augmented_patients = aug_record
         pt.save
       end
