@@ -1,5 +1,4 @@
 require 'test_helper'
-
 class ChecklistTestsControllerTest < ActionController::TestCase
   include ActiveJob::TestHelper
 

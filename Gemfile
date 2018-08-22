@@ -6,17 +6,18 @@ ruby '2.3.7'
 gem 'rails', '~> 4.2.7'
 
 # Use MongoDB just like in Cypress v2!
-gem 'mongoid', '~> 5.0.0'
 gem 'delayed_job_mongoid', '~> 2.2.0'
+gem 'mongoid', '~> 5.0.0'
+
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson_ext'
 
 gem 'mustache'
 gem 'os'
 
-gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git',  branch: 'remove_hds'
-gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git',  branch: 'qrda_3'
-gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators.git',  branch: 'remove_hds'
+gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'remove_hds'
+gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'qrda_3'
+gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators.git', branch: 'remove_hds'
 
 # Use faker to generate addresses
 gem 'faker', '~> 1.5.0'

@@ -1,5 +1,5 @@
 class String
   def to_boolean
-    ['1', 'true', 't'].include?(self.downcase)
+    %w[1 true t].include?(downcase)
   end
 end

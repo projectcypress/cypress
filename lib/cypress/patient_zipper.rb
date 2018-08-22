@@ -7,20 +7,20 @@ require 'zip/zipfilesystem'
 
 module Cypress
   class HTMLExporter
-    # TODO add HTML Export in CQM-Parsers
+    # TODO: add HTML Export in CQM-Parsers
     # EXPORTER = HealthDataStandards::Export::HTML.new
     attr_accessor :measures
 
     def initialize(measures, start_time, end_time)
-      # TODO conversion will not be needed, QDM -> HTML
+      # TODO: conversion will not be needed, QDM -> HTML
       # @qdm_patient_converter = CQM::Converter::QDMPatient.new
       @measures = measures.to_a
       @start_time = start_time
       @end_time = end_time
     end
 
-    def export(patient)
-      # TODO add HTML Export in CQM-Parsers
+    def export(_patient)
+      # TODO: add HTML Export in CQM-Parsers
       # TODO: R2P: make sure patient export works with HDS HTML exporter
       # hdsrecord = @qdm_patient_converter.to_hds(patient)
       # hdsrecord.bundle_id = patient.bundleId

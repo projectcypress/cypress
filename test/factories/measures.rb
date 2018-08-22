@@ -95,7 +95,7 @@ FactoryBot.define do
       category 'static'
       type 'ep'
       sub_id 'a'
-      
+
       episode_of_care source_measure['episode_of_care']
       source_data_criteria { source_measure['source_data_criteria'] }
       data_criteria { source_measure['data_criteria'] }

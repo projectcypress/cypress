@@ -14,15 +14,15 @@ class Bundle
   field :measure_period_start
   field :records, type: Array
   field :active, type: Boolean
-  field :deprecated, :type => Boolean, :default => false
+  field :deprecated, type: Boolean, default: false
   field :done_importing, type: Boolean, default: false
 
   validates_presence_of :version
 
-  has_many :value_sets, class_name: "ValueSet", inverse_of: :bundle
+  has_many :value_sets, :class_name => 'ValueSet', :inverse_of => :bundle
   has_many :products, :dependent => :destroy
-  
-  scope :active, -> {where(active: true)}
+
+  scope :active, -> { where(:active => true) }
   scope :available, -> { where(:deprecated.ne => true) }
 
   def results
@@ -34,7 +34,7 @@ class Bundle
   end
 
   def measures
-    Measure.where({bundle_id: self.id}).order_by([["id", :asc],["sub_id",:asc]])
+    Measure.where(:bundle_id => id).order_by([['id', :asc], ['sub_id', :asc]])
   end
 
   def title
@@ -56,9 +56,9 @@ class Bundle
   end
 
   def delete
-    self.measures.destroy
-    self.patients.destroy
-    self.value_sets.destroy
+    measures.destroy
+    patients.destroy
+    value_sets.destroy
     super
   end
 

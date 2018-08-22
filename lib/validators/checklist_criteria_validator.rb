@@ -30,12 +30,12 @@ module Validators
     def validate_criteria(checked_criteria)
       measure = Measure.find_by(_id: checked_criteria.measure_id)
       sdc = measure[:source_data_criteria].select { |key| key == checked_criteria.source_data_criteria }.values.first
-      hqmf_oids = HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids(sdc['definition'], sdc['status'])
+      oids = HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids(sdc['definition'], sdc['status'])
       # demographics do not have an associated template
-      if (['2.16.840.1.113883.3.560.1.406', '2.16.840.1.113883.3.560.1.403', '2.16.840.1.113883.3.560.1.402'] & hqmf_oids).present?
-        validate_demographics(hqmf_oids, checked_criteria)
+      if (['2.16.840.1.113883.3.560.1.406', '2.16.840.1.113883.3.560.1.403', '2.16.840.1.113883.3.560.1.402'] & oids).present?
+        validate_demographics(oids, checked_criteria)
       else
-        template = hqmf_oids.map { |oid| QRDA::Util::QRDATemplateHelper.definition_for_template_id(oid, @qrda_version) }.compact.first['cda_template_id']
+        template = oids.map { |oid| QRDA::Util::QRDATemplateHelper.definition_for_template_id(oid, @qrda_version) }.compact.first['cda_template_id']
         # find all nodes that fulfill the data criteria, this is defined in checklist result extractor
         find_dc_node(template, checked_criteria, sdc)
       end

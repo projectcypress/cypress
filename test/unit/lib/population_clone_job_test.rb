@@ -2,7 +2,6 @@ require 'test_helper'
 require 'fileutils'
 
 class PopulationCloneJobTest < ActiveSupport::TestCase
-
   def setup
     @pt = FactoryBot.create(:product_test_static_result)
   end
