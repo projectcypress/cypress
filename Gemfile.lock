@@ -11,40 +11,15 @@ GIT
       railties (>= 4.2.0)
 
 GIT
-  remote: https://github.com/projectcypress/health-data-standards.git
-  revision: f439991b6ed4861cbe4da19454692f7c7d3ccd44
-  branch: r5
+  remote: https://github.com/projecttacoma/cqm-models.git
+  revision: d677de4828246905be7ac276775124fa4de3179a
+  branch: remove_hds
   specs:
-    health-data-standards (4.0.3)
-      activesupport (~> 4.2.0)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (~> 5.0.0)
-      mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.2)
-      protected_attributes (~> 1.0.5)
-      rest-client (~> 1.8.0)
-      rubyzip (~> 1.2.1)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projectcypress/quality-measure-engine.git
-  revision: 607bae5ad1946992912056cabc64efdb77adff10
-  branch: bump_mongoid
-  specs:
-    quality-measure-engine (3.1.2)
-      delayed_job_mongoid (~> 2.2.0)
-      mongoid (~> 5.0.0)
-      rubyzip (>= 1.0.0)
-      zip-zip
+    cqm-models (0.8.3)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: 77093cc436d6f2e00bfc71a489cd3acb2dc42832
+  revision: bd3fef063049ade3698b0c2b85fed147e2af45a1
   branch: qrda_3
   specs:
     cqm-parsers (0.1.1)
@@ -62,6 +37,14 @@ GIT
       rubyzip (~> 1.2.1)
       uuid (~> 2.3.7)
       zip-zip (~> 0.3)
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-validators.git
+  revision: f18c64942affce7fbe4dcdfb3a56c277b44465a8
+  branch: remove_hds
+  specs:
+    cqm-validators (0.1.0)
+      nokogiri (~> 1.8.2)
 
 GIT
   remote: https://github.com/turbolinks/turbolinks-classic
@@ -183,21 +166,6 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
-    cql_qdm_patientapi (1.1.4)
-      coffee-rails (~> 4.1)
-      rails (~> 4.2)
-      sprockets-rails (~> 2.3)
-    cqm-converter (0.3.4)
-      activesupport
-      coffee-script
-      cqm-models (>= 0.7.2)
-      execjs
-      health-data-standards (>= 4.0.3)
-      momentjs-rails
-      sprockets
-    cqm-models (0.8.2)
-    cqm-validators (0.1.0)
-      nokogiri (~> 1.8.2)
     crass (1.0.4)
     cucumber (3.0.2)
       builder (>= 2.1.2)
@@ -324,9 +292,7 @@ GEM
     mocha (1.6.0)
       metaclass (~> 0.0.1)
     modernizr-rails (2.7.1)
-    momentjs-rails (2.20.1)
-      railties (>= 3.1)
-    mongo (2.6.1)
+    mongo (2.6.2)
       bson (>= 4.3.0, < 5.0.0)
     mongoid (5.0.2)
       activemodel (~> 4.0)
@@ -551,20 +517,18 @@ DEPENDENCIES
   carrierwave (~> 0.11.2)
   carrierwave-mongoid
   codecov
-  cql_qdm_patientapi
-  cqm-converter (~> 0.3.4)
-  cqm-models (~> 0.8.2)
+  cqm-models!
   cqm-parsers!
-  cqm-validators (~> 0.1.0)
+  cqm-validators!
   cucumber (~> 3.0.2)
   cucumber-rails
   database_cleaner
+  delayed_job_mongoid (~> 2.2.0)
   devise (= 4.1.1)
   devise_invitable
   factory_bot_rails
   faker (~> 1.5.0)
   font-awesome-sass (~> 5.0.13)
-  health-data-standards!
   jasny-bootstrap-rails
   jbuilder (~> 2.0)
   jquery-datatables-rails (~> 3.3.0)
@@ -588,7 +552,6 @@ DEPENDENCIES
   poltergeist
   pry
   pry-nav
-  quality-measure-engine!
   rails (~> 4.2.7)
   rails-perftest
   rails_best_practices

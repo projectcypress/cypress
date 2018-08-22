@@ -7,22 +7,16 @@ gem 'rails', '~> 4.2.7'
 
 # Use MongoDB just like in Cypress v2!
 gem 'mongoid', '~> 5.0.0'
+gem 'delayed_job_mongoid', '~> 2.2.0'
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson_ext'
 
 gem 'mustache'
 gem 'os'
 
-gem 'cql_qdm_patientapi'
-gem 'cqm-converter', '~> 0.3.4'
-gem 'cqm-models', '~> 0.8.2'
-gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'qrda_3'
-gem 'cqm-validators', '~> 0.1.0'
-gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'r5'
-# gem 'health-data-standards', '~> 3.7.0'
-
-gem 'quality-measure-engine',
-    git: 'https://github.com/projectcypress/quality-measure-engine.git', branch: 'bump_mongoid'
+gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git',  branch: 'remove_hds'
+gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git',  branch: 'qrda_3'
+gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators.git',  branch: 'remove_hds'
 
 # Use faker to generate addresses
 gem 'faker', '~> 1.5.0'
