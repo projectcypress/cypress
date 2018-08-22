@@ -84,7 +84,7 @@ module Cypress
       setup_vendor_test(vendor_link, measures, product_name, skip_c1_test, bundle_id)
       download_patient_test_data
       @patient_links_task_hash.each do |patient_links|
-        calcuate_cat_3(patient_links[0].split('/')[2], bundle_id)
+        # calcuate_cat_3(patient_links[0].split('/')[2], bundle_id)
         upload_test_execution(extract_test_execution_link(patient_links[1], 'C1'), patient_links[0].split('/')[2], true) unless skip_c1_test
         # upload_test_execution(extract_test_execution_link(patient_links[1], 'C2'), patient_links[0].split('/')[2], false, skip_c1_test)
       end
@@ -208,11 +208,11 @@ module Cypress
       true
     end
 
-    def calculate_filtered_cat3(bundle_id)
-      @cat3_filter_hash.each_key do |product_test|
-        calcuate_cat_3(product_test.split('/')[4], bundle_id)
-      end
-    end
+    # def calculate_filtered_cat3(bundle_id)
+    #   @cat3_filter_hash.each_key do |product_test|
+    #     calcuate_cat_3(product_test.split('/')[4], bundle_id)
+    #   end
+    # end
 
     def filter_out_patients(doc, product_test)
       filters = product_test.filters
@@ -459,12 +459,12 @@ module Cypress
       JSON.parse(unparsed_string)
     end
 
-    def calcuate_cat_3(product_test_id, bundle_id)
-      pt = ProductTest.find(product_test_id)
-      c3c = Cypress::Cat3Calculator.new(pt.measure_ids, Bundle.find(bundle_id))
-      c3c.import_cat1_zip(File.new("tmp/#{product_test_id}.zip"))
-      xml = c3c.generate_cat3
-      File.write("tmp/#{product_test_id}.xml", xml)
-    end
+    # def calcuate_cat_3(product_test_id, bundle_id)
+    #   pt = ProductTest.find(product_test_id)
+    #   c3c = Cypress::Cat3Calculator.new(pt.measure_ids, Bundle.find(bundle_id))
+    #   c3c.import_cat1_zip(File.new("tmp/#{product_test_id}.zip"))
+    #   xml = c3c.generate_cat3
+    #   File.write("tmp/#{product_test_id}.xml", xml)
+    # end
   end
 end

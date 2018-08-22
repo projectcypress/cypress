@@ -12,7 +12,7 @@ module Cypress
 
       wait_for_calculations
 
-      upload_all_cat3s
+      # upload_all_cat3s
     end
 
     def evaluate_all_cat1(args = nil)
@@ -72,17 +72,17 @@ module Cypress
       @logger.info 'done'
     end
 
-    def upload_all_cat3s
-      upload_cat3s(Product.where(name: 'MeasureEvaluationProduct').most_recent.product_tests)
-    end
+    # def upload_all_cat3s
+    #   upload_cat3s(Product.where(name: 'MeasureEvaluationProduct').most_recent.product_tests)
+    # end
 
-    def upload_cat3s(tests)
-      tests.each do |t|
-        @logger.info("Uploading cat3 for test #{t.id}")
-        xml = generate_cat3(t.measure_ids, t)
-        upload_cat3(t, xml)
-      end
-    end
+    # def upload_cat3s(tests)
+    #   tests.each do |t|
+    #     @logger.info("Uploading cat3 for test #{t.id}")
+    #     xml = generate_cat3(t.measure_ids, t)
+    #     upload_cat3(t, xml)
+    #   end
+    # end
 
     # Uploads a single Cat 3
     def upload_cat3(product_test, xml)
@@ -94,12 +94,12 @@ module Cypress
       @logger.error "Cat 3 test #{product_test.id} failed: #{e}"
     end
 
-    def generate_cat3(measure_ids, t)
-      zip = create_patient_zip(t.patients)
-      c3c = Cypress::Cat3Calculator.new(measure_ids, t.bundle)
-      c3c.import_cat1_zip(zip)
-      c3c.generate_cat3
-    end
+    # def generate_cat3(measure_ids, t)
+    #   zip = create_patient_zip(t.patients)
+    #   c3c = Cypress::Cat3Calculator.new(measure_ids, t.bundle)
+    #   c3c.import_cat1_zip(zip)
+    #   c3c.generate_cat3
+    # end
 
     def upload_all_cat1s
       upload_cat1s(Product.where(name: 'MeasureEvaluationProduct').most_recent.product_tests)
