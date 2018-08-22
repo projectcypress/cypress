@@ -1,8 +1,6 @@
-require 'quality-measure-engine'
 module Validators
   class QrdaFileValidator
     include Validators::Validator
-    require 'cypress/qrda_file_constants'
 
     self.validator_type = :result_validation
 
