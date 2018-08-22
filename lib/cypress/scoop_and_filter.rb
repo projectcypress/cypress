@@ -21,7 +21,7 @@ module Cypress
     def get_all_hqmf_oids_definition_and_status(measures)
       measures.collect do |measure|
         measure.source_data_criteria.collect do |_key, criteria|
-          HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids.get_all_hqmf_oids(criteria['definition'], criteria['status'])
+          HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids(criteria['definition'], criteria['status'])
         end
       end.flatten.uniq
     end

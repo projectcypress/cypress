@@ -34,7 +34,7 @@ class Bundle
   end
 
   def measures
-    HealthDataStandards::CQM::Measure.where({bundle_id: self.id}).order_by([["id", :asc],["sub_id",:asc]])
+    Measure.where({bundle_id: self.id}).order_by([["id", :asc],["sub_id",:asc]])
   end
 
   def title

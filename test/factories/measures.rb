@@ -12,6 +12,10 @@ FactoryBot.define do
     category 'none'
     type 'ep'
     episode_of_care true
+
+    populations source_measure['populations']
+    elm source_measure['elm']
+
     trait :diagnosis do
       hqmf_doc = { 'source_data_criteria' => { 'DiagnosisActivePregnancy' =>
                                                { 'title'  => 'Pregnancy',
@@ -42,6 +46,8 @@ FactoryBot.define do
                                             }
                                           },
                                           'source_data_criteria' => 'DiagnosisActivePregnancy' } } }
+      source_data_criteria { hqmf_doc['source_data_criteria'] }
+      data_criteria { hqmf_doc['data_criteria'] }
       hqmf_document { hqmf_doc }
     end
     trait :no_diagnosis do
@@ -71,6 +77,8 @@ FactoryBot.define do
                                             { 'type' => 'DURING',
                                               'reference' => 'MeasurePeriod' }
                                           ] } } }
+      source_data_criteria { hqmf_doc['source_data_criteria'] }
+      data_criteria { hqmf_doc['data_criteria'] }
       hqmf_document { hqmf_doc }
     end
 
@@ -87,15 +95,23 @@ FactoryBot.define do
       category 'static'
       type 'ep'
       sub_id 'a'
-
+      
       episode_of_care source_measure['episode_of_care']
-      hqmf_document { source_measure['hqmf_document'] }
       source_data_criteria { source_measure['source_data_criteria'] }
+      data_criteria { source_measure['data_criteria'] }
       population_criteria { source_measure['population_criteria'] }
       populations source_measure['populations']
+      value_set_oid_version_objects source_measure['value_set_oid_version_objects']
+      elm_annotations source_measure['elm_annotations']
+      observations source_measure['observations']
+      elm source_measure['elm']
+      main_cql_library source_measure['main_cql_library']
+      cql_statement_dependencies source_measure['cql_statement_dependencies']
+      populations_cql_map source_measure['populations_cql_map']
       measure_period { source_measure['measure_period'] }
       oids source_measure['oids']
       population_ids { source_measure['population_ids'] }
+      hqmf_document { source_measure['hqmf_doc'] }
     end
   end
 end
