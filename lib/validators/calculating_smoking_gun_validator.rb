@@ -3,7 +3,6 @@ module Validators
     include Validators::Validator
     def initialize(measures, records, test_id, options = {})
       @measures = measures
-      @hds_record_converter = CQM::Converter::HDSRecord.new
       super
     end
 
