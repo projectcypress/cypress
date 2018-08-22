@@ -9,6 +9,7 @@ class Measure
   field :bundle_id, type: BSON::ObjectId
   
   field :name, type: String
+  field :subtitle, type: String
   field :sub_id, type: String
   field :oids, type: Array
   field :hqmf_document, type: Hash

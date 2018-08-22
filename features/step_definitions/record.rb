@@ -81,7 +81,7 @@ And(/^the user selects a bundle$/) do
 end
 
 Then(/^the user should see records for that bundle$/) do
-  assert page.has_selector?('table tbody tr', count: @other_bundle.records.length), 'different number'
+  assert page.has_selector?('table tbody tr', count: @other_bundle.patients.length), 'different number'
 end
 
 When(/^the Master Patient List zip is ready for download$/) do
