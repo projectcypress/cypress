@@ -19,13 +19,13 @@ module Cypress
       @end_time = end_time
     end
 
-    def export(_patient)
+    def export(patient)
       # TODO: add HTML Export in CQM-Parsers
       # TODO: R2P: make sure patient export works with HDS HTML exporter
       # hdsrecord = @qdm_patient_converter.to_hds(patient)
       # hdsrecord.bundle_id = patient.bundleId
       # EXPORTER.export(hdsrecord, measures)
-      '<html xmlns:n1="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></html>'
+      QdmPatient.new(patient, true).render
     end
   end
 
