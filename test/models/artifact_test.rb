@@ -140,4 +140,22 @@ class ArtifactTest < ActiveSupport::TestCase
 
     FileUtils.rm_rf(root)
   end
+
+  def test_should_reject_absolute_paths
+    zip_path = Rails.root.join('test', 'fixtures', 'artifacts', 'absolutepath.zip')
+    artifact = Artifact.new(file: File.new(zip_path))
+    assert_equal 0, artifact.file_count
+  end
+
+  def test_should_reject_symlinks
+    zip_path = Rails.root.join('test', 'fixtures', 'artifacts', 'symlink.zip')
+    artifact = Artifact.new(file: File.new(zip_path))
+    assert_equal 1, artifact.file_count
+  end
+
+  def test_should_reject_relative_paths
+    zip_path = Rails.root.join('test', 'fixtures', 'artifacts', 'relativepath.zip')
+    artifact = Artifact.new(file: File.new(zip_path))
+    assert_equal 0, artifact.file_count
+  end
 end
