@@ -102,15 +102,10 @@ When(/^the user visits a record$/) do
 end
 
 Then(/^the user sees details$/) do
-  page.assert_text "Patient Information for #{@patient.first_names} #{@patient.familyName}"
-  page.assert_text full_gender_name(@patient.gender)
-  SECTIONS.each do |section|
-    page.assert_text section.titleize
-
-    next unless @patient[section]
-    @patient[section].each do |data_criteria|
-      page.assert_text data_criteria['description']
-    end
+  page.assert_text "Cypress Certification Patient Test Record: #{@patient.first_names} #{@patient.familyName}"
+  page.assert_text @patient.gender
+  @patient.dataElements.each do |data_criteria|
+    page.assert_text data_criteria['description']
   end
   @measures = @bundle.measures.where(:_id.in => @patient.calculation_results.map(&:measure_id))
   @measures.each do |m|

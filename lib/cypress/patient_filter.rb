@@ -21,7 +21,7 @@ module Cypress
           # missing payer if value doesn't match any payer name (of multiple providers)
           return true unless match_payers(v, patient)
         elsif k == 'problems'
-          patient_missing_problems(patient, v)
+          return patient_missing_problems(patient, v)
         elsif k == 'providers'
           provider = patient.lookup_provider(include_address: true)
           v.each { |key, val| return true if val != provider[key] }

@@ -84,14 +84,14 @@ module Cypress
       setup_vendor_test(vendor_link, measures, product_name, skip_c1_test, bundle_id)
       download_patient_test_data
       @patient_links_task_hash.each do |patient_links|
-        # calcuate_cat_3(patient_links[0].split('/')[2], bundle_id)
+        calcuate_cat_3(patient_links[0].split('/')[2], bundle_id)
         upload_test_execution(extract_test_execution_link(patient_links[1], 'C1'), patient_links[0].split('/')[2], true) unless skip_c1_test
-        # upload_test_execution(extract_test_execution_link(patient_links[1], 'C2'), patient_links[0].split('/')[2], false, skip_c1_test)
+        upload_test_execution(extract_test_execution_link(patient_links[1], 'C2'), patient_links[0].split('/')[2], false, skip_c1_test)
       end
-      # sleep(4)
-      # download_filter_data
-      # calculate_filtered_cat3(bundle_id)
-      # upload_c4_test_executions
+      sleep(4)
+      download_filter_data
+      calculate_filtered_cat3(bundle_id)
+      upload_c4_test_executions
       cleanup_hashes
     end
 
@@ -208,11 +208,11 @@ module Cypress
       true
     end
 
-    # def calculate_filtered_cat3(bundle_id)
-    #   @cat3_filter_hash.each_key do |product_test|
-    #     calcuate_cat_3(product_test.split('/')[4], bundle_id)
-    #   end
-    # end
+    def calculate_filtered_cat3(bundle_id)
+      @cat3_filter_hash.each_key do |product_test|
+        calcuate_cat_3(product_test.split('/')[4], bundle_id)
+      end
+    end
 
     def filter_out_patients(doc, product_test)
       filters = product_test.filters
@@ -245,20 +245,21 @@ module Cypress
     def filter_problems(doc, filters)
       problem_array = []
       problems_xpath = %(//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11']
-        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.13']
-        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.14']
-        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.135']
-        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11']
-        /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|
+        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@code|//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.13']
+        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@code|//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.14']
+        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@code|//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.135']
+        /cda:value[@codeSystem='2.16.840.1.113883.6.96']/@code|//cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.11']
+        /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@code|
         //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.13']
-        /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|
+        /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@code|
         //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.14']
-        /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet|
+        /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@code|
         //cda:observation[cda:templateId/@root='2.16.840.1.113883.10.20.24.3.135']
-        /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@sdtc:valueSet)
+        /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@code)
       problems = doc.xpath(problems_xpath)
       problems.each do |problem|
-        problem_array << problem.value
+        oids = ValueSet.where('concepts.code' => problem.value).distinct(:oid)
+        problem_array += oids
       end
       return true if problem_array.include? filters['problem']
     end
@@ -269,9 +270,10 @@ module Cypress
       race_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:raceCode/@code'
       gender_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:administrativeGenderCode/@code'
       ethnic_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:ethnicGroupCode/@code'
-      payer_xpath = %(/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/
-        cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.55']/cda:value/@code)
-      payer_value = doc.at_xpath(payer_xpath).value if doc.at_xpath(payer_xpath)
+      # Currently, with randomization off, all payers are expected to be returned
+      # payer_xpath = %(/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/
+      #   cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.55']/cda:value/@code)
+      # payer_value = doc.at_xpath(payer_xpath).value if doc.at_xpath(payer_xpath)
       if filters.key?('age')
         age_filter_holder = filters['age']
         counter += 1 if compare_age(doc, age_filter_holder, creation_time)
@@ -280,7 +282,9 @@ module Cypress
       counter += 1 if filters.value?(doc.at_xpath(race_xpath).value)
       counter += 1 if filters.value?(doc.at_xpath(gender_xpath).value)
       counter += 1 if filters.value?(doc.at_xpath(ethnic_xpath).value)
-      counter += 1 if filters.value?(get_payer_name(payer_value))
+      # Currently, with randomization off, all payers are expected to be returned
+      counter += 1 if filters.key?('payer')
+      # counter += 1 if filters.value?(get_payer_name(payer_value))
       filters['age'] = age_filter_holder if age_filter_holder
       return true if counter == 2
     end
@@ -344,7 +348,7 @@ module Cypress
                               :c1_test => c1_test,
                               :c2_test => '1',
                               :c3_test => '1',
-                              :c4_test => '0',
+                              :c4_test => '1',
                               :duplicate_patients => '0',
                               :randomize_patients => '0' } }
       RestClient::Request.execute(:method => :post,
@@ -459,12 +463,56 @@ module Cypress
       JSON.parse(unparsed_string)
     end
 
-    # def calcuate_cat_3(product_test_id, bundle_id)
-    #   pt = ProductTest.find(product_test_id)
-    #   c3c = Cypress::Cat3Calculator.new(pt.measure_ids, Bundle.find(bundle_id))
-    #   c3c.import_cat1_zip(File.new("tmp/#{product_test_id}.zip"))
-    #   xml = c3c.generate_cat3
-    #   File.write("tmp/#{product_test_id}.xml", xml)
-    # end
+    def calcuate_cat_3(product_test_id, bundle_id)
+      pt = ProductTest.find(product_test_id)
+      patient_ids = []
+
+      correlation_id = "#{product_test_id}_u"
+
+      import_cat1_zip(File.new("tmp/#{product_test_id}.zip"), patient_ids, bundle_id)
+      do_calculation(pt, patient_ids, correlation_id)
+
+      erc = Cypress::ExpectedResultsCalculator.new(Patient.find(patient_ids), correlation_id)
+      results = erc.aggregate_results_for_measures(pt.measures)
+
+      cms_compatibility = pt&.product&.c3_test
+      options = { :provider => pt.patients.first.provider, :submission_program => cms_compatibility,
+                  :start_time => pt.start_date, :end_time => pt.end_date }
+      xml = Qrda3R21.new(results, pt.measures, options).render
+
+      Patient.find(patient_ids).each(&:destroy)
+
+      File.write("tmp/#{product_test_id}.xml", xml)
+    end
+
+    def do_calculation(product_test, patient_ids, correlation_id)
+      calc_job = Cypress::JsEcqmCalc.new(:correlation_id => correlation_id,
+                                         :effective_date => Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number))
+      calc_job.sync_job(patient_ids.map(&:to_s), product_test.measures.map { |mes| mes._id.to_s })
+      calc_job.stop
+    end
+
+    def import_cat1_zip(zip, patient_ids, bundle_id)
+      Zip::ZipFile.open(zip.path) do |zip_file|
+        zip_file.entries.each do |entry|
+          doc = build_document(zip_file.read(entry))
+          import_cat1_file(doc, patient_ids, bundle_id)
+        end
+      end
+    end
+
+    def build_document(document)
+      doc = document.is_a?(Nokogiri::XML::Document) ? document : Nokogiri::XML(document.to_s)
+      doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+      doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+      doc
+    end
+
+    def import_cat1_file(doc, patient_ids, bundle_id)
+      patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+      Cypress::GoImport.replace_negated_codes(patient, Bundle.find(bundle_id))
+      patient.save
+      patient_ids << patient.id
+    end
   end
 end
