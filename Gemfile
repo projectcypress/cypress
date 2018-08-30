@@ -96,6 +96,8 @@ gem 'mongoid_rails_migrations', :git => 'https://github.com/adacosta/mongoid_rai
 
 gem 'bunny'
 
+gem 'rest-client', '~>1.8.0'
+
 group :development, :test do
   gem 'rubocop', '~> 0.57.1', :require => false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
