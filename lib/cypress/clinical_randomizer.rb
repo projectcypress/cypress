@@ -84,7 +84,7 @@ module Cypress
     end
 
     def self.sort_by_start_time(data_elements)
-      data_elements.delete_if { |de| de.category == 'patient_characteristic' }
+      data_elements.keep_if { |de| de.category != 'patient_characteristic' }
       # TODO: R2P: check there's an attribute reader for highClosed (and lowClosed)
       # sort by start date (in convert start_date equivalent to authorDatetime)
       data_elements.sort_by { |de| data_element_time(de) }

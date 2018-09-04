@@ -103,7 +103,8 @@ module Cypress
       index = 0
       cloned_patient.dataElements.each do |entry|
         entry_id_hash[entry._id.to_s] = BSON::ObjectId.new
-        entry.id = entry_id_hash[entry._id.to_s]
+        entry._id = entry_id_hash[entry._id.to_s]
+        entry.id = QDM::Id.new(value: entry._id)
         entries_with_references.push(index) unless entry['relatedTo'].nil?
         index += 1
       end
