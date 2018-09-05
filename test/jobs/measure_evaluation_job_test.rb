@@ -4,7 +4,6 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
   def setup
     vendor = FactoryBot.create(:vendor)
     @bundle = FactoryBot.create(:static_bundle)
-    @result = QME::QualityReportResult.new(DENOM: 48, NUMER: 44, antinumerator: 4, DENEX: 0)
     @product = vendor.products.create(name: 'test_product', c2_test: true, randomize_patients: true, bundle_id: @bundle.id,
                                       measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
   end
@@ -24,8 +23,6 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
   end
 
   def test_can_run_product_test_job
-    QME::QualityReport.any_instance.stubs(:result).returns(@result)
-    QME::QualityReport.any_instance.stubs(:calculated?).returns(true)
     assert_enqueued_jobs 0
     perform_enqueued_jobs do
       ptest = @product.product_tests.create({ name: 'test_for_measure_job_calculation',
@@ -38,8 +35,6 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
   end
 
   def test_can_run_task_job
-    QME::QualityReport.any_instance.stubs(:result).returns(@result)
-    QME::QualityReport.any_instance.stubs(:calculated?).returns(true)
     assert_enqueued_jobs 0
     perform_enqueued_jobs do
       ptest = @product.product_tests.create({ name: 'test_for_measure_job_calculation',

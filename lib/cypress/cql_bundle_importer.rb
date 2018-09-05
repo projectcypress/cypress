@@ -45,7 +45,7 @@ module Cypress
     end
 
     def self.check_bundle_versions(bundle)
-      bundle_versions = Hash[* HealthDataStandards::CQM::Bundle.where(deprecated: false).collect { |b| [b.version, b.id] }.flatten]
+      bundle_versions = Hash[* Bundle.where(deprecated: false).collect { |b| [b.version, b.id] }.flatten]
 
       # no bundles before 2018 and no non-deprecated bundles with same year
       old_year_err = 'Please use bundles for year 2018 or later.'
@@ -55,15 +55,15 @@ module Cypress
     end
 
     def self.unpack_bundle(zip)
-      HealthDataStandards::CQM::Bundle.new(JSON.parse(zip.read(SOURCE_ROOTS[:bundle]), max_nesting: 100))
+      Bundle.new(JSON.parse(zip.read(SOURCE_ROOTS[:bundle]), max_nesting: 100))
     end
 
     def self.unpack_and_store_valuesets(zip, bundle)
       entries = zip.glob(SOURCE_ROOTS[:valuesets])
       entries.each_with_index do |entry, index|
-        vs = HealthDataStandards::SVS::ValueSet.new(unpack_json(entry))
+        vs = ValueSet.new(unpack_json(entry))
         vs['bundle_id'] = bundle.id
-        HealthDataStandards::SVS::ValueSet.collection.insert_one(vs.as_document)
+        ValueSet.collection.insert_one(vs.as_document)
         report_progress('Value Sets', (index * 100 / entries.length)) if (index % 10).zero?
       end
       puts "\rLoading: Value Sets Complete          "
@@ -78,7 +78,7 @@ module Cypress
         measure['bundle_id'] = bundle.id
         value_sets = []
         measure.value_set_oid_version_objects.each do |vsv|
-          value_sets << HealthDataStandards::SVS::ValueSet.where(oid: vsv.oid, version: vsv.version).first.id
+          value_sets << ValueSet.where(oid: vsv.oid, version: vsv.version).first.id
         end
         measure['value_sets'] = value_sets
         mes = Mongoid.default_client['measures'].insert_one(measure)
@@ -103,6 +103,7 @@ module Cypress
       puts "\rLoading: Patients Complete          "
     end
 
+    # TODO: This will need to be updated for 2018.0.2 bundles that store relatedTo as an QDM::ID
     def self.reconnect_references(patient)
       patient.dataElements.each do |data_element|
         next unless data_element['relatedTo']

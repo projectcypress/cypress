@@ -23,7 +23,7 @@ class ProductsHelperTest < ActiveJob::TestCase
     measures = Measure.top_level.where(:hqmf_id.in => checklist_test.measure_ids, :bundle_id => @product.bundle_id)
     measures.each do |measure|
       # chose criteria randomly
-      criterias = measure['hqmf_document']['source_data_criteria'].sort_by { rand }[0..4]
+      criterias = measure['source_data_criteria'].sort_by { rand }[0..4]
       criterias.each do |criteria_key, _criteria_value|
         checked_criterias.push(measure_id: measure.id.to_s, source_data_criteria: criteria_key, completed: false)
       end

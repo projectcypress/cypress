@@ -12,7 +12,7 @@ module Admin
     def update
       update_application_mode params[:mode], params[:custom_options]
       # Grab the parameters we are able to update directly and throw them to the settings model update method
-      update_settings = params.select { |key, _| key.match(/website|mailer|banner|message/) }
+      # update_settings = params.select { |key, _| key.match(/website|mailer|banner|message/) }
       Settings.current.update(update_settings)
       redirect_to admin_path(anchor: 'application_settings')
     end
@@ -29,6 +29,10 @@ module Admin
       elsif mode_name == 'custom'
         mode_custom options
       end
+    end
+
+    def update_settings
+      params.permit(:banner_message, :warning_message, :mailer_address, :mailer_port, :mailer_domain, :mailer_user_name, :mailer_password)
     end
   end
 end

@@ -13,7 +13,7 @@ module Cypress
       negated_code = if bundle.default_negation_codes && bundle.default_negation_codes[negated_vs]
                        QDM::Code.new(bundle.default_negation_codes[negated_vs]['code'], bundle.default_negation_codes[negated_vs]['codeSystem'])
                      else
-                       valueset = HealthDataStandards::SVS::ValueSet.where(oid: negated_vs, bundle_id: bundle.id)
+                       valueset = ValueSet.where(oid: negated_vs, bundle_id: bundle.id)
                        QDM::Code.new(valueset.first.concepts.first['code'], valueset.first.concepts.first['code_system_name'])
                      end
       data_element.dataElementCodes << negated_code

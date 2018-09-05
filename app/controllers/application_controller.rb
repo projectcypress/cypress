@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
     if Rails.cache.exist?('any_installed_bundle')
       bundle = Rails.cache.read('any_installed_bundle')
     else
-      bundle = HealthDataStandards::CQM::Bundle.available.all.sample
+      bundle = Bundle.available.all.sample
       # Only cache the bundle if it is not nil
       Rails.cache.write('any_installed_bundle', bundle) if bundle
     end

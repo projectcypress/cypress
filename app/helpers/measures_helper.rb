@@ -28,8 +28,8 @@ module MeasuresHelper
 
   def measure_has_diagnosis_criteria?(measure)
     # TODO: CQL: change measure model
-    return false unless measure&.hqmf_document && measure.hqmf_document['source_data_criteria']
-    measure.hqmf_document['source_data_criteria'].values.any? { |criteria| criteria['definition'] == 'diagnosis' }
+    return false unless measure['source_data_criteria']
+    measure['source_data_criteria'].values.any? { |criteria| criteria['definition'] == 'diagnosis' }
   end
 
   # used in _measure_tests_table.html.erb view

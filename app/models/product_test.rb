@@ -4,7 +4,6 @@ class ProductTest
   include Mongoid::Timestamps
   include Mongoid::Attributes::Dynamic
   include GlobalID::Identification
-  include HealthDataStandards::CQM
 
   scope :by_updated_at, -> { order(:updated_at => :desc) }
 

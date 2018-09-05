@@ -42,8 +42,8 @@ When(/^the user creates a product with tasks (.*)$/) do |tasks|
   # create record and assign provider for product test
   @product_test.generate_provider
   provider = @product_test.provider
-  provider_performance = ProviderPerformance.new(provider: provider, provider_id: provider.id)
-  Record.create!(test_id: @product_test.id, provider_performances: [provider_performance])
+  extended_data = { provider_performance: JSON.generate([{ provider_id: provider.id }]), correlation_id: @product_test.id.to_s }
+  Patient.create!(extendedData: extended_data)
 end
 
 # task_names should be either 'c1', 'c2', or both

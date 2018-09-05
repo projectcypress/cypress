@@ -152,7 +152,10 @@ FactoryBot.define do
     dataElements data_elements_value
 
     after(:create) do |patient|
+      provider = create(:default_provider)
       create(:individual_bundle_result, patient_id: patient._id, bundleId: patient.bundleId)
+      patient.extendedData['provider_performances'] = JSON.generate([{ provider_id: provider.id }])
+      patient.save
     end
 
     factory :static_test_patient do

@@ -5,7 +5,7 @@
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Sub measures <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <% submeasures = HealthDataStandards::CQM::Measure.where(hqmf_id: @measure.hqmf_id).sort_by(&:sub_id) %>
+        <% submeasures = Measure.where(hqmf_id: @measure.hqmf_id).sort_by(&:sub_id) %>
         <% submeasures.each do |submeasure| %>
           <li><%= link_to "#{submeasure.display_name} - #{submeasure.subtitle}", product_test_task_by_filter_task_path(@task.product_test, @task, sub_id: submeasure.sub_id),  method: :get %></li>
         <% end %>

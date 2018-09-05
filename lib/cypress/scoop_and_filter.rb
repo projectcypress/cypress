@@ -11,7 +11,7 @@ module Cypress
     def codes_in_measures(measures)
       valuesets = measures.collect do |measure|
         measure['value_set_oid_version_objects'].collect do |valueset|
-          HealthDataStandards::SVS::ValueSet.where(oid: valueset.oid, version: valueset.version).to_a
+          ValueSet.where(oid: valueset.oid, version: valueset.version).to_a
         end
       end.flatten
       code_list = valuesets.collect(&:concepts).flatten
@@ -21,20 +21,9 @@ module Cypress
     def get_all_hqmf_oids_definition_and_status(measures)
       measures.collect do |measure|
         measure.source_data_criteria.collect do |_key, criteria|
-          get_all_hqmf_oids(criteria['definition'], criteria['status'])
+          HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids(criteria['definition'], criteria['status'])
         end
       end.flatten.uniq
-    end
-
-    def get_all_hqmf_oids(definition, status)
-      version_negation_combinations = [{ version: 'r1', negation: false },
-                                       { version: 'r1', negation: true },
-                                       { version: 'r2', negation: false },
-                                       { version: 'r2cql', negation: false }]
-      hqmf_oids = version_negation_combinations.collect do |obj|
-        HQMF::DataCriteria.template_id_for_definition(definition, status, obj.negation, obj.version)
-      end
-      hqmf_oids
     end
 
     def scoop_and_filter(patient)

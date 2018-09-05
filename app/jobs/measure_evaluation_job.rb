@@ -23,7 +23,7 @@ class MeasureEvaluationJob < ApplicationJob
   end
 
   def eval_measures(measures, product_test, _options, &_block)
-    erc = Cypress::ExpectedResultsCalculator.new(product_test)
+    erc = Cypress::ExpectedResultsCalculator.new(product_test.patients, product_test.id.to_s)
     results = erc.aggregate_results_for_measures(measures)
     results
   end

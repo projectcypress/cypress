@@ -13,13 +13,13 @@ module Cypress
     end
 
     def self.bundle_directory(bundle, path)
-      records = bundle.records
+      records = bundle.patients
       %w[html qrda].each do |format|
         extensions = { html: 'html', qrda: 'xml' }
         formatter = formatter_for_patients(records, format)
         FileUtils.mkdir_p(File.join(path, "#{format}_records/"))
         records.each do |r|
-          filename = "#{format}_records/#{r.first}_#{r.last}.#{extensions[format.to_sym]}".delete("'").tr(' ', '_')
+          filename = "#{format}_records/#{r.first_names}_#{r.familyName}.#{extensions[format.to_sym]}".delete("'").tr(' ', '_')
           File.open(File.join(path, filename), 'w') do |f|
             f.write(formatter.export(r))
           end

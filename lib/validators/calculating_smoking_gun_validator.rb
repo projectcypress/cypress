@@ -3,8 +3,6 @@ module Validators
     include Validators::Validator
     def initialize(measures, records, test_id, options = {})
       @measures = measures
-      @hqmf_map = HealthDataStandards::Export::QRDA::EntryTemplateResolver.hqmf_qrda_oid_map
-      @hds_record_converter = CQM::Converter::HDSRecord.new
       super
     end
 
@@ -38,11 +36,6 @@ module Validators
         calculated_value = [] if calculated.nil? || !calculated.is_a?(Array)
       end
       [original_value, calculated_value, pop]
-    end
-
-    def description_for_hqmf_oid(entry_oid)
-      hqmf_qrda_tuple = @hqmf_map.find { |map_tuple| map_tuple['hqmf_oid'] == entry_oid }
-      "#{hqmf_qrda_tuple['hqmf_name']}:"
     end
 
     def parse_and_save_record(doc, options)
@@ -87,7 +80,7 @@ module Validators
     end
 
     def generate_oid_dictionary(measure, bundle_id)
-      valuesets = HealthDataStandards::CQM::Bundle.find(bundle_id).value_sets.in(oid: measure.oids)
+      valuesets = Bundle.find(bundle_id).value_sets.in(oid: measure.oids)
       js = {}
       valuesets.each do |vs|
         js[vs.oid] = cached_value(vs)

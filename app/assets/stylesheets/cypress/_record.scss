@@ -1,0 +1,54 @@
+  .criteria-heading {
+  }
+  .description-heading {
+    font-size: 1.25em;
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    line-height: 1.2;
+  }
+  .div-table{
+    display: table;
+    width: 100%;
+  }
+  .div-table-body {
+    display: table-row-group;
+  }
+  .div-table-row {
+    border: 1px solid #999999;
+  }
+  .div-head-row:nth-child(odd) {
+    display: table-row-group;
+    background-color: lighten($brand-primary, 50%);
+    border-left: 1px solid #999999;
+  }
+  .div-head-row:nth-child(even) {
+    display: table-row-group;
+    border-left: 1px solid #999999;
+  }
+  .div-table-cell {
+    display: table-row;
+    padding: 3px 10px;
+  }
+  .div-table-head {
+    border: 1px solid #999999;
+    display: table-cell;
+    padding: 3px 10px;
+  }
+  .div-table-head--no-border {
+    display: table-cell;
+    padding: 3px 10px;
+  }
+  .div-table-head--no-border {
+    display: table-cell;
+    padding: 3px 10px;
+  }
+  .div-table-heading {
+    display: none;
+  }
+  .td_label{
+    font-weight: bold;
+    color: white;
+  }
+  .div-table-cell-label {
+    font-weight: bold;
+  }

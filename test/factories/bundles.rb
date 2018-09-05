@@ -34,19 +34,12 @@ FactoryBot.define do
 
         # Always include a complete measure (BE65090C-EB1F-11E7-8C3F-9A214CF093AE)
         measure = create(:static_measure, bundle_id: bundle._id)
-        measure['value_set_oid_version_objects'] = source_measure['value_set_oid_version_objects']
-        measure['elm_annotations'] = source_measure['elm_annotations']
-        measure['observations'] = source_measure['observations']
-        measure['elm'] = source_measure['elm']
-        measure['main_cql_library'] = source_measure['main_cql_library']
-        measure['cql_statement_dependencies'] = source_measure['cql_statement_dependencies']
-        measure['populations_cql_map'] = source_measure['populations_cql_map']
-        measure['id'] = measure.hqmf_id
+        # measure['id'] = measure.hqmf_id
 
         # TODO: find object ids for all of the oids in the measure
         valueset_id_list = []
         measure['value_set_oid_version_objects'].each do |vsv|
-          valueset_id_list << HealthDataStandards::SVS::ValueSet.where(oid: vsv.oid, version: vsv.version).first.id
+          valueset_id_list << ValueSet.where(oid: vsv.oid, version: vsv.version).first.id
         end
         measure['value_sets'] = valueset_id_list
         measure.save
