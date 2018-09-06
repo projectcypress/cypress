@@ -11,14 +11,14 @@ module QDM
     end
 
     def product_test
-      ProductTest.where('_id' => extendedData[:correlation_id]).most_recent
+      ProductTest.where('_id' => extendedData['correlation_id']).most_recent
     end
 
     def bundle
       if !self['bundleId'].nil?
         HealthDataStandards::CQM::Bundle.find(self['bundleId'])
-      elsif !extendedData[:correlation_id].nil?
-        ProductTest.find(extendedData[:correlation_id]).bundle
+      elsif !extendedData['correlation_id'].nil?
+        ProductTest.find(extendedData['correlation_id']).bundle
       end
     end
 
