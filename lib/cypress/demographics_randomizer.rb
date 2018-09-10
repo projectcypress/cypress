@@ -53,6 +53,7 @@ module Cypress
         new_race = race_element.first.dataElementCodes.first
         new_race['code'] = race_hash['code']
         new_race['codeSystemOid'] = race_hash['codeSystem']
+        new_race['codeSystem'] = race_hash['codeSystemName']
         new_race['descriptor'] = race_hash['name']
         race_element.first.dataElementCodes << new_race
         race_element.first.dataElementCodes.shift # get rid of existing dataElementCode
@@ -69,6 +70,7 @@ module Cypress
         new_ethnicity = ethnicity_element.first.dataElementCodes.first
         new_ethnicity['code'] = ethnicity_hash['code']
         new_ethnicity['codeSystemOid'] = ethnicity_hash['codeSystem']
+        new_ethnicity['codeSystem'] = ethnicity_hash['codeSystemName']
         new_ethnicity['descriptor'] = ethnicity_hash ['name']
         ethnicity_element.first.dataElementCodes << new_ethnicity
         ethnicity_element.first.dataElementCodes.shift # get rid of existing dataElementCode
