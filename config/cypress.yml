@@ -41,31 +41,37 @@ version_config:
 # Names and nicknames added in a separate YML file
 randomization:
   races:
-    - code       : 1002-5
-      name       : American Indian or Alaska Native
-      codeSystem : 2.16.840.1.113883.6.238
-    - code       : 2028-9
-      name       : Asian
-      codeSystem : 2.16.840.1.113883.6.238
-    - code       : 2054-5
-      name       : Black or African American
-      codeSystem : 2.16.840.1.113883.6.238
-    - code       : 2076-8
-      name       : Native Hawaiian or Other Pacific Islander
-      codeSystem : 2.16.840.1.113883.6.238
-    - code       : 2131-1
-      name       : Other Race
-      codeSystem : 2.16.840.1.113883.6.238
-    - code       : 2106-3
-      name       : White
-      codeSystem : 2.16.840.1.113883.6.238
+    - code           : 1002-5
+      name           : American Indian or Alaska Native
+      codeSystem     : 2.16.840.1.113883.6.238
+      codeSystemName : CDC Race
+    - code           : 2028-9
+      name           : Asian
+      codeSystem     : 2.16.840.1.113883.6.238
+      codeSystemName : CDC Race
+    - code           : 2054-5
+      name           : Black or African American
+      codeSystem     : 2.16.840.1.113883.6.238
+      codeSystemName : CDC Race
+    - code           : 2076-8
+      name           : Native Hawaiian or Other Pacific Islander
+      codeSystem     : 2.16.840.1.113883.6.238
+      codeSystemName : CDC Race
+    - code           : 2131-1
+      name           : Other Race
+      codeSystem     : 2.16.840.1.113883.6.238
+      codeSystemName : CDC Race
+    - code           : 2106-3
+      name           : White
+      codeSystem     : 2.16.840.1.113883.6.238
+      codeSystemName : CDC Race
   ethnicities:
-    - code       : 2135-2
-      name       : Hispanic or Latino
-      codeSystem : 2.16.840.1.113883.6.238
-    - code       : 2186-5
-      name       : Not Hispanic or Latino
-      codeSystem : 2.16.840.1.113883.6.238
+    - code           : 2135-2
+      name           : Hispanic or Latino
+      codeSystem     : 2.16.840.1.113883.6.238
+    - code           : 2186-5
+      name           : Not Hispanic or Latino
+      codeSystem     : 2.16.840.1.113883.6.238
   payers:
     - type       : MA
       code       : 1
