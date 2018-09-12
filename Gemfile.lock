@@ -22,15 +22,9 @@ GIT
       zip-zip
 
 GIT
-  remote: https://github.com/turbolinks/turbolinks-classic
-  revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
-  branch: master
-  specs:
-    turbolinks (3.0.0)
-      coffee-rails
-
-PATH
-  remote: ../../cqm-parsers
+  remote: https://github.com/projecttacoma/cqm-parsers.git
+  revision: 73b7760d731d6d08e958a25d735377e6c4fc8549
+  branch: cat_1_patch
   specs:
     cqm-parsers (0.1.1)
       activesupport (~> 4.2.0)
@@ -47,6 +41,14 @@ PATH
       rubyzip (~> 1.2.1)
       uuid (~> 2.3.7)
       zip-zip (~> 0.3)
+
+GIT
+  remote: https://github.com/turbolinks/turbolinks-classic
+  revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
+  branch: master
+  specs:
+    turbolinks (3.0.0)
+      coffee-rails
 
 GEM
   remote: https://rubygems.org/
