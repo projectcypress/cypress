@@ -24,4 +24,8 @@ class DataElement < Mustache
   def facility_string
     "#{self['code']['code']} (#{self['code']['codeSystem']})"
   end
+
+  def end_time?
+    self['high'] && self['high'].year < 2030
+  end
 end
