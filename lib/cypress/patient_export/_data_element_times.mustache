@@ -12,20 +12,24 @@
       <td>Relevant Period Start:</td>
       <td>{{{low}}}</td>
     </tr>
+    {{#end_time?}}
     <tr>
       <td>Relevant Period End:</td>
       <td>{{{high}}}</td>
     </tr>
+    {{/end_time?}}
     {{/relevantPeriod}}
     {{#prevalencePeriod}}
     <tr>
       <td>Prevalence Period Start:</td>
       <td>{{{low}}}</td>
     </tr>
+    {{#end_time?}}
     <tr>
       <td>Prevalence Period End:</td>
       <td>{{{high}}}</td>
     </tr>
+    {{/end_time?}}
     {{/prevalencePeriod}}
     {{#authorDatetime}}
     <tr>
