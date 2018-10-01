@@ -74,7 +74,7 @@ module QDM
         changed[:last] = [familyName, patient.familyName]
       when 2 # birthdate
         while birthDatetime == patient.birthDatetime
-          patient.birthDatetime = DateTime.parse(patient.birthDatetime.to_s, '%s').utc.change(
+          patient.birthDatetime = patient.birthDatetime.change(
             case random.rand(3)
             when 0 then { :day => 1, :month => 1 }
             when 1 then { :day => random.rand(28) + 1 }
