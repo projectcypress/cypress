@@ -44,7 +44,7 @@ module ProductsHelper
     product.product_tests.each do |pt|
       pt.patients.each do |r|
         new_name = "#{r.first} #{r.last}"
-        original_patient = r.bundle.patients.find_by(medical_record_number: r.original_medical_record_number)
+        original_patient = r.original_patient
         original_name = "#{original_patient.first} #{original_patient.last}"
         records << { new_name: new_name, original: original_name }
       end

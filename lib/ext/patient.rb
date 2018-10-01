@@ -28,9 +28,7 @@ module QDM
     end
 
     def original_patient
-      if self['original_medical_record_number']
-        bundle.patients.where('extendedData.medical_record_number' => self['original_medical_record_number']).first
-      end
+      Patient.find(extendedData[:original_patient]) if extendedData[:original_patient]
     end
 
     def lookup_provider(include_address = nil)
@@ -75,13 +73,15 @@ module QDM
         patient = Cypress::NameRandomizer.randomize_patient_name_last(patient, :random => random)
         changed[:last] = [familyName, patient.familyName]
       when 2 # birthdate
-        patient.birthDatetime = DateTime.strptime(patient.birthDatetime.to_s, '%s').change(
-          case random.rand(3)
-          when 0 then { :day => 1, :month => 1 }
-          when 1 then { :day => random.rand(28) + 1 }
-          when 2 then { :month => random.rand(12) + 1 }
-          end
-        ).strftime('%s').to_i
+        while birthDatetime == patient.birthDatetime
+          patient.birthDatetime = DateTime.parse(patient.birthDatetime.to_s, '%s').utc.change(
+            case random.rand(3)
+            when 0 then { :day => 1, :month => 1 }
+            when 1 then { :day => random.rand(28) + 1 }
+            when 2 then { :month => random.rand(12) + 1 }
+            end
+          )
+        end
         changed[:birthdate] = [birthDatetime, patient.birthDatetime]
       end
       [patient, changed]
