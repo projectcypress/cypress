@@ -103,7 +103,7 @@ module Cypress
       puts "\rLoading: Patients Complete          "
     end
 
-    # TODO: This will need to be updated for 2018.0.2 bundles that store relatedTo as an QDM::ID
+    # TODO: This will need to be updated for bundles exported with cqm-models 1.x that store relatedTo as an QDM::ID
     def self.reconnect_references(patient)
       patient.dataElements.each do |data_element|
         next unless data_element[:relatedTo]

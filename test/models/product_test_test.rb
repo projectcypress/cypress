@@ -126,6 +126,7 @@ class ProductTestTest < ActiveJob::TestCase
       de2 = patient2.dataElements.fetch(x)
       de1.attributes.each do |k, v|
         assert_nil de2.attributes[k], 'random repeatability error: dataElements different, non-nil match' if v.nil?
+        # the _id is the BSON::Id for the dataElement.  The id is the QDM::Id for the dataElement.  The QDM::Id will reference the BSON:Id
         assert_equal v, de2.attributes[k], 'random repeatability error: dataElements different' unless %w[_id id].include?(k)
       end
     end
