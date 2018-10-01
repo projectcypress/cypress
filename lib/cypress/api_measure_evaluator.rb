@@ -88,7 +88,6 @@ module Cypress
         upload_test_execution(extract_test_execution_link(patient_links[1], 'C1'), patient_links[0].split('/')[2], true) unless skip_c1_test
         upload_test_execution(extract_test_execution_link(patient_links[1], 'C2'), patient_links[0].split('/')[2], false, skip_c1_test)
       end
-      sleep(4)
       download_filter_data
       calculate_filtered_cat3(bundle_id)
       upload_c4_test_executions
@@ -468,12 +467,12 @@ module Cypress
 
       patient_ids = []
 
-      correlation_id = "#{product_test_id}_u"
+      correlation_id = BSON::ObjectId.new
 
       import_cat1_zip(File.new("tmp/#{product_test_id}.zip"), patient_ids, bundle_id)
-      do_calculation(pt, patient_ids, correlation_id)
+      do_calculation(pt, patient_ids, correlation_id.to_s)
 
-      erc = Cypress::ExpectedResultsCalculator.new(Patient.find(patient_ids), correlation_id, pt.effective_date)
+      erc = Cypress::ExpectedResultsCalculator.new(Patient.find(patient_ids), correlation_id.to_s, pt.effective_date)
       erc.aggregate_results_for_measures(pt.measures)
 
       c3c = Cypress::Cat3Calculator.new(pt.measure_ids, pt.bundle, pt.effective_date)

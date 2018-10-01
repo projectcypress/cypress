@@ -60,10 +60,6 @@ class AddQdmIdsToEntries < Mongoid::Migration
   end
 
   def self.down
-    say_with_time 'Removing QDM Ids to Entries' do
-      # db[:tasks].find('_type' => /Checklist/).each do |mt|
-      #   db[:tasks].update_one({ '_id' => mt['_id'] }, '$set' => { '_type' => mt['_type'].sub(/Checklist/, 'Manual') })
-      # end
-    end
+    raise Mongoid::IrreversibleMigration
   end
 end
