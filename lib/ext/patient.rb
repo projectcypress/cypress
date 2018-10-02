@@ -52,8 +52,8 @@ module QDM
     end
 
     def provider
-      return nil unless extendedData.provider_performances
-      Provider.find(JSON.parse(extendedData.provider_performances).first['provider_id'])
+      return nil unless extendedData['provider_performances']
+      Provider.find(JSON.parse(extendedData['provider_performances']).first['provider_id'])
     end
 
     #
