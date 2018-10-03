@@ -25,6 +25,15 @@ class MplDownloadCreateJobTest < ActiveJob::TestCase
       assert_performed_jobs 1
       assert :ready, @bundle.mpl_status
       assert File.exist?(@bundle.mpl_path)
+      Zip::ZipFile.open(@bundle.mpl_path) do |zip_file|
+        assert_operator zip_file.entries.count, :>, 2
+        entry_names = zip_file.entries.collect(&:name)
+        @bundle.patients.each do |patient|
+          patient_file_name = "#{patient.givenNames.join('_')}_#{patient.familyName}".delete("'").tr(' ', '_')
+          assert_includes entry_names, "html_records/#{patient_file_name}.html"
+          assert_includes entry_names, "qrda_records/#{patient_file_name}.xml"
+        end
+      end
     end
   end
 
