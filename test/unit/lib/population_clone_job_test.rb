@@ -35,7 +35,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
 
   def test_assigns_default_provider
     # ids passed in should clone just the 1 record
-    sample_patient = Patient.all.sample
+    sample_patient = @pt.bundle.patients.sample
     pcj = Cypress::PopulationCloneJob.new('patient_ids' => [sample_patient.id],
                                           'test_id' => @pt.id,
                                           'randomization_ids' => [])
