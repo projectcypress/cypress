@@ -3,7 +3,7 @@ class MeasureEvaluationJob < ApplicationJob
   include Job::Status
 
   # The MeasureEvaluationJob aggregates Individual Results to calculated the expected results for a
-  # Measure Test or Task 
+  # Measure Test or Task
   #
   # @param [Object] test_or_task The ProductTest or Task being evalutated
   # @param [Hash] options :individual_results are the raw results from JsEcqmCalc
