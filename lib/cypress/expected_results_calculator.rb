@@ -1,8 +1,7 @@
 module Cypress
   class ExpectedResultsCalculator
-
     # The ExpectedResultsCalculator aggregates Individual Results to calculated the expected results for a
-    # Measure Test or Task 
+    # Measure Test or Task
     #
     # @param [Array] patients the list of patients that are included in the aggregate results
     # @param [String] correlation_id the id used to associate a group of patients
@@ -33,6 +32,7 @@ module Cypress
       measures.each do |measure|
         @measure_result_hash[measure.key] = {}
         measure_individual_results = nil
+        # If individual_results are provided, use the results for the measure being aggregated
         measure_individual_results = individual_results[measure.id.to_s].values if individual_results
         aggregate_results_for_measure(measure, measure_individual_results)
       end
@@ -41,21 +41,28 @@ module Cypress
 
     # rubocop:disable Metrics/AbcSize
     def aggregate_results_for_measure(measure, individual_results = nil)
+      # If individual_results are provided, use them.  Otherwise, look them up in the database by measure id and correlation_id
       individual_results ||= QDM::IndividualResult.where('measure_id' => measure._id, 'extendedData.correlation_id' => @correlation_id)
       measure_populations = %w[DENOM NUMER DENEX DENEXCEP IPP MSRPOPL MSRPOPLEX]
       @measure_result_hash[measure.key]['supplemental_data'] = {}
+      # Set inital values for each measure population
       measure_populations.each do |pop|
         @measure_result_hash[measure.key][pop] = 0
       end
       observ_values = []
+      # Increment counts for each measure_populations in each individual_result
       individual_results.each do |ir|
         measure_populations.each do |pop|
           next if ir[pop].nil? || ir[pop].zero?
           @measure_result_hash[measure.key][pop] += ir[pop]
+          # For each population, increment supplemental information counts
           increment_sup_info(@patient_sup_map[ir.patient_id.to_s], pop, @measure_result_hash[measure.key])
         end
+        # extract the observed value from an individual results.  Observed values are in the 'episode result'.
+        # Each episode will have its own observation
         observ_values.concat get_observ_values(ir['episode_results']) if ir['episode_results']
       end
+      # TODO: Observations may not always be the median
       @measure_result_hash[measure.key]['OBSERV'] = median(observ_values.reject(&:nil?))
       @measure_result_hash[measure.key]['measure_id'] = measure.hqmf_id
       @measure_result_hash[measure.key]['population_ids'] = measure.population_ids
@@ -65,21 +72,25 @@ module Cypress
 
     def get_observ_values(episode_results)
       episode_results.collect_concat do |_id, episode_result|
+        # Only use observed values when a patient is in the MSRPOPL and not in the MSRPOPLEX
         next unless episode_result['MSRPOPL']&.positive? && !episode_result['MSRPOPLEX']&.positive?
         episode_result['values']
       end
     end
 
     def increment_sup_info(patient_sup, pop, single_measure_result_hash)
+      # If supplemental_data for a population does not already exist, create a new hash
       unless single_measure_result_hash['supplemental_data'][pop]
         single_measure_result_hash['supplemental_data'][pop] = { 'RACE' => {}, 'ETHNICITY' => {}, 'SEX' => {}, 'PAYER' => {} }
       end
       patient_sup.keys.each do |sup_type|
+        # For each type of supplemental data (e.g., RACE, SEX), increment code values
         add_or_increment_code(pop, sup_type, patient_sup[sup_type], single_measure_result_hash)
       end
     end
 
     def add_or_increment_code(pop, sup_type, code, single_measure_result_hash)
+      # If the code already exists for the meausure_population, increment.  Otherwise create a hash for the code, start at 1
       if single_measure_result_hash['supplemental_data'][pop][sup_type][code]
         single_measure_result_hash['supplemental_data'][pop][sup_type][code] += 1
       else
