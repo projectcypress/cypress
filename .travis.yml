@@ -4,16 +4,6 @@ cache:
   - node_modules
 sudo: required
 dist: trusty
-addons:
-  apt:
-    sources:
-      - sourceline: 'deb http://repo.mongodb.org/apt/ubuntu precise/mongodb-org/3.4 multiverse'
-        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x9ECBEC467F0CEB10'
-    packages:
-      - mongodb-org-server=3.4.5
-services:
-  - mongodb
-  - rabbitmq
 branches:
   only:
   - master
@@ -29,15 +19,22 @@ before_install:
   - nvm install 10.0
   - nvm use stable
   - npm install -g eslint
-  - git clone -b master https://github.com/projectcypress/js-ecqm-engine.git /tmp/js-ecqm-engine
+  - git clone -b qdm5.3_cql1.2 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service
 before_script:
   - git config --global user.email "travis@travis.ci"
   - git config --global user.name "Travis CI"
   - npm install eslint
-  - yarn install --cwd /tmp/js-ecqm-engine
-  - NODE_ENV=test /tmp/js-ecqm-engine/bin/rabbit_worker.js &
+  - yarn install --only=production --cwd /tmp/cqm-execution-service
+  - yarn start &
+  - wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-${MONGODB}.tgz -O /tmp/mongodb.tgz
+  - tar -xvf /tmp/mongodb.tgz
+  - mkdir /tmp/data
+  - ${PWD}/mongodb-linux-x86_64-${MONGODB}/bin/mongod --dbpath /tmp/data --bind_ip 127.0.0.1 &> /dev/null &
   - cp ./.travis/mongoid.yml ./config/mongoid.yml
 env:
+  global:
+    - MONGODB=3.4.5
+  matrix:
   - TEST_SUITE=cucumber
   - TEST_SUITE=audit
   - TEST_SUITE=models
