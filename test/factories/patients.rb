@@ -3,13 +3,13 @@
 FactoryBot.define do
   factory :patient, class: Patient do
     transient do
-      seq_id 1
+      seq_id { 1 }
     end
 
-    familyName 'MPL record'
+    familyName { 'MPL record' }
     givenNames { [seq_id.to_s] }
-    qdmVersion '5.3'
-    birthDatetime DateTime.new(1940, 1, 1).utc
+    qdmVersion { '5.3' }
+    birthDatetime { DateTime.new(1940, 1, 1).utc }
     extended_data_value = {
       'medical_record_assigner' => 'Bonnie',
       'notes' => "70yo female; DExcl 56,90 Num 127,130 DExcep 139,149\n*17qdes\n*Pt w h/o advancing dementia and heart failure. Suffered multiple fractures requiring surgery and occ therapy.",
@@ -149,16 +149,16 @@ FactoryBot.define do
         'qdmVersion' => '5.3'
       }
     ]
-    dataElements data_elements_value
+    dataElements { data_elements_value }
 
     after(:create) do |patient|
       create(:individual_bundle_result, patient_id: patient._id, bundleId: patient.bundleId)
     end
 
     factory :static_test_patient do
-      familyName 'A'
-      givenNames ['Dental_Peds']
-      birthDatetime DateTime.new(1940, 1, 1).utc
+      familyName { 'A' }
+      givenNames { ['Dental_Peds'] }
+      birthDatetime { DateTime.new(1940, 1, 1).utc }
       extendedData do
         { 'medical_record_number' => '1234' }.merge(extended_data_value)
       end

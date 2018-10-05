@@ -2,16 +2,16 @@ FactoryBot.define do
   factory :measure, class: Measure do
     entry = Rails.root.join('test', 'fixtures', 'artifacts', 'cms127v7.json')
     transient do
-      seq_id 1
+      seq_id { 1 }
     end
     source_measure = JSON.parse(File.read(entry), max_nesting: 100)
     name { "Measure Name #{seq_id}" }
     hqmf_id { "53e3f13d-e5cf-445f-8dda-3720aff8401#{seq_id}" }
     hqmf_set_id { "7c00e09b-02dc-458b-8587-7f0347a443f#{seq_id}" }
-    continuous_variable false
-    category 'none'
-    type 'ep'
-    episode_of_care true
+    continuous_variable { false }
+    category { 'none' }
+    type { 'ep' }
+    episode_of_care { true }
     trait :diagnosis do
       hqmf_doc = { 'source_data_criteria' => { 'DiagnosisActivePregnancy' =>
                                                { 'title'  => 'Pregnancy',
@@ -78,23 +78,23 @@ FactoryBot.define do
     factory  :measure_without_diagnosis, traits: [:no_diagnosis]
 
     factory  :static_measure do
-      name 'Static Measure'
-      cms_id source_measure['cms_id']
-      hqmf_id 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
-      hqmf_set_id 'C621C7B6-EB1F-11E7-8C3F-9A214CF093AE'
+      name { 'Static Measure' }
+      cms_id { source_measure['cms_id'] }
+      hqmf_id { 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE' }
+      hqmf_set_id { 'C621C7B6-EB1F-11E7-8C3F-9A214CF093AE' }
 
-      continuous_variable source_measure['continuous_variable']
-      category 'static'
-      type 'ep'
-      sub_id 'a'
+      continuous_variable { source_measure['continuous_variable'] }
+      category { 'static' }
+      type { 'ep' }
+      sub_id { 'a' }
 
-      episode_of_care source_measure['episode_of_care']
+      episode_of_care { source_measure['episode_of_care'] }
       hqmf_document { source_measure['hqmf_document'] }
       source_data_criteria { source_measure['source_data_criteria'] }
       population_criteria { source_measure['population_criteria'] }
-      populations source_measure['populations']
+      populations { source_measure['populations'] }
       measure_period { source_measure['measure_period'] }
-      oids source_measure['oids']
+      oids { source_measure['oids'] }
       population_ids { source_measure['population_ids'] }
     end
   end
