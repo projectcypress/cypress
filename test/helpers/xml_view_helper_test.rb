@@ -19,7 +19,7 @@ class XmlViewHelperTest < ActiveSupport::TestCase
   def test_collected_errors
     errs = collected_errors(@te)
     assert_equal 0, errs.nonfile.count
-    assert_equal 1, errs.files.keys.count, 'should contain four files with errors'
+    assert_equal 1, errs.files.keys.count, 'should contain one file with errors'
     assert_equal ['QRDA', 'Reporting', 'Submission', 'CMS Warnings', 'Other Warnings'], errs.files['sample_patient_wrong_template.xml'].keys, 'should contain right error keys for each file'
   end
 
