@@ -32,7 +32,7 @@ module Cypress
         response = RestClient::Request.execute(:method => :post, :url => CALCULATION_SERVICE_URL, :timeout => 120,
                                                :payload => post_data, :headers => { :content_type => 'application/json' })
       rescue => e
-        raise e.response || 'Calculation failed without an error message'
+        raise e.to_s || 'Calculation failed without an error message'
       end
 
       results = JSON.parse(response)
