@@ -24,8 +24,8 @@ before_script:
   - git config --global user.email "travis@travis.ci"
   - git config --global user.name "Travis CI"
   - npm install eslint
-  - yarn install --only=production --cwd /tmp/cqm-execution-service
-  - yarn start &
+  - yarn --cwd /tmp/cqm-execution-service install --only=production
+  - yarn --cwd /tmp/cqm-execution-service start &
   - wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-${MONGODB}.tgz -O /tmp/mongodb.tgz
   - tar -xvf /tmp/mongodb.tgz
   - mkdir /tmp/data
