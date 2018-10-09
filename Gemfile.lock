@@ -22,27 +22,6 @@ GIT
       zip-zip
 
 GIT
-  remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: e5858b4b20e9caa2d4a0ddd8c669f229c49648ae
-  branch: cat_1_patch
-  specs:
-    cqm-parsers (0.2.0)
-      activesupport (~> 4.2.0)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (~> 5.0.0)
-      mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.3)
-      protected_attributes (~> 1.0.5)
-      rest-client (~> 1.8.0)
-      rubyzip (~> 1.2.2)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
   remote: https://github.com/turbolinks/turbolinks-classic
   revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
   branch: master
@@ -175,6 +154,21 @@ GEM
       momentjs-rails
       sprockets
     cqm-models (0.8.4)
+    cqm-parsers (0.2.1)
+      activesupport (~> 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 5.0.0)
+      mongoid-tree (~> 2.0.0)
+      nokogiri (~> 1.8.5)
+      protected_attributes (~> 1.0.5)
+      rest-client (~> 1.8.0)
+      rubyzip (~> 1.2.2)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
     cqm-validators (0.1.0)
       nokogiri (~> 1.8.2)
     crass (1.0.4)
@@ -243,16 +237,17 @@ GEM
     gherkin (4.1.3)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    health-data-standards (4.1.0)
+    health-data-standards (4.3.0)
       activesupport (~> 4.2.0)
       builder (~> 3.1)
       erubis (~> 2.7.0)
       highline (~> 1.7.0)
       log4r (~> 1.1.10)
       memoist (~> 0.9.1)
+      mongo (~> 2.4.3)
       mongoid (~> 5.0.0)
       mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.2)
+      nokogiri (~> 1.8.3)
       protected_attributes (~> 1.0.5)
       rest-client (~> 1.8.0)
       rubyzip (~> 1.2.1)
@@ -319,8 +314,8 @@ GEM
       metaclass (~> 0.0.1)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
-    mongo (2.6.2)
-      bson (>= 4.3.0, < 5.0.0)
+    mongo (2.4.3)
+      bson (>= 4.2.1, < 5.0.0)
     mongoid (5.0.2)
       activemodel (~> 4.0)
       mongo (~> 2.1)
@@ -547,7 +542,7 @@ DEPENDENCIES
   cql_qdm_patientapi
   cqm-converter (~> 0.3.6)
   cqm-models (~> 0.8.4)
-  cqm-parsers!
+  cqm-parsers (~> 0.2.1)
   cqm-validators (~> 0.1.0)
   cucumber (~> 3.0.2)
   cucumber-rails
@@ -557,7 +552,7 @@ DEPENDENCIES
   factory_bot_rails
   faker (~> 1.5.0)
   font-awesome-sass (~> 5.0.13)
-  health-data-standards
+  health-data-standards (~> 4.3.0)
   jasny-bootstrap-rails
   jbuilder (~> 2.0)
   jquery-datatables-rails (~> 3.3.0)
