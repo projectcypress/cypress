@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :individual_result, class: QDM::IndividualResult do
-    IPP 1
-    DENOM 1
-    NUMER 0
-    DENEXCEP 0
-    DENEX 0
+    IPP { 1 }
+    DENOM { 1 }
+    NUMER { 0 }
+    DENEXCEP { 0 }
+    DENEX { 0 }
     factory :individual_bundle_result do
       transient do
         bundleId { Bundle.find_by(name: 'Static Bundle')._id }

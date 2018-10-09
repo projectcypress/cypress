@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :query_cache, class: HealthDataStandards::CQM::QueryCache do
-    calculation_date Time.now.in_time_zone
+    calculation_date { Time.now.in_time_zone }
 
     factory :static_query_cache do
       population_ids_hash = { 'IPP' => 'EA122D3D-5348-43DB-96A5-2D044ACAAA4D',
@@ -17,16 +17,16 @@ FactoryBot.define do
                                               'PAYER' => { '1' => 1 } },
                                  'NUMER' => {},
                                  'DENEX' => {} }
-      IPP 1
-      DENOM 1
-      NUMER 0
-      DENEX 0
-      DENEXCEP 0
-      MSRPOPL 0
-      measure_id 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
-      population_ids population_ids_hash
-      supplemental_data supplemental_data_hash
-      effective_date 1_514_764_799
+      IPP { 1 }
+      DENOM { 1 }
+      NUMER { 0 }
+      DENEX { 0 }
+      DENEXCEP { 0 }
+      MSRPOPL { 0 }
+      measure_id { 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE' }
+      population_ids { population_ids_hash }
+      supplemental_data { supplemental_data_hash }
+      effective_date { 1_514_764_799 }
     end
   end
 end
