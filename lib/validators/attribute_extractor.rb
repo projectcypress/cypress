@@ -1,5 +1,11 @@
 module Validators
   module AttributeExtractor
+    # XPATH_CONSTS contains a hash of attributes (e.g., relevantPeriod) and their relative path
+    # relationship with the root of the QRDA template they are contained in.
+    # The 'root' of the QRDA template corresponds to the location of the templateId that corresponds
+    # with the QDM type being referenced (e.g., '2.16.840.1.113883.10.20.24.3.23' for Encounter Performed.)
+    # This relative path needs to consistent across all QRDA templates, or should contain a leading '/''
+    # (which will look at any depth) with an XPATH signature that is deterministic (e.g., authorDatetime).
     XPATH_CONSTS = {
       'relevantPeriod' => 'cda:effectiveTime/cda:low',
       'prevalencePeriod' => 'cda:effectiveTime/cda:low',
@@ -24,7 +30,10 @@ module Validators
 
     # searches a node for the existance of the attribute criteria, each field_value has a xpath relative to the template root
     def find_attribute_values(node, code, source_criteria, index)
-      # xpath expressions with codes
+      # xpath_map contains a hash of attributes (e.g., relevantPeriod) and their relative path
+      # relationship with the root of the QRDA template they are contained in.
+      # xpath_map differs from the XPATH_CONSTS because the XPATH statements include a placeholder
+      # for a 'code' that is passed in to perform the evaluation.
       xpath_map = {
         'components' => "cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.149]/cda:code[@code='#{code}']",
         'diagnoses' => "cda:entryRelationship/cda:act[./cda:code[@code='29308-4']]/cda:entryRelationship
@@ -39,7 +48,7 @@ module Validators
         'principalDiagnosis' => "cda:entryRelationship/cda:observation[./cda:code[@code='8319008']]/cda:value[@code='#{code}']", # CMS188v6
         'severity' => "cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.22.4.8']]/cda:value[@code='#{code}']"
       }
-      # XPATH_CONSTS are the expressions without codes
+      # XPATH_CONSTS (the XPATH expressions without codes) are merged with the xpath_map (the XPATH expressions without codes)
       xpath_map.merge!(XPATH_CONSTS)
       if source_criteria['attributes']
         relative_path = relative_path_to_template_root(source_criteria['definition'])
@@ -48,6 +57,8 @@ module Validators
       false
     end
 
+    # TODO: relative_path_map currently only includes QDM types that cqm-parsers can import/export.
+    # Other QDM types are not included.
     def relative_path_to_template_root(definition)
       relative_path_map = { 'adverse_event' => '../../',
                             'allergy_intolerance' => '../../../',
