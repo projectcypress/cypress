@@ -1,12 +1,19 @@
 class MeasureEvaluationJob < ApplicationJob
   queue_as :default
   include Job::Status
+
+  # The MeasureEvaluationJob aggregates Individual Results to calculated the expected results for a
+  # Measure Test or Task
+  #
+  # @param [Object] test_or_task The ProductTest or Task being evalutated
+  # @param [Hash] options :individual_results are the raw results from JsEcqmCalc
+  # @return none
   def perform(test_or_task, options)
+    # Measure Evaluation Job can be run for a test (Measure Test), or a task (Filter Tasks)
     if test_or_task.is_a? ProductTest
       perform_for_product_test(test_or_task, options)
     elsif test_or_task.is_a? Task
       perform_for_task(test_or_task, options)
-
     end
   end
 
@@ -22,9 +29,11 @@ class MeasureEvaluationJob < ApplicationJob
     product_test.save
   end
 
-  def eval_measures(measures, product_test, _options, &_block)
+  def eval_measures(measures, product_test, options, &_block)
     erc = Cypress::ExpectedResultsCalculator.new(product_test.patients, product_test.id.to_s, product_test.effective_date)
-    results = erc.aggregate_results_for_measures(measures)
+    # if individual_results results are nested within 'Individual'.  If there are no individual results, set to nil
+    individual_results = options[:individual_results] ? options[:individual_results]['Individual'] : nil
+    results = erc.aggregate_results_for_measures(measures, individual_results)
     results
   end
 end
