@@ -14,12 +14,11 @@ gem 'mustache'
 gem 'os'
 
 gem 'cql_qdm_patientapi'
-gem 'cqm-converter', '~> 0.3.4'
-gem 'cqm-models', '~> 0.8.2'
-gem 'cqm-parsers', '~> 0.1.1'
+gem 'cqm-converter', '~> 0.3.6'
+gem 'cqm-models', '~> 0.8.4'
+gem 'cqm-parsers', '~> 0.2.1'
 gem 'cqm-validators', '~> 0.1.0'
-gem 'health-data-standards', git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'r5'
-# gem 'health-data-standards', '~> 3.7.0'
+gem 'health-data-standards', '~> 4.3.0'
 
 gem 'quality-measure-engine',
     git: 'https://github.com/projectcypress/quality-measure-engine.git', branch: 'bump_mongoid'
@@ -34,7 +33,6 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'font-awesome-sass', '~> 5.0.13'
 gem 'jquery-rails', '~> 4.0.4'
 gem 'jquery-ui-rails', '~> 5.0.5'
-gem 'modernizr-rails', '~> 2.7.1'
 
 # Add pagination support
 gem 'kaminari-mongoid'
@@ -96,6 +94,8 @@ gem 'mongoid_rails_migrations', :git => 'https://github.com/adacosta/mongoid_rai
 # gem 'capistrano-rails', group: :development
 
 gem 'bunny'
+
+gem 'rest-client', '~>1.8.0'
 
 group :development, :test do
   gem 'rubocop', '~> 0.57.1', :require => false

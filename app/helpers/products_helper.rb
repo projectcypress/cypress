@@ -38,20 +38,6 @@ module ProductsHelper
     end
   end
 
-  # For pdf
-  def all_records_for_product(product)
-    records = []
-    product.product_tests.each do |pt|
-      pt.patients.each do |r|
-        new_name = "#{r.first} #{r.last}"
-        original_patient = r.bundle.patients.find_by(medical_record_number: r.original_medical_record_number)
-        original_name = "#{original_patient.first} #{original_patient.last}"
-        records << { new_name: new_name, original: original_name }
-      end
-    end
-    records.any? ? records.sort_by { |r| r[:new_name] }.uniq : records
-  end
-
   # input tasks should be array of (c1 or c2 task) and (c3 task if c3 was selected on product)
   # true if the task's product test is still building or if there is a test execution currently running
   def should_reload_product_test_link?(task_status, test)

@@ -29,7 +29,7 @@ module TestExecutionsHelper
   # returns an array of booleans [c1, c2, c3, c4]. true if page is testing these certification types
   def current_certifications(task_type, c3_task)
     return [false, false, false, true] if %w[Cat1FilterTask Cat3FilterTask].include?(task_type)
-    [task_type == 'C1Task' || task_type == 'C1ChecklistTask', task_type == 'C2Task', c3_task, false]
+    [%w[C1Task C1ChecklistTask].include?(task_type), task_type == 'C2Task', c3_task, false]
   end
 
   # returns the number of each type of error

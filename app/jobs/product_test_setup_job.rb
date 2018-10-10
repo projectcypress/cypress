@@ -5,8 +5,8 @@ class ProductTestSetupJob < ApplicationJob
     product_test.building
     product_test.generate_provider if product_test.is_a? MeasureTest
     product_test.generate_patients(@job_id) if product_test.patients.count.zero?
-    calculate_product_test(product_test)
-    MeasureEvaluationJob.perform_now(product_test, {})
+    results = calculate_product_test(product_test)
+    MeasureEvaluationJob.perform_now(product_test, individual_results: results)
     product_test.archive_patients if product_test.patient_archive.path.nil?
     product_test.ready
   rescue StandardError => e
@@ -32,8 +32,9 @@ class ProductTestSetupJob < ApplicationJob
   def do_calculation(product_test, patient_ids, correlation_id)
     calc_job = Cypress::JsEcqmCalc.new('correlation_id': correlation_id,
                                        'effective_date': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number))
-    calc_job.sync_job(patient_ids, product_test.measures.map { |mes| mes._id.to_s })
+    results = calc_job.sync_job(patient_ids, product_test.measures.map { |mes| mes._id.to_s })
     calc_job.stop
+    results
   end
 
   private

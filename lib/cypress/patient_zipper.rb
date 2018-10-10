@@ -21,6 +21,9 @@ module Cypress
       # TODO: R2P: make sure patient export works with HDS HTML exporter
       hdsrecord = @qdm_patient_converter.to_hds(patient)
       hdsrecord.bundle_id = patient.bundleId
+      # replace the end_time with nil if the end_time is > 1893474001, which is 1/1/2030.
+      # This will get the HTML exporter to export the end time as present.
+      hdsrecord.entries.each { |de| de.end_time = nil if de.end_time && de.end_time > 1_893_474_001 }
       EXPORTER.export(hdsrecord, measures)
     end
   end
@@ -37,8 +40,12 @@ module Cypress
     end
 
     def export(patient)
-      cms_compatibility = patient.product_test&.product&.c3_test
-      options = { provider: patient.provider, submission_program: cms_compatibility, start_time: start_time, end_time: end_time }
+      cat1_submission_program = if patient.product_test&.product&.c3_test
+                                  patient.product_test&.measures&.first&.type == 'eh' ? 'HQR_IQR' : false
+                                else
+                                  false
+                                end
+      options = { provider: patient.provider, submission_program: cat1_submission_program, start_time: start_time, end_time: end_time }
       case patient.bundle.qrda_version
       when 'r5'
         Qrda1R5.new(patient, measures, options).render

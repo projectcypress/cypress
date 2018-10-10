@@ -3,7 +3,7 @@ module Cypress
     include ChecklistTestsHelper
     def self.create_test_zip(test_id, format = 'html')
       pt = ProductTest.find(test_id)
-      create_zip(pt.records.to_a, format)
+      create_zip(pt.patients.to_a, format)
     end
 
     def self.create_zip(patients, format)
@@ -13,13 +13,13 @@ module Cypress
     end
 
     def self.bundle_directory(bundle, path)
-      records = bundle.records
+      patients = bundle.patients
       %w[html qrda].each do |format|
         extensions = { html: 'html', qrda: 'xml' }
-        formatter = formatter_for_patients(records, format)
+        formatter = formatter_for_patients(patients, format)
         FileUtils.mkdir_p(File.join(path, "#{format}_records/"))
-        records.each do |r|
-          filename = "#{format}_records/#{r.first}_#{r.last}.#{extensions[format.to_sym]}".delete("'").tr(' ', '_')
+        patients.each do |r|
+          filename = "#{format}_records/#{r.givenNames.join('_')}_#{r.familyName}.#{extensions[format.to_sym]}".delete("'").tr(' ', '_')
           File.open(File.join(path, filename), 'w') do |f|
             f.write(formatter.export(r))
           end
@@ -106,8 +106,8 @@ module Cypress
       z << file_content
     end
 
-    def self.formatter_for_patients(records, format)
-      mes, sd, ed = Cypress::PatientZipper.measure_start_end(records)
+    def self.formatter_for_patients(patients, format)
+      mes, sd, ed = Cypress::PatientZipper.measure_start_end(patients)
       if format == 'html'
         formatter = Cypress::HTMLExporter.new(mes, sd, ed)
       elsif format == 'qrda'

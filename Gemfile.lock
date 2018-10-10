@@ -1,35 +1,14 @@
 GIT
   remote: https://github.com/adacosta/mongoid_rails_migrations.git
-  revision: dd3f9c6d52cf11f666903aa24a07a1c01549f007
+  revision: 18ff00022b9d19fa222b3c4c2b362663241f25ba
   branch: master
   specs:
-    mongoid_rails_migrations (1.1.0)
+    mongoid_rails_migrations (1.2.0)
       activesupport (>= 4.2.0)
       bundler (>= 1.0.0)
       mongoid (>= 4.0.0)
       rails (>= 4.2.0)
       railties (>= 4.2.0)
-
-GIT
-  remote: https://github.com/projectcypress/health-data-standards.git
-  revision: f439991b6ed4861cbe4da19454692f7c7d3ccd44
-  branch: r5
-  specs:
-    health-data-standards (4.0.3)
-      activesupport (~> 4.2.0)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (~> 5.0.0)
-      mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.2)
-      protected_attributes (~> 1.0.5)
-      rest-client (~> 1.8.0)
-      rubyzip (~> 1.2.1)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
 
 GIT
   remote: https://github.com/projectcypress/quality-measure-engine.git
@@ -93,16 +72,16 @@ GEM
     ansi (1.5.0)
     arel (6.0.4)
     ast (2.4.0)
-    autoprefixer-rails (9.0.0)
+    autoprefixer-rails (9.1.4)
       execjs
-    axe-matchers (2.1.1)
+    axe-matchers (2.2.1)
       dumb_delegator (~> 0.8)
       virtus (~> 1.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
-    backports (3.11.3)
+    backports (3.11.4)
     bcrypt (3.1.12)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
@@ -122,7 +101,7 @@ GEM
       amq-protocol (~> 2.3.0)
     byebug (10.0.2)
     cancancan (2.2.0)
-    capybara (3.4.2)
+    capybara (3.7.1)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -162,20 +141,20 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
-    cql_qdm_patientapi (1.1.4)
+    cql_qdm_patientapi (1.2.0)
       coffee-rails (~> 4.1)
       rails (~> 4.2)
       sprockets-rails (~> 2.3)
-    cqm-converter (0.3.4)
+    cqm-converter (0.3.6)
       activesupport
       coffee-script
-      cqm-models (>= 0.7.2)
+      cqm-models (>= 0.8.4)
       execjs
-      health-data-standards (>= 4.0.3)
+      health-data-standards (>= 4.1.0)
       momentjs-rails
       sprockets
-    cqm-models (0.8.2)
-    cqm-parsers (0.1.1)
+    cqm-models (0.8.4)
+    cqm-parsers (0.2.1)
       activesupport (~> 4.2.0)
       builder (~> 3.1)
       erubis (~> 2.7.0)
@@ -184,10 +163,10 @@ GEM
       memoist (~> 0.9.1)
       mongoid (~> 5.0.0)
       mongoid-tree (~> 2.0.0)
-      nokogiri (~> 1.8.3)
+      nokogiri (~> 1.8.5)
       protected_attributes (~> 1.0.5)
       rest-client (~> 1.8.0)
-      rubyzip (~> 1.2.1)
+      rubyzip (~> 1.2.2)
       uuid (~> 2.3.7)
       zip-zip (~> 0.3)
     cqm-validators (0.1.0)
@@ -245,10 +224,10 @@ GEM
     equalizer (0.0.11)
     erubis (2.7.0)
     execjs (2.7.0)
-    factory_bot (4.10.0)
+    factory_bot (4.11.0)
       activesupport (>= 3.0.0)
-    factory_bot_rails (4.10.0)
-      factory_bot (~> 4.10.0)
+    factory_bot_rails (4.11.0)
+      factory_bot (~> 4.11.0)
       railties (>= 3.0.0)
     faker (1.5.0)
       i18n (~> 0.5)
@@ -258,6 +237,22 @@ GEM
     gherkin (4.1.3)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    health-data-standards (4.3.0)
+      activesupport (~> 4.2.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongo (~> 2.4.3)
+      mongoid (~> 5.0.0)
+      mongoid-tree (~> 2.0.0)
+      nokogiri (~> 1.8.3)
+      protected_attributes (~> 1.0.5)
+      rest-client (~> 1.8.0)
+      rubyzip (~> 1.2.1)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
     highline (1.7.10)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -304,24 +299,23 @@ GEM
     method_source (0.8.2)
     mime-types (2.99.3)
     mimemagic (0.3.2)
-    mini_mime (1.0.0)
+    mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
     minitest-rails (2.2.1)
       minitest (~> 5.7)
       railties (~> 4.1)
-    minitest-reporters (1.3.1)
+    minitest-reporters (1.3.4)
       ansi
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    mocha (1.6.0)
+    mocha (1.7.0)
       metaclass (~> 0.0.1)
-    modernizr-rails (2.7.1)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
-    mongo (2.6.1)
-      bson (>= 4.3.0, < 5.0.0)
+    mongo (2.4.3)
+      bson (>= 4.2.1, < 5.0.0)
     mongoid (5.0.2)
       activemodel (~> 4.0)
       mongo (~> 2.1)
@@ -340,13 +334,13 @@ GEM
     mustache (1.0.5)
     nested_form (0.3.2)
     netrc (0.11.0)
-    newrelic_rpm (5.2.0.345)
-    nokogiri (1.8.4)
+    newrelic_rpm (5.3.0.346)
+    nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     origin (2.3.1)
     orm_adapter (0.5.0)
     os (1.0.0)
-    overcommit (0.45.0)
+    overcommit (0.46.0)
       childprocess (~> 0.6, >= 0.6.3)
       iniparse (~> 1.4)
     parallel (1.12.1)
@@ -365,7 +359,7 @@ GEM
       slop (~> 3.4)
     pry-nav (0.2.4)
       pry (>= 0.9.10, < 0.11.0)
-    public_suffix (3.0.2)
+    public_suffix (3.0.3)
     rack (1.6.10)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -441,8 +435,8 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-prof (0.15.9)
-    ruby-progressbar (1.9.0)
-    rubyzip (1.2.1)
+    ruby-progressbar (1.10.0)
+    rubyzip (1.2.2)
     sass (3.5.7)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -463,7 +457,7 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (3.13.1)
+    selenium-webdriver (3.14.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
     sexp_processor (4.11.0)
@@ -490,7 +484,7 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uber (0.1.0)
-    uglifier (4.1.16)
+    uglifier (4.1.18)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -546,9 +540,9 @@ DEPENDENCIES
   carrierwave-mongoid
   codecov
   cql_qdm_patientapi
-  cqm-converter (~> 0.3.4)
-  cqm-models (~> 0.8.2)
-  cqm-parsers (~> 0.1.1)
+  cqm-converter (~> 0.3.6)
+  cqm-models (~> 0.8.4)
+  cqm-parsers (~> 0.2.1)
   cqm-validators (~> 0.1.0)
   cucumber (~> 3.0.2)
   cucumber-rails
@@ -558,7 +552,7 @@ DEPENDENCIES
   factory_bot_rails
   faker (~> 1.5.0)
   font-awesome-sass (~> 5.0.13)
-  health-data-standards!
+  health-data-standards (~> 4.3.0)
   jasny-bootstrap-rails
   jbuilder (~> 2.0)
   jquery-datatables-rails (~> 3.3.0)
@@ -571,7 +565,6 @@ DEPENDENCIES
   minitest-rails
   minitest-reporters
   mocha
-  modernizr-rails (~> 2.7.1)
   mongoid (~> 5.0.0)
   mongoid_rails_migrations!
   mustache
@@ -588,6 +581,7 @@ DEPENDENCIES
   rails_best_practices
   remotipart (~> 1.2)
   responders
+  rest-client (~> 1.8.0)
   roar-rails
   rolify
   rubocop (~> 0.57.1)
@@ -607,4 +601,4 @@ RUBY VERSION
    ruby 2.3.7p456
 
 BUNDLED WITH
-   1.16.2
+   1.16.4

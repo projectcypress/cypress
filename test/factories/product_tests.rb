@@ -3,9 +3,9 @@ FactoryBot.define do
     sequence(:name) { |i| "Product Test Name #{i}" }
 
     factory :product_test_static_result do
-      name 'Static Result'
-      _type 'MeasureTest'
-      cms_id 'CMS1234'
+      name { 'Static Result' }
+      _type { 'MeasureTest' }
+      cms_id { 'CMS1234' }
       aug_record = [{ 'original_patient_id' => '',
                       'medical_record_number' =>  '1234',
                       'first' =>  %w[Dental_Peds Denial_Peds],
@@ -42,7 +42,7 @@ FactoryBot.define do
                                                      'NUMER' => {},
                                                      'DENEX' => {} } } }
       expected_results { expected_result }
-      measure_ids ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
+      measure_ids { ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }
       association :product, :factory => :product_static_bundle
       after(:create) do |pt|
         extended_data = { 'correlation_id' => pt.id,

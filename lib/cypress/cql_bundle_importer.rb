@@ -103,18 +103,19 @@ module Cypress
       puts "\rLoading: Patients Complete          "
     end
 
+    # TODO: This will need to be updated for bundles exported with cqm-models 1.x that store relatedTo as an QDM::ID
     def self.reconnect_references(patient)
       patient.dataElements.each do |data_element|
-        next unless data_element['relatedTo']
+        next unless data_element[:relatedTo]
         ref_array = []
         oid_hash = {}
         patient.dataElements.each do |de|
           oid_hash[{ 'codes' => de['dataElementCodes'].map { |dec| dec['code'] }.flatten, 'start_time' => de['authorDatetime'].to_i }.hash] = de.id
         end
-        data_element['relatedTo'].each do |ref|
-          ref_array << oid_hash[ref.hash]
+        data_element[:relatedTo].each do |ref|
+          ref_array << oid_hash[{ 'codes' => ref['codes'], 'start_time' => ref['start_time'] }.hash]
         end
-        data_element['relatedTo'] = ref_array
+        data_element.relatedTo = ref_array
       end
     end
 
