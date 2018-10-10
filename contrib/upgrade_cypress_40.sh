@@ -17,9 +17,9 @@ apt-get update
 if [ $(dpkg-query -W -f='${Status}' cypress 2>/dev/null | grep -c "ok installed") -eq 1 ];
 then
   printf "${GREEN}---> Attempting to upgrade Cypress...${NC}\n"
-  apt-get -y --allow-change-held-packages install cypress
+  apt-get -y --allow-change-held-packages install cypress js-ecqm-engine
   cypress run rake db:migrate
-  systemctl restart cypress
+  systemctl restart cypress js-ecqm-engine
   cypress run rake tmp:cache:clear
 else
   printf "${RED}---> Cypress not found, continuing...${NC}\n"
