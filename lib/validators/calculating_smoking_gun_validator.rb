@@ -67,21 +67,20 @@ module Validators
       # This Logic will need to be updated with CQL calculations
       calc_job = Cypress::JsEcqmCalc.new('correlation_id': options.test_execution.id.to_s,
                                          'effective_date': Time.at(te.task.effective_date).in_time_zone.to_formatted_s(:number))
-      calc_job.sync_job([record.id.to_s], @measures.map { |mes| mes._id.to_s })
+      new_results = calc_job.sync_job([record.id.to_s], @measures.map { |mes| mes._id.to_s })
       calc_job.stop
-      passed = determine_passed(mrn, record, options)
+      passed = determine_passed(mrn, record, new_results['Individual'], options)
       record.destroy
       passed
     end
 
-    def determine_passed(mrn, record, options)
+    def determine_passed(mrn, record, new_results, options)
       passed = true
       @measures.each do |measure|
         original_results = QDM::IndividualResult.where('patient_id' => mrn, 'measure_id' => measure.id)
-        new_results = QDM::IndividualResult.where('patient_id' => record.id, 'measure_id' => measure.id,
-                                                  'extendedData.correlation_id' => options.test_execution.id.to_s)
+        new_result = new_results[measure.id.to_s][record.id.to_s]
         options[:population_ids] = measure.population_ids
-        passed = compare_results(original_results.first, new_results.first, options, passed)
+        passed = compare_results(original_results.first, new_result, options, passed)
       end
       passed
     end
