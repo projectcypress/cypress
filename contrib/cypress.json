@@ -17,7 +17,7 @@
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
       "region": "us-east-1",
-      "source_ami": "ami-d651b8ac",
+      "source_ami": "ami-059eeca93cf09eebd",
       "instance_type": "t2.small",
       "vpc_id": "{{user `vpc_id`}}",
       "subnet_id": "{{user `subnet_id`}}",
@@ -41,7 +41,7 @@
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
       "region": "us-east-1",
-      "source_ami": "ami-d651b8ac",
+      "source_ami": "ami-059eeca93cf09eebd",
       "instance_type": "t2.small",
       "vpc_id": "{{user `vpc_id`}}",
       "subnet_id": "{{user `subnet_id`}}",
@@ -65,7 +65,7 @@
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
       "region": "us-east-1",
-      "source_ami": "ami-d651b8ac",
+      "source_ami": "ami-059eeca93cf09eebd",
       "instance_type": "t2.small",
       "vpc_id": "{{user `vpc_id`}}",
       "subnet_id": "{{user `subnet_id`}}",
@@ -89,10 +89,10 @@
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
-        "http://releases.ubuntu.com/16.04.4/ubuntu-16.04.4-server-amd64.iso",
-        "http://nl.releases.ubuntu.com/16.04.4/ubuntu-16.04.4-server-amd64.iso"
+        "http://releases.ubuntu.com/16.04.5/ubuntu-16.04.5-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/16.04.5/ubuntu-16.04.5-server-amd64.iso"
       ],
-      "iso_checksum": "ee834fbeb94cc55972b38caafa2029c29625e2e8",
+      "iso_checksum": "ee32c555567dd5407c58a1cfc7e668ab37a99d99",
       "iso_checksum_type": "sha1",
       "ssh_username": "{{user `default_user`}}",
       "ssh_password": "{{user `default_pwd`}}",
@@ -147,10 +147,10 @@
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
-        "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
-        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso"
+        "http://releases.ubuntu.com/16.04.5/ubuntu-16.04.5-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/16.04.5/ubuntu-16.04.5-server-amd64.iso"
       ],
-      "iso_checksum": "f3532991e031cae75bcf5e695afb844dd278fff9",
+      "iso_checksum": "ee32c555567dd5407c58a1cfc7e668ab37a99d99",
       "iso_checksum_type": "sha1",
       "ssh_username": "{{user `default_user`}}",
       "ssh_password": "{{user `default_pwd`}}",
@@ -205,10 +205,10 @@
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
-        "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
-        "http://nl.releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso"
+        "http://releases.ubuntu.com/16.04.5/ubuntu-16.04.5-server-amd64.iso",
+        "http://nl.releases.ubuntu.com/16.04.5/ubuntu-16.04.5-server-amd64.iso"
       ],
-      "iso_checksum": "f3532991e031cae75bcf5e695afb844dd278fff9",
+      "iso_checksum": "ee32c555567dd5407c58a1cfc7e668ab37a99d99",
       "iso_checksum_type": "sha1",
       "ssh_username": "{{user `default_user`}}",
       "ssh_password": "{{user `default_pwd`}}",
@@ -295,7 +295,6 @@
     "run_list": [ "recipe[apt]", "recipe[cypress::install_cypress]" ],
     "json": {
       "cypress": {
-          "cypress_git_revision": "{{ user `cypress_version` }}",
           "generate_secrets_on_restart": true
       }
     },
@@ -308,7 +307,6 @@
     "run_list": [ "recipe[apt]", "recipe[cypress::install_cvu]" ],
     "json": {
       "cypress": {
-          "cvu_git_revision": "{{ user `cvu_version` }}",
           "generate_secrets_on_restart": true
       }
     },
@@ -321,8 +319,6 @@
     "run_list": [ "recipe[apt]", "recipe[cypress::default]" ],
     "json": {
       "cypress": {
-          "cypress_git_revision": "{{ user `cypress_version` }}",
-          "cvu_git_revision": "{{ user `cvu_version` }}",
           "generate_secrets_on_restart": true
       }
     },
