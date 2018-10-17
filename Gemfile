@@ -3,11 +3,10 @@ source 'https://rubygems.org'
 ruby '2.3.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.7'
+gem 'rails', '~> 5.1.6'
 
-# Use MongoDB just like in Cypress v2!
-gem 'delayed_job_mongoid', '~> 2.2.0'
-gem 'mongoid', '~> 5.0.0'
+gem 'delayed_job_mongoid', '~> 2.3.0'
+gem 'mongoid', '~> 6.4.2'
 
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson_ext'
@@ -16,8 +15,15 @@ gem 'mustache'
 gem 'os'
 
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'remove_hds'
-gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'qrda_3'
+#gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'master'
 gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators.git', branch: 'remove_hds'
+# gem 'cql_qdm_patientapi'
+gem 'cqm-parsers', :path => '../cqm-parsers'
+gem 'cql_qdm_patientapi', :path => '../cql_qdm_patientapi'
+#gem 'cqm-converter', '~> 0.3.6'
+#gem 'cqm-models', '~> 0.8.4'
+#gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'cat_1_patch'
+#gem 'cqm-validators', '~> 0.1.0'
 
 # Use faker to generate addresses
 gem 'faker', '~> 1.5.0'
@@ -27,8 +33,8 @@ gem 'sass-rails', '~> 5.0.4'
 # Dependencies for CMS Assets Framework
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'font-awesome-sass', '~> 5.0.13'
-gem 'jquery-rails', '~> 4.0.4'
-gem 'jquery-ui-rails', '~> 5.0.5'
+gem 'jquery-rails', '~> 4.3.3'
+gem 'jquery-ui-rails', '~> 6.0.1'
 gem 'modernizr-rails', '~> 2.7.1'
 
 # Add pagination support
@@ -43,8 +49,7 @@ gem 'bootstrap_form'
 gem 'jasny-bootstrap-rails'
 gem 'nested_form'
 
-gem 'jquery-datatables-rails', '~> 3.3.0'
-
+gem 'jquery-datatables-rails'
 gem 'local_time', '~> 2.0.0'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -78,11 +83,9 @@ gem 'vmstat'
 
 # Devise is the gem we use for user authentication
 gem 'cancancan'
-gem 'devise', '4.1.1'
+gem 'devise'
 gem 'devise_invitable'
 gem 'rolify'
-
-gem 'mongoid_rails_migrations', :git => 'https://github.com/adacosta/mongoid_rails_migrations.git', :branch => 'master'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -127,7 +130,7 @@ group :test do
   gem 'codecov', :require => false
   gem 'factory_bot_rails'
   gem 'launchy'
-  gem 'minitest', '5.10.3'
+  gem 'minitest', '5.11.3'
   gem 'minitest-rails'
   gem 'minitest-reporters'
   gem 'mocha', :require => false
