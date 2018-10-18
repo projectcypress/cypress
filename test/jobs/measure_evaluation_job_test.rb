@@ -18,12 +18,11 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
       # clear out expected_results created with product test
       pt.expected_results = nil
 
-      patient_ids = pt.patients.map { |rec| rec._id.to_s }
       correlation_id = BSON::ObjectId.new.to_s
-      calc_job = Cypress::JsEcqmCalc.new('correlation_id': correlation_id,
-                                         'effective_date': Time.at(pt.effective_date).in_time_zone.to_formatted_s(:number))
-      individual_results_from_sync_job = calc_job.sync_job(patient_ids, pt.measures.map { |mes| mes._id.to_s })
-      calc_job.stop
+      calc_job = Cypress::CqmExecutionCalc.new(pt.patients, pt.measures, pt.value_sets_by_oid, correlation_id,
+                                               'effectiveDateEnd': Time.at(pt.effective_date).in_time_zone.to_formatted_s(:number),
+                                               'effectiveDate': Time.at(pt.measure_period_start).in_time_zone.to_formatted_s(:number))
+      individual_results_from_sync_job = calc_job.execute
 
       # calculate expected_results using individual results stored in database (don't pass in individual results)
       MeasureEvaluationJob.perform_now(pt, {})
