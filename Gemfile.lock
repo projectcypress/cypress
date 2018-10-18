@@ -1,9 +1,39 @@
 GIT
+  remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
+  revision: 690e2c3093f806cc2a637d4ed2553a85659b5ce9
+  branch: rails_upgrade
+  specs:
+    cql_qdm_patientapi (2.0.0)
+      coffee-rails (~> 4.2.0)
+      rails (~> 5.1.0)
+      sprockets-rails (~> 3.1.0)
+
+GIT
   remote: https://github.com/projecttacoma/cqm-models.git
   revision: f83043c0623d2a534e61838f444ef76354a5d58c
   branch: remove_hds
   specs:
     cqm-models (0.8.4)
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-parsers.git
+  revision: 47568070ae2b4faf7170cf53602964443294cbcd
+  branch: rails_upgrade
+  specs:
+    cqm-parsers (1.0.0)
+      activesupport (~> 5.1.6)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 6.4.2)
+      mongoid-tree (~> 2.1.0)
+      nokogiri (~> 1.8.3)
+      rest-client (~> 1.8.0)
+      rubyzip (~> 1.2.2)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-validators.git
@@ -20,32 +50,6 @@ GIT
   specs:
     turbolinks (3.0.0)
       coffee-rails
-
-PATH
-  remote: ../cql_qdm_patientapi
-  specs:
-    cql_qdm_patientapi (2.0.0)
-      coffee-rails (~> 4.2.0)
-      rails (~> 5.1.0)
-      sprockets-rails (~> 3.1.0)
-
-PATH
-  remote: ../cqm-parsers
-  specs:
-    cqm-parsers (1.0.0)
-      activesupport (~> 5.1.6)
-      builder (~> 3.1)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (~> 6.4.2)
-      mongoid-tree (~> 2.1.0)
-      nokogiri (~> 1.8.3)
-      rest-client (~> 1.8.0)
-      rubyzip (~> 1.2.2)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
 
 GEM
   remote: https://rubygems.org/
@@ -396,14 +400,16 @@ GEM
       test_xml (>= 0.1.6)
       uber (< 0.2.0)
     rolify (5.2.0)
-    rubocop (0.57.2)
+    rubocop (0.59.2)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
-      parser (>= 2.5)
+      parser (>= 2.5, != 2.5.1.1)
       powerpack (~> 0.1)
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
+    rubocop-rspec (1.27.0)
+      rubocop (>= 0.56.0)
     ruby-prof (0.15.9)
     ruby-progressbar (1.10.0)
     rubyzip (1.2.2)
@@ -552,7 +558,8 @@ DEPENDENCIES
   rest-client (~> 1.8.0)
   roar-rails
   rolify
-  rubocop (~> 0.57.1)
+  rubocop
+  rubocop-rspec
   ruby-prof (~> 0.15.9)
   sass-rails (~> 5.0.4)
   scss_lint

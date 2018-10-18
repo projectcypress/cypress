@@ -15,15 +15,13 @@ gem 'mustache'
 gem 'os'
 
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'remove_hds'
-#gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'master'
+# gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'master'
+gem 'cql_qdm_patientapi', git: 'https://github.com/projecttacoma/cql_qdm_patientapi.git', branch: 'rails_upgrade'
 gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators.git', branch: 'remove_hds'
-# gem 'cql_qdm_patientapi'
-gem 'cqm-parsers', :path => '../cqm-parsers'
-gem 'cql_qdm_patientapi', :path => '../cql_qdm_patientapi'
-#gem 'cqm-converter', '~> 0.3.6'
-#gem 'cqm-models', '~> 0.8.4'
-#gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'cat_1_patch'
-#gem 'cqm-validators', '~> 0.1.0'
+# gem 'cqm-converter', '~> 0.3.6'
+# gem 'cqm-models', '~> 0.8.4'
+gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'rails_upgrade'
+# gem 'cqm-validators', '~> 0.1.0'
 
 # Use faker to generate addresses
 gem 'faker', '~> 1.5.0'
@@ -98,7 +96,8 @@ gem 'bunny'
 gem 'rest-client', '~>1.8.0'
 
 group :development, :test do
-  gem 'rubocop', '~> 0.57.1', :require => false
+  gem 'rubocop'
+  gem 'rubocop-rspec'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'axe-matchers'
   gem 'byebug'
