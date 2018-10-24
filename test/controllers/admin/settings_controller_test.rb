@@ -9,7 +9,7 @@ module Admin
 
     test 'should successfully update settings' do
       for_each_logged_in_user([ADMIN]) do
-        patch :update, banner_message: 'banner test', warning_message: 'banner warning test', mailer_address: 'smtp.example.com', mailer_port: 3000, mailer_domain: 'example.com', mailer_user_name: 'testuser', mailer_password: 'password123', mode: 'custom', custom_options: { auto_approve: 'disable', ignore_roles: 'disable', default_role: 'admin', debug_features: 'disable' }
+        patch :update, params: { banner_message: 'banner test', warning_message: 'banner warning test', mailer_address: 'smtp.example.com', mailer_port: 3000, mailer_domain: 'example.com', mailer_user_name: 'testuser', mailer_password: 'password123', mode: 'custom', custom_options: { auto_approve: 'disable', ignore_roles: 'disable', default_role: 'admin', debug_features: 'disable' } }
       end
       assert_equal 'banner test', Settings.current.banner_message
       assert_equal 'banner warning test', Settings.current.warning_message

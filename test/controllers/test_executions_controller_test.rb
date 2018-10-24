@@ -59,7 +59,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     # do this for admin,atl,user:owner and vendor -- need negative tests for non
     # access users
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, id: te.id, task_id: task.id
+      get :show, params: { id: te.id, task_id: task.id }
       assert_response :success
       assert_not_nil assigns(:test_execution)
     end
@@ -76,7 +76,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     # do this for admin,atl,user:owner and vendor -- need negative tests for non
     # access users
     for_each_logged_in_user([OTHER_VENDOR]) do
-      get :show,  id: te.id, task_id: task.id
+      get :show, params: { id: te.id, task_id: task.id }
       assert_response 401
     end
   end
@@ -89,7 +89,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       @first_c2_task.test_executions.destroy
       te = @first_c2_task.test_executions.create
-      delete :destroy, id: te.id
+      delete :destroy, params: { id: te.id }
       assert_response 204, 'response should be No Content on test_execution destroy'
       assert_nil TestExecution.where(_id: te.id).first, 'Should have deleted test execution'
     end
@@ -101,7 +101,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     # access users
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
       te = @first_c2_task.test_executions.create
-      delete :destroy, id: te.id
+      delete :destroy, params: { id: te.id }
       assert_response 401
     end
   end
@@ -110,7 +110,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       @first_c2_task.test_executions.destroy
       @first_c2_task.test_executions.create
-      delete :destroy, task_id: @first_c2_task.id, id: 'bad_id'
+      delete :destroy, params: { task_id: @first_c2_task.id, id: 'bad_id' }
       assert_response 404, 'response should be Not Found if no test_execution'
       assert_equal 'Not Found', response.message
     end
@@ -119,7 +119,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should be able to delete test execution if incorrect task id' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       te = @first_c2_task.test_executions.create
-      delete :destroy, task_id: 'bad_id', id: te.id
+      delete :destroy, params: { task_id: 'bad_id', id: te.id }
       assert_response 204, 'response should be No Content on test_execution destroy'
       assert_nil TestExecution.where(_id: te.id).first, 'Should have deleted test execution'
     end
@@ -140,7 +140,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     i = 0
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       i += 1
-      post :create, task_id: @first_c2_task.id, results: upload
+      post :create, params: { task_id: @first_c2_task.id, results: upload }
       assert_response 302
       @first_c2_task.reload
       assert_equal @first_c2_task.test_executions.count, orig_count + i, "Should have added #{i} new TestExecution"
@@ -155,7 +155,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     zipfile = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml'))
     upload = Rack::Test::UploadedFile.new(zipfile, 'text/xml')
     for_each_logged_in_user([OTHER_VENDOR]) do
-      post :create, task_id: @first_c2_task.id, results: upload
+      post :create, params: { task_id: @first_c2_task.id, results: upload }
       assert_response 401
     end
   end
@@ -168,7 +168,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     old_count = task.test_executions.count
     file = File.new(Rails.root.join('app', 'assets', 'images', 'icon.svg'))
     upload = Rack::Test::UploadedFile.new(file, 'image/svg')
-    post :create, task_id: task.id, results: upload
+    post :create, params: { task_id: task.id, results: upload }
 
     assert_equal old_count, task.test_executions.count
   end
@@ -184,7 +184,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     file = File.new(Rails.root.join('app', 'assets', 'images', 'icon.svg'))
     upload = Rack::Test::UploadedFile.new(file, 'image/svg')
 
-    post :create, task_id: task.id, results: upload
+    post :create, params: { task_id: task.id, results: upload }
 
     assert_equal old_count, task.test_executions.count
   end
@@ -195,7 +195,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     %w[C1Task C2Task Cat1FilterTask Cat3FilterTask C1ChecklistTask].each do |task_type|
       execution, file_name = create_execution_with_task_type(task_type)
       for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-        get :file_result, id: execution.id, file_name: route_file_name(file_name)
+        get :file_result, params: { id: execution.id, file_name: route_file_name(file_name) }
         assert_response 200, "should be able to find file with file name \"#{file_name}\""
       end
     end
@@ -205,7 +205,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     %w[C1Task C2Task Cat1FilterTask Cat3FilterTask C1ChecklistTask].each do |task_type|
       execution, file_name = create_execution_with_task_type(task_type)
       for_each_logged_in_user([OTHER_VENDOR]) do
-        get :file_result, id: execution.id, file_name: route_file_name(file_name)
+        get :file_result, params: { id: execution.id, file_name: route_file_name(file_name) }
         assert_response 401, "other vendor should not be authorized to view file: \"#{file_name}\""
       end
     end
@@ -216,7 +216,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
       _execution, file_name = create_execution_with_task_type(task_type)
       for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
         bad_execution_id = "bad id #{rand}"
-        get :file_result,  id: bad_execution_id, file_name: route_file_name(file_name)
+        get :file_result, params: { id: bad_execution_id, file_name: route_file_name(file_name) }
         assert_response 404, "should not be able to find file with bad execution id \"#{bad_execution_id}\""
         assert_equal 'Not Found', response.message
       end
@@ -228,7 +228,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
       execution, _file_name = create_execution_with_task_type(task_type)
       for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
         bad_file_name = "bad file name #{rand}"
-        get :file_result, id: execution.id, file_name: route_file_name(bad_file_name)
+        get :file_result, params: { id: execution.id, file_name: route_file_name(bad_file_name) }
         assert_response 404, "should not be able to find file with bad file name \"#{bad_file_name}\""
         assert_equal 'Not Found', response.message
       end
@@ -292,7 +292,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should create test_execution with json request with c4 cat 1 task' do
     setup_c4
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :json, :task_id => @task_cat1.id, :results => zip_upload
+      post :create, :params => { :format => :json, :task_id => @task_cat1.id, :results => zip_upload }
       assert_response 201, 'response should be Created on test_execution creation'
       assert_not_nil JSON.parse(response.body)
       assert_equal 'pending', JSON.parse(response.body)['state']
@@ -304,7 +304,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should create test_execution with json request with c4 cat 3 task' do
     setup_c4
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :json, :task_id => @task_cat3.id, :results => xml_upload
+      post :create, :params => { :format => :json, :task_id => @task_cat3.id, :results => xml_upload }
       assert_response 201, 'response should be Created on test_execution creation'
       assert_not_nil JSON.parse(response.body)
       assert_equal 'pending', JSON.parse(response.body)['state']
@@ -318,7 +318,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should create test_execution with xml request with c4 cat 1 task' do
     setup_c4
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :xml, :task_id => @task_cat1.id, :results => zip_upload
+      post :create, :params => { :format => :xml, :task_id => @task_cat1.id, :results => zip_upload }
       assert_response 201, 'response should be Created on test_execution creation'
       assert_not_nil Hash.from_trusted_xml(response.body)
       assert_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
@@ -330,7 +330,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should create test_execution with xml request with c4 cat 3 task' do
     setup_c4
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :xml, :task_id => @task_cat3.id, :results => xml_upload
+      post :create, :params => { :format => :xml, :task_id => @task_cat3.id, :results => xml_upload }
       assert_response 201, 'response should be Created on test_execution creation'
       assert_not_nil Hash.from_trusted_xml(response.body)
       assert_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
@@ -344,10 +344,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should not create test_execution with cat 1 c4 task if incorrect upload type' do
     setup_c4
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :json, :task_id => @task_cat1.id, :results => xml_upload
+      post :create, :params => { :format => :json, :task_id => @task_cat1.id, :results => xml_upload }
       assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
       assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
-      post :create, :format => :xml, :task_id => @task_cat1.id, :results => xml_upload
+      post :create, :params => { :format => :xml, :task_id => @task_cat1.id, :results => xml_upload }
       assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
       assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
     end
@@ -356,10 +356,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should not create test_execution with json request with cat 3 c4 task if incorrect upload type' do
     setup_c4
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :json, :task_id => @task_cat3.id, :results => zip_upload
+      post :create, :params => { :format => :json, :task_id => @task_cat3.id, :results => zip_upload }
       assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
       assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
-      post :create, :format => :xml, :task_id => @task_cat3.id, :results => zip_upload
+      post :create, :params => { :format => :xml, :task_id => @task_cat3.id, :results => zip_upload }
       assert_response 422, 'response should be Unprocessable Entity if invalid upload type'
       assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
     end
@@ -375,7 +375,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     make_first_task_type('C1Task')
     @first_c2_task.test_executions.create
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :index, :format => :json, :task_id => @first_c2_task.id
+      get :index, :params => { :format => :json, :task_id => @first_c2_task.id }
       response_body = JSON.parse(response.body)
       assert_response 200, 'response should be OK on test_execution index'
       assert response_body.count.positive?
@@ -390,7 +390,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     execution = @first_c2_task.test_executions.build({})
     execution.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, :format => :json, :task_id => @first_c2_task.id, :id => execution.id
+      get :show, :params => { :format => :json, :task_id => @first_c2_task.id, :id => execution.id }
       response_body = JSON.parse(response.body)
       assert_response 200, 'response should be OK on test_execution show'
       assert_has_test_execution_attributes response_body
@@ -402,7 +402,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     execution = @first_c2_task.test_executions.build({})
     execution.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, :format => :json, :id => execution.id
+      get :show, :params => { :format => :json, :id => execution.id }
       response_body = JSON.parse(response.body)
       assert_response 200, 'response should be OK if no task_id'
       assert_has_test_execution_attributes response_body
@@ -412,7 +412,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should create test_execution with json request' do
     make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :json, :task_id => @first_c2_task.id, :results => zip_upload
+      post :create, :params => { :format => :json, :task_id => @first_c2_task.id, :results => zip_upload }
       assert_response 201, 'response should be Created on test_execution creation'
       assert_not_nil JSON.parse(response.body)
       assert_equal 'pending', JSON.parse(response.body)['state']
@@ -429,8 +429,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
     @first_c2_task.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       perform_enqueued_jobs do
-        post :create, :format => :json, :task_id => @first_c2_task.id, :results => zip_upload
-        get :show, :format => :json, :task_id => @first_c2_task.id, :id => @first_c2_task.most_recent_execution.id
+        post :create, :params => { :format => :json, :task_id => @first_c2_task.id, :results => zip_upload }
+        get :show, :params => { :format => :json, :task_id => @first_c2_task.id, :id => @first_c2_task.most_recent_execution.id }
         assert_response 200, 'response should be OK on test_execution show'
         assert_not_equal 'pending', JSON.parse(response.body)['state']
       end
@@ -442,7 +442,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should get index with xml request' do
     @first_c2_task.test_executions.create
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :index, :format => :xml, :task_id => @first_c2_task.id
+      get :index, :params => { :format => :xml, :task_id => @first_c2_task.id }
       response_body = Hash.from_trusted_xml(response.body)
       assert_response 200, 'response should be OK on test_execution index'
       assert response_body['test_executions'].count.positive?
@@ -453,7 +453,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     execution = @first_c2_task.test_executions.build({})
     execution.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, :format => :xml, :task_id => @first_c2_task.id, :id => execution.id
+      get :show, :params => { :format => :xml, :task_id => @first_c2_task.id, :id => execution.id }
       response_body = Hash.from_trusted_xml(response.body)
       assert_response 200, 'response should be OK on test_execution show'
       assert_has_test_execution_attributes response_body['test_execution']
@@ -464,7 +464,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     execution = @first_c2_task.test_executions.build({})
     execution.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, :format => :xml, :id => execution.id
+      get :show, :params => { :format => :xml, :id => execution.id }
       response_body = Hash.from_trusted_xml(response.body)
       assert_response 200, 'response should be OK if no task_id'
       assert_has_test_execution_attributes response_body['test_execution']
@@ -473,7 +473,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   test 'should create test_execution with xml request' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :xml, :task_id => @first_c2_task.id, :results => xml_upload
+      post :create, :params => { :format => :xml, :task_id => @first_c2_task.id, :results => xml_upload }
       assert_response 201, 'response should be Created on test_execution creation'
       assert_not_nil Hash.from_trusted_xml(response.body)
       assert_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
@@ -490,8 +490,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
         @first_c2_task.product_test.save!
         @first_c2_task.save!
         MeasureEvaluationJob.perform_now(@first_c2_task.product_test, {})
-        post :create, :format => :xml, :task_id => @first_c2_task.id, :results => xml_upload
-        get :show, :format => :xml, :task_id => @first_c2_task.id, :id => @first_c2_task.most_recent_execution.id
+        post :create, :params => { :format => :xml, :task_id => @first_c2_task.id, :results => xml_upload }
+        get :show, :params => { :format => :xml, :task_id => @first_c2_task.id, :id => @first_c2_task.most_recent_execution.id }
         assert_response 200, 'response should be OK on test_execution show'
         assert_not_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
       end
@@ -503,7 +503,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should not get show with json request with bad test_execution id' do
     make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :show, :format => :json, :task_id => @first_c2_task.id, :id => 'bad_id'
+      get :show, :params => { :format => :json, :task_id => @first_c2_task.id, :id => 'bad_id' }
       assert_response 404, 'response should be Bad Request if no test_execution'
       assert_equal 'Not Found', response.message
     end
@@ -512,10 +512,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should not create test_execution with no upload' do
     make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :json, :task_id => @first_c2_task.id
+      post :create, :params => { :format => :json, :task_id => @first_c2_task.id }
       assert_response 422, 'response should be Unprocessable Entity if no results given'
       assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
-      post :create, :format => :xml, :task_id => @first_c2_task.id
+      post :create, :params => { :format => :xml, :task_id => @first_c2_task.id }
       assert_response 422, 'response should be Unprocessable Entity if no results given'
       assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
     end
@@ -524,10 +524,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should not create test_execution with json request with nil upload' do
     make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :json, :task_id => @first_c2_task.id, :results => nil
+      post :create, :params => { :format => :json, :task_id => @first_c2_task.id, :results => nil }
       assert_response 422, 'response should be Unprocessable Entity if nil results given'
       assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
-      post :create, :format => :xml, :task_id => @first_c2_task.id, :results => nil
+      post :create, :params => { :format => :xml, :task_id => @first_c2_task.id, :results => nil }
       assert_response 422, 'response should be Unprocessable Entity if no results given'
       assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
     end
@@ -536,10 +536,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
   test 'should not create test_execution with json request if incorrect upload type' do
     make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, :format => :json, :task_id => @first_c2_task.id, :results => xml_upload
+      post :create, :params => { :format => :json, :task_id => @first_c2_task.id, :results => xml_upload }
       assert_response 422, 'response should be Unprocessable Entity if no test_execution'
       assert_has_json_errors JSON.parse(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
-      post :create, :format => :xml, :task_id => @first_c2_task.id, :results => xml_upload
+      post :create, :params => { :format => :xml, :task_id => @first_c2_task.id, :results => xml_upload }
       assert_response 422, 'response should be Unprocessable Entity if no results given'
       assert_has_xml_errors Hash.from_trusted_xml(response.body), 'results' => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III']
     end
