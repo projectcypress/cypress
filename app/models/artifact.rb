@@ -18,6 +18,7 @@ class Artifact
 
   def correct_file_type
     return unless file_changed?
+
     content_extension = file.content_type ? MIME_FILE_TYPES[file.content_type] : nil
     case content_extension
     when :zip
@@ -95,6 +96,7 @@ class Artifact
 
   def update_asset_attributes
     return if file.blank? || !file_changed?
+
     self.content_type = file.file.content_type
     self.file_size = file.file.size
   end

@@ -43,6 +43,7 @@ module QDM
       end
 
       return { 'npis' => [provider.npi], 'tins' => [provider.tin], 'addresses' => addresses } if include_address
+
       { 'npis' => [provider.npi], 'tins' => [provider.tin] }
     end
 
@@ -55,6 +56,7 @@ module QDM
 
     def provider
       return nil unless extendedData.provider_performances
+
       Provider.find(JSON.parse(extendedData.provider_performances).first['provider_id']['$oid'])
     end
 

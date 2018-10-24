@@ -13,6 +13,7 @@ module Validators
         augmented_field = rec_changes[key_to_field[keys_and_ids[:sup_key]]]
         next unless augmented_record_in_population?(task, rec_changes, keys_and_ids, mod_pop_labels) &&
                     augmented_field && augmented_field[0] != augmented_field[1]
+
         if augmented_field[0] == code
           expect_diff[1] += 1
         elsif augmented_field[1] == code

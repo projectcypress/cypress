@@ -23,6 +23,7 @@ module Validators
       @file = file
       @criteria_list.each do |criteria|
         next if criteria.passed_qrda
+
         validate_criteria(criteria)
       end
     end

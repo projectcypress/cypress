@@ -142,6 +142,7 @@ class ProductTest
     # And delete it from pat_arr so we don't return the whole patient too
     # TODO: check... why not randomize if there is one duplicate?
     return [pat_arr, dups] if dups.count < 1
+
     clinical_pat = dups.sample(:random => random)
     dups.delete(clinical_pat)
     pat_arr.delete(clinical_pat)

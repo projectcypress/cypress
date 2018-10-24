@@ -44,6 +44,7 @@ class Task
     Rails.cache.fetch("#{cache_key}/status") do
       recent_execution = most_recent_execution
       return 'incomplete' unless recent_execution
+
       if recent_execution.passing?
         'passing'
       elsif recent_execution.failing?

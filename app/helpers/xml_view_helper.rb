@@ -4,6 +4,7 @@ module XmlViewHelper
   #   returns title of popup, popup button text, and message in popup
   def popup_attributes(errors)
     return unless errors.count.positive?
+
     title = "Execution #{'Error'.pluralize(errors.count)} (#{errors.count})"
     button_text = " view #{'error'.pluralize(errors.count)} (#{errors.count})"
     message = ''

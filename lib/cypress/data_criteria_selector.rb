@@ -17,6 +17,7 @@ module Cypress
         match_attributes(dcs_with_attribute, oid, criterias, data_criteria_without_att, criteria_types)
         # If a DC with attribute is found, go to next
         next if dcs_with_attribute.size > currnet_count
+
         match_data_criteria(all_data_criteria, oid, data_criteria_without_att, criteria_types)
       end
       # number of data criteria with attributes or negations
@@ -40,6 +41,7 @@ module Cypress
         next unless dc_value['attributes']
         next if dc_value['attributes'].map { |av| av['attribute_valueset'] == data_criteria_value ? true : nil }.compact.empty?
         next if criteria_types.include? dc_value.type
+
         selected_dc << dc_key
         criteria_types << dc_value.type
         data_criteria_without_att.delete(dc_value.type) if data_criteria_without_att.key?(dc_value.type)
@@ -51,6 +53,7 @@ module Cypress
       data_criterias.each do |dc_key, dc_value|
         # If the criterias being tested do not already include the current data criteria type
         next unless criteria_types.exclude?(dc_value.type) && (dc_value['code_list_id'] == data_criteria_value)
+
         data_criteria_without_att[dc_value.type] = dc_key
       end
     end

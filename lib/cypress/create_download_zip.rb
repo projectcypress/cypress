@@ -34,6 +34,7 @@ module Cypress
 
         product.product_tests.each do |m|
           next if m.is_a?(ChecklistTest)
+
           filter_folder = m.is_a?(FilteringTest) ? '/' + m.name_slug : ''
 
           folder_name = "#{m._type.underscore.dasherize}s/#{m.cms_id}#{filter_folder}"

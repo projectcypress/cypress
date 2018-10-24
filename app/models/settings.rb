@@ -53,6 +53,7 @@ class Settings
   # This model should only be called using this method
   def self.current
     return first if ENV['SKIP_SETTINGS_CREATE']&.to_boolean.eql?(true)
+
     Rails.cache.fetch('settings') do
       first_or_create
     end
@@ -123,6 +124,7 @@ class Settings
     return 'Internal' if mode_internal?
     return 'Demo' if mode_demo?
     return 'ATL' if mode_atl?
+
     'Custom'
   end
 

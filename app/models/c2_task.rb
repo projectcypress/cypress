@@ -42,6 +42,7 @@ class C2Task < Task
   def last_updated_with_sibling
     sibling = product_test.tasks.c3_cat3_task
     return updated_at unless sibling
+
     [updated_at, sibling.updated_at].max
   end
 
@@ -52,6 +53,7 @@ class C2Task < Task
     return status if status == sibling.status
     return 'errored' if errored? || sibling.errored?
     return 'incomplete' if incomplete? || sibling.incomplete?
+
     'failing'
   end
 end

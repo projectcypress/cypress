@@ -80,6 +80,7 @@ module RecordsHelper
     return '' if field.nil?
     return field if field.is_a? String
     return display_time(field) + "\n" if field.is_a? Integer
+
     if field.is_a? Array
       field.each { |sub| display_text += display_field(sub) + "\n" }
     else
