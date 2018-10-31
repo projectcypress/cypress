@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/adacosta/mongoid_rails_migrations.git
-  revision: 18ff00022b9d19fa222b3c4c2b362663241f25ba
+  revision: 11e4438405de715495631bc8a7b06625ad4d97b1
   branch: master
   specs:
     mongoid_rails_migrations (1.2.0)
@@ -28,6 +28,22 @@ GIT
   specs:
     turbolinks (3.0.0)
       coffee-rails
+
+PATH
+  remote: ../bonnie_bundler
+  specs:
+    bonnie_bundler (2.2.1)
+      diffy (~> 3.0.0)
+      health-data-standards (~> 4.2)
+      hqmf2js (~> 1.4)
+      hquery-patient-api (~> 1.1)
+      mongoid (~> 5.0)
+      quality-measure-engine (~> 3.1.2)
+      rails (~> 4.2)
+      roo (~> 1.13)
+      rubyzip (~> 1.2, >= 1.2.1)
+      simplexml_parser (~> 1.0)
+      zip-zip (~> 0.3)
 
 GEM
   remote: https://rubygems.org/
@@ -72,7 +88,7 @@ GEM
     ansi (1.5.0)
     arel (6.0.4)
     ast (2.4.0)
-    autoprefixer-rails (9.1.4)
+    autoprefixer-rails (9.3.1)
       execjs
     axe-matchers (2.2.1)
       dumb_delegator (~> 0.8)
@@ -97,17 +113,18 @@ GEM
     bundler-audit (0.6.0)
       bundler (~> 1.2)
       thor (~> 0.18)
-    bunny (2.11.0)
-      amq-protocol (~> 2.3.0)
+    bunny (2.12.0)
+      amq-protocol (~> 2.3, >= 2.3.0)
     byebug (10.0.2)
-    cancancan (2.2.0)
-    capybara (3.7.1)
+    cancancan (2.3.0)
+    capybara (3.10.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
-      xpath (~> 3.1)
+      regexp_parser (~> 1.2)
+      xpath (~> 3.2)
     capybara-accessible (0.1.8)
       capybara
       selenium-webdriver
@@ -126,7 +143,7 @@ GEM
     cliver (0.3.2)
     code_analyzer (0.4.8)
       sexp_processor
-    codecov (0.1.10)
+    codecov (0.1.13)
       json
       simplecov
       url
@@ -141,7 +158,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
-    cql_qdm_patientapi (1.2.0)
+    cql_qdm_patientapi (1.3.0)
       coffee-rails (~> 4.1)
       rails (~> 4.2)
       sprockets-rails (~> 2.3)
@@ -212,11 +229,11 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
-    devise_invitable (1.7.4)
+    devise_invitable (1.7.5)
       actionmailer (>= 4.1.0)
       devise (>= 4.0.0)
     diff-lcs (1.3)
-    diffy (3.2.1)
+    diffy (3.0.7)
     docile (1.3.1)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
@@ -224,10 +241,10 @@ GEM
     equalizer (0.0.11)
     erubis (2.7.0)
     execjs (2.7.0)
-    factory_bot (4.11.0)
+    factory_bot (4.11.1)
       activesupport (>= 3.0.0)
-    factory_bot_rails (4.11.0)
-      factory_bot (~> 4.11.0)
+    factory_bot_rails (4.11.1)
+      factory_bot (~> 4.11.1)
       railties (>= 3.0.0)
     faker (1.5.0)
       i18n (~> 0.5)
@@ -237,7 +254,7 @@ GEM
     gherkin (4.1.3)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    health-data-standards (4.3.0)
+    health-data-standards (4.3.1)
       activesupport (~> 4.2.0)
       builder (~> 3.1)
       erubis (~> 2.7.0)
@@ -254,6 +271,18 @@ GEM
       uuid (~> 2.3.7)
       zip-zip (~> 0.3)
     highline (1.7.10)
+    hike (1.2.3)
+    hqmf2js (1.4.0)
+      health-data-standards (~> 4.0)
+      hquery-patient-api (~> 1.1)
+      rails (~> 4.2)
+    hquery-patient-api (1.1.1)
+      coffee-script (~> 2.4)
+      libv8 (~> 3.16.14)
+      sprockets (~> 2.2)
+      therubyracer (~> 0.12)
+      tilt (~> 1.4)
+      uglifier (~> 2.7)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.9.5)
@@ -285,6 +314,7 @@ GEM
     kgio (2.11.2)
     launchy (2.4.3)
       addressable (~> 2.3)
+    libv8 (3.16.14.19)
     local_time (2.0.1)
     log4r (1.1.10)
     loofah (2.2.2)
@@ -292,7 +322,7 @@ GEM
       nokogiri (>= 1.5.9)
     macaddr (1.7.1)
       systemu (~> 2.6.2)
-    mail (2.7.0)
+    mail (2.7.1)
       mini_mime (>= 0.1.1)
     memoist (0.9.3)
     metaclass (0.0.4)
@@ -305,7 +335,7 @@ GEM
     minitest-rails (2.2.1)
       minitest (~> 5.7)
       railties (~> 4.1)
-    minitest-reporters (1.3.4)
+    minitest-reporters (1.3.5)
       ansi
       builder
       minitest (>= 5.0)
@@ -331,10 +361,10 @@ GEM
       mongoid (>= 4.0, < 6.0)
     multi_json (1.13.1)
     multi_test (0.1.2)
-    mustache (1.0.5)
+    mustache (1.1.0)
     nested_form (0.3.2)
     netrc (0.11.0)
-    newrelic_rpm (5.3.0.346)
+    newrelic_rpm (5.4.0.347)
     nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     origin (2.3.1)
@@ -344,7 +374,7 @@ GEM
       childprocess (~> 0.6, >= 0.6.3)
       iniparse (~> 1.4)
     parallel (1.12.1)
-    parser (2.5.1.2)
+    parser (2.5.3.0)
       ast (~> 2.4.0)
     poltergeist (1.18.1)
       capybara (>= 2.1, < 4)
@@ -383,7 +413,7 @@ GEM
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
     rails-perftest (0.0.7)
-    rails_best_practices (1.19.3)
+    rails_best_practices (1.19.4)
       activesupport
       code_analyzer (>= 0.4.8)
       erubis
@@ -403,6 +433,8 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     rdoc (4.3.0)
+    ref (2.0.0)
+    regexp_parser (1.2.0)
     remotipart (1.4.2)
     representable (3.0.4)
       declarative (< 0.1.0)
@@ -426,6 +458,10 @@ GEM
       test_xml (>= 0.1.6)
       uber (< 0.2.0)
     rolify (5.2.0)
+    roo (1.13.2)
+      nokogiri
+      rubyzip
+      spreadsheet (> 0.6.4)
     rubocop (0.57.2)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
@@ -434,10 +470,11 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
+    ruby-ole (1.2.12.1)
     ruby-prof (0.15.9)
     ruby-progressbar (1.10.0)
     rubyzip (1.2.2)
-    sass (3.5.7)
+    sass (3.6.0)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -448,28 +485,35 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    sassc (1.12.1)
+    sassc (2.0.0)
       ffi (~> 1.9.6)
-      sass (>= 3.3.0)
-    scss_lint (0.57.0)
+      rake
+    scss_lint (0.57.1)
       rake (>= 0.9, < 13)
-      sass (~> 3.5.5)
+      sass (~> 3.5, >= 3.5.5)
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (3.14.0)
+    selenium-webdriver (3.14.1)
       childprocess (~> 0.5)
-      rubyzip (~> 1.2)
+      rubyzip (~> 1.2, >= 1.2.2)
     sexp_processor (4.11.0)
     simplecov (0.16.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
+    simplexml_parser (1.0.1)
+      health-data-standards (~> 4.0)
+      tilt (~> 1.4)
     slop (3.6.0)
-    sprockets (3.7.2)
-      concurrent-ruby (~> 1.0)
-      rack (> 1, < 3)
+    spreadsheet (1.1.8)
+      ruby-ole (>= 1.0)
+    sprockets (2.12.5)
+      hike (~> 1.2)
+      multi_json (~> 1.0)
+      rack (~> 1.0)
+      tilt (~> 1.1, != 1.3.0)
     sprockets-rails (2.3.3)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
@@ -478,14 +522,18 @@ GEM
     test_xml (0.1.8)
       diffy (~> 3.0)
       nokogiri (>= 1.3.2)
+    therubyracer (0.12.3)
+      libv8 (~> 3.16.14.15)
+      ref
     thor (0.20.0)
     thread_safe (0.3.6)
-    tilt (2.0.8)
+    tilt (1.4.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uber (0.1.0)
-    uglifier (4.1.18)
-      execjs (>= 0.3.0, < 3)
+    uglifier (2.7.2)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
@@ -515,7 +563,7 @@ GEM
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
-    xpath (3.1.0)
+    xpath (3.2.0)
       nokogiri (~> 1.8)
     zip-zip (0.3)
       rubyzip (>= 1.0.0)
@@ -525,6 +573,7 @@ PLATFORMS
 
 DEPENDENCIES
   axe-matchers
+  bonnie_bundler!
   bootstrap-sass (~> 3.3.5)
   bootstrap_form
   brakeman

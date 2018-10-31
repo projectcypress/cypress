@@ -13,6 +13,8 @@ gem 'bson_ext'
 gem 'mustache'
 gem 'os'
 
+gem 'bonnie_bundler', path: '../bonnie_bundler'
+
 gem 'cql_qdm_patientapi'
 gem 'cqm-converter', '~> 0.3.6'
 gem 'cqm-models', '~> 0.8.4'
