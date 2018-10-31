@@ -2,7 +2,7 @@
 # upgrades failing to complete successfully.
 
 # These settings are kept in the constants file with the assumption that the end user should not be overriding them.
-bundle_file_path: 'temp/bundles'
+bundle_file_path: 'tmp/bundles'
 file_upload_root: 'data/upload/'
 
 # These were initially in I18n however for some reason I18n is not loaded when rake tasks are run, which means we often

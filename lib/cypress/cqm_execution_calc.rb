@@ -3,8 +3,6 @@ require 'securerandom'
 
 module Cypress
   class CqmExecutionCalc
-    CALCULATION_SERVICE_URL = 'http://localhost:8081/calculate'.freeze
-
     attr_accessor :patients, :measures, :value_set_oids, :options
 
     def initialize(patients, measures, value_set_oids, correlation_id, options)
@@ -31,7 +29,7 @@ module Cypress
       # oids field. There is a value_set_oids on the measure for this explicit purpose.
       post_data = post_data.to_json(methods: %i[_type value_set_oids])
       begin
-        response = RestClient::Request.execute(method: :post, url: CALCULATION_SERVICE_URL, timeout: 120,
+        response = RestClient::Request.execute(method: :post, url: create_connection_string, :timeout: 120,
                                                payload: post_data, headers: { content_type: 'application/json' })
       rescue => e
         raise e.to_s || 'Calculation failed without an error message'
@@ -51,6 +49,11 @@ module Cypress
           pop_criteria
         end
       end
+    end
+
+    def self.create_connection_string
+      config = Rails.application.config
+      "http://#{config.ces_host}:#{config.ces_port}"
     end
 
     private

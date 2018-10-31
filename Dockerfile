@@ -1,18 +1,9 @@
-# WARNING: This Dockerfile, and the associated docker-compose.yml,
-# are only functional for Cypress v3.x. Docker installation 
-# methods are not yet supported for Cypress v4, as of 2018-07-10
-
 FROM phusion/passenger-ruby23:latest
 
 RUN apt-get update \
     && apt-get upgrade -y -o Dpkg::Options::="--force-confold" \
     && apt-get install -y nodejs tzdata \
     && rm -rf /var/lib/apt/lists/*
-
-# Install ruby 2.3.4 in order to match what we are developing against.
-RUN bash -lc 'rvm install ruby-2.3.4'
-RUN bash -lc 'rvm --default use ruby-2.3.4'
-RUN gem install bundler
 
 ENV RAILS_ENV production
 ENV RAILS_SERVE_STATIC_FILES 1
@@ -42,17 +33,21 @@ RUN mkdir /etc/service/unicorn
 ADD docker_unicorn_start.sh /etc/service/unicorn/run
 RUN chmod 755 /etc/service/unicorn/run
 
-RUN mkdir /etc/service/cypress_delayed_job_1
-ADD docker_delayed_job.sh /etc/service/cypress_delayed_job_1/run
-RUN chmod 755 /etc/service/cypress_delayed_job_1/run
+# RUN mkdir /etc/service/cypress_delayed_job_1
+# ADD docker_delayed_job.sh /etc/service/cypress_delayed_job_1/run
+# RUN chmod 755 /etc/service/cypress_delayed_job_1/run
+
+# DISABLE_SMTP_SETTINGS disables an initializer that requires the DB to run, so we can precompile in the Docker build phase
+# SECRET_KEY_BASE sets a dummy secret key, so that the precompiler (which doesn't need the secret key for anything) can run
+RUN RAILS_ENV=production DISABLE_SMTP_SETTINGS=true SECRET_KEY_BASE=precompile_only bundle exec rake assets:precompile
 
 # Setup other workers based on first worker. This makes it where tweaking the number of workers
 # just requires changing this WORKER_COUNT. Unfortunately does not allow tweaking after build is completed.
-ARG WORKER_COUNT=4
-RUN if [ $WORKER_COUNT -gt 1 ]; then \
-      for i in $(seq 2 1 $WORKER_COUNT); do \
-        cp -R /etc/service/cypress_delayed_job_1 /etc/service/cypress_delayed_job_$i; \
-      done; \
-    fi
+# ARG WORKER_COUNT=4
+# RUN if [ $WORKER_COUNT -gt 1 ]; then \
+#       for i in $(seq 2 1 $WORKER_COUNT); do \
+#         cp -R /etc/service/cypress_delayed_job_1 /etc/service/cypress_delayed_job_$i; \
+#       done; \
+#     fi
 
 EXPOSE 3000
