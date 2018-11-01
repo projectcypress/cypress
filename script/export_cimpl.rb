@@ -257,45 +257,6 @@ def print_union
   end
 end
 
-def print_qdm_category
-  File.open('./script/qdm_dataelement.txt', 'w') do |f|
-    f.puts 'Grammar: DataElement 5.0'
-    f.puts 'Namespace: qdm.dataelement'
-    f.puts 'Description: "Insert Text Here"'
-    f.puts 'Uses: shr.core, shr.base, shr.entity, qdm.attribute'
-
-    @def_stat.each do |definition, status|
-      definition_title = definition.titleize.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz]/,'')
-      f.puts ''
-      f.puts "EntryElement: #{definition_title}"
-      f.puts 'Based on: Observation'
-      f.puts "Description: \"#{definition_title}\""
-      f.puts "    ObservableCode is #TODO"
-      f.puts "    Subject value is type Patient"
-
-
-      status.each do |stat|
-        definition_status_title = definition_title
-        if stat != ""
-          definition_status_title = (definition + " " + stat).titleize.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz]/,'')
-          f.puts ''
-          f.puts "EntryElement: #{definition_status_title}"
-          f.puts "Based on: #{definition_title}"
-          f.puts "Description: \"#{definition_status_title}\""
-          f.puts "    ObservableCode is #TODO"
-          f.puts "    Subject value is type Patient"
-        end
-
-        if @datatypes[definition_status_title]
-          @datatypes[definition_status_title].each do |attribute|
-            f.puts "    0..1   #{attribute[:name].titleize.gsub(/\s+/, '')}"
-          end
-        end
-      end
-    end
-  end
-end
-
 CODE_HASH = { 'AdverseEvent' => 'ResultValue',
               'AllergyIntolerance' => 'ResultValue',
               'Assessment' => 'ObservableCode',
@@ -314,11 +275,117 @@ CODE_HASH = { 'AdverseEvent' => 'ResultValue',
               'Procedure' => 'ObservableCode',
               'Substance' => 'ObjectTypeCode'
             }
-              
-              
+
+BASED_ON_HASH = { 'AdverseEvent' => 'Observation',
+              'AllergyIntolerance' => 'Observation',
+              'Assessment' => 'Observation',
+              'AssessmentPerformed' => 'Activity',
+              'CommunicationFromPatientToProvider' => 'Observation',
+              'CommunicationFromProviderToPatient' => 'Observation',
+              'CommunicationFromProviderToProvider' => 'Observation',
+              'Device' => 'ObjectPresentOrAbsent',
+              'DeviceApplied' => 'Activity',
+              'DeviceOrder' => 'Activity',
+              'Diagnosis' => 'Observation',
+              'DiagnosticStudy' => 'Observation',
+              'DiagnosticStudyOrder' => 'Activity',
+              'DiagnosticStudyPerformed' => 'Activity',
+              'Encounter' => 'Activity',
+              'EncounterOrder' => 'Activity',
+              'EncounterPerformed' => 'Activity',
+              'Immunization' => 'ObjectPresentOrAbsent',
+              'ImmunizationAdministered' => 'Activity',
+              'Intervention' => 'Activity',
+              'InterventionOrder' => 'Activity',
+              'InterventionPerformed' => 'Activity',
+              'LaboratoryTest' => 'Observation',
+              'LaboratoryTestOrder' => 'Activity',
+              'LaboratoryTestPerformed' => 'Activity',
+              'Medication' => 'ObjectPresentOrAbsent',
+              'MedicationActive' => 'Activity',
+              'MedicationAdministered' => 'Activity',
+              'MedicationDischarge' => 'Activity',
+              'MedicationOrder' => 'Activity',
+              'PhysicalExam' => 'Observation',
+              'PhysicalExamPerformed' => 'Activity',
+              'Procedure' => 'Observation',
+              'ProcedureOrder' => 'Activity',
+              'ProcedurePerformed' => 'Activity',
+              'Substance' => 'ObjectPresentOrAbsent',
+              'SubstanceAdministered' => 'Activity'
+            }
+
+SUBJECT_HASH = {'AssessmentPerformed' => 'Assessment',
+                'DeviceApplied' => 'Device',
+                'DeviceOrder' => 'Device',
+                'DiagnosticStudyOrder' => 'DiagnosticStudy',
+                'DiagnosticStudyPerformed' => 'DiagnosticStudy',
+                'EncounterOrder' => 'Encounter',
+                'EncounterPerformed' => 'Encounter',
+                'ImmunizationAdministered' => 'Immunization',
+                'InterventionOrder' => 'Intervention',
+                'InterventionPerformed' => 'Intervention',
+                'LaboratoryTestOrder' => 'LaboratoryTest',
+                'LaboratoryTestPerformed' => 'LaboratoryTest',
+                'MedicationActive' => 'Medication',
+                'MedicationAdministered' => 'Medication',
+                'MedicationDischarge' => 'Medication',
+                'MedicationOrder' => 'Medication',
+                'PhysicalExamPerformed' => 'PhysicalExam',
+                'ProcedureOrder' => 'Procedure',
+                'ProcedurePerformed' => 'Procedure',
+                'SubstanceAdministered' => 'Substance'
+            }
+
+def based_on(data_type)
+  BASED_ON_HASH[data_type] ?  BASED_ON_HASH[data_type] : 'Observation'
+end
+
+def subject(data_type)
+  SUBJECT_HASH[data_type] ?  SUBJECT_HASH[data_type] : 'Patient'
+end
 
 def vs_type(data_type)
   CODE_HASH[data_type] ?  CODE_HASH[data_type] : 'ResultValue'
+end
+
+def print_qdm_category
+  File.open('./script/qdm_dataelement.txt', 'w') do |f|
+    f.puts 'Grammar: DataElement 5.0'
+    f.puts 'Namespace: qdm.dataelement'
+    f.puts 'Description: "Insert Text Here"'
+    f.puts 'Uses: shr.core, shr.base, shr.entity, qdm.attribute'
+
+    @def_stat.each do |definition, status|
+      definition_title = definition.titleize.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz]/,'')
+      f.puts ''
+      f.puts "EntryElement: #{definition_title}"
+      f.puts "Based on: #{based_on(definition_title)}"
+      f.puts "Description: \"#{definition_title}\""
+      # f.puts "    ObservableCode is #TODO"
+      f.puts "    Subject value is type Patient"
+
+
+      status.each do |stat|
+        definition_status_title = definition_title
+        if stat != ""
+          definition_status_title = (definition + " " + stat).titleize.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz]/,'')
+          f.puts ''
+          f.puts "EntryElement: #{definition_status_title}"
+          f.puts "Based on: #{based_on(definition_status_title)}"
+          f.puts "Description: \"#{definition_status_title}\""
+          # f.puts "    ObservableCode is #TODO"
+          f.puts "    Subject value is type #{subject(definition_status_title)}"
+        end
+
+        if @datatypes[definition_status_title]
+          @datatypes[definition_status_title].each do |attribute|
+            f.puts "    0..1   #{attribute[:name].titleize.gsub(/\s+/, '')}"
+          end
+        end
+      end
+    end
+  end
 end
 
 def print_ecqm_dataelement
