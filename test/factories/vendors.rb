@@ -11,11 +11,11 @@ FactoryBot.define do
     end
 
     factory :vendor_no_name do
-      name ''
+      name { '' }
     end
 
     factory :vendor_static_name do
-      name 'Vendor Same Name'
+      name { 'Vendor Same Name' }
     end
 
     # with points_of_contact

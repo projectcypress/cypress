@@ -125,7 +125,7 @@ class ActiveSupport::TestCase
   end
 
   class ActionController::TestCase
-    include Devise::TestHelpers
+    include Devise::Test::ControllerHelpers
     ADMIN = '4def93dd4f85cf8968000010'.freeze
     ATL = '4def93dd4f85cf8968000001'.freeze
     OWNER = '4def93dd4f85cf8968000002'.freeze

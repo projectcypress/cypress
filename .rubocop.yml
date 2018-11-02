@@ -1,7 +1,7 @@
 inherit_from: .rubocop_todo.yml
 AllCops:
   TargetRubyVersion: 2.3
-  TargetRailsVersion: 4.2
+  TargetRailsVersion: 5.1
   Exclude:
     - bin/*
     - db/schema.rb
@@ -9,6 +9,8 @@ AllCops:
     - config/initializers/*
     - 'vendor/**/*'
     - 'lib/tasks/cucumber.rake'
+  Include:
+    - 'test/**/*_test.rb'
 Rails:
   Enabled: true
 Rails/HasAndBelongsToMany:
