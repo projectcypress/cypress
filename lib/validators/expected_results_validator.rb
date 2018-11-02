@@ -37,6 +37,7 @@ module Validators
       stratification ||= ids.delete('STRAT')
       ids.each do |pop_key, pop_id|
         next if expected_result[pop_key].blank?
+
         check_population(expected_result, reported_result, pop_key, stratification, measure_id)
         # Check supplemental data elements
         ex_sup = (expected_result['supplemental_data'] || {})[pop_key]

@@ -37,6 +37,7 @@ module Cypress
       individual_results.each do |ir|
         measure_populations.each do |pop|
           next if ir[pop].nil? || ir[pop].zero?
+
           @measure_result_hash[measure.key][pop] += ir[pop]
           increment_sup_info(@patient_sup_map[ir.patient_id], pop, @measure_result_hash[measure.key])
         end
@@ -52,6 +53,7 @@ module Cypress
     def get_observ_values(episode_results)
       episode_results.collect_concat do |_id, episode_result|
         next unless episode_result['MSRPOPL']&.positive? && !episode_result['MSRPOPLEX']&.positive?
+
         episode_result['values']
       end
     end
@@ -77,11 +79,13 @@ module Cypress
 
     def mean(array)
       return 0.0 if array.empty?
+
       array.inject(0.0) { |sum, elem| sum + elem } / array.size
     end
 
     def median(array, already_sorted = false)
       return 0.0 if array.empty?
+
       array = array.sort unless already_sorted
       m_pos = array.size / 2
       array.size.odd? ? array[m_pos] : mean(array[m_pos - 1..m_pos])

@@ -10,6 +10,7 @@ module Cypress
         all_errs = execution.execution_errors.by_file(this_name.force_encoding('UTF-8'))
         related_errs = execution.sibling_execution ? execution.sibling_execution.execution_errors.by_file(this_name) : [] # c3
         next unless (all_errs.count + related_errs.count).positive?
+
         doc = get_file(execution.artifact, this_name)
         collected_errors[:files][this_name] = create_file_error_hash(doc, all_errs, related_errs)
       end
@@ -64,6 +65,7 @@ module Cypress
 
     def error_hash(doc, file_errors)
       return 0 unless file_errors.count
+
       error_map, error_attributes = match_xml_locations_to_error_ids(doc, file_errors)
       {
         doc: doc,
@@ -85,6 +87,7 @@ module Cypress
         clean_location = location.gsub("[namespace-uri()='urn:hl7-org:v3']", '')
         elem = doc.at_xpath(clean_location)
         next unless elem
+
         if elem.class == Nokogiri::XML::Attr
           error_attributes << elem
           elem = elem.element

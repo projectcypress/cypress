@@ -130,6 +130,7 @@ class Product
 
   def test_deck_max
     return 5 if slim_test_deck?
+
     50
   end
 
@@ -142,6 +143,7 @@ class Product
     reload_relations
 
     return if product_tests.filtering_tests.any?
+
     # TODO: R2P: check new criteria names
     criteria = %w[races ethnicities genders payers age].shuffle
     filter_tests = []

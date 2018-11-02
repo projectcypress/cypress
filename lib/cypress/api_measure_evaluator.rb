@@ -74,6 +74,7 @@ module Cypress
         run_vendor_tests(vendor_link, measures_list.uniq, 'All Measures', false, bundle_id) if c1_c2
 
         next unless c4
+
         measures_list.uniq.each do |measure|
           run_vendor_tests(vendor_link, Array.new(1, measure), "Measures - #{measure}", true, bundle_id)
         end
@@ -174,6 +175,7 @@ module Cypress
     def download_filter_data
       @cat1_filter_hash.each_key do |product_test|
         next unless filter_test_ready?(product_test)
+
         until File.exist?('tmp/filter_patients.zip')
           @filter_patient_link = extract_link(parsed_api_object(call_get_product_test(product_test)), 'patients') if @filter_patient_link.nil?
           test_patients_already_downloaded ||= download_test_patients(@filter_patient_link, 'filter_patients')
@@ -186,6 +188,7 @@ module Cypress
             doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
             doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
             next unless filter_out_patients(doc, parsed_product_test)
+
             Zip::ZipFile.open("tmp/#{product_test.split('/')[4]}.zip", Zip::File::CREATE) do |z|
               z.get_output_stream(entry) { |f| f.puts zipfile.read(entry) }
             end
@@ -201,6 +204,7 @@ module Cypress
         count += 1
         # this is only here since c4 tests can't build with unknown payer
         next if count < 20
+
         @cat1_filter_hash.delete(product_test)
         @cat3_filter_hash.delete(product_test)
         return false
@@ -219,6 +223,7 @@ module Cypress
       creation_time = product_test.created_at
       return filter_providers(doc, filters) if filters.key?('provider')
       return filter_problems(doc, filters) if filters.key?('problem')
+
       filter_demographics(doc, filters, creation_time)
     end
 

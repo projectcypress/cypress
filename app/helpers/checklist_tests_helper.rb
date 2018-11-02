@@ -19,6 +19,7 @@ module ChecklistTestsHelper
     og_string = ''
     measure.source_data_criteria.each do |dc_key, dc|
       next if unsubstituable_data_criteria?(dc)
+
       dc_hash[dc.description] = dc_key
       # Store the original data source criteria and display string, makes sure you can reselect the orignal criteria
       # This is important for when the same criteria is used in multiple ways in the same measure
@@ -44,18 +45,21 @@ module ChecklistTestsHelper
   def lookup_valueset_name(oid)
     vs = ValueSet.where(oid: oid)
     return oid unless vs&.first
+
     vs.first.display_name
   end
 
   def lookup_valueset_long_name(oid)
     vs = ValueSet.where(oid: oid)
     return oid unless vs&.first
+
     "#{vs.first.display_name}: #{oid}"
   end
 
   def lookup_codevalues(oid, bundle)
     vs = ValueSet.where(oid: oid, bundle_id: bundle)
     return [] unless vs&.first
+
     # vs.first.concepts.map { |con| con.display_name + ":" + con.code }
     vs.first.concepts.map { |con| [con.display_name, con.code] }
   end

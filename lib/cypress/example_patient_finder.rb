@@ -17,8 +17,10 @@ module Cypress
         result_value = record.calculation_results.where('measure_id' => measure.id)
         match = get_result_value(result_value, pop)
         next unless match&.positive?
+
         count = population_matches_for_patient(result_value, measure)
         return record if [1, 2].include?(count)
+
         if count < simplest
           simplest = count
           example_patient = record

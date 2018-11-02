@@ -45,6 +45,7 @@ module Validators
       if source_criteria['attributes']
         return node.xpath(xpath_map[source_criteria.attributes[index].attribute_name]).blank? ? false : true
       end
+
       false
     end
   end

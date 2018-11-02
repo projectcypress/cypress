@@ -23,6 +23,7 @@ namespace :bundle do
   desc 'Import a quality bundle into the database.'
   task :import, [:bundle_path, :delete_existing, :update_measures, :type, :create_indexes, :exclude_results, :environment] do |_task, args|
     raise 'The path to the measures zip file must be specified' unless args.bundle_path
+
     options = { delete_existing: (args.delete_existing == 'true'),
                 type: args.type,
                 update_measures: (args.update_measures == 'true'),

@@ -132,6 +132,7 @@ class ArtifactTest < ActiveSupport::TestCase
     10.times do
       ext = rand(36**3).to_s(36)
       next unless %w[zip xml].index(ext)
+
       filename = "#{root}/bad_file_extension.#{ext}"
       FileUtils.touch(filename)
       artifact = Artifact.new(file: File.new(filename))

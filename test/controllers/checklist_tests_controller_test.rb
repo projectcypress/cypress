@@ -24,7 +24,7 @@ class ChecklistTestsControllerTest < ActionController::TestCase
 
     # admin, atl, owner, and user should have access to view measure for checklist test
     for_each_logged_in_user([ADMIN, ATL, OWNER, USER]) do
-      get :measure, :id => checklist_test.id, :measure_id => measure.id, :format => :format_does_not_matter
+      get :measure, params: { :id => checklist_test.id, :measure_id => measure.id, :format => :format_does_not_matter }
       assert_response :success, "#{@user.email} should have access. response was #{response.status}"
       assert_not_nil assigns(:measure)
       assert_not_nil assigns(:product_test)
@@ -32,7 +32,7 @@ class ChecklistTestsControllerTest < ActionController::TestCase
 
     # vendor and other vendor should not have access to view measure for checklist test
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
-      get :measure,  :id => checklist_test.id, :measure_id => measure.id, :format => :format_does_not_matter
+      get :measure, :params => { :id => checklist_test.id, :measure_id => measure.id, :format => :format_does_not_matter }
       assert_response :unauthorized, "#{@user.email} should not have access. response was #{response.status}"
     end
   end

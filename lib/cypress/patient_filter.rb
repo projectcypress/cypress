@@ -40,6 +40,7 @@ module Cypress
     def self.check_age(v, patient, params)
       return true if v.key?('min') && patient.age_at(params[:effective_date]) < v['min']
       return true if v.key?('max') && patient.age_at(params[:effective_date]) > v['max']
+
       false
     end
 

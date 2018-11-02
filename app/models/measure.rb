@@ -66,6 +66,7 @@ class Measure
 
   def cms_int
     return 0 unless cms_id
+
     start_marker = 'CMS'
     end_marker = 'v'
     cms_id[/#{start_marker}(.*?)#{end_marker}/m, 1].to_i

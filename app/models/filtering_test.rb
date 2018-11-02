@@ -41,6 +41,7 @@ class FilteringTest < ProductTest
 
   def pick_filter_criteria
     return unless options && options['filters']
+
     # select a random patient
     prng = Random.new(rand_seed.to_i)
     mpl_ids = master_patient_ids

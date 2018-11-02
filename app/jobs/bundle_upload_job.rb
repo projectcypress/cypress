@@ -9,6 +9,7 @@ class BundleUploadJob < ApplicationJob
   def perform(file, original_file_name, options = {})
     tracker.log('Importing')
     raise('Bundle must have extension .zip') unless File.extname(original_file_name) == '.zip'
+
     bundle_file = File.new(file)
     options = DEFAULT_OPTIONS.merge(options)
     already_have_default = Bundle.where(active: true).exists?

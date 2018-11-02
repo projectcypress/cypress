@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/projecttacoma/cql_qdm_patientapi.git
-  revision: 690e2c3093f806cc2a637d4ed2553a85659b5ce9
+  revision: 196ab0bcfd46b15bee5f571bf97b032b001cc424
   branch: rails_upgrade
   specs:
     cql_qdm_patientapi (2.0.0)
@@ -10,14 +10,14 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-models.git
-  revision: f83043c0623d2a534e61838f444ef76354a5d58c
+  revision: e2b2fac60183821df18e9dcd6bd14183f7d8ad1d
   branch: remove_hds
   specs:
-    cqm-models (0.8.4)
+    cqm-models (1.0.1)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: 47568070ae2b4faf7170cf53602964443294cbcd
+  revision: 079838be66e038382e9ac2cb90705bac58edb1a1
   branch: rails_upgrade
   specs:
     cqm-parsers (1.0.0)
@@ -29,7 +29,7 @@ GIT
       memoist (~> 0.9.1)
       mongoid (~> 6.4.2)
       mongoid-tree (~> 2.1.0)
-      nokogiri (~> 1.8.3)
+      nokogiri (~> 1.8.5)
       rest-client (~> 1.8.0)
       rubyzip (~> 1.2.2)
       uuid (~> 2.3.7)
@@ -272,7 +272,7 @@ GEM
       nokogiri (>= 1.5.9)
     macaddr (1.7.1)
       systemu (~> 2.6.2)
-    mail (2.7.0)
+    mail (2.7.1)
       mini_mime (>= 0.1.1)
     memoist (0.9.3)
     metaclass (0.0.4)
@@ -573,7 +573,7 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 RUBY VERSION
-   ruby 2.3.7p456
+   ruby 2.5.3p105
 
 BUNDLED WITH
    1.16.6

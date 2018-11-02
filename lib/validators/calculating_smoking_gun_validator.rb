@@ -14,6 +14,7 @@ module Validators
         %w[IPP DENOM NUMER DENEX DENEXCEP MSRPOPL MSRPOPLEXCEP values].each do |pop|
           original_value, calculated_value, pop = extract_calcuated_and_original_results(original, calculated, pop)
           next unless original_value != calculated_value
+
           pop_statment = options[:population_ids][pop]
           pop_statment << " Stratification #{options[:population_ids]['STRAT']}" if options[:population_ids]['STRAT']
           add_error("Calculated value (#{calculated_value}) for #{pop} (#{pop_statment}) does not match expected value (#{original_value})",
@@ -91,6 +92,7 @@ module Validators
     def cached_value(vs)
       @loaded_valuesets ||= {}
       return @loaded_valuesets[vs.oid] if @loaded_valuesets[vs.oid]
+
       js = {}
       vs.concepts.each do |con|
         name = con.code_system_name

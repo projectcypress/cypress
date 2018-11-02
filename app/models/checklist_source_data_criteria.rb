@@ -113,6 +113,7 @@ class ChecklistSourceDataCriteria
   # data_criteria is from the measure defintion, criteria is for the specific checklist test
   def compare_attributes(data_criteria, criteria)
     return false unless data_criteria['attributes']
+
     data_criteria.attributes.include? criteria.attributes[attribute_index]
   end
 
@@ -120,6 +121,7 @@ class ChecklistSourceDataCriteria
   def code_in_valuesets(valuesets, input_code, bundle_id)
     # if valueset is a "direct reference code" check to see if input_code matches ones of the "valuesets"
     return true if valuesets.include? input_code
+
     !ValueSet.where('concepts.code' => input_code, bundle_id: bundle_id).in(oid: valuesets).empty?
   end
 end

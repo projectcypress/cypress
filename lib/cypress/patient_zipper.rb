@@ -103,6 +103,7 @@ module Cypress
 
     def self.measure_start_end(patients)
       return unless patients.first
+
       first = patients.first
       ptest = first.product_test
       measures = ptest ? ptest.measures.top_level : patients.first.bundle.measures.top_level

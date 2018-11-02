@@ -34,7 +34,7 @@ class RecordsControllerTest < ActionController::TestCase
   test 'should get index scoped to bundle' do
     # do this for all users
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR, OTHER_VENDOR]) do
-      get :index, bundle_id: @bundle.id
+      get :index, params: { bundle_id: @bundle.id }
       assert_response :success, "#{@user.email} should have access "
       assert assigns(:patients)
       assert assigns(:source)
@@ -45,7 +45,7 @@ class RecordsControllerTest < ActionController::TestCase
   test 'should get show' do
     # do this for all users
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR, OTHER_VENDOR]) do
-      get :show, id: @bundle.patients.find(@patient_id)
+      get :show, params: { id: @bundle.patients.find(@patient_id) }
       assert_response :success, "#{@user.email} should have access "
       assert assigns(:record)
     end
@@ -55,7 +55,7 @@ class RecordsControllerTest < ActionController::TestCase
   test 'should be able to restrict access to product test records unauthorized users ' do
     for_each_logged_in_user([OTHER_VENDOR]) do
       task_id = @product_test.tasks.first.id
-      get :index, task_id: task_id
+      get :index, params: { task_id: task_id }
       assert_response 401
     end
   end

@@ -50,6 +50,7 @@ module FilteringTestsHelper
 
   def generate_filter_patients(filter_tests)
     return unless filter_tests
+
     test = filter_tests.pop
     test.generate_patients
     test.save

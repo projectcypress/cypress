@@ -13,6 +13,7 @@ class RecordsController < ApplicationController
     end
 
     return redirect_to bundle_records_path(Bundle.default) unless params[:bundle_id] || params[:task_id]
+
     # TODO: Only show measures where there are patient results. CMS32v4 sub id c and d have no patients, for example.
     @patients = @source.patients.order_by(first: 'asc')
     # create json with the display_name and url for each measure
@@ -78,6 +79,7 @@ class RecordsController < ApplicationController
       @bundle = Bundle.default
       @source = @bundle
       return unless @bundle
+
       add_breadcrumb 'Master Patient List', bundle_records_path(@bundle)
       @title = 'Master Patient List'
     end
