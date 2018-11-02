@@ -23,7 +23,8 @@ class ChecklistTestTest < ActiveJob::TestCase
     @product.measure_ids << 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
     @product.save!
     @product.measure_ids.each do |measure_id|
-      @product.product_tests.create!({ name: "measure test with measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
+      #@product.product_tests.create!({ name: "measure test with measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
+      @product.product_tests.build({ name: "measure test with measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest).generate_provider
     end
     previous_num_checklist_measures = CAT1_CONFIG['number_of_checklist_measures']
     CAT1_CONFIG['number_of_checklist_measures'] = 1
@@ -35,10 +36,10 @@ class ChecklistTestTest < ActiveJob::TestCase
 
   def test_status
     @product.product_tests.each(&:destroy!)
+    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
 
     checklist_test = create_checklist_test_for_product_with_measure_id(@product, 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE')
     assert_equal 'incomplete', checklist_test.status
-
     simplify_criteria(checklist_test)
     checklist_test.checked_criteria << checklist_test.checked_criteria.first.clone
     # one complete checked criteria, all others incomplete
@@ -56,11 +57,17 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal 'incomplete', checklist_test.status
     task = checklist_test.tasks.create!({}, C1ChecklistTask)
     assert_equal 'incomplete', checklist_test.status
-    task.test_executions.create!(:state => :pending)
+    test_executions_pending = task.test_executions.build(:state => :pending)
+    user.test_executions << test_executions_pending
+    test_executions_pending.save!
     assert_equal 'incomplete', checklist_test.status
-    task.test_executions.create!(:state => :passed)
+    test_executions_passing = task.test_executions.build(:state => :passed)
+    user.test_executions << test_executions_passing
+    test_executions_passing.save!
     assert_equal 'passing', checklist_test.status
-    task.test_executions.create!(:state => :failed)
+    test_executions_failing = task.test_executions.build(:state => :failed)
+    user.test_executions << test_executions_failing
+    test_executions_failing.save!
     assert_equal 'failing', checklist_test.status
   end
 
@@ -147,12 +154,14 @@ class ChecklistTestTest < ActiveJob::TestCase
   end
 
   def test_build_execution_errors_for_incomplete_checked_criteria
+    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     @test.create_checked_criteria
     task = @test.tasks.create({}, C1ChecklistTask)
 
     execution = task.test_executions.build
     assert_equal 0, execution.execution_errors.count
     @test.build_execution_errors_for_incomplete_checked_criteria(execution)
+    user.test_executions << execution
     execution.save!
     assert_equal @test.checked_criteria.count, execution.execution_errors.count
 
@@ -161,6 +170,7 @@ class ChecklistTestTest < ActiveJob::TestCase
     execution = task.test_executions.build
     assert_equal 0, execution.execution_errors.count
     @test.build_execution_errors_for_incomplete_checked_criteria(execution)
+    user.test_executions << execution
     execution.save!
     assert_equal @test.checked_criteria.count - 1, execution.execution_errors.count, 'should have one less execution error'
   end
