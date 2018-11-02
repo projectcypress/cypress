@@ -21,7 +21,7 @@ FactoryBot.define do
     data_elements_value = [
       {
         'authorDatetime' => '2017-09-28T08:00:00.000+00:00',
-        'category' => 'procedure',
+        'qdmCategory' => 'procedure',
         'components' => [],
         'dataElementCodes' => [
           {
@@ -55,7 +55,7 @@ FactoryBot.define do
         '_type' => 'QDM::Diagnosis',
         'hqmfOid' => '2.16.840.1.113883.3.560.1.2',
         'qrdaOid' => '2.16.840.1.113883.10.20.24.3.135',
-        'category' => 'condition',
+        'qdmCategory' => 'condition',
         'qdmVersion' => '5.3',
         'description' => 'Diagnosis: Allergy to Eggs',
         'prevalencePeriod' => {
@@ -66,7 +66,7 @@ FactoryBot.define do
         }
       },
       {
-        'category' => 'encounter',
+        'qdmCategory' => 'encounter',
         'dataElementCodes' => [
           {
             'codeSystem' => 'SNOMED-CT',
@@ -86,7 +86,7 @@ FactoryBot.define do
         '_type' => 'QDM::EncounterPerformed'
       },
       {
-        'category' => 'patient_characteristic',
+        'qdmCategory' => 'patient_characteristic',
         'dataElementCodes' => [
           {
             'code' => 'F',
@@ -111,7 +111,7 @@ FactoryBot.define do
         '_type' => 'QDM::PatientCharacteristicBirthdate',
         'hqmfOid' => '2.16.840.1.113883.10.20.28.3.54',
         'description' => nil,
-        'category' => 'patient_characteristic',
+        'qdmCategory' => 'patient_characteristic',
         'qdmStatus' => 'birthdate',
         'qdmVersion' => '5.3',
         'birthDatetime' => '1940-01-01T00:00:00+00:00'
@@ -128,7 +128,7 @@ FactoryBot.define do
         '_type' => 'QDM::PatientCharacteristicEthnicity',
         'hqmfOid' => '2.16.840.1.113883.10.20.28.3.56',
         'description' => nil,
-        'category' => 'patient_characteristic',
+        'qdmCategory' => 'patient_characteristic',
         'qdmStatus' => 'ethnicity',
         'qdmVersion' => '5.3'
       },
@@ -144,7 +144,7 @@ FactoryBot.define do
         '_type' => 'QDM::PatientCharacteristicRace',
         'hqmfOid' => '2.16.840.1.113883.10.20.28.3.59',
         'description' => nil,
-        'category' => 'patient_characteristic',
+        'qdmCategory' => 'patient_characteristic',
         'qdmStatus' => 'race',
         'qdmVersion' => '5.3'
       }
