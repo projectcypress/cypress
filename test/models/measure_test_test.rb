@@ -19,6 +19,7 @@ class MeasureTestTest < ActiveJob::TestCase
                                       bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
     pt = product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                                        bundle_id: @bundle.id }, MeasureTest)
+    pt.generate_provider
     assert_equal true,  pt.valid?, 'product test should be valid with single measure id'
     assert_equal true,  pt.save, 'should save with single measure id'
   end
@@ -32,16 +33,17 @@ class MeasureTestTest < ActiveJob::TestCase
   end
 
   def test_create_task_c1
-    product = @vendor.products.create(name: 'test_product', c1_test: true, randomize_patients: true, duplicate_patients: true,
-                                      bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
-    pt = product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                       bundle_id: @bundle.id }, MeasureTest)
-    pt.create_tasks
-    assert pt.tasks.c1_task, 'product test should have a c1_task'
-    assert_equal false, pt.tasks.c2_task, 'product test should not have a c2_task'
-    assert_equal false, pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
-    assert_equal false, pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
     perform_enqueued_jobs do
+      product = @vendor.products.create(name: 'test_product', c1_test: true, randomize_patients: true, duplicate_patients: true,
+                                        bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+      pt = product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                        bundle_id: @bundle.id }, MeasureTest)
+      pt.generate_provider
+      pt.create_tasks
+      assert pt.tasks.c1_task, 'product test should have a c1_task'
+      assert_equal false, pt.tasks.c2_task, 'product test should not have a c2_task'
+      assert_equal false, pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
+      assert_equal false, pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
       assert pt.save, 'should be able to save valid product test'
       assert_performed_jobs 1
       assert pt.patients.count.positive?, 'product test creation should have created random number of test records'
@@ -49,19 +51,21 @@ class MeasureTestTest < ActiveJob::TestCase
       assert_not_nil pt.patient_archive, 'Product test should have archived patient records'
       assert_not_nil pt.html_archive, 'Product test should have archived patient HTMLs'
       # assert pt.patients.count < count_zip_entries(pt.patient_archive.file.path), 'Archive should contain more files than the test'
+      pt.archive_patients
       assert count_zip_entries(pt.html_archive.file.path) == count_zip_entries(pt.patient_archive.file.path), 'QRDA Archive and HTML archive should have same # files'
       assert_not_nil pt.expected_results, 'Product test should have expected results'
     end
   end
 
   def test_create_without_randomized_records
-    product = @vendor.products.create(name: 'test_product_no_random', c2_test: true, randomize_patients: false,
-                                      bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
-    assert_enqueued_jobs 0
-    pt = product.product_tests.build({ name: 'test_for_measure_1a', bundle_id: @bundle.id,
-                                       measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
-    assert pt.valid?, 'product test should be valid with product, name, and measure_id'
     perform_enqueued_jobs do
+      product = @vendor.products.create(name: 'test_product_no_random', c2_test: true, randomize_patients: false,
+                                        bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+      assert_enqueued_jobs 0
+      pt = product.product_tests.build({ name: 'test_for_measure_1a', bundle_id: @bundle.id,
+                                        measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+      pt.generate_provider
+      assert pt.valid?, 'product test should be valid with product, name, and measure_id'
       assert pt.save, 'should be able to save valid product test'
       assert_performed_jobs 1
       assert_equal 9, pt.patients.count, 'product test creation should have created specific number of test records'
