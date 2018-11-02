@@ -11,6 +11,24 @@ GIT
       railties (>= 4.2.0)
 
 GIT
+  remote: https://github.com/projectcypress/bonnie_bundler.git
+  revision: 2ee3a735d3c6ca326aa357af76e0f7ba97a19361
+  branch: simple_export
+  specs:
+    bonnie_bundler (2.2.1)
+      diffy (~> 3.0.0)
+      health-data-standards (~> 4.2)
+      hqmf2js (~> 1.4)
+      hquery-patient-api (~> 1.1)
+      mongoid (~> 5.0)
+      quality-measure-engine (~> 3.1.2)
+      rails (~> 4.2)
+      roo (~> 1.13)
+      rubyzip (~> 1.2, >= 1.2.1)
+      simplexml_parser (~> 1.0)
+      zip-zip (~> 0.3)
+
+GIT
   remote: https://github.com/projectcypress/quality-measure-engine.git
   revision: 607bae5ad1946992912056cabc64efdb77adff10
   branch: bump_mongoid
@@ -28,22 +46,6 @@ GIT
   specs:
     turbolinks (3.0.0)
       coffee-rails
-
-PATH
-  remote: ../bonnie_bundler
-  specs:
-    bonnie_bundler (2.2.1)
-      diffy (~> 3.0.0)
-      health-data-standards (~> 4.2)
-      hqmf2js (~> 1.4)
-      hquery-patient-api (~> 1.1)
-      mongoid (~> 5.0)
-      quality-measure-engine (~> 3.1.2)
-      rails (~> 4.2)
-      roo (~> 1.13)
-      rubyzip (~> 1.2, >= 1.2.1)
-      simplexml_parser (~> 1.0)
-      zip-zip (~> 0.3)
 
 GEM
   remote: https://rubygems.org/

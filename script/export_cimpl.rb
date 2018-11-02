@@ -420,12 +420,19 @@ def print_ecqm_dataelement
             f.puts "Based on: #{data_type}"
             f.puts "Description: \"#{vs_description} -- Subject constrained to the #{vs_hash[:display_name]}\""
             f.puts "Subject value is type #{vs_hash[:display_name].gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}"
+            @datatypes[data_type].each do |attribute|
+              f.puts "    0..0   #{attribute[:name].titleize.gsub(/\s+/, '')}" unless dt_hash[:attributes].nil? || dt_hash[:attributes].include?(attribute[:name])
+            end
           else
             f.puts ''
             f.puts "EntryElement: #{vs_hash[:display_name].gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}#{data_type}"
             f.puts "Based on: #{data_type}"
             f.puts "Description: \"#{vs_description} -- #{vs_type(data_type)} constrained to codes in the #{vs_hash[:display_name]} valueset (#{oid})\""
             f.puts "#{vs_type(data_type)} from https://vsac.nlm.nih.gov/valueset/#{oid}/expansion"
+            next if @datatypes[data_type].nil?
+            @datatypes[data_type].each do |attribute|
+              f.puts "    0..0   #{attribute[:name].titleize.gsub(/\s+/, '')}" unless dt_hash[:attributes].nil? || dt_hash[:attributes].include?(attribute[:name])
+            end
           end
         end
       end
