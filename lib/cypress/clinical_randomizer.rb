@@ -53,7 +53,7 @@ module Cypress
 
     def self.split_by_type(patient, effective_date, measure_period_start, random)
       # Collect unique data element categories from the patient with populated entries
-      de_categories = patient.dataElements.collect(&:category).uniq.shuffle(random: random)
+      de_categories = patient.dataElements.collect(&:qdmCategory).uniq.shuffle(random: random)
       de_categories.delete('patient_characteristic')
 
       # If there's only 1 data element category, split by date instead
@@ -84,7 +84,7 @@ module Cypress
     end
 
     def self.sort_by_start_time(data_elements)
-      data_elements.keep_if { |de| de.category != 'patient_characteristic' }
+      data_elements.keep_if { |de| de.qdmCategory != 'patient_characteristic' }
       # TODO: R2P: check there's an attribute reader for highClosed (and lowClosed)
       # sort by start date (in convert start_date equivalent to authorDatetime)
       data_elements.sort_by { |de| data_element_time(de) }
