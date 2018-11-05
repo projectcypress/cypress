@@ -237,7 +237,7 @@ def print_union
       f.puts ""
       hash[:union_keys].each do |union_key|
         already_included = []
-        f.puts "EntryElement: #{union_key.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}Union"
+        f.puts "EntryElement: #{union_key.titleize.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}Union"
         f.puts "Based on: #{hash[:generic_key]}"
         hash[:cms_ids].each do |cms_id|
           union_values.each do |vs|
@@ -246,7 +246,7 @@ def print_union
               @value_set_hash[vs][:data_types].each do |data_type, hash|
                 next if already_included.include? "#{@value_set_hash[vs][:display_name]}#{data_type}"
                 already_included << "#{@value_set_hash[vs][:display_name]}#{data_type}"
-                f.puts "    0..* #{@value_set_hash[vs][:display_name].gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}#{hash[:vs_extension_name]}"
+                f.puts "    0..* #{@value_set_hash[vs][:display_name].titleize.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}#{hash[:vs_extension_name]}"
               end
             end
           end
@@ -408,7 +408,7 @@ def print_ecqm_dataelement
         vs_hash[:data_types].each do |data_type, dt_hash|
           if (data_type != dt_hash[:vs_extension_name]) && (!exported_base_types.include?(dt_hash[:type_definition]))
             f.puts ''
-            f.puts "EntryElement: #{vs_hash[:display_name].gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}"
+            f.puts "EntryElement: #{vs_hash[:display_name].titleize.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}"
             f.puts "Based on: #{dt_hash[:type_definition]}"
             f.puts "Description: \"#{vs_description} -- #{vs_type(dt_hash[:type_definition])} constrained to codes in the #{vs_hash[:display_name]} valueset (#{oid}). \""
             f.puts "#{vs_type(dt_hash[:type_definition])} from https://vsac.nlm.nih.gov/valueset/#{oid}/expansion"
@@ -416,16 +416,16 @@ def print_ecqm_dataelement
           end
           if (data_type != dt_hash[:vs_extension_name])
             f.puts ''
-            f.puts "EntryElement: #{vs_hash[:display_name].gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}#{dt_hash[:type_status]}"
+            f.puts "EntryElement: #{vs_hash[:display_name].titleize.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}#{dt_hash[:type_status]}"
             f.puts "Based on: #{data_type}"
             f.puts "Description: \"#{vs_description} -- Subject constrained to the #{vs_hash[:display_name]}\""
-            f.puts "Subject value is type #{vs_hash[:display_name].gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}"
+            f.puts "Subject value is type #{vs_hash[:display_name].titleize.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}"
             @datatypes[data_type].each do |attribute|
               f.puts "    0..0   #{attribute[:name].titleize.gsub(/\s+/, '')}" unless dt_hash[:attributes].nil? || dt_hash[:attributes].include?(attribute[:name])
             end
           else
             f.puts ''
-            f.puts "EntryElement: #{vs_hash[:display_name].gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}#{data_type}"
+            f.puts "EntryElement: #{vs_hash[:display_name].titleize.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}#{data_type}"
             f.puts "Based on: #{data_type}"
             f.puts "Description: \"#{vs_description} -- #{vs_type(data_type)} constrained to codes in the #{vs_hash[:display_name]} valueset (#{oid})\""
             f.puts "#{vs_type(data_type)} from https://vsac.nlm.nih.gov/valueset/#{oid}/expansion"
@@ -441,7 +441,7 @@ def print_ecqm_dataelement
         next if vs_hash[:display_name].nil?
         vs_hash[:attribute_types].each do |att|
           f.puts ''
-          f.puts "EntryElement: #{vs_hash[:display_name].gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}#{att}"
+          f.puts "EntryElement: #{vs_hash[:display_name].titleize.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}#{att}"
           f.puts "Based on: #{att}"
           f.puts "Description: \"#{vs_description}\""
           f.puts "ResultValue from https://vsac.nlm.nih.gov/valueset/#{oid}/expansion"
@@ -475,19 +475,19 @@ def print_cms_ecqm
         vs_name = @value_set_hash[oid][:display_name]
         if @value_set_hash[oid][:data_types]
           @value_set_hash[oid][:data_types].each do |data_type, dt_hash|
-            f.puts "    0..* #{vs_name.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}#{dt_hash[:vs_extension_name]}" if dt_hash[:measures].include?(measure_id)
+            f.puts "    0..* #{vs_name.titleize.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}#{dt_hash[:vs_extension_name]}" if dt_hash[:measures].include?(measure_id)
           end
         end
         if @value_set_hash[oid][:attribute_types]
           @value_set_hash[oid][:attribute_types].each do |att|
-            f.puts "    0..* #{vs_name.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}#{att}" if @value_set_hash[oid][:measures].include?(measure_id)
+            f.puts "    0..* #{vs_name.titleize.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}#{att}" if @value_set_hash[oid][:measures].include?(measure_id)
           end
         end
       end
       @all_unions_with_name.each do |union_name, hash|
         hash[:cms_ids].each do |cms_id|
           next unless cms_id == measure_id
-          f.puts "    0..* #{union_name.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}Union"
+          f.puts "    0..* #{union_name.titleize.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789]/,'')}Union"
         end
       end
     end
