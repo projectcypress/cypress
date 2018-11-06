@@ -101,7 +101,7 @@ class ApplicationController < ActionController::Base
   # causes the application to enter an inconsistent state by clearing any basic auth credentials
   # if the application is not accessed via a JSON endpoint.
   def restrict_basic_auth
-    request.env['HTTP_AUTHORIZATION'] = '' unless request.format.eql?(Mime::JSON) || request.format.eql?(Mime::XML)
+    request.env['HTTP_AUTHORIZATION'] = '' unless request.format.eql?(Mime[:JSON]) || request.format.eql?(Mime[:XML])
   end
 
   def set_vendor
