@@ -4,6 +4,7 @@ class C1TaskTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   def setup
+    @user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     @product_test = FactoryBot.create(:product_test_static_result)
   end
 
@@ -25,7 +26,7 @@ class C1TaskTest < ActiveSupport::TestCase
     task = @product_test.tasks.create({}, C1Task)
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip, User.first)
+      te = task.execute(zip, @user)
       te.reload
       assert te.execution_errors.where(:msg_type => :error).empty?, 'should be no errors for good cat I archive'
     end
@@ -37,7 +38,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.c1_test = true
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip, User.first)
+      te = task.execute(zip, @user)
       te.reload
       assert_equal false, te.execution_errors.where(:msg_type => :error).empty?, 'should be errors for unshifted cat I archive'
     end
@@ -49,7 +50,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.c1_test = true
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good_shift.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip, User.first)
+      te = task.execute(zip, @user)
       te.reload
       assert te.execution_errors.where(:msg_type => :error).empty?, 'should be no errors for shifted good cat I archive'
     end
@@ -60,7 +61,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.c1_test = true
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good_aug.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip, User.first)
+      te = task.execute(zip, @user)
       te.reload
       assert te.execution_errors.where(:msg_type => :error).empty?, 'should be no errors for good augmented cat I archive'
     end
@@ -71,7 +72,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.c1_test = true
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_too_many_files.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip, User.first)
+      te = task.execute(zip, @user)
       te.reload
       assert_equal 1, te.execution_errors.where(:msg_type => :error).count, 'should be 1 error from cat I archive'
       assert_equal 1, te.execution_errors.where(:message => '1 files expected but was 2', :msg_type => :error).count
@@ -83,7 +84,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.c1_test = true
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_wrong_names.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip, User.first)
+      te = task.execute(zip, @user)
       te.reload
       assert_equal 2, te.execution_errors.where(:msg_type => :error).count, 'should be 2 errors from cat I archive'
       assert_equal 'Patient name \'DENTAL_PEDS A2\' declared in file not found in test records', te.execution_errors[0].message
@@ -98,7 +99,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.c3_test = true
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
     perform_enqueued_jobs do
-      te = c1_task.execute(zip, User.first)
+      te = c1_task.execute(zip, @user)
       assert_equal c3_task.test_executions.first.id.to_s, te.sibling_execution_id
     end
   end
@@ -108,7 +109,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.c1_test = true
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_wrong_templates.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip, User.first)
+      te = task.execute(zip, @user)
       te.reload
       assert_equal 1, te.execution_errors.by_file('sample_patient_wrong_template.xml').where(:message => '["2.16.840.1.113883.10.20.24.3.133:2015-08-01"] are not valid Patient Data Section QDM entries for this QRDA Version', :msg_type => :warning).count
     end
@@ -119,7 +120,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.c1_test = true
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_bad_calculation.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip, User.first)
+      te = task.execute(zip, @user)
       te.reload
       # 1 NUMER and 1 DENOM population
       assert_equal 2, te.execution_errors.where(:msg_type => :error).count, 'should be 3 calculation errors from cat I archive'
@@ -131,7 +132,7 @@ class C1TaskTest < ActiveSupport::TestCase
     @product_test.product.c1_test = true
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_bad_calculation_aug.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip, User.first)
+      te = task.execute(zip, @user)
       te.reload
       # 1 NUMER and 1 DENOM population
       assert_equal 2, te.execution_errors.where(:msg_type => :error).count, 'should be 8 calculation errors from cat I archive'
@@ -143,7 +144,7 @@ class C1TaskTest < ActiveSupport::TestCase
     testfile = Tempfile.new(['good_results_debug_file', '.zip'])
     testfile.write task.good_results
     perform_enqueued_jobs do
-      te = task.execute(testfile, User.first)
+      te = task.execute(testfile, @user)
       te.reload
       # 2 errors for calculation (should be in denom)
       assert_equal 0, te.execution_errors.where(:msg_type => :error).count, 'test execution with known good results should have no errors'

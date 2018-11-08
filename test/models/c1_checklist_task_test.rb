@@ -5,6 +5,7 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   def setup
+    @user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     product = FactoryBot.create(:product_static_bundle)
     @checklist_test = product.product_tests.build({ name: 'c1 visual', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
     @checklist_test.save!
@@ -21,7 +22,7 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
     task = @checklist_test.tasks[0]
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'c1_checklist_correct_codes.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip, User.first)
+      te = task.execute(zip, @user)
       te.reload
       @checklist_test.reload
       assert @checklist_test.checked_criteria.first.complete?, 'checklist test criteria should be true with QRDA entry'
@@ -33,7 +34,7 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
     task = @checklist_test.tasks[0]
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'c1_checklist_incorrect_codes.zip'))
     perform_enqueued_jobs do
-      te = task.execute(zip, User.first)
+      te = task.execute(zip, @user)
       te.reload
       assert_not @checklist_test.checked_criteria.first.complete?, 'checklist test criteria should be false with incorrect QRDA entry'
       assert_not @checklist_test.checked_criteria.last.complete?, 'checklist test criteria should be false with incorrect QRDA entry'
@@ -45,7 +46,7 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
     task = @checklist_test.tasks.create!({}, C1ChecklistTask)
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'c1_checklist_correct_codes.zip'))
     perform_enqueued_jobs do
-      execution = task.execute(zip, User.first)
+      execution = task.execute(zip, @user)
       assert execution
       assert_equal 1, @checklist_test.tasks.count { |t| t.test_executions.any? }, 'only one task with any test executions'
       assert_equal 1, @checklist_test.tasks.count { |t| t.test_executions.count }, 'only one test execution for checklist test'
@@ -65,7 +66,7 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
     @checklist_test.tasks.create!({}, C3ChecklistTask)
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'c1_checklist_correct_codes.zip'))
     perform_enqueued_jobs do
-      execution = task.execute(zip, User.first)
+      execution = task.execute(zip, @user)
       assert execution
       assert_equal 2, @checklist_test.tasks.count { |t| t.test_executions.any? }, 'two tasks (one c1, one c3), both with test executions'
       assert_equal 2, @checklist_test.tasks.count { |t| t.test_executions.count }, 'two test execution for checklist test'

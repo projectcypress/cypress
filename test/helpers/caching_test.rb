@@ -3,7 +3,7 @@ require 'test_helper'
 class CachingTest < ActiveSupport::TestCase
   def setup
     @bundle = FactoryBot.create(:static_bundle)
-
+    @user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     ActionController::Base.perform_caching = true
 
     setup_vendor
@@ -37,6 +37,7 @@ class CachingTest < ActiveSupport::TestCase
   def setup_test_execution
     @test_execution = TestExecution.new
     @test_execution.task = @c1_task
+    @user.test_executions << @test_execution
     @test_execution.save!
   end
 
