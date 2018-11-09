@@ -1,4 +1,5 @@
-FROM phusion/passenger-ruby23:latest
+# Pinned to the latest ruby 2.3.7 version of the Passenger base ocker image
+FROM phusion/passenger-ruby23:0.9.35
 
 RUN apt-get update \
     && apt-get upgrade -y -o Dpkg::Options::="--force-confold" \
