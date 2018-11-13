@@ -122,7 +122,7 @@
                         <td> <strong> Attributes </strong> </td>
                         <td><%= checklist_test_criteria_attribute(criteria, checked_criteria.attribute_index) %></td>
                         <td>
-                          <%= render partial: 'checklist_tests/field_values', locals: { attribute: criteria['attributes'][checked_criteria.attribute_index], result: criteria['value'], product_test: product_test, index: criteria_field.index, disable_modal: false } if criteria['attributes'] || criteria['value'] %>
+                          <%= render partial: 'checklist_tests/field_values', locals: { attribute: criteria['attributes'][checked_criteria.attribute_index], result: criteria['value'], product_test: product_test, index: criteria_field.index, disable_modal: false } if criteria['attributes'] && criteria['value'] %>
                         </td>
                         <% if coded_attribute?(criteria, checked_criteria.attribute_index) %>
                           <td class='hide-me'>
