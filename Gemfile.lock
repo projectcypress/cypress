@@ -22,6 +22,13 @@ GIT
       zip-zip
 
 GIT
+  remote: https://github.com/projecttacoma/cqm-models.git
+  revision: 4d6847f5d53fa604ec8a29e1404f4726290a6805
+  branch: high_unbound_084
+  specs:
+    cqm-models (0.8.4)
+
+GIT
   remote: https://github.com/turbolinks/turbolinks-classic
   revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
   branch: master
@@ -153,7 +160,6 @@ GEM
       health-data-standards (>= 4.1.0)
       momentjs-rails
       sprockets
-    cqm-models (0.8.4)
     cqm-parsers (0.2.1)
       activesupport (~> 4.2.0)
       builder (~> 3.1)
@@ -541,7 +547,7 @@ DEPENDENCIES
   codecov
   cql_qdm_patientapi
   cqm-converter (~> 0.3.6)
-  cqm-models (~> 0.8.4)
+  cqm-models!
   cqm-parsers (~> 0.2.1)
   cqm-validators (~> 0.1.0)
   cucumber (~> 3.0.2)
