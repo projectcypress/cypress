@@ -9,7 +9,7 @@ services:
     environment:
       - MONGO_PORT_27017_TCP_ADDR=mongodb
       - MONGO_PORT_27017_TCP_PORT=27017
-      - CQM_EXECUTION_HOST=cqm-execution-service
+      - CQM_EXECUTION_SERVICE_HOST=cqm-execution-service
     ports:
       - "3000:3000"
     env_file: .env-prod
@@ -17,7 +17,7 @@ services:
     networks:
       - cypress-net
   mongodb:
-    image: mongo:latest
+    image: mongo:3.4.5
     volumes:
       - /data/db
       - ./mongo:/etc/mongo
