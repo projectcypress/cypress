@@ -9,20 +9,20 @@ class ApplicationController < ActionController::Base
   around_action :catch_not_found
 
   rescue_from CanCan::AccessDenied do |exception|
-    render :text => exception, :status => :unauthorized
+    render :plain => exception, :status => :unauthorized
   end
 
   def page_not_found
     respond_to do |format|
       format.html { render :template => 'errors/404', :layout => 'layouts/errors', :status => :not_found }
-      format.all  { render :text => '404 Not Found', :status => :not_found }
+      format.all  { render :plain => '404 Not Found', :status => :not_found }
     end
   end
 
   def server_error
     respond_to do |format|
       format.html { render :template => 'errors/500', :layout => 'layouts/errors', :status => :internal_server_error }
-      format.all  { render :text => '500 Server Error', :status => :internal_server_error }
+      format.all  { render :plain => '500 Server Error', :status => :internal_server_error }
     end
   end
 

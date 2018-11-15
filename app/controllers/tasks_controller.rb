@@ -13,7 +13,7 @@ class TasksController < ApplicationController
   end
 
   rescue_from TypeNotFound do |exception|
-    render :text => exception, :status => :internal_server_error
+    render :plain => exception, :status => :internal_server_error
   end
 
   def new; end
