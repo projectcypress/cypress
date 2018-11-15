@@ -112,6 +112,7 @@ group :development, :test do
   gem 'pry-nav'
   gem 'rails-perftest'
   gem 'rails_best_practices'
+  gem 'rails-controller-testing'
   gem 'ruby-prof', '~> 0.15.9'
   gem 'scss_lint', :require => false
   gem 'selenium-webdriver'

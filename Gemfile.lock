@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: 079838be66e038382e9ac2cb90705bac58edb1a1
+  revision: 82905636de385b1b0c59c466cd9be49c6567dc23
   branch: rails_upgrade
   specs:
     cqm-parsers (1.0.0)
@@ -348,6 +348,10 @@ GEM
       bundler (>= 1.3.0)
       railties (= 5.1.6)
       sprockets-rails (>= 2.0.0)
+    rails-controller-testing (1.0.2)
+      actionpack (~> 5.x, >= 5.0.1)
+      actionview (~> 5.x, >= 5.0.1)
+      activesupport (~> 5.x)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -549,6 +553,7 @@ DEPENDENCIES
   pry
   pry-nav
   rails (~> 5.1.6)
+  rails-controller-testing
   rails-perftest
   rails_best_practices
   remotipart (~> 1.2)
