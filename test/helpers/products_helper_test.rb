@@ -7,10 +7,11 @@ class ProductsHelperTest < ActiveJob::TestCase
   def setup
     drop_database
     @bundle = FactoryBot.create(:static_bundle)
+    @user = FactoryBot.create(:vendor_user)
+    @user.save!
     @vendor = FactoryBot.create(:vendor)
-    @product = @vendor.products.create(name: 'test_product', c1_test: true, c2_test: true, c3_test: true, c4_test: true, bundle_id: @bundle.id,
+    @product = @vendor.products.create!(name: 'test_product', c1_test: true, c2_test: true, c3_test: true, c4_test: true, bundle_id: @bundle.id,
                                        randomize_patients: false, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
-
     setup_checklist_test
     setup_measure_tests
     setup_filtering_tests
@@ -34,9 +35,14 @@ class ProductsHelperTest < ActiveJob::TestCase
 
   def setup_measure_tests
     @product.product_tests.build({ name: 'test_product_test_name_1',
-                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest).save!
+                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+    # MeasureTest needs provider
+    @product.product_tests[1].generate_provider
+    @product.save!
     @product.product_tests.build({ name: 'test_product_test_name_2',
-                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest).save!
+                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+    @product.product_tests[2].generate_provider
+    @product.save!
     @product.product_tests.measure_tests.each do |test|
       test.tasks.build({}, C1Task)
       test.tasks.build({}, C2Task)
@@ -76,7 +82,8 @@ class ProductsHelperTest < ActiveJob::TestCase
     vendor.products.each(&:destroy)
     product = vendor.products.create!(name: "my product test #{rand}", c1_test: true, measure_ids: measure_ids, bundle_id: @bundle.id)
     product.measure_ids.each do |measure_id|
-      product.product_tests.create!({ name: "my measure test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
+      product.product_tests.build({ name: "my measure test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest).generate_provider
+      product.save!
       product.product_tests.create!({ name: "my filtering test for measure id #{measure_id}", measure_ids: [measure_id] }, FilteringTest)
     end
 
@@ -147,19 +154,19 @@ class ProductsHelperTest < ActiveJob::TestCase
 
     # product test is ready, task is pending
     pt = ProductTest.new(:state => :ready, :name => 'my product test name 2', :measure_ids => measure_ids, :product => product)
-    tasks = build_tasks_with_test_execution_states([:pending]).each { |tsk| tsk.product_test = pt }
+    tasks = build_tasks_with_test_execution_states([:pending], pt)
     pt.save!
     assert_equal true, should_reload_product_test_link?(tasks_status(tasks), pt)
 
     # product test is ready, task is completed execution and is in a passing state
     pt = ProductTest.new(:state => :ready, :name => 'my product test name 3', :measure_ids => measure_ids, :product => product)
-    tasks = build_tasks_with_test_execution_states([:passed]).each { |tsk| tsk.product_test = pt }
+    tasks = build_tasks_with_test_execution_states([:passed], pt)
     pt.save!
     assert_equal false, should_reload_product_test_link?(tasks_status(tasks), pt)
 
     # product test is ready, one task not pending while other task is pending
     pt = ProductTest.new(:state => :ready, :name => 'my product test name 4', :measure_ids => measure_ids, :product => product)
-    tasks = build_tasks_with_test_execution_states(%i[passed pending]).each { |tsk| tsk.product_test = pt }
+    tasks = build_tasks_with_test_execution_states(%i[passed pending], pt)
     pt.save!
     assert_equal true, should_reload_product_test_link?(tasks_status(tasks), pt)
   end
@@ -180,7 +187,7 @@ class ProductsHelperTest < ActiveJob::TestCase
     assert_equal true, measure_test_running_for_row?(task)
 
     # if task has a pending most recent execution then needs reloading
-    execution = task.test_executions.create!(:state => :pending)
+    execution = task.test_executions.create!(:state => :pending, :user => @user)
     assert_equal true, measure_test_running_for_row?(task)
 
     # if task has a passing most recent execution and it has been less than 30 seconds then the page does need reloading
@@ -190,7 +197,7 @@ class ProductsHelperTest < ActiveJob::TestCase
 
     # if execution has a sibling execution that is pending then needs reloading
     sibling_task = product_test.tasks.create!
-    sibling_execution = sibling_task.test_executions.create!(:sibling_execution_id => execution.id, :state => :pending)
+    sibling_execution = sibling_task.test_executions.create!(:sibling_execution_id => execution.id, :state => :pending, :user => @user)
     execution.sibling_execution_id = sibling_execution.id
     execution.save!
     assert_equal true, measure_test_running_for_row?(task)
@@ -210,14 +217,15 @@ class ProductsHelperTest < ActiveJob::TestCase
     assert_equal false, measure_test_running_for_row?(task)
 
     # if task has a passing most recent execution and it has been more than 30 seconds then the page doesn't need reloading
-    execution = task.test_executions.create!(:state => :passed, :updated_at => Time.now.utc - 1.minute)
+    execution = task.test_executions.create!(:state => :passed, :updated_at => Time.now.utc - 1.minute, :user => @user)
     assert_equal false, measure_test_running_for_row?(task)
 
     # if both executions are finished and it has been more than 30 seconds then the page does not need reloading
     sibling_task = product_test.tasks.create!
     sibling_execution = sibling_task.test_executions.create!(
       :sibling_execution_id => execution.id,
-      :state => :failed
+      :state => :failed,
+      :user => @user
     )
     sibling_execution.updated_at = Time.now.utc - 1.minute
     sibling_execution.save!
@@ -245,12 +253,19 @@ class ProductsHelperTest < ActiveJob::TestCase
     assert_equal 'pending', tasks_status(build_tasks_with_test_execution_states(%i[other_state other_state]))
   end
 
-  def build_tasks_with_test_execution_states(states)
+  def build_tasks_with_test_execution_states(states, product_test = nil)
     tasks = []
+    if product_test == nil
+      product = Product.new
+      measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
+      # product test is ready, task is pending
+      product_test = ProductTest.new(:state => :ready, :name => 'my product test name 2', :measure_ids => measure_ids, :product => product)
+    end
     states.each do |state|
       task = Task.new
+      task.product_test = product_test
       task.save!
-      task.test_executions.create!(:state => state)
+      task.test_executions.create!(:state => state, :user => @user)
       tasks << task
     end
     tasks

@@ -5,13 +5,14 @@ class XmlViewHelperTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   def setup
+    user = FactoryBot.create(:vendor_user)
     product_test = FactoryBot.create(:product_test_static_result)
     product_test.product.c1_test = true
     task = product_test.tasks.create({}, C1Task)
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_wrong_templates.zip'))
 
     perform_enqueued_jobs do
-      @te = task.execute(zip, User.first)
+      @te = task.execute(zip, user)
       @te.reload
     end
   end
