@@ -13,6 +13,7 @@ module Cypress
       @filter_patient_link = nil
       @hqmf_path = @options[:hqmf_path]
       @cypress_host = @options[:cypress_host] || 'http://localhost:3000'
+      @use_js_ecqm = (@options[:use_js_ecqm] || false).eql? 'true'
       @username = username
       @password = password
     end
@@ -484,10 +485,28 @@ module Cypress
     end
 
     def do_calculation(product_test, patient_ids, correlation_id)
+      if @use_js_ecqm
+        do_calculation_js_ecqm(product_test, patient_ids, correlation_id)
+      else
+        do_calculation_cqm_execution(product_test, Patient.find(patient_ids), correlation_id)
+      end
+    end
+
+    # Once we are fully comfortable with cqm_execution_service this whole
+    # codepath can be removed
+    def do_calculation_js_ecqm(product_test, patient_ids, correlation_id)
       calc_job = Cypress::JsEcqmCalc.new(:correlation_id => correlation_id,
                                          :effective_date => Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number))
       calc_job.sync_job(patient_ids.map(&:to_s), product_test.measures.map { |mes| mes._id.to_s })
       calc_job.stop
+    end
+
+    def do_calculation_cqm_execution(product_test, patients, correlation_id)
+      measures = product_test.measures
+      calc_job = Cypress::CqmExecutionCalc.new(patients, measures, product_test.value_sets_by_oid, correlation_id,
+                                               :effectiveDateEnd => Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
+                                               :effectiveDate => Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
+      calc_job.execute
     end
 
     def import_cat1_zip(zip, patient_ids, bundle_id)
