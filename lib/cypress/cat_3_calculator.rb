@@ -99,7 +99,7 @@ module Cypress
       xml
     end
 
-    def generate_cat3_for_test(correlation_id)
+    def generate_cat3_for_test(test_id)
       exporter = HealthDataStandards::Export::Cat3.new(@bundle.qrda3_version)
       end_date = Time.at(@effective_date.to_i).in_time_zone
       xml = exporter.export(HealthDataStandards::CQM::Measure.top_level.where(hqmf_id: @measure.hqmf_id, bundle_id: @bundle.id),
@@ -109,7 +109,7 @@ module Cypress
                             end_date,
                             @bundle.qrda3_version,
                             nil,
-                            correlation_id)
+                            test_id)
       xml
     end
 

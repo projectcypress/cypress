@@ -476,7 +476,7 @@ module Cypress
       erc.aggregate_results_for_measures(pt.measures)
 
       c3c = Cypress::Cat3Calculator.new(pt.measure_ids, pt.bundle, pt.effective_date)
-      xml = c3c.generate_cat3_for_test(correlation_id)
+      xml = c3c.generate_cat3_for_test(pt.id)
 
       Patient.find(patient_ids).each(&:destroy)
 
