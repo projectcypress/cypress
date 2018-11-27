@@ -8,7 +8,9 @@ class RegistrationsController < Devise::RegistrationsController
 
   respond_to :js, only: [:edit]
 
-  def update; end
+  def update
+    super
+  end
 
   def new
     @title = 'Create Account'
