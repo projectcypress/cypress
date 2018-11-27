@@ -244,11 +244,9 @@ class TestExecutionsControllerTest < ActionController::TestCase
   def create_execution_with_task_type(task_type)
     c1, c2, c4 = c1_c2_c4_from_task_type(task_type)
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
-    product = @vendor.products.build(name: "my product #{rand}", bundle_id: @bundle_id, measure_ids: measure_ids,
-                                     c1_test: c1, c2_test: c2, c4_test: c4)
-    product.save!
-    test = product.product_tests.build({ name: "my measure test #{rand}", measure_ids: measure_ids }, MeasureTest)
-    test.save!
+    product = @vendor.products.create!(name: "my product #{rand}", bundle_id: @bundle_id, measure_ids: measure_ids,
+                                       c1_test: c1, c2_test: c2, c4_test: c4)
+    test = product.product_tests.create!({ name: "my measure test #{rand}", measure_ids: measure_ids }, MeasureTest)
     task = create_task_from_task_type(test, task_type)
     execution = task.test_executions.build
     @vendor_user.test_executions << execution
