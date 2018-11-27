@@ -25,8 +25,10 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
   def test_can_run_product_test_job
     assert_enqueued_jobs 0
     perform_enqueued_jobs do
-      ptest = @product.product_tests.create({ name: 'test_for_measure_job_calculation',
+      ptest = @product.product_tests.build({ name: 'test_for_measure_job_calculation',
                                               measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+      ptest.generate_provider
+      ptest.save!
       assert_performed_jobs 1
       ptest.reload
       assert_not ptest.expected_results.empty?
@@ -37,8 +39,10 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
   def test_can_run_task_job
     assert_enqueued_jobs 0
     perform_enqueued_jobs do
-      ptest = @product.product_tests.create({ name: 'test_for_measure_job_calculation',
+      ptest = @product.product_tests.build({ name: 'test_for_measure_job_calculation',
                                               measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+      ptest.generate_provider
+      ptest.save!
       task = ptest.tasks.create({})
       MeasureEvaluationJob.perform_later(task, {})
       assert_performed_jobs 2

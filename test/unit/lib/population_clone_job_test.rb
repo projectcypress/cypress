@@ -4,6 +4,7 @@ require 'fileutils'
 class PopulationCloneJobTest < ActiveSupport::TestCase
   def setup
     @pt = FactoryBot.create(:product_test_static_result)
+    @pt.save!
   end
 
   def test_perform_full_deck

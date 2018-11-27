@@ -5,7 +5,7 @@ class ProducTest < ActiveSupport::TestCase
   def setup
     @vendor = FactoryBot.create(:vendor)
     @bundle = FactoryBot.create(:static_bundle)
-
+    @vendor_user = FactoryBot.create(:vendor_user)
     ActionController::Base.perform_caching = true
     @old_cache_store = ActionController::Base.cache_store
     ActionController::Base.cache_store = :memory_store, { size: 64.megabytes }
@@ -122,7 +122,9 @@ class ProducTest < ActiveSupport::TestCase
     pt = Product.new(vendor: @vendor, name: 'measure_test', c1_test: true, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: @bundle.id)
     pt.product_tests.build({ name: 'test_product_test_name',
                              measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                             bundle_id: @bundle.id }, MeasureTest).save!
+                             bundle_id: @bundle.id }, MeasureTest)
+    pt.product_tests.first.generate_provider
+    pt.save!
     assert pt.product_tests.measure_tests
     assert_equal pt.product_tests.measure_tests.count, 1
   end
@@ -146,7 +148,12 @@ class ProducTest < ActiveSupport::TestCase
   def test_update_with_measure_tests_creates_measure_tests_if_c2_selected
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     product = @vendor.products.new
-    params = { name: "my product #{rand}", c2_test: true, 'measure_ids' => measure_ids, bundle_id: @bundle.id }
+    product.name = "test name"
+    product.bundle = @bundle
+    product.c1_test = true
+    params = {vendor: @vendor, name: "my product #{rand}", c2_test: true, measure_ids: measure_ids, bundle_id: @bundle.id}
+    # This fails because there is no provider when update is called through this function
+    # TODO: either provide provider, or generate in the called method
     product.update_with_measure_tests(params)
     assert_equal measure_ids.count, product.product_tests.measure_tests.count
     assert_equal measure_ids.first, product.product_tests.measure_tests.first.measure_ids.first
@@ -190,8 +197,9 @@ class ProducTest < ActiveSupport::TestCase
   def test_add_checklist_test_adds_tests_and_tasks_if_appropriate
     measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
     product = @vendor.products.create!(name: "my product #{rand}", measure_ids: [measure_id], c2_test: true, bundle_id: @bundle.id)
-    product.product_tests.create!({ name: "my measure test #{rand}", measure_ids: [measure_id] }, MeasureTest)
-
+    product.product_tests.build({ name: "my measure test #{rand}", measure_ids: [measure_id] }, MeasureTest)
+    product.product_tests[0].generate_provider
+    product.save!
     # should create no product tests if c1 was not selected
     product.add_checklist_test
     assert_equal 0, product.product_tests.checklist_tests.count
@@ -246,10 +254,10 @@ class ProducTest < ActiveSupport::TestCase
     product = Product.new(vendor: @vendor, name: 'my product', c1_test: true, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: @bundle.id)
     product.save!
     product_test = product.product_tests.build({ name: 'my product test 1', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+    product_test.generate_provider
     product_test.save!
-
     # status should be incomplete if all product tests passing but no checklist test exists
-    product_test.tasks.first.test_executions.create!(:state => :passed)
+    product_test.tasks.first.test_executions.create!(:state => :passed, :user => @vendor_user)
     assert_equal 'incomplete', product.status
 
     # if product does not need to certify for c1, than product should pass
@@ -267,8 +275,11 @@ class ProducTest < ActiveSupport::TestCase
 
     # one failing product test will fail the product
     product_test = product.product_tests.build({ :name => 'my product test 2', :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+    product_test.generate_provider
     product_test.save!
-    product_test.tasks.first.test_executions.create!(:state => :failed)
+    te = product_test.tasks.first.test_executions.build(:state => :failed)
+    @vendor_user.test_executions << te
+    te.save!
     assert_equal 'failing', product.status
   end
 
@@ -276,8 +287,9 @@ class ProducTest < ActiveSupport::TestCase
     measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
     product = Product.new(:vendor => @vendor, :name => 'my product', :c1_test => true, :measure_ids => [measure_id], :bundle_id => @bundle.id)
     product_test = product.product_tests.build({ :name => "my product test for measure id #{measure_id}", :measure_ids => [measure_id] }, MeasureTest)
+    product_test.generate_provider
+    product_test.tasks.first.test_executions.build(:state => :passed, :user => @vendor_user)
     product_test.save!
-    product_test.tasks.first.test_executions.build(:state => :passed)
     product.save!
   end
 

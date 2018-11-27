@@ -5,6 +5,9 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   def setup
     @product_test = FactoryBot.create(:product_test_static_result)
     @validator = ExpectedResultsValidator.new(@product_test.expected_results)
+    @vendor_user = FactoryBot.create(:vendor_user)
+    # For this test, any measure will work
+    @measure = Measure.first
     @task = C2Task.new
     @task.product_test = @product_test
     setup_augmented_patients
@@ -12,21 +15,21 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
 
   def setup_augmented_patients
     @patient1 = Patient.new(givenNames: ['Jill'], familyName: 'Mcguire', extendedData: { 'medical_record_number' => '198718e0-4d42-0135-8680-12999b0ed66f' })
-    ir1 = QDM::IndividualResult.new(IPP: 1.000000, patient_id: @patient1.id)
+    ir1 = QDM::IndividualResult.new(IPP: 1.000000, patient_id: @patient1.id, patient: @patient1, measure: @measure)
     ir1.save!
     @patient1.save!
     @augmented_patient1 = { 'original_patient_id' => @patient1.id, 'medical_record_number' => '198718e0-4d42-0135-8680-12999b0ed66f',
                             'first' => %w[Jill J], 'last' => %w[Mcguire Mcguirn], :gender => %w[F M] }
 
     @patient2 = Patient.new(givenNames: ['Ivan'], familyName: 'Mcguire', extendedData: { 'medical_record_number' => '098718e0-4d42-0135-8680-12999b0ed66f' })
-    ir2 = QDM::IndividualResult.new(IPP: 1.000000, patient_id: @patient2.id)
+    ir2 = QDM::IndividualResult.new(IPP: 1.000000, patient_id: @patient2.id, patient: @patient2, measure: @measure)
     ir2.save!
     @patient2.save!
     @augmented_patient2 = { 'original_patient_id' => @patient2.id, 'medical_record_number' => '098718e0-4d42-0135-8680-12999b0ed66f',
                             'first' => %w[Ivan Ivan], 'last' => %w[Mcguire Mcguirn], :gender => %w[M F] }
 
     @patient3 = Patient.new(givenNames: ['Joe'], familyName: 'Mcguire', extendedData: { 'medical_record_number' => '298718e0-4d42-0135-8680-12999b0ed66f' })
-    ir3 = QDM::IndividualResult.new(IPP: 1.000000, patient_id: @patient3.id)
+    ir3 = QDM::IndividualResult.new(IPP: 1.000000, patient_id: @patient3.id, patient: @patient3, measure: @measure)
     ir3.save!
     @patient3.save!
     @augmented_patient3 = { 'original_patient_id' => @patient3.id, 'medical_record_number' => '298718e0-4d42-0135-8680-12999b0ed66f',

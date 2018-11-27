@@ -9,8 +9,9 @@ AllCops:
     - config/initializers/*
     - 'vendor/**/*'
     - 'lib/tasks/cucumber.rake'
+    - '**/*'
   Include:
-    - 'test/**/*_test.rb'
+    #- 'test/**/*_test.rb'
 Rails:
   Enabled: true
 Rails/HasAndBelongsToMany:
