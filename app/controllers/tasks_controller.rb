@@ -35,9 +35,9 @@ class TasksController < ApplicationController
   end
 
   def good_results
-    redirect_back(fallback_location: root_path) && return unless Settings.current.enable_debug_features
+    redirect_back(:fallback_location => root_path) && return unless Settings.current.enable_debug_features
     task_type = @task._type
-    redirect_back(fallback_location: root_path) && return if %w[C3Cat1Task C3Cat3Task].include? task_type
+    redirect_back(:fallback_location => root_path) && return if %w[C3Cat1Task C3Cat3Task].include? task_type
 
     file_type = if %w[C1Task Cat1FilterTask].include? task_type
                   'zip'

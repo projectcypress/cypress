@@ -185,7 +185,7 @@ class VendorCachingTest < CachingTest
   end
 
   def test_adding_passing_then_failing_execution_changes_vendor_status
-    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+    user = User.create(:email => 'vendor@test.com', :password => 'TestTest!', :password_confirmation => 'TestTest!', :terms_and_conditions => '1')
     test_execution = TestExecution.all.first
     test_execution.update(:state => :passed)
     user.test_executions << test_execution

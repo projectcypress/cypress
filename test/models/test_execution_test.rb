@@ -86,13 +86,13 @@ class TestExecutionTest < ActiveSupport::TestCase
   end
 
   def test_executions_pending
-    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+    user = User.create(:email => 'vendor@test.com', :password => 'TestTest!', :password_confirmation => 'TestTest!', :terms_and_conditions => '1')
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     vendor = Vendor.create!(:name => "my vendor #{rand}")
     product = vendor.products.create!(:name => "my product #{rand}", :measure_ids => measure_ids, :bundle_id => @bundle.id, :c1_test => true,
                                       :c3_test => true)
     test = product.product_tests.build({ :name => "measure test for measure #{measure_ids.first}", :measure_ids => measure_ids }, MeasureTest)
-    test.generate_provider()
+    test.generate_provider
     test.save!
     c1_task = test.tasks.create!({}, C1Task)
     c3_task = test.tasks.create!({}, C3Cat1Task)

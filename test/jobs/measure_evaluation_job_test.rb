@@ -26,7 +26,7 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
     assert_enqueued_jobs 0
     perform_enqueued_jobs do
       ptest = @product.product_tests.build({ name: 'test_for_measure_job_calculation',
-                                              measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+                                             measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
       ptest.generate_provider
       ptest.save!
       assert_performed_jobs 1
@@ -40,7 +40,7 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
     assert_enqueued_jobs 0
     perform_enqueued_jobs do
       ptest = @product.product_tests.build({ name: 'test_for_measure_job_calculation',
-                                              measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+                                             measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
       ptest.generate_provider
       ptest.save!
       task = ptest.tasks.create({})

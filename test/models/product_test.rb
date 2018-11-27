@@ -148,10 +148,10 @@ class ProducTest < ActiveSupport::TestCase
   def test_update_with_measure_tests_creates_measure_tests_if_c2_selected
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     product = @vendor.products.new
-    product.name = "test name"
+    product.name = 'test name'
     product.bundle = @bundle
     product.c1_test = true
-    params = {vendor: @vendor, name: "my product #{rand}", c2_test: true, measure_ids: measure_ids, bundle_id: @bundle.id}
+    params = { vendor: @vendor, name: "my product #{rand}", c2_test: true, measure_ids: measure_ids, bundle_id: @bundle.id }
     # This fails because there is no provider when update is called through this function
     # TODO: either provide provider, or generate in the called method
     product.update_with_measure_tests(params)

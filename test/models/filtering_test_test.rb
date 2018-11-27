@@ -68,7 +68,7 @@ class FilteringTestTest < ActiveJob::TestCase
     test = @product.product_tests.create!({ name: 'test_for_measure_1a',
                                             measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                                             options: { 'filters' => {} } }, FilteringTest)
-    
+
     test_executions = test.tasks.find_by(_type: 'Cat1FilterTask').test_executions.build(:state => :passed)
     user.test_executions << test_executions
     test_executions.save!

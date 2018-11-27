@@ -38,11 +38,11 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   def setup_measure_tests
     @product.product_tests.build({ name: 'test_product_test_name_1',
-                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest).generate_provider()
-    @product.save!                               
+                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest).generate_provider
+    @product.save!
     @product.product_tests.build({ name: 'test_product_test_name_2',
-                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest).generate_provider()
-    @product.save!                               
+                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest).generate_provider
+    @product.save!
     @product.product_tests.measure_tests.each do |test|
       test.tasks.build({}, C1Task)
       test.tasks.build({}, C2Task)
@@ -397,8 +397,8 @@ class VendorsHelperTest < ActiveJob::TestCase
       checklist_test.checked_criteria.first.completed = true
       checklist_test.save
     end
-    assert_changes_cache_key { |product| product.product_tests.measure_tests.find_by(:name => 'test_product_test_name_2').tasks.c1_task.test_executions.create({:user => @user}) }
-    assert_changes_cache_key { |product| product.product_tests.filtering_tests.find_by(:name => 'Filter Test 1').tasks.cat1_filter_task.test_executions.create({:user => @user}) }
+    assert_changes_cache_key { |product| product.product_tests.measure_tests.find_by(:name => 'test_product_test_name_2').tasks.c1_task.test_executions.create(:user => @user) }
+    assert_changes_cache_key { |product| product.product_tests.filtering_tests.find_by(:name => 'Filter Test 1').tasks.cat1_filter_task.test_executions.create(:user => @user) }
   end
 
   def assert_changes_cache_key

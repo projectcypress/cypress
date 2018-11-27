@@ -30,7 +30,7 @@ class ProductTestTest < ActiveJob::TestCase
                                     measure_ids: [measure_id])
     product.save!
     measure_test = product.product_tests.build({ name: "my measure test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
-    measure_test.generate_provider()
+    measure_test.generate_provider
     measure_test.save!
     create_test_executions_with_state(measure_test, :passed)
     assert_equal 'passing', measure_test.status
@@ -66,10 +66,10 @@ class ProductTestTest < ActiveJob::TestCase
       # create tests with same seed
       seed = Random.new_seed
       test1 = @product.product_tests.build({ :name => 'mtest', :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                            :bundle_id => @bundle.id, :rand_seed => seed }, MeasureTest)
+                                             :bundle_id => @bundle.id, :rand_seed => seed }, MeasureTest)
       test1.generate_provider
       test2 = @product.product_tests.build({ :name => 'mtest', :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                            :bundle_id => @bundle.id, :rand_seed => seed }, MeasureTest)
+                                             :bundle_id => @bundle.id, :rand_seed => seed }, MeasureTest)
       test2.generate_provider
       assert_equal test1.rand_seed, test2.rand_seed, 'random repeatability error: random seeds don\'t match'
     end
@@ -138,7 +138,7 @@ class ProductTestTest < ActiveJob::TestCase
   end
 
   def create_test_executions_with_state(product_test, state)
-    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+    user = User.create(:email => 'vendor@test.com', :password => 'TestTest!', :password_confirmation => 'TestTest!', :terms_and_conditions => '1')
     product_test.tasks.each do |task|
       test_execution = task.test_executions.build(:state => state)
       user.test_executions << test_execution

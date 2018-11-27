@@ -37,7 +37,7 @@ class MeasureTestTest < ActiveJob::TestCase
       product = @vendor.products.create(name: 'test_product', c1_test: true, randomize_patients: true, duplicate_patients: true,
                                         bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
       pt = product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                        bundle_id: @bundle.id }, MeasureTest)
+                                         bundle_id: @bundle.id }, MeasureTest)
       pt.generate_provider
       pt.create_tasks
       assert pt.tasks.c1_task, 'product test should have a c1_task'
@@ -63,7 +63,7 @@ class MeasureTestTest < ActiveJob::TestCase
                                         bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
       assert_enqueued_jobs 0
       pt = product.product_tests.build({ name: 'test_for_measure_1a', bundle_id: @bundle.id,
-                                        measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+                                         measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
       pt.generate_provider
       assert pt.valid?, 'product test should be valid with product, name, and measure_id'
       assert pt.save, 'should be able to save valid product test'

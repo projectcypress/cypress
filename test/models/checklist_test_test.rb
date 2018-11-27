@@ -23,7 +23,7 @@ class ChecklistTestTest < ActiveJob::TestCase
     @product.measure_ids << 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
     @product.save!
     @product.measure_ids.each do |measure_id|
-      #@product.product_tests.create!({ name: "measure test with measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
+      # @product.product_tests.create!({ name: "measure test with measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
       @product.product_tests.build({ name: "measure test with measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest).generate_provider
     end
     previous_num_checklist_measures = CAT1_CONFIG['number_of_checklist_measures']
@@ -154,7 +154,7 @@ class ChecklistTestTest < ActiveJob::TestCase
   end
 
   def test_build_execution_errors_for_incomplete_checked_criteria
-    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+    user = User.create(:email => 'vendor@test.com', :password => 'TestTest!', :password_confirmation => 'TestTest!', :terms_and_conditions => '1')
     @test.create_checked_criteria
     task = @test.tasks.create({}, C1ChecklistTask)
 

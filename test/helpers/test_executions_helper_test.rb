@@ -30,7 +30,7 @@ class TestExecutionHelper < ActiveSupport::TestCase
     product = @vendor.products.create!(name: 'test_product_name', c1_test: c1, c2_test: c2, c3_test: c3, c4_test: c4,
                                        measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: @bundle.id)
     @product_test = product.product_tests.build({ name: 'test_measure_test_name', cms_id: 'TEST_CMSID',
-                                                    measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+                                                  measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
     @product_test.generate_provider
     @product_test.save!
     @f_test = product.product_tests.create!({ name: 'test_filtering_test_name', cms_id: 'TEST_CMSID',
@@ -90,7 +90,7 @@ class TestExecutionHelper < ActiveSupport::TestCase
     setup_product_tests(true, true, false, true, filt1: 'val1')
     c1_task = @product_test.tasks.find_by(_type: 'C1Task')
 
-    execution = c1_task.test_executions.create!(:user=>@user)
+    execution = c1_task.test_executions.create!(::user: @user)
     execution.execution_errors.create(:message => 'qrda error 1', :msg_type => :error, :validator_type => :xml_validation)
     execution.execution_errors.create(:message => 'result error 1', :msg_type => :error, :validator_type => :result_validation)
     execution.execution_errors.create(:message => 'result error 2', :msg_type => :error, :validator_type => :result_validation)

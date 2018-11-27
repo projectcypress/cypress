@@ -11,7 +11,7 @@ class ProductsHelperTest < ActiveJob::TestCase
     @user.save!
     @vendor = FactoryBot.create(:vendor)
     @product = @vendor.products.create!(name: 'test_product', c1_test: true, c2_test: true, c3_test: true, c4_test: true, bundle_id: @bundle.id,
-                                       randomize_patients: false, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+                                        randomize_patients: false, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
     setup_checklist_test
     setup_measure_tests
     setup_filtering_tests
@@ -255,7 +255,7 @@ class ProductsHelperTest < ActiveJob::TestCase
 
   def build_tasks_with_test_execution_states(states, product_test = nil)
     tasks = []
-    if product_test == nil
+    if product_test.nil?
       product = Product.new
       measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
       # product test is ready, task is pending
