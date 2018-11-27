@@ -91,27 +91,20 @@ class TestExecutionTest < ActiveSupport::TestCase
     vendor = Vendor.create!(name: "my vendor #{rand}")
     product = vendor.products.create!(name: "my product #{rand}", measure_ids: measure_ids, bundle_id: @bundle.id, c1_test: true,
                                       c3_test: true)
-    test = product.product_tests.build({ name: "measure test for measure #{measure_ids.first}", measure_ids: measure_ids }, MeasureTest)
-    test.save!
-    c1_task = test.tasks.create!({}, C1Task)
-    c3_task = test.tasks.create!({}, C3Cat1Task)
-
-    c1_execution = c1_task.test_executions.build(state: :pending)
-    user.test_executions << c1_execution
-    c1_execution.save!
+    test = product.product_tests.create({ name: "measure test for measure #{measure_ids.first}", measure_ids: measure_ids }, MeasureTest)
+    c1_task = test.tasks.create({}, C1Task)
+    c3_task = test.tasks.create({}, C3Cat1Task)
+    c1_execution = c1_task.test_executions.create(state: :pending, user: user)
     assert_equal true, c1_execution.executions_pending?
 
-    c1_execution.state = :passed
+    c1_execution.update(state: :passed)
     assert_equal false, c1_execution.executions_pending?
 
-    c3_execution = c3_task.test_executions.build(state: :pending, sibling_execution_id: c1_execution.id)
-    user.test_executions << c3_execution
-    c3_execution.save!
+    c3_execution = c3_task.test_executions.create(state: :pending, sibling_execution_id: c1_execution.id, user: user)
     c1_execution.sibling_execution_id = c3_execution.id
     assert_equal true, c1_execution.executions_pending?
 
-    c3_execution.state = :failed
-    c3_execution.save!
+    c3_execution.update(state: :failed)
     assert_equal false, c1_execution.executions_pending?
   end
 end

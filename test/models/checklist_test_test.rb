@@ -70,22 +70,15 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal 'passing', checklist_test.status
 
     # add a c1 checklist task with test execution
-    @product.c3_test = true
-    @product.save!
+    @product.update(c3_test: true)
     assert_equal 'incomplete', checklist_test.status
     task = checklist_test.tasks.create!({}, C1ChecklistTask)
     assert_equal 'incomplete', checklist_test.status
-    test_executions_pending = task.test_executions.build(state: :pending)
-    user.test_executions << test_executions_pending
-    test_executions_pending.save!
+    task.test_executions.create(state: :pending, user: user)
     assert_equal 'incomplete', checklist_test.status
-    test_executions_passing = task.test_executions.build(state: :passed)
-    user.test_executions << test_executions_passing
-    test_executions_passing.save!
+    task.test_executions.create(state: :passed, user: user)
     assert_equal 'passing', checklist_test.status
-    test_executions_failing = task.test_executions.build(state: :failed)
-    user.test_executions << test_executions_failing
-    test_executions_failing.save!
+    task.test_executions.create(state: :failed, user: user)
     assert_equal 'failing', checklist_test.status
   end
 

@@ -71,6 +71,7 @@ module Validators
       # if the source criteria does not have a reason, the whole document is returned to search
       # if the source criteria has a reason, return the list of nodes with the correction reason value set
       return false, [@file] unless source_criteria_has_reason(@checked_criteria.attribute_index)
+
       # get valueset from the negation code list or field_values
       [true, @file.xpath("//cda:templateId[@root='2.16.840.1.113883.10.20.24.3.88']
         /..//*[@code='#{@checked_criteria.attribute_code}']")]
@@ -79,6 +80,7 @@ module Validators
     # searches all nodes to find ones with the correct template, valueset and code
     def find_template_with_code(nodes, reason_template, negation_valueset = nil)
       return find_reason_code(nodes, negation_valueset) if reason_template
+
       # if it isn't a reason, the file node is the first
       codenodes = nodes.first.xpath("//cda:templateId[@root='#{@template}']/..//*[@code='#{@checked_criteria.code}']")
       codenodes || []

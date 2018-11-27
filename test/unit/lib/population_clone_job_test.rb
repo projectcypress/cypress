@@ -81,8 +81,8 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     pcj1.perform
 
     # Get the patients that resulted from the cloning in the PopulationCloneJobs
-    patient1_no_shift_clone  = Patient.where('extendedData.original_patient': patient1_no_shift.id).first
-    patient2_randomized_no_shift_clone  = Patient.where('extendedData.original_patient': patient2_no_shift.id).first
+    patient1_no_shift_clone = Patient.where('extendedData.original_patient': patient1_no_shift.id).first
+    patient2_randomized_no_shift_clone = Patient.where('extendedData.original_patient': patient2_no_shift.id).first
 
     # assert patient1_no_shift_clone has not been shifted
     assert_equal patient1_no_shift_clone.birthDatetime, patient1_no_shift_clone.birthDatetime
@@ -111,8 +111,8 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
                                            'randomization_ids' => [patient2_shift.id.to_s])
     pcj2.perform
     # Get the patients that resulted from the cloning in the PopulationCloneJobs
-    patient1_shift_clone  = Patient.where('extendedData.original_patient': patient1_shift.id).first
-    patient2_randomized_shift_clone  = Patient.where('extendedData.original_patient': patient2_shift.id).first
+    patient1_shift_clone = Patient.where('extendedData.original_patient': patient1_shift.id).first
+    patient2_randomized_shift_clone = Patient.where('extendedData.original_patient': patient2_shift.id).first
 
     # assert patient1_shift_clone has been shifted by 2 years which is the offset in the bundle associated with the product test
     assert_equal Time.zone.at(patient1_shift_clone.birthDatetime).year, Time.zone.at(patient1_shift.birthDatetime).year + 2
@@ -120,7 +120,6 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     assert_equal Time.zone.at(patient2_randomized_shift_clone.birthDatetime).year, Time.zone.at(patient2_shift.birthDatetime).year + 2
     # assert patient2_randomized_shift_clone randomized
     assert_not_equal Time.zone.at(patient2_randomized_shift_clone.birthDatetime).day, Time.zone.at(patient2_shift.birthDatetime).day
-
   end
 
   # def test_perform_two_patients_randomized_ids
