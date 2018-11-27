@@ -62,6 +62,7 @@ module ChecklistTestsHelper
     vs = ValueSet.where(filter)
 
     return [] unless vs&.first
+
     vs.first.concepts.map { |con| [con.display_name, con.code] }
   end
 

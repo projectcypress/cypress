@@ -195,15 +195,13 @@ class ProducTest < ActiveSupport::TestCase
   def test_add_checklist_test_adds_tests_and_tasks_if_appropriate
     measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
     product = @vendor.products.create!(name: "my product #{rand}", measure_ids: [measure_id], c2_test: true, bundle_id: @bundle.id)
-    product.product_tests.build({ name: "my measure test #{rand}", measure_ids: [measure_id] }, MeasureTest)
-    product.save!
+    product.product_tests.create!({ name: "my measure test #{rand}", measure_ids: [measure_id] }, MeasureTest)
     # should create no product tests if c1 was not selected
     product.add_checklist_test
     assert_equal 0, product.product_tests.checklist_tests.count
 
     # should create only a c1_checklist_task if only c1 and not c3 is selected
-    product.c1_test = true
-    product.save!
+    product.update(c1_test: true)
     product.add_checklist_test
     assert_equal 1, product.product_tests.checklist_tests.count
     assert_equal 1, product.product_tests.checklist_tests.first.tasks.count
@@ -213,8 +211,7 @@ class ProducTest < ActiveSupport::TestCase
     assert_equal 0, product.product_tests.checklist_tests.count
 
     # should create c1_checklist_task and c3_checklist_task if both c1 and c3 are selected
-    product.c3_test = true
-    product.save!
+    product.update(c3_test: true)
     product.add_checklist_test
     assert_equal 1, product.product_tests.checklist_tests.count
     assert_equal 2, product.product_tests.checklist_tests.first.tasks.count
@@ -257,13 +254,9 @@ class ProducTest < ActiveSupport::TestCase
     assert_equal 'incomplete', product.status
 
     # if product does not need to certify for c1, than product should pass
-    product.c1_test = nil
-    product.c2_test = true
-    product.save!
+    product.update(c1_test: nil, c2_test: true)
     assert_equal 'passing', product.status
-    product.c1_test = true
-    product.c2_test = nil
-    product.save!
+    product.update(c1_test: true, c2_test: nil)
 
     # adding a complete checklist test will make product pass
     create_complete_checklist_test_for_product(product, product.measure_ids.first)

@@ -49,25 +49,19 @@ class ProductTestTest < ActiveJob::TestCase
 
   def test_repeatability_with_random_seed
     # setup product
-    @product.c1_test = true
-    @product.c2_test = true
-    @product.c3_test = true
-    @product.c4_test = true
-    @product.randomize_patients = true
-    @product.duplicate_patients = true
-    @product.allow_duplicate_names = true
-    @product.measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
-    @product.save!
+    measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
+    @product.update(c1_test: true, c2_test: true, c3_test: true, c4_test: true, randomize_patients: true,
+                    duplicate_patients: true, allow_duplicate_names: true, measure_ids: measure_ids)
 
     test1 = {}
     test2 = {}
     perform_enqueued_jobs do
       # create tests with same seed
       seed = Random.new_seed
-      test1 = @product.product_tests.create!({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                               bundle_id: @bundle.id, rand_seed: seed }, MeasureTest)
-      test2 = @product.product_tests.create!({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                               bundle_id: @bundle.id, rand_seed: seed }, MeasureTest)
+      test1 = @product.product_tests.create({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                              bundle_id: @bundle.id, rand_seed: seed }, MeasureTest)
+      test2 = @product.product_tests.create({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                              bundle_id: @bundle.id, rand_seed: seed }, MeasureTest)
       assert_equal test1.rand_seed, test2.rand_seed, 'random repeatability error: random seeds don\'t match'
     end
     compare_product_tests(test1, test2)
@@ -140,9 +134,7 @@ class ProductTestTest < ActiveJob::TestCase
   def create_test_executions_with_state(product_test, state)
     user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     product_test.tasks.each do |task|
-      test_execution = task.test_executions.build(state: state)
-      user.test_executions << test_execution
-      test_execution.save!
+      task.test_executions.create(state: state, user: user)
     end
   end
 end

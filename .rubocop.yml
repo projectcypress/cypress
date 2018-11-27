@@ -11,6 +11,8 @@ AllCops:
     - 'lib/tasks/cucumber.rake'
 Rails:
   Enabled: true
+Rails/FindEach: # Find_each does not work with mongoid
+  Enabled: false
 Rails/HasAndBelongsToMany:
   Exclude:
     - 'app/models/role.rb'
