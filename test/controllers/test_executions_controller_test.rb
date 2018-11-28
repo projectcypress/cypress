@@ -124,7 +124,8 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
     test 'should be able to delete test execution if incorrect task id' do
       for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-        te = @first_c2_task.test_executions.create
+        te = @first_c2_task.test_executions.build
+        @user.test_executions << te
         delete :destroy, params: { task_id: 'bad_id', id: te.id }
         assert_response 204, 'response should be No Content on test_execution destroy'
         assert_nil TestExecution.where(_id: te.id).first, 'Should have deleted test execution'
@@ -505,8 +506,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
         perform_enqueued_jobs do
           @first_c2_task.product_test = @first_product.product_tests.build({ :name => 'mtest2',
                                                                              :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
-          @first_c2_task.provider = Provider.generate_provider(measure_type: Measure.first.type)
-          @first_c2_task.product_test.save!
+          @first_c2_task.product_test.generate_provider
           @first_c2_task.save!
           MeasureEvaluationJob.perform_now(@first_c2_task.product_test, {})
           post :create, :params => { :format => :xml, :task_id => @first_c2_task.id, :results => xml_upload }
