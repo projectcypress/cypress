@@ -63,7 +63,7 @@ class RecordsController < ApplicationController
         send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "bundle_#{bundle.version}_mpl.zip"
       end
     else
-      render :nothing => true, :status => :bad_request
+      render body: nil, :status => :bad_request
     end
   end
 
