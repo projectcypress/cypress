@@ -1,6 +1,6 @@
 require 'test_helper'
 class MeasuresControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   setup do
     FactoryBot.create(:static_bundle)

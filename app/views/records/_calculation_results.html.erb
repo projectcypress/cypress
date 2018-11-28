@@ -6,7 +6,7 @@
       <td><%= link_to full_name(r), bundle_record_path(bundle, r) %></td>
     <% end %>
     <% if product_test && !hide_patient_calculation? %>
-      <% original_patient = r.bundle.patients.find(r.extendedData['original_patient']) %>
+      <% original_patient = r.original_patient %>
       <td> <%="#{full_name(original_patient)}"%> </td>
     <%end%>
     <td><%= display_time(r.birthDatetime) %></td>

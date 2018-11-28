@@ -5,12 +5,35 @@ class AttributeExtractorTest < ActiveSupport::TestCase
     @object.extend(Validators::AttributeExtractor)
   end
 
-  def test_start_datetime
+  def test_encounter_order_author_datetime
     source_criteria = {  'title' => 'Decision to Admit to Hospital Inpatient',
+                         'definition' => 'encounter',
                          'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.295',
                          'attributes' => [{ 'attribute_name' => 'authorDatetime', 'attribute_valueset' => nil }] }
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_order_start_datetime.xml')).read
     code = '19951005'
+    doc = get_document(file)
+    assert @object.find_attribute_values(doc.xpath("//*[@code='#{code}']").first.parent, code, source_criteria, 0)
+  end
+
+  def test_communication_from_provider_to_provider
+    source_criteria = {  'title' => 'Consultant Report',
+                         'definition' => 'communication_from_provider_to_provider',
+                         'code_list_id' => '2.16.840.1.113883.3.464.1003.121.12.1006',
+                         'attributes' => [{ 'attribute_name' => 'authorDatetime', 'attribute_valueset' => nil }] }
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'communication_fulfills.xml')).read
+    code = '371530004'
+    doc = get_document(file)
+    assert @object.find_attribute_values(doc.xpath("//*[@code='#{code}']").first.parent, code, source_criteria, 0)
+  end
+
+  def test_diagnosis
+    source_criteria = {  'title' => 'Unilateral Amputation Below Or Above Knee, Unspecified Laterality',
+                         'definition' => 'diagnosis',
+                         'code_list_id' => '2.16.840.1.113883.3.464.1003.113.12.1059',
+                         'attributes' => [{ 'attribute_name' => 'prevalencePeriod', 'attribute_valueset' => nil }] }
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'diagnosis_anatomical_location.xml')).read
+    code = '298049006'
     doc = get_document(file)
     assert @object.find_attribute_values(doc.xpath("//*[@code='#{code}']").first.parent, code, source_criteria, 0)
   end

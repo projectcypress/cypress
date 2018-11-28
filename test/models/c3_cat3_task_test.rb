@@ -20,7 +20,7 @@ class C3Cat3TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = @task.execute(xml, @user, nil)
       te.reload
-      assert_equal 0, te.execution_errors.length, 'should have no errors for the invalid measure ids, this is a c2 validaton'
+      assert_equal 0, te.execution_errors.where(:msg_type => :error).length, 'should have no errors for the invalid measure ids, this is a c2 validaton'
     end
   end
 
@@ -29,7 +29,7 @@ class C3Cat3TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = @task.execute(xml, @user, nil)
       te.reload
-      assert_equal 1, te.execution_errors.length, 'should have 1 error for the invalid performance rate'
+      assert_equal 1, te.execution_errors.where(:msg_type => :error).length, 'should have 1 error for the invalid performance rate'
       msg = 'Reported Performance Rate of 0.5 for Numerator D285D0D1-0AB5-4228-A5A3-F3DE5952F4AF does not match expected value of 0.0.'
       assert_equal msg, te.execution_errors[0].message
     end
@@ -44,9 +44,10 @@ class C3Cat3TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = @task.execute(xml, @user, nil)
       te.reload
-      assert_equal 2, te.execution_errors.length, 'should have 2 errors for the invalid reporting period'
-      assert_equal 'Reported Measurement Period should start on 20150101', te.execution_errors[0].message
-      assert_equal 'Reported Measurement Period should end on 20151231', te.execution_errors[1].message
+      execution_errors = te.execution_errors.where(:msg_type => :error)
+      assert_equal 2, execution_errors.length, 'should have 2 errors for the invalid reporting period'
+      assert_equal 'Reported Measurement Period should start on 20150101', execution_errors[0].message
+      assert_equal 'Reported Measurement Period should end on 20151231', execution_errors[1].message
     end
   end
 end

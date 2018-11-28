@@ -71,11 +71,6 @@ class ProductsHelperTest < ActiveJob::TestCase
     # @product.product_tests.filtering_tests.each { |ft| assert ft.patients == patients }
   end
 
-  def test_all_records_for_product
-    records = all_records_for_product(@product)
-    assert_equal 0, records.length
-  end
-
   def test_should_show_product_tests_tab
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     vendor = @product.vendor

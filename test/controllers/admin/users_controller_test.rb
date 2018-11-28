@@ -1,7 +1,7 @@
 require 'test_helper'
 module Admin
   class UsersControllerTest < ActionController::TestCase
-    include Devise::TestHelpers
+    include Devise::Test::ControllerHelpers
 
     def setup
       FactoryBot.create(:admin_user)

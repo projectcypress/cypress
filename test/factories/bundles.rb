@@ -7,14 +7,14 @@ FactoryBot.define do
     factory :static_bundle do
       entry = Rails.root.join('test', 'fixtures', 'artifacts', 'cms127v7.json')
       source_measure = JSON.parse(File.read(entry), max_nesting: 100)
-      active true
-      done_importing true
-      name 'Static Bundle'
-      title 'Static Bundle'
-      version '2018.0.0.2'
+      active { true }
+      done_importing { true }
+      name { 'Static Bundle' }
+      title { 'Static Bundle' }
+      version { '2018.0.0.2' }
       extensions { %w[map_reduce_utils hqmf_utils] }
-      measure_period_start 1_483_228_800 # Jan 1 2017
-      effective_date 1_514_764_799 # Dec 31 2017
+      measure_period_start { 1_483_228_800 } # Jan 1 2017
+      effective_date { 1_514_764_799 } # Dec 31 2017
 
       after(:create) do |bundle|
         # Load the extensions included in the bundle from the filesystem into mongo

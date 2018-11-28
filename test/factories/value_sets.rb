@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :value_set, class: ValueSet do
     transient do
-      seq_id 1
+      seq_id { 1 }
     end
 
     display_name { "Value Set Name #{seq_id}" }

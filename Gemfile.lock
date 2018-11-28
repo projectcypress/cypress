@@ -188,6 +188,7 @@ GEM
       railties (>= 4, < 6)
     cucumber-tag_expressions (1.1.1)
     cucumber-wire (0.0.1)
+    daemons (1.2.6)
     database_cleaner (1.7.0)
     declarative (0.0.10)
     declarative-option (0.1.0)
@@ -265,7 +266,7 @@ GEM
       addressable (~> 2.3)
     local_time (2.0.1)
     log4r (1.1.10)
-    loofah (2.2.2)
+    loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     macaddr (1.7.1)
@@ -290,7 +291,6 @@ GEM
       ruby-progressbar
     mocha (1.7.0)
       metaclass (~> 0.0.1)
-    modernizr-rails (2.7.1)
     mongo (2.6.2)
       bson (>= 4.3.0, < 5.0.0)
     mongoid (6.4.2)
@@ -523,6 +523,7 @@ DEPENDENCIES
   cqm-validators!
   cucumber (~> 3.0.2)
   cucumber-rails
+  daemons
   database_cleaner
   delayed_job_mongoid (~> 2.3.0)
   devise
@@ -542,7 +543,6 @@ DEPENDENCIES
   minitest-rails
   minitest-reporters
   mocha
-  modernizr-rails (~> 2.7.1)
   mongoid (~> 6.4.2)
   mustache
   nested_form

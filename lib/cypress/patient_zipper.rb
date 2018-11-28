@@ -41,8 +41,12 @@ module Cypress
     end
 
     def export(patient)
-      cms_compatibility = patient.product_test&.product&.c3_test
-      options = { provider: patient.provider, submission_program: cms_compatibility, start_time: start_time, end_time: end_time }
+      cat1_submission_program = if patient.product_test&.product&.c3_test
+                                  patient.product_test&.measures&.first&.type == 'eh' ? 'HQR_IQR' : false
+                                else
+                                  false
+                                end
+      options = { provider: patient.provider, submission_program: cat1_submission_program, start_time: start_time, end_time: end_time }
       case patient.bundle.qrda_version
       when 'r5'
         Qrda1R5.new(patient, measures, options).render

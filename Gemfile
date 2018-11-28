@@ -33,7 +33,6 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'font-awesome-sass', '~> 5.0.13'
 gem 'jquery-rails', '~> 4.3.3'
 gem 'jquery-ui-rails', '~> 5.0.5'
-gem 'modernizr-rails', '~> 2.7.1'
 
 # Add pagination support
 gem 'kaminari-mongoid'
@@ -94,6 +93,8 @@ gem 'rolify'
 gem 'bunny'
 
 gem 'rest-client', '~>1.8.0'
+
+gem 'daemons'
 
 group :development, :test do
   gem 'rubocop'

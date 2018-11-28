@@ -3,8 +3,8 @@ FactoryBot.define do
     sequence(:name) { |i| "Product Test Name #{i}" }
 
     factory :static_filter_test do
-      name 'Static Result'
-      _type 'FilteringTest'
+      name { 'Static Result' }
+      _type { 'FilteringTest' }
       options { { 'filters' => { 'genders' => ['F'] } } }
       expected_result = { 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE' =>
                           { 'measure_id' => 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE',
@@ -36,7 +36,7 @@ FactoryBot.define do
                                                      'DENEX' => {} } } }
       expected_results { expected_result }
 
-      measure_ids ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
+      measure_ids { ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }
       association :product, :factory => :product_static_bundle
       after(:create) do |pt|
         extended_data = { 'correlation_id' => pt.id,

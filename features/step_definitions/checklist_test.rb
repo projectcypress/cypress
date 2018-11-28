@@ -26,6 +26,14 @@ And(/^the user views the record sample tab$/) do
   page.find("[href='##{html_id}']").click
 end
 
+And(/^the user picks (.*) as a replacement for the first data criteria$/) do |criteria_text|
+  page.select(criteria_text, from: 'product_test_checked_criteria_attributes_0_replacement_data_criteria')
+end
+
+And(/^the user saves the record sample test$/) do
+  page.find("input[value='Save']").click
+end
+
 # # # # # # # #
 #   W H E N   #
 # # # # # # # #
@@ -47,8 +55,8 @@ end
 
 #   A N D   #
 
-When(/^the user views that checklist test$/) do
-  page.find("input[type = submit][value = 'View Test']").click
+When(/^the user views that record sample test$/) do
+  page.find("input[type = submit][value = 'View Record Sample']").click
 end
 
 And(/^the user deletes the checklist test$/) do
@@ -133,6 +141,16 @@ Then(/^the user should see a button to revisit the checklist test$/) do
   # assert page.has_selector?("input[type = submit][value = 'View Test']")
 end
 
+Then(/^the user should (not )?see a button to edit the checklist test$/) do |not_present|
+  selector_presence = page.has_selector?('#modifyrecord')
+  puts not_present
+  if not_present
+    assert !selector_presence
+  else
+    assert selector_presence
+  end
+end
+
 Then(/^the user should be able to generate another checklist test$/) do
   steps %( And the user views the record sample tab )
   assert_equal false, page.has_selector?("input[type = submit][value = 'View Test']")
@@ -194,4 +212,8 @@ Then(/^the user should see the individual measure checklist page for measure (.*
   page.assert_text(measure.cms_id)
   page.assert_text(measure.name)
   page.assert_text 'Return to Record Sample'
+end
+
+Then(/^the (.*) data criteria should exist$/) do |criteria_text|
+  page.has_text?(criteria_text)
 end

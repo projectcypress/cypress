@@ -115,24 +115,25 @@ module Cypress
         patient.dataElements.each do |de|
           oid_hash[{ 'codes' => de['dataElementCodes'].map { |dec| dec['code'] }.flatten, 'start_time' => de['authorDatetime'].to_i }.hash] = de.id
         end
-        data_element['relatedTo'].each do |ref|
-          ref_array << oid_hash[ref.hash]
+        data_element[:relatedTo].each do |ref|
+          ref_array << oid_hash[{ 'codes' => ref['codes'], 'start_time' => ref['start_time'] }.hash]
         end
-        data_element['relatedTo'] = ref_array
+        data_element.relatedTo = ref_array
       end
     end
 
     def self.unpack_and_store_results(zip, _type, bundle)
       zip.glob(File.join(SOURCE_ROOTS[:results], '*.json')).each do |entry|
         contents = unpack_json(entry)
-        contents.each do |document|
+
+        contents.map! do |document|
           # Replace ids in bundle, with ids created during import
           document['patient_id'] = @patient_id_hash[document['patient_id']]
           document['measure_id'] = @measure_id_hash[document['measure_id']]
-          document['extendedData'] = {}
-          document['extendedData']['correlation_id'] = bundle.id.to_s
-          Mongoid.default_client['qdm_individual_results'].insert_one(document)
+          document['extendedData'] = { 'correlation_id' => bundle.id.to_s }
+          document
         end
+        QDM::IndividualResult.collection.insert_many(contents)
       end
       puts "\rLoading: Results Complete          "
     end

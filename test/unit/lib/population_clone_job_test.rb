@@ -34,7 +34,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
 
   def test_assigns_default_provider
     # ids passed in should clone just the 1 record
-    sample_patient = Patient.all.sample
+    sample_patient = @pt.bundle.patients.sample
     pcj = Cypress::PopulationCloneJob.new('patient_ids' => [sample_patient.id],
                                           'test_id' => @pt.id,
                                           'randomization_ids' => [])
@@ -113,6 +113,24 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   #     assert_not_equal 'Rosa Vasquez', "#{record.first} #{record.last}"
   #   end
   # end
+
+  def test_perform_reconnect_reference
+    # Add an element with a reference to the first patient in the product test
+    patient_with_ref = @pt.bundle.patients.first
+    comm_with_ref = QDM::CommunicationFromPatientToProvider.new(dataElementCodes: [QDM::Code.new('336', '2.16.840.1.113883.6.96')])
+    comm_with_ref.relatedTo << patient_with_ref.dataElements[0].id
+    patient_with_ref.dataElements << comm_with_ref
+    patient_with_ref.save
+    pcj = Cypress::PopulationCloneJob.new('subset_id' => 'all',
+                                          'test_id' => @pt.id,
+                                          'patient_ids' => [patient_with_ref.id],
+                                          'randomize_demographics' => true)
+    pcj.perform
+    new_record_with_ref = Patient.where('extendedData.correlation_id': @pt.id, 'extendedData.original_patient': patient_with_ref.id).first
+    new_ref = new_record_with_ref.communications.first.relatedTo.first.value
+    original_ref = patient_with_ref.communications.first.relatedTo.first.value
+    assert_not_equal new_ref, original_ref
+  end
 
   def test_perform_randomized_races
     # Clone and ensure they have random races

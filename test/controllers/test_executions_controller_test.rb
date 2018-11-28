@@ -2,7 +2,7 @@ require 'test_helper'
 require 'api_test'
 
 class TestExecutionsControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
   include ActiveJob::TestHelper
   include ApiTest
   include TestExecutionsHelper

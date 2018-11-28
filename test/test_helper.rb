@@ -1,8 +1,4 @@
 require 'simplecov'
-SimpleCov.start 'rails'
-
-require 'codecov'
-SimpleCov.formatter = SimpleCov::Formatter::Codecov
 
 # Mongo::Logger.logger.level = Logger::WARN
 ENV['RAILS_ENV'] ||= 'test'

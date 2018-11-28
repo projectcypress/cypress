@@ -8,6 +8,35 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
                                       measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
   end
 
+  def test_can_use_sync_and_async_results
+    pt = @product.product_tests.build({ name: 'test_for_measure_1a', bundle_id: @bundle.id,
+                                        measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+    perform_enqueued_jobs do
+      pt.save
+      pt.reload
+      # clear out expected_results created with product test
+      pt.expected_results = nil
+
+      correlation_id = BSON::ObjectId.new.to_s
+      calc_job = Cypress::CqmExecutionCalc.new(pt.patients, pt.measures, pt.value_sets_by_oid, correlation_id,
+                                               'effectiveDateEnd': Time.at(pt.effective_date).in_time_zone.to_formatted_s(:number),
+                                               'effectiveDate': Time.at(pt.measure_period_start).in_time_zone.to_formatted_s(:number))
+      individual_results_from_sync_job = calc_job.execute
+
+      # calculate expected_results using individual results stored in database (don't pass in individual results)
+      MeasureEvaluationJob.perform_now(pt, {})
+      db_expected_results = pt.expected_results
+
+      pt.expected_results = nil
+
+      # calculate expected_results using individual results returned from sync_job (pass in individual results)
+      MeasureEvaluationJob.perform_now(pt, individual_results: individual_results_from_sync_job)
+      sync_job_expected_results = pt.expected_results
+
+      assert_equal db_expected_results, sync_job_expected_results
+    end
+  end
+
   def test_can_queue_product_test_job
     assert_enqueued_jobs 0
     MeasureEvaluationJob.perform_later(ProductTest.new(measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']), {})
