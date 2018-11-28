@@ -93,6 +93,20 @@ When(/^the user logs out$/) do
   page.click_link 'Log Out'
 end
 
+And(/^the user changes their email$/) do
+  page.fill_in 'user_email', :with => @user.email.next!
+  page.fill_in 'user_current_password', :with => @user.password
+  @user.save!
+end
+
+And(/^the user submits the edit user page$/) do
+  page.click_button 'Edit User'
+end
+
+Then(/^the user should be on the page with (.+) on it$/) do |page_text|
+  page.assert_text page_text
+end
+
 Then(/^the user should see an log in error message$/) do
   page.assert_text 'Invalid Email or password.'
 end
