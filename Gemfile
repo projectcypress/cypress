@@ -15,7 +15,7 @@ gem 'os'
 
 gem 'cql_qdm_patientapi'
 gem 'cqm-converter', '~> 0.3.6'
-gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'high_unbound_084'
+gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'qdm5.3'
 gem 'cqm-parsers', '~> 0.2.1'
 gem 'cqm-validators', '~> 0.1.0'
 gem 'health-data-standards', '~> 4.3.0'
