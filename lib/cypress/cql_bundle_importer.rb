@@ -122,14 +122,15 @@ module Cypress
     def self.unpack_and_store_results(zip, _type, bundle)
       zip.glob(File.join(SOURCE_ROOTS[:results], '*.json')).each do |entry|
         contents = unpack_json(entry)
-        contents.each do |document|
+
+        contents.map! do |document|
           # Replace ids in bundle, with ids created during import
           document['patient_id'] = @patient_id_hash[document['patient_id']]
           document['measure_id'] = @measure_id_hash[document['measure_id']]
-          document['extendedData'] = {}
-          document['extendedData']['correlation_id'] = bundle.id.to_s
-          Mongoid.default_client['qdm_individual_results'].insert_one(document)
+          document['extendedData'] = { 'correlation_id' => bundle.id.to_s }
+          document
         end
+        QDM::IndividualResult.collection.insert_many(contents)
       end
       puts "\rLoading: Results Complete          "
     end

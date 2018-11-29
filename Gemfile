@@ -15,7 +15,7 @@ gem 'os'
 
 gem 'cql_qdm_patientapi'
 gem 'cqm-converter', '~> 0.3.6'
-gem 'cqm-models', '~> 0.8.4'
+gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'qdm5.3'
 gem 'cqm-parsers', '~> 0.2.1'
 gem 'cqm-validators', '~> 0.1.0'
 gem 'health-data-standards', '~> 4.3.0'
@@ -96,6 +96,8 @@ gem 'mongoid_rails_migrations', :git => 'https://github.com/adacosta/mongoid_rai
 gem 'bunny'
 
 gem 'rest-client', '~>1.8.0'
+
+gem 'daemons'
 
 group :development, :test do
   gem 'rubocop', '~> 0.57.1', :require => false

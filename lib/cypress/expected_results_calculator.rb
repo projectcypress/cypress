@@ -33,7 +33,7 @@ module Cypress
         @measure_result_hash[measure.key] = {}
         measure_individual_results = nil
         # If individual_results are provided, use the results for the measure being aggregated
-        measure_individual_results = individual_results[measure.id.to_s].values if individual_results
+        measure_individual_results = individual_results.select { |res| res['measure_id'] == measure.id } if individual_results
         aggregate_results_for_measure(measure, measure_individual_results)
       end
       @measure_result_hash

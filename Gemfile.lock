@@ -22,6 +22,13 @@ GIT
       zip-zip
 
 GIT
+  remote: https://github.com/projecttacoma/cqm-models.git
+  revision: 48acb1cf9086d62d75122ec56203666c9d73124f
+  branch: qdm5.3
+  specs:
+    cqm-models (0.8.4)
+
+GIT
   remote: https://github.com/turbolinks/turbolinks-classic
   revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
   branch: master
@@ -32,36 +39,36 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (4.2.10)
-      actionpack (= 4.2.10)
-      actionview (= 4.2.10)
-      activejob (= 4.2.10)
+    actionmailer (4.2.11)
+      actionpack (= 4.2.11)
+      actionview (= 4.2.11)
+      activejob (= 4.2.11)
       mail (~> 2.5, >= 2.5.4)
       rails-dom-testing (~> 1.0, >= 1.0.5)
-    actionpack (4.2.10)
-      actionview (= 4.2.10)
-      activesupport (= 4.2.10)
+    actionpack (4.2.11)
+      actionview (= 4.2.11)
+      activesupport (= 4.2.11)
       rack (~> 1.6)
       rack-test (~> 0.6.2)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    actionview (4.2.10)
-      activesupport (= 4.2.10)
+    actionview (4.2.11)
+      activesupport (= 4.2.11)
       builder (~> 3.1)
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    activejob (4.2.10)
-      activesupport (= 4.2.10)
+    activejob (4.2.11)
+      activesupport (= 4.2.11)
       globalid (>= 0.3.0)
-    activemodel (4.2.10)
-      activesupport (= 4.2.10)
+    activemodel (4.2.11)
+      activesupport (= 4.2.11)
       builder (~> 3.1)
-    activerecord (4.2.10)
-      activemodel (= 4.2.10)
-      activesupport (= 4.2.10)
+    activerecord (4.2.11)
+      activemodel (= 4.2.11)
+      activesupport (= 4.2.11)
       arel (~> 6.0)
-    activesupport (4.2.10)
+    activesupport (4.2.11)
       i18n (~> 0.7)
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
@@ -140,7 +147,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.0.5)
+    concurrent-ruby (1.1.3)
     cql_qdm_patientapi (1.2.0)
       coffee-rails (~> 4.1)
       rails (~> 4.2)
@@ -153,7 +160,6 @@ GEM
       health-data-standards (>= 4.1.0)
       momentjs-rails
       sprockets
-    cqm-models (0.8.4)
     cqm-parsers (0.2.1)
       activesupport (~> 4.2.0)
       builder (~> 3.1)
@@ -194,6 +200,7 @@ GEM
       railties (>= 4, < 6)
     cucumber-tag_expressions (1.1.1)
     cucumber-wire (0.0.1)
+    daemons (1.2.6)
     database_cleaner (1.7.0)
     debug_inspector (0.0.3)
     declarative (0.0.10)
@@ -292,7 +299,7 @@ GEM
       nokogiri (>= 1.5.9)
     macaddr (1.7.1)
       systemu (~> 2.6.2)
-    mail (2.7.0)
+    mail (2.7.1)
       mini_mime (>= 0.1.1)
     memoist (0.9.3)
     metaclass (0.0.4)
@@ -363,16 +370,16 @@ GEM
     rack (1.6.11)
     rack-test (0.6.3)
       rack (>= 1.0)
-    rails (4.2.10)
-      actionmailer (= 4.2.10)
-      actionpack (= 4.2.10)
-      actionview (= 4.2.10)
-      activejob (= 4.2.10)
-      activemodel (= 4.2.10)
-      activerecord (= 4.2.10)
-      activesupport (= 4.2.10)
+    rails (4.2.11)
+      actionmailer (= 4.2.11)
+      actionpack (= 4.2.11)
+      actionview (= 4.2.11)
+      activejob (= 4.2.11)
+      activemodel (= 4.2.11)
+      activerecord (= 4.2.11)
+      activesupport (= 4.2.11)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 4.2.10)
+      railties (= 4.2.11)
       sprockets-rails
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
@@ -391,9 +398,9 @@ GEM
       json
       require_all (~> 2.0)
       ruby-progressbar
-    railties (4.2.10)
-      actionpack (= 4.2.10)
-      activesupport (= 4.2.10)
+    railties (4.2.11)
+      actionpack (= 4.2.11)
+      activesupport (= 4.2.11)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (3.0.0)
@@ -478,7 +485,7 @@ GEM
     test_xml (0.1.8)
       diffy (~> 3.0)
       nokogiri (>= 1.3.2)
-    thor (0.20.0)
+    thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.8)
     tzinfo (1.2.5)
@@ -541,11 +548,12 @@ DEPENDENCIES
   codecov
   cql_qdm_patientapi
   cqm-converter (~> 0.3.6)
-  cqm-models (~> 0.8.4)
+  cqm-models!
   cqm-parsers (~> 0.2.1)
   cqm-validators (~> 0.1.0)
   cucumber (~> 3.0.2)
   cucumber-rails
+  daemons
   database_cleaner
   devise (= 4.1.1)
   devise_invitable
