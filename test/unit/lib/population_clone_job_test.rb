@@ -35,6 +35,8 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   def test_assigns_default_provider
     # ids passed in should clone just the 1 record
     sample_patient = @pt.bundle.patients.sample
+    @pt.provider = Provider.default_provider
+    @pt.save!
     pcj = Cypress::PopulationCloneJob.new('patient_ids' => [sample_patient.id],
                                           'test_id' => @pt.id,
                                           'randomization_ids' => [])
@@ -117,7 +119,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   def test_perform_reconnect_reference
     # Add an element with a reference to the first patient in the product test
     patient_with_ref = @pt.bundle.patients.first
-    comm_with_ref = QDM::CommunicationFromPatientToProvider.new(dataElementCodes: [QDM::Code.new('336', '2.16.840.1.113883.6.96')])
+    comm_with_ref = QDM::CommunicationPerformed.new(dataElementCodes: [QDM::Code.new('336', '2.16.840.1.113883.6.96')])
     comm_with_ref.relatedTo << patient_with_ref.dataElements[0].id
     patient_with_ref.dataElements << comm_with_ref
     patient_with_ref.save

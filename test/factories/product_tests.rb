@@ -43,7 +43,7 @@ FactoryBot.define do
                                                      'DENEX' => {} } } }
       expected_results { expected_result }
       measure_ids { ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }
-      association :provider, :factory => :provider
+      association :provider, :factory => :default_provider
       association :product, :factory => :product_static_bundle
       after(:create) do |pt|
         extended_data = { 'correlation_id' => pt.id,
