@@ -39,7 +39,8 @@
                           <td><span>
                             <ul class='list-unstyled'>
                               <% valuessets.each do |vs| %>
-                              <li class="valueset-listitem"><%= "#{lookup_valueset_long_name(vs)}" %></li>
+                              <% valueset_name = lookup_valueset_long_name(vs) %>
+                              <li class="valueset-listitem"><%= valueset_name.first + ': ' + valueset_name.second %></li>
                               <% end %>
                             </ul>
                           </span></td>

@@ -1,4 +1,6 @@
 module FilteringTestsHelper
+  include ChecklistTestsHelper
+
   def display_filter_val(filter_name, vals)
     return [] if vals == [] # ie, the filter values haven't been chosen yet
     return providers_val(vals) if filter_name == 'providers'
@@ -35,7 +37,9 @@ module FilteringTestsHelper
   end
 
   def problems_val(val)
-    ["SNOMEDCT codes in #{HealthDataStandards::SVS::ValueSet.where(oid: val[:oid].first).first.display_name} (code: #{val[:oid].first})"]
+    oid = val[:oid].first
+    code_values = direct_reference_code?(oid) ? lookup_codevalues(oid).first : lookup_valueset_long_name(oid)
+    ["SNOMEDCT codes in #{code_values.first} (code: #{code_values.second})"]
   end
 
   def providers_val(val)
