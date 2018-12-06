@@ -45,4 +45,9 @@ class FilteringTestsHelperTest < ActiveSupport::TestCase
     age_filter.except!('max')
     assert_equal display_filter_val('age', age_filter), [{ Minimum: '18' }]
   end
+
+  def test_display_filter_val_direct_reference
+    vs = FactoryBot.create(:value_set, oid: 'drc-0123456')
+    assert_equal ['SNOMEDCT codes in Concept 1 (code: 6)'], display_filter_val('problems', oid: [vs.oid])
+  end
 end
