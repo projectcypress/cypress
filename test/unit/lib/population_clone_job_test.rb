@@ -64,26 +64,63 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   #   assert Provider.find(record.provider_performances.first.provider_id)
   # end
 
-  # def test_shifts_dates
-  #   pcj1 = Cypress::PopulationCloneJob.new('patient_ids' => %w(0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f),
-  #                                          'test_id' => '4f636b3f1d41c851eb000491',
-  #                                          'randomization_ids' => [])
-  #   pcj1.perform
-  #   record_no_shift = Record.where(test_id: '4f636b3f1d41c851eb000491').first
-  #   pcj2 = Cypress::PopulationCloneJob.new('patient_ids' => %w(0989db70-4d42-0135-8680-20999b0ed66f 098718e0-4d42-0135-8680-12999b0ed66f),
-  #                                          'test_id' => '4f636b3f1d41c851eb000492',
-  #                                          'randomization_ids' => [])
-  #   pcj2.perform
-  #   record_shift = Record.where(test_id: '4f636b3f1d41c851eb000492').first
-  #   # check that each entry has been shifted by a year
-  #   record_shift.entries.each_with_index do |entry, index|
-  #     shifted_time = entry.time
-  #     unshifted_time = record_no_shift.entries[index].time
-  #     assert_equal Time.zone.at(shifted_time).day, Time.zone.at(unshifted_time).day
-  #     assert_equal Time.zone.at(shifted_time).month, Time.zone.at(unshifted_time).month
-  #     assert_equal Time.zone.at(shifted_time).year, Time.zone.at(unshifted_time).year + 1
-  #   end
-  # end
+  def test_shifts_dates_no_shift
+    # Setup test data for non-date-shifting patients
+    patient1_no_shift = Patient.all[0].clone
+    patient2_no_shift = Patient.all[1].clone
+    # Add 1 month to birthDatetime so that it is not sitting on a year boundry
+    # this is so that the randomization won't cross the year boundry to make assertions consistent
+    patient1_no_shift.birthDatetime += 1.month
+    patient2_no_shift.birthDatetime += 1.month
+    patient1_no_shift.save
+    patient2_no_shift.save
+    # Build and perform the date-shifting and non-date-shifting PopulationCloneJobs
+    pcj1 = Cypress::PopulationCloneJob.new('patient_ids' => [patient1_no_shift.id.to_s], 'test_id' => @pt.id.to_s,
+                                           'randomization_ids' => [patient2_no_shift.id.to_s])
+    pcj1.perform
+
+    # Get the patients that resulted from the cloning in the PopulationCloneJobs
+    patient1_no_shift_clone  = Patient.where('extendedData.original_patient': patient1_no_shift.id).first
+    patient2_randomized_no_shift_clone  = Patient.where('extendedData.original_patient': patient2_no_shift.id).first
+
+    # assert patient1_no_shift_clone has not been shifted
+    assert_equal patient1_no_shift_clone.birthDatetime, patient1_no_shift_clone.birthDatetime
+    # assert patient2_randomized_no_shift_clone has not been shifted
+    assert_equal Time.zone.at(patient2_randomized_no_shift_clone.birthDatetime).year, Time.zone.at(patient2_no_shift.birthDatetime).year
+    # assert patient2_no_shift_clone has been randomized
+    assert_not_equal Time.zone.at(patient2_randomized_no_shift_clone.birthDatetime).day, Time.zone.at(patient2_no_shift.birthDatetime).day
+    # assert patient2_randomized_shift_clone randomized
+    assert_not_equal Time.zone.at(patient2_randomized_no_shift_clone.birthDatetime).day, Time.zone.at(patient2_no_shift.birthDatetime).day
+  end
+
+  def test_shifts_dates_with_shift
+    # Setup test data for date-shifting patients
+    pt2 = @pt.clone
+    pt2.product.shift_patients = true
+    pt2.save!
+    patient1_shift = Patient.all[0].clone
+    patient2_shift = Patient.all[1].clone
+    # Add 1 month to birthDatetime so that it is not sitting on a year boundry
+    # this is so that the randomization won't cross the year boundry to make assertions consistent
+    patient1_shift.birthDatetime += 1.month
+    patient2_shift.birthDatetime += 1.month
+    patient1_shift.save
+    patient2_shift.save
+    pcj2 = Cypress::PopulationCloneJob.new('patient_ids' => [patient1_shift.id.to_s], 'test_id' => pt2.id,
+                                           'randomization_ids' => [patient2_shift.id.to_s])
+    pcj2.perform
+    # Get the patients that resulted from the cloning in the PopulationCloneJobs
+    patient1_shift_clone  = Patient.where('extendedData.original_patient': patient1_shift.id).first
+    patient2_randomized_shift_clone  = Patient.where('extendedData.original_patient': patient2_shift.id).first
+
+    # assert patient1_shift_clone has been shifted by 2 years which is the offset in the bundle associated with the product test
+    assert_equal Time.zone.at(patient1_shift_clone.birthDatetime).year, Time.zone.at(patient1_shift.birthDatetime).year + 2
+    # assert patient2_randomized_shift_clone has shifted by 2 years which is the offset in the bundle associated with the product test
+    assert_equal Time.zone.at(patient2_randomized_shift_clone.birthDatetime).year, Time.zone.at(patient2_shift.birthDatetime).year + 2
+    # assert patient2_randomized_shift_clone randomized
+    assert_not_equal Time.zone.at(patient2_randomized_shift_clone.birthDatetime).day, Time.zone.at(patient2_shift.birthDatetime).day
+
+  end
 
   # def test_perform_two_patients_randomized_ids
   #   # ids passed in should clone just the 2 records
