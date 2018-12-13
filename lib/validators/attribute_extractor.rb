@@ -10,7 +10,7 @@ module Validators
       'relevantPeriod' => 'cda:effectiveTime/cda:low',
       'prevalencePeriod' => 'cda:effectiveTime/cda:low',
       'authorDatetime' => "/cda:author[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.155']]/cda:time",
-      'relatedTo' => "sdtc:inFulfillmentOf1/sdtc:templateId[@root='2.16.840.1.113883.10.20.24.3.126']",
+      'relatedTo' => "sdtc:inFulfillmentOf1/sdtc:templateId[@root='2.16.840.1.113883.10.20.24.3.150']",
       'resultDatetime' => "cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.22.4.2']]/cda:effectiveTime"
     }.freeze
 
