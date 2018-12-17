@@ -91,6 +91,15 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     assert_equal @insurance_provider, @record['extendedData']['insurance_providers']
   end
 
+  def test_randomize_birthdate
+    bd = DateTime.new(1981, 6, 8, 4, 0, 0).utc
+    patient = Patient.new(bundleId: @bundle.id, birthDatetime: bd)
+    patient.dataElements << QDM::PatientCharacteristicBirthdate.new(birthDatetime: bd)
+    Cypress::DemographicsRandomizer.randomize_birthdate(patient)
+    assert_not_equal patient.birthDatetime, bd
+    assert_equal patient.birthDatetime, patient.dataElements[0].birthDatetime
+  end
+
   def test_randomize_insurance_provider
     Cypress::DemographicsRandomizer.randomize_insurance_provider(@record)
     ip = JSON.parse(@record['extendedData']['insurance_providers'])[0]
