@@ -73,15 +73,7 @@ module QDM
         patient = Cypress::NameRandomizer.randomize_patient_name_last(patient, :random => random)
         changed[:last] = [familyName, patient.familyName]
       when 2 # birthdate
-        while birthDatetime == patient.birthDatetime
-          patient.birthDatetime = patient.birthDatetime.change(
-            case random.rand(3)
-            when 0 then { :day => 1, :month => 1 }
-            when 1 then { :day => random.rand(28) + 1 }
-            when 2 then { :month => random.rand(12) + 1 }
-            end
-          )
-        end
+        Cypress::DemographicsRandomizer.randomize_birthdate(patient, :random => random)
         changed[:birthdate] = [birthDatetime, patient.birthDatetime]
       end
       [patient, changed]
