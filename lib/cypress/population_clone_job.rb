@@ -29,6 +29,9 @@ module Cypress
 
       prng = Random.new(@test.rand_seed.to_i)
 
+      # grab a random number of patients and then randomize the dates between +- 10 days
+      randomize_ids(patients, prng) if options['randomization_ids']
+
       # if Shift patients is selected, move all patient data into the actual reporting period
       if @test.product.shift_patients
         date_shift = @test.bundle.start_date_offset
@@ -36,8 +39,6 @@ module Cypress
           patient.shift_dates(date_shift)
         end
       end
-      # grab a random number of patients and then randomize the dates between +- 10 days
-      randomize_ids(patients, prng) if options['randomization_ids']
 
       # get single provider if @test is a measure test. measure tests have a single provider for each patient while filtering tests can have different
       # providers for each patient
@@ -63,7 +64,6 @@ module Cypress
       how_many = prng.rand(5) + 1
       randomization_ids = options['randomization_ids'].shuffle(random: prng)[0..how_many]
       random_patients = @test.bundle.patients.find(randomization_ids).to_a
-
       random_patients.each do |patient|
         seconds = 1_944_000 # 60 secs per min * 60 min per hour * 24 hours in day * 10 days
         plus_minus = prng.rand(2).zero? ? 1 : -1 # use this to make move dates forward or backwards
