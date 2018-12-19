@@ -7,7 +7,7 @@ dist: trusty
 branches:
   only:
   - master
-  - /^cypress_v.$/
+  - /^cypress_v.*$/
 notifications:
   email:
     recipients:
