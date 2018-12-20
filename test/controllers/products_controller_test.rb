@@ -129,7 +129,7 @@ class ProductsControllerTest < ActionController::TestCase
       assert_equal ids.sort, pt.measure_ids.sort, 'product should have same measure ids'
 
       new_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
-      pt.attributes[:measure_ids] = new_ids
+      pt.attributes['measure_ids'] = new_ids
       put :update, params: { id: pt.id, product: pt.attributes }
       pt.reload
       assert_response :redirect, "#{@user.email} should have access #{response.status}"

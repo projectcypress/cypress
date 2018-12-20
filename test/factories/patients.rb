@@ -8,7 +8,7 @@ FactoryBot.define do
 
     familyName { 'MPL record' }
     givenNames { [seq_id.to_s] }
-    qdmVersion { '5.3' }
+    qdmVersion { '5.4' }
     birthDatetime { DateTime.new(1940, 1, 1).utc }
     extended_data_value = {
       'medical_record_assigner' => 'Bonnie',

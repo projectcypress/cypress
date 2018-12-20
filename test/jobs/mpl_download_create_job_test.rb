@@ -22,6 +22,7 @@ class MplDownloadCreateJobTest < ActiveJob::TestCase
 
   def test_running_mpl_job_success
     perform_enqueued_jobs do
+      assert @bundle.save!
       assert :building, @bundle.mpl_prepare
       assert_performed_jobs 1
       assert :ready, @bundle.mpl_status

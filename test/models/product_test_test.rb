@@ -131,8 +131,11 @@ class ProductTestTest < ActiveJob::TestCase
       de1 = patient1.dataElements.fetch(x)
       de2 = patient2.dataElements.fetch(x)
       de1.attributes.each do |k, v|
-        assert_nil de2.attributes[k], 'random repeatability error: dataElements different, non-nil match' if v.nil?
-        assert_equal v, de2.attributes[k], 'random repeatability error: dataElements different' unless %w[_id id].include?(k)
+        if v.nil?
+          assert_nil de2.attributes[k], 'random repeatability error: dataElements different, non-nil match'
+        else
+          assert_equal v, de2.attributes[k], 'random repeatability error: dataElements different' unless %w[_id id].include?(k)
+        end
       end
     end
   end

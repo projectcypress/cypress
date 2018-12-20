@@ -16,7 +16,7 @@ FactoryBot.define do
       measure_period_start { 1_483_228_800 } # Jan 1 2017
       effective_date { 1_514_764_799 } # Dec 31 2017
 
-      after(:create) do |bundle|
+      after(:build) do |bundle|
         # Load the extensions included in the bundle from the filesystem into mongo
         Dir.glob(Rails.root.join('test', 'fixtures', 'library_functions', '*.js')).each do |js_path|
           fn = "function () {\n #{File.read(js_path)} \n }"

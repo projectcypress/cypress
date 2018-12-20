@@ -3,8 +3,8 @@ require 'helpers/caching_test'
 
 class ProducTest < ActiveSupport::TestCase
   def setup
-    @vendor = FactoryBot.create(:vendor)
     @bundle = FactoryBot.create(:static_bundle)
+    @vendor = FactoryBot.create(:vendor)
     @vendor_user = FactoryBot.create(:vendor_user)
     ActionController::Base.perform_caching = true
     @old_cache_store = ActionController::Base.cache_store
@@ -150,7 +150,6 @@ class ProducTest < ActiveSupport::TestCase
     product = @vendor.products.new
     product.name = 'test name'
     product.bundle = @bundle
-    product.c1_test = true
     params = { vendor: @vendor, name: "my product #{rand}", c2_test: true, measure_ids: measure_ids, bundle_id: @bundle.id }
     # This fails because there is no provider when update is called through this function
     # TODO: either provide provider, or generate in the called method
