@@ -4,13 +4,12 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
   def setup
     vendor = FactoryBot.create(:vendor)
     @bundle = FactoryBot.create(:static_bundle)
-    @provider = FactoryBot.create(:default_provider)
     @product = vendor.products.create(name: 'test_product', c2_test: true, randomize_patients: true, bundle_id: @bundle.id,
                                       measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
   end
 
   def test_can_use_sync_and_async_results
-    pt = @product.product_tests.build({ name: 'test_for_measure_1a', bundle_id: @bundle.id, provider_id: @provider.id,
+    pt = @product.product_tests.build({ name: 'test_for_measure_1a', bundle_id: @bundle.id,
                                         measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
     perform_enqueued_jobs do
       pt.save
@@ -57,7 +56,6 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
     perform_enqueued_jobs do
       ptest = @product.product_tests.build({ name: 'test_for_measure_job_calculation',
                                              measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
-      ptest.generate_provider
       ptest.save!
       assert_performed_jobs 1
       ptest.reload
@@ -71,7 +69,6 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
     perform_enqueued_jobs do
       ptest = @product.product_tests.build({ name: 'test_for_measure_job_calculation',
                                              measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
-      ptest.generate_provider
       ptest.save!
       task = ptest.tasks.create({})
       MeasureEvaluationJob.perform_later(task, {})

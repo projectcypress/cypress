@@ -92,7 +92,6 @@ class TestExecutionTest < ActiveSupport::TestCase
     product = vendor.products.create!(:name => "my product #{rand}", :measure_ids => measure_ids, :bundle_id => @bundle.id, :c1_test => true,
                                       :c3_test => true)
     test = product.product_tests.build({ :name => "measure test for measure #{measure_ids.first}", :measure_ids => measure_ids }, MeasureTest)
-    test.generate_provider
     test.save!
     c1_task = test.tasks.create!({}, C1Task)
     c3_task = test.tasks.create!({}, C3Cat1Task)

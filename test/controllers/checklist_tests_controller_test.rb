@@ -18,7 +18,7 @@ class ChecklistTestsControllerTest < ActionController::TestCase
   test 'should be able to view measure' do
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     product = @vendor.products.create!(name: "my product #{rand}", c1_test: true, bundle_id: @bundle.id, measure_ids: measure_ids)
-    product.product_tests.build({ name: "my measure test #{rand}", measure_ids: measure_ids }, MeasureTest).generate_provider
+    product.product_tests.build({ name: "my measure test #{rand}", measure_ids: measure_ids }, MeasureTest)
     product.save!
     checklist_test = product.product_tests.create!({ name: "my measure test #{rand}", measure_ids: measure_ids }, ChecklistTest)
     measure = checklist_test.measures.first

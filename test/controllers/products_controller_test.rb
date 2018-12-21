@@ -123,7 +123,7 @@ class ProductsControllerTest < ActionController::TestCase
       ids = %w[BE65090C-EB1F-11E7-8C3F-9A214CF093AE]
       pt = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ids, bundle_id: @bundle_id)
       ids.each do |mid|
-        pt.product_tests.build({ name: "test_#{mid}", measure_ids: [mid] }, MeasureTest).generate_provider
+        pt.product_tests.build({ name: "test_#{mid}", measure_ids: [mid] }, MeasureTest)
       end
       pt.save!
       assert_equal ids.sort, pt.measure_ids.sort, 'product should have same measure ids'
@@ -143,7 +143,7 @@ class ProductsControllerTest < ActionController::TestCase
       ids = %w[BE65090C-EB1F-11E7-8C3F-9A214CF093AE]
       pt = Product.new(vendor: @vendor.id, name: "test_product_#{rand}", c1_test: true, measure_ids: ids, bundle_id: @bundle_id)
       ids.each do |mid|
-        pt.product_tests.build({ name: "test_#{mid}", measure_ids: [mid] }, MeasureTest).generate_provider
+        pt.product_tests.build({ name: "test_#{mid}", measure_ids: [mid] }, MeasureTest)
         pt.save!
       end
       pt.save!
@@ -191,7 +191,6 @@ class ProductsControllerTest < ActionController::TestCase
     pt = Product.new(vendor: @vendor, name: "p_#{rand}", c1_test: true, measure_ids: measure_ids,
                      bundle_id: @bundle_id)
     pt.product_tests.build({ name: 'my_measure_test', measure_ids: measure_ids }, MeasureTest)
-    pt.product_tests[0].generate_provider
     pt.save!
     pt.add_checklist_test
     pt
@@ -263,7 +262,7 @@ class ProductsControllerTest < ActionController::TestCase
     product = @first_product
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       perform_enqueued_jobs do
-        product.product_tests.build({ :name => "mtest #{rand}", :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest).generate_provider
+        product.product_tests.build({ :name => "mtest #{rand}", :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
         product.save!
         get :patients, :params => { :format => :format_does_not_matter, :vendor_id => product.vendor.id, :id => product.id }
         assert_response 200, 'response should be OK for patients'

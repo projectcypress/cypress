@@ -8,7 +8,6 @@ class CreateDownloadZipTest < ActiveSupport::TestCase
 
     [product_2015_c1, product_2015_c2].each do |product|
       pt = product.product_tests.build({ name: 'mtest', measure_ids: product.measure_ids }, MeasureTest)
-      pt.generate_provider
       pt.save
       pt.generate_patients
       pt.create_tasks

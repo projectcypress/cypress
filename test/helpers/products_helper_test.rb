@@ -37,11 +37,9 @@ class ProductsHelperTest < ActiveJob::TestCase
     @product.product_tests.build({ name: 'test_product_test_name_1',
                                    measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
     # MeasureTest needs provider
-    @product.product_tests[1].generate_provider
     @product.save!
     @product.product_tests.build({ name: 'test_product_test_name_2',
                                    measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
-    @product.product_tests[2].generate_provider
     @product.save!
     @product.product_tests.measure_tests.each do |test|
       test.tasks.build({}, C1Task)
@@ -77,7 +75,7 @@ class ProductsHelperTest < ActiveJob::TestCase
     vendor.products.each(&:destroy)
     product = vendor.products.create!(name: "my product test #{rand}", c1_test: true, measure_ids: measure_ids, bundle_id: @bundle.id)
     product.measure_ids.each do |measure_id|
-      product.product_tests.build({ name: "my measure test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest).generate_provider
+      product.product_tests.build({ name: "my measure test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
       product.save!
       product.product_tests.create!({ name: "my filtering test for measure id #{measure_id}", measure_ids: [measure_id] }, FilteringTest)
     end

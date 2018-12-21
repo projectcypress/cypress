@@ -68,11 +68,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   # need negative tests for user that does not have owner or vendor access
   test 'should be able to restrict access to show unauthorized users ' do
-    mt = @first_product.product_tests.build({ name: 'mtest', measure_ids: ['0001'] }, MeasureTest)
+    mt = @first_product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
     task = mt.tasks.build({}, C1Task)
     te = task.test_executions.build
     @vendor_user.test_executions << te
-    mt.provider = Provider.generate_provider(measure_type: Measure.first.type)
     mt.save!
     task.save!
     te.save!
@@ -249,7 +248,6 @@ class TestExecutionsControllerTest < ActionController::TestCase
                                          c1_test: c1, c2_test: c2, c4_test: c4)
       product.save!
       test = product.product_tests.build({ name: "my measure test #{rand}", measure_ids: measure_ids }, MeasureTest)
-      test.generate_provider
       test.save!
       task = create_task_from_task_type(test, task_type)
       execution = task.test_executions.build
@@ -440,7 +438,6 @@ class TestExecutionsControllerTest < ActionController::TestCase
       make_first_task_type('C1Task')
       @first_c2_task.product_test = @first_product.product_tests.build({ :name => 'mtest', :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                                                                          :bundle_id => @bundle_id }, MeasureTest)
-      @first_c2_task.product_test.generate_provider
       @first_c2_task.product_test.save!
       @first_c2_task.save!
       for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
@@ -506,7 +503,6 @@ class TestExecutionsControllerTest < ActionController::TestCase
         perform_enqueued_jobs do
           @first_c2_task.product_test = @first_product.product_tests.build({ :name => 'mtest2',
                                                                              :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
-          @first_c2_task.product_test.generate_provider
           @first_c2_task.save!
           MeasureEvaluationJob.perform_now(@first_c2_task.product_test, {})
           post :create, :params => { :format => :xml, :task_id => @first_c2_task.id, :results => xml_upload }

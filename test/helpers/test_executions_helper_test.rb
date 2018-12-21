@@ -31,7 +31,6 @@ class TestExecutionHelper < ActiveSupport::TestCase
                                        measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: @bundle.id)
     @product_test = product.product_tests.build({ name: 'test_measure_test_name', cms_id: 'TEST_CMSID',
                                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
-    @product_test.generate_provider
     @product_test.save!
     @f_test = product.product_tests.create!({ name: 'test_filtering_test_name', cms_id: 'TEST_CMSID',
                                               measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], options: { filters: filters } }, FilteringTest)

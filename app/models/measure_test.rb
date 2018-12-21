@@ -1,4 +1,6 @@
 class MeasureTest < ProductTest
+  before_validation :generate_provider
+
   belongs_to :provider, index: true
 
   validate :at_most_one_measure?
@@ -27,8 +29,7 @@ class MeasureTest < ProductTest
   end
 
   def generate_provider
-    self.provider = Provider.generate_provider(measure_type: measures.first.type)
-    save!
+    self.provider = Provider.generate_provider(measure_type: measures.first.type) if provider.nil?
   end
 
   # passing only if both c1 and c3_cat1 tasks pass

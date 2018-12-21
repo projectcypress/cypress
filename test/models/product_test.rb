@@ -123,7 +123,6 @@ class ProducTest < ActiveSupport::TestCase
     pt.product_tests.build({ name: 'test_product_test_name',
                              measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                              bundle_id: @bundle.id }, MeasureTest)
-    pt.product_tests.first.generate_provider
     pt.save!
     assert pt.product_tests.measure_tests
     assert_equal pt.product_tests.measure_tests.count, 1
@@ -197,7 +196,6 @@ class ProducTest < ActiveSupport::TestCase
     measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
     product = @vendor.products.create!(name: "my product #{rand}", measure_ids: [measure_id], c2_test: true, bundle_id: @bundle.id)
     product.product_tests.build({ name: "my measure test #{rand}", measure_ids: [measure_id] }, MeasureTest)
-    product.product_tests[0].generate_provider
     product.save!
     # should create no product tests if c1 was not selected
     product.add_checklist_test
@@ -253,7 +251,6 @@ class ProducTest < ActiveSupport::TestCase
     product = Product.new(vendor: @vendor, name: 'my product', c1_test: true, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: @bundle.id)
     product.save!
     product_test = product.product_tests.build({ name: 'my product test 1', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
-    product_test.generate_provider
     product_test.save!
     # status should be incomplete if all product tests passing but no checklist test exists
     product_test.tasks.first.test_executions.create!(:state => :passed, :user => @vendor_user)
@@ -274,7 +271,6 @@ class ProducTest < ActiveSupport::TestCase
 
     # one failing product test will fail the product
     product_test = product.product_tests.build({ :name => 'my product test 2', :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
-    product_test.generate_provider
     product_test.save!
     te = product_test.tasks.first.test_executions.build(:state => :failed)
     @vendor_user.test_executions << te
@@ -286,7 +282,7 @@ class ProducTest < ActiveSupport::TestCase
     measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
     product = Product.new(:vendor => @vendor, :name => 'my product', :c1_test => true, :measure_ids => [measure_id], :bundle_id => @bundle.id)
     product_test = product.product_tests.build({ :name => "my product test for measure id #{measure_id}", :measure_ids => [measure_id] }, MeasureTest)
-    product_test.generate_provider
+    product_test.save!
     product_test.tasks.first.test_executions.build(:state => :passed, :user => @vendor_user)
     product_test.save!
     product.save!

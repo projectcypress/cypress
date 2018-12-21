@@ -19,7 +19,6 @@ class MeasureTestTest < ActiveJob::TestCase
                                       bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
     pt = product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                                        bundle_id: @bundle.id }, MeasureTest)
-    pt.generate_provider
     assert_equal true,  pt.valid?, 'product test should be valid with single measure id'
     assert_equal true,  pt.save, 'should save with single measure id'
   end
@@ -38,7 +37,6 @@ class MeasureTestTest < ActiveJob::TestCase
                                         bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
       pt = product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                                          bundle_id: @bundle.id }, MeasureTest)
-      pt.generate_provider
       pt.create_tasks
       assert pt.tasks.c1_task, 'product test should have a c1_task'
       assert_equal false, pt.tasks.c2_task, 'product test should not have a c2_task'
@@ -64,7 +62,6 @@ class MeasureTestTest < ActiveJob::TestCase
       assert_enqueued_jobs 0
       pt = product.product_tests.build({ name: 'test_for_measure_1a', bundle_id: @bundle.id,
                                          measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
-      pt.generate_provider
       assert pt.valid?, 'product test should be valid with product, name, and measure_id'
       assert pt.save, 'should be able to save valid product test'
       assert_performed_jobs 1
@@ -151,11 +148,10 @@ class MeasureTestTest < ActiveJob::TestCase
     assert pt.tasks.c3_cat3_task, 'product test should have a c3_cat3_task'
   end
 
+  # Provider generation is now a before_validation hook on the MeasureTest model
   def test_generate_provider
     test = @product.product_tests.build({ name: "my measure test #{rand}", measure_ids: @product.measure_ids }, MeasureTest)
-    test.generate_provider
-
-    test.reload
-    assert_not_equal nil, test.provider
+    test.save!
+    assert_not_equal nil, test.reload.provider
   end
 end

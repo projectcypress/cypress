@@ -24,7 +24,7 @@ class ChecklistTestTest < ActiveJob::TestCase
     @product.save!
     @product.measure_ids.each do |measure_id|
       # @product.product_tests.create!({ name: "measure test with measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
-      @product.product_tests.build({ name: "measure test with measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest).generate_provider
+      @product.product_tests.build({ name: "measure test with measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
     end
     previous_num_checklist_measures = CAT1_CONFIG['number_of_checklist_measures']
     CAT1_CONFIG['number_of_checklist_measures'] = 1
