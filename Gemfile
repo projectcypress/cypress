@@ -126,7 +126,8 @@ group :development do
 end
 
 group :test do
-  gem 'brakeman', :require => false
+  # Brakeman is broken on ruby 2.5, re-enable when https://github.com/presidentbeef/brakeman/issues/1173 is closed
+  # gem 'brakeman', :require => false
   gem 'bundler-audit'
   gem 'codecov', :require => false
   gem 'factory_bot_rails'
