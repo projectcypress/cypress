@@ -69,7 +69,8 @@ class ChecklistTest < ProductTest
       if %(authorDatetime prevalencePeriod relevantPeriod).include? attribute['attribute_name']
         time_indexes << index
       else
-        code_indexes << index
+        # A coded attribute needs to have the valueset specified, do not include if it doesn't
+        code_indexes << index unless attribute['attribute_valueset'].nil?
       end
     end
     return code_indexes.sample unless code_indexes.empty?
