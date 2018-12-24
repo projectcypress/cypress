@@ -42,10 +42,6 @@
         <div id="<%= "lookupModal-fieldvalues#{index}" %>" class="modal fade" role="dialog">
           <%= render 'checklist_modal', :valuessets => [attribute['attribute_valueset']], :product_test => product_test, :index => index, :is_attribute => true %>
         </div>
-      <% else %>
-        <ul class="value-set-list">
-          <li class="value-set"><%= attribute['attribute_name'] %></li>
-        </ul>
       <% end %>
   <% end %>
 <% end %>
