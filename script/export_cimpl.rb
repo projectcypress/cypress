@@ -162,7 +162,8 @@ b_hash.each do |key, measure_ids|
     @value_set_hash[attribute_oid][:attribute_types] = [] unless @value_set_hash[attribute_oid][:attribute_types]
     attribute_name = split_key[2].titleize.gsub(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz]/,'')
     @value_set_hash[attribute_oid][:attribute_types] << attribute_name unless @value_set_hash[attribute_oid][:attribute_types].include?(attribute_name)
-    @value_set_hash[attribute_oid][:measures] = measure_ids.uniq
+    measure_list = @value_set_hash[attribute_oid][:measures] ? @value_set_hash[attribute_oid][:measures] : []
+    @value_set_hash[attribute_oid][:measures] = measure_list + measure_ids.uniq
     measure_ids.uniq.each do |measure_id|
       @vs_measure[attribute_oid] ? @vs_measure[attribute_oid] << measure_id : @vs_measure[attribute_oid] = [measure_id]
       @measure_vs[measure_id] ? @measure_vs[measure_id] << attribute_oid : @measure_vs[measure_id] = [attribute_oid]
