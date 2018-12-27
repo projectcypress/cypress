@@ -117,9 +117,9 @@ measures.all.each do |measure|
     if sdc['attributes']
       sdc['attributes'].each do |att|
         ds = sdc['status'] ? sdc['definition'] + ':' + sdc['status'] : sdc['definition'] + ':'
-        dsa = ds + ':' + att['attribute_name']
-        if att['attribute_valueset']
-          dsa = dsa + ':' + att['attribute_valueset']
+        dsa = ds + ':' + att[:attribute_name]
+        if att[:attribute_valueset]
+          dsa = dsa + ':' + att[:attribute_valueset]
         else
           dsa = dsa + ':'
         end
