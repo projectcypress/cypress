@@ -44,9 +44,7 @@ module Cypress
       # providers for each patient
       provider = @test.provider if @test.class == MeasureTest
 
-      allow_dups = @test.product.allow_duplicate_names
-
-      patients.each { |patient| clone_and_save_patient(patient, prng, provider, allow_dups) }
+      patients.each { |patient| clone_and_save_patient(patient, prng, provider, @test.product.allow_duplicate_names) }
     end
 
     def find_patients_to_clone
@@ -65,9 +63,8 @@ module Cypress
       randomization_ids = options['randomization_ids'].shuffle(random: prng)[0..how_many]
       random_patients = @test.bundle.patients.find(randomization_ids).to_a
       random_patients.each do |patient|
-        seconds = 1_944_000 # 60 secs per min * 60 min per hour * 24 hours in day * 10 days
         plus_minus = prng.rand(2).zero? ? 1 : -1 # use this to make move dates forward or backwards
-        date_shift = prng.rand(seconds) * plus_minus
+        date_shift = prng.rand(1_944_000) * plus_minus # 1_944_000 = 60 secs per min * 60 min per hour * 24 hours in day * 10 days
         patient.shift_dates(date_shift)
         patients << patient
       end
@@ -78,16 +75,22 @@ module Cypress
       cloned_patient = patient.clone
       # TODO: R2P: use patient model
       unnumerify cloned_patient if patient.givenNames.map { |n| n =~ /\d/ }.any? || patient.familyName =~ /\d/
-      cloned_patient[:original_medical_record_number] = cloned_patient.extendedData[:medical_record_number]
-      cloned_patient.extendedData[:original_patient] = patient.id
-      cloned_patient.extendedData[:medical_record_number] = next_medical_record_number unless options['disable_randomization']
       DemographicsRandomizer.randomize(cloned_patient, prng, allow_dups) if options['randomize_demographics']
-      cloned_patient.extendedData[:correlation_id] = options['test_id']
+      # work around to replace 'Other' race codes in Cypress bundle. Pass in static seed for consistent results.
+      DemographicsRandomizer.randomize_race(cloned_patient, Random.new(0)) if cloned_patient.race == '2131-1'
       patch_insurance_provider(patient)
-      randomize_entry_ids(cloned_patient) unless options['disable_randomization']
+      assign_cloned_patient_ids(patient, cloned_patient)
       # assign existing provider if provider argument is not nil (should be when @test is a measure test)
       provider ? assign_existing_provider(cloned_patient, provider) : assign_provider(cloned_patient)
       cloned_patient.save!
+    end
+
+    def assign_cloned_patient_ids(patient, cloned_patient)
+      cloned_patient[:original_medical_record_number] = cloned_patient.extendedData[:medical_record_number]
+      cloned_patient.extendedData[:original_patient] = patient.id
+      cloned_patient.extendedData[:medical_record_number] = next_medical_record_number unless options['disable_randomization']
+      cloned_patient.extendedData[:correlation_id] = options['test_id']
+      randomize_entry_ids(cloned_patient) unless options['disable_randomization']
     end
 
     def unnumerify(patient)
