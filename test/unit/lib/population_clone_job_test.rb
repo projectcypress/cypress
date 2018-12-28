@@ -182,6 +182,19 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     assert_races_are_random
   end
 
+  def test_perform_replace_other_race
+    # Clone and ensure they have random races
+    pcj = Cypress::PopulationCloneJob.new('randomize_demographics' => false)
+    prng = Random.new(@pt.rand_seed.to_i)
+    patient = Patient.first
+    # Replace original race code with the code for 'Other'
+    patient.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code'] = '2131-1'
+    pcj.clone_and_save_patient(patient, prng, Provider.first)
+    cloned_patient = Patient.where('extendedData.original_patient' => patient.id).first
+    # Assert that the new race is consistent '2106-3'
+    assert_equal '2106-3', cloned_patient.race
+  end
+
   def assert_races_are_random
     found_random = false
     old_record_races = {}
