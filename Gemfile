@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.3.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.7'
+gem 'rails', '~> 4.2.11'
 
 # Use MongoDB just like in Cypress v2!
 gem 'mongoid', '~> 5.0.0'
