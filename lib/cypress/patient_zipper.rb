@@ -20,11 +20,6 @@ module Cypress
     end
 
     def export(patient)
-      # TODO: add HTML Export in CQM-Parsers
-      # TODO: R2P: make sure patient export works with HDS HTML exporter
-      # hdsrecord = @qdm_patient_converter.to_hds(patient)
-      # hdsrecord.bundle_id = patient.bundleId
-      # EXPORTER.export(hdsrecord, measures)
       QdmPatient.new(patient, true).render
     end
   end
