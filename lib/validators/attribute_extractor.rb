@@ -15,21 +15,20 @@ module Validators
     }.freeze
 
     # does a node need to be checked for an atttibute value
-    # sc = source_criteria, cc = checked_criteria
-    def check_attribute?(source_criteria, checked_criteria)
-      sc = source_criteria
-      cc = checked_criteria
+    # cc = checked_criteria
+    def check_attribute?
+      cc = @checked_criteria
       # don't check for an attribute if there isn't a attribute or result, or there is a reason
       # check for an attribute, if there is an attribute or result, and there isn't a reason
-      if (cc.attribute_complete.nil? && cc.result_complete.nil?) || source_criteria_has_reason(sc, checked_criteria.attribute_index)
+      if (cc.attribute_complete.nil? && cc.result_complete.nil?) || source_criteria_has_reason(cc.attribute_index)
         false
-      elsif (!cc.attribute_complete.nil? || !cc.result_complete.nil?) && !source_criteria_has_reason(sc, checked_criteria.attribute_index)
+      elsif (!cc.attribute_complete.nil? || !cc.result_complete.nil?) && !source_criteria_has_reason(cc.attribute_index)
         true
       end
     end
 
     # searches a node for the existance of the attribute criteria, each field_value has a xpath relative to the template root
-    def find_attribute_values(node, code, source_criteria, index)
+    def find_attribute_values(node, code, index)
       # xpath_map contains a hash of attributes (e.g., relevantPeriod) and their relative path
       # relationship with the root of the QRDA template they are contained in.
       # xpath_map differs from the XPATH_CONSTS because the XPATH statements include a placeholder
@@ -50,9 +49,9 @@ module Validators
       }
       # XPATH_CONSTS (the XPATH expressions without codes) are merged with the xpath_map (the XPATH expressions without codes)
       xpath_map.merge!(XPATH_CONSTS)
-      if source_criteria['attributes']
-        relative_path = relative_path_to_template_root(source_criteria['definition'])
-        return node.xpath(relative_path + xpath_map[source_criteria.attributes[index].attribute_name]).blank? ? false : true
+      if @source_criteria['attributes']
+        relative_path = relative_path_to_template_root(@source_criteria['definition'])
+        return node.xpath(relative_path + xpath_map[@source_criteria.attributes[index].attribute_name]).blank? ? false : true
       end
       false
     end
