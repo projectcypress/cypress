@@ -34,9 +34,9 @@ module Validators
       # xpath_map differs from the XPATH_CONSTS because the XPATH statements include a placeholder
       # for a 'code' that is passed in to perform the evaluation.
       xpath_map = {
-        'components' => "cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.149]/cda:code[@code='#{code}']",
-        'diagnoses' => "cda:entryRelationship/cda:act[./cda:code[@code='29308-4']]/cda:entryRelationship
-                       /cda:observation/cda:value[@code='#{code}']",
+        'components' => "cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.149']]
+                        /cda:value[@code='#{code}']", 'diagnoses' => "cda:entryRelationship/cda:act[./cda:code[@code='29308-4']]
+                                                                     /cda:entryRelationship/cda:observation/cda:value[@code='#{code}']",
         'dischargeDisposition' => "sdtc:dischargeDispositionCode[@code='#{code}']", # CMS31v5
         'facilityLocations' => "cda:participant[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.100']]
                                /cda:participantRole/cda:code[@code='#{code}']",
