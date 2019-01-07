@@ -16,7 +16,6 @@ gem 'os'
 
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'remove_hds'
 # gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'master'
-gem 'cql_qdm_patientapi', git: 'https://github.com/projecttacoma/cql_qdm_patientapi.git', branch: 'rails_upgrade'
 gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators.git', branch: 'remove_hds'
 # gem 'cqm-converter', '~> 0.3.6'
 # gem 'cqm-models', '~> 0.8.4'
