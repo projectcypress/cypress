@@ -9,6 +9,8 @@ class ValueSet
 end
 
 class Concept
+  # TODO: Remove the blacklist and whitelist fields when the Bonnie-created bundles
+  # stop including them.
   field :black_list, :type => Boolean
   field :white_list, :type => Boolean
 end
