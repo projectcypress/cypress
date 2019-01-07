@@ -16,7 +16,7 @@ module QDM
 
     def bundle
       if !self['bundleId'].nil?
-        HealthDataStandards::CQM::Bundle.find(self['bundleId'])
+        Bundle.find(self['bundleId'])
       elsif !extendedData['correlation_id'].nil?
         ProductTest.find(extendedData['correlation_id']).bundle
       end
@@ -41,6 +41,7 @@ module QDM
       end
 
       return { 'npis' => [provider.npi], 'tins' => [provider.tin], 'addresses' => addresses } if include_address
+
       { 'npis' => [provider.npi], 'tins' => [provider.tin] }
     end
 
@@ -52,8 +53,8 @@ module QDM
     end
 
     def provider
-      return nil unless extendedData['provider_performances']
-      Provider.find(JSON.parse(extendedData['provider_performances']).first['provider_id'])
+      return nil unless extendedData.provider_performances
+      Provider.find(JSON.parse(extendedData.provider_performances).first['provider_id'])
     end
 
     #

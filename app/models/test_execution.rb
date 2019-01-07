@@ -111,6 +111,7 @@ class TestExecution
     return 'passing' if passing?
     return 'failing' if failing?
     return 'errored' if errored?
+
     'incomplete'
   end
 
@@ -123,12 +124,14 @@ class TestExecution
     return 'incomplete' if incomplete? || sibling.incomplete?
     return 'failing' if failing? || sibling.failing?
     return 'errored' if errored? || sibling.errored?
+
     'failing' # failing if status's do not match
   end
 
   def last_updated_with_sibling
     sibling = sibling_execution
     return updated_at unless sibling
+
     [updated_at, sibling.updated_at].max
   end
 
@@ -136,6 +139,7 @@ class TestExecution
   def executions_pending?
     c3_execution = sibling_execution
     return state == :pending unless c3_execution
+
     state == :pending || c3_execution.state == :pending
   end
 

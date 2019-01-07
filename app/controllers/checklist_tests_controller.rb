@@ -1,6 +1,4 @@
 class ChecklistTestsController < ProductTestsController
-  include HealthDataStandards::Export::Helper::ScoopedViewHelper
-
   before_action :set_measures, only: [:show]
   before_action :set_measure, only: [:measure]
   before_action :check_bundle_deprecated, only: [:show]

@@ -63,12 +63,15 @@ class FilteringTestTest < ActiveJob::TestCase
   end
 
   def test_task_status_with_existing_tasks
+    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     # valid filter test should call create_tasks after filter test is created
     test = @product.product_tests.create!({ name: 'test_for_measure_1a',
                                             measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                                             options: { 'filters' => {} } }, FilteringTest)
-    test.tasks.find_by(_type: 'Cat1FilterTask').test_executions.build(:state => :passed).save!
 
+    test_executions = test.tasks.find_by(_type: 'Cat1FilterTask').test_executions.build(:state => :passed)
+    user.test_executions << test_executions
+    test_executions.save!
     assert_equal 'passing', test.task_status('Cat1FilterTask')
     assert_equal 'incomplete', test.task_status('Cat3FilterTask')
   end

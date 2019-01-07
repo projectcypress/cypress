@@ -40,13 +40,14 @@ module Cypress
     def self.check_age(v, patient, params)
       return true if v.key?('min') && patient.age_at(params[:effective_date]) < v['min']
       return true if v.key?('max') && patient.age_at(params[:effective_date]) > v['max']
+
       false
     end
 
     def self.patient_missing_problems(patient, problem)
       # TODO: first... different versions of value set... which version do we want?
       # 2.16.840.1.113883.3.666.5.748
-      value_set = HealthDataStandards::SVS::ValueSet.where(oid: problem['oid'].first).first
+      value_set = ValueSet.where(oid: problem['oid'].first).first
       !Cypress::CriteriaPicker.find_problem_in_records([patient], value_set)
     end
   end

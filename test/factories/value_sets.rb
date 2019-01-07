@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :value_set, class: HealthDataStandards::SVS::ValueSet do
+  factory :value_set, class: ValueSet do
     transient do
       seq_id { 1 }
     end

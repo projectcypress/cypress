@@ -75,6 +75,7 @@ module Cypress
         run_vendor_tests(vendor_link, measures_list.uniq, 'All Measures', false, bundle_id) if c1_c2
 
         next unless c4
+
         measures_list.uniq.each do |measure|
           run_vendor_tests(vendor_link, Array.new(1, measure), "Measures - #{measure}", true, bundle_id)
         end
@@ -174,6 +175,7 @@ module Cypress
     def download_filter_data
       @cat1_filter_hash.each_key do |product_test|
         next unless filter_test_ready?(product_test)
+
         until File.exist?('tmp/filter_patients.zip')
           @filter_patient_link = extract_link(parsed_api_object(call_get_product_test(product_test)), 'patients') if @filter_patient_link.nil?
           test_patients_already_downloaded ||= download_test_patients(@filter_patient_link, 'filter_patients')
@@ -186,6 +188,7 @@ module Cypress
             doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
             doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
             next unless filter_out_patients(doc, parsed_product_test)
+
             Zip::ZipFile.open("tmp/#{product_test.split('/')[4]}.zip", Zip::File::CREATE) do |z|
               z.get_output_stream(entry) { |f| f.puts zipfile.read(entry) }
             end
@@ -201,6 +204,7 @@ module Cypress
         count += 1
         # this is only here since c4 tests can't build with unknown payer
         next if count < 20
+
         @cat1_filter_hash.delete(product_test)
         @cat3_filter_hash.delete(product_test)
         return false
@@ -219,6 +223,7 @@ module Cypress
       creation_time = product_test.created_at
       return filter_providers(doc, filters) if filters.key?('provider')
       return filter_problems(doc, filters) if filters.key?('problem')
+
       filter_demographics(doc, filters, creation_time)
     end
 
@@ -258,7 +263,7 @@ module Cypress
         /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@code)
       problems = doc.xpath(problems_xpath)
       problems.each do |problem|
-        oids = HealthDataStandards::SVS::ValueSet.where('concepts.code' => problem.value).distinct(:oid)
+        oids = ValueSet.where('concepts.code' => problem.value).distinct(:oid)
         problem_array += oids
       end
       return true if problem_array.include? filters['problem']
@@ -291,7 +296,7 @@ module Cypress
 
     def compare_age(doc, age_filter, creation_time)
       age_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:birthTime/@value'
-      patient_birth_time = HealthDataStandards::Util::HL7Helper.timestamp_to_integer(doc.at_xpath(age_xpath).value)
+      patient_birth_time = DateTime.parse(doc.at_xpath(age_xpath).value).to_i
       filter_time = Time.parse(creation_time).to_i
       age_shit = 31_556_952 * age_filter[1]
       if age_filter[0] == 'max'
@@ -465,19 +470,20 @@ module Cypress
 
     def calcuate_cat_3(product_test_id, bundle_id)
       pt = ProductTest.find(product_test_id)
-
       patient_ids = []
 
-      correlation_id = BSON::ObjectId.new
+      correlation_id = "#{product_test_id}_u"
 
       import_cat1_zip(File.new("tmp/#{product_test_id}.zip"), patient_ids, bundle_id)
-      do_calculation(pt, patient_ids, correlation_id.to_s)
+      do_calculation(pt, patient_ids, correlation_id)
 
-      erc = Cypress::ExpectedResultsCalculator.new(Patient.find(patient_ids), correlation_id.to_s, pt.effective_date)
-      erc.aggregate_results_for_measures(pt.measures)
+      erc = Cypress::ExpectedResultsCalculator.new(Patient.find(patient_ids), correlation_id)
+      results = erc.aggregate_results_for_measures(pt.measures)
 
-      c3c = Cypress::Cat3Calculator.new(pt.measure_ids, pt.bundle, pt.effective_date)
-      xml = c3c.generate_cat3_for_test(pt.id)
+      cms_compatibility = pt&.product&.c3_test
+      options = { :provider => pt.patients.first.provider, :submission_program => cms_compatibility,
+                  :start_time => pt.start_date, :end_time => pt.end_date }
+      xml = Qrda3R21.new(results, pt.measures, options).render
 
       Patient.find(patient_ids).each(&:destroy)
 

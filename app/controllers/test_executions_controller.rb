@@ -49,7 +49,7 @@ class TestExecutionsController < ApplicationController
   def destroy
     authorize! :delete, @test_execution.task.product_test.product.vendor
     @test_execution.destroy!
-    render :nothing => true, :status => :no_content
+    render body: nil, :status => :no_content
   end
 
   def file_result

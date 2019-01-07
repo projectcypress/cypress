@@ -54,6 +54,7 @@ module Validators
         relative_path = relative_path_to_template_root(source_criteria['definition'])
         return node.xpath(relative_path + xpath_map[source_criteria.attributes[index].attribute_name]).blank? ? false : true
       end
+
       false
     end
 

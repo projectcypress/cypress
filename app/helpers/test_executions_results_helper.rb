@@ -100,6 +100,7 @@ module TestExecutionsResultsHelper
     return a.file_name <=> b.file_name if a.file_name != b.file_name
     return 1 if a.location.nil?
     return -1 if b.location.nil?
+
     a.location <=> b.location
   end
 
@@ -109,8 +110,10 @@ module TestExecutionsResultsHelper
   #   if no doc or xml element found then line number of 0 is returned
   def error_to_line_number(error, doc)
     return 0 unless doc
+
     nodes = doc.search(error.location)
     return 0 if nodes.count.zero? || nodes.first.class != Nokogiri::XML::Element
+
     nodes.first.line
   end
 

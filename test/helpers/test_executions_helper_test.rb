@@ -11,7 +11,8 @@ class TestExecutionHelper < ActiveSupport::TestCase
 
   def setup
     @bundle = FactoryBot.create(:static_bundle)
-    @vendor = Vendor.create(name: 'test_vendor_name')
+    @user = FactoryBot.create(:vendor_user)
+    @vendor = Vendor.create!(name: 'test_vendor_name')
     @errors = []
     @errors << { message: 'pop_error',
                  error_details: { 'population_id' => 'IPP', 'stratification' => false, 'type' => 'population' } }
@@ -28,8 +29,9 @@ class TestExecutionHelper < ActiveSupport::TestCase
   def setup_product_tests(c1, c2, c3, c4, filters)
     product = @vendor.products.create!(name: 'test_product_name', c1_test: c1, c2_test: c2, c3_test: c3, c4_test: c4,
                                        measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: @bundle.id)
-    @product_test = product.product_tests.create!({ name: 'test_measure_test_name', cms_id: 'TEST_CMSID',
-                                                    measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+    @product_test = product.product_tests.build({ name: 'test_measure_test_name', cms_id: 'TEST_CMSID',
+                                                  measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+    @product_test.save!
     @f_test = product.product_tests.create!({ name: 'test_filtering_test_name', cms_id: 'TEST_CMSID',
                                               measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], options: { filters: filters } }, FilteringTest)
   end
@@ -87,7 +89,7 @@ class TestExecutionHelper < ActiveSupport::TestCase
     setup_product_tests(true, true, false, true, filt1: 'val1')
     c1_task = @product_test.tasks.find_by(_type: 'C1Task')
 
-    execution = c1_task.test_executions.create
+    execution = c1_task.test_executions.create!(:user=>@user)
     execution.execution_errors.create(:message => 'qrda error 1', :msg_type => :error, :validator_type => :xml_validation)
     execution.execution_errors.create(:message => 'result error 1', :msg_type => :error, :validator_type => :result_validation)
     execution.execution_errors.create(:message => 'result error 2', :msg_type => :error, :validator_type => :result_validation)
@@ -102,7 +104,7 @@ class TestExecutionHelper < ActiveSupport::TestCase
 
   def test_get_select_history_message
     setup_product_tests(true, true, false, true, :filt1 => 'val1')
-    execution = @product_test.tasks.find_by(:_type => 'C1Task').test_executions.create
+    execution = @product_test.tasks.find_by(:_type => 'C1Task').test_executions.create!(:user => @user)
 
     execution.execution_errors.create(:message => 'qrda error 1', :msg_type => :error, :validator_type => :xml_validation)
     execution.execution_errors.create(:message => 'result error 1', :msg_type => :error, :validator_type => :result_validation)

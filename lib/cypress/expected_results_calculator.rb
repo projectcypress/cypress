@@ -54,6 +54,7 @@ module Cypress
       individual_results.each do |ir|
         measure_populations.each do |pop|
           next if ir[pop].nil? || ir[pop].zero?
+
           @measure_result_hash[measure.key][pop] += ir[pop]
           # For each population, increment supplemental information counts
           increment_sup_info(@patient_sup_map[ir.patient_id.to_s], pop, @measure_result_hash[measure.key])
@@ -66,7 +67,6 @@ module Cypress
       @measure_result_hash[measure.key]['OBSERV'] = median(observ_values.reject(&:nil?))
       @measure_result_hash[measure.key]['measure_id'] = measure.hqmf_id
       @measure_result_hash[measure.key]['population_ids'] = measure.population_ids
-      create_query_cache_object(@measure_result_hash[measure.key], measure)
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -74,6 +74,7 @@ module Cypress
       episode_results.collect_concat do |_id, episode_result|
         # Only use observed values when a patient is in the MSRPOPL and not in the MSRPOPLEX
         next unless episode_result['MSRPOPL']&.positive? && !episode_result['MSRPOPLEX']&.positive?
+
         episode_result['values']
       end
     end
@@ -98,23 +99,17 @@ module Cypress
       end
     end
 
-    def create_query_cache_object(result, measure)
-      qco = result
-      qco['test_id'] = BSON::ObjectId.from_string(@correlation_id)
-      qco['effective_date'] = @effective_date
-      qco['sub_id'] = measure.sub_id if measure.sub_id
-      Mongoid.default_client['query_cache'].insert_one(qco)
-    end
-
     private
 
     def mean(array)
       return 0.0 if array.empty?
+
       array.inject(0.0) { |sum, elem| sum + elem } / array.size
     end
 
     def median(array, already_sorted = false)
       return 0.0 if array.empty?
+
       array = array.sort unless already_sorted
       m_pos = array.size / 2
       array.size.odd? ? array[m_pos] : mean(array[m_pos - 1..m_pos])

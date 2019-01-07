@@ -28,14 +28,16 @@ module MeasuresHelper
 
   def measure_has_diagnosis_criteria?(measure)
     # TODO: CQL: change measure model
-    return false unless measure&.hqmf_document && measure.hqmf_document['source_data_criteria']
-    measure.hqmf_document['source_data_criteria'].values.any? { |criteria| criteria['definition'] == 'diagnosis' }
+    return false unless measure['source_data_criteria']
+
+    measure['source_data_criteria'].values.any? { |criteria| criteria['definition'] == 'diagnosis' }
   end
 
   # used in _measure_tests_table.html.erb view
   # returns true if measure test is not ready (not built yet) or if measure test has a test execution that is running
   def should_reload_measure_test?(test)
     return true if test.state != :ready
+
     test.tasks.each do |task|
       task.test_executions.each do |execution|
         return true if execution.state == :pending

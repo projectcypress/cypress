@@ -19,7 +19,7 @@ module Cypress
         formatter = formatter_for_patients(patients, format)
         FileUtils.mkdir_p(File.join(path, "#{format}_records/"))
         patients.each do |r|
-          filename = "#{format}_records/#{r.givenNames.join('_')}_#{r.familyName}.#{extensions[format.to_sym]}".delete("'").tr(' ', '_')
+          filename = "#{format}_records/#{r.first_names}_#{r.familyName}.#{extensions[format.to_sym]}".delete("'").tr(' ', '_')
           File.open(File.join(path, filename), 'w') do |f|
             f.write(formatter.export(r))
           end
@@ -34,6 +34,7 @@ module Cypress
 
         product.product_tests.each do |m|
           next if m.is_a?(ChecklistTest)
+
           filter_folder = m.is_a?(FilteringTest) ? '/' + m.name_slug : ''
 
           folder_name = "#{m._type.underscore.dasherize}s/#{m.cms_id}#{filter_folder}"

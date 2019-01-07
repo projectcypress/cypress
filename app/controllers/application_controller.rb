@@ -9,20 +9,20 @@ class ApplicationController < ActionController::Base
   around_action :catch_not_found
 
   rescue_from CanCan::AccessDenied do |exception|
-    render :text => exception, :status => :unauthorized
+    render :plain => exception, :status => :unauthorized
   end
 
   def page_not_found
     respond_to do |format|
       format.html { render :template => 'errors/404', :layout => 'layouts/errors', :status => :not_found }
-      format.all  { render :text => '404 Not Found', :status => :not_found }
+      format.all  { render :plain => '404 Not Found', :status => :not_found }
     end
   end
 
   def server_error
     respond_to do |format|
       format.html { render :template => 'errors/500', :layout => 'layouts/errors', :status => :internal_server_error }
-      format.all  { render :text => '500 Server Error', :status => :internal_server_error }
+      format.all  { render :plain => '500 Server Error', :status => :internal_server_error }
     end
   end
 
@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
     if Rails.cache.exist?('any_installed_bundle')
       bundle = Rails.cache.read('any_installed_bundle')
     else
-      bundle = HealthDataStandards::CQM::Bundle.available.all.sample
+      bundle = Bundle.available.all.sample
       # Only cache the bundle if it is not nil
       Rails.cache.write('any_installed_bundle', bundle) if bundle
     end
@@ -101,7 +101,7 @@ class ApplicationController < ActionController::Base
   # causes the application to enter an inconsistent state by clearing any basic auth credentials
   # if the application is not accessed via a JSON endpoint.
   def restrict_basic_auth
-    request.env['HTTP_AUTHORIZATION'] = '' unless request.format.eql?(Mime::JSON) || request.format.eql?(Mime::XML)
+    request.env['HTTP_AUTHORIZATION'] = '' unless request.format.eql?(Mime[:JSON]) || request.format.eql?(Mime[:XML])
   end
 
   def set_vendor

@@ -3,8 +3,6 @@ module Validators
     include Validators::Validator
     def initialize(measures, records, test_id, options = {})
       @measures = measures
-      @hqmf_map = HealthDataStandards::Export::QRDA::EntryTemplateResolver.hqmf_qrda_oid_map
-      @hds_record_converter = CQM::Converter::HDSRecord.new
       super
     end
 
@@ -16,6 +14,7 @@ module Validators
         %w[IPP DENOM NUMER DENEX DENEXCEP MSRPOPL MSRPOPLEXCEP values].each do |pop|
           original_value, calculated_value, pop = extract_calcuated_and_original_results(original, calculated, pop)
           next unless original_value != calculated_value
+
           pop_statment = options[:population_ids][pop]
           pop_statment << " Stratification #{options[:population_ids]['STRAT']}" if options[:population_ids]['STRAT']
           add_error("Calculated value (#{calculated_value}) for #{pop} (#{pop_statment}) does not match expected value (#{original_value})",
@@ -38,11 +37,6 @@ module Validators
         calculated_value = [] if calculated.nil? || !calculated.is_a?(Array)
       end
       [original_value, calculated_value, pop]
-    end
-
-    def description_for_hqmf_oid(entry_oid)
-      hqmf_qrda_tuple = @hqmf_map.find { |map_tuple| map_tuple['hqmf_oid'] == entry_oid }
-      "#{hqmf_qrda_tuple['hqmf_name']}:"
     end
 
     def parse_and_save_record(doc, options)
@@ -89,6 +83,7 @@ module Validators
     def cached_value(vs)
       @loaded_valuesets ||= {}
       return @loaded_valuesets[vs.oid] if @loaded_valuesets[vs.oid]
+
       js = {}
       vs.concepts.each do |con|
         name = con.code_system_name

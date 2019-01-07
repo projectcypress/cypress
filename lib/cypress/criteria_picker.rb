@@ -52,14 +52,16 @@ module Cypress
       # if we can't find one that matches a record, just use any diagnosis (fallback)
 
       # randomize before iterating
-      measure.hqmf_document.source_data_criteria.to_a.shuffle(random: prng).each do |_criteria, cr_hash|
+      measure.source_data_criteria.to_a.shuffle(random: prng).each do |_criteria, cr_hash|
         # find diagnosis criteria in measure
         next unless cr_hash.definition.eql? 'diagnosis'
+
         fallback_id = cr_hash['code_list_id']
-        value_set = HealthDataStandards::SVS::ValueSet.where(oid: cr_hash['code_list_id']).first
+        value_set = ValueSet.where(oid: cr_hash['code_list_id']).first
 
         # search through records for diagnosis criteria
         next unless find_problem_in_records(records, value_set)
+
         code_list_id = cr_hash['code_list_id']
         break
       end
@@ -75,6 +77,7 @@ module Cypress
           c['dataElementCodes'].each do |dec|
             # check if snomed
             next unless dec['codeSystem'] == 'SNOMED-CT'
+
             # check code against all valueset concepts
             value_set['concepts'].each do |concept|
               return true if concept['code'] == dec['code']
@@ -88,8 +91,9 @@ module Cypress
     def self.hqmf_oids_for_problem(problem_oid, measures)
       measure = measures.first
       hqmf_oids = []
-      measure.hqmf_document.source_data_criteria.each do |_criteria, cr_hash|
+      measure.source_data_criteria.each do |_criteria, cr_hash|
         next unless cr_hash.key?('code_list_id') && cr_hash.code_list_id == problem_oid
+
         hqmf_oid = HQMF::DataCriteria.template_id_for_definition(cr_hash['definition'], cr_hash['status'], cr_hash['negation'])
         hqmf_oid ||= HQMF::DataCriteria.template_id_for_definition(cr_hash['definition'], cr_hash['status'], cr_hash['negation'], 'r2')
         hqmf_oids << hqmf_oid

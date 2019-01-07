@@ -35,7 +35,7 @@ module FilteringTestsHelper
   end
 
   def problems_val(val)
-    ["SNOMEDCT codes in #{HealthDataStandards::SVS::ValueSet.where(oid: val[:oid].first).first.display_name} (code: #{val[:oid].first})"]
+    ["SNOMEDCT codes in #{ValueSet.where(oid: val[:oid].first).first.display_name} (code: #{val[:oid].first})"]
   end
 
   def providers_val(val)
@@ -50,6 +50,7 @@ module FilteringTestsHelper
 
   def generate_filter_patients(filter_tests)
     return unless filter_tests
+
     test = filter_tests.pop
     test.generate_patients
     test.save

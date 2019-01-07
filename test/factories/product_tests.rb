@@ -43,6 +43,7 @@ FactoryBot.define do
                                                      'DENEX' => {} } } }
       expected_results { expected_result }
       measure_ids { ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }
+      association :provider, :factory => :default_provider
       association :product, :factory => :product_static_bundle
       after(:create) do |pt|
         extended_data = { 'correlation_id' => pt.id,
@@ -53,9 +54,6 @@ FactoryBot.define do
         aug_record[0]['original_patient_id'] = patient._id
         ir_extended_data = { 'correlation_id' => pt.id.to_s }
         create(:individual_result, 'extendedData' => ir_extended_data, 'patient_id' => patient.id, 'measure_id' => pt.measures.first.id)
-        sqc = create(:static_query_cache)
-        sqc['test_id'] = pt.id
-        sqc.save
         pt.augmented_patients = aug_record
         pt.save
       end

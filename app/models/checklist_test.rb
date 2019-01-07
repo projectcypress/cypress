@@ -13,11 +13,13 @@ class ChecklistTest < ProductTest
     return 'passing' if num_measures_complete == measures.count && !product.c3_test
     return tasks.c1_checklist_task.most_recent_execution.status_with_sibling if tasks.c1_checklist_task &&
                                                                                 tasks.c1_checklist_task.most_recent_execution
+
     'incomplete'
   end
 
   def num_measures_complete
     return 0 if checked_criteria.count.zero?
+
     num_complete = 0
     measures.each do |measure|
       criterias = checked_criteria.select { |criteria| criteria.measure_id == measure.id.to_s }
@@ -51,18 +53,21 @@ class ChecklistTest < ProductTest
   def measure_status(measure_id)
     criterias = checked_criteria.select { |criteria| criteria.measure_id == measure_id.to_s }
     return 'not_started' if criterias.count == criterias.count { |criteria| criteria.complete?.nil? }
+
     pass_count = criterias.count(&:complete?)
     pass_count == criterias.count ? 'passed' : 'failed'
   end
 
   def negate_valueset?(measure, criteria_key, att_index)
     return false unless att_index
+
     measure[:source_data_criteria].select { |key| key == criteria_key }.values.first.attributes[att_index]['attribute_name'] == 'negationRationale'
   end
 
   def attribute_index?(measure, criteria_key)
     attributes = measure[:source_data_criteria].select { |key| key == criteria_key }.values.first['attributes']
     return nil if attributes.blank?
+
     code_indexes = []
     time_indexes = []
     attributes.each_with_index do |attribute, index|
@@ -92,6 +97,7 @@ class ChecklistTest < ProductTest
       measure.reload
       next if checklist_measures.include? measure.hqmf_id # skip submeasures
       next if checklist_measures.size > max_num_checklist_measures - 1 # skip if four checklist measures already exist
+
       checklist_measures << measure.hqmf_id
       measure_criteria_map[measure].each do |criteria_key|
         att_index = attribute_index?(measure, criteria_key)
@@ -127,6 +133,7 @@ class ChecklistTest < ProductTest
   def build_execution_errors_for_incomplete_checked_criteria(execution)
     checked_criteria.each do |crit|
       next if crit.passed_qrda
+
       msg = "#{crit.printable_name} not complete"
       # did not add ":validator_type =>", not sure if this will be an issue in execution show
       execution.execution_errors.build(:message => msg, :msg_type => :error, :validator => :qrda_cat1)

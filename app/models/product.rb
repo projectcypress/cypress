@@ -92,7 +92,7 @@ class Product
 
   def add_measure_tests(product_params)
     old_ids = measure_ids || []
-    new_ids = product_params['measure_ids'] || old_ids
+    new_ids = product_params[:measure_ids] || old_ids
     update(product_params)
     (new_ids - old_ids).each do |measure_id|
       m = bundle.measures.top_level.find_by(:hqmf_id => measure_id)
@@ -130,6 +130,7 @@ class Product
 
   def test_deck_max
     return 5 if slim_test_deck?
+
     50
   end
 
@@ -142,6 +143,7 @@ class Product
     reload_relations
 
     return if product_tests.filtering_tests.any?
+
     # TODO: R2P: check new criteria names
     criteria = %w[races ethnicities genders payers age].shuffle
     filter_tests = []

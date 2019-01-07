@@ -34,13 +34,15 @@ class C2Task < Task
   end
 
   def good_results
-    c3c = Cypress::Cat3Calculator.new(product_test.measure_ids, product_test.bundle, product_test.effective_date)
-    c3c.generate_cat3_for_test(product_test.id)
+    cms_compatibility = product_test&.product&.c3_test
+    options = { provider: product_test.patients.first.provider, submission_program: cms_compatibility, start_time: start_date, end_time: end_date }
+    Qrda3R21.new(product_test.expected_results, product_test.measures, options).render
   end
 
   def last_updated_with_sibling
     sibling = product_test.tasks.c3_cat3_task
     return updated_at unless sibling
+
     [updated_at, sibling.updated_at].max
   end
 
@@ -51,6 +53,7 @@ class C2Task < Task
     return status if status == sibling.status
     return 'errored' if errored? || sibling.errored?
     return 'incomplete' if incomplete? || sibling.incomplete?
+
     'failing'
   end
 end

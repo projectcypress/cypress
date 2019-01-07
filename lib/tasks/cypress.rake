@@ -9,7 +9,6 @@ namespace :cypress do
       before = Vendor.all.count
       Vendor.destroy_all
       diff = before - Vendor.all.count
-      QME::QualityReport.destroy_all(:test_id => { '$ne' => nil })
       Record.destroy_all(:test_id => { '$ne' => nil })
       Artifact.destroy_all
       puts "removed #{diff} Vendors"

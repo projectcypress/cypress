@@ -80,6 +80,7 @@ module RecordsHelper
     return '' if field.nil?
     return field if field.is_a? String
     return display_time(field) + "\n" if field.is_a? Integer
+
     if field.is_a? Array
       field.each { |sub| display_text += display_field(sub) + "\n" }
     else
@@ -92,11 +93,6 @@ module RecordsHelper
       display_text += "\n" + field['code_system'] + ': ' + field['code'] if field['code_system']
     end
     display_text
-  end
-
-  def coverage_for_measure(measure)
-    query_cache_first = QueryCache.where(measure_id: measure.measure_id, sub_id: measure.sub_id, bundle_id: measure.bundle_id, test_id: nil).first
-    query_cache_first ? query_cache_first['bonnie_coverage'] : nil
   end
 
   def hide_patient_calculation?

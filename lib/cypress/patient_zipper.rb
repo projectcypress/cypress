@@ -7,24 +7,20 @@ require 'zip/zipfilesystem'
 
 module Cypress
   class HTMLExporter
-    EXPORTER = HealthDataStandards::Export::HTML.new
+    # TODO: add HTML Export in CQM-Parsers
+    # EXPORTER = HealthDataStandards::Export::HTML.new
     attr_accessor :measures
 
     def initialize(measures, start_time, end_time)
-      @qdm_patient_converter = CQM::Converter::QDMPatient.new
+      # TODO: conversion will not be needed, QDM -> HTML
+      # @qdm_patient_converter = CQM::Converter::QDMPatient.new
       @measures = measures.to_a
       @start_time = start_time
       @end_time = end_time
     end
 
     def export(patient)
-      # TODO: R2P: make sure patient export works with HDS HTML exporter
-      hdsrecord = @qdm_patient_converter.to_hds(patient)
-      hdsrecord.bundle_id = patient.bundleId
-      # replace the end_time with nil if the end_time is > 1893474001, which is 1/1/2030.
-      # This will get the HTML exporter to export the end time as present.
-      hdsrecord.entries.each { |de| de.end_time = nil if de.end_time && de.end_time > 1_893_474_001 }
-      EXPORTER.export(hdsrecord, measures)
+      QdmPatient.new(patient, true).render
     end
   end
 
@@ -53,8 +49,6 @@ module Cypress
     end
   end
 
-  HTML_EXPORTER = HealthDataStandards::Export::HTML.new
-
   class PatientZipper
     FORMAT_EXTENSIONS = { html: 'html', qrda: 'xml', json: 'json' }.freeze
 
@@ -76,7 +70,7 @@ module Cypress
           patient_scoop_and_filter.scoop_and_filter(sf_patient)
           z.put_next_entry("#{next_entry_path(patient, i)}.#{FORMAT_EXTENSIONS[format.to_sym]}")
           # TODO: R2P: make sure using correct exporter
-          z << if formatter == HealthDataStandards::Export::HTML
+          z << if formatter == Cypress::HTMLExporter
                  formatter.new.export(patient)
                else
                  formatter.export(sf_patient)
@@ -108,6 +102,7 @@ module Cypress
 
     def self.measure_start_end(patients)
       return unless patients.first
+
       first = patients.first
       ptest = first.product_test
       measures = ptest ? ptest.measures.top_level : patients.first.bundle.measures.top_level

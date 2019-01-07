@@ -4,7 +4,6 @@ class ProductTest
   include Mongoid::Timestamps
   include Mongoid::Attributes::Dynamic
   include GlobalID::Identification
-  include HealthDataStandards::CQM
 
   scope :by_updated_at, -> { order(:updated_at => :desc) }
 
@@ -143,6 +142,7 @@ class ProductTest
     # And delete it from pat_arr so we don't return the whole patient too
     # TODO: check... why not randomize if there is one duplicate?
     return [pat_arr, dups] if dups.count < 1
+
     clinical_pat = dups.sample(:random => random)
     dups.delete(clinical_pat)
     pat_arr.delete(clinical_pat)
@@ -171,10 +171,11 @@ class ProductTest
   def value_sets_by_oid
     value_sets = bundle.value_sets.in(:oid.in => measures.collect(&:oids).flatten.uniq)
     value_set_map = {}
-    value_sets.map do |vs|
+    value_sets.each do |vs|
       value_set_map[vs['oid']] = {} unless value_set_map.key?(vs['oid'])
       value_set_map[vs['oid']][vs['version']] = vs
     end
+    value_set_map
   end
 
   %i[ready queued building errored].each do |test_state|

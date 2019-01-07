@@ -66,8 +66,10 @@ module Validators
     def validate_name(doc_name, options)
       return true if @names[doc_name] ||
                      !options['task'].augmented_patients.index { |r| doc_name == to_doc_name(r[:first][1], r[:last][1]) }.nil?
+
       @can_continue = false
       return false if @options[:suppress_errors]
+
       add_error("Patient name '#{doc_name}' declared in file not found in test records",
                 :file_name => options[:file_name])
       false
@@ -75,8 +77,10 @@ module Validators
 
     def validate_expected_results(doc_name, mrn, options)
       return true if @expected_records.index(mrn)
+
       @can_continue = false
       return nil if @options[:suppress_errors]
+
       add_error("Patient '#{doc_name}' not expected to be returned.",
                 :file_name => options[:file_name])
       # cannot go any further here so call it quits and return
@@ -86,11 +90,14 @@ module Validators
     def validate_smg_data(doc, doc_name, mrn, options)
       return unless validate_expected_results(doc_name, mrn, options)
       return if @options[:validate_inclusion_only]
+
       @sgd.each_pair do |_hqmf_id, patient_data|
         patient_sgd = patient_data[mrn]
         next unless patient_sgd
+
         patient_sgd.each do |dc|
           next if dc[:template] == 'N/A'
+
           if find_dc_nodes(doc, dc).empty?
             add_error("Cannot find expected entry with templateId = #{dc[:template]} with valueset #{dc[:oid]}",
                       :file_name => options[:file_name])

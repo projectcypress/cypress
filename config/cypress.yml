@@ -109,11 +109,11 @@ default_provider:
       state      : 'MA'
       zip        : '02134'
       country    : 'us'
-  cda_identifiers:
-    - root       : '2.16.840.1.113883.4.6'  #npi
-      extension  : '1245319599'
-    - root       : '2.16.840.1.113883.4.2'  #tin
-      extension  : '155772012'
+  identifiers:
+    - namingSystem  : '2.16.840.1.113883.4.6'  #npi
+      value         : '1245319599'
+    - namingSystem  : '2.16.840.1.113883.4.2'  #tin
+      value         : '155772012'
 
 certifications:
   C1:

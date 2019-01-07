@@ -16,13 +16,8 @@ require 'capybara/accessible'
 
 require 'axe/cucumber/step_definitions'
 
-include HealthDataStandards::CQM
-
 Mongoid.logger.level = Logger::INFO
 Mongo::Logger.logger.level = Logger::INFO
-CAT1_CONFIG['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] = [{ 'ValueSet' => '1.5.6.7',
-                                                         'Weight' => '0.954242509',
-                                                         'IsAttribute' => false }]
 
 if ENV['IN_BROWSER']
   # On demand: non-headless tests via Selenium/WebDriver

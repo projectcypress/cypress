@@ -5,6 +5,7 @@ class C2TaskTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   def setup
+    @user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     @product_test = FactoryBot.create(:product_test_static_result)
   end
 
@@ -25,7 +26,7 @@ class C2TaskTest < ActiveSupport::TestCase
     task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
     xml = create_rack_test_file('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_good.xml', 'text/xml')
     perform_enqueued_jobs do
-      te = task.execute(xml, User.first)
+      te = task.execute(xml, @user)
       te.reload
       assert te.execution_errors.empty?, 'should be no errors for good cat I archive'
     end
@@ -35,7 +36,7 @@ class C2TaskTest < ActiveSupport::TestCase
     task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
     xml = create_rack_test_file('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_bad_mp.xml', 'text/xml')
     perform_enqueued_jobs do
-      te = task.execute(xml, User.first)
+      te = task.execute(xml, @user)
       te.reload
       assert_empty te.execution_errors, 'should have no errors for the invalid reporting period'
     end
@@ -63,7 +64,7 @@ class C2TaskTest < ActiveSupport::TestCase
     @product_test.product.c2_test = true
     xml = create_rack_test_file('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_missing_supplemental.xml', 'text/xml')
     perform_enqueued_jobs do
-      te = task.execute(xml, User.first)
+      te = task.execute(xml, @user)
       te.reload
       assert_equal 1, te.execution_errors.to_a.count { |e| e.message == 'supplemental data error' }, 'should error on missing supplemental data'
       te.execution_errors.each do |ee|
@@ -77,7 +78,7 @@ class C2TaskTest < ActiveSupport::TestCase
     @product_test.product.c2_test = true
     xml = create_rack_test_file('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_bad_schematron.xml', 'text/xml')
     perform_enqueued_jobs do
-      te = task.execute(xml, User.first)
+      te = task.execute(xml, @user)
       te.reload
       assert_equal 1, te.execution_errors.to_a.count { |ee| ee.validator_type == :xml_validation }, 'should error on bad schematron'
     end
@@ -132,7 +133,7 @@ class C2TaskTest < ActiveSupport::TestCase
     xml = Tempfile.new(['good_results_debug_file', '.xml'])
     xml.write task.good_results
     perform_enqueued_jobs do
-      te = task.execute(xml, User.first)
+      te = task.execute(xml, @user)
       te.reload
       assert_empty te.execution_errors, 'test execution with known good results should not have any errors'
     end

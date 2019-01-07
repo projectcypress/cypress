@@ -2,7 +2,7 @@ require 'test_helper'
 
 class MplDownloadCreateJobTest < ActiveJob::TestCase
   setup do
-    @bundle = FactoryBot.create(:static_bundle)
+    @bundle = FactoryBot.build(:static_bundle)
     # Clean up MPL before and after running for consistency
     FileUtils.rm_rf(@bundle.mpl_path)
   end
@@ -15,12 +15,14 @@ class MplDownloadCreateJobTest < ActiveJob::TestCase
     assert_enqueued_jobs 0
 
     assert_enqueued_jobs 1 do
+      @bundle.save!
       assert :building, @bundle.mpl_prepare
     end
   end
 
   def test_running_mpl_job_success
     perform_enqueued_jobs do
+      assert @bundle.save!
       assert :building, @bundle.mpl_prepare
       assert_performed_jobs 1
       assert :ready, @bundle.mpl_status

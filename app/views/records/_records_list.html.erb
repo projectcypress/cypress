@@ -3,11 +3,7 @@
   <% measure_records = records_by_measure(patients, measure) %>
   <% result_values = get_result_values(patients, [measure], measure.population_ids.keys(), 'patient_id') %>
 <% end %>
-<h1><%= measure ? measure.display_name : 'All' %> Patients
-<% if measure && coverage_for_measure(measure)%>
-  - Logic Coverage <%= coverage_for_measure(measure) %>%
-<% end %>
-</h1>
+<h1><%= measure ? measure.display_name : 'All' %> Patients</h1>
 <% if (measure && measure_records.length.positive?) || (!measure  && patients.length.positive?) %>
 <table class="table table-condensed table-hover">
   <thead>

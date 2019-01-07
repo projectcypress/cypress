@@ -12,7 +12,7 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     @race = QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => @original_race_code, 'codeSystem' => 'NA' }])
     @ethnicity = QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => @original_ethnicity_code, 'codeSystem' => 'NA' }])
     @gender = QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => @original_gender_code, 'codeSystem' => 'NA' }])
-    @address = Address.new(
+    @address = QDM::Address.new(
       use: 'H',
       street: ['123 Tregslofsterlang Lane'],
       city: 'Rthysdambibob',

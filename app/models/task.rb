@@ -25,11 +25,9 @@ class Task
     # Define methods for fetching specific types of tasks,
     # for example (Task.c1_task, Task.cat1_filter_task, etc)
     define_singleton_method task_type.underscore do
-      begin
-        find_by(:_type => task_type)
-      rescue
-        false
-      end
+      find_by(:_type => task_type)
+    rescue
+      false
     end
   end
 
@@ -44,6 +42,7 @@ class Task
     Rails.cache.fetch("#{cache_key}/status") do
       recent_execution = most_recent_execution
       return 'incomplete' unless recent_execution
+
       if recent_execution.passing?
         'passing'
       elsif recent_execution.failing?

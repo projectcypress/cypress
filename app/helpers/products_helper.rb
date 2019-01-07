@@ -16,6 +16,7 @@ module ProductsHelper
 
   def perform_c3_certification_during_measure_test_message(product, test_type)
     return '' unless test_type == 'MeasureTest' && product.c3_test
+
     certifications = [product.c1_test ? 'C1' : nil, product.c2_test ? 'C2' : nil].compact.join(' and ')
     " C3 certifications will automatically be performed during #{certifications} certifications."
   end
@@ -45,6 +46,7 @@ module ProductsHelper
     return true unless %i[ready errored].include? test.state
     # We should reload if any tasks are pending
     return true if task_status.eql? 'pending'
+
     false
   end
 
@@ -64,6 +66,7 @@ module ProductsHelper
     # Check if the task has been refreshed within the past 30 seconds. If it has then keep refreshing until
     # the database has a chance to settle.
     return true if task.most_recent_execution && (Time.now.utc - task.most_recent_execution.last_updated_with_sibling) < 30
+
     false
   end
 
@@ -85,6 +88,7 @@ module ProductsHelper
     return 'errored' if tasks.any?(&:errored?)
     return 'pending' if tasks.any?(&:pending?)
     return 'incomplete' if tasks.any?(&:incomplete?)
+
     'unstarted'
   end
 
@@ -96,6 +100,7 @@ module ProductsHelper
   # input should be a c1 or c2 task
   def with_c3_task(task)
     return [task] unless task.product_test.product.c3_test
+
     case task
     when C1Task
       return [task, task.product_test.tasks.c3_cat1_task]
@@ -110,6 +115,7 @@ module ProductsHelper
   def each_tab(product)
     %w[ChecklistTest MeasureTest FilteringTest].each do |test_type|
       next unless should_show_product_tests_tab?(product, test_type)
+
       if test_type == 'MeasureTest'
         title, description, html_id = title_description_and_html_id_for(product, test_type, true)
         yield(test_type, title, description, html_id) if product.c1_test || product.c3_test
