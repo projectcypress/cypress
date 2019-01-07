@@ -181,7 +181,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   end
 
   def test_perform_replace_other_race
-    # Clone and ensure they have random races
+    # Clone and ensure that "Other" is always replaced with the same code '2106-3'
     pcj = Cypress::PopulationCloneJob.new('randomize_demographics' => false)
     prng = Random.new(@pt.rand_seed.to_i)
     patient = Patient.first
