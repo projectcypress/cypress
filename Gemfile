@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '2.5.3'
+ruby '2.6.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.6'
+gem 'rails', '~> 5.2.2'
 
 gem 'delayed_job_mongoid', '~> 2.3.0'
 gem 'mongoid', '~> 6.4.2'
@@ -71,6 +71,8 @@ gem 'remotipart', '~> 1.2'
 # Server usage statistics
 gem 'vmstat'
 
+gem 'bootsnap', require: false
+
 # bubble up errors from embedded documents in Mongoid.
 # gem 'mongoid-embedded-errors'
 
@@ -119,6 +121,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'listen'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 3.7.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
