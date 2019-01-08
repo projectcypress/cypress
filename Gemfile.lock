@@ -1,17 +1,17 @@
 GIT
   remote: https://github.com/projecttacoma/cqm-models.git
-  revision: e2b2fac60183821df18e9dcd6bd14183f7d8ad1d
-  branch: remove_hds
+  revision: 7f37b3ccf7face5be824234adeb560df265c551a
+  branch: remove_hds_v_1.0.2
   specs:
-    cqm-models (1.0.1)
+    cqm-models (1.0.2)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: 6b593f39c7b1783eecbb514fcba7632062771a83
-  branch: rails_upgrade
+  revision: e3e01970761befcd7bf88bcb51851e6c90df57f4
+  branch: rails_upgrade_v_0.2.1
   specs:
     cqm-parsers (1.0.0)
-      activesupport (~> 5.1.6)
+      activesupport (~> 5.0)
       builder (~> 3.1)
       erubis (~> 2.7.0)
       highline (~> 1.7.0)
@@ -27,10 +27,10 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-validators.git
-  revision: f18c64942affce7fbe4dcdfb3a56c277b44465a8
+  revision: 1841f19c75bcffade4ed0ff428eedc8607401e78
   branch: remove_hds
   specs:
-    cqm-validators (0.1.0)
+    cqm-validators (1.0.0)
       nokogiri (~> 1.8.2)
 
 GIT
@@ -568,4 +568,4 @@ RUBY VERSION
    ruby 2.5.3p105
 
 BUNDLED WITH
-   1.16.6
+   1.17.1
