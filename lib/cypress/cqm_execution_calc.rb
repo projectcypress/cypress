@@ -29,8 +29,8 @@ module Cypress
       # oids field. There is a value_set_oids on the measure for this explicit purpose.
       post_data = post_data.to_json(methods: %i[_type value_set_oids])
       begin
-        response = RestClient::Request.execute(:method => :post, :url => CALCULATION_SERVICE_URL, :timeout => 120,
-                                               :payload => post_data, :headers => { :content_type => 'application/json' })
+        response = RestClient::Request.execute(method: :post, url: CALCULATION_SERVICE_URL, timeout: 120,
+                                               payload: post_data, headers: { content_type: 'application/json' })
       rescue => e
         raise e.to_s || 'Calculation failed without an error message'
       end

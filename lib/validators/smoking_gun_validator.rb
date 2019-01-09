@@ -45,7 +45,7 @@ module Validators
       sg_errors = super.dup
       unless not_found_names.empty?
         msg = "Records for patients #{not_found_names.join(', ')} not found in archive as expected"
-        sg_errors << ExecutionError.new(:message => msg, :msg_type => :error, :validator_type => :result_validation)
+        sg_errors << ExecutionError.new(message: msg, msg_type: :error, validator_type: :result_validation)
       end
 
       sg_errors
@@ -71,7 +71,7 @@ module Validators
       return false if @options[:suppress_errors]
 
       add_error("Patient name '#{doc_name}' declared in file not found in test records",
-                :file_name => options[:file_name])
+                file_name: options[:file_name])
       false
     end
 
@@ -82,7 +82,7 @@ module Validators
       return nil if @options[:suppress_errors]
 
       add_error("Patient '#{doc_name}' not expected to be returned.",
-                :file_name => options[:file_name])
+                file_name: options[:file_name])
       # cannot go any further here so call it quits and return
       nil
     end
@@ -100,7 +100,7 @@ module Validators
 
           if find_dc_nodes(doc, dc).empty?
             add_error("Cannot find expected entry with templateId = #{dc[:template]} with valueset #{dc[:oid]}",
-                      :file_name => options[:file_name])
+                      file_name: options[:file_name])
           end
         end
       end

@@ -13,7 +13,7 @@ class VendorsController < ApplicationController
 
   def index
     # get all of the vendors that the user can see
-    @vendors = Vendor.accessible_by(current_user).order(:updated_at => :desc) # Vendor.accessible_by(current_user).all.order(:updated_at => :desc)
+    @vendors = Vendor.accessible_by(current_user).order(updated_at: :desc) # Vendor.accessible_by(current_user).all.order(:updated_at => :desc)
     respond_with(@vendors.to_a)
   end
 
@@ -45,7 +45,7 @@ class VendorsController < ApplicationController
     end
   rescue Mongoid::Errors::Validations
     respond_with_errors(@vendor) do |f|
-      f.html { render :new, :status => :bad_request }
+      f.html { render :new, status: :bad_request }
     end
   end
 
@@ -65,7 +65,7 @@ class VendorsController < ApplicationController
     end
   rescue Mongoid::Errors::Validations
     respond_with_errors(@vendor) do |f|
-      f.html { render :edit, :status => :bad_request }
+      f.html { render :edit, status: :bad_request }
     end
   end
 
@@ -94,6 +94,6 @@ class VendorsController < ApplicationController
   def vendor_params
     params[:vendor][:name]&.strip!
     params.require(:vendor).permit(:name, :vendor_id, :url, :address, :state, :zip,
-                                   :points_of_contact_attributes => %i[id name email phone contact_type _destroy])
+                                   points_of_contact_attributes: %i[id name email phone contact_type _destroy])
   end
 end

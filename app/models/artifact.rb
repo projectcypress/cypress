@@ -7,10 +7,10 @@ class Artifact
                       'text/xml' => :xml }.freeze
 
   mount_uploader :file, DocumentUploader
-  belongs_to :test_execution, :index => true
+  belongs_to :test_execution, index: true
 
-  field :content_type, :type => String
-  field :file_size, :type => Integer
+  field :content_type, type: String
+  field :file_size, type: Integer
 
   validate :correct_file_type
 

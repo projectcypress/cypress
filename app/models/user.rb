@@ -43,14 +43,14 @@ class User
   field :invitation_accepted_at, type: Time
   field :invitation_limit, type: Integer
 
-  has_many :test_executions, :dependent => :nullify
+  has_many :test_executions, dependent: :nullify
 
-  index(:invitation_token => 1)
-  index(:invitation_by_id => 1)
+  index(invitation_token: 1)
+  index(invitation_by_id: 1)
 
-  field :approved, :type => Boolean, :default => proc { Settings.current.auto_approve || false }
+  field :approved, type: Boolean, default: proc { Settings.current.auto_approve || false }
 
-  validates :terms_and_conditions, :acceptance => true, :on => :create, :allow_nil => false
+  validates :terms_and_conditions, acceptance: true, on: :create, allow_nil: false
 
   after_create :associate_points_of_contact
   after_create :assign_default_role

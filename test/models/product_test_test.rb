@@ -35,13 +35,13 @@ class ProductTestTest < ActiveJob::TestCase
     assert_equal 'passing', measure_test.status
 
     # measure test should be incomplete if at least one test execution is incomplete
-    te = measure_test.tasks[0].test_executions.build(:state => :incomplete)
+    te = measure_test.tasks[0].test_executions.build(state: :incomplete)
     user.test_executions << te
     te.save!
     assert_equal 'incomplete', measure_test.status
 
     # measure test should be failing if at least one test execution is failing
-    te = measure_test.tasks[1].test_executions.build(:state => :failed)
+    te = measure_test.tasks[1].test_executions.build(state: :failed)
     user.test_executions << te
     te.save!
     assert_equal 'failing', measure_test.status
@@ -64,10 +64,10 @@ class ProductTestTest < ActiveJob::TestCase
     perform_enqueued_jobs do
       # create tests with same seed
       seed = Random.new_seed
-      test1 = @product.product_tests.create!({ :name => 'mtest', :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                             :bundle_id => @bundle.id, :rand_seed => seed }, MeasureTest)
-      test2 = @product.product_tests.create!({ :name => 'mtest', :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                             :bundle_id => @bundle.id, :rand_seed => seed }, MeasureTest)
+      test1 = @product.product_tests.create!({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                               bundle_id: @bundle.id, rand_seed: seed }, MeasureTest)
+      test2 = @product.product_tests.create!({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                               bundle_id: @bundle.id, rand_seed: seed }, MeasureTest)
       assert_equal test1.rand_seed, test2.rand_seed, 'random repeatability error: random seeds don\'t match'
     end
     compare_product_tests(test1, test2)
@@ -138,9 +138,9 @@ class ProductTestTest < ActiveJob::TestCase
   end
 
   def create_test_executions_with_state(product_test, state)
-    user = User.create(:email => 'vendor@test.com', :password => 'TestTest!', :password_confirmation => 'TestTest!', :terms_and_conditions => '1')
+    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     product_test.tasks.each do |task|
-      test_execution = task.test_executions.build(:state => state)
+      test_execution = task.test_executions.build(state: state)
       user.test_executions << test_execution
       test_execution.save!
     end

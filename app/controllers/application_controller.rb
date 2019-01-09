@@ -2,27 +2,27 @@ class ApplicationController < ActionController::Base
   include Roar::Rails::ControllerAdditions
 
   # Prevent CSRF attacks with a null session
-  protect_from_forgery :with => :exception, :unless => -> { request.format.json? || request.format.xml? }
+  protect_from_forgery with: :exception, unless: -> { request.format.json? || request.format.xml? }
 
   before_action :restrict_basic_auth, :authenticate_user!, :check_bundle_installed, :check_backend_jobs,
-                :check_remaining_disk_space, :except => %i[page_not_found server_error]
+                :check_remaining_disk_space, except: %i[page_not_found server_error]
   around_action :catch_not_found
 
   rescue_from CanCan::AccessDenied do |exception|
-    render :plain => exception, :status => :unauthorized
+    render plain: exception, status: :unauthorized
   end
 
   def page_not_found
     respond_to do |format|
-      format.html { render :template => 'errors/404', :layout => 'layouts/errors', :status => :not_found }
-      format.all  { render :plain => '404 Not Found', :status => :not_found }
+      format.html { render template: 'errors/404', layout: 'layouts/errors', status: :not_found }
+      format.all  { render plain: '404 Not Found', status: :not_found }
     end
   end
 
   def server_error
     respond_to do |format|
-      format.html { render :template => 'errors/500', :layout => 'layouts/errors', :status => :internal_server_error }
-      format.all  { render :plain => '500 Server Error', :status => :internal_server_error }
+      format.html { render template: 'errors/500', layout: 'layouts/errors', status: :internal_server_error }
+      format.all  { render plain: '500 Server Error', status: :internal_server_error }
     end
   end
 
@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  DEFAULT_AUTH_MAPPING = { :read => %w[show index], :manage => %w[new create update destroy delete edit] }.freeze
+  DEFAULT_AUTH_MAPPING = { read: %w[show index], manage: %w[new create update destroy delete edit] }.freeze
   # Overwriting the sign_out redirect path method
   def after_sign_out_path_for(_resource_or_scope)
     user_session_path
