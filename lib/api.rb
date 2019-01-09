@@ -70,9 +70,9 @@ module API
     def respond_with_errors(obj, &block)
       case request.format.symbol
       when :json
-        render :json => serialize_json_errors(obj.errors), :status => :unprocessable_entity
+        render json: serialize_json_errors(obj.errors), status: :unprocessable_entity
       when :xml
-        render :xml => serialize_xml_errors(obj.errors), :status => :unprocessable_entity
+        render xml: serialize_xml_errors(obj.errors), status: :unprocessable_entity
       else
         respond_with(obj, &block)
       end
@@ -80,12 +80,12 @@ module API
 
     def serialize_json_errors(errors)
       json = {}
-      json[:errors] = errors.to_h.map { |field, messages| { :field => field, :messages => [messages].flatten } }
+      json[:errors] = errors.to_h.map { |field, messages| { field: field, messages: [messages].flatten } }
       json
     end
 
     def serialize_xml_errors(errors)
-      serialize_json_errors(errors)[:errors].to_xml(:root => :errors, :skip_types => true)
+      serialize_json_errors(errors)[:errors].to_xml(root: :errors, skip_types: true)
     end
   end
 

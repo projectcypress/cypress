@@ -6,9 +6,9 @@ class Tracker
   field :log_message, type: Array, default: []
   field :options, type: Hash, default: {}
 
-  scope :working, -> { where('status' => :working) }
-  scope :failed, -> { where('status' => :failed) }
-  scope :queued, -> { where('status' => :queued) }
+  scope :working, -> { where('status': :working) }
+  scope :failed, -> { where('status': :failed) }
+  scope :queued, -> { where('status': :queued) }
 
   def log(data)
     log_message.push(data)

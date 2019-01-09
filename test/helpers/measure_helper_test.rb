@@ -49,7 +49,7 @@ class MeasureHelperTest < ActiveSupport::TestCase
   end
 
   def test_should_reload_measure_test
-    test = ProductTest.new(:name => 'my product test', :state => :not_ready)
+    test = ProductTest.new(name: 'my product test', state: :not_ready)
     assert ApplicationController.helpers.should_reload_measure_test?(test)
 
     # product tests with no test executions should not be reloaded
@@ -70,9 +70,9 @@ class MeasureHelperTest < ActiveSupport::TestCase
   end
 
   def product_test_with_test_execution_with_state(state)
-    test = ProductTest.new(:state => :ready)
+    test = ProductTest.new(state: :ready)
     task = test.tasks.build
-    task.test_executions.build(:state => state)
+    task.test_executions.build(state: state)
     test
   end
 end

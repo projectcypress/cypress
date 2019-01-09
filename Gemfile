@@ -60,10 +60,10 @@ gem 'responders'
 # Roar is a framework for parsing and rendering REST documents
 gem 'roar-rails'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', :group => :doc
+gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'carrierwave', '~> 0.11.2'
-gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 
 # AJAX file uploads
 gem 'remotipart', '~> 1.2'
@@ -105,8 +105,8 @@ group :development, :test do
   gem 'byebug'
   gem 'capybara'
   gem 'capybara-accessible'
-  gem 'cucumber', '~> 3.0.2', :require => false
-  gem 'cucumber-rails', :require => false
+  gem 'cucumber', '~> 3.0.2', require: false
+  gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'overcommit'
   gem 'poltergeist'
@@ -116,7 +116,7 @@ group :development, :test do
   gem 'rails-perftest'
   gem 'rails_best_practices'
   gem 'ruby-prof', '~> 0.17.0'
-  gem 'scss_lint', :require => false
+  gem 'scss_lint', require: false
   gem 'selenium-webdriver'
 end
 
@@ -131,14 +131,14 @@ group :test do
   # Brakeman is broken on ruby 2.5, re-enable when https://github.com/presidentbeef/brakeman/issues/1173 is closed
   # gem 'brakeman', :require => false
   gem 'bundler-audit'
-  gem 'codecov', :require => false
+  gem 'codecov', require: false
   gem 'factory_bot_rails'
   gem 'launchy'
   gem 'minitest', '5.11.3'
   gem 'minitest-rails'
   gem 'minitest-reporters'
-  gem 'mocha', :require => false
-  gem 'simplecov', :require => false
+  gem 'mocha', require: false
+  gem 'simplecov', require: false
 end
 
 group :production do

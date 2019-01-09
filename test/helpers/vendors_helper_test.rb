@@ -53,8 +53,8 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   # one C1 failing test, one C3 passing test
   def setup_cat1_measure_executions
-    c1_cat1_execution = @product.product_tests.measure_tests.find_by(name: 'test_product_test_name_2').tasks.c1_task.test_executions.create!(:state => :failed, :user => @user)
-    c3_cat1_execution = @product.product_tests.measure_tests.find_by(:name => 'test_product_test_name_2').tasks.c3_cat1_task.test_executions.create!(:state => :passed, :user => @user)
+    c1_cat1_execution = @product.product_tests.measure_tests.find_by(name: 'test_product_test_name_2').tasks.c1_task.test_executions.create!(state: :failed, user: @user)
+    c3_cat1_execution = @product.product_tests.measure_tests.find_by(name: 'test_product_test_name_2').tasks.c3_cat1_task.test_executions.create!(state: :passed, user: @user)
     c1_cat1_execution.sibling_execution_id = c3_cat1_execution.id
     c1_cat1_execution.save
     c3_cat1_execution.save
@@ -62,24 +62,24 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   # one C2 passing test, one C3 failing test
   def setup_cat3_measure_executions
-    c2_cat3_execution = @product.product_tests.measure_tests.find_by(:name => 'test_product_test_name_2').tasks.c2_task.test_executions.create!(:state => :passed, :user => @user)
-    c3_cat3_execution = @product.product_tests.measure_tests.find_by(:name => 'test_product_test_name_2').tasks.c3_cat3_task.test_executions.create!(:state => :failed, :user => @user)
+    c2_cat3_execution = @product.product_tests.measure_tests.find_by(name: 'test_product_test_name_2').tasks.c2_task.test_executions.create!(state: :passed, user: @user)
+    c3_cat3_execution = @product.product_tests.measure_tests.find_by(name: 'test_product_test_name_2').tasks.c3_cat3_task.test_executions.create!(state: :failed, user: @user)
     c2_cat3_execution.sibling_execution_id = c3_cat3_execution.id
     c2_cat3_execution.save
     c3_cat3_execution.save
   end
 
   def setup_filtering_tests
-    @product.product_tests.create!({ :name => 'Filter Test 1', :cms_id => 'SomeCMSID', :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                     :options => { :filters => { :filt1 => ['val1'], :filt2 => ['val2'] } } }, FilteringTest)
+    @product.product_tests.create!({ name: 'Filter Test 1', cms_id: 'SomeCMSID', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                     options: { filters: { filt1: ['val1'], filt2: ['val2'] } } }, FilteringTest)
     @product.product_tests.filtering_tests.each do |test|
       test.tasks.build({}, Cat1FilterTask)
       test.tasks.build({}, Cat3FilterTask)
     end
 
     # one cat1 passing execution, one cat3 failing execution
-    @product.product_tests.filtering_tests.find_by(:name => 'Filter Test 1').cat1_task.test_executions.create(:state => :passed, :user => @user)
-    @product.product_tests.filtering_tests.find_by(:name => 'Filter Test 1').cat3_task.test_executions.create(:state => :passed, :user => @user)
+    @product.product_tests.filtering_tests.find_by(name: 'Filter Test 1').cat1_task.test_executions.create(state: :passed, user: @user)
+    @product.product_tests.filtering_tests.find_by(name: 'Filter Test 1').cat3_task.test_executions.create(state: :passed, user: @user)
   end
 
   # # # # # # # # #
@@ -171,7 +171,7 @@ class VendorsHelperTest < ActiveJob::TestCase
   end
 
   def test_checklist_status_vals_not_started
-    test = @product.product_tests.checklist_tests.find_by(:name => 'c1 visual')
+    test = @product.product_tests.checklist_tests.find_by(name: 'c1 visual')
     passing, failing, errored, not_started, total = checklist_status_vals(test, 'C1')
 
     assert_equal 0, passing
@@ -196,7 +196,7 @@ class VendorsHelperTest < ActiveJob::TestCase
   end
 
   def test_checklist_status_vals_passing
-    test = @product.product_tests.checklist_tests.find_by(:name => 'c1 visual')
+    test = @product.product_tests.checklist_tests.find_by(name: 'c1 visual')
     test.checked_criteria.each do |criteria|
       criteria.code_complete = true
       criteria.code = '123'
@@ -229,45 +229,45 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   def test_checklist_status_vals_for_execution_both_executions_passing
     test, c1_task, c3_task = setup_checklist_status_vals_for_execution
-    c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321', :user => @user)
-    c3_task.test_executions.create!(:state => :passed, :_id => '54321', :sibling_execution_id => '12345', :user => @user)
+    c1_task.test_executions.create!(state: :passed, _id: '12345', sibling_execution_id: '54321', user: @user)
+    c3_task.test_executions.create!(state: :passed, _id: '54321', sibling_execution_id: '12345', user: @user)
     assert_equal [1, 0, 0, 0, 1], checklist_status_vals_for_execution(test, 'C1')
   end
 
   def test_checklist_status_vals_for_test_execution_one_execution_failing_one_passing
     test, c1_task, c3_task = setup_checklist_status_vals_for_execution
-    c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321', :user => @user)
-    c3_task.test_executions.create!(:state => :failed, :_id => '54321', :sibling_execution_id => '12345', :user => @user)
+    c1_task.test_executions.create!(state: :passed, _id: '12345', sibling_execution_id: '54321', user: @user)
+    c3_task.test_executions.create!(state: :failed, _id: '54321', sibling_execution_id: '12345', user: @user)
     assert_equal [0, 1, 0, 0, 1], checklist_status_vals_for_execution(test, 'C1')
   end
 
   def test_checklist_status_vals_for_test_execution_one_execution_pending_one_passing
     test, c1_task, c3_task = setup_checklist_status_vals_for_execution
-    c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321', :user => @user)
-    c3_task.test_executions.create!(:state => :pending, :_id => '54321', :sibling_execution_id => '12345', :user => @user)
+    c1_task.test_executions.create!(state: :passed, _id: '12345', sibling_execution_id: '54321', user: @user)
+    c3_task.test_executions.create!(state: :pending, _id: '54321', sibling_execution_id: '12345', user: @user)
     assert_equal [0, 0, 0, 1, 1], checklist_status_vals_for_execution(test, 'C1')
   end
 
   def test_checklist_status_vals_for_test_execution_one_execution_errored_one_passing
     test, c1_task, c3_task = setup_checklist_status_vals_for_execution
-    c1_task.test_executions.create!(:state => :passed, :_id => '12345', :sibling_execution_id => '54321', :user => @user)
-    c3_task.test_executions.create!(:state => :errored, :_id => '54321', :sibling_execution_id => '12345', :user => @user)
+    c1_task.test_executions.create!(state: :passed, _id: '12345', sibling_execution_id: '54321', user: @user)
+    c3_task.test_executions.create!(state: :errored, _id: '54321', sibling_execution_id: '12345', user: @user)
     assert_equal [0, 0, 1, 0, 1], checklist_status_vals_for_execution(test, 'C1')
   end
 
   # pending executions should take precedence over failing executions
   def test_checklist_status_vals_for_test_execution_one_execution_pending_one_failing
     test, c1_task, c3_task = setup_checklist_status_vals_for_execution
-    c1_task.test_executions.create!(:state => :failed, :_id => '12345', :sibling_execution_id => '54321', :user => @user)
-    c3_task.test_executions.create!(:state => :pending, :_id => '54321', :sibling_execution_id => '12345', :user => @user)
+    c1_task.test_executions.create!(state: :failed, _id: '12345', sibling_execution_id: '54321', user: @user)
+    c3_task.test_executions.create!(state: :pending, _id: '54321', sibling_execution_id: '12345', user: @user)
     assert_equal [0, 0, 0, 1, 1], checklist_status_vals_for_execution(test, 'C1')
   end
 
   # failing executions should take precedence over errored executions
   def test_checklist_status_vals_for_test_execution_one_execution_errored_one_failing
     test, c1_task, c3_task = setup_checklist_status_vals_for_execution
-    c1_task.test_executions.create!(:state => :errored, :_id => '12345', :sibling_execution_id => '54321', :user => @user)
-    c3_task.test_executions.create!(:state => :failed, :_id => '54321', :sibling_execution_id => '12345', :user => @user)
+    c1_task.test_executions.create!(state: :errored, _id: '12345', sibling_execution_id: '54321', user: @user)
+    c3_task.test_executions.create!(state: :failed, _id: '54321', sibling_execution_id: '12345', user: @user)
     assert_equal [0, 1, 0, 0, 1], checklist_status_vals_for_execution(test, 'C1')
   end
 
@@ -284,14 +284,14 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal [1, 0, 0, 0, 1], checklist_status_vals(test, 'C1')
 
     # add test executions that are failing
-    test.tasks.c1_checklist_task.test_executions.create!(:state => :failed, :_id => '12345', :sibling_execution_id => '54321', :user => @user)
-    test.tasks.c3_checklist_task.test_executions.create!(:state => :failed, :_id => '54321', :sibling_execution_id => '12345', :user => @user)
+    test.tasks.c1_checklist_task.test_executions.create!(state: :failed, _id: '12345', sibling_execution_id: '54321', user: @user)
+    test.tasks.c3_checklist_task.test_executions.create!(state: :failed, _id: '54321', sibling_execution_id: '12345', user: @user)
     assert_equal [1, 1, 0, 0, 2], checklist_status_vals(test, 'C1')
   end
 
   def test_product_test_statuses_passing
     tests = @product.product_tests.measure_tests
-    tests.find_by(:name => 'test_product_test_name_2').tasks.where(:_type => 'C1Task').first.test_executions.build(:state => :passed, :user => @user).save
+    tests.find_by(name: 'test_product_test_name_2').tasks.where(_type: 'C1Task').first.test_executions.build(state: :passed, user: @user).save
     passing, failing, errored, not_started, total = product_test_statuses(tests, 'C1Task')
 
     assert_equal 1, passing
@@ -303,7 +303,7 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   def test_product_test_statuses_failing
     tests = @product.product_tests.measure_tests
-    tests.find_by(:name => 'test_product_test_name_2').tasks.where(:_type => 'C1Task').first.test_executions.build(:state => :failed, :user => @user).save
+    tests.find_by(name: 'test_product_test_name_2').tasks.where(_type: 'C1Task').first.test_executions.build(state: :failed, user: @user).save
     passing, failing, errored, not_started, total = product_test_statuses(tests, 'C1Task')
 
     assert_equal 0, passing
@@ -315,7 +315,7 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   def test_product_test_statuses_errored
     tests = @product.product_tests.measure_tests
-    tests.first.tasks.where(:_type => 'C1Task').first.test_executions.build(:state => :errored, :user => @user).save
+    tests.first.tasks.where(_type: 'C1Task').first.test_executions.build(state: :errored, user: @user).save
     passing, failing, errored, not_started, total = product_test_statuses(tests, 'C1Task')
 
     assert_equal 0, passing
@@ -327,8 +327,8 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   def test_product_test_statuses_cat1
     tests = @product.product_tests.measure_tests
-    c1_execution = tests.find_by(:name => 'test_product_test_name_2').tasks.where(:_type => 'C1Task').first.test_executions.build(:state => :failed, :user => @user)
-    c3_execution = tests.find_by(:name => 'test_product_test_name_2').tasks.where(:_type => 'C3Cat1Task').first.test_executions.build(:state => :passed, :user => @user)
+    c1_execution = tests.find_by(name: 'test_product_test_name_2').tasks.where(_type: 'C1Task').first.test_executions.build(state: :failed, user: @user)
+    c3_execution = tests.find_by(name: 'test_product_test_name_2').tasks.where(_type: 'C3Cat1Task').first.test_executions.build(state: :passed, user: @user)
     c1_execution.sibling_execution_id = c3_execution.id
     c1_execution.save
     c3_execution.save
@@ -343,8 +343,8 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   def test_product_test_statuses_cat1_errored
     tests = @product.product_tests.measure_tests
-    c1_execution = tests.first.tasks.where(:_type => 'C1Task').first.test_executions.create!(:state => :passed, :user => @user)
-    c3_execution = tests.first.tasks.where(:_type => 'C3Cat1Task').first.test_executions.create!(:state => :errored, :user => @user)
+    c1_execution = tests.first.tasks.where(_type: 'C1Task').first.test_executions.create!(state: :passed, user: @user)
+    c3_execution = tests.first.tasks.where(_type: 'C3Cat1Task').first.test_executions.create!(state: :errored, user: @user)
     c1_execution.sibling_execution_id = c3_execution.id
     passing, failing, errored, _, total = product_test_statuses(tests, 'C3Cat1Task')
     assert_equal 0, failing
@@ -355,8 +355,8 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   def test_product_test_statuses_cat3
     tests = @product.product_tests.measure_tests
-    c2_execution = tests.find_by(:name => 'test_product_test_name_2').tasks.where(:_type => 'C2Task').first.test_executions.build(:state => :failed, :user => @user)
-    c3_execution = tests.find_by(:name => 'test_product_test_name_2').tasks.where(:_type => 'C3Cat3Task').first.test_executions.build(:state => :passed, :user => @user)
+    c2_execution = tests.find_by(name: 'test_product_test_name_2').tasks.where(_type: 'C2Task').first.test_executions.build(state: :failed, user: @user)
+    c3_execution = tests.find_by(name: 'test_product_test_name_2').tasks.where(_type: 'C3Cat3Task').first.test_executions.build(state: :passed, user: @user)
     c2_execution.sibling_execution_id = c3_execution.id
     c2_execution.save
     c3_execution.save
@@ -371,8 +371,8 @@ class VendorsHelperTest < ActiveJob::TestCase
 
   def test_product_test_statuses_cat3_errored
     tests = @product.product_tests.measure_tests
-    c2_execution = tests.first.tasks.where(:_type => 'C2Task').first.test_executions.create!(:state => :failed, :user => @user)
-    c3_execution = tests.first.tasks.where(:_type => 'C3Cat3Task').first.test_executions.create!(:state => :errored, :user => @user)
+    c2_execution = tests.first.tasks.where(_type: 'C2Task').first.test_executions.create!(state: :failed, user: @user)
+    c3_execution = tests.first.tasks.where(_type: 'C3Cat3Task').first.test_executions.create!(state: :errored, user: @user)
     c2_execution.sibling_execution_id = c3_execution.id
     passing, failing, errored, _, total = product_test_statuses(tests, 'C3Cat3Task')
 
@@ -393,12 +393,12 @@ class VendorsHelperTest < ActiveJob::TestCase
   def test_cache_key_changes_after_tests
     get_product_status_values(@product)
     assert_changes_cache_key do |product|
-      checklist_test = product.product_tests.checklist_tests.find_by(:name => 'c1 visual')
+      checklist_test = product.product_tests.checklist_tests.find_by(name: 'c1 visual')
       checklist_test.checked_criteria.first.completed = true
       checklist_test.save
     end
-    assert_changes_cache_key { |product| product.product_tests.measure_tests.find_by(:name => 'test_product_test_name_2').tasks.c1_task.test_executions.create(:user => @user) }
-    assert_changes_cache_key { |product| product.product_tests.filtering_tests.find_by(:name => 'Filter Test 1').tasks.cat1_filter_task.test_executions.create(:user => @user) }
+    assert_changes_cache_key { |product| product.product_tests.measure_tests.find_by(name: 'test_product_test_name_2').tasks.c1_task.test_executions.create(user: @user) }
+    assert_changes_cache_key { |product| product.product_tests.filtering_tests.find_by(name: 'Filter Test 1').tasks.cat1_filter_task.test_executions.create(user: @user) }
   end
 
   def assert_changes_cache_key

@@ -17,17 +17,17 @@ module Validators
       class_name = self.class.to_s.split('::')[-1]
       default_errors = ApplicationController.helpers.config_for_version(@bundle_version)["#{class_name}_warnings"]
       default_errors&.each do |error|
-        add_warning error, :validator_type => :xml_validation, :file_name => @options[:file_name], :cms => true
+        add_warning error, validator_type: :xml_validation, file_name: @options[:file_name], cms: true
       end
       if @validator
         errors = @validator.validate(doc, options)
         errors.each do |error|
           add_warning error.message,
-                      :location => error.location,
-                      :validator => error.validator,
-                      :validator_type => :xml_validation,
-                      :file_name => @options[:file_name],
-                      :cms => true
+                      location: error.location,
+                      validator: error.validator,
+                      validator_type: :xml_validation,
+                      file_name: @options[:file_name],
+                      cms: true
         end
       end
     end

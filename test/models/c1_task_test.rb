@@ -28,7 +28,7 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip, @user)
       te.reload
-      assert te.execution_errors.where(:msg_type => :error).empty?, 'should be no errors for good cat I archive'
+      assert te.execution_errors.where(msg_type: :error).empty?, 'should be no errors for good cat I archive'
     end
   end
 
@@ -40,7 +40,7 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip, @user)
       te.reload
-      assert_equal false, te.execution_errors.where(:msg_type => :error).empty?, 'should be errors for unshifted cat I archive'
+      assert_equal false, te.execution_errors.where(msg_type: :error).empty?, 'should be errors for unshifted cat I archive'
     end
   end
 
@@ -52,7 +52,7 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip, @user)
       te.reload
-      assert te.execution_errors.where(:msg_type => :error).empty?, 'should be no errors for shifted good cat I archive'
+      assert te.execution_errors.where(msg_type: :error).empty?, 'should be no errors for shifted good cat I archive'
     end
   end
 
@@ -63,7 +63,7 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip, @user)
       te.reload
-      assert te.execution_errors.where(:msg_type => :error).empty?, 'should be no errors for good augmented cat I archive'
+      assert te.execution_errors.where(msg_type: :error).empty?, 'should be no errors for good augmented cat I archive'
     end
   end
 
@@ -74,8 +74,8 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip, @user)
       te.reload
-      assert_equal 1, te.execution_errors.where(:msg_type => :error).count, 'should be 1 error from cat I archive'
-      assert_equal 1, te.execution_errors.where(:message => '1 files expected but was 2', :msg_type => :error).count
+      assert_equal 1, te.execution_errors.where(msg_type: :error).count, 'should be 1 error from cat I archive'
+      assert_equal 1, te.execution_errors.where(message: '1 files expected but was 2', msg_type: :error).count
     end
   end
 
@@ -86,7 +86,7 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip, @user)
       te.reload
-      assert_equal 2, te.execution_errors.where(:msg_type => :error).count, 'should be 2 errors from cat I archive'
+      assert_equal 2, te.execution_errors.where(msg_type: :error).count, 'should be 2 errors from cat I archive'
       assert_equal 'Patient name \'DENTAL_PEDS A2\' declared in file not found in test records', te.execution_errors[0].message
       assert_equal 'Records for patients DENTAL_PEDS A not found in archive as expected', te.execution_errors[1].message
     end
@@ -111,7 +111,7 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip, @user)
       te.reload
-      assert_equal 1, te.execution_errors.by_file('sample_patient_wrong_template.xml').where(:message => '["2.16.840.1.113883.10.20.24.3.133:2015-08-01"] are not valid Patient Data Section QDM entries for this QRDA Version', :msg_type => :warning).count
+      assert_equal 1, te.execution_errors.by_file('sample_patient_wrong_template.xml').where(message: '["2.16.840.1.113883.10.20.24.3.133:2015-08-01"] are not valid Patient Data Section QDM entries for this QRDA Version', msg_type: :warning).count
     end
   end
 
@@ -123,7 +123,7 @@ class C1TaskTest < ActiveSupport::TestCase
       te = task.execute(zip, @user)
       te.reload
       # 1 NUMER and 1 DENOM population
-      assert_equal 2, te.execution_errors.where(:msg_type => :error).count, 'should be 3 calculation errors from cat I archive'
+      assert_equal 2, te.execution_errors.where(msg_type: :error).count, 'should be 3 calculation errors from cat I archive'
     end
   end
 
@@ -135,7 +135,7 @@ class C1TaskTest < ActiveSupport::TestCase
       te = task.execute(zip, @user)
       te.reload
       # 1 NUMER and 1 DENOM population
-      assert_equal 2, te.execution_errors.where(:msg_type => :error).count, 'should be 8 calculation errors from cat I archive'
+      assert_equal 2, te.execution_errors.where(msg_type: :error).count, 'should be 8 calculation errors from cat I archive'
     end
   end
 
@@ -147,7 +147,7 @@ class C1TaskTest < ActiveSupport::TestCase
       te = task.execute(testfile, @user)
       te.reload
       # 2 errors for calculation (should be in denom)
-      assert_equal 0, te.execution_errors.where(:msg_type => :error).count, 'test execution with known good results should have no errors'
+      assert_equal 0, te.execution_errors.where(msg_type: :error).count, 'test execution with known good results should have no errors'
     end
   end
 

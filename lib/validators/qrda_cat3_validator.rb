@@ -44,8 +44,8 @@ module Validators
       errors.map do |error|
         type = :error
         type = :warning if error.validator&.upcase&.include?('QRDA') && !@test_has_c3
-        add_issue error.message, type, :location => error.location, :validator => error.validator,
-                                       :validator_type => :xml_validation, :file_name => error.file_name
+        add_issue error.message, type, location: error.location, validator: error.validator,
+                                       validator_type: :xml_validation, file_name: error.file_name
       end
     end
   end

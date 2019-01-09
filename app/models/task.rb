@@ -5,18 +5,18 @@ class Task
   field :options, type: Hash
   field :expected_results, type: Hash
 
-  belongs_to :product_test, :inverse_of => :tasks, :touch => true
-  has_many :test_executions, :dependent => :destroy
-  delegate :start_date, :to => :product_test
-  delegate :end_date, :to => :product_test
-  delegate :measures, :measure_ids, :to => :product_test
-  delegate :patients, :to => :product_test
-  delegate :augmented_patients, :to => :product_test
-  delegate :effective_date, :to => :product_test
-  delegate :measure_period_start, :to => :product_test
-  delegate :bundle, :to => :product_test
-  delegate :name, :state, :to => :product_test, :prefix => true
-  delegate :cms_id, :expected_results, :to => :product_test, :prefix => true
+  belongs_to :product_test, inverse_of: :tasks, touch: true
+  has_many :test_executions, dependent: :destroy
+  delegate :start_date, to: :product_test
+  delegate :end_date, to: :product_test
+  delegate :measures, :measure_ids, to: :product_test
+  delegate :patients, to: :product_test
+  delegate :augmented_patients, to: :product_test
+  delegate :effective_date, to: :product_test
+  delegate :measure_period_start, to: :product_test
+  delegate :bundle, to: :product_test
+  delegate :name, :state, to: :product_test, prefix: true
+  delegate :cms_id, :expected_results, to: :product_test, prefix: true
 
   %w[
     C1Task C1ChecklistTask C3ChecklistTask C2Task C3Cat1Task
@@ -25,7 +25,7 @@ class Task
     # Define methods for fetching specific types of tasks,
     # for example (Task.c1_task, Task.cat1_filter_task, etc)
     define_singleton_method task_type.underscore do
-      find_by(:_type => task_type)
+      find_by(_type: task_type)
     rescue
       false
     end
@@ -58,6 +58,6 @@ class Task
   # returns the most recent execution for this task
   # if there are none, returns nil
   def most_recent_execution
-    test_executions.any? ? test_executions.order_by(:created_at => 'desc').limit(1).first : nil
+    test_executions.any? ? test_executions.order_by(created_at: 'desc').limit(1).first : nil
   end
 end

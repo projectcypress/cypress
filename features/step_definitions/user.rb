@@ -1,6 +1,6 @@
 Given(/^the user is signed in$/) do
   steps %( Given a user has an account )
-  login_as @user, :scope => :user
+  login_as @user, scope: :user
   steps %( Given the user is on the sign in page )
 end
 
@@ -26,7 +26,7 @@ When(/^I fill in the form with correct information$/) do
 end
 
 Then(/^I should have a new account$/) do
-  assert_not_nil User.find_by(:email => @email)
+  assert_not_nil User.find_by(email: @email)
   assert_equal vendors_path, page.current_path
 end
 
@@ -34,18 +34,18 @@ Then(/^I should not be able to submit the form$/) do
   path = page.current_path
   page.find("input[type='submit']").click
   assert_equal path, page.current_path
-  assert_nil User.where(:email => @email).first
+  assert_nil User.where(email: @email).first
 end
 
 When(/^I fill in the form without accepting the T&C$/) do
   @email = 's@s.com'
   @password = 'Password1'
-  page.fill_in 'Email', :with => @email
-  page.fill_in 'Password', :with => @password
-  page.fill_in 'Confirm Password', :with => @password
-  page.fill_in 'Email', :with => @email
-  page.fill_in 'Password', :with => @password
-  page.fill_in 'Confirm Password', :with => @password
+  page.fill_in 'Email', with: @email
+  page.fill_in 'Password', with: @password
+  page.fill_in 'Confirm Password', with: @password
+  page.fill_in 'Email', with: @email
+  page.fill_in 'Password', with: @password
+  page.fill_in 'Confirm Password', with: @password
 end
 
 Given(/^the user is on the sign up page$/) do
@@ -64,8 +64,8 @@ end
 
 When(/^the user tries to log in with invalid information$/) do
   visit '/users/sign_in'
-  page.fill_in 'Email', :with => 'unauth@mitre.org'
-  page.fill_in 'Password', :with => 'incorrectPassword'
+  page.fill_in 'Email', with: 'unauth@mitre.org'
+  page.fill_in 'Password', with: 'incorrectPassword'
   page.click_button 'Sign in'
 end
 
@@ -84,8 +84,8 @@ end
 
 When(/^the user logs in$/) do
   visit '/users/sign_in'
-  page.fill_in 'Email', :with => @user.email
-  page.fill_in 'Password', :with => @user.password
+  page.fill_in 'Email', with: @user.email
+  page.fill_in 'Password', with: @user.password
   page.click_button 'Sign in'
 end
 
@@ -94,8 +94,8 @@ When(/^the user logs out$/) do
 end
 
 And(/^the user changes their email$/) do
-  page.fill_in 'user_email', :with => @user.email.next!
-  page.fill_in 'user_current_password', :with => @user.password
+  page.fill_in 'user_email', with: @user.email.next!
+  page.fill_in 'user_current_password', with: @user.password
   @user.save!
 end
 

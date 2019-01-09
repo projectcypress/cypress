@@ -320,88 +320,88 @@ module Cypress
     end
 
     def call_get_bundles
-      RestClient::Request.execute(:method => :get,
-                                  :url => "#{@cypress_host}/bundles",
-                                  :user => @username,
-                                  :password => @password,
-                                  :headers => { :accept => :json })
+      RestClient::Request.execute(method: :get,
+                                  url: "#{@cypress_host}/bundles",
+                                  user: @username,
+                                  password: @password,
+                                  headers: { accept: :json })
     end
 
     def call_get_measures(measures_link)
-      RestClient::Request.execute(:method => :get,
-                                  :url => "#{@cypress_host}#{measures_link}",
-                                  :user => @username,
-                                  :password => @password,
-                                  :headers => { :accept => :json })
+      RestClient::Request.execute(method: :get,
+                                  url: "#{@cypress_host}#{measures_link}",
+                                  user: @username,
+                                  password: @password,
+                                  headers: { accept: :json })
     end
 
     def create_new_vendor(vendor_name)
-      jdata = { :vendor => { :name => vendor_name } }
-      RestClient::Request.execute(:method => :post,
-                                  :url => "#{@cypress_host}/vendors",
-                                  :user => @username,
-                                  :password => @password,
-                                  :payload => jdata,
-                                  :headers => { :accept => :json, :content_type => :json }).headers[:location]
+      jdata = { vendor: { name: vendor_name } }
+      RestClient::Request.execute(method: :post,
+                                  url: "#{@cypress_host}/vendors",
+                                  user: @username,
+                                  password: @password,
+                                  payload: jdata,
+                                  headers: { accept: :json, content_type: :json }).headers[:location]
     end
 
     def create_new_product(bundle_id, vendor_link, product_name, measure_list, skip_c1_test)
       c1_test = skip_c1_test ? '0' : '1'
-      jdata = { :product => { :bundle_id => bundle_id,
-                              :name => product_name,
-                              :measure_ids => measure_list,
-                              :c1_test => c1_test,
-                              :c2_test => '1',
-                              :c3_test => '1',
-                              :c4_test => '1',
-                              :duplicate_patients => '0',
-                              :randomize_patients => '0' } }
-      RestClient::Request.execute(:method => :post,
-                                  :timeout => 90_000_000,
-                                  :url => "#{vendor_link}/products",
-                                  :user => @username,
-                                  :password => @password,
-                                  :payload => jdata,
-                                  :headers => { :accept => :json, :content_type => :json }).headers[:location]
+      jdata = { product: { bundle_id: bundle_id,
+                           name: product_name,
+                           measure_ids: measure_list,
+                           c1_test: c1_test,
+                           c2_test: '1',
+                           c3_test: '1',
+                           c4_test: '1',
+                           duplicate_patients: '0',
+                           randomize_patients: '0' } }
+      RestClient::Request.execute(method: :post,
+                                  timeout: 90_000_000,
+                                  url: "#{vendor_link}/products",
+                                  user: @username,
+                                  password: @password,
+                                  payload: jdata,
+                                  headers: { accept: :json, content_type: :json }).headers[:location]
     end
 
     def call_get_product(vendor_product_link)
-      RestClient::Request.execute(:method => :get,
-                                  :url => vendor_product_link,
-                                  :user => @username,
-                                  :password => @password,
-                                  :headers => { :accept => :json })
+      RestClient::Request.execute(method: :get,
+                                  url: vendor_product_link,
+                                  user: @username,
+                                  password: @password,
+                                  headers: { accept: :json })
     end
 
     def call_get_product_tests(product_tests_link)
-      RestClient::Request.execute(:method => :get,
-                                  :url => "#{@cypress_host}#{product_tests_link}",
-                                  :user => @username,
-                                  :password => @password,
-                                  :headers => { :accept => :json })
+      RestClient::Request.execute(method: :get,
+                                  url: "#{@cypress_host}#{product_tests_link}",
+                                  user: @username,
+                                  password: @password,
+                                  headers: { accept: :json })
     end
 
     def call_get_product_test(product_test_link)
-      RestClient::Request.execute(:method => :get,
-                                  :url => "#{@cypress_host}#{product_test_link}",
-                                  :user => @username,
-                                  :password => @password,
-                                  :headers => { :accept => :json })
+      RestClient::Request.execute(method: :get,
+                                  url: "#{@cypress_host}#{product_test_link}",
+                                  user: @username,
+                                  password: @password,
+                                  headers: { accept: :json })
     end
 
     def call_get_product_test_tasks(product_test_tasks_link)
-      RestClient::Request.execute(:method => :get,
-                                  :url => "#{@cypress_host}#{product_test_tasks_link}",
-                                  :user => @username,
-                                  :password => @password,
-                                  :headers => { :accept => :json })
+      RestClient::Request.execute(method: :get,
+                                  url: "#{@cypress_host}#{product_test_tasks_link}",
+                                  user: @username,
+                                  password: @password,
+                                  headers: { accept: :json })
     end
 
     def download_test_patients(product_test_link, file_name = nil)
       file_name ||= product_test_link.split('/')[2]
-      resource = RestClient::Resource.new("#{@cypress_host}#{product_test_link}", :timeout => 90_000_000,
-                                                                                  :user => @username,
-                                                                                  :password => @password)
+      resource = RestClient::Resource.new("#{@cypress_host}#{product_test_link}", timeout: 90_000_000,
+                                                                                  user: @username,
+                                                                                  password: @password)
       begin
         response = resource.get
         if !response.empty?
@@ -418,14 +418,14 @@ module Cypress
     end
 
     def upload_test_execution(task_execution_path, product_test_id, is_cat1, skip_c1_test = nil)
-      resource = RestClient::Resource.new("#{@cypress_host}#{task_execution_path}", :user => @username,
-                                                                                    :password => @password,
-                                                                                    :headers => { :accept => :json })
+      resource = RestClient::Resource.new("#{@cypress_host}#{task_execution_path}", user: @username,
+                                                                                    password: @password,
+                                                                                    headers: { accept: :json })
       if is_cat1
-        resource.post(:results => File.new("tmp/#{product_test_id}.zip"))
+        resource.post(results: File.new("tmp/#{product_test_id}.zip"))
         File.delete("tmp/#{product_test_id}.zip")
       else
-        resource.post(:results => File.new("tmp/#{product_test_id}.xml"))
+        resource.post(results: File.new("tmp/#{product_test_id}.xml"))
         verify_population_ids(product_test_id) if @hqmf_path
         File.delete("tmp/#{product_test_id}.xml")
         File.delete("tmp/#{product_test_id}.zip") if skip_c1_test
@@ -445,10 +445,10 @@ module Cypress
     end
 
     def download_report(vendor_product_link)
-      RestClient::Request.execute(:method => :get,
-                                  :url => "#{vendor_product_link}/report",
-                                  :user => @username,
-                                  :password => @password)
+      RestClient::Request.execute(method: :get,
+                                  url: "#{vendor_product_link}/report",
+                                  user: @username,
+                                  password: @password)
     end
 
     def extract_link(object_with_links, type_of_link)
@@ -481,8 +481,8 @@ module Cypress
       results = erc.aggregate_results_for_measures(pt.measures)
 
       cms_compatibility = pt&.product&.c3_test
-      options = { :provider => pt.patients.first.provider, :submission_program => cms_compatibility,
-                  :start_time => pt.start_date, :end_time => pt.end_date }
+      options = { provider: pt.patients.first.provider, submission_program: cms_compatibility,
+                  start_time: pt.start_date, end_time: pt.end_date }
       xml = Qrda3R21.new(results, pt.measures, options).render
 
       Patient.find(patient_ids).each(&:destroy)
@@ -501,8 +501,8 @@ module Cypress
     # Once we are fully comfortable with cqm_execution_service this whole
     # codepath can be removed
     def do_calculation_js_ecqm(product_test, patient_ids, correlation_id)
-      calc_job = Cypress::JsEcqmCalc.new(:correlation_id => correlation_id,
-                                         :effective_date => Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number))
+      calc_job = Cypress::JsEcqmCalc.new(correlation_id: correlation_id,
+                                         effective_date: Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number))
       calc_job.sync_job(patient_ids.map(&:to_s), product_test.measures.map { |mes| mes._id.to_s })
       calc_job.stop
     end
@@ -510,8 +510,8 @@ module Cypress
     def do_calculation_cqm_execution(product_test, patients, correlation_id)
       measures = product_test.measures
       calc_job = Cypress::CqmExecutionCalc.new(patients, measures, product_test.value_sets_by_oid, correlation_id,
-                                               :effectiveDateEnd => Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
-                                               :effectiveDate => Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
+                                               effectiveDateEnd: Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
+                                               effectiveDate: Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
       calc_job.execute
     end
 

@@ -7,10 +7,10 @@ FactoryBot.define do
       _type { 'MeasureTest' }
       cms_id { 'CMS1234' }
       aug_record = [{ 'original_patient_id' => '',
-                      'medical_record_number' =>  '1234',
-                      'first' =>  %w[Dental_Peds Denial_Peds],
-                      'last' =>  %w[A A],
-                      'gender' =>  %w[M M] }]
+                      'medical_record_number' => '1234',
+                      'first' => %w[Dental_Peds Denial_Peds],
+                      'last' => %w[A A],
+                      'gender' => %w[M M] }]
       augmented_patients { aug_record }
       expected_result = { 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE' =>
                           { 'measure_id' => 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE',
@@ -43,8 +43,8 @@ FactoryBot.define do
                                                      'DENEX' => {} } } }
       expected_results { expected_result }
       measure_ids { ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }
-      association :provider, :factory => :default_provider
-      association :product, :factory => :product_static_bundle
+      association :provider, factory: :default_provider
+      association :product, factory: :product_static_bundle
       after(:create) do |pt|
         extended_data = { 'correlation_id' => pt.id,
                           'medical_record_number' => '1989db70-4d42-0135-8680-30999b0ed66f',

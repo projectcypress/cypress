@@ -49,7 +49,7 @@ class TestExecutionsController < ApplicationController
   def destroy
     authorize! :delete, @test_execution.task.product_test.product.vendor
     @test_execution.destroy!
-    render body: nil, :status => :no_content
+    render body: nil, status: :no_content
   end
 
   def file_result
@@ -63,12 +63,12 @@ class TestExecutionsController < ApplicationController
 
   def rescue_create
     alert = 'Invalid file upload. Please make sure you upload an XML or zip file.'
-    error_response = { :errors => [{ :field => 'results',
-                                     :messages => ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III'] }] }
+    error_response = { errors: [{ field: 'results',
+                                  messages: ['invalid file upload. upload a zip for QRDA Category I or XML for QRDA Category III'] }] }
     respond_with(@test_execution) do |f|
-      f.html { redirect_to new_task_test_execution_path(:task_id => @task.id), :flash => { :alert => alert.html_safe } }
-      f.json { render :json => error_response, :status => :unprocessable_entity }
-      f.xml  { render :xml => error_response[:errors].to_xml(:root => :errors, :skip_types => true), :status => :unprocessable_entity }
+      f.html { redirect_to new_task_test_execution_path(task_id: @task.id), flash: { alert: alert.html_safe } }
+      f.json { render json: error_response, status: :unprocessable_entity }
+      f.xml  { render xml: error_response[:errors].to_xml(root: :errors, skip_types: true), status: :unprocessable_entity }
     end
   end
 
@@ -91,7 +91,7 @@ class TestExecutionsController < ApplicationController
 
   def add_test_execution_breadcrumb
     if @task.most_recent_execution
-      add_breadcrumb 'Test: ' + @product_test.name, task_test_execution_path(:task_id => @task.id, :id => @task.most_recent_execution.id)
+      add_breadcrumb 'Test: ' + @product_test.name, task_test_execution_path(task_id: @task.id, id: @task.most_recent_execution.id)
     else
       add_breadcrumb 'Test: ' + @product_test.name, ''
     end

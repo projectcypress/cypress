@@ -5,19 +5,19 @@ class TestExecution
   include GlobalID::Identification
   # include Cypress::ErrorCollector
 
-  field :state, :type => Symbol, :default => :pending
-  field :expected_results, :type => Hash
-  field :reported_results, :type => Hash
-  field :qrda_type, :type => String
-  field :backtrace, :type => String
+  field :state, type: Symbol, default: :pending
+  field :expected_results, type: Hash
+  field :reported_results, type: Hash
+  field :qrda_type, type: String
+  field :backtrace, type: String
   # a sibling test execution is a c3 test execution if the current execution is a c1 or c2 execution. vice versa
   #   and nil if c3 execution does not exist
-  field :sibling_execution_id, :type => String
+  field :sibling_execution_id, type: String
 
   embeds_many :execution_errors
-  has_one :artifact, :autosave => true, :dependent => :destroy
+  has_one :artifact, autosave: true, dependent: :destroy
   belongs_to :user
-  belongs_to :task, :touch => true
+  belongs_to :task, touch: true
 
   def build_document(file)
     doc = Nokogiri::XML(file)
@@ -34,7 +34,7 @@ class TestExecution
     # TODO: R2P: change R/P model through all validators
     artifact.each_file do |name, file|
       doc = build_document(file)
-      merged_options = options.merge(:file_name => name)
+      merged_options = options.merge(file_name: name)
       validators.each do |validator|
         validator.validate(doc, merged_options)
         break unless validator.can_continue
@@ -53,8 +53,8 @@ class TestExecution
 
   def conditionally_add_task_specific_errors(file_count)
     if (task.is_a?(C1Task) && task.product_test.product.c1_test) && file_count != task.patients.count
-      execution_errors.build(:message => "#{task.patients.count} files expected but was #{file_count}",
-                             :msg_type => :error, :validator_type => :result_validation, :validator => :smoking_gun)
+      execution_errors.build(message: "#{task.patients.count} files expected but was #{file_count}",
+                             msg_type: :error, validator_type: :result_validation, validator: :smoking_gun)
     end
     task.product_test.build_execution_errors_for_incomplete_checked_criteria(self) if task.is_a?(C1ChecklistTask)
   end

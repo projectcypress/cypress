@@ -200,14 +200,14 @@ class ProductsControllerTest < ActionController::TestCase
 
   test 'should generate a report' do
     for_each_logged_in_user([ADMIN, ATL]) do
-      get :report, params: { :format => :format_does_not_matter, :vendor_id => @vendor.id, :id => @first_product.id }
+      get :report, params: { format: :format_does_not_matter, vendor_id: @vendor.id, id: @first_product.id }
       assert_response :success, "#{@user.email} should have access "
     end
   end
 
   test 'should restrict access to report to unauthorized users' do
     for_each_logged_in_user([OWNER, VENDOR, OTHER_VENDOR]) do
-      get :report, :params => { :vendor_id => @vendor.id, :id => @first_product.id }
+      get :report, params: { vendor_id: @vendor.id, id: @first_product.id }
       assert_response 401
     end
   end
@@ -216,7 +216,7 @@ class ProductsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL]) do
       @first_product.supplemental_test_artifact = Rails.root.join('app', 'assets', 'images', 'cypress_bg_cropped.png').open
       @first_product.save
-      get :supplemental_test_artifact, :params => { :vendor_id => @vendor.id, :id => @first_product.id }
+      get :supplemental_test_artifact, params: { vendor_id: @vendor.id, id: @first_product.id }
       assert_response :success, "#{@user.email} should have access "
     end
   end
@@ -224,7 +224,7 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should not download a supplemental test artifact if none exists' do
     for_each_logged_in_user([ADMIN, ATL]) do
       request.env['HTTP_REFERER'] = '/'
-      get :supplemental_test_artifact, :params => { :vendor_id => @vendor.id, :id => @first_product.id }
+      get :supplemental_test_artifact, params: { vendor_id: @vendor.id, id: @first_product.id }
       assert_response :redirect, 'artifact was served even though none was uploaded'
     end
   end
@@ -233,7 +233,7 @@ class ProductsControllerTest < ActionController::TestCase
     for_each_logged_in_user([OWNER, VENDOR, OTHER_VENDOR]) do
       @first_product.supplemental_test_artifact = Rails.root.join('app', 'assets', 'images', 'cypress_bg_cropped.png').open
       @first_product.save
-      get :report, :params => { :vendor_id => @vendor.id, :id => @first_product.id }
+      get :report, params: { vendor_id: @vendor.id, id: @first_product.id }
       assert_response 401
     end
   end
@@ -241,7 +241,7 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should not generate a report if invalid product_id' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       product = @first_product
-      get :report, :params => { :vendor_id => product.vendor.id, :id => 'bad_id' }
+      get :report, params: { vendor_id: product.vendor.id, id: 'bad_id' }
       assert_response 404, 'response should be Unprocessable Entity on report if bad id'
       assert_equal 'Not Found', response.message
     end
@@ -250,7 +250,7 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should not generate a PDF report if invalid vendor_id' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       product = @first_product
-      get :report, :params => { :vendor_id => 'bad_id', :id => product.id }
+      get :report, params: { vendor_id: 'bad_id', id: product.id }
       assert_response 404, 'response should be Unprocessable Entity on report if bad id'
       assert_equal 'Not Found', response.message
     end
@@ -262,9 +262,9 @@ class ProductsControllerTest < ActionController::TestCase
     product = @first_product
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       perform_enqueued_jobs do
-        product.product_tests.build({ :name => "mtest #{rand}", :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+        product.product_tests.build({ name: "mtest #{rand}", measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
         product.save!
-        get :patients, :params => { :format => :format_does_not_matter, :vendor_id => product.vendor.id, :id => product.id }
+        get :patients, params: { format: :format_does_not_matter, vendor_id: product.vendor.id, id: product.id }
         assert_response 200, 'response should be OK for patients'
         assert_equal 'application/zip', response.headers['Content-Type']
       end
@@ -273,7 +273,7 @@ class ProductsControllerTest < ActionController::TestCase
 
   test 'should not get zip file of patients if invalid product_id' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :patients, :params => { :vendor_id => @first_product.vendor.id, :id => 'bad_id' }
+      get :patients, params: { vendor_id: @first_product.vendor.id, id: 'bad_id' }
       assert_response 404, 'response should be Unprocessable Entity on report if bad id'
       assert_equal 'Not Found', response.message
     end
@@ -281,7 +281,7 @@ class ProductsControllerTest < ActionController::TestCase
 
   test 'should not get zip file of patients if invalid vendor_id' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :patients, :params => { :vendor_id => 'bad_id', :id => '4f57a88a1d41c851eb000004' }
+      get :patients, params: { vendor_id: 'bad_id', id: '4f57a88a1d41c851eb000004' }
       assert_response 404, 'response should be Unprocessable Entity on report if bad id'
       assert_equal 'Not Found', response.message
     end
@@ -296,7 +296,7 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should get index with json request' do
     vendor = @vendor
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :index, :params => { :format => :json, :vendor_id => vendor.id }
+      get :index, params: { format: :json, vendor_id: vendor.id }
       assert_response 200, 'response should be OK on product index'
       response_products = JSON.parse(response.body)
       assert_equal vendor.products.count, response_products.count, 'response body should have all products for vendor'
@@ -320,24 +320,24 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should post create with json request' do
     vendor = @vendor
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      post :create, :params => { :format => :json, :vendor_id => vendor.id, :product => { :name => "Product JSON post #{rand}", :c1_test => true,
-                                                                                          :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                                                                          :bundle_id => @bundle_id } }
+      post :create, params: { format: :json, vendor_id: vendor.id, product: { name: "Product JSON post #{rand}", c1_test: true,
+                                                                              measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                                                              bundle_id: @bundle_id } }
       assert_response 201, 'response should be Created on product create'
-      assert response.location.end_with?(product_path(vendor.products.order_by(:created_at => 'desc').first)),
+      assert response.location.end_with?(product_path(vendor.products.order_by(created_at: 'desc').first)),
              'response location should be product show'
     end
   end
 
   test 'should get destroy with json request' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      pd = Product.new(:vendor => @vendor.id, :name => "p_#{rand}", :c1_test => true, :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                       :bundle_id => @bundle_id)
+      pd = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                       bundle_id: @bundle_id)
       pd.save!
-      delete :destroy, :params => { :format => :json, :id => pd.id }
+      delete :destroy, params: { format: :json, id: pd.id }
       assert_response 204, 'response should be No Content on product destroy'
       assert_equal '', response.body
-      get :show, :params => { :format => :json, :id => pd.id }
+      get :show, params: { format: :json, id: pd.id }
       assert_response 404, 'response should be Not Found because product should be destroyed'
     end
   end
@@ -345,10 +345,10 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should create checklist test on product create when c1 is selected' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       product_name = "my product name #{rand}"
-      post :create, :params => { :format => :json, :vendor_id => @vendor.id, :product => { :name => product_name, :c1_test => true,
-                                                                                           :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                                                                           :bundle_id => @bundle_id } }
-      product = Product.find_by(:name => product_name)
+      post :create, params: { format: :json, vendor_id: @vendor.id, product: { name: product_name, c1_test: true,
+                                                                               measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                                                               bundle_id: @bundle_id } }
+      product = Product.find_by(name: product_name)
       assert product.product_tests.checklist_tests.any?
     end
   end
@@ -358,7 +358,7 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should get index with xml request' do
     vendor = @vendor
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :index, :params => { :format => :xml, :vendor_id => vendor.id }
+      get :index, params: { format: :xml, vendor_id: vendor.id }
       assert_response 200, 'response should be OK on product index'
       response_products = Hash.from_trusted_xml(response.body)
       assert response_products['products']
@@ -378,24 +378,24 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should post create with xml request' do
     vendor = @vendor
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      post :create, :params => { :format => :xml, :vendor_id => vendor.id, :product => { :name => "Product JSON post #{rand}", :c1_test => true,
-                                                                                         :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                                                                         :bundle_id => @bundle_id } }
+      post :create, params: { format: :xml, vendor_id: vendor.id, product: { name: "Product JSON post #{rand}", c1_test: true,
+                                                                             measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                                                             bundle_id: @bundle_id } }
       assert_response 201, 'response should be Created on product create'
-      assert response.location.end_with?(product_path(vendor.products.order_by(:created_at => 'desc').first)),
+      assert response.location.end_with?(product_path(vendor.products.order_by(created_at: 'desc').first)),
              'response location should be product show'
     end
   end
 
   test 'should get destroy with xml request' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      pd = Product.new(:vendor => @vendor.id, :name => "p_#{rand}", :c1_test => true, :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                       :bundle_id => @bundle_id)
+      pd = Product.new(vendor: @vendor.id, name: "p_#{rand}", c1_test: true, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                       bundle_id: @bundle_id)
       pd.save!
-      delete :destroy, :params => { :format => :xml, :id => pd.id }
+      delete :destroy, params: { format: :xml, id: pd.id }
       assert_response 204, 'response should be No Content on product destroy'
       assert_equal '', response.body
-      get :show, :params => { :format => :xml, :id => pd.id }
+      get :show, params: { format: :xml, id: pd.id }
       assert_response 404, 'response should be Not Found because product should be destroyed'
     end
   end
@@ -404,16 +404,16 @@ class ProductsControllerTest < ActionController::TestCase
 
   test 'should not get index with json request with bad vendor id' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :index, :params => { :format => :json, :vendor_id => 'bad_id' }
+      get :index, params: { format: :json, vendor_id: 'bad_id' }
       assert_response_not_found_and_empty_body response
     end
   end
 
   test 'should not post create with json request with bad vendor id' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      post :create, :params => { :format => :json, :vendor_id => 'bad id', :product => { :name => "Product JSON post #{rand}", :c1_test => true,
-                                                                                         :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                                                                         :bundle_id => @bundle_id } }
+      post :create, params: { format: :json, vendor_id: 'bad id', product: { name: "Product JSON post #{rand}", c1_test: true,
+                                                                             measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                                                             bundle_id: @bundle_id } }
       assert_response_not_found_and_empty_body response
     end
   end
@@ -421,8 +421,8 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should not post create with json request with no name' do
     vendor = Vendor.find(@vendor.id)
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      post :create, :params => { :format => :json, :vendor_id => vendor.id, :product => { :c1_test => true, :bundle_id => @bundle_id,
-                                                                                          :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] } }
+      post :create, params: { format: :json, vendor_id: vendor.id, product: { c1_test: true, bundle_id: @bundle_id,
+                                                                              measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] } }
       assert_response 422, 'response should be Unprocessable Entity on product create with no name'
       assert_has_json_errors JSON.parse(response.body), 'name' => ['can\'t be blank']
     end
@@ -431,9 +431,9 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should not post create with json request with invalid measure ids' do
     vendor = Vendor.find(@vendor.id)
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      post :create, :params => { :format => :json, :vendor_id => vendor.id, :product => { :name => "Product JSON post #{rand}", :c1_test => true,
-                                                                                          :measure_ids => ['invalid_measure_id'],
-                                                                                          :bundle_id => @bundle_id } }
+      post :create, params: { format: :json, vendor_id: vendor.id, product: { name: "Product JSON post #{rand}", c1_test: true,
+                                                                              measure_ids: ['invalid_measure_id'],
+                                                                              bundle_id: @bundle_id } }
       assert_response 422, 'response should be Unprocessable Entity on product create'
       assert_has_json_errors JSON.parse(response.body), 'measure_ids' => ['must be valid hqmf ids']
     end
@@ -442,9 +442,9 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should not post create with xml request with invalid measure ids' do
     vendor = Vendor.find(@vendor.id)
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      post :create, :params => { :format => :xml, :vendor_id => vendor.id, :product => { :name => "Product JSON post #{rand}", :c1_test => true,
-                                                                                         :measure_ids => ['invalid_measure_id'],
-                                                                                         :bundle_id => @bundle_id } }
+      post :create, params: { format: :xml, vendor_id: vendor.id, product: { name: "Product JSON post #{rand}", c1_test: true,
+                                                                             measure_ids: ['invalid_measure_id'],
+                                                                             bundle_id: @bundle_id } }
       assert_response 422, 'response should be Unprocessable Entity on product create'
       assert_has_xml_errors Hash.from_trusted_xml(response.body), 'measure_ids' => ['must be valid hqmf ids']
     end
@@ -453,12 +453,12 @@ class ProductsControllerTest < ActionController::TestCase
   test 'should not post create with json request with no or empty measure ids' do
     vendor = Vendor.find(@vendor.id)
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      post :create, :params => { :format => :json, :vendor_id => vendor.id, :product => { :name => "Product JSON post #{rand}", :c1_test => true,
-                                                                                          :bundle_id => @bundle_id } }
+      post :create, params: { format: :json, vendor_id: vendor.id, product: { name: "Product JSON post #{rand}", c1_test: true,
+                                                                              bundle_id: @bundle_id } }
       assert_response 422, 'response should be Unprocessable Entity on product create with no measure_ids'
       assert_has_json_errors JSON.parse(response.body), 'measure_ids' => ['must select at least one']
-      post :create, :params => { :format => :json, :vendor_id => vendor.id, :product => { :name => "Product JSON post #{rand}", :c1_test => true, :measure_ids => [],
-                                                                                          :bundle_id => @bundle_id } }
+      post :create, params: { format: :json, vendor_id: vendor.id, product: { name: "Product JSON post #{rand}", c1_test: true, measure_ids: [],
+                                                                              bundle_id: @bundle_id } }
       assert_response 422, 'response should be Unprocessable Entity on product create with empty measure_ids'
       assert_has_json_errors JSON.parse(response.body), 'measure_ids' => ['must select at least one']
     end
@@ -468,8 +468,8 @@ class ProductsControllerTest < ActionController::TestCase
     # do this for admin,atl,user:owner -- need negative test for non access
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       name = "test_product_#{rand}"
-      post :create, :params => { :vendor_id => @vendor.id, :product => { :name => "#{name} ", :c1_test => true, :bundle_id => @bundle_id,
-                                                                         :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] } }
+      post :create, params: { vendor_id: @vendor.id, product: { name: "#{name} ", c1_test: true, bundle_id: @bundle_id,
+                                                                measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] } }
       assert_equal name, assigns(:product)[:name], 'Product did not strip trailing whitespace from name on create'
     end
   end
@@ -479,7 +479,7 @@ class ProductsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       name = "p_#{rand}"
       product.name = "#{name} "
-      put :update, :params => { :id => product.id, :product => product.attributes }
+      put :update, params: { id: product.id, product: product.attributes }
       assert_equal name, assigns(:product)[:name], 'Product did not strip trailing whitespace from name on update'
     end
   end

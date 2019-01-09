@@ -1,7 +1,7 @@
 inherit_from: .rubocop_todo.yml
 AllCops:
-  TargetRubyVersion: 2.5
-  TargetRailsVersion: 5.1
+  TargetRubyVersion: 2.6
+  TargetRailsVersion: 5.2
   Exclude:
     - bin/*
     - db/schema.rb
@@ -9,12 +9,13 @@ AllCops:
     - config/initializers/*
     - 'vendor/**/*'
     - 'lib/tasks/cucumber.rake'
-    - '**/*'
 Rails:
   Enabled: true
 Rails/HasAndBelongsToMany:
   Exclude:
     - 'app/models/role.rb'
+Rails/FindEach:
+  Enabled: false
 Documentation:
   Enabled: false
 Metrics/LineLength:
@@ -29,6 +30,8 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   CountComments: false  # count full line comments?
   Max: 20
+  Exclude:
+    - 'test/**/*'
 Metrics/ClassLength:
   Max: 120
   Exclude:
@@ -53,8 +56,6 @@ Style/DateTime:
   Enabled: false
 Style/GuardClause:
   MinBodyLength: 100
-Style/HashSyntax:
-  UseHashRocketsWithSymbolValues: true
 Style/MixinUsage:
   Exclude:
     - 'features/**/*'

@@ -178,16 +178,16 @@ class VendorCachingTest < CachingTest
   def test_edditing_test_execution_updates_vendor_cache_key
     vendor_old_cache_key = Vendor.all.first.cache_key.to_s
     test_execution = TestExecution.all.first
-    test_execution.update(:state => :passed)
+    test_execution.update(state: :passed)
     test_execution.save!
     vendor_new_cache_key = Vendor.all.first.cache_key.to_s
     assert_not_equal vendor_old_cache_key, vendor_new_cache_key, 'cache keys should be different'
   end
 
   def test_adding_passing_then_failing_execution_changes_vendor_status
-    user = User.create(:email => 'vendor@test.com', :password => 'TestTest!', :password_confirmation => 'TestTest!', :terms_and_conditions => '1')
+    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     test_execution = TestExecution.all.first
-    test_execution.update(:state => :passed)
+    test_execution.update(state: :passed)
     user.test_executions << test_execution
     test_execution.save!
     vendor_old_status = Vendor.all.first.status

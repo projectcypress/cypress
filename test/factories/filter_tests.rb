@@ -37,7 +37,7 @@ FactoryBot.define do
       expected_results { expected_result }
 
       measure_ids { ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }
-      association :product, :factory => :product_static_bundle
+      association :product, factory: :product_static_bundle
       after(:create) do |pt|
         extended_data = { 'correlation_id' => pt.id,
                           'medical_record_number' => '1989db70-4d42-0135-8680-30999b0ed66f',

@@ -1,10 +1,10 @@
 namespace :evaluator do
-  task :setup => :environment
+  task setup: :environment
 
   desc %(
     Clean up generated vendor/product/tests/executions in Cypress
   )
-  task :cleanup => :setup do
+  task cleanup: :setup do
     mev = Cypress::MeasureEvaluator.new
     mev.cleanup
   end

@@ -17,7 +17,7 @@ FactoryBot.define do
 
     trait :diagnosis do
       hqmf_doc = { 'source_data_criteria' => { 'DiagnosisActivePregnancy' =>
-                                               { 'title'  => 'Pregnancy',
+                                               { 'title' => 'Pregnancy',
                                                  'description' => 'Diagnosis, Active => Pregnancy',
                                                  'standard_category' => 'diagnosis_condition_problem',
                                                  'qds_data_type' => 'diagnosis_active',
@@ -27,8 +27,8 @@ FactoryBot.define do
                                                  'hard_status' => false,
                                                  'negation' => false,
                                                  'source_data_criteria' => 'DiagnosisActivePregnancy' } },
-                   'data_criteria'  => { 'DiagnosisActivePregnancy' =>
-                                        { 'title'  => 'Pregnancy',
+                   'data_criteria' => { 'DiagnosisActivePregnancy' =>
+                                        { 'title' => 'Pregnancy',
                                           'description' => 'Diagnosis, Active => Pregnancy',
                                           'standard_category' => 'diagnosis_condition_problem',
                                           'qds_data_type' => 'diagnosis_active',
@@ -51,7 +51,7 @@ FactoryBot.define do
     end
     trait :no_diagnosis do
       hqmf_doc = { 'source_data_criteria' => { 'PhysicalExamFindingBmiPercentile' =>
-                                               { 'title'  => 'BMI percentile',
+                                               { 'title' => 'BMI percentile',
                                                  'description' => 'Physical Exam, Finding => BMI percentile',
                                                  'standard_category' => 'physical_exam',
                                                  'qds_data_type' => 'physical_exam',
@@ -61,8 +61,8 @@ FactoryBot.define do
                                                  'hard_status' => false,
                                                  'negation' => false,
                                                  'source_data_criteria' => 'PhysicalExamFindingBmiPercentile' } },
-                   'data_criteria'  => { 'PhysicalExamFindingBmiPercentile_precondition_8' =>
-                                        { 'title'  => 'BMI percentile',
+                   'data_criteria' => { 'PhysicalExamFindingBmiPercentile_precondition_8' =>
+                                        { 'title' => 'BMI percentile',
                                           'description' => 'Physical Exam, Finding => BMI percentile',
                                           'standard_category' => 'physical_exam',
                                           'qds_data_type' => 'physical_exam',
