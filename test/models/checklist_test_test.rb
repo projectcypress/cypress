@@ -57,22 +57,22 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal 'incomplete', checklist_test.status
     task = checklist_test.tasks.create!({}, C1ChecklistTask)
     assert_equal 'incomplete', checklist_test.status
-    test_executions_pending = task.test_executions.build(:state => :pending)
+    test_executions_pending = task.test_executions.build(state: :pending)
     user.test_executions << test_executions_pending
     test_executions_pending.save!
     assert_equal 'incomplete', checklist_test.status
-    test_executions_passing = task.test_executions.build(:state => :passed)
+    test_executions_passing = task.test_executions.build(state: :passed)
     user.test_executions << test_executions_passing
     test_executions_passing.save!
     assert_equal 'passing', checklist_test.status
-    test_executions_failing = task.test_executions.build(:state => :failed)
+    test_executions_failing = task.test_executions.build(state: :failed)
     user.test_executions << test_executions_failing
     test_executions_failing.save!
     assert_equal 'failing', checklist_test.status
   end
 
   def create_checklist_test_for_product_with_measure_id(product, measure_id)
-    checklist_test = product.product_tests.build({ :name => "my product test for measure id #{measure_id}", :measure_ids => [measure_id] }, ChecklistTest)
+    checklist_test = product.product_tests.build({ name: "my product test for measure id #{measure_id}", measure_ids: [measure_id] }, ChecklistTest)
     checklist_test.save!
     checklist_test.create_checked_criteria
     checklist_test
@@ -154,7 +154,7 @@ class ChecklistTestTest < ActiveJob::TestCase
   end
 
   def test_build_execution_errors_for_incomplete_checked_criteria
-    user = User.create(:email => 'vendor@test.com', :password => 'TestTest!', :password_confirmation => 'TestTest!', :terms_and_conditions => '1')
+    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     @test.create_checked_criteria
     task = @test.tasks.create({}, C1ChecklistTask)
 
@@ -178,10 +178,10 @@ class ChecklistTestTest < ActiveJob::TestCase
   def test_repeatability_with_random_seed
     # create new tests with same seed
     random = Random.new_seed
-    test1 = @test.product.product_tests.create!({ :name => 'test_for_measure_1a',
-                                                  :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
-    test2 = @test.product.product_tests.create!({ :name => 'test_for_measure_1a',
-                                                  :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
+    test1 = @test.product.product_tests.create!({ name: 'test_for_measure_1a',
+                                                  measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
+    test2 = @test.product.product_tests.create!({ name: 'test_for_measure_1a',
+                                                  measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
 
     test1.rand_seed = random
     test2.rand_seed = random

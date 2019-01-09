@@ -24,14 +24,14 @@ FactoryBot.define do
         association :vendor, name: '2015 Vendor No C2'
       end
       measure_ids { ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }
-      association :bundle, :factory => :static_bundle
+      association :bundle, factory: :static_bundle
       after(:create) do |p|
         p.add_checklist_test
         p.save
       end
 
-      factory :product_static_bundle, :traits => [:default]
-      factory :product_no_c2, :traits => [:no_c2]
+      factory :product_static_bundle, traits: [:default]
+      factory :product_no_c2, traits: [:no_c2]
     end
   end
 end

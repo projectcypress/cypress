@@ -17,7 +17,7 @@ Given(/^the user is signed in as a non admin$/) do
   User.all.destroy # FIXME: there's gotta be a better way
   @user = FactoryBot.create(:user)
   @user.approved = true
-  login_as @user, :scope => :user
+  login_as @user, scope: :user
   steps %( Given the user is on the sign in page )
 end
 
@@ -39,7 +39,7 @@ end
 # # # # # # # #
 
 When(/^debug mode is (.*)$/) do |debug_mode_value|
-  Settings.current.update(:enable_debug_features => debug_mode_value.to_boolean)
+  Settings.current.update(enable_debug_features: debug_mode_value.to_boolean)
 end
 
 # certs argument stands for certifications and should be a comma separated list of some of these values: c1, c2, c3, c4
@@ -47,24 +47,24 @@ When(/^a user creates a product with (.*) certifications( and a supplemental art
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
   product_name = "mp #{rand}"
   file_path = Rails.root.join('app', 'assets', 'images', 'cypress_bg_cropped.png')
-  page.fill_in 'Name', :with => product_name
+  page.fill_in 'Name', with: product_name
   page.find('#product_c1_test').click if certs.include? 'c1'
   page.find('#product_c2_test').click if certs.include? 'c2'
   page.find('#product_c3_test').click if certs.include? 'c3'
   page.find('#product_c4_test').click if certs.include? 'c4'
   page.find('#product_measure_selection_custom').click
-  page.attach_file('product_supplemental_test_artifact', file_path, :visible => false) unless sta.nil?
+  page.attach_file('product_supplemental_test_artifact', file_path, visible: false) unless sta.nil?
   page.all('#measure_tabs .ui-tabs-nav a')[1].click # should tab for "Behavioral Health Adult"
   page.all('input.measure-checkbox')[0].click # should get measure for "Depression Remission at Twelve Months"
   page.click_button 'Add Product'
   page.click_link product_name
   # By running find_by after we have already clicked a link to the same product we are trying to find,
   # we are able to avoid a race condition where the product is not yet created when we run the find_by.
-  @product = Product.find_by(:name => product_name)
+  @product = Product.find_by(name: product_name)
 end
 
 When(/^the user has one bundle and navigates to the create product page$/) do
-  Bundle.where(:active => nil).destroy_all
+  Bundle.where(active: nil).destroy_all
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
 end
 
@@ -75,7 +75,7 @@ end
 
 When(/^the user creates a product with name (.*) for vendor (.*)$/) do |product_name, vendor_name|
   steps %( When the user navigates to the create product page for vendor #{vendor_name} )
-  page.fill_in 'Name', :with => product_name
+  page.fill_in 'Name', with: product_name
   page.find('#product_c2_test').click
   page.find('#product_measure_selection_custom').click
   page.all('#measure_tabs .ui-tabs-nav a')[1].click
@@ -84,7 +84,7 @@ When(/^the user creates a product with name (.*) for vendor (.*)$/) do |product_
 
   # If we don't have a vendor then the database hasn't caught up yet
   # Keep trying until we actually get a proper result
-  @product = Product.where(:name => product_name).first while @product&.vendor.nil?
+  @product = Product.where(name: product_name).first while @product&.vendor.nil?
 end
 
 When(/^the user navigates to the create product page$/) do
@@ -107,7 +107,7 @@ end
 When(/^the user creates a product with no name$/) do
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
   @product = FactoryBot.build(:product_no_name)
-  page.fill_in 'Name', :with => @product.name
+  page.fill_in 'Name', with: @product.name
   page.find('#product_c1_test').click
   page.find('#product_measure_selection_custom').click
   page.all('#measure_tabs .ui-tabs-nav a')[1].click
@@ -125,7 +125,7 @@ end
 When(/^the user creates a product with no task type$/) do
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
   @product = FactoryBot.build(:product)
-  page.fill_in 'Name', :with => @product.name
+  page.fill_in 'Name', with: @product.name
   page.find('#product_measure_selection_custom').click
   page.all('#measure_tabs .ui-tabs-nav a')[1].click
   page.all('input.measure-checkbox')[0].click
@@ -134,7 +134,7 @@ end
 When(/^the user fills out all product information but measures$/) do
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
   @product = FactoryBot.build(:product)
-  page.fill_in 'Name', :with => @product.name
+  page.fill_in 'Name', with: @product.name
   page.find('#product_measure_selection_custom').click
   page.find('#product_c2_test').click
 end
@@ -183,7 +183,7 @@ end
 
 And(/^the user manually selects all measures$/) do
   # Clear the measure filter field
-  page.fill_in 'Type to filter by measure', :with => ''
+  page.fill_in 'Type to filter by measure', with: ''
   # We are selecting the first checkbox in every tab. This works because
   # every measure either has a "select all" button at the top or only has
   # 1 measure, so this will always select all measures.
@@ -194,7 +194,7 @@ And(/^the user manually selects all measures$/) do
 end
 
 And(/^the user types "([^"]*)" into the measure filter box$/) do |filter_text|
-  page.fill_in 'Type to filter by measure', :with => filter_text
+  page.fill_in 'Type to filter by measure', with: filter_text
 end
 
 # ^ ^ ^ Measure Selection ^ ^ ^
@@ -217,7 +217,7 @@ end
 When(/^the user changes the name of the product$/) do
   steps %( When the user views the edit page of the product )
   @product_other = FactoryBot.build(:product)
-  page.fill_in 'Name', :with => @product_other.name
+  page.fill_in 'Name', with: @product_other.name
   page.click_button 'Edit Product'
 end
 
@@ -225,28 +225,28 @@ When(/^the user uploads a (in)?correct supplemental test artifact to the product
   steps %( When the user views the edit page of the product )
   filename = (nil_if_correct ? 'icon.svg' : 'cypress_bg_cropped.png')
   file_path = Rails.root.join('app', 'assets', 'images', filename)
-  page.attach_file('product_supplemental_test_artifact', file_path, :visible => false)
+  page.attach_file('product_supplemental_test_artifact', file_path, visible: false)
   page.click_button 'Edit Product'
 end
 
 When(/^the user removes the product$/) do
   steps %( When the user views the edit page of the product )
   page.click_button 'Delete Product'
-  page.fill_in 'delete name', :with => @product.name
-  page.click_button 'Continue', :visible => true
+  page.fill_in 'delete name', with: @product.name
+  page.click_button 'Continue', visible: true
 end
 
 When(/^the user removes the product from the vendor page$/) do
   steps %( When the user views the edit page of the product )
   page.click_button 'Delete Product'
-  page.fill_in 'delete name', :with => @product.name
-  page.find('div.modal-footer').find('button', :text => 'Continue').click
+  page.fill_in 'delete name', with: @product.name
+  page.find('div.modal-footer').find('button', text: 'Continue').click
 end
 
 When(/^the user cancels removing the product$/) do
   steps %( When the user views the edit page of the product )
   page.click_button 'Delete Product'
-  page.find('div.modal-footer').find('button', :text => 'Cancel').click
+  page.find('div.modal-footer').find('button', text: 'Cancel').click
   # This makes us wait until the modal has completely closed
   page.has_no_text?('Remove Permanently')
   page.find('div.panel-footer').click_button 'Cancel'
@@ -261,7 +261,7 @@ When(/^all product tests have a state of ready$/) do
 end
 
 When(/^all product tests do not have a state of ready$/) do
-  pt = ProductTest.find_by(:cms_id => 'CMS127v7')
+  pt = ProductTest.find_by(cms_id: 'CMS127v7')
   pt.state = :nah_man_im_like_lightyears_away_from_bein_ready
   pt.save!
 end
@@ -277,7 +277,7 @@ When(/^the user adds a product test$/) do
   product = @product
   product.measure_ids << measure_id
   product.save!
-  product_test = product.product_tests.build({ :name => "measure test for measure id #{measure_id}", :measure_ids => [measure_id] }, MeasureTest)
+  product_test = product.product_tests.build({ name: "measure test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
   product_test.save!
   task = product_test.tasks.build({}, C1Task)
   task.save!
@@ -303,7 +303,7 @@ And(/^the user adds cat I tasks to all product tests$/) do
   product.c1_test = true
   product.save!
   product.product_tests.measure_tests.each do |pt|
-    task = pt.tasks.build({ :product_test => pt }, C1Task)
+    task = pt.tasks.build({ product_test: pt }, C1Task)
     task.save!
   end
 end
@@ -399,7 +399,7 @@ def attach_zip_to_multi_upload(html_id)
 
   # attach zip file to multi-upload field
   zip_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip')
-  page.find(html_id, :visible => false).attach_file('test_execution[results]', zip_path, :visible => false)
+  page.find(html_id, visible: false).attach_file('test_execution[results]', zip_path, visible: false)
 end
 
 def attach_xml_to_multi_upload(html_id)
@@ -407,7 +407,7 @@ def attach_xml_to_multi_upload(html_id)
 
   # attach zip file to multi-upload field
   xml_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')
-  page.find(html_id, :visible => false).attach_file('test_execution[results]', xml_path, :visible => false)
+  page.find(html_id, visible: false).attach_file('test_execution[results]', xml_path, visible: false)
 end
 
 # show input file upload html element. this is a known issue with capybara. capybara is unable to find inputs with surrounding <label> tags
@@ -458,7 +458,7 @@ Then(/^the group of measures should no longer be selected$/) do
 end
 
 Then(/^there should be (\d+) measures selected$/) do |selected_measure_count|
-  assert_equal selected_measure_count.to_i, page.all('.measure-checkbox:checked', :visible => false).count
+  assert_equal selected_measure_count.to_i, page.all('.measure-checkbox:checked', visible: false).count
 end
 
 Then(/^all measures should still be selected$/) do
@@ -513,7 +513,7 @@ Then(/^the user should see the the appropriate tabs$/) do
 end
 
 Then(/^"(.*)" checkbox should be (\w*)$/) do |element, state|
-  checkbox = page.find('label', :text => element).find('input')
+  checkbox = page.find('label', text: element).find('input')
   case state
   when 'enabled', 'disabled'
     # Convert state from disabled/enabled to true/false
@@ -529,7 +529,7 @@ end
 
 def assert_tab_and_content_exist(title, description, html_id)
   page.click_link title
-  find("##{html_id}", :visible => false).assert_text description
+  find("##{html_id}", visible: false).assert_text description
 end
 
 Then(/^the user should not see the measure tests tab$/) do
@@ -575,7 +575,7 @@ end
 
 Then(/^the user should see a cat I test (.*) for product test (.*)$/) do |task_status, product_test_number|
   html_id_for_measure_test_table_row = "##{measure_tests_table_row_wrapper_id(nth_measure_test(product_test_number).tasks.c1_task)}"
-  measure_table_row_element = page.find(html_id_for_measure_test_table_row, :visible => false)
+  measure_table_row_element = page.find(html_id_for_measure_test_table_row, visible: false)
   using_wait_time 35 do # This can take significantly longer than other tests due to the 10 second ajax wait for some requests
     measure_table_row_element.assert_text task_status_to_execution_status_message(task_status)
   end
@@ -583,19 +583,19 @@ end
 
 Then(/^the user should see a cat III test (.*) for product test (.*)$/) do |task_status, product_test_number|
   html_id = td_div_id_for_cat3_task_for_product_test(product_test_number)
-  html_elem = page.find(html_id, :visible => false)
+  html_elem = page.find(html_id, visible: false)
   html_elem.assert_text task_status_to_task_link_text(task_status)
 end
 
 Then(/^the user should see a cat I test (.*) for filtering test (.*)$/) do |task_status, filtering_test_number|
   html_id = td_div_id_for_cat1_task_for_filtering_test(filtering_test_number)
-  html_elem = page.find(html_id, :visible => false)
+  html_elem = page.find(html_id, visible: false)
   html_elem.assert_text task_status_to_task_link_text(task_status)
 end
 
 Then(/^the user should see a cat III test (.*) for filtering test (.*)$/) do |task_status, filtering_test_number|
   html_id = td_div_id_for_cat3_task_for_filtering_test(filtering_test_number)
-  html_elem = page.find(html_id, :visible => false)
+  html_elem = page.find(html_id, visible: false)
   using_wait_time 35 do # This can take significantly longer than other tests due to the 10 second ajax wait for some requests
     html_elem.assert_text task_status_to_task_link_text(task_status)
   end

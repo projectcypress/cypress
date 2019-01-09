@@ -13,7 +13,7 @@ class TasksController < ApplicationController
   end
 
   rescue_from TypeNotFound do |exception|
-    render :plain => exception, :status => :internal_server_error
+    render plain: exception, status: :internal_server_error
   end
 
   def new; end
@@ -26,7 +26,7 @@ class TasksController < ApplicationController
 
   def index
     # only get C1, C2, and C4 tasks (no C3)
-    @tasks = @product_test.tasks.any_in(:_type => %w[C1Task C2Task Cat1FilterTask Cat3FilterTask])
+    @tasks = @product_test.tasks.any_in(_type: %w[C1Task C2Task Cat1FilterTask Cat3FilterTask])
     respond_with(@tasks.to_a)
   end
 
@@ -35,9 +35,9 @@ class TasksController < ApplicationController
   end
 
   def good_results
-    redirect_back(:fallback_location => root_path) && return unless Settings.current.enable_debug_features
+    redirect_back(fallback_location: root_path) && return unless Settings.current.enable_debug_features
     task_type = @task._type
-    redirect_back(:fallback_location => root_path) && return if %w[C3Cat1Task C3Cat3Task].include? task_type
+    redirect_back(fallback_location: root_path) && return if %w[C3Cat1Task C3Cat3Task].include? task_type
 
     file_type = if %w[C1Task Cat1FilterTask].include? task_type
                   'zip'
@@ -49,7 +49,7 @@ class TasksController < ApplicationController
     pt = @task.product_test
     file_name = "#{pt.cms_id}_#{pt.id}.debug.#{file_type}".tr(' ', '_')
 
-    send_data file_content, :type => "application/#{file_type}", :disposition => 'attachment', :filename => file_name
+    send_data file_content, type: "application/#{file_type}", disposition: 'attachment', filename: file_name
   end
 
   private

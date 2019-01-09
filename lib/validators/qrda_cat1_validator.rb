@@ -45,9 +45,9 @@ module Validators
         # errors for data criteria outside the measure definition are now warnings
         type = error.message.include?('data criteria outside') ? :warning : :error
         type = :warning if (error.validator&.upcase&.include?('QRDA') || error.validator == 'QRDA QDM Template Validator') && !@test_has_c3
-        add_issue error.message, type, :message => error.message,
-                                       :location => error.location, :validator => error.validator,
-                                       :validator_type => :xml_validation, :file_name => error.file_name
+        add_issue error.message, type, message: error.message,
+                                       location: error.location, validator: error.validator,
+                                       validator_type: :xml_validation, file_name: error.file_name
       end
       # dont' validate measures for C1 Checklist or C3 Checklist
       validate_measures(doc) unless %w[C1ChecklistTask C3ChecklistTask].include? options.task._type
@@ -63,7 +63,7 @@ module Validators
               cda:id[#{translate('@root')}='2.16.840.1.113883.4.738' and #{translate('@extension')}='#{measure.hqmf_id.upcase}'])
         unless doc.at_xpath(measure_xpath)
           add_error("Document does not state it is reporting measure #{measure.hqmf_id}  - #{measure.name}",
-                    :validator => 'Measure Declaration Check', :validator_type => :xml_validation, :file_name => @options[:file_name])
+                    validator: 'Measure Declaration Check', validator_type: :xml_validation, file_name: @options[:file_name])
         end
       end
     end

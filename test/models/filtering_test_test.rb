@@ -69,7 +69,7 @@ class FilteringTestTest < ActiveJob::TestCase
                                             measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                                             options: { 'filters' => {} } }, FilteringTest)
 
-    test_executions = test.tasks.find_by(_type: 'Cat1FilterTask').test_executions.build(:state => :passed)
+    test_executions = test.tasks.find_by(_type: 'Cat1FilterTask').test_executions.build(state: :passed)
     user.test_executions << test_executions
     test_executions.save!
     assert_equal 'passing', test.task_status('Cat1FilterTask')
@@ -96,12 +96,12 @@ class FilteringTestTest < ActiveJob::TestCase
     # create new tests with same seed
     seed = Random.new_seed
     options = { 'filters' => {} }
-    test1 = @product.product_tests.build({ :name => 'test_for_measure_1a',
-                                           :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                           :options => options }, FilteringTest)
-    test2 = @product.product_tests.build({ :name => 'test_for_measure_1a',
-                                           :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                           :options => options }, FilteringTest)
+    test1 = @product.product_tests.build({ name: 'test_for_measure_1a',
+                                           measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                           options: options }, FilteringTest)
+    test2 = @product.product_tests.build({ name: 'test_for_measure_1a',
+                                           measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                           options: options }, FilteringTest)
     test1.save!
     test2.save!
 

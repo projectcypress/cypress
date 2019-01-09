@@ -5,44 +5,44 @@ class ProductTest
   include Mongoid::Attributes::Dynamic
   include GlobalID::Identification
 
-  scope :by_updated_at, -> { order(:updated_at => :desc) }
+  scope :by_updated_at, -> { order(updated_at: :desc) }
 
   # TODO: Use real attributes?
-  scope :measure_tests, -> { where(:_type => 'MeasureTest') }
-  scope :checklist_tests, -> { where(:_type => 'ChecklistTest') }
-  scope :filtering_tests, -> { where(:_type => 'FilteringTest') }
+  scope :measure_tests, -> { where(_type: 'MeasureTest') }
+  scope :checklist_tests, -> { where(_type: 'ChecklistTest') }
+  scope :filtering_tests, -> { where(_type: 'FilteringTest') }
 
-  belongs_to :product, :index => true, :touch => true
-  has_many :tasks, :dependent => :destroy, :inverse_of => :product_test
+  belongs_to :product, index: true, touch: true
+  has_many :tasks, dependent: :destroy, inverse_of: :product_test
 
   # TODO: R2P: fix foreign key descriptor?
-  has_many :patients, :dependent => :destroy, :foreign_key => 'extendedData.correlation_id', :class_name => 'QDM::Patient'
+  has_many :patients, dependent: :destroy, foreign_key: 'extendedData.correlation_id', class_name: 'QDM::Patient'
 
-  field :augmented_patients, :type => Array, :default => []
+  field :augmented_patients, type: Array, default: []
 
-  field :expected_results, :type => Hash
+  field :expected_results, type: Hash
   # this the hqmf id of the measure
-  field :measure_ids, :type => Array
+  field :measure_ids, type: Array
   # Test Details
-  field :name, :type => String
-  field :cms_id, :type => String
-  field :description, :type => String
-  field :state, :type => Symbol, :default => :pending
-  field :rand_seed, :type => String
+  field :name, type: String
+  field :cms_id, type: String
+  field :description, type: String
+  field :state, type: Symbol, default: :pending
+  field :rand_seed, type: String
 
-  field :backtrace, :type => String
-  field :status_message, :type => String
-  validates :name, :presence => true
-  validates :product, :presence => true
-  validates :measure_ids, :presence => true
+  field :backtrace, type: String
+  field :status_message, type: String
+  validates :name, presence: true
+  validates :product, presence: true
+  validates :measure_ids, presence: true
   mount_uploader :patient_archive, PatientArchiveUploader
   mount_uploader :html_archive, PatientArchiveUploader
 
-  delegate :name, :version, :to => :product, :prefix => true
-  delegate :effective_date, :to => :product
-  delegate :measure_period_start, :to => :product
-  delegate :bundle, :to => :product
-  delegate :c1_test, :c2_test, :c3_test, :to => :product
+  delegate :name, :version, to: :product, prefix: true
+  delegate :effective_date, to: :product
+  delegate :measure_period_start, to: :product
+  delegate :bundle, to: :product
+  delegate :c1_test, :c2_test, :c3_test, to: :product
 
   before_create :generate_random_seed
 
@@ -75,7 +75,7 @@ class ProductTest
     Artifact.where(:test_execution_id.in => test_execution_ids).destroy
     # TODO: CQL: use new results model?
     QDM::IndividualResult.where(:patient_id.in => patient_ids).delete
-    ProductTest.in(:id => product_test_ids).delete
+    ProductTest.in(id: product_test_ids).delete
   end
 
   def generate_patients(job_id = nil)
@@ -104,7 +104,7 @@ class ProductTest
       prng = Random.new(rand_seed.to_i)
       # ids of all patients in IPP
       ids = results.where('IPP' => { '$gt' => 0 }).collect(&:patient_id)
-      pat_arr = sample_and_duplicate_patients(pat_arr, ids, :random => prng) if ids.present?
+      pat_arr = sample_and_duplicate_patients(pat_arr, ids, random: prng) if ids.present?
     end
     Cypress::PatientZipper.zip(file, pat_arr, :qrda)
     self.patient_archive = file
@@ -121,16 +121,16 @@ class ProductTest
 
     pat_arr, dups = randomize_clinical_data(pat_arr, dups, random)
     # choose up to 3 duplicate patients
-    dups.sample(random.rand(1..3), :random => random).each do |pat|
+    dups.sample(random.rand(1..3), random: random).each do |pat|
       prng_repeat = Random.new(rand_seed.to_i)
-      dup_pat, pat_augments, old_pat = pat.duplicate_randomization(:random => prng_repeat)
+      dup_pat, pat_augments, old_pat = pat.duplicate_randomization(random: prng_repeat)
       # only add if augmented patient validates
-      if car.validate_calculated_results(dup_pat, :effective_date => effective_date, :orig_product_patient => old_pat)
+      if car.validate_calculated_results(dup_pat, effective_date: effective_date, orig_product_patient: old_pat)
         augmented_patients << pat_augments
         pat_arr << dup_pat
       else
-        augmented_patients << { :original_patient_id => old_pat.id,
-                                :first => [old_pat.first_names, old_pat.first_names], :last => [old_pat.familyName, old_pat.familyName] }
+        augmented_patients << { original_patient_id: old_pat.id,
+                                first: [old_pat.first_names, old_pat.first_names], last: [old_pat.familyName, old_pat.familyName] }
         pat_arr << old_pat
       end
     end
@@ -143,12 +143,12 @@ class ProductTest
     # TODO: check... why not randomize if there is one duplicate?
     return [pat_arr, dups] if dups.count < 1
 
-    clinical_pat = dups.sample(:random => random)
+    clinical_pat = dups.sample(random: random)
     dups.delete(clinical_pat)
     pat_arr.delete(clinical_pat)
     # Re-add clinically randomized patients (patient split in two across date or data element type)
     # use end and start dates for correct comparison format
-    [pat_arr.concat(Cypress::ClinicalRandomizer.randomize(clinical_pat, end_date, start_date, :random => random)), dups]
+    [pat_arr.concat(Cypress::ClinicalRandomizer.randomize(clinical_pat, end_date, start_date, random: random)), dups]
   end
 
   def calculate
@@ -156,7 +156,7 @@ class ProductTest
   end
 
   def measures
-    bundle.measures.in(:hqmf_id => measure_ids)
+    bundle.measures.in(hqmf_id: measure_ids)
   end
 
   def execute(_params)

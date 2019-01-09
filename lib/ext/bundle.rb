@@ -19,10 +19,10 @@ class Bundle
 
   validates_presence_of :version
 
-  has_many :value_sets, :class_name => 'ValueSet', :inverse_of => :bundle
-  has_many :products, :dependent => :destroy
+  has_many :value_sets, class_name: 'ValueSet', inverse_of: :bundle
+  has_many :products, dependent: :destroy
 
-  scope :active, -> { where(:active => true) }
+  scope :active, -> { where(active: true) }
   scope :available, -> { where(:deprecated.ne => true) }
 
   def results
@@ -34,7 +34,7 @@ class Bundle
   end
 
   def measures
-    Measure.where(:bundle_id => id).order_by([['id', :asc], ['sub_id', :asc]])
+    Measure.where(bundle_id: id).order_by([['id', :asc], ['sub_id', :asc]])
   end
 
   def title
@@ -46,12 +46,12 @@ class Bundle
   def deprecate
     results.destroy
     FileUtils.rm(mpl_path) if File.exist?(mpl_path)
-    update(:deprecated => true, :active => false)
+    update(deprecated: true, active: false)
   end
 
   def destroy
     patients.destroy
-    Product.where(:bundle_id => id).destroy_all
+    Product.where(bundle_id: id).destroy_all
     FileUtils.rm(mpl_path) if File.exist?(mpl_path)
     delete
   end
@@ -96,7 +96,7 @@ class Bundle
   def mpl_status
     if File.exist?(mpl_path)
       :ready
-    elsif MplDownloadCreateJob.trackers.where(:options => { :bundle_id => id.to_s }, :status.in => %i[queued working]).count.positive?
+    elsif MplDownloadCreateJob.trackers.where(:options => { bundle_id: id.to_s }, :status.in => %i[queued working]).count.positive?
       :building
     else
       :unbuilt
@@ -118,22 +118,22 @@ class Bundle
 
   def update_default
     unless version == Settings.current.default_bundle
-      Bundle.where(:active => true).each { |b| b.update(:active => false) }
+      Bundle.where(active: true).each { |b| b.update(active: false) }
       self.active = true
       save!
-      Bundle.find_by(:id => id).active = true
-      Settings.current.update(:default_bundle => version)
+      Bundle.find_by(id: id).active = true
+      Settings.current.update(default_bundle: version)
     end
   end
 
   def self.default
-    find_by(:active => true)
+    find_by(active: true)
   rescue
     most_recent
   end
 
   def self.most_recent
-    where(:version => pluck(:version).max_by { |v| v.split('.').map(&:to_i) }).first
+    where(version: pluck(:version).max_by { |v| v.split('.').map(&:to_i) }).first
   end
 
   def self.latest_bundle_id

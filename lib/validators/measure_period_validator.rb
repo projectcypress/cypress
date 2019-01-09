@@ -24,11 +24,11 @@ module Validators
         cda:effectiveTime/cda:low/@value")
       if !doc_start_time
         msg = 'Document needs to report the Measurement Start Date'
-        add_error(msg, :location => '/', :validator_type => :submission_validation, :file_name => @options[:file_name])
+        add_error(msg, location: '/', validator_type: :submission_validation, file_name: @options[:file_name])
       else
         unless doc_start_time.value.to_s.start_with? measure_start
           msg = "Reported Measurement Period should start on #{measure_start}"
-          add_error(msg, :location => '/', :validator_type => :submission_validation, :file_name => @options[:file_name])
+          add_error(msg, location: '/', validator_type: :submission_validation, file_name: @options[:file_name])
         end
       end
     end
@@ -40,11 +40,11 @@ module Validators
         cda:effectiveTime/cda:high/@value")
       if !doc_end_time
         msg = 'Document needs to report the Measurement End Date'
-        add_error(msg, :location => '/', :validator_type => :submission_validation, :file_name => @options[:file_name])
+        add_error(msg, location: '/', validator_type: :submission_validation, file_name: @options[:file_name])
       else
         unless doc_end_time.value.to_s.start_with? measure_end
           msg = "Reported Measurement Period should end on #{measure_end}"
-          add_error(msg, :location => '/', :validator_type => :submission_validation, :file_name => @options[:file_name])
+          add_error(msg, location: '/', validator_type: :submission_validation, file_name: @options[:file_name])
         end
       end
     end
