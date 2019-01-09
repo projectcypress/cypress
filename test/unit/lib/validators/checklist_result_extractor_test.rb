@@ -176,6 +176,52 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
     assert_equal 0, codenodes.size
   end
 
+  def test_find_template_with_code_correct_unnested_negated_code
+    source_criteria = {  'title' => 'Intervention',
+                         'definition' => 'intervention',
+                         'code_list_id' => '1.1.2.3',
+                         'attributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
+    checked_criteria = { 'attribute_index' => 0,
+                         'code' => '6',
+                         'attribute_code' => '24',
+                         'negated_valueset' => false }
+    template = '2.16.840.1.113883.10.20.24.3.31'
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'multiple_entries_negated_unnested_code.xml')).read
+    doc = get_document(file)
+    @object.instance_variable_set(:@source_criteria, source_criteria)
+    @object.instance_variable_set(:@checked_criteria, checked_criteria)
+    @object.instance_variable_set(:@template, template)
+    @object.instance_variable_set(:@file, doc)
+    reason_template, nodes = @object.template_nodes
+    codenodes = @object.find_template_with_code(nodes, reason_template, source_criteria['code_list_id'])
+    # One entry contains the correct valueset,negation code and template
+    assert_equal 1, codenodes.size
+  end
+
+  def test_find_template_with_code_incorrect_unnested_negated_code
+    source_criteria = {  'title' => 'Intervention',
+                         'definition' => 'intervention',
+                         'code_list_id' => '1.1.2.3',
+                         'attributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
+    checked_criteria = { 'attribute_index' => 0,
+                         'code' => '7',
+                         'attribute_code' => '24',
+                         'negated_valueset' => false }
+    template = '2.16.840.1.113883.10.20.24.3.31'
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'multiple_entries_negated_unnested_code.xml')).read
+    doc = get_document(file)
+    @object.instance_variable_set(:@source_criteria, source_criteria)
+    @object.instance_variable_set(:@checked_criteria, checked_criteria)
+    @object.instance_variable_set(:@template, template)
+    @object.instance_variable_set(:@file, doc)
+    reason_template, nodes = @object.template_nodes
+    codenodes = @object.find_template_with_code(nodes, reason_template, source_criteria['code_list_id'])
+    # 1 Node has the correct negation code
+    assert_equal 1, nodes.size
+    # 0 Nodes have the correction negation code and template
+    assert_equal 0, codenodes.size
+  end
+
   def test_find_template_with_code_correct_negated_vs
     source_criteria = {  'title' => 'Anti-HypertensivePharmacologicTherapy',
                          'definition' => 'medication',
@@ -186,7 +232,7 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
                          'attribute_code' => '24',
                          'negated_valueset' => true }
     template = '2.16.840.1.113883.10.20.24.3.47'
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'multiple_entries_negated_vs.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'multiple_entries_negated_nested_vs.xml')).read
     doc = get_document(file)
     @object.instance_variable_set(:@source_criteria, source_criteria)
     @object.instance_variable_set(:@checked_criteria, checked_criteria)
@@ -208,7 +254,7 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
                          'attribute_code' => '24',
                          'negated_valueset' => true }
     template = '2.16.840.1.113883.10.20.24.3.47'
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'multiple_entries_negated_vs.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'multiple_entries_negated_nested_vs.xml')).read
     doc = get_document(file)
     @object.instance_variable_set(:@source_criteria, source_criteria)
     @object.instance_variable_set(:@checked_criteria, checked_criteria)
@@ -232,7 +278,7 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
                          'attribute_code' => '24',
                          'negated_valueset' => false }
     template = '2.16.840.1.113883.10.20.24.3.22'
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'multiple_entries_negated_vs.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'multiple_entries_negated_nested_vs.xml')).read
     doc = get_document(file)
     @object.instance_variable_set(:@source_criteria, source_criteria)
     @object.instance_variable_set(:@checked_criteria, checked_criteria)

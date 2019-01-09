@@ -90,11 +90,10 @@ module Validators
     def find_reason_code(nodes, valueset)
       # Return node once a matching node is found
       nodes.each do |node|
-        rel_path = relative_path_to_template_root(@source_criteria['definition'])
         cn = if @checked_criteria.negated_valueset
-               node.at_xpath(rel_path + "/cda:templateId[@root='#{@template}']/..//*[@sdtc:valueSet='#{valueset}' and @nullFlavor='NA']")
+               node.at_xpath("./../../..//cda:templateId[@root='#{@template}']/..//*[@sdtc:valueSet='#{valueset}' and @nullFlavor='NA']")
              else
-               node.at_xpath(rel_path + "/cda:templateId[@root='#{@template}']/..//*[@code='#{@checked_criteria.code}']")
+               node.at_xpath("./../../..//cda:templateId[@root='#{@template}']/..//*[@code='#{@checked_criteria.code}']")
              end
         return [cn] unless cn.nil?
       end
