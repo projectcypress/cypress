@@ -14,6 +14,30 @@ module Validators
       'resultDatetime' => "cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.22.4.2']]/cda:effectiveTime"
     }.freeze
 
+    # TODO: relative_path_map currently only includes QDM types that cqm-parsers can import/export.
+    # Other QDM types are not included.
+    def relative_path_to_template_root(definition)
+      relative_path_map = { 'adverse_event' => '../../',
+                            'allergy_intolerance' => '../../../',
+                            'assessment' => './',
+                            'communication_from_patient_to_provider' => './',
+                            'communication_from_provider_to_patient' => './',
+                            'communication_from_provider_to_provider' => './',
+                            'device' => '../../../',
+                            'diagnosis' => './',
+                            'diagnostic_study' => './',
+                            'encounter' => './',
+                            'immunization' => '../../../',
+                            'intervention' => './',
+                            'laboratory_test' => './',
+                            'medication' => '../../../',
+                            'physical_exam' => './',
+                            'procedure' => './' }
+      relative_path_map[definition]
+    end
+
+    private
+
     # does a node need to be checked for an atttibute value
     # cc = checked_criteria
     def check_attribute?
@@ -54,28 +78,6 @@ module Validators
         return node.xpath(relative_path + xpath_map[@source_criteria.attributes[index].attribute_name]).blank? ? false : true
       end
       false
-    end
-
-    # TODO: relative_path_map currently only includes QDM types that cqm-parsers can import/export.
-    # Other QDM types are not included.
-    def relative_path_to_template_root(definition)
-      relative_path_map = { 'adverse_event' => '../../',
-                            'allergy_intolerance' => '../../../',
-                            'assessment' => './',
-                            'communication_from_patient_to_provider' => './',
-                            'communication_from_provider_to_patient' => './',
-                            'communication_from_provider_to_provider' => './',
-                            'device' => '../../../',
-                            'diagnosis' => './',
-                            'diagnostic_study' => './',
-                            'encounter' => './',
-                            'immunization' => '../../../',
-                            'intervention' => './',
-                            'laboratory_test' => './',
-                            'medication' => '../../../',
-                            'physical_exam' => './',
-                            'procedure' => './' }
-      relative_path_map[definition]
     end
   end
 end

@@ -26,6 +26,8 @@ module Validators
       end
     end
 
+    private
+
     def validate_criteria(checked_criteria)
       measure = Measure.find_by(_id: checked_criteria.measure_id)
       sdc = measure[:source_data_criteria].select { |key| key == checked_criteria.source_data_criteria }.values.first

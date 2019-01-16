@@ -23,6 +23,8 @@ module Validators
       end
     end
 
+    private
+
     def passing_dc?(codenodes)
       # return true if there is a matching node
       passing = true if !codenodes.empty? && !check_attribute?

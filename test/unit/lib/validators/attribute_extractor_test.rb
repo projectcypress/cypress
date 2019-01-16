@@ -22,7 +22,7 @@ class AttributeExtractorTest < ActiveSupport::TestCase
 
   def find_attribute_in_fixture(file, code, recorded_result)
     doc = get_document(file)
-    @object.find_attribute_values(doc.xpath("//*[@code='#{code}']").first.parent, recorded_result, 0)
+    @object.send(:find_attribute_values, doc.xpath("//*[@code='#{code}']").first.parent, recorded_result, 0)
   end
 
   def test_encounter_order_author_datetime

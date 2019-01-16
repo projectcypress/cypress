@@ -21,7 +21,7 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
     @object.instance_variable_set(:@checked_criteria, checked_criteria)
     @object.instance_variable_set(:@template, template)
     @object.instance_variable_set(:@file, doc)
-    reason_template, nodes = @object.template_nodes
+    reason_template, nodes = @object.send(:template_nodes)
     # If a source, does not have a reason return false and a document with the root of 'section'
     assert_equal false, reason_template
     assert_equal 'section', nodes[0].root.name
@@ -45,7 +45,7 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
     @object.instance_variable_set(:@template, template)
     @object.instance_variable_set(:@file, doc)
     # You do not need to check an attribute when the source criteria has a negationRationale or Reason
-    assert_equal false, @object.check_attribute?
+    assert_equal false, @object.send(:check_attribute?)
   end
 
   def test_check_attribute_false
@@ -62,7 +62,7 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
     @object.instance_variable_set(:@template, template)
     @object.instance_variable_set(:@file, doc)
     # You do not need to check an attribute when the attribute or result have not been completed (this is an input from in the UI)
-    assert_equal false, @object.check_attribute?
+    assert_equal false, @object.send(:check_attribute?)
   end
 
   def test_check_attribute_true
@@ -81,7 +81,7 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
     @object.instance_variable_set(:@template, template)
     @object.instance_variable_set(:@file, doc)
     # You do need to check an attribue when a source criteria has an attribute, and it is referenced in teh checked_criteria
-    assert_equal true, @object.check_attribute?
+    assert_equal true, @object.send(:check_attribute?)
   end
 
   def test_template_nodes_with_reason
@@ -100,7 +100,7 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
     @object.instance_variable_set(:@checked_criteria, checked_criteria)
     @object.instance_variable_set(:@template, template)
     @object.instance_variable_set(:@file, doc)
-    reason_template, nodes = @object.template_nodes
+    reason_template, nodes = @object.send(:template_nodes)
     # Returns true for source criteria with negationRationale
     assert_equal true, reason_template
     # Returns 1 node that has the negation code in the checked_criteria
@@ -123,7 +123,7 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
     @object.instance_variable_set(:@checked_criteria, checked_criteria)
     @object.instance_variable_set(:@template, template)
     @object.instance_variable_set(:@file, doc)
-    reason_template, nodes = @object.template_nodes
+    reason_template, nodes = @object.send(:template_nodes)
     # Returns true for source criteria with negationRationale
     assert_equal true, reason_template
     # Returns 1 node that has the negation code in the checked_criteria
@@ -146,8 +146,8 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
     @object.instance_variable_set(:@checked_criteria, checked_criteria)
     @object.instance_variable_set(:@template, template)
     @object.instance_variable_set(:@file, doc)
-    reason_template, nodes = @object.template_nodes
-    codenodes = @object.find_template_with_code(nodes, reason_template)
+    reason_template, nodes = @object.send(:template_nodes)
+    codenodes = @object.send(:find_template_with_code, nodes, reason_template)
     # One entry contains the correct code,negation code and template
     assert_equal 1, codenodes.size
   end
@@ -168,8 +168,8 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
     @object.instance_variable_set(:@checked_criteria, checked_criteria)
     @object.instance_variable_set(:@template, template)
     @object.instance_variable_set(:@file, doc)
-    reason_template, nodes = @object.template_nodes
-    codenodes = @object.find_template_with_code(nodes, reason_template)
+    reason_template, nodes = @object.send(:template_nodes)
+    codenodes = @object.send(:find_template_with_code, nodes, reason_template)
     # 1 Node has the correct negation code
     assert_equal 1, nodes.size
     # 0 Nodes have the correction negation code and template
@@ -192,8 +192,8 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
     @object.instance_variable_set(:@checked_criteria, checked_criteria)
     @object.instance_variable_set(:@template, template)
     @object.instance_variable_set(:@file, doc)
-    reason_template, nodes = @object.template_nodes
-    codenodes = @object.find_template_with_code(nodes, reason_template, source_criteria['code_list_id'])
+    reason_template, nodes = @object.send(:template_nodes)
+    codenodes = @object.send(:find_template_with_code, nodes, reason_template, source_criteria['code_list_id'])
     # One entry contains the correct valueset,negation code and template
     assert_equal 1, codenodes.size
   end
@@ -214,8 +214,8 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
     @object.instance_variable_set(:@checked_criteria, checked_criteria)
     @object.instance_variable_set(:@template, template)
     @object.instance_variable_set(:@file, doc)
-    reason_template, nodes = @object.template_nodes
-    codenodes = @object.find_template_with_code(nodes, reason_template, source_criteria['code_list_id'])
+    reason_template, nodes = @object.send(:template_nodes)
+    codenodes = @object.send(:find_template_with_code, nodes, reason_template, source_criteria['code_list_id'])
     # 1 Node has the correct negation code
     assert_equal 1, nodes.size
     # 0 Nodes have the correction negation code and template
@@ -238,8 +238,8 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
     @object.instance_variable_set(:@checked_criteria, checked_criteria)
     @object.instance_variable_set(:@template, template)
     @object.instance_variable_set(:@file, doc)
-    reason_template, nodes = @object.template_nodes
-    codenodes = @object.find_template_with_code(nodes, reason_template, source_criteria['code_list_id'])
+    reason_template, nodes = @object.send(:template_nodes)
+    codenodes = @object.send(:find_template_with_code, nodes, reason_template, source_criteria['code_list_id'])
     # One entry contains the correct valueset,negation code and template
     assert_equal 1, codenodes.size
   end
@@ -260,8 +260,8 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
     @object.instance_variable_set(:@checked_criteria, checked_criteria)
     @object.instance_variable_set(:@template, template)
     @object.instance_variable_set(:@file, doc)
-    reason_template, nodes = @object.template_nodes
-    codenodes = @object.find_template_with_code(nodes, reason_template, source_criteria['code_list_id'])
+    reason_template, nodes = @object.send(:template_nodes)
+    codenodes = @object.send(:find_template_with_code, nodes, reason_template, source_criteria['code_list_id'])
     # 1 Node has the correct negation code
     assert_equal 1, nodes.size
     # 0 Nodes have the correction negation code and template
@@ -284,8 +284,8 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
     @object.instance_variable_set(:@checked_criteria, checked_criteria)
     @object.instance_variable_set(:@template, template)
     @object.instance_variable_set(:@file, doc)
-    reason_template, nodes = @object.template_nodes
-    codenodes = @object.find_template_with_code(nodes, reason_template)
+    reason_template, nodes = @object.send(:template_nodes)
+    codenodes = @object.send(:find_template_with_code, nodes, reason_template)
     # 1 Node has the correct negation code
     assert_equal 1, nodes.size
     # 0 Nodes have the correction negation code and template
