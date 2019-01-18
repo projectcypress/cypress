@@ -175,8 +175,8 @@ measures.nin(cms_id: %w[CMS167v7 CMS123v7 CMS164v7 CMS169v7 CMS158v7 CMS65v8]).e
         if att[:attribute_valueset]
           dsa = dsa + ':' + att[:attribute_valueset]
         else
-          dsa + ':'
-              end
+          dsa = dsa + ':'
+        end
         dsac = dsa + ':' + sdc['code_list_id']
         def_status_att_cl[dsac] ? def_status_att_cl[dsac] << measure.cms_id : def_status_att_cl[dsac] = [measure.cms_id]
       end
