@@ -1,0 +1,30 @@
+<section xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:voc="urn:hl7-org:v3/voc">
+  <entry>
+    <act classCode="ACT" moodCode="RQO">
+      <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.132"/>
+      <code code="ENC" codeSystem="2.16.840.1.113883.5.6" codeSystemName="ActClass" displayName="Encounter"/>
+      <entryRelationship typeCode="SUBJ">
+        <encounter classCode="ENC" moodCode="RQO">
+          <!--  Plan of Care Activity Encounter template -->
+          <templateId extension="2014-06-09" root="2.16.840.1.113883.10.20.22.4.40"/>
+          <!-- Encounter order template -->
+          <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.22"/>
+          <id extension="579769a8aeac503a13c3e231" root="1.3.6.1.4.1.115"/>
+          <code code="19951005" codeSystem="2.16.840.1.113883.6.96" sdtc:valueSet="2.16.840.1.113883.3.117.1.7.1.295">
+            <originalText>Encounter, Order: Decision To Admit To Hospital Inpatient</originalText>
+          </code>
+          <text>Encounter, Order: Decision To Admit To Hospital Inpatient</text>
+          <statusCode code="active"/>
+          <!-- Attribute: datetime -->
+          <author>
+            <templateId root="2.16.840.1.113883.10.20.24.3.155"/>
+            <time value="20150521161500"/>
+            <assignedAuthor>
+              <id root="403d1400-3565-0134-bb5b-20999b0ed66f"/>
+            </assignedAuthor>
+          </author>
+        </encounter>
+      </entryRelationship>
+    </act>
+  </entry>
+</section>
