@@ -5,294 +5,205 @@ class AttributeExtractorTest < ActiveSupport::TestCase
     @object.extend(Validators::AttributeExtractor)
   end
 
-  def test_encounter_order_author_datetime
-    source_criteria = {  'title' => 'Decision to Admit to Hospital Inpatient',
-                         'definition' => 'encounter',
-                         'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.295',
-                         'attributes' => [{ 'attribute_name' => 'authorDatetime', 'attribute_valueset' => nil }] }
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_order_start_datetime.xml')).read
-    code = '19951005'
+  def create_source_data_criteria(definition, attribute_name, attribute_valueset = nil)
+    source_criteria = { 'title' => 'Title', 'definition' => definition,
+                        'attributes' => [{ 'attribute_name' => attribute_name, 'attribute_valueset' => attribute_valueset }] }
+    @object.instance_variable_set(:@source_criteria, source_criteria)
+  end
+
+  def create_checked_criteria(code, recorded_result)
+    checked_criteria = { 'attribute_index' => 0, 'code' => code, 'recorded_result' => recorded_result }
+    @object.instance_variable_set(:@checked_criteria, checked_criteria)
+  end
+
+  def create_template(template)
+    @object.instance_variable_set(:@template, template)
+  end
+
+  def find_attribute_in_fixture(file, code, recorded_result)
     doc = get_document(file)
-    assert @object.find_attribute_values(doc.xpath("//*[@code='#{code}']").first.parent, code, source_criteria, 0)
+    @object.send(:find_attribute_values, doc.xpath("//*[@code='#{code}']").first.parent, recorded_result, 0)
+  end
+
+  def test_encounter_order_author_datetime
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_order_author_datetime.xml')).read
+    code = '19951005'
+    recorded_result = 'Date Time Entered'
+    create_source_data_criteria('encounter', 'authorDatetime')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.22')
+    assert find_attribute_in_fixture(file, code, recorded_result)
+  end
+
+  def test_encounter_order_author_datetime_missing
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_order_no_author_datetime.xml')).read
+    code = '19951005'
+    recorded_result = 'Date Time Entered'
+    create_source_data_criteria('encounter', 'authorDatetime')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.22')
+    assert_equal false, find_attribute_in_fixture(file, code, recorded_result)
+  end
+
+  def test_encounter_performed_diagnosis
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_performed.xml')).read
+    code = '32485007'
+    recorded_result = 'V30.00'
+    create_source_data_criteria('encounter', 'diagnoses')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.23')
+    assert find_attribute_in_fixture(file, code, recorded_result)
+  end
+
+  def test_encounter_performed_relevant_period_missing
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_performed_missing_relevant_period.xml')).read
+    code = '32485007'
+    recorded_result = 'Date Time Entered'
+    create_source_data_criteria('encounter', 'relevantPeriod')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.23')
+    assert_equal false, find_attribute_in_fixture(file, code, recorded_result)
+  end
+
+  def test_encounter_performed_principal_diagnosis
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_performed.xml')).read
+    code = '32485007'
+    recorded_result = '312342009'
+    create_source_data_criteria('encounter', 'principalDiagnosis')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.23')
+    assert find_attribute_in_fixture(file, code, recorded_result)
+  end
+
+  def test_encounter_performed_discharge_disposition
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_performed.xml')).read
+    code = '32485007'
+    recorded_result = '306701001'
+    create_source_data_criteria('encounter', 'dischargeDisposition')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.23')
+    assert find_attribute_in_fixture(file, code, recorded_result)
+  end
+
+  def test_encounter_performed_facility_location
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_performed.xml')).read
+    code = '32485007'
+    recorded_result = '4525004'
+    create_source_data_criteria('encounter', 'facilityLocations')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.23')
+    assert find_attribute_in_fixture(file, code, recorded_result)
+  end
+
+  def test_encounter_performed_admission_source
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_performed.xml')).read
+    code = '32485007'
+    recorded_result = '18095007'
+    create_source_data_criteria('encounter', 'admissionSource')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.23')
+    assert find_attribute_in_fixture(file, code, recorded_result)
   end
 
   def test_communication_from_provider_to_provider
-    source_criteria = {  'title' => 'Consultant Report',
-                         'definition' => 'communication_from_provider_to_provider',
-                         'code_list_id' => '2.16.840.1.113883.3.464.1003.121.12.1006',
-                         'attributes' => [{ 'attribute_name' => 'authorDatetime', 'attribute_valueset' => nil }] }
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'communication_fulfills.xml')).read
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'communication.xml')).read
     code = '371530004'
-    doc = get_document(file)
-    assert @object.find_attribute_values(doc.xpath("//*[@code='#{code}']").first.parent, code, source_criteria, 0)
+    recorded_result = 'Date Time Entered'
+    create_source_data_criteria('communication_from_provider_to_provider', 'authorDatetime')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.4')
+    assert find_attribute_in_fixture(file, code, recorded_result)
   end
 
-  def test_diagnosis
-    source_criteria = {  'title' => 'Unilateral Amputation Below Or Above Knee, Unspecified Laterality',
-                         'definition' => 'diagnosis',
-                         'code_list_id' => '2.16.840.1.113883.3.464.1003.113.12.1059',
-                         'attributes' => [{ 'attribute_name' => 'prevalencePeriod', 'attribute_valueset' => nil }] }
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'diagnosis_anatomical_location.xml')).read
+  def test_communication_from_provider_to_provider_related_to
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'communication.xml')).read
+    code = '371530004'
+    recorded_result = 'Related to Referal'
+    create_source_data_criteria('communication_from_provider_to_provider', 'relatedTo')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.4')
+    assert find_attribute_in_fixture(file, code, recorded_result)
+  end
+
+  def test_diagnosis_prevalence_period
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'diagnosis.xml')).read
     code = '298049006'
-    doc = get_document(file)
-    assert @object.find_attribute_values(doc.xpath("//*[@code='#{code}']").first.parent, code, source_criteria, 0)
+    recorded_result = 'Date Time Entered'
+    create_source_data_criteria('diagnosis', 'prevalencePeriod')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.135')
+    assert find_attribute_in_fixture(file, code, recorded_result)
   end
 
-  # def test_facility_location_departure_datetime
-  #   source_criteria = {  'title' => 'Emergency Department Visit',
-  #                        'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.292',
-  #                        'field_values' => {
-  #                          'FACILITY_LOCATION_DEPARTURE_DATETIME' => {
-  #                            'type' => 'ANYNonNull'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_with_facility.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, nil, source_criteria)
-  # end
+  def test_diagnosis_anatomical_location_site
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'diagnosis.xml')).read
+    code = '298049006'
+    recorded_result = '24028007'
+    create_source_data_criteria('diagnosis', 'anatomicalLocationSite')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.135')
+    assert find_attribute_in_fixture(file, code, recorded_result)
+  end
 
-  # def test_facility_location_arrival_datetime
-  #   source_criteria = {  'title' => 'Emergency Department Visit',
-  #                        'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.292',
-  #                        'field_values' => {
-  #                          'FACILITY_LOCATION_ARRIVAL_DATETIME' => {
-  #                            'type' => 'ANYNonNull'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_with_facility.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, nil, source_criteria)
-  # end
+  def test_diagnosis_severity
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'diagnosis.xml')).read
+    code = '298049006'
+    recorded_result = '24484000'
+    create_source_data_criteria('diagnosis', 'severity')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.135')
+    assert find_attribute_in_fixture(file, code, recorded_result)
+  end
 
-  # def test_admission_datetime
-  #   source_criteria = {  'title' => 'Emergency Department Visit',
-  #                        'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.292',
-  #                        'field_values' => {
-  #                          'ADMISSION_DATETIME' => {
-  #                            'type' => 'ANYNonNull'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_with_facility.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, nil, source_criteria)
-  # end
+  def test_diagnosis_severity_wrong_code
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'diagnosis.xml')).read
+    code = '298049006'
+    recorded_result = '24484001'
+    create_source_data_criteria('diagnosis', 'severity')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.135')
+    assert_equal false, find_attribute_in_fixture(file, code, recorded_result)
+  end
 
-  # def test_discharge_datetime
-  #   source_criteria = {  'title' => 'Emergency Department Visit',
-  #                        'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.292',
-  #                        'field_values' => {
-  #                          'DISCHARGE_DATETIME' => {
-  #                            'type' => 'ANYNonNull'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_with_facility.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, nil, source_criteria)
-  # end
+  def test_lab_test_performed_result_time
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'lab_test_performed.xml')).read
+    code = '18261-8'
+    recorded_result = 'Date Time Entered'
+    create_source_data_criteria('laboratory_test', 'resultDatetime')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.38')
+    assert_equal true, find_attribute_in_fixture(file, code, recorded_result)
+  end
 
-  # def test_length_of_stay
-  #   source_criteria = {  'title' => 'Emergency Department Visit',
-  #                        'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.292',
-  #                        'field_values' => {
-  #                          'LENGTH_OF_STAY' => {
-  #                            'type' => 'ANYNonNull'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_with_facility.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, nil, source_criteria)
-  # end
+  def test_procedure_ordinality
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'procedure_performed.xml')).read
+    code = '29819009'
+    recorded_result = '63161005'
+    create_source_data_criteria('procedure', 'ordinality')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.22.4.14')
+    assert find_attribute_in_fixture(file, code, recorded_result)
+  end
 
-  # def test_facility_location
-  #   source_criteria = {  'title' => 'Emergency Department Visit',
-  #                        'code_list_id' => '2.16.840.1.113883.3.464.1003.101.12.1055',
-  #                        'field_values' => {
-  #                          'FACILITY_LOCATION' => {
-  #                            'type' => 'CD',
-  #                            'code_list_id' => '2.16.840.1.113883.3.464.1003.122.12.1003',
-  #                            'title' => 'Ambulatory Grouping Value Set'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_with_facility_location.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, '255327002', source_criteria)
-  # end
+  def test_medication_route
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'medication_route.xml')).read
+    code = '1658720'
+    recorded_result = '418114005'
+    create_source_data_criteria('medication', 'route')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.42')
+    assert find_attribute_in_fixture(file, code, recorded_result)
+  end
 
-  # def test_discharge_status
-  #   source_criteria = {  'title' => 'Encounter Inpatient',
-  #                        'code_list_id' => '2.16.840.1.113883.3.666.5.307',
-  #                        'field_values' => {
-  #                          'DISCHARGE_STATUS' => {
-  #                            'type' => 'CD',
-  #                            'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.209',
-  #                            'title' => 'Discharged to Home for Hospice Care'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_with_discharge_status.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, '306701001', source_criteria)
-  # end
-
-  # def test_principal_diagnosis
-  #   source_criteria = {  'title' => 'Encounter Inpatient',
-  #                        'code_list_id' => '2.16.840.1.113883.3.666.5.307',
-  #                        'field_values' => {
-  #                          'PRINCIPAL_DIAGNOSIS' => {
-  #                            'type' => 'CD',
-  #                            'code_list_id' => '2.16.840.1.113883.3.666.5.696',
-  #                            'title' => 'Any infection Grouping Value Set'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_with_principal_diagnosis.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, '312342009', source_criteria)
-  # end
-
-  # def test_diagnosis
-  #   source_criteria = {  'title' => 'Encounter Inpatient',
-  #                        'code_list_id' => '2.16.840.1.113883.3.666.5.307',
-  #                        'field_values' => {
-  #                          'DIAGNOSIS' => {
-  #                            'type' => 'CD',
-  #                            'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.26',
-  #                            'title' => 'Single Live Born Newborn Born in Hospital Grouping Value Set'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'encounter_with_diagnosis.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, 'V30.00', source_criteria)
-  # end
-
-  # def test_incision
-  #   source_criteria = {  'title' => 'CABG Surgeries',
-  #                        'code_list_id' => '2.16.840.1.113883.3.666.5.694',
-  #                        'field_values' => {
-  #                          'INCISION_DATETIME' => {
-  #                            'type' => 'ANYNonNull'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'procedure_with_incision_ordinality.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, nil, source_criteria)
-  # end
-
-  # def test_procedure_ordinality
-  #   source_criteria = {  'title' => 'CABG Surgeries',
-  #                        'code_list_id' => '2.16.840.1.113883.3.666.5.694',
-  #                        'field_values' => {
-  #                          'ORDINALITY' => {
-  #                            'type' => 'CD',
-  #                            'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.14',
-  #                            'title' => 'Principal'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'procedure_with_incision_ordinality.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, '63161005', source_criteria)
-  # end
-
-  # def test_ordinal
-  #   source_criteria = {  'title' => 'CABG Surgeries',
-  #                        'code_list_id' => '2.16.840.1.113883.3.666.5.694',
-  #                        'field_values' => {
-  #                          'ORDINAL' => {
-  #                            'type' => 'CD',
-  #                            'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.14',
-  #                            'title' => 'Principal'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'procedure_with_incision_ordinality.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, '63161005', source_criteria)
-  # end
-
-  # def test_anatomical_location_site
-  #   source_criteria = {  'title' => 'Unilateral Amputation Below or Above Knee, Unspecified Laterality',
-  #                        'code_list_id' => '2.16.840.1.113883.3.464.1003.113.12.1059',
-  #                        'field_values' => {
-  #                          'ANATOMICAL_LOCATION_SITE' => {
-  #                            'type' => 'CD',
-  #                            'code_list_id' => '2.16.840.1.113883.3.464.1003.122.12.1035',
-  #                            'title' => 'Right Grouping Value Set'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'diagnosis_anatomical_location.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, '24028007', source_criteria)
-  # end
-
-  # def test_laterality
-  #   source_criteria = {  'title' => 'Unilateral Amputation Below or Above Knee, Unspecified Laterality',
-  #                        'code_list_id' => '2.16.840.1.113883.3.464.1003.113.12.1059',
-  #                        'field_values' => {
-  #                          'LATERALITY' => {
-  #                            'type' => 'CD',
-  #                            'code_list_id' => '2.16.840.1.113883.3.464.1003.122.12.1035',
-  #                            'title' => 'Right'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'diagnosis_laterality.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, '24028007', source_criteria)
-  # end
-
-  # def test_severity
-  #   source_criteria = {  'title' => 'Left Ventricular Systolic Dysfunction',
-  #                        'code_list_id' => '2.16.840.1.113883.3.526.3.1091',
-  #                        'field_values' => {
-  #                          'SEVERITY' => {
-  #                            'type' => 'CD',
-  #                            'code_list_id' => '2.16.840.1.113883.3.526.3.1092',
-  #                            'title' => 'Moderate or Severe Grouping Value Set'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'diagnosis_severity.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, '24484000', source_criteria)
-  # end
-
-  # def test_route
-  #   source_criteria = {  'title' => 'IV Antimicrobial medication',
-  #                        'code_list_id' => '2.16.840.1.113883.3.666.5.765',
-  #                        'field_values' => {
-  #                          'ROUTE' => {
-  #                            'type' => 'CD',
-  #                            'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.222',
-  #                            'title' => 'Intravenous route SNOMEDCT Value Set'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'medication_route.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, '418114005', source_criteria)
-  # end
-
-  # def test_fulfills
-  #   source_criteria = {  'title' => 'Consultant Report',
-  #                        'code_list_id' => '2.16.840.1.113883.3.464.1003.121.12.1006',
-  #                        'field_values' => {
-  #                          'FLFS' => {
-  #                            'type' => 'FLFS',
-  #                            'reference' => 'OccurrenceA_Referral_InterventionPerformed_40280381_3d61_56a7_013e_7aa509fd625d',
-  #                            'mood' => ''
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'communication_fulfills.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, '418114005', source_criteria)
-  # end
-
-  # def test_cumulative_medication_duration
-  #   source_criteria = {  'title' => '"Medication, Active: ADHD Medications',
-  #                        'code_list_id' => '2.16.840.1.113883.3.464.1003.196.12.1171',
-  #                        'field_values' => {
-  #                          'CUMULATIVE_MEDICATION_DURATION' => {
-  #                            'type' => 'ANYNonNull'
-  #                          }
-  #                        } }
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'medication_with_cmd.xml')).read
-  #   doc = get_document(file)
-  #   assert @object.find_attribute_values(doc.xpath("//*[@sdtc:valueSet='#{source_criteria['code_list_id']}']").first.parent, nil, source_criteria)
-  # end
+  def test_diagnostic_study_components
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'diagnostic_study_components.xml')).read
+    code = '32451-7'
+    recorded_result = '312903003'
+    create_source_data_criteria('diagnostic_study', 'components')
+    create_checked_criteria(code, recorded_result)
+    create_template('2.16.840.1.113883.10.20.24.3.18')
+    assert find_attribute_in_fixture(file, code, recorded_result)
+  end
 
   def get_document(input)
     doc = Nokogiri::XML(input)
