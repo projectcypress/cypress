@@ -1,45 +1,31 @@
-<entry xmlns="urn:hl7-org:v3"
- xmlns:voc="urn:hl7-org:v3/voc"
- xmlns:sdtc="urn:hl7-org:sdtc">
-  <act classCode="ACT" moodCode="EVN" >
+<entry xmlns="urn:hl7-org:v3" xmlns:voc="urn:hl7-org:v3/voc" xmlns:sdtc="urn:hl7-org:sdtc">
+  <substanceAdministration classCode="SBADM" moodCode="EVN" >
+    <!-- Medication Activity (consolidation) template -->
+    <templateId root="2.16.840.1.113883.10.20.22.4.16" extension="2014-06-09"/>
     <!-- Medication, Administered template -->
-    <templateId root="2.16.840.1.113883.10.20.24.3.42" extension="2016-02-01"/>
-    <id root="1.3.6.1.4.1.115" extension="57963dc4aeac5015bb65bfe1"/>
+    <templateId root="2.16.840.1.113883.10.20.24.3.42" extension="2017-08-01"/>
+    <id root="1.3.6.1.4.1.115" extension="5c33b31459d2330495556ade"/>
     <code code="416118004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Administration"/>
     <statusCode code="completed"/>
-    <effectiveTime xsi:type="IVL_TS">
-      <low value='20150402150000'/>
-      <high value='20150402153000'/>
-    </effectiveTime>
-    <entryRelationship typeCode="COMP">
-      <substanceAdministration classCode="SBADM" moodCode="EVN">
-        <!-- Medication Activity (consolidation) template -->
-        <templateId root="2.16.840.1.113883.10.20.22.4.16" extension="2014-06-09"/>
-        <id root="484340b0-34cb-0134-bb56-20999b0ed66f"/>
-        <text>Medication, Administered: Iv Antimicrobial Medication</text>
-        <statusCode code="completed"/>
-        <effectiveTime xsi:type="IVL_TS">
-          <low value='20150402150000'/>
-          <high value='20150402153000'/>
-        </effectiveTime>
-        <routeCode code="418114005" 
-           codeSystem="2.16.840.1.113883.6.96" 
-              sdtc:valueSet="2.16.840.1.113883.3.117.1.7.1.222"
-           />
-<doseQuantity value='1' unit='gram(s)'/>
-
-        <consumable>
-          <manufacturedProduct classCode="MANU">
-            <!-- Medication Information (consolidation) template -->
-            <templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/>
-            <id root="48434bd0-34cb-0134-bb56-20999b0ed66f"/>
-            <manufacturedMaterial>
-              <code code="309068" codeSystem="2.16.840.1.113883.6.88" sdtc:valueSet="2.16.840.1.113883.3.666.5.765"><originalText>Medication, Administered: Iv Antimicrobial Medication</originalText></code>
-            </manufacturedMaterial>
-          </manufacturedProduct>
-        </consumable>
-      </substanceAdministration>
-    </entryRelationship>
-    
-  </act>
+    <effectiveTime xsi:type="IVL_TS"><low value='20170512084500'/><high value='20170512084500'/></effectiveTime>
+    <routeCode code="418114005" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+    <doseQuantity value="1" unit="{dose(s)}"/>
+    <consumable>
+      <manufacturedProduct classCode="MANU">
+        <!-- Medication Information (consolidation) template -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.23" extension="2014-06-09"/>
+        <id root="c409ec20-f4e6-0136-b0b7-0e95690c4dba"/>
+        <manufacturedMaterial>
+            <code code="1658720" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RxNorm"/>
+        </manufacturedMaterial>
+      </manufacturedProduct>
+    </consumable>
+    <author>
+      <templateId root="2.16.840.1.113883.10.20.22.4.119"/>
+      <time value='20170512084500'/>
+      <assignedAuthor>
+          <id nullFlavor="NA"/>
+      </assignedAuthor>
+    </author> 
+  </substanceAdministration>
 </entry>
