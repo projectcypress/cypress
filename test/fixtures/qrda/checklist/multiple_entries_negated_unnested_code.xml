@@ -1,0 +1,44 @@
+<section xmlns="urn:hl7-org:v3"
+   xmlns:voc="urn:hl7-org:v3/voc"
+   xmlns:sdtc="urn:hl7-org:sdtc">
+  <entry>
+    <act classCode="ACT" moodCode="RQO" negationInd="true">
+      <templateId extension="2014-06-09" root="2.16.840.1.113883.10.20.22.4.39"/>
+      <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.31"/>
+      <id extension="fc3d962f-788f-487c-8eaf-4d58be104acf" root="2.16.840.1.113883.3.564"/>
+      <code code="7" sdtc:valueSet="1.1.2.3"/>
+      <statusCode code="active"/>
+      <author>
+        <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.155"/>
+        <time value="20181102000000+0000"/>
+        <assignedAuthor>
+          <id nullFlavor="UNK"/>
+        </assignedAuthor>
+      </author>
+    </act>
+  </entry>
+  <entry>
+    <act classCode="ACT" moodCode="RQO" negationInd="true">
+      <templateId extension="2014-06-09" root="2.16.840.1.113883.10.20.22.4.39"/>
+      <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.31"/>
+      <id extension="fc3d962f-788f-487c-8eaf-4d58be104acf" root="2.16.840.1.113883.3.564"/>
+      <code code="6" sdtc:valueSet="1.1.2.3"/>
+      <statusCode code="active"/>
+      <author>
+        <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.155"/>
+        <time value="20181102000000+0000"/>
+        <assignedAuthor>
+          <id nullFlavor="UNK"/>
+        </assignedAuthor>
+      </author>
+      <entryRelationship typeCode="RSON">
+        <observation classCode="OBS" moodCode="EVN">
+          <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.88"/>
+          <id extension="fc3d962f-788f-487c-8eaf-4d58be104acf" root="2.16.840.1.113883.3.564"/>
+          <code code="77301-0" codeSystem="2.16.840.1.113883.6.1" displayName="Reason care action performed or not"/>
+          <value code="24" codeSystem="2.16.840.1.113883.6.96" xsi:type="CD"/>
+        </observation>
+      </entryRelationship>
+    </act>
+  </entry>
+</section>

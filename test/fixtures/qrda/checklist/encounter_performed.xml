@@ -1,0 +1,74 @@
+<entry xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:voc="urn:hl7-org:v3/voc">
+  <act classCode="ACT" moodCode="EVN">
+    <!--Encounter performed Act -->
+    <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.133"/>
+    <code code="ENC" codeSystem="2.16.840.1.113883.5.6" codeSystemName="ActClass" displayName="Encounter"/>
+    <entryRelationship typeCode="SUBJ">
+      <encounter classCode="ENC" moodCode="EVN">
+        <!--  Encounter activities template -->
+        <templateId root="2.16.840.1.113883.10.20.22.4.49" extension="2015-08-01"/> 
+        <!-- Encounter performed template -->
+        <templateId root="2.16.840.1.113883.10.20.24.3.23" extension="2017-08-01"/>
+        <id root="1.3.6.1.4.1.115" extension="579f4eb4aeac500a550c5a7e"/>
+        <code code="32485007" codeSystem="2.16.840.1.113883.6.96" sdtc:valueSet="2.16.840.1.113883.3.666.5.307"><originalText>Encounter, Performed: Encounter Inpatient</originalText></code>
+        <text>Encounter, Performed: Encounter Inpatient</text>
+        <statusCode code="completed"/>
+        <effectiveTime>
+          <low value='20150502150000'/>
+          <high value='20150508150000'/>
+        </effectiveTime>
+        <sdtc:dischargeDispositionCode code="306701001" codeSystem="2.16.840.1.113883.6.96" sdtc:valueSet="2.16.840.1.113883.3.117.1.7.1.87"/>
+        <participant typeCode="LOC">
+          <!-- Facility Location template -->
+          <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.100"/>
+          <time>
+            <low value='20170522060000'/><high value='20170522075500'/>
+          </time>
+          <participantRole classCode="SDLOC">
+            <code code="4525004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+            <telecom nullFlavor="UNK"/>
+            <playingEntity classCode="PLC">
+              <name/>
+            </playingEntity>
+          </participantRole>
+        </participant>
+        <participant typeCode="LOC">
+          <participantRole classCode="SDLOC">
+            <templateId root="2.16.840.1.113883.10.20.24.3.151" extension="2017-08-01"/>
+            <code code="18095007" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+          </participantRole>
+        </participant> 
+        <entryRelationship typeCode="REFR">
+            <observation classCode="OBS" moodCode="EVN">
+              <code code="8319008" codeSystem="2.16.840.1.113883.6.96" displayName="Principal Diagnosis" codeSystemName="SNOMED CT"/>
+              <value code="312342009" codeSystem="2.16.840.1.113883.6.96" xsi:type="CD" sdtc:valueSet="2.16.840.1.113883.3.666.5.696"><translation code="482.9" codeSystem="2.16.840.1.113883.6.103"/><translation code="J18.9" codeSystem="2.16.840.1.113883.6.90"/></value>
+            </observation>
+        </entryRelationship>
+        <entryRelationship typeCode="REFR">
+          <act classCode="ACT" moodCode="EVN">
+            <templateId root="2.16.840.1.113883.10.20.22.4.80" extension="2015-08-01"/>
+            <code code="29308-4" codeSystem="2.16.840.1.113883.6.1" displayName="Diagnosis" codeSystemName="LOINC"/>
+            <entryRelationship typeCode="SUBJ">
+              <observation classCode="OBS" moodCode="EVN">
+                <!--  Problem observation template -->
+                <templateId root="2.16.840.1.113883.10.20.22.4.4" extension="2015-08-01"/>
+                <id root="1.3.6.1.4.1.115" extension="20e12770-409f-0134-1c28-20999b0ed66f"/>
+                <code code="29308-4" codeSystem="2.16.840.1.113883.6.1">
+                  <translation code="282291009" codeSystem="2.16.840.1.113883.6.96"/>
+                </code>
+                <statusCode code="completed"/>
+                <effectiveTime>
+                  <!-- Attribute: admission datetime -->
+                  <low value='20150502150000'/>
+                  <!-- Attribute: discharge datetime -->
+                  <high value='20150508150000'/>
+                </effectiveTime>
+                <value code="V30.00" codeSystem="2.16.840.1.113883.6.103" xsi:type="CD" sdtc:valueSet="2.16.840.1.113883.3.117.1.7.1.26"><translation code="Z38.00" codeSystem="2.16.840.1.113883.6.90"/></value>
+              </observation>
+            </entryRelationship>
+          </act>
+        </entryRelationship>
+      </encounter>
+    </entryRelationship>
+  </act>
+</entry>
