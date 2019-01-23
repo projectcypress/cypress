@@ -93,6 +93,30 @@ When(/^the user logs out$/) do
   page.click_link 'Log Out'
 end
 
+When(/^the user changes the account password$/) do
+  steps %( When the user clicks an account link )
+  page.fill_in 'user_current_password', :with => @user.password
+  page.fill_in 'user_password', :with => 'P@ssword'
+  page.fill_in 'user_password_confirmation', :with => 'P@ssword'
+  page.click_button 'Edit User'
+end
+
+When(/^the user incorrectly changes the account password$/) do
+  steps %( When the user clicks an account link )
+  page.fill_in 'user_current_password', :with => @user.password
+  page.fill_in 'user_password', :with => 'P@ssword'
+  page.fill_in 'user_password_confirmation', :with => 'P@sswords'
+  page.click_button 'Edit User'
+end
+
+Then(/^the user should see a doesnt match error message$/) do
+  page.assert_text "doesn't match Password"
+end
+
+Then(/^the user is redirected to dashboard$/) do
+  assert_equal '/vendors', page.current_path
+end
+
 Then(/^the user should see an log in error message$/) do
   page.assert_text 'Invalid Email or password.'
 end
