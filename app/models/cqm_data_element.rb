@@ -64,8 +64,10 @@ class CQMDataElement
       stored_att = cqm_data_element.data_element_attributes.where(attribute_name: des.attribute_name).first
       if stored_att && des.attribute_vs_oid
         if des.attribute_vs_oid.include?('.')
+          next if stored_att.attribute_vs && stored_att.attribute_vs.include?(des.attribute_vs_oid)
           stored_att.attribute_vs.nil? ? stored_att.attribute_vs = [des.attribute_vs_oid] : stored_att.attribute_vs << des.attribute_vs_oid
         else
+          next if stored_att.attribute_drc && stored_att.attribute_drc.include?(des.attribute_vs_oid)
           stored_att.attribute_drc.nil? ? stored_att.attribute_drc = [des.attribute_vs_oid] : stored_att.attribute_drc << des.attribute_vs_oid
         end
       else
