@@ -130,14 +130,17 @@
       "shutdown_command": "echo '{{user `default_pwd`}}' | sudo -S -E shutdown -P now",
       "vmdk_name": "disk",
       "disk_type_id": "0",
+      "memory": "8192",
+      "cpus": "4",
       "vmx_data": {
         "MemTrimRate": "0",
         "sched.mem.pshare.enable": "FALSE",
         "mainMem.useNamedFile": "FALSE",
         "prefvmx.minVmMemPct": "100",
-        "memsize": "8192",
-        "numvcpus": "4",
         "cpuid.coresPerSocket": "1"
+      },
+      "vmx_data_post": {
+        "bios.hddorder": ""
       },
       "disk_size": "100000"
     },
@@ -188,14 +191,17 @@
       "shutdown_command": "echo '{{user `default_pwd`}}' | sudo -S -E shutdown -P now",
       "vmdk_name": "disk",
       "disk_type_id": "0",
+      "memory": "8192",
+      "cpus": "4",
       "vmx_data": {
         "MemTrimRate": "0",
         "sched.mem.pshare.enable": "FALSE",
         "mainMem.useNamedFile": "FALSE",
         "prefvmx.minVmMemPct": "100",
-        "memsize": "8192",
-        "numvcpus": "4",
         "cpuid.coresPerSocket": "1"
+      },
+      "vmx_data_post": {
+        "bios.hddorder": ""
       },
       "disk_size": "100000"
     },
@@ -246,14 +252,17 @@
       "shutdown_command": "echo '{{user `default_pwd`}}' | sudo -S -E shutdown -P now",
       "vmdk_name": "disk",
       "disk_type_id": "0",
+      "memory": "8192",
+      "cpus": "4",
       "vmx_data": {
         "MemTrimRate": "0",
         "sched.mem.pshare.enable": "FALSE",
         "mainMem.useNamedFile": "FALSE",
         "prefvmx.minVmMemPct": "100",
-        "memsize": "8192",
-        "numvcpus": "4",
         "cpuid.coresPerSocket": "1"
+      },
+      "vmx_data_post": {
+        "bios.hddorder": ""
       },
       "disk_size": "100000"
     }
