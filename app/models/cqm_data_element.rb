@@ -8,7 +8,7 @@ class CQMDataElement
 
   def cqm_data_element_for_measure(cms_id)
     segments = CQMDataElementSegment.where(cqm_id: cms_id)
-    collect_data_element_array(segments)
+    collect_data_element_array(segments, cms_id)
   end
 
   def cqm_data_element_for_qdm_type(qdm_type)
