@@ -16,7 +16,7 @@ gem 'os'
 gem 'cql_qdm_patientapi'
 gem 'cqm-converter', '~> 0.3.6'
 gem 'cqm-models', '~> 0.8.4'
-gem 'cqm-parsers', '~> 0.2.1'
+gem 'cqm-parsers', '~> 0.2.2'
 gem 'cqm-validators', '~> 0.1.0'
 gem 'health-data-standards', '~> 4.3.0'
 
