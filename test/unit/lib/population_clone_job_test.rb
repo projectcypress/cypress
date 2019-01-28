@@ -11,7 +11,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     pcj = Cypress::PopulationCloneJob.new('test_id' => @pt.id)
     pcj.perform
     assert_equal 19, Patient.count
-    assert_equal 10, Patient.where('extendedData.correlation_id': @pt.id).count
+    assert_equal 10, Patient.where(correlation_id: @pt.id).count
   end
 
   # need a measure with a subset
@@ -43,7 +43,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     pcj.perform
     prov = Provider.where(default: true).first
     assert_equal 11, Patient.count
-    patients_with_provider = Patient.where('extendedData.correlation_id': @pt.id, 'extendedData.provider_performances': { :$exists => true })
+    patients_with_provider = Patient.where(correlation_id: @pt.id, provider_performances: { :$exists => true })
     assert_equal 1, patients_with_provider.keep_if { |pt| pt.provider.id == prov.id }.size
   end
 
@@ -71,8 +71,8 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     patient2_no_shift = Patient.all[1].clone
     # Add 1 month to birthDatetime so that it is not sitting on a year boundry
     # this is so that the randomization won't cross the year boundry to make assertions consistent
-    patient1_no_shift.birthDatetime += 1.month
-    patient2_no_shift.birthDatetime += 1.month
+    patient1_no_shift.qdmPatient.birthDatetime += 1.month
+    patient2_no_shift.qdmPatient.birthDatetime += 1.month
     patient1_no_shift.save
     patient2_no_shift.save
     # Build and perform the date-shifting and non-date-shifting PopulationCloneJobs
@@ -81,17 +81,17 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     pcj1.perform
 
     # Get the patients that resulted from the cloning in the PopulationCloneJobs
-    patient1_no_shift_clone = Patient.where('extendedData.original_patient': patient1_no_shift.id).first
-    patient2_randomized_no_shift_clone = Patient.where('extendedData.original_patient': patient2_no_shift.id).first
+    patient1_no_shift_clone = Patient.where(original_patient_id: patient1_no_shift.id).first
+    patient2_randomized_no_shift_clone = Patient.where(original_patient_id: patient2_no_shift.id).first
 
     # assert patient1_no_shift_clone has not been shifted
-    assert_equal patient1_no_shift_clone.birthDatetime, patient1_no_shift_clone.birthDatetime
+    assert_equal patient1_no_shift_clone.qdmPatient.birthDatetime, patient1_no_shift_clone.qdmPatient.birthDatetime
     # assert patient2_randomized_no_shift_clone has not been shifted
-    assert_equal Time.zone.at(patient2_randomized_no_shift_clone.birthDatetime).year, Time.zone.at(patient2_no_shift.birthDatetime).year
+    assert_equal Time.zone.at(patient2_randomized_no_shift_clone.qdmPatient.birthDatetime).year, Time.zone.at(patient2_no_shift.qdmPatient.birthDatetime).year
     # assert patient2_no_shift_clone has been randomized
-    assert_not_equal Time.zone.at(patient2_randomized_no_shift_clone.birthDatetime).day, Time.zone.at(patient2_no_shift.birthDatetime).day
+    assert_not_equal Time.zone.at(patient2_randomized_no_shift_clone.qdmPatient.birthDatetime).day, Time.zone.at(patient2_no_shift.qdmPatient.birthDatetime).day
     # assert patient2_randomized_shift_clone randomized
-    assert_not_equal Time.zone.at(patient2_randomized_no_shift_clone.birthDatetime).day, Time.zone.at(patient2_no_shift.birthDatetime).day
+    assert_not_equal Time.zone.at(patient2_randomized_no_shift_clone.qdmPatient.birthDatetime).day, Time.zone.at(patient2_no_shift.qdmPatient.birthDatetime).day
   end
 
   def test_shifts_dates_with_shift
@@ -103,23 +103,23 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     patient2_shift = Patient.all[1].clone
     # Add 1 month to birthDatetime so that it is not sitting on a year boundry
     # this is so that the randomization won't cross the year boundry to make assertions consistent
-    patient1_shift.birthDatetime += 1.month
-    patient2_shift.birthDatetime += 1.month
+    patient1_shift.qdmPatient.birthDatetime += 1.month
+    patient2_shift.qdmPatient.birthDatetime += 1.month
     patient1_shift.save
     patient2_shift.save
     pcj2 = Cypress::PopulationCloneJob.new('patient_ids' => [patient1_shift.id.to_s], 'test_id' => pt2.id,
                                            'randomization_ids' => [patient2_shift.id.to_s])
     pcj2.perform
     # Get the patients that resulted from the cloning in the PopulationCloneJobs
-    patient1_shift_clone = Patient.where('extendedData.original_patient': patient1_shift.id).first
-    patient2_randomized_shift_clone = Patient.where('extendedData.original_patient': patient2_shift.id).first
+    patient1_shift_clone = Patient.where(original_patient_id: patient1_shift.id).first
+    patient2_randomized_shift_clone = Patient.where(original_patient_id: patient2_shift.id).first
 
     # assert patient1_shift_clone has been shifted by 2 years which is the offset in the bundle associated with the product test
-    assert_equal Time.zone.at(patient1_shift_clone.birthDatetime).year, Time.zone.at(patient1_shift.birthDatetime).year + 2
+    assert_equal Time.zone.at(patient1_shift_clone.qdmPatient.birthDatetime).year, Time.zone.at(patient1_shift.qdmPatient.birthDatetime).year + 2
     # assert patient2_randomized_shift_clone has shifted by 2 years which is the offset in the bundle associated with the product test
-    assert_equal Time.zone.at(patient2_randomized_shift_clone.birthDatetime).year, Time.zone.at(patient2_shift.birthDatetime).year + 2
+    assert_equal Time.zone.at(patient2_randomized_shift_clone.qdmPatient.birthDatetime).year, Time.zone.at(patient2_shift.qdmPatient.birthDatetime).year + 2
     # assert patient2_randomized_shift_clone randomized
-    assert_not_equal Time.zone.at(patient2_randomized_shift_clone.birthDatetime).day, Time.zone.at(patient2_shift.birthDatetime).day
+    assert_not_equal Time.zone.at(patient2_randomized_shift_clone.qdmPatient.birthDatetime).day, Time.zone.at(patient2_shift.qdmPatient.birthDatetime).day
   end
 
   # def test_perform_two_patients_randomized_ids
@@ -156,17 +156,17 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     # Add an element with a reference to the first patient in the product test
     patient_with_ref = @pt.bundle.patients.first
     comm_with_ref = QDM::CommunicationPerformed.new(dataElementCodes: [QDM::Code.new('336', '2.16.840.1.113883.6.96')])
-    comm_with_ref.relatedTo << patient_with_ref.dataElements[0].id
-    patient_with_ref.dataElements << comm_with_ref
+    comm_with_ref.relatedTo << patient_with_ref.qdmPatient.dataElements[0].id
+    patient_with_ref.qdmPatient.dataElements << comm_with_ref
     patient_with_ref.save
     pcj = Cypress::PopulationCloneJob.new('subset_id' => 'all',
                                           'test_id' => @pt.id,
                                           'patient_ids' => [patient_with_ref.id],
                                           'randomize_demographics' => true)
     pcj.perform
-    new_record_with_ref = Patient.where('extendedData.correlation_id': @pt.id, 'extendedData.original_patient': patient_with_ref.id).first
-    new_ref = new_record_with_ref.communications.first.relatedTo.first.value
-    original_ref = patient_with_ref.communications.first.relatedTo.first.value
+    new_record_with_ref = Patient.where(correlation_id: @pt.id, original_patient_id: patient_with_ref.id).first
+    new_ref = new_record_with_ref.qdmPatient.communications.first.relatedTo.first.value
+    original_ref = patient_with_ref.qdmPatient.communications.first.relatedTo.first.value
     assert_not_equal new_ref, original_ref
   end
 
@@ -176,7 +176,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
                                           'test_id' => @pt.id,
                                           'randomize_demographics' => true)
     pcj.perform
-    new_records = Patient.where('extendedData.correlation_id': @pt.id)
+    new_records = Patient.where(correlation_id: @pt.id)
     assert_equal 10, new_records.count
     assert_races_are_random
   end
@@ -187,9 +187,9 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     prng = Random.new(@pt.rand_seed.to_i)
     patient = Patient.first
     # Replace original race code with the code for 'Other'
-    patient.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code'] = '2131-1'
+    patient.qdmPatient.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code'] = '2131-1'
     pcj.clone_and_save_patient(patient, prng, Provider.first)
-    cloned_patient = Patient.where('extendedData.original_patient' => patient.id).first
+    cloned_patient = Patient.where(original_patient_id: patient.id).first
     # Assert that the new race is consistent '2106-3'
     assert_equal '2106-3', cloned_patient.race
   end
@@ -197,10 +197,10 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   def assert_races_are_random
     found_random = false
     old_record_races = {}
-    Patient.where('extendedData.correlation_id': nil).each do |record|
+    Patient.where(correlation_id: nil).each do |record|
       old_record_races["#{record.givenNames[0]} #{record.familyName}"] = record.race
     end
-    Patient.where('extendedData.correlation_id': @pt.id).each do |record|
+    Patient.where(correlation_id: @pt.id).each do |record|
       found_random = true unless old_record_races["#{record.givenNames[0]} #{record.familyName}"] == record.race
     end
     assert found_random, 'Did not find any evidence that race was randomized.'

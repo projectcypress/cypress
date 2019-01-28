@@ -1,5 +1,5 @@
 require 'cqm_validators'
 require 'cypress'
-require 'hqmf-parser'
+require 'cqm_report'
 
 Faker::Config.locale = 'en-US'

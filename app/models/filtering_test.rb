@@ -46,7 +46,7 @@ class FilteringTest < ProductTest
     prng = Random.new(rand_seed.to_i)
     mpl_ids = master_patient_ids
 
-    rand_patient = patients.select { |p| p.extendedData['original_patient'].in?(mpl_ids) }.sample
+    rand_patient = patients.select { |p| p.original_patient_id.in?(mpl_ids) }.sample
     # iterate over the filters and assign random codes
     params = { measures: measures, patients: patients, incl_addr: incl_addr, effective_date: created_at, prng: prng }
     options['filters'].each do |k, _v|

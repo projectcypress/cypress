@@ -2,12 +2,12 @@ module Cypress
   class CriteriaPicker
     # TODO: R2P: pick filter criteria using new model
     def self.races(patient, _options = {})
-      race_element = patient.get_data_elements('patient_characteristic', 'race').first
+      race_element = patient.qdmPatient.get_data_elements('patient_characteristic', 'race').first
       [race_element.dataElementCodes.first.code]
     end
 
     def self.ethnicities(patient, _options = {})
-      ethnicity_element = patient.get_data_elements('patient_characteristic', 'ethnicity').first
+      ethnicity_element = patient.qdmPatient.get_data_elements('patient_characteristic', 'ethnicity').first
       [ethnicity_element.dataElementCodes.first.code]
     end
 
@@ -17,7 +17,7 @@ module Cypress
 
     def self.payers(patient, _options = {})
       # TODO: R2P: Check just getting first ip name? (not all)
-      [JSON.parse(patient.extendedData.insurance_providers).first['name']]
+      [patient.insurance_providers.first['name']]
     end
 
     def self.age(patient, options = {})
@@ -73,7 +73,7 @@ module Cypress
       # go through all record diagnoses
       records.each do |r|
         # TODO: check condition sufficient?
-        r.conditions.each do |c|
+        r.qdmPatient.conditions.each do |c|
           c['dataElementCodes'].each do |dec|
             # check if snomed
             next unless dec['codeSystem'] == 'SNOMED-CT'

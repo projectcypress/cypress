@@ -27,15 +27,15 @@ module Cypress
     end
 
     def scoop_and_filter(patient)
-      demographic_criteria = patient.dataElements.where(hqmfOid: { '$in' => @demographic_oids }).clone
-      patient.dataElements.keep_if { |data_element| @hqmf_oids_for_measures.include? data_element.hqmfOid }
-      patient.dataElements.each do |data_element|
+      demographic_criteria = patient.qdmPatient.dataElements.where(hqmfOid: { '$in' => @demographic_oids }).clone
+      patient.qdmPatient.dataElements.keep_if { |data_element| @hqmf_oids_for_measures.include? data_element.hqmfOid }
+      patient.qdmPatient.dataElements.each do |data_element|
         # keep if data_element code and codesystem is in one of the relevant_codes
         data_element.dataElementCodes.keep_if { |de_code| @relevant_codes.include?(code: de_code.code, codeSystem: de_code.codeSystem) }
       end
       # keep data element if codes is not empty
-      patient.dataElements.keep_if { |data_element| data_element.dataElementCodes.present? }
-      patient.dataElements.concat(demographic_criteria)
+      patient.qdmPatient.dataElements.keep_if { |data_element| data_element.dataElementCodes.present? }
+      patient.qdmPatient.dataElements.concat(demographic_criteria)
       patient
     end
   end

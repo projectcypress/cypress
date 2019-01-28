@@ -34,7 +34,7 @@ module Cypress
     end
 
     def self.match_payers(v, patient)
-      JSON.parse(patient.extendedData.insurance_providers).map { |ip| ip['name'] }.include?(v.first)
+      patient.insurance_providers.map { |ip| ip['name'] }.include?(v.first)
     end
 
     def self.check_age(v, patient, params)

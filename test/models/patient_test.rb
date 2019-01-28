@@ -12,13 +12,11 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   def test_record_should_be_able_to_find_original
-    r1_extended_data = { medical_record_number: '1a' }
-    r1 = Patient.new(extendedData: r1_extended_data, bundleId: @bundle.id)
+    r1 = Patient.new(medical_record_number: '1a', bundleId: @bundle.id)
     r1.save
-    r2_extended_data = { medical_record_number: '1a', original_patient: r1.id }
-    r2 = Patient.new(extendedData: r2_extended_data, bundleId: @bundle.id)
+    r2 = Patient.new(medical_record_number: '1a', original_patient_id: r1.id, bundleId: @bundle.id)
     r2.save
-    assert_equal r1, r2.original_patient, 'Record should be able to find record it was cloned from'
+    assert_equal r1.id, r2.original_patient_id, 'Record should be able to find record it was cloned from'
   end
 
   def test_record_should_be_able_to_find_calculation_results
@@ -28,11 +26,11 @@ class PatientTest < ActiveSupport::TestCase
 
   def record_demographics_equal?(r1, r2)
     r1.givenNames == r2.givenNames && r1.familyName == r2.familyName && r1.gender == r2.gender &&
-      r1.birthDatetime == r2.birthDatetime && r1.race['code'] == r2.race['code'] && r1.ethnicity['code'] == r2.ethnicity['code']
+      r1.qdmPatient.birthDatetime == r2.qdmPatient.birthDatetime && r1.race['code'] == r2.race['code'] && r1.ethnicity['code'] == r2.ethnicity['code']
   end
 
   def record_birthyear_equal?(r1, r2)
-    r1.birthDatetime.year == r2.birthDatetime.year
+    r1.qdmPatient.birthDatetime.year == r2.qdmPatient.birthDatetime.year
   end
 
   def test_record_duplicate_randomization
@@ -41,15 +39,17 @@ class PatientTest < ActiveSupport::TestCase
       prng1 = Random.new(random)
       prng2 = Random.new(random)
 
-      r1 = Patient.new(familyName: 'Robert', givenNames: ['Johnson'], birthDatetime: DateTime.new(1985, 2, 18).utc)
-      r1.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['races'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
-      r1.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
-      r1.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'code_system' => 'AdministrativeGender' }])
+      r1 = Patient.new(familyName: 'Robert', givenNames: ['Johnson'])
+      r1.qdmPatient.birthDatetime = DateTime.new(1985, 2, 18).utc
+      r1.qdmPatient.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['races'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
+      r1.qdmPatient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
+      r1.qdmPatient.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'code_system' => 'AdministrativeGender' }])
 
-      r2 = Patient.new(familyName: 'Robert', givenNames: ['Johnson'], birthDatetime: DateTime.new(1985, 2, 18).utc)
-      r2.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['races'].sample(random: prng2)['code'], 'code_system' => 'cdcrec' }])
-      r2.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng2)['code'], 'code_system' => 'cdcrec' }])
-      r2.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'code_system' => 'AdministrativeGender' }])
+      r2 = Patient.new(familyName: 'Robert', givenNames: ['Johnson'])
+      r2.qdmPatient.birthDatetime = DateTime.new(1985, 2, 18).utc
+      r2.qdmPatient.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['races'].sample(random: prng2)['code'], 'code_system' => 'cdcrec' }])
+      r2.qdmPatient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng2)['code'], 'code_system' => 'cdcrec' }])
+      r2.qdmPatient.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'code_system' => 'AdministrativeGender' }])
 
       assert(record_demographics_equal?(r1, r2), 'The two records should be equal')
       r1copy_set = r1.duplicate_randomization(random: prng1)

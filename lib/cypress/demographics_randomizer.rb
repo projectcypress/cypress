@@ -32,7 +32,7 @@ module Cypress
 
     def self.randomize_gender(patient, prng)
       rand_gender = %w[M F].sample(random: prng)
-      gender_chars = patient.get_data_elements('patient_characteristic', 'gender')
+      gender_chars = patient.qdmPatient.get_data_elements('patient_characteristic', 'gender')
       if gender_chars&.any? && gender_chars.first.dataElementCodes &&
          gender_chars.first.dataElementCodes.any?
         new_gender = gender_chars.first.dataElementCodes.first
@@ -46,7 +46,7 @@ module Cypress
     end
 
     def self.randomize_race(patient, prng)
-      race_element = patient.get_data_elements('patient_characteristic', 'race')
+      race_element = patient.qdmPatient.get_data_elements('patient_characteristic', 'race')
       race_hash = APP_CONSTANTS['randomization']['races'].sample(random: prng)
       if race_element&.any? && race_element.first.dataElementCodes &&
          race_element.first.dataElementCodes.any?
@@ -63,7 +63,7 @@ module Cypress
     end
 
     def self.randomize_ethnicity(patient, prng)
-      ethnicity_element = patient.get_data_elements('patient_characteristic', 'ethnicity')
+      ethnicity_element = patient.qdmPatient.get_data_elements('patient_characteristic', 'ethnicity')
       ethnicity_hash = APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng)
       if ethnicity_element&.any? && ethnicity_element.first.dataElementCodes &&
          ethnicity_element.first.dataElementCodes.any?
@@ -80,7 +80,6 @@ module Cypress
     end
 
     def self.randomize_address(patient)
-      # TODO: R2P: hash into extendedData okay? (not in Master Patient object)
       address = {}
       address['use'] = 'HP'
       address['street'] = ["#{Faker::Address.street_address} #{Faker::Address.street_suffix}"]
@@ -88,25 +87,24 @@ module Cypress
       address['state'] = Faker::Address.state_abbr
       address['zip'] = Faker::Address.zip(address['state'])
       address['country'] = 'US'
-      patient.extendedData['addresses'] = [address]
+      patient.addresses = [address]
     end
 
     def self.randomize_insurance_provider(patient)
       ip = {}
       # TODO: R2P: check should create nil keys for new insurance provider? and startTime format works?
-      # patient.extendedData.insurance_providers[0].each_key{|k| ip[key]=nil}
       randomize_payer(ip, patient)
       ip['financial_responsibility_type'] = { 'code' => 'SELF', 'codeSystem' => 'HL7 Relationship Code' }
       ip['member_id'] = Faker::Number.number(10)
       ip['start_time'] = get_random_payer_start_date(patient)
-      patient.extendedData['insurance_providers'] = JSON.generate([ip])
+      patient.insurance_providers = [ip]
     end
 
     def self.randomize_payer(insurance_provider, patient)
       payer = APP_CONSTANTS['randomization']['payers'].sample
       # if the payer is Medicare and the patient is < 65 years old at the beginning of the measurement period, try again
       while payer['name'] == 'Medicare' &&
-            Time.at(patient.birthDatetime).in_time_zone > Time.at(patient.bundle.effective_date).in_time_zone.years_ago(65)
+            Time.at(patient.qdmPatient.birthDatetime).in_time_zone > Time.at(patient.bundle.effective_date).in_time_zone.years_ago(65)
         payer = APP_CONSTANTS['randomization']['payers'].sample
       end
       insurance_provider['codes'] = {}
@@ -118,12 +116,12 @@ module Cypress
     end
 
     def self.get_random_payer_start_date(patient)
-      start_times = patient.dataElements.map { |de| de.try(:authorDatetime) }.compact
+      start_times = patient.qdmPatient.dataElements.map { |de| de.try(:authorDatetime) }.compact
       random_offset = rand(60 * 60 * 24 * 365)
       if !start_times.empty?
-        [start_times.min - random_offset, patient.birthDatetime].max
+        [start_times.min - random_offset, patient.qdmPatient.birthDatetime].max
       else
-        patient.birthDatetime
+        patient.qdmPatient.birthDatetime
       end
     end
 

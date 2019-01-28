@@ -1,7 +1,7 @@
 module Cypress
   module GoImport
     def self.replace_negated_codes(patient, bundle)
-      patient.dataElements.each do |de|
+      patient.qdmPatient.dataElements.each do |de|
         select_negated_code(de, bundle) if de['negationRationale'] && de.codes.find { |c| c.codeSystem == 'NA_VALUESET' }
       end
     end
