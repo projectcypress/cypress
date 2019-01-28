@@ -26,11 +26,11 @@ class Bundle
   scope :available, -> { where(:deprecated.ne => true) }
 
   def results
-    QDM::IndividualResult.where('extendedData.correlation_id' => id.to_s)
+    CQM::IndividualResult.where('extendedData.correlation_id' => id.to_s)
   end
 
   def patients
-    Patient.where(:bundleId => _id.to_s, 'extendedData.correlation_id' => nil).order_by([['last', :asc]])
+    Patient.where(bundleId: _id.to_s, correlation_id: nil).order_by([['last', :asc]])
   end
 
   def measures

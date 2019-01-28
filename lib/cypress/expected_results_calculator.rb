@@ -22,10 +22,10 @@ module Cypress
     def add_patient_to_sup_map(ps_map, patient)
       patient_id = patient.id.to_s
       ps_map[patient_id] = {}
-      ps_map[patient_id]['SEX'] = patient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.55')[0].dataElementCodes[0].code
-      ps_map[patient_id]['RACE'] = patient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.59')[0].dataElementCodes[0].code
-      ps_map[patient_id]['ETHNICITY'] = patient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.56')[0].dataElementCodes[0].code
-      ps_map[patient_id]['PAYER'] = JSON.parse(patient.extendedData.insurance_providers).first['codes']['SOP'].first
+      ps_map[patient_id]['SEX'] = patient.qdmPatient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.55')[0].dataElementCodes[0].code
+      ps_map[patient_id]['RACE'] = patient.qdmPatient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.59')[0].dataElementCodes[0].code
+      ps_map[patient_id]['ETHNICITY'] = patient.qdmPatient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.56')[0].dataElementCodes[0].code
+      ps_map[patient_id]['PAYER'] = patient.insurance_providers.first['codes']['SOP'].first
     end
 
     def aggregate_results_for_measures(measures, individual_results = nil)
@@ -42,7 +42,7 @@ module Cypress
     # rubocop:disable Metrics/AbcSize
     def aggregate_results_for_measure(measure, individual_results = nil)
       # If individual_results are provided, use them.  Otherwise, look them up in the database by measure id and correlation_id
-      individual_results ||= QDM::IndividualResult.where('measure_id' => measure._id, 'extendedData.correlation_id' => @correlation_id)
+      individual_results ||= CQM::IndividualResult.where('measure_id' => measure._id, 'extendedData.correlation_id' => @correlation_id)
       measure_populations = %w[DENOM NUMER DENEX DENEXCEP IPP MSRPOPL MSRPOPLEX]
       @measure_result_hash[measure.key]['supplemental_data'] = {}
       # Set inital values for each measure population

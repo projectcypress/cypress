@@ -57,7 +57,7 @@ module RecordsHelper
   # Usage tip: It is strongly recommended you pass in either an array of records OR and array
   # of measures and then pass in the other as an array containing a single element.
   def get_result_values(records, measures, pop_keys, key)
-    QDM::IndividualResult.where(
+    CQM::IndividualResult.where(
       :patient_id.in => records.collect(&:id),
       :measure_id.in => measures.collect(&:id)
     ).collect do |elem|
@@ -87,10 +87,10 @@ module RecordsHelper
       field.each do |key, subfield|
         display_text += display_field(subfield) + ' ' if SUBFIELDS.include? key
       end
-      field['codes']&.each do |code_system, code|
-        display_text += "\n" + code_system + ': ' + code.join(', ')
+      field['codes']&.each do |code_system_oid, code|
+        display_text += "\n" + code_system_oid + ': ' + code.join(', ')
       end
-      display_text += "\n" + field['code_system'] + ': ' + field['code'] if field['code_system']
+      display_text += "\n" + field['code_system_oid'] + ': ' + field['code'] if field['code_system_oid']
     end
     display_text
   end

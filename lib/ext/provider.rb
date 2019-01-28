@@ -1,15 +1,15 @@
 Faker::Config.locale = 'en-US'
 
-Provider = QDM::Provider
+Provider = CQM::Provider
 
-module QDM
+module CQM
   class Provider
     has_many :measure_tests
 
     def self.default_provider(options = {})
       prov = where(default: true, specialty: default_specialty(options[:measure_type])).first
       if prov.nil?
-        prov = Provider.new(APP_CONSTANTS['default_provider'])
+        prov = CQM::Provider.new(APP_CONSTANTS['default_provider'])
         prov[:default] = true
         prov.specialty = default_specialty(options[:measure_type])
         prov.save
@@ -18,7 +18,7 @@ module QDM
     end
 
     def self.generate_provider(options = {})
-      prov = Provider.new
+      prov = CQM::Provider.new
       randomize_provider_address(prov)
       prov.given_name = NAMES_RANDOM['first'][%w[M F].sample].sample
       prov.family_name = NAMES_RANDOM['last'].sample
@@ -32,7 +32,7 @@ module QDM
     end
 
     def self.randomize_provider_address(provider)
-      address = Address.new
+      address = CQM::Address.new
       address.use = 'HP'
       address.street = ["#{Faker::Address.street_address} #{Faker::Address.street_suffix}"]
       address.city = Faker::Address.city

@@ -2,7 +2,7 @@ class AddQdmIdsToEntries < Mongoid::Migration
   def self.up
     say_with_time 'Adding QDM Ids to Entries' do
       updated_patients_references = {}
-      QDM::Patient.all.each do |patient|
+      CQM::Patient.all.each do |patient|
         data_elements_ids_to_remove = []
         data_elements_ids_to_replace = []
         patient.dataElements.each_with_index do |de, index|
@@ -24,7 +24,7 @@ class AddQdmIdsToEntries < Mongoid::Migration
           end
         end
         if !data_elements_ids_to_remove.empty?
-          new_patient = QDM::Patient.new( qdmVersion: patient.qdmVersion,
+          new_patient = CQM::Patient.new( qdmVersion: patient.qdmVersion,
                                           birthDatetime: patient.birthDatetime,
                                           extendedData: patient.extendedData,
                                           familyName: patient.familyName,
@@ -38,7 +38,7 @@ class AddQdmIdsToEntries < Mongoid::Migration
             new_patient.dataElements << de
           end
           updated_patients_references[patient.id] = new_patient.id
-          irs_to_update = QDM::IndividualResult.where('patient_id' => patient.id)
+          irs_to_update = CQM::IndividualResult.where('patient_id' => patient.id)
           irs_to_update.each do |ir_to_update|
             ir_to_update.patient_id = new_patient.id
             ir_to_update.save!
@@ -50,7 +50,7 @@ class AddQdmIdsToEntries < Mongoid::Migration
         patient.save!
       end
       updated_patients_references.each do |original_patient_id, updated_patient_id|
-        patients_to_update = QDM::Patient.where('extendedData.original_patient' => original_patient_id)
+        patients_to_update = CQM::Patient.where('extendedData.original_patient' => original_patient_id)
         patients_to_update.each do |patient_to_update|
           patient_to_update.extendedData['original_patient'] = updated_patient_id
           patient_to_update.save!

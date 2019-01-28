@@ -66,7 +66,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     validate_record_count(@all_patients, filtered_records)
 
     @all_patients.each do |r|
-      dob = Time.at(r.birthDatetime).in_time_zone
+      dob = Time.at(r.qdmPatient.birthDatetime).in_time_zone
       patient_age = age_on_date(dob, now)
 
       if filtered_records.include? r
@@ -82,7 +82,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     # and make sure the patient is in the results
     now = Time.now.in_time_zone
     patient = @all_patients.sample
-    dob = Time.at(patient.birthDatetime).in_time_zone
+    dob = Time.at(patient.qdmPatient.birthDatetime).in_time_zone
     target_age = age_on_date(dob, now)
 
     filters = { 'age' => { 'max' => target_age } }
@@ -105,7 +105,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     validate_record_count(@all_patients, filtered_records)
 
     @all_patients.each do |r|
-      dob = Time.at(r.birthDatetime).in_time_zone
+      dob = Time.at(r.qdmPatient.birthDatetime).in_time_zone
       patient_age = age_on_date(dob, now)
 
       if filtered_records.include? r
@@ -120,7 +120,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     # the "edge case" for age filtering is when the patient's birthdate is on the effective date
 
     patient = @all_patients.sample
-    birthdate = Time.at(patient.birthDatetime).in_time_zone
+    birthdate = Time.at(patient.qdmPatient.birthDatetime).in_time_zone
 
     # CASE 1
     age = Random.rand(100)
@@ -143,7 +143,7 @@ class RecordFilterTest < ActiveSupport::TestCase
 
   def test_filter_age_edge_case_exclusive
     patient = @all_patients.sample
-    birthdate = Time.at(patient.birthDatetime).in_time_zone
+    birthdate = Time.at(patient.qdmPatient.birthDatetime).in_time_zone
 
     # CASE 1
     age = Random.rand(100)
@@ -184,7 +184,7 @@ class RecordFilterTest < ActiveSupport::TestCase
   end
 
   def record_has_payer?(record, payer)
-    all_payers = JSON.parse(record.extendedData['insurance_providers']).collect { |ip| ip.payer.name }
+    all_payers = record.insurance_providers.collect { |ip| ip.payer.name }
     all_payers.include? payer
   end
 
@@ -200,7 +200,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     code_sets.each do |code_set|
       code_set.each do |code|
         # problems come from SNOMED, per the rule
-        relevant_codes << code['code'] if code['code_system'] == '2.16.840.1.113883.6.96'
+        relevant_codes << code['code'] if code['code_system_oid'] == '2.16.840.1.113883.6.96'
       end
     end
 
@@ -216,7 +216,7 @@ class RecordFilterTest < ActiveSupport::TestCase
   end
 
   def record_has_problem?(record, code_set)
-    search_fields = [record.conditions, record.encounters, record.procedures]
+    search_fields = [record.qdmPatient.conditions, record.qdmPatient.encounters, record.qdmPatient.procedures]
 
     search_fields.each do |search_field|
       next unless search_field
@@ -234,7 +234,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     prov = Provider.default_provider
 
     patients.each do |patient|
-      patient.extendedData['provider_performances'] = JSON.generate([{ provider_id: prov.id }])
+      patient.provider_performances = [{ provider_id: prov.id }]
       patient.save!
     end
 

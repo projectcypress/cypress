@@ -104,7 +104,7 @@ end
 Then(/^the user sees details$/) do
   page.assert_text "Cypress Certification Patient Test Record: #{@patient.first_names} #{@patient.familyName}"
   page.assert_text @patient.gender
-  @patient.dataElements.each do |data_criteria|
+  @patient.qdmPatient.dataElements.each do |data_criteria|
     page.assert_text data_criteria['description']
   end
   @measures = @bundle.measures.where(:_id.in => @patient.calculation_results.map(&:measure_id))

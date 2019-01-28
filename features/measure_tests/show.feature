@@ -99,7 +99,7 @@ Scenario: Unsuccessful Upload CAT 3 XML Because Incorrect File Type
   Then the page should be accessible according to: wcag2aa
 
 Scenario: Successful View Uploaded XML for Measure Test
-  When the user creates a product with tasks c2
+  When the user creates a product with records with tasks c2
   And the user views task c2
   And the user uploads a CAT 3 XML file
   And the user waits for results then views task c2
@@ -221,7 +221,7 @@ Scenario: Unsuccessful Upload CAT 3 XML Because Incorrect File Type on Deprecate
   Then the page should be accessible according to: wcag2aa
 
 Scenario: Successful View Uploaded XML for Measure Test on Deprecated Product
-  When the user creates a product with tasks c2
+  When the user creates a product with records with tasks c2
   And the default bundle has been deprecated
   And the user views task c2
   Then the user should see a notification saying the product was deprecated
