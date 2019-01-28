@@ -16,7 +16,7 @@ class ProductTest
   has_many :tasks, dependent: :destroy, inverse_of: :product_test
 
   # TODO: R2P: fix foreign key descriptor?
-  has_many :patients, dependent: :destroy, foreign_key: 'extendedData.correlation_id', class_name: 'QDM::Patient'
+  has_many :patients, dependent: :destroy, foreign_key: 'correlation_id', class_name: 'CQM::Patient'
 
   field :augmented_patients, type: Array, default: []
 
@@ -60,7 +60,7 @@ class ProductTest
   def self.destroy_by_ids(product_test_ids)
     tasks = Task.where(:product_test_id.in => product_test_ids)
     task_ids = tasks.pluck(:_id)
-    patients = QDM::Patient.where(:'extendedData.correlation_id'.in => product_test_ids)
+    patients = CQM::Patient.where(:correlation_id.in => product_test_ids)
     patient_ids = patients.pluck(:_id)
     test_executions = TestExecution.where(:task_id.in => task_ids)
     test_execution_ids = test_executions.pluck(:_id)
@@ -74,7 +74,7 @@ class ProductTest
     # long after the parent data was destroyed.
     Artifact.where(:test_execution_id.in => test_execution_ids).destroy
     # TODO: CQL: use new results model?
-    QDM::IndividualResult.where(:patient_id.in => patient_ids).delete
+    CQM::IndividualResult.where(:patient_id.in => patient_ids).delete
     ProductTest.in(id: product_test_ids).delete
   end
 
@@ -117,7 +117,7 @@ class ProductTest
 
   def sample_and_duplicate_patients(pat_arr, ids, random: Random.new)
     car = ::Validators::CalculatingAugmentedRecords.new(measures, [], id)
-    dups = patients.find(ids)
+    dups = patients.in('qdmPatient._id' => ids).to_a
 
     pat_arr, dups = randomize_clinical_data(pat_arr, dups, random)
     # choose up to 3 duplicate patients
@@ -165,7 +165,7 @@ class ProductTest
 
   def results
     # TODO: CQL: use new results model
-    QDM::IndividualResult.where('extendedData.correlation_id' => id.to_s)
+    CQM::IndividualResult.where('extendedData.correlation_id' => id.to_s)
   end
 
   def value_sets_by_oid
@@ -223,25 +223,25 @@ class ProductTest
 
   # Returns a listing of all ids for patients in the IPP
   def patients_in_ipp_and_greater
-    QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
+    CQM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
                                 'IPP' => { '$gt' => 0 }, 'extendedData.correlation_id' => bundle.id.to_s).distinct(:patient)
   end
 
   # Returns an id for a patient in the Numerator
   def patient_in_numerator
-    QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
+    CQM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
                                 'extendedData.correlation_id' => bundle.id.to_s, 'NUMER' => { '$gt' => 0 }).distinct(:patient).sample
   end
 
   # Returns a listing of all ids for patients in the Denominator
   def patients_in_denominator_and_greater
-    QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
+    CQM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
                                 'extendedData.correlation_id' => bundle.id.to_s, 'DENOM' => { '$gt' => 0 }).distinct(:patient)
   end
 
   # Returns a listing of all ids for patients in the Measure Population
   def patients_in_measure_population_and_greater
-    QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
+    CQM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
                                 'extendedData.correlation_id' => bundle.id.to_s, 'MSRPOPL' => { '$gt' => 0 }).distinct(:patient)
   end
 
@@ -276,7 +276,7 @@ class ProductTest
     # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product,
     # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if denom_ids.count > (product.test_deck_max - 1)
-      high_value_ids = QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, 'extendedData.correlation_id' => bundle.id.to_s)
+      high_value_ids = CQM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, 'extendedData.correlation_id' => bundle.id.to_s)
                                             .any_of({ 'NUMER' => { '$gt' => 0 } },
                                                     { 'DENEXCEP' => { '$gt' => 0 } },
                                                     'DENEX' => { '$gt' => 0 }).distinct(:patient)
@@ -295,7 +295,7 @@ class ProductTest
     # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product,
     # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if msrpopl_ids.count > product.test_deck_max
-      numer_ids = QDM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, 'extendedData.correlation_id' => bundle.id.to_s)
+      numer_ids = CQM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, 'extendedData.correlation_id' => bundle.id.to_s)
                                        .any_of({ 'MSRPOPL' => { '$gt' => 1 } },
                                                '$and' => [{ 'MSRPOPL' => { '$eq' => 1 } }, { 'MSRPOPLEX' => { '$eq' => 0 } }]).distinct(:patient)
       numer_ids = numer_ids.sample(product.test_deck_max)

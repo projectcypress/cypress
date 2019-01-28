@@ -9,7 +9,7 @@
       <% original_patient = r.original_patient %>
       <td> <%="#{full_name(original_patient)}"%> </td>
     <%end%>
-    <td><%= display_time(r.birthDatetime) %></td>
+    <td><%= display_time(r.qdmPatient.birthDatetime) %></td>
     <td><%= full_gender_name(r.gender) %></td>
     <!-- will show calculation results for product test records -->
     <% if measure && !(product_test && hide_patient_calculation?) %>

@@ -19,7 +19,7 @@ module Cypress
       results = @measures.map do |measure|
         request_for(measure)
       end.flatten
-      QDM::IndividualResult.collection.insert_many(results)
+      CQM::IndividualResult.collection.insert_many(results)
       results
     end
 
@@ -36,14 +36,13 @@ module Cypress
       end
 
       results = JSON.parse(response)
-
       # TODO: Change the return format of this to still include the measure_id and record_id
       # since they are necessary for ease of use in some calculators
       results.map do |_, result|
         result.map do |_, pop_criteria|
           pop_criteria.slice!('IPP', 'DENOM', 'DENEX', 'NUMER', 'measure_id', 'patient_id')
           pop_criteria['measure_id'] = BSON::ObjectId.from_string(pop_criteria['measure_id'])
-          pop_criteria['patient_id'] = BSON::ObjectId.from_string(pop_criteria['patient_id'])
+          pop_criteria['patient_id'] = @patients.select { |p| p.id == BSON::ObjectId.from_string(pop_criteria['patient_id']) }.first.tacomaPatient.id
           pop_criteria['state'] = 'complete'
           pop_criteria['extendedData'] = @correlation_id ? { 'correlation_id' => @correlation_id } : {}
           pop_criteria
