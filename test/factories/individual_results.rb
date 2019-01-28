@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :individual_result, class: QDM::IndividualResult do
+  factory :individual_result, class: CQM::IndividualResult do
     IPP { 1 }
     DENOM { 1 }
     NUMER { 0 }

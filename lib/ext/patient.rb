@@ -1,9 +1,15 @@
 # The Patient model is an extension of app/models/qdm/patient.rb as defined by CQM-Models.
-Patient = QDM::Patient
+Patient = CQM::Patient
 
-module QDM
+module CQM
   class Patient
-    has_many :calculation_results, :foreign_key => :patient_id, :class_name => 'QDM::IndividualResult'
+    has_many :calculation_results, :foreign_key => :patient_id, :class_name => 'CQM::IndividualResult'
+    field :correlation_id, :type => BSON::ObjectId
+    field :original_patient_id, :type => BSON::ObjectId
+    field :insurance_providers, :type => Array
+    field :original_medical_record_number, :type => String
+    field :medical_record_number, :type => String
+    embeds_many :addresses
 
     def destroy
       calculation_results.destroy
@@ -11,29 +17,29 @@ module QDM
     end
 
     def product_test
-      ProductTest.where('_id' => extendedData['correlation_id']).most_recent
+      ProductTest.where('_id' => correlation_id).most_recent
     end
 
     def bundle
       if !self['bundleId'].nil?
         Bundle.find(self['bundleId'])
-      elsif !extendedData['correlation_id'].nil?
-        ProductTest.find(extendedData['correlation_id']).bundle
+      elsif !correlation_id.nil?
+        ProductTest.find(correlation_id).bundle
       end
     end
 
     def age_at(date)
-      dob = Time.at(birthDatetime).in_time_zone
+      dob = Time.at(qdmPatient.birthDatetime).in_time_zone
       date.year - dob.year - (date.month > dob.month || (date.month == dob.month && date.day >= dob.day) ? 0 : 1)
     end
 
     def original_patient
-      Patient.find(extendedData[:original_patient]) if extendedData[:original_patient]
+      Patient.find(original_patient_id) if original_patient_id
     end
 
     def lookup_provider(include_address = nil)
       # find with provider id hash i.e. "$oid"->value
-      provider = Provider.find(JSON.parse(extendedData['provider_performances']).first['provider_id'])
+      provider = Provider.find(provider_performances.first['provider_id'])
       addresses = []
       provider.addresses.each do |address|
         addresses << { 'street' => address.street, 'city' => address.city, 'state' => address.state, 'zip' => address.zip,
@@ -53,8 +59,8 @@ module QDM
     end
 
     def provider
-      return nil unless extendedData.provider_performances
-      Provider.find(JSON.parse(extendedData.provider_performances).first['provider_id'])
+      return nil unless provider_performances
+      Provider.find(provider_performances.first['provider_id'])
     end
 
     #
@@ -74,8 +80,8 @@ module QDM
         patient = Cypress::NameRandomizer.randomize_patient_name_last(patient, :random => random)
         changed[:last] = [familyName, patient.familyName]
       when 2 # birthdate
-        while birthDatetime == patient.birthDatetime
-          patient.birthDatetime = patient.birthDatetime.change(
+        while qdmPatient.birthDatetime == patient.qdmPatient.birthDatetime
+          patient.qdmPatient.birthDatetime = patient.qdmPatient.birthDatetime.change(
             case random.rand(3)
             when 0 then { :day => 1, :month => 1 }
             when 1 then { :day => random.rand(28) + 1 }
@@ -83,13 +89,13 @@ module QDM
             end
           )
         end
-        changed[:birthdate] = [birthDatetime, patient.birthDatetime]
+        changed[:birthdate] = [qdmPatient.birthDatetime, patient.qdmPatient.birthDatetime]
       end
       [patient, changed]
     end
 
     def gender
-      gender_chars = get_data_elements('patient_characteristic', 'gender')
+      gender_chars = qdmPatient.get_data_elements('patient_characteristic', 'gender')
       if gender_chars&.any? && gender_chars.first.dataElementCodes &&
          gender_chars.first.dataElementCodes.any?
         gender_chars.first.dataElementCodes.first['code']
@@ -99,7 +105,7 @@ module QDM
     end
 
     def race
-      race_element = get_data_elements('patient_characteristic', 'race')
+      race_element = qdmPatient.get_data_elements('patient_characteristic', 'race')
       if race_element&.any? && race_element.first.dataElementCodes &&
          race_element.first.dataElementCodes.any?
         race_element.first.dataElementCodes.first['code']
@@ -109,7 +115,7 @@ module QDM
     end
 
     def ethnicity
-      ethnicity_element = get_data_elements('patient_characteristic', 'ethnicity')
+      ethnicity_element = qdmPatient.get_data_elements('patient_characteristic', 'ethnicity')
       if ethnicity_element&.any? && ethnicity_element.first.dataElementCodes &&
          ethnicity_element.first.dataElementCodes.any?
         ethnicity_element.first.dataElementCodes.first['code']

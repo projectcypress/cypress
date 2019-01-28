@@ -1,5 +1,5 @@
-ValueSet = QDM::ValueSet
-Concept = QDM::Concept
+ValueSet = CQM::ValueSet
+Concept = CQM::Concept
 
 class ValueSet
   include Mongoid::Document

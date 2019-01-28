@@ -11,7 +11,7 @@ class PatientZipperTest < ActiveSupport::TestCase
     prov = Provider.default_provider
 
     @patients.each do |p|
-      p.extendedData['provider_performances'] = JSON.generate([{ provider_id: prov.id }])
+      p.provider_performances << CQM::ProviderPerformance.new(provider: prov)
       p.save!
     end
   end
@@ -54,7 +54,7 @@ class PatientZipperTest < ActiveSupport::TestCase
   end
 
   test 'Should create valid qrda file when not associated to test' do
-    @patients = Patient.where('extendedData.correlation_id' => nil)
+    @patients = Patient.where(:correlation_id => nil)
 
     format = :qrda
     filename = "pTest-#{Time.now.to_i}.qrda.zip"

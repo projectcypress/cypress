@@ -10,7 +10,7 @@ module Cypress
     end
 
     def self.split_by_date(patient, effective_date, measure_period_start, random)
-      patient_char_de = patient.get_data_elements('patient_characteristic')
+      patient_char_de = patient.qdmPatient.get_data_elements('patient_characteristic')
       patient1 = patient.clone
       patient2 = patient.clone
 
@@ -18,30 +18,30 @@ module Cypress
       split_date = find_split_date(patient, effective_date, measure_period_start, random)
 
       # Sort the data_elements from earliest to latest so we can split them more easily
-      data_elements = sort_by_start_time(patient.dataElements)
+      data_elements = sort_by_start_time(patient.qdmPatient.dataElements)
 
       if split_date
         patient1, patient2 = set_data_elements(data_elements, patient1, patient2, split_date)
       else
         # set all patient1 data elements
-        patient1.dataElements = data_elements
-        patient2.dataElements = []
+        patient1.qdmPatient.dataElements = data_elements
+        patient2.qdmPatient.dataElements = []
       end
-      patient1.dataElements.concat patient_char_de
-      patient2.dataElements.concat patient_char_de
-      patient.dataElements.concat patient_char_de
+      patient1.qdmPatient.dataElements.concat patient_char_de
+      patient2.qdmPatient.dataElements.concat patient_char_de
+      patient.qdmPatient.dataElements.concat patient_char_de
 
       [patient1, patient2]
     end
 
     def self.set_data_elements(data_elements, patient1, patient2, split_date)
-      patient1.dataElements = []
-      patient2.dataElements = []
+      patient1.qdmPatient.dataElements = []
+      patient2.qdmPatient.dataElements = []
       data_elements.take_while { |de| de_before_split_date(de, split_date) }.each do |de|
-        patient1.dataElements.push de
+        patient1.qdmPatient.dataElements.push de
       end
       data_elements.drop_while { |de| de_before_split_date(de, split_date) }.each do |de|
-        patient2.dataElements.push de
+        patient2.qdmPatient.dataElements.push de
       end
       [patient1, patient2]
     end
@@ -53,7 +53,7 @@ module Cypress
 
     def self.split_by_type(patient, effective_date, measure_period_start, random)
       # Collect unique data element categories from the patient with populated entries
-      de_categories = patient.dataElements.collect(&:qdmCategory).uniq.shuffle(random: random)
+      de_categories = patient.qdmPatient.dataElements.collect(&:qdmCategory).uniq.shuffle(random: random)
       de_categories.delete('patient_characteristic')
 
       # If there's only 1 data element category, split by date instead
@@ -72,14 +72,14 @@ module Cypress
     end
 
     def self.set_patient_de_for_category(new_patient, old_patient, categories, start_point, end_point)
-      new_patient.dataElements = []
+      new_patient.qdmPatient.dataElements = []
       categories[start_point...end_point].each do |cat|
-        old_cat_des = old_patient.get_data_elements(cat)
-        old_cat_des.each { |de| new_patient.dataElements.push de }
+        old_cat_des = old_patient.qdmPatient.get_data_elements(cat)
+        old_cat_des.each { |de| new_patient.qdmPatient.dataElements.push de }
       end
       # always add patient characteristics
-      old_cat_des = old_patient.get_data_elements('patient_characteristic')
-      old_cat_des.each { |de| new_patient.dataElements.push de }
+      old_cat_des = old_patient.qdmPatient.get_data_elements('patient_characteristic')
+      old_cat_des.each { |de| new_patient.qdmPatient.dataElements.push de }
       new_patient
     end
 
@@ -97,7 +97,7 @@ module Cypress
     end
 
     def self.find_split_date(patient, effective_date, measure_period_start, random)
-      sorted_de = sort_by_start_time(patient.dataElements)
+      sorted_de = sort_by_start_time(patient.qdmPatient.dataElements)
 
       first_date = find_first_date_after(sorted_de, measure_period_start)
       last_date = find_last_date_before(sorted_de, effective_date)

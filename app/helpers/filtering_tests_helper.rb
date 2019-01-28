@@ -60,7 +60,7 @@ module FilteringTestsHelper
     filter_tests.each do |ft|
       patients.collect do |p|
         p2 = p.clone
-        p2.extendedData['correlation_id'] = ft.id
+        p2.correlation_id = ft.id
         p2.save
         p2
       end

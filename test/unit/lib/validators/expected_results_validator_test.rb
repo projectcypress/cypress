@@ -14,22 +14,22 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   end
 
   def setup_augmented_patients
-    @patient1 = Patient.new(givenNames: ['Jill'], familyName: 'Mcguire', extendedData: { 'medical_record_number' => '198718e0-4d42-0135-8680-12999b0ed66f' })
-    ir1 = QDM::IndividualResult.new(IPP: 1.000000, patient_id: @patient1.id, patient: @patient1, measure: @measure)
+    @patient1 = Patient.new(givenNames: ['Jill'], familyName: 'Mcguire', medical_record_number: '198718e0-4d42-0135-8680-12999b0ed66f')
+    ir1 = CQM::IndividualResult.new(IPP: 1.000000, patient_id: @patient1.id, patient: @patient1, measure: @measure)
     ir1.save!
     @patient1.save!
     @augmented_patient1 = { 'original_patient_id' => @patient1.id, 'medical_record_number' => '198718e0-4d42-0135-8680-12999b0ed66f',
                             'first' => %w[Jill J], 'last' => %w[Mcguire Mcguirn], :gender => %w[F M] }
 
-    @patient2 = Patient.new(givenNames: ['Ivan'], familyName: 'Mcguire', extendedData: { 'medical_record_number' => '098718e0-4d42-0135-8680-12999b0ed66f' })
-    ir2 = QDM::IndividualResult.new(IPP: 1.000000, patient_id: @patient2.id, patient: @patient2, measure: @measure)
+    @patient2 = Patient.new(givenNames: ['Ivan'], familyName: 'Mcguire', medical_record_number: '098718e0-4d42-0135-8680-12999b0ed66f')
+    ir2 = CQM::IndividualResult.new(IPP: 1.000000, patient_id: @patient2.id, patient: @patient2, measure: @measure)
     ir2.save!
     @patient2.save!
     @augmented_patient2 = { 'original_patient_id' => @patient2.id, 'medical_record_number' => '098718e0-4d42-0135-8680-12999b0ed66f',
                             'first' => %w[Ivan Ivan], 'last' => %w[Mcguire Mcguirn], :gender => %w[M F] }
 
-    @patient3 = Patient.new(givenNames: ['Joe'], familyName: 'Mcguire', extendedData: { 'medical_record_number' => '298718e0-4d42-0135-8680-12999b0ed66f' })
-    ir3 = QDM::IndividualResult.new(IPP: 1.000000, patient_id: @patient3.id, patient: @patient3, measure: @measure)
+    @patient3 = Patient.new(givenNames: ['Joe'], familyName: 'Mcguire', medical_record_number: '298718e0-4d42-0135-8680-12999b0ed66f')
+    ir3 = CQM::IndividualResult.new(IPP: 1.000000, patient_id: @patient3.id, patient: @patient3, measure: @measure)
     ir3.save!
     @patient3.save!
     @augmented_patient3 = { 'original_patient_id' => @patient3.id, 'medical_record_number' => '298718e0-4d42-0135-8680-12999b0ed66f',
@@ -68,7 +68,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   def test_validate_augmented_results_one_augmented_patient
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_extra_male.xml')).read
     @task.product_test.augmented_patients = [@augmented_patient1]
-    @patient1.extendedData['correlation_id'] = @task.product_test.id
+    @patient1.correlation_id = @task.product_test.id
     @patient1.save!
     @validator.validate(file, 'task' => @task)
     errors = @validator.errors
@@ -79,9 +79,9 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   def test_validate_augmented_results_two_augmented_patients
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')).read
     @task.product_test.augmented_patients = [@augmented_patient1, @augmented_patient3]
-    @patient1.extendedData['correlation_id'] = @task.product_test.id
+    @patient1.correlation_id = @task.product_test.id
     @patient1.save!
-    @patient3.extendedData['correlation_id'] = @task.product_test.id
+    @patient3.correlation_id = @task.product_test.id
     @patient3.save!
     @validator.validate(file, 'task' => @task)
     errors = @validator.errors
@@ -92,11 +92,11 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   def test_validate_augmented_results_three_augmented_patients_with_opposing_values
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')).read
     @task.product_test.augmented_patients = [@augmented_patient1, @augmented_patient2, @augmented_patient3]
-    @patient1.extendedData['correlation_id'] = @task.product_test.id
+    @patient1.correlation_id = @task.product_test.id
     @patient1.save!
-    @patient2.extendedData['correlation_id'] = @task.product_test.id
+    @patient2.correlation_id = @task.product_test.id
     @patient2.save!
-    @patient3.extendedData['correlation_id'] = @task.product_test.id
+    @patient3.correlation_id = @task.product_test.id
     @patient3.save!
     @validator.validate(file, 'task' => @task)
     errors = @validator.errors
@@ -107,11 +107,11 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   def test_validate_augmented_results_three_augmented_patients_reporting_extra_male
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_missing_supplemental_two_extra_male.xml')).read
     @task.product_test.augmented_patients = [@augmented_patient1, @augmented_patient2, @augmented_patient3]
-    @patient1.extendedData['correlation_id'] = @task.product_test.id
+    @patient1.correlation_id = @task.product_test.id
     @patient1.save!
-    @patient2.extendedData['correlation_id'] = @task.product_test.id
+    @patient2.correlation_id = @task.product_test.id
     @patient2.save!
-    @patient3.extendedData['correlation_id'] = @task.product_test.id
+    @patient3.correlation_id = @task.product_test.id
     @patient3.save!
     @validator.validate(file, 'task' => @task)
     errors = @validator.errors

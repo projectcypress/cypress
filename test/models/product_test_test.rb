@@ -118,15 +118,12 @@ class ProductTestTest < ActiveJob::TestCase
     assert_equal patient1.familyName, patient2.familyName, 'random repeatability error: family names different'
 
     # compare dates
-    assert_equal patient1.birthDatetime, patient2.birthDatetime, 'random repeatability error: birthdates different'
-
-    # compare extendedData
-    # patient1.extendedData.each{|k,v| assert_equal v, patient2[k], 'random repeatability error: extendedData different'}
+    assert_equal patient1.qdmPatient.birthDatetime, patient2.qdmPatient.birthDatetime, 'random repeatability error: birthdates different'
 
     # compare all dataElements (expect same order?)
-    patient1.dataElements.each_index do |x|
-      de1 = patient1.dataElements.fetch(x)
-      de2 = patient2.dataElements.fetch(x)
+    patient1.qdmPatient.dataElements.each_index do |x|
+      de1 = patient1.qdmPatient.dataElements.fetch(x)
+      de2 = patient2.qdmPatient.dataElements.fetch(x)
       de1.attributes.each do |k, v|
         if v.nil?
           assert_nil de2.attributes[k], 'random repeatability error: dataElements different, non-nil match'

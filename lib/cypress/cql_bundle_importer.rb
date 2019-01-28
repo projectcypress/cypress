@@ -29,7 +29,6 @@ module Cypress
         raise bundle.errors.full_messages.join(',') unless bundle.save
 
         puts 'bundle metadata unpacked...'
-
         unpack_and_store_valuesets(zip_file, bundle)
         unpack_and_store_measures(zip_file, options[:type], bundle)
         unpack_and_store_qdm_patients(zip_file, options[:type], bundle)
@@ -93,12 +92,12 @@ module Cypress
     def self.unpack_and_store_qdm_patients(zip, type, bundle)
       entries = zip.glob(File.join(SOURCE_ROOTS[:patients], type || '**', 'json', '*.json'))
       entries.each_with_index do |entry, index|
-        patient = QDM::Patient.new(unpack_json(entry))
+        patient = CQM::Patient.new(unpack_json(entry))
+
         patient['bundleId'] = bundle.id
 
         reconnect_references(patient)
-
-        @patient_id_hash[patient['extendedData.master_patient_id']] = patient['id']
+        @patient_id_hash[patient.original_medical_record_number] = patient['id']
         patient.save
         report_progress('patients', (index * 100 / entries.length)) if (index % 10).zero?
       end
@@ -107,12 +106,12 @@ module Cypress
 
     # TODO: This will need to be updated for 2018.0.2 bundles that store relatedTo as an QDM::ID
     def self.reconnect_references(patient)
-      patient.dataElements.each do |data_element|
+      patient.qdmPatient.dataElements.each do |data_element|
         next unless data_element['relatedTo']
 
         ref_array = []
         oid_hash = {}
-        patient.dataElements.each do |de|
+        patient.qdmPatient.dataElements.each do |de|
           oid_hash[{ 'codes' => de['dataElementCodes'].map { |dec| dec['code'] }.flatten, 'start_time' => de['authorDatetime'].to_i }.hash] = de.id
         end
         data_element[:relatedTo].each do |ref|
@@ -133,7 +132,7 @@ module Cypress
           document['extendedData'] = { 'correlation_id' => bundle.id.to_s }
           document
         end
-        QDM::IndividualResult.collection.insert_many(contents)
+        CQM::IndividualResult.collection.insert_many(contents)
       end
       puts "\rLoading: Results Complete          "
     end

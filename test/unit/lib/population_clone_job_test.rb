@@ -11,7 +11,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     pcj = Cypress::PopulationCloneJob.new('test_id' => @pt.id)
     pcj.perform
     assert_equal 19, Patient.count
-    assert_equal 10, Patient.where('extendedData.correlation_id': @pt.id).count
+    assert_equal 10, Patient.where(correlation_id: @pt.id).count
   end
 
   # need a measure with a subset
@@ -43,7 +43,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     pcj.perform
     prov = Provider.where(default: true).first
     assert_equal 11, Patient.count
-    patients_with_provider = Patient.where('extendedData.correlation_id': @pt.id, 'extendedData.provider_performances': { :$exists => true })
+    patients_with_provider = Patient.where(correlation_id: @pt.id, provider_performances: { :$exists => true })
     assert_equal 1, patients_with_provider.keep_if { |pt| pt.provider.id == prov.id }.size
   end
 
@@ -120,17 +120,17 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     # Add an element with a reference to the first patient in the product test
     patient_with_ref = @pt.bundle.patients.first
     comm_with_ref = QDM::CommunicationPerformed.new(dataElementCodes: [QDM::Code.new('336', '2.16.840.1.113883.6.96')])
-    comm_with_ref.relatedTo << patient_with_ref.dataElements[0].id
-    patient_with_ref.dataElements << comm_with_ref
+    comm_with_ref.relatedTo << patient_with_ref.qdmPatient.dataElements[0].id
+    patient_with_ref.qdmPatient.dataElements << comm_with_ref
     patient_with_ref.save
     pcj = Cypress::PopulationCloneJob.new('subset_id' => 'all',
                                           'test_id' => @pt.id,
                                           'patient_ids' => [patient_with_ref.id],
                                           'randomize_demographics' => true)
     pcj.perform
-    new_record_with_ref = Patient.where('extendedData.correlation_id': @pt.id, 'extendedData.original_patient': patient_with_ref.id).first
-    new_ref = new_record_with_ref.communications.first.relatedTo.first.value
-    original_ref = patient_with_ref.communications.first.relatedTo.first.value
+    new_record_with_ref = Patient.where(correlation_id: @pt.id, original_patient_id: patient_with_ref.id).first
+    new_ref = new_record_with_ref.qdmPatient.communications.first.relatedTo.first.value
+    original_ref = patient_with_ref.qdmPatient.communications.first.relatedTo.first.value
     assert_not_equal new_ref, original_ref
   end
 
@@ -140,7 +140,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
                                           'test_id' => @pt.id,
                                           'randomize_demographics' => true)
     pcj.perform
-    new_records = Patient.where('extendedData.correlation_id': @pt.id)
+    new_records = Patient.where(correlation_id: @pt.id)
     assert_equal 10, new_records.count
     assert_races_are_random
   end
@@ -148,10 +148,10 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   def assert_races_are_random
     found_random = false
     old_record_races = {}
-    Patient.where('extendedData.correlation_id': nil).each do |record|
+    Patient.where(correlation_id: nil).each do |record|
       old_record_races["#{record.givenNames[0]} #{record.familyName}"] = record.race
     end
-    Patient.where('extendedData.correlation_id': @pt.id).each do |record|
+    Patient.where(correlation_id: @pt.id).each do |record|
       found_random = true unless old_record_races["#{record.givenNames[0]} #{record.familyName}"] == record.race
     end
     assert found_random, 'Did not find any evidence that race was randomized.'

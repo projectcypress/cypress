@@ -55,7 +55,7 @@ module Cypress
         # clone each of the patients identified in the :patient_ids parameter
         @test.bundle.patients.find(options['patient_ids']).to_a
       else
-        @test.bundle.patients.where('extendedData.correlation_id': nil).to_a
+        @test.bundle.patients.where(correlation_id: nil).to_a
       end
     end
 
@@ -68,7 +68,7 @@ module Cypress
         seconds = 1_944_000 # 60 secs per min * 60 min per hour * 24 hours in day * 10 days
         plus_minus = prng.rand(2).zero? ? 1 : -1 # use this to make move dates forward or backwards
         date_shift = prng.rand(seconds) * plus_minus
-        patient.shift_dates(date_shift)
+        patient.qdmPatient.shift_dates(date_shift)
         patients << patient
       end
     end
@@ -78,11 +78,11 @@ module Cypress
       cloned_patient = patient.clone
       # TODO: R2P: use patient model
       unnumerify cloned_patient if patient.givenNames.map { |n| n =~ /\d/ }.any? || patient.familyName =~ /\d/
-      cloned_patient[:original_medical_record_number] = cloned_patient.extendedData[:medical_record_number]
-      cloned_patient.extendedData[:original_patient] = patient.id
-      cloned_patient.extendedData[:medical_record_number] = next_medical_record_number unless options['disable_randomization']
+      cloned_patient.original_medical_record_number = cloned_patient.medical_record_number
+      cloned_patient.original_patient_id = patient.id
+      cloned_patient.medical_record_number = next_medical_record_number unless options['disable_randomization']
       DemographicsRandomizer.randomize(cloned_patient, prng, allow_dups) if options['randomize_demographics']
-      cloned_patient.extendedData[:correlation_id] = options['test_id']
+      cloned_patient.correlation_id = options['test_id']
       patch_insurance_provider(patient)
       randomize_entry_ids(cloned_patient) unless options['disable_randomization']
       # assign existing provider if provider argument is not nil (should be when @test is a measure test)
@@ -101,19 +101,20 @@ module Cypress
       entries_with_references = []
       entry_id_hash = {}
       index = 0
-      cloned_patient.dataElements.each do |entry|
+      cloned_patient.qdmPatient.dataElements.each do |entry|
         entry_id_hash[entry._id.to_s] = BSON::ObjectId.new
         entry._id = entry_id_hash[entry._id.to_s]
         entry.id = QDM::Id.new(value: entry._id)
         entries_with_references.push(index) unless entry['relatedTo'].nil?
         index += 1
       end
+      cloned_patient.qdmPatient._id = BSON::ObjectId.new
       reconnect_references(cloned_patient, entries_with_references, entry_id_hash)
     end
 
     def reconnect_references(cloned_patient, entries_with_references, entry_id_hash)
       entries_with_references.each do |entry_with_reference_index|
-        entry_with_reference = cloned_patient.dataElements[entry_with_reference_index]
+        entry_with_reference = cloned_patient.qdmPatient.dataElements[entry_with_reference_index]
         references_to_add = []
         entry_with_reference.relatedTo.each do |ref|
           new_ref = QDM::Id.new(value: entry_id_hash[ref.value].to_s)
@@ -136,9 +137,9 @@ module Cypress
 
     def patch_insurance_provider(patient)
       insurance_codes = { 'MA' => '1', 'MC' => '2', 'OT' => '349' }
-      providers = JSON.parse(patient.extendedData['insurance_providers'])
+      providers = patient.insurance_providers
       providers.each { |ip| ip.codes['SOP'] = [insurance_codes[ip.type]] if ip.codes.empty? }
-      patient.extendedData['insurance_providers'] = JSON.generate(providers)
+      patient.insurance_providers = providers
     end
 
     def assign_provider(patient)
@@ -152,7 +153,7 @@ module Cypress
                measure = @test.measures.first
                Provider.default_provider(measure_type: measure.type)
              end
-      patient.extendedData['provider_performances'] = JSON.generate([{ provider_id: prov.id }]) if prov
+      patient.provider_performances = [{ provider_id: prov.id }] if prov
     end
 
     def generate_provider
@@ -160,7 +161,7 @@ module Cypress
     end
 
     def assign_existing_provider(patient, provider)
-      patient.extendedData['provider_performances'] = JSON.generate([{ provider_id: provider.id }])
+      patient.provider_performances = [{ provider_id: provider.id }]
     end
   end
 end
