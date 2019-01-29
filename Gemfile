@@ -14,13 +14,9 @@ gem 'bson_ext'
 gem 'mustache'
 gem 'os'
 
-gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'remove_hds'
-# gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'master'
+gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'remove_hds_v_1.1.0'
+gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports.git', branch: 'model_updates'
 gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators.git', branch: 'remove_hds'
-# gem 'cqm-converter', '~> 0.3.6'
-# gem 'cqm-models', '~> 0.8.4'
-gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'rails_upgrade'
-# gem 'cqm-validators', '~> 0.1.0'
 
 # Use faker to generate addresses
 gem 'faker', '~> 1.5.0'
