@@ -60,6 +60,7 @@ module CQM
 
     def provider
       return nil unless provider_performances
+
       Provider.find(provider_performances.first['provider_id'])
     end
 

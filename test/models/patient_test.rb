@@ -5,6 +5,15 @@ class PatientTest < ActiveSupport::TestCase
     @bundle = FactoryBot.create(:static_bundle)
   end
 
+  def create_static_patient_with_seed(seed)
+    static_patient = Patient.new(familyName: 'Robert', givenNames: ['Johnson'])
+    static_patient.qdmPatient.birthDatetime = DateTime.new(1985, 2, 18).utc
+    static_patient.qdmPatient.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['races'].sample(random: seed)['code'], 'code_system' => 'cdcrec' }])
+    static_patient.qdmPatient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['ethnicities'].sample(random: seed)['code'], 'code_system' => 'cdcrec' }])
+    static_patient.qdmPatient.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'code_system' => 'AdministrativeGender' }])
+    static_patient
+  end
+
   def test_record_knows_bundle
     patient = Patient.new(bundleId: @bundle.id)
     patient.save
@@ -39,17 +48,8 @@ class PatientTest < ActiveSupport::TestCase
       prng1 = Random.new(random)
       prng2 = Random.new(random)
 
-      r1 = Patient.new(familyName: 'Robert', givenNames: ['Johnson'])
-      r1.qdmPatient.birthDatetime = DateTime.new(1985, 2, 18).utc
-      r1.qdmPatient.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['races'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
-      r1.qdmPatient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
-      r1.qdmPatient.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'code_system' => 'AdministrativeGender' }])
-
-      r2 = Patient.new(familyName: 'Robert', givenNames: ['Johnson'])
-      r2.qdmPatient.birthDatetime = DateTime.new(1985, 2, 18).utc
-      r2.qdmPatient.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['races'].sample(random: prng2)['code'], 'code_system' => 'cdcrec' }])
-      r2.qdmPatient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng2)['code'], 'code_system' => 'cdcrec' }])
-      r2.qdmPatient.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'code_system' => 'AdministrativeGender' }])
+      r1 = create_static_patient_with_seed(prng1)
+      r2 = create_static_patient_with_seed(prng2)
 
       assert(record_demographics_equal?(r1, r2), 'The two records should be equal')
       r1copy_set = r1.duplicate_randomization(random: prng1)

@@ -192,7 +192,7 @@ class ProducTest < ActiveSupport::TestCase
   #   assert pt.product_tests.checklist_tests.first == old_checklist_test
   # end
 
-  def test_add_checklist_test_adds_tests_and_tasks_if_appropriate
+  def test_add_checklist_test_adds_c1_tests_and_tasks_if_appropriate
     measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
     product = @vendor.products.create!(name: "my product #{rand}", measure_ids: [measure_id], c2_test: true, bundle_id: @bundle.id)
     product.product_tests.build({ name: "my measure test #{rand}", measure_ids: [measure_id] }, MeasureTest)
@@ -211,8 +211,19 @@ class ProducTest < ActiveSupport::TestCase
 
     product.product_tests.checklist_tests.each(&:destroy)
     assert_equal 0, product.product_tests.checklist_tests.count
+  end
+
+  def test_add_checklist_test_adds_c1_c3_tests_and_tasks_if_appropriate
+    measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
+    product = @vendor.products.create!(name: "my product #{rand}", measure_ids: [measure_id], c2_test: true, bundle_id: @bundle.id)
+    product.product_tests.build({ name: "my measure test #{rand}", measure_ids: [measure_id] }, MeasureTest)
+    product.save!
+    # should create no product tests if c1 was not selected
+    product.add_checklist_test
+    assert_equal 0, product.product_tests.checklist_tests.count
 
     # should create c1_checklist_task and c3_checklist_task if both c1 and c3 are selected
+    product.c1_test = true
     product.c3_test = true
     product.save!
     product.add_checklist_test
@@ -268,6 +279,11 @@ class ProducTest < ActiveSupport::TestCase
     # adding a complete checklist test will make product pass
     create_complete_checklist_test_for_product(product, product.measure_ids.first)
     assert_equal 'passing', product.status
+  end
+
+  def test_failing_product_status
+    product = Product.new(:vendor => @vendor, :name => 'my product', :c1_test => true, :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], :bundle_id => @bundle.id)
+    product.save!
 
     # one failing product test will fail the product
     product_test = product.product_tests.build({ :name => 'my product test 2', :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)

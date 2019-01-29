@@ -85,7 +85,8 @@ class ProductsController < ApplicationController
   end
 
   def supplemental_test_artifact
-    redirect_back(fallback_location: root_path, alert: 'Supplement Test Artifact does not exist for this product') && return if @product.supplemental_test_artifact.file.nil?
+    alert_msq = 'Supplement Test Artifact does not exist for this product'
+    redirect_back(fallback_location: root_path, alert: alert_msq) && return if @product.supplemental_test_artifact.file.nil?
     send_file @product.supplemental_test_artifact.file.path, disposition: 'attachment'
   end
 

@@ -36,7 +36,6 @@ class ChecklistTestTest < ActiveJob::TestCase
 
   def test_status
     @product.product_tests.each(&:destroy!)
-    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
 
     checklist_test = create_checklist_test_for_product_with_measure_id(@product, 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE')
     assert_equal 'incomplete', checklist_test.status
@@ -50,11 +49,18 @@ class ChecklistTestTest < ActiveJob::TestCase
     # all complete checked criteria
     checklist_test.checked_criteria.each { |checked_criteria| complete_checked_criteria(checked_criteria) }
     assert_equal 'passing', checklist_test.status
+  end
+
+  def test_status_with_test_execution
+    @product.product_tests.each(&:destroy!)
+    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+
+    checklist_test = create_checklist_test_for_product_with_measure_id(@product, 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE')
+    simplify_criteria(checklist_test)
 
     # add a c1 checklist task with test execution
     @product.c3_test = true
     @product.save!
-    assert_equal 'incomplete', checklist_test.status
     task = checklist_test.tasks.create!({}, C1ChecklistTask)
     assert_equal 'incomplete', checklist_test.status
     test_executions_pending = task.test_executions.build(:state => :pending)

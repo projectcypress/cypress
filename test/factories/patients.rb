@@ -8,7 +8,7 @@ FactoryBot.define do
 
     familyName { 'MPL record' }
     givenNames { [seq_id.to_s] }
-    medical_record_number {"#{seq_id}989db70-4d42-0135-8680-20999b0ed66f"}
+    medical_record_number { "#{seq_id}989db70-4d42-0135-8680-20999b0ed66f" }
     insurance_provider_hash = { 'codes' => { 'SOP' => ['349'] },
                                 'name' => 'Other',
                                 'type' => 'OT',

@@ -7,6 +7,18 @@ class ProductTestTest < ActiveJob::TestCase
     @product = @vendor.products.create(name: 'test_product', c2_test: true, randomize_patients: true, bundle_id: @bundle.id)
   end
 
+  def add_all_tests_to_product
+    @product.c1_test = true
+    @product.c2_test = true
+    @product.c3_test = true
+    @product.c4_test = true
+    @product.randomize_patients = true
+    @product.duplicate_patients = true
+    @product.allow_duplicate_names = true
+    @product.measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
+    @product.save!
+  end
+
   def test_create
     assert_enqueued_jobs 0
     pt = @product.product_tests.build(name: 'test_for_measure_1a', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
@@ -49,15 +61,7 @@ class ProductTestTest < ActiveJob::TestCase
 
   def test_repeatability_with_random_seed
     # setup product
-    @product.c1_test = true
-    @product.c2_test = true
-    @product.c3_test = true
-    @product.c4_test = true
-    @product.randomize_patients = true
-    @product.duplicate_patients = true
-    @product.allow_duplicate_names = true
-    @product.measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
-    @product.save!
+    add_all_tests_to_product
 
     test1 = {}
     test2 = {}
@@ -65,9 +69,9 @@ class ProductTestTest < ActiveJob::TestCase
       # create tests with same seed
       seed = Random.new_seed
       test1 = @product.product_tests.create!({ :name => 'mtest', :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                             :bundle_id => @bundle.id, :rand_seed => seed }, MeasureTest)
+                                               :bundle_id => @bundle.id, :rand_seed => seed }, MeasureTest)
       test2 = @product.product_tests.create!({ :name => 'mtest', :measure_ids => ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                             :bundle_id => @bundle.id, :rand_seed => seed }, MeasureTest)
+                                               :bundle_id => @bundle.id, :rand_seed => seed }, MeasureTest)
       assert_equal test1.rand_seed, test2.rand_seed, 'random repeatability error: random seeds don\'t match'
     end
     compare_product_tests(test1, test2)

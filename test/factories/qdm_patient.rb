@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :qdm_patient, class: QDM::Patient do
-
     qdmVersion { '5.4' }
     birthDatetime { DateTime.new(1940, 1, 1).utc }
     data_elements_value = [
@@ -135,6 +134,5 @@ FactoryBot.define do
       }
     ]
     dataElements { data_elements_value }
-
   end
 end

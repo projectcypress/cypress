@@ -89,7 +89,7 @@ class TestExecutionHelper < ActiveSupport::TestCase
     setup_product_tests(true, true, false, true, filt1: 'val1')
     c1_task = @product_test.tasks.find_by(_type: 'C1Task')
 
-    execution = c1_task.test_executions.create!(:user=>@user)
+    execution = c1_task.test_executions.create!(user: @user)
     execution.execution_errors.create(:message => 'qrda error 1', :msg_type => :error, :validator_type => :xml_validation)
     execution.execution_errors.create(:message => 'result error 1', :msg_type => :error, :validator_type => :result_validation)
     execution.execution_errors.create(:message => 'result error 2', :msg_type => :error, :validator_type => :result_validation)

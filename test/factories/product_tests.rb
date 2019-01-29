@@ -49,7 +49,14 @@ FactoryBot.define do
         patient = create(:static_test_patient, 'bundleId' => pt.bundle._id)
         patient.correlation_id = pt.id
         patient.medical_record_number = '1989db70-4d42-0135-8680-30999b0ed66f'
-        patient.insurance_providers = [{"codes":{"SOP":["349"]},"name":"Other","type":"OT","payer":{"name":"Other"},"financial_responsibility_type":{"code":"SELF","codeSystem":"HL7 Relationship Code"},"member_id":"1374589940","start_time":"1949-05-23T13:24:00+00:00"}]
+        insurance_provider_hash = { 'codes' => { 'SOP' => ['349'] },
+                                    'name' => 'Other',
+                                    'type' => 'OT',
+                                    'payer' => { 'name' => 'Other' },
+                                    'financial_responsibility_type' => { 'code' => 'SELF', 'codeSystem' => 'HL7 Relationship Code' },
+                                    'member_id' => '1374589940',
+                                    'start_time' => '1949-05-23T13:24:00+00:00' }
+        patient.insurance_providers = [insurance_provider_hash]
         patient.save
         aug_record[0]['original_patient_id'] = patient._id
         ir_extended_data = { 'correlation_id' => pt.id.to_s }

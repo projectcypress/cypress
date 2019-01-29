@@ -62,7 +62,7 @@ class Measure
 
   def value_sets_by_oid
     @value_sets_by_oid = {}
-    ValueSet.where(:id.in => value_sets).each do |vs|
+    ValueSet.find(value_sets).each do |vs|
       if @value_sets_by_oid[vs.oid]
         # If there are multiple value sets with the same oid for the user, then keep the one with
         # the version corresponding to this measure.
