@@ -4,7 +4,7 @@ class FilteringTestsHelperTest < ActiveSupport::TestCase
   include FilteringTestsHelper
 
   def setup
-    FactoryBot.create(:static_bundle)
+    @bundle = FactoryBot.create(:static_bundle)
     @filters = {
       providers: {
         npis: ['6892960108'],
@@ -44,5 +44,10 @@ class FilteringTestsHelperTest < ActiveSupport::TestCase
 
     age_filter.except!('max')
     assert_equal display_filter_val('age', age_filter), [{ Minimum: '18' }]
+  end
+
+  def test_display_filter_val_direct_reference
+    vs = FactoryBot.create(:value_set, oid: 'drc-0123456', bundle: @bundle)
+    assert_equal ['SNOMEDCT codes in Concept 1 (code: 6)'], display_filter_val('problems', oid: [vs.oid])
   end
 end

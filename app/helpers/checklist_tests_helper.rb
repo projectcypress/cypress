@@ -53,14 +53,15 @@ module ChecklistTestsHelper
     vs = ValueSet.where(oid: oid)
     return oid unless vs&.first
 
-    "#{vs.first.display_name}: #{oid}"
+    [vs.first.display_name, oid]
   end
 
-  def lookup_codevalues(oid, bundle)
-    vs = ValueSet.where(oid: oid, bundle_id: bundle)
-    return [] unless vs&.first
+  def lookup_codevalues(oid, bundle = nil)
+    filter = { oid: oid }
+    filter.store(:bundle_id, bundle) unless bundle.nil?
+    vs = ValueSet.where(filter)
 
-    # vs.first.concepts.map { |con| con.display_name + ":" + con.code }
+    return [] unless vs&.first
     vs.first.concepts.map { |con| [con.display_name, con.code] }
   end
 

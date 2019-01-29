@@ -7,7 +7,7 @@ FactoryBot.define do
     display_name { "Value Set Name #{seq_id}" }
     oid { "1.#{seq_id}.#{seq_id + 1}.#{seq_id + 2}" }
     version { '123' }
-    concepts { [{ 'code' => (seq_id * (seq_id + 1) * (seq_id + 2)).to_s, 'code_system' => '2.16.840.1.113883.6.96', 'code_system_name' => 'SNOMED-CT' }] }
+    concepts { [{ 'code' => (seq_id * (seq_id + 1) * (seq_id + 2)).to_s, 'code_system' => '2.16.840.1.113883.6.96', 'code_system_name' => 'SNOMED-CT', 'display_name' => "Concept #{seq_id}" }] }
 
     factory :value_set_payer do
       display_name { 'Payer' }
