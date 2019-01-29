@@ -55,7 +55,7 @@ module ChecklistTestsHelper
 
   def lookup_codevalues(oid, bundle = nil)
     filter = { oid: oid }
-    params.store(:bundle_id, bundle) unless bundle.nil?
+    filter.store(:bundle_id, bundle) unless bundle.nil?
     vs = HealthDataStandards::SVS::ValueSet.where(filter)
 
     return [] unless vs&.first
