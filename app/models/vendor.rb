@@ -7,6 +7,7 @@ class Vendor
   scope :by_updated_at, -> { order(updated_at: :desc) }
 
   has_many :products, dependent: :destroy
+  has_many :patients, dependent: :destroy, foreign_key: 'correlation_id', class_name: 'CQM::VendorPatient'
   embeds_many :points_of_contact, class_name: 'PointOfContact', cascade_callbacks: true
 
   accepts_nested_attributes_for :points_of_contact, allow_destroy: true, reject_if: ->(poc) { poc[:name].blank? }

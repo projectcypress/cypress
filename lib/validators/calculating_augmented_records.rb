@@ -8,10 +8,9 @@ module Validators
     end
 
     # Functions related to individual record calculation results
-    def parse_and_save_record(record)
+    def parse_record(record)
       record.correlation_id = @test_id
       record.medical_record_number = rand(1_000_000_000_000_000)
-      record.save
       record
     rescue
       nil
@@ -20,7 +19,7 @@ module Validators
     # create a temporary saved record copy to do calculations on, then delete it
     def validate_calculated_results(rec, options)
       # return false unless mrn
-      record = parse_and_save_record(rec.clone)
+      record = parse_record(rec.clone)
       product_test = ProductTest.find(record.correlation_id)
       return false unless record
 

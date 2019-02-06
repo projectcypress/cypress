@@ -21,20 +21,14 @@ class Bundle
 
   has_many :value_sets, class_name: 'ValueSet', inverse_of: :bundle
   has_many :products, dependent: :destroy
+  has_many :measures, foreign_key: :bundle_id, order: [:id.asc, :sub_id.asc]
+  has_many :patients, class_name: 'CQM::BundlePatient', foreign_key: :bundleId
 
   scope :active, -> { where(active: true) }
   scope :available, -> { where(:deprecated.ne => true) }
 
   def results
     CQM::IndividualResult.where('extendedData.correlation_id' => id.to_s)
-  end
-
-  def patients
-    Patient.where(bundleId: _id.to_s, correlation_id: nil).order_by([['last', :asc]])
-  end
-
-  def measures
-    Measure.where(bundle_id: id).order_by([['id', :asc], ['sub_id', :asc]])
   end
 
   def title

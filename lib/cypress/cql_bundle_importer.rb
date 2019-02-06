@@ -56,23 +56,21 @@ module Cypress
     end
 
     def self.unpack_bundle(zip)
-      Bundle.new(JSON.parse(zip.read(SOURCE_ROOTS[:bundle]), max_nesting: 100))
+      Bundle.new(JSON.parse(zip.read(SOURCE_ROOTS[:bundle]), max_nesting: 100).except('measures', 'patients'))
     end
 
     def self.unpack_and_store_valuesets(zip, bundle)
-      entries = zip.glob(SOURCE_ROOTS[:valuesets])
-      entries.each_with_index do |entry, index|
-        vs = ValueSet.new(unpack_json(entry))
-        vs['bundle_id'] = bundle.id
-        ValueSet.collection.insert_one(vs.as_document)
-        report_progress('Value Sets', (index * 100 / entries.length)) if (index % 10).zero?
+      entries = zip.glob(SOURCE_ROOTS[:valuesets]).map do |entry|
+        entry = unpack_json(entry)
+        entry['bundle_id'] = bundle.id
+        entry
       end
+      ValueSet.collection.insert_many(entries)
       puts "\rLoading: Value Sets Complete          "
     end
 
     def self.unpack_and_store_measures(zip, type, bundle)
-      entries = zip.glob(File.join(SOURCE_ROOTS[:measures], type || '**', '*.json'))
-      entries.each_with_index do |entry, index|
+      entries = zip.glob(File.join(SOURCE_ROOTS[:measures], type || '**', '*.json')).map do |entry|
         source_measure = unpack_json(entry)
         # we clone so that we have a source without a bundle id
         measure = source_measure.clone
@@ -82,17 +80,19 @@ module Cypress
           value_sets << ValueSet.where(oid: vsv.oid, version: vsv.version).first.id
         end
         measure['value_sets'] = value_sets
-        mes = Mongoid.default_client['measures'].insert_one(measure)
-        @measure_id_hash[measure['bonnie_measure_id']] = mes.inserted_id
-        report_progress('measures', (index * 100 / entries.length)) if (index % 10).zero?
+        measure
       end
+      saved_measures = Mongoid.default_client['measures'].insert_many(entries)
+      @measure_id_hash = Measure.where(:_id.in => saved_measures.inserted_ids).map do |measure|
+        [measure['bonnie_measure_id'], measure.id]
+      end.to_h
       puts "\rLoading: Measures Complete          "
     end
 
     def self.unpack_and_store_cqm_patients(zip, type, bundle)
       entries = zip.glob(File.join(SOURCE_ROOTS[:patients], type || '**', 'json', '*.json'))
       entries.each_with_index do |entry, index|
-        patient = CQM::Patient.new(unpack_json(entry))
+        patient = CQM::BundlePatient.new(unpack_json(entry))
 
         patient['bundleId'] = bundle.id
 
@@ -122,7 +122,7 @@ module Cypress
     end
 
     def self.unpack_and_store_results(zip, _type, bundle)
-      zip.glob(File.join(SOURCE_ROOTS[:results], '*.json')).each do |entry|
+      results = zip.glob(File.join(SOURCE_ROOTS[:results], '*.json')).map do |entry|
         contents = unpack_json(entry)
 
         contents.map! do |document|
@@ -132,8 +132,8 @@ module Cypress
           document['extendedData'] = { 'correlation_id' => bundle.id.to_s }
           document
         end
-        CQM::IndividualResult.collection.insert_many(contents)
-      end
+      end.flatten
+      CQM::IndividualResult.collection.insert_many(results)
       puts "\rLoading: Results Complete          "
     end
 
