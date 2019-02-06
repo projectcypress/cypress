@@ -72,7 +72,10 @@ module Cypress
 
     # if provider argument is nil, this function will assign a new provider based on the @option['providers'] and @option['generate_provider'] options
     def clone_and_save_patient(patient, prng, provider = nil, allow_dups = false)
-      cloned_patient = patient.clone
+      # This operates on the assumption that we are always cloning a patient for a product test.
+      # If we need to clone a patient for any other reason then we will need to paramaterize
+      # the type coming into this class.
+      cloned_patient = ProductTestPatient.new(patient.attributes.except(:_id, :_type))
       # TODO: R2P: use patient model
       unnumerify cloned_patient if patient.givenNames.map { |n| n =~ /\d/ }.any? || patient.familyName =~ /\d/
       cloned_patient.original_medical_record_number = cloned_patient.medical_record_number
