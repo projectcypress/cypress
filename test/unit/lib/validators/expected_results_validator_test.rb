@@ -14,24 +14,18 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   end
 
   def setup_augmented_patients
-    @patient1 = Patient.new(givenNames: ['Jill'], familyName: 'Mcguire', medical_record_number: '198718e0-4d42-0135-8680-12999b0ed66f')
-    ir1 = CQM::IndividualResult.new(IPP: 1.000000, patient_id: @patient1.id, patient: @patient1, measure: @measure)
-    ir1.save!
-    @patient1.save!
+    @patient1 = ProductTestPatient.create(givenNames: ['Jill'], familyName: 'Mcguire', medical_record_number: '198718e0-4d42-0135-8680-12999b0ed66f')
+    ir1 = CQM::IndividualResult.create(IPP: 1.000000, patient_id: @patient1.id, patient: @patient1, measure: @measure)
     @augmented_patient1 = { 'original_patient_id' => @patient1.id, 'medical_record_number' => '198718e0-4d42-0135-8680-12999b0ed66f',
                             'first' => %w[Jill J], 'last' => %w[Mcguire Mcguirn], :gender => %w[F M] }
 
-    @patient2 = Patient.new(givenNames: ['Ivan'], familyName: 'Mcguire', medical_record_number: '098718e0-4d42-0135-8680-12999b0ed66f')
-    ir2 = CQM::IndividualResult.new(IPP: 1.000000, patient_id: @patient2.id, patient: @patient2, measure: @measure)
-    ir2.save!
-    @patient2.save!
+    @patient2 = ProductTestPatient.create(givenNames: ['Ivan'], familyName: 'Mcguire', medical_record_number: '098718e0-4d42-0135-8680-12999b0ed66f')
+    ir2 = CQM::IndividualResult.create(IPP: 1.000000, patient_id: @patient2.id, patient: @patient2, measure: @measure)
     @augmented_patient2 = { 'original_patient_id' => @patient2.id, 'medical_record_number' => '098718e0-4d42-0135-8680-12999b0ed66f',
                             'first' => %w[Ivan Ivan], 'last' => %w[Mcguire Mcguirn], :gender => %w[M F] }
 
-    @patient3 = Patient.new(givenNames: ['Joe'], familyName: 'Mcguire', medical_record_number: '298718e0-4d42-0135-8680-12999b0ed66f')
-    ir3 = CQM::IndividualResult.new(IPP: 1.000000, patient_id: @patient3.id, patient: @patient3, measure: @measure)
-    ir3.save!
-    @patient3.save!
+    @patient3 = ProductTestPatient.create(givenNames: ['Joe'], familyName: 'Mcguire', medical_record_number: '298718e0-4d42-0135-8680-12999b0ed66f')
+    ir3 = CQM::IndividualResult.create(IPP: 1.000000, patient_id: @patient3.id, patient: @patient3, measure: @measure)
     @augmented_patient3 = { 'original_patient_id' => @patient3.id, 'medical_record_number' => '298718e0-4d42-0135-8680-12999b0ed66f',
                             'first' => %w[Joe John], 'last' => %w[Mcguire Mcguirn], :gender => %w[M M] }
   end

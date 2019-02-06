@@ -6,15 +6,15 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   def test_record_knows_bundle
-    patient = Patient.new(bundleId: @bundle.id)
+    patient = BundlePatient.new(bundleId: @bundle.id)
     patient.save
     assert_equal @bundle, patient.bundle, 'A record should know what bundle it is associated with if any'
   end
 
   def test_record_should_be_able_to_find_original
-    r1 = Patient.new(medical_record_number: '1a', bundleId: @bundle.id)
+    r1 = BundlePatient.new(medical_record_number: '1a', bundleId: @bundle.id)
     r1.save
-    r2 = Patient.new(medical_record_number: '1a', original_patient_id: r1.id, bundleId: @bundle.id)
+    r2 = ProductTestPatient.new(medical_record_number: '1a', original_patient_id: r1.id, bundleId: @bundle.id)
     r2.save
     assert_equal r1.id, r2.original_patient_id, 'Record should be able to find record it was cloned from'
   end

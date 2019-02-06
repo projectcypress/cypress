@@ -1,7 +1,7 @@
 # Requires a bundleId to be passed in as a string, not a BSON Object
 
 FactoryBot.define do
-  factory :patient, class: Patient do
+  factory :patient, class: BundlePatient do
     transient do
       seq_id { 1 }
     end
@@ -26,7 +26,7 @@ FactoryBot.define do
       patient.save!
     end
 
-    factory :static_test_patient do
+    factory :static_test_patient, class: ProductTestPatient do
       familyName { 'A' }
       givenNames { ['Dental_Peds'] }
       qdmPatient { FactoryBot.build(:qdm_patient) }

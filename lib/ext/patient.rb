@@ -1,5 +1,4 @@
 # The Patient model is an extension of app/models/qdm/patient.rb as defined by CQM-Models.
-Patient = CQM::Patient
 
 module CQM
   class Patient
@@ -10,6 +9,12 @@ module CQM
     field :original_medical_record_number, type: String
     field :medical_record_number, type: String
     embeds_many :addresses
+    default_scope { order('last': :asc) }
+
+    # This allows us to instantiate Patients that do not belong to specific type of patient
+    # for the purposes of testing but blocks us from saving them to the database to ensure
+    # every patient actually in the database is of a valid type.
+    validates :_type, inclusion: %w[CQM::BundlePatient CQM::VendorPatient CQM::ProductTestPatient]
 
     def destroy
       calculation_results.destroy
@@ -135,4 +140,15 @@ module CQM
     # HDS helpers
     #
   end
+
+  class BundlePatient < Patient; end
+
+  class VendorPatient < Patient; end
+
+  class ProductTestPatient < Patient; end
 end
+
+Patient = CQM::Patient
+BundlePatient = CQM::BundlePatient
+VendorPatient = CQM::VendorPatient
+ProductTestPatient = CQM::ProductTestPatient

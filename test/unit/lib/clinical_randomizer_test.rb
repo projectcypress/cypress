@@ -2,20 +2,16 @@ require 'test_helper'
 
 class ClinicalRandomizerTest < ActiveSupport::TestCase
   setup do
-    @patient = Patient.new(givenNames: ['Foo'], familyName: 'Bar')
-    @bundle = FactoryBot.create(:static_bundle)
+    @bundle = FactoryBot.create(:static_bundle, measure_period_start: 1_293_840_000, effective_date: 1_325_375_999)
+    @patient = BundlePatient.new(givenNames: ['Foo'], familyName: 'Bar', bundleId: @bundle.id)
     @start = DateTime.new(2011, 1, 1, 0, 0, 0).utc
     @end = DateTime.new(2011, 12, 31, 23, 59, 59).utc
-    @bundle.measure_period_start = 1_293_840_000
-    @bundle.effective_date = 1_325_375_999
-    @patient.bundleId = @bundle.id
 
     @patient.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
     @patient.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 10, 1, 23, 59, 59).utc, nil))
     @patient.save!
 
-    @patient2 = Patient.new(givenNames: ['Bar'], familyName: 'Foo')
-    @patient2.bundleId = @bundle.id
+    @patient2 = BundlePatient.new(givenNames: ['Bar'], familyName: 'Foo', bundleId: @bundle.id)
     @patient2.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
     @patient2.qdmPatient.dataElements.push QDM::ProcedurePerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 10, 1, 23, 59, 59).utc, nil))
     @patient2.qdmPatient.dataElements.push QDM::Diagnosis.new(prevalencePeriod: QDM::Interval.new(DateTime.new(2011, 10, 2, 0, 0, 0).utc, nil))
@@ -25,21 +21,18 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
   end
 
   def setup_secondary_instances
-    @patient3 = Patient.new(givenNames: ['Insurance'], familyName: 'Test')
-    @patient3.bundleId = @bundle.id
+    @patient3 = BundlePatient.new(givenNames: ['Insurance'], familyName: 'Test', bundleId: @bundle.id)
     @patient3.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
     @patient3.insurance_providers = [{ start_time: @start }]
     @patient3.save!
 
-    @patient4 = Patient.new(givenNames: ['SplitDate'], familyName: 'Same')
-    @patient4.bundleId = @bundle.id
+    @patient4 = BundlePatient.new(givenNames: ['SplitDate'], familyName: 'Same', bundleId: @bundle.id)
     @patient4.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
     @patient4.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
     @patient4.insurance_providers = [{ start_time: @start }]
     @patient4.save!
 
-    @patient5 = Patient.new(givenNames: ['SplitDate'], familyName: 'Same_plus')
-    @patient5.bundleId = @bundle.id
+    @patient5 = BundlePatient.new(givenNames: ['SplitDate'], familyName: 'Same_plus', bundleId: @bundle.id)
     @patient5.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 24, 20, 53, 20).utc, nil))
     @patient5.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
     @patient5.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))

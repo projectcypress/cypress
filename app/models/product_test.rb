@@ -16,7 +16,7 @@ class ProductTest
   has_many :tasks, dependent: :destroy, inverse_of: :product_test
 
   # TODO: R2P: fix foreign key descriptor?
-  has_many :patients, dependent: :destroy, foreign_key: 'correlation_id', class_name: 'CQM::Patient'
+  has_many :patients, dependent: :destroy, foreign_key: 'correlation_id', class_name: 'CQM::ProductTestPatient'
 
   field :augmented_patients, type: Array, default: []
 
@@ -60,7 +60,7 @@ class ProductTest
   def self.destroy_by_ids(product_test_ids)
     tasks = Task.where(:product_test_id.in => product_test_ids)
     task_ids = tasks.pluck(:_id)
-    patients = CQM::Patient.where(:correlation_id.in => product_test_ids)
+    patients = ProductTestPatient.where(:correlation_id.in => product_test_ids)
     patient_ids = patients.pluck(:_id)
     test_executions = TestExecution.where(:task_id.in => task_ids)
     test_execution_ids = test_executions.pluck(:_id)

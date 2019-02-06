@@ -39,10 +39,9 @@ module Validators
       [original_value, calculated_value, pop]
     end
 
-    def parse_and_save_record(doc, options)
+    def parse_record(doc, options)
       patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
       Cypress::GoImport.replace_negated_codes(patient, @bundle)
-      patient.save
       patient
     rescue
       add_error('File failed import', file_name: options[:file_name])
@@ -53,7 +52,7 @@ module Validators
       mrn, = get_record_identifiers(doc, options)
       return false unless mrn
 
-      record = parse_and_save_record(doc, options)
+      record = parse_record(doc, options)
       return false unless record
 
       product_test = options['task'].product_test
