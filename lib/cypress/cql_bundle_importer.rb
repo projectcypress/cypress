@@ -31,7 +31,7 @@ module Cypress
         puts 'bundle metadata unpacked...'
         unpack_and_store_valuesets(zip_file, bundle)
         unpack_and_store_measures(zip_file, options[:type], bundle)
-        unpack_and_store_qdm_patients(zip_file, options[:type], bundle)
+        unpack_and_store_cqm_patients(zip_file, options[:type], bundle)
         unpack_and_store_results(zip_file, options[:type], bundle)
       end
 
@@ -89,7 +89,7 @@ module Cypress
       puts "\rLoading: Measures Complete          "
     end
 
-    def self.unpack_and_store_qdm_patients(zip, type, bundle)
+    def self.unpack_and_store_cqm_patients(zip, type, bundle)
       entries = zip.glob(File.join(SOURCE_ROOTS[:patients], type || '**', 'json', '*.json'))
       entries.each_with_index do |entry, index|
         patient = CQM::Patient.new(unpack_json(entry))
