@@ -9,6 +9,8 @@ module Cypress
 
     def initialize(patients, measures, value_set_oids, correlation_id, options)
       @patients = patients
+      # This is a key -> value pair of patients mapped in the form "qdm-patient-id" => BSON::ObjectId("cqm-patient-id")
+      @cqm_patient_mapping = patients.map { |patient| [patient.id.to_s, patient.tacomaPatient.id] }.to_h
       @measures = measures
       @value_set_oids = value_set_oids
       @correlation_id = correlation_id
@@ -42,7 +44,8 @@ module Cypress
         result.map do |_, pop_criteria|
           pop_criteria.slice!('IPP', 'DENOM', 'DENEX', 'NUMER', 'measure_id', 'patient_id')
           pop_criteria['measure_id'] = BSON::ObjectId.from_string(pop_criteria['measure_id'])
-          pop_criteria['patient_id'] = @patients.select { |p| p.id == BSON::ObjectId.from_string(pop_criteria['patient_id']) }.first.tacomaPatient.id
+          # Find the correct BSON::ObjectId("cqm-patient-id") based on the qdm-patient-id
+          pop_criteria['patient_id'] = @cqm_patient_mapping[pop_criteria['patient_id']]
           pop_criteria['state'] = 'complete'
           pop_criteria['extendedData'] = @correlation_id ? { 'correlation_id' => @correlation_id } : {}
           pop_criteria
