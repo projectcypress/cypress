@@ -12,7 +12,7 @@ class C3Cat1Task < Task
 
   def cms_cat1_schematron_validator
     measure = product_test.measures[0]
-    if measure.type == 'eh'
+    if measure.reporting_program_type == 'eh'
       ::Validators::CMSQRDA1HQRSchematronValidator.new(product_test.bundle.version)
     else
       ::Validators::CMSQRDA1PQRSSchematronValidator.new(product_test.bundle.version)

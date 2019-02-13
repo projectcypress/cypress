@@ -87,7 +87,7 @@ class C1TaskTest < ActiveSupport::TestCase
       te = task.execute(zip, @user)
       te.reload
       assert_equal 2, te.execution_errors.where(msg_type: :error).count, 'should be 2 errors from cat I archive'
-      assert_equal 'Patient name \'DENTAL_PEDS A2\' declared in file not found in test records', te.execution_errors[0].message
+      assert_equal 'Patient name \'DENIAL_PEDS2 A\' declared in file not found in test records', te.execution_errors[0].message
       assert_equal 'Records for patients DENTAL_PEDS A not found in archive as expected', te.execution_errors[1].message
     end
   end
@@ -111,7 +111,7 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip, @user)
       te.reload
-      assert_equal 1, te.execution_errors.by_file('sample_patient_wrong_template.xml').where(message: '["2.16.840.1.113883.10.20.24.3.133:2015-08-01"] are not valid Patient Data Section QDM entries for this QRDA Version', msg_type: :warning).count
+      assert_equal 1, te.execution_errors.by_file('0_Dental_Peds_A.xml').where(message: '["2.16.840.1.113883.10.20.24.3.133:2015-08-01"] are not valid Patient Data Section QDM entries for this QRDA Version', msg_type: :warning).count
     end
   end
 
@@ -122,8 +122,8 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip, @user)
       te.reload
-      # 1 NUMER and 1 DENOM population
-      assert_equal 2, te.execution_errors.where(msg_type: :error).count, 'should be 3 calculation errors from cat I archive'
+      # 2 IPP and 2 MSRPOPL population
+      assert_equal 4, te.execution_errors.where(msg_type: :error).count, 'should be 4 calculation errors from cat I archive'
     end
   end
 
@@ -134,8 +134,8 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip, @user)
       te.reload
-      # 1 NUMER and 1 DENOM population
-      assert_equal 2, te.execution_errors.where(msg_type: :error).count, 'should be 8 calculation errors from cat I archive'
+      # 2 IPP and 2 MSRPOPL population
+      assert_equal 4, te.execution_errors.where(msg_type: :error).count, 'should be 4 calculation errors from cat I archive'
     end
   end
 

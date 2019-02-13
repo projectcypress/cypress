@@ -7,8 +7,6 @@ FactoryBot.define do
     # static_bundle includes random measures that will not execute in the cqm-execution-service
     # use executable_bundle for calculation tests
     factory :static_bundle do
-      entry = Rails.root.join('test', 'fixtures', 'artifacts', 'cms127v7.json')
-      source_measure = JSON.parse(File.read(entry), max_nesting: 100)
       active { true }
       done_importing { true }
       name { 'Static Bundle' }
@@ -33,22 +31,14 @@ FactoryBot.define do
           create(:value_set, seq_id: count, bundle: bundle)
         end
         create(:value_set_payer, bundle: bundle)
+        create(:direct_reference_code, bundle: bundle)
 
         # Always include a complete measure (BE65090C-EB1F-11E7-8C3F-9A214CF093AE)
-        measure = create(:static_measure, bundle_id: bundle._id)
-
-        # find object ids for all of the oids in the measure
-        valueset_id_list = []
-        measure['value_set_oid_version_objects'].each do |vsv|
-          valueset_id_list << ValueSet.where(oid: vsv.oid, version: vsv.version).first.id
-        end
-        measure['value_sets'] = valueset_id_list
-        measure.save
+        create(:static_measure, bundle_id: bundle._id)
 
         # Always include 2 random measures with a diagnosis
         2.times do |count|
           diag_measure = create(:measure_with_diagnosis, bundle_id: bundle._id, seq_id: count)
-          diag_measure['value_set_oid_version_objects'] = source_measure['value_set_oid_version_objects']
           diag_measure['id'] = diag_measure.hqmf_id
           diag_measure.save
         end
@@ -56,7 +46,6 @@ FactoryBot.define do
         # Include 6 random measures
         6.times do |count|
           random_measure = create(:measure_without_diagnosis, bundle_id: bundle._id, seq_id: count + 2)
-          random_measure['value_set_oid_version_objects'] = source_measure['value_set_oid_version_objects']
           random_measure['id'] = random_measure.hqmf_id
           random_measure.save
         end
@@ -96,15 +85,7 @@ FactoryBot.define do
         create(:value_set_payer, bundle: bundle)
 
         # Always include a complete measure (BE65090C-EB1F-11E7-8C3F-9A214CF093AE)
-        measure = create(:static_measure, bundle_id: bundle._id)
-
-        # find object ids for all of the oids in the measure
-        valueset_id_list = []
-        measure['value_set_oid_version_objects'].each do |vsv|
-          valueset_id_list << ValueSet.where(oid: vsv.oid, version: vsv.version).first.id
-        end
-        measure['value_sets'] = valueset_id_list
-        measure.save
+        create(:static_measure, bundle_id: bundle._id)
 
         # Include a patient that will evaluate against the static measure
         9.times do |count|

@@ -2,7 +2,7 @@
 
 module CQM
   class Patient
-    has_many :calculation_results, foreign_key: :patient_id, class_name: 'CQM::IndividualResult'
+    has_many :calculation_results, foreign_key: :patient_id, class_name: 'CompiledResult'
     field :correlation_id, type: BSON::ObjectId
     field :original_patient_id, type: BSON::ObjectId
     field :insurance_providers, type: Array

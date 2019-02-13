@@ -79,14 +79,14 @@ When(/^the user fills out the record sample with good data$/) do
   simplify_source_data_criteria(@test)
   @test.save!
   visit product_checklist_test_path(@product, @test)
-  page.fill_in 'product_test[checked_criteria_attributes][0][code]', with: '4080'
-  page.fill_in 'product_test[checked_criteria_attributes][0][attribute_code]', with: '428361000124107'
+  page.fill_in 'product_test[checked_criteria_attributes][0][code]', with: '720'
+  page.fill_in 'product_test[checked_criteria_attributes][0][attribute_code]', with: '210'
   page.click_button 'Save'
 end
 
 def simplify_source_data_criteria(test)
   criteria = test.checked_criteria[0, 1]
-  criteria[0].source_data_criteria = 'EncounterInpatient_EncounterPerformed_59c3933e_c568_4119_b89d_c29b7c752ef3_source'
+  criteria[0].source_data_criteria = 'EmergencyDepartmentVisit_EncounterPerformed_e9dfea5a_0011_42cc_b048_3a8748c1c4b0_source'
   criteria[0].attribute_index = 1
   test.checked_criteria = criteria
   test.save!
@@ -137,7 +137,7 @@ Then(/^the user should see the checklist test$/) do
 end
 
 Then(/^the user should see a button to revisit the checklist test$/) do
-  assert page.find('#c1_sample').has_link? 'CMS127v7 Static Measure'
+  assert page.find('#c1_sample').has_link? 'CMS32v7 Static Measure'
   # assert page.has_selector?("input[type = submit][value = 'View Test']")
 end
 
@@ -210,7 +210,7 @@ end
 Then(/^the user should see the individual measure checklist page for measure (.*)$/) do |measure_number|
   measure = nth_measure(measure_number)
   page.assert_text(measure.cms_id)
-  page.assert_text(measure.name)
+  page.assert_text(measure.description)
   page.assert_text 'Return to Record Sample'
 end
 

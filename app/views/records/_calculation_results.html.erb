@@ -15,14 +15,14 @@
     <td><%= full_gender_name(r.gender) %></td>
     <!-- will show calculation results for product test records -->
     <% if measure && !(product_test && hide_patient_calculation?) %>
-      <% result_values[r.id].each do |_, value| %>
+      <% result_values[r.qdmPatient.id.to_s].each do |_, value| %>
         <td class="text-center">
           <!-- This is the relevant piece of the calculation_result_icon partial ported over to here. Rendering each circle in its own partial is far too slow and causes the application to take up to 8 seconds longer to load on some pages. -->
           <% if value && value.positive? %>
             <span class="sr-only">Pass</span>
             <span class="fa-stack result-marker">
               <%= icon('fas fa-stack-2x', 'circle', :"aria-hidden" => true) %>
-              <% unless value == 1 && !measure.episode_of_care %>
+              <% unless value == 1 && measure.calculation_method != 'EPISODE_OF_CARE' %>
                 <strong class="fa-stack-1x result-text"><span class="sr-only">value of </span><%= value %></strong>
               <% end %>
             </span>

@@ -21,7 +21,12 @@ FactoryBot.define do
 
     after(:create) do |patient|
       provider = create(:default_provider)
-      create(:individual_bundle_result, patient_id: patient._id, bundleId: patient.bundleId)
+      cr = create(:individual_bundle_result, patient_id: patient._id, correlation_id: patient.bundleId)
+      cr.individual_results.each_pair do |_pop_key, individual_result|
+        individual_result['patient_id'] = patient.qdmPatient.id.to_s
+        individual_result['measure_id'] = cr.measure_id.to_s
+      end
+      cr.save
       patient.provider_performances << CQM::ProviderPerformance.new(provider: provider)
       patient.save!
     end

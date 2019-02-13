@@ -73,22 +73,14 @@ class ProductTest
     # carrierwave. Without this the system would be left with a lot of uploaded files on it
     # long after the parent data was destroyed.
     Artifact.where(:test_execution_id.in => test_execution_ids).destroy
-    CQM::IndividualResult.where(:patient_id.in => patient_ids).delete
+    CompiledResult.where(:patient_id.in => patient_ids).delete
     ProductTest.in(id: product_test_ids).delete
   end
 
   def generate_patients(job_id = nil)
     if product.randomize_patients
       # If we're using a "slim test deck", don't pass in any random IDs
-      random_ids = if product.slim_test_deck?
-                     []
-                   else
-                     # TODO: R2P: check where(:'extendedData.correlation_id' => nil).pluck('extendedData.medical_record_number').uniq doesn't work
-                     # get medical record numbers for master patients (have no correlation (test) id)
-                     # bundle.patients.where(:'extendedData.correlation_id' => nil).map {|mp| mp[:extendedData][:medical_record_number] }.uniq
-                     # essentially getting master_patient_ids
-                     bundle.patients.pluck(:_id)
-                   end
+      random_ids = bundle.patients.pluck(:_id)
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'randomization_ids' => random_ids,
                                       'randomize_demographics' => true, 'generate_provider' => product.c4_test, 'job_id' => job_id).perform
     else
@@ -102,7 +94,7 @@ class ProductTest
     if product.duplicate_patients && _type != 'FilteringTest'
       prng = Random.new(rand_seed.to_i)
       # ids of all patients in IPP
-      ids = results.where('IPP' => { '$gt' => 0 }).collect(&:patient_id)
+      ids = results.where('IPP' => true).collect(&:patient_id)
       pat_arr = sample_and_duplicate_patients(pat_arr, ids, random: prng) if ids.present?
     end
     Cypress::PatientZipper.zip(file, pat_arr, :qrda)
@@ -120,6 +112,7 @@ class ProductTest
 
     pat_arr, dups = randomize_clinical_data(pat_arr, dups, random)
     # choose up to 3 duplicate patients
+
     dups.sample(random.rand(1..3), random: random).each do |pat|
       prng_repeat = Random.new(rand_seed.to_i)
       dup_pat, pat_augments, old_pat = pat.duplicate_randomization(random: prng_repeat)
@@ -163,11 +156,7 @@ class ProductTest
   end
 
   def results
-    CQM::IndividualResult.where('extendedData.correlation_id' => id.to_s)
-  end
-
-  def value_sets_by_oid
-    bundle.value_sets_by_oid_for(measures)
+    CompiledResult.where(correlation_id: id.to_s)
   end
 
   %i[ready queued building errored].each do |test_state|
@@ -215,47 +204,50 @@ class ProductTest
 
   # Returns a listing of all ids for patients in the IPP
   def patients_in_ipp_and_greater
-    CQM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
-                                'IPP' => { '$gt' => 0 }, 'extendedData.correlation_id' => bundle.id.to_s).distinct(:patient)
+    CompiledResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
+                         'IPP' => true, correlation_id: bundle.id.to_s).distinct(:patient)
   end
 
   # Returns an id for a patient in the Numerator
   def patient_in_numerator
-    CQM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
-                                'extendedData.correlation_id' => bundle.id.to_s, 'NUMER' => { '$gt' => 0 }).distinct(:patient).sample
+    CompiledResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
+                         correlation_id: bundle.id.to_s, 'NUMER' => true).distinct(:patient).sample
   end
 
   # Returns a listing of all ids for patients in the Denominator
   def patients_in_denominator_and_greater
-    CQM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
-                                'extendedData.correlation_id' => bundle.id.to_s, 'DENOM' => { '$gt' => 0 }).distinct(:patient)
+    CompiledResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
+                         correlation_id: bundle.id.to_s, 'DENOM' => true).distinct(:patient)
   end
 
   # Returns a listing of all ids for patients in the Measure Population
   def patients_in_measure_population_and_greater
-    CQM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
-                                'extendedData.correlation_id' => bundle.id.to_s, 'MSRPOPL' => { '$gt' => 0 }).distinct(:patient)
+    CompiledResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
+                         correlation_id: bundle.id.to_s, 'MSRPOPL' => true).distinct(:patient)
   end
 
   def master_patient_ids
     mpl_ids = patients_in_ipp_and_greater
+    return randomize_master_patient_ids(mpl_ids) if product.randomize_patients
 
-    if product.randomize_patients
-      denom_ids = pick_denom_ids
-
-      msrpopl_ids = pick_msrpopl_ids
-
-      ipp_ids = (mpl_ids - denom_ids - msrpopl_ids)
-
-      # Pick some IDs from the IPP. If we've already got a lot of patients, only pick a couple more, otherwise pick 1/2 or more
-      ipp_ids = if (mpl_ids.count + denom_ids.count + msrpopl_ids.count) > product.test_deck_max
-                  ipp_ids.sample(product.test_deck_max / 2)
-                else
-                  ipp_ids.sample(rand((ipp_ids.count / 2.0).ceil..(ipp_ids.count)))
-                end
-      return (ipp_ids + denom_ids + msrpopl_ids).compact
-    end
     mpl_ids.compact
+  end
+
+  def randomize_master_patient_ids(mpl_ids)
+    prng = Random.new(rand_seed.to_i)
+    denom_ids = pick_denom_ids
+
+    msrpopl_ids = pick_msrpopl_ids
+
+    ipp_ids = (mpl_ids - denom_ids - msrpopl_ids)
+
+    # Pick some IDs from the IPP. If we've already got a lot of patients, only pick a couple more, otherwise pick 1/2 or more
+    ipp_ids = if (mpl_ids.count + denom_ids.count + msrpopl_ids.count) > product.test_deck_max
+                ipp_ids.sample(product.test_deck_max / 2)
+              else
+                ipp_ids.sample(prng.rand((ipp_ids.count / 2.0).ceil..(ipp_ids.count)))
+              end
+    (ipp_ids + denom_ids + msrpopl_ids).compact
   end
 
   def pick_denom_ids
@@ -268,10 +260,10 @@ class ProductTest
     # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product,
     # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if denom_ids.count > (product.test_deck_max - 1)
-      high_value_ids = CQM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, 'extendedData.correlation_id' => bundle.id.to_s)
-                                            .any_of({ 'NUMER' => { '$gt' => 0 } },
-                                                    { 'DENEXCEP' => { '$gt' => 0 } },
-                                                    'DENEX' => { '$gt' => 0 }).distinct(:patient)
+      high_value_ids = CompiledResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, correlation_id: bundle.id.to_s)
+                                     .any_of({ 'NUMER' => true },
+                                             { 'DENEXCEP' => true },
+                                             'DENEX' => true).distinct(:patient)
       high_value_ids = high_value_ids.sample(product.test_deck_max - 1)
       denom_ids = high_value_ids + denom_ids.sample(product.test_deck_max - high_value_ids.count - 1)
     end
@@ -283,13 +275,9 @@ class ProductTest
 
     # If there are a lot of patients in the MSRPOPL results above, (usually if there are a lot of MSRPOPLEX values)
     # pull out only those patients with more than one episode in the MSRPOPL
-    # and those patients with only 1 episode in the MSRPOPL but none in the MSRPOPLEX
-    # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product,
-    # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if msrpopl_ids.count > product.test_deck_max
-      numer_ids = CQM::IndividualResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, 'extendedData.correlation_id' => bundle.id.to_s)
-                                       .any_of({ 'MSRPOPL' => { '$gt' => 1 } },
-                                               '$and' => [{ 'MSRPOPL' => { '$eq' => 1 } }, { 'MSRPOPLEX' => { '$eq' => 0 } }]).distinct(:patient)
+      numer_ids = CompiledResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, correlation_id: bundle.id.to_s,
+                                       'MSRPOPL' => true).distinct(:patient)
       numer_ids = numer_ids.sample(product.test_deck_max)
       msrpopl_ids = numer_ids + msrpopl_ids.sample(product.test_deck_max - numer_ids.count)
     end
