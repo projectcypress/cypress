@@ -40,8 +40,7 @@
             <% if measures.count > 1 %>
               <ul class="list-unstyled">
                 <% measures.each do |measure| %>
-                  <% next if measure.sub_id == 'a' %>
-                  <li><%= measure.subtitle %></li>
+                  <!--li><%= measure.subtitle %></li-->
                 <% end %>
               </ul>
             <% end %>
@@ -100,8 +99,8 @@
   <h2>C1 Record Sample</h2>
     <% unless @product.product_tests.checklist_tests.count.zero? %>
       <% check_test = @product.product_tests.checklist_tests.first %>
-      <% check_test.measures.top_level.each do |measure| %>
-        <strong><%= "#{measure.cms_id} #{measure.name}" %></strong>
+      <% check_test.measures.each do |measure| %>
+        <strong><%= "#{measure.cms_id} #{measure.description}" %></strong>
         <table class = 'table table-condensed'>
           <thead>
             <tr>

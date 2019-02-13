@@ -261,7 +261,7 @@ When(/^all product tests have a state of ready$/) do
 end
 
 When(/^all product tests do not have a state of ready$/) do
-  pt = ProductTest.find_by(cms_id: 'CMS127v7')
+  pt = ProductTest.find_by(cms_id: 'CMS2v1')
   pt.state = :nah_man_im_like_lightyears_away_from_bein_ready
   pt.save!
 end

@@ -56,14 +56,14 @@ module RecordsHelper
   #
   # Usage tip: It is strongly recommended you pass in either an array of records OR and array
   # of measures and then pass in the other as an array containing a single element.
-  def get_result_values(records, measures, pop_keys, key)
-    CQM::IndividualResult.where(
+  def get_result_values(records, measures, pop_set, pop_keys, key)
+    CompiledResult.where(
       :patient_id.in => records.collect(&:id),
       :measure_id.in => measures.collect(&:id)
     ).collect do |elem|
       [
-        elem[key],
-        pop_keys.collect { |pop_key| [pop_key, elem[pop_key].to_i] }.to_h
+        elem.individual_results[pop_set][key],
+        pop_keys.collect { |pop_key| [pop_key, elem.individual_results[pop_set][pop_key].to_i] }.to_h
       ]
     end.to_h
   end

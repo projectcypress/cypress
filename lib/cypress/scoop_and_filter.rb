@@ -9,11 +9,7 @@ module Cypress
 
     # return an array of all of the concepts in all of the valueset for the measure
     def codes_in_measures(measures)
-      valuesets = measures.collect do |measure|
-        measure['value_set_oid_version_objects'].collect do |valueset|
-          ValueSet.where(oid: valueset.oid, version: valueset.version).to_a
-        end
-      end.flatten
+      valuesets = measures.collect(&:value_sets).flatten
       code_list = valuesets.collect(&:concepts).flatten
       code_list.map { |cl| { code: cl.code, codeSystem: cl.code_system_name } }
     end

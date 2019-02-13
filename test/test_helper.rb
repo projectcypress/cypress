@@ -54,11 +54,11 @@ class ActiveSupport::TestCase
 
   def simplify_criteria(test, include_attribute_code = false)
     criteria = test.checked_criteria[0, 1]
-    criteria[0].source_data_criteria = 'EncounterInpatient_EncounterPerformed_59c3933e_c568_4119_b89d_c29b7c752ef3_source'
-    criteria[0].code = '4080'
+    criteria[0].source_data_criteria = 'EmergencyDepartmentVisit_EncounterPerformed_e9dfea5a_0011_42cc_b048_3a8748c1c4b0_source'
+    criteria[0].code = '720'
     criteria[0].code_complete = true
     criteria[0].attribute_index = 1
-    criteria[0].attribute_code = '428361000124107'
+    criteria[0].attribute_code = '210'
     criteria[0].attribute_complete = true
     criteria[0].result_complete = true
     criteria[0].passed_qrda = true if include_attribute_code

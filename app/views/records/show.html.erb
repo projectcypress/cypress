@@ -18,31 +18,33 @@
             </tr>
           </thead>
           <tbody>
-            <% result_values = get_result_values([@record], measures, pop_keys, 'measure_id') %>
             <% measures.each do |m| %>
-              <tr>
-                <th class="abbreviated" scope="row">
-                  <%= m.display_name %>
-                </th>
-                <% result_values[m.id].each do |population, value| %>
-                  <td class="text-center">
-                    <span class="sr-only">Measure <%= m.display_name %> population <%= population %> result: </span>
-                    <!-- This is the relevant piece of the calculation_result_icon partial ported over to here. Rendering each circle in its own partial is far too slow and causes the application to take up to 8 seconds longer to load on some pages. -->
-                    <% if value && value.positive? %>
-                      <span class="sr-only">Pass</span>
-                      <span class="fa-stack result-marker">
-                        <%= icon('fas fa-stack-2x', 'circle', :"aria-hidden" => true) %>
-                        <% unless value == 1 && !m.episode_of_care %>
-                          <strong class="fa-stack-1x result-text"><span class="sr-only">value of </span><%= value %></strong>
-                        <% end %>
-                      </span>
-                    <% else %>
-                      <span class="sr-only">Fail</span>
-                      <%= icon('far fa-2x empty-marker', 'circle', :"aria-hidden" => true) %>
-                    <% end %>
-                  </td>
-                <% end %>
-              </tr>
+              <% m.population_set_identifiers.each do |population_set_identifier| %>
+                <% result_values = get_result_values([@record], [m], population_set_identifier, pop_keys, 'measure_id') %>
+                <tr>
+                  <th class="abbreviated" scope="row">
+                    <%= m.description %>
+                  </th>
+                  <% result_values[m.id.to_s].each do |population, value| %>
+                    <td class="text-center">
+                      <span class="sr-only">Measure <%= m.description %> population <%= population %> result: </span>
+                      <!-- This is the relevant piece of the calculation_result_icon partial ported over to here. Rendering each circle in its own partial is far too slow and causes the application to take up to 8 seconds longer to load on some pages. -->
+                      <% if value && value.positive? %>
+                        <span class="sr-only">Pass</span>
+                        <span class="fa-stack result-marker">
+                          <%= icon('fas fa-stack-2x', 'circle', :"aria-hidden" => true) %>
+                          <% unless value == 1 && m.calculation_method != 'EPISODE_OF_CARE' %>
+                            <strong class="fa-stack-1x result-text"><span class="sr-only">value of </span><%= value %></strong>
+                          <% end %>
+                        </span>
+                      <% else %>
+                        <span class="sr-only">Fail</span>
+                        <%= icon('far fa-2x empty-marker', 'circle', :"aria-hidden" => true) %>
+                      <% end %>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
             <% end %>
           </tbody>
         </table>

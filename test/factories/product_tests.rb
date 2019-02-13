@@ -59,8 +59,12 @@ FactoryBot.define do
         patient.insurance_providers = [insurance_provider_hash]
         patient.save
         aug_record[0]['original_patient_id'] = patient._id
-        ir_extended_data = { 'correlation_id' => pt.id.to_s }
-        create(:individual_result, 'extendedData' => ir_extended_data, 'patient_id' => patient.id, 'measure_id' => pt.measures.first.id)
+        cr = create(:compiled_result, 'correlation_id' => pt.id.to_s, 'patient_id' => patient.id, 'measure_id' => pt.measures.first.id)
+        cr.individual_results.each_pair do |_pop_key, individual_result|
+          individual_result['patient_id'] = patient.id.to_s
+          individual_result['measure_id'] = pt.measures.first.id.to_s
+        end
+        cr.save
         pt.augmented_patients = aug_record
         pt.save
       end

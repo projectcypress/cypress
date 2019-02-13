@@ -3,8 +3,7 @@ module MeasureRepresenter
 
   property :hqmf_id
   property :cms_id
-  property :name
   property :description
-  property :type
+  property :reporting_program_type
   property :category
 end

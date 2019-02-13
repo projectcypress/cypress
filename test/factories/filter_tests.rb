@@ -51,8 +51,7 @@ FactoryBot.define do
                                     'start_time' => '1949-05-23T13:24:00+00:00' }
         patient.insurance_providers = [insurance_provider_hash]
         patient.save
-        ir_extended_data = { 'correlation_id' => pt.id.to_s }
-        create(:individual_result, 'extendedData' => ir_extended_data, 'patient_id' => patient.id, 'measure_id' => pt.measures.first.id)
+        create(:compiled_result, 'correlation_id' => pt.id.to_s, 'patient_id' => patient.id, 'measure_id' => pt.measures.first.id)
       end
     end
   end

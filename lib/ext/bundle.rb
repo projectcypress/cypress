@@ -28,7 +28,7 @@ class Bundle
   scope :available, -> { where(:deprecated.ne => true) }
 
   def results
-    CQM::IndividualResult.where('extendedData.correlation_id' => id.to_s)
+    CompiledResult.where(correlation_id: id.to_s)
   end
 
   def title
@@ -83,17 +83,6 @@ class Bundle
 
   def mpl_path
     Rails.root.join('tmp', 'cache', "bundle_#{id}_mpl.zip")
-  end
-
-  def value_sets_by_oid_for(measures)
-    relevant_sets = value_sets.in(:oid.in => measures.collect(&:oids).flatten.uniq)
-    value_set_map = {}
-    relevant_sets.each do |vs|
-      value_set_map[vs['oid']] = {} unless value_set_map.key?(vs['oid'])
-      value_set_map[vs['oid']][vs['version']] = vs
-      value_set_map[vs['oid']]
-    end
-    value_set_map
   end
 
   def mpl_status

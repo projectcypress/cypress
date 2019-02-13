@@ -114,7 +114,7 @@ class ChecklistTestTest < ActiveJob::TestCase
   end
 
   def test_measure_status
-    measure_id = Measure.top_level.where(:hqmf_id.in => @test.measure_ids, :bundle_id => @test.product.bundle_id).first.id
+    measure_id = Measure.where(:hqmf_id.in => @test.measure_ids, :bundle_id => @test.product.bundle_id).first.id
     @test.create_checked_criteria
     assert_equal 'not_started', @test.measure_status(measure_id)
     @test.checked_criteria.first.code_complete = false
@@ -156,8 +156,8 @@ class ChecklistTestTest < ActiveJob::TestCase
     @test.create_checked_criteria
     simplify_criteria(@test)
     checked_criteria = @test.checked_criteria[0]
-    checked_criteria.code = '4080'
-    checked_criteria.attribute_code = '428361000124107'
+    checked_criteria.code = '720'
+    checked_criteria.attribute_code = '210'
     checked_criteria.validate_criteria
     checked_criteria.save
     assert_equal true, checked_criteria.code_complete, 'code complete should be true when correct code is provided'

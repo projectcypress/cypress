@@ -61,7 +61,6 @@ module Validators
       # TODO fix effectiveDateEnd and effectiveDate in cqm-execution.  effectiveDate is the end of the measurement period
       calc_job = Cypress::CqmExecutionCalc.new([record.qdmPatient],
                                                product_test.measures,
-                                               product_test.value_sets_by_oid,
                                                options.test_execution.id.to_s,
                                                'effectiveDateEnd': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
                                                'effectiveDate': Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
@@ -73,10 +72,12 @@ module Validators
     def determine_passed(mrn, results, record, options)
       passed = true
       @measures.each do |measure|
-        original_results = CQM::IndividualResult.where('patient_id' => mrn, 'measure_id' => measure.id).first
+        original_results = CompiledResult.where('patient_id' => mrn, 'measure_id' => measure.id).first
         new_results = results.select { |arr| arr.measure_id == measure.id && arr.patient_id == record.id }.first
-        options[:population_ids] = measure.population_ids
-        passed = compare_results(original_results, new_results, options, passed)
+        original_results.individual_results.keys.each do |key|
+          options[:population_ids] = measure.hqmf_ids_for_population_set(key)
+          passed = compare_results(original_results.individual_results[key], new_results.individual_results[key], options, passed)
+        end
       end
       passed
     end

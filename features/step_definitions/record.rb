@@ -56,7 +56,7 @@ And(/^the user should not see a way to switch bundles$/) do
 end
 
 And(/^the user searches for a measure$/) do
-  page.fill_in 'search_measures', with: @measure.display_name
+  page.fill_in 'search_measures', with: @measure.description
 end
 
 And(/^the user selects a measure from the dropdown$/) do
@@ -68,7 +68,7 @@ And(/^the user selects a measure from the dropdown$/) do
 end
 
 Then(/^the user should see results for that measure$/) do
-  page.assert_text @measure.display_name + ' Patients'
+  page.assert_text @measure.description + ' Patients'
 
   records = records_by_measure(@bundle.patients, @measure)
 
@@ -109,7 +109,7 @@ Then(/^the user sees details$/) do
   end
   @measures = @bundle.measures.where(:_id.in => @patient.calculation_results.map(&:measure_id))
   @measures.each do |m|
-    page.assert_text m.display_name
+    page.assert_text m.description
   end
 end
 

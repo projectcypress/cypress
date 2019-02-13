@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ClassLength
 class Product
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
@@ -76,7 +75,7 @@ class Product
       errors.add(:measure_ids, 'must select at least one')
     else
       mids = measure_ids.uniq
-      errors.add(:measure_ids, 'must be valid hqmf ids') unless bundle.measures.top_level.where(hqmf_id: { '$in' => mids }).length >= mids.count
+      errors.add(:measure_ids, 'must be valid hqmf ids') unless bundle.measures.where(hqmf_id: { '$in' => mids }).length >= mids.count
     end
   end
 
@@ -95,8 +94,8 @@ class Product
     new_ids = product_params[:measure_ids] || old_ids
     update(product_params)
     (new_ids - old_ids).each do |measure_id|
-      m = bundle.measures.top_level.find_by(hqmf_id: measure_id)
-      product_tests.build({ name: m.name, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest)
+      m = bundle.measures.find_by(hqmf_id: measure_id)
+      product_tests.build({ name: m.description, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest)
     end
     # remove measure and checklist tests if their measure ids have been removed
     product_tests.in(measure_ids: (old_ids - new_ids)).destroy
@@ -124,13 +123,7 @@ class Product
     super
   end
 
-  def slim_test_deck?
-    !c2_test
-  end
-
   def test_deck_max
-    return 5 if slim_test_deck?
-
     50
   end
 
@@ -165,8 +158,7 @@ class Product
   def build_filtering_test(measure, criteria, display_name = '', incl_addr = true)
     # construct options hash from criteria array and create the test
     options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
-    product_tests.create({ name: measure.name, product: self, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,
+    product_tests.create({ name: measure.description, product: self, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,
                            incl_addr: incl_addr, display_name: display_name, options: options }, FilteringTest)
   end
 end
-# rubocop:enable Metrics/ClassLength

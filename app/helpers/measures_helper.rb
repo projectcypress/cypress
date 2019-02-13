@@ -1,6 +1,6 @@
 module MeasuresHelper
   def pick_measure_for_filtering_test(available_measures, bundle)
-    bundle.measures.top_level.find_by(hqmf_id: pick_measure_id_for_filtering_test(available_measures, bundle))
+    bundle.measures.find_by(hqmf_id: pick_measure_id_for_filtering_test(available_measures, bundle))
   end
 
   # Pick a measure from the choices for the C4 filtering tests.
@@ -47,7 +47,7 @@ module MeasuresHelper
   end
 
   def type_counts(measures)
-    h = measures.map(&:type).each_with_object(Hash.new(0)) { |type, count| count[type.upcase] += 1 } # example { "EH"=> 4, "EP" => 2 }
+    h = measures.map(&:reporting_program_type).each_with_object(Hash.new(0)) { |type, count| count[type.upcase] += 1 } # example {"EH"=> 4,"EP" => 2}
     h.map { |k, v| "#{v} #{k}" }.join(', ') # 4 EH, 2 EP
   end
 
