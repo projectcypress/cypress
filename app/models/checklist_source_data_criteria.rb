@@ -61,7 +61,7 @@ class ChecklistSourceDataCriteria
     # validate if an attribute_code is required and is correct
     if attribute_code
       measure = Measure.find_by(_id: measure_id)
-      criteria = measure[:source_data_criteria].select { |key| key == source_data_criteria }.values.first
+      criteria = measure.source_data_criteria.select { |key| key == source_data_criteria }.values.first
       valueset = [criteria[:attributes][attribute_index].attribute_valueset] if criteria[:attributes]
       self.attribute_complete = code_in_valuesets(valueset, attribute_code, measure.bundle_id)
     end

@@ -70,22 +70,19 @@ module Cypress
     end
 
     def self.unpack_and_store_measures(zip, type, bundle)
-      entries = zip.glob(File.join(SOURCE_ROOTS[:measures], type || '**', '*.json')).map do |entry|
+      entries = zip.glob(File.join(SOURCE_ROOTS[:measures], type || '**', '*.json'))
+      entries.each_with_index do |entry, index|
         source_measure = unpack_json(entry)
         # we clone so that we have a source without a bundle id
         measure = source_measure.clone
         measure['bundle_id'] = bundle.id
-        value_sets = []
-        measure.value_set_oid_version_objects.each do |vsv|
-          value_sets << ValueSet.where(oid: vsv.oid, version: vsv.version).first.id
-        end
-        measure['value_sets'] = value_sets
-        measure
+        mes = Mongoid.default_client['measures'].insert_one(measure)
+        inserted_measure = Measure.find(mes.inserted_id)
+        inserted_measure.value_sets = reconnect_valueset_references(measure)
+        inserted_measure.save
+        @measure_id_hash[measure['bonnie_measure_id']] = mes.inserted_id
+        report_progress('measures', (index * 100 / entries.length)) if (index % 10).zero?
       end
-      saved_measures = Mongoid.default_client['measures'].insert_many(entries)
-      @measure_id_hash = Measure.where(:_id.in => saved_measures.inserted_ids).map do |measure|
-        [measure['bonnie_measure_id'], measure.id]
-      end.to_h
       puts "\rLoading: Measures Complete          "
     end
 
@@ -97,7 +94,7 @@ module Cypress
         patient['bundleId'] = bundle.id
 
         reconnect_references(patient)
-        @patient_id_hash[patient.original_medical_record_number] = patient['id']
+        @patient_id_hash[patient.original_medical_record_number] = [patient['id'], patient.qdmPatient.id]
         patient.save
         report_progress('patients', (index * 100 / entries.length)) if (index % 10).zero?
       end
@@ -127,13 +124,17 @@ module Cypress
 
         contents.map! do |document|
           # Replace ids in bundle, with ids created during import
-          document['patient_id'] = @patient_id_hash[document['patient_id']]
+          document['individual_results'].each do |_population_set, individual_result|
+            individual_result['patient_id'] = @patient_id_hash[document['patient_id']][1].to_s
+            individual_result['measure_id'] = @measure_id_hash[document['measure_id']].to_s
+          end
+          document['patient_id'] = @patient_id_hash[document['patient_id']][0]
           document['measure_id'] = @measure_id_hash[document['measure_id']]
-          document['extendedData'] = { 'correlation_id' => bundle.id.to_s }
+          document['correlation_id'] = bundle.id.to_s
           document
         end
       end.flatten
-      CQM::IndividualResult.collection.insert_many(results)
+      CompiledResult.collection.insert_many(results)
       puts "\rLoading: Results Complete          "
     end
 
@@ -144,6 +145,30 @@ module Cypress
     def self.report_progress(label, percent)
       print "\rLoading: #{label} #{percent}% complete"
       STDOUT.flush
+    end
+
+    def self.reconnect_valueset_references(measure)
+      value_sets = []
+      measure['cql_libraries'].each do |cql_library|
+        cql_library['elm']['library']['valueSets'].each_pair do |_key, valuesets|
+          valuesets.each do |valueset|
+            value_sets << ValueSet.where(oid: valueset['id']).first
+          end
+        end
+        cql_library['elm']['library']['codes'].each_pair do |_key, codes|
+          codes.each do |code|
+            code_system_name, code_system_version = code_system_name_and_version(cql_library, code['codeSystem']['name'])
+            code_hash = ApplicationController.helpers.direct_reference_code_hash(code_system_name, code_system_version, code)
+            value_sets << ValueSet.where(oid: code_hash).first
+          end
+        end
+      end
+      value_sets
+    end
+
+    def self.code_system_name_and_version(cql_library, code_system_name)
+      code_system_def = cql_library['elm']['library']['codeSystems']['def'].find { |code_sys| code_sys['name'] == code_system_name }
+      [code_system_def['id'], code_system_def['version']]
     end
   end
 end

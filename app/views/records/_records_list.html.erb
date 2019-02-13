@@ -1,9 +1,9 @@
 <!-- Only grab measure records and result values once to avoid duplicate queries -->
 <% if measure && patients.length.positive? %>
   <% measure_records = records_by_measure(patients, measure) %>
-  <% result_values = get_result_values(patients, [measure], measure.population_ids.keys(), 'patient_id') %>
+  <% result_values = get_result_values(patients, [measure], population_set, measure.hqmf_ids_for_population_set(population_set).keys, 'patient_id') %>
 <% end %>
-<h1><%= measure ? measure.display_name : 'All' %> Patients</h1>
+<h1><%= measure ? measure.description : 'All' %> Patients</h1>
 <% if @vendor %>
   <% patients= @vendor.patients %>
 <% end %>
@@ -18,7 +18,7 @@
       <th scope="col">DOB</th>
       <th scope="col">Gender</th>
       <% if measure && !hide_patient_calculation?%>
-        <% measure.population_ids.keys().each do |population| %>
+        <% measure.hqmf_ids_for_population_set(measure.population_set_identifiers.first).keys().each do |population| %>
           <th scope="col" class="text-center"><%= population_label(bundle, population) %></th>
         <% end %>
       <% end %>
@@ -37,7 +37,7 @@
         <!-- will show calculation results for product test records -->
           <% pop_sums(result_values).each do |_, value| %>
             <td class="text-center">
-              <%= render 'calculation_result_icon', :result => value, :episode_of_care => measure.episode_of_care  %>
+              <%= render 'calculation_result_icon', :result => value, :episode_of_care => measure.calculation_method == 'EPISODE_OF_CARE'  %>
             </td>
           <% end %>
       </tr>

@@ -22,7 +22,7 @@ When(/^the user creates a product with records with tasks (.*)$/) do |tasks|
   @product = Product.new(vendor: @vendor, name: 'Product 1', measure_ids: measure_ids, c1_test: tasks.include?('c1'),
                          c2_test: tasks.include?('c2'), c3_test: tasks.include?('c3'), c4_test: tasks.include?('c4'), bundle_id: bundle_id)
   @product.save!
-  @product_test = @product.product_tests.create!({ name: @measure.name, measure_ids: measure_ids, cms_id: @measure.cms_id }, MeasureTest)
+  @product_test = @product.product_tests.create!({ name: @measure.description, measure_ids: measure_ids, cms_id: @measure.cms_id }, MeasureTest)
 
   @product_test.generate_patients
   MeasureEvaluationJob.perform_now(@product_test, {})
@@ -35,7 +35,7 @@ When(/^the user creates a product with tasks (.*)$/) do |tasks|
   tasks = tasks.split(', ')
   @product = Product.create(vendor: @vendor, name: 'Product 1', measure_ids: measure_ids, c1_test: tasks.include?('c1'),
                             c2_test: tasks.include?('c2'), c3_test: tasks.include?('c3'), c4_test: tasks.include?('c4'), bundle_id: bundle_id)
-  @product_test = @product.product_tests.create!({ name: @measure.name, measure_ids: measure_ids, cms_id: @measure.cms_id }, MeasureTest)
+  @product_test = @product.product_tests.create!({ name: @measure.description, measure_ids: measure_ids, cms_id: @measure.cms_id }, MeasureTest)
 
   provider = @product_test.provider
   ProductTestPatient.create!(provider_performances: [{ provider_id: provider.id }], correlation_id: @product_test.id.to_s)
@@ -125,7 +125,7 @@ end
 # # # # # # # #
 
 Then(/^the user should see the upload functionality for that product test$/) do
-  page.assert_text @measure.name
+  page.assert_text @measure.description
   page.assert_text 'Download Test Deck'
 end
 

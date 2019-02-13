@@ -23,7 +23,7 @@ module Validators
       product_test = ProductTest.find(record.correlation_id)
       return false unless record
 
-      calc_job = Cypress::CqmExecutionCalc.new([record.qdmPatient], product_test.measures, product_test.value_sets_by_oid, nil,
+      calc_job = Cypress::CqmExecutionCalc.new([record.qdmPatient], product_test.measures, nil,
                                                'effectiveDateEnd': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
                                                'effectiveDate': Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
       results = calc_job.execute(false)
@@ -35,12 +35,14 @@ module Validators
       passed = true
       @measures.each do |measure|
         # compare results to patient as it was initially calculated for product test (use original product patient id before cloning)
-        orig_results = CQM::IndividualResult.where('patient_id': options[:orig_product_patient].id, 'measure_id': measure.id).first
+        orig_results = CompiledResult.where('patient_id': options[:orig_product_patient].id, 'measure_id': measure.id).first
         new_results = results.select { |arr| arr.measure_id == measure.id && arr.patient_id == record.id }.first
-        measure.population_ids.keys.each do |pop_id|
-          if orig_results[pop_id] != new_results[pop_id]
-            passed = false
-            break
+        orig_results.individual_results.each_pair do |population_key, _results|
+          measure.hqmf_ids_for_population_set(population_key).keys.each do |pop_id|
+            if orig_results.individual_results[population_key][pop_id] != new_results.individual_results[population_key][pop_id]
+              passed = false
+              break
+            end
           end
         end
       end

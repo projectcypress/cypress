@@ -54,7 +54,7 @@ FactoryBot.define do
         'dataElementCodes' => [
           {
             'codeSystem' => 'SNOMED-CT',
-            'code' => '60'
+            'code' => '720'
           }
         ],
         'description' => 'Encounter, Performed: Office Visit',

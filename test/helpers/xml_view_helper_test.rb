@@ -21,12 +21,12 @@ class XmlViewHelperTest < ActiveSupport::TestCase
     errs = collected_errors(@te)
     assert_equal 0, errs.nonfile.count
     assert_equal 1, errs.files.keys.count, 'should contain one file with errors'
-    assert_equal ['QRDA', 'Reporting', 'Submission', 'CMS Warnings', 'Other Warnings'], errs.files['sample_patient_wrong_template.xml'].keys, 'should contain right error keys for each file'
+    assert_equal ['QRDA', 'Reporting', 'Submission', 'CMS Warnings', 'Other Warnings'], errs.files['0_Dental_Peds_A.xml'].keys, 'should contain right error keys for each file'
   end
 
   def test_popup_attributes_multiple_errors
     errs = collected_errors(@te)
-    error = errs.files['sample_patient_wrong_template.xml']['QRDA'].execution_errors
+    error = errs.files['0_Dental_Peds_A.xml']['QRDA'].execution_errors
     title, button_text, message = popup_attributes(error)
     assert_match 'Execution Errors (2)', title
     assert_match error.count.to_s, title
@@ -37,7 +37,7 @@ class XmlViewHelperTest < ActiveSupport::TestCase
 
   def test_popup_attributes_one_error
     errs = collected_errors(@te)
-    error = [errs.files['sample_patient_wrong_template.xml']['QRDA'].execution_errors.first] # get just one error
+    error = [errs.files['0_Dental_Peds_A.xml']['QRDA'].execution_errors.first] # get just one error
     title, button_text, message = popup_attributes(error)
 
     assert_match 'Execution Error', title

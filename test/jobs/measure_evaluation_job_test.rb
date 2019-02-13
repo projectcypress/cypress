@@ -18,7 +18,7 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
       pt.expected_results = nil
 
       correlation_id = BSON::ObjectId.new.to_s
-      calc_job = Cypress::CqmExecutionCalc.new(pt.patients.map!(&:qdmPatient), pt.measures, pt.value_sets_by_oid, correlation_id,
+      calc_job = Cypress::CqmExecutionCalc.new(pt.patients.map!(&:qdmPatient), pt.measures, correlation_id,
                                                'effectiveDateEnd': Time.at(pt.effective_date).in_time_zone.to_formatted_s(:number),
                                                'effectiveDate': Time.at(pt.measure_period_start).in_time_zone.to_formatted_s(:number))
       individual_results_from_sync_job = calc_job.execute(false)
@@ -60,7 +60,7 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
       assert_performed_jobs 1
       ptest.reload
       assert_not ptest.expected_results.empty?
-      assert_equal ptest.expected_results.keys, ['BE65090C-EB1F-11E7-8C3F-9A214CF093AEa']
+      assert_equal ptest.expected_results.keys, ['PopulationCriteria1', 'PopulationCriteria1 - Stratification 1', 'PopulationCriteria1 - Stratification 2', 'PopulationCriteria1 - Stratification 3']
     end
   end
 
@@ -75,7 +75,7 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
       assert_performed_jobs 2
       task.reload
       assert_not task.expected_results.empty?
-      assert_equal task.expected_results.keys, ['BE65090C-EB1F-11E7-8C3F-9A214CF093AEa']
+      assert_equal task.expected_results.keys, ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     end
   end
 end

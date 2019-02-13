@@ -21,7 +21,7 @@ class ProductsHelperTest < ActiveJob::TestCase
     checklist_test = @product.product_tests.build({ name: 'c1 visual', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
     checklist_test.save!
     checked_criterias = []
-    measures = Measure.top_level.where(:hqmf_id.in => checklist_test.measure_ids, :bundle_id => @product.bundle_id)
+    measures = Measure.where(:hqmf_id.in => checklist_test.measure_ids, :bundle_id => @product.bundle_id)
     measures.each do |measure|
       # chose criteria randomly
       criterias = measure['source_data_criteria'].sort_by { rand }[0..4]
@@ -50,7 +50,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def setup_filtering_tests
-    @product.product_tests.create!({ name: 'Filter Test 1', cms_id: 'CMS127v7', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+    @product.product_tests.create!({ name: 'Filter Test 1', cms_id: 'CMS32v7', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                                      options: { filters: { filt1: ['val1'], filt2: ['val2'] } } }, FilteringTest)
     @product.product_tests.filtering_tests.each do |test|
       test.tasks.build({}, Cat1FilterTask)
@@ -65,7 +65,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   def test_generate_filter_patients
     @product.product_tests = nil
     @product.add_filtering_tests
-    @product.product_tests.filtering_tests.find_by(cms_id: 'CMS127v7').patients
+    @product.product_tests.filtering_tests.find_by(cms_id: 'CMS32v7').patients
     # @product.product_tests.filtering_tests.each { |ft| assert ft.patients == patients }
   end
 

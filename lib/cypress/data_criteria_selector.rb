@@ -12,7 +12,7 @@ module Cypress
       dcs_with_attribute = measure[:source_data_criteria].clone
       dcs_with_attribute.keep_if { |_k, data_criteria| coded_attributes?(data_criteria) }
       # Loads list of value sets for the measure in question
-      measure.oids.each do |oid|
+      measure.value_sets.map(&:oid).each do |oid|
         currnet_count = dcs_with_attribute.size
         match_attributes(dcs_with_attribute, oid, criterias, data_criteria_without_att, criteria_types)
         # If a DC with attribute is found, go to next

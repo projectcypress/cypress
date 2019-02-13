@@ -29,7 +29,7 @@ class MeasureTest < ProductTest
   end
 
   def generate_provider
-    self.provider = Provider.generate_provider(measure_type: measures.first.type) if provider.nil?
+    self.provider = Provider.generate_provider(measure_type: measures.first.reporting_program_type) if provider.nil?
   end
 
   # passing only if both c1 and c3_cat1 tasks pass

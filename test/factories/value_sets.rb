@@ -17,5 +17,17 @@ FactoryBot.define do
                      { 'code' => '349', 'code_system_oid' => '2.16.840.1.113883.3.221.5' }]
       concepts { payer_codes }
     end
+
+    factory :direct_reference_code do
+      code_system_version = 'urn:hl7:version:2013-09'
+      code_system_name = 'SNOMED-CT'
+      name = 'Patient deceased during stay (discharge status = dead) (finding)'
+      code = '1000'
+      display_name { 'DRC' }
+      code_hash = 'drc-' + Digest::SHA2.hexdigest("#{code_system_name} #{code} #{name} #{code_system_version}")
+      oid { code_hash }
+      drc_code = [{ 'code' => '1000', 'code_system_oid' => '2.16.840.1.113883.6.96' }]
+      concepts { drc_code }
+    end
   end
 end

@@ -15,11 +15,11 @@
     <% task.product_test_expected_results.each do |expected_result| %>
       <tr>
         <% mes = if task.product_test_expected_results.size > 1
-                    Measure.where(hqmf_id: expected_result[1]['measure_id'], sub_id: expected_result[0][-1,1]).first
+                    Measure.where(hqmf_id: expected_result[1]['measure_id']).first #, sub_id: expected_result[0][-1,1]).first
                  else
                     Measure.where(hqmf_id: expected_result[1]['measure_id']).first
                  end %>
-        <td><%= mes.subtitle.nil? ? "#{mes.name}" : "#{mes.name} - #{mes.subtitle}" %></td>
+        <td><%= mes.description %></td>
         <% expected_result[1].population_ids.keys().each do |population| %>
           <% if population_keys.include? population %>
             <td class="text-center">

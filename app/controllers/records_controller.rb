@@ -21,10 +21,10 @@ class RecordsController < ApplicationController
       # create json with the display_name and url for each measure
       @measure_dropdown = Rails.cache.fetch("#{@source.cache_key}/measure_dropdown") do
         @source.measures
-               .order_by(cms_int: 1, sub_id: 1)
+               .order_by(cms_int: 1)
                .map do |m|
           { label: m.display_name,
-            value: by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id, sub_id: m.sub_id) }
+            value: by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id) }
         end.to_json.html_safe
       end
       @mpl_bundle = Bundle.find(params[:mpl_bundle_id]) if params[:mpl_bundle_id]
@@ -39,8 +39,8 @@ class RecordsController < ApplicationController
                 else
                   @source.measures.where(:_id.in => @results.map(&:measure_id))
                 end
-    @continuous_measures = @measures.where(continuous_variable: true).sort_by { |m| [m.cms_int, m.sub_id] }
-    @non_continuous_measures = @measures.where(continuous_variable: false).sort_by { |m| [m.cms_int, m.sub_id] }
+    @continuous_measures = @measures.where(measure_scoring: 'CONTINUOUS_VARIABLE').sort_by { |m| [m.cms_int] }
+    @non_continuous_measures = @measures.where(measure_scoring: 'PROPORTION').sort_by { |m| [m.cms_int] }
     expires_in 1.week, public: true
     add_breadcrumb 'Patient: ' + @record.first_names + ' ' + @record.familyName, :record_path
   end
@@ -48,13 +48,15 @@ class RecordsController < ApplicationController
   def by_measure
     @patients = @source.patients.includes(:calculation_results)
     if params[:measure_id]
-      @measure = @source.measures.find_by(hqmf_id: params[:measure_id], sub_id: params[:sub_id])
+      @measure = @source.measures.find_by(hqmf_id: params[:measure_id])
+      @population_set = params[:population_set] || @measure.population_set_identifiers.first
       expires_in 1.week, public: true
     end
   end
 
   def by_filter_task
     @patients = Patient.where(:_id.in => @product_test.filtered_patients.map(&:id))
+    @population_set = params[:population_set] || @measure.population_set_identifiers.first
   end
 
   def download_mpl
@@ -122,8 +124,9 @@ class RecordsController < ApplicationController
     @product_test = @task.product_test
     @bundle = @product_test.bundle
     authorize! :read, @product_test.product.vendor
-    @measure = @product_test.measures.where(sub_id: params['sub_id']).first
+    @measure = @product_test.measures.first
     @measure ||= @product_test.measures.first
+    @population_set = params[:population_set] || @measure.population_set_identifiers.first
     @source = @product_test
     breadcrumbs_for_test_path
     @title = "#{@task.product_test.product.name} #{@task._type.titleize} #{@task.product_test.measures.first.cms_id} Patients"

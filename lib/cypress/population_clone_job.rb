@@ -155,13 +155,13 @@ module Cypress
                @generated_providers.sample
              else
                measure = @test.measures.first
-               Provider.default_provider(measure_type: measure.type)
+               Provider.default_provider(measure_type: measure.reporting_program_type)
              end
       patient.provider_performances = [{ provider_id: prov.id }] if prov
     end
 
     def generate_provider
-      @generated_providers << Provider.generate_provider(measure_type: @test.measures.first.type)
+      @generated_providers << Provider.generate_provider(measure_type: @test.measures.first.reporting_program_type)
     end
 
     def assign_existing_provider(patient, provider)

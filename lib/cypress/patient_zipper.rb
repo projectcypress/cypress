@@ -37,7 +37,7 @@ module Cypress
 
     def export(patient)
       cat1_submission_program = if patient.product_test&.product&.c3_test
-                                  patient.product_test&.measures&.first&.type == 'eh' ? 'HQR_IQR' : false
+                                  patient.product_test&.measures&.first&.reporting_program_type == 'eh' ? 'HQR_IQR' : false
                                 else
                                   false
                                 end
@@ -105,7 +105,7 @@ module Cypress
 
       first = patients.first
       ptest = first.product_test
-      measures = ptest ? ptest.measures.top_level : patients.first.bundle.measures.top_level
+      measures = ptest ? ptest.measures : patients.first.bundle.measures
       start_date = ptest ? ptest.start_date : Time.at(patients.first.bundle.effective_date).in_time_zone
       end_date = ptest ? ptest.end_date : start_date + 1.year
       [measures, start_date, end_date]
