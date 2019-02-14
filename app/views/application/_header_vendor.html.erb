@@ -6,6 +6,9 @@
           <%= icon('fas fa-fw', 'plus', :"aria-hidden" => true) %> Add Product
         <% end %>
       <% end %>
+      <%= button_to records_path, params:{vendor_id: vendor.id} , :method => :get, :class => "btn btn-default" do %>
+        <%= icon('fas fa-fw', 'users', :"aria-hidden" => true) %> Vendor Patients
+      <% end %>
       <%= button_to edit_vendor_path(vendor), :method => :get, :class => "btn btn-default" do %>
         <%= icon('fas fa-fw', 'wrench', :"aria-hidden" => true) %> Edit Vendor
       <% end %>

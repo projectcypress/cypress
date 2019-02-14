@@ -15,6 +15,11 @@ Rails.application.routes.draw do
         get :supplemental_test_artifact
       end
     end
+    resources :records, only: %i[index show] do
+      collection do
+        get :by_measure
+      end
+    end
   end
 
   resources :products, only: %i[show edit update destroy favorite] do
