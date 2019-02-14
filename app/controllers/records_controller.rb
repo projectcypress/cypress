@@ -12,20 +12,23 @@ class RecordsController < ApplicationController
       return
     end
 
-    return redirect_to bundle_records_path(Bundle.default) unless params[:bundle_id] || params[:task_id]
+    return redirect_to bundle_records_path(Bundle.default) unless params[:bundle_id] || params[:task_id] || params[:vendor_id]
 
     # TODO: Only show measures where there are patient results. CMS32v4 sub id c and d have no patients, for example.
     @patients = @source.patients.order_by(first: 'asc')
-    # create json with the display_name and url for each measure
-    @measure_dropdown = Rails.cache.fetch("#{@source.cache_key}/measure_dropdown") do
-      @source.measures
-             .order_by(cms_int: 1, sub_id: 1)
-             .map do |m|
-        { label: m.display_name,
-          value: by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id, sub_id: m.sub_id) }
-      end.to_json.html_safe
+
+    unless @vendor
+      # create json with the display_name and url for each measure
+      @measure_dropdown = Rails.cache.fetch("#{@source.cache_key}/measure_dropdown") do
+        @source.measures
+               .order_by(cms_int: 1, sub_id: 1)
+               .map do |m|
+          { label: m.display_name,
+            value: by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id, sub_id: m.sub_id) }
+        end.to_json.html_safe
+      end
+      @mpl_bundle = Bundle.find(params[:mpl_bundle_id]) if params[:mpl_bundle_id]
     end
-    @mpl_bundle = Bundle.find(params[:mpl_bundle_id]) if params[:mpl_bundle_id]
   end
 
   def show
@@ -74,6 +77,8 @@ class RecordsController < ApplicationController
       set_record_source_bundle
     elsif params[:task_id]
       set_record_source_product_test
+    elsif params[:vendor_id]
+      set_record_source_vendor
     else
       # TODO: figure out what scenarios lead to this branch and fix them
       @bundle = Bundle.default
@@ -90,6 +95,20 @@ class RecordsController < ApplicationController
     @source = @bundle = Bundle.available.find(params[:bundle_id])
     add_breadcrumb 'Master Patient List', bundle_records_path(@bundle)
     @title = 'Master Patient List'
+  end
+
+  # sets the record source to product_test for the patients for a measure test
+  def set_record_source_vendor
+    @vendor = Vendor.find(params[:vendor_id])
+    @source = @vendor
+    breadcrumbs_for_vendor_path
+    @title = "#{@vendor.name} Uploaded Patients"
+  end
+
+  def breadcrumbs_for_vendor_path
+    add_breadcrumb 'Dashboard', :vendors_path
+    add_breadcrumb 'Vendor: ' + @vendor.name, vendor_path(@vendor)
+    add_breadcrumb 'Patient List', records_path(vendor_id: @vendor.id)
   end
 
   # sets the record source to product_test for the patients for a measure test
