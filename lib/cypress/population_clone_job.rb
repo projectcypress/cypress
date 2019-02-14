@@ -76,12 +76,14 @@ module Cypress
       # If we need to clone a patient for any other reason then we will need to paramaterize
       # the type coming into this class.
       cloned_patient = ProductTestPatient.new(patient.attributes.except(:_id, :_type))
+      cloned_patient.attributes = {
+        original_medical_record_number: patient.medical_record_number,
+        original_patient_id: patient.id,
+        correlation_id: options['test_id']
+      }
       # TODO: R2P: use patient model
       unnumerify cloned_patient if patient.givenNames.map { |n| n =~ /\d/ }.any? || patient.familyName =~ /\d/
-      cloned_patient.original_medical_record_number = cloned_patient.medical_record_number
-      cloned_patient.original_patient_id = patient.id
       cloned_patient.medical_record_number = next_medical_record_number unless options['disable_randomization']
-      cloned_patient.correlation_id = options['test_id']
       DemographicsRandomizer.randomize(cloned_patient, prng, allow_dups) if options['randomize_demographics']
       # work around to replace 'Other' race codes in Cypress bundle. Pass in static seed for consistent results.
       DemographicsRandomizer.randomize_race(cloned_patient, Random.new(0)) if cloned_patient.race == '2131-1'
