@@ -12,8 +12,8 @@
         <% if user_signed_in? %>
           <% curr_page = if current_page?(edit_user_registration_path)
                            :account
-                         elsif (controller.controller_name == 'records' && (params[:bundle_id] || params[:task_id].nil?)) ||
-                               (current_page?(:records) && params[:task_id].nil?)
+                         elsif (controller.controller_name == 'records' && (params[:bundle_id] || (params[:task_id].nil? &&
+                               params[:vendor_id].nil?)))  || (current_page?(:records) && params[:task_id].nil? && params[:vendor_id].nil?)
                            :master_patient_list
                          elsif current_page?(admin_path)
                            :admin
