@@ -28,7 +28,7 @@ services:
     ports:
       - "27017:27017"
   cqm-execution-service:
-    image: tacoma/cqm-execution-service:latest
+    image: tacoma/cqm-execution-service:cypress_v5
     networks:
       - cypress-net
     ports:
