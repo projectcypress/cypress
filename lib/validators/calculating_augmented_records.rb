@@ -16,7 +16,7 @@ module Validators
       nil
     end
 
-    # create a temporary saved record copy to do calculations on, then delete it
+    # create a temporary record copy to do calculations on
     def validate_calculated_results(rec, options)
       # return false unless mrn
       record = parse_record(rec.clone)
@@ -26,10 +26,8 @@ module Validators
       calc_job = Cypress::CqmExecutionCalc.new([record.qdmPatient], product_test.measures, product_test.value_sets_by_oid, nil,
                                                'effectiveDateEnd': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
                                                'effectiveDate': Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
-      results = calc_job.execute
-
+      results = calc_job.execute(false)
       passed = compare_results(results, record, options)
-      record.destroy
       passed
     end
 
