@@ -2,6 +2,8 @@
   <tr>
     <% if product_test %>
       <td><%= link_to full_name(r), record_path(:id => r.id, :task_id => task.id) %></td>
+    <% elsif @vendor %>
+      <td><%= full_name(r) %></td>
     <% else %>
       <td><%= link_to full_name(r), bundle_record_path(bundle, r) %></td>
     <% end %>
