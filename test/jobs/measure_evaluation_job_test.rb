@@ -21,7 +21,7 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
       calc_job = Cypress::CqmExecutionCalc.new(pt.patients.map!(&:qdmPatient), pt.measures, pt.value_sets_by_oid, correlation_id,
                                                'effectiveDateEnd': Time.at(pt.effective_date).in_time_zone.to_formatted_s(:number),
                                                'effectiveDate': Time.at(pt.measure_period_start).in_time_zone.to_formatted_s(:number))
-      individual_results_from_sync_job = calc_job.execute
+      individual_results_from_sync_job = calc_job.execute(false)
 
       # calculate expected_results using individual results stored in database (don't pass in individual results)
       MeasureEvaluationJob.perform_now(pt, {})

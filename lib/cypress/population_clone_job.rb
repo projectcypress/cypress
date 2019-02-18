@@ -81,7 +81,6 @@ module Cypress
         original_patient_id: patient.id,
         correlation_id: options['test_id']
       }
-      # TODO: R2P: use patient model
       unnumerify cloned_patient if patient.givenNames.map { |n| n =~ /\d/ }.any? || patient.familyName =~ /\d/
       cloned_patient.medical_record_number = next_medical_record_number unless options['disable_randomization']
       DemographicsRandomizer.randomize(cloned_patient, prng, allow_dups) if options['randomize_demographics']

@@ -17,11 +17,11 @@ module Cypress
       @options = options
     end
 
-    def execute
+    def execute(save = true)
       results = @measures.map do |measure|
         request_for(measure)
       end.flatten
-      CQM::IndividualResult.collection.insert_many(results)
+      CQM::IndividualResult.collection.insert_many(results) if save
       results
     end
 
