@@ -4,10 +4,6 @@
   <% result_values = get_result_values(patients, [measure], measure.population_ids.keys(), 'patient_id') %>
 <% end %>
 <h1><%= measure ? measure.display_name : 'All' %> Patients</h1>
-<% if @vendor %>
-  <% patients= Bundle.all.to_a.first.patients #temp for test%>
-  <% bundle= Bundle.all.to_a.first #temp for test%>
-<% end %>
 <% if (measure && measure_records.length.positive?) || (!measure  && patients.length.positive?) %>
 <table class="table table-condensed table-hover">
   <thead>
