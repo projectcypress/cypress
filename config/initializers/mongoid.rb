@@ -10,4 +10,4 @@ module BSON
   end
 end
 
-Mongoid::Tasks::Database.create_indexes if Rails.env.production? && !ENV['DISABLE_DB']
+Mongoid::Tasks::Database.create_indexes if (Rails.env.production? || Rails.env.development?) && !ENV['DISABLE_DB']
