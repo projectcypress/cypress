@@ -44,7 +44,7 @@ module Cypress
       # providers for each patient
       provider = @test.provider if @test.class == MeasureTest
 
-      patients.each { |patient| clone_and_save_patient(patient, prng, provider, @test.product.allow_duplicate_names) }
+      patients.collect { |patient| clone_and_save_patient(patient, prng, provider, @test.product.allow_duplicate_names) }
     end
 
     def find_patients_to_clone
@@ -91,6 +91,7 @@ module Cypress
       # assign existing provider if provider argument is not nil (should be when @test is a measure test)
       provider ? assign_existing_provider(cloned_patient, provider) : assign_provider(cloned_patient)
       cloned_patient.save!
+      cloned_patient
     end
 
     def unnumerify(patient)
