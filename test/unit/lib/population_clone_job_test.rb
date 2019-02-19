@@ -78,11 +78,11 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     # Build and perform the date-shifting and non-date-shifting PopulationCloneJobs
     pcj1 = Cypress::PopulationCloneJob.new('patient_ids' => [patient1_no_shift.id.to_s], 'test_id' => @pt.id.to_s,
                                            'randomization_ids' => [patient2_no_shift.id.to_s])
-    pcj1.perform
+    patients = pcj1.perform
 
     # Get the patients that resulted from the cloning in the PopulationCloneJobs
-    patient1_no_shift_clone = Patient.where(original_patient_id: patient1_no_shift.id).first
-    patient2_randomized_no_shift_clone = Patient.where(original_patient_id: patient2_no_shift.id).first
+    patient1_no_shift_clone = patients.select { |patient| patient.original_patient_id == patient1_no_shift.id }.first
+    patient2_randomized_no_shift_clone = patients.select { |patient| patient.original_patient_id == patient2_no_shift.id }.first
 
     # assert patient1_no_shift_clone has not been shifted
     assert_equal patient1_no_shift_clone.qdmPatient.birthDatetime, patient1_no_shift_clone.qdmPatient.birthDatetime
@@ -109,10 +109,10 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     patient2_shift.save
     pcj2 = Cypress::PopulationCloneJob.new('patient_ids' => [patient1_shift.id.to_s], 'test_id' => pt2.id,
                                            'randomization_ids' => [patient2_shift.id.to_s])
-    pcj2.perform
+    patients = pcj2.perform
     # Get the patients that resulted from the cloning in the PopulationCloneJobs
-    patient1_shift_clone = Patient.where(original_patient_id: patient1_shift.id).first
-    patient2_randomized_shift_clone = Patient.where(original_patient_id: patient2_shift.id).first
+    patient1_shift_clone = patients.select { |patient| patient.original_patient_id == patient1_shift.id }.first
+    patient2_randomized_shift_clone = patients.select { |patient| patient.original_patient_id == patient2_shift.id }.first
 
     # assert patient1_shift_clone has been shifted by 2 years which is the offset in the bundle associated with the product test
     assert_equal Time.zone.at(patient1_shift_clone.qdmPatient.birthDatetime).year, Time.zone.at(patient1_shift.qdmPatient.birthDatetime).year + 2
