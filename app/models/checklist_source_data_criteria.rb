@@ -32,7 +32,9 @@ class ChecklistSourceDataCriteria
   def change_criteria
     if replacement_data_criteria && replacement_data_criteria != source_data_criteria._id.to_s
       measure = Measure.find_by(_id: measure_id)
-      new_source_data_criteria = measure.source_data_criteria.find(replacement_data_criteria).attributes
+      new_source_data_criteria = measure.source_data_criteria.find(replacement_data_criteria).attributes.slice('qdmCategory', 'qdmStatus', '_type',
+                                                                                                               'description', 'codeListId', '_id',
+                                                                                                               'hqmfOid', 'dataElementAttributes')
       new_attribute_index = checklist_test.attribute_index?(new_source_data_criteria)
       checklist_test.checked_criteria.create(measure_id: measure_id, source_data_criteria: new_source_data_criteria,
                                              negated_valueset: false, replacement_data_criteria: replacement_data_criteria,
