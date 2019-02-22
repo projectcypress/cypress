@@ -102,7 +102,9 @@ class ChecklistTest < ProductTest
       checklist_measures << measure.hqmf_id
       measure_criteria_map[measure].each do |criteria|
         att_index = attribute_index?(criteria)
-        checked_criterias.push(ChecklistSourceDataCriteria.new(measure_id: measure.id.to_s, source_data_criteria: criteria.attributes,
+        # slice source_data_criteria to remove fields unrelated to the checklist test
+        sdc = criteria.attributes.slice('qdmCategory', 'qdmStatus', '_type', 'hqmfOid', 'codeListId', 'description', 'dataElementAttributes', '_id')
+        checked_criterias.push(ChecklistSourceDataCriteria.new(measure_id: measure.id.to_s, source_data_criteria: sdc,
                                                                attribute_index: att_index, negated_valueset: negate_valueset?(criteria, att_index)))
       end
     end
