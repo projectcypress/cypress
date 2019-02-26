@@ -16,17 +16,7 @@
     <% end %>
     <% # TODO: add button to download html patients for vendor?? %>
     <% if @vendor #add patients option%>
-      <% #TODO: change below admin_bundles_path to appropriate vendor patients path? %>
-      <%= bootstrap_form_tag url: admin_bundles_path, html: {id: "add_bundle_form"} do |f| %>
-        <div class="panel-body">
-          <%= f.file_field :file, label: 'Add Patients', accept: 'application/zip' %>
-        </div>
-
-        <div class="panel-footer">
-          <%= f.submit 'Import Patients', :class => "btn btn-success", :id => "submit_button", data: { disable_with: "Please wait..." } %>
-          <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "history.back()" %>
-        </div>
-      <% end %>
+      <% #TODO: Add UI for patient upload %>
     <% else %>
       <%= button_to html_patients_product_test_path(@product_test), :method => :get, :class => "btn btn-default" do %>
         <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download HTML Patients
