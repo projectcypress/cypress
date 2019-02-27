@@ -5,7 +5,7 @@ services:
     build:
       context: .
     volumes:
-      - cypress-tmp:/home/app/cypress/public/data
+      - cypress-vol:/home/app/cypress/public/data
     environment:
       - MONGO_PORT_27017_TCP_ADDR=mongodb
       - MONGO_PORT_27017_TCP_PORT=27017
@@ -38,7 +38,4 @@ networks:
   cypress-net:
 
 volumes:
-  cypress-tmp:
-    driver_opts:
-      type: tmpfs
-      device: tmpfs
+  cypress-vol:
