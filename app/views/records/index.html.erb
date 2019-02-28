@@ -1,6 +1,5 @@
 <% if @vendor || (@task && @product_test) %>
 
-  <h1>Patient List</h1>
   <div class="pull-right button-row">
     <% if @measure && @measure.sub_id %>
       <div class="btn-group">
@@ -14,15 +13,18 @@
         </ul>
       </div>
     <% end %>
-    <% # TODO: add button to download html patients for vendor?? %>
-    <% if @vendor #add patients option%>
-      <% #TODO: Add UI for patient upload %>
+    <%# TODO: add button to download html patients for vendor?? #%>
+    <%# add patients option #%>
+    <% if @vendor %>
+      <%= button_to "+ Import Patients", new_vendor_record_path(@vendor.id), :method => :get, :class => "btn btn-primary pull-right" %>
+
     <% else %>
       <%= button_to html_patients_product_test_path(@product_test), :method => :get, :class => "btn btn-default" do %>
         <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download HTML Patients
       <% end %>
     <% end %>
   </div>
+  <h1>Patient List</h1>
 
 <% else %>
   <h1>Master Patient List</h1>

@@ -53,7 +53,7 @@ class ArtifactTest < ActiveSupport::TestCase
     reported = {}
     filename = Rails.root.join('test', 'fixtures', 'artifacts', 'qrda.zip')
     artifact = Artifact.new(file: File.new(filename))
-    artifact.each_file do |name, data|
+    artifact.each do |name, data|
       reported[name] = data
     end
     assert_equal expected.sort, reported.keys.sort, 'Archive should contain the correct files'
@@ -68,7 +68,7 @@ class ArtifactTest < ActiveSupport::TestCase
     expected = ['good_file_extension.xml']
     reported = {}
     artifact = Artifact.new(file: File.new(filename))
-    artifact.each_file do |name, data|
+    artifact.each do |name, data|
       reported[name] = data
     end
     assert_equal expected, reported.keys, 'Should loop on single xml document'

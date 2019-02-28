@@ -167,13 +167,7 @@ class ProductTest
   end
 
   def value_sets_by_oid
-    value_sets = bundle.value_sets.in(:oid.in => measures.collect(&:oids).flatten.uniq)
-    value_set_map = {}
-    value_sets.each do |vs|
-      value_set_map[vs['oid']] = {} unless value_set_map.key?(vs['oid'])
-      value_set_map[vs['oid']][vs['version']] = vs
-    end
-    value_set_map
+    bundle.value_sets_by_oid_for(measures)
   end
 
   %i[ready queued building errored].each do |test_state|

@@ -37,5 +37,17 @@ FactoryBot.define do
         patient.save!
       end
     end
+
+    factory :vendor_test_patient, class: VendorPatient do
+      familyName { 'A' }
+      givenNames { ['Dental_Peds'] }
+      qdmPatient { FactoryBot.build(:qdm_patient) }
+
+      after(:create) do |patient|
+        provider = create(:default_provider)
+        patient.provider_performances << CQM::ProviderPerformance.new(provider: provider)
+        patient.save!
+      end
+    end
   end
 end

@@ -51,9 +51,7 @@ class Bundle
   end
 
   def delete
-    measures.destroy
-    patients.destroy
-    value_sets.destroy
+    [measures, patients, value_sets].map(&:destroy)
     super
   end
 
@@ -87,6 +85,17 @@ class Bundle
     Rails.root.join('tmp', 'cache', "bundle_#{id}_mpl.zip")
   end
 
+  def value_sets_by_oid_for(measures)
+    relevant_sets = value_sets.in(:oid.in => measures.collect(&:oids).flatten.uniq)
+    value_set_map = {}
+    relevant_sets.each do |vs|
+      value_set_map[vs['oid']] = {} unless value_set_map.key?(vs['oid'])
+      value_set_map[vs['oid']][vs['version']] = vs
+      value_set_map[vs['oid']]
+    end
+    value_set_map
+  end
+
   def mpl_status
     if File.exist?(mpl_path)
       :ready
@@ -113,8 +122,7 @@ class Bundle
   def update_default
     unless version == Settings.current.default_bundle
       Bundle.where(active: true).each { |b| b.update(active: false) }
-      self.active = true
-      save!
+      update(active: true)
       Bundle.find_by(id: id).active = true
       Settings.current.update(default_bundle: version)
     end
