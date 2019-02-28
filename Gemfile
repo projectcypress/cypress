@@ -24,7 +24,7 @@ gem 'faker', '~> 1.5.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'
 # Dependencies for CMS Assets Framework
-gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'font-awesome-sass', '~> 5.0.13'
 gem 'jquery-rails', '~> 4.3.3'
 gem 'jquery-ui-rails', '~> 5.0.5'
