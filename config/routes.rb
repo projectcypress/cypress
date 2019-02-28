@@ -15,10 +15,8 @@ Rails.application.routes.draw do
         get :supplemental_test_artifact
       end
     end
-    resources :records, only: %i[index show] do
-      collection do
-        get :by_measure
-      end
+    scope module: :vendors do
+      resources :records, only: %i[index show new create]
     end
   end
 
@@ -83,7 +81,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :records, only: %i[index show] do
+  resources :records, only: %i[index show create] do
     collection do
       get :download_mpl
     end
