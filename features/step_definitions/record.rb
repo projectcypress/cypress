@@ -125,3 +125,14 @@ end
 Then(/^the user should not see deprecated bundles$/) do
   page.assert_no_text '(Deprecated)'
 end
+
+When(/^the user visits the vendor records page$/) do
+  @bundle = Bundle.default
+  @vendor = Vendor.create!(name: 'test_vendor_name')
+  visit "/records?vendor_id=#{@vendor.id}"
+end
+
+Then(/^the user should see a list of vendor patients$/) do
+  page.assert_text 'All Patients'
+  assert page.has_selector?('table tbody tr', count: @vendor.patients.length), 'different count'
+end
