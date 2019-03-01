@@ -58,3 +58,9 @@ Scenario: Successful filter records
   Then the user should see results for that measure
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
+
+Scenario: View Vendor Patient List Page
+  When the user visits the vendor records page
+  Then the user should see a list of vendor patients
+  Then the page should be accessible according to: section508
+  Then the page should be accessible according to: wcag2aa
