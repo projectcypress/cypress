@@ -17,32 +17,8 @@ FactoryBot.define do
     category { "none_#{seq_id / 2}" }
 
     source_data_criteria { source_measure['source_data_criteria'] }
-    population_criteria { source_measure['population_criteria'] }
 
     main_cql_library { source_measure['main_cql_library'] }
-
-    after(:build) do |measure|
-      source_measure['cql_libraries'].each do |cql_library|
-        measure.cql_libraries << CQM::CQLLibrary.new(cql_library)
-        cql_library['elm']['library']['valueSets'].each_pair do |_key, valuesets|
-          valuesets.each do |valueset|
-            measure.value_sets << ValueSet.where(oid: valueset['id']).first
-          end
-        end
-        cql_library['elm']['library']['codes'].each_pair do |_key, codes|
-          codes.each do |code|
-            code_system_def = cql_library['elm']['library']['codeSystems']['def'].find { |code_sys| code_sys['name'] == code['codeSystem']['name'] }
-            code_system_name = code_system_def['id']
-            code_system_version = code_system_def['version']
-            code_hash = 'drc-' + Digest::SHA2.hexdigest("#{code_system_name} #{code['id']} #{code['name']} #{code_system_version}")
-            measure.value_sets << ValueSet.where(oid: code_hash).first
-          end
-        end
-      end
-      source_measure['population_sets'].each do |population_set|
-        measure.population_sets << CQM::PopulationSet.new(population_set)
-      end
-    end
 
     trait :diagnosis do
       after(:build) do |measure|
@@ -100,6 +76,50 @@ FactoryBot.define do
           end
         end
         source_measure['population_sets'].each do |population_set|
+          measure.population_sets << CQM::PopulationSet.new(population_set)
+        end
+      end
+    end
+
+    factory :static_proportion_measure do
+      entry = Rails.root.join('test', 'fixtures', 'artifacts', 'cms134v6.json')
+      source_proportion_measure = JSON.parse(File.read(entry), max_nesting: 100)
+      description { 'Static Proportion Measure' }
+
+      cms_id { source_proportion_measure['cms_id'] }
+      hqmf_id { '40280382-5FA6-FE85-0160-0918E74D2075' }
+      hqmf_set_id { '7B2A9277-43DA-4D99-9BEE-6AC271A07747' }
+
+      measure_scoring { 'PROPORTION' }
+      calculation_method { 'PATIENT' }
+      reporting_program_type { 'ep' }
+      category { 'none_0' }
+
+      source_data_criteria { source_proportion_measure['source_data_criteria'] }
+
+      main_cql_library { source_proportion_measure['main_cql_library'] }
+
+      after(:build) do |measure|
+        source_proportion_measure['cql_libraries'].each do |cql_library|
+          measure.cql_libraries << CQM::CQLLibrary.new(cql_library)
+          cql_library['elm']['library']['valueSets'].each_pair do |_key, valuesets|
+            valuesets.each do |valueset|
+              measure.value_sets << ValueSet.where(oid: valueset['id']).first
+            end
+          end
+          next unless cql_library['elm']['library']['codes']
+
+          cql_library['elm']['library']['codes'].each_pair do |_key, codes|
+            codes.each do |code|
+              code_system_def = cql_library['elm']['library']['codeSystems']['def'].find { |code_sys| code_sys['name'] == code['codeSystem']['name'] }
+              code_system_name = code_system_def['id']
+              code_system_version = code_system_def['version']
+              code_hash = 'drc-' + Digest::SHA2.hexdigest("#{code_system_name} #{code['id']} #{code['name']} #{code_system_version}")
+              measure.value_sets << ValueSet.where(oid: code_hash).first
+            end
+          end
+        end
+        source_proportion_measure['population_sets'].each do |population_set|
           measure.population_sets << CQM::PopulationSet.new(population_set)
         end
       end

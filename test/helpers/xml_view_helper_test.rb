@@ -6,7 +6,7 @@ class XmlViewHelperTest < ActiveSupport::TestCase
 
   def setup
     user = FactoryBot.create(:vendor_user)
-    product_test = FactoryBot.create(:product_test_static_result)
+    product_test = FactoryBot.create(:cv_product_test_static_result)
     product_test.product.c1_test = true
     task = product_test.tasks.create({}, C1Task)
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_wrong_templates.zip'))

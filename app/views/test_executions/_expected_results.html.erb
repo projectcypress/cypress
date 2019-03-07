@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th scope="col">Measure Name</th>
-      <% population_keys = task.product_test_expected_results.first[1].population_ids.keys %>
+      <% population_keys = task.measures.first.population_keys %>
       <% population_keys.each do |population| %>
         <th scope="col" class="text-center"><%= population_label(task.bundle, population) %></th>
       <% end %>
@@ -20,7 +20,7 @@
                     Measure.where(hqmf_id: expected_result[1]['measure_id']).first
                  end %>
         <td><%= mes.description %></td>
-        <% expected_result[1].population_ids.keys().each do |population| %>
+        <% population_keys.each do |population| %>
           <% if population_keys.include? population %>
             <td class="text-center">
               <%= render 'expected_result_icon', :result => expected_result[1][population] %>

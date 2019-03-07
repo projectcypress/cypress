@@ -6,8 +6,6 @@ FactoryBot.define do
       seq_id { 1 }
     end
 
-    familyName { 'MPL record' }
-    givenNames { [seq_id.to_s] }
     medical_record_number { "#{seq_id}989db70-4d42-0135-8680-20999b0ed66f" }
     insurance_provider_hash = { 'codes' => { 'SOP' => ['349'] },
                                 'name' => 'Other',
@@ -17,18 +15,29 @@ FactoryBot.define do
                                 'member_id' => '1374589940',
                                 'start_time' => '1949-05-23T13:24:00+00:00' }
     insurance_providers { [insurance_provider_hash] }
-    qdmPatient { FactoryBot.build(:qdm_patient) }
 
-    after(:create) do |patient|
-      provider = create(:default_provider)
-      cr = create(:individual_bundle_result, patient_id: patient._id, correlation_id: patient.bundleId)
-      cr.individual_results.each_pair do |_pop_key, individual_result|
-        individual_result['patient_id'] = patient.qdmPatient.id.to_s
-        individual_result['measure_id'] = cr.measure_id.to_s
+    factory :static_bundle_patient, class: BundlePatient do
+      familyName { 'MPL record' }
+      givenNames { [seq_id.to_s] }
+      qdmPatient { FactoryBot.build(:qdm_patient) }
+
+      after(:create) do |patient|
+        provider = create(:default_provider)
+        cr = create(:individual_bundle_result, patient_id: patient._id, correlation_id: patient.bundleId)
+        cr.individual_results.each_pair do |_pop_key, individual_result|
+          individual_result['patient_id'] = patient.qdmPatient.id.to_s
+          individual_result['measure_id'] = cr.measure_id.to_s
+        end
+        cr.save
+        cr_cv = create(:individual_bundle_cv_result, patient_id: patient._id, correlation_id: patient.bundleId)
+        cr_cv.individual_results.each_pair do |_pop_key, individual_result|
+          individual_result['patient_id'] = patient.qdmPatient.id.to_s
+          individual_result['measure_id'] = cr_cv.measure_id.to_s
+        end
+        cr_cv.save
+        patient.provider_performances << CQM::ProviderPerformance.new(provider: provider)
+        patient.save!
       end
-      cr.save
-      patient.provider_performances << CQM::ProviderPerformance.new(provider: provider)
-      patient.save!
     end
 
     factory :static_test_patient, class: ProductTestPatient do

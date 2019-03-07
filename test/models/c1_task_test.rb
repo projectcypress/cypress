@@ -5,7 +5,7 @@ class C1TaskTest < ActiveSupport::TestCase
 
   def setup
     @user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
-    @product_test = FactoryBot.create(:product_test_static_result)
+    @product_test = FactoryBot.create(:cv_product_test_static_result)
   end
 
   def test_create

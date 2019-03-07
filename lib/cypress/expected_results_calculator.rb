@@ -75,7 +75,7 @@ module Cypress
       @measure_result_hash[measure.hqmf_id].keys.each do |key|
         @measure_result_hash[measure.hqmf_id][key]['OBSERV'] = median(observ_values[key].reject(&:nil?))
         @measure_result_hash[measure.hqmf_id][key]['measure_id'] = measure.hqmf_id
-        @measure_result_hash[measure.hqmf_id][key]['population_ids'] = measure.hqmf_ids_for_population_set(key)
+        @measure_result_hash[measure.hqmf_id][key]['pop_set_hash'] = measure.population_set_hash_for_key(key)
       end
     end
     # rubocop:enable Metrics/AbcSize

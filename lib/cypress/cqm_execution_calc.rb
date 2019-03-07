@@ -3,7 +3,6 @@ require 'securerandom'
 
 module Cypress
   class CqmExecutionCalc
-
     attr_accessor :patients, :measures, :options
 
     def initialize(patients, measures, correlation_id, options)

@@ -19,8 +19,8 @@
           </thead>
           <tbody>
             <% measures.each do |m| %>
-              <% m.population_set_identifiers.each do |population_set_identifier| %>
-                <% result_values = get_result_values([@record], [m], population_set_identifier, pop_keys, 'measure_id') %>
+              <% m.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
+                <% result_values = get_result_values([@record], [m], m.key_for_population_set(population_set_hash), pop_keys, 'measure_id') %>
                 <tr>
                   <th class="abbreviated" scope="row">
                     <%= m.description %>

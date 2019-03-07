@@ -20,46 +20,42 @@ module CQM
       cms_id[/#{start_marker}(.*?)#{end_marker}/m, 1].to_i
     end
 
-    def population_set_identifiers
-      population_set_names = population_sets.collect(&:population_set_id)
-      population_set_names.concat population_sets.collect(&:stratifications).flatten.collect(&:stratification_id)
-    end
+    def population_sets_and_stratifications_for_measure
+      population_set_array = []
+      population_sets.each do |population_set|
+        population_set_hash = { population_set_id: population_set.population_set_id }
+        next if population_set_array.include? population_set_hash
 
-    def hqmf_ids_for_population_set(population_set)
-      measure_populations = %w[DENOM NUMER DENEX DENEXCEP IPP MSRPOPL MSRPOPLEX]
-      pop_suffix = ''
-      population_id_hash = {}
-      if !population_sets.where(population_set_id: population_set).empty?
-        pop_suffix = population_id_hash_for_population_set(population_set, population_id_hash)
-      elsif !population_sets.where('stratifications.stratification_id': population_set).empty?
-        pop_suffix = population_id_hash_for_stratification(population_set, population_id_hash)
+        population_set_array << population_set_hash
+        population_set.stratifications.each do |stratification|
+          population_set_stratification_hash = { population_set_id: population_set.population_set_id,
+                                                 stratification_id: stratification.stratification_id,
+                                                 stratification_title: stratification.title }
+          population_set_array << population_set_stratification_hash
+        end
       end
-      measure_populations.each do |pop|
-        population_id_hash[pop] = population_criteria["#{pop}#{pop_suffix}"]['hqmf_id'] if population_criteria["#{pop}#{pop_suffix}"]
-      end
-      population_id_hash
+      population_set_array
     end
 
-    private
+    def population_set_for_key(population_set_key)
+      ps_hash = population_sets_and_stratifications_for_measure
+      ps_hash.keep_if { |ps| [ps[:population_set_id], ps[:stratification_id]].include? population_set_key }
+      return nil if ps_hash.blank?
 
-    def population_id_hash_for_population_set(population_set, population_id_hash)
-      pop_set = population_sets.where(population_set_id: population_set).first
-      pop_index = population_sets.distinct(:population_set_id).find_index(pop_set.population_set_id)
-      pop_suffix = "_#{pop_index}" unless pop_index.zero?
-      population_id_hash['OBSERV'] = population_criteria['OBSERV']['hqmf_id'] if pop_set.observations
-      pop_suffix
+      [population_sets.where(population_set_id: ps_hash[0][:population_set_id]).first, ps_hash[0][:stratification_id]]
     end
 
-    def population_id_hash_for_stratification(population_set, population_id_hash)
-      strat_suffix = ''
-      pop_set = population_sets.where('stratifications.stratification_id': population_set).first
-      pop_index = population_sets.distinct(:population_set_id).find_index(pop_set.population_set_id)
-      strat_index = population_sets.distinct(:stratifications).flatten.map(&:stratification_id).find_index(population_set)
-      pop_suffix = "_#{pop_index}" unless pop_index.zero?
-      strat_suffix = "_#{strat_index}" unless strat_index.zero?
-      population_id_hash['OBSERV'] = population_criteria['OBSERV']['hqmf_id'] if pop_set.observations
-      population_id_hash['STRAT'] = population_criteria["STRAT#{strat_suffix}"]['hqmf_id'] if population_criteria["STRAT#{strat_suffix}"]
-      pop_suffix
+    def population_set_hash_for_key(population_set_key)
+      population_set_hash = population_sets_and_stratifications_for_measure
+      population_set_hash.keep_if { |ps| [ps[:population_set_id], ps[:stratification_id]].include? population_set_key }.first
+    end
+
+    def key_for_population_set(population_set_hash)
+      population_set_hash[:stratification_id] || population_set_hash[:population_set_id]
+    end
+
+    def population_keys
+      %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP MSRPOPL MSRPOPLEX].keep_if { |pop| population_sets.first.populations[pop]&.hqmf_id }
     end
   end
 end
