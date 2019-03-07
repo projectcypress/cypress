@@ -15,8 +15,8 @@ module Validators
           original_value, calculated_value, pop = extract_calcuated_and_original_results(original, calculated, pop)
           next unless original_value != calculated_value
 
-          pop_statment = options[:population_ids][pop]
-          pop_statment << " Stratification #{options[:population_ids]['STRAT']}" if options[:population_ids]['STRAT']
+          pop_statment = options[:population_set].populations[pop].hqmf_id
+          pop_statment << " Stratification #{options[:stratification_id]}" if options[:stratification_id]
           add_error("Calculated value (#{calculated_value}) for #{pop} (#{pop_statment}) does not match expected value (#{original_value})",
                     file_name: options[:file_name])
           comp = false
@@ -64,7 +64,7 @@ module Validators
                                                options.test_execution.id.to_s,
                                                'effectiveDateEnd': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
                                                'effectiveDate': Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
-      results = calc_job.execute(false)
+      results = calc_job.execute(true)
       passed = determine_passed(mrn, results, record, options)
       passed
     end
@@ -75,7 +75,7 @@ module Validators
         original_results = CompiledResult.where('patient_id' => mrn, 'measure_id' => measure.id).first
         new_results = results.select { |arr| arr.measure_id == measure.id && arr.patient_id == record.id }.first
         original_results.individual_results.keys.each do |key|
-          options[:population_ids] = measure.hqmf_ids_for_population_set(key)
+          options[:population_set], options[:stratification_id] = measure.population_set_for_key(key)
           passed = compare_results(original_results.individual_results[key], new_results.individual_results[key], options, passed)
         end
       end

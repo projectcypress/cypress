@@ -54,8 +54,8 @@ When(/^a user creates a product with (.*) certifications( and a supplemental art
   page.find('#product_c4_test').click if certs.include? 'c4'
   page.find('#product_measure_selection_custom').click
   page.attach_file('product_supplemental_test_artifact', file_path, visible: false) unless sta.nil?
-  page.all('#measure_tabs .ui-tabs-nav a')[1].click # should tab for "Behavioral Health Adult"
-  page.all('input.measure-checkbox')[0].click # should get measure for "Depression Remission at Twelve Months"
+  page.all('#measure_tabs .ui-tabs-nav a')[0].click # should tab for "Behavioral Health Adult"
+  page.all('input.measure-checkbox')[3].click # should get measure for "Depression Remission at Twelve Months"
   page.click_button 'Add Product'
   page.click_link product_name
   # By running find_by after we have already clicked a link to the same product we are trying to find,

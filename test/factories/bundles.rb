@@ -31,10 +31,15 @@ FactoryBot.define do
           create(:value_set, seq_id: count, bundle: bundle)
         end
         create(:value_set_payer, bundle: bundle)
-        create(:direct_reference_code, bundle: bundle)
+        create(:direct_reference_code_birth_date, bundle: bundle)
+        create(:direct_reference_code_dead, bundle: bundle)
+        create(:direct_reference_code_discharge_hospice, bundle: bundle)
+        create(:direct_reference_code_discharge_home_hospice, bundle: bundle)
 
         # Always include a complete measure (BE65090C-EB1F-11E7-8C3F-9A214CF093AE)
         create(:static_measure, bundle_id: bundle._id)
+        # Always include a complete proportion measure (40280382-5FA6-FE85-0160-0918E74D2075)
+        create(:static_proportion_measure, bundle_id: bundle._id)
 
         # Always include 2 random measures with a diagnosis
         2.times do |count|
@@ -52,7 +57,7 @@ FactoryBot.define do
 
         # Include a patient that will evaluate against the static measure
         9.times do |count|
-          create(:patient, seq_id: count, bundleId: bundle._id)
+          create(:static_bundle_patient, seq_id: count, bundleId: bundle._id)
         end
       end
     end

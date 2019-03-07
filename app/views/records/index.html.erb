@@ -1,13 +1,13 @@
 <% if @vendor || (@task && @product_test) %>
 
   <div class="pull-right button-row">
-    <% if @measure && @measure.population_set_identifiers.size > 1 %>
+    <% if @measure && @measure.population_sets_and_stratifications_for_measure.size > 1 %>
       <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Sub measures <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-          <% @measure.population_set_identifiers.each do |population_set| %>
-            <li><%= link_to "#{population_set}", { controller: 'records', task_id: @task.id, population_set: population_set}, method: :get %></li>
+          <% @measure.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
+            <li><%= link_to "#{population_set_hash[:population_set_id]}", { controller: 'records', task_id: @task.id, population_set_hash: population_set_hash}, method: :get %></li>
           <% end %>
         </ul>
       </div>
@@ -74,7 +74,7 @@
 <% cache [@patients, @measure, hide_patient_calculation?] do %>
   <div class="row">
     <div id="records_list" class="col-sm-12">
-      <%= render 'records_list', :patients => @vendor ? @vendor.patients : @patients, :measure => @measure, :population_set => @population_set, :product_test => @product_test, :bundle => @bundle, :task => @task %>
+      <%= render 'records_list', :patients => @vendor ? @vendor.patients : @patients, :measure => @measure, :population_set_hash => @population_set_hash, :product_test => @product_test, :bundle => @bundle, :task => @task %>
     </div>
   </div>
 <% end #cache records %>
@@ -111,7 +111,7 @@
   // rerender the records list to show records from all measures if no value searched
   $('#search_measures').on('keyup', function() {
     if (!$(this).val()) {
-      $("#records_list").html("<%= escape_javascript(render 'records_list', :patients => @patients, :measure => @measure, :population_set => @population_set, :product_test => @product_test, :bundle => @bundle, :task => @task ) %>");
+      $("#records_list").html("<%= escape_javascript(render 'records_list', :patients => @patients, :measure => @measure, :population_set_hash => @population_set_hash, :product_test => @product_test, :bundle => @bundle, :task => @task ) %>");
     }
   })
 </script>

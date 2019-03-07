@@ -111,7 +111,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     errors = @validator.errors
 
     error_details = { type: 'supplemental_data',
-                      population_key: 'IPOP',
+                      population_key: 'IPP',
                       population_id: 'EA122D3D-5348-43DB-96A5-2D044ACAAA4D',
                       data_type: 'SEX',
                       code: 'M',

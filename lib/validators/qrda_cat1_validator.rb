@@ -62,7 +62,7 @@ module Validators
               cda:reference[@typeCode='REFR']/cda:externalDocument[@classCode='DOC']/
               cda:id[#{translate('@root')}='2.16.840.1.113883.4.738' and #{translate('@extension')}='#{measure.hqmf_id.upcase}'])
         unless doc.at_xpath(measure_xpath)
-          add_error("Document does not state it is reporting measure #{measure.hqmf_id}  - #{measure.name}",
+          add_error("Document does not state it is reporting measure #{measure.hqmf_id}  - #{measure.description}",
                     validator: 'Measure Declaration Check', validator_type: :xml_validation, file_name: @options[:file_name])
         end
       end

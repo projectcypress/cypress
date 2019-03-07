@@ -6,91 +6,103 @@ module Validators
 
     self.validator = :expected_results
 
+    ALL_POPULATION_CODES = %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP MSRPOPL MSRPOPLEX OBSERV].freeze
+
     def initialize(expected_results)
       @expected_results = expected_results
       @reported_results = {}
     end
 
-    # Nothing to see here - Move along
     def validate(file, options = {})
       @document = get_document(file)
       @file_name = options[:file_name]
-      @modified_population_labels = options['task'].bundle.modified_population_labels
       @expected_results.each_pair do |key, expected_result|
-        expected_result = update_expected_population_ids(expected_result) if @modified_population_labels
-        result_key = expected_result['population_ids'].dup
-        reported_result, _errors = extract_results_by_ids(expected_result['measure_id'], result_key, @document)
+        measure = Measure.where(hqmf_id: expected_result.measure_id).first
+        pop_set_hash = measure.population_set_hash_for_key(key)
+        reported_result, _errors = extract_results_by_ids(measure, pop_set_hash[:population_set_id], @document, pop_set_hash[:stratification_id])
         @reported_results[key] = reported_result
-        match_calculation_results(expected_result, reported_result, options)
+        match_calculation_results(expected_result, reported_result, options, measure, pop_set_hash)
       end
       options[:reported_result_target]&.reported_results = reported_results
     end
 
     private
 
-    def match_calculation_results(expected_result, reported_result, options)
-      measure_id = expected_result['measure_id']
-      check_for_reported_results_population_ids(expected_result, reported_result, measure_id)
-      ids = expected_result['population_ids'].dup
-      # remove the stratification entry if its there, not needed to test against values
-      stratification = ids.delete('stratification')
-      stratification ||= ids.delete('STRAT')
-      ids.each do |pop_key, pop_id|
-        next if expected_result[pop_key].blank?
+    def match_calculation_results(expected_result, reported_result, options, measure, pop_set_hash)
+      population_set = measure.population_sets.where(population_set_id: pop_set_hash[:population_set_id]).first
+      ALL_POPULATION_CODES.each do |pop_key|
+        next unless population_set.populations[pop_key]&.hqmf_id
 
-        check_population(expected_result, reported_result, pop_key, stratification, measure_id)
+        stratification_id = population_set.stratifications.where(stratification_id: pop_set_hash[:stratification_id]).first&.hqmf_id
+        check_population(expected_result, reported_result, pop_key, pop_set_hash, measure)
         # Check supplemental data elements
         ex_sup = (expected_result['supplemental_data'] || {})[pop_key]
-        next unless stratification.nil? && ex_sup
+        next unless pop_set_hash[:stratification_id].nil? && ex_sup
 
-        keys_and_ids = { measure_id: measure_id, pop_key: pop_key, pop_id: pop_id }
+        keys_and_ids = { measure_id: measure.hqmf_id,
+                         pop_key: pop_key,
+                         pop_id: population_set.populations[pop_key].hqmf_id,
+                         stratification_id: stratification_id }
 
-        check_sup_keys(ex_sup, reported_result, keys_and_ids, stratification, options)
+        check_sup_keys(ex_sup, reported_result, keys_and_ids, options)
       end
     end
 
     # Labels for populations can change over time, this will replace the QME population code with the code used in the specified qrda version
     # e.g. IPP is IPOP in QRDA Cat III R1.1
-    def update_expected_population_ids(expected_result)
-      @modified_population_labels.each do |original_label, modified_label|
-        expected_result[modified_label] = expected_result[original_label]
-        expected_result.delete(original_label)
-        expected_result['population_ids'][modified_label] = expected_result['population_ids'][original_label]
-        expected_result['population_ids'].delete(original_label)
-        expected_result['supplemental_data'][modified_label] = expected_result['supplemental_data'][original_label]
-        expected_result['supplemental_data'].delete(original_label)
-      end
-      expected_result
-    end
+    # def update_expected_population_ids(expected_result)
+    #   @modified_population_labels.each do |original_label, modified_label|
+    #     expected_result[modified_label] = expected_result[original_label]
+    #     expected_result.delete(original_label)
+    #     expected_result['population_ids'][modified_label] = expected_result['population_ids'][original_label]
+    #     expected_result['population_ids'].delete(original_label)
+    #     expected_result['supplemental_data'][modified_label] = expected_result['supplemental_data'][original_label]
+    #     expected_result['supplemental_data'].delete(original_label)
+    #   end
+    #   expected_result
+    # end
 
-    def check_for_reported_results_population_ids(expected_result, reported_result, measure_id)
-      ids = expected_result['population_ids'].dup
-      if reported_result.nil? || reported_result.keys.length <= 1
-        message = %("Could not find entry for measure #{expected_result['measure_id']} with the following population ids ")
-        message += ids.inspect
-        # logger.call(message, _ids['stratification'])
-        add_error(message, location: '/', measure_id: measure_id, stratification: ids['stratification'], file_name: @file_name)
-      end
-    end
+    # def check_for_reported_results_population_ids(expected_result, reported_result, measure_id, stratification_id)
+    #   #ids = expected_result['population_ids'].dup
+    #   if reported_result.nil? || reported_result.keys.length <= 1
+    #     message = %("Could not find entry for measure #{expected_result['measure_id']} with the following population ids ")
+    #     #message += ids.inspect
+    #     # logger.call(message, _ids['stratification'])
+    #     add_error(message, location: '/', measure_id: measure_id, stratification: stratification_id, file_name: @file_name)
+    #   end
+    # end
 
-    def check_population(expected_result, reported_result, pop_key, stratification, measure_id)
+    def check_population(expected_result, reported_result, pop_key, pop_set_hash, measure)
       # only add the error that they dont match if there was an actual result
+      population_set = measure.population_sets.where(population_set_id: pop_set_hash[:population_set_id]).first
+      population_id = population_set.populations[pop_key].hqmf_id
+      stratification_id = if pop_set_hash[:stratification_id]
+                            population_set.stratifications.where(stratification_id: pop_set_hash[:stratification_id]).first.hqmf_id
+                          end
       if !reported_result.empty? && !reported_result.key?(pop_key)
-        message = 'Could not find value'
-        message += " for stratification #{stratification} " if stratification
-        message += " for Population #{pop_key}"
-        add_error(message, location: '/', measure_id: measure_id, stratification: stratification)
+        generate_could_not_find_population_error_message(measure.hqmf_id, population_id, pop_key, pop_set_hash, stratification_id)
       elsif (expected_result[pop_key] != reported_result[pop_key]) && !reported_result.empty?
-        err = %(Expected #{pop_key} #{expected_result['population_ids'][pop_key]} value #{expected_result[pop_key]}
-        does not match reported value #{reported_result[pop_key]})
-        error_details = { type: 'population', population_id: expected_result['population_ids'][pop_key], stratification: stratification,
-                          expected_value: expected_result[pop_key], reported_value: reported_result[pop_key] }
-        options = { location: '/', measure_id: measure_id, error_details: error_details, file_name: @file_name }
-        add_error(err, options)
+        generate_does_not_match_population_error_message(measure.hqmf_id, population_id, pop_key, stratification_id)
       end
     end
 
-    def check_sup_keys(ex_sup, reported_result, keys_and_ids, stratification, options)
+    def generate_could_not_find_population_error_message(measure_id, population_id, pop_key, pop_set_hash, stratification_id)
+      message = 'Could not find value'
+      message += " for stratification #{stratification_id} " if pop_set_hash[:stratification_id]
+      message += " for Population #{pop_key}"
+      add_error(message, location: '/', measure_id: measure_id, population_id: population_id, stratification: stratification_id)
+    end
+
+    def generate_does_not_match_population_error_message(measure_id, population_id, pop_key, stratification_id)
+      err = %(Expected #{pop_key} value #{expected_result[pop_key]}
+      does not match reported value #{reported_result[pop_key]})
+      error_details = { type: 'population', population_id: population_id, stratification: stratification_id,
+                        expected_value: expected_result[pop_key], reported_value: reported_result[pop_key] }
+      options = { location: '/', measure_id: measure_id, error_details: error_details, file_name: @file_name }
+      add_error(err, options)
+    end
+
+    def check_sup_keys(ex_sup, reported_result, keys_and_ids, options)
       esr = ExpectedSupplementalResults.new(@file_name)
       sup_keys = ex_sup.keys.reject(&:blank?)
       reported_sup = (reported_result[:supplemental_data] || {})[keys_and_ids[:pop_key]]
@@ -101,9 +113,9 @@ module Validators
         report_sup_val = reported_sup.nil? ? nil : reported_sup[sup_key]
         # keys_and_ids used to hold information that is displayed with an execution error. the variable also rhymes
         keys_and_ids[:sup_key] = sup_key
-        esr.check_supplemental_data_matches_pop_sums(report_sup_val, keys_and_ids, expect_sup_val, stratification)
-        esr.check_supplemental_data_expected_not_reported(expect_sup_val, report_sup_val, keys_and_ids, @modified_population_labels, options)
-        esr.check_supplemental_data_reported_not_expected(expect_sup_val, report_sup_val, keys_and_ids, @modified_population_labels, options)
+        esr.check_supplemental_data_matches_pop_sums(report_sup_val, keys_and_ids, expect_sup_val)
+        esr.check_supplemental_data_expected_not_reported(expect_sup_val, report_sup_val, keys_and_ids, options)
+        esr.check_supplemental_data_reported_not_expected(expect_sup_val, report_sup_val, keys_and_ids, options)
       end
       @errors.nil? ? (@errors = esr.errors) : @errors.concat(esr.errors || [])
     end

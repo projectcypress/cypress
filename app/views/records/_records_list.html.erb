@@ -1,7 +1,8 @@
 <!-- Only grab measure records and result values once to avoid duplicate queries -->
 <% if measure && patients.length.positive? %>
   <% measure_records = records_by_measure(patients, measure) %>
-  <% result_values = get_result_values(patients, [measure], population_set, measure.hqmf_ids_for_population_set(population_set).keys, 'patient_id') %>
+  <% population_keys = measure.population_keys %>
+  <% result_values = get_result_values(patients, [measure], measure.key_for_population_set(population_set_hash), population_keys, 'patient_id') %>
 <% end %>
 <h1><%= measure ? measure.description : 'All' %> Patients</h1>
 <% if @vendor %>
@@ -18,7 +19,7 @@
       <th scope="col">DOB</th>
       <th scope="col">Gender</th>
       <% if measure && !hide_patient_calculation?%>
-        <% measure.hqmf_ids_for_population_set(measure.population_set_identifiers.first).keys().each do |population| %>
+        <% population_keys.each do |population| %>
           <th scope="col" class="text-center"><%= population_label(bundle, population) %></th>
         <% end %>
       <% end %>
