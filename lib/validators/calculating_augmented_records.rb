@@ -38,7 +38,7 @@ module Validators
         orig_results = CompiledResult.where('patient_id': options[:orig_product_patient].id, 'measure_id': measure.id).first
         new_results = results.select { |arr| arr.measure_id == measure.id && arr.patient_id == record.id }.first
         orig_results.individual_results.each_pair do |population_key, _results|
-          measure.hqmf_ids_for_population_set(population_key).keys.each do |pop_id|
+          measure.population_keys.each do |pop_id|
             if orig_results.individual_results[population_key][pop_id] != new_results.individual_results[population_key][pop_id]
               passed = false
               break

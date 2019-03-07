@@ -4477,13 +4477,16 @@
       "observations": [
         {
           "aggregation_type": null,
+          "hqmf_id": "FFB1B6BE-B96F-4B29-A920-0E4966D209A3",
           "observation_function": {
             "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
-            "statement_name": "Measure Observation"
+            "statement_name": "Measure Observation",
+            "hqmf_id": "FFB1B6BE-B96F-4B29-A920-0E4966D209A3"
           },
           "observation_parameter": {
             "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
-            "statement_name": "Measure Population"
+            "statement_name": "Measure Population",
+            "hqmf_id": "FFB1B6BE-B96F-4B29-A920-0E4966D209A3"
           }
         }
       ],
@@ -4491,15 +4494,18 @@
       "populations": {
         "IPP": {
           "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
-          "statement_name": "Initial Population"
+          "statement_name": "Initial Population",
+          "hqmf_id": "036B7EEE-DEB5-40E2-B802-BC6CDF2B8A43"
         },
         "MSRPOPL": {
           "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
-          "statement_name": "Measure Population"
+          "statement_name": "Measure Population",
+          "hqmf_id": "4A80FF43-6FC1-4975-806B-4FD40C7C4B95"
         },
         "MSRPOPLEX": {
           "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
-          "statement_name": "Measure Population Exclusions"
+          "statement_name": "Measure Population Exclusions",
+          "hqmf_id": "34607208-5E04-4BC6-94E4-F3168609640E"
         },
         "_type": "CQM::ContinuousVariablePopulationMap"
       },
@@ -4507,26 +4513,32 @@
         {
           "statement": {
             "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
-            "statement_name": "Stratification 1"
+            "statement_name": "Stratification 1",
+            "hqmf_id": "041A37F6-86D3-471F-86DD-12FB668092BD"
           },
           "stratification_id": "PopulationCriteria1 - Stratification 1",
-          "title": "Stratification 1"
+          "title": "Stratification 1",
+          "hqmf_id": "041A37F6-86D3-471F-86DD-12FB668092BD"
         },
         {
           "statement": {
             "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
-            "statement_name": "Stratification 2"
+            "statement_name": "Stratification 2",
+            "hqmf_id": "7846CD9A-9B68-4C2C-9CFB-0E52777D9EEA"
           },
           "stratification_id": "PopulationCriteria1 - Stratification 2",
-          "title": "Stratification 2"
+          "title": "Stratification 2",
+          "hqmf_id": "7846CD9A-9B68-4C2C-9CFB-0E52777D9EEA"
         },
         {
           "statement": {
             "library_name": "MedianTimefromEDArrivaltoEDDepartureforDischargedEDPatients",
-            "statement_name": "Stratification 3"
+            "statement_name": "Stratification 3",
+            "hqmf_id": "566164F8-47E0-4ADB-A3A6-383067490DA8"
           },
           "stratification_id": "PopulationCriteria1 - Stratification 3",
-          "title": "Stratification 3"
+          "title": "Stratification 3",
+          "hqmf_id": "566164F8-47E0-4ADB-A3A6-383067490DA8"
         }
       ],
       "title": "Population Criteria Section"

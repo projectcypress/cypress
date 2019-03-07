@@ -5,7 +5,7 @@ class C3Cat1TaskTest < ActiveSupport::TestCase
 
   def setup
     @user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
-    @test = FactoryBot.create(:product_test_static_result)
+    @test = FactoryBot.create(:cv_product_test_static_result)
     @test.product.c3_test = true
     @task = @test.tasks.create({}, C3Cat1Task)
   end

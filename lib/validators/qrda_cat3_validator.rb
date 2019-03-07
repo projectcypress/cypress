@@ -19,7 +19,7 @@ module Validators
 
       # I don't like this right now but do it this way just to get things moving
       # TODO update Cat3PerformanceRate
-      # add_errors Cat3PerformanceRate.instance.validate(@doc, file_name: @options[:file_name]) if @is_c3_validation_task
+      add_errors Cat3PerformanceRate.instance.validate(@doc, file_name: @options[:file_name]) if @is_c3_validation_task
       # Add if it isn't C3 or if it is and there isn't a C2
       if !@is_c3_validation_task || (@is_c3_validation_task && !@test_has_c2)
         add_errors Cat3Measure.instance.validate(@doc, file_name: @options[:file_name])

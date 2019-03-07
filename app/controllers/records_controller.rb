@@ -23,7 +23,7 @@ class RecordsController < ApplicationController
         @source.measures
                .order_by(cms_int: 1)
                .map do |m|
-          { label: m.display_name,
+          { label: m.description,
             value: by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id) }
         end.to_json.html_safe
       end
@@ -49,14 +49,14 @@ class RecordsController < ApplicationController
     @patients = @source.patients.includes(:calculation_results)
     if params[:measure_id]
       @measure = @source.measures.find_by(hqmf_id: params[:measure_id])
-      @population_set = params[:population_set] || @measure.population_set_identifiers.first
+      @population_set_hash = params[:population_set_hash] || @measure.population_sets_and_stratifications_for_measure.first
       expires_in 1.week, public: true
     end
   end
 
   def by_filter_task
     @patients = Patient.where(:_id.in => @product_test.filtered_patients.map(&:id))
-    @population_set = params[:population_set] || @measure.population_set_identifiers.first
+    @population_set_hash = params[:population_set_hash] || @measure.population_sets_and_stratifications_for_measure.first
   end
 
   def download_mpl
@@ -126,7 +126,7 @@ class RecordsController < ApplicationController
     authorize! :read, @product_test.product.vendor
     @measure = @product_test.measures.first
     @measure ||= @product_test.measures.first
-    @population_set = params[:population_set] || @measure.population_set_identifiers.first
+    @population_set_hash = params[:population_set_hash] || @measure.population_sets_and_stratifications_for_measure.first
     @source = @product_test
     breadcrumbs_for_test_path
     @title = "#{@task.product_test.product.name} #{@task._type.titleize} #{@task.product_test.measures.first.cms_id} Patients"

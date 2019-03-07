@@ -3,7 +3,7 @@ class CalculatingAugmentedRecordsTest < ActiveSupport::TestCase
   include ::Validators
 
   def setup
-    @product_test = FactoryBot.create(:product_test_static_result)
+    @product_test = FactoryBot.create(:cv_product_test_static_result)
     @validator = ::Validators::CalculatingAugmentedRecords.new(@product_test.measures, [], @product_test.id)
   end
 

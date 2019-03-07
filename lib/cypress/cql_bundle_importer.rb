@@ -155,6 +155,8 @@ module Cypress
             value_sets << ValueSet.where(oid: valueset['id']).first
           end
         end
+        next unless cql_library['elm']['library']['codes']
+
         cql_library['elm']['library']['codes'].each_pair do |_key, codes|
           codes.each do |code|
             code_system_name, code_system_version = code_system_name_and_version(cql_library, code['codeSystem']['name'])
