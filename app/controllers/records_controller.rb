@@ -34,7 +34,12 @@ class RecordsController < ApplicationController
   def show
     @record = @source.patients.find(params[:id])
     @results = @record.calculation_results
-    @measures = @source.measures.where(:_id.in => @results.map(&:measure_id))
+    if @vendor
+      @bundle = Bundle.default
+      @measures = @bundle.measures.where(:_id.in => @results.map(&:measure_id))
+    else
+      @measures = @source.measures.where(:_id.in => @results.map(&:measure_id))
+    end
     @continuous_measures = @measures.where(continuous_variable: true).sort_by { |m| [m.cms_int, m.sub_id] }
     @non_continuous_measures = @measures.where(continuous_variable: false).sort_by { |m| [m.cms_int, m.sub_id] }
     expires_in 1.week, public: true
