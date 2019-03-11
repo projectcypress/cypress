@@ -85,4 +85,19 @@ class VendorsRecordsControllerTest < ActionController::TestCase
       assert_equal orig_patient_count + 1, Patient.count
     end
   end
+
+  test 'should be able to show vendor record' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
+      get :show, params: { vendor_id: @vendor.id, id: @patient }
+      assert_response :success, "#{@user.email} should have access "
+      assert assigns(:record)
+    end
+  end
+
+  test 'should be able to restrict access to vendor record show unauthorized users ' do
+    for_each_logged_in_user([OTHER_VENDOR]) do
+      get :show, params: { vendor_id: @vendor.id, id: @patient }
+      assert_response 401
+    end
+  end
 end
