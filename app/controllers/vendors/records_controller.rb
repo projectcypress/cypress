@@ -67,12 +67,11 @@ module Vendors
     end
 
     def generate_calculations(patients)
-      bundle = Bundle.default
-      value_set_map = bundle.value_sets_by_oid_for(bundle.measures)
+      value_set_map = @bundle.value_sets_by_oid_for(@bundle.measures)
 
-      calc_job = Cypress::CqmExecutionCalc.new(patients.map(&:qdmPatient), bundle.measures, value_set_map, params[:vendor_id],
-                                               'effectiveDateEnd': Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number),
-                                               'effectiveDate': Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number))
+      calc_job = Cypress::CqmExecutionCalc.new(patients.map(&:qdmPatient), @bundle.measures, value_set_map, params[:vendor_id],
+                                               'effectiveDateEnd': Time.at(@bundle.effective_date).in_time_zone.to_formatted_s(:number),
+                                               'effectiveDate': Time.at(@bundle.measure_period_start).in_time_zone.to_formatted_s(:number))
       calc_job.execute
     end
 

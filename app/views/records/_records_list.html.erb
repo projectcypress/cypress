@@ -6,7 +6,6 @@
 <h1><%= measure ? measure.display_name : 'All' %> Patients</h1>
 <% if @vendor %>
   <% patients= @vendor.patients %>
-  <% bundle= Bundle.all.to_a.first #temp for test%>
 <% end %>
 <% if (measure && measure_records.length.positive?) || (!measure  && patients.length.positive?) %>
 <table class="table table-condensed table-hover">
