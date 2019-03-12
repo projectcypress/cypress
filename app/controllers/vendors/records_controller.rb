@@ -2,8 +2,7 @@ module Vendors
   class RecordsController < ::RecordsController
     include ::CqmValidators
 
-    before_action :set_vendor
-    before_action :authorize_vendor
+    before_action :set_vendor, :authorize_vendor, :set_record_source
 
     def new
       breadcrumbs_for_vendor_path
