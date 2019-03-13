@@ -136,3 +136,23 @@ Then(/^the user should see a list of vendor patients$/) do
   page.assert_text 'All Patients'
   assert page.has_selector?('table tbody tr', count: @vendor.patients.length), 'different count'
 end
+
+When(/^the user visits the vendor patient link$/) do
+  @bundle = Bundle.default
+  @vendor = Vendor.create!(name: 'test_vendor_name')
+  @patient = FactoryBot.create(:vendor_test_patient,
+                                 bundleId: @bundle._id, correlation_id: @vendor.id)
+  visit "/vendors/#{@vendor.id}/records/#{@patient.id}"
+end
+
+Then(/^the user should see vendor patient details$/) do
+  page.assert_text "Cypress Certification Patient Test Record: #{@patient.first_names} #{@patient.familyName}"
+  page.assert_text @patient.gender
+  @patient.qdmPatient.dataElements.each do |data_criteria|
+    page.assert_text data_criteria['description']
+  end
+  @measures = @bundle.measures.where(:_id.in => @patient.calculation_results.map(&:measure_id))
+  @measures.each do |m|
+    page.assert_text m.display_name
+  end
+end
