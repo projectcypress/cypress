@@ -5,7 +5,6 @@ module Vendors
     before_action :set_vendor, :authorize_vendor, :set_record_source
 
     def new
-      breadcrumbs_for_vendor_path
       add_breadcrumb 'Add Patient', :new_admin_bundle_path, only: [:new]
     end
 
