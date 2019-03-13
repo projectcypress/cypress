@@ -64,3 +64,9 @@ Scenario: View Vendor Patient List Page
   Then the user should see a list of vendor patients
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
+
+Scenario: View Vendor Patient Page
+  When the user visits the vendor patient link 
+  Then the user should see vendor patient details
+  Then the page should be accessible according to: section508
+  Then the page should be accessible according to: wcag2aa
