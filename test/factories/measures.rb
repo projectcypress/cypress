@@ -82,7 +82,7 @@ FactoryBot.define do
     end
 
     factory :static_proportion_measure do
-      entry = Rails.root.join('test', 'fixtures', 'artifacts', 'cms134v6.json')
+      entry = Rails.root.join('test', 'fixtures', 'artifacts', 'CMS134v6.json')
       source_proportion_measure = JSON.parse(File.read(entry), max_nesting: 100)
       description { 'Static Proportion Measure' }
 
