@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :qdm_patient, class: QDM::Patient do
     qdmVersion { '5.4' }
-    birthDatetime { DateTime.new(1940, 1, 1).utc }
+    birthDatetime { DateTime.new(1950, 1, 1).utc }
     data_elements_value = [
       {
         'authorDatetime' => '2017-09-28T08:00:00.000+00:00',
@@ -37,11 +37,31 @@ FactoryBot.define do
           }
         ],
         '_type' => 'QDM::Diagnosis',
-        'hqmfOid' => '2.16.840.1.113883.3.560.1.2',
+        'hqmfOid' => '2.16.840.1.113883.10.20.28.4.110',
         'qrdaOid' => '2.16.840.1.113883.10.20.24.3.135',
         'qdmCategory' => 'condition',
         'qdmVersion' => '5.3',
         'description' => 'Diagnosis: Allergy to Eggs',
+        'prevalencePeriod' => {
+          'low' => '2017-09-28T08:00:00+00:00',
+          'high' => '2017-09-28T08:00:00+00:00',
+          'lowClosed' => true,
+          'highClosed' => true
+        }
+      },
+      {
+        'dataElementCodes' => [
+          {
+            'codeSystem' => 'SNOMED-CT',
+            'code' => '504'
+          }
+        ],
+        '_type' => 'QDM::Diagnosis',
+        'hqmfOid' => '2.16.840.1.113883.10.20.28.4.110',
+        'qrdaOid' => '2.16.840.1.113883.10.20.24.3.135',
+        'qdmCategory' => 'condition',
+        'qdmVersion' => '5.3',
+        'description' => 'Diagnosis: Diabetes',
         'prevalencePeriod' => {
           'low' => '2017-09-28T08:00:00+00:00',
           'high' => '2017-09-28T08:00:00+00:00',
@@ -55,6 +75,26 @@ FactoryBot.define do
           {
             'codeSystem' => 'SNOMED-CT',
             'code' => '720'
+          }
+        ],
+        'description' => 'Encounter, Performed: Office Visit',
+        'hqmfOid' => '2.16.840.1.113883.3.560.1.79',
+        'qdmStatus' => 'performed',
+        'qdmVersion' => '5.3',
+        'relevantPeriod' => {
+          'low' => '2017-09-28T08:00:00+00:00',
+          'high' => '2017-09-28T08:00:00+00:00',
+          'lowClosed' => true,
+          'highClosed' => true
+        },
+        '_type' => 'QDM::EncounterPerformed'
+      },
+      {
+        'qdmCategory' => 'encounter',
+        'dataElementCodes' => [
+          {
+            'codeSystem' => 'SNOMED-CT',
+            'code' => '5814'
           }
         ],
         'description' => 'Encounter, Performed: Office Visit',
@@ -98,7 +138,7 @@ FactoryBot.define do
         'qdmCategory' => 'patient_characteristic',
         'qdmStatus' => 'birthdate',
         'qdmVersion' => '5.3',
-        'birthDatetime' => '1940-01-01T00:00:00+00:00'
+        'birthDatetime' => '1950-01-01T00:00:00+00:00'
       },
       {
         'dataElementCodes' => [

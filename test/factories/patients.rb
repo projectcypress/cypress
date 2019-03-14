@@ -23,18 +23,48 @@ FactoryBot.define do
 
       after(:create) do |patient|
         provider = create(:default_provider)
-        cr = create(:individual_bundle_result, patient_id: patient._id, correlation_id: patient.bundleId)
-        cr.individual_results.each_pair do |_pop_key, individual_result|
-          individual_result['patient_id'] = patient.qdmPatient.id.to_s
-          individual_result['measure_id'] = cr.measure_id.to_s
-        end
-        cr.save
-        cr_cv = create(:individual_bundle_cv_result, patient_id: patient._id, correlation_id: patient.bundleId)
-        cr_cv.individual_results.each_pair do |_pop_key, individual_result|
-          individual_result['patient_id'] = patient.qdmPatient.id.to_s
-          individual_result['measure_id'] = cr_cv.measure_id.to_s
-        end
-        cr_cv.save
+        proportion_ir = create(:cqm_individual_result,
+                               'correlation_id' => patient.bundleId,
+                               'patient_id' => patient.id,
+                               'population_set_key' => 'PopulationCriteria1',
+                               'IPP' => 0,
+                               'DENOM' => 0,
+                               'DENEX' => 0,
+                               'NUMER' => 0)
+        cv_ir = create(:cv_cqm_individual_result,
+                       'correlation_id' => patient.bundleId,
+                       'patient_id' => patient.id,
+                       'population_set_key' => 'PopulationCriteria1',
+                       'IPP' => 1,
+                       'MSRPOPL' => 1,
+                       'MSRPOPLEX' => 0)
+        create(:cqm_individual_result,
+               'correlation_id' => patient.bundleId,
+               'patient_id' => patient.id,
+               'measure_id' => cv_ir.measure_id,
+               'population_set_key' => 'PopulationCriteria1 - Stratification 1',
+               'IPP' => 0,
+               'MSRPOPL' => 0,
+               'MSRPOPLEX' => 0)
+        create(:cqm_individual_result,
+               'correlation_id' => patient.bundleId,
+               'patient_id' => patient.id,
+               'measure_id' => cv_ir.measure_id,
+               'population_set_key' => 'PopulationCriteria1 - Stratification 2',
+               'IPP' => 0,
+               'MSRPOPL' => 0,
+               'MSRPOPLEX' => 0)
+        create(:cqm_individual_result,
+               'correlation_id' => patient.bundleId,
+               'patient_id' => patient.id,
+               'measure_id' => cv_ir.measure_id,
+               'population_set_key' => 'PopulationCriteria1 - Stratification 3',
+               'IPP' => 1,
+               'MSRPOPL' => 1,
+               'MSRPOPLEX' => 0)
+        patient.measure_relevance_hash = {}
+        patient.measure_relevance_hash[proportion_ir.measure_id.to_s] = { 'IPP' => false }
+        patient.measure_relevance_hash[cv_ir.measure_id.to_s] = { 'IPP' => true, 'MSRPOPL' => true }
         patient.provider_performances << CQM::ProviderPerformance.new(provider: provider)
         patient.save!
       end

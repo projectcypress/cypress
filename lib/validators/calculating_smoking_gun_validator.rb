@@ -72,11 +72,15 @@ module Validators
     def determine_passed(mrn, results, record, options)
       passed = true
       @measures.each do |measure|
-        original_results = CompiledResult.where('patient_id' => mrn, 'measure_id' => measure.id).first
-        new_results = results.select { |arr| arr.measure_id == measure.id && arr.patient_id == record.id }.first
-        original_results.individual_results.keys.each do |key|
-          options[:population_set], options[:stratification_id] = measure.population_set_for_key(key)
-          passed = compare_results(original_results.individual_results[key], new_results.individual_results[key], options, passed)
+        original_results = IndividualResult.where('patient_id' => mrn, 'measure_id' => measure.id)
+        original_results.each do |original_result|
+          new_result = results.select do |arr|
+            arr.measure_id == measure.id.to_s &&
+              arr.patient_id == record.id.to_s &&
+              arr.population_set_key == original_result['population_set_key']
+          end.first
+          options[:population_set], options[:stratification_id] = measure.population_set_for_key(original_result['population_set_key'])
+          passed = compare_results(original_result, new_result, options, passed)
         end
       end
       passed

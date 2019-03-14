@@ -2,12 +2,13 @@
 
 module CQM
   class Patient
-    has_many :calculation_results, foreign_key: :patient_id, class_name: 'CompiledResult'
+    has_many :calculation_results, foreign_key: :patient_id, class_name: 'CQM::IndividualResult'
     field :correlation_id, type: BSON::ObjectId
     field :original_patient_id, type: BSON::ObjectId
     field :insurance_providers, type: Array
     field :original_medical_record_number, type: String
     field :medical_record_number, type: String
+    field :measure_relevance_hash, type: Hash, default: {}
     embeds_many :addresses
     default_scope { order('last': :asc) }
 
@@ -136,9 +137,18 @@ module CQM
       end
       [patient, changed, self]
     end
-    #
-    # HDS helpers
-    #
+
+    def update_measure_relevance_hash(individual_result)
+      ir = individual_result
+      measure_relevance_hash[ir.measure_id.to_s] = {} unless measure_relevance_hash[ir.measure_id.to_s]
+      CQM::Measure.find(ir.measure_id).population_keys.each do |pop_key|
+        if pop_key == 'MSRPOPL'
+          measure_relevance_hash[ir.measure_id.to_s]['MSRPOPL'] = true if (ir['MSRPOPL'].to_i - ir['MSRPOPLEX'].to_i).positive?
+        elsif ir[pop_key].to_i.positive?
+          measure_relevance_hash[ir.measure_id.to_s][pop_key] = true
+        end
+      end
+    end
   end
 
   class BundlePatient < Patient; end
