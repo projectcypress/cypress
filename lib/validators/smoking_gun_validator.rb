@@ -27,8 +27,8 @@ module Validators
       @sgd = {}
       @expected_records = []
       @measures.each do |mes|
-        @expected_records << CompiledResult.where('measure_id' => mes.id, 'IPP' => true,
-                                                  correlation_id: @test_id.to_s).distinct(:patient)
+        @expected_records << CQM::IndividualResult.where('measure_id' => mes.id, 'IPP' => { '$gt' => 0 },
+                                                         correlation_id: @test_id.to_s).distinct(:patient)
       end
       @expected_records = @expected_records.flatten.uniq
     end

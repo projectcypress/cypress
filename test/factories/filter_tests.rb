@@ -48,7 +48,15 @@ FactoryBot.define do
                                     'start_time' => '1949-05-23T13:24:00+00:00' }
         patient.insurance_providers = [insurance_provider_hash]
         patient.save
-        create(:compiled_result, 'correlation_id' => pt.id.to_s, 'patient_id' => patient.id, 'measure_id' => pt.measures.first.id)
+        create(:cqm_individual_result,
+               'correlation_id' => pt.id.to_s,
+               'patient_id' => patient.id,
+               'measure_id' => pt.measures.first.id,
+               'population_set_key' => 'PopulationCriteria1',
+               'IPP' => 1,
+               'DENOM' => 1,
+               'DENEX' => 0,
+               'NUMER' => 0)
       end
     end
   end

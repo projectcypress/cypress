@@ -94,7 +94,7 @@ module Cypress
         patient['bundleId'] = bundle.id
 
         reconnect_references(patient)
-        @patient_id_hash[patient.original_medical_record_number] = [patient['id'], patient.qdmPatient.id]
+        @patient_id_hash[patient.original_medical_record_number] = patient['id']
         patient.save
         report_progress('patients', (index * 100 / entries.length)) if (index % 10).zero?
       end
@@ -121,21 +121,26 @@ module Cypress
     def self.unpack_and_store_results(zip, _type, bundle)
       results = zip.glob(File.join(SOURCE_ROOTS[:results], '*.json')).map do |entry|
         contents = unpack_json(entry)
-
         contents.map! do |document|
-          # Replace ids in bundle, with ids created during import
-          document['individual_results'].each do |_population_set, individual_result|
-            individual_result['patient_id'] = @patient_id_hash[document['patient_id']][1].to_s
-            individual_result['measure_id'] = @measure_id_hash[document['measure_id']].to_s
-          end
-          document['patient_id'] = @patient_id_hash[document['patient_id']][0]
+          document['patient_id'] = @patient_id_hash[document['patient_id']]
           document['measure_id'] = @measure_id_hash[document['measure_id']]
           document['correlation_id'] = bundle.id.to_s
           document
         end
       end.flatten
-      CompiledResult.collection.insert_many(results)
+      CQM::IndividualResult.collection.insert_many(results)
+      compile_measure_relevance_hash
       puts "\rLoading: Results Complete          "
+    end
+
+    def self.compile_measure_relevance_hash
+      @patient_id_hash.each_value do |patient|
+        updated_patient = Patient.find(patient)
+        updated_patient.calculation_results.each do |individual_result|
+          updated_patient.update_measure_relevance_hash(individual_result)
+        end
+        updated_patient.save
+      end
     end
 
     def self.unpack_json(entry)
