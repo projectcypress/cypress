@@ -140,8 +140,7 @@ end
 When(/^the user visits the vendor patient link$/) do
   @bundle = Bundle.default
   @vendor = Vendor.create!(name: 'test_vendor_name')
-  @patient = FactoryBot.create(:vendor_test_patient,
-                                 bundleId: @bundle._id, correlation_id: @vendor.id)
+  @patient = FactoryBot.create(:vendor_test_patient, bundleId: @bundle._id, correlation_id: @vendor.id)
   visit "/vendors/#{@vendor.id}/records/#{@patient.id}"
 end
 
