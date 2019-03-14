@@ -5,7 +5,7 @@ class ProductTestSetupJob < ApplicationJob
     product_test.building
     product_test.generate_patients(@job_id) if product_test.patients.count.zero?
     results = calculate_product_test(product_test)
-    MeasureEvaluationJob.perform_now(product_test, compiled_results: results)
+    MeasureEvaluationJob.perform_now(product_test, individual_results: results)
     product_test.archive_patients if product_test.patient_archive.path.nil?
     product_test.ready
   rescue StandardError => e

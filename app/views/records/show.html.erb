@@ -25,7 +25,7 @@
                   <th class="abbreviated" scope="row">
                     <%= m.description %>
                   </th>
-                  <% result_values[m.id.to_s].each do |population, value| %>
+                  <% result_values[m.id].each do |population, value| %>
                     <td class="text-center">
                       <span class="sr-only">Measure <%= m.description %> population <%= population %> result: </span>
                       <!-- This is the relevant piece of the calculation_result_icon partial ported over to here. Rendering each circle in its own partial is far too slow and causes the application to take up to 8 seconds longer to load on some pages. -->

@@ -73,7 +73,7 @@ class ProductTest
     # carrierwave. Without this the system would be left with a lot of uploaded files on it
     # long after the parent data was destroyed.
     Artifact.where(:test_execution_id.in => test_execution_ids).destroy
-    CompiledResult.where(:patient_id.in => patient_ids).delete
+    CQM::IndividualResult.where(:patient_id.in => patient_ids).delete
     ProductTest.in(id: product_test_ids).delete
   end
 
@@ -156,7 +156,7 @@ class ProductTest
   end
 
   def results
-    CompiledResult.where(correlation_id: id.to_s)
+    CQM::IndividualResult.where(correlation_id: id.to_s)
   end
 
   %i[ready queued building errored].each do |test_state|
@@ -204,26 +204,29 @@ class ProductTest
 
   # Returns a listing of all ids for patients in the IPP
   def patients_in_ipp_and_greater
-    CompiledResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
-                         'IPP' => true, correlation_id: bundle.id.to_s).distinct(:patient)
+    bundle.patients.where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.IPP": true).pluck(:_id)
   end
 
   # Returns an id for a patient in the Numerator
   def patient_in_numerator
-    CompiledResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
-                         correlation_id: bundle.id.to_s, 'NUMER' => true).distinct(:patient).sample
+    bundle.patients.where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.NUMER": true).pluck(:_id)
   end
 
   # Returns a listing of all ids for patients in the Denominator
   def patients_in_denominator_and_greater
-    CompiledResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
-                         correlation_id: bundle.id.to_s, 'DENOM' => true).distinct(:patient)
+    bundle.patients.where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.DENOM": true).pluck(:_id)
   end
 
   # Returns a listing of all ids for patients in the Measure Population
   def patients_in_measure_population_and_greater
-    CompiledResult.where('measure_id' => { '$in' => measures.pluck(:_id) },
-                         correlation_id: bundle.id.to_s, 'MSRPOPL' => true).distinct(:patient)
+    bundle.patients.where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.MSRPOPL": true).pluck(:_id)
+  end
+
+  # Returns a listing of all ids for patients in the Measure Population
+  def patients_in_high_value_populations
+    bundle.patients.any_of({ "measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.NUMER": true },
+                           { "measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.DENEXCEP": true },
+                           "measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.DENEX": true).pluck(:_id)
   end
 
   def master_patient_ids
@@ -260,14 +263,11 @@ class ProductTest
     # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product,
     # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if denom_ids.count > (product.test_deck_max - 1)
-      high_value_ids = CompiledResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, correlation_id: bundle.id.to_s)
-                                     .any_of({ 'NUMER' => true },
-                                             { 'DENEXCEP' => true },
-                                             'DENEX' => true).distinct(:patient)
+      high_value_ids = patients_in_high_value_populations
       high_value_ids = high_value_ids.sample(product.test_deck_max - 1)
       denom_ids = high_value_ids + denom_ids.sample(product.test_deck_max - high_value_ids.count - 1)
     end
-    (denom_ids << numer_id).uniq
+    patients_in_denominator_and_greater.empty? ? numer_id.uniq : (denom_ids << numer_id).uniq
   end
 
   def pick_msrpopl_ids
@@ -276,8 +276,7 @@ class ProductTest
     # If there are a lot of patients in the MSRPOPL results above, (usually if there are a lot of MSRPOPLEX values)
     # pull out only those patients with more than one episode in the MSRPOPL
     if msrpopl_ids.count > product.test_deck_max
-      numer_ids = CompiledResult.where('measure_id' => { '$in' => measures.pluck(:_id) }, correlation_id: bundle.id.to_s,
-                                       'MSRPOPL' => true).distinct(:patient)
+      numer_ids = BundlePatient.where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.MSRPOPL": true).pluck(:_id)
       numer_ids = numer_ids.sample(product.test_deck_max)
       msrpopl_ids = numer_ids + msrpopl_ids.sample(product.test_deck_max - numer_ids.count)
     end

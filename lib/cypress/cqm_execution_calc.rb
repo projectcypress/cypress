@@ -37,16 +37,9 @@ module Cypress
 
       patient_result_hash = {}
 
-      # TODO: Change the return format of this to still include the measure_id and record_id
-      # since they are necessary for ease of use in some calculators
       results.each do |patient_id, result|
-        combined_result = CompiledResult.new(patient: @cqm_patient_mapping[patient_id],
-                                             measure: measure.id,
-                                             correlation_id: @correlation_id,
-                                             individual_results: result)
-        aggregate_population_results_from_individual_results_combined(combined_result, result)
-        combined_result.save if save
-        patient_result_hash[patient_id] = combined_result
+        aggregate_population_results_from_individual_results_combined(result, @cqm_patient_mapping[patient_id], save)
+        patient_result_hash[patient_id] = result.values
       end
       patient_result_hash.values
     end
@@ -58,17 +51,20 @@ module Cypress
 
     private
 
-    def aggregate_population_results_from_individual_results_combined(combined_result, individual_results)
-      individual_results.each_pair do |_key, value|
-        combined_result['IPP'] = true if value['IPP'].to_i.positive?
-        combined_result['DENOM'] = true if value['DENOM'].to_i.positive?
-        combined_result['NUMER'] = true if value['NUMER'].to_i.positive?
-        combined_result['DENEX'] = true if value['DENEX'].to_i.positive?
-        combined_result['DENEXCEP'] = true if value['DENEXCEP'].to_i.positive?
-        combined_result['MSRPOPL'] = true if (value['MSRPOPL'].to_i - value['MSRPOPLEX'].to_i).positive?
-        combined_result['MSRPOPLEX'] = true if value['MSRPOPLEX'].to_i.positive?
+    def aggregate_population_results_from_individual_results_combined(individual_results, patient, save)
+      individual_results.each_pair do |population_set_key, individual_result|
+        individual_result['population_set_key'] = population_set_key
+        individual_result['patient_id'] = patient.id.to_s
+        save_individual_result(individual_result) if save
+        patient.update_measure_relevance_hash(individual_result)
       end
-      combined_result
+      patient.save if save
+    end
+
+    def save_individual_result(individual_result)
+      individual_result = CQM::IndividualResult.new(individual_result)
+      individual_result.correlation_id = @correlation_id
+      individual_result.save
     end
 
     def timeout

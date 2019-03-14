@@ -35,11 +35,15 @@ module Validators
       passed = true
       @measures.each do |measure|
         # compare results to patient as it was initially calculated for product test (use original product patient id before cloning)
-        orig_results = CompiledResult.where('patient_id': options[:orig_product_patient].id, 'measure_id': measure.id).first
-        new_results = results.select { |arr| arr.measure_id == measure.id && arr.patient_id == record.id }.first
-        orig_results.individual_results.each_pair do |population_key, _results|
+        orig_results = IndividualResult.where('patient_id': options[:orig_product_patient].id, 'measure_id': measure.id)
+        orig_results.each do |orig_result|
+          new_result = results.select do |arr|
+            arr.measure_id == measure.id.to_s &&
+              arr.patient_id == record.id.to_s &&
+              arr.population_set_key == orig_result['population_set_key']
+          end.first
           measure.population_keys.each do |pop_id|
-            if orig_results.individual_results[population_key][pop_id] != new_results.individual_results[population_key][pop_id]
+            if orig_result[pop_id] != new_result[pop_id]
               passed = false
               break
             end

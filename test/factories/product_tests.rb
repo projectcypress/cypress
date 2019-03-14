@@ -56,12 +56,15 @@ FactoryBot.define do
         patient.insurance_providers = [insurance_provider_hash]
         patient.save
         aug_record[0]['original_patient_id'] = patient._id
-        cr = create(:compiled_result, 'correlation_id' => pt.id.to_s, 'patient_id' => patient.id, 'measure_id' => pt.measures.first.id)
-        cr.individual_results.each_pair do |_pop_key, individual_result|
-          individual_result['patient_id'] = patient.id.to_s
-          individual_result['measure_id'] = pt.measures.first.id.to_s
-        end
-        cr.save
+        create(:cqm_individual_result,
+               'correlation_id' => pt.id.to_s,
+               'patient_id' => patient.id,
+               'measure_id' => pt.measures.first.id,
+               'population_set_key' => 'PopulationCriteria1',
+               'IPP' => 0,
+               'DENOM' => 0,
+               'DENEX' => 0,
+               'NUMER' => 0)
         pt.augmented_patients = aug_record
         pt.save
       end
@@ -121,12 +124,38 @@ FactoryBot.define do
         patient.insurance_providers = [insurance_provider_hash]
         patient.save
         aug_record[0]['original_patient_id'] = patient._id
-        cr = create(:cv_compiled_result, 'correlation_id' => pt.id.to_s, 'patient_id' => patient.id, 'measure_id' => pt.measures.first.id)
-        cr.individual_results.each_pair do |_pop_key, individual_result|
-          individual_result['patient_id'] = patient.id.to_s
-          individual_result['measure_id'] = pt.measures.first.id.to_s
-        end
-        cr.save
+        create(:cqm_individual_result,
+               'correlation_id' => pt.id.to_s,
+               'patient_id' => patient.id,
+               'measure_id' => pt.measures.first.id,
+               'population_set_key' => 'PopulationCriteria1',
+               'IPP' => 1,
+               'MSRPOPL' => 1,
+               'MSRPOPLEX' => 0)
+        create(:cqm_individual_result,
+               'correlation_id' => pt.id.to_s,
+               'patient_id' => patient.id,
+               'measure_id' => pt.measures.first.id,
+               'population_set_key' => 'PopulationCriteria1 - Stratification 1',
+               'IPP' => 0,
+               'MSRPOPL' => 0,
+               'MSRPOPLEX' => 0)
+        create(:cqm_individual_result,
+               'correlation_id' => pt.id.to_s,
+               'patient_id' => patient.id,
+               'measure_id' => pt.measures.first.id,
+               'population_set_key' => 'PopulationCriteria1 - Stratification 2',
+               'IPP' => 0,
+               'MSRPOPL' => 0,
+               'MSRPOPLEX' => 0)
+        create(:cqm_individual_result,
+               'correlation_id' => pt.id.to_s,
+               'patient_id' => patient.id,
+               'measure_id' => pt.measures.first.id,
+               'population_set_key' => 'PopulationCriteria1 - Stratification 3',
+               'IPP' => 1,
+               'MSRPOPL' => 1,
+               'MSRPOPLEX' => 0)
         pt.augmented_patients = aug_record
         pt.save
       end

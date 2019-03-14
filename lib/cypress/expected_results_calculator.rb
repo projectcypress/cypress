@@ -30,15 +30,18 @@ module Cypress
       ps_map[patient_id]['PAYER'] = patient.insurance_providers.first['codes']['SOP'].first
     end
 
-    def aggregate_results_for_measures(measures, compiled_results = nil)
+    def aggregate_results_for_measures(measures, individual_results = nil)
       measures.each do |measure|
         measure_individual_results = nil
         # If individual_results are provided, use the results for the measure being aggregated
-        measure_individual_results = compiled_results.select { |res| res['measure_id'] == measure.id } if compiled_results
+        measure_individual_results = individual_results.select { |res| res['measure_id'] == measure.id.to_s } if individual_results
+        # If individual_results are provided, use them.  Otherwise, look them up in the database by measure id and correlation_id
+        measure_individual_results ||= CQM::IndividualResult.where('measure_id' => measure._id, correlation_id: @correlation_id)
+
         @measure_result_hash[measure.hqmf_id] = {}
         next unless measure_individual_results
 
-        measure_individual_results.first.individual_results.keys.each do |key|
+        measure_individual_results.collect(&:population_set_key).uniq.each do |key|
           @measure_result_hash[measure.hqmf_id][key] = { 'supplemental_data' => {} }
           MEASURE_POPULATIONS.each do |pop|
             @measure_result_hash[measure.hqmf_id][key][pop] = 0
@@ -50,26 +53,25 @@ module Cypress
     end
 
     # rubocop:disable Metrics/AbcSize
-    def aggregate_results_for_measure(measure, compiled_results = nil)
+    def aggregate_results_for_measure(measure, individual_results = nil)
       # If individual_results are provided, use them.  Otherwise, look them up in the database by measure id and correlation_id
-      compiled_results ||= CompiledResult.where('measure_id' => measure._id, correlation_id: @correlation_id)
+      individual_results ||= CQM::IndividualResult.where('measure_id' => measure._id, correlation_id: @correlation_id)
 
       observ_values = {}
       # Increment counts for each measure_populations in each individual_result
-      compiled_results.each do |cr|
-        cr.individual_results.each_pair do |key, individual_result|
-          observ_values[key] = [] unless observ_values[key]
-          MEASURE_POPULATIONS.each do |pop|
-            next if individual_result[pop].nil? || individual_result[pop].zero?
+      individual_results.each do |individual_result|
+        key = individual_result['population_set_key']
+        observ_values[key] = [] unless observ_values[key]
+        MEASURE_POPULATIONS.each do |pop|
+          next if individual_result[pop].nil? || individual_result[pop].zero?
 
-            @measure_result_hash[measure.hqmf_id][key][pop] += individual_result[pop]
-            # For each population, increment supplemental information counts
-            increment_sup_info(@patient_sup_map[cr.patient_id.to_s], pop, @measure_result_hash[measure.hqmf_id][key])
-          end
-          # extract the observed value from an individual results.  Observed values are in the 'episode result'.
-          # Each episode will have its own observation
-          observ_values[key].concat get_observ_values(individual_result['episode_results']) if individual_result['episode_results']
+          @measure_result_hash[measure.hqmf_id][key][pop] += individual_result[pop]
+          # For each population, increment supplemental information counts
+          increment_sup_info(@patient_sup_map[individual_result.patient_id.to_s], pop, @measure_result_hash[measure.hqmf_id][key])
         end
+        # extract the observed value from an individual results.  Observed values are in the 'episode result'.
+        # Each episode will have its own observation
+        observ_values[key].concat get_observ_values(individual_result['episode_results']) if individual_result['episode_results']
       end
       # TODO: Observations may not always be the median
       @measure_result_hash[measure.hqmf_id].keys.each do |key|

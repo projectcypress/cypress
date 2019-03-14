@@ -21,7 +21,7 @@ class PatientTest < ActiveSupport::TestCase
 
   def test_record_should_be_able_to_find_calculation_results
     r = Patient.where(familyName: 'MPL record').first
-    assert_equal 2, r.calculation_results.count, 'record should have 2 calculated results. 1 for each calculable measure'
+    assert_equal 5, r.calculation_results.count, 'record should have 5 calculated results. 1 for the proportion measure and 4 for the stratified measure'
   end
 
   def record_demographics_equal?(r1, r2)
