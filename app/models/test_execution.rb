@@ -29,17 +29,15 @@ class TestExecution
   # I dont think this belongs here and it will need to eventually be moved to a
   # more approperiate location
   def validate_artifact(validators, artifact, options = {})
-    file_count = 0
-
     # TODO: R2P: change R/P model through all validators
-    artifact.each_file do |name, file|
+    file_count = artifact.count do |name, file|
       doc = build_document(file)
       merged_options = options.merge(file_name: name)
       validators.each do |validator|
         validator.validate(doc, merged_options)
         break unless validator.can_continue
       end
-      file_count += 1
+      true
     end
     validators.each do |validator|
       execution_errors.concat validator.errors
