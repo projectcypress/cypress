@@ -19,20 +19,6 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
     assert_empty @validator_without_c3.errors
   end
 
-  def test_validate_too_much_data_error
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_too_much_data.xml')).read
-    @validator_with_c3.validate(file, task: @task)
-    errors = @validator_with_c3.errors
-    assert_not_empty errors
-    errors.each do |e|
-      assert_equal :warning, e.msg_type, 'All validation messages for too much data are always warnings'
-    end
-
-    @validator_without_c3.validate(file, task: @task)
-    errors_no_c3 = @validator_without_c3.errors
-    assert_empty errors_no_c3, 'When C3 is not selected, too much data is not evaluated'
-  end
-
   def test_bad_schema
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_bad_schema.xml')).read
     @validator_with_c3.validate(file, task: @task)
