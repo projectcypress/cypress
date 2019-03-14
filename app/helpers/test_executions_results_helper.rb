@@ -118,7 +118,7 @@ module TestExecutionsResultsHelper
   end
 
   def get_doc(artifact, file_name)
-    artifact.each_file do |name, data|
+    artifact.each do |name, data|
       return data_to_doc(data) if name == file_name
     end
     false

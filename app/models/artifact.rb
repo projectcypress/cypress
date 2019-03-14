@@ -1,4 +1,5 @@
 class Artifact
+  include Enumerable
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -79,16 +80,17 @@ class Artifact
     data
   end
 
-  def each_file(&_block)
+  # Enumerable mixin implementation requirement
+  def each
     if archive?
       Zip::ZipFile.open(file.path) do |zipfile|
         zipfile.glob('*.xml', File::FNM_CASEFOLD | ::File::FNM_PATHNAME | ::File::FNM_DOTMATCH).each do |entry|
           data = zipfile.read(entry.name)
-          yield entry.name, data
+          yield(entry.name, data)
         end
       end
     else
-      yield file.uploaded_filename, file.read
+      yield(file.uploaded_filename, file.read)
     end
   end
 
