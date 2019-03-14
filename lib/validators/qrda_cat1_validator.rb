@@ -20,7 +20,7 @@ module Validators
                             [CDA.instance, Cat1R5.instance]
                           end
       @validators = if is_c3_validation_task
-                      [CqmValidators::DataValidator.new(bundle, measures.collect(&:hqmf_id))]
+                      [CqmValidators::DataValidator.new(measures.collect(&:_id))]
                     else
                       format_validators
                     end
