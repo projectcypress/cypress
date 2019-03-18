@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = @vendor.products.new
-    @product.update_with_measure_tests(product_params)
+    @product.update_with_tests(product_params)
     @product.save!
     flash_comment(@product.name, 'success', 'created')
     respond_with(@product) do |f|
@@ -55,7 +55,7 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product.update_with_measure_tests(edit_product_params)
+    @product.update_with_tests(product_params)
     @product.save!
     flash_comment(@product.name, 'info', 'edited')
     respond_with(@product) do |f|

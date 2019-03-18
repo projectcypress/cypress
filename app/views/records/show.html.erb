@@ -23,7 +23,7 @@
                 <% result_values = get_result_values([@record], [m], m.key_for_population_set(population_set_hash), pop_keys, 'measure_id') %>
                 <tr>
                   <th class="abbreviated" scope="row">
-                    <%= m.description %>
+                    <%= measure_display_name(m, population_set_hash) %>
                   </th>
                   <% result_values[m.id].each do |population, value| %>
                     <td class="text-center">

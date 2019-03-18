@@ -33,7 +33,7 @@ class MeasureTestTest < ActiveJob::TestCase
 
   def test_create_task_c1
     perform_enqueued_jobs do
-      product = @vendor.products.create(name: 'test_product', c1_test: true, randomize_patients: true, duplicate_patients: true,
+      product = @vendor.products.create(name: 'test_product_c1', c1_test: true, randomize_patients: true, duplicate_patients: true,
                                         bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
       pt = product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                                          bundle_id: @bundle.id }, MeasureTest)

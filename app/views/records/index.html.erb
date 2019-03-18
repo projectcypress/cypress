@@ -1,13 +1,15 @@
 <% if @vendor || (@task && @product_test) %>
-
   <div class="pull-right button-row">
-    <% if @measure && @measure.population_sets_and_stratifications_for_measure.size > 1 %>
+    <% if (@measure && @measure.population_sets_and_stratifications_for_measure.size > 1) || (@product_test && @product_test.measure_ids.size > 1) %>
       <div class="btn-group">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Sub measures <span class="caret"></span>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Measures and Sub Measures<span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-          <% @measure.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
-            <li><%= link_to "#{measure_display_name(@measure, population_set_hash)}", { controller: 'records', task_id: @task.id, population_set_hash: population_set_hash}, method: :get %></li>
+          <% measures = @product_test ? @product_test.measures : [@measure] %>
+          <% measures.each do |measure| %>
+            <% measure.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
+              <li><%= link_to "#{measure_display_name(measure, population_set_hash)}", { controller: 'records', hqmf_id: measure.hqmf_id, task_id: @task.id, population_set_hash: population_set_hash}, method: :get %></li>
+            <% end %>
           <% end %>
         </ul>
       </div>

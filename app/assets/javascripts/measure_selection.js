@@ -303,8 +303,13 @@ ready_run_once = function() {
     if ($(this).attr('disabled') != 'disabled') {
       setCheckboxDisabledNoUncheck('#product_vendor_patients', !cvuplus_checked);
       setCheckboxDisabledNoUncheck('#product_bundle_patients', !cvuplus_checked);
+      setCheckboxDisabledNoUncheck('#product_c1_test', cvuplus_checked);
+      setCheckboxDisabledNoUncheck('#product_c2_test', cvuplus_checked);
+      setCheckboxDisabledNoUncheck('#product_c3_test', cvuplus_checked);
+      setCheckboxDisabledNoUncheck('#product_c4_test', cvuplus_checked);
     }
       setElementHidden('#bundle_options', !cvuplus_checked);
+      setElementHidden('#certification_options', cvuplus_checked);
   });
 
   // run this piece once too
