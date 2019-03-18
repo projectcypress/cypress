@@ -32,6 +32,11 @@
       { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },
       { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test_state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
+   <% elsif @task.product_test.is_a? MultiMeasureTest %>
+    <% steps = [
+      { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },
+      { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test_state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
+      ] %>
   <% elsif @task.product_test.is_a? FilteringTest %>
     <% steps = [
       { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },

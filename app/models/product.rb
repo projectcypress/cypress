@@ -27,6 +27,7 @@ class Product
   %i[c1_test c2_test c3_test c4_test].each do |test|
     field test, type: Boolean, default: false
   end
+
   field :randomize_patients, type: Boolean, default: true
   field :duplicate_patients, type: Boolean
   field :shift_patients, type: Boolean, default: false
@@ -72,7 +73,7 @@ class Product
   end
 
   def meets_required_certification_types?
-    errors.add(:tests, 'Product must certify to at least C1, C2, C3, or C4.') unless c1_test || c2_test || c3_test || c4_test
+    errors.add(:tests, 'Product must certify to at least C1, C2, C3, or C4.') unless cvuplus || c1_test || c2_test || c3_test || c4_test
   end
 
   def valid_measure_ids?
@@ -84,20 +85,47 @@ class Product
     end
   end
 
+  def update_with_tests(params)
+    if params['cvuplus'] == 'true'
+      update_with_cvu_plus_tests(params)
+    else
+      update_with_certification_tests(params)
+    end
+  end
+
   # updates product attributes and adds / removes measure tests
   # replaces checklist tests if any c1 checklist measures are removed
   # replaces all filtering tests and creates new filtering tests
-  def update_with_measure_tests(product_params)
-    add_measure_tests(product_params)
+  def update_with_certification_tests(params)
+    add_measure_tests(params)
     save!
     add_filtering_tests if c4_test
     add_checklist_test if c1_test
   end
 
-  def add_measure_tests(product_params)
+  def update_with_cvu_plus_tests(params)
+    add_multi_measure_tests(params)
+    save!
+  end
+
+  def add_multi_measure_tests(params)
     old_ids = measure_ids || []
-    new_ids = product_params[:measure_ids] || old_ids
-    update(product_params)
+    old_ep_ids =  Measure.where('hqmf_id' => { '$in' => old_ids }, 'reporting_program_type' => 'ep').pluck(:hqmf_id)
+    old_eh_ids =  Measure.where('hqmf_id' => { '$in' => old_ids }, 'reporting_program_type' => 'eh').pluck(:hqmf_id)
+    new_ids = params[:measure_ids] || old_ids
+    new_ep_ids =  Measure.where('hqmf_id' => { '$in' => new_ids }, 'reporting_program_type' => 'ep').pluck(:hqmf_id)
+    new_eh_ids =  Measure.where('hqmf_id' => { '$in' => new_ids }, 'reporting_program_type' => 'eh').pluck(:hqmf_id)
+    update(params)
+    product_tests.where(name: 'EH Measures Test').destroy if old_eh_ids != new_eh_ids
+    product_tests.where(name: 'EP Measures Test').destroy if old_ep_ids != new_ep_ids
+    product_tests.build({ name: 'EH Measures', measure_ids: new_eh_ids, reporting_program_type: 'eh' }, MultiMeasureTest) if new_eh_ids != old_eh_ids
+    product_tests.build({ name: 'EP Measures', measure_ids: new_ep_ids, reporting_program_type: 'ep' }, MultiMeasureTest) if new_ep_ids != old_ep_ids
+  end
+
+  def add_measure_tests(params)
+    old_ids = measure_ids || []
+    new_ids = params[:measure_ids] || old_ids
+    update(params)
     (new_ids - old_ids).each do |measure_id|
       m = bundle.measures.find_by(hqmf_id: measure_id)
       product_tests.build({ name: m.description, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest)

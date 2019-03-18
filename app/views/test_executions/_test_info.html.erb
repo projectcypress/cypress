@@ -6,12 +6,18 @@
 
 <div class = 'col-sm-4'>
   <h1><%= info_title_for_product_test(task.product_test) %></h1>
-  <% unless task.product_test.is_a? ChecklistTest %>
+  <% if (task.product_test.is_a? MeasureTest) || (task.product_test.is_a? FilteringTest) %>
     <strong>Measure: </strong><span><%= task.product_test_name %></span><br/>
-  <% end %>
-  <strong>HQMF ID: </strong><span><%= task.measure_ids.join(',') %></span><br/>
-  <% unless task.product_test.is_a? ChecklistTest %>
+    <strong>HQMF ID: </strong><span><%= task.measure_ids.join(',') %></span><br/>
     <strong>CMS ID: </strong><span><%= task.product_test_cms_id%></span><span><%= link_to " (eCQM Specification)", "https://ecqi.healthit.gov/ecqm/measures/#{padded_cms_id(task.product_test_cms_id)}", :target => "_blank", :id => "ecqm-link" %></span><br/>
+  <% end %>
+
+  <% if (task.product_test.is_a? MultiMeasureTest) %>
+    <strong><span><%= task.product_test_name %></span></strong><br/>
+    <strong>Measures: </strong><br/>
+    <% task.product_test.measures.collect(&:cms_id).each do |cms_id| %>
+    <span><%= cms_id %></span><span><%= link_to " (eCQM Specification)", "https://ecqi.healthit.gov/ecqm/measures/#{padded_cms_id(cms_id)}", :target => "_blank", :id => "ecqm-link" %></span><br/>
+    <% end %>
   <% end %>
 
   <% # display provider information if the product test is a measure test %>
@@ -28,10 +34,10 @@
   <br/>
 
   <% unless task.is_a? C1ChecklistTask %>
-    <%= link_to 'View Patients', { controller: 'records', task_id: task.id}, method: :get %>
+    <%= link_to 'View Patients', { controller: 'records', hqmf_id: task.product_test.measure_ids.first, task_id: task.id}, method: :get %>
     <% if (task.is_a?(Cat1FilterTask) || task.is_a?(Cat3FilterTask)) && should_display_expected_results(task) %>
       <br/>
-      <%= link_to 'View Expected Result', product_test_task_by_filter_task_path(task.product_test, task),  method: :get %>
+      <%= link_to 'View Expected Result', product_test_task_by_filter_task_path(task.product_test, task, hqmf_id: task.product_test.measure_ids.first),  method: :get %>
     <% end %>
     <% if Settings.current.enable_debug_features %>
       <br/>

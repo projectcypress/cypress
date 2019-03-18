@@ -39,9 +39,9 @@ class TasksController < ApplicationController
     task_type = @task._type
     redirect_back(fallback_location: root_path) && return if %w[C3Cat1Task C3Cat3Task].include? task_type
 
-    file_type = if %w[C1Task Cat1FilterTask].include? task_type
+    file_type = if %w[C1Task Cat1FilterTask MultiMeasureCat1Task].include? task_type
                   'zip'
-                elsif %w[C2Task Cat3FilterTask].include? task_type
+                elsif %w[C2Task Cat3FilterTask MultiMeasureCat3Task].include? task_type
                   'xml'
                 end
 

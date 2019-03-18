@@ -2,11 +2,11 @@
 <div class="pull-right button-row">
   <% if @measure && @measure.population_sets_and_stratifications_for_measure.size > 1 %>
     <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Sub measures <span class="caret"></span>
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Sub measures<span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
         <% @measure.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
-          <li><%= link_to "#{measure_display_name(@measure, population_set_hash)}", product_test_task_by_filter_task_path(@task.product_test, @task, population_set_hash: population_set_hash), method: :get %></li>
+          <li><%= link_to "#{measure_display_name(@measure, population_set_hash)}", product_test_task_by_filter_task_path(@task.product_test, @task, hqmf_id: @measure.hqmf_id, population_set_hash: population_set_hash), method: :get %></li>
         <% end %>
       </ul>
     </div>
