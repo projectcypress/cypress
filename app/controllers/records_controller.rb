@@ -123,7 +123,7 @@ class RecordsController < ApplicationController
     @product_test = @task.product_test
     @bundle = @product_test.bundle
     authorize! :read, @product_test.product.vendor
-    @measure = @product_test.measures.first
+    @measure = @product_test.measures.where(hqmf_id: params['hqmf_id']).first
     @measure ||= @product_test.measures.first
     @population_set_hash = params[:population_set_hash] || @measure.population_sets_and_stratifications_for_measure.first
     @source = @product_test

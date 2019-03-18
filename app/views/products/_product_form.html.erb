@@ -25,7 +25,7 @@
               <% APP_CONSTANTS['certifications'].each do |c, certification| %>
                 <% if c == 'C1' || c == 'C2' || c == 'C3' || c == 'C4'%>
                   <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: !product.new_record?, data: {
-                    'parsley-required': '',
+                    'parsley-required': 'true',
                     'parsley-trigger': 'change',
                     'parsley-class-handler': "#certification_options",
                     'parsley-mincheck': '1',

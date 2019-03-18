@@ -1,0 +1,61 @@
+<div class="row">
+  <div class = 'col-md-8'>
+    <%= render 'product_status_table', :product => @product %>
+  </div>
+
+  <div class = 'col-md-4'>
+    <% unless @product.product_tests.empty? %>
+      <div class = 'panel panel-default'>
+        <div class = 'panel-heading'>
+          <h1 class='panel-title'>Download Full Test Deck</h1>
+        </div>
+        <div class = 'panel-body' id = 'display_bulk_download'>
+          <%= render 'bulk_download', :product => @product %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="product-test-tabs">
+
+<div class="product-test-tabs">
+  <ul>
+    <% each_tab(@product) do |test_type, title, _, html_id| %>
+      <li><a href = '<%= "##{html_id}" %>'><%= title %></a></li>
+    <% end %>
+  </ul>
+  <% each_tab(@product) do |test_type, title, description, html_id| %>
+    <div id = '<%= html_id %>'>
+      <p class = 'lead'><%= description %></p>
+
+      <% # Multi Measure Test Tab %>
+      <% if test_type == 'MultiMeasureTest' %>
+        <div id="display_measure_tests_table">
+          <table class = 'table table-hover measure_tests_table'>
+            <thead>
+              <th scope = 'col' class = 'col-sm-1 no-wrap pointer-on-hover'>Test Name</th>
+              <th scope = 'col' class = 'col-sm-4 pointer-on-hover'>Measures</th>
+              <th scope = 'col' class = 'col-sm-1'>Quick Upload</th>
+              <th scope = 'col' class = 'col-sm-1'>Last Updated</th>
+            </thead>
+            <tbody>
+              <% @product.product_tests.each do |product_test| %>
+              <tr>
+                <td><%= link_to product_test.name, new_task_test_execution_path(product_test.tasks.first) %></td>
+                <td>
+                  <% product_test.tasks.first.measures.collect(&:cms_id).each_with_index do |cms_id, index| %>
+                    <%= index == product_test.tasks.first.measures.size - 1 ? cms_id : "#{cms_id}, " %>
+                  <% end %>
+                </td>
+              </tr>
+              <% end %> 
+            </tbody>
+          </table>
+        </div>
+      <% end %>
+
+    </div>
+  <% end %>
+
+</div>
