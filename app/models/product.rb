@@ -18,6 +18,9 @@ class Product
   belongs_to :bundle, index: true
   # NOTE: more relationships must be defined
 
+  field :cvuplus, type: Boolean, default: false
+  field :vendor_patients, type: Boolean, default:false
+  field :bundle_patients, type: Boolean, default:false
   field :name, type: String
   field :version, type: String
   field :description, type: String
