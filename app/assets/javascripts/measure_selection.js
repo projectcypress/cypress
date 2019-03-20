@@ -143,6 +143,19 @@ function setCheckboxDisabled(element, state) {
   }
 }
 
+function setCheckboxHidden(element, state) {
+  var children = $(element).closest('div.checkbox').find('*').addBack();
+  if (state) {
+    $(children).addClass('hidden');
+    $(children).prop('hidden', true);
+    $(element).prop('checked', false);
+  }
+  else {
+    $(children).removeClass('hidden');
+    $(children).prop('hidden', false);
+  }
+}
+
 function HookupProductSearch() {
   // Get all bundles listed on the page
   var bundles = $('input[name="product[bundle_id]"]')
@@ -271,6 +284,14 @@ ready_run_once = function() {
       var c2_checked = $(this).prop('checked');
       setCheckboxDisabled('#product_duplicate_patients', !c2_checked);
       $('.btn-checkbox input[name="product[duplicate_patients]"]').prop('checked', c2_checked);
+    }
+  });
+
+  $('.btn-checkbox input[name="product[cvuplus]"]').on('change', function() {
+    if ($(this).attr('disabled') != true) {
+      var vendor_patient_checked = $(this).prop('checked');
+      setCheckboxDisabled('#product_vendor_patients', !vendor_patient_checked);
+      setCheckboxHidden('#product_vendor_patients', !vendor_patient_checked);
     }
   });
 
