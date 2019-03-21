@@ -56,6 +56,44 @@ class VendorsRecordsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'should delete vendor patients' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      # Create a couple new patients just for this so nothing else is screwed up
+      @patient2 = FactoryBot.create(:vendor_test_patient,
+                                    bundleId: @bundle._id, correlation_id: @vendor.id)
+      @patient3 = FactoryBot.create(:vendor_test_patient,
+                                    bundleId: @bundle._id, correlation_id: @vendor.id)
+
+      # destroy_multiple is expecting patient IDs
+      orig_patient_count = Patient.count # This should check the DB directly...?
+      post :destroy_multiple, params: { patient_ids: @patient2.id.to_s + ',' + @patient3.id.to_s, vendor_id: @vendor.id }
+      assert_redirected_to vendor_records_path(vendor_id: @vendor.id), 'response should redirect to index'
+
+      # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
+      get :index, params: { vendor_id: redirect_to_url.split('/')[-2] }
+      assert response.body.include?('Deleted 2 patients'), 'response should include patient deletions'
+      assert_equal orig_patient_count - 2, Patient.count
+    end
+  end
+
+  test 'should not delete fake vendor patients' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      # Create a couple new patients just for this so nothing else is screwed up
+      @patient2 = FactoryBot.create(:vendor_test_patient,
+                                    bundleId: @bundle._id, correlation_id: @vendor.id)
+
+      # destroy_multiple is expecting patient IDs
+      orig_patient_count = Patient.count # This should check the DB directly...?
+      post :destroy_multiple, params: { patient_ids: @patient2.id.to_s + ',' + 'FAKE', vendor_id: @vendor.id }
+      assert_redirected_to vendor_records_path(vendor_id: @vendor.id), 'response should redirect to index'
+
+      # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
+      get :index, params: { vendor_id: redirect_to_url.split('/')[-2] }
+      assert response.body.include?('1 patient could not be deleted.'), 'response should indicate number of undeleted patients'
+      assert_equal orig_patient_count - 1, Patient.count
+    end
+  end
+
   test 'should show error for non-zip file upload' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       filename = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'good.xml')
