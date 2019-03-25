@@ -49,6 +49,7 @@ module RecordsHelper
   # Inputs:
   # records: An array of records (If you only care about a single record then pass in [record])
   # measures: An array of measures (If you only care about a single measure then pass in [measure])
+  # pop_set: The population set identifier for the result set you care about, for example ['PopulationCriteria1', 'PopulationCriteria1 - Stratification 1']
   # pop_keys: The population keys which you care about, for example ['IPP', 'DENOM']
   # key: The name of the element which should be the key of the key value pair returned.
   # We currently use 'patient_id' and 'measure_id' as keys and then do lookups for the values
@@ -103,5 +104,11 @@ module RecordsHelper
 
   def population_label(bundle, pop)
     bundle.modified_population_labels && bundle.modified_population_labels[pop] ? bundle.modified_population_labels[pop] : pop
+  end
+
+  def measure_display_name(measure, population_set_hash)
+    cms_id = measure.cms_id
+    population_set_display = population_set_hash[:stratification_id] ? population_set_hash[:stratification_id] : population_set_hash[:population_set_id]
+    "#{cms_id} - #{population_set_display}"
   end
 end

@@ -7,7 +7,7 @@
         </button>
         <ul class="dropdown-menu">
           <% @measure.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
-            <li><%= link_to "#{population_set_hash[:population_set_id]}", { controller: 'records', task_id: @task.id, population_set_hash: population_set_hash}, method: :get %></li>
+            <li><%= link_to "#{measure_display_name(@measure, population_set_hash)}", { controller: 'records', task_id: @task.id, population_set_hash: population_set_hash}, method: :get %></li>
           <% end %>
         </ul>
       </div>
