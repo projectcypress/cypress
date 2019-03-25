@@ -12,32 +12,33 @@ FactoryBot.define do
                       'last' => %w[A A],
                       'gender' => %w[M M] }]
       augmented_patients { aug_record }
-      expected_result = { 'PopulationCriteria1' =>
-                          { 'measure_id' => '40280382-5FA6-FE85-0160-0918E74D2075',
-                            'nqf_id' => '0024',
-                            'effective_date' => 1_514_764_799,
-                            'test_id' => { 'oid' => '51703a6a3054cf8439000044' },
-                            'filters' => nil,
-                            'IPP' => 1,
-                            'DENOM' => 1,
-                            'NUMER' => 0,
-                            'antinumerator' => 1,
-                            'DENEX' => 0,
-                            'DENEXCEP' => 0,
-                            'MSRPOPL' => 0,
-                            'considered' => 1,
-                            'execution_time' => 1,
-                            'pop_set_hash' => { population_set_id: 'PopulationCriteria1' },
-                            'supplemental_data' => { 'IPP' => { 'RACE' => { '1002-5' => 1 },
-                                                                'ETHNICITY' => { '2186-5' => 1 },
-                                                                'SEX' => { 'F' => 1 },
-                                                                'PAYER' => { '1' => 1 } },
-                                                     'DENOM' => { 'RACE' => { '1002-5' => 1 },
+      expected_result = { '40280382-5FA6-FE85-0160-0918E74D2075' =>
+                          { 'PopulationCriteria1' =>
+                            { 'measure_id' => '40280382-5FA6-FE85-0160-0918E74D2075',
+                              'nqf_id' => '0024',
+                              'effective_date' => 1_514_764_799,
+                              'test_id' => { 'oid' => '51703a6a3054cf8439000044' },
+                              'filters' => nil,
+                              'IPP' => 1,
+                              'DENOM' => 1,
+                              'NUMER' => 0,
+                              'antinumerator' => 1,
+                              'DENEX' => 0,
+                              'DENEXCEP' => 0,
+                              'MSRPOPL' => 0,
+                              'considered' => 1,
+                              'execution_time' => 1,
+                              'pop_set_hash' => { population_set_id: 'PopulationCriteria1' },
+                              'supplemental_data' => { 'IPP' => { 'RACE' => { '1002-5' => 1 },
                                                                   'ETHNICITY' => { '2186-5' => 1 },
                                                                   'SEX' => { 'F' => 1 },
                                                                   'PAYER' => { '1' => 1 } },
-                                                     'NUMER' => {},
-                                                     'DENEX' => {} } } }
+                                                       'DENOM' => { 'RACE' => { '1002-5' => 1 },
+                                                                    'ETHNICITY' => { '2186-5' => 1 },
+                                                                    'SEX' => { 'F' => 1 },
+                                                                    'PAYER' => { '1' => 1 } },
+                                                       'NUMER' => {},
+                                                       'DENEX' => {} } } } }
       expected_results { expected_result }
       measure_ids { ['40280382-5FA6-FE85-0160-0918E74D2075'] }
       association :provider, factory: :default_provider
@@ -80,32 +81,33 @@ FactoryBot.define do
                       'last' => %w[A A],
                       'gender' => %w[M M] }]
       augmented_patients { aug_record }
-      expected_result = { 'PopulationCriteria1' =>
-                          { 'measure_id' => 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE',
-                            'nqf_id' => '0024',
-                            'effective_date' => 1_514_764_799,
-                            'test_id' => { 'oid' => '51703a6a3054cf8439000044' },
-                            'filters' => nil,
-                            'IPP' => 1,
-                            'DENOM' => 1,
-                            'NUMER' => 0,
-                            'antinumerator' => 1,
-                            'DENEX' => 0,
-                            'DENEXCEP' => 0,
-                            'MSRPOPL' => 0,
-                            'considered' => 1,
-                            'execution_time' => 1,
-                            'pop_set_hash' => { population_set_id: 'PopulationCriteria1' },
-                            'supplemental_data' => { 'IPP' => { 'RACE' => { '1002-5' => 1 },
-                                                                'ETHNICITY' => { '2186-5' => 1 },
-                                                                'SEX' => { 'F' => 1 },
-                                                                'PAYER' => { '1' => 1 } },
-                                                     'DENOM' => { 'RACE' => { '1002-5' => 1 },
+      expected_result = { 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE' =>
+                          { 'PopulationCriteria1' =>
+                            { 'measure_id' => 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE',
+                              'nqf_id' => '0024',
+                              'effective_date' => 1_514_764_799,
+                              'test_id' => { 'oid' => '51703a6a3054cf8439000044' },
+                              'filters' => nil,
+                              'IPP' => 1,
+                              'DENOM' => 1,
+                              'NUMER' => 0,
+                              'antinumerator' => 1,
+                              'DENEX' => 0,
+                              'DENEXCEP' => 0,
+                              'MSRPOPL' => 0,
+                              'considered' => 1,
+                              'execution_time' => 1,
+                              'pop_set_hash' => { population_set_id: 'PopulationCriteria1' },
+                              'supplemental_data' => { 'IPP' => { 'RACE' => { '1002-5' => 1 },
                                                                   'ETHNICITY' => { '2186-5' => 1 },
                                                                   'SEX' => { 'F' => 1 },
                                                                   'PAYER' => { '1' => 1 } },
-                                                     'NUMER' => {},
-                                                     'DENEX' => {} } } }
+                                                       'DENOM' => { 'RACE' => { '1002-5' => 1 },
+                                                                    'ETHNICITY' => { '2186-5' => 1 },
+                                                                    'SEX' => { 'F' => 1 },
+                                                                    'PAYER' => { '1' => 1 } },
+                                                       'NUMER' => {},
+                                                       'DENEX' => {} } } } }
       expected_results { expected_result }
       measure_ids { ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }
       association :provider, factory: :default_provider
