@@ -3,6 +3,7 @@
 
 .ui-tabs-nav.ui-widget-header {
   background: $body-bg;
+  border-radius: 0;
 
   .ui-state-default {
     background: $gray-lighter;
@@ -54,6 +55,10 @@
     .ui-tabs-active.ui-state-active {
       margin-top: .25em;
       padding-top: .25em;
+
+      a {
+        color: $tab-font-color;
+      }
     }
   }
 
