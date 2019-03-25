@@ -3,6 +3,8 @@ class Product
   include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps
 
+  TEST_DECK_MAX = 50
+
   before_save :enforce_duplicate_patient_settings
 
   mount_uploader :supplemental_test_artifact, SupplementUploader
@@ -121,10 +123,6 @@ class Product
     ProductTest.destroy_by_ids(product_test_ids)
 
     super
-  end
-
-  def test_deck_max
-    50
   end
 
   # - - - - - - - - - #
