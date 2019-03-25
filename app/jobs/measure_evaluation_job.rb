@@ -6,7 +6,7 @@ class MeasureEvaluationJob < ApplicationJob
   # Measure Test or Task
   #
   # @param [Object] test_or_task The ProductTest or Task being evalutated
-  # @param [Hash] options :individual_results are the raw results from JsEcqmCalc
+  # @param [Hash] options :individual_results are the raw results from CqmExecutionCalc
   # @return none
   def perform(test_or_task, options)
     # Measure Evaluation Job can be run for a test (Measure Test), or a task (Filter Tasks)
@@ -31,7 +31,7 @@ class MeasureEvaluationJob < ApplicationJob
 
   def eval_measures(measures, product_test, options)
     erc = Cypress::ExpectedResultsCalculator.new(product_test.patients, product_test.id.to_s, product_test.effective_date)
-    # if individual_results results are nested within 'Individual'.  If there are no individual results, set to nil
+    # If there are no individual results, set to nil
     cqm_execution_results = options[:individual_results] || nil
     results = erc.aggregate_results_for_measures(measures, cqm_execution_results)
     results

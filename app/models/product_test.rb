@@ -94,7 +94,7 @@ class ProductTest
     if product.duplicate_patients && _type != 'FilteringTest'
       prng = Random.new(rand_seed.to_i)
       # ids of all patients in IPP
-      ids = results.where('IPP' => true).collect(&:patient_id)
+      ids = results.where('IPP' => { '$gt' => 0 }).collect(&:patient_id)
       pat_arr = sample_and_duplicate_patients(pat_arr, ids, random: prng) if ids.present?
     end
     Cypress::PatientZipper.zip(file, pat_arr, :qrda)
@@ -112,7 +112,6 @@ class ProductTest
 
     pat_arr, dups = randomize_clinical_data(pat_arr, dups, random)
     # choose up to 3 duplicate patients
-
     dups.sample(random.rand(1..3), random: random).each do |pat|
       prng_repeat = Random.new(rand_seed.to_i)
       dup_pat, pat_augments, old_pat = pat.duplicate_randomization(random: prng_repeat)

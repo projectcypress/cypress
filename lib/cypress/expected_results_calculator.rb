@@ -3,8 +3,6 @@ module Cypress
     # The ExpectedResultsCalculator aggregates Individual Results to calculated the expected results for a
     # Measure Test or Task
 
-    MEASURE_POPULATIONS = %w[DENOM NUMER DENEX DENEXCEP IPP MSRPOPL MSRPOPLEX].freeze
-
     # @param [Array] patients the list of patients that are included in the aggregate results
     # @param [String] correlation_id the id used to associate a group of patients
     # @param [String] effective_date used when generating the query_cache_object for HDS QRDA Cat III export
@@ -38,15 +36,19 @@ module Cypress
         # If individual_results are provided, use them.  Otherwise, look them up in the database by measure id and correlation_id
         measure_individual_results ||= CQM::IndividualResult.where('measure_id' => measure._id, correlation_id: @correlation_id)
 
+        # add a hash value to store results for each measure
         @measure_result_hash[measure.hqmf_id] = {}
         next unless measure_individual_results
 
+        # add a nested hash value to store results for each population set for a measure
         measure_individual_results.collect(&:population_set_key).uniq.each do |key|
           @measure_result_hash[measure.hqmf_id][key] = { 'supplemental_data' => {} }
-          MEASURE_POPULATIONS.each do |pop|
+          # add a nested hash value to store results for each population ['IPP'] within a population set ['Population Criteria 1'] for a measure
+          measure.population_keys.each do |pop|
             @measure_result_hash[measure.hqmf_id][key][pop] = 0
           end
         end
+        # now that the hashs are set up, fill in the expected results using the individual results for the measure
         aggregate_results_for_measure(measure, measure_individual_results)
       end
       @measure_result_hash
@@ -62,7 +64,7 @@ module Cypress
       individual_results.each do |individual_result|
         key = individual_result['population_set_key']
         observ_values[key] = [] unless observ_values[key]
-        MEASURE_POPULATIONS.each do |pop|
+        measure.population_keys.each do |pop|
           next if individual_result[pop].nil? || individual_result[pop].zero?
 
           @measure_result_hash[measure.hqmf_id][key][pop] += individual_result[pop]

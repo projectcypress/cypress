@@ -6,8 +6,6 @@ module Validators
 
     self.validator = :expected_results
 
-    ALL_POPULATION_CODES = %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP MSRPOPL MSRPOPLEX OBSERV].freeze
-
     def initialize(expected_results)
       @expected_results = expected_results
       @reported_results = {}
@@ -32,7 +30,7 @@ module Validators
 
     def match_calculation_results(expected_result, reported_result, options, measure, pop_set_hash)
       population_set = measure.population_sets.where(population_set_id: pop_set_hash[:population_set_id]).first
-      ALL_POPULATION_CODES.each do |pop_key|
+      measure.population_keys.each do |pop_key|
         next unless population_set.populations[pop_key]&.hqmf_id
 
         stratification_id = population_set.stratifications.where(stratification_id: pop_set_hash[:stratification_id]).first&.hqmf_id
