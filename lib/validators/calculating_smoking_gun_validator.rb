@@ -64,7 +64,7 @@ module Validators
                                                options.test_execution.id.to_s,
                                                'effectiveDateEnd': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
                                                'effectiveDate': Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
-      results = calc_job.execute(true)
+      results = calc_job.execute(false)
       passed = determine_passed(mrn, results, record, options)
       passed
     end

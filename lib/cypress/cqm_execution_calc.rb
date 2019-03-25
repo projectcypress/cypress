@@ -38,7 +38,9 @@ module Cypress
       patient_result_hash = {}
 
       results.each do |patient_id, result|
-        aggregate_population_results_from_individual_results_combined(result, @cqm_patient_mapping[patient_id], save)
+        # Aggregate the results returned from the calculation engine for a specific patient.
+        # If saving the individual results, update identifiers (patient id, population_set_key) in the individual result.
+        aggregate_population_results_from_individual_results(result, @cqm_patient_mapping[patient_id], save)
         patient_result_hash[patient_id] = result.values
       end
       patient_result_hash.values
@@ -51,11 +53,15 @@ module Cypress
 
     private
 
-    def aggregate_population_results_from_individual_results_combined(individual_results, patient, save)
+    def aggregate_population_results_from_individual_results(individual_results, patient, save)
       individual_results.each_pair do |population_set_key, individual_result|
+        # store the population_set within the indivdual result
         individual_result['population_set_key'] = population_set_key
+        # update the patient_id to match the cqm_patient id, not the qdm_patient id
         individual_result['patient_id'] = patient.id.to_s
+        # save to database
         save_individual_result(individual_result) if save
+        # update the patients, measure_relevance_hash
         patient.update_measure_relevance_hash(individual_result)
       end
       patient.save if save
@@ -63,6 +69,7 @@ module Cypress
 
     def save_individual_result(individual_result)
       individual_result = CQM::IndividualResult.new(individual_result)
+      # when saving the individual result, include the provided correlation id
       individual_result.correlation_id = @correlation_id
       individual_result.save
     end
