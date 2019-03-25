@@ -33,23 +33,25 @@
     </thead>
     <tbody>
       <% @product.product_tests.measure_tests.each do |test| %>
-        <tr>
-          <td><%= "#{test.cms_id} #{test.name}" %></td>
-          <% measures = test.measures %>
-          <td>
-            <% if measures.count > 1 %>
-              <ul class="list-unstyled">
-                <% measures.each do |measure| %>
-                  <!--li><%= measure.subtitle %></li-->
-                <% end %>
-              </ul>
-            <% end %>
-          </td>
-          <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.tasks.c1_task.passing? } if @product.c1_test %></td>
-          <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.tasks.c2_task.passing? } if @product.c2_test %></td>
-          <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.tasks.c3_cat1_task.passing? } if @product.c3_test %></td>
-          <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.tasks.c3_cat3_task.passing? } if @product.c3_test %></td>
-        </tr>
+        <% measures = test.measures %>
+        <% measures.each do |measure| %>
+          <tr>
+            <td><%= "#{measure.cms_id} #{measure.description}" %></td>
+            <td>
+              <% if measure.population_sets_and_stratifications_for_measure.length > 1 %>
+                <ul class="list-unstyled">
+                  <% measure.population_sets_and_stratifications_for_measure.each do |population_set| %>
+                    <li><%= population_set[:stratification_id] ? population_set[:stratification_id] : population_set[:population_set_id] %></li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </td>
+            <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.tasks.c1_task.passing? } if @product.c1_test %></td>
+            <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.tasks.c2_task.passing? } if @product.c2_test %></td>
+            <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.tasks.c3_cat1_task.passing? } if @product.c3_test %></td>
+            <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.tasks.c3_cat3_task.passing? } if @product.c3_test %></td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>

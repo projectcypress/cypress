@@ -60,7 +60,7 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
       assert_performed_jobs 1
       ptest.reload
       assert_not ptest.expected_results.empty?
-      assert_equal ptest.expected_results.keys, ['PopulationCriteria1', 'PopulationCriteria1 - Stratification 1', 'PopulationCriteria1 - Stratification 2', 'PopulationCriteria1 - Stratification 3']
+      assert_equal ptest.expected_results.keys, ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     end
   end
 

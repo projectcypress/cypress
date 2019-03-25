@@ -25,11 +25,11 @@ class MeasureEvaluationJob < ApplicationJob
 
   def perform_for_product_test(product_test, options)
     results = eval_measures(product_test.measures, product_test, options)
-    product_test.expected_results = results.values[0]
+    product_test.expected_results = results
     product_test.save
   end
 
-  def eval_measures(measures, product_test, options, &_block)
+  def eval_measures(measures, product_test, options)
     erc = Cypress::ExpectedResultsCalculator.new(product_test.patients, product_test.id.to_s, product_test.effective_date)
     # if individual_results results are nested within 'Individual'.  If there are no individual results, set to nil
     cqm_execution_results = options[:individual_results] || nil
