@@ -244,8 +244,8 @@ class ProductTest
     ipp_ids = (mpl_ids - denom_ids - msrpopl_ids)
 
     # Pick some IDs from the IPP. If we've already got a lot of patients, only pick a couple more, otherwise pick 1/2 or more
-    ipp_ids = if (mpl_ids.count + denom_ids.count + msrpopl_ids.count) > product.test_deck_max
-                ipp_ids.sample(product.test_deck_max / 2)
+    ipp_ids = if (mpl_ids.count + denom_ids.count + msrpopl_ids.count) > Product::TEST_DECK_MAX
+                ipp_ids.sample(Product::TEST_DECK_MAX / 2)
               else
                 ipp_ids.sample(prng.rand((ipp_ids.count / 2.0).ceil..(ipp_ids.count)))
               end
@@ -258,12 +258,12 @@ class ProductTest
     denom_ids = patients_in_denominator_and_greater
 
     # If there are a lot of patients in denom_ids (usually when the IPP and denominator are the same thing),
-    # pull out the numerator/Denex/Denexcep patients as high value (this is numer_ids), then sample from the rest to get to test_deck_max
-    # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product,
-    if denom_ids.count > (product.test_deck_max - 1)
+    # pull out the numerator/Denex/Denexcep patients as high value (this is numer_ids), then sample from the rest to get to TEST_DECK_MAX
+    # NOTE: "a lot" is defined by the relation to "TEST_DECK_MAX" on the product,
+    if denom_ids.count > (Product::TEST_DECK_MAX - 1)
       high_value_ids = patients_in_high_value_populations
-      high_value_ids = high_value_ids.sample(product.test_deck_max - 1)
-      denom_ids = high_value_ids + denom_ids.sample(product.test_deck_max - high_value_ids.count - 1)
+      high_value_ids = high_value_ids.sample(Product::TEST_DECK_MAX - 1)
+      denom_ids = high_value_ids + denom_ids.sample(Product::TEST_DECK_MAX - high_value_ids.count - 1)
     end
     patients_in_denominator_and_greater.empty? ? numer_id.uniq : (denom_ids << numer_id).uniq
   end
@@ -273,10 +273,10 @@ class ProductTest
 
     # If there are a lot of patients in the MSRPOPL results above, (usually if there are a lot of MSRPOPLEX values)
     # pull out only those patients with more than one episode in the MSRPOPL
-    if msrpopl_ids.count > product.test_deck_max
+    if msrpopl_ids.count > Product::TEST_DECK_MAX
       numer_ids = BundlePatient.where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.MSRPOPL": true).pluck(:_id)
-      numer_ids = numer_ids.sample(product.test_deck_max)
-      msrpopl_ids = numer_ids + msrpopl_ids.sample(product.test_deck_max - numer_ids.count)
+      numer_ids = numer_ids.sample(Product::TEST_DECK_MAX)
+      msrpopl_ids = numer_ids + msrpopl_ids.sample(Product::TEST_DECK_MAX - numer_ids.count)
     end
     msrpopl_ids
   end
