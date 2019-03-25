@@ -57,16 +57,6 @@ class TestExecution
     task.product_test.build_execution_errors_for_incomplete_checked_criteria(self) if task.is_a?(C1ChecklistTask)
   end
 
-  # Get the expected result for a particular measure
-  def expected_result(measure)
-    (expected_results || product_test.expected_results || {})[measure.key] || {}
-  end
-
-  # Get the expected result for a particular measure
-  def reported_result(measure)
-    (reported_results || {})[measure.key] || {}
-  end
-
   def passing?
     state == :passed
   end

@@ -16,12 +16,14 @@ module Validators
     def validate(file, options = {})
       @document = get_document(file)
       @file_name = options[:file_name]
-      @expected_results.each_pair do |key, expected_result|
-        measure = Measure.where(hqmf_id: expected_result.measure_id).first
-        pop_set_hash = measure.population_set_hash_for_key(key)
-        reported_result, _errors = extract_results_by_ids(measure, pop_set_hash[:population_set_id], @document, pop_set_hash[:stratification_id])
-        @reported_results[key] = reported_result
-        match_calculation_results(expected_result, reported_result, options, measure, pop_set_hash)
+      @expected_results.each_pair do |hqmf_id, measure_expected_result|
+        measure_expected_result.each_pair do |key, expected_result|
+          measure = Measure.where(hqmf_id: hqmf_id).first
+          pop_set_hash = measure.population_set_hash_for_key(key)
+          reported_result, _errors = extract_results_by_ids(measure, pop_set_hash[:population_set_id], @document, pop_set_hash[:stratification_id])
+          @reported_results[key] = reported_result
+          match_calculation_results(expected_result, reported_result, options, measure, pop_set_hash)
+        end
       end
       options[:reported_result_target]&.reported_results = reported_results
     end

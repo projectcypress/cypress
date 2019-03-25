@@ -261,7 +261,6 @@ class ProductTest
     # If there are a lot of patients in denom_ids (usually when the IPP and denominator are the same thing),
     # pull out the numerator/Denex/Denexcep patients as high value (this is numer_ids), then sample from the rest to get to test_deck_max
     # NOTE: "a lot" is defined by the relation to "test_deck_max" on the product,
-    # which is large (~50) for 2015 cert ed. & C2, small (~5) otherwise
     if denom_ids.count > (product.test_deck_max - 1)
       high_value_ids = patients_in_high_value_populations
       high_value_ids = high_value_ids.sample(product.test_deck_max - 1)
