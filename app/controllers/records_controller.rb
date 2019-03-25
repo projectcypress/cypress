@@ -56,7 +56,6 @@ class RecordsController < ApplicationController
 
   def by_filter_task
     @patients = Patient.where(:_id.in => @product_test.filtered_patients.map(&:id))
-    @population_set_hash = params[:population_set_hash] || @measure.population_sets_and_stratifications_for_measure.first
   end
 
   def download_mpl
