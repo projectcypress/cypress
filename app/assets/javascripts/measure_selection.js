@@ -143,16 +143,14 @@ function setCheckboxDisabled(element, state) {
   }
 }
 
-function setCheckboxHidden(element, state) {
-  var children = $(element).closest('div.checkbox').find('*').addBack();
+function setElementHidden(element, state) {
   if (state) {
-    $(children).addClass('hidden');
-    $(children).prop('hidden', true);
-    $(element).prop('checked', false);
+    $(element).addClass('hidden');
+    $(element).prop('hidden', true);
   }
   else {
-    $(children).removeClass('hidden');
-    $(children).prop('hidden', false);
+    $(element).removeClass('hidden');
+    $(element).prop('hidden', false);
   }
 }
 
@@ -211,6 +209,7 @@ ready_run_on_refresh_bundle = function() {
   // Trigger change events for already-checked inputs
   $('.measure-group .measure-checkbox:checked').trigger('change');
   $('input[name="product[measure_selection]"]:checked').trigger('change');
+  $('input[name="product[cvuplus]"]:checked').trigger('change')
 
   // Disable enter key from submitting the add or edit product form when in the measure search box
   $('#product_search_measures').keypress(function(event) {
@@ -289,9 +288,12 @@ ready_run_once = function() {
 
   $('.btn-checkbox input[name="product[cvuplus]"]').on('change', function() {
     if ($(this).attr('disabled') != true) {
-      var vendor_patient_checked = $(this).prop('checked');
-      setCheckboxDisabled('#product_vendor_patients', !vendor_patient_checked);
-      setCheckboxHidden('#product_vendor_patients', !vendor_patient_checked);
+      var cvuplus_checked = ($(this).val() == 'true');
+      setCheckboxDisabled('#product_vendor_patients', !cvuplus_checked);
+      setCheckboxDisabled('#product_bundle_patients', !cvuplus_checked);
+      setElementHidden('#bundle_options', !cvuplus_checked);
+      //$('#product_bundle_patients').closest('div.checkbox').find('*').addBack().prop('checked', true);
+      $('#bundle_options').parsley().validate(); 
     }
   });
 
