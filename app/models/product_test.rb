@@ -206,7 +206,7 @@ class ProductTest
     bundle.patients.where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.IPP": true).pluck(:_id)
   end
 
-  # Returns an id for a patient in the Numerator
+  # Returns a listing of all ids for patients in the Numerator
   def patient_in_numerator
     bundle.patients.where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.NUMER": true).pluck(:_id)
   end
