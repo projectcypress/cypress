@@ -34,7 +34,7 @@ module Cypress
         # If individual_results are provided, use the results for the measure being aggregated
         measure_individual_results = individual_results.select { |res| res['measure_id'] == measure.id.to_s } if individual_results
         # If individual_results are provided, use them.  Otherwise, look them up in the database by measure id and correlation_id
-        measure_individual_results ||= CQM::IndividualResult.where('measure_id' => measure._id, correlation_id: @correlation_id)
+        measure_individual_results ||= QDM::IndividualResult.where('measure_id' => measure._id, correlation_id: @correlation_id)
 
         # add a hash value to store results for each measure
         @measure_result_hash[measure.hqmf_id] = {}
@@ -57,7 +57,7 @@ module Cypress
     # rubocop:disable Metrics/AbcSize
     def aggregate_results_for_measure(measure, individual_results = nil)
       # If individual_results are provided, use them.  Otherwise, look them up in the database by measure id and correlation_id
-      individual_results ||= CQM::IndividualResult.where('measure_id' => measure._id, correlation_id: @correlation_id)
+      individual_results ||= QDM::IndividualResult.where('measure_id' => measure._id, correlation_id: @correlation_id)
 
       observ_values = {}
       # Increment counts for each measure_populations in each individual_result

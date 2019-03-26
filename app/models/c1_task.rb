@@ -29,7 +29,7 @@ class C1Task < Task
 
   def patients
     # TODO: R2P: Collect using patient cache (calculation results)
-    patient_ids = product_test.results.where('IPP' => { '$gt' => 0 }).collect(&:patient)
+    patient_ids = product_test.results.where('IPP' => { '$gt' => 0 }).collect(&:patient_id)
     product_test.patients.in('_id' => patient_ids)
   end
 

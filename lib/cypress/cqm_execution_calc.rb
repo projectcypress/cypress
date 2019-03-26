@@ -59,6 +59,7 @@ module Cypress
         individual_result['population_set_key'] = population_set_key
         # update the patient_id to match the cqm_patient id, not the qdm_patient id
         individual_result['patient_id'] = patient.id.to_s
+        individual_result['cqm_patient'] = patient
         # save to database
         save_individual_result(individual_result) if save
         # update the patients, measure_relevance_hash
@@ -68,7 +69,7 @@ module Cypress
     end
 
     def save_individual_result(individual_result)
-      individual_result = CQM::IndividualResult.new(individual_result)
+      individual_result = QDM::IndividualResult.new(individual_result)
       # when saving the individual result, include the provided correlation id
       individual_result.correlation_id = @correlation_id
       individual_result.save

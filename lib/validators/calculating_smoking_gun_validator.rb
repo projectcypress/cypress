@@ -72,7 +72,7 @@ module Validators
     def determine_passed(mrn, results, record, options)
       passed = true
       @measures.each do |measure|
-        original_results = CQM::IndividualResult.where('patient_id' => mrn, 'measure_id' => measure.id)
+        original_results = QDM::IndividualResult.where('patient_id' => mrn, 'measure_id' => measure.id)
         original_results.each do |original_result|
           new_result = results.select do |arr|
             arr.measure_id == measure.id.to_s &&
