@@ -20,7 +20,7 @@ class Product
 
   field :cvuplus, type: Boolean, default: false
   field :vendor_patients, type: Boolean, default:false
-  field :bundle_patients, type: Boolean, default:false
+  field :bundle_patients, type: Boolean, default:true
   field :name, type: String
   field :version, type: String
   field :description, type: String

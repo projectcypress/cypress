@@ -143,6 +143,18 @@ function setCheckboxDisabled(element, state) {
   }
 }
 
+function setCheckboxDisabledNoUncheck(element, state) {
+  var children = $(element).closest('div.checkbox').find('*').addBack();
+  if (state) {
+    $(children).addClass('disabled');
+    $(children).prop('disabled', true);
+  }
+  else {
+    $(children).removeClass('disabled');
+    $(children).prop('disabled', false);
+  }
+}
+
 function setElementHidden(element, state) {
   if (state) {
     $(element).addClass('hidden');
@@ -289,11 +301,9 @@ ready_run_once = function() {
   $('.btn-checkbox input[name="product[cvuplus]"]').on('change', function() {
     if ($(this).attr('disabled') != true) {
       var cvuplus_checked = ($(this).val() == 'true');
-      setCheckboxDisabled('#product_vendor_patients', !cvuplus_checked);
-      setCheckboxDisabled('#product_bundle_patients', !cvuplus_checked);
+      setCheckboxDisabledNoUncheck('#product_vendor_patients', !cvuplus_checked);
+      setCheckboxDisabledNoUncheck('#product_bundle_patients', !cvuplus_checked);
       setElementHidden('#bundle_options', !cvuplus_checked);
-      //$('#product_bundle_patients').closest('div.checkbox').find('*').addBack().prop('checked', true);
-      $('#bundle_options').parsley().validate(); 
     }
   });
 
