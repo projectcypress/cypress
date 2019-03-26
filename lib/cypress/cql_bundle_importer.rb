@@ -128,7 +128,7 @@ module Cypress
           document
         end
       end.flatten
-      CQM::IndividualResult.collection.insert_many(results)
+      QDM::IndividualResult.collection.insert_many(results)
       compile_measure_relevance_hash
       puts "\rLoading: Results Complete          "
     end

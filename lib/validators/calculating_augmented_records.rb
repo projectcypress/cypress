@@ -35,7 +35,7 @@ module Validators
       passed = true
       @measures.each do |measure|
         # compare results to patient as it was initially calculated for product test (use original product patient id before cloning)
-        orig_results = CQM::IndividualResult.where('patient_id': options[:orig_product_patient].id, 'measure_id': measure.id)
+        orig_results = QDM::IndividualResult.where('patient_id': options[:orig_product_patient].id, 'measure_id': measure.id)
         orig_results.each do |orig_result|
           new_result = results.select do |arr|
             arr.measure_id == measure.id.to_s &&

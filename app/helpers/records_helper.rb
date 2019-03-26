@@ -58,7 +58,7 @@ module RecordsHelper
   # Usage tip: It is strongly recommended you pass in either an array of records OR and array
   # of measures and then pass in the other as an array containing a single element.
   def get_result_values(records, measures, pop_set, pop_keys, key)
-    CQM::IndividualResult.where(
+    QDM::IndividualResult.where(
       :patient_id.in => records.collect(&:id),
       :measure_id.in => measures.collect(&:id),
       :population_set_key => pop_set
