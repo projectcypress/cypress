@@ -20,8 +20,8 @@ module CQM
     def self.generate_provider(options = {})
       prov = CQM::Provider.new
       randomize_provider_address(prov)
-      prov.given_name = NAMES_RANDOM['first'][%w[M F].sample].sample
-      prov.family_name = NAMES_RANDOM['last'].sample
+      prov.givenNames = [NAMES_RANDOM['first'][%w[M F].sample].sample]
+      prov.familyName = NAMES_RANDOM['last'].sample
       prov.npi = NpiGenerator.generate
       prov.tin = rand.to_s[2..10]
       # rjust pads with 0s to the left of the number, so the CCN is always 6 digits

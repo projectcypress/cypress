@@ -481,7 +481,7 @@ module Cypress
       results = erc.aggregate_results_for_measures(pt.measures)
 
       cms_compatibility = pt&.product&.c3_test
-      options = { provider: pt.patients.first.provider, submission_program: cms_compatibility,
+      options = { provider: pt.patients.first.providers.first, submission_program: cms_compatibility,
                   start_time: pt.start_date, end_time: pt.end_date }
       xml = Qrda3R21.new(results, pt.measures, options).render
 

@@ -24,7 +24,7 @@
     <% provider = task.product_test.provider %>
     <% unless provider.nil? %>
       <br/>
-      <% { 'Name' => "#{provider.family_name}, #{provider.given_name}", 'NPI' => provider.npi, 'TIN' => provider.tin, 'CCN' => provider.ccn }.each do |label, value| %>
+      <% { 'Name' => full_name(provider), 'NPI' => provider.npi, 'TIN' => provider.tin, 'CCN' => provider.ccn }.each do |label, value| %>
         <strong><%= "Provider #{label}: " %></strong><span><%= value %></span><br/>
       <% end %>
     <% end %>
