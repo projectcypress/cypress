@@ -11,7 +11,7 @@ class PatientZipperTest < ActiveSupport::TestCase
     prov = Provider.default_provider
 
     @patients.each do |p|
-      p.provider_performances << CQM::ProviderPerformance.new(provider: prov)
+      p.providers << prov
       p.save!
     end
   end

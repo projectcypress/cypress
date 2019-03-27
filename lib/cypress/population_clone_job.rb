@@ -75,7 +75,7 @@ module Cypress
       # This operates on the assumption that we are always cloning a patient for a product test.
       # If we need to clone a patient for any other reason then we will need to paramaterize
       # the type coming into this class.
-      cloned_patient = ProductTestPatient.new(patient.attributes.except(:_id, :_type))
+      cloned_patient = ProductTestPatient.new(patient.attributes.except(:_id, :_type, :providers))
       cloned_patient.attributes = {
         original_medical_record_number: patient.medical_record_number,
         original_patient_id: patient.id,
@@ -88,7 +88,6 @@ module Cypress
       DemographicsRandomizer.randomize_race(cloned_patient, Random.new(0)) if cloned_patient.race == '2131-1'
       patch_insurance_provider(patient)
       randomize_entry_ids(cloned_patient) unless options['disable_randomization']
-      # assign existing provider if provider argument is not nil (should be when @test is a measure test)
       provider ? assign_existing_provider(cloned_patient, provider) : assign_provider(cloned_patient)
       cloned_patient.save!
       cloned_patient
@@ -154,10 +153,9 @@ module Cypress
                generate_provider if @generated_providers.size < 3
                @generated_providers.sample
              else
-               measure = @test.measures.first
-               Provider.default_provider(measure_type: measure.reporting_program_type)
+               Provider.default_provider(measure_type: @test.measures.first.reporting_program_type)
              end
-      patient.provider_performances = [{ provider_id: prov.id }] if prov
+      patient.providers << prov
     end
 
     def generate_provider
@@ -165,7 +163,7 @@ module Cypress
     end
 
     def assign_existing_provider(patient, provider)
-      patient.provider_performances = [{ provider_id: provider.id }]
+      patient.providers << provider
     end
   end
 end

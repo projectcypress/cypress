@@ -38,7 +38,7 @@ When(/^the user creates a product with tasks (.*)$/) do |tasks|
   @product_test = @product.product_tests.create!({ name: @measure.description, measure_ids: measure_ids, cms_id: @measure.cms_id }, MeasureTest)
 
   provider = @product_test.provider
-  ProductTestPatient.create!(provider_performances: [{ provider_id: provider.id }], correlation_id: @product_test.id.to_s)
+  ProductTestPatient.create!(providers: [provider], correlation_id: @product_test.id.to_s)
 end
 
 # task_names should be either 'c1', 'c2', or both

@@ -14,7 +14,7 @@ module Validators
       first, last = extract_first_and_last_names
       patient = @options['task'].patients.select { |p| p.givenNames[0] == first.to_s && p.familyName == last.to_s }.first
       if patient
-        expected_provider_types = [patient.provider.specialty]
+        expected_provider_types = [patient.providers.first.specialty]
 
         found_provider_types = @document.xpath(PROVIDER_TYPE_SELECTOR).map(&:value)
 
