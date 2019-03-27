@@ -5,7 +5,7 @@
     <h2>Measure Information</h2>
     <% {
           @continuous_measures => RecordsHelper::CV_POPULATION_KEYS,
-          @non_continuous_measures => RecordsHelper::PROPORTION_POPULATION_KEYS
+          @proportion_measures => RecordsHelper::PROPORTION_POPULATION_KEYS
         }.each do |measures, pop_keys| %>
       <% if measures.length.positive? %>
         <table class="table table-condensed">
