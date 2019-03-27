@@ -327,6 +327,11 @@ And(/^the user chooses the "(.*)" Certification Type$/) do |certification_type|
   page.find("#product_#{certification_type}_test").click
 end
 
+And(/^the user chooses the "(.*)" Product Type$/) do |product_type|
+  cvu = product_type == 'CVU+' ? 'true' : 'false'
+  page.find("#product_cvuplus_#{cvu}").click
+end
+
 And(/^the user removes the supplemental test artifact from the product$/) do
   steps %( When the user views the edit page of the product )
   page.find('input#product_remove_supplemental_test_artifact').set(true)
