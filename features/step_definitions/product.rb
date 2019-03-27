@@ -517,6 +517,16 @@ Then(/^the user should see the the appropriate tabs$/) do
   end
 end
 
+Then(/^"(.*)" input should be (\w*)$/) do |element, state|
+  input = page.find('label', text: element, visible: false)
+  case state
+  when 'invisible'
+    assert input
+  when 'disabled'
+    assert input.disabled?
+  end
+end
+
 Then(/^"(.*)" checkbox should be (\w*)$/) do |element, state|
   checkbox = page.find('label', text: element).find('input')
   case state
