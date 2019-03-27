@@ -40,7 +40,7 @@ class RecordsController < ApplicationController
                   @source.measures.where(:_id.in => @results.map(&:measure_id))
                 end
     @continuous_measures = @measures.where(measure_scoring: 'CONTINUOUS_VARIABLE').sort_by { |m| [m.cms_int] }
-    @non_continuous_measures = @measures.where(measure_scoring: 'PROPORTION').sort_by { |m| [m.cms_int] }
+    @proportion_measures = @measures.where(measure_scoring: 'PROPORTION').sort_by { |m| [m.cms_int] }
     expires_in 1.week, public: true
     add_breadcrumb 'Patient: ' + @record.first_names + ' ' + @record.familyName, :record_path
   end
