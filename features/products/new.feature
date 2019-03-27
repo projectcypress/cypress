@@ -116,6 +116,14 @@ Scenario: Checking CVU+ Product updates Bundle Options
   Then "Include vendor patients" checkbox should be enabled
   Then "Include vendor patients" checkbox should be unchecked
 
+Scenario: Checking Certification Product updates Bundle Options
+  When the user navigates to the create product page
+  And the user chooses the "Certification" Product Type
+  Then "Include bundle patients" input should be invisible
+  Then "Include bundle patients" input should be disabled
+  Then "Include vendor patients" input should be invisible
+  Then "Include vendor patients" input should be disabled
+
 Scenario: Successful Cancel Create Product
   When the user cancels creating a product
   Then the user should not see the product
