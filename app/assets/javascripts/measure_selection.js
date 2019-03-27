@@ -299,10 +299,13 @@ ready_run_once = function() {
   });
 
   $('.btn-checkbox input[name="product[cvuplus]"]').on('change', function() {
-    if ($(this).attr('disabled') != true) {
-      var cvuplus_checked = ($(this).val() == 'true');
+    var cvuplus_checked = ($(this).val() == 'true');
+    if ($(this).attr('disabled') != 'disabled') {
       setCheckboxDisabledNoUncheck('#product_vendor_patients', !cvuplus_checked);
       setCheckboxDisabledNoUncheck('#product_bundle_patients', !cvuplus_checked);
+      setElementHidden('#bundle_options', !cvuplus_checked);
+    }
+    else{
       setElementHidden('#bundle_options', !cvuplus_checked);
     }
   });

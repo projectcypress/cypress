@@ -108,6 +108,14 @@ Scenario: Checking C2 Test updates Duplicate Records
   Then "C4 Test" checkbox should be enabled
   Then "C4 Test" checkbox should be unchecked
 
+Scenario: Checking CVU+ Product updates Bundle Options
+  When the user navigates to the create product page
+  And the user chooses the "CVU+" Product Type
+  Then "Include bundle patients" checkbox should be enabled
+  Then "Include bundle patients" checkbox should be checked
+  Then "Include vendor patients" checkbox should be enabled
+  Then "Include vendor patients" checkbox should be unchecked
+
 Scenario: Successful Cancel Create Product
   When the user cancels creating a product
   Then the user should not see the product

@@ -12,8 +12,8 @@
           <fieldset id="cvu_plus">
             <legend class="control-label">Product Types</legend>
             <%= f.form_group  do %>
-              <%= f.radio_button :cvuplus, "false", label: 'Certification Product', label_class: "btn btn-checkbox", checked: !product.cvuplus, disabled: false %>
-              <%= f.radio_button :cvuplus, "true", label: 'CVU+ Product', label_class: "btn btn-checkbox", checked: product.cvuplus, disabled: false %>
+              <%= f.radio_button :cvuplus, "false", label: 'Certification Product', label_class: "btn btn-checkbox", checked: !product.cvuplus, disabled: !product.new_record? %>
+              <%= f.radio_button :cvuplus, "true", label: 'CVU+ Product', label_class: "btn btn-checkbox", checked: product.cvuplus, disabled: !product.new_record? %>
             <% end %>
           </fieldset>
 
@@ -80,7 +80,7 @@
           <%end%>
 
           <fieldset>
-            <legend class="control-label">Patient Bundle</legend>
+            <legend class="control-label">Bundle Options</legend>
             <% if Bundle.available.count == 1 %>
               <label for="product_bundle_id" class="h5"> <%= bundle.title %> </label>
               <%= hidden_field_tag 'product[bundle_id]', bundle.id %>
@@ -98,7 +98,7 @@
           <fieldset id="bundle_options" class="hidden">
             <div id="cvuplus_patient_selection">
               <%= f.form_group help: "Choose patient sets to include in product" do %>
-                <%= f.check_box :bundle_patients, label: 'Include bundle patients', label_class: "btn btn-checkbox", checked: product.bundle_patients, disabled: true, data: {
+                <%= f.check_box :bundle_patients, label: 'Include bundle patients', label_class: "btn btn-checkbox", checked: product.bundle_patients, disabled: !product.new_record?, data: {
                 'parsley-required': '',
                 'parsley-trigger': 'change',
                 'parsley-mincheck': '1',
@@ -107,7 +107,7 @@
                 'parsley-error-message': 'Must select patients.',
                 'parsley-errors-container': "#cvuplus_patient_selection" } %>
                 <% if @vendor ? @vendor.patients : true %>
-                  <%= f.check_box :vendor_patients, label: 'Include vendor patients', label_class: "btn btn-checkbox", checked: product.vendor_patients, disabled: true, data: {
+                  <%= f.check_box :vendor_patients, label: 'Include vendor patients', label_class: "btn btn-checkbox", checked: product.vendor_patients, disabled: !product.new_record?, data: {
                   'parsley-multiple': 'mandatory_patients'}  %>
                 <% end %>
               <% end %>
