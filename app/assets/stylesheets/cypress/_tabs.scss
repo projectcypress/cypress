@@ -23,6 +23,10 @@
     .ui-tabs-anchor {
       font-weight: bold;
     }
+    
+    a, a:link, a:visited {
+      color: $tab-font-color;
+    }
   }
 
   .ui-state-disabled,
@@ -56,7 +60,7 @@
       margin-top: .25em;
       padding-top: .25em;
 
-      a {
+      a, a:link, a:visited {
         color: $tab-font-color;
       }
     }
