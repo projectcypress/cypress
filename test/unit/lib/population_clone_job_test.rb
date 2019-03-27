@@ -25,8 +25,8 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     pcj.perform
     prov = Provider.where(default: true).first
     assert_equal 11, Patient.count
-    patients_with_provider = Patient.where(correlation_id: @pt.id, provider_performances: { :$exists => true })
-    assert_equal 1, patients_with_provider.keep_if { |pt| pt.provider.id == prov.id }.size
+    patients_with_provider = Patient.where(correlation_id: @pt.id, provider_ids: { :$exists => true })
+    assert_equal 1, patients_with_provider.keep_if { |pt| pt.providers.map(&:id).include? prov.id }.size
   end
 
   def test_shifts_dates_no_shift

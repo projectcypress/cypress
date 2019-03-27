@@ -70,7 +70,7 @@ FactoryBot.define do
         patient.measure_relevance_hash = {}
         patient.measure_relevance_hash[proportion_ir.measure_id.to_s] = { 'IPP' => false }
         patient.measure_relevance_hash[cv_ir.measure_id.to_s] = { 'IPP' => true, 'MSRPOPL' => true }
-        patient.provider_performances << CQM::ProviderPerformance.new(provider: provider)
+        patient.providers << provider
         patient.save!
       end
     end
@@ -82,7 +82,7 @@ FactoryBot.define do
 
       after(:create) do |patient|
         provider = create(:default_provider)
-        patient.provider_performances << CQM::ProviderPerformance.new(provider: provider)
+        patient.providers << provider
         patient.save!
       end
     end
@@ -94,7 +94,7 @@ FactoryBot.define do
 
       after(:create) do |patient|
         provider = create(:default_provider)
-        patient.provider_performances << CQM::ProviderPerformance.new(provider: provider)
+        patient.providers << provider
         patient.save!
       end
     end

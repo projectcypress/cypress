@@ -95,8 +95,8 @@ references:
     title : Cypress Initial Setup Instructions
     url   : https://github.com/projectcypress/cypress/wiki
 default_provider:
-  given_name     : 'Mary'
-  family_name    : 'Smith'
+  givenNames     : ['Mary']
+  familyName    : 'Smith'
   title          : 'Dr'
   addresses:
     - street:
@@ -105,7 +105,7 @@ default_provider:
       state      : 'MA'
       zip        : '02134'
       country    : 'us'
-  identifiers:
+  ids:
     - namingSystem  : '2.16.840.1.113883.4.6'  #npi
       value         : '1245319599'
     - namingSystem  : '2.16.840.1.113883.4.2'  #tin

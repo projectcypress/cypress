@@ -45,7 +45,7 @@ module CQM
 
     def lookup_provider(include_address = nil)
       # find with provider id hash i.e. "$oid"->value
-      provider = Provider.find(provider_performances.first['provider_id'])
+      provider = providers.first
       addresses = []
       provider.addresses.each do |address|
         addresses << { 'street' => address.street, 'city' => address.city, 'state' => address.state, 'zip' => address.zip,
@@ -62,12 +62,6 @@ module CQM
       changed = { original_patient_id: id, first: [first_names, first_names], last: [familyName, familyName] }
       patient, changed = randomize_patient_name_or_birth(patient, changed, random: random)
       randomize_demographics(patient, changed, random: random)
-    end
-
-    def provider
-      return nil unless provider_performances
-
-      Provider.find(provider_performances.first['provider_id'])
     end
 
     #
