@@ -303,11 +303,8 @@ ready_run_once = function() {
     if ($(this).attr('disabled') != 'disabled') {
       setCheckboxDisabledNoUncheck('#product_vendor_patients', !cvuplus_checked);
       setCheckboxDisabledNoUncheck('#product_bundle_patients', !cvuplus_checked);
-      setElementHidden('#bundle_options', !cvuplus_checked);
     }
-    else{
       setElementHidden('#bundle_options', !cvuplus_checked);
-    }
   });
 
   // run this piece once too
