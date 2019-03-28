@@ -48,20 +48,6 @@ module Validators
       end
     end
 
-    # Labels for populations can change over time, this will replace the QME population code with the code used in the specified qrda version
-    # e.g. IPP is IPOP in QRDA Cat III R1.1
-    # def update_expected_population_ids(expected_result)
-    #   @modified_population_labels.each do |original_label, modified_label|
-    #     expected_result[modified_label] = expected_result[original_label]
-    #     expected_result.delete(original_label)
-    #     expected_result['population_ids'][modified_label] = expected_result['population_ids'][original_label]
-    #     expected_result['population_ids'].delete(original_label)
-    #     expected_result['supplemental_data'][modified_label] = expected_result['supplemental_data'][original_label]
-    #     expected_result['supplemental_data'].delete(original_label)
-    #   end
-    #   expected_result
-    # end
-
     # def check_for_reported_results_population_ids(expected_result, reported_result, measure_id, stratification_id)
     #   #ids = expected_result['population_ids'].dup
     #   if reported_result.nil? || reported_result.keys.length <= 1
