@@ -125,13 +125,10 @@ Scenario: Checking Certification Product updates Bundle Options
   Then "Include vendor patients" input should be disabled
 
   Scenario: Checking Certification Product updates Bundle Options after Enabling CVU+
-  When the user navigates to the create product page
-   And the user chooses the "CVU+" Product Type
-  And the user chooses the "Certification" Product Type
-  Then "Include bundle patients" input should be invisible
-  Then "Include bundle patients" input should be disabled
-  Then "Include vendor patients" input should be invisible
-  Then "Include vendor patients" input should be disabled
+  When the user creates a cvu+ product then selecting certification product
+  Then the product value for cvuplus should be false
+  Then the product value for vendor_patients should be false
+  Then the product value for bundle_patients should be true
 
 Scenario: Successful Cancel Create Product
   When the user cancels creating a product
