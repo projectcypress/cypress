@@ -171,7 +171,7 @@ When(/^the user creates a product with selecting a group of measures then desele
   page.click_button 'Add Product'
 end
 
-When(/^the user creates a cvu\+ product then selecting certification product$/) do
+When(/^the user creates a cvu\+ product then selects certification product$/) do
   steps %( When the user fills out all product information but measures )
   page.find('input.measure-group-all').click
   page.find('#product_cvuplus_true').click
