@@ -115,6 +115,8 @@ Scenario: Checking CVU+ Product updates Bundle Options
   Then "Include bundle patients" checkbox should be checked
   Then "Include vendor patients" checkbox should be enabled
   Then "Include vendor patients" checkbox should be unchecked
+  Then the page should be accessible according to: section508
+  Then the page should be accessible according to: wcag2aa
 
 Scenario: Checking Certification Product updates Bundle Options
   When the user navigates to the create product page
@@ -123,9 +125,11 @@ Scenario: Checking Certification Product updates Bundle Options
   Then "Include bundle patients" input should be disabled
   Then "Include vendor patients" input should be invisible
   Then "Include vendor patients" input should be disabled
+  Then the page should be accessible according to: section508
+  Then the page should be accessible according to: wcag2aa
 
   Scenario: Checking Certification Product updates Bundle Options after Enabling CVU+
-  When the user creates a cvu+ product then selecting certification product
+  When the user creates a cvu+ product then selects certification product
   Then the product value for cvuplus should be false
   Then the product value for vendor_patients should be false
   Then the product value for bundle_patients should be true
