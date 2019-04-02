@@ -173,11 +173,16 @@ end
 
 When(/^the user creates a cvu\+ product then selecting certification product$/) do
   steps %( When the user fills out all product information but measures )
+  page.find('input.measure-group-all').click
   page.find('#product_cvuplus_true').click
   page.find('#product_bundle_patients').click
   page.find('#product_vendor_patients').click
   page.find('#product_cvuplus_false').click
   page.click_button 'Add Product'
+  page.click_link @product.name
+  # By running find_by after we have already clicked a link to the same product we are trying to find,
+  # we are able to avoid a race condition where the product is not yet created when we run the find_by.
+  @product = Product.find_by(name: @product.name)
 end
 
 And(/^the user selects a group of measures but deselects one$/) do
