@@ -1,15 +1,15 @@
 class MultiMeasureCat3Task < Task
   def validators
     @validators = [::Validators::MeasurePeriodValidator.new,
-                   ::Validators::QrdaCat3Validator.new(product_test.expected_results, true, true, product_test.c2_test, product_test.bundle),
-                   ::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version),
+                   ::Validators::QrdaCat3Validator.new(product_test.expected_results, true, true, false, product_test.bundle),
+                   ::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version, false),
                    ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
     @validators
   end
 
   def execute(file, user)
     te = test_executions.create!(expected_results: expected_results, artifact: Artifact.new(file: file), user_id: user)
-    TestExecutionJob.perform_later(te, self, validate_reporting: product_test.c3_test)
+    TestExecutionJob.perform_later(te, self, validate_reporting: true)
     te.save
     te
   end
