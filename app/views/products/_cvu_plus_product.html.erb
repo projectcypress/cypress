@@ -41,12 +41,20 @@
             </thead>
             <tbody>
               <% @product.product_tests.each do |product_test| %>
+              <% # A Multi Measure Test only has a single task %>
+              <% task = product_test.tasks.first %>
               <tr>
-                <td><%= link_to product_test.name, new_task_test_execution_path(product_test.tasks.first) %></td>
+                <td><%= link_to product_test.name, new_task_test_execution_path(task) %></td>
                 <td>
-                  <% product_test.tasks.first.measures.collect(&:cms_id).each_with_index do |cms_id, index| %>
-                    <%= index == product_test.tasks.first.measures.size - 1 ? cms_id : "#{cms_id}, " %>
+                  <% task.measures.collect(&:cms_id).each_with_index do |cms_id, index| %>
+                    <%= index == task.measures.size - 1 ? cms_id : "#{cms_id}, " %>
                   <% end %>
+                </td>
+                <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(task) %>">
+                  <%= render 'filtering_test_link', :test => product_test, :task => task, :parent_reloading => true %>
+                </td>
+                <td class="no-wrap" data-order="<%= task.updated_at %>">
+                  <%= icon('far fa-fw', 'clock', :"aria-hidden" => true) %><%= local_time_ago(task.updated_at) %>
                 </td>
               </tr>
               <% end %> 
