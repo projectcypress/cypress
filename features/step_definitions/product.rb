@@ -171,6 +171,15 @@ When(/^the user creates a product with selecting a group of measures then desele
   page.click_button 'Add Product'
 end
 
+When(/^the user creates a cvu\+ product then selecting certification product$/) do
+  steps %( When the user fills out all product information but measures )
+  page.find('#product_cvuplus_true').click
+  page.find('#product_bundle_patients').click
+  page.find('#product_vendor_patients').click
+  page.find('#product_cvuplus_false').click
+  page.click_button 'Add Product'
+end
+
 And(/^the user selects a group of measures but deselects one$/) do
   page.find('input.measure-group-all').click
   page.all('input.measure-checkbox')[0].click
