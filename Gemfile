@@ -14,7 +14,7 @@ gem 'bson_ext'
 gem 'mustache'
 gem 'os'
 
-gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'remove_hds_rebase_3_4'
+gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'master'
 gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports.git', branch: 'master'
 gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators.git', branch: 'master'
 
