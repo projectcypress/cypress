@@ -7,10 +7,9 @@ module Cypress
       data_criteria_without_att = {}
       # Criteria types in C1 checklist
       criteria_types = []
-      # Clone and strip out data criteria with the negation field.  Negations are now tracked with attributes
-      all_data_criteria = measure[:source_data_criteria].clone.keep_if { |_key, sdc| sdc['negation'] == false }
-      dcs_with_attribute = measure[:source_data_criteria].clone
-      dcs_with_attribute.keep_if { |_k, data_criteria| coded_attributes?(data_criteria) }
+      all_data_criteria = measure.source_data_criteria.clone
+      dcs_with_attribute = measure.source_data_criteria.clone
+      dcs_with_attribute.keep_if { |data_criteria| coded_attributes?(data_criteria) }
       # Loads list of value sets for the measure in question
       measure.value_sets.map(&:oid).each do |oid|
         currnet_count = dcs_with_attribute.size
@@ -28,8 +27,8 @@ module Cypress
     end
 
     def coded_attributes?(data_criteria)
-      if data_criteria['attributes']
-        data_criteria['attributes'].keep_if { |av| av['attribute_valueset'] }.empty? ? false : true
+      if data_criteria.dataElementAttributes
+        data_criteria.dataElementAttributes.keep_if(&:attribute_valueset).empty? ? false : true
       else
         false
       end
@@ -37,24 +36,24 @@ module Cypress
 
     # Matches a data criteria coded field value with provided data_criteria_value
     def match_attributes(data_criterias, data_criteria_value, selected_dc, data_criteria_without_att, criteria_types)
-      data_criterias.each do |dc_key, dc_value|
-        next unless dc_value['attributes']
-        next if dc_value['attributes'].map { |av| av['attribute_valueset'] == data_criteria_value ? true : nil }.compact.empty?
-        next if criteria_types.include? dc_value.type
+      data_criterias.each do |dc_value|
+        next unless dc_value.dataElementAttributes
+        next if dc_value.dataElementAttributes.map { |av| av.attribute_valueset == data_criteria_value ? true : nil }.compact.empty?
+        next if criteria_types.include? dc_value._type
 
-        selected_dc << dc_key
-        criteria_types << dc_value.type
-        data_criteria_without_att.delete(dc_value.type) if data_criteria_without_att.key?(dc_value.type)
+        selected_dc << dc_value
+        criteria_types << dc_value._type
+        data_criteria_without_att.delete(dc_value._type) if data_criteria_without_att.key?(dc_value._type)
       end
     end
 
     # Matches a data criteria code set or negation code set
     def match_data_criteria(data_criterias, data_criteria_value, data_criteria_without_att, criteria_types)
-      data_criterias.each do |dc_key, dc_value|
+      data_criterias.each do |dc_value|
         # If the criterias being tested do not already include the current data criteria type
-        next unless criteria_types.exclude?(dc_value.type) && (dc_value['code_list_id'] == data_criteria_value)
+        next unless criteria_types.exclude?(dc_value._type) && (dc_value.codeListId == data_criteria_value)
 
-        data_criteria_without_att[dc_value.type] = dc_key
+        data_criteria_without_att[dc_value._type] = dc_value
       end
     end
   end

@@ -54,7 +54,14 @@ class ActiveSupport::TestCase
 
   def simplify_criteria(test, include_attribute_code = false)
     criteria = test.checked_criteria[0, 1]
-    criteria[0].source_data_criteria = 'EmergencyDepartmentVisit_EncounterPerformed_e9dfea5a_0011_42cc_b048_3a8748c1c4b0_source'
+    criteria[0].source_data_criteria = { 'codeListId' => '1.8.9.10',
+                                         'hqmfOid' => '2.16.840.1.113883.10.20.28.4.5',
+                                         '_type' => 'QDM::EncounterPerformed',
+                                         'qdmCategory' => 'encounter',
+                                         'dataElementAttributes' => [{ 'attribute_name' => 'relevantPeriod',
+                                                                       'attribute_valueset' => nil },
+                                                                     { 'attribute_name' => 'dischargeDisposition',
+                                                                       'attribute_valueset' => '1.5.6.7' }] }
     criteria[0].code = '720'
     criteria[0].code_complete = true
     criteria[0].attribute_index = 1

@@ -22,17 +22,9 @@ FactoryBot.define do
 
     trait :diagnosis do
       after(:build) do |measure|
-        diagnosis_sdc = { 'title' => 'Pregnancy',
-                          'description' => 'Diagnosis, Active => Pregnancy',
-                          'standard_category' => 'diagnosis_condition_problem',
-                          'qds_data_type' => 'diagnosis_active',
-                          'code_list_id' => '1.5.6.7',
-                          'type' => 'conditions',
-                          'definition' => 'diagnosis',
-                          'hard_status' => false,
-                          'negation' => false,
-                          'source_data_criteria' => 'DiagnosisActivePregnancy' }
-        measure.source_data_criteria['DiagnosisActivePregnancy'] = diagnosis_sdc
+        diagnosis_sdc = QDM::Diagnosis.new(description: 'Diagnosis, Active => Pregnancy',
+                                           codeListId: '1.5.6.7')
+        measure.source_data_criteria << diagnosis_sdc
       end
     end
     trait :no_diagnosis do

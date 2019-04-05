@@ -20,9 +20,7 @@ module Validators
       relative_path_map = { 'adverse_event' => '../../',
                             'allergy_intolerance' => '../../../',
                             'assessment' => './',
-                            'communication_from_patient_to_provider' => './',
-                            'communication_from_provider_to_patient' => './',
-                            'communication_from_provider_to_provider' => './',
+                            'communication' => '../../',
                             'device' => '../../../',
                             'diagnosis' => './',
                             'diagnostic_study' => './',
@@ -73,9 +71,9 @@ module Validators
       }
       # XPATH_CONSTS (the XPATH expressions without codes) are merged with the xpath_map (the XPATH expressions without codes)
       xpath_map.merge!(XPATH_CONSTS)
-      if @source_criteria['attributes']
-        relative_path = relative_path_to_template_root(@source_criteria['definition'])
-        return node.xpath(relative_path + xpath_map[@source_criteria.attributes[index].attribute_name]).blank? ? false : true
+      if @source_criteria['dataElementAttributes']
+        relative_path = relative_path_to_template_root(@source_criteria.qdmCategory)
+        return node.xpath(relative_path + xpath_map[@source_criteria['dataElementAttributes'][index]['attribute_name']]).blank? ? false : true
       end
 
       false
