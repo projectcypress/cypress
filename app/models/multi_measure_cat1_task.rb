@@ -18,6 +18,11 @@ class MultiMeasureCat1Task < Task
     te
   end
 
+  def patients
+    patient_ids = product_test.results.where('IPP' => { '$gt' => 0 }).collect(&:patient)
+    product_test.patients.in('_id' => patient_ids)
+  end
+
   def good_results
     Cypress::CreateDownloadZip.create_zip(patients, 'qrda').read
   end
