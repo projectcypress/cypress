@@ -5,27 +5,29 @@ module ChecklistTestsHelper
   end
 
   def checklist_test_criteria_attribute(criteria, attribute_index)
-    if criteria[:attributes]
-      criteria[:attributes][attribute_index][:attribute_name]
-    elsif criteria[:value] && criteria[:value][:system] != 'Administrative Sex'
-      'Result'
+    if criteria['dataElementAttributes']
+      criteria['dataElementAttributes'][attribute_index]['attribute_name']
     else
       ''
     end
   end
 
+  def hash_for_data_criteria(data_criteria)
+    Digest::SHA2.hexdigest("#{data_criteria['_type']} #{data_criteria['codeListId']}")
+  end
+
   def available_data_criteria(measure, criteria, original_sdc)
     dc_hash = {}
     og_string = ''
-    measure.source_data_criteria.each do |dc_key, dc|
+    measure.source_data_criteria.each do |dc|
       next if unsubstituable_data_criteria?(dc)
 
-      dc_hash[dc.description] = dc_key
+      dc_hash[dc['description']] = hash_for_data_criteria(dc)
       # Store the original data source criteria and display string, makes sure you can reselect the orignal criteria
       # This is important for when the same criteria is used in multiple ways in the same measure
-      og_string = dc.description if dc.source_data_criteria == criteria.source_data_criteria
+      og_string = dc['description'] if dc == criteria
     end
-    dc_hash[og_string] = original_sdc
+    dc_hash[og_string] = hash_for_data_criteria(original_sdc)
     Hash[dc_hash.sort]
   end
 
@@ -35,10 +37,8 @@ module ChecklistTestsHelper
   end
 
   def coded_attribute?(criteria, attribute_index)
-    if criteria[:attributes]
-      true if criteria[:attributes][attribute_index][:attribute_valueset]
-    elsif criteria[:value]
-      true if criteria[:value].type == 'CD' && criteria[:value][:system] != 'Administrative Sex'
+    if criteria['dataElementAttributes']
+      true if criteria['dataElementAttributes'][attribute_index]['attribute_valueset']
     end
   end
 

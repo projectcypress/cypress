@@ -27,10 +27,9 @@ module MeasuresHelper
   end
 
   def measure_has_diagnosis_criteria?(measure)
-    # TODO: CQL: change measure model
-    return false unless measure['source_data_criteria']
+    return false unless measure.source_data_criteria
 
-    measure['source_data_criteria'].values.any? { |criteria| criteria['definition'] == 'diagnosis' }
+    measure.source_data_criteria.any? { |criteria| criteria._type == 'QDM::Diagnosis' }
   end
 
   # used in _measure_tests_table.html.erb view

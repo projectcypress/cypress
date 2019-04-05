@@ -42,7 +42,7 @@ module Cypress
 
     def self.problems(_record, options = {})
       problem_oid = lookup_problem(options[:measures], options[:patients], options[:prng])
-      { oid: [problem_oid], hqmf_ids: hqmf_oids_for_problem(problem_oid, options[:measures]) }
+      { oid: [problem_oid] }
     end
 
     def self.lookup_problem(measures, records, prng)
@@ -52,17 +52,17 @@ module Cypress
       # if we can't find one that matches a record, just use any diagnosis (fallback)
 
       # randomize before iterating
-      measure.source_data_criteria.to_a.shuffle(random: prng).each do |_criteria, cr_hash|
+      measure.source_data_criteria.shuffle(random: prng).each do |criteria|
         # find diagnosis criteria in measure
-        next unless cr_hash.definition.eql? 'diagnosis'
+        next unless criteria._type.eql? 'QDM::Diagnosis'
 
-        fallback_id = cr_hash['code_list_id']
-        value_set = ValueSet.where(oid: cr_hash['code_list_id']).first
+        fallback_id = criteria.codeListId
+        value_set = ValueSet.where(oid: criteria.codeListId).first
 
         # search through records for diagnosis criteria
         next unless find_problem_in_records(records, value_set)
 
-        code_list_id = cr_hash['code_list_id']
+        code_list_id = criteria.codeListId
         break
       end
 
@@ -91,8 +91,8 @@ module Cypress
     def self.hqmf_oids_for_problem(problem_oid, measures)
       measure = measures.first
       hqmf_oids = []
-      measure.source_data_criteria.each do |_criteria, cr_hash|
-        next unless cr_hash.key?('code_list_id') && cr_hash.code_list_id == problem_oid
+      measure.source_data_criteria.each do |criteria|
+        next unless criteria.codeListId == problem_oid
 
         hqmf_oid = HQMF::DataCriteria.template_id_for_definition(cr_hash['definition'], cr_hash['status'], cr_hash['negation'])
         hqmf_oid ||= HQMF::DataCriteria.template_id_for_definition(cr_hash['definition'], cr_hash['status'], cr_hash['negation'], 'r2')

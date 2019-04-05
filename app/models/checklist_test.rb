@@ -58,14 +58,14 @@ class ChecklistTest < ProductTest
     pass_count == criterias.count ? 'passed' : 'failed'
   end
 
-  def negate_valueset?(measure, criteria_key, att_index)
+  def negate_valueset?(criteria, att_index)
     return false unless att_index
 
-    measure[:source_data_criteria].select { |key| key == criteria_key }.values.first.attributes[att_index]['attribute_name'] == 'negationRationale'
+    criteria['dataElementAttributes'][att_index]['attribute_name'] == 'negationRationale'
   end
 
-  def attribute_index?(measure, criteria_key)
-    attributes = measure[:source_data_criteria].select { |key| key == criteria_key }.values.first['attributes']
+  def attribute_index?(criteria)
+    attributes = criteria['dataElementAttributes']
     return nil if attributes.blank?
 
     code_indexes = []
@@ -100,10 +100,10 @@ class ChecklistTest < ProductTest
       next if checklist_measures.size > max_num_checklist_measures - 1 # skip if four checklist measures already exist
 
       checklist_measures << measure.hqmf_id
-      measure_criteria_map[measure].each do |criteria_key|
-        att_index = attribute_index?(measure, criteria_key)
-        checked_criterias.push(measure_id: measure.id.to_s, source_data_criteria: criteria_key, attribute_index: att_index,
-                               negated_valueset: negate_valueset?(measure, criteria_key, att_index))
+      measure_criteria_map[measure].each do |criteria|
+        att_index = attribute_index?(criteria)
+        checked_criterias.push(ChecklistSourceDataCriteria.new(measure_id: measure.id.to_s, source_data_criteria: criteria.attributes,
+                                                               attribute_index: att_index, negated_valueset: negate_valueset?(criteria, att_index)))
       end
     end
 

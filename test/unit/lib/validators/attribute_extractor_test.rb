@@ -5,9 +5,9 @@ class AttributeExtractorTest < ActiveSupport::TestCase
     @object.extend(Validators::AttributeExtractor)
   end
 
-  def create_source_data_criteria(definition, attribute_name, attribute_valueset = nil)
-    source_criteria = { 'title' => 'Title', 'definition' => definition,
-                        'attributes' => [{ 'attribute_name' => attribute_name, 'attribute_valueset' => attribute_valueset }] }
+  def create_source_data_criteria(qdm_category, attribute_name, attribute_valueset = nil)
+    source_criteria = { 'title' => 'Title', 'qdmCategory' => qdm_category,
+                        'dataElementAttributes' => [{ 'attribute_name' => attribute_name, 'attribute_valueset' => attribute_valueset }] }
     @object.instance_variable_set(:@source_criteria, source_criteria)
   end
 
@@ -109,7 +109,7 @@ class AttributeExtractorTest < ActiveSupport::TestCase
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'communication.xml')).read
     code = '371530004'
     recorded_result = 'Date Time Entered'
-    create_source_data_criteria('communication_from_provider_to_provider', 'authorDatetime')
+    create_source_data_criteria('communication', 'authorDatetime')
     create_checked_criteria(code, recorded_result)
     create_template('2.16.840.1.113883.10.20.24.3.4')
     assert find_attribute_in_fixture(file, code, recorded_result)
@@ -119,7 +119,7 @@ class AttributeExtractorTest < ActiveSupport::TestCase
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'checklist', 'communication.xml')).read
     code = '371530004'
     recorded_result = 'Related to Referal'
-    create_source_data_criteria('communication_from_provider_to_provider', 'relatedTo')
+    create_source_data_criteria('communication', 'relatedTo')
     create_checked_criteria(code, recorded_result)
     create_template('2.16.840.1.113883.10.20.24.3.4')
     assert find_attribute_in_fixture(file, code, recorded_result)

@@ -31,26 +31,26 @@ module Validators
     private
 
     def validate_criteria(checked_criteria)
-      measure = Measure.find_by(_id: checked_criteria.measure_id)
-      sdc = measure[:source_data_criteria].select { |key| key == checked_criteria.source_data_criteria }.values.first
-      oids = HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids(sdc['definition'], sdc['status'])
+      sdc = checked_criteria.source_data_criteria
+      oid = sdc['hqmfOid']
+      # oids = HQMF::Util::HQMFTemplateHelper.get_all_hqmf_oids(sdc['definition'], sdc['status'])
       # demographics do not have an associated template
-      if (['2.16.840.1.113883.3.560.1.406', '2.16.840.1.113883.3.560.1.403', '2.16.840.1.113883.3.560.1.402'] & oids).present?
-        validate_demographics(oids, checked_criteria)
+      if sdc.qdmCategory == 'patient_characteristic'
+        validate_demographics(sdc, checked_criteria)
       else
-        template = oids.map { |oid| QRDA::Util::QRDATemplateHelper.definition_for_template_id(oid, @qrda_version) }.compact.first['cda_template_id']
+        template = QRDA::Util::QRDATemplateHelper.definition_for_template_id(oid, @qrda_version)['cda_template_id']
         # find all nodes that fulfill the data criteria, this is defined in checklist result extractor
         find_dc_node(template, checked_criteria, sdc)
       end
     end
 
-    def validate_demographics(hqmf_oids, checked_criteria)
+    def validate_demographics(sdc, checked_criteria)
       xpath_map = {
-        '2.16.840.1.113883.3.560.1.406' => "//cda:patient/cda:raceCode[@code='#{checked_criteria.code}']",
-        '2.16.840.1.113883.3.560.1.403' => "//cda:patient/cda:ethnicGroupCode[@code='#{checked_criteria.code}']",
-        '2.16.840.1.113883.3.560.1.402' => "//cda:patient/cda:administrativeGenderCode[@code='#{checked_criteria.code}']"
+        'QDM::PatientCharacteristicRace' => "//cda:patient/cda:raceCode[@code='#{checked_criteria.code}']",
+        'QDM::PatientCharacteristicEthnicity' => "//cda:patient/cda:ethnicGroupCode[@code='#{checked_criteria.code}']",
+        'QDM::PatientCharacteristicSex' => "//cda:patient/cda:administrativeGenderCode[@code='#{checked_criteria.code}']"
       }
-      if hqmf_oids.map { |hqmf_oid| @file.xpath(xpath_map[hqmf_oid]).present? }.include? true
+      if @file.xpath(xpath_map[sdc._type]).present?
         checked_criteria.passed_qrda = true
         checked_criteria.save
       end

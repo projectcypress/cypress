@@ -4428,7 +4428,11 @@
       "qdmTitle": "Encounter, Performed",
       "qdmVersion": "5.4",
       "relevantPeriod": null,
-      "_type": "QDM::EncounterPerformed"
+      "_type": "QDM::EncounterPerformed",
+      "dataElementAttributes": [ { "attribute_name" : "relevantPeriod",
+                                   "attribute_valueset" : null },
+                                 { "attribute_name" : "dischargeDisposition",
+                                   "attribute_valueset" : "1.5.6.7" } ]
     }
   ],
   "title": "Median Time from ED Arrival to ED Departure for Discharged ED Patients",
