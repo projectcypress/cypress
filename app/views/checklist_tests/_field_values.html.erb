@@ -32,7 +32,7 @@
     </div>
     <% end %>
   <% else %>
-      <% if  attribute['attribute_valueset'] %>
+      <% if attribute['attribute_valueset'] %>
         <div type="button" class="value-set-group set-menu" data-toggle="modal" data-target="<%= "#lookupModal-fieldvalues#{index}" %>">
          <ul class="value-set-list">
           <li class="value-set-item-header"><%= "#{attribute['attribute_name']}" %></li>

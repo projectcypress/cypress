@@ -27,7 +27,7 @@
                 </thead>
                 <tbody>
                   <%= f.fields_for :checked_criteria, checklist_test.checked_criteria.all(measure_id: measure.id) do |criteria_field| %>
-                    <% criteria = measure[:source_data_criteria].select { |key, value| key == criteria_field.object.source_data_criteria }.values.first %>
+                    <% criteria = criteria_field.object.source_data_criteria %>
                     <% if criteria.key?('description') %>
                       <tr>
                         <% valuessets = criteria_field.object.get_all_valuesets_for_dc(measure) %>
@@ -35,7 +35,7 @@
                           <td/>
                           <td/>
                         <% else %>
-                          <td style="vertical-align: top"><%= criteria[:description].chomp(': ' + criteria[:title]) %></td>
+                          <td style="vertical-align: top"><%= criteria['description'] %></td>
                           <td><span>
                             <ul class='list-unstyled'>
                               <% valuessets.each do |vs| %>
@@ -46,7 +46,7 @@
                           </span></td>
                         <% end %>
                         <td style="vertical-align:top"><%= checklist_test_criteria_attribute(criteria, criteria_field.object.attribute_index) %></td>
-                        <td style="vertical-align:top"><%= render partial: 'checklist_tests/field_values', locals: { attribute: criteria['attributes'][criteria_field.object.attribute_index], result: criteria['value'], disable_modal: true } if criteria['attributes'] || criteria['value'] %></td>
+                        <td style="vertical-align:top"><%= render partial: 'checklist_tests/field_values', locals: { attribute: criteria['dataElementAttributes'][criteria_field.object.attribute_index], result: criteria['value'], disable_modal: true } if criteria['dataElementAttributes'] %></td>
                       </tr>
                     <% end %>
                   <% end %>

@@ -7,9 +7,9 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
 
   def test_template_nodes_no_reason
     source_criteria = {  'title' => 'Decision to Admit to Hospital Inpatient',
-                         'definition' => 'encounter',
+                         'qdmCategory' => 'encounter',
                          'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.295',
-                         'attributes' => [{ 'attribute_name' => 'authorDatetime', 'attribute_valueset' => nil }] }
+                         'dataElementAttributes' => [{ 'attribute_name' => 'authorDatetime', 'attribute_valueset' => nil }] }
     checked_criteria = { 'attribute_index' => 0,
                          'code' => '19951005',
                          'recorded_result' => '105480006',
@@ -29,9 +29,9 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
 
   def test_check_attribute_false_reason
     source_criteria = {  'title' => 'Decision to Admit to Hospital Inpatient',
-                         'definition' => 'encounter',
+                         'qdmCategory' => 'encounter',
                          'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.295',
-                         'attributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
+                         'dataElementAttributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
     checked_criteria = { 'attribute_index' => 0,
                          'code' => '6',
                          'attribute_code' => '24',
@@ -50,7 +50,7 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
 
   def test_check_attribute_false
     source_criteria = {  'title' => 'Decision to Admit to Hospital Inpatient',
-                         'definition' => 'encounter',
+                         'qdmCategory' => 'encounter',
                          'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.295' }
     checked_criteria = { 'attribute_complete' => nil,
                          'result_complete' => nil }
@@ -67,9 +67,9 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
 
   def test_check_attribute_true
     source_criteria = {  'title' => 'Decision to Admit to Hospital Inpatient',
-                         'definition' => 'encounter',
+                         'qdmCategory' => 'encounter',
                          'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.295',
-                         'attributes' => [{ 'attribute_name' => 'authorDatetime', 'attribute_valueset' => nil }] }
+                         'dataElementAttributes' => [{ 'attribute_name' => 'authorDatetime', 'attribute_valueset' => nil }] }
     checked_criteria = { 'attribute_complete' => true,
                          'attribute_index' => 0,
                          'code' => '6' }
@@ -86,9 +86,9 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
 
   def test_template_nodes_with_reason
     source_criteria = {  'title' => 'Anti-HypertensivePharmacologicTherapy',
-                         'definition' => 'medication',
+                         'qdmCategory' => 'medication',
                          'code_list_id' => '1.1.2.3',
-                         'attributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
+                         'dataElementAttributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
     checked_criteria = { 'attribute_index' => 0,
                          'code' => '6',
                          'attribute_code' => '24',
@@ -109,9 +109,9 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
 
   def test_template_nodes_with_wrong_reason_code
     source_criteria = {  'title' => 'Anti-HypertensivePharmacologicTherapy',
-                         'definition' => 'medication',
+                         'qdmCategory' => 'medication',
                          'code_list_id' => '1.1.2.3',
-                         'attributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
+                         'dataElementAttributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
     checked_criteria = { 'attribute_index' => 0,
                          'code' => '6',
                          'attribute_code' => '25',
@@ -132,9 +132,9 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
 
   def test_find_template_with_code_correct_negated_code
     source_criteria = {  'title' => 'Anti-HypertensivePharmacologicTherapy',
-                         'definition' => 'medication',
+                         'qdmCategory' => 'medication',
                          'code_list_id' => '1.1.2.3',
-                         'attributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
+                         'dataElementAttributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
     checked_criteria = { 'attribute_index' => 0,
                          'code' => '6',
                          'attribute_code' => '24',
@@ -154,9 +154,9 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
 
   def test_find_template_with_code_correct_negated_code_incorrect_template
     source_criteria = {  'title' => 'Anti-HypertensivePharmacologicTherapy',
-                         'definition' => 'medication',
+                         'qdmCategory' => 'medication',
                          'code_list_id' => '1.1.2.3',
-                         'attributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
+                         'dataElementAttributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
     checked_criteria = { 'attribute_index' => 0,
                          'code' => '6',
                          'attribute_code' => '24',
@@ -178,9 +178,9 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
 
   def test_find_template_with_code_correct_unnested_negated_code
     source_criteria = {  'title' => 'Intervention',
-                         'definition' => 'intervention',
+                         'qdmCategory' => 'intervention',
                          'code_list_id' => '1.1.2.3',
-                         'attributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
+                         'dataElementAttributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
     checked_criteria = { 'attribute_index' => 0,
                          'code' => '6',
                          'attribute_code' => '24',
@@ -200,9 +200,9 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
 
   def test_find_template_with_code_incorrect_unnested_negated_code
     source_criteria = {  'title' => 'Intervention',
-                         'definition' => 'intervention',
+                         'qdmCategory' => 'intervention',
                          'code_list_id' => '1.1.2.3',
-                         'attributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
+                         'dataElementAttributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
     checked_criteria = { 'attribute_index' => 0,
                          'code' => '7',
                          'attribute_code' => '24',
@@ -224,9 +224,9 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
 
   def test_find_template_with_code_correct_negated_vs
     source_criteria = {  'title' => 'Anti-HypertensivePharmacologicTherapy',
-                         'definition' => 'medication',
+                         'qdmCategory' => 'medication',
                          'code_list_id' => '1.1.2.3',
-                         'attributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
+                         'dataElementAttributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
     checked_criteria = { 'attribute_index' => 0,
                          'code' => nil,
                          'attribute_code' => '24',
@@ -246,9 +246,9 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
 
   def test_find_template_with_code_incorrect_negated_vs
     source_criteria = {  'title' => 'Anti-HypertensivePharmacologicTherapy',
-                         'definition' => 'medication',
+                         'qdmCategory' => 'medication',
                          'code_list_id' => '1.1.2.4',
-                         'attributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
+                         'dataElementAttributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
     checked_criteria = { 'attribute_index' => 0,
                          'code' => nil,
                          'attribute_code' => '24',
@@ -270,9 +270,9 @@ class ChecklistResultExtractorTest < ActiveSupport::TestCase
 
   def test_find_template_with_code_and_reason_in_different_entries
     source_criteria = {  'title' => 'Decision to Admit to Hospital Inpatient',
-                         'definition' => 'encounter',
+                         'qdmCategory' => 'encounter',
                          'code_list_id' => '2.16.840.1.113883.3.117.1.7.1.295',
-                         'attributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
+                         'dataElementAttributes' => [{ 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.2.3.4' }] }
     checked_criteria = { 'attribute_index' => 0,
                          'code' => '19951005',
                          'attribute_code' => '24',

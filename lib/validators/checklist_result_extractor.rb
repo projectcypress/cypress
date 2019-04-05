@@ -44,8 +44,8 @@ module Validators
       # if the attribute is a result that isn't a code
       # if the attribute is a result that is a code
       # if the attribute is defined as a field value
-      if @source_criteria.attributes[@checked_criteria.attribute_index]['attribute_name'] == 'result'
-        if @source_criteria.attributes[@checked_criteria.attribute_index]['attribute_valueset']
+      if @source_criteria['dataElementAttributes'][@checked_criteria.attribute_index]['attribute_name'] == 'result'
+        if @source_criteria['dataElementAttributes'][@checked_criteria.attribute_index]['attribute_valueset']
           result_xpath = "./cda:value[@code='#{@checked_criteria.attribute_code}'] or ./cda:entryRelationship[@typeCode='REFR']" \
                          "/cda:observation/cda:value[@code='#{@checked_criteria.attribute_code}']"
           node.xpath(result_xpath).blank? ? false : true
@@ -59,11 +59,9 @@ module Validators
 
     # returns true if source criteria has a reason (or negation)
     def source_criteria_has_reason(index)
-      if @source_criteria['attributes'] && (%w[reason negationRationale].include? @source_criteria['attributes'][index].attribute_name)
-        true
-      else
-        false
-      end
+      return false unless @source_criteria['dataElementAttributes']
+
+      %w[reason negationRationale].include? @source_criteria['dataElementAttributes'][index]['attribute_name']
     end
 
     # find nodes to search for the criteria
