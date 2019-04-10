@@ -42,7 +42,7 @@ ready = function() {
     // collect ids
     var checked = $('.delete_vendor_patients_form input:checkbox:checked')
     if(checked.length>0){
-      ids = $.map(checked, function(val, i){
+      var ids = $.map(checked, function(val, i){
         return $(val).attr('id');
       });
       var input = $("<input>")
