@@ -1,7 +1,5 @@
 class MultiMeasureCat1Task < Task
   def validators
-    # not using the "calculating" smoking gun validator here
-    # because we only want the record (patient) inclusion test from the regular version
     @validators = [::Validators::CalculatingSmokingGunValidator.new(product_test.measures, product_test.patients, product_test.id),
                    ::Validators::MeasurePeriodValidator.new,
                    ::Validators::CMSQRDA1HQRSchematronValidator.new(product_test.bundle.version, false),
