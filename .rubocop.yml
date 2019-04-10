@@ -43,6 +43,9 @@ Metrics/AbcSize:
 Metrics/ModuleLength:
   Max: 110
 # Avoid complex methods.
+Metrics/ParameterLists:
+  Exclude:
+    - 'test/**/*'
 Metrics/CyclomaticComplexity:
   Max: 10
 Metrics/PerceivedComplexity:
