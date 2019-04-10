@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ClinicalDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:hl7-org:v3" xmlns:voc="urn:hl7-org:v3/voc" xmlns:sdtc="urn:hl7-org:sdtc">
+
+<!-- QRDA Header -->
+<realmCode code="US"/>
+<typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
+<!-- US Realm Header Template Id -->
+<templateId root="2.16.840.1.113883.10.20.22.1.1" extension="2015-08-01"/>
+<!-- QRDA templateId -->
+<templateId root="2.16.840.1.113883.10.20.24.1.1" extension="2017-08-01"/>
+<!-- QDM-based QRDA templateId -->
+<templateId root="2.16.840.1.113883.10.20.24.1.2" extension="2017-08-01"/>
+<!-- CMS QRDA templateId -->
+<templateId root="2.16.840.1.113883.10.20.24.1.3" extension="2018-02-01"/>
+<!-- This is the globally unique identifier for this QRDA document -->
+<id root="2fab4060-3d16-0137-8d03-2cde48001122"/>
+<!-- QRDA document type code -->
+<code code="55182-0" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Quality Measure Report"/>
+<title>QRDA Incidence Report</title>
+<!-- This is the document creation time -->
+<effectiveTime value="20190409165521"/>
+<confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
+<languageCode code="en"/>
+<!-- reported patient -->
+<recordTarget>
+  <patientRole>
+    <id extension="5cacce79c1c3885c06325b8d" root="1.3.6.1.4.1.115" />
+    <addr use="HP">
+      <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+      <city>Bedford</city>
+      <state>MA</state>
+      <postalCode>01730</postalCode>
+      <country>US</country>
+    </addr>
+    <telecom use="WP" value="tel:+1-781-271-3000"/>
+    <patient>
+        <name>
+          <given>'First Middle'</given>
+          <family>Family</family>
+        </name>
+          <administrativeGenderCode code="M" codeSystem="2.16.840.1.113883.12.1" codeSystemName="Administrative sex (HL7)"/>
+        <birthTime value='19440409165521'/>
+          <raceCode code="2106-3" codeSystem="2.16.840.1.113883.6.238" codeSystemName="Race & Ethnicity - CDC"/>
+          <ethnicGroupCode code="2186-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="Race & Ethnicity - CDC"/>
+      <languageCommunication>
+        <templateId root="2.16.840.1.113883.3.88.11.83.2" assigningAuthorityName="HITSP/C83"/>
+        <templateId root="1.3.6.1.4.1.19376.1.5.3.1.2.1" assigningAuthorityName="IHE/PCC"/>
+        <languageCode code="eng"/>
+      </languageCommunication>
+    </patient>
+  </patientRole>
+</recordTarget><author>
+  <time value="20190409165521"/>
+  <assignedAuthor>
+    <!-- NPI -->
+      <id extension="1982671962" root="2.16.840.1.113883.4.6"/>
+    <addr>
+      <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+      <city>Bedford</city>
+      <state>MA</state>
+      <postalCode>01730</postalCode>
+      <country>US</country>
+    </addr>
+    <telecom use="WP" value="tel:(781)271-3000"/>
+    <assignedAuthoringDevice>
+      <manufacturerModelName>Cypress</manufacturerModelName>
+      <softwareName>Cypress</softwareName>
+    </assignedAuthoringDevice>
+  </assignedAuthor>
+</author><custodian>
+  <assignedCustodian>
+    <representedCustodianOrganization>
+      <id extension="800890" root="2.16.840.1.113883.4.336"/>
+      <name>Cypress Test Deck</name>
+      <telecom use="WP" value="tel:(781)271-3000"/>
+      <addr>
+        <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+        <city>Bedford</city>
+        <state>MA</state>
+        <postalCode>01730</postalCode>
+        <country>US</country>
+      </addr>
+    </representedCustodianOrganization>
+  </assignedCustodian>
+</custodian>
+<legalAuthenticator>
+  <time value="20190409165521"/>
+  <signatureCode code="S"/>
+  <assignedEntity>
+    <id root="bc01a5d1-3a34-4286-82cc-43eb04c972a7"/>
+    <addr>
+      <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+      <city>Bedford</city>
+      <state>MA</state>
+      <postalCode>01730</postalCode>
+      <country>US</country>
+    </addr>
+    <telecom use="WP" value="tel:(781)271-3000"/>
+    <assignedPerson>
+      <name>
+        <given>Henry</given>
+        <family>Seven</family>
+      </name>
+    </assignedPerson>
+    <representedOrganization>
+      <id root="2.16.840.1.113883.19.5"/>
+      <name>Cypress</name>
+    </representedOrganization>
+  </assignedEntity>
+</legalAuthenticator><participant typeCode="DEV">
+  <associatedEntity classCode="RGPR">
+    <!-- CMS EHR Certification Number (formerly known as Office of the 
+        National Coordinator Certification Number) -->
+    <id extension="123456789" root="2.16.840.1.113883.3.2074.1"/>
+  </associatedEntity>
+</participant><documentationOf typeCode="DOC">
+  <serviceEvent classCode="PCPR">
+    <!-- care provision -->
+    <effectiveTime>
+      <low nullFlavor="UNK"/>
+      <high nullFlavor="UNK"/>
+    </effectiveTime>
+    <!-- You can include multiple performers, each with an NPI, TIN, CCN. -->
+    <performer typeCode="PRF">
+      <time>
+        <low nullFlavor="UNK"/>
+        <high nullFlavor="UNK"/>
+      </time>
+      <assignedEntity>
+        <id extension="1982671962" root="2.16.840.1.113883.4.6"/>
+        <id extension="463132" root="2.16.840.1.113883.4.336"/>
+        <code code="282N00000X" codeSystem="2.16.840.1.113883.6.101" codeSystemName="Healthcare Provider Taxonomy (HIPAA)"/>
+        <addr use="HP">
+          <streetAddressLine>16432 Jayme Viaduct Manor</streetAddressLine>
+          <city>Clairland</city>
+          <state>MS</state>
+          <postalCode>38796</postalCode>
+          <country>US</country>
+        </addr>
+        <assignedPerson>
+          <name>
+            <given>Daryl</given>
+            <family>Carroll</family>
+          </name>
+        </assignedPerson>
+        <representedOrganization>
+          <id extension="695939209" root="2.16.840.1.113883.4.2"/>
+          <addr use="HP">
+            <streetAddressLine>16432 Jayme Viaduct Manor</streetAddressLine>
+            <city>Clairland</city>
+            <state>MS</state>
+            <postalCode>38796</postalCode>
+            <country>US</country>
+          </addr>
+        </representedOrganization>
+      </assignedEntity>
+    </performer>
+  </serviceEvent>
+</documentationOf>
+<component>
+  <structuredBody>
+    <component>
+      <section>
+        <!-- 
+          *****************************************************************
+          Measure Section
+          *****************************************************************
+        -->
+        <!-- This is the templateId for Measure Section -->
+        <templateId root="2.16.840.1.113883.10.20.24.2.2"/>
+        <!-- This is the templateId for Measure Section QDM -->
+        <templateId root="2.16.840.1.113883.10.20.24.2.3"/>
+        <!-- This is the LOINC code for "Measure document". This stays the same for all measure section required by QRDA standard -->
+        <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
+        <title>Measure Section</title>
+        <text>
+          <table border="1" width="100%">
+            <thead>
+              <tr>
+                <th>eMeasure Title</th>
+                <th>Version specific identifier</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Static Measure</td>
+                <td>BE65090C-EB1F-11E7-8C3F-9A214CF093AE</td>
+                <td/>
+              </tr>
+            </tbody>
+          </table>
+        </text>
+        <!-- 1..* Organizers, each containing a reference to an eMeasure -->
+        <entry>
+          <organizer classCode="CLUSTER" moodCode="EVN">
+            <!-- This is the templateId for Measure Reference -->
+            <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+            <!-- This is the templateId for eMeasure Reference QDM -->
+            <templateId root="2.16.840.1.113883.10.20.24.3.97"/>
+            <id extension="2fada9c0-3d16-0137-8d03-2cde48001122" root="1.3.6.1.4.1.115"/>
+            <statusCode code="completed"/>
+            <!-- Containing isBranch external references -->
+            <reference typeCode="REFR">
+              <externalDocument classCode="DOC" moodCode="EVN">
+                <!-- SHALL: This is the version specific identifier for eMeasure: QualityMeasureDocument/id it is a GUID-->
+                <id extension="BE65090C-EB1F-11E7-8C3F-9A214CF093AE" root="2.16.840.1.113883.4.738"/>
+                <!-- SHOULD This is the title of the eMeasure -->
+                <text>Static Measure</text>
+                <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                <setId root="C621C7B6-EB1F-11E7-8C3F-9A214CF093AE"/>
+              </externalDocument>
+            </reference>
+          </organizer>
+        </entry>
+      </section>
+    </component>    <component>
+      <section>
+        <!-- This is the templateId for Reporting Parameters section -->
+        <templateId root="2.16.840.1.113883.10.20.17.2.1"/>
+        <templateId extension="2016-03-01" root="2.16.840.1.113883.10.20.17.2.1.1"/>
+        <code code="55187-9" codeSystem="2.16.840.1.113883.6.1"/>
+        <title>Reporting Parameters</title>
+        <text></text>
+        <entry typeCode="DRIV">
+          <act classCode="ACT" moodCode="EVN">
+            <!-- This is the templateId for Reporting Parameteres Act -->
+            <templateId root="2.16.840.1.113883.10.20.17.3.8"/>
+            <templateId extension="2016-03-01" root="2.16.840.1.113883.10.20.17.3.8.1"/>
+            <id extension="2fadb630-3d16-0137-8d03-2cde48001122" root="1.3.6.1.4.1.115"/>
+            <code code="252116004" codeSystem="2.16.840.1.113883.6.96" displayName="Observation Parameters"/>
+            <effectiveTime>
+              <low value="20120101"/>
+              <high value="20121231"/>
+            </effectiveTime>
+          </act>
+        </entry>
+      </section>
+    </component>    <component>
+        <section>
+          <!-- This is the templateId for Patient Data section -->
+          <templateId root="2.16.840.1.113883.10.20.17.2.4"/>
+          <!-- This is the templateId for Patient Data QDM section -->
+          <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.2.1"/>
+          <templateId extension="2018-02-01" root="2.16.840.1.113883.10.20.24.2.1.1"/>
+          <code code="55188-7" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Patient Data</title>
+          <text/>
+
+            <entry>
+              <observation classCode="OBS" moodCode="EVN">
+                <!-- Adverse Event -->
+                <templateId root="2.16.840.1.113883.10.20.24.3.146" extension="2017-08-01"/>
+                <id root="1.3.6.1.4.1.115" extension="5cacce79c1c3885c06325bd5"/>
+                <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4"/>
+                <statusCode code="completed"/>
+                  <!-- QDM Attribute: Relevant Period -->
+                  <effectiveTime><low value='20180101000000'/><high value='20190101000000'/></effectiveTime>
+                <value xsi:type="CD" code="281647001" displayName="Adverse reaction" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"/>
+                  <!-- QDM Attribute: Author dateTime -->
+                  <author>
+                    <templateId root="2.16.840.1.113883.10.20.24.3.155" extension="2017-08-01"/>
+                    <time value='20190101000000'/>
+                    <assignedAuthor>
+                          <id nullFlavor="NA"/>
+                    </assignedAuthor>
+                  </author>                  <!-- QDM Attribute: Facility Location -->
+                  <participant typeCode="LOC">
+                    <!-- Facility Location template -->
+                    <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.100"/>
+                    <!-- QDM Attribute: Location Period -->
+                    <time>
+                      <low value='20180101000000'/><high value='20190101000000'/>
+                    </time>
+                    <participantRole classCode="SDLOC">
+                      <code code="1234" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+                      <addr>
+                        <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+                        <city>Bedford</city>
+                        <state>MA</state>
+                        <postalCode>01730</postalCode>
+                        <country>US</country>
+                      </addr>
+                      <telecom use="WP" value="tel:(781)271-3000"/>
+                      <playingEntity classCode="PLC">
+                        <name>Cypress Test Deck</name>
+                      </playingEntity>
+                    </participantRole>
+                  </participant>                <!-- QDM Attribute: Code -->
+                <entryRelationship typeCode="CAUS" inversionInd="true">
+                  <!-- Adverse Event Cause Assertion Observation -->
+                  <observation classCode="OBS" moodCode="EVN">
+                    <templateId root="2.16.840.1.113883.10.20.24.3.148" extension="2017-08-01" />
+                    <code code="ASSERTION" codeSystem="2.16.840.1.113883.5.4" />
+                    <statusCode code="completed" />
+                      <value xsi:type="CD" code="1234" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+                  </observation>
+                </entryRelationship>
+                  <!-- QDM Attribute: Severity -->
+                  <entryRelationship typeCode="REFR">
+                    <observation classCode="OBS" moodCode="EVN">
+                      <templateId root="2.16.840.1.113883.10.20.22.4.8" extension="2014-06-09" />
+                      <code code="SEV" codeSystem="2.16.840.1.113883.5.4" />
+                      <statusCode code="completed" />
+                      <value xsi:type="CD" code="1234" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+                    </observation>
+                  </entryRelationship>              </observation>
+            </entry>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>
