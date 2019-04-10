@@ -17,18 +17,14 @@ class ChecklistTestTest < ActiveJob::TestCase
     attributes1 = [{ 'attribute_name' => 'relevantPeriod', 'attribute_valueset' => nil },
                    { 'attribute_name' => 'dischargeDisposition', 'attribute_valueset' => '1.1.2.3' }]
     attributes2 = [{ 'attribute_name' => 'relevantPeriod', 'attribute_valueset' => nil },
-                   { 'attribute_name' => 'dischargeDisposition', 'attribute_valueset' => nil }]
-    attributes3 = [{ 'attribute_name' => 'relevantPeriod', 'attribute_valueset' => nil },
                    { 'attribute_name' => 'dischargeDisposition', 'attribute_valueset' => nil },
                    { 'attribute_name' => 'dischargeDisposition', 'attribute_valueset' => '1.1.2.3' }]
     checklist_measure = @test.measures.first
     checklist_measure.source_data_criteria['fake_dc_1'] = { 'attributes' => attributes1 }
     checklist_measure.source_data_criteria['fake_dc_2'] = { 'attributes' => attributes2 }
-    checklist_measure.source_data_criteria['fake_dc_3'] = { 'attributes' => attributes3 }
     checklist_measure.save
     assert_equal 1, @test.attribute_index?(checklist_measure, 'fake_dc_1'), 'should return index for dischargeDisposition with a valueset oid'
-    assert_equal 0, @test.attribute_index?(checklist_measure, 'fake_dc_2'), 'should return index for relevantPeriod'
-    assert_equal 2, @test.attribute_index?(checklist_measure, 'fake_dc_3'), 'should return index for dischargeDisposition with a valueset oid'
+    assert_equal 2, @test.attribute_index?(checklist_measure, 'fake_dc_2'), 'should return index for dischargeDisposition with a valueset oid'
   end
 
   def test_create_checked_criteria
