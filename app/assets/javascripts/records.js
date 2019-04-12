@@ -9,6 +9,20 @@ ready = function() {
     var bundle_id = $(this).val();
     Turbolinks.visit("/bundles/"+bundle_id+"/records");
   });
+
+  // This is its own unique checkbox panel danger class, so should not affect
+  // behavior of other danger panels
+  $('.delete_vendor_patients_form input:checkbox').on('change', function() {
+    var checked = $('.delete_vendor_patients_form input:checkbox:checked');
+    if (checked.length > 0){
+      // Make remove panel visable
+      $('.checkbox-danger-panel').show();
+    }
+    else{
+      // Make remove panel invisible
+      $('.checkbox-danger-panel').hide();
+    }
+  });
 }
 
 $(document).ready(ready);

@@ -65,7 +65,9 @@
 <% end %>
 
 <% if @vendor %>
-  <%#= button_to "Delete", new_vendor_record_path(@vendor.id), :method => :get, :data => {:confirm => 'Are you sure?'}, :class => "btn btn-primary pull-left" %>
-  <%= render 'remove_panel', :name => @vendor.name, :type => 'Selected Patients', :message => 'Deletion is permanent and cannot be undone. Be sure you want to do this.', :delete_path => destroy_multiple_vendor_records_path(@vendor), :action => 'destroy_multiple' %>
+  <%# Making the checkbox-danger-panel its own class so its behavior doesn't affect any other danger panels%>
+  <div class = 'checkbox-danger-panel' hidden> 
+    <%= render 'remove_panel', :name => @vendor.name, :type => 'Selected Patients', :message => 'Deletion is permanent and cannot be undone. Be sure you want to do this.', :delete_path => destroy_multiple_vendor_records_path(@vendor), :action => 'destroy_multiple' %>
+  </div>
   <%= render 'action_modal' %>
 <% end%>
