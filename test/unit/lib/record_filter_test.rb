@@ -234,7 +234,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     prov = Provider.default_provider
 
     patients.each do |patient|
-      patient.providers = nil
+      patient.providers = []
       patient.providers << prov
       patient.save!
     end

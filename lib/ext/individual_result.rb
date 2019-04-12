@@ -9,6 +9,8 @@ module QDM
 
     belongs_to :cqm_patient, class_name: 'CQM::Patient', inverse_of: :calculation_results
 
+    # The patient in the cqm-model QDM::IndividualResult is the QDM:Patient
+    # This method overrides the QDM:Patient with the CQM:Paient
     def patient
       patient_id || cqm_patient
     end
