@@ -81,12 +81,44 @@ class ProductTest
   def generate_patients(job_id = nil)
     if product.randomize_patients
       # If we're using a "slim test deck", don't pass in any random IDs
-      random_ids = bundle.patients.pluck(:_id)
+      # random_ids = bundle.patients.pluck(:_id)
+      random_ids = gather_patient_ids
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'randomization_ids' => random_ids,
                                       'randomize_demographics' => true, 'generate_provider' => product.c4_test, 'job_id' => job_id).perform
     else
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'disable_randomization' => true).perform
     end
+  end
+
+  def gather_patient_ids
+    # our aggregate ID list
+    aggregate_id_list = []
+    # maye want to move to private later
+    # if it's a cvu_plus product
+    # if product.cvu_plus
+    if product.cvuplus
+      # then check if vendor patients are included in product
+      if product.vendor_patients
+        # If so, add appropriate vendor patient ids
+        aggregate_id_list << product.vendor.patients.pluck(:id)
+      end
+      # if bundle patients are included in product
+      if product.bundle_patients
+        # If so, add appropriate bundle patient ids
+        aggregate_id_list << bundle.patients.pluck(:id)
+      end
+      # Maybe check for neither as an edge case and throw some kind of error
+      if aggregate_id_list == []
+        # TODO: this should be an actual error
+        Rails.logger.error "Help help there's nothing in the aggregate ID list"
+      end
+    # if it's a cert product (not cvu), this will be an else bc if it's not cvu it can only be cert
+    # in that case, return bundle patient ids
+    else
+      aggregate_id_list << bundle.patients.pluck(:id)
+    end
+    # return aggregate ids
+    aggregate_id_list
   end
 
   def archive_patients
@@ -204,7 +236,11 @@ class ProductTest
 
   # Returns a listing of all ids for patients in the IPP
   def patients_in_ipp_and_greater
-    bundle.patients.where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.IPP": true).pluck(:_id)
+    template_ids = gather_patient_ids
+    # search thru all the patients for those IDs (that will be a where sort of query)
+    # replace bundle.patients with a set where all the IDs are from our gather_patient_ids thing
+    # #bundle.patients.where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.IPP": true).pluck(:_id)
+    Patient.where(_id: template_ids).where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.IPP": true).pluck(:_id)
   end
 
   # Returns a listing of all ids for patients in the Numerator
