@@ -10,13 +10,13 @@ module Cypress
       negated_element = data_element.dataElementCodes.map { |dec| dec if dec.codeSystem == 'NA_VALUESET' }.first
       negated_vs = negated_element.code
       # If Cypress has a default code selected, use it.  Otherwise, use the first in the valueset.
-      negated_code = if bundle.default_negation_codes && bundle.default_negation_codes[negated_vs]
-                       QDM::Code.new(bundle.default_negation_codes[negated_vs]['code'], bundle.default_negation_codes[negated_vs]['codeSystem'])
-                     else
-                       valueset = HealthDataStandards::SVS::ValueSet.where(oid: negated_vs, bundle_id: bundle.id)
-                       QDM::Code.new(valueset.first.concepts.first['code'], valueset.first.concepts.first['code_system_name'])
-                     end
-      data_element.dataElementCodes << negated_code
+      code = if bundle.default_negation_codes && bundle.default_negation_codes[negated_vs]
+               { code: bundle.default_negation_codes[negated_vs]['code'], codeSystem: bundle.default_negation_codes[negated_vs]['codeSystem'] }
+             else
+               valueset = HealthDataStandards::SVS::ValueSet.where(oid: negated_vs, bundle_id: bundle.id)
+               { code: valueset.first.concepts.first['code'], codeSystem: valueset.first.concepts.first['code_system_name'] }
+             end
+      data_element.dataElementCodes << code
     end
   end
 end
