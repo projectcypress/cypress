@@ -20,8 +20,7 @@ class C3Cat1Task < Task
   end
 
   def execute(file, user, sibling_execution_id)
-    te = test_executions.create(expected_results: expected_results, artifact: Artifact.new(file: file))
-    te.user = user
+    te = test_executions.new(expected_results: expected_results, artifact: Artifact.new(file: file), user_id: user)
     te.save!
     TestExecutionJob.perform_later(te, self, validate_reporting: product_test.c3_test)
     te.sibling_execution_id = sibling_execution_id

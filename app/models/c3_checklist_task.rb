@@ -8,8 +8,7 @@ class C3ChecklistTask < Task
   end
 
   def execute(file, user, sibling_execution_id)
-    te = test_executions.new(artifact: Artifact.new(file: file))
-    te.user = user
+    te = test_executions.new(artifact: Artifact.new(file: file), user_id: user)
     te.save!
     TestExecutionJob.perform_later(te, self)
     te.sibling_execution_id = sibling_execution_id
