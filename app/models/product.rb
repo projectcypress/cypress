@@ -156,6 +156,13 @@ class Product
     super
   end
 
+  # This is a convenience function to return patients IDs where bundle years are matched up to current bundle
+  def vendor_patient_ids
+    return vendor.patients.where(bundleId: bundle.id).pluck(:id) if vendor_patient
+
+    []
+  end
+
   # - - - - - - - - - #
   #   P R I V A T E   #
   # - - - - - - - - - #
