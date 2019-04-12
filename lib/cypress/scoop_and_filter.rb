@@ -24,6 +24,7 @@ module Cypress
       patient.qdmPatient.dataElements.each do |data_element|
         # keep if data_element code and codesystem is in one of the relevant_codes
         data_element.dataElementCodes.keep_if { |de_code| @relevant_codes.include?(code: de_code.code, codeSystem: de_code.codeSystem) }
+        replace_negated_code_with_valueset(data_element) if data_element.respond_to?('negationRationale') && data_element.negationRationale
       end
       # keep data element if codes is not empty
       patient.qdmPatient.dataElements.keep_if { |data_element| data_element.dataElementCodes.present? }
@@ -40,6 +41,12 @@ module Cypress
     # returns true if a patients data element is used by a measure
     def data_element_used_by_measure(data_element)
       @de_category_statuses_for_measures.include?(category: data_element['qdmCategory'], status: data_element['qdmStatus'])
+    end
+
+    def replace_negated_code_with_valueset(data_element)
+      negated_valueset = ValueSet.where('concepts.code': data_element.codes.first.code,
+                                        'concepts.code_system_name': data_element.codes.first.codeSystem).first
+      data_element.dataElementCodes = [{ code: negated_valueset.oid, codeSystem: 'NA_VALUESET' }]
     end
   end
 end
