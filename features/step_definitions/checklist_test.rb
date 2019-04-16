@@ -87,6 +87,7 @@ end
 def simplify_source_data_criteria(test)
   criteria = test.checked_criteria[0, 1]
   criteria[0].source_data_criteria = { 'codeListId' => '1.8.9.10',
+                                       '_id' => BSON::ObjectId.new,
                                        'hqmfOid' => '2.16.840.1.113883.10.20.28.4.5',
                                        '_type' => 'QDM::EncounterPerformed',
                                        'description' => 'encounter',
