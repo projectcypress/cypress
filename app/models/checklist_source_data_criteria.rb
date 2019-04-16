@@ -30,15 +30,13 @@ class ChecklistSourceDataCriteria
   end
 
   def change_criteria
-    if replacement_data_criteria && replacement_data_criteria != ApplicationController.helpers.hash_for_data_criteria(source_data_criteria)
+    if replacement_data_criteria && replacement_data_criteria != source_data_criteria._id.to_s
       measure = Measure.find_by(_id: measure_id)
-      rdc = measure.source_data_criteria.keep_if do |sdc|
-        ApplicationController.helpers.hash_for_data_criteria(sdc) == replacement_data_criteria
-      end.first.attributes
-      replacement_attribute_index = checklist_test.attribute_index?(rdc)
-      checklist_test.checked_criteria.create(measure_id: measure_id, source_data_criteria: rdc,
+      new_source_data_criteria = measure.source_data_criteria.find(replacement_data_criteria).attributes
+      new_attribute_index = checklist_test.attribute_index?(new_source_data_criteria)
+      checklist_test.checked_criteria.create(measure_id: measure_id, source_data_criteria: new_source_data_criteria,
                                              negated_valueset: false, replacement_data_criteria: replacement_data_criteria,
-                                             attribute_index: replacement_attribute_index)
+                                             attribute_index: new_attribute_index)
       delete
     end
   end

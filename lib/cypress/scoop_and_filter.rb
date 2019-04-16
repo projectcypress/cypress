@@ -2,8 +2,7 @@ module Cypress
   class ScoopAndFilter
     def initialize(measures)
       @relevant_codes = codes_in_measures(measures)
-      @demographic_oids = get_demo_category_status(measures)
-      @de_category_status_for_measures = get_all_category_status(measures) - get_demo_category_status(measures)
+      @de_category_statuses_for_measures = get_non_demographic_category_statuses(measures)
     end
 
     # return an array of all of the concepts in all of the valueset for the measure
@@ -13,15 +12,9 @@ module Cypress
       code_list.map { |cl| { code: cl.code, codeSystem: cl.code_system_name } }
     end
 
-    def get_demo_category_status(measures)
+    def get_non_demographic_category_statuses(measures)
       measures.collect do |measure|
-        measure.source_data_criteria.map { |cr| data_element_category_and_status(cr) if cr.qdmCategory == 'patient_characteristic' }
-      end.flatten.uniq
-    end
-
-    def get_all_category_status(measures)
-      measures.collect do |measure|
-        measure.source_data_criteria.map { |cr| data_element_category_and_status(cr) }
+        measure.source_data_criteria.map { |cr| data_element_category_and_status(cr) unless cr.qdmCategory == 'patient_characteristic' }
       end.flatten.uniq
     end
 
@@ -41,15 +34,12 @@ module Cypress
     private
 
     def data_element_category_and_status(data_element)
-      # if a data element does not have a status, only return the category
-      return { category: data_element.qdmCategory, status: nil } unless data_element['qdmStatus']
-
-      { category: data_element.qdmCategory, status: data_element.qdmStatus }
+      { category: data_element.qdmCategory, status: data_element['qdmStatus'] }
     end
 
     # returns true if a patients data element is used by a measure
     def data_element_used_by_measure(data_element)
-      @de_category_status_for_measures.include?(category: data_element['qdmCategory'], status: data_element['qdmStatus'])
+      @de_category_statuses_for_measures.include?(category: data_element['qdmCategory'], status: data_element['qdmStatus'])
     end
   end
 end
