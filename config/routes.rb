@@ -16,7 +16,11 @@ Rails.application.routes.draw do
       end
     end
     scope module: :vendors do
-      resources :records, only: %i[index show new create]
+      resources :records, only: %i[index show new create] do
+        collection do
+          post :destroy_multiple
+        end
+      end
     end
   end
 

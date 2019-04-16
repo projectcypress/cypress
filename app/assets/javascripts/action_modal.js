@@ -38,6 +38,18 @@ ready = function() {
 
   /* submit deletion of specific object */
   $('#modal_confirm_remove').on('click', function() {
+    // all checked checkbox type inputs within a delete_vendor_patient_form class
+    // collect ids
+    var checked = $('.delete_vendor_patients_form input:checkbox:checked')
+    if(checked.length>0){
+      var ids = $.map(checked, function(val, i){
+        return $(val).attr('id');
+      });
+      var input = $("<input>")
+                 .attr("type", "hidden")
+                 .attr("name", "patient_ids").val(ids);
+      $(this).data('form').append(input);
+    }
     $(this).data('form').submit();
   });
 

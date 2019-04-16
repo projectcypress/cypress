@@ -34,6 +34,22 @@ module Vendors
       end
     end
 
+    # Destroy selected vendor patients
+    def destroy_multiple
+      # Remove selected patients from database
+      id_list = params[:patient_ids].split(',')
+      number_deleted = Patient.where(id: { '$in': id_list }).destroy_all
+      redirect_to vendor_records_path(vendor_id: params[:vendor_id])
+      # If something can't be deleted, we want to flash that as well as anything that was deleted.
+      if number_deleted != id_list.length
+        difference = id_list.length - number_deleted
+        flash[:notice] = "#{difference} #{'patient'.pluralize(difference)} could not be deleted. \
+          Deleted #{number_deleted} #{'patient'.pluralize(number_deleted)}."
+      else
+        flash[:notice] = "Deleted #{number_deleted} #{'patient'.pluralize(number_deleted)}."
+      end
+    end
+
     private
 
     def assemble_alert(failed_files)
