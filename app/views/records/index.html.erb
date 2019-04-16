@@ -79,7 +79,7 @@
   </div>
 <% end #cache records %>
 
-<% if !@task || !@product_test %>
+<% if !@vendor && (!@task || !@product_test) %>
 <script type="text/javascript">
   // initialize jQueryUI Autocomplete for searching measures
   $('#search_measures').autocomplete({

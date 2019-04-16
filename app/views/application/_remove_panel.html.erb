@@ -18,13 +18,13 @@
   <div class = 'panel-heading'>
     <h1 class='panel-title'><%= "Delete #{type}".titleize %></h1>
   </div>
-
+  <% action ||= 'delete' %>
   <div class = 'panel-body'>
     <p><%= message %></p>
     <%= render 'action_button',
                     :button_text => "Delete #{type}".titleize,
                     :button_classes => 'btn btn-danger',
-                    :button_action => 'delete',
+                    :button_action => action,
                     :object_name => name,
                     :object_type => type,
                     :action_path => delete_path,

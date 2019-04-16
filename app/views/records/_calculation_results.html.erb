@@ -3,6 +3,11 @@
     <% if product_test %>
       <td><%= link_to full_name(r), record_path(:id => r.id, :task_id => task.id) %></td>
     <% elsif @vendor %>
+        <td>
+          <%= bootstrap_form_tag url: vendor_records_path(@vendor), html: {class: "delete_vendor_patients_form"} do |f| %>
+             <%= f.check_box r.id, label: "", label_class: "btn btn-checkbox"%>
+          <% end %>
+        </td>
       <td><%= link_to full_name(r), vendor_record_path(:vendor_id => @vendor.id, :id => r.id) %></td>
     <% else %>
       <td><%= link_to full_name(r), bundle_record_path(bundle, r) %></td>
