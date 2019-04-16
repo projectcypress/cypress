@@ -12,22 +12,18 @@ module ChecklistTestsHelper
     end
   end
 
-  def hash_for_data_criteria(data_criteria)
-    Digest::SHA2.hexdigest("#{data_criteria['_type']} #{data_criteria['codeListId']}")
-  end
-
   def available_data_criteria(measure, criteria, original_sdc)
     dc_hash = {}
     og_string = ''
     measure.source_data_criteria.each do |dc|
       next if unsubstituable_data_criteria?(dc)
 
-      dc_hash[dc['description']] = hash_for_data_criteria(dc)
+      dc_hash[dc['description']] = dc._id.to_s
       # Store the original data source criteria and display string, makes sure you can reselect the orignal criteria
       # This is important for when the same criteria is used in multiple ways in the same measure
       og_string = dc['description'] if dc == criteria
     end
-    dc_hash[og_string] = hash_for_data_criteria(original_sdc)
+    dc_hash[og_string] = original_sdc._id.to_s
     Hash[dc_hash.sort]
   end
 
