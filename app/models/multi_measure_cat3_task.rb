@@ -17,7 +17,8 @@ class MultiMeasureCat3Task < Task
 
   def good_results
     cms_compatibility = product_test&.product&.c3_test
-    options = { provider: product_test.patients.first.provider, submission_program: cms_compatibility, start_time: start_date, end_time: end_date }
+    options = { provider: product_test.patients.first.providers.first, submission_program: cms_compatibility,
+                start_time: start_date, end_time: end_date }
     Qrda3R21.new(product_test.expected_results, product_test.measures, options).render
   end
 end
