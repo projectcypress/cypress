@@ -54,10 +54,10 @@ module CQM
       { 'npis' => [provider.npi], 'tins' => [provider.tin] }
     end
 
-    def duplicate_randomization(random: Random.new)
+    def duplicate_randomization(augmented_patients, random: Random.new)
       patient = clone
       changed = { original_patient_id: id, first: [first_names, first_names], last: [familyName, familyName] }
-      patient, changed = randomize_patient_name_or_birth(patient, changed, random: random)
+      patient, changed = randomize_patient_name_or_birth(patient, changed, augmented_patients, random: random)
       randomize_demographics(patient, changed, random: random)
     end
 
@@ -69,13 +69,13 @@ module CQM
       givenNames.join(' ')
     end
 
-    def randomize_patient_name_or_birth(patient, changed, random: Random.new)
+    def randomize_patient_name_or_birth(patient, changed, augmented_patients, random: Random.new)
       case random.rand(3) # random chooses which part of the patient is modified
       when 0 # first name
-        patient = Cypress::NameRandomizer.randomize_patient_name_first(patient, random: random)
+        patient = Cypress::NameRandomizer.randomize_patient_name_first(patient, augmented_patients, random: random)
         changed[:first] = [first_names, patient.first_names]
       when 1 # last name
-        patient = Cypress::NameRandomizer.randomize_patient_name_last(patient, random: random)
+        patient = Cypress::NameRandomizer.randomize_patient_name_last(patient, augmented_patients, random: random)
         changed[:last] = [familyName, patient.familyName]
       when 2 # birthdate
         Cypress::DemographicsRandomizer.randomize_birthdate(patient.qdmPatient, random: random)
