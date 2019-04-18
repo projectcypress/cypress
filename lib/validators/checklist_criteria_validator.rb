@@ -63,7 +63,7 @@ module Validators
       return true if attribute.is_a? DateTime
       return true if attribute.is_a? Integer
       # If the attribute is an Array, loop through the array
-      return (attribute.map { |at| attribute_has_data(at, checked_criteria) }.include? true) if attribute.is_a? Array
+      return attribute.any? { |at| attribute_has_data(at, checked_criteria) } if attribute.is_a? Array
 
       # If the attribute is a QDM Type, investigate further
       confirm_qdm_type_have_contents(attribute, checked_criteria)
