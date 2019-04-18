@@ -15,14 +15,12 @@ module Cypress
 
     # TODO: redundant with patient (formerly record) name randomization methods
     def self.randomize_name(patient, prng, allow_dups = false)
-      gender = patient.gender
-      @used_names ||= {}
-      @used_names[gender] ||= []
+      @used_names ||= []
       loop do
         assign_random_name(patient, prng)
-        break if allow_dups || @used_names[gender].index("#{patient.first_names}-#{patient.familyName}").nil?
+        break if allow_dups || @used_names.index("#{patient.first_names}-#{patient.familyName}").nil?
       end
-      @used_names[gender] << "#{patient.first_names}-#{patient.familyName}"
+      @used_names << "#{patient.first_names}-#{patient.familyName}"
     end
 
     def self.assign_random_name(patient, prng)

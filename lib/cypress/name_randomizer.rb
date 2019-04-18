@@ -9,8 +9,11 @@ module Cypress
       when 2 # nickname
         patient.givenNames.each_index do |idx|
           nicknames = NAMES_RANDOM['nicknames'][patient.gender][patient.givenNames[idx]]
-          # if no nicknames, use first initial
-          patient.givenNames[idx] = nicknames.blank? ? patient.givenNames[idx][0] : nicknames.sample(random: random)
+          patient.givenNames[idx] = safe_nickname(nicknames,
+                                                  patient.givenNames[idx],
+                                                  patient.familyName,
+                                                  patient.product_test.patients,
+                                                  random: random)
         end
       end
       patient
@@ -30,6 +33,14 @@ module Cypress
       name_pos = random.rand(name.length - 1) + 1
       name[name_pos] = name[name_pos] != lsamples[0] ? lsamples[0] : lsamples[1]
       name
+    end
+
+    def self.safe_nickname(nicknames, given_name, family_name, patients, random: Random.new)
+      # if no nicknames, use first initial
+      return given_name[0] if nicknames.blank?
+      nickname = nicknames.sample(random: random)
+      # if nickname collides with a name in the patient list, use first initial
+      patients.none? { |p| "#{p.first_names}-#{p.familyName}" == "#{nickname}-#{family_name}" } ? nickname : given_name[0]
     end
   end
 end
