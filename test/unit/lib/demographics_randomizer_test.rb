@@ -54,6 +54,29 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     assert_equal @insurance_provider, @record['extendedData']['insurance_providers']
   end
 
+  def test_randomize_multiple_names
+    10.times do
+      NAMES_RANDOM['first']['M'] = ['Marion']
+      NAMES_RANDOM['first']['F'] = %w[Marion Jill]
+      NAMES_RANDOM['last'] = ['Smith']
+      patient_list = [@record]
+      record1 = @record.clone
+      record2 = @record.clone
+      record3 = @record.clone
+      record3.get_data_elements('patient_characteristic', 'gender').first.dataElementCodes.first['code'] = 'F'
+      Cypress::DemographicsRandomizer.randomize_name(record1, @prng, patient_list)
+      patient_list << record1
+      NAMES_RANDOM['first']['M'] = %w[Marion Jake]
+      Cypress::DemographicsRandomizer.randomize_name(record2, @prng, patient_list)
+      patient_list << record2
+      Cypress::DemographicsRandomizer.randomize_name(record3, @prng, patient_list)
+      patient_list << record3
+      assert_equal ['Marion'], record1.givenNames
+      assert_equal ['Jake'], record2.givenNames
+      assert_equal ['Jill'], record3.givenNames
+    end
+  end
+
   def test_randomize_race
     Cypress::DemographicsRandomizer.randomize_race(@record, @prng)
     assert_not_equal @original_race_code, @record.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code']

@@ -4,23 +4,21 @@ module Cypress
   # can randomize name, race, ethnicity, address, and insurance provider.  To randomize all
   # demographics, call Cypress::DemographicsRandomizer.randomize(record)
   class DemographicsRandomizer
-    def self.randomize(patient, prng, allow_dups = false)
-      # TODO: R2P: change to patient name and model throughout file
-      randomize_name(patient, prng, allow_dups)
+    def self.randomize(patient, prng, patients = [], allow_dups = false)
+      randomize_name(patient, prng, patients, allow_dups)
       randomize_race(patient, prng)
       randomize_ethnicity(patient, prng)
       randomize_address(patient)
       randomize_insurance_provider(patient)
     end
 
-    # TODO: redundant with patient (formerly record) name randomization methods
-    def self.randomize_name(patient, prng, allow_dups = false)
-      @used_names ||= []
+    # Pass in an array of patients that you would like to maintain uniqueness
+    def self.randomize_name(patient, prng, patients = [], allow_dups = false)
+      used_names = patients.map { |p| "#{p.first_names}-#{p.familyName}" }
       loop do
         assign_random_name(patient, prng)
-        break if allow_dups || @used_names.index("#{patient.first_names}-#{patient.familyName}").nil?
+        break if allow_dups || used_names.index("#{patient.first_names}-#{patient.familyName}").nil?
       end
-      @used_names << "#{patient.first_names}-#{patient.familyName}"
     end
 
     def self.assign_random_name(patient, prng)
