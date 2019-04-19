@@ -41,12 +41,12 @@ class PatientTest < ActiveSupport::TestCase
       prng1 = Random.new(random)
       prng2 = Random.new(random)
 
-      r1 = Patient.new(familyName: 'Robert', givenNames: ['Johnson'], birthDatetime: DateTime.new(1985, 2, 18).utc)
+      r1 = Patient.new(familyName: 'Robert', givenNames: ['Johnson'], birthDatetime: DateTime.new(1985, 2, 18).utc, extendedData: {})
       r1.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['races'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
       r1.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
       r1.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'code_system' => 'AdministrativeGender' }])
 
-      r2 = Patient.new(familyName: 'Robert', givenNames: ['Johnson'], birthDatetime: DateTime.new(1985, 2, 18).utc)
+      r2 = Patient.new(familyName: 'Robert', givenNames: ['Johnson'], birthDatetime: DateTime.new(1985, 2, 18).utc, extendedData: {})
       r2.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['races'].sample(random: prng2)['code'], 'code_system' => 'cdcrec' }])
       r2.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng2)['code'], 'code_system' => 'cdcrec' }])
       r2.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'code_system' => 'AdministrativeGender' }])
