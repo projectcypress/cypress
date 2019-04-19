@@ -9,10 +9,11 @@ module Cypress
       when 2 # nickname
         patient.givenNames.each_index do |idx|
           nicknames = NAMES_RANDOM['nicknames'][patient.gender][patient.givenNames[idx]]
+          patients = patient.product_test ? patient.product_test.patients : []
           patient.givenNames[idx] = safe_nickname(nicknames,
                                                   patient.givenNames[idx],
                                                   patient.familyName,
-                                                  patient.product_test.patients,
+                                                  patients,
                                                   random: random)
         end
       end
