@@ -75,7 +75,7 @@ module Cypress
       cloned_patient = patient.clone
       # TODO: R2P: use patient model
       unnumerify cloned_patient if patient.givenNames.map { |n| n =~ /\d/ }.any? || patient.familyName =~ /\d/
-      DemographicsRandomizer.randomize(cloned_patient, prng, allow_dups) if options['randomize_demographics']
+      DemographicsRandomizer.randomize(cloned_patient, prng, @test.patients, allow_dups) if options['randomize_demographics']
       # work around to replace 'Other' race codes in Cypress bundle. Pass in static seed for consistent results.
       DemographicsRandomizer.randomize_race(cloned_patient, Random.new(0)) if cloned_patient.race == '2131-1'
       patch_insurance_provider(patient)
