@@ -52,7 +52,7 @@ module Cypress
       @test = ProductTest.find(options['test_id'])
       if options['patient_ids']
         # clone each of the patients identified in the :patient_ids parameter
-        @test.bundle.patients.find(options['patient_ids']).to_a
+        CQM::Patient.find(options['patient_ids']).to_a
       else
         @test.bundle.patients.where(correlation_id: nil).to_a
       end
