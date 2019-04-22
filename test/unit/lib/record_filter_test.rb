@@ -222,7 +222,7 @@ class RecordFilterTest < ActiveSupport::TestCase
       next unless search_field
 
       search_field.each do |item|
-        return item.code_system_pairs.map { |csp| csp[:system] == 'SNOMED-CT' && (code_set.include? csp[:code]) }.include? true
+        return item.code_system_pairs.map { |csp| csp[:system] == 'SNOMEDCT' && (code_set.include? csp[:code]) }.include? true
       end
     end
 

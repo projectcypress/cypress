@@ -9,7 +9,7 @@ FactoryBot.define do
         'components' => [],
         'dataElementCodes' => [
           {
-            'codeSystem' => 'SNOMED-CT',
+            'codeSystem' => 'SNOMEDCT',
             'code' => '210'
           },
           {
@@ -32,7 +32,7 @@ FactoryBot.define do
       {
         'dataElementCodes' => [
           {
-            'codeSystem' => 'SNOMED-CT',
+            'codeSystem' => 'SNOMEDCT',
             'code' => '24'
           }
         ],
@@ -52,7 +52,7 @@ FactoryBot.define do
       {
         'dataElementCodes' => [
           {
-            'codeSystem' => 'SNOMED-CT',
+            'codeSystem' => 'SNOMEDCT',
             'code' => '504'
           }
         ],
@@ -73,7 +73,7 @@ FactoryBot.define do
         'qdmCategory' => 'encounter',
         'dataElementCodes' => [
           {
-            'codeSystem' => 'SNOMED-CT',
+            'codeSystem' => 'SNOMEDCT',
             'code' => '720'
           }
         ],
@@ -93,7 +93,7 @@ FactoryBot.define do
         'qdmCategory' => 'encounter',
         'dataElementCodes' => [
           {
-            'codeSystem' => 'SNOMED-CT',
+            'codeSystem' => 'SNOMEDCT',
             'code' => '5814'
           }
         ],
