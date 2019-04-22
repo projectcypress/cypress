@@ -184,8 +184,7 @@ class RecordFilterTest < ActiveSupport::TestCase
   end
 
   def record_has_payer?(record, payer)
-    all_payers = record.insurance_providers.collect { |ip| ip.payer.name }
-    all_payers.include? payer
+    record.payer == payer
   end
 
   def test_filter_problem

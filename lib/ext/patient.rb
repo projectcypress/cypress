@@ -5,7 +5,6 @@ module CQM
     has_many :calculation_results, class_name: 'QDM::IndividualResult', inverse_of: :cqm_patient
     field :correlation_id, type: BSON::ObjectId
     field :original_patient_id, type: BSON::ObjectId
-    field :insurance_providers, type: Array
     field :original_medical_record_number, type: String
     field :medical_record_number, type: String
     field :measure_relevance_hash, type: Hash, default: {}
@@ -85,6 +84,16 @@ module CQM
         changed[:birthdate] = [qdmPatient.birthDatetime, patient.qdmPatient.birthDatetime]
       end
       [patient, changed]
+    end
+
+    def payer
+      payer_element = qdmPatient.get_data_elements('patient_characteristic', 'payer')
+      if payer_element&.any? && payer_element.first.dataElementCodes &&
+         payer_element.first.dataElementCodes.any?
+        payer_element.first.dataElementCodes.first['code']
+      else
+        raise 'Cannot find payer element'
+      end
     end
 
     def gender
