@@ -86,7 +86,6 @@ module Cypress
       DemographicsRandomizer.randomize(cloned_patient, prng, allow_dups) if options['randomize_demographics']
       # work around to replace 'Other' race codes in Cypress bundle. Pass in static seed for consistent results.
       DemographicsRandomizer.randomize_race(cloned_patient, Random.new(0)) if cloned_patient.race == '2131-1'
-      patch_insurance_provider(patient)
       randomize_entry_ids(cloned_patient) unless options['disable_randomization']
       # if the test is a multi measure test, restrict to a single code
       restrict_entry_codes(cloned_patient) if @test.is_a? MultiMeasureTest
@@ -167,13 +166,6 @@ module Cypress
       @current_index ||= 0
       @current_index += 1
       "#{@rand_prefix}_#{@current_index}"
-    end
-
-    def patch_insurance_provider(patient)
-      insurance_codes = { 'MA' => '1', 'MC' => '2', 'OT' => '349' }
-      providers = patient.insurance_providers
-      providers.each { |ip| ip.codes['SOP'] = [insurance_codes[ip.type]] if ip.codes.empty? }
-      patient.insurance_providers = providers
     end
 
     def assign_provider(patient)
