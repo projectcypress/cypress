@@ -22,10 +22,10 @@ module Cypress
     def add_patient_to_sup_map(ps_map, patient)
       patient_id = patient.id.to_s
       ps_map[patient_id] = {}
-      ps_map[patient_id]['SEX'] = patient.qdmPatient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.55')[0].dataElementCodes[0].code
-      ps_map[patient_id]['RACE'] = patient.qdmPatient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.59')[0].dataElementCodes[0].code
-      ps_map[patient_id]['ETHNICITY'] = patient.qdmPatient.get_by_hqmf_oid('2.16.840.1.113883.10.20.28.3.56')[0].dataElementCodes[0].code
-      ps_map[patient_id]['PAYER'] = patient.insurance_providers.first['codes']['SOP'].first
+      ps_map[patient_id]['SEX'] = patient.qdmPatient.get_data_elements('patient_characteristic', 'gender')[0].dataElementCodes[0].code
+      ps_map[patient_id]['RACE'] = patient.qdmPatient.get_data_elements('patient_characteristic', 'race')[0].dataElementCodes[0].code
+      ps_map[patient_id]['ETHNICITY'] = patient.qdmPatient.get_data_elements('patient_characteristic', 'ethnicity')[0].dataElementCodes[0].code
+      ps_map[patient_id]['PAYER'] = patient.qdmPatient.get_data_elements('patient_characteristic', 'payer')[0].dataElementCodes[0].code
     end
 
     def aggregate_results_for_measures(measures, individual_results = nil)
