@@ -5,9 +5,6 @@
   <% result_values = get_result_values(patients, [measure], measure.key_for_population_set(population_set_hash), population_keys, 'patient_id') %>
 <% end %>
 <h1><%= measure ? measure_display_name(measure, population_set_hash) : 'All' %> Patients</h1>
-<% if @vendor %>
-  <% patients= @vendor.patients %>
-<% end %>
 <% if (measure && measure_records.length.positive?) || (!measure  && patients.length.positive?) %>
 <table class="table table-condensed table-hover">
   <thead>

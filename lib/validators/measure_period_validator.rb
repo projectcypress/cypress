@@ -19,9 +19,7 @@ module Validators
 
     def validate_start
       measure_start = Time.at(@options['test_execution'].task.measure_period_start).utc.strftime('%Y%m%d')
-      doc_start_time = @document.at_xpath("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/
-        cda:entry/cda:act[./cda:templateId[@root='2.16.840.1.113883.10.20.17.3.8']]/
-        cda:effectiveTime/cda:low/@value")
+      doc_start_time = measure_period_start(@document)
       if !doc_start_time
         msg = 'Document needs to report the Measurement Start Date'
         add_error(msg, location: '/', validator_type: :submission_validation, file_name: @options[:file_name])
@@ -35,9 +33,7 @@ module Validators
 
     def validate_end
       measure_end = Time.at(@options['test_execution'].task.effective_date).utc.strftime('%Y%m%d')
-      doc_end_time = @document.at_xpath("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/
-        cda:entry/cda:act[./cda:templateId[@root='2.16.840.1.113883.10.20.17.3.8']]/
-        cda:effectiveTime/cda:high/@value")
+      doc_end_time = measure_period_end(@document)
       if !doc_end_time
         msg = 'Document needs to report the Measurement End Date'
         add_error(msg, location: '/', validator_type: :submission_validation, file_name: @options[:file_name])
@@ -47,6 +43,18 @@ module Validators
           add_error(msg, location: '/', validator_type: :submission_validation, file_name: @options[:file_name])
         end
       end
+    end
+
+    def measure_period_start(document)
+      document.at_xpath("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/
+        cda:entry/cda:act[./cda:templateId[@root='2.16.840.1.113883.10.20.17.3.8']]/
+        cda:effectiveTime/cda:low/@value")
+    end
+
+    def measure_period_end(document)
+      document.at_xpath("/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/
+        cda:entry/cda:act[./cda:templateId[@root='2.16.840.1.113883.10.20.17.3.8']]/
+        cda:effectiveTime/cda:high/@value")
     end
   end
 end

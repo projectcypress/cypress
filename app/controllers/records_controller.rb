@@ -14,19 +14,12 @@ class RecordsController < ApplicationController
 
     return redirect_to bundle_records_path(Bundle.default) unless params[:bundle_id] || params[:task_id] || params[:vendor_id]
 
-    # TODO: Only show measures where there are patient results. CMS32v4 sub id c and d have no patients, for example.
-    @patients = @source.patients.order_by(first: 'asc')
-
-    unless @vendor
+    if @vendor
+      @patients = @vendor.patients.select { |p| p.bundleId == @bundle.id.to_s }
+    else
+      @patients = @source.patients.order_by(first: 'asc')
       # create json with the display_name and url for each measure
-      @measure_dropdown = Rails.cache.fetch("#{@source.cache_key}/measure_dropdown") do
-        @source.measures
-               .order_by(cms_int: 1)
-               .map do |m|
-          { label: m.description,
-            value: by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id) }
-        end.to_json.html_safe
-      end
+      @measure_dropdown = measures_for_source
       @mpl_bundle = Bundle.find(params[:mpl_bundle_id]) if params[:mpl_bundle_id]
     end
   end
@@ -77,13 +70,14 @@ class RecordsController < ApplicationController
 
   private
 
+  # note: case vendor will also have a bundle id
   def set_record_source
-    if params[:bundle_id]
-      set_record_source_bundle
+    if params[:vendor_id]
+      set_record_source_vendor
     elsif params[:task_id]
       set_record_source_product_test
-    elsif params[:vendor_id]
-      set_record_source_vendor
+    elsif params[:bundle_id]
+      set_record_source_bundle
     else
       # TODO: figure out what scenarios lead to this branch and fix them
       @bundle = Bundle.default
@@ -104,7 +98,7 @@ class RecordsController < ApplicationController
 
   # sets the record source to product_test for the patients for a measure test
   def set_record_source_vendor
-    @bundle = Bundle.default
+    @bundle = params[:bundle_id] ? Bundle.available.find(params[:bundle_id]) : Bundle.default
     @vendor = Vendor.find(params[:vendor_id])
     @source = @vendor
     breadcrumbs_for_vendor_path
@@ -114,7 +108,7 @@ class RecordsController < ApplicationController
   def breadcrumbs_for_vendor_path
     add_breadcrumb 'Dashboard', :vendors_path
     add_breadcrumb 'Vendor: ' + @vendor.name, vendor_path(@vendor)
-    add_breadcrumb 'Patient List', records_path(vendor_id: @vendor.id)
+    add_breadcrumb 'Patient List', vendor_records_path(vendor_id: @vendor.id, bundle_id: @bundle.id)
   end
 
   # sets the record source to product_test for the patients for a measure test
@@ -137,5 +131,16 @@ class RecordsController < ApplicationController
     add_breadcrumb 'Product: ' + @product_test.product_name, vendor_product_path(@product_test.product.vendor, @product_test.product)
     add_breadcrumb 'Test: ' + @product_test.name, new_task_test_execution_path(@task.id)
     add_breadcrumb 'Patient List', records_path(task_id: @task.id)
+  end
+
+  def measures_for_source
+    Rails.cache.fetch("#{@source.cache_key}/measure_dropdown") do
+      @source.measures
+             .order_by(cms_int: 1)
+             .map do |m|
+        { label: m.description,
+          value: by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id) }
+      end.to_json.html_safe
+    end
   end
 end
