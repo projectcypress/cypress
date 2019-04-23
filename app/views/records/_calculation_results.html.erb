@@ -8,7 +8,7 @@
              <%= f.check_box r.id, label: "", label_class: "btn btn-checkbox"%>
           <% end %>
         </td>
-      <td><%= link_to full_name(r), vendor_record_path(:vendor_id => @vendor.id, :id => r.id) %></td>
+      <td><%= link_to full_name(r), vendor_record_path(:vendor_id => @vendor.id, :id => r.id, :bundle_id => @bundle.id) %></td>
     <% else %>
       <td><%= link_to full_name(r), bundle_record_path(bundle, r) %></td>
     <% end %>
