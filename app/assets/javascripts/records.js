@@ -5,9 +5,13 @@ ready = function() {
   // when the user selects a different bundle
   // just take them to the new page
   // use Turbolinks so it doesn't full refresh
-  $('label.btn-checkbox input[name="bundle_id"]').on('change', function() {
+  $('label.bundle-checkbox input[name="bundle_id"]').on('change', function() {
     var bundle_id = $(this).val();
     Turbolinks.visit("/bundles/"+bundle_id+"/records");
+  });
+  $('label.vendor-checkbox input[name="bundle_id"]').on('change', function() {
+    var bundle_id = $(this).val();
+    Turbolinks.visit("?bundle_id="+bundle_id);
   });
 
   // This is its own unique checkbox panel danger class, so should not affect

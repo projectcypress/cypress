@@ -3,7 +3,20 @@
 
 <%= bootstrap_form_tag url: vendor_records_path(@vendor), html: {id: "add_vendor_patients_form"} do |f| %>
   <div class="panel-body">
+    <%# select default as bundle selected from previous page (unless deprecated) or Bundle active default#%>
+    <% default_selection = @default.deprecated ? Bundle.default : @default %>
+    <legend class="control-label">Annual Update Bundle</legend>
+    <%= f.form_group help: "Select the annual update bundle with which the uploaded patients should be associated" do %>
+      <% Bundle.available.each do |bundle| %>
+        <div style="display: inline-block">
+
+          <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox",
+                             checked: bundle == default_selection %>
+        </div>
+      <% end %>
+    <% end %>
     <%= f.file_field :file, label: 'Add Patients', accept: 'application/zip' %>
+
   </div>
 
   <div class="panel-footer">
