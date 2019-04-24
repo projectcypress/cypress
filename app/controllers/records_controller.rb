@@ -108,7 +108,7 @@ class RecordsController < ApplicationController
   def breadcrumbs_for_vendor_path
     add_breadcrumb 'Dashboard', :vendors_path
     add_breadcrumb 'Vendor: ' + @vendor.name, vendor_path(@vendor)
-    add_breadcrumb 'Patient List', vendor_records_path(vendor_id: @vendor.id, bundle_id: @bundle.id)
+    add_breadcrumb 'Patient List', vendor_records_path(vendor_id: @vendor.id, bundle_id: @bundle&.id)
   end
 
   # sets the record source to product_test for the patients for a measure test

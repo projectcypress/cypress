@@ -109,8 +109,8 @@ module Vendors
       time_dif = 0
       # Compare date alone, without time
       if utc_start.strftime('%x') != bundle_utc_start.strftime('%x')
-        patient.qdmPatient.shift_dates(time_dif)
         time_dif = @bundle.measure_period_start - utc_start.to_i
+        patient.qdmPatient.shift_dates(time_dif)
       end
 
       patient.save
