@@ -47,14 +47,6 @@ And(/^the user should see a way to switch bundles$/) do
   end
 end
 
-And(/^the user should not see a way to switch bundles$/) do
-  page.assert_text 'Annual Update Bundle'
-  assert_raise Capybara::ElementNotFound do
-    page.find_field(@bundle.title)
-  end
-  page.assert_text @bundle.title
-end
-
 And(/^the user searches for a measure$/) do
   page.fill_in 'search_measures', with: @measure.description
 end
