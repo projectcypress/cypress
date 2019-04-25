@@ -41,7 +41,7 @@ module Validators
 
     def parse_record(doc, options)
       patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
-      Cypress::GoImport.replace_negated_codes(patient, @bundle)
+      Cypress::QRDAPostProcessor.replace_negated_codes(patient, @bundle)
       patient
     rescue
       add_error('File failed import', file_name: options[:file_name])
