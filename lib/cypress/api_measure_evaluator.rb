@@ -533,7 +533,7 @@ module Cypress
 
     def import_cat1_file(doc, patient_ids, bundle_id)
       patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
-      Cypress::GoImport.replace_negated_codes(patient, Bundle.find(bundle_id))
+      Cypress::QRDAPostProcessor.replace_negated_codes(patient, Bundle.find(bundle_id))
       patient.save
       patient_ids << patient.id
     end
