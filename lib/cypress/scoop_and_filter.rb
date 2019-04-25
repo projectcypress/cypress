@@ -43,6 +43,8 @@ module Cypress
       patient.dataElements.each do |data_element|
         # keep if data_element code and codesystem is in one of the relevant_codes
         data_element.dataElementCodes.keep_if { |de_code| @relevant_codes.include?(code: de_code.code, codeSystem: de_code.codeSystem) }
+        # Do not try to replace with negated valueset if all codes are removed
+        next if data_element.dataElementCodes.blank?
         replace_negated_code_with_valueset(data_element) if data_element.respond_to?('negationRationale') && data_element.negationRationale
       end
       # keep data element if codes is not empty
