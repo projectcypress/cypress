@@ -20,7 +20,6 @@ Scenario: View Master Patient List Page, Single Bundle
   When the user visits the records page
   And there is only 1 bundle installed
   Then the user should see a list of patients
-  And the user should not see a way to switch bundles
   And the user should see a way to filter patients
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
@@ -66,7 +65,7 @@ Scenario: View Vendor Patient List Page
   Then the page should be accessible according to: wcag2aa
 
 Scenario: View Vendor Patient Page
-  When the user visits the vendor patient link 
+  When the user visits the vendor patient link
   Then the user should see vendor patient details
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
