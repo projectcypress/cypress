@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.4.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.8'
+gem 'rails', '4.2.11.1'
 
 # Use MongoDB just like in Cypress v2!
 gem 'mongoid', '~> 5.0.0'
@@ -18,7 +18,8 @@ gem 'cqm-converter', '~> 0.3.6'
 gem 'cqm-models', '~> 0.8.4'
 gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'v0.2.x'
 gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators.git', branch: 'v0.1.x'
-gem 'health-data-standards', '~> 4.3.4'
+gem 'health-data-standards',
+    git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'activesupport'
 
 gem 'quality-measure-engine',
     git: 'https://github.com/projectcypress/quality-measure-engine.git', branch: 'bump_mongoid'
