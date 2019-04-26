@@ -90,37 +90,6 @@ class ProductTest
     end
   end
 
-  def gather_patient_ids
-    # our aggregate ID list
-    aggregate_id_list = []
-    # maye want to move to private later
-    # if it's a cvu_plus product
-    # if product.cvu_plus
-    if product.cvuplus
-      # then check if vendor patients are included in product
-      if product.vendor_patients
-        # If so, add appropriate vendor patient ids
-        aggregate_id_list << product.vendor.patients.pluck(:id)
-      end
-      # if bundle patients are included in product
-      if product.bundle_patients
-        # If so, add appropriate bundle patient ids
-        aggregate_id_list << bundle.patients.pluck(:id)
-      end
-      # Maybe check for neither as an edge case and throw some kind of error
-      if aggregate_id_list == []
-        # TODO: this should be an actual error
-        Rails.logger.error "Help help there's nothing in the aggregate ID list"
-      end
-    # if it's a cert product (not cvu), this will be an else bc if it's not cvu it can only be cert
-    # in that case, return bundle patient ids
-    else
-      aggregate_id_list << bundle.patients.pluck(:id)
-    end
-    # return aggregate ids
-    aggregate_id_list
-  end
-
   def archive_patients
     file = Tempfile.new("product_test-#{id}.zip")
     pat_arr = patients.to_a
@@ -233,6 +202,31 @@ class ProductTest
   end
 
   private
+
+  def gather_patient_ids
+    aggregate_id_list = []
+    # if it's a cvu_plus product
+    if product.cvuplus
+      # then check if vendor and/or patients are included in product
+      if product.vendor_patients
+        # If so, add appropriate vendor patient ids
+        aggregate_id_list << product.vendor.patients.pluck(:id)
+      end
+      if product.bundle_patients
+        # If so, add appropriate bundle patient ids
+        aggregate_id_list << bundle.patients.pluck(:id)
+      end
+      # Check for neither as an edge case
+      if aggregate_id_list == []
+        # In theory, this should never happen.
+        Rails.logger.error 'User was able to select an option for which there were no template patients.'
+      end
+    # For cert products (the only option to cvu, hence the else) just grab bundle patients
+    else
+      aggregate_id_list << bundle.patients.pluck(:id)
+    end
+    aggregate_id_list
+  end
 
   # Returns a listing of all ids for patients in the IPP
   def patients_in_ipp_and_greater
