@@ -96,6 +96,23 @@ class VendorsRecordsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'should create vendor patients and shift to match bundle' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      orig_patient_count = Patient.count
+
+      filename = Rails.root.join('test', 'fixtures', 'artifacts', 'good_patient_shift.zip')
+      good_zip = fixture_file_upload(filename, 'application/zip')
+      post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle._id }
+      assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle._id }, 'response should redirect to index')
+
+      # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
+      get :index, params: { vendor_id: redirect_to_url.split('/')[-2] }
+      assert response.body.include?('Imported 1 patient'), 'response should include patient import'
+      assert response.body.include?('with 1 date-shifted'), 'response should include patient import'
+      assert_equal orig_patient_count + 1, Patient.count
+    end
+  end
+
   test 'should delete vendor patients' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       # Create a couple new patients just for this so nothing else is screwed up
