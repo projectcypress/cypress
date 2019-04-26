@@ -58,6 +58,8 @@ module Cypress
     def replace_negated_code_with_valueset(data_element)
       negated_valueset = HealthDataStandards::SVS::ValueSet.where('concepts.code': data_element.codes.first.code,
                                                                   'concepts.code_system_name': data_element.codes.first.codeSystem).first
+      # If the first three characters of the valueset oid is drc, this is a direct reference code, not a valueset.  Do not negate a valueset here.
+      return if negated_valueset.oid[0, 3] == 'drc'
       data_element.dataElementCodes = [{ code: negated_valueset.oid, codeSystem: 'NA_VALUESET' }]
     end
   end
