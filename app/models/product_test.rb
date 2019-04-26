@@ -230,38 +230,32 @@ class ProductTest
 
   # Returns a listing of all ids for patients in the IPP
   def patients_in_ipp_and_greater
-    # TODO: if using template_ids in multiple places, make it into a private variable or something
-    template_ids = gather_patient_ids
     # search thru all the patients for those IDs (that will be a where sort of query)
     # replace bundle.patients with a set where all the IDs are from our gather_patient_ids thing
     # #bundle.patients.where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.IPP": true).pluck(:_id)
-    Patient.where(_id: template_ids).where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.IPP": true).pluck(:_id)
+    Patient.where(_id: gather_patient_ids).where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.IPP": true).pluck(:_id)
   end
 
   # Returns a listing of all ids for patients in the Numerator
   def patient_in_numerator
-    template_ids = gather_patient_ids
-    Patient.where(_id: template_ids).where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.NUMER": true).pluck(:_id)
+    Patient.where(_id: gather_patient_ids).where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.NUMER": true).pluck(:_id)
   end
 
   # Returns a listing of all ids for patients in the Denominator
   def patients_in_denominator_and_greater
-    template_ids = gather_patient_ids
-    Patient.where(_id: template_ids).where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.DENOM": true).pluck(:_id)
+    Patient.where(_id: gather_patient_ids).where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.DENOM": true).pluck(:_id)
   end
 
   # Returns a listing of all ids for patients in the Measure Population
   def patients_in_measure_population_and_greater
-    template_ids = gather_patient_ids
-    Patient.where(_id: template_ids).where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.MSRPOPL": true).pluck(:_id)
+    Patient.where(_id: gather_patient_ids).where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.MSRPOPL": true).pluck(:_id)
   end
 
   # Returns a listing of all ids for patients in the Measure Population
   def patients_in_high_value_populations
-    template_ids = gather_patient_ids
-    Patient.where(_id: template_ids).any_of({ "measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.NUMER": true },
-                                            { "measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.DENEXCEP": true },
-                                            "measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.DENEX": true).pluck(:_id)
+    Patient.where(_id: gather_patient_ids).any_of({ "measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.NUMER": true },
+                                                  { "measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.DENEXCEP": true },
+                                                  "measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.DENEX": true).pluck(:_id)
   end
 
   def master_patient_ids
