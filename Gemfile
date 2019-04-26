@@ -13,7 +13,7 @@ gem 'bson_ext'
 gem 'mustache'
 gem 'os'
 
-gem 'cql_qdm_patientapi'
+gem 'cql_qdm_patientapi', '~> 1.2.0'
 gem 'cqm-converter', '~> 0.3.6'
 gem 'cqm-models', '~> 0.8.4'
 gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'v0.2.x'
