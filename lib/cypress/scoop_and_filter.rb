@@ -5,7 +5,7 @@ module Cypress
         measure['value_set_oid_version_objects'].collect do |valueset|
           HealthDataStandards::SVS::ValueSet.where(oid: valueset.oid, version: valueset.version).to_a
         end
-      end.flatten
+      end.flatten.uniq
       @relevant_codes = codes_in_measures
       @demographic_oids = ['2.16.840.1.113883.10.20.28.3.55', '2.16.840.1.113883.10.20.28.3.59', '2.16.840.1.113883.10.20.28.3.57',
                            '2.16.840.1.113883.10.20.28.3.56', '2.16.840.1.113883.10.20.28.3.54']
