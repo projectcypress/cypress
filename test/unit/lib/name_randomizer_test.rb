@@ -19,17 +19,12 @@ class NameRandomizerTest < ActiveSupport::TestCase
   end
 
   def test_randomize_no_nickname
-    nickname = Cypress::NameRandomizer.safe_nickname(nil, 'AAA', 'BB', @pt.patients, random: @prng)
-    assert_equal 'A', nickname
-  end
-
-  def test_randomize_matching_nickname
-    nickname = Cypress::NameRandomizer.safe_nickname(['AA'], 'AAA', 'BB', @pt.patients, random: @prng)
+    nickname = Cypress::NameRandomizer.nickname(nil, 'AAA', random: @prng)
     assert_equal 'A', nickname
   end
 
   def test_randomize_unique_nickname
-    nickname = Cypress::NameRandomizer.safe_nickname(['AAAA'], 'AAA', 'BB', @pt.patients, random: @prng)
+    nickname = Cypress::NameRandomizer.nickname(['AAAA'], 'AAA', random: @prng)
     assert_equal 'AAAA', nickname
   end
 end
