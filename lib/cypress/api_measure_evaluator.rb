@@ -395,6 +395,7 @@ module Cypress
       file_name ||= product_test_link.split('/')[2]
       resource = RestClient::Resource.new("#{@cypress_host}#{product_test_link}", :timeout => 90_000_000,
                                                                                   :user => @username,
+                                                                                  :headers => { :accept => :json },
                                                                                   :password => @password)
       begin
         response = resource.get
