@@ -1,15 +1,16 @@
 module Cypress
   class NameRandomizer
     def self.randomize_patient_name_first(patient, augmented_patients, random: Random.new)
-      original_gn = patient.givenNames
-      new_gn = original_gn.clone
+      patients = patient.product_test ? patient.product_test.patients : []
+      original_given_name = patient.givenNames
+      new_given_name = original_given_name.clone
       loop do
         # Try to create a new random name
-        new_gn = random_given_name(patient, original_gn, random: random)
+        new_given_name = random_given_name(patient, original_given_name, random: random)
         # Verify that the new random name, does not conflict with an existing Augmented Patient
-        patient.givenNames = new_gn unless augmented_patients.any? { |ap| ap[:first][1] == new_gn[0] && ap[:last][0] == patient.familyName }
+        patient.givenNames = new_given_name if name_unique?(new_given_name, patient.familyName, patients, augmented_patients)
         # Break when a new unique name is found
-        break if patient.givenNames != original_gn
+        break if patient.givenNames != original_given_name
       end
       patient
     end
@@ -25,30 +26,26 @@ module Cypress
       when 2 # nickname
         updated_name.each_index do |idx|
           nicknames = NAMES_RANDOM['nicknames'][patient.gender][updated_name[idx]]
-          patients = patient.product_test ? patient.product_test.patients : []
-          updated_name[idx] = safe_nickname(nicknames,
-                                            updated_name[idx],
-                                            patient.familyName,
-                                            patients,
-                                            random: random)
+          updated_name[idx] = nickname(nicknames, updated_name[idx], random: random)
         end
         updated_name
       end
     end
 
     def self.randomize_patient_name_last(patient, augmented_patients, random: Random.new)
-      original_fn = patient.familyName
-      new_fn = original_fn.clone
+      patients = patient.product_test ? patient.product_test.patients : []
+      original_family_name = patient.familyName
+      new_family_name = original_family_name.clone
       loop do
         # Try to create a new random name
         case random.rand(2)
-        when 0 then patient.familyName = patient.familyName[0] # replace with initial
-        when 1 then patient.familyName = replace_random_char(patient.familyName.clone, random: random) # insert incorrect letter
+        when 0 then new_family_name = patient.familyName[0] # replace with initial
+        when 1 then new_family_name = replace_random_char(new_family_name, random: random) # insert incorrect letter
         end
         # Verify that the new random name, does not conflict with an existing Augmented Patient
-        patient.familyName = new_fn unless augmented_patients.any? { |ap| ap[:last][1] == new_fn && ap[:first][0] == patient.givenNames }
+        patient.familyName = new_family_name if name_unique?(patient.givenNames, new_family_name, patients, augmented_patients)
         # Break when a new unique name is found
-        break if patient.familyName != original_fn
+        break if patient.familyName != original_family_name
       end
       patient
     end
@@ -61,12 +58,19 @@ module Cypress
       name
     end
 
-    def self.safe_nickname(nicknames, given_name, family_name, patients, random: Random.new)
+    def self.nickname(nicknames, given_name, random: Random.new)
       # if no nicknames, use first initial
       return given_name[0] if nicknames.blank?
-      nickname = nicknames.sample(random: random)
-      # if nickname collides with a name in the patient list, use first initial
-      patients.none? { |p| "#{p.first_names}-#{p.familyName}" == "#{nickname}-#{family_name}" } ? nickname : given_name[0]
+      nicknames.sample(random: random)
+    end
+
+    def self.name_unique?(new_given_names, new_family_name, patients, augmented_patients)
+      new_given_names = new_given_names.join(' ')
+      # does name collide with a name in the patient list
+      conflicting_patient = patients.any? { |p| "#{p.first_names}-#{p.familyName}" == "#{new_given_names}-#{new_family_name}" }
+      # does name collide with a name in the augmented patients list
+      conflicting_augmented_patient = augmented_patients.any? { |ap| ap[:first][1] == new_given_names && ap[:last][1] == new_family_name }
+      !(conflicting_patient || conflicting_augmented_patient)
     end
   end
 end
