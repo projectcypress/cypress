@@ -16,10 +16,9 @@ gem 'os'
 gem 'cql_qdm_patientapi', '~> 1.2.0'
 gem 'cqm-converter', '~> 0.3.6'
 gem 'cqm-models', '~> 0.8.4'
-gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'v0.2.x'
-gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators.git', branch: 'v0.1.x'
-gem 'health-data-standards',
-    git: 'https://github.com/projectcypress/health-data-standards.git', branch: 'activesupport'
+gem 'cqm-parsers', '~> 0.2.3'
+gem 'cqm-validators', '~> 0.1.1'
+gem 'health-data-standards', '~> 4.3.5'
 
 gem 'quality-measure-engine',
     git: 'https://github.com/projectcypress/quality-measure-engine.git', branch: 'bump_mongoid'
