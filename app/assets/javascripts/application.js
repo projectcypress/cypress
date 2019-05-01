@@ -32,6 +32,10 @@
 //= require local-time
 //= require_tree .
 
+$(document).on('page:load page:partial-load turbolinks:load', function () {
+  $.rails.refreshCSRFTokens();
+});
+
 $(function() {
   Turbolinks.ProgressBar.enable();
   $('.breadcrumb').breadcrumb();
