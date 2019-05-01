@@ -141,6 +141,17 @@ certifications:
     tests:
       - 'FilteringTest'
 tests:
+  CMSProgramTest:
+    title: 'CMS Implementation Guide Checklist'
+    instructions:
+      - instruction: 'Fill in the fields below.'
+        subinstructions:
+          - 'Cypress will search for information exactly as it is inputted.'
+      - instruction: 'Create (at least) one patient that contains the information below.  Patients may be created using a user interface, or may be created as a structured document to be imported into the system under test.'
+        subinstructions:
+        - 'There are no requirements on what format the structured data artifact must be.  Could be CCDA, QRDA, or other formats.'
+        - 'Export the created patients as QRDA Category I, and create a zip file.'
+      - instruction: 'Upload zip file with created test patients.'
   MeasureTest:
     title: 'Measure Tests'
     description: "Test the EHR system's ability to record and export (C1), import and calculate (C2), and submit (C3) measure based data."
