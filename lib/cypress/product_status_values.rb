@@ -1,5 +1,26 @@
 module Cypress
   module ProductStatusValues
+    def cms_status_values(product)
+      h = {}
+      h['CMS Program Tests'] = Hash[%w[passing failing errored not_started total].zip(product_test_statuses(product.product_tests.cms_program_tests,
+                                                                                                            'CMSProgramTask'))]
+      h
+    end
+
+    def ep_status_values(product)
+      h = {}
+      h['EP Measure Test'] = Hash[%w[passing failing errored not_started total].zip(product_test_statuses(product.product_tests.multi_measure_tests,
+                                                                                                          'MultiMeasureCat3Task'))]
+      h
+    end
+
+    def eh_status_values(product)
+      h = {}
+      h['EH Measure Test'] = Hash[%w[passing failing errored not_started total].zip(product_test_statuses(product.product_tests.multi_measure_tests,
+                                                                                                          'MultiMeasureCat1Task'))]
+      h
+    end
+
     def c1_status_values(product)
       h = {}
       statuses = %w[passing failing errored not_started total]

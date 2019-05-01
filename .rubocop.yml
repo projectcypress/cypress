@@ -21,6 +21,7 @@ Documentation:
 Metrics/LineLength:
   Max: 150
   Exclude:
+    - 'lib/validators/program_criteria_validator.rb'
     - 'test/**/*'
 Metrics/BlockLength:
   Exclude:
@@ -50,7 +51,7 @@ Metrics/AbcSize:
     - 'lib/cypress/population_clone_job.rb'
     - 'test/**/*.rb'
 Metrics/ModuleLength:
-  Max: 110
+  Max: 120
 # Avoid complex methods.
 Metrics/CyclomaticComplexity:
   Max: 10

@@ -49,7 +49,7 @@ module Cypress
       file_error_hash = {}
       file_error_hash['QRDA'] = error_hash(doc, all_errs.qrda_errors)
       file_error_hash['Reporting'] = error_hash(doc, all_errs.reporting_errors)
-      file_error_hash['Submission'] = related_errs.count.positive? ? error_hash(doc, related_errs.only_errors) : { execution_errors: [] }
+      file_error_hash['Submission'] = error_hash(doc, all_errs.submission_errors)
       file_error_hash['CMS Warnings'] = related_errs.count.positive? ? error_hash(doc, related_errs.only_cms_warnings) : { execution_errors: [] }
       file_error_hash['Other Warnings'] = related_errs.count.positive? ? error_hash(doc, related_errs.non_cms_warnings) : { execution_errors: [] }
       file_error_hash
