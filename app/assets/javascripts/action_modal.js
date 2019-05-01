@@ -9,7 +9,7 @@ ready = function() {
     $(this).find('.modal-body span.object_type').text($(e.relatedTarget).attr('data-object-type'));
     $(this).find('.modal-body strong.object_name').text($(e.relatedTarget).attr('data-object-name'));
     $(this).find('.modal-body span.object_action').text($(e.relatedTarget).attr('data-object-action'));
-    $(this).find('.modal-body input.confirm_object_name').attr('placeholder', $(e.relateTarget).attr('data-object-type'));
+    $(this).find('.modal-body input.confirm_object_name').attr('placeholder', $(e.relatedTarget).attr('data-object-type'));
 
     /* set data-form for modal to correct form */
     $('#modal_confirm_remove').data('form', $(e.relatedTarget).closest('form'));
