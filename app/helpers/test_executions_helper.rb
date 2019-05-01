@@ -3,7 +3,8 @@ module TestExecutionsHelper
   include Cypress::ErrorCollector
 
   def displaying_cat1?(task)
-    task.is_a?(C1Task) || task.is_a?(Cat1FilterTask) || task.is_a?(C1ChecklistTask) || task.is_a?(MultiMeasureCat1Task)
+    task.is_a?(C1Task) || task.is_a?(Cat1FilterTask) || task.is_a?(C1ChecklistTask) || task.is_a?(MultiMeasureCat1Task) ||
+      (task.is_a?(CMSProgramTask) && task.product_test.reporting_program_type == 'eh')
   end
 
   def task_type_to_title(task_type, c3)
@@ -125,6 +126,7 @@ module TestExecutionsHelper
   def tests_for_task_by_type(task, tests)
     return tests.filtering_tests.sort_by { |t| cms_int(t.cms_id) } if task.is_a?(Cat1FilterTask) || task.is_a?(Cat3FilterTask)
     return tests.multi_measure_tests.sort_by(&:reporting_program_type) if task.is_a?(MultiMeasureCat1Task) || task.is_a?(MultiMeasureCat3Task)
+    return tests.cms_program_tests.sort_by(&:name) if task.is_a?(CMSProgramTask)
 
     tests.measure_tests.sort_by { |t| cms_int(t.cms_id) }
   end

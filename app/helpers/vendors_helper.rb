@@ -19,6 +19,18 @@ module VendorsHelper
     end
   end
 
+  # return value is nested hash structured like this:
+  #   { certification_type: { product_test_type: { passing: #, failing: #, not_started: #, total: # } } }
+  def get_cvu_status_values(product)
+    Rails.cache.fetch("#{product.cache_key}/cvu_status_values") do
+      h = {}
+      h['EP_Measure'] = ep_status_values(product)
+      h['EH_Measure'] = eh_status_values(product)
+      h['CMS_Program'] = cms_status_values(product)
+      h
+    end
+  end
+
   # status should be 'Passing', 'Failing', or 'Not Complete'
   # used for each certification status on vendor show page
   def status_to_css_classes(status)

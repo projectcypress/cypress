@@ -104,22 +104,20 @@ class Product
   end
 
   def update_with_cvu_plus_tests(params)
-    add_multi_measure_tests(params)
+    add_cvu_plus_tests(params)
     save!
   end
 
-  def add_multi_measure_tests(params)
+  def add_cvu_plus_tests(params)
     old_ids = measure_ids || []
-    old_ep_ids =  Measure.where('hqmf_id' => { '$in' => old_ids }, 'reporting_program_type' => 'ep').pluck(:hqmf_id)
-    old_eh_ids =  Measure.where('hqmf_id' => { '$in' => old_ids }, 'reporting_program_type' => 'eh').pluck(:hqmf_id)
+    old_ep_ids = Measure.where('hqmf_id' => { '$in' => old_ids }, 'reporting_program_type' => 'ep').pluck(:hqmf_id)
+    old_eh_ids = Measure.where('hqmf_id' => { '$in' => old_ids }, 'reporting_program_type' => 'eh').pluck(:hqmf_id)
     new_ids = params[:measure_ids] || old_ids
-    new_ep_ids =  Measure.where('hqmf_id' => { '$in' => new_ids }, 'reporting_program_type' => 'ep').pluck(:hqmf_id)
-    new_eh_ids =  Measure.where('hqmf_id' => { '$in' => new_ids }, 'reporting_program_type' => 'eh').pluck(:hqmf_id)
+    new_ep_ids = Measure.where('hqmf_id' => { '$in' => new_ids }, 'reporting_program_type' => 'ep').pluck(:hqmf_id)
+    new_eh_ids = Measure.where('hqmf_id' => { '$in' => new_ids }, 'reporting_program_type' => 'eh').pluck(:hqmf_id)
     update(params)
-    product_tests.where(name: 'EH Measures Test').destroy if old_eh_ids != new_eh_ids
-    product_tests.where(name: 'EP Measures Test').destroy if old_ep_ids != new_ep_ids
-    product_tests.build({ name: 'EH Measures', measure_ids: new_eh_ids, reporting_program_type: 'eh' }, MultiMeasureTest) if new_eh_ids != old_eh_ids
-    product_tests.build({ name: 'EP Measures', measure_ids: new_ep_ids, reporting_program_type: 'ep' }, MultiMeasureTest) if new_ep_ids != old_ep_ids
+    add_multi_measure_tests(new_eh_ids, new_eh_ids != old_eh_ids, new_ep_ids, new_ep_ids != old_ep_ids)
+    add_cms_program_tests(new_eh_ids, new_eh_ids != old_eh_ids, new_ep_ids, new_ep_ids != old_ep_ids)
   end
 
   def add_measure_tests(params)
@@ -164,6 +162,40 @@ class Product
   # - - - - - - - - - #
   #   P R I V A T E   #
   # - - - - - - - - - #
+
+  def add_multi_measure_tests(eh_ids, build_eh, ep_ids, build_ep)
+    if build_eh
+      product_tests.where(name: 'EH Measures Test').destroy
+      product_tests.build({ name: 'EH Measures', measure_ids: eh_ids, reporting_program_type: 'eh' }, MultiMeasureTest)
+    end
+    if build_ep
+      product_tests.where(name: 'EP Measures Test').destroy
+      product_tests.build({ name: 'EP Measures', measure_ids: ep_ids, reporting_program_type: 'ep' }, MultiMeasureTest)
+    end
+  end
+
+  def add_cms_program_tests(eh_ids, build_eh, ep_ids, build_ep)
+    if build_eh
+      product_tests.build({ name: 'HQR_PI Test', cms_program: 'HQR_PI', measure_ids: eh_ids,
+                            reporting_program_type: 'eh' }, CMSProgramTest)
+      product_tests.build({ name: 'HQR_IQR Test', cms_program: 'HQR_IQR', measure_ids: eh_ids,
+                            reporting_program_type: 'eh' }, CMSProgramTest)
+      product_tests.build({ name: 'HQR_PI_IQR Test', cms_program: 'HQR_PI_IQR', measure_ids: eh_ids,
+                            reporting_program_type: 'eh' }, CMSProgramTest)
+      product_tests.build({ name: 'HQR_IQR_VOL Test', cms_program: 'HQR_IQR_VOL', measure_ids: eh_ids,
+                            reporting_program_type: 'eh' }, CMSProgramTest)
+    end
+    if build_ep
+      product_tests.build({ name: 'CPCPLUS Test', cms_program: 'CPCPLUS', measure_ids: ep_ids,
+                            reporting_program_type: 'ep' }, CMSProgramTest)
+      product_tests.build({ name: 'MIPS_INDIV Test', cms_program: 'MIPS_INDIV', measure_ids: ep_ids,
+                            reporting_program_type: 'ep' }, CMSProgramTest)
+      product_tests.build({ name: 'MIPS_GROUP Test', cms_program: 'MIPS_GROUP', measure_ids: ep_ids,
+                            reporting_program_type: 'ep' }, CMSProgramTest)
+      product_tests.build({ name: 'MIPS_VIRTUALGROUP Test', cms_program: 'MIPS_VIRTUALGROUP', measure_ids: ep_ids,
+                            reporting_program_type: 'ep' }, CMSProgramTest)
+    end
+  end
 
   def add_filtering_tests
     measure = ApplicationController.helpers.pick_measure_for_filtering_test(measure_ids, bundle)

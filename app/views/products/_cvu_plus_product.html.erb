@@ -40,7 +40,7 @@
               <th scope = 'col' class = 'col-sm-1'>Last Updated</th>
             </thead>
             <tbody>
-              <% @product.product_tests.each do |product_test| %>
+              <% @product.product_tests.multi_measure_tests.each do |product_test| %>
               <% # A Multi Measure Test only has a single task %>
               <% task = product_test.tasks.first %>
               <tr>
@@ -52,6 +52,34 @@
                 </td>
                 <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(task) %>">
                   <%= render 'filtering_test_link', :test => product_test, :task => task, :parent_reloading => true %>
+                </td>
+                <td class="no-wrap" data-order="<%= task.updated_at %>">
+                  <%= icon('far fa-fw', 'clock', :"aria-hidden" => true) %><%= local_time_ago(task.updated_at) %>
+                </td>
+              </tr>
+              <% end %> 
+            </tbody>
+          </table>
+        </div>
+      <% end %>
+
+      <% # CMS Program Test Tab %>
+      <% if test_type == 'CMSProgramTest' %>
+        <div id="display_measure_tests_table">
+          <table class = 'table table-hover measure_tests_table'>
+            <thead>
+              <th scope = 'col' class = 'col-sm-1 no-wrap pointer-on-hover'>Test Name</th>
+              <th scope = 'col' class = 'col-sm-1'>Quick Upload</th>
+              <th scope = 'col' class = 'col-sm-1'>Last Updated</th>
+            </thead>
+            <tbody>
+              <% @product.product_tests.cms_program_tests.each do |program_test| %>
+              <% # A Multi Measure Test only has a single task %>
+              <% task = program_test.tasks.first %>
+              <tr>
+                <td><%= link_to program_test.name, product_program_test_path(@product, program_test) %></td>
+                <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(task) %>">
+                  <%= render 'filtering_test_link', :test => program_test, :task => task, :parent_reloading => true %>
                 </td>
                 <td class="no-wrap" data-order="<%= task.updated_at %>">
                   <%= icon('far fa-fw', 'clock', :"aria-hidden" => true) %><%= local_time_ago(task.updated_at) %>

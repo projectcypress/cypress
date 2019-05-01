@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   resources :products, only: %i[show edit update destroy favorite] do
     post :favorite
     resources :product_tests, only: %i[index show]
+    resources :program_tests, only: %i[index show update]
     resources :checklist_tests, only: %i[create show update destroy] do
       member do
         get :print_criteria
