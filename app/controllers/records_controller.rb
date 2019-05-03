@@ -14,12 +14,12 @@ class RecordsController < ApplicationController
 
     return redirect_to bundle_records_path(Bundle.default) unless params[:bundle_id] || params[:task_id] || params[:vendor_id]
 
+    # create json with the display_name and url for each measure
+    @measure_dropdown = measures_for_source
     if @vendor
-      @patients = @vendor.patients.select { |p| p.bundleId == @bundle.id.to_s }
+      @patients = @vendor.patients.where(bundleId: @bundle.id.to_s).order_by(first: 'asc')
     else
       @patients = @source.patients.order_by(first: 'asc')
-      # create json with the display_name and url for each measure
-      @measure_dropdown = measures_for_source
       @mpl_bundle = Bundle.find(params[:mpl_bundle_id]) if params[:mpl_bundle_id]
     end
   end
@@ -39,9 +39,10 @@ class RecordsController < ApplicationController
   end
 
   def by_measure
-    @patients = @source.patients.includes(:calculation_results)
+    @patients =  @vendor ? @vendor.patients.includes(:calculation_results).where(bundleId: @bundle.id.to_s) : @source.patients.includes(:calculation_results)
     if params[:measure_id]
-      @measure = @source.measures.find_by(hqmf_id: params[:measure_id])
+      measures = @vendor ? @bundle.measures : @source.measures
+      @measure = measures.find_by(hqmf_id: params[:measure_id])
       @population_set_hash = params[:population_set_hash] || @measure.population_sets_and_stratifications_for_measure.first
       expires_in 1.week, public: true
     end
@@ -135,11 +136,10 @@ class RecordsController < ApplicationController
 
   def measures_for_source
     Rails.cache.fetch("#{@source.cache_key}/measure_dropdown") do
-      @source.measures
-             .order_by(cms_int: 1)
-             .map do |m|
-        { label: m.description,
-          value: by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id) }
+      measures = @vendor ? @bundle.measures : @source.measures
+      measures.order_by(cms_int: 1).map do |m|
+        { label: "#{m.cms_id}: #{m.description}",
+          value: @vendor ? by_measure_vendor_records_path(@vendor, measure_id: m.hqmf_id, bundle_id: @bundle.id) : by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id) }
       end.to_json.html_safe
     end
   end

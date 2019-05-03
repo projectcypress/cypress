@@ -1,1 +1,3 @@
-$("#records_list").html("<%= escape_javascript(render 'records_list', :patients => @patients, :measure => @measure, :population_set_hash => @population_set_hash, :product_test => @product_test, :bundle => @bundle, :task => @task ) %>");
+$("#records_list").html("<%= escape_javascript(render 'records_list', :patients => @patients, :measure => @measure, :population_set_hash => @population_set_hash, :product_test => @product_test, :bundle => @bundle, :task => @task, :vendor =>@vendor ) %>");
+// any statically changed form elements require a separate token refresh call
+$.rails.refreshCSRFTokens();
