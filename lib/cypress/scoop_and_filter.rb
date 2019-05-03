@@ -26,6 +26,7 @@ module Cypress
         data_element.dataElementCodes.keep_if { |de_code| @relevant_codes.include?(code: de_code.code, codeSystem: de_code.codeSystem) }
         # Do not try to replace with negated valueset if all codes are removed
         next if data_element.dataElementCodes.blank?
+
         replace_negated_code_with_valueset(data_element) if data_element.respond_to?('negationRationale') && data_element.negationRationale
       end
       # keep data element if codes is not empty
@@ -46,12 +47,15 @@ module Cypress
     end
 
     def replace_negated_code_with_valueset(data_element)
-      negated_valueset = @valuesets.where('concepts.code': data_element.codes.first.code,
-                                          'concepts.code_system_name': data_element.codes.first.codeSystem).first
+      negated_valuesets = @valuesets.where('concepts.code': data_element.codes.first.code,
+                                           'concepts.code_system_name': data_element.codes.first.codeSystem)
       # If more than one valueset (in the measures uses the code, it is not possible for scoop and filter to know which valueset to negate)
-      return if negated_valueset.size > 1
+      return if negated_valuesets.size > 1
+
+      negated_valueset = negated_valuesets.first
       # If the first three characters of the valueset oid is drc, this is a direct reference code, not a valueset.  Do not negate a valueset here.
       return if negated_valueset.oid[0, 3] == 'drc'
+
       data_element.dataElementCodes = [{ code: negated_valueset.oid, codeSystem: 'NA_VALUESET' }]
     end
   end
