@@ -1,7 +1,7 @@
 module Cypress
   class ScoopAndFilter
     def initialize(measures)
-      @valuesets = measures.collect(&:value_sets).flatten
+      @valuesets = measures.collect(&:value_sets).flatten.uniq
       @relevant_codes = codes_in_measures
       @de_category_statuses_for_measures = get_non_demographic_category_statuses(measures)
     end
@@ -47,12 +47,12 @@ module Cypress
     end
 
     def replace_negated_code_with_valueset(data_element)
-      negated_valuesets = @valuesets.where('concepts.code': data_element.codes.first.code,
-                                           'concepts.code_system_name': data_element.codes.first.codeSystem)
+      de = data_element
+      neg_vs = @valuesets.select { |vs| vs.concepts.any? { |c| c.code == de.codes.first.code && c.code_system_name == de.codes.first.codeSystem } }
       # If more than one valueset (in the measures uses the code, it is not possible for scoop and filter to know which valueset to negate)
-      return if negated_valuesets.size > 1
+      return if neg_vs.size > 1
 
-      negated_valueset = negated_valuesets.first
+      negated_valueset = neg_vs.first
       # If the first three characters of the valueset oid is drc, this is a direct reference code, not a valueset.  Do not negate a valueset here.
       return if negated_valueset.oid[0, 3] == 'drc'
 
