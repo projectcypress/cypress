@@ -32,7 +32,10 @@
 //= require local-time
 //= require_tree .
 
-$(document).on('page:load page:partial-load turbolinks:load', function () {
+// will cover turbolinks changes (ajax already covered by rails ujs)
+// this is necessary for CSRF tokens in changed form elements
+// any statically changed form elements will require a separate token refresh call
+$(document).on('page:load page:partial-load page:restore turbolinks:load', function () {
   $.rails.refreshCSRFTokens();
 });
 

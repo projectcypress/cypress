@@ -62,7 +62,7 @@ end
 Then(/^the user should see results for that measure$/) do
   page.assert_text measure_display_name(@measure, @measure.population_sets_and_stratifications_for_measure.first) + ' Patients'
 
-  records = records_by_measure(@bundle.patients, @measure)
+  records = records_by_measure(@vendor ? @vendor.patients.where(bundleId: @bundle.id.to_s, @bundle.patients), @measure)
 
   assert page.has_selector?('table tbody tr', count: records.length), 'different number'
   assert page.has_selector?('.result-marker'), 'no result marker'
@@ -120,13 +120,15 @@ end
 
 When(/^the user visits the vendor records page$/) do
   @bundle = Bundle.default
+  @other_bundle = Bundle.where('$or' => [{ 'active' => false }, { :active.exists => false }]).sample
   @vendor = Vendor.create!(name: 'test_vendor_name')
   visit "/records?vendor_id=#{@vendor.id}"
 end
 
 Then(/^the user should see a list of vendor patients$/) do
   page.assert_text 'All Patients'
-  assert page.has_selector?('table tbody tr', count: @vendor.patients.length), 'different count'
+  patients = @vendor.patients.where(bundleId: @bundle.id.to_s)
+  assert page.has_selector?('table tbody tr', count: patients.length), 'different count'
 end
 
 When(/^the user visits the vendor patient link$/) do

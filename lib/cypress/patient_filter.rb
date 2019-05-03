@@ -9,7 +9,6 @@ module Cypress
     end
 
     def self.patient_missing_filter(patient, filters, params)
-      # byebug
       filters.each do |k, v|
         # return true if patient is missing any filter item
         # TODO: filter for age and problem (purposefully no prng)
