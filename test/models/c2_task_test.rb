@@ -50,7 +50,6 @@ class C2TaskTest < ActiveSupport::TestCase
   #     te = task.execute(xml, User.first)
   #     te.reload
   #     # Missing strat for the 1 numerator that has data
-  #     byebug
   #     assert_equal 11, te.execution_errors.length # 10 errors related to pop sums
   #     assert_equal 10, te.execution_errors.to_a.count { |e| !pop_sum_err_regex.match(e.message).nil? }
   #     assert_equal 1, (te.execution_errors.to_a.count do |e|

@@ -19,7 +19,7 @@
 <% cache [@patients, @measure, hide_patient_calculation?] do %>
   <div class="row">
     <div id="records_list" class="col-sm-12">
-      <%= render 'records_list', :patients => @patients, :measure => @measure, :population_set_hash => @population_set_hash, :product_test => @product_test, :bundle => @bundle, :task => @task %>
+      <%= render 'records_list', :patients => @patients, :measure => @measure, :population_set_hash => @population_set_hash, :product_test => @product_test, :bundle => @bundle, :task => @task, :vendor => @vendor %>
     </div>
   </div>
 <% end #cache records %>

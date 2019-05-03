@@ -129,6 +129,11 @@ module Cypress
         end
       end.flatten
       QDM::IndividualResult.collection.insert_many(results)
+      irs = QDM::IndividualResult.where('correlation_id': bundle.id.to_s)
+      irs.each do |ir|
+        ir.cqm_patient = CQM::Patient.find(ir.patient)
+        ir.save
+      end
       compile_measure_relevance_hash
       puts "\rLoading: Results Complete          "
     end

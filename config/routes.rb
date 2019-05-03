@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       resources :records, only: %i[index show new create] do
         collection do
           post :destroy_multiple
+          get :by_measure
         end
       end
     end

@@ -9,8 +9,8 @@
 <table class="table table-condensed table-hover">
   <thead>
     <tr>
-      <% if @vendor %>
-        <th scope="col"><i class="far fa-trash-alt"></i></th> 
+      <% if vendor %>
+        <th scope="col"><i class="far fa-trash-alt"></i></th>
       <% end%>
       <th scope="col">Patient Name</th>
       <% if product_test && !hide_patient_calculation? %>
@@ -29,6 +29,10 @@
   <tfoot style="border-top: 2px solid #ddd;">
       <!-- will show aggregate record populations -->
       <tr>
+        <%# add an extra cell for delete column -> could be delete all option? %>
+        <% if @vendor %>
+          <td></td>
+        <% end %>
         <th scope="row">Total</th>
         <% if product_test && !hide_patient_calculation? %>
           <td></td>
@@ -61,10 +65,10 @@
 <p>No patient results for the current criteria.</p>
 <% end %>
 
-<% if @vendor %>
+<% if vendor %>
   <%# Making the checkbox-danger-panel its own class so its behavior doesn't affect any other danger panels%>
-  <div class = 'checkbox-danger-panel' hidden> 
-    <%= render 'remove_panel', :name => @vendor.name, :type => 'Selected Patients', :message => 'Deletion is permanent and cannot be undone. Be sure you want to do this.', :delete_path => destroy_multiple_vendor_records_path(@vendor), :action => 'destroy_multiple' %>
+  <div class = 'checkbox-danger-panel' hidden>
+    <%= render 'remove_panel', :name => vendor.name, :type => 'Selected Patients', :message => 'Deletion is permanent and cannot be undone. Be sure you want to do this.', :delete_path => destroy_multiple_vendor_records_path(vendor), :action => 'destroy_multiple' %>
   </div>
   <%= render 'action_modal' %>
 <% end%>
