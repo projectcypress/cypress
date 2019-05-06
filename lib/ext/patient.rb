@@ -150,6 +150,12 @@ module CQM
         end
       end
     end
+
+    def patient_relevant?(measure_ids, population_keys)
+      measure_relevance_hash.any? do |key, mrh|
+        (measure_ids.include? BSON::ObjectId.from_string(key)) && (population_keys.any? { |pop| mrh[pop] == true })
+      end
+    end
   end
 
   class BundlePatient < Patient; end
