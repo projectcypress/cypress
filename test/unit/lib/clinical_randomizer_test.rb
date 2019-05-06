@@ -6,7 +6,7 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
     @patient = BundlePatient.new(givenNames: ['Foo'], familyName: 'Bar', bundleId: @bundle.id)
     @start = DateTime.new(2011, 1, 1, 0, 0, 0).utc
     @end = DateTime.new(2011, 12, 31, 23, 59, 59).utc
-    @payer_codes = [{ 'code' => '1', 'codeSystemOid' => '2.16.840.1.113883.3.221.5'}]
+    @payer_codes = [{ 'code' => '1', 'codeSystemOid' => '2.16.840.1.113883.3.221.5' }]
 
     @patient.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
     @patient.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 10, 1, 23, 59, 59).utc, nil))
