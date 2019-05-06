@@ -210,11 +210,11 @@ class ProductTest
       # then check if vendor and/or patients are included in product
       if product.vendor_patients
         # If so, add appropriate vendor patient ids
-        aggregate_id_list << product.vendor.patients.pluck(:id)
+        aggregate_id_list.concat product.vendor.patients.pluck(:id)
       end
       if product.bundle_patients
         # If so, add appropriate bundle patient ids
-        aggregate_id_list << bundle.patients.pluck(:id)
+        aggregate_id_list.concat bundle.patients.pluck(:id)
       end
       # Check for neither as an edge case
       if aggregate_id_list == []
@@ -223,7 +223,7 @@ class ProductTest
       end
     # For cert products (the only option to cvu, hence the else) just grab bundle patients
     else
-      aggregate_id_list << bundle.patients.pluck(:id)
+      aggregate_id_list.concat bundle.patients.pluck(:id)
     end
     aggregate_id_list
   end
@@ -232,30 +232,37 @@ class ProductTest
   def patients_in_ipp_and_greater
     # search thru all the patients for those IDs (that will be a where sort of query)
     # replace bundle.patients with a set where all the IDs are from our gather_patient_ids thing
-    # #bundle.patients.where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.IPP": true).pluck(:_id)
-    Patient.where(_id: gather_patient_ids).where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.IPP": true).pluck(:_id)
+    Patient.find(gather_patient_ids).keep_if do |p|
+      p.patient_relevant?(measures.pluck(:_id), ['IPP'])
+    end.pluck(:_id)
   end
 
   # Returns a listing of all ids for patients in the Numerator
   def patient_in_numerator
-    Patient.where(_id: gather_patient_ids).where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.NUMER": true).pluck(:_id)
+    Patient.find(gather_patient_ids).keep_if do |p|
+      p.patient_relevant?(measures.pluck(:_id), ['NUMER'])
+    end.pluck(:_id)
   end
 
   # Returns a listing of all ids for patients in the Denominator
   def patients_in_denominator_and_greater
-    Patient.where(_id: gather_patient_ids).where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.DENOM": true).pluck(:_id)
+    Patient.find(gather_patient_ids).keep_if do |p|
+      p.patient_relevant?(measures.pluck(:_id), ['DENOM'])
+    end.pluck(:_id)
   end
 
   # Returns a listing of all ids for patients in the Measure Population
   def patients_in_measure_population_and_greater
-    Patient.where(_id: gather_patient_ids).where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.MSRPOPL": true).pluck(:_id)
+    Patient.find(gather_patient_ids).keep_if do |p|
+      p.patient_relevant?(measures.pluck(:_id), ['MSRPOPL'])
+    end.pluck(:_id)
   end
 
   # Returns a listing of all ids for patients in the Measure Population
   def patients_in_high_value_populations
-    Patient.where(_id: gather_patient_ids).any_of({ "measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.NUMER": true },
-                                                  { "measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.DENEXCEP": true },
-                                                  "measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.DENEX": true).pluck(:_id)
+    Patient.find(gather_patient_ids).keep_if do |p|
+      p.patient_relevant?(measures.pluck(:_id), %w[NUMER DENEXCEP DENEX])
+    end.pluck(:_id)
   end
 
   def master_patient_ids
