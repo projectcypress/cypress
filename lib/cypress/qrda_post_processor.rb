@@ -1,5 +1,5 @@
 module Cypress
-  module GoImport
+  module QRDAPostProcessor
     def self.replace_negated_codes(patient, bundle)
       patient.qdmPatient.dataElements.each do |de|
         select_negated_code(de, bundle) if de['negationRationale'] && de.codes.find { |c| c.codeSystem == 'NA_VALUESET' }
@@ -10,13 +10,13 @@ module Cypress
       negated_element = data_element.dataElementCodes.map { |dec| dec if dec.codeSystem == 'NA_VALUESET' }.first
       negated_vs = negated_element.code
       # If Cypress has a default code selected, use it.  Otherwise, use the first in the valueset.
-      negated_code = if bundle.default_negation_codes && bundle.default_negation_codes[negated_vs]
-                       QDM::Code.new(bundle.default_negation_codes[negated_vs]['code'], bundle.default_negation_codes[negated_vs]['codeSystem'])
-                     else
-                       valueset = ValueSet.where(oid: negated_vs, bundle_id: bundle.id)
-                       QDM::Code.new(valueset.first.concepts.first['code'], valueset.first.concepts.first['code_system_name'])
-                     end
-      data_element.dataElementCodes << negated_code
+      code = if bundle.default_negation_codes && bundle.default_negation_codes[negated_vs]
+               { code: bundle.default_negation_codes[negated_vs]['code'], codeSystem: bundle.default_negation_codes[negated_vs]['codeSystem'] }
+             else
+               valueset = ValueSet.where(oid: negated_vs, bundle_id: bundle.id)
+               { code: valueset.first.concepts.first['code'], codeSystem: valueset.first.concepts.first['code_system_name'] }
+             end
+      data_element.dataElementCodes << code
     end
   end
 end
