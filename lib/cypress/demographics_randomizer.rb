@@ -92,11 +92,7 @@ module Cypress
 
     def self.randomize_payer(patient, prng)
       payer_element = patient.qdmPatient.get_data_elements('patient_characteristic', 'payer')
-      payer_hash = APP_CONSTANTS['randomization']['payers'].sample(random: prng)
-      while payer_hash['name'] == 'Medicare' &&
-            Time.at(patient.qdmPatient.birthDatetime).in_time_zone > Time.at(patient.bundle.effective_date).in_time_zone.years_ago(65)
-        payer_hash = APP_CONSTANTS['randomization']['payers'].sample
-      end
+      payer_hash = sample_payer(patient, prng)
       if payer_element&.any? && payer_element.first.dataElementCodes &&
          payer_element.first.dataElementCodes.any?
         new_payer = payer_element.first.dataElementCodes.first
@@ -107,7 +103,7 @@ module Cypress
         payer_element.first.dataElementCodes << new_payer
         payer_element.first.dataElementCodes.shift # get rid of existing dataElementCode
       else
-        raise 'Cannot find ethnicity element'
+        raise 'Cannot find payer element'
       end
     end
 
@@ -135,6 +131,17 @@ module Cypress
       if patient.dataElements.where(_type: QDM::PatientCharacteristicBirthdate).first
         patient.dataElements.where(_type: QDM::PatientCharacteristicBirthdate).first.birthDatetime = patient.birthDatetime
       end
+    end
+
+    private
+
+    def sample_payer(patient, prng)
+      payer_hash = APP_CONSTANTS['randomization']['payers'].sample(random: prng)
+      while payer_hash['name'] == 'Medicare' &&
+            Time.at(patient.qdmPatient.birthDatetime).in_time_zone > Time.at(patient.bundle.effective_date).in_time_zone.years_ago(65)
+        payer_hash = APP_CONSTANTS['randomization']['payers'].sample
+      end
+      payer_hash
     end
   end
 end
