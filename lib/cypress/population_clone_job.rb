@@ -88,6 +88,8 @@ module Cypress
       DemographicsRandomizer.randomize_race(cloned_patient, Random.new(0)) if cloned_patient.race == '2131-1'
       patch_insurance_provider(patient)
       randomize_entry_ids(cloned_patient) unless options['disable_randomization']
+      # if the test is a multi measure test, restrict to a single code
+      restrict_entry_codes(cloned_patient) if @test.is_a? MultiMeasureTest
       provider ? assign_existing_provider(cloned_patient, provider) : assign_provider(cloned_patient)
       cloned_patient.save!
       cloned_patient
@@ -97,6 +99,33 @@ module Cypress
       [%w[0 ZERO], %w[1 ONE], %w[2 TWO], %w[3 THREE], %w[4 FOUR], %w[5 FIVE], %w[6 SIX], %w[7 SEVEN], %w[8 EIGHT], %w[9 NINE]].each do |replacement|
         patient.givenNames.map { |n| n.gsub!(replacement[0], replacement[1]) }
         patient.familyName.gsub!(replacement[0], replacement[1])
+      end
+    end
+
+    def restrict_entry_codes(cloned_patient)
+      # Loop through every data element
+      cloned_patient.qdmPatient.dataElements.each do |entry|
+        # look up if the vendor has a preferred_code_system for the qdmCategory
+        vendor_preference = @test.product.vendor.preferred_code_systems[entry.qdmCategory]
+        # if the vendor does not have a preference, pick the first code
+        if vendor_preference.blank?
+          entry.dataElementCodes = [entry.dataElementCodes[0]]
+        else
+          # if the vendor has a preference, loop through in order
+          vendor_preference.each do |vp|
+            # find data element codes that match the preference 
+            pc = entry.dataElementCodes.map { |dec| dec if dec['codeSystem'] == vp }.compact
+            # if none found, look for the next one
+            next if pc.blank?
+
+            # if found, set data element codes to the first code from the preferred code system
+            entry.dataElementCodes = [pc[0]]
+            # exit loop once found
+            break
+          end
+        end
+        # if there are still multiple codes, use the first
+        entry.dataElementCodes = [entry.dataElementCodes[0]] if entry.dataElementCodes.size > 1
       end
     end
 

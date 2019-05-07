@@ -18,6 +18,7 @@ class Vendor
   field :address, type: String
   field :state, type: String
   field :zip, type: String
+  field :preferred_code_systems, type: Hash, default: {}
   field :favorite_user_ids, type: Array, default: []
 
   validates :name, presence: true, uniqueness: { message: 'Vendor name was already taken. Please choose another.' }
