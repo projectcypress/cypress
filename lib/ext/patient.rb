@@ -151,9 +151,12 @@ module CQM
       end
     end
 
+    # Return true if the patient is relevant for one of the population keys in one of the measures passed in
     def patient_relevant?(measure_ids, population_keys)
-      measure_relevance_hash.any? do |key, mrh|
-        (measure_ids.include? BSON::ObjectId.from_string(key)) && (population_keys.any? { |pop| mrh[pop] == true })
+      measure_relevance_hash.any? do |measure_key, mrh|
+        # Does the list of measure include the key from the measure relevance hash, and
+        # Does the measure relevance include a true value from on of the requested population keys.
+        (measure_ids.include? BSON::ObjectId.from_string(measure_key)) && (population_keys.any? { |pop| mrh[pop] == true })
       end
     end
   end
