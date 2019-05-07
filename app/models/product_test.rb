@@ -230,8 +230,6 @@ class ProductTest
 
   # Returns a listing of all ids for patients in the IPP
   def patients_in_ipp_and_greater
-    # search thru all the patients for those IDs (that will be a where sort of query)
-    # replace bundle.patients with a set where all the IDs are from our gather_patient_ids thing
     Patient.find(gather_patient_ids).keep_if do |p|
       p.patient_relevant?(measures.pluck(:_id), ['IPP'])
     end.pluck(:_id)
