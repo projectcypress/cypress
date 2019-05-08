@@ -133,9 +133,7 @@ module Cypress
       end
     end
 
-    private
-
-    def sample_payer(patient, prng)
+    def self.sample_payer(patient, prng)
       payer_hash = APP_CONSTANTS['randomization']['payers'].sample(random: prng)
       while payer_hash['name'] == 'Medicare' &&
             Time.at(patient.qdmPatient.birthDatetime).in_time_zone > Time.at(patient.bundle.effective_date).in_time_zone.years_ago(65)
