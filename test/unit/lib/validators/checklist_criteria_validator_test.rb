@@ -170,7 +170,8 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
                 ['laboratory_test', 'performed', 'status', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
                 ['laboratory_test', 'performed', 'method', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
                 ['laboratory_test', 'performed', 'result', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
-                ['laboratory_test', 'performed', 'resultDatetime', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
+                # resultDatetime cannot be confirmed in the negative tests, since if a resultDatetime isn't include, we will then export the authorDatetime or relevantPeriod in its place
+                # ['laboratory_test', 'performed', 'resultDatetime', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
                 ['laboratory_test', 'performed', 'reason', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
                 # ['laboratory_test', 'performed', 'referenceRange', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false], # Not currently in cqm-reports
                 ['laboratory_test', 'performed', 'components', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
