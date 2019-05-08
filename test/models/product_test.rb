@@ -2,6 +2,8 @@ require 'test_helper'
 require 'helpers/caching_test'
 
 class ProducTest < ActiveSupport::TestCase
+  include ActiveJob::TestHelper
+
   def setup
     @bundle = FactoryBot.create(:static_bundle)
     @vendor = FactoryBot.create(:vendor)
@@ -223,8 +225,9 @@ class ProducTest < ActiveSupport::TestCase
   def test_creates_product_tests_with_vendor_patients
     exec_bundle = FactoryBot.create(:executable_bundle)
     vendor_patient = FactoryBot.create(:vendor_test_patient, bundleId: exec_bundle.id, correlation_id: @vendor.id)
-    product = Product.new(vendor: @vendor, name: 'test_product', vendor_patients: true, bundle_patients: false, cvuplus: true, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: exec_bundle.id)
-    product.update_with_tests({})
+    product = Product.new(vendor: @vendor, name: 'test_product', vendor_patients: true, bundle_patients: false, cvuplus: true, measure_ids: ['40280382-5FA6-FE85-0160-0918E74D2075'], bundle_id: exec_bundle.id, randomize_patients: false)
+    params = { 'cvuplus' => 'true', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }
+    product.update_with_tests(params)
     # we want to see if this set of patients includes a patient whose whose original_patient_id field matches our patient.id
     # original_patient_id is the ID of the template
     product.product_tests.each do |pt|
@@ -233,16 +236,21 @@ class ProducTest < ActiveSupport::TestCase
   end
 
   def test_creates_product_tests_with_vendor_patients_and_bundle_patients
-    exec_bundle = FactoryBot.create(:executable_bundle)
-    vendor_patient = FactoryBot.create(:vendor_test_patient, bundleId: exec_bundle.id, correlation_id: @vendor.id)
-    product = Product.new(vendor: @vendor, name: 'test_product', vendor_patients: true, bundle_patients: true, cvuplus: true, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: exec_bundle.id)
-    product.update_with_tests({})
-    exec_ids = exec_bundle.patients.pluck(:_id)
-    product.product_tests.each do |pt|
-      assert(pt.patients.any? { |pat| pat.original_patient_id == vendor_patient.id })
-      pt.patients.each do |pat|
-        # if it's not a vendor patient, we want to make sure it's a bundle patient
-        assert exec_ids.include? pat.original_patient_id if pat.original_patient_id != vendor_patient.id
+    perform_enqueued_jobs do
+      exec_bundle = FactoryBot.create(:executable_bundle)
+      vendor_patient = FactoryBot.create(:vendor_test_patient, bundleId: exec_bundle.id, correlation_id: @vendor.id)
+      product = Product.new(vendor: @vendor, name: 'test_product', vendor_patients: true, bundle_patients: true, cvuplus: true, measure_ids: ['40280382-5FA6-FE85-0160-0918E74D2075'], bundle_id: exec_bundle.id, randomize_patients: false)
+      params = { 'cvuplus' => 'true', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }
+      product.update_with_tests(params)
+      exec_ids = exec_bundle.patients.pluck(:_id)
+      product.product_tests.each do |pt|
+        assert_equal 1, pt.send(:patients_in_ipp_and_greater).size
+        assert_equal 0, pt.send(:patients_in_high_value_populations).size
+        assert(pt.patients.any? { |pat| pat.original_patient_id == vendor_patient.id })
+        pt.patients.each do |pat|
+          # if it's not a vendor patient, we want to make sure it's a bundle patient
+          assert exec_ids.include? pat.original_patient_id if pat.original_patient_id != vendor_patient.id
+        end
       end
     end
   end
