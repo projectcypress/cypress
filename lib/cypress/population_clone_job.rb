@@ -113,7 +113,7 @@ module Cypress
         else
           # if the vendor has a preference, loop through in order
           vendor_preference.each do |vp|
-            # find data element codes that match the preference 
+            # find data element codes that match the preference
             pc = entry.dataElementCodes.map { |dec| dec if dec['codeSystem'] == vp }.compact
             # if none found, look for the next one
             next if pc.blank?
