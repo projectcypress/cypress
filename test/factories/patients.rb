@@ -93,6 +93,8 @@ FactoryBot.define do
       qdmPatient { FactoryBot.build(:qdm_patient) }
 
       after(:create) do |patient|
+        patient.measure_relevance_hash = {}
+        patient.measure_relevance_hash[Measure.find_by(bundle_id: patient.bundle.id, hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE')._id.to_s] = { 'IPP' => true, 'MSRPOPL' => true }
         provider = create(:default_provider)
         patient.providers << provider
         patient.save!
