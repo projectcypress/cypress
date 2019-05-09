@@ -8,19 +8,6 @@ class ProgramTestsController < ProductTestsController
     respond_with(@product, @product_test, &:js)
   end
 
-  def update
-    @product = @product_test.product
-    @product_test.update_with_program_tests(program_test_params)
-    respond_to do |format|
-      format.html { redirect_to product_program_test_path(@product, @product_test) }
-    end
-  rescue Mongoid::Errors::Validations
-    @product = @product_test.product
-    set_measures
-    set_breadcrumbs
-    render :show
-  end
-
   def set_breadcrumbs
     add_breadcrumb 'Dashboard', :vendors_path
     add_breadcrumb 'Vendor: ' + @product.vendor_name, vendor_path(@product.vendor_id)
