@@ -30,7 +30,6 @@ module Validators
 
     def validate_populations(measure, pop, options)
       file = options[:file_name]
-
       # proportion measures, ipp >= denom, denom >= num + denexcp + denex
       ipp = pop['IPP'] || pop['IPOP'] || 0
       denom = pop['DENOM'] || 0
@@ -65,15 +64,15 @@ module Validators
 
     def measure_entry_selector
       '/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component' \
-        "/cda:section[./cda:templateId[@root='2.16.840.1.113883.10.20.27.2.1']]/cda:entry"
+        "/cda:section[./cda:templateId[@root='2.16.840.1.113883.10.20.27.2.1']]/cda:entry/cda:organizer"
     end
 
     def measure_id_selector
-      'cda:organizer/cda:id/@extension'
+      'cda:id/@extension'
     end
 
     def population_selector_from_measure
-      "cda:organizer/cda:component/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.5']]"
+      "cda:component/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.5']]"
     end
 
     def population_name_selector
