@@ -29,37 +29,11 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   end
 
   def test_preferred_code_procedure_with_vendor_perference_snomedct
-    pcj = Cypress::PopulationCloneJob.new('test_id' => @pt.id)
-    pcj.find_patients_to_clone
-    vendor = @pt.product.vendor
-    vendor.preferred_code_systems['procedure'] = ['SNOMEDCT']
-    vendor.save
-    @pt.patients
-    original_patient = @pt.patients.first
-    cloned_patient = original_patient.clone
-    pcj.restrict_entry_codes(cloned_patient)
-    cloned_procedure_codes = cloned_patient.qdmPatient.procedures.first.dataElementCodes
-    # There should only be one codes in the cloned patients procedure
-    assert_equal 1, cloned_procedure_codes.size
-    # The cloned code should be from the SNOMEDCT code system
-    assert_equal 'SNOMEDCT', cloned_procedure_codes[0].codeSystem
+    assert_code_preferences(%w[SNOMEDCT])
   end
 
   def test_preferred_code_procedure_with_vendor_perference_cpt
-    pcj = Cypress::PopulationCloneJob.new('test_id' => @pt.id)
-    pcj.find_patients_to_clone
-    vendor = @pt.product.vendor
-    vendor.preferred_code_systems['procedure'] = ['CPT']
-    vendor.save
-    @pt.patients
-    original_patient = @pt.patients.first
-    cloned_patient = original_patient.clone
-    pcj.restrict_entry_codes(cloned_patient)
-    cloned_procedure_codes = cloned_patient.qdmPatient.procedures.first.dataElementCodes
-    # There should only be one codes in the cloned patients procedure
-    assert_equal 1, cloned_procedure_codes.size
-    # The cloned code should be from the CPT code system
-    assert_equal 'CPT', cloned_procedure_codes[0].codeSystem
+    assert_code_preferences(%w[CPT])
   end
 
   def test_preferred_code_procedure_with_vendor_perference_not_found
@@ -68,7 +42,6 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     vendor = @pt.product.vendor
     vendor.preferred_code_systems['procedure'] = ['FAKECS']
     vendor.save
-    @pt.patients
     original_patient = @pt.patients.first
     cloned_patient = original_patient.clone
     pcj.restrict_entry_codes(cloned_patient)
@@ -80,37 +53,29 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   end
 
   def test_preferred_code_procedure_with_ordered_vendor_perference_snomedct_first
-    pcj = Cypress::PopulationCloneJob.new('test_id' => @pt.id)
-    pcj.find_patients_to_clone
-    vendor = @pt.product.vendor
-    vendor.preferred_code_systems['procedure'] = %w[SNOMEDCT CPT]
-    vendor.save
-    @pt.patients
-    original_patient = @pt.patients.first
-    cloned_patient = original_patient.clone
-    pcj.restrict_entry_codes(cloned_patient)
-    cloned_procedure_codes = cloned_patient.qdmPatient.procedures.first.dataElementCodes
-    # There should only be one codes in the cloned patients procedure
-    assert_equal 1, cloned_procedure_codes.size
-    # The cloned code should be from the SNOMEDCT code system
-    assert_equal 'SNOMEDCT', cloned_procedure_codes[0].codeSystem
+    assert_code_preferences(%w[SNOMEDCT CPT])
   end
 
   def test_preferred_code_procedure_with_ordered_vendor_perference_cpt_first
+    assert_code_preferences(%w[CPT SNOMEDCT])
+  end
+
+  def assert_code_preferences(preferred_code_systems)
     pcj = Cypress::PopulationCloneJob.new('test_id' => @pt.id)
     pcj.find_patients_to_clone
     vendor = @pt.product.vendor
-    vendor.preferred_code_systems['procedure'] = %w[CPT SNOMEDCT]
+    vendor.preferred_code_systems['procedure'] = preferred_code_systems
     vendor.save
-    @pt.patients
     original_patient = @pt.patients.first
     cloned_patient = original_patient.clone
     pcj.restrict_entry_codes(cloned_patient)
     cloned_procedure_codes = cloned_patient.qdmPatient.procedures.first.dataElementCodes
+    # There should still be two codes in the original patients procedure
+    assert_equal 2, original_patient.qdmPatient.procedures.first.dataElementCodes.size
     # There should only be one codes in the cloned patients procedure
     assert_equal 1, cloned_procedure_codes.size
     # The cloned code should be from the SNOMEDCT code system
-    assert_equal 'CPT', cloned_procedure_codes[0].codeSystem
+    assert_equal preferred_code_systems[0], cloned_procedure_codes[0].codeSystem
   end
 
   def test_assigns_default_provider
