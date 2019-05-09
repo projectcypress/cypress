@@ -210,7 +210,7 @@ class ProductTest
       # then check if vendor and/or patients are included in product
       if product.vendor_patients
         # If so, add appropriate vendor patient ids
-        aggregate_id_list.concat product.vendor.patients.pluck(:id)
+        aggregate_id_list.concat product.vendor_patient_ids
       end
       if product.bundle_patients
         # If so, add appropriate bundle patient ids
