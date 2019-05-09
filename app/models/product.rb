@@ -86,7 +86,7 @@ class Product
   end
 
   def update_with_tests(params)
-    if params['cvuplus'] == 'true'
+    if params['cvuplus'] == 'true' || cvuplus
       update_with_cvu_plus_tests(params)
     else
       update_with_certification_tests(params)
@@ -165,17 +165,17 @@ class Product
 
   def add_multi_measure_tests(eh_ids, build_eh, ep_ids, build_ep)
     if build_eh
-      product_tests.where(name: 'EH Measures Test').destroy
+      product_tests.where(name: 'EH Measures').destroy
       product_tests.build({ name: 'EH Measures', measure_ids: eh_ids, reporting_program_type: 'eh' }, MultiMeasureTest)
     end
     if build_ep
-      product_tests.where(name: 'EP Measures Test').destroy
+      product_tests.where(name: 'EP Measures').destroy
       product_tests.build({ name: 'EP Measures', measure_ids: ep_ids, reporting_program_type: 'ep' }, MultiMeasureTest)
     end
   end
 
   def add_cms_program_tests(eh_ids, build_eh, ep_ids, build_ep)
-    if build_eh
+    if build_eh && product_tests.cms_program_tests.where(reporting_program_type: 'eh').empty?
       product_tests.build({ name: 'HQR_PI Test', cms_program: 'HQR_PI', measure_ids: eh_ids,
                             reporting_program_type: 'eh' }, CMSProgramTest)
       product_tests.build({ name: 'HQR_IQR Test', cms_program: 'HQR_IQR', measure_ids: eh_ids,
@@ -185,7 +185,7 @@ class Product
       product_tests.build({ name: 'HQR_IQR_VOL Test', cms_program: 'HQR_IQR_VOL', measure_ids: eh_ids,
                             reporting_program_type: 'eh' }, CMSProgramTest)
     end
-    if build_ep
+    if build_ep && product_tests.cms_program_tests.where(reporting_program_type: 'ep').empty?
       product_tests.build({ name: 'CPCPLUS Test', cms_program: 'CPCPLUS', measure_ids: ep_ids,
                             reporting_program_type: 'ep' }, CMSProgramTest)
       product_tests.build({ name: 'MIPS_INDIV Test', cms_program: 'MIPS_INDIV', measure_ids: ep_ids,
