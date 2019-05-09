@@ -6,6 +6,7 @@ module QDM
 
     field :population_set_key, type: String
     field :correlation_id, type: String
+    field :file_name, type: String
 
     belongs_to :cqm_patient, class_name: 'CQM::Patient', inverse_of: :calculation_results
 

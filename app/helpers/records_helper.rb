@@ -70,6 +70,20 @@ module RecordsHelper
     end.to_h
   end
 
+  def get_result_values_test_upload(correlation_id, file_name, measures, pop_set, pop_keys, key)
+    QDM::IndividualResult.where(
+      :correlation_id => correlation_id,
+      :file_name => file_name,
+      :measure_id.in => measures.collect(&:id),
+      :population_set_key => pop_set
+    ).collect do |elem|
+      [
+        elem[key],
+        pop_keys.collect { |pop_key| [pop_key, elem[pop_key].to_i] }.to_h
+      ]
+    end.to_h
+  end
+
   def records_by_measure(records, measure)
     # Returns array of records that have at least one calculation result for the given measure id
     records.includes(:calculation_results).reject do |r|

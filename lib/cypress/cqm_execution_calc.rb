@@ -75,6 +75,7 @@ module Cypress
       # Temporary fix is to strip out unneeded data to prevent saving keys containing '.'
       individual_result.extendedData = {}
       individual_result.statement_results = {}
+      individual_result.file_name = @options[:file_name] if @options[:file_name]
       individual_result.save
     end
 
