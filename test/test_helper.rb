@@ -52,6 +52,22 @@ class ActiveSupport::TestCase
     a1.count == a2.count && (a1 - a2).empty? && (a2 - a1).empty?
   end
 
+  def get_document(input)
+    content_str = case input
+                  when File
+                    input.read
+                  when Nokogiri::XML::Document
+                    return input
+                  else
+                    input
+                  end
+
+    document = Nokogiri::XML(content_str, &:strict)
+    document.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    document.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+    document
+  end
+
   def simplify_criteria(test, include_attribute_code = false)
     criteria = test.checked_criteria[0, 1]
     criteria[0].source_data_criteria = { 'codeListId' => '1.8.9.10',
