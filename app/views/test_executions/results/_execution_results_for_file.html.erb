@@ -21,6 +21,10 @@
   <%= "#{file_name} - #{num_errors} " + (is_passing ? "warnings" : "errors and warnings") %>
 </p>
 
+<% if @task.is_a? CMSProgramTask %>
+  <%= render partial: 'test_executions/results/calculation_results_for_file', locals: { execution: execution, file_name: file_name } %>
+<% end %>
+
 <% if on_execution_show_page %>
   <%= button_to 'View Uploaded XML with Errors', file_result_test_execution_path(execution, route_file_name(file_name)), :method => :get, :class => 'btn btn-primary' %>
   <br/>

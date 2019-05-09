@@ -55,6 +55,9 @@ Metrics/ModuleLength:
 # Avoid complex methods.
 Metrics/CyclomaticComplexity:
   Max: 10
+Metrics/ParameterLists:
+  Exclude:
+    - 'app/helpers/records_helper.rb'
 Metrics/PerceivedComplexity:
   Max: 10
 Naming/UncommunicativeMethodParamName:
