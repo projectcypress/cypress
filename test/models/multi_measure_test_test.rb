@@ -24,7 +24,7 @@ class MultiMeasureTestTest < ActiveJob::TestCase
     params = { measure_ids: measure_ids, 'cvuplus' => 'true' }
     product.update_with_tests(params)
     assert_equal true, product.save, 'should save with two measure ids'
-    assert_equal 1, product.product_tests.size, 'should have with one product test'
+    assert_equal 1, product.product_tests.multi_measure_tests.size, 'should have with one product test'
     assert_equal 'MultiMeasureTest', product.product_tests.first._type, 'should be a mutli measure test'
   end
 
@@ -39,7 +39,7 @@ class MultiMeasureTestTest < ActiveJob::TestCase
 
     params = { measure_ids: measure_ids, 'cvuplus' => 'true' }
     product.update_with_tests(params)
-    assert_equal 2, product.product_tests.size, 'should have with two product test'
+    assert_equal 2, product.product_tests.multi_measure_tests.size, 'should have with two product test'
     ep_measure_test = product.product_tests.where(name: 'EP Measures').first
     eh_measure_test = product.product_tests.where(name: 'EH Measures').first
     assert_equal 'MultiMeasureCat3Task', ep_measure_test.tasks.first._type, 'an ep multi measure test should have a cat 3 task'

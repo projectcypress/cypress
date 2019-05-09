@@ -36,11 +36,11 @@ module Validators
     end
 
     def validate_encounter_start_end(path, low, high, file)
-      current_time = Time.now.to_i
+      current_time = Time.now.utc
       if low > high
         # encounter ends before start time
         add_error("Encounter ends (#{format_time(high)}) before start time (#{format_time(low)})",
-                              location: path, file_name: file)
+                  location: path, file_name: file)
       elsif low > current_time || high > current_time
         # encounter occurs in the future
         add_error("Encounter occurs in the future (#{format_time(low)})", location: path, file_name: file)
