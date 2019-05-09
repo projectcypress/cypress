@@ -5,6 +5,8 @@
 # must specify local variable "execution"
 #
 %>
+<% uploaded_files = IndividualResult.where(correlation_id: params['id']).distinct(:file_name) %>
+<% files_with_errors = [] %>
 
 <% if execution.status_with_sibling == 'incomplete' %>
   <p class="lead row bg-info execution-status"><%= icon('fas fa-fw fa-spin text-info', 'sync-alt', :"aria-hidden" => true) %> In Progress</p>
@@ -45,7 +47,6 @@
     <p><%= collected_errors[:exception] %></p>
     <span class="help-block">Please report this issue to the Cypress team at <a href="https://github.com/projectcypress/cypress/issues" target="_blank">https://github.com/projectcypress/cypress/issues</a> and include: the uploaded file, the measure being tested, and the error message received.</span>
   <% end %>
-
   <% if collected_errors.nonfile.count.positive? %>
     <h2>Missing or Duplicate Files</h2>
     <ul class="fa-ul">
@@ -55,7 +56,7 @@
     </ul>
   <% end %>
 
-  <% if collected_errors.files.values.any? { |err| err.count.positive? } %>
+  <% if collected_errors.files.values.any? { |err| err.count.positive? } || (@task.is_a? CMSProgramTask) %>
     <h2><%= "Errors and " unless passing %>Warnings</h2>
     <div id="xml-tabs" class="hidden file-error-tabs short-tabs">
       <ul>
@@ -87,13 +88,42 @@
               <% end %>
             </a>
           </li>
+          <% files_with_errors << file_name %>
         <% end %>
+        <% if @task.is_a? CMSProgramTask
+          non_errored_files = uploaded_files - files_with_errors
+          non_errored_files.each do |file_name| %>
+          <li>
+            <a href=<%= "##{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>>
+              <%= file_name %>
+            </a>
+          </li>
+          <% end %>
+        <% end %>
+        
       </ul>
 
-      <% collected_errors.files.each do |file_name, error_result| %>
-        <div id=<%= "#{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>>
-          <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: execution, file_name: file_name, error_result: error_result, is_passing: passing, on_execution_show_page: true } %>
-        </div>
+      <% if @task.is_a? CMSProgramTask
+        uploaded_files.each do |file_name|
+          if files_with_errors.include?(file_name) %>
+            <div id=<%= "#{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>>
+              <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: execution, file_name: file_name, error_result: collected_errors.files[file_name], is_passing: passing, on_execution_show_page: true } %>
+            </div>
+          <% else %>
+            <div id=<%= "#{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>>
+              <p class="lead">
+                <%= "#{file_name}" %>
+              </p>
+              <%= render partial: 'test_executions/results/calculation_results_for_file', locals: { execution: execution, file_name: file_name } %>
+            </div>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% collected_errors.files.each do |file_name, error_result| %>
+          <div id=<%= "#{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>>
+            <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: execution, file_name: file_name, error_result: error_result, is_passing: passing, on_execution_show_page: true } %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   <% end %>
