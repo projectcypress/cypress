@@ -105,6 +105,8 @@ module Cypress
     def restrict_entry_codes(cloned_patient)
       # Loop through every data element
       cloned_patient.qdmPatient.dataElements.each do |entry|
+        next if entry.dataElementCodes.blank?
+
         # look up if the vendor has a preferred_code_system for the qdmCategory
         vendor_preference = @test.product.vendor.preferred_code_systems[entry.qdmCategory]
         # if the vendor does not have a preference, pick the first code
