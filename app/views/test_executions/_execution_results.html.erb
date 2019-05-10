@@ -103,7 +103,7 @@
         
       </ul>
 
-      <% if @task.is_a? CMSProgramTask
+      <% if @task.is_a? CMSProgramTask && @task.product_test.reporting_program_type == 'eh'
         uploaded_files.each do |file_name|
           if files_with_errors.include?(file_name) %>
             <div id=<%= "#{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>>
