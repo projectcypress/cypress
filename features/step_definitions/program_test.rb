@@ -4,8 +4,8 @@ include TestExecutionsHelper
 #   W H E N   #
 # # # # # # # #
 
-And(/^the user views cpcplus program task$/) do
-  @program_test = @product.product_tests.cms_program_tests.first
+And(/^the user views (.*) program task$/) do |program_name|
+  @program_test = @product.product_tests.cms_program_tests.where(cms_program: program_name).first
   visit product_program_test_path(@product, @program_test)
 end
 
@@ -21,6 +21,10 @@ Then(/^the user should see errors and warnings$/) do
   page.assert_text 'Errors and Warnings'
 end
 
+Then(/^the user should see measure calculations$/) do
+  page.assert_text 'Measure Calculations'
+end
+
 Then(/^the user should see cms program tests$/) do
   page.assert_text 'CMS Program Tests'
 end
@@ -31,11 +35,6 @@ When(/^the user fills out the program test with good data$/) do
 end
 
 When(/^the program test should have a program_criteria with the entered value$/) do
-  @program_test.reload
-  assert_equal 1, @program_test.program_criteria.where(entered_value: '1234567').size
-end
-
-When(/^the user uploads a QRDA Cat III file$/) do
   @program_test.reload
   assert_equal 1, @program_test.program_criteria.where(entered_value: '1234567').size
 end

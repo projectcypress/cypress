@@ -12,7 +12,7 @@ When(/^the user creates a cvu plus product with records$/) do
 
   params = { measure_ids: measure_ids, 'cvuplus' => 'true' }
   @product.update_with_tests(params)
-  @product_test = @product.product_tests.first
+  @product_test = @product.product_tests.multi_measure_tests.first
   @product_test.generate_patients
   MeasureEvaluationJob.perform_now(@product_test, {})
   wait_for_all_delayed_jobs_to_run
@@ -21,6 +21,9 @@ end
 When(/^the user creates a cvu plus product$/) do
   bundle_id = Bundle.default._id
   measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE', '40280382-5FA6-FE85-0160-0918E74D2075']
+  eh_measure = Measure.where(hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE').first
+  eh_measure.reporting_program_type = 'eh'
+  eh_measure.save
   @product = @vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
                                      bundle_id: bundle_id)
 
@@ -30,7 +33,7 @@ When(/^the user creates a cvu plus product$/) do
 end
 
 And(/^the user views multi measure cat3 task$/) do
-  task = @product_test.tasks.multi_measure_cat3_task
+  task = @product.product_tests.multi_measure_tests.where(reporting_program_type: 'ep').first.tasks.multi_measure_cat3_task
   visit new_task_test_execution_path(task)
 end
 
