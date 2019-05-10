@@ -51,7 +51,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 24, te.execution_errors.size
+      assert_equal 22, te.execution_errors.size
     end
   end
 
