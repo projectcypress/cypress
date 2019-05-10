@@ -230,7 +230,7 @@ class ProducTest < ActiveSupport::TestCase
     product.update_with_tests(params)
     # we want to see if this set of patients includes a patient whose whose original_patient_id field matches our patient.id
     # original_patient_id is the ID of the template
-    product.product_tests.each do |pt|
+    product.product_tests.multi_measure_tests.each do |pt|
       pt.patients.each { |pat| assert_equals pat.original_patient_id, vendor_patient.id }
     end
   end
@@ -243,7 +243,7 @@ class ProducTest < ActiveSupport::TestCase
       params = { 'cvuplus' => 'true', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }
       product.update_with_tests(params)
       exec_ids = exec_bundle.patients.pluck(:_id)
-      product.product_tests.each do |pt|
+      product.product_tests.multi_measure_tests.each do |pt|
         assert_equal 1, pt.send(:patients_in_ipp_and_greater).size
         assert_equal 0, pt.send(:patients_in_high_value_populations).size
         assert(pt.patients.any? { |pat| pat.original_patient_id == vendor_patient.id })
