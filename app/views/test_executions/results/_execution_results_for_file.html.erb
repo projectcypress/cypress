@@ -21,7 +21,7 @@
   <%= "#{file_name} - #{num_errors} " + (is_passing ? "warnings" : "errors and warnings") %>
 </p>
 
-<% if @task.is_a? CMSProgramTask %>
+<% if (@task.is_a? CMSProgramTask) && @task.product_test.reporting_program_type == 'eh' %>
   <%= render partial: 'test_executions/results/calculation_results_for_file', locals: { execution: execution, file_name: file_name } %>
 <% end %>
 
