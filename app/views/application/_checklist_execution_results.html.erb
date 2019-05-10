@@ -28,7 +28,7 @@
   <tbody>
     <tr>
       <% unless execution.nil? %>
-        <td><%= link_to 'View Results', new_task_test_execution_path(execution.task) %></td>
+        <td><%= link_to 'View Results', new_task_test_execution_path(execution.task), :id => "result-link" %></td>
       <% else %>
         <td> <%= icon('far fa-fw text-info', 'circle', :"aria-hidden" => true) %>
           <span class = 'text-info'>Not Started</span>
