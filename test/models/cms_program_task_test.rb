@@ -46,7 +46,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
 
   def test_ep_task_with_errors
     setup_ep
-    task = @product.product_tests.cms_program_tests.where(cms_program: 'CPCPLUS').first.tasks.first
+    task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first.tasks.first
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml'))
     perform_enqueued_jobs do
       te = task.execute(file, @user)
