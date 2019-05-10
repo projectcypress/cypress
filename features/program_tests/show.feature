@@ -6,7 +6,7 @@ Background:
 
 Scenario: Successfully View a Program Test
   When the user creates a cvu plus product
-  And the user views cpcplus program task
+  And the user views CPCPLUS program task
   Then the user should see instructions
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
