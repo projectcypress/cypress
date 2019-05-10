@@ -19,7 +19,7 @@ module Validators
     # Validates a QRDA Cat I file.  This routine will validate the file against the checklist criteria
     def validate(file, options = {})
       @file = file
-      calculate_patient(options)
+      calculate_patient(options) if options.task.product_test.reporting_program_type == 'eh'
       @criteria_list.each do |criteria|
         # if a criteria has already passed, no need to check again
         next if criteria.criterium_verified
@@ -36,7 +36,7 @@ module Validators
       patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(@file)
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, options.task.bundle)
       calc_job = Cypress::CqmExecutionCalc.new([patient.qdmPatient],
-                                               options.task.bundle.measures,
+                                               options.task.product_test.measures,
                                                options.test_execution.id.to_s,
                                                'effectiveDateEnd': Time.at(options.task.effective_date).in_time_zone.to_formatted_s(:number),
                                                'effectiveDate': Time.at(options.task.measure_period_start).in_time_zone.to_formatted_s(:number),
