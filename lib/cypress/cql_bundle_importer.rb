@@ -100,6 +100,7 @@ module Cypress
           measure.bundle_id = bundle.id
           measure.reporting_program_type = measure_info[cms_id].type || 'ep'
           measure.category = measure_info[cms_id].category  || 'Effective Clinical Care'
+          reconnect_valueset_references(measure, bundle)
           measure.save!
         end
         report_progress('measures', (index * 100 / measure_packages.length)) if (index % 10).zero?
@@ -173,17 +174,22 @@ module Cypress
       STDOUT.flush
     end
 
-    def self.reconnect_valueset_references(measure)
+    def self.reconnect_valueset_references(measure, bundle)
+      # iterate over existing valueSets on measure (direct reference codes) and add bundle_id
+      measure.value_sets.each do |value_set|
+        value_set.bundle_id = bundle.id
+      end
+      # re-associate all other valueSets
       value_sets = []
-      measure['cql_libraries'].each do |cql_library|
-        cql_library['elm']['library']['valueSets'].each_pair do |_key, valuesets|
+      measure.cql_libraries.each do |cql_library|
+        cql_library.elm.library.valueSets.each_pair do |_key, valuesets|
           valuesets.each do |valueset|
             value_sets << ValueSet.where(oid: valueset['id']).first
           end
         end
         next unless cql_library['elm']['library']['codes']
 
-        cql_library['elm']['library']['codes'].each_pair do |_key, codes|
+        cql_library.elm.library.codes.each_pair do |_key, codes|
           codes.each do |code|
             code_system_name, code_system_version = code_system_name_and_version(cql_library, code['codeSystem']['name'])
             code_hash = ApplicationController.helpers.direct_reference_code_hash(code_system_name, code_system_version, code)
@@ -191,7 +197,7 @@ module Cypress
           end
         end
       end
-      value_sets
+      measure.value_sets.push(*value_sets)
     end
 
     def self.code_system_name_and_version(cql_library, code_system_name)

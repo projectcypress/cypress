@@ -7,8 +7,8 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: 5df201e23cf773faaa3ae1d09cf19b37c5e4a9c8
-  branch: master
+  revision: ed570bed57be9aba98c81220ede02dae5806b3e7
+  branch: cherrypick_sdc_fix
   specs:
     cqm-parsers (1.0.0)
       activesupport (~> 5.0)
@@ -20,7 +20,7 @@ GIT
       mongoid (~> 6.4.2)
       mongoid-tree (~> 2.1.1)
       mustache
-      nokogiri (~> 1.10.3)
+      nokogiri (>= 1.8.5, < 1.11.0)
       protected_attributes_continued (~> 1.4.0)
       rubyzip (~> 1.2.2)
       typhoeus
