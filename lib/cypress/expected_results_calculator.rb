@@ -28,27 +28,27 @@ module Cypress
       ps_map[patient_id]['PAYER'] = patient.qdmPatient.get_data_elements('patient_characteristic', 'payer')[0].dataElementCodes[0].code
     end
 
+    def prepopulate_measure_result_hash(measure)
+      @measure_result_hash[measure.hqmf_id] = {}
+      measure_keys = measure.population_sets_and_stratifications_for_measure.map { |ps| measure.key_for_population_set(ps) }
+      measure_keys.each do |mk|
+        @measure_result_hash[measure.hqmf_id][mk] = {}
+        measure.population_keys.each do |pop_key|
+          @measure_result_hash[measure.hqmf_id][mk][pop_key] = 0
+        end
+        @measure_result_hash[measure.hqmf_id][mk]['supplemental_data'] = {}
+      end
+    end
+
     def aggregate_results_for_measures(measures, individual_results = nil)
       measures.each do |measure|
+        prepopulate_measure_result_hash(measure)
         measure_individual_results = nil
         # If individual_results are provided, use the results for the measure being aggregated
         measure_individual_results = individual_results.select { |res| res['measure_id'] == measure.id.to_s } if individual_results
         # If individual_results are provided, use them.  Otherwise, look them up in the database by measure id and correlation_id
         measure_individual_results ||= QDM::IndividualResult.where('measure_id' => measure._id, correlation_id: @correlation_id)
 
-        # add a hash value to store results for each measure
-        @measure_result_hash[measure.hqmf_id] = {}
-        next unless measure_individual_results
-
-        # add a nested hash value to store results for each population set for a measure
-        measure_individual_results.collect(&:population_set_key).uniq.each do |key|
-          @measure_result_hash[measure.hqmf_id][key] = { 'supplemental_data' => {} }
-          # add a nested hash value to store results for each population ['IPP'] within a population set ['Population Criteria 1'] for a measure
-          measure.population_keys.each do |pop|
-            @measure_result_hash[measure.hqmf_id][key][pop] = 0
-          end
-        end
-        # now that the hashs are set up, fill in the expected results using the individual results for the measure
         aggregate_results_for_measure(measure, measure_individual_results)
       end
       @measure_result_hash
@@ -77,7 +77,7 @@ module Cypress
       end
       # TODO: Observations may not always be the median
       @measure_result_hash[measure.hqmf_id].keys.each do |key|
-        @measure_result_hash[measure.hqmf_id][key]['OBSERV'] = median(observ_values[key].reject(&:nil?))
+        @measure_result_hash[measure.hqmf_id][key]['OBSERV'] = observ_values[key] ? median(observ_values[key].reject(&:nil?)) : 0.0
         @measure_result_hash[measure.hqmf_id][key]['measure_id'] = measure.hqmf_id
         @measure_result_hash[measure.hqmf_id][key]['pop_set_hash'] = measure.population_set_hash_for_key(key)
       end
