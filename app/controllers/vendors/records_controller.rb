@@ -125,7 +125,7 @@ module Vendors
     end
 
     def authorize_vendor
-      authorize_request(@vendor, { read: %w[show index by_measure], manage: %w[new create update destroy delete edit] })
+      authorize_request(@vendor, read: %w[show index by_measure], manage: %w[new create update destroy delete edit])
     end
   end
 end
