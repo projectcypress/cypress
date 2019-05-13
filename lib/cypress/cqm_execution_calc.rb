@@ -61,7 +61,12 @@ module Cypress
         individual_result['patient_id'] = patient.id.to_s
         individual_result['cqm_patient'] = patient
         # save to database
-        save_individual_result(individual_result) if (save && individual_result.IPP != 0)
+        if individual_result.IPP != 0
+          save_individual_result(individual_result) if save
+        else
+          byebug
+          test = individual_result
+        end
         # update the patients, measure_relevance_hash
         patient.update_measure_relevance_hash(individual_result)
       end
