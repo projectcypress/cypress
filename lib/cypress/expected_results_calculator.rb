@@ -30,13 +30,13 @@ module Cypress
 
     def prepopulate_measure_result_hash(measure)
       @measure_result_hash[measure.hqmf_id] = {}
-      measure_keys = measure.population_sets_and_stratifications_for_measure.map { |ps| measure.key_for_population_set(ps) }
-      measure_keys.each do |mk|
-        @measure_result_hash[measure.hqmf_id][mk] = {}
+      population_set_keys = measure.population_sets_and_stratifications_for_measure.map { |ps| measure.key_for_population_set(ps) }
+      population_set_keys.each do |psk|
+        @measure_result_hash[measure.hqmf_id][psk] = {}
         measure.population_keys.each do |pop_key|
-          @measure_result_hash[measure.hqmf_id][mk][pop_key] = 0
+          @measure_result_hash[measure.hqmf_id][psk][pop_key] = 0
         end
-        @measure_result_hash[measure.hqmf_id][mk]['supplemental_data'] = {}
+        @measure_result_hash[measure.hqmf_id][psk]['supplemental_data'] = {}
       end
     end
 
