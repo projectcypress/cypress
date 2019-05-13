@@ -36,7 +36,6 @@ module Cypress
       results = JSON.parse(response)
 
       patient_result_hash = {}
-
       results.each do |patient_id, result|
         # Aggregate the results returned from the calculation engine for a specific patient.
         # If saving the individual results, update identifiers (patient id, population_set_key) in the individual result.
@@ -63,7 +62,7 @@ module Cypress
         # save to database
         save_individual_result(individual_result) if save && individual_result.IPP != 0
         # update the patients, measure_relevance_hash
-        patient.update_measure_relevance_hash(individual_result)
+        patient.update_measure_relevance_hash(individual_result) if individual_result.IPP != 0
       end
       patient.save if save
     end
@@ -72,6 +71,10 @@ module Cypress
       individual_result = QDM::IndividualResult.new(individual_result)
       # when saving the individual result, include the provided correlation id
       individual_result.correlation_id = @correlation_id
+      # TODO: Fix in cqm-models and execution
+      # Temporary fix is to strip out unneeded data to prevent saving keys containing '.'
+      individual_result.extendedData = {}
+      individual_result.statement_results = {}
       individual_result.save
     end
 
