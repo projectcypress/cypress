@@ -2,7 +2,7 @@ module Cypress
   class CqlBundleImporter
     SOURCE_ROOTS = { bundle: 'bundle.json',
                      measures: 'measures', results: 'results',
-                     valuesets: File.join('value_sets', 'json', '*.json'),
+                     valuesets: File.join('value_sets', 'value-set-codes.csv'),
                      patients: 'patients' }.freeze
     COLLECTION_NAMES = ['bundles', 'records', 'measures', 'individual_results', 'system.js'].freeze
     DEFAULTS = { type: nil,
@@ -60,12 +60,25 @@ module Cypress
     end
 
     def self.unpack_and_store_valuesets(zip, bundle)
-      entries = zip.glob(SOURCE_ROOTS[:valuesets]).map do |entry|
-        entry = unpack_json(entry)
-        entry['bundle_id'] = bundle.id
-        entry
+      previous_vs = nil
+      current_row = nil
+      codes = []
+      csv_text = zip.read(SOURCE_ROOTS[:valuesets])
+      csv = CSV.parse(csv_text, headers: true, col_sep: '|')
+      csv.each do |row|
+        current_row = row
+        previous_vs = row['OID'] if previous_vs.nil?
+        if row['OID'] != previous_vs
+          CQM::ValueSet.new(oid: row['OID'], display_name: row['ValueSetName'], version: row['ExpansionVersion'],
+                            concepts: codes, bundle: bundle).save
+          previous_vs = row['OID']
+          codes = []
+        end
+        codes << CQM::Concept.new(code: row['Code'], code_system_oid: row['CodeSystemOID'], code_system_name: row['CodeSystemName'],
+                                  code_system_version: row['CodeSystemVersion'], display_name: row['Descriptor'])
       end
-      ValueSet.collection.insert_many(entries)
+      CQM::ValueSet.new(oid: current_row['OID'], display_name: current_row['ValueSetName'], version: current_row['ExpansionVersion'],
+                        concepts: codes, bundle: bundle).save
       puts "\rLoading: Value Sets Complete          "
     end
 
