@@ -27,11 +27,7 @@ class RecordsController < ApplicationController
   def show
     @record = @source.patients.find(params[:id])
     @results = @record.calculation_results
-    @measures = if @vendor
-                  @bundle.measures.where(:_id.in => @results.map(&:measure_id))
-                else
-                  @source.measures.where(:_id.in => @results.map(&:measure_id))
-                end
+    @measures = (@vendor ? @bundle : @source).measures.where(:_id.in => @results.map(&:measure_id))
     @continuous_measures = @measures.where(measure_scoring: 'CONTINUOUS_VARIABLE').sort_by { |m| [m.cms_int] }
     @proportion_measures = @measures.where(measure_scoring: 'PROPORTION').sort_by { |m| [m.cms_int] }
     expires_in 1.week, public: true
@@ -39,7 +35,9 @@ class RecordsController < ApplicationController
   end
 
   def by_measure
-    @patients =  @vendor ? @vendor.patients.includes(:calculation_results).where(bundleId: @bundle.id.to_s) : @source.patients.includes(:calculation_results)
+    @patients = @vendor.patients.includes(:calculation_results).where(bundleId: @bundle.id.to_s) if @vendor
+    @patients ||= @source.patients.includes(:calculation_results)
+
     if params[:measure_id]
       measures = @vendor ? @bundle.measures : @source.measures
       @measure = measures.find_by(hqmf_id: params[:measure_id])
@@ -77,22 +75,16 @@ class RecordsController < ApplicationController
       set_record_source_vendor
     elsif params[:task_id]
       set_record_source_product_test
-    elsif params[:bundle_id]
-      set_record_source_bundle
     else
-      # TODO: figure out what scenarios lead to this branch and fix them
-      @bundle = Bundle.default
-      @source = @bundle
-      return unless @bundle
-
-      add_breadcrumb 'Master Patient List', bundle_records_path(@bundle)
-      @title = 'Master Patient List'
+      set_record_source_bundle
     end
   end
 
   # sets the record source to bundle for the master patient list
   def set_record_source_bundle
-    @source = @bundle = Bundle.available.find(params[:bundle_id])
+    # TODO: figure out what scenarios lead to no params[:bundle_id] here
+    @source = @bundle = params[:bundle_id] ? Bundle.available.find(params[:bundle_id]) : Bundle.default
+    return unless @bundle
     add_breadcrumb 'Master Patient List', bundle_records_path(@bundle)
     @title = 'Master Patient List'
   end
@@ -136,10 +128,16 @@ class RecordsController < ApplicationController
 
   def measures_for_source
     Rails.cache.fetch("#{@source.cache_key}/measure_dropdown") do
-      measures = @vendor ? @bundle.measures : @source.measures
-      measures.order_by(cms_int: 1).map do |m|
-        { label: "#{m.cms_id}: #{m.description}",
-          value: @vendor ? by_measure_vendor_records_path(@vendor, measure_id: m.hqmf_id, bundle_id: @bundle.id) : by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id) }
+      if @vendor
+        @bundle.measures.order_by(cms_int: 1).map do |m|
+          { label: "#{m.cms_id}: #{m.description}",
+            value: by_measure_vendor_records_path(@vendor, measure_id: m.hqmf_id, bundle_id: @bundle.id) }
+        end
+      else
+        @source.measures.order_by(cms_int: 1).map do |m|
+          { label: "#{m.cms_id}: #{m.description}",
+            value: by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id) }
+        end
       end.to_json.html_safe
     end
   end

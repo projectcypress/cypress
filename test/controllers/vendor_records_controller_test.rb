@@ -200,7 +200,9 @@ class VendorsRecordsControllerTest < ActionController::TestCase
   test 'should get patients by measure' do
     # do this for all users with vendor access
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get :by_measure, params: { vendor_id: @vendor, measure_id: m.hqmf_id, bundle_id: @bundle.id }
+      get :index, params: { vendor_id: @vendor.id }
+      get :by_measure, xhr: true, params: { vendor_id: @vendor, measure_id: @bundle.measures.first.hqmf_id, bundle_id: @bundle.id }
+      assert_template :by_measure
       assert_response :success, "#{@user.email} should have access to vendor patients by measure"
       assert assigns(:patients)
       assert assigns(:source)

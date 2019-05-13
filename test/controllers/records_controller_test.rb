@@ -63,7 +63,9 @@ class RecordsControllerTest < ActionController::TestCase
   test 'should get patients by measure' do
     # do this for all users
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR, OTHER_VENDOR]) do
-      get :by_measure, params: { measure_id: m.hqmf_id, bundle_id: @bundle.id }
+      get :index
+      get :by_measure, xhr: true, params: { measure_id: @bundle.measures.first.hqmf_id, bundle_id: @bundle.id }
+      assert_template :by_measure
       assert_response :success, "#{@user.email} should have access to bundle patients by measure"
       assert assigns(:patients)
       assert assigns(:source)
