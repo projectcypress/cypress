@@ -106,7 +106,7 @@ module Cypress
       first = patients.first
       ptest = first.product_test
       measures = ptest ? ptest.measures : patients.first.bundle.measures
-      start_date = ptest ? ptest.start_date : Time.at(patients.first.bundle.effective_date).in_time_zone
+      start_date = ptest ? ptest.start_date : Time.at(patients.first.bundle.measure_period_start).in_time_zone
       end_date = ptest ? ptest.end_date : start_date + 1.year
       [measures, start_date, end_date]
     end
