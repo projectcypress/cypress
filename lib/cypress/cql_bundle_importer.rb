@@ -1,8 +1,11 @@
+require 'hqmf-parser'
+
 module Cypress
   class CqlBundleImporter
     SOURCE_ROOTS = { bundle: 'bundle.json',
-                     measures: 'measures', results: 'results',
-                     valuesets: File.join('value_sets', 'json', '*.json'),
+                     measures: 'measures', measures_info: 'measures_info.json',
+                     results: 'results',
+                     valuesets: File.join('value_sets', 'value-set-codes.csv'),
                      patients: 'patients' }.freeze
     COLLECTION_NAMES = ['bundles', 'records', 'measures', 'individual_results', 'system.js'].freeze
     DEFAULTS = { type: nil,
@@ -12,14 +15,8 @@ module Cypress
     # Import a quality bundle into the database. This includes metadata, measures, test patients, supporting JS libraries, and expected results.
     #
     # @param [File] zip The bundle zip file.
-    # @param [String] Type of measures to import, either 'ep', 'eh' or nil for all
-    # @param [Boolean] keep_existing If true, delete all current collections related to patients and measures.
 
-    def self.import(zip, options = {})
-      options = DEFAULTS.merge(options)
-      @measure_id_hash = {}
-      @patient_id_hash = {}
-
+    def self.import(zip)
       bundle = nil
       Zip::ZipFile.open(zip.path) do |zip_file|
         bundle = unpack_bundle(zip_file)
@@ -30,9 +27,9 @@ module Cypress
 
         puts 'bundle metadata unpacked...'
         unpack_and_store_valuesets(zip_file, bundle)
-        unpack_and_store_measures(zip_file, options[:type], bundle)
-        unpack_and_store_cqm_patients(zip_file, options[:type], bundle)
-        unpack_and_store_results(zip_file, options[:type], bundle)
+        unpack_and_store_measures(zip_file, bundle)
+        unpack_and_store_cqm_patients(zip_file, bundle)
+        calculate_results(bundle)
       end
 
       bundle
@@ -60,96 +57,86 @@ module Cypress
     end
 
     def self.unpack_and_store_valuesets(zip, bundle)
-      entries = zip.glob(SOURCE_ROOTS[:valuesets]).map do |entry|
-        entry = unpack_json(entry)
-        entry['bundle_id'] = bundle.id
-        entry
+      current_row = nil
+      previous_row = nil
+      codes = []
+      csv_text = zip.read(SOURCE_ROOTS[:valuesets])
+      csv = CSV.parse(csv_text, headers: true, col_sep: '|')
+      csv.each do |row|
+        current_row = row
+        previous_row = row if previous_row.nil?
+        if row['OID'] != previous_row['OID']
+          CQM::ValueSet.new(oid: previous_row['OID'], display_name: previous_row['ValueSetName'], version: previous_row['ExpansionVersion'],
+                            concepts: codes, bundle: bundle).save
+          previous_row = row
+          codes = []
+        end
+        codes << CQM::Concept.new(code: row['Code'], code_system_oid: row['CodeSystemOID'], code_system_name: row['CodeSystemName'],
+                                  code_system_version: row['CodeSystemVersion'], display_name: row['Descriptor'])
       end
-      ValueSet.collection.insert_many(entries)
+      CQM::ValueSet.new(oid: current_row['OID'], display_name: current_row['ValueSetName'], version: current_row['ExpansionVersion'],
+                        concepts: codes, bundle: bundle).save
       puts "\rLoading: Value Sets Complete          "
     end
 
-    def self.unpack_and_store_measures(zip, type, bundle)
-      entries = zip.glob(File.join(SOURCE_ROOTS[:measures], type || '**', '*.json'))
-      entries.each_with_index do |entry, index|
-        source_measure = unpack_json(entry)
-        # we clone so that we have a source without a bundle id
-        measure = source_measure.clone
-        measure['bundle_id'] = bundle.id
-        mes = Mongoid.default_client['measures'].insert_one(measure)
-        inserted_measure = Measure.find(mes.inserted_id)
-        inserted_measure.value_sets = reconnect_valueset_references(measure)
-        inserted_measure.save
-        @measure_id_hash[measure['bonnie_measure_id']] = mes.inserted_id
-        report_progress('measures', (index * 100 / entries.length)) if (index % 10).zero?
+    def self.unpack_and_store_measures(zip, bundle)
+      measure_info = JSON.parse(zip.read(SOURCE_ROOTS[:measures_info]))
+      measure_packages = zip.glob(File.join(SOURCE_ROOTS[:measures], '**', '*.zip'))
+      measure_packages.each_with_index do |measure_package_zipped, index|
+        temp_file_path = File.join('.', 'tmp.zip')
+        FileUtils.rm_f(temp_file_path)
+        measure_package_zipped.extract(temp_file_path)
+        measure_package = File.new temp_file_path
+        cms_id = measure_package_zipped.name[%r{measures\/(.*?)v}m, 1]
+        measure_details = { 'episode_of_care' => measure_info[cms_id].episode_of_care }
+        loader = Measures::CqlLoader.new(measure_package, measure_details)
+        # will return an array of CQMMeasures, most of the time there will only be a single measure
+        # if the measure is a composite measure, the array will contain the composite and all of the components
+        measures = loader.extract_measures
+        measures.each do |measure|
+          save_extracted_measure(measure, measure_info, bundle)
+        end
+        FileUtils.rm_f(temp_file_path)
+        report_progress('measures', (index * 100 / measure_packages.length)) if (index % 10).zero?
       end
       puts "\rLoading: Measures Complete          "
     end
 
-    def self.unpack_and_store_cqm_patients(zip, type, bundle)
-      entries = zip.glob(File.join(SOURCE_ROOTS[:patients], type || '**', 'json', '*.json'))
-      entries.each_with_index do |entry, index|
-        patient = CQM::BundlePatient.new(unpack_json(entry))
+    def self.save_extracted_measure(measure, measure_info, bundle)
+      cms_id = measure.cms_id[/(.*?)v/m, 1]
+      measure.bundle_id = bundle.id
+      measure.reporting_program_type = measure_info[cms_id].type || 'ep'
+      measure.category = measure_info[cms_id].category || 'Effective Clinical Care'
+      # Remove prior valueset references
+      measure.value_sets = []
+      reconnect_valueset_references(measure, bundle)
+      measure.save!
+    end
 
+    def self.unpack_and_store_cqm_patients(zip, bundle)
+      qrda_files = zip.glob(File.join(SOURCE_ROOTS[:patients], '**', '*.xml'))
+      qrda_files.each_with_index do |qrda_file, index|
+        qrda = qrda_file.get_input_stream.read
+        doc = Nokogiri::XML::Document.parse(qrda)
+        doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+        doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+        patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
         patient['bundleId'] = bundle.id
-
-        reconnect_references(patient)
-        @patient_id_hash[patient.original_medical_record_number] = patient['id']
-        patient.save
-        report_progress('patients', (index * 100 / entries.length)) if (index % 10).zero?
+        patient.update(_type: CQM::BundlePatient, correlation_id: bundle.id)
+        patient.save!
+        report_progress('patients', (index * 100 / qrda_files.length)) if (index % 10).zero?
       end
       puts "\rLoading: Patients Complete          "
     end
 
-    # TODO: This will need to be updated for 2018.0.2 bundles that store relatedTo as an QDM::ID
-    def self.reconnect_references(patient)
-      patient.qdmPatient.dataElements.each do |data_element|
-        next unless data_element['relatedTo']
-
-        ref_array = []
-        oid_hash = {}
-        patient.qdmPatient.dataElements.each do |de|
-          oid_hash[{ 'codes' => de['dataElementCodes'].map { |dec| dec['code'] }.flatten, 'start_time' => de['authorDatetime'].to_i }.hash] = de.id
-        end
-        data_element[:relatedTo].each do |ref|
-          ref_array << oid_hash[{ 'codes' => ref['codes'], 'start_time' => ref['start_time'] }.hash]
-        end
-        data_element.relatedTo = ref_array
-      end
-    end
-
-    def self.unpack_and_store_results(zip, _type, bundle)
-      results = zip.glob(File.join(SOURCE_ROOTS[:results], '*.json')).map do |entry|
-        contents = unpack_json(entry)
-        contents.map! do |document|
-          document['patient_id'] = @patient_id_hash[document['patient_id']]
-          document['measure_id'] = @measure_id_hash[document['measure_id']]
-          document['correlation_id'] = bundle.id.to_s
-          document
-        end
-      end.flatten
-      QDM::IndividualResult.collection.insert_many(results)
-      irs = QDM::IndividualResult.where('correlation_id': bundle.id.to_s)
-      irs.each do |ir|
-        ir.cqm_patient = CQM::Patient.find(ir.patient)
-        ir.save
-      end
-      compile_measure_relevance_hash
+    def self.calculate_results(bundle)
+      calc_job = Cypress::CqmExecutionCalc.new(bundle.patients.map(&:qdmPatient),
+                                               bundle.measures,
+                                               bundle.id.to_s,
+                                               'effectiveDateEnd': Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number),
+                                               'effectiveDate': Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number))
+      calc_job.execute(true)
       puts "\rLoading: Results Complete          "
-    end
-
-    def self.compile_measure_relevance_hash
-      @patient_id_hash.each_value do |patient|
-        updated_patient = Patient.find(patient)
-        updated_patient.calculation_results.each do |individual_result|
-          updated_patient.update_measure_relevance_hash(individual_result)
-        end
-        updated_patient.save
-      end
-    end
-
-    def self.unpack_json(entry)
-      JSON.parse(entry.get_input_stream.read, max_nesting: false)
     end
 
     def self.report_progress(label, percent)
@@ -157,22 +144,44 @@ module Cypress
       STDOUT.flush
     end
 
-    def self.reconnect_valueset_references(measure)
+    def self.reconnect_valueset_references(measure, bundle)
       value_sets = []
-      measure['cql_libraries'].each do |cql_library|
-        cql_library['elm']['library']['valueSets'].each_pair do |_key, valuesets|
-          valuesets.each do |valueset|
-            value_sets << ValueSet.where(oid: valueset['id']).first
-          end
-        end
+      measure.cql_libraries.each do |cql_library|
+        value_sets.concat compile_value_sets_from_library(cql_library, bundle) if cql_library.elm.library['valueSets']
         next unless cql_library['elm']['library']['codes']
 
-        cql_library['elm']['library']['codes'].each_pair do |_key, codes|
-          codes.each do |code|
-            code_system_name, code_system_version = code_system_name_and_version(cql_library, code['codeSystem']['name'])
-            code_hash = ApplicationController.helpers.direct_reference_code_hash(code_system_name, code_system_version, code)
-            value_sets << ValueSet.where(oid: code_hash).first
-          end
+        value_sets.concat compile_drcs_from_library(cql_library, bundle)
+      end
+      value_sets.compact
+      measure.value_sets.push(*value_sets)
+    end
+
+    def self.compile_value_sets_from_library(cql_library, bundle)
+      value_sets = []
+      cql_library.elm.library.valueSets.each_pair do |_key, valuesets|
+        valuesets.each do |valueset|
+          value_sets << ValueSet.where(oid: valueset['id'], bundle_id: bundle.id).first
+        end
+      end
+      value_sets
+    end
+
+    def self.compile_drcs_from_library(cql_library, bundle)
+      vs_model_cache = {}
+      value_sets_from_single_code_references = Measures::ValueSetHelpers.make_fake_valuesets_from_single_code_references([cql_library['elm']],
+                                                                                                                         vs_model_cache)
+      find_or_save_drc_valuesets(value_sets_from_single_code_references, bundle)
+    end
+
+    def self.find_or_save_drc_valuesets(drc_valuesets, bundle)
+      value_sets = []
+      drc_valuesets.each do |drc_valueset|
+        if ValueSet.where(oid: drc_valueset['oid'], bundle_id: bundle.id).empty?
+          drc_valueset.bundle = bundle
+          drc_valueset.save
+          value_sets << drc_valueset
+        else
+          value_sets << ValueSet.where(oid: drc_valueset['oid'], bundle_id: bundle.id).first
         end
       end
       value_sets
