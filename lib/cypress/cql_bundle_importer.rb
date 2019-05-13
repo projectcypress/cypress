@@ -1,8 +1,11 @@
+require 'hqmf-parser'
+
 module Cypress
   class CqlBundleImporter
     SOURCE_ROOTS = { bundle: 'bundle.json',
-                     measures: 'measures', results: 'results',
                      valuesets: File.join('value_sets', 'value-set-codes.csv'),
+                     measures: 'measures', measures_info: 'measures_info.json',
+                     results: 'results',
                      patients: 'patients' }.freeze
     COLLECTION_NAMES = ['bundles', 'records', 'measures', 'individual_results', 'system.js'].freeze
     DEFAULTS = { type: nil,
@@ -82,19 +85,24 @@ module Cypress
       puts "\rLoading: Value Sets Complete          "
     end
 
-    def self.unpack_and_store_measures(zip, type, bundle)
-      entries = zip.glob(File.join(SOURCE_ROOTS[:measures], type || '**', '*.json'))
-      entries.each_with_index do |entry, index|
-        source_measure = unpack_json(entry)
-        # we clone so that we have a source without a bundle id
-        measure = source_measure.clone
-        measure['bundle_id'] = bundle.id
-        mes = Mongoid.default_client['measures'].insert_one(measure)
-        inserted_measure = Measure.find(mes.inserted_id)
-        inserted_measure.value_sets = reconnect_valueset_references(measure)
-        inserted_measure.save
-        @measure_id_hash[measure['bonnie_measure_id']] = mes.inserted_id
-        report_progress('measures', (index * 100 / entries.length)) if (index % 10).zero?
+    def self.unpack_and_store_measures(zip, bundle)
+      measure_info = JSON.load(File.open(File.join(zip.path,SOURCE_ROOTS[:measures_info])))
+      measure_packages = Dir.glob(File.join(zip,SOURCE_ROOTS[:measures],'**', '*.zip'))
+      measure_details = { 'episode_of_care'=> true }
+      measure_packages.each_with_index do |measure_package_path, index|
+        measure_package = File.new measure_package_path
+        loader = Measures::CqlLoader.new(measure_package, measure_details)
+        # will return an array of CQMMeasures, most of the time there will only be a single measure
+        # if the measure is a composite measure, the array will contain the composite and all of the components
+        measures = loader.extract_measures
+        measures.each do |measure|
+          cms_id = measure.cms_id[/(.*?)v/m, 1]
+          measure.bundle_id = bundle.id
+          measure.reporting_program_type = measure_info[cms_id].type || 'ep'
+          measure.category = measure_info[cms_id].category  || 'Effective Clinical Care'
+          measure.save!
+        end
+        report_progress('measures', (index * 100 / measure_packages.length)) if (index % 10).zero?
       end
       puts "\rLoading: Measures Complete          "
     end

@@ -1,9 +1,31 @@
 GIT
   remote: https://github.com/projecttacoma/cqm-models.git
-  revision: 1538fb1dce6b63c2fbec5e27f639389f92604242
+  revision: b5cf44abcccffc51111438c4cf4d64830da9d9bb
   branch: master
   specs:
     cqm-models (1.0.2)
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-parsers.git
+  revision: 5df201e23cf773faaa3ae1d09cf19b37c5e4a9c8
+  branch: master
+  specs:
+    cqm-parsers (1.0.0)
+      activesupport (~> 5.0)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 6.4.2)
+      mongoid-tree (~> 2.1.1)
+      mustache
+      nokogiri (~> 1.10.3)
+      protected_attributes_continued (~> 1.4.0)
+      rubyzip (~> 1.2.2)
+      typhoeus
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-reports.git
@@ -208,6 +230,8 @@ GEM
     equalizer (0.0.11)
     erubi (1.8.0)
     erubis (2.7.0)
+    ethon (0.12.0)
+      ffi (>= 1.3.0)
     execjs (2.7.0)
     factory_bot (5.0.2)
       activesupport (>= 4.2.0)
@@ -222,6 +246,7 @@ GEM
     gherkin (4.1.3)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    highline (1.7.10)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.9.5)
@@ -323,6 +348,8 @@ GEM
       capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
+    protected_attributes_continued (1.4.0)
+      activemodel (>= 5.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -458,6 +485,8 @@ GEM
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.9)
+    typhoeus (1.3.1)
+      ethon (>= 0.9.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uber (0.1.0)
@@ -517,6 +546,7 @@ DEPENDENCIES
   carrierwave-mongoid
   codecov
   cqm-models!
+  cqm-parsers!
   cqm-reports!
   cqm-validators!
   cucumber (~> 3.0.2)
