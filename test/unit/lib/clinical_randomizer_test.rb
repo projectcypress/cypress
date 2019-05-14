@@ -6,6 +6,7 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
     @patient = BundlePatient.new(givenNames: ['Foo'], familyName: 'Bar', bundleId: @bundle.id)
     @start = DateTime.new(2011, 1, 1, 0, 0, 0).utc
     @end = DateTime.new(2011, 12, 31, 23, 59, 59).utc
+    @payer_codes = [{ 'code' => '1', 'codeSystemOid' => '2.16.840.1.113883.3.221.5' }]
 
     @patient.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
     @patient.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 10, 1, 23, 59, 59).utc, nil))
@@ -23,13 +24,13 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
   def setup_secondary_instances
     @patient3 = BundlePatient.new(givenNames: ['Insurance'], familyName: 'Test', bundleId: @bundle.id)
     @patient3.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
-    @patient3.insurance_providers = [{ start_time: @start }]
+    @patient3.qdmPatient.dataElements.push QDM::PatientCharacteristicPayer.new(dataElementCodes: @payer_codes, relevantPeriod: QDM::Interval.new(@start, nil))
     @patient3.save!
 
     @patient4 = BundlePatient.new(givenNames: ['SplitDate'], familyName: 'Same', bundleId: @bundle.id)
     @patient4.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
     @patient4.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
-    @patient4.insurance_providers = [{ start_time: @start }]
+    @patient4.qdmPatient.dataElements.push QDM::PatientCharacteristicPayer.new(dataElementCodes: @payer_codes, relevantPeriod: QDM::Interval.new(@start, nil))
     @patient4.save!
 
     @patient5 = BundlePatient.new(givenNames: ['SplitDate'], familyName: 'Same_plus', bundleId: @bundle.id)
@@ -37,7 +38,7 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
     @patient5.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
     @patient5.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
     @patient5.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 4, 5, 10, 40, 0).utc, nil))
-    @patient5.insurance_providers = [{ start_time: @start }]
+    @patient5.qdmPatient.dataElements.push QDM::PatientCharacteristicPayer.new(dataElementCodes: @payer_codes, relevantPeriod: QDM::Interval.new(@start, nil))
     @patient5.save!
   end
 
@@ -84,35 +85,35 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
 
   def test_add_insurance_provider_split_by_date
     record1, record2 = Cypress::ClinicalRandomizer.split_by_date(@patient3, @end, @start, Random.new)
-    assert_equal 1, record1.insurance_providers.length, 'Record should have an insurance provider'
-    assert_equal 1, record2.insurance_providers.length, 'Record should have an insurance provider'
+    assert_equal '1', record1.payer, 'Record should have an insurance provider'
+    assert_equal '1', record2.payer, 'Record should have an insurance provider'
   end
 
   def test_add_insurance_provider_split_by_type
     record1, record2 = Cypress::ClinicalRandomizer.split_by_type(@patient3, @end, @start, Random.new)
-    assert_equal 1, record1.insurance_providers.length, 'Record should have an insurance provider'
-    assert_equal 1, record2.insurance_providers.length, 'Record should have an insurance provider'
+    assert_equal '1', record1.payer, 'Record should have an insurance provider'
+    assert_equal '1', record2.payer, 'Record should have an insurance provider'
   end
 
   def test_entries_on_split_date
     record1, record2 = Cypress::ClinicalRandomizer.split_by_date(@patient4, @end, @start, Random.new)
 
-    assert_equal 2, record1.qdmPatient.dataElements.length, 'Record should have both entries (and a payer)'
-    assert_equal 0, record2.qdmPatient.dataElements.length, 'Second record should not have entries (other than payer)'
+    assert_equal 3, record1.qdmPatient.dataElements.length, 'Record should have both entries (and a payer)'
+    assert_equal 1, record2.qdmPatient.dataElements.length, 'Second record should not have entries (other than payer)'
 
-    assert_equal 1, record1.insurance_providers.length, 'Record 1 should have a payer'
-    assert_equal 1, record2.insurance_providers.length, 'Record 2 should have a payer'
+    assert_equal '1', record1.payer, 'Record 1 should have a payer'
+    assert_equal '1', record2.payer, 'Record 2 should have a payer'
   end
 
   def test_entries_on_split_date_plus
     record1, record2 = Cypress::ClinicalRandomizer.split_by_date(@patient5, @end, @start, Random.new)
 
-    assert_equal 4, record1.qdmPatient.dataElements.length + record2.qdmPatient.dataElements.length, 'There should be 4 entries total'
+    assert_equal 6, record1.qdmPatient.dataElements.length + record2.qdmPatient.dataElements.length, 'There should be 6 entries total'
 
     assert record1.qdmPatient.dataElements.length >= 1, 'Record 1 should have at least 1 entry'
     assert record2.qdmPatient.dataElements.length >= 1, 'Record 1 should have at least 1 entry'
 
-    assert_equal 1, record1.insurance_providers.length, 'Record 1 should have a payer'
-    assert_equal 1, record2.insurance_providers.length, 'Record 2 should have a payer'
+    assert_equal '1', record1.payer, 'Record 1 should have a payer'
+    assert_equal '1', record2.payer, 'Record 2 should have a payer'
   end
 end

@@ -71,21 +71,24 @@ randomization:
       codeSystem     : 2.16.840.1.113883.6.238
       codeSystemName : CDC Race
   payers:
-    - type       : MA
-      code       : 1
-      name       : Medicare
-      codeSystem : SOP
-      codeCMS    : A
-    - type       : MC
-      code       : 2
-      name       : Medicaid
-      codeSystem : SOP
-      codeCMS    : B
-    - type       : OT
-      code       : 349
-      name       : Other
-      codeSystem : SOP
-      codeCMS    : D
+    - type           : MA
+      code           : 1
+      name           : Medicare
+      codeSystem     : 2.16.840.1.113883.3.221.5
+      codeSystemName : SOP
+      codeCMS        : A
+    - type           : MC
+      code           : 2
+      name           : Medicaid
+      codeSystem     : 2.16.840.1.113883.3.221.5
+      codeSystemName : SOP
+      codeCMS        : B
+    - type           : OT
+      code           : 349
+      name           : Other
+      codeSystem     : 2.16.840.1.113883.3.221.5
+      codeSystemName : SOP
+      codeCMS        : D
 references:
   bundles:
     current:

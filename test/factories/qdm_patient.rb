@@ -159,6 +159,28 @@ FactoryBot.define do
       {
         'dataElementCodes' => [
           {
+            'code' => '1',
+            'codeSystem' => 'sop',
+            'descriptor' => 'Medicare',
+            'codeSystemOid' => '2.16.840.1.113883.3.221.5'
+          }
+        ],
+        'relevantPeriod' => {
+          'low' => '2017-09-28T08:00:00+00:00',
+          'high' => nil,
+          'lowClosed' => true,
+          'highClosed' => true
+        },
+        '_type' => 'QDM::PatientCharacteristicPayer',
+        'hqmfOid' => '2.16.840.1.113883.10.20.28.4.58',
+        'description' => nil,
+        'qdmCategory' => 'patient_characteristic',
+        'qdmStatus' => 'payer',
+        'qdmVersion' => '5.3'
+      },
+      {
+        'dataElementCodes' => [
+          {
             'code' => '1002-5',
             'codeSystem' => 'cdcrec',
             'descriptor' => 'American Indian or Alaska Native',

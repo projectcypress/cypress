@@ -17,7 +17,7 @@ module Cypress
 
     def self.payers(patient, _options = {})
       # TODO: R2P: Check just getting first ip name? (not all)
-      [patient.insurance_providers.first['name']]
+      [patient.payer]
     end
 
     def self.age(patient, options = {})
