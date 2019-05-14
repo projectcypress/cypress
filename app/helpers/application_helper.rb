@@ -53,7 +53,7 @@ module ApplicationHelper
   end
 
   def cvu_status_row(hash, status)
-    # uses the hash provided by the get_product_status_values method
+    # uses the hash provided by the get_cvu_status_values method
     row_values = [0, 0, 0]
     row_values[0] = hash['EP_Measure']['EP Measure Test'][status]
     row_values[1] = hash['EH_Measure']['EH Measure Test'][status]

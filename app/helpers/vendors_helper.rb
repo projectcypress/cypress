@@ -20,7 +20,7 @@ module VendorsHelper
   end
 
   # return value is nested hash structured like this:
-  #   { certification_type: { product_test_type: { passing: #, failing: #, not_started: #, total: # } } }
+  #   { test_type: { product_test_type: { passing: #, failing: #, not_started: #, total: # } } }
   def get_cvu_status_values(product)
     Rails.cache.fetch("#{product.cache_key}/cvu_status_values") do
       h = {}

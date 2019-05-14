@@ -86,6 +86,7 @@ class Product
   end
 
   def update_with_tests(params)
+    # update cvu+ tests if the parameter is passed in (with a new product) or if the exiting product is already for cvuplus
     if params['cvuplus'] == 'true' || cvuplus
       update_with_cvu_plus_tests(params)
     else
@@ -163,6 +164,10 @@ class Product
   #   P R I V A T E   #
   # - - - - - - - - - #
 
+  # eh_ids: eh measure to include in a multimeasure test
+  # build_eh: whethter or not you should build a new mulitmeasure test (e.g., a test was updated with new eh measures)
+  # ep_ids: ep measure to include in a multimeasure test
+  # build_ep: whethter or not you should build a new mulitmeasure test (e.g., a test was updated with new ep measures)
   def add_multi_measure_tests(eh_ids, build_eh, ep_ids, build_ep)
     if build_eh
       product_tests.where(name: 'EH Measures').destroy
@@ -174,26 +179,28 @@ class Product
     end
   end
 
+  # eh_ids: eh measure to include in a multimeasure test
+  # build_eh: whethter or not you should build a new mulitmeasure test (e.g., a test was updated with new eh measures)
+  # ep_ids: ep measure to include in a multimeasure test
+  # build_ep: whethter or not you should build a new mulitmeasure test (e.g., a test was updated with new ep measures)
   def add_cms_program_tests(eh_ids, build_eh, ep_ids, build_ep)
+    # don't rebuild if eh cms_program_tests already exist
     if build_eh && product_tests.cms_program_tests.where(reporting_program_type: 'eh').empty?
-      product_tests.build({ name: 'HQR_PI Test', cms_program: 'HQR_PI', measure_ids: eh_ids,
-                            reporting_program_type: 'eh' }, CMSProgramTest)
-      product_tests.build({ name: 'HQR_IQR Test', cms_program: 'HQR_IQR', measure_ids: eh_ids,
-                            reporting_program_type: 'eh' }, CMSProgramTest)
-      product_tests.build({ name: 'HQR_PI_IQR Test', cms_program: 'HQR_PI_IQR', measure_ids: eh_ids,
-                            reporting_program_type: 'eh' }, CMSProgramTest)
-      product_tests.build({ name: 'HQR_IQR_VOL Test', cms_program: 'HQR_IQR_VOL', measure_ids: eh_ids,
-                            reporting_program_type: 'eh' }, CMSProgramTest)
+      # if no eh_ids remain, remove exiting test
+      product_tests.cms_program_tests.where(reporting_program_type: 'eh').destroy if eh_ids.empty?
+      CMS_IG_CONFIG['CMS Programs']['eh'].each do |cms_program|
+        product_tests.build({ name: "#{cms_program} Test", cms_program: cms_program, measure_ids: eh_ids,
+                              reporting_program_type: 'eh' }, CMSProgramTest)
+      end
     end
+    # don't rebuild if eh cms_program_tests already exist
     if build_ep && product_tests.cms_program_tests.where(reporting_program_type: 'ep').empty?
-      product_tests.build({ name: 'CPCPLUS Test', cms_program: 'CPCPLUS', measure_ids: ep_ids,
-                            reporting_program_type: 'ep' }, CMSProgramTest)
-      product_tests.build({ name: 'MIPS_INDIV Test', cms_program: 'MIPS_INDIV', measure_ids: ep_ids,
-                            reporting_program_type: 'ep' }, CMSProgramTest)
-      product_tests.build({ name: 'MIPS_GROUP Test', cms_program: 'MIPS_GROUP', measure_ids: ep_ids,
-                            reporting_program_type: 'ep' }, CMSProgramTest)
-      product_tests.build({ name: 'MIPS_VIRTUALGROUP Test', cms_program: 'MIPS_VIRTUALGROUP', measure_ids: ep_ids,
-                            reporting_program_type: 'ep' }, CMSProgramTest)
+      # if no ep_ids remain, remove exiting test
+      product_tests.cms_program_tests.where(reporting_program_type: 'ep').destroy if ep_ids.empty?
+      CMS_IG_CONFIG['CMS Programs']['ep'].each do |cms_program|
+        product_tests.build({ name: "#{cms_program} Test", cms_program: cms_program, measure_ids: ep_ids,
+                              reporting_program_type: 'ep' }, CMSProgramTest)
+      end
     end
   end
 

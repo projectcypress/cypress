@@ -58,7 +58,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
   def test_eh_task_with_errors
     setup_eh
     pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
-    pc = pt.program_criteria.where(criterium_key: 'CCN').first
+    pc = pt.program_criteria.where(criterion_key: 'CCN').first
     pc.entered_value = '563358'
     pt.save
     task = pt.tasks.first
