@@ -3,6 +3,7 @@ module TestExecutionsHelper
   include Cypress::ErrorCollector
 
   def displaying_cat1?(task)
+    # A CMSProgramTask only uses the cat I upload when the reporting_program_type is eh
     task.is_a?(C1Task) || task.is_a?(Cat1FilterTask) || task.is_a?(C1ChecklistTask) || task.is_a?(MultiMeasureCat1Task) ||
       (task.is_a?(CMSProgramTask) && task.product_test.reporting_program_type == 'eh')
   end

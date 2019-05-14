@@ -30,7 +30,7 @@
               <% @product_test.program_criteria.each.with_index do |program_criteria,index| %>
                 <%= f.fields_for :program_criteria, program_criteria do |criteria_field| %>
                     <tr>
-                      <% if criteria_field.object.criterium_verified %>
+                      <% if criteria_field.object.criterion_verified %>
                         <td class='data-criteria hide-me'>
                           <span class="sr-only">Passes QRDA</span>
                           <%= icon('fas fa-fw text-success', 'check', :"aria-hidden" => true) %> (<%= criteria_field.object.file_name %>)
@@ -40,8 +40,8 @@
                           <%= icon('fas fa-fw text-info invisible', 'play-circle', :"aria-hidden" => true) %>
                         </td>
                       <% end %>
-                      <td><%= criteria_field.object.criterium_name %></td>
-                      <td><%= criteria_field.object.criterium_description %></td>
+                      <td><%= criteria_field.object.criterion_name %></td>
+                      <td><%= criteria_field.object.criterion_description %></td>
                       <td><%= criteria_field.object.cms_conf %></td>
                       <td><%= criteria_field.text_field :entered_value, hide_label: true, class: 'hide-me' %></td>
                     </tr>

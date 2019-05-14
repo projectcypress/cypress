@@ -11,7 +11,7 @@ module Validators
       @criteria_list = program_test.program_criteria
       @criteria_list.each do |criteria|
         # set passing flag to false during each validation
-        criteria.criterium_verified = false
+        criteria.criterion_verified = false
         criteria.save!
       end
     end
@@ -22,11 +22,11 @@ module Validators
       calculate_patient(options) if options.task.product_test.reporting_program_type == 'eh'
       @criteria_list.each do |criteria|
         # if a criteria has already passed, no need to check again
-        next if criteria.criterium_verified
+        next if criteria.criterion_verified
 
         next unless validate_criteria(criteria)
 
-        criteria.criterium_verified = true
+        criteria.criterion_verified = true
         criteria.file_name = options[:file_name]
         criteria.save
       end
@@ -56,9 +56,9 @@ module Validators
         'CPCPLUS APM Entity Identifier' => "//cda:participant/cda:associatedEntity/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.3.249.5.1']",
         'Virtual Group Identifier' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.3.249.5.2']"
       }
-      results = @file.xpath(xpath_map[checked_criteria[:criterium_key]])
+      results = @file.xpath(xpath_map[checked_criteria[:criterion_key]])
       if results.present?
-        checked_criteria.criterium_verified = true
+        checked_criteria.criterion_verified = true
         checked_criteria.save
       end
     end
