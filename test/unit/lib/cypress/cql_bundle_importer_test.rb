@@ -7,8 +7,15 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
   end
 
   test 'should successfully unpack measures out of bundle' do
-    before_count = Measure.count() 
+    before_count = Measure.count()
+    Cypress::CqlBundleImporter.unpack_and_store_valuesets(@fake_bundle_dir, @bundle)
     Cypress::CqlBundleImporter.unpack_and_store_measures(@fake_bundle_dir, @bundle)
     assert_equal (before_count + 2), Measure.count()
+  end
+
+  test 'should successfully unpack valuesets out of bundle' do
+    before_count = ValueSet.count()
+    Cypress::CqlBundleImporter.unpack_and_store_valuesets(@fake_bundle_dir, @bundle)
+    assert_equal (before_count + 22), ValueSet.count()
   end
 end

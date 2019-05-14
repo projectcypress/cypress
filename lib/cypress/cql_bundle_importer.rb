@@ -66,7 +66,8 @@ module Cypress
       previous_vs = nil
       current_row = nil
       codes = []
-      csv_text = zip.read(SOURCE_ROOTS[:valuesets])
+      vs_file = File.new(File.join(zip.path,SOURCE_ROOTS[:valuesets]))
+      csv_text = vs_file.read()
       csv = CSV.parse(csv_text, headers: true, col_sep: '|')
       csv.each do |row|
         current_row = row
