@@ -14,6 +14,70 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     assert_equal 10, Patient.where(correlation_id: @pt.id).count
   end
 
+  def test_preferred_code_procedure_without_vendor_perference
+    pcj = Cypress::PopulationCloneJob.new('test_id' => @pt.id)
+    pcj.find_patients_to_clone
+    original_patient = @pt.patients.first
+    original_procedure_codes = original_patient.qdmPatient.procedures.first.dataElementCodes
+    # There are two codes in the original patients procedure
+    assert_equal 2, original_procedure_codes.size
+    cloned_patient = original_patient.clone
+    pcj.restrict_entry_codes(cloned_patient)
+    cloned_procedure_codes = cloned_patient.qdmPatient.procedures.first.dataElementCodes
+    # There should only be one codes in the cloned patients procedure
+    assert_equal 1, cloned_procedure_codes.size
+  end
+
+  def test_preferred_code_procedure_with_vendor_perference_snomedct
+    assert_code_preferences(%w[SNOMEDCT])
+  end
+
+  def test_preferred_code_procedure_with_vendor_perference_cpt
+    assert_code_preferences(%w[CPT])
+  end
+
+  def test_preferred_code_procedure_with_vendor_perference_not_found
+    pcj = Cypress::PopulationCloneJob.new('test_id' => @pt.id)
+    pcj.find_patients_to_clone
+    vendor = @pt.product.vendor
+    vendor.preferred_code_systems['procedure'] = ['FAKECS']
+    vendor.save
+    original_patient = @pt.patients.first
+    cloned_patient = original_patient.clone
+    pcj.restrict_entry_codes(cloned_patient)
+    cloned_procedure_codes = cloned_patient.qdmPatient.procedures.first.dataElementCodes
+    # There should only be one codes in the cloned patients procedure
+    assert_equal 1, cloned_procedure_codes.size
+    # The cloned code should not be from the FAKECS code system
+    assert_not_equal 'FAKECS', cloned_procedure_codes[0].codeSystem
+  end
+
+  def test_preferred_code_procedure_with_ordered_vendor_perference_snomedct_first
+    assert_code_preferences(%w[SNOMEDCT CPT])
+  end
+
+  def test_preferred_code_procedure_with_ordered_vendor_perference_cpt_first
+    assert_code_preferences(%w[CPT SNOMEDCT])
+  end
+
+  def assert_code_preferences(preferred_code_systems)
+    pcj = Cypress::PopulationCloneJob.new('test_id' => @pt.id)
+    pcj.find_patients_to_clone
+    vendor = @pt.product.vendor
+    vendor.preferred_code_systems['procedure'] = preferred_code_systems
+    vendor.save
+    original_patient = @pt.patients.first
+    cloned_patient = original_patient.clone
+    pcj.restrict_entry_codes(cloned_patient)
+    cloned_procedure_codes = cloned_patient.qdmPatient.procedures.first.dataElementCodes
+    # There should still be two codes in the original patients procedure
+    assert_equal 2, original_patient.qdmPatient.procedures.first.dataElementCodes.size
+    # There should only be one codes in the cloned patients procedure
+    assert_equal 1, cloned_procedure_codes.size
+    # The cloned code should be from the SNOMEDCT code system
+    assert_equal preferred_code_systems[0], cloned_procedure_codes[0].codeSystem
+  end
+
   def test_assigns_default_provider
     # ids passed in should clone just the 1 record
     sample_patient = @pt.bundle.patients.sample

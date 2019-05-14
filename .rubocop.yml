@@ -16,8 +16,6 @@ Rails/FindEach: # Find_each does not work with mongoid
 Rails/HasAndBelongsToMany:
   Exclude:
     - 'app/models/role.rb'
-Rails/FindEach:
-  Enabled: false
 Documentation:
   Enabled: false
 Metrics/LineLength:
@@ -43,11 +41,13 @@ Metrics/ClassLength:
     - 'lib/cypress/api_measure_evaluator.rb'
     - 'lib/cypress/cql_bundle_importer.rb'
     - 'lib/cypress/demographics_randomizer.rb'
+    - 'lib/cypress/population_clone_job.rb'
 Metrics/AbcSize:
   # The ABC size is a calculated magnitude, so this number can be a Fixnum or
   # a Float.
   Max: 32
   Exclude:
+    - 'lib/cypress/population_clone_job.rb'
     - 'test/**/*.rb'
 Metrics/ModuleLength:
   Max: 110

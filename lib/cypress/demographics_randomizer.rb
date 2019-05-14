@@ -10,7 +10,7 @@ module Cypress
       randomize_race(patient, prng)
       randomize_ethnicity(patient, prng)
       randomize_address(patient)
-      randomize_insurance_provider(patient)
+      randomize_payer(patient, prng)
     end
 
     # TODO: redundant with patient (formerly record) name randomization methods
@@ -90,29 +90,21 @@ module Cypress
       patient.addresses = [address]
     end
 
-    def self.randomize_insurance_provider(patient)
-      ip = {}
-      # TODO: R2P: check should create nil keys for new insurance provider? and startTime format works?
-      randomize_payer(ip, patient)
-      ip['financial_responsibility_type'] = { 'code' => 'SELF', 'codeSystem' => 'HL7 Relationship Code' }
-      ip['member_id'] = Faker::Number.number(10)
-      ip['start_time'] = get_random_payer_start_date(patient)
-      patient.insurance_providers = [ip]
-    end
-
-    def self.randomize_payer(insurance_provider, patient)
-      payer = APP_CONSTANTS['randomization']['payers'].sample
-      # if the payer is Medicare and the patient is < 65 years old at the beginning of the measurement period, try again
-      while payer['name'] == 'Medicare' &&
-            Time.at(patient.qdmPatient.birthDatetime).in_time_zone > Time.at(patient.bundle.effective_date).in_time_zone.years_ago(65)
-        payer = APP_CONSTANTS['randomization']['payers'].sample
+    def self.randomize_payer(patient, prng)
+      payer_element = patient.qdmPatient.get_data_elements('patient_characteristic', 'payer')
+      payer_hash = sample_payer(patient, prng)
+      if payer_element&.any? && payer_element.first.dataElementCodes &&
+         payer_element.first.dataElementCodes.any?
+        new_payer = payer_element.first.dataElementCodes.first
+        new_payer['code'] = payer_hash['code']
+        new_payer['codeSystemOid'] = payer_hash['codeSystem']
+        new_payer['codeSystem'] = payer_hash['codeSystemName']
+        new_payer['descriptor'] = payer_hash ['name']
+        payer_element.first.dataElementCodes << new_payer
+        payer_element.first.dataElementCodes.shift # get rid of existing dataElementCode
+      else
+        raise 'Cannot find payer element'
       end
-      insurance_provider['codes'] = {}
-      insurance_provider['codes'][payer['codeSystem']] = []
-      insurance_provider['codes'][payer['codeSystem']] << payer['code'].to_s
-      insurance_provider['name'] = payer['name']
-      insurance_provider['type'] = payer['type']
-      insurance_provider['payer'] = { 'name' => payer['name'] }
     end
 
     def self.get_random_payer_start_date(patient)
@@ -139,6 +131,15 @@ module Cypress
       if patient.dataElements.where(_type: QDM::PatientCharacteristicBirthdate).first
         patient.dataElements.where(_type: QDM::PatientCharacteristicBirthdate).first.birthDatetime = patient.birthDatetime
       end
+    end
+
+    def self.sample_payer(patient, prng)
+      payer_hash = APP_CONSTANTS['randomization']['payers'].sample(random: prng)
+      while payer_hash['name'] == 'Medicare' &&
+            Time.at(patient.qdmPatient.birthDatetime).in_time_zone > Time.at(patient.bundle.effective_date).in_time_zone.years_ago(65)
+        payer_hash = APP_CONSTANTS['randomization']['payers'].sample
+      end
+      payer_hash
     end
   end
 end
