@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:voc="urn:hl7-org:v3/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <!-- QRDA Header -->
+  <realmCode code="US"/>
+  <typeId extension="POCD_HD000040" root="2.16.840.1.113883.1.3"/>
+  <!-- US Realm Header Template Id -->
+  <templateId extension="2015-08-01" root="2.16.840.1.113883.10.20.22.1.1"/>
+  <!-- QRDA templateId -->
+  <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.1.1"/>
+  <!-- QDM-based QRDA templateId -->
+  <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.1.2"/>
+  <!-- CMS QRDA templateId -->
+  <templateId extension="2018-02-01" root="2.16.840.1.113883.10.20.24.1.3"/>
+  <!-- This is the globally unique identifier for this QRDA document -->
+  <id root="d879f690-58a3-0137-7a8e-2cde48001122"/>
+  <!-- QRDA document type code -->
+  <code code="55182-0" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Quality Measure Report"/>
+  <title>QRDA Incidence Report</title>
+  <!-- This is the document creation time -->
+  <effectiveTime value="20190514182725"/>
+  <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
+  <languageCode code="en"/>
+  <!-- reported patient -->
+  <recordTarget>
+    <patientRole>
+      <id extension="5cdb088dc1c38850616b9ef5" root="1.3.6.1.4.1.115"/>
+      <addr use="HP">
+        <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+        <city>Bedford</city>
+        <state>MA</state>
+        <postalCode>01730</postalCode>
+        <country>US</country>
+      </addr>
+      <telecom use="WP" value="tel:+1-781-271-3000"/>
+      <patient>
+        <name>
+          <given>John</given>
+          <family>Smith</family>
+        </name>
+        <administrativeGenderCode code="M" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender"/>
+        <birthTime value="19900101080000"/>
+        <raceCode code="1002-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDC Race"/>
+        <ethnicGroupCode code="2186-5" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDC Race"/>
+        <languageCommunication>
+          <templateId assigningAuthorityName="HITSP/C83" root="2.16.840.1.113883.3.88.11.83.2"/>
+          <templateId assigningAuthorityName="IHE/PCC" root="1.3.6.1.4.1.19376.1.5.3.1.2.1"/>
+          <languageCode code="eng"/>
+        </languageCommunication>
+      </patient>
+    </patientRole>
+  </recordTarget>
+  <author>
+    <time value="20190514182725"/>
+    <assignedAuthor>
+      <!-- NPI -->
+      <id extension="1982671962" root="2.16.840.1.113883.4.6"/>
+      <addr>
+        <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+        <city>Bedford</city>
+        <state>MA</state>
+        <postalCode>01730</postalCode>
+        <country>US</country>
+      </addr>
+      <telecom use="WP" value="tel:(781)271-3000"/>
+      <assignedAuthoringDevice>
+        <manufacturerModelName>Cypress</manufacturerModelName>
+        <softwareName>Cypress</softwareName>
+      </assignedAuthoringDevice>
+    </assignedAuthor>
+  </author>
+  <custodian>
+    <assignedCustodian>
+      <representedCustodianOrganization>
+        <id extension="800890" root="2.16.840.1.113883.4.336"/>
+        <name>Cypress Test Deck</name>
+        <telecom use="WP" value="tel:(781)271-3000"/>
+        <addr>
+          <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+          <city>Bedford</city>
+          <state>MA</state>
+          <postalCode>01730</postalCode>
+          <country>US</country>
+        </addr>
+      </representedCustodianOrganization>
+    </assignedCustodian>
+  </custodian>
+  <legalAuthenticator>
+    <time value="20190514182725"/>
+    <signatureCode code="S"/>
+    <assignedEntity>
+      <id root="bc01a5d1-3a34-4286-82cc-43eb04c972a7"/>
+      <addr>
+        <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+        <city>Bedford</city>
+        <state>MA</state>
+        <postalCode>01730</postalCode>
+        <country>US</country>
+      </addr>
+      <telecom use="WP" value="tel:(781)271-3000"/>
+      <assignedPerson>
+        <name>
+          <given>Henry</given>
+          <family>Seven</family>
+        </name>
+      </assignedPerson>
+      <representedOrganization>
+        <id root="2.16.840.1.113883.19.5"/>
+        <name>Cypress</name>
+      </representedOrganization>
+    </assignedEntity>
+  </legalAuthenticator>
+  <participant typeCode="DEV">
+    <associatedEntity classCode="RGPR">
+      <!-- CMS EHR Certification Number (formerly known as Office of the 
+        National Coordinator Certification Number) -->
+      <id extension="123456789" root="2.16.840.1.113883.3.2074.1"/>
+    </associatedEntity>
+  </participant>
+  <documentationOf typeCode="DOC">
+    <serviceEvent classCode="PCPR">
+      <!-- care provision -->
+      <effectiveTime>
+        <low nullFlavor="UNK"/>
+        <high nullFlavor="UNK"/>
+      </effectiveTime>
+      <!-- You can include multiple performers, each with an NPI, TIN, CCN. -->
+      <performer typeCode="PRF">
+        <time>
+          <low nullFlavor="UNK"/>
+          <high nullFlavor="UNK"/>
+        </time>
+        <assignedEntity>
+          <id extension="1982671962" root="2.16.840.1.113883.4.6"/>
+          <id extension="463132" root="2.16.840.1.113883.4.336"/>
+          <code code="282N00000X" codeSystem="2.16.840.1.113883.6.101" codeSystemName="Healthcare Provider Taxonomy (HIPAA)"/>
+          <addr use="HP">
+            <streetAddressLine>16432 Jayme Viaduct Manor</streetAddressLine>
+            <city>Clairland</city>
+            <state>MS</state>
+            <postalCode>38796</postalCode>
+            <country>US</country>
+          </addr>
+          <assignedPerson>
+            <name>
+              <given>Daryl</given>
+              <family>Carroll</family>
+            </name>
+          </assignedPerson>
+          <representedOrganization>
+            <id extension="695939209" root="2.16.840.1.113883.4.2"/>
+            <addr use="HP">
+              <streetAddressLine>16432 Jayme Viaduct Manor</streetAddressLine>
+              <city>Clairland</city>
+              <state>MS</state>
+              <postalCode>38796</postalCode>
+              <country>US</country>
+            </addr>
+          </representedOrganization>
+        </assignedEntity>
+      </performer>
+    </serviceEvent>
+  </documentationOf>
+  <component>
+    <structuredBody>
+      <component>
+        <section>
+          <!-- 
+          *****************************************************************
+          Measure Section
+          *****************************************************************
+        -->
+          <!-- This is the templateId for Measure Section -->
+          <templateId root="2.16.840.1.113883.10.20.24.2.2"/>
+          <!-- This is the templateId for Measure Section QDM -->
+          <templateId root="2.16.840.1.113883.10.20.24.2.3"/>
+          <!-- This is the LOINC code for "Measure document". This stays the same for all measure section required by QRDA standard -->
+          <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Measure Section</title>
+          <text>
+            <table border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>eMeasure Title</th>
+                  <th>Version specific identifier</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Median time (in minutes) from admit decision time to time of departure from the emergency department for emergency department patients admitted to inpatient status</td>
+                  <td>40280382-68D3-A5FE-0169-06FF09260E87</td>
+                  <td/>
+                </tr>
+              </tbody>
+            </table>
+          </text>
+          <!-- 1..* Organizers, each containing a reference to an eMeasure -->
+          <entry>
+            <organizer classCode="CLUSTER" moodCode="EVN">
+              <!-- This is the templateId for Measure Reference -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
+              <!-- This is the templateId for eMeasure Reference QDM -->
+              <templateId root="2.16.840.1.113883.10.20.24.3.97"/>
+              <id extension="d87c8400-58a3-0137-7a8e-2cde48001122" root="1.3.6.1.4.1.115"/>
+              <statusCode code="completed"/>
+              <!-- Containing isBranch external references -->
+              <reference typeCode="REFR">
+                <externalDocument classCode="DOC" moodCode="EVN">
+                  <!-- SHALL: This is the version specific identifier for eMeasure: QualityMeasureDocument/id it is a GUID-->
+                  <id extension="40280382-68D3-A5FE-0169-06FF09260E87" root="2.16.840.1.113883.4.738"/>
+                  <!-- SHOULD This is the title of the eMeasure -->
+                  <text>Median time (in minutes) from admit decision time to time of departure from the emergency department for emergency department patients admitted to inpatient status</text>
+                  <!-- SHOULD: setId is the eMeasure version neutral id  -->
+                  <setId root="979F21BD-3F93-4CDD-8273-B23DFE9C0513"/>
+                </externalDocument>
+              </reference>
+            </organizer>
+          </entry>
+        </section>
+      </component>
+      <component>
+        <section>
+          <!-- This is the templateId for Reporting Parameters section -->
+          <templateId root="2.16.840.1.113883.10.20.17.2.1"/>
+          <templateId extension="2016-03-01" root="2.16.840.1.113883.10.20.17.2.1.1"/>
+          <code code="55187-9" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Reporting Parameters</title>
+          <text/>
+          <entry typeCode="DRIV">
+            <act classCode="ACT" moodCode="EVN">
+              <!-- This is the templateId for Reporting Parameteres Act -->
+              <templateId root="2.16.840.1.113883.10.20.17.3.8"/>
+              <templateId extension="2016-03-01" root="2.16.840.1.113883.10.20.17.3.8.1"/>
+              <id extension="d87c9050-58a3-0137-7a8e-2cde48001122" root="1.3.6.1.4.1.115"/>
+              <code code="252116004" codeSystem="2.16.840.1.113883.6.96" displayName="Observation Parameters"/>
+              <effectiveTime>
+                <low value="1325376000"/>
+                <high value="1356998399"/>
+              </effectiveTime>
+            </act>
+          </entry>
+        </section>
+      </component>
+      <component>
+        <section>
+          <!-- This is the templateId for Patient Data section -->
+          <templateId root="2.16.840.1.113883.10.20.17.2.4"/>
+          <!-- This is the templateId for Patient Data QDM section -->
+          <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.2.1"/>
+          <templateId extension="2018-02-01" root="2.16.840.1.113883.10.20.24.2.1.1"/>
+          <code code="55188-7" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Patient Data</title>
+          <text/>
+          <entry>
+            <act classCode="ACT" moodCode="RQO">
+              <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.132"/>
+              <code code="ENC" codeSystem="2.16.840.1.113883.5.6" codeSystemName="ActClass" displayName="Encounter"/>
+              <entryRelationship typeCode="SUBJ">
+                <encounter classCode="ENC" moodCode="RQO">
+                  <!--  Plan of Care Activity Encounter template -->
+                  <templateId extension="2014-06-09" root="2.16.840.1.113883.10.20.22.4.40"/>
+                  <!-- Encounter order template -->
+                  <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.22"/>
+                  <id extension="5cdb088dc1c38850616b9efb" root="1.3.6.1.4.1.115"/>
+                  <!-- QDM Attribute: Code -->
+                  <code code="115166" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+                  <text>Encounter, Order: Decision to Admit to Hospital Inpatient</text>
+                  <statusCode code="active"/>
+                  <!-- QDM Attribute: Author dateTime -->
+                  <author>
+                    <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.155"/>
+                    <time value="20120514071000"/>
+                    <assignedAuthor>
+                      <id nullFlavor="NA"/>
+                    </assignedAuthor>
+                  </author>
+                </encounter>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <!--Encounter performed Act -->
+              <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.133"/>
+              <code code="ENC" codeSystem="2.16.840.1.113883.5.6" codeSystemName="ActClass" displayName="Encounter"/>
+              <entryRelationship typeCode="SUBJ">
+                <encounter classCode="ENC" moodCode="EVN">
+                  <!--  Encounter activities template -->
+                  <templateId extension="2015-08-01" root="2.16.840.1.113883.10.20.22.4.49"/>
+                  <!-- Encounter performed template -->
+                  <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.23"/>
+                  <id extension="5cdb088dc1c38850616b9ef7" root="1.3.6.1.4.1.115"/>
+                  <!-- QDM Attribute: Code -->
+                  <code code="115163" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+                  <text>Encounter, Performed: Emergency Department Visit</text>
+                  <statusCode code="completed"/>
+                  <!-- QDM Attribute: Relevant Period -->
+                  <effectiveTime>
+                    <low value="20120514070000"/>
+                    <high value="20120514071500"/>
+                  </effectiveTime>
+                  <!-- QDM Attribute: Facility Locations -->
+                  <participant typeCode="LOC">
+                    <!-- Facility Location template -->
+                    <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.100"/>
+                    <!-- QDM Attribute: Location Period -->
+                    <time>
+                      <low value="20120514070000"/>
+                      <high value="20120514071500"/>
+                    </time>
+                    <participantRole classCode="SDLOC">
+                      <code code="115163" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+                      <addr>
+                        <streetAddressLine>202 Burlington Rd.</streetAddressLine>
+                        <city>Bedford</city>
+                        <state>MA</state>
+                        <postalCode>01730</postalCode>
+                        <country>US</country>
+                      </addr>
+                      <telecom use="WP" value="tel:(781)271-3000"/>
+                      <playingEntity classCode="PLC">
+                        <name>Cypress Test Deck</name>
+                      </playingEntity>
+                    </participantRole>
+                  </participant>
+                </encounter>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <!--Encounter performed Act -->
+              <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.133"/>
+              <code code="ENC" codeSystem="2.16.840.1.113883.5.6" codeSystemName="ActClass" displayName="Encounter"/>
+              <entryRelationship typeCode="SUBJ">
+                <encounter classCode="ENC" moodCode="EVN">
+                  <!--  Encounter activities template -->
+                  <templateId extension="2015-08-01" root="2.16.840.1.113883.10.20.22.4.49"/>
+                  <!-- Encounter performed template -->
+                  <templateId extension="2017-08-01" root="2.16.840.1.113883.10.20.24.3.23"/>
+                  <id extension="5cdb088dc1c38850616b9ef9" root="1.3.6.1.4.1.115"/>
+                  <!-- QDM Attribute: Code -->
+                  <code code="115723" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED-CT"/>
+                  <text>Encounter, Performed: Encounter Inpatient</text>
+                  <statusCode code="completed"/>
+                  <!-- QDM Attribute: Relevant Period -->
+                  <effectiveTime>
+                    <low value="20120514080000"/>
+                    <high value="20120514081500"/>
+                  </effectiveTime>
+                </encounter>
+              </entryRelationship>
+            </act>
+          </entry>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>
