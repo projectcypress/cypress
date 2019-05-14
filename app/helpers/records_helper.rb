@@ -70,6 +70,23 @@ module RecordsHelper
     end.to_h
   end
 
+  # This method returns a hash of the form
+  #  {BSON::ObjectId('1')=>{"IPP"=>1, "DENOM"=>0, "DENEX"=>0, "NUMER"=>0, "DENEXCEP"=>0},
+  #  BSON::ObjectId('2')=>{"IPP"=>1, "DENOM"=>0, "DENEX"=>0, "NUMER"=>0, "DENEXCEP"=>0},
+  #  BSON::ObjectId('3')=>{"IPP"=>1, "DENOM"=>0, "DENEX"=>0, "NUMER"=>0, "DENEXCEP"=>0},}
+  #
+  # Inputs:
+  # correlation_id: The correlation_id used when performing the measure calculation, most like, the test exection id
+  # file_name: The file name for the results you are looking for.
+  # measures: An array of measures (If you only care about a single measure then pass in [measure])
+  # pop_set: The population set identifier for the result set you care about, for example ['PopulationCriteria1']
+  # pop_keys: The population keys which you care about, for example ['IPP', 'DENOM']
+  # key: The name of the element which should be the key of the key value pair returned.
+  # We currently use 'patient_id' and 'measure_id' as keys and then do lookups for the values
+  # in the hash when generating miscellaneous views around the Master Patient List.
+  #
+  # Usage tip: It is strongly recommended you pass in either an array of records OR and array
+  # of measures and then pass in the other as an array containing a single element.
   def get_result_values_test_upload(correlation_id, file_name, measures, pop_set, pop_keys, key)
     QDM::IndividualResult.where(
       :correlation_id => correlation_id,
