@@ -33,9 +33,9 @@ module Cypress
 
         puts 'bundle metadata unpacked...'
         unpack_and_store_valuesets(zip_file, bundle)
-        unpack_and_store_measures(zip_file, options[:type], bundle)
-        unpack_and_store_cqm_patients(zip_file, options[:type], bundle)
-        unpack_and_store_results(zip_file, options[:type], bundle)
+        unpack_and_store_measures(zip_file, bundle)
+        unpack_and_store_cqm_patients(zip_file, bundle)
+        unpack_and_store_results(zip_file, bundle)
       end
 
       bundle
@@ -109,17 +109,19 @@ module Cypress
       puts "\rLoading: Measures Complete          "
     end
 
-    def self.unpack_and_store_cqm_patients(zip, type, bundle)
-      entries = zip.glob(File.join(SOURCE_ROOTS[:patients], type || '**', 'json', '*.json'))
-      entries.each_with_index do |entry, index|
-        patient = CQM::BundlePatient.new(unpack_json(entry))
-
+    def self.unpack_and_store_cqm_patients(zip, bundle)
+      qrda_files = Dir.glob(File.join(zip,SOURCE_ROOTS[:patients],'**', '*.xml'))
+      qrda_files.each_with_index do |qrda_path, index|
+        qrda_file = File.new qrda_path
+        qrda = qrda_file.read()
+        doc = Nokogiri::XML::Document.parse(qrda)
+        doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+        doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+        patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
         patient['bundleId'] = bundle.id
-
-        reconnect_references(patient)
-        @patient_id_hash[patient.original_medical_record_number] = patient['id']
-        patient.save
-        report_progress('patients', (index * 100 / entries.length)) if (index % 10).zero?
+        patient.update(_type: CQM::BundlePatient, correlation_id: bundle.id)
+        patient.save!
+        report_progress('patients', (index * 100 / qrda_files.length)) if (index % 10).zero?
       end
       puts "\rLoading: Patients Complete          "
     end

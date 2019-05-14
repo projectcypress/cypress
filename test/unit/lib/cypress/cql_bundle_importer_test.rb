@@ -18,4 +18,10 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     Cypress::CqlBundleImporter.unpack_and_store_valuesets(@fake_bundle_dir, @bundle)
     assert_equal (before_count + 22), ValueSet.count()
   end
+
+  test 'should successfully unpack patients out of bundle' do
+    before_count = Patient.count()
+    Cypress::CqlBundleImporter.unpack_and_store_cqm_patients(@fake_bundle_dir, @bundle)
+    assert_equal (before_count + 1), Patient.count()
+  end
 end
