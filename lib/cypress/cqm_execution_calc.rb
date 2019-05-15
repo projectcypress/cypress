@@ -8,7 +8,7 @@ module Cypress
     def initialize(patients, measures, correlation_id, options)
       @patients = patients
       # This is a key -> value pair of patients mapped in the form "qdm-patient-id" => BSON::ObjectId("cqm-patient-id")
-      @cqm_patient_mapping = patients.map { |patient| [patient.id.to_s, patient.qdmPatient] }.to_h
+      @cqm_patient_mapping = patients.map { |patient| [patient.id.to_s, patient.tacomaPatient] }.to_h
       @measures = measures
       @correlation_id = correlation_id
       @options = options
