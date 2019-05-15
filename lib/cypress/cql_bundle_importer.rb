@@ -147,9 +147,11 @@ module Cypress
       # re-associate all other valueSets
       value_sets = []
       measure.cql_libraries.each do |cql_library|
-        cql_library.elm.library.valueSets.each_pair do |_key, valuesets|
-          valuesets.each do |valueset|
-            value_sets << ValueSet.where(oid: valueset['id']).first
+        if cql_library.elm.library['valueSets']
+          cql_library.elm.library.valueSets.each_pair do |_key, valuesets|
+            valuesets.each do |valueset|
+              value_sets << ValueSet.where(oid: valueset['id']).first
+            end
           end
         end
         next unless cql_library['elm']['library']['codes']
