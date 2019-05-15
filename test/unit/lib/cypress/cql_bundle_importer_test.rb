@@ -30,12 +30,11 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     bundle = Cypress::CqlBundleImporter.import(bundle_zip)
     measure = Measure.where({bundle_id: bundle.id}).last()
     patient = Patient.where({bundleId: bundle.id}).last()
-    calc_job = Cypress::CqmExecutionCalc.new([patient],
+    calc_job = Cypress::CqmExecutionCalc.new([patient.qdmPatient],
           [measure],
           bundle.id.to_s,
           'effectiveDateEnd': Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number),
           'effectiveDate': Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number))
-    binding.pry
     results = calc_job.execute(false)
   end
 end
