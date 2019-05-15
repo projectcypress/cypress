@@ -15,8 +15,6 @@ module Cypress
     # Import a quality bundle into the database. This includes metadata, measures, test patients, supporting JS libraries, and expected results.
     #
     # @param [File] zip The bundle zip file.
-    # @param [String] Type of measures to import, either 'ep', 'eh' or nil for all
-    # @param [Boolean] keep_existing If true, delete all current collections related to patients and measures.
 
     def self.import(zip, options = {})
       options = DEFAULTS.merge(options)
@@ -66,8 +64,7 @@ module Cypress
       previous_vs = nil
       current_row = nil
       codes = []
-      vs_file = File.new(File.join(zip.path,SOURCE_ROOTS[:valuesets]))
-      csv_text = vs_file.read()
+      csv_text = zip.read(SOURCE_ROOTS[:valuesets])
       csv = CSV.parse(csv_text, headers: true, col_sep: '|')
       csv.each do |row|
         current_row = row
@@ -87,11 +84,14 @@ module Cypress
     end
 
     def self.unpack_and_store_measures(zip, bundle)
-      measure_info = JSON.load(File.open(File.join(zip.path,SOURCE_ROOTS[:measures_info])))
-      measure_packages = Dir.glob(File.join(zip,SOURCE_ROOTS[:measures],'**', '*.zip'))
+      measure_info = JSON.parse(zip.read(SOURCE_ROOTS[:measures_info]))
+      measure_packages = zip.glob(File.join(SOURCE_ROOTS[:measures], '**', '*.zip'))
       measure_details = { 'episode_of_care'=> true }
-      measure_packages.each_with_index do |measure_package_path, index|
-        measure_package = File.new measure_package_path
+      measure_packages.each_with_index do |measure_package_zipped, index|
+        temp_file_path = File.join('.','tmp.zip')
+        FileUtils.rm_f(temp_file_path)
+        measure_package_zipped.extract(temp_file_path)
+        measure_package = File.new temp_file_path
         loader = Measures::CqlLoader.new(measure_package, measure_details)
         # will return an array of CQMMeasures, most of the time there will only be a single measure
         # if the measure is a composite measure, the array will contain the composite and all of the components
@@ -104,16 +104,16 @@ module Cypress
           reconnect_valueset_references(measure, bundle)
           measure.save!
         end
+        FileUtils.rm_f(temp_file_path)
         report_progress('measures', (index * 100 / measure_packages.length)) if (index % 10).zero?
       end
       puts "\rLoading: Measures Complete          "
     end
 
     def self.unpack_and_store_cqm_patients(zip, bundle)
-      qrda_files = Dir.glob(File.join(zip,SOURCE_ROOTS[:patients],'**', '*.xml'))
-      qrda_files.each_with_index do |qrda_path, index|
-        qrda_file = File.new qrda_path
-        qrda = qrda_file.read()
+      qrda_files = zip.glob(File.join(SOURCE_ROOTS[:patients], '**', '*.xml'))
+      qrda_files.each_with_index do |qrda_file, index|
+        qrda = qrda_file.get_input_stream.read()
         doc = Nokogiri::XML::Document.parse(qrda)
         doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
@@ -143,7 +143,7 @@ module Cypress
       end
     end
 
-    def self.unpack_and_store_results(zip, _type, bundle)
+    def self.unpack_and_store_results(zip, bundle)
       results = zip.glob(File.join(SOURCE_ROOTS[:results], '*.json')).map do |entry|
         contents = unpack_json(entry)
         contents.map! do |document|

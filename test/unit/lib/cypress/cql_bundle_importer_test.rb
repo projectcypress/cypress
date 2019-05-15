@@ -28,12 +28,14 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
   test 'should successfully calculate from bundle' do
     bundle_zip = File.new(File.join('test', 'fixtures', 'bundles', 'measures_only_bundle.zip'))
     bundle = Cypress::CqlBundleImporter.import(bundle_zip)
+    measure = Measure.where({bundle_id: bundle.id}).last()
+    patient = Patient.where({bundleId: bundle.id}).last()
+    calc_job = Cypress::CqmExecutionCalc.new([patient],
+          [measure],
+          bundle.id.to_s,
+          'effectiveDateEnd': Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number),
+          'effectiveDate': Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number))
     binding.pry
-    calc_job = Cypress::CqmExecutionCalc.new([record.qdmPatient],
-          product_test.measures,
-          options.test_execution.id.to_s,
-          'effectiveDateEnd': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
-          'effectiveDate': Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
     results = calc_job.execute(false)
   end
 end

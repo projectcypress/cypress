@@ -31,7 +31,7 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
       familyName: @family_name,
       addresses: [@address]
     )
-    QDM::Patient.create!(tacomaPatient: @record, dataElements: [@race, @gender, @ethnicity, @payer], birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
+    QDM::Patient.create!(qdmPatient: @record, dataElements: [@race, @gender, @ethnicity, @payer], birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     @record.bundleId = @bundle.id
     @prng = Random.new(Random.new_seed)
   end
