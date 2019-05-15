@@ -33,7 +33,7 @@ module Cypress
         unpack_and_store_valuesets(zip_file, bundle)
         unpack_and_store_measures(zip_file, bundle)
         unpack_and_store_cqm_patients(zip_file, bundle)
-        unpack_and_store_results(zip_file, bundle)
+        calculate_results(bundle)
       end
 
       bundle
@@ -70,7 +70,7 @@ module Cypress
         current_row = row
         previous_vs = row['OID'] if previous_vs.nil?
         if row['OID'] != previous_vs
-          CQM::ValueSet.new(oid: row['OID'], display_name: row['ValueSetName'], version: row['ExpansionVersion'],
+          CQM::ValueSet.new(oid: previous_vs, display_name: row['ValueSetName'], version: row['ExpansionVersion'],
                             concepts: codes, bundle: bundle).save
           previous_vs = row['OID']
           codes = []
@@ -143,18 +143,13 @@ module Cypress
       end
     end
 
-    def self.unpack_and_store_results(zip, bundle)
-      results = zip.glob(File.join(SOURCE_ROOTS[:results], '*.json')).map do |entry|
-        contents = unpack_json(entry)
-        contents.map! do |document|
-          document['patient_id'] = @patient_id_hash[document['patient_id']]
-          document['measure_id'] = @measure_id_hash[document['measure_id']]
-          document['correlation_id'] = bundle.id.to_s
-          document
-        end
-      end.flatten
-      QDM::IndividualResult.collection.insert_many(results)
-      compile_measure_relevance_hash
+    def self.calculate_results(bundle)
+      calc_job = Cypress::CqmExecutionCalc.new(bundle.patients.map(&:qdmPatient),
+            bundle.measures,
+            bundle.id.to_s,
+            'effectiveDateEnd': Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number),
+            'effectiveDate': Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number))
+      results = calc_job.execute(true)
       puts "\rLoading: Results Complete          "
     end
 
