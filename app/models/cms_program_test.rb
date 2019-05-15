@@ -20,7 +20,7 @@ class CMSProgramTest < ProductTest
   def update_with_program_tests(program_test_params)
     update(program_test_params)
     # On update, reset the program criteria checklist
-    program_criteria.each(&:reset_criteria)
+    program_criteria.each(&:reset_criterion)
     save!
   end
 
