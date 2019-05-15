@@ -18,8 +18,6 @@ module Cypress
 
     def self.import(zip, options = {})
       options = DEFAULTS.merge(options)
-      @measure_id_hash = {}
-      @patient_id_hash = {}
 
       bundle = nil
       Zip::ZipFile.open(zip.path) do |zip_file|
@@ -126,23 +124,6 @@ module Cypress
       puts "\rLoading: Patients Complete          "
     end
 
-    # TODO: This will need to be updated for 2018.0.2 bundles that store relatedTo as an QDM::ID
-    def self.reconnect_references(patient)
-      patient.qdmPatient.dataElements.each do |data_element|
-        next unless data_element['relatedTo']
-
-        ref_array = []
-        oid_hash = {}
-        patient.qdmPatient.dataElements.each do |de|
-          oid_hash[{ 'codes' => de['dataElementCodes'].map { |dec| dec['code'] }.flatten, 'start_time' => de['authorDatetime'].to_i }.hash] = de.id
-        end
-        data_element[:relatedTo].each do |ref|
-          ref_array << oid_hash[{ 'codes' => ref['codes'], 'start_time' => ref['start_time'] }.hash]
-        end
-        data_element.relatedTo = ref_array
-      end
-    end
-
     def self.calculate_results(bundle)
       calc_job = Cypress::CqmExecutionCalc.new(bundle.patients.map(&:qdmPatient),
             bundle.measures,
@@ -151,20 +132,6 @@ module Cypress
             'effectiveDate': Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number))
       results = calc_job.execute(true)
       puts "\rLoading: Results Complete          "
-    end
-
-    def self.compile_measure_relevance_hash
-      @patient_id_hash.each_value do |patient|
-        updated_patient = Patient.find(patient)
-        updated_patient.calculation_results.each do |individual_result|
-          updated_patient.update_measure_relevance_hash(individual_result)
-        end
-        updated_patient.save
-      end
-    end
-
-    def self.unpack_json(entry)
-      JSON.parse(entry.get_input_stream.read, max_nesting: false)
     end
 
     def self.report_progress(label, percent)
