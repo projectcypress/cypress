@@ -147,6 +147,6 @@ Then(/^the user should see vendor patient details$/) do
   end
   @measures = @bundle.measures.where(:_id.in => @patient.calculation_results.map(&:measure_id))
   @measures.each do |m|
-    page.assert_text m.display_name
+    page.assert_text m.cms_id
   end
 end
