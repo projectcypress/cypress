@@ -75,6 +75,7 @@ Scenario: Successful switch bundles for vendor patients
 
 Scenario: Successful filter records for vendor patient
   When the user visits the vendor records page
+  Then the user should see a list of vendor patients
   And the user searches for a measure
   And the user selects a measure from the dropdown
   Then the user should see results for that measure
