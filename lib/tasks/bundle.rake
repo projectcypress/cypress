@@ -24,14 +24,9 @@ namespace :bundle do
   task :import, [:bundle_path, :delete_existing, :update_measures, :type, :create_indexes, :exclude_results, :environment] do |_task, args|
     raise 'The path to the measures zip file must be specified' unless args.bundle_path
 
-    options = { delete_existing: (args.delete_existing == 'true'),
-                type: args.type,
-                update_measures: (args.update_measures == 'true'),
-                exclude_results: (args.exclude_results == 'true') }
-
     bundle = File.open(args.bundle_path)
     importer = Cypress::CqlBundleImporter
-    bundle_contents = importer.import(bundle, options)
+    bundle_contents = importer.import(bundle)
 
     counts = { measures: bundle_contents.measures.count,
                records: bundle_contents.records.count,

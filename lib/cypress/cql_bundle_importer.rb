@@ -16,9 +16,7 @@ module Cypress
     #
     # @param [File] zip The bundle zip file.
 
-    def self.import(zip, options = {})
-      options = DEFAULTS.merge(options)
-
+    def self.import(zip)
       bundle = nil
       Zip::ZipFile.open(zip.path) do |zip_file|
         bundle = unpack_bundle(zip_file)
@@ -84,9 +82,9 @@ module Cypress
     def self.unpack_and_store_measures(zip, bundle)
       measure_info = JSON.parse(zip.read(SOURCE_ROOTS[:measures_info]))
       measure_packages = zip.glob(File.join(SOURCE_ROOTS[:measures], '**', '*.zip'))
-      measure_details = { 'episode_of_care'=> true }
+      measure_details = { 'episode_of_care' => true }
       measure_packages.each_with_index do |measure_package_zipped, index|
-        temp_file_path = File.join('.','tmp.zip')
+        temp_file_path = File.join('.', 'tmp.zip')
         FileUtils.rm_f(temp_file_path)
         measure_package_zipped.extract(temp_file_path)
         measure_package = File.new temp_file_path
@@ -95,12 +93,7 @@ module Cypress
         # if the measure is a composite measure, the array will contain the composite and all of the components
         measures = loader.extract_measures
         measures.each do |measure|
-          cms_id = measure.cms_id[/(.*?)v/m, 1]
-          measure.bundle_id = bundle.id
-          measure.reporting_program_type = measure_info[cms_id].type || 'ep'
-          measure.category = measure_info[cms_id].category  || 'Effective Clinical Care'
-          reconnect_valueset_references(measure, bundle)
-          measure.save!
+          save_extracted_measure(measure, measure_info, bundle)
         end
         FileUtils.rm_f(temp_file_path)
         report_progress('measures', (index * 100 / measure_packages.length)) if (index % 10).zero?
@@ -108,10 +101,19 @@ module Cypress
       puts "\rLoading: Measures Complete          "
     end
 
+    def self.save_extracted_measure(measure, measure_info, bundle)
+      cms_id = measure.cms_id[/(.*?)v/m, 1]
+      measure.bundle_id = bundle.id
+      measure.reporting_program_type = measure_info[cms_id].type || 'ep'
+      measure.category = measure_info[cms_id].category || 'Effective Clinical Care'
+      reconnect_valueset_references(measure, bundle)
+      measure.save!
+    end
+
     def self.unpack_and_store_cqm_patients(zip, bundle)
       qrda_files = zip.glob(File.join(SOURCE_ROOTS[:patients], '**', '*.xml'))
       qrda_files.each_with_index do |qrda_file, index|
-        qrda = qrda_file.get_input_stream.read()
+        qrda = qrda_file.get_input_stream.read
         doc = Nokogiri::XML::Document.parse(qrda)
         doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
@@ -126,11 +128,11 @@ module Cypress
 
     def self.calculate_results(bundle)
       calc_job = Cypress::CqmExecutionCalc.new(bundle.patients.map(&:qdmPatient),
-            bundle.measures,
-            bundle.id.to_s,
-            'effectiveDateEnd': Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number),
-            'effectiveDate': Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number))
-      results = calc_job.execute(true)
+                                               bundle.measures,
+                                               bundle.id.to_s,
+                                               'effectiveDateEnd': Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number),
+                                               'effectiveDate': Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number))
+      calc_job.execute(true)
       puts "\rLoading: Results Complete          "
     end
 
@@ -147,24 +149,34 @@ module Cypress
       # re-associate all other valueSets
       value_sets = []
       measure.cql_libraries.each do |cql_library|
-        if cql_library.elm.library['valueSets']
-          cql_library.elm.library.valueSets.each_pair do |_key, valuesets|
-            valuesets.each do |valueset|
-              value_sets << ValueSet.where(oid: valueset['id']).first
-            end
-          end
-        end
+        value_sets.concat compile_value_sets_from_library(cql_library) if cql_library.elm.library['valueSets']
         next unless cql_library['elm']['library']['codes']
 
-        cql_library.elm.library.codes.each_pair do |_key, codes|
-          codes.each do |code|
-            code_system_name, code_system_version = code_system_name_and_version(cql_library, code['codeSystem']['name'])
-            code_hash = ApplicationController.helpers.direct_reference_code_hash(code_system_name, code_system_version, code)
-            value_sets << ValueSet.where(oid: code_hash).first
-          end
-        end
+        value_sets.concat compile_drcs_from_library(cql_library)
       end
       measure.value_sets.push(*value_sets)
+    end
+
+    def self.compile_value_sets_from_library(cql_library)
+      value_sets = []
+      cql_library.elm.library.valueSets.each_pair do |_key, valuesets|
+        valuesets.each do |valueset|
+          value_sets << ValueSet.where(oid: valueset['id']).first
+        end
+      end
+      value_sets
+    end
+
+    def self.compile_drcs_from_library(cql_library)
+      value_sets = []
+      cql_library.elm.library.codes.each_pair do |_key, codes|
+        codes.each do |code|
+          code_system_name, code_system_version = code_system_name_and_version(cql_library, code['codeSystem']['name'])
+          code_hash = ApplicationController.helpers.direct_reference_code_hash(code_system_name, code_system_version, code)
+          value_sets << ValueSet.where(oid: code_hash).first
+        end
+      end
+      value_sets
     end
 
     def self.code_system_name_and_version(cql_library, code_system_name)
