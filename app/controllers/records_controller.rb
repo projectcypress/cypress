@@ -85,6 +85,7 @@ class RecordsController < ApplicationController
     # TODO: figure out what scenarios lead to no params[:bundle_id] here
     @source = @bundle = params[:bundle_id] ? Bundle.available.find(params[:bundle_id]) : Bundle.default
     return unless @bundle
+
     add_breadcrumb 'Master Patient List', bundle_records_path(@bundle)
     @title = 'Master Patient List'
   end
