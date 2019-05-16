@@ -87,6 +87,15 @@ FactoryBot.define do
       after(:create) do |patient|
         patient.measure_relevance_hash = {}
         patient.measure_relevance_hash[Measure.find_by(bundle_id: patient.bundle.id, hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE')._id.to_s] = { 'IPP' => true, 'MSRPOPL' => true }
+        # patient - create individual_results for patient? or create()?
+        cv_ir = create(:cv_cqm_individual_result,
+                       'correlation_id' => patient.correlation_id,
+                       'patient_id' => patient.id,
+                       'cqm_patient' => patient.id,
+                       'population_set_key' => 'PopulationCriteria1',
+                       'IPP' => 1,
+                       'MSRPOPL' => 1,
+                       'MSRPOPLEX' => 0)
         provider = create(:default_provider)
         patient.providers << provider
         patient.save!

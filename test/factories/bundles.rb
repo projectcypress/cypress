@@ -66,8 +66,8 @@ FactoryBot.define do
     factory :executable_bundle do
       active { true }
       done_importing { true }
-      name { 'Static Bundle' }
-      title { 'Static Bundle' }
+      name { 'Executable Bundle' }
+      title { 'Executable Bundle' }
       version { '2018.0.0.2' }
       extensions { %w[map_reduce_utils hqmf_utils] }
       measure_period_start { 1_483_228_800 } # Jan 1 2017

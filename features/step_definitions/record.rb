@@ -61,7 +61,6 @@ end
 
 Then(/^the user should see results for that measure$/) do
   page.assert_text measure_display_name(@measure, @measure.population_sets_and_stratifications_for_measure.first) + ' Patients'
-
   records = records_by_measure(@vendor ? @vendor.patients.where(bundleId: @bundle.id.to_s) : @bundle.patients, @measure)
 
   assert page.has_selector?('table tbody tr', count: records.length), 'different number'
@@ -119,10 +118,12 @@ Then(/^the user should not see deprecated bundles$/) do
 end
 
 When(/^the user visits the vendor records page$/) do
-  @bundle = Bundle.default
+  @bundle = FactoryBot.create(:executable_bundle)
   @other_bundle = Bundle.where('$or' => [{ 'active' => false }, { :active.exists => false }]).sample
   @vendor = Vendor.create!(name: 'test_vendor_name')
-  visit "/records?vendor_id=#{@vendor.id}"
+  @measure = @bundle.measures.find_by(hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE') unless @bundle.measures.count.eql? 0
+  @patient = FactoryBot.create(:vendor_test_patient, bundleId: @bundle._id, correlation_id: @vendor.id)
+  visit "/records?vendor_id=#{@vendor.id}&bundle_id=#{@bundle.id}"
 end
 
 Then(/^the user should see a list of vendor patients$/) do
