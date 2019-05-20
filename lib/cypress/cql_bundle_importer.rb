@@ -82,12 +82,13 @@ module Cypress
     def self.unpack_and_store_measures(zip, bundle)
       measure_info = JSON.parse(zip.read(SOURCE_ROOTS[:measures_info]))
       measure_packages = zip.glob(File.join(SOURCE_ROOTS[:measures], '**', '*.zip'))
-      measure_details = { 'episode_of_care' => true }
       measure_packages.each_with_index do |measure_package_zipped, index|
         temp_file_path = File.join('.', 'tmp.zip')
         FileUtils.rm_f(temp_file_path)
         measure_package_zipped.extract(temp_file_path)
         measure_package = File.new temp_file_path
+        cms_id = measure_package_zipped.name[%r{measures\/(.*?)v}m, 1]
+        measure_details = { 'episode_of_care' => measure_info[cms_id].episode_of_care }
         loader = Measures::CqlLoader.new(measure_package, measure_details)
         # will return an array of CQMMeasures, most of the time there will only be a single measure
         # if the measure is a composite measure, the array will contain the composite and all of the components
@@ -106,6 +107,8 @@ module Cypress
       measure.bundle_id = bundle.id
       measure.reporting_program_type = measure_info[cms_id].type || 'ep'
       measure.category = measure_info[cms_id].category || 'Effective Clinical Care'
+      # Remove prior valueset references
+      measure.value_sets = []
       reconnect_valueset_references(measure, bundle)
       measure.save!
     end
@@ -142,38 +145,43 @@ module Cypress
     end
 
     def self.reconnect_valueset_references(measure, bundle)
-      # iterate over existing valueSets on measure (direct reference codes) and add bundle_id
-      measure.value_sets.each do |value_set|
-        value_set.bundle_id = bundle.id
-      end
-      # re-associate all other valueSets
       value_sets = []
       measure.cql_libraries.each do |cql_library|
-        value_sets.concat compile_value_sets_from_library(cql_library) if cql_library.elm.library['valueSets']
+        value_sets.concat compile_value_sets_from_library(cql_library, bundle) if cql_library.elm.library['valueSets']
         next unless cql_library['elm']['library']['codes']
 
-        value_sets.concat compile_drcs_from_library(cql_library)
+        value_sets.concat compile_drcs_from_library(cql_library, bundle)
       end
+      value_sets.compact
       measure.value_sets.push(*value_sets)
     end
 
-    def self.compile_value_sets_from_library(cql_library)
+    def self.compile_value_sets_from_library(cql_library, bundle)
       value_sets = []
       cql_library.elm.library.valueSets.each_pair do |_key, valuesets|
         valuesets.each do |valueset|
-          value_sets << ValueSet.where(oid: valueset['id']).first
+          value_sets << ValueSet.where(oid: valueset['id'], bundle_id: bundle.id).first
         end
       end
       value_sets
     end
 
-    def self.compile_drcs_from_library(cql_library)
+    def self.compile_drcs_from_library(cql_library, bundle)
+      vs_model_cache = {}
+      value_sets_from_single_code_references = Measures::ValueSetHelpers.make_fake_valuesets_from_single_code_references([cql_library['elm']],
+                                                                                                                         vs_model_cache)
+      find_or_save_drc_valuesets(value_sets_from_single_code_references, bundle)
+    end
+
+    def self.find_or_save_drc_valuesets(drc_valuesets, bundle)
       value_sets = []
-      cql_library.elm.library.codes.each_pair do |_key, codes|
-        codes.each do |code|
-          code_system_name, code_system_version = code_system_name_and_version(cql_library, code['codeSystem']['name'])
-          code_hash = ApplicationController.helpers.direct_reference_code_hash(code_system_name, code_system_version, code)
-          value_sets << ValueSet.where(oid: code_hash).first
+      drc_valuesets.each do |drc_valueset|
+        if ValueSet.where(oid: drc_valueset['oid'], bundle_id: bundle.id).empty?
+          drc_valueset.bundle = bundle
+          drc_valueset.save
+          value_sets << drc_valueset
+        else
+          value_sets << ValueSet.where(oid: drc_valueset['oid'], bundle_id: bundle.id).first
         end
       end
       value_sets
