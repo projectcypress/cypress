@@ -70,6 +70,7 @@ module Vendors
       failed_files.each do |file, error_messages|
         full_alert += "\'#{file}\' had errors: #{error_messages.join('; ')}\n"
       end
+      full_alert = full_alert.truncate(2000)
       flash[:alert] = full_alert unless full_alert.empty?
     end
 
