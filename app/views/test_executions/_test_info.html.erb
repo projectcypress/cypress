@@ -31,8 +31,7 @@
   <% end %>
 
   <br/>
-
-  <% unless task.is_a? C1ChecklistTask %>
+  <% if !((task.is_a? C1ChecklistTask) || (task.is_a? CMSProgramTask)) %>
     <%= link_to 'View Patients', { controller: 'records', hqmf_id: task.product_test.measure_ids.first, task_id: task.id}, method: :get %>
     <% if (task.is_a?(Cat1FilterTask) || task.is_a?(Cat3FilterTask)) && should_display_expected_results(task) %>
       <br/>
