@@ -9,7 +9,8 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     bundle_zip = File.new(File.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_4.zip'))
     Cypress::CqlBundleImporter.import(bundle_zip)
     assert_equal (before_measure_count + 2), Measure.count
-    assert_equal (before_value_set_count + 21), ValueSet.count
+    # 21 valuesets from csv file, 3 direct reference codes
+    assert_equal (before_value_set_count + 24), ValueSet.count
     assert_equal (before_patient_count + 1), Patient.count
     assert_equal (before_results_count + 9), IndividualResult.count
     # Assert calculation is correct for a given patient

@@ -57,18 +57,18 @@ module Cypress
     end
 
     def self.unpack_and_store_valuesets(zip, bundle)
-      previous_vs = nil
       current_row = nil
+      previous_row = nil
       codes = []
       csv_text = zip.read(SOURCE_ROOTS[:valuesets])
       csv = CSV.parse(csv_text, headers: true, col_sep: '|')
       csv.each do |row|
         current_row = row
-        previous_vs = row['OID'] if previous_vs.nil?
-        if row['OID'] != previous_vs
-          CQM::ValueSet.new(oid: previous_vs, display_name: row['ValueSetName'], version: row['ExpansionVersion'],
+        previous_row = row if previous_row.nil?
+        if row['OID'] != previous_row['OID']
+          CQM::ValueSet.new(oid: previous_row['OID'], display_name: previous_row['ValueSetName'], version: previous_row['ExpansionVersion'],
                             concepts: codes, bundle: bundle).save
-          previous_vs = row['OID']
+          previous_row = row
           codes = []
         end
         codes << CQM::Concept.new(code: row['Code'], code_system_oid: row['CodeSystemOID'], code_system_name: row['CodeSystemName'],
