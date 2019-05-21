@@ -144,14 +144,18 @@ tests:
   CMSProgramTest:
     title: 'CMS Implementation Guide Checklist'
     instructions:
-      - instruction: 'Fill in the fields below.'
+      - instruction: 'Enter the information below into your EHR and record the entered values in the inputs boxes provided.'
         subinstructions:
-          - 'Cypress will search for information exactly as it is inputted.'
-      - instruction: 'Create (at least) one patient that contains the information below.  Patients may be created using a user interface, or may be created as a structured document to be imported into the system under test.'
+          - 'The "CMS IG Conformance Statement Reference" can be used to find specific guidance in the CMS Implementation Guide.'
+          - 'This information may need to be entered into a patient record, a provider profile or as a system configuration.'
+      - instruction: 'Export (at least) one QRDA file that contains the information below and upload to Cypress.'
         subinstructions:
-        - 'There are no requirements on what format the structured data artifact must be.  Could be CCDA, QRDA, or other formats.'
-        - 'Export the created patients as QRDA Category I, and create a zip file.'
-      - instruction: 'Upload zip file with created test patients.'
+        - 'Cypress will attempt to find the information below in the uploaded QRDA files.'
+        - 'When the information is found, a green checkmark will appear in the "Validated in QRDA" column. The file name where the information is found will also be indicated.'
+      - instruction: 'Click the View Results link for:'
+        subinstructions:
+        - 'Additional Program specific validations.'
+        - 'eCQM Calculation Results (for QRDA Category I uploads).'
   MeasureTest:
     title: 'Measure Tests'
     description: "Test the EHR system's ability to record and export (C1), import and calculate (C2), and submit (C3) measure based data."
