@@ -3,9 +3,9 @@ require 'hqmf-parser'
 module Cypress
   class CqlBundleImporter
     SOURCE_ROOTS = { bundle: 'bundle.json',
-                     measures: 'measures', measures_info: 'measures_info.json',
+                     measures: 'measures', measures_info: 'measures-info.json',
                      results: 'results',
-                     valuesets: File.join('value_sets', 'value-set-codes.csv'),
+                     valuesets: File.join('value-sets', 'value-set-codes.csv'),
                      patients: 'patients' }.freeze
     COLLECTION_NAMES = ['bundles', 'records', 'measures', 'individual_results', 'system.js'].freeze
     DEFAULTS = { type: nil,
