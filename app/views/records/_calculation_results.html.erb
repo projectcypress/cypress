@@ -5,7 +5,7 @@
     <% elsif @vendor %>
         <td>
           <%= bootstrap_form_tag url: vendor_records_path(@vendor), html: {class: "delete_vendor_patients_form"} do |f| %>
-             <%= f.check_box r.id, label: "delete_patient", label_class: "btn btn-checkbox"%>
+             <%= f.check_box r.id, label: "", title: "delete_patient", label_class: "btn btn-checkbox"%>
           <% end %>
         </td>
       <td><%= link_to full_name(r), vendor_record_path(:vendor_id => @vendor.id, :id => r.id, :bundle_id => @bundle.id) %></td>
