@@ -117,7 +117,7 @@ class ProductsController < ApplicationController
 
   def set_measures
     @bundle = @product&.bundle ? @product.bundle : Bundle.default
-    @measures = @bundle ? @bundle.measures.only(:cms_id, :description, :category, :hqmf_id, :reporting_program_type) : []
+    @measures = @bundle ? @bundle.measures.only(:cms_id, :description, :title, :category, :hqmf_id, :reporting_program_type) : []
     @measures_categories = @measures.group_by(&:category)
   end
 
