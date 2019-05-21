@@ -127,7 +127,7 @@ class Product
     update(params)
     (new_ids - old_ids).each do |measure_id|
       m = bundle.measures.find_by(hqmf_id: measure_id)
-      product_tests.build({ name: m.description, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest)
+      product_tests.build({ name: m.title, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest)
     end
     # remove measure and checklist tests if their measure ids have been removed
     product_tests.in(measure_ids: (old_ids - new_ids)).destroy
