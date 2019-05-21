@@ -5,7 +5,8 @@ FactoryBot.define do
       seq_id { 1 }
     end
     source_measure = JSON.parse(File.read(entry), max_nesting: 100)
-    description { "Measure Name #{seq_id}" }
+    description { "Measure Description #{seq_id}" }
+    title { "Measure Name #{seq_id}" }
 
     cms_id { "CMS#{seq_id}v1" }
     hqmf_id { "53e3f13d-e5cf-445f-8dda-3720aff8401#{seq_id}" }
@@ -34,7 +35,8 @@ FactoryBot.define do
     factory  :measure_without_diagnosis, traits: [:no_diagnosis]
 
     factory  :static_measure do
-      description { 'Static Measure' }
+      description { 'Static Measure Description' }
+      title { 'Static Measure' }
 
       cms_id { source_measure['cms_id'] }
       hqmf_id { 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE' }
@@ -76,7 +78,8 @@ FactoryBot.define do
     factory :static_proportion_measure do
       entry = Rails.root.join('test', 'fixtures', 'artifacts', 'CMS134v6.json')
       source_proportion_measure = JSON.parse(File.read(entry), max_nesting: 100)
-      description { 'Static Proportion Measure' }
+      description { 'Static Proportion Measure Description' }
+      title { 'Static Proportion Measure' }
 
       cms_id { source_proportion_measure['cms_id'] }
       hqmf_id { '40280382-5FA6-FE85-0160-0918E74D2075' }
