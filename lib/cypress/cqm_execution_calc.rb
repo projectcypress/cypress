@@ -59,8 +59,8 @@ module Cypress
         # update the patient_id to match the cqm_patient id, not the qdm_patient id
         individual_result['patient_id'] = patient.id.to_s
         individual_result['cqm_patient'] = patient
-        # save to database
-        save_individual_result(individual_result) if save && individual_result.IPP != 0
+        # save to database (if in the IPP, or has a file name (i.e., a file that was uploaded for CVU+))
+        save_individual_result(individual_result) if save && (individual_result.IPP != 0 || @options[:file_name])
         # update the patients, measure_relevance_hash
         patient.update_measure_relevance_hash(individual_result) if individual_result.IPP != 0
       end
