@@ -30,9 +30,9 @@
       <% link_path = has_many_measures ? measure_checklist_test_path(checklist_test, measure) : product_checklist_test_path(product, checklist_test, anchor: "#{measure.cms_id}") %>
       <tr>
         <% if is_report %>
-          <td><%= "#{measure.cms_id} #{measure.description}" %></td>
+          <td><%= "#{measure.cms_id} #{measure.title}" %></td>
         <% else %>
-          <td><%= link_to "#{measure.cms_id} #{measure.description}", link_path %></td>
+          <td><%= link_to "#{measure.cms_id} #{measure.title}", link_path %></td>
         <% end %>
         <td class="no-wrap">
           <% case checklist_test.measure_status(measure.id) %>
