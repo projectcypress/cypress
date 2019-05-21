@@ -7,7 +7,7 @@ class Settings
   # the app is upgraded by the upgrade script, however they are not run for
   # users of the docker containers.
 
-  field :default_bundle, type: String, default: '3.0.0'
+  field :default_bundle, type: String, default: '2019.0.0'
   field :enable_logging, type: Boolean, default: false
   # set to true to enable a banner at the top of every page with the "banner_message" text from below
   field :banner, type: Boolean, default: false

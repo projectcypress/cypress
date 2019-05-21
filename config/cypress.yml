@@ -20,11 +20,11 @@ default_warning_message: 'This warning banner provides privacy and security noti
 # In the case of none of them being valid it will default to the first one
 # modified_population_labels are used to indicate when the population code required by the qrda version differs from the population code in QME
 version_config:
-  '~>2018.0.0':
+  '~>2019.0.0':
       start_date_offset: 2
       modified_population_labels:
         IPP: 'IPOP'
-      schematron: "2018.0.0"
+      schematron: "2019.0.0"
       qrda_version: "r5_1"
       qrda3_version: "r2_1"
       default_negation_codes:
@@ -35,6 +35,7 @@ version_config:
           code: "854901"
           codeSystem: "RxNorm"
       CMSQRDA3SchematronValidator_warnings:
+        - 2020 CMS QRDA III Implementation Guide for Eligible Clinicians and Eligible Professionals has not be published
       CMSQRDA1HQRSchematronValidator_warnings:
 
 # Configuration for values to use when randomizing patients in test decks
