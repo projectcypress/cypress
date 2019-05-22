@@ -21,6 +21,29 @@ GIT
       zip-zip (~> 0.3)
 
 GIT
+  remote: https://github.com/projecttacoma/cqm-reports.git
+  revision: c7d801e7ed7830d437a945c307f7f0206a8b7cf1
+  branch: master
+  specs:
+    cqm-reports (1.0.0.0)
+      erubis (~> 2.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid-tree (~> 2.1.0)
+      mustache
+      nokogiri (~> 1.10.3)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-validators.git
+  revision: 119a54a428dc613dfa56986f64f0a30d8bc56291
+  branch: master
+  specs:
+    cqm-validators (0.1.0)
+      nokogiri (~> 1.10.3)
+
+GIT
   remote: https://github.com/turbolinks/turbolinks-classic
   revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
   branch: master
@@ -445,7 +468,7 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (3.142.2)
+    selenium-webdriver (3.142.3)
       childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
     sexp_processor (4.12.0)
