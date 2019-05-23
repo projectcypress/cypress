@@ -12,12 +12,14 @@ module Cypress
       @measures = measures
       @correlation_id = correlation_id
       @options = options
+      @ir_list = []
     end
 
     def execute(save = true)
       results = @measures.map do |measure|
         request_for(measure, save)
       end.flatten
+      IndividualResult.create!(@ir_list) if save
       results
     end
 
@@ -60,23 +62,26 @@ module Cypress
         individual_result['patient_id'] = patient.id.to_s
         individual_result['cqm_patient'] = patient
         # save to database (if in the IPP, or has a file name (i.e., a file that was uploaded for CVU+))
-        save_individual_result(individual_result) if save && (individual_result.IPP != 0 || @options[:file_name])
+        @ir_list << postprocess_individual_result(individual_result) if save && (individual_result.IPP != 0 || @options[:file_name])
         # update the patients, measure_relevance_hash
         patient.update_measure_relevance_hash(individual_result) if individual_result.IPP != 0
       end
       patient.save if save
     end
 
-    def save_individual_result(individual_result)
-      individual_result = QDM::IndividualResult.new(individual_result)
+    # This add/remove information for use in Cypress
+    # extendedData and statement_results are currently remove as a remporary fix
+    # Add correlation_id and file_name for searchability
+    def postprocess_individual_result(individual_result)
+      # individual_result = QDM::IndividualResult.new(individual_result)
       # when saving the individual result, include the provided correlation id
-      individual_result.correlation_id = @correlation_id
+      individual_result['correlation_id'] = @correlation_id
       # TODO: Fix in cqm-models and execution
       # Temporary fix is to strip out unneeded data to prevent saving keys containing '.'
-      individual_result.extendedData = {}
-      individual_result.statement_results = {}
-      individual_result.file_name = @options[:file_name] if @options[:file_name]
-      individual_result.save
+      individual_result['extendedData'] = {}
+      individual_result['statement_results'] = {}
+      individual_result['file_name'] = @options[:file_name] if @options[:file_name]
+      individual_result
     end
 
     def timeout
