@@ -130,8 +130,9 @@ module Cypress
     end
 
     def self.calculate_results(bundle)
+      qdm_patients = bundle.patients.map(&:qdmPatient)
       bundle.measures.each do |measure|
-        calc_job = Cypress::CqmExecutionCalc.new(bundle.patients.map(&:qdmPatient),
+        calc_job = Cypress::CqmExecutionCalc.new(qdm_patients,
                                                  [measure],
                                                  bundle.id.to_s,
                                                  'effectiveDateEnd': Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number),
