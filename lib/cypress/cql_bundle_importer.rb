@@ -130,12 +130,14 @@ module Cypress
     end
 
     def self.calculate_results(bundle)
-      calc_job = Cypress::CqmExecutionCalc.new(bundle.patients.map(&:qdmPatient),
-                                               bundle.measures,
-                                               bundle.id.to_s,
-                                               'effectiveDateEnd': Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number),
-                                               'effectiveDate': Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number))
-      calc_job.execute(true)
+      bundle.measures.each do |measure|
+        calc_job = Cypress::CqmExecutionCalc.new(bundle.patients.map(&:qdmPatient),
+                                                 [measure],
+                                                 bundle.id.to_s,
+                                                 'effectiveDateEnd': Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number),
+                                                 'effectiveDate': Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number))
+        calc_job.execute(true)
+      end
       puts "\rLoading: Results Complete          "
     end
 
