@@ -2,6 +2,8 @@ FactoryBot.define do
   factory :vendor, class: Vendor do
     sequence(:name) { |i| "Vendor Name #{i}" }
 
+    preferred_code_systems { { 'encounter' => ['2.16.840.1.113883.6.96'] } }
+
     factory :vendor_with_poc do
       points_of_contact { [FactoryBot.build(:poc)] }
     end

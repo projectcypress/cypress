@@ -29,18 +29,18 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   end
 
   def test_preferred_code_procedure_with_vendor_perference_snomedct
-    assert_code_preferences(%w[SNOMEDCT])
+    assert_code_preferences(%w[2.16.840.1.113883.6.96])
   end
 
   def test_preferred_code_procedure_with_vendor_perference_cpt
-    assert_code_preferences(%w[CPT])
+    assert_code_preferences(%w[2.16.840.1.113883.6.12])
   end
 
   def test_preferred_code_procedure_with_vendor_perference_not_found
     pcj = Cypress::PopulationCloneJob.new('test_id' => @pt.id)
     pcj.find_patients_to_clone
     vendor = @pt.product.vendor
-    vendor.preferred_code_systems['procedure'] = ['FAKECS']
+    vendor.preferred_code_systems['procedure'] = ['1.2.3']
     vendor.save
     original_patient = @pt.patients.first
     cloned_patient = original_patient.clone
@@ -49,15 +49,15 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     # There should only be one codes in the cloned patients procedure
     assert_equal 1, cloned_procedure_codes.size
     # The cloned code should not be from the FAKECS code system
-    assert_not_equal 'FAKECS', cloned_procedure_codes[0].codeSystem
+    assert_not_equal '1.2.3', cloned_procedure_codes[0].codeSystemOid
   end
 
   def test_preferred_code_procedure_with_ordered_vendor_perference_snomedct_first
-    assert_code_preferences(%w[SNOMEDCT CPT])
+    assert_code_preferences(%w[2.16.840.1.113883.6.96 2.16.840.1.113883.6.12])
   end
 
   def test_preferred_code_procedure_with_ordered_vendor_perference_cpt_first
-    assert_code_preferences(%w[CPT SNOMEDCT])
+    assert_code_preferences(%w[2.16.840.1.113883.6.12 2.16.840.1.113883.6.96])
   end
 
   def assert_code_preferences(preferred_code_systems)
@@ -75,7 +75,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     # There should only be one codes in the cloned patients procedure
     assert_equal 1, cloned_procedure_codes.size
     # The cloned code should be from the SNOMEDCT code system
-    assert_equal preferred_code_systems[0], cloned_procedure_codes[0].codeSystem
+    assert_equal preferred_code_systems[0], cloned_procedure_codes[0].codeSystemOid
   end
 
   def test_assigns_default_provider
