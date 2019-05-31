@@ -2,8 +2,8 @@ require 'api'
 
 class VendorsController < ApplicationController
   include API::Controller
-  before_action :set_vendor, only: %i[show update destroy edit favorite]
-  before_action :authorize_vendor, only: %i[show update destroy edit favorite]
+  before_action :set_vendor, only: %i[show update destroy edit favorite preferences update_preferences]
+  before_action :authorize_vendor, only: %i[show update destroy edit favorite preferences update_preferences]
 
   # breadcrumbs
   add_breadcrumb 'Dashboard', :vendors_path
@@ -83,6 +83,21 @@ class VendorsController < ApplicationController
     @vendor.favorite_user_ids.push(user_id) if deleted_value.nil?
     @vendor.save!
     respond_with(@vendor)
+  end
+
+  def preferences
+    add_breadcrumb 'Vendor: ' + @vendor.name, vendor_path(@vendor)
+    add_breadcrumb 'Preferences', vendor_preferences_path(@vendor)
+    # TODO: change to pull from Cypress app settings
+    @vendor.preferred_code_systems = Settings.current.default_code_systems if @vendor.preferred_code_systems.empty?
+    @vendor.save
+  end
+
+  def update_preferences
+    # save preferences to vendor preferred_code_systems
+    @vendor.preferred_code_systems = JSON.parse(params['vendor_preferences'])
+    @vendor.save
+    redirect_to vendor_path(@vendor)
   end
 
   private

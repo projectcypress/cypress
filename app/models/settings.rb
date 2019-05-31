@@ -43,6 +43,7 @@ class Settings
   field :mailer_user_name, type: String, default: (ENV['MAILER_USER_NAME'] || '')
   field :mailer_password, type: String, default: (ENV['MAILER_PASSWORD'] || '')
   field :mailer_authentication, type: Symbol, default: 'plain'
+  field :default_code_systems, type: Hash, default: {}
 
   validate :instance_is_singleton
 

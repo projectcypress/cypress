@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resources :vendors do
     post :favorite
+    get :preferences
+    post :update_preferences
     resources :products, only: %i[show index new create edit update destroy favorite] do
       post :favorite
       member do
