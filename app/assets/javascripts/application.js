@@ -5,6 +5,7 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require parsley/parsley
+//= require dragon_drop/dragon-drop
 //= require dataTables/jquery.dataTables
 //= require jquery-ui/widgets/autocomplete
 //= require jquery-ui/widgets/tabs

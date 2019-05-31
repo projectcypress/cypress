@@ -83,9 +83,21 @@ When(/^the user views the vendor information$/) do
   page.click_link @vendor.name
 end
 
+When(/^the user views the vendor preferences$/) do
+  steps %( When the user views the vendor information )
+  page.click_button 'Vendor Preferences'
+end
+
 # # # # # # # #
 #   T H E N   #
 # # # # # # # #
+Then(/^the user should see choose code system preferences$/) do
+  page.assert_text 'Choose Code System Preferences'
+end
+
+Then(/^the user should see save code system preferences$/) do
+  page.click_button 'Save'
+end
 
 Then(/^the user should see a notification saying the vendor was created$/) do
   page.assert_text 'was created'

@@ -7,6 +7,9 @@
         <% end %>
       <% end %>
 
+      <%= button_to vendor_preferences_path(vendor.id), :method => :get, :class => "btn btn-default" do %>
+        <%= icon('fas fa-fw', 'cogs', :"aria-hidden" => true) %> Vendor Preferences
+      <% end %>
       <%= button_to vendor_records_path(vendor.id), :method => :get, :class => "btn btn-default" do %>
         <%= icon('fas fa-fw', 'users', :"aria-hidden" => true) %> Vendor Patients
       <% end %>
