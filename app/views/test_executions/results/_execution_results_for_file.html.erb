@@ -10,6 +10,12 @@
 
 %>
 
+<% @task.measures.each do |m|  %>
+  <%= "Mike's test area: " + " " + m.measure_scoring + "  " + m.hqmf_id + "  " + m.hqmf_version_number + "  " + m.bundle_id %>
+  <%= "\n More silliness here " + m.created_at.to_s + "\n"%>
+  <%= "\nEven More silliness here " + m.composite.to_s + " " %>
+  <% end %>
+
 <% num_errors = error_result.keys.map { |s| error_result[s].execution_errors.count }.reduce(&:+) %>
 
 <% if num_errors.zero? %>
@@ -20,6 +26,7 @@
 <p class="lead">
   <%= "#{file_name} - #{num_errors} " + (is_passing ? "warnings" : "errors and warnings") %>
 </p>
+
 
 <% if (@task.is_a? CMSProgramTask) && @task.product_test.reporting_program_type == 'eh' %>
   <%= render partial: 'test_executions/results/calculation_results_for_file', locals: { execution: execution, file_name: file_name } %>
