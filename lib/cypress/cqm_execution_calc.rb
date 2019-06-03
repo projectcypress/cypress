@@ -76,10 +76,6 @@ module Cypress
       # individual_result = QDM::IndividualResult.new(individual_result)
       # when saving the individual result, include the provided correlation id
       individual_result['correlation_id'] = @correlation_id
-      # TODO: Fix in cqm-models and execution
-      # Temporary fix is to strip out unneeded data to prevent saving keys containing '.'
-      individual_result['extendedData'] = {}
-      individual_result['statement_results'] = {}
       individual_result['file_name'] = @options[:file_name] if @options[:file_name]
       individual_result
     end
