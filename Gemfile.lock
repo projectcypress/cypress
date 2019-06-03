@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/projecttacoma/cqm-models.git
+  revision: 8309c4357151e3098fc4ca198a1480e13359e28c
+  branch: individual_result_mods
+  specs:
+    cqm-models (1.1.1.0)
+
+GIT
   remote: https://github.com/projecttacoma/cqm-parsers.git
   revision: 386e36da55b1e979637664d991459bb2b3bcab51
   branch: drc_code_system
@@ -147,7 +154,6 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
-    cqm-models (1.1.1.0)
     cqm-reports (1.0.0.0)
       cqm-models (~> 1.1.1.0)
       erubis (~> 2.7.0)
@@ -528,7 +534,7 @@ DEPENDENCIES
   carrierwave (~> 0.11.2)
   carrierwave-mongoid
   codecov
-  cqm-models (~> 1.1.1.0)
+  cqm-models!
   cqm-parsers!
   cqm-reports (~> 1.0.0.0)
   cqm-validators (~> 1.0.1.0)
