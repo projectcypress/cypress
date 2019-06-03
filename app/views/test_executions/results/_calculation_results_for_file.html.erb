@@ -18,6 +18,7 @@
           </thead>
           <tbody>
             <% measures.each do |m| %>
+              <%= "Mike's Test" + m.description %>
               <% m.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
                 <% result_values = get_result_values_test_upload(params['id'], file_name, [m], m.key_for_population_set(population_set_hash), pop_keys, 'measure_id') %>
                 <tr>
