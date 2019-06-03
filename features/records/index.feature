@@ -92,6 +92,7 @@ Scenario: Successful filter records for vendor patient
   Then the page should be accessible according to: wcag2aa
 
 Scenario: View Vendor Patient Page
+  Given a vendor patient has measure_calculations
   When the user visits the vendor patient link
   Then the user should see vendor patient details
   Then the page should be accessible according to: section508
