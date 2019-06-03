@@ -14,6 +14,7 @@
   <%= "Mike's test area: " + " " + m.measure_scoring + "  " + m.hqmf_id + "  " + m.hqmf_version_number + "  " + m.bundle_id %>
   <%= "\n More silliness here " + m.created_at.to_s + "\n"%>
   <%= "\nEven More silliness here " + m.composite.to_s + " " %>
+    <%= "\nEven More silliness here " + m.composite.to_s + " " %>
   <% end %>
 
 <% num_errors = error_result.keys.map { |s| error_result[s].execution_errors.count }.reduce(&:+) %>
