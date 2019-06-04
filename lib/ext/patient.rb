@@ -2,7 +2,6 @@
 
 module CQM
   class Patient
-    has_many :calculation_results, class_name: 'CQM::IndividualResult', inverse_of: :cqm_patient
     field :correlation_id, type: BSON::ObjectId
     field :original_patient_id, type: BSON::ObjectId
     field :original_medical_record_number, type: String
