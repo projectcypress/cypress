@@ -112,7 +112,7 @@ module Admin
         orig_measure_count = Measure.count
         orig_patient_count = Patient.count
         orig_vendor_patient_count = CQM::VendorPatient.count
-        orig_results_count = QDM::IndividualResult.count
+        orig_results_count = CQM::IndividualResult.count
         id = @static_bundle.id
 
         delete :destroy, params: { id: id }
@@ -122,7 +122,7 @@ module Admin
         assert orig_measure_count > Measure.count, 'Should have removed measures in the bundle'
         assert orig_patient_count > Patient.count, 'Should have removed patients in the bundle'
         assert orig_vendor_patient_count > CQM::VendorPatient.count, 'Should have vendor patients for the bundle'
-        assert orig_results_count > QDM::IndividualResult.count, 'Should have removed individual results in the bundle'
+        assert orig_results_count > CQM::IndividualResult.count, 'Should have removed individual results in the bundle'
       end
     end
 
@@ -141,8 +141,8 @@ module Admin
         orig_bundle_count = Bundle.available.count
         orig_measure_count = Measure.count
         orig_patient_count = Patient.count
-        orig_results_count = QDM::IndividualResult.count
         orig_vendor_patient_calculation = patient.calculation_results.size
+        orig_results_count = CQM::IndividualResult.count
         id = @static_bundle.id
         post :deprecate, params: { id: id }
 
@@ -152,8 +152,7 @@ module Admin
         assert_equal orig_bundle_count - 1, Bundle.available.count, 'Should have deprecated Bundle'
         assert orig_measure_count == Measure.count, 'Should not have removed measures in the bundle'
         assert orig_patient_count == Patient.count, 'Should not have removed patients in the bundle'
-
-        assert orig_results_count > QDM::IndividualResult.count, 'Should have removed individual results in the bundle'
+        assert orig_results_count > CQM::IndividualResult.count, 'Should have removed individual results in the bundle'
       end
     end
 
