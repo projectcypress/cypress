@@ -60,7 +60,6 @@ module Cypress
         individual_result['population_set_key'] = population_set_key
         # update the patient_id to match the cqm_patient id, not the qdm_patient id
         individual_result['patient_id'] = patient.id.to_s
-        individual_result['cqm_patient'] = patient
         # save to database (if in the IPP, or has a file name (i.e., a file that was uploaded for CVU+))
         @ir_list << postprocess_individual_result(individual_result) if save && (individual_result.IPP != 0 || @options[:file_name])
         # update the patients, measure_relevance_hash
@@ -73,7 +72,7 @@ module Cypress
     # extendedData and statement_results are currently remove as a remporary fix
     # Add correlation_id and file_name for searchability
     def postprocess_individual_result(individual_result)
-      # individual_result = QDM::IndividualResult.new(individual_result)
+      # individual_result = CQM::IndividualResult.new(individual_result)
       # when saving the individual result, include the provided correlation id
       individual_result['correlation_id'] = @correlation_id
       individual_result['file_name'] = @options[:file_name] if @options[:file_name]

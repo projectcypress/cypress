@@ -75,7 +75,7 @@ class ProductTest
     # carrierwave. Without this the system would be left with a lot of uploaded files on it
     # long after the parent data was destroyed.
     Artifact.where(:test_execution_id.in => test_execution_ids).destroy
-    QDM::IndividualResult.where(:patient_id.in => patient_ids).delete
+    CQM::IndividualResult.where(:patient_id.in => patient_ids).delete
     ProductTest.in(id: product_test_ids).delete
   end
 
@@ -158,7 +158,7 @@ class ProductTest
   end
 
   def results
-    QDM::IndividualResult.where(correlation_id: id.to_s)
+    CQM::IndividualResult.where(correlation_id: id.to_s)
   end
 
   %i[ready queued building errored].each do |test_state|
