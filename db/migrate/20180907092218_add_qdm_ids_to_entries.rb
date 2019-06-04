@@ -38,7 +38,7 @@ class AddQdmIdsToEntries < Mongoid::Migration
             new_patient.dataElements << de
           end
           updated_patients_references[patient.id] = new_patient.id
-          irs_to_update = QDM::IndividualResult.where('patient_id' => patient.id)
+          irs_to_update = CQM::IndividualResult.where('patient_id' => patient.id)
           irs_to_update.each do |ir_to_update|
             ir_to_update.patient_id = new_patient.id
             ir_to_update.save!
