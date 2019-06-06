@@ -86,7 +86,6 @@ FactoryBot.define do
         IndividualResult.new('measure_id' => Measure.find_by(hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE', bundle_id: patient.bundle.id)._id,
                              'correlation_id' => patient.correlation_id,
                              'patient_id' => patient.id,
-                             'cqm_patient' => patient.id,
                              'population_set_key' => 'PopulationCriteria1',
                              'IPP' => 1,
                              'MSRPOPL' => 1,
