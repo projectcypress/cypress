@@ -44,7 +44,6 @@ FactoryBot.define do
         create(:cqm_individual_result,
                'correlation_id' => pt.id.to_s,
                'patient_id' => patient.id,
-               'cqm_patient' => patient.id,
                'measure_id' => pt.measures.first.id,
                'population_set_key' => 'PopulationCriteria1',
                'IPP' => 1,
