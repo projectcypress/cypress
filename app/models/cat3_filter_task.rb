@@ -17,8 +17,13 @@ class Cat3FilterTask < Task
   end
 
   def good_results
-    cms_compatibility = product_test&.product&.c3_test
-    options = { provider: product_test.patients.first.providers.first, submission_program: cms_compatibility,
+    # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
+    cat3_submission_program = if product_test&.product&.c3_test
+                                product_test&.measures&.first&.reporting_program_type == 'ep' ? 'MIPS_INDIV' : false
+                              else
+                                false
+                              end
+    options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
                 start_time: start_date, end_time: end_date }
     Qrda3R21.new(product_test.expected_results, product_test.measures, options).render
   end

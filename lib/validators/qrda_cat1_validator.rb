@@ -5,8 +5,6 @@ module Validators
     include Validators::Validator
     include ::CqmValidators
 
-    self.validator = :qrda_cat1
-
     def initialize(bundle, is_c3_validation_task, test_has_c3, test_has_c1, measures = [])
       @test_has_c3 = test_has_c3
       @measures = measures
@@ -38,16 +36,12 @@ module Validators
       # We may in the future have to support looking in the contents of the test
       # patient records to match agaist QRDA Cat I documents
 
-      validation_errors = @validators.inject([]) do |errors, validator|
-        errors.concat validator.validate(doc, options)
-      end
-      validation_errors.each do |error|
-        # errors for data criteria outside the measure definition are now warnings
-        type = error.message.include?('data criteria outside') ? :warning : :error
-        type = :warning if (error.validator&.upcase&.include?('QRDA') || error.validator == 'QRDA QDM Template Validator') && !@test_has_c3
-        add_issue error.message, type, message: error.message,
-                                       location: error.location, validator: error.validator,
-                                       validator_type: :xml_validation, file_name: error.file_name
+      @validators.each do |validator|
+        as_warning = (['CqmValidators::QrdaQdmTemplateValidator'].include? validator.class.to_s) && !@test_has_c3 ? true : false
+        add_cqm_validation_error_as_execution_error(validator.validate(doc, options),
+                                                    validator.class.to_s,
+                                                    :xml_validation,
+                                                    as_warning)
       end
       # dont' validate measures for C1 Checklist or C3 Checklist
       validate_measures(doc) unless %w[C1ChecklistTask C3ChecklistTask].include? options.task._type
@@ -63,7 +57,7 @@ module Validators
               cda:id[#{translate('@root')}='2.16.840.1.113883.4.738' and #{translate('@extension')}='#{measure.hqmf_id.upcase}'])
         unless doc.at_xpath(measure_xpath)
           add_error("Document does not state it is reporting measure #{measure.hqmf_id}  - #{measure.description}",
-                    validator: 'Measure Declaration Check', validator_type: :xml_validation, file_name: @options[:file_name])
+                    validator: 'Validators::QrdaCat1Validator', validator_type: :xml_validation, file_name: @options[:file_name])
         end
       end
     end

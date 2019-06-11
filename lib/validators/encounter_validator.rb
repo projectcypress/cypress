@@ -4,8 +4,6 @@ module Validators
   class EncounterValidator < QrdaFileValidator
     include Validators::Validator
 
-    self.validator = :encounter_validator
-
     def initialize; end
 
     def validate(file, options = {})
