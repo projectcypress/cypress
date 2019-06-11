@@ -16,8 +16,8 @@ class MultiMeasureCat3Task < Task
   end
 
   def good_results
-    cms_compatibility = product_test&.product&.c3_test
-    options = { provider: product_test.patients.first.providers.first, submission_program: cms_compatibility,
+    # Set the Submission Program to MIPS_INDIV
+    options = { provider: product_test.patients.first.providers.first, submission_program: 'MIPS_INDIV',
                 start_time: start_date, end_time: end_date }
     Qrda3R21.new(product_test.expected_results, product_test.measures, options).render
   end

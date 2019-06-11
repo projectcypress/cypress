@@ -47,15 +47,18 @@ class CMSProgramTask < Task
   end
 
   def mips_group_validators
-    ep_validators
+    # For MIPS submissions, CMS EHR Certification ID is only required if Promoting Interoperability is included
+    [EHRCertificationIdValidator.new].concat ep_validators
   end
 
   def mips_indiv_validators
-    ep_validators
+    # For MIPS submissions, CMS EHR Certification ID is only required if Promoting Interoperability is included
+    [EHRCertificationIdValidator.new].concat ep_validators
   end
 
   def mips_virtual_group_validators
-    ep_validators
+    # For MIPS submissions, CMS EHR Certification ID is only required if Promoting Interoperability is included
+    [EHRCertificationIdValidator.new].concat ep_validators
   end
 
   # Common validators for EH programs
@@ -69,7 +72,8 @@ class CMSProgramTask < Task
   def ep_validators
     [::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version, false),
      ::Validators::QrdaCat3Validator.new(nil, false, true, false, product_test.bundle),
-     Cat3PopulationValidator.new]
+     Cat3PopulationValidator.new,
+     CMSPopulationCountValidator.new]
   end
 
   # Program Specific fields to be added to checklist portion of test

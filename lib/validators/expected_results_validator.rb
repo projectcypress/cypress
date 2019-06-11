@@ -4,8 +4,6 @@ module Validators
     include Validators::Validator
     attr_accessor :reported_results
 
-    self.validator = :expected_results
-
     def initialize(expected_results)
       @expected_results = expected_results
       @reported_results = {}

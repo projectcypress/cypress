@@ -5,8 +5,6 @@ module Validators
     include Validators::Validator
     include ::CqmValidators::ReportedResultExtractor
 
-    self.validator = :cat_3_population
-
     def initialize; end
 
     def validate(file, options = {})
@@ -21,7 +19,13 @@ module Validators
 
           pop_counts[code] = count.to_i
         end
-        validate_populations(measure_id, pop_counts, options)
+        # If there is a MSRPOPL, test that CV populations are reported correctly
+        if pop_counts['MSRPOPL']
+          validate_cv_populations(measure_id, pop_counts, options)
+        else
+          # Otherwise, check proportion population are reported correctly
+          validate_populations(measure_id, pop_counts, options)
+        end
       rescue StandardError => e
         # do nothing, if we get an exception the file is probably broken in some way
         Rails.logger.error(e)
@@ -47,7 +51,8 @@ module Validators
       end
     end
 
-    def validate_cv_populations(file)
+    def validate_cv_populations(measure, pop, options)
+      file = options[:file_name]
       # CVT measures, IPP >= MSRPOPL >= OBSERV
       msrpopl = pop['MSRPOPL'] || 0
       observ = pop['OBSERV'] || 0
