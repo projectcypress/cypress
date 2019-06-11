@@ -3,8 +3,6 @@ module Validators
   class QrdaCat3Validator < QrdaFileValidator
     include ::CqmValidators
 
-    self.validator = :qrda_cat3
-
     def initialize(expected_results, is_c3_validation_task, test_has_c3, test_has_c2, bundle)
       @bundle = bundle
       @is_c3_validation_task = is_c3_validation_task
@@ -19,26 +17,22 @@ module Validators
 
       # I don't like this right now but do it this way just to get things moving
       # TODO update Cat3PerformanceRate
-      add_errors Cat3PerformanceRate.instance.validate(@doc, file_name: @options[:file_name]) if @is_c3_validation_task
+      if @is_c3_validation_task
+        add_cqm_validation_error_as_execution_error(Cat3PerformanceRate.instance.validate(@doc, file_name: @options[:file_name]),
+                                                    'CqmValidators::Cat3PerformanceRate',
+                                                    :xml_validation)
+      end
       # Add if it isn't C3 or if it is and there isn't a C2
       if !@is_c3_validation_task || (@is_c3_validation_task && !@test_has_c2)
-        add_errors Cat3Measure.instance.validate(@doc, file_name: @options[:file_name])
-        validate_qrda
-        add_errors CDA.instance.validate(@doc, file_name: @options[:file_name])
-      end
-    end
-
-    def validate_qrda
-      add_errors Cat3R21.instance.validate(@doc, file_name: @options[:file_name]) if @bundle.qrda3_version == 'r2_1'
-    end
-
-    def add_errors(errors)
-      # The HDS validators hand back ValidationError objects, but we need ExecutionError objects
-      errors.map do |error|
-        type = :error
-        type = :warning if error.validator&.upcase&.include?('QRDA') && !@test_has_c3
-        add_issue error.message, type, location: error.location, validator: error.validator,
-                                       validator_type: :xml_validation, file_name: error.file_name
+        add_cqm_validation_error_as_execution_error(Cat3Measure.instance.validate(@doc, file_name: @options[:file_name]),
+                                                    'CqmValidators::Cat3Measure',
+                                                    :xml_validation)
+        add_cqm_validation_error_as_execution_error(Cat3R21.instance.validate(@doc, file_name: @options[:file_name]),
+                                                    'CqmValidators::Cat3R21',
+                                                    :xml_validation)
+        add_cqm_validation_error_as_execution_error(CDA.instance.validate(@doc, file_name: @options[:file_name]),
+                                                    'CqmValidators::CDA',
+                                                    :xml_validation)
       end
     end
   end

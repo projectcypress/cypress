@@ -15,7 +15,7 @@ Program Criterion:
     description:
       eh: 'The organizations Facility CMS Certification Number (CCN). CCN is required for HQR.'
     conf:
-      eh: '(CONF:3343-28241_C01)'
+      eh: '(CONF:4388-28241_C01)'
     programs:
       - HQR_PI
       - HQR_IQR
@@ -26,7 +26,7 @@ Program Criterion:
     description:
       eh: 'Medicare HIC Number is not required for HQR but should be submitted if the payer is Medicare and the patient has an HIC number assigned.'
     conf:
-      eh: '(CONF:3343- 16857_C01)'
+      eh: '(CONF:4388- 16857_C01)'
     programs:
       - HQR_PI
       - HQR_IQR
@@ -48,7 +48,7 @@ Program Criterion:
     description:
       eh: 'Medicare Beneficiary Identifier (MBI) is not required for HQR but should be submitted if the payer is Medicare and the patient has an MBI number assigned.'
     conf:
-      eh: '(CONF:3343- 28697_C01)'
+      eh: '(CONF:4388- 28697_C01)'
     programs:
       - HQR_PI
       - HQR_IQR
@@ -73,7 +73,7 @@ Program Criterion:
       MIPS_INDIV: 'For MIPS individual reporting: it must contain exactly one performer, which contains one TIN and one NPI.'
       eh: 'For HQR, TIN may not be applicable. If TIN is submitted for HQR, then it SHALL conform to the constraints specified for TIN. and the TIN must be in valid format (9 decimal digits).'
     conf:
-      eh: '(CONF:3343-16593)'
+      eh: '(CONF:4388-16593)'
       ep: '(CONF:3338-18190)'
     programs:
       - HQR_PI
