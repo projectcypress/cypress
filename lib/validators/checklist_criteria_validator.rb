@@ -5,8 +5,6 @@ module Validators
     include Validators::Validator
     include ::CqmValidators
 
-    self.validator = :checklist
-
     def initialize(checklist_test)
       @criteria_list = checklist_test.checked_criteria
       @criteria_list.each do |criteria|

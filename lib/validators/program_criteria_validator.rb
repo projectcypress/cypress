@@ -5,8 +5,6 @@ module Validators
     include Validators::Validator
     include ::CqmValidators
 
-    self.validator = :checklist
-
     def initialize(program_test)
       @criteria_list = program_test.program_criteria
       @criteria_list.each do |criteria|
@@ -19,7 +17,13 @@ module Validators
     # Validates a QRDA Cat I file.  This routine will validate the file against the checklist criteria
     def validate(file, options = {})
       @file = file
+      @doc = get_document(file)
+      # Perform measure calculation for uploaded Cat I files
       calculate_patient(options) if options.task.product_test.reporting_program_type == 'eh'
+      # Validate to correct HQMF ids are being reported
+      add_cqm_validation_error_as_execution_error(Cat1Measure.instance.validate(@doc, file_name: options[:file_name]),
+                                                  'CqmValidators::Cat1Measure',
+                                                  :xml_validation)
       @criteria_list.each do |criteria|
         # if a criteria has already passed, no need to check again
         next if criteria.criterion_verified
@@ -36,6 +40,7 @@ module Validators
       patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(@file)
       patient.update(_type: CQM::TestExecutionPatient, correlation_id: options.test_execution.id.to_s)
       patient.save!
+      patient_has_pcp_and_other_element(patient, options)
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, options.task.bundle)
       calc_job = Cypress::CqmExecutionCalc.new([patient.qdmPatient],
                                                options.task.product_test.measures,
@@ -44,6 +49,23 @@ module Validators
                                                'effectiveDate': Time.at(options.task.measure_period_start).in_time_zone.to_formatted_s(:number),
                                                'file_name': options[:file_name])
       calc_job.execute(true)
+    end
+
+    # Check that a patient as a patient_characteristic_payer and atleast 1 other (non-demographic) data criteria
+    def patient_has_pcp_and_other_element(patient, options)
+      patient_characteristic_types = ['QDM::PatientCharacteristicPayer',
+                                      'QDM::PatientCharacteristicBirthdate',
+                                      'QDM::PatientCharacteristicSex',
+                                      'QDM::PatientCharacteristicRace',
+                                      'QDM::PatientCharacteristicEthnicity']
+      # Find all data element types
+      data_element_types = patient.qdmPatient.dataElements.map(&:_type)
+      # Return if patient_characteristic_payer and 1 other data criteria is found, otherwise return an error message
+      return unless (data_element_types - patient_characteristic_types).empty? || !(data_element_types.include? 'QDM::PatientCharacteristicPayer')
+
+      msg =  'The Patient Data Section QDM (V6) - CMS shall contain at least one Patient Characteristic Payer template and at least one entry ' \
+             'template that is other than the Patient Characteristic Payer template.'
+      add_issue msg, :error, location: '/', validator_type: :xml_validation, file_name: options[:file_name]
     end
 
     def validate_criteria(checked_criteria)
