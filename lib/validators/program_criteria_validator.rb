@@ -34,7 +34,7 @@ module Validators
 
     def calculate_patient(options)
       patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(@file)
-      patient.save!
+      patient.save
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, options.task.bundle)
       calc_job = Cypress::CqmExecutionCalc.new([patient.qdmPatient],
                                                options.task.product_test.measures,
