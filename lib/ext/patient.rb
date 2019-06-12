@@ -13,7 +13,7 @@ module CQM
     # This allows us to instantiate Patients that do not belong to specific type of patient
     # for the purposes of testing but blocks us from saving them to the database to ensure
     # every patient actually in the database is of a valid type.
-    validates :_type, inclusion: %w[CQM::BundlePatient CQM::VendorPatient CQM::ProductTestPatient]
+    validates :_type, inclusion: %w[CQM::BundlePatient CQM::VendorPatient CQM::ProductTestPatient CQM::TestExecutionPatient]
 
     def destroy
       calculation_results.destroy
