@@ -14,7 +14,7 @@ gem 'bson_ext'
 gem 'mustache'
 gem 'os'
 
-gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'individual_result_mods'
+gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'codesystemoid'
 gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'drc_code_system'
 gem 'cqm-reports', '~> 1.0.0.0'
 gem 'cqm-validators', '~> 1.0.1.0'
