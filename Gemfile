@@ -16,7 +16,7 @@ gem 'os'
 
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'codesystemoid'
 gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'drc_code_system'
-gem 'cqm-reports', '~> 1.0.0.0'
+gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports.git', branch: 'codesystemoid'
 gem 'cqm-validators', '~> 1.0.1.0'
 
 # Use faker to generate addresses
