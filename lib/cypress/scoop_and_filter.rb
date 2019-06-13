@@ -56,7 +56,7 @@ module Cypress
       # If the first three characters of the valueset oid is drc, this is a direct reference code, not a valueset.  Do not negate a valueset here.
       return if negated_valueset.oid[0, 3] == 'drc'
 
-      data_element.dataElementCodes = [{ code: negated_valueset.oid, codeSystem: 'NA_VALUESET' }]
+      data_element.dataElementCodes = [{ code: negated_valueset.oid, codeSystem: '1.2.3.4.5.6.7.8.9.10' }]
     end
   end
 end
