@@ -105,11 +105,14 @@ module Admin
     end
 
     test 'should be able to remove bundle' do
+      FactoryBot.create(:vendor_test_patient,
+                        bundleId: @static_bundle._id, correlation_id: @vendor.id)
       for_each_logged_in_user([ADMIN]) do
         orig_bundle_count = Bundle.count
         orig_measure_count = Measure.count
         orig_patient_count = Patient.count
         orig_results_count = CQM::IndividualResult.count
+        orig_vendor_patient_count = CQM::VendorPatient.count
         id = @static_bundle.id
 
         delete :destroy, params: { id: id }
@@ -119,6 +122,7 @@ module Admin
         assert orig_measure_count > Measure.count, 'Should have removed measures in the bundle'
         assert orig_patient_count > Patient.count, 'Should have removed patients in the bundle'
         assert orig_results_count > CQM::IndividualResult.count, 'Should have removed individual results in the bundle'
+        assert orig_vendor_patient_count > CQM::VendorPatient.count, 'Should have vendor patients for the bundle'
       end
     end
 
