@@ -76,7 +76,7 @@ module Cypress
         r.qdmPatient.conditions.each do |c|
           c['dataElementCodes'].each do |dec|
             # check if snomed
-            next unless dec['codeSystem'] == 'SNOMEDCT'
+            next unless dec['codeSystemOid'] == '2.16.840.1.113883.6.96'
 
             # check code against all valueset concepts
             value_set['concepts'].each do |concept|
