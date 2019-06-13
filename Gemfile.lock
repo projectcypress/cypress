@@ -28,6 +28,21 @@ GIT
       zip-zip (~> 0.3)
 
 GIT
+  remote: https://github.com/projecttacoma/cqm-reports.git
+  revision: 67cb92f72d7ee14904c88d4ff556851227ad6755
+  branch: codesystemoid
+  specs:
+    cqm-reports (1.0.0.0)
+      erubis (~> 2.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid-tree (~> 2.1.0)
+      mustache
+      nokogiri (~> 1.10.3)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+
+GIT
   remote: https://github.com/turbolinks/turbolinks-classic
   revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
   branch: master
@@ -154,16 +169,6 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
-    cqm-reports (1.0.0.0)
-      cqm-models (~> 1.1.1.0)
-      erubis (~> 2.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid-tree (~> 2.1.0)
-      mustache
-      nokogiri (~> 1.10.3)
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
     cqm-validators (1.0.1.0)
       nokogiri (~> 1.10.3)
     crass (1.0.4)
@@ -536,7 +541,7 @@ DEPENDENCIES
   codecov
   cqm-models!
   cqm-parsers!
-  cqm-reports (~> 1.0.0.0)
+  cqm-reports!
   cqm-validators (~> 1.0.1.0)
   cucumber (~> 3.0.2)
   cucumber-rails
