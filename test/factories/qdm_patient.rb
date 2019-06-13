@@ -10,10 +10,12 @@ FactoryBot.define do
         'dataElementCodes' => [
           {
             'codeSystem' => 'SNOMEDCT',
+            'codeSystemOid' => '2.16.840.1.113883.6.96',
             'code' => '210'
           },
           {
             'codeSystem' => 'CPT',
+            'codeSystemOid' => '2.16.840.1.113883.6.12',
             'code' => '60'
           }
         ],
@@ -33,6 +35,7 @@ FactoryBot.define do
         'dataElementCodes' => [
           {
             'codeSystem' => 'SNOMEDCT',
+            'codeSystemOid' => '2.16.840.1.113883.6.96',
             'code' => '24'
           }
         ],
@@ -53,6 +56,7 @@ FactoryBot.define do
         'dataElementCodes' => [
           {
             'codeSystem' => 'SNOMEDCT',
+            'codeSystemOid' => '2.16.840.1.113883.6.96',
             'code' => '504'
           }
         ],
@@ -74,6 +78,7 @@ FactoryBot.define do
         'dataElementCodes' => [
           {
             'codeSystem' => 'SNOMEDCT',
+            'codeSystemOid' => '2.16.840.1.113883.6.96',
             'code' => '720'
           }
         ],
@@ -94,6 +99,7 @@ FactoryBot.define do
         'dataElementCodes' => [
           {
             'codeSystem' => 'SNOMEDCT',
+            'codeSystemOid' => '2.16.840.1.113883.6.96',
             'code' => '5814'
           }
         ],
@@ -129,7 +135,8 @@ FactoryBot.define do
         'dataElementCodes' => [
           {
             'code' => '21112-8',
-            'codeSystem' => 'LOINC'
+            'codeSystem' => 'LOINC',
+            'codeSystemOid' => '2.16.840.1.113883.6.1'
           }
         ],
         '_type' => 'QDM::PatientCharacteristicBirthdate',
