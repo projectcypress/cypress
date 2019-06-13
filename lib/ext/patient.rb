@@ -174,9 +174,12 @@ module CQM
   class VendorPatient < Patient; end
 
   class ProductTestPatient < Patient; end
+
+  class TestExecutionPatient < Patient; end
 end
 
 Patient = CQM::Patient
 BundlePatient = CQM::BundlePatient
 VendorPatient = CQM::VendorPatient
 ProductTestPatient = CQM::ProductTestPatient
+TestExecutionPatient = CQM::TestExecutionPatient
