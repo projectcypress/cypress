@@ -13,10 +13,10 @@
 <% unless @task.is_a?(C1ChecklistTask) || @task.is_a?(C3ChecklistTask) %>
   <div class="panel clearfix">
     <%= button_to new_task_test_execution_path(iterate_task(@task, 'prev').id), :method => :get, :class => "btn btn-default pull-left" do %>
-      <%= icon('fas fa-fw', 'step-backward', :"aria-hidden" => true) %> Previous Test: <%= iterate_task(@task, 'prev').product_test.cms_id %>
+      <%= icon('fas fa-fw', 'step-backward', :"aria-hidden" => true) %> Previous Test: <%= iterate_task(@task, 'prev').product_test.button_short_name %>
     <% end %>
     <%= button_to new_task_test_execution_path(iterate_task(@task, 'next').id), :method => :get, :class => "btn btn-default pull-right" do %>
-      Next Test: <%= iterate_task(@task, 'next').product_test.cms_id %> <%= icon('fas fa-fw', 'step-forward', :"aria-hidden" => true) %>
+      Next Test: <%= iterate_task(@task, 'next').product_test.button_short_name %> <%= icon('fas fa-fw', 'step-forward', :"aria-hidden" => true) %>
     <% end %>
   </div>
 <% end %>
