@@ -298,6 +298,16 @@ ready_run_once = function() {
     }
   });
 
+  // Check Duplicate Records on CVU+ check
+  $('.btn-checkbox input[name="product[cvuplus]"]').on('change', function() {
+    if ($(this).attr('disabled') != true) {
+      var cvu_plus = $(this).val();
+      var c2_checked = $('input[name="product[c2_test]"]')[1].checked
+      setCheckboxDisabled('#product_duplicate_patients', (cvu_plus == 'false' && !c2_checked));
+      $('.btn-checkbox input[name="product[duplicate_patients]"]').prop('checked', cvu_plus == 'true' || c2_checked);
+    }
+  });
+
   $('.btn-checkbox input[name="product[cvuplus]"]').on('change', function() {
     var cvuplus_checked = ($(this).val() == 'true');
     if ($(this).attr('disabled') != 'disabled') {
