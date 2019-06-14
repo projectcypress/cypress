@@ -34,14 +34,6 @@
             Master Patient List
             <% end %>
           </li>
-          <% if Settings.current.mode_internal? || Settings.current.mode_demo? %>
-          <li>
-          <%= link_to '/cvu', class: 'navbar-item', target: '_blank'   do %>
-              <%= icon('fas', 'check-square', :"aria-hidden" => true) %>
-              Validation Utility
-              <% end %>
-          </li>
-          <% end %>
           <li <% if curr_page == :account %>class="active"<% end %>>
             <%= link_to edit_user_registration_path, class: 'navbar-item'   do %>
             <%= icon('fas fa-fw', 'user', :"aria-hidden" => true) %>
