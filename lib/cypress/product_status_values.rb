@@ -9,14 +9,16 @@ module Cypress
 
     def ep_status_values(product)
       h = {}
-      h['EP Measure Test'] = Hash[%w[passing failing errored not_started total].zip(product_test_statuses(product.product_tests.multi_measure_tests,
+      ep_measure_tests = product.product_tests.multi_measure_tests.where(name: 'EP Measures')
+      h['EP Measure Test'] = Hash[%w[passing failing errored not_started total].zip(product_test_statuses(ep_measure_tests,
                                                                                                           'MultiMeasureCat3Task'))]
       h
     end
 
     def eh_status_values(product)
       h = {}
-      h['EH Measure Test'] = Hash[%w[passing failing errored not_started total].zip(product_test_statuses(product.product_tests.multi_measure_tests,
+      eh_measure_tests = product.product_tests.multi_measure_tests.where(name: 'EH Measures')
+      h['EH Measure Test'] = Hash[%w[passing failing errored not_started total].zip(product_test_statuses(eh_measure_tests,
                                                                                                           'MultiMeasureCat1Task'))]
       h
     end
