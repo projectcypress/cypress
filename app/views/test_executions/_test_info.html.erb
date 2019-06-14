@@ -9,13 +9,13 @@
   <% if (task.product_test.is_a? MeasureTest) || (task.product_test.is_a? FilteringTest) %>
     <strong>Measure: </strong><span><%= task.product_test_name %></span><br/>
     <strong>HQMF ID: </strong><span><%= task.measure_ids.join(',') %></span><br/>
-    <strong>CMS ID: </strong><span><%= task.product_test_cms_id%></span><span><%= link_to " (eCQM Specification)", "https://ecqi.healthit.gov/ecqm/measures/#{padded_cms_id(task.product_test_cms_id)}", :target => "_blank", :id => "ecqm-link" %></span><br/>
+    <strong>CMS ID: </strong><span><%= task.product_test_cms_id%></span><span><%= link_to " (eCQM Specification)", "https://ecqi.healthit.gov/ecqm/measures/#{task.product_test_cms_id}", :target => "_blank", :id => "ecqm-link" %></span><br/>
   <% end %>
 
   <% if (task.product_test.is_a? MultiMeasureTest) || (task.product_test.is_a? ChecklistTest) %>
     <strong>Measures: </strong><br/>
     <% task.product_test.measures.collect(&:cms_id).each do |cms_id| %>
-    <span><%= cms_id %></span><span><%= link_to " (eCQM Specification)", "https://ecqi.healthit.gov/ecqm/measures/#{padded_cms_id(cms_id)}", :target => "_blank", :id => "ecqm-link" %></span><br/>
+    <span><%= cms_id %></span><span><%= link_to " (eCQM Specification)", "https://ecqi.healthit.gov/ecqm/measures/#{cms_id}", :target => "_blank", :id => "ecqm-link" %></span><br/>
     <% end %>
   <% end %>
 
