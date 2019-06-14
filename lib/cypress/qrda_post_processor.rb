@@ -11,10 +11,11 @@ module Cypress
       negated_vs = negated_element.code
       # If Cypress has a default code selected, use it.  Otherwise, use the first in the valueset.
       code = if bundle.default_negation_codes && bundle.default_negation_codes[negated_vs]
-               { code: bundle.default_negation_codes[negated_vs]['code'], codeSystem: bundle.default_negation_codes[negated_vs]['codeSystem'] }
+               { code: bundle.default_negation_codes[negated_vs]['code'],
+                 codeSystemOid: bundle.default_negation_codes[negated_vs]['code_system_oid'] }
              else
                valueset = ValueSet.where(oid: negated_vs, bundle_id: bundle.id)
-               { code: valueset.first.concepts.first['code'], codeSystem: valueset.first.concepts.first['code_system_name'] }
+               { code: valueset.first.concepts.first['code'], codeSystemOid: valueset.first.concepts.first['code_system_oid'] }
              end
       data_element.dataElementCodes << code
     end
