@@ -9,7 +9,7 @@ module Cypress
     # return an array of all of the concepts in all of the valueset for the measure
     def codes_in_measures
       code_list = @valuesets.collect(&:concepts).flatten
-      code_list.map { |cl| { code: cl.code, codeSystem: cl.code_system_name } }
+      code_list.map { |cl| { code: cl.code, codeSystemOid: cl.code_system_oid } }
     end
 
     def get_non_demographic_category_statuses(measures)
@@ -23,7 +23,7 @@ module Cypress
       patient.qdmPatient.dataElements.keep_if { |de| data_element_used_by_measure(de) }
       patient.qdmPatient.dataElements.each do |data_element|
         # keep if data_element code and codesystem is in one of the relevant_codes
-        data_element.dataElementCodes.keep_if { |de_code| @relevant_codes.include?(code: de_code.code, codeSystem: de_code.codeSystem) }
+        data_element.dataElementCodes.keep_if { |de_code| @relevant_codes.include?(code: de_code.code, codeSystemOid: de_code.codeSystemOid) }
         # Do not try to replace with negated valueset if all codes are removed
         next if data_element.dataElementCodes.blank?
 
@@ -48,7 +48,7 @@ module Cypress
 
     def replace_negated_code_with_valueset(data_element)
       de = data_element
-      neg_vs = @valuesets.select { |vs| vs.concepts.any? { |c| c.code == de.codes.first.code && c.code_system_name == de.codes.first.codeSystem } }
+      neg_vs = @valuesets.select { |vs| vs.concepts.any? { |c| c.code == de.codes.first.code && c.code_system_oid == de.codes.first.codeSystemOid } }
       # If more than one valueset (in the measures uses the code, it is not possible for scoop and filter to know which valueset to negate)
       return if neg_vs.size > 1
 
