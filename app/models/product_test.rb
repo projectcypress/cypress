@@ -183,6 +183,11 @@ class ProductTest
     end
   end
 
+  # The name to display on a button to view this test (e.g., Previous/Next Test)
+  def button_short_name
+    cms_id.nil? ? name : cms_id
+  end
+
   def start_date
     Time.at(measure_period_start).in_time_zone
   end
