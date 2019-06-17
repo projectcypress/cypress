@@ -24,7 +24,7 @@ module Cypress
     end
 
     def request_for(measure, save = true)
-      @options['requestDocument'] = true if save
+      @options['requestDocument'] = true
       post_data = { patients: @patients, measure: measure, valueSets: measure.value_sets, options: @options }
       # cqm-execution-service expects a field called value_set_oids which is really just our
       # oids field. There is a value_set_oids on the measure for this explicit purpose.
