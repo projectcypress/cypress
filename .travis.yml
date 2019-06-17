@@ -20,7 +20,7 @@ before_install:
   - nvm install 10.0
   - nvm use stable
   - npm install -g eslint
-  - git clone -b individual_result_mod_2.0 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service
+  - git clone -b individual_result_mod https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service
 before_script:
   - git config --global user.email "travis@travis.ci"
   - git config --global user.name "Travis CI"
