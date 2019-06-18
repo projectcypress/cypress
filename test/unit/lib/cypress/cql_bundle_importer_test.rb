@@ -19,6 +19,6 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     result = IndividualResult.where(population_set_key: 'PopulationSet_1', measure_id: measure_id).first
     assert_equal 1, result.IPP
     assert_equal 1, result.MSRPOPL
-    assert_equal [5], result.episode_results[result.episode_results.keys[0]]['values']
+    assert_equal [5], result.episode_results[result.episode_results.keys[0]]['observation_values']
   end
 end
