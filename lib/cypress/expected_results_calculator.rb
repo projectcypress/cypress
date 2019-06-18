@@ -89,7 +89,7 @@ module Cypress
         # Only use observed values when a patient is in the MSRPOPL and not in the MSRPOPLEX
         next unless episode_result['MSRPOPL']&.positive? && !episode_result['MSRPOPLEX']&.positive?
 
-        episode_result['values']
+        episode_result['observation_values']
       end
     end
 
