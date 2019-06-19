@@ -29,12 +29,13 @@ class ProductTestSetupJob < ApplicationJob
   end
 
   def do_calculation(product_test, patients, correlation_id)
-    measures = product_test.measures
-    # TODO: fix effectiveDateEnd and effectiveDate in cqm-execution.  effectiveDate is the end of the measurement period
-    calc_job = Cypress::CqmExecutionCalc.new(patients.map(&:qdmPatient), measures, correlation_id,
-                                             'effectiveDateEnd': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
-                                             'effectiveDate': Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
-    calc_job.execute
+    effective_date_end = Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number)
+    effective_date = Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number)
+    patient_ids = patients.map { |p| p.id.to_s }
+    results = product_test.measures.map do |measure|
+      SingleMeasureCalculationJob.perform_now(patient_ids, measure.id.to_s, correlation_id, effective_date, effective_date_end)
+    end.flatten
+    results
   end
 
   private

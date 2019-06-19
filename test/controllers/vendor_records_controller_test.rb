@@ -68,13 +68,14 @@ class VendorsRecordsControllerTest < ActionController::TestCase
 
       filename = Rails.root.join('test', 'fixtures', 'artifacts', 'good_patient_upload.zip')
       good_zip = fixture_file_upload(filename, 'application/zip')
-      post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle._id }
-      assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle._id }, 'response should redirect to index')
+      perform_enqueued_jobs do
+        post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle._id }
+        assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle._id }, 'response should redirect to index')
 
-      # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
-      get :index, params: { vendor_id: redirect_to_url.split('/')[-2] }
-      assert response.body.include?('Imported 1 patient'), 'response should include patient import'
-      assert_equal orig_patient_count + 1, Patient.count
+        # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
+        get :index, params: { vendor_id: redirect_to_url.split('/')[-2] }
+        assert_equal orig_patient_count + 1, Patient.count
+      end
     end
   end
 
@@ -84,15 +85,16 @@ class VendorsRecordsControllerTest < ActionController::TestCase
 
       filename = Rails.root.join('test', 'fixtures', 'artifacts', 'good_patient_upload.zip')
       good_zip = fixture_file_upload(filename, 'application/zip')
-      post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle2.id }
-      assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle2.id }, 'response should redirect to index')
+      perform_enqueued_jobs do
+        post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle2.id }
+        assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle2.id }, 'response should redirect to index')
 
-      # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
-      get :index, params: { vendor_id: redirect_to_url.split('/')[-2], bundle_id: @bundle2.id }
-      assert response.body.include?('Imported 1 patient'), 'response should include patient import'
-      @vendor.reload
-      later_patient_count = @vendor.patients.select { |p| p.bundleId == @bundle2.id.to_s }.count
-      assert_equal orig_patient_count + 1, later_patient_count
+        # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
+        get :index, params: { vendor_id: redirect_to_url.split('/')[-2], bundle_id: @bundle2.id }
+        @vendor.reload
+        later_patient_count = @vendor.patients.select { |p| p.bundleId == @bundle2.id.to_s }.count
+        assert_equal orig_patient_count + 1, later_patient_count
+      end
     end
   end
 
@@ -102,14 +104,14 @@ class VendorsRecordsControllerTest < ActionController::TestCase
 
       filename = Rails.root.join('test', 'fixtures', 'artifacts', 'good_patient_shift.zip')
       good_zip = fixture_file_upload(filename, 'application/zip')
-      post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle._id }
-      assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle._id }, 'response should redirect to index')
+      perform_enqueued_jobs do
+        post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle._id }
+        assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle._id }, 'response should redirect to index')
 
-      # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
-      get :index, params: { vendor_id: redirect_to_url.split('/')[-2] }
-      assert response.body.include?('Imported 1 patient'), 'response should include patient import'
-      assert response.body.include?('with 1 date-shifted'), 'response should include patient import'
-      assert_equal orig_patient_count + 1, Patient.count
+        # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
+        get :index, params: { vendor_id: redirect_to_url.split('/')[-2] }
+        assert_equal orig_patient_count + 1, Patient.count
+      end
     end
   end
 
@@ -151,34 +153,41 @@ class VendorsRecordsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'should show error for non-zip file upload' do
-    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
-      filename = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'good.xml')
-      xml_file = fixture_file_upload(filename, 'application/zip')
-      post :create, params: { file: xml_file, vendor_id: @vendor.id, bundle_id: @bundle.id }
-      assert_redirected_to({ controller: 'records', action: 'new', default: @bundle.id }, 'response should redirect back to patient upload')
-      # assert_redirected_to new_vendor_record_path, 'response should redirect back to patient upload'
-
-      # use vendor id from redirect_to_url format "http://test.host/vendors/#{id}/records/new"
-      get :new, params: { vendor_id: redirect_to_url.split('/')[-3], default: @bundle.id }
-      reject_str = 'No valid patient file provided. Uploaded file must have extension .zip'
-      assert response.body.include?(reject_str), 'response should include non-zip rejection'
-    end
-  end
-
   test 'should show error for any non-CDA file upload' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       orig_patient_count = Patient.count
       filename = Rails.root.join('test', 'fixtures', 'artifacts', 'half_fail_patient_upload.zip')
       half_fail_file = fixture_file_upload(filename, 'application/zip')
-      post :create, params: { file: half_fail_file, vendor_id: @vendor.id, bundle_id: @bundle._id }
-      assert_redirected_to vendor_records_path(vendor_id: @vendor.id, bundle_id: @bundle._id), 'response should redirect to index'
+      perform_enqueued_jobs do
+        post :create, params: { file: half_fail_file, vendor_id: @vendor.id, bundle_id: @bundle._id }
+        assert_redirected_to vendor_records_path(vendor_id: @vendor.id, bundle_id: @bundle._id), 'response should redirect to index'
+        # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
+        get :index, params: { vendor_id: redirect_to_url.split('/')[-2], bundle_id: @bundle._id }
 
-      # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
-      get :index, params: { vendor_id: redirect_to_url.split('/')[-2], bundle_id: @bundle._id }
-      assert response.body.include?('Imported 1 patient'), 'response should include patient import'
-      assert response.body.include?('&#39;brokendoug.xml&#39; had errors'), 'response should include errors'
-      assert_equal orig_patient_count + 1, Patient.count
+        tracker = Tracker.where('options.vendor_id' => @vendor.id.to_s, 'options.original_filename' => 'half_fail_patient_upload.zip').first
+        # This is a CDA Schema error
+        assert tracker.log_message.last.include? '303:0: ERROR: Element'
+        assert_equal orig_patient_count + 1, Patient.count
+      end
+    end
+  end
+
+  test 'should show error for a file that fails import' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      orig_patient_count = Patient.count
+      filename = Rails.root.join('test', 'fixtures', 'artifacts', 'full_fail_patient_upload.zip')
+      half_fail_file = fixture_file_upload(filename, 'application/zip')
+      perform_enqueued_jobs do
+        post :create, params: { file: half_fail_file, vendor_id: @vendor.id, bundle_id: @bundle._id }
+        assert_redirected_to vendor_records_path(vendor_id: @vendor.id, bundle_id: @bundle._id), 'response should redirect to index'
+        # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
+        get :index, params: { vendor_id: redirect_to_url.split('/')[-2], bundle_id: @bundle._id }
+
+        tracker = Tracker.where('options.vendor_id' => @vendor.id.to_s, 'options.original_filename' => 'full_fail_patient_upload.zip').first
+        # This is an error message returned from patient import when a low value for a time range is not included
+        assert tracker.log_message.last.include? 'no implicit conversion of nil into String'
+        assert_equal orig_patient_count, Patient.count
+      end
     end
   end
 

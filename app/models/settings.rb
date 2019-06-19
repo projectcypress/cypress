@@ -32,6 +32,7 @@ class Settings
   field :auto_associate_pocs, type: Boolean, default: false
   field :auto_confirm, type: Boolean, default: true
   field :bundle_file_path, type: String, default: 'temp/bundles'
+  field :vendor_file_path, type: String, default: 'temp/vendors'
   field :file_upload_root, type: String, default: 'data/upload/'
   field :server_needs_restart, type: Boolean, default: false
 

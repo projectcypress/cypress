@@ -4,7 +4,8 @@ module Admin
 
     def destroy
       @tracker.destroy if @tracker.status == :failed
-      redirect_to admin_path(anchor: 'bundles')
+      redirect_to admin_path(anchor: 'bundles') if @tracker[:job_class] == 'BundleUploadJob'
+      redirect_to vendor_records_path(@tracker[:options]['vendor_id']) if @tracker[:job_class] == 'VendorPatientUploadJob'
     end
 
     private
