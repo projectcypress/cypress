@@ -34,10 +34,10 @@ else
   Capybara.javascript_driver = :poltergeist
 end
 
-options = { js_errors: false }
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, options)
-end
+# options = { js_errors: false }
+# Capybara.register_driver :poltergeist do |app|
+#   Capybara::Poltergeist::Driver.new(app, options)
+# end
 
 Capybara.server = :webrick
 Capybara.default_max_wait_time = 15
