@@ -15,7 +15,7 @@ gem 'mustache'
 gem 'os'
 
 gem 'cqm-models', '~> 2.0.0'
-gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'master'
+gem 'cqm-parsers', '~> 2.0.0'
 gem 'cqm-reports', '~> 2.0.0'
 gem 'cqm-validators', '~> 2.0.0'
 
