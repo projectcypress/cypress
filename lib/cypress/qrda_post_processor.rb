@@ -12,7 +12,7 @@ module Cypress
       # If Cypress has a default code selected, use it.  Otherwise, use the first in the valueset.
       code = if bundle.default_negation_codes && bundle.default_negation_codes[negated_vs]
                { code: bundle.default_negation_codes[negated_vs]['code'],
-                 codeSystemOid: bundle.default_negation_codes[negated_vs]['code_system_oid'] }
+                 codeSystemOid: bundle.default_negation_codes[negated_vs]['codeSystem'] }
              else
                valueset = ValueSet.where(oid: negated_vs, bundle_id: bundle.id)
                { code: valueset.first.concepts.first['code'], codeSystemOid: valueset.first.concepts.first['code_system_oid'] }
