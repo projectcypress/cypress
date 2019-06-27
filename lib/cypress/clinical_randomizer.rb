@@ -29,7 +29,6 @@ module Cypress
       end
       patient1.qdmPatient.dataElements.concat patient_char_de
       patient2.qdmPatient.dataElements.concat patient_char_de
-      patient.qdmPatient.dataElements.concat patient_char_de
 
       [patient1, patient2]
     end
