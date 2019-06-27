@@ -59,7 +59,7 @@ module ChecklistTestsHelper
 
     return [] unless vs&.first
 
-    vs.first.concepts.map { |con| [con.display_name, con.code] }
+    vs.first.concepts.map { |con| [con.display_name, con.code] }.uniq
   end
 
   def direct_reference_code?(valueset)
