@@ -1,45 +1,41 @@
 module Cypress
   class DataCriteriaAttributeBuilder
     def build_data_criteria_for_measure(measure)
-      begin
-        #@qdm_dc = CQM::Converter::Utils.gather_qdm_to_hds_mappings
-        @measure = measure
-        @vs_hash = {}
-        @cql_data_criteria = []
-        @unionlist = []
-        @root_data_criteria = {}
-        @non_root_criteria = {}
-        @expression_hash = {}
-        @alias_hash = {}
-        @unions = {}
-        @dependencies = {}
-        @alias_expression_hash = {}
-        measure.cql_libraries.each do |cql_library|
-          extract_dependencies(cql_library)
-          cql_library['elm'].each_value do |library|
-            extract_elements_from_library(library)
-            extract_code_and_valueset_names(library['valueSets']) if library['valueSets']
-            extract_code_and_valueset_names(library['codes']) if library['codes']
-          end
+      @measure = measure
+      @vs_hash = {}
+      @cql_data_criteria = []
+      @unionlist = []
+      @root_data_criteria = {}
+      @non_root_criteria = {}
+      @expression_hash = {}
+      @alias_hash = {}
+      @unions = {}
+      @dependencies = {}
+      @alias_expression_hash = {}
+      measure.cql_libraries.each do |cql_library|
+        extract_dependencies(cql_library)
+        cql_library['elm'].each_value do |library|
+          extract_elements_from_library(library)
+          extract_code_and_valueset_names(library['valueSets']) if library['valueSets']
+          extract_code_and_valueset_names(library['codes']) if library['codes']
         end
-        find_union_values
-        @unions.each do |union_key, union_value|
-          @root_data_criteria[union_key] = union_value
-        end
-        # Go through each statement for each library to find elements that have properties
-        measure.cql_libraries.each do |cql_library|
-          cql_library['elm'].each_value do |library|
-            library_id = library['identifier']['id']
-            library['statements']['def'].each do |current_hash|
-              next unless @dependencies[library_id].include? current_hash['name']
-              find_sub_elements_with_properties(library_id, current_hash['localId'], current_hash)
-            end
-          end
-        end
-        update_measure_data_criteria
-      rescue => e
-        byebug
       end
+      find_union_values
+      @unions.each do |union_key, union_value|
+        @root_data_criteria[union_key] = union_value
+      end
+      # Go through each statement for each library to find elements that have properties
+      measure.cql_libraries.each do |cql_library|
+        cql_library['elm'].each_value do |library|
+          library_id = library['identifier']['id']
+          library['statements']['def'].each do |current_hash|
+            next unless @dependencies[library_id].include? current_hash['name']
+
+            find_sub_elements_with_properties(library_id, current_hash['localId'], current_hash)
+          end
+        end
+      end
+      update_measure_data_criteria
     end
 
     def extract_dependencies(library)
@@ -49,13 +45,13 @@ module Cypress
       end
     end
 
-    def unions
-      @unions
-    end
+    # def unions
+    #   @unions
+    # end
 
-    def root_data_criteria
-      @root_data_criteria
-    end
+    # def root_data_criteria
+    #   @root_data_criteria
+    # end
 
     def update_measure_data_criteria
       @cql_data_criteria.each do |cdc|
@@ -63,9 +59,10 @@ module Cypress
         valuesets = find_root_vs([data_criteria_name])
         @measure.source_data_criteria.each do |sdc|
           next unless valuesets.include? sdc.codeListId
-          next if sdc&.dataElementAttributes.any? { |h| h.attribute_name == cdc['attribute'] && h.attribute_valueset == cdc['attribute_vs'] }
+          next if sdc.dataElementAttributes && (sdc.dataElementAttributes.any? { |h| h.attribute_name == cdc['attribute'] && h.attribute_valueset == cdc['attribute_vs'] })
           # only add attribute if it is approprate for the QDM type
           next unless sdc.respond_to? cdc['attribute']
+
           dea = sdc.dataElementAttributes.new
           dea.attribute_name = cdc['attribute']
           dea.attribute_valueset = cdc['attribute_vs']
@@ -85,6 +82,7 @@ module Cypress
       current_hash.each do |name, values|
         # if the sub element is a Property (that is a child of a code element)
         next if name == 'annotation'
+
         if name == 'type' && values == 'Property' && parent_hash_name == 'code' && current_hash['path'] != 'code'
           # scope is the associated data criteria (or alias)
           scope = find_data_criteria_for_property(library_id, expression_id, current_hash)
@@ -94,6 +92,7 @@ module Cypress
         elsif name == 'type' &&  values == 'Property' && (%w[expression where].include? parent_hash_name) && current_hash['path'] != 'code'
           scope = find_data_criteria_for_property(library_id, expression_id, current_hash)
           next if scope.nil?
+
           if grand_parent_hash['where'] && grand_parent_hash['where']['valueset']
             @cql_data_criteria << { 'attribute' => current_hash['path'],
                                     'data_criteria' => scope,
@@ -102,33 +101,35 @@ module Cypress
         elsif name == 'type' &&  values == 'Property' && grand_parent_hash['type'] == 'Equivalent'
           scope = find_data_criteria_for_property(library_id, expression_id, current_hash)
           next if scope.nil?
+
           @cql_data_criteria << { 'attribute' => current_hash['path'],
                                   'data_criteria' => scope,
                                   'attribute_vs' => @vs_hash[grand_parent_hash['operand'][1]['name']] }
         elsif name == 'type' &&  values == 'Property' && grand_parent_hash['type'] == 'InValueSet'
           scope = find_data_criteria_for_property(library_id, expression_id, current_hash)
           next if scope.nil?
+
           @cql_data_criteria << { 'attribute' => current_hash['path'],
                                   'data_criteria' => scope,
                                   'attribute_vs' => @vs_hash[grand_parent_hash['valueset']['name']] }
         elsif name == 'type' &&  values == 'Property' && parent_hash['type'] == 'Equivalent'
           scope = find_data_criteria_for_property(library_id, expression_id, current_hash)
           next if scope.nil?
+
           @cql_data_criteria << { 'attribute' => current_hash['path'],
                                   'data_criteria' => scope,
                                   'attribute_vs' => @vs_hash[parent_hash['operand'][1]['name']] }
         elsif name == 'type' &&  values == 'Property' && parent_hash_name != 'code' && current_hash['path'] != 'code'
           scope = find_data_criteria_for_property(library_id, expression_id, current_hash)
           next if scope.nil?
+
           @cql_data_criteria << { 'attribute' => current_hash['path'],
                                   'data_criteria' => scope }
         elsif values.is_a? Hash
           find_sub_elements_with_properties(library_id, expression_id, values, current_hash, name, parent_hash)
         elsif values.is_a? Array
           values.each do |value|
-            if value.is_a? Hash
-              find_sub_elements_with_properties(library_id, expression_id, value, current_hash, name, parent_hash)
-            end
+            find_sub_elements_with_properties(library_id, expression_id, value, current_hash, name, parent_hash) if value.is_a? Hash
           end
         end
       end
@@ -137,16 +138,17 @@ module Cypress
     def find_root_vs(criteria_array, root_vs = [])
       criteria_array.each do |criteria_name|
         if @root_data_criteria[criteria_name]
-          if @vs_hash.keys.include? criteria_name
+          if @vs_hash.key? criteria_name
             root_vs << @vs_hash[criteria_name]
           else
             return root_vs if criteria_name == @root_data_criteria[criteria_name]
+
             find_root_vs([@root_data_criteria[criteria_name]].flatten, root_vs)
           end
         elsif @non_root_criteria[criteria_name]
           @non_root_criteria[criteria_name].each do |nrc|
             if @root_data_criteria[nrc]
-              if @vs_hash.keys.include? nrc
+              if @vs_hash.key? nrc
                 root_vs << @vs_hash[nrc]
               else
                 find_root_vs([@root_data_criteria[nrc]].flatten, root_vs)
@@ -176,21 +178,19 @@ module Cypress
       # Return nil if current element has no scope defined (This could be in a child element) look into
       if current_hash['scope'].nil?
         nil
-      else
-        # if scope of current_hash has an alias associated with it, use that
-        if !@alias_hash[library_id][expression_id][current_hash['scope']]['name'].nil?
-          @alias_hash[library_id][expression_id][current_hash['scope']]['name']
-        # if scope of current_hash has an valueset associated with it, use that
-        elsif !@alias_hash[library_id][expression_id][current_hash['scope']]['codes'].nil?
-          if !@alias_hash[library_id][expression_id][current_hash['scope']]['codes']['name'].nil?
-            @alias_hash[library_id][expression_id][current_hash['scope']]['codes']['name']
-          else
-            @alias_hash[library_id][expression_id][current_hash['scope']]['codes']['operand']['name']
-          end
-          # if scope of current_hash has an union associated with it, use that
-        elsif @alias_hash[library_id][expression_id][current_hash['scope']]['type'] == 'Union'
-          current_hash['scope']
+      # if scope of current_hash has an alias associated with it, use that
+      elsif !@alias_hash[library_id][expression_id][current_hash['scope']]['name'].nil?
+        @alias_hash[library_id][expression_id][current_hash['scope']]['name']
+      # if scope of current_hash has an valueset associated with it, use that
+      elsif !@alias_hash[library_id][expression_id][current_hash['scope']]['codes'].nil?
+        if !@alias_hash[library_id][expression_id][current_hash['scope']]['codes']['name'].nil?
+          @alias_hash[library_id][expression_id][current_hash['scope']]['codes']['name']
+        else
+          @alias_hash[library_id][expression_id][current_hash['scope']]['codes']['operand']['name']
         end
+        # if scope of current_hash has an union associated with it, use that
+      elsif @alias_hash[library_id][expression_id][current_hash['scope']]['type'] == 'Union'
+        current_hash['scope']
       end
     end
 
@@ -213,6 +213,7 @@ module Cypress
     def traverse_union(element, union_alias = nil)
       element.each do |name, values|
         next if name == 'annotation'
+
         if name == 'type' && values == 'ExpressionRef'
           @unions[union_alias] << element['name']
         elsif name == 'codes'
@@ -248,6 +249,7 @@ module Cypress
       @expression_hash[library_id] = {}
       library['statements']['def'].each do |statement|
         next unless @dependencies[library_id].include? statement['name']
+
         parse_statement_for_aliases(statement, library_id)
         parse_statement_for_root_data_types(statement, library_id)
       end
@@ -377,9 +379,7 @@ module Cypress
           find_alias_values(values, expression_id, library_id)
         elsif values.is_a? Array
           values.each do |value|
-            if value.is_a? Hash
-              find_alias_values(value, expression_id, library_id)
-            end
+            find_alias_values(value, expression_id, library_id) if value.is_a? Hash
           end
         end
       end
