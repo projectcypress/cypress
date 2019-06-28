@@ -12,30 +12,35 @@ module Cypress
       @unions = {}
       @dependencies = {}
       @alias_expression_hash = {}
-      measure.cql_libraries.each do |cql_library|
-        extract_dependencies(cql_library)
-        cql_library['elm'].each_value do |library|
-          extract_elements_from_library(library)
-          extract_code_and_valueset_names(library['valueSets']) if library['valueSets']
-          extract_code_and_valueset_names(library['codes']) if library['codes']
-        end
-      end
-      find_union_values
-      @unions.each do |union_key, union_value|
-        @root_data_criteria[union_key] = union_value
-      end
-      # Go through each statement for each library to find elements that have properties
-      measure.cql_libraries.each do |cql_library|
-        cql_library['elm'].each_value do |library|
-          library_id = library['identifier']['id']
-          library['statements']['def'].each do |current_hash|
-            next unless @dependencies[library_id].include? current_hash['name']
-
-            find_sub_elements_with_properties(library_id, current_hash['localId'], current_hash)
+      begin
+        measure.cql_libraries.each do |cql_library|
+          extract_dependencies(cql_library)
+          cql_library['elm'].each_value do |library|
+            extract_elements_from_library(library)
+            extract_code_and_valueset_names(library['valueSets']) if library['valueSets']
+            extract_code_and_valueset_names(library['codes']) if library['codes']
           end
         end
+        find_union_values
+        @unions.each do |union_key, union_value|
+          @root_data_criteria[union_key] = union_value
+        end
+        # Go through each statement for each library to find elements that have properties
+        measure.cql_libraries.each do |cql_library|
+          cql_library['elm'].each_value do |library|
+            library_id = library['identifier']['id']
+            library['statements']['def'].each do |current_hash|
+              next unless @dependencies[library_id].include? current_hash['name']
+
+              find_sub_elements_with_properties(library_id, current_hash['localId'], current_hash)
+            end
+          end
+        end
+        update_measure_data_criteria
+      rescue
+        # This parser can be brittle, not the end of the world to return without parsing attributes
+        return
       end
-      update_measure_data_criteria
     end
 
     def extract_dependencies(library)
