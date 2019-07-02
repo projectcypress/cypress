@@ -6,7 +6,6 @@ module Cypress
       @cql_data_criteria = []
       @unionlist = []
       @root_data_criteria = {}
-      @non_root_criteria = {}
       @expression_hash = {}
       @alias_hash = {}
       @unions = {}
@@ -150,28 +149,6 @@ module Cypress
 
             find_root_vs([@root_data_criteria[criteria_name]].flatten, root_vs)
           end
-        elsif @non_root_criteria[criteria_name]
-          @non_root_criteria[criteria_name].each do |nrc|
-            if @root_data_criteria[nrc]
-              if @vs_hash.key? nrc
-                root_vs << @vs_hash[nrc]
-              else
-                find_root_vs([@root_data_criteria[nrc]].flatten, root_vs)
-              end
-            elsif @non_root_criteria[nrc]
-              @non_root_criteria[nrc].each do |nrcs|
-                if @root_data_criteria[nrcs]
-                  root_vs << @root_data_criteria[nrcs]
-                else
-                  @non_root_criteria[nrcs]&.each do |nrcss|
-                    find_root_vs([nrcss].flatten, root_vs)
-                  end
-                end
-              end
-            elsif @vs_hash[nrc]
-              root_vs << @vs_hash[nrc]
-            end
-          end
         elsif @vs_hash[criteria_name]
           root_vs << @vs_hash[criteria_name]
         end
@@ -299,7 +276,6 @@ module Cypress
       rsource.each do |rel_source|
         parse_query_relationship(rel_source)
       end
-      @non_root_criteria[name] = source_value unless @root_data_criteria[name]
     end
 
     def parse_query_relationship(rel_source)
