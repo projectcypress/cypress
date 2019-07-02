@@ -258,7 +258,6 @@ module Cypress
     end
 
     def parse_root_data_types_from_query(statement, library_id)
-      name = statement['name']
       source_value = []
       qsource = if statement['expression']['type'] == 'Query'
                   statement['expression']['source']
