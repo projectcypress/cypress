@@ -5,9 +5,8 @@
 # must specify local variable "product"
 #
 %>
-
-<% num_measure_tests = product.product_tests.measure_tests.count %>
-<% num_measure_tests_ready = product.product_tests.measure_tests.where(state: :ready).count %>
+<% num_measure_tests = product.product_tests.measure_tests.count + product.product_tests.multi_measure_tests.count %>
+<% num_measure_tests_ready = product.product_tests.measure_tests.where(state: :ready).count + product.product_tests.multi_measure_tests.where(state: :ready).count %>
 <% if num_measure_tests_ready == num_measure_tests %>
   <p>This download contains a folder for each measure selected for this product. Inside these folders are XML documents for each patient associated with that measure.</p>
   <%= form_for product, url: patients_vendor_product_path(product.vendor_id, product), :html => { :method => 'GET' } do |f| %>
