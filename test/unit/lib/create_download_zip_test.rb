@@ -24,4 +24,20 @@ class CreateDownloadZipTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test 'Should create appropriate zip for cvu' do
+    product_cvu = FactoryBot.create(:product_static_bundle)
+
+    pt = product_cvu.product_tests.build({ name: 'mtest', measure_ids: product_cvu.measure_ids }, MultiMeasureTest)
+    pt.save
+    pt.generate_patients
+    pt.create_tasks
+    pt.archive_patients if pt.patient_archive.path.nil?
+    pt.save!
+    file = Cypress::CreateTotalTestZip.create_total_test_zip(product_cvu, nil, nil, 'qrda')
+
+    Zip::File.open(file) do |zip_file|
+      assert_not_empty zip_file.glob("#{pt.name}_#{pt.id}.qrda.zip")
+    end
+  end
 end
