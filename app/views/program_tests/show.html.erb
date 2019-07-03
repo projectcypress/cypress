@@ -19,6 +19,9 @@
       <div id = 'display_checklist_execution_results'>
         <%= render 'checklist_execution_results', :task => @product_test.tasks.first %>
       </div>
+      <div id = 'display_checklist_status' >
+        <%= render 'checklist_status_display', :product => @product, :product_test => @product_test %>
+      </div>
     </div>
   </div>
 </div>
