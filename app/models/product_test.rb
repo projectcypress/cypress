@@ -207,6 +207,10 @@ class ProductTest
     by_updated_at.first
   end
 
+  def most_recent_task_execution_incomplete?
+    tasks.any? && tasks[0].most_recent_execution && tasks[0].most_recent_execution.incomplete?
+  end
+
   private
 
   def gather_patient_ids
