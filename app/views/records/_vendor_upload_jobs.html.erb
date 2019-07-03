@@ -1,0 +1,44 @@
+<% trackers = VendorPatientUploadJob.trackers.where('options.vendor_id': @vendor.id.to_s) %>
+<% if trackers.count.positive?  %>
+  <p>
+  <h1>Current Vendor Uploads</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th class = "col-sm-4">File</th>
+        <th class = "col-sm-4">Status</th>
+        <td class = "text-center"></td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <% trackers.reverse_each do |tracker| %>
+      <tr>
+        <td><%= tracker.options["original_filename"]%></td>
+        <td class="tracker-status">
+          <%= tracker.status %>
+          <% if tracker.status == :working %>
+            <%= icon('fas fa-fw fa-spin', 'sync-alt', :"aria-hidden" => true) %>
+          <% end %>
+        </td>
+        <td><%= tracker.log_message.last%></td>
+        <td>
+          <%= link_to "", admin_tracker_path(tracker), :method => :delete, :class => "close fa fa-fw fa-times" if tracker.status == :failed %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% if trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
+    <script>
+      $(document).ready(function() {
+        $.ajax({
+          url: "<%= request.env['PATH_INFO'] %>",
+          type: "GET",
+          dataType: 'script',
+          data: { partial: 'vendor_upload_jobs' }
+        });
+      });
+    </script>
+  <% end %>
+<% end %>
