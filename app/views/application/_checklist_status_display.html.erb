@@ -9,6 +9,7 @@
 
 <% has_many_measures ||= false %>
 <% is_report ||= false %>
+<% return unless product_test %>
 <% if product_test.most_recent_task_execution_incomplete? %>
   <script>
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'checklist_status_display' }});
