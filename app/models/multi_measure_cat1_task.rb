@@ -16,8 +16,8 @@ class MultiMeasureCat1Task < Task
   end
 
   def patients
-    patient_ids = product_test.results.where('IPP' => { '$gt' => 0 }).collect(&:patient)
-    product_test.patients.in('_id' => patient_ids)
+    patient_ids = product_test.results.where('IPP' => { '$gt' => 0 }).collect(&:patient_id)
+    product_test.patients.find(patient_ids)
   end
 
   def good_results
