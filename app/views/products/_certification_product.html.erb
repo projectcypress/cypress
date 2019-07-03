@@ -36,7 +36,7 @@
           <%= render 'checklist_execution_results', :task => @product.product_tests.checklist_tests.first.tasks.c1_checklist_task %>
         </div>
         <% has_many_measures = checklist_test.measures.count > CAT1_CONFIG['number_of_checklist_measures'] %>
-        <%= render 'checklist_status_display', :product => @product, :has_many_measures => has_many_measures %>
+        <%= render 'checklist_status_display', :product => @product, :product_test => checklist_test, :has_many_measures => has_many_measures %>
       <% end %>
 
       <% # Measure Test Tabs (both C1 or C2 tabs) %>

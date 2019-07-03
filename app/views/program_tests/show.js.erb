@@ -6,6 +6,14 @@
    <% else %>
         $('#display_program_fields').html("<%= escape_javascript render 'program_fields', :product_test => @product_test, :product => @product_test.product, :task => @task %>");
    <% end %>
+<% elsif params[:partial] == 'checklist_status_display' %>
+  <% if @product_test.tasks[0].most_recent_execution.incomplete? %>
+   setTimeout(function(){
+      $('#display_checklist_status').html("<%= escape_javascript render 'checklist_status_display', :product_test => @product_test, :product => @product_test.product %>");
+    }, 2000);
+   <% else %>
+      $('#display_checklist_status').html("<%= escape_javascript render 'checklist_status_display', :product_test => @product_test, :product => @product_test.product %>");
+   <% end %>
 <% elsif params[:partial] == 'checklist_execution_results' %>
   <% if params[:task_id] %>
     <% if @task.most_recent_execution && @task.most_recent_execution.executions_pending? %>
