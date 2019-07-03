@@ -111,7 +111,7 @@ class ProductTest
 
   def sample_and_duplicate_patients(pat_arr, ids, random: Random.new)
     car = ::Validators::CalculatingAugmentedRecords.new(measures, [], id)
-    dups = patients.in('qdmPatient._id' => ids).to_a
+    dups = patients.find(ids)
 
     pat_arr, dups = randomize_clinical_data(pat_arr, dups, random)
     # choose up to 3 duplicate patients
