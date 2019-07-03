@@ -10,3 +10,14 @@
     }, 2000);
   <% end %>
 <% end %>
+<% if params[:partial] == 'vendor_upload_jobs' %>
+  <% trackers = VendorPatientUploadJob.trackers.where('options.vendor_id': @vendor.id.to_s) %>
+  <% if trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
+    setTimeout(function(){
+      $('.vendor-upload-jobs').html("<%= escape_javascript render 'vendor_upload_jobs', :vendor => @vendor %>");
+    }, 2000);
+  <% else %>
+    $('.vendor-upload-jobs').html("<%= escape_javascript render 'vendor_upload_jobs', :vendor => @vendor %>");
+    $('#records_list').html("<%= escape_javascript render 'records_list', :patients => @patients, :measure => @measure, :population_set_hash => @population_set_hash, :product_test => @product_test, :bundle => @bundle, :task => @task, :vendor => @vendor %>");
+  <% end %>
+<% end %>
