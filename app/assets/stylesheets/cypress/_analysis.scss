@@ -1,24 +1,24 @@
-#patient-analysis {
+.patient-analysis {
   border-collapse: collapse;
   width: 100%;
 }
 
-#patient-analysis td, #patient-analysis th {
-  border: 1px solid #ddd;
+.patient-analysis td, .patient-analysis th {
+  border: 1px solid $thumbnail-border;
   padding: 8px;
   min-width: 120px;
 }
 
-#patient-analysis tr:nth-child(even){background-color: #f2f2f2;}
+.patient-analysis tr:nth-child(even){background-color: $gray-lighter;}
 
-#patient-analysis tr:hover {background-color: #ddd;}
+.patient-analysis tr:hover {background-color: $thumbnail-border;}
 
-#patient-analysis th {
+.patient-analysis th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
   background-color: $brand-primary;
-  color: white;
+  color: $brand-white;
 }
 
 .collapse-content {
@@ -44,8 +44,8 @@
 .popup .popuptext {
   visibility: hidden;
   width: 160px;
-  background-color: #555;
-  color: #fff;
+  background-color: $thumbnail-border;
+  color: $body-bg;
   text-align: center;
   border-radius: 6px;
   padding: 8px 0;
