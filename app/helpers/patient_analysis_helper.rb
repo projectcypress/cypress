@@ -31,6 +31,11 @@ module PatientAnalysisHelper
     [measures_found, measure_pops_found, de_types_found, value_sets_found, vs_codes_found]
   end
 
+  def ignore_clause_result(clause)
+    # Ignore value set clauses and Ignore clauses that were not used in logic, for example unused defines from an included library
+    (clause&.raw.respond_to?('name') && clause.raw.name == 'ValueSet') || clause.final == 'NA'
+  end
+
   def generate_coverage_summary
     clause_results_by_measure = {}
 
@@ -40,6 +45,8 @@ module PatientAnalysisHelper
         clause_results_by_measure[cms_id] ||= {}
         clause_results = calculation_results.clause_results
         clause_results.each do |result|
+          next if ignore_clause_result(result)
+
           key = result.library_name + '_' + result.localId
           clause_results_by_measure[cms_id][key] ||= false
           clause_results_by_measure[cms_id][key] = clause_results_by_measure[cms_id][key] || (result.final == 'TRUE')
