@@ -1,5 +1,7 @@
 module Vendors
   class RecordsController < ::RecordsController
+    include PatientAnalysisHelper
+
     before_action :set_vendor, :authorize_vendor, :set_record_source
 
     def new
@@ -37,6 +39,12 @@ module Vendors
       else
         flash[:notice] = "Deleted #{number_deleted} #{'patient'.pluralize(number_deleted)}."
       end
+    end
+
+    def patient_analysis
+      @patients = @vendor.patients.where(bundleId: @bundle.id.to_s).order_by(first: 'asc')
+      @analysis = generate_analysis(@patients, @measure, @bundle)
+      add_breadcrumb 'Analysis', :patient_analysis_vendor_records_path
     end
 
     private

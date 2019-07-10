@@ -6,11 +6,17 @@
 <% end %>
 <h1><%= measure ? measure_display_name(measure, population_set_hash) : 'All' %> Patients</h1>
 <% if (measure && measure_records.length.positive?) || (!measure  && patients.length.positive?) %>
+
+<% if @vendor %>
+<%= link_to "View Patient Analytics", patient_analysis_vendor_records_path(:vendor_id => @vendor.id, :bundle_id => @bundle.id) %>
+  <br>
+  <br>
+<% end %>
 <table class="table table-condensed table-hover">
   <thead>
     <tr>
       <% if vendor %>
-        <th scope="col"><i class="far fa-trash-alt"></i></th>
+        <th scope="col">Select</th>
       <% end%>
       <th scope="col">Patient Name</th>
       <% if product_test && !hide_patient_calculation? %>
