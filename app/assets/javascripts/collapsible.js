@@ -1,6 +1,5 @@
 var collapse_ready;
 collapse_ready = function() {
-  $(document).unbind('click');
   $(document).on('click', '.collapsible', function(e) {
     this.classList.toggle("active");
     var content = this.nextElementSibling;
@@ -12,4 +11,4 @@ collapse_ready = function() {
   });
 };
 $(document).ready(collapse_ready);
-$(document).on('page:load page:restore page:partial-load', collapse_ready);
+// $(document).on('page:load page:restore page:partial-load', collapse_ready);
