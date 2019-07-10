@@ -1,5 +1,6 @@
 var collapse_ready;
 collapse_ready = function() {
+  $(document).unbind('click');
   $(document).on('click', '.collapsible', function(e) {
     this.classList.toggle("active");
     var content = this.nextElementSibling;
