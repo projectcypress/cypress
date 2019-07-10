@@ -91,7 +91,7 @@ class VendorPatientUploadJob < ApplicationJob
     effective_date_end = Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number)
     effective_date = Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number)
     bundle.measures.each do |measure|
-      SingleMeasureCalculationJob.perform_now(patient_ids, measure.id.to_s, vendor_id, effective_date, effective_date_end)
+      SingleMeasureCalculationJob.perform_now(patient_ids, measure.id.to_s, vendor_id, effective_date, effective_date_end, true)
     end
   end
 end

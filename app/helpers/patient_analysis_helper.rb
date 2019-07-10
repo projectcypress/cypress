@@ -31,6 +31,43 @@ module PatientAnalysisHelper
     [measures_found, measure_pops_found, de_types_found, value_sets_found, vs_codes_found]
   end
 
+  def get_coverage_summary
+    clause_results_by_measure = {}
+
+    @patients.each do |p|
+      p.calculation_results.each do |calculation_results|
+        cms_id = calculation_results.measure.cms_id
+
+        if !clause_results_by_measure[cms_id]
+          clause_results_by_measure[cms_id] = {}
+        end
+        clause_results = calculation_results.clause_results
+        clause_results.each do |result|
+          key = result.library_name + '_' + result.localId
+          if !clause_results_by_measure[cms_id][key]
+            clause_results_by_measure[cms_id][key] = false
+          end
+          clause_results_by_measure[cms_id][key] = clause_results_by_measure[cms_id][key] || (result.final == 'TRUE')
+        end
+      end
+    end
+
+    clause_coverage_summaries = {}
+    clause_results_by_measure.each do |cms_id, clause_results|
+      covered_clauses = 0
+      total_clauses = 0
+      clause_results.each do |key, covered|
+        if covered
+          covered_clauses += 1
+        end
+        total_clauses += 1
+      end
+      clause_coverage_summaries[cms_id] = (covered_clauses.fdiv(total_clauses) *100).round(2)
+    end
+
+    clause_coverage_summaries
+  end
+
   def collate_vs_code_sys(value_sets_found)
     vs_code_sys_found = {}
     value_sets_found.each do |vs|
@@ -94,6 +131,12 @@ module PatientAnalysisHelper
     total_vs_code_sys_count = total_vs_code_sys.values.sum(&:count)
     analysis['value_set_code_system_coverage'] = total_covered_vs_code_sys.to_f / total_vs_code_sys_count
     analysis['average_percent_vs_codes'] = percent_vs_codes.values.sum.to_f / percent_vs_codes.count
+    coverage_summary = get_coverage_summary()
+    analysis['coverage_per_measure'] = coverage_summary
+    coverage_min_info = coverage_summary.min_by{|k,v| v}
+    analysis['minimum_coverage_measure'] = coverage_min_info[0]
+    analysis['minimum_coverage_percentage'] = coverage_min_info[1]
+    analysis['average_coverage'] = coverage_summary.values.inject{|a,b| a + b}/coverage_summary.length
     analysis
   end
 
@@ -121,7 +164,6 @@ module PatientAnalysisHelper
     total_vs_codes = {}
     percent_vs_codes = {}
     per_vs_stats(total_vs, total_vs_code_sys, total_vs_codes, vs_codes_found, percent_vs_codes)
-
     # create analysis hash
     analysis.merge(advanced_analysis(total_vs, value_sets_found, total_vs_code_sys, vs_code_sys_found, percent_vs_codes))
   end

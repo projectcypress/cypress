@@ -81,4 +81,26 @@
     </td>
     <td><%= "%.1f%%" % [100*@analysis['average_percent_vs_codes']] %></td>
   </tr>
+  <tr>
+  <td> Logic Coverage
+    <%= render 'info_popup', :id => 'logic-clauses-covered', :message => 'Percentage of clauses in the logic hit by patients in the test deck. Click the button to see coverage per measure' %>
+  </td>
+  <td>
+    <button class="collapsible">Logic Coverage Per Measure</button>
+    <div class="collapse-content">
+      <%= render 'logic_coverage_table', :analysis => @analysis %>
+    </div>
+  </td>
+  <tr>
+    <td>Least Logic Coverage
+      <%= render 'info_popup', :id => 'minimum_coverage_measure', :message => 'The measure with the least amount of logic coverage.' %>
+    </td>
+    <td><%=@analysis['minimum_coverage_measure']%> (<%= @analysis['minimum_coverage_percentage']%>%)</td>
+  </tr>
+  <tr>
+    <td>Average Logic Coverage
+      <%= render 'info_popup', :id => 'average_coverage', :message => 'The average logic coverage across all measures.' %>
+    </td>
+    <td><%= @analysis['average_coverage']%>%</td>
+  </tr>
 </div>

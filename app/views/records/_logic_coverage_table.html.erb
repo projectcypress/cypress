@@ -1,0 +1,16 @@
+<table id="clause_coverage_information">
+<tr>
+  <th>Measure</th>
+  <th>Logic Coverage</th>
+</tr>
+<% analysis['coverage_per_measure'].each do |measure, coverage_info|%>
+    <tr>
+    <td>
+      <%= "#{measure}"%>
+    </td>
+    <td>
+      <%= "#{coverage_info}%"%>
+    </td>
+    </tr>
+<% end %>
+</table>
