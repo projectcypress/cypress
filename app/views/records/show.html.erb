@@ -57,6 +57,7 @@
 
   <div class="col-md-6">
     <!--h2>Patient Details</h2-->
-    <%= QdmPatient.new(@record, false).render.html_safe %>
+    <% sf_patient = @record.clone %>
+    <%= QdmPatient.new(Cypress::ScoopAndFilter.new(@measures).scoop_and_filter(sf_patient), false).render.html_safe %>
   </div>
 </div>
