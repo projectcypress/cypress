@@ -111,6 +111,8 @@ module Cypress
       measure.value_sets = []
       reconnect_valueset_references(measure, bundle)
       measure.save!
+      dcab = Cypress::DataCriteriaAttributeBuilder.new
+      dcab.build_data_criteria_for_measure(measure)
     end
 
     def self.unpack_and_store_cqm_patients(zip, bundle)

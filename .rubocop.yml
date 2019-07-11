@@ -21,17 +21,20 @@ Documentation:
 Metrics/LineLength:
   Max: 150
   Exclude:
+    - 'lib/cypress/data_criteria_attribute_builder.rb'
     - 'lib/validators/program_criteria_validator.rb'
     - 'test/**/*'
 Metrics/BlockLength:
   Exclude:
     - 'config/routes.rb'
     - 'test/factories/*'
+    - 'lib/cypress/data_criteria_attribute_builder.rb'
     - 'lib/tasks/*'
 Metrics/MethodLength:
   CountComments: false  # count full line comments?
   Max: 20
   Exclude:
+    - 'lib/cypress/data_criteria_attribute_builder.rb'
     - 'test/**/*'
 Metrics/ClassLength:
   Max: 120
@@ -41,6 +44,7 @@ Metrics/ClassLength:
     - 'lib/ext/patient.rb'
     - 'lib/cypress/api_measure_evaluator.rb'
     - 'lib/cypress/cql_bundle_importer.rb'
+    - 'lib/cypress/data_criteria_attribute_builder.rb'
     - 'lib/cypress/demographics_randomizer.rb'
     - 'lib/cypress/population_clone_job.rb'
 Metrics/AbcSize:
@@ -48,18 +52,26 @@ Metrics/AbcSize:
   # a Float.
   Max: 32
   Exclude:
+    - 'lib/cypress/data_criteria_attribute_builder.rb'
     - 'lib/cypress/population_clone_job.rb'
     - 'test/**/*.rb'
 Metrics/ModuleLength:
   Max: 120
+  Exclude:
+  - 'lib/cypress/data_criteria_attribute_builder.rb'
 # Avoid complex methods.
 Metrics/CyclomaticComplexity:
   Max: 10
+  Exclude:
+    - 'lib/cypress/data_criteria_attribute_builder.rb'
 Metrics/ParameterLists:
   Exclude:
     - 'app/helpers/records_helper.rb'
+    - 'lib/cypress/data_criteria_attribute_builder.rb'
 Metrics/PerceivedComplexity:
   Max: 10
+  Exclude:
+    - 'lib/cypress/data_criteria_attribute_builder.rb'
 Naming/UncommunicativeMethodParamName:
   Enabled: false
 Style/DateTime:
