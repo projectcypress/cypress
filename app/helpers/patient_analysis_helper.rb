@@ -1,34 +1,50 @@
 module PatientAnalysisHelper
-  def collate_element_data(de, de_types_found, value_sets_found, vs_codes_found)
+  def collate_element_data(de, de_types_found, codes_found)
     de_types_found.add(de._type)
-    de.dataElementCodes.each do |dec|
+    code_array = de.dataElementCodes
+    code_array.concat(collate_attribute_codes(de))
+    codes_found.merge(code_array)
+  end
+
+  def collate_vs_info(codes_found, value_sets_found, vs_codes_found)
+    codes_found.each do |dec|
       # find all valuesets that contain data element code
-      vs = ValueSet.where('concepts.code' => dec.code).map(&:oid)
+      vs = ValueSet.where('concepts.code' => dec.code).map { |vset| vset.id.to_s }
       value_sets_found.merge(vs)
-      vs.each do |oid|
-        vs_codes_found[oid] = Set[] unless vs_codes_found.key?(oid)
-        vs_codes_found[oid].add(dec.code)
+      vs.each do |id|
+        vs_codes_found[id] = Set[] unless vs_codes_found.key?(id)
+        vs_codes_found[id].add(dec.code)
       end
     end
   end
 
+  def collate_attribute_codes(de)
+    attribute_codes = []
+    %w[
+      admissionSource anatomicalLocationSite category cause dischargeDisposition frequency
+      medium negationRationale ordinality principalDiagnosis reason recipient relationship
+      route sender setting severity status type
+    ].each do |attribute_name|
+      attribute_codes << de[attribute_name] if de[attribute_name] && de[attribute_name]['code']
+    end
+    attribute_codes.compact
+  end
+
   def collate_patient_data
     measures_found = Set[]
-    measure_pops_found = Set[]
+    codes_found = Set[]
     de_types_found = Set[]
     value_sets_found = Set[]
     vs_codes_found = {}
 
     @patients.each do |p|
       measures_found.merge(p.measure_relevance_hash.keys)
-      p.measure_relevance_hash.each do |meas, v|
-        v.each_key { |pop| measure_pops_found.add(meas + '|' + pop) }
-      end
       p.qdmPatient.dataElements.each do |de|
-        collate_element_data(de, de_types_found, value_sets_found, vs_codes_found)
+        collate_element_data(de, de_types_found, codes_found)
       end
     end
-    [measures_found, measure_pops_found, de_types_found, value_sets_found, vs_codes_found]
+    collate_vs_info(codes_found, value_sets_found, vs_codes_found)
+    [measures_found, de_types_found, value_sets_found, vs_codes_found]
   end
 
   def ignore_clause_result(clause)
@@ -36,55 +52,88 @@ module PatientAnalysisHelper
     (clause&.raw.respond_to?('name') && clause.raw.name == 'ValueSet') || clause.final == 'NA'
   end
 
-  def generate_coverage_summary
-    clause_results_by_measure = {}
+  def generate_coverage_summary(measures)
+    un_hit_populations = collate_possible_measure_populations(measures)
+    possible_populations_count = un_hit_populations.values.flatten.size
+    possible_clauses = collate_possible_clauses(measures)
+    un_hit_clauses = possible_clauses.clone
+    measures.each do |measure|
+      IndividualResult.where(correlation_id: @patients.first.correlation_id.to_s, measure_id: measure).each do |ir|
+        break if un_hit_clauses[measure].length.zero?
 
-    @patients.each do |p|
-      p.calculation_results.each do |calculation_results|
-        cms_id = calculation_results.measure.cms_id
-        clause_results_by_measure[cms_id] ||= {}
-        clause_results = calculation_results.clause_results
-        clause_results.each do |result|
-          next if ignore_clause_result(result)
-
-          key = result.library_name + '_' + result.localId
-          clause_results_by_measure[cms_id][key] ||= false
-          clause_results_by_measure[cms_id][key] = clause_results_by_measure[cms_id][key] || (result.final == 'TRUE')
-        end
+        hit_clauses = ir.clause_results.where(final: 'TRUE').map { |cl| cl.library_name + '_' + cl.localId }
+        un_hit_clauses[measure] -= hit_clauses
+        remove_hit_populations(ir, un_hit_populations) unless un_hit_populations[measure].length.zero?
       end
     end
+    collate_coverage_summaries(measures, possible_clauses, un_hit_clauses, possible_populations_count, un_hit_populations)
+  end
 
+  def remove_hit_populations(individual_result, un_hit_populations)
+    individual_result.measure.population_keys.each do |pop_key|
+      measure_id = individual_result.measure.id.to_s
+      un_hit_populations[measure_id].delete("#{individual_result['population_set_key']}|#{pop_key}") if individual_result[pop_key]&.positive?
+    end
+  end
+
+  def collate_possible_measure_populations(measures)
+    possible_populations = {}
+    measures.each do |m|
+      measure = Measure.find(m)
+      possible_populations[m] = measure.population_sets_and_stratifications_for_measure.map do |ps_s_m|
+        measure.population_keys.map { |pk| "#{measure.key_for_population_set(ps_s_m)}|#{pk}" }.flatten
+      end.flatten
+    end
+    possible_populations
+  end
+
+  def collate_possible_clauses(measures)
+    possible_clauses = {}
+    measures.each do |measure|
+      possible_clauses[measure] = []
+      # BSON::ObjectId(measure)
+      clauses = IndividualResult.where(correlation_id: @patients.first.correlation_id.to_s, measure_id: measure).first.clause_results
+      clauses.each do |clause|
+        next if ignore_clause_result(clause)
+
+        key = clause.library_name + '_' + clause.localId
+        possible_clauses[measure] << key
+      end
+    end
+    possible_clauses
+  end
+
+  def collate_coverage_summaries(measures, possible_clauses, un_hit_clauses, possible_populations_count, un_hit_populations)
     clause_coverage_summaries = {}
-    clause_results_by_measure.each do |cms_id, clause_results|
-      covered_clauses = 0
-      total_clauses = 0
-      clause_results.each do |_key, covered|
-        covered_clauses += 1 if covered
-        total_clauses += 1
-      end
-      clause_coverage_summaries[cms_id] = (covered_clauses.fdiv(total_clauses) * 100).round(2)
+    measures.each do |measure_id|
+      hit_clauses = possible_clauses[measure_id].size - un_hit_clauses[measure_id].size
+      percent_covered = hit_clauses.fdiv(possible_clauses[measure_id].size)
+      clause_coverage_summaries[Measure.find(measure_id).cms_id] = percent_covered
     end
-
-    clause_coverage_summaries
+    population_coverage_summaries = {}
+    total_hit_populations = possible_populations_count - un_hit_populations.values.flatten.size
+    population_coverage_summaries['total_population_coverage'] = total_hit_populations.fdiv(possible_populations_count)
+    population_coverage_summaries['unhit_populations_by_measure'] = un_hit_populations
+    [clause_coverage_summaries, population_coverage_summaries]
   end
 
   def collate_vs_code_sys(value_sets_found)
     vs_code_sys_found = {}
     value_sets_found.each do |vs|
       vs_code_sys_found[vs] = Set[]
-      ValueSet.where(oid: vs).first.concepts.each do |concept|
+      ValueSet.find(vs).concepts.each do |concept|
         vs_code_sys_found[vs].add(concept.code_system_oid)
       end
     end
     vs_code_sys_found
   end
 
-  def basic_analysis(relevant_measures, measures_found, measure_pops_found, de_types_found, value_sets_found)
+  def basic_analysis(relevant_measures, measures_found, de_types_found, value_sets_found)
     analysis = {}
-    total_pops = relevant_measures.sum { |m| m.population_criteria.keys.count }
     analysis['patient_count'] = @patients.count
+    analysis['measures_found'] = measures_found.count.to_i
+    analysis['relevant_measures'] = relevant_measures.count
     analysis['measure_coverage'] = measures_found.count.to_f / relevant_measures.count
-    analysis['population_coverage'] = measure_pops_found.count.to_f / total_pops
     analysis['data_element_types'] = de_types_found.count
     analysis['value_sets'] = value_sets_found.count
     analysis
@@ -94,7 +143,7 @@ module PatientAnalysisHelper
     total_vs = Set[]
     relevant_measures.each do |m|
       measure_valuesets = ValueSet.find(m.value_set_ids)
-      total_vs.merge(measure_valuesets.map(&:oid))
+      total_vs.merge(measure_valuesets.map { |vs| vs.id.to_s })
     end
     total_vs
   end
@@ -103,7 +152,7 @@ module PatientAnalysisHelper
     total_vs.each do |vs|
       total_vs_code_sys[vs] = Set[]
       total_vs_codes[vs] = Set[]
-      ValueSet.where(oid: vs).first.concepts.each do |concept|
+      ValueSet.where(id: vs).first.concepts.each do |concept|
         total_vs_code_sys[vs].add(concept.code_system_oid)
         total_vs_codes[vs].add(concept.code)
       end
@@ -115,28 +164,34 @@ module PatientAnalysisHelper
     end
   end
 
-  def advanced_analysis(total_vs, value_sets_found, total_vs_code_sys, vs_code_sys_found, percent_vs_codes)
+  def advanced_valueset_analysis(total_vs, value_sets_found, total_vs_code_sys, vs_code_sys_found, percent_vs_codes)
     analysis = {}
-    analysis['uncovered_value_sets'] = total_vs - value_sets_found # set difference
-    total_covered_vs = total_vs.count - analysis['uncovered_value_sets'].count
-    analysis['value_set_coverage'] = total_covered_vs.to_f / total_vs.count
+    analysis['uncovered_value_sets'] = (total_vs - value_sets_found).to_a # set difference
+    analysis['value_set_coverage'] = (total_vs.count - analysis['uncovered_value_sets'].count).to_f / total_vs.count
 
     total_covered_vs_code_sys = 0
     analysis['uncovered_vs_code_sys'] = {}
     total_vs_code_sys.each do |k, v|
-      analysis['uncovered_vs_code_sys'][k] = vs_code_sys_found.key?(k) ? v - vs_code_sys_found[k] : v
+      analysis['uncovered_vs_code_sys'][k] = vs_code_sys_found.key?(k) ? (v - vs_code_sys_found[k]).to_a : v.to_a
       total_covered_vs_code_sys += (v.count - analysis['uncovered_vs_code_sys'][k].count)
     end
 
     total_vs_code_sys_count = total_vs_code_sys.values.sum(&:count)
     analysis['value_set_code_system_coverage'] = total_covered_vs_code_sys.to_f / total_vs_code_sys_count
     analysis['average_percent_vs_codes'] = percent_vs_codes.values.sum.to_f / percent_vs_codes.count
-    coverage_summary = generate_coverage_summary
-    analysis['coverage_per_measure'] = coverage_summary
-    coverage_min_info = coverage_summary.min_by { |_k, v| v }
+    analysis
+  end
+
+  def coverage_analysis(measures)
+    analysis = {}
+    clause_coverage_summary, population_coverage_summary = generate_coverage_summary(measures)
+    analysis['coverage_per_measure'] = clause_coverage_summary
+    coverage_min_info = clause_coverage_summary.min_by { |_k, v| v }
     analysis['minimum_coverage_measure'] = coverage_min_info[0]
     analysis['minimum_coverage_percentage'] = coverage_min_info[1]
-    analysis['average_coverage'] = coverage_summary.values.inject { |a, b| a + b } / coverage_summary.length
+    analysis['average_coverage'] = clause_coverage_summary.values.inject { |a, b| a + b } / clause_coverage_summary.length
+    analysis['population_coverage'] = population_coverage_summary['total_population_coverage']
+    analysis['unhit_populations_by_measure'] = population_coverage_summary['unhit_populations_by_measure']
     analysis
   end
 
@@ -147,11 +202,11 @@ module PatientAnalysisHelper
     # TODO: double check stratifications in measure relevance hash
 
     # collate basic patient information
-    measures_found, measure_pops_found, de_types_found, value_sets_found, vs_codes_found = collate_patient_data
+    measures_found, de_types_found, value_sets_found, vs_codes_found = collate_patient_data
 
     # basic analysis attributes
     relevant_measures = @measure ? [@measure] : @bundle.measures
-    analysis = basic_analysis(relevant_measures, measures_found, measure_pops_found, de_types_found, value_sets_found)
+    analysis = basic_analysis(relevant_measures, measures_found, de_types_found, value_sets_found)
 
     # find the number of code systems per valueset for all valuesets
     vs_code_sys_found = collate_vs_code_sys(value_sets_found)
@@ -165,6 +220,8 @@ module PatientAnalysisHelper
     percent_vs_codes = {}
     per_vs_stats(total_vs, total_vs_code_sys, total_vs_codes, vs_codes_found, percent_vs_codes)
     # create analysis hash
-    analysis.merge(advanced_analysis(total_vs, value_sets_found, total_vs_code_sys, vs_code_sys_found, percent_vs_codes))
+    analysis.merge!(advanced_valueset_analysis(total_vs, value_sets_found, total_vs_code_sys, vs_code_sys_found, percent_vs_codes))
+    analysis.merge!(coverage_analysis(measures_found))
+    analysis
   end
 end

@@ -9,7 +9,7 @@
       <%= "#{measure}"%>
     </td>
     <td>
-      <%= "%.1f%%" % coverage_info%>
+      <%= "%.1f%%" % [100*coverage_info]%>
     </td>
     </tr>
 <% end %>

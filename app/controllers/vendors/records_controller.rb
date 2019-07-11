@@ -42,8 +42,7 @@ module Vendors
     end
 
     def patient_analysis
-      @patients = @vendor.patients.where(bundleId: @bundle.id.to_s).order_by(first: 'asc')
-      @analysis = generate_analysis(@patients, @measure, @bundle)
+      @analysis = @vendor.vendor_patient_analysis[@bundle.id.to_s]
       add_breadcrumb 'Analysis', :patient_analysis_vendor_records_path
     end
 

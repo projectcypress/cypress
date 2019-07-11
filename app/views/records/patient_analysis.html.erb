@@ -1,3 +1,6 @@
+<%= render 'patient_analysis_tracker', :vendor => @vendor, :bundle => @bundle %>
+
+<% if @analysis %>
 <div>
   <h1>Analysis of Patients</h1>
   <table class="patient-analysis">
@@ -15,13 +18,23 @@
     <td>Measure Coverage
       <%= render 'info_popup', :id => 'measure-coverage-info', :message => 'Percentage of this bundle\'s measures covered by these patients.' %>
     </td>
-    <td><%= "%.1f%%" % [100*@analysis['measure_coverage']] %></td>
+    <td><%= "%.1f%%" % [100*@analysis['measure_coverage']]%><%= " (#{@analysis['measures_found']} of #{@analysis['relevant_measures']})" %></td>
   </tr>
   <tr>
     <td>Population Coverage
-      <%= render 'info_popup', :id => 'population-coverage-info', :message => 'The percentage of this bundle\'s available populations covered by these patients.' %>
+      <%= render 'info_popup', :id => 'population-coverage-info', :message => 'The percentage of populations covered in the measures covered by these patients.' %>
     </td>
-    <td><%= "%.1f%%" % [100*@analysis['population_coverage']] %></td>
+    <td><%= "%.1f%%" % [100*@analysis['population_coverage']] %>
+      <button class="collapsible">Missing Populations</button>
+      <div class="collapse-content">
+        <% @analysis['unhit_populations_by_measure'].each do |measure, unhit_populations|
+           measure_id = Measure.find(measure).cms_id
+           unhit_populations.each do |unhit_population| %>
+           <%= "#{measure_id} - #{unhit_population}"%><br>
+          <% end %>
+        <% end %>
+      </div>
+    </td>
   </tr>
   <tr>
     <td># Data Element Types
@@ -50,9 +63,9 @@
       <%= @analysis['uncovered_value_sets'].count %><br>
       <button class="collapsible">Uncovered Valuesets</button>
       <div class="collapse-content">
-        <% @analysis['uncovered_value_sets'].each do |vs_oid|%>
-          <% vs = ValueSet.where(oid: vs_oid).first %>
-          <%= "#{vs_oid.start_with?("drc")? vs.concepts.first.code + "(drc)" : vs_oid}: #{vs.display_name}" %><br>
+        <% @analysis['uncovered_value_sets'].each do |vs_id|%>
+          <% vs = ValueSet.where(id: vs_id).first %>
+          <%= "#{vs.oid.start_with?("drc")? vs.concepts.first.code + "(drc)" : vs.oid}: #{vs.display_name}" %><br>
         <% end %>
       </div>
     </td>
@@ -95,12 +108,17 @@
     <td>Least Logic Coverage
       <%= render 'info_popup', :id => 'minimum_coverage_measure', :message => 'The measure with the least amount of logic coverage.' %>
     </td>
-    <td><%=@analysis['minimum_coverage_measure']%> (<%= "%.1f%%" % @analysis['minimum_coverage_percentage']%>)</td>
+    <td><%=@analysis['minimum_coverage_measure']%> (<%= "%.1f%%" % [100*@analysis['minimum_coverage_percentage']]%>)</td>
   </tr>
   <tr>
     <td>Average Logic Coverage
       <%= render 'info_popup', :id => 'average_coverage', :message => 'The average logic coverage across all measures.' %>
     </td>
-    <td><%= "%.1f%%" % @analysis['average_coverage']%></td>
+    <td><%= "%.1f%%" % [100*@analysis['average_coverage']]%></td>
   </tr>
 </div>
+<% else %>
+<div>
+  <h1>Analysis of patients is currently unavailable</h1>
+</div>
+<% end %>
