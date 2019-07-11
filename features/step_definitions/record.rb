@@ -95,10 +95,12 @@ end
 Then(/^the user sees details$/) do
   page.assert_text "Cypress Certification Patient Test Record: #{@patient.first_names} #{@patient.familyName}"
   page.assert_text @patient.gender
-  @patient.qdmPatient.dataElements.each do |data_criteria|
+  @measures = @bundle.measures.where(:_id.in => @patient.calculation_results.map(&:measure_id))
+  sf_patient = @patient.clone
+  Cypress::ScoopAndFilter.new(@measures).scoop_and_filter(sf_patient)
+  sf_patient.qdmPatient.dataElements.each do |data_criteria|
     page.assert_text data_criteria['description']
   end
-  @measures = @bundle.measures.where(:_id.in => @patient.calculation_results.map(&:measure_id))
   @measures.each do |m|
     page.assert_text m.description
   end
@@ -142,10 +144,12 @@ end
 Then(/^the user should see vendor patient details$/) do
   page.assert_text "Cypress Certification Patient Test Record: #{@patient.first_names} #{@patient.familyName}"
   page.assert_text @patient.gender
-  @patient.qdmPatient.dataElements.each do |data_criteria|
+  @measures = @bundle.measures.where(:_id.in => @patient.calculation_results.map(&:measure_id))
+  sf_patient = @patient.clone
+  Cypress::ScoopAndFilter.new(@measures).scoop_and_filter(sf_patient)
+  sf_patient.qdmPatient.dataElements.each do |data_criteria|
     page.assert_text data_criteria['description']
   end
-  @measures = @bundle.measures.where(:_id.in => @patient.calculation_results.map(&:measure_id))
   @measures.each do |m|
     page.assert_text m.cms_id
   end

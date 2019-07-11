@@ -27,6 +27,7 @@ module Cypress
         # Do not try to replace with negated valueset if all codes are removed
         next if data_element.dataElementCodes.blank?
 
+        add_description_to_data_element(data_element)
         replace_negated_code_with_valueset(data_element) if data_element.respond_to?('negationRationale') && data_element.negationRationale
       end
       # keep data element if codes is not empty
@@ -44,6 +45,14 @@ module Cypress
     # returns true if a patients data element is used by a measure
     def data_element_used_by_measure(data_element)
       @de_category_statuses_for_measures.include?(category: data_element['qdmCategory'], status: data_element['qdmStatus'])
+    end
+
+    def add_description_to_data_element(data_element)
+      de = data_element
+      vsets = @valuesets.select { |vs| vs.concepts.any? { |c| c.code == de.codes.first.code && c.code_system_oid == de.codes.first.codeSystemOid } }
+      # A data element may have codes from multiple valusets, pick the first valueset for the description
+      vs = vsets.first
+      de.description = vs.display_name
     end
 
     def replace_negated_code_with_valueset(data_element)
