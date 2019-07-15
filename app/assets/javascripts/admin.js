@@ -37,7 +37,7 @@ ready = function() {
   $('.settings-tabs').tabs()
   $('.settings-tabs > ul > li').removeClass("ui-corner-top");
 
-  var $customModeButtons = $('[name="[mode]"]');
+  var $customModeButtons = $("input[name='mode']");
 
   $customModeButtons.on('change', function() {
     if ($customModeButtons.filter(':checked').val() == "custom") {
