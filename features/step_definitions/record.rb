@@ -56,7 +56,7 @@ And(/^the user views patient analytics$/) do
 end
 
 And(/^the user should see patient analytics$/) do
-  page.assert_text 'Analysis of Patients'
+  page.assert_text 'Analysis of patients'
 end
 
 And(/^the user searches for a measure$/) do

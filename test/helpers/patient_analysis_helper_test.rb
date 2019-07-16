@@ -13,7 +13,7 @@ class PatientAnalysisHelperTest < ActiveSupport::TestCase
     analysis = generate_analysis(@vendor.patients, nil, @bundle)
     assert_equal 1, analysis['patient_count']
     assert_equal 0.1, analysis['measure_coverage']
-    assert_equal 0.02857142857142857, analysis['population_coverage']
+    assert_equal 0.16666666666666666, analysis['population_coverage']
     assert_equal 8, analysis['data_element_types'].size
     assert_equal 8, analysis['value_sets'].size
     assert_equal 23, analysis['uncovered_value_sets'].size
@@ -27,7 +27,7 @@ class PatientAnalysisHelperTest < ActiveSupport::TestCase
     analysis = generate_analysis(@vendor.patients, @bundle.measures.where(hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE').first, @bundle)
     assert_equal 1, analysis['patient_count']
     assert_equal 1.0, analysis['measure_coverage']
-    assert_equal 0.2857142857142857, analysis['population_coverage']
+    assert_equal 0.16666666666666666, analysis['population_coverage']
     assert_equal 8, analysis['data_element_types'].size
     assert_equal 8, analysis['value_sets'].size
     assert_equal 3, analysis['uncovered_value_sets'].size
