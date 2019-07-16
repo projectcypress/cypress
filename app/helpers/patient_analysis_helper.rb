@@ -59,11 +59,11 @@ module PatientAnalysisHelper
     un_hit_clauses = possible_clauses.clone
     measures.each do |measure|
       IndividualResult.where(correlation_id: @patients.first.correlation_id.to_s, measure_id: measure).each do |ir|
-        break if un_hit_clauses[measure].length.zero?
+        remove_hit_populations(ir, un_hit_populations) unless un_hit_populations[measure].length.zero?
+        next if un_hit_clauses[measure].length.zero?
 
         hit_clauses = ir.clause_results.where(final: 'TRUE').map { |cl| cl.library_name + '_' + cl.localId }
         un_hit_clauses[measure] -= hit_clauses
-        remove_hit_populations(ir, un_hit_populations) unless un_hit_populations[measure].length.zero?
       end
     end
     collate_coverage_summaries(measures, possible_clauses, un_hit_clauses, possible_populations_count, un_hit_populations)

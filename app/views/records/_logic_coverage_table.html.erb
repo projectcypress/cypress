@@ -3,7 +3,7 @@
   <th>Measure</th>
   <th>Logic Coverage</th>
 </tr>
-<% analysis['coverage_per_measure'].each do |measure, coverage_info|%>
+<% analysis['coverage_per_measure'].sort_by{|k,v| v}.each do |measure, coverage_info|%>
     <tr>
     <td>
       <%= "#{measure}"%>
