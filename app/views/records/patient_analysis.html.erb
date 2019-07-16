@@ -27,12 +27,7 @@
     <td><%= "%.1f%%" % [100*@analysis['population_coverage']] %>
       <button class="collapsible">Missing Populations</button>
       <div class="collapse-content">
-        <% @analysis['unhit_populations_by_measure'].each do |measure, unhit_populations|
-           measure_id = Measure.find(measure).cms_id
-           unhit_populations.each do |unhit_population| %>
-           <%= "#{measure_id} - #{unhit_population}"%><br>
-          <% end %>
-        <% end %>
+        <%= render 'missing_population_table', :analysis => @analysis %>
       </div>
     </td>
   </tr>
@@ -63,10 +58,7 @@
       <%= @analysis['uncovered_value_sets'].count %><br>
       <button class="collapsible">Uncovered Valuesets</button>
       <div class="collapse-content">
-        <% @analysis['uncovered_value_sets'].each do |vs_id|%>
-          <% vs = ValueSet.where(id: vs_id).first %>
-          <%= "#{vs.oid.start_with?("drc")? vs.concepts.first.code + "(drc)" : vs.oid}: #{vs.display_name}" %><br>
-        <% end %>
+        <%= render 'uncovered_valueset_table', :analysis => @analysis %>
       </div>
     </td>
   </tr>
