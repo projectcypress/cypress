@@ -1,0 +1,78 @@
+<section>
+  <% cms_measures = [] %>
+
+  <h2>Multi Measure Tests</h2>
+  <% # Measure Test Summary %>
+  <table class = 'table table-condensed'>
+    <thead>
+      <tr>
+        <th scope="col">Measure Name</th>
+        <th scope="col">Submeasures</th>
+        <%= "<th scope='col' class = 'text-center'>EP Measure Test</th>".html_safe %>
+        <%= "<th scope='col' class = 'text-center'>EH Measure Test</th>".html_safe %>
+
+      </tr>
+    </thead>
+    <tbody>
+      <% @product.product_tests.multi_measure_tests.each do |test| %>
+        <% measures = test.measures %>
+        <% test.measures.each{ |m| cms_measures << m} %>
+        <% measures.each do |measure| %>
+          <tr>
+            <td><%= "#{measure.cms_id} #{measure.description}" %></td>
+            <td>
+              <% if measure.population_sets_and_stratifications_for_measure.length > 1 %>
+                <ul class="list-unstyled">
+                  <% measure.population_sets_and_stratifications_for_measure.each do |population_set| %>
+                    <li><%= population_set[:stratification_id] ? population_set[:stratification_id] : population_set[:population_set_id] %></li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </td>
+            <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.tasks.multi_measure_cat1_task ? test.tasks.multi_measure_cat1_task.passing? : false  }  %></td>
+            <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.tasks.multi_measure_cat3_task ? test.tasks.multi_measure_cat3_task.passing? : false} %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <h2>CMS Program Tests</h2>
+  <% # Measure Test Summary %>
+  <table class = 'table table-condensed'>
+    <thead>
+      <tr>
+        <th scope="col">Measure Name</th>
+        <th scope="col">Submeasures</th>
+        <%= "<th scope='col' class = 'text-center'>HQR PI Test</th>".html_safe %>
+        <%= "<th scope='col' class = 'text-center'>HQR IQR Test</th>".html_safe %>
+        <%= "<th scope='col' class = 'text-center'>HQR PI IQR Test</th>".html_safe %>
+        <%= "<th scope='col' class = 'text-center'>HQR IQR VOL Test</th>".html_safe %>
+        <%= "<th scope='col' class = 'text-center'>MIPS GROUP Test</th>".html_safe %>
+        <%= "<th scope='col' class = 'text-center'>MIPS INDIV Test</th>".html_safe %>
+        <%= "<th scope='col' class = 'text-center'>MIPS VIRTUALGROUP Test</th>".html_safe %>
+        <%= "<th scope='col' class = 'text-center'>CPCPLUS Test</th>".html_safe %>
+      </tr>
+    </thead>
+    <tbody>
+        <% cms_measures.each do |measure| %>
+          <tr>
+            <td><%= "#{measure.cms_id} #{measure.description}" %></td>
+            <td>
+              <% if measure.population_sets_and_stratifications_for_measure.length > 1 %>
+                <ul class="list-unstyled">
+                  <% measure.population_sets_and_stratifications_for_measure.each do |population_set| %>
+                    <li><%= population_set[:stratification_id] ? population_set[:stratification_id] : population_set[:population_set_id] %></li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </td>
+            <% %w[HQR_PI HQR_IQR HQR_PI_IQR HQR_IQR_VOL MIPS_GROUP MIPS_INDIV MIPS_VIRTUALGROUP CPCPLUS].each do |test| %>
+              <% task = @product.product_tests.cms_program_tests.where(cms_program: test ).first.tasks.first %>
+              <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: task.measures.include?(measure) ? task.passing? : false } %></td>
+            <% end %>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
