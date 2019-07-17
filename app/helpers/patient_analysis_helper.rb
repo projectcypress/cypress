@@ -81,7 +81,8 @@ module PatientAnalysisHelper
     measures.each do |m|
       measure = Measure.find(m)
       possible_populations[m] = measure.population_sets_and_stratifications_for_measure.map do |ps_s_m|
-        measure.population_keys.map { |pk| "#{measure.key_for_population_set(ps_s_m)}|#{pk}" }.flatten
+        pops = measure.population_sets.where(population_set_id: ps_s_m.population_set_id).first.populations
+        measure.population_keys.map { |pk| "#{measure.key_for_population_set(ps_s_m)}|#{pk}" if pops[pk] }.compact.flatten
       end.flatten
     end
     possible_populations
