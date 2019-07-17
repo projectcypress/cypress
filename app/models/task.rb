@@ -20,7 +20,7 @@ class Task
 
   %w[
     C1Task C1ChecklistTask C3ChecklistTask C2Task C3Cat1Task C3Cat3Task
-    Cat1FilterTask Cat3FilterTask MultiMeasureCat1Task MultiMeasureCat3Task
+    Cat1FilterTask Cat3FilterTask MultiMeasureCat1Task MultiMeasureCat3Task CMSProgramTask
   ].each do |task_type|
     # Define methods for fetching specific types of tasks,
     # for example (Task.c1_task, Task.cat1_filter_task, etc)
