@@ -14,7 +14,7 @@ end
 # # # # # # # #
 
 Then(/^the user should see instructions$/) do
-  page.assert_text 'CMS Implmentation Guide Checklist Instructions'
+  page.assert_text 'CMS Implementation Guide Checklist Instructions'
 end
 
 Then(/^the user should see errors and warnings$/) do
