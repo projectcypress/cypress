@@ -30,7 +30,7 @@ module Admin
     end
 
     def update_settings
-      params.permit(:banner_message, :warning_message, :mailer_address, :mailer_port, :mailer_domain, :mailer_user_name, :mailer_password)
+      params.permit(:banner, :banner_message, :warning_message, :mailer_address, :mailer_port, :mailer_domain, :mailer_user_name, :mailer_password)
     end
   end
 end
