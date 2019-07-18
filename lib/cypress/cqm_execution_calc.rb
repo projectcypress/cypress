@@ -35,7 +35,6 @@ module Cypress
       rescue => e
         raise e.to_s || 'Calculation failed without an error message'
       end
-
       results = JSON.parse(response)
 
       patient_result_hash = {}

@@ -1,0 +1,116 @@
+<%= render 'patient_analysis_tracker', :vendor => @vendor, :bundle => @bundle %>
+
+<% if @analysis %>
+<div>
+  <h1>Analysis of Patients</h1>
+  <table class="patient-analysis">
+  <tr>
+    <th>Data Type</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td># Patients
+      <%= render 'info_popup', :id => 'patient-count-info', :message => 'The total number of vendor patients available for this bundle.' %>
+    </td>
+    <td><%= @analysis['patient_count']%></td>
+  </tr>
+  <tr>
+    <td>Measure Coverage
+      <%= render 'info_popup', :id => 'measure-coverage-info', :message => 'Percentage of this bundle\'s measures covered by these patients.' %>
+    </td>
+    <td><%= "%.1f%%" % [100*@analysis['measure_coverage']]%><%= " (#{@analysis['measures_found']} of #{@analysis['relevant_measures']})" %></td>
+  </tr>
+  <tr>
+    <td>Population Coverage
+      <%= render 'info_popup', :id => 'population-coverage-info', :message => 'The percentage of populations covered in the measures covered by these patients.' %>
+    </td>
+    <td><%= "%.1f%%" % [100*@analysis['population_coverage']] %>
+      <button class="collapsible">Missing Populations</button>
+      <div class="collapse-content">
+        <%= render 'missing_population_table', :analysis => @analysis %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td># Data Element Types
+      <%= render 'info_popup', :id => 'data-element-types-info', :message => 'The total number of data element types used by these patients.' %>
+    </td>
+    <td><%= @analysis['data_element_types'] %></td>
+  </tr>
+  <tr>
+    <td># Valuesets Used
+      <%= render 'info_popup', :id => 'value-sets-info', :message => 'The total number of value sets used by these patients.' %>
+    </td>
+    <td><%= @analysis['value_sets'] %></td>
+  </tr>
+  <tr>
+    <td>Valuesets Coverage
+      <%= render 'info_popup', :id => 'value-set-coverage-info', :message => 'The percentage of valuesets used by these patients out of those used by thiss bundles measures.' %>
+    </td>
+    <td><%= "%.1f%%" % [100*@analysis['value_set_coverage']] %></td>
+  </tr>
+  <tr>
+    <td>Uncovered Valuesets
+      <%= render 'info_popup', :id => 'uncovered-value-sets-info', :message => 'Total valuesets not covered by this set of patients. Click the dropdown to see all of the valuesets in this bundle\'s measures that are not covered by these patients.' %>
+    </td>
+    <%# TODO: adjust data structure for better display %>
+    <td>
+      <%= @analysis['uncovered_value_sets'].count %><br>
+      <button class="collapsible">Uncovered Valuesets</button>
+      <div class="collapse-content">
+        <%= render 'uncovered_valueset_table', :analysis => @analysis %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>Code System per Valueset Coverage
+      <%= render 'info_popup', :id => 'value-set-code-system-coverage-info', :message => 'The cumulative percentage of code systems covered out of those available for each valueset.' %>
+    </td>
+    <td><%= "%.1f%%" % [100*@analysis['value_set_code_system_coverage']] %></td>
+  </tr>
+  <tr>
+    <td>Uncovered Code Systems in each Valueset
+      <%= render 'info_popup', :id => 'uncovered-vs-code-sys-info', :message => 'Total code systems not covered across all valuesets available in this bundle\'s measures. Click the dropdown to see all of the codesystems that are not covered by these patients.' %>
+    </td>
+    <td>
+      <%= @analysis['uncovered_vs_code_sys'].values.sum{ |v| v.count } %><br>
+      <button class="collapsible">Uncovered Code Systems</button>
+      <div class="collapse-content">
+        <%= render 'uncovered_code_table', :analysis => @analysis %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>Average Percent Code Coverage per Valueset
+      <%= render 'info_popup', :id => 'average_percent_vs_codes', :message => 'The average code coverage for each valueset available in this bundle\'s measures.' %>
+    </td>
+    <td><%= "%.1f%%" % [100*@analysis['average_percent_vs_codes']] %></td>
+  </tr>
+  <tr>
+  <td> Logic Coverage
+    <%= render 'info_popup', :id => 'logic-clauses-covered', :message => 'Percentage of clauses in the logic hit by patients in the test deck. Click the button to see coverage per measure' %>
+  </td>
+  <td>
+    <button class="collapsible">Logic Coverage Per Measure</button>
+    <div class="collapse-content">
+      <%= render 'logic_coverage_table', :analysis => @analysis %>
+    </div>
+  </td>
+  <tr>
+    <td>Least Logic Coverage
+      <%= render 'info_popup', :id => 'minimum_coverage_measure', :message => 'The measure with the least amount of logic coverage.' %>
+    </td>
+    <td><%=@analysis['minimum_coverage_measure']%> (<%= "%.1f%%" % [100*@analysis['minimum_coverage_percentage']]%>)</td>
+  </tr>
+  <tr>
+    <td>Average Logic Coverage
+      <%= render 'info_popup', :id => 'average_coverage', :message => 'The average logic coverage across all measures.' %>
+    </td>
+    <td><%= "%.1f%%" % [100*@analysis['average_coverage']]%></td>
+  </tr>
+</div>
+<% else %>
+<div>
+  <h1>Analysis of patients is currently unavailable</h1>
+</div>
+<% end %>

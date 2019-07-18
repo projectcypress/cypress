@@ -1,0 +1,23 @@
+<table id="uncovered-code-systems">
+<tr>
+  <th>ValueSet OID/Code</th>
+  <th>ValueSet Name</th>
+  <th>Uncovered Code Systems</th>
+</tr>
+<% analysis['uncovered_vs_code_sys'].each do |vs_id, code_sys|%>
+  <% vs = ValueSet.where(id: vs_id).first %>
+  <% if code_sys.count > 0 %>
+    <tr>
+    <% if vs.oid.start_with?("drc") %>
+      <td><%= vs.concepts.first.code + "(drc)"%></td>
+    <% else %>
+      <td><%= vs.oid%></td>
+    <% end %>
+    <td><%= vs.display_name%></td>
+    <td>
+      <%= code_sys.map { |cs|HQMF::Util::CodeSystemHelper.code_system_for(cs) }.join(',') %>
+    </td>
+    </tr>
+  <% end %>
+<% end %>
+</table>

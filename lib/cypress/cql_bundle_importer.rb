@@ -135,8 +135,9 @@ module Cypress
       patient_ids = bundle.patients.map { |p| p.id.to_s }
       effective_date_end = Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number)
       effective_date = Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number)
+      options = { 'effectiveDateEnd': effective_date_end, 'effectiveDate': effective_date }
       bundle.measures.each do |measure|
-        SingleMeasureCalculationJob.perform_now(patient_ids, measure.id.to_s, bundle.id.to_s, effective_date, effective_date_end)
+        SingleMeasureCalculationJob.perform_now(patient_ids, measure.id.to_s, bundle.id.to_s, options)
       end
       puts "\rLoading: Results Complete          "
     end

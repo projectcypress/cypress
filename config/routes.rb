@@ -22,6 +22,7 @@ Rails.application.routes.draw do
         collection do
           post :destroy_multiple
           get :by_measure
+          get :patient_analysis
         end
       end
     end

@@ -1,0 +1,21 @@
+
+<table id="uncovered-valuesets">
+<tr>
+  <th>ValueSet OID/Code</th>
+  <th>ValueSet Name</th>
+  <th>Measures</th>
+</tr>
+
+<% analysis['uncovered_value_sets'].each do |vs_id|%>
+  <% vs = ValueSet.where(id: vs_id).first %>
+  <tr>
+    <% if vs.oid.start_with?("drc") %>
+      <td><%= vs.concepts.first.code + "(drc)"%></td>
+    <% else %>
+      <td><%= vs.oid%></td>
+    <% end %>
+    <td><%= vs.display_name%></td>
+    <td><%= Measure.where(:value_set_ids => vs.id).pluck(:cms_id).join(", ") %></td>
+  </tr>
+<% end %>
+</table>
