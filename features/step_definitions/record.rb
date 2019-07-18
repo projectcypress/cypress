@@ -47,6 +47,18 @@ And(/^the user should see a way to switch bundles$/) do
   end
 end
 
+And(/^the user should see a way to analyize patients$/) do
+  page.assert_text 'View Patient Analytics'
+end
+
+And(/^the user views patient analytics$/) do
+  page.click_link 'View Patient Analytics'
+end
+
+And(/^the user should see patient analytics$/) do
+  page.assert_text 'Analysis of patients'
+end
+
 And(/^the user searches for a measure$/) do
   page.fill_in 'search_measures', with: @measure.description
 end

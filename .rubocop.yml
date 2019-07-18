@@ -58,7 +58,8 @@ Metrics/AbcSize:
 Metrics/ModuleLength:
   Max: 120
   Exclude:
-  - 'lib/cypress/data_criteria_attribute_builder.rb'
+    - 'lib/cypress/data_criteria_attribute_builder.rb'
+    - 'app/helpers/patient_analysis_helper.rb'
 # Avoid complex methods.
 Metrics/CyclomaticComplexity:
   Max: 10

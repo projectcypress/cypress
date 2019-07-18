@@ -1,0 +1,18 @@
+<table id="uncovered-code-systems">
+<tr>
+  <th>Measure</th>
+  <th>Population Set</th>
+  <th>Population</th>
+</tr>
+  <% @analysis['unhit_populations_by_measure'].sort_by{ |k,v| Measure.find(k).cms_id }.each do |measure, unhit_populations|
+     measure_id = Measure.find(measure).cms_id
+     unhit_populations.each do |unhit_population|
+       split_population = unhit_population.split('|') %>
+       <tr>
+         <td><%= measure_id %></td>
+         <td><%= split_population[0]%></td>
+         <td><%= split_population[1]%></td>
+       </tr>
+    <% end %>
+  <% end %>
+</table>

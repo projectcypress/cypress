@@ -66,6 +66,15 @@ Scenario: View Vendor Patient List Page
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
+Scenario: View Vendor Patient List Analyize Page
+  When the user visits the vendor records page
+  Then the user should see a list of vendor patients
+  And the user should see a way to analyize patients
+  And the user views patient analytics
+  And the user should see patient analytics
+  Then the page should be accessible according to: section508
+  Then the page should be accessible according to: wcag2aa
+
 Scenario: Successful switch bundles for vendor patients
   When the user visits the vendor records page
   And the user selects a bundle
