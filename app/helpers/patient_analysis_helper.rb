@@ -90,16 +90,26 @@ module PatientAnalysisHelper
 
   def collate_possible_clauses(measures)
     possible_clauses = {}
-    measures.each do |measure|
-      possible_clauses[measure] = []
+    measures.each do |measure_id|
+      possible_clauses[measure_id] = []
       # BSON::ObjectId(measure)
-      clauses = IndividualResult.where(correlation_id: @patients.first.correlation_id.to_s, measure_id: measure).first.clause_results
-      clauses.each do |clause|
-        next if ignore_clause_result(clause)
+      measure = Measure.find(measure_id)
+      ps_set_hashes = measure.population_sets_and_stratifications_for_measure
+      ps_set_hashes.each do |ps_set_hash|
+        ir_for_population_set_key = IndividualResult.where(correlation_id: @patients.first.correlation_id.to_s,
+                                                           measure_id: measure_id,
+                                                           population_set_key: measure.key_for_population_set(ps_set_hash))
+        next if ir_for_population_set_key.empty?
 
-        key = clause.library_name + '_' + clause.localId
-        possible_clauses[measure] << key
+        clauses = ir_for_population_set_key.first.clause_results
+        clauses.each do |clause|
+          next if ignore_clause_result(clause)
+
+          key = clause.library_name + '_' + clause.localId
+          possible_clauses[measure_id] << key
+        end
       end
+      possible_clauses[measure_id] = possible_clauses[measure_id].uniq
     end
     possible_clauses
   end
