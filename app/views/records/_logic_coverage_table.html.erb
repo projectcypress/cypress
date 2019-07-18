@@ -1,0 +1,16 @@
+<table id="clause_coverage_information">
+<tr>
+  <th>Measure</th>
+  <th>Logic Coverage</th>
+</tr>
+<% analysis['coverage_per_measure'].sort_by{|k,v| v}.each do |measure, coverage_info|%>
+    <tr>
+    <td>
+      <%= "#{measure}"%>
+    </td>
+    <td>
+      <%= "%.1f%%" % [100*coverage_info]%>
+    </td>
+    </tr>
+<% end %>
+</table>

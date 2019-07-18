@@ -1,0 +1,8 @@
+<% if params[:partial] == 'patient_analysis_jobs' %>
+  <% trackers = PatientAnalysisJob.trackers.where('options.vendor_id': @vendor.id.to_s, 'options.bundle_id': @bundle.id.to_s,)  %>
+  <% if trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
+    setTimeout(function(){
+      $('.patient-analysis-jobs').html("<%= escape_javascript render 'patient_analysis_tracker', :vendor => @vendor, :bundle => @bundle %>");
+    }, 2000);
+  <% end %>
+<% end %>

@@ -1,4 +1,20 @@
 GIT
+  remote: https://github.com/projecttacoma/cqm-reports.git
+  revision: 7827420613adcd35bd615841cb3e7b1fe238ef9a
+  branch: round_trip_fix
+  specs:
+    cqm-reports (2.0.0)
+      cqm-models (~> 2.0.0)
+      erubis (~> 2.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid-tree (~> 2.1.0)
+      mustache
+      nokogiri (~> 1.10.3)
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+
+GIT
   remote: https://github.com/turbolinks/turbolinks-classic
   revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
   branch: master
@@ -140,16 +156,6 @@ GEM
       protected_attributes_continued (~> 1.4.0)
       rubyzip (~> 1.2.2)
       typhoeus
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-    cqm-reports (2.0.0)
-      cqm-models (~> 2.0.0)
-      erubis (~> 2.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid-tree (~> 2.1.0)
-      mustache
-      nokogiri (~> 1.10.3)
       uuid (~> 2.3.7)
       zip-zip (~> 0.3)
     cqm-validators (2.0.0)
@@ -524,7 +530,7 @@ DEPENDENCIES
   codecov
   cqm-models (~> 2.0.0)
   cqm-parsers (~> 2.0.0)
-  cqm-reports (~> 2.0.0)
+  cqm-reports!
   cqm-validators (~> 2.0.0)
   cucumber (~> 3.0.2)
   cucumber-rails
