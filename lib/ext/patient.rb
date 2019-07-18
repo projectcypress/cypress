@@ -8,7 +8,6 @@ module CQM
     field :medical_record_number, type: String
     field :measure_relevance_hash, type: Hash, default: {}
     embeds_many :addresses
-    default_scope { order('last': :asc) }
 
     # This allows us to instantiate Patients that do not belong to specific type of patient
     # for the purposes of testing but blocks us from saving them to the database to ensure
