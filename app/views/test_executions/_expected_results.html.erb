@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th scope="col">Measure Name</th>
-      <% population_keys = task.measures.first.population_keys %>
+      <% population_keys = task.measures.collect(&:population_keys).flatten.uniq %>
       <% population_keys.each do |population| %>
         <th scope="col" class="text-center"><%= population_label(task.bundle, population) %></th>
       <% end %>
