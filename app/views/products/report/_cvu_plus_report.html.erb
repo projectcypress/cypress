@@ -57,7 +57,9 @@
     <tbody>
       <% %w[HQR_PI HQR_IQR HQR_PI_IQR HQR_IQR_VOL MIPS_GROUP MIPS_INDIV MIPS_VIRTUALGROUP CPCPLUS].each do |test| %>
           <tr>
-              <% task = @product.product_tests.cms_program_tests.where(cms_program: test ).first.tasks.first %>
+              <% ptest = @product.product_tests.cms_program_tests.where(cms_program: test ) %>
+              <% next if ptest.empty? %>
+              <% task = ptest.first.tasks.first %>
               <td class='text-left'><%= task.product_test.name %></td>
               <td class='text-center'><%= render partial: 'products/report/status_icon', locals: { passing: task.passing? } %></td>
           </tr>
