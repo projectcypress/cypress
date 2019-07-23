@@ -140,6 +140,6 @@ module RecordsHelper
   def measure_display_name(measure, population_set_hash)
     cms_id = measure.cms_id
     population_set_display = population_set_hash[:stratification_id] || population_set_hash[:population_set_id]
-    "#{cms_id} - #{population_set_display}"
+    "#{cms_id} - #{population_set_display.tr('_', ' ')}"
   end
 end
