@@ -16,13 +16,10 @@ class ChecklistTestTest < ActiveJob::TestCase
   def test_attribute_index
     attributes1 = { 'dataElementAttributes' => [{ 'attribute_name' => 'relevantPeriod', 'attribute_valueset' => nil },
                                                 { 'attribute_name' => 'dischargeDisposition', 'attribute_valueset' => '1.1.2.3' }] }
-    attributes2 = { 'dataElementAttributes' => [{ 'attribute_name' => 'relevantPeriod', 'attribute_valueset' => nil },
-                                                { 'attribute_name' => 'dischargeDisposition', 'attribute_valueset' => nil }] }
     attributes3 = { 'dataElementAttributes' => [{ 'attribute_name' => 'relevantPeriod', 'attribute_valueset' => nil },
                                                 { 'attribute_name' => 'dischargeDisposition', 'attribute_valueset' => nil },
                                                 { 'attribute_name' => 'dischargeDisposition', 'attribute_valueset' => '1.1.2.3' }] }
     assert_equal 1, @test.attribute_index?(attributes1), 'should return index for dischargeDisposition with a valueset oid'
-    assert_equal 0, @test.attribute_index?(attributes2), 'should return index for relevantPeriod'
     assert_equal 2, @test.attribute_index?(attributes3), 'should return index for dischargeDisposition with a valueset oid'
   end
 
