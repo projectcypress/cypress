@@ -68,18 +68,19 @@ class ChecklistTest < ProductTest
     attributes = criteria['dataElementAttributes']
     return nil if attributes.blank?
 
-    code_indexes = []
-    time_indexes = []
+    code_indices = []
+    codeless_indices = []
     attributes.each_with_index do |attribute, index|
-      if %(authorDatetime prevalencePeriod relevantPeriod).include? attribute['attribute_name']
-        time_indexes << index
+      if attribute['attribute_valueset'].nil?
+        # A codeless attribute (i.e. time periods, result, etc.)
+        codeless_indices << index
       else
-        # A coded attribute needs to have the valueset specified, do not include if it doesn't
-        code_indexes << index unless attribute['attribute_valueset'].nil?
+        # A coded attribute needs to have the valueset specified
+        code_indices << index
       end
     end
-    return code_indexes.sample unless code_indexes.empty?
-    return time_indexes.sample unless time_indexes.empty?
+    return code_indices.sample unless code_indices.empty?
+    return codeless_indices.sample unless codeless_indices.empty?
   end
 
   def create_checked_criteria
