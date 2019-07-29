@@ -73,8 +73,9 @@ def to_drupal_lookup_table_with_revisions(ary)
     [yield(term), { type: term['type'], id: term['id'], meta: { target_revision_id: term['attributes']['drupal_internal__revision_id'] } }]
   end.to_h
 end
+
 # version (for testing purposes)
-@data_element_version = '0.0.1'
+@data_element_version = '0.0.2'
 
 # Get the taxonomy of datatypes from Drupal, then turn them into a hash where:
 # key = the datatype name (e.g. "Averse event")
@@ -552,13 +553,14 @@ end
 def find_or_create_code_constraint(type:, display_name:, code_system_name:, url:, oid:)
   hash = "#{code_system_name}-#{oid}-#{display_name}"
   cc = @code_constraints[hash]
+  # byebug if type == "Direct Reference Code"
   return cc if cc
   cc_obj = {
     data: {
       type: 'paragraph--code_constraint',
       attributes: {
         status: true,
-        field_code_system: nil,
+        field_code_system: code_system_name,
         field_name: display_name,
         field_oid: oid,
         field_url: {
@@ -586,7 +588,11 @@ def find_or_create_code_constraint(type:, display_name:, code_system_name:, url:
 end
 
 def find_or_create_ecqm_dataelement(element)
-  return @ecqm_dataelements[hash_dataelement(element[:data])] if @ecqm_dataelements[hash_dataelement(element[:data])]
+  if @ecqm_dataelements[hash_dataelement(element[:data])]
+    puts "Element \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]}  found"
+    return @ecqm_dataelements[hash_dataelement(element[:data])]
+  end
+  puts "Element \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} not found, creating"
   res = execute_request(:post, "#{BASE_URL}/jsonapi/node/data_element2", JSON.generate(element))
   @ecqm_dataelements[hash_dataelement(res.deep_symbolize_keys)] = { type: res['type'], id: res['id'] }
 end
@@ -625,11 +631,12 @@ def print_ecqm_dataelement
 
           if oid.include?('drc-')
             concept = @valuesets.where(oid: oid).first&.concepts&.first
+            # byebug
             element[:data][:relationships][:field_code_constraint] = { data:
                                          find_or_create_code_constraint(type: "Direct Reference Code",
                                            display_name: concept.display_name,
-                                           oid: oid,
-                                           code_system_name: concept.code_system_name.upcase.gsub(/[^a-zA-Z0-9]/),
+                                           oid: nil,
+                                           code_system_name: concept.code_system_name.upcase.gsub(/[^a-zA-Z0-9]/, ''),
                                            url: generate_url(concept))
                                          }
           else
@@ -641,7 +648,7 @@ def print_ecqm_dataelement
                                            url: "https://vsac.nlm.nih.gov/valueset/#{oid}/expansion")
                                          }
           end
-          res = find_or_create_ecqm_dataelement(element)
+          find_or_create_ecqm_dataelement(element)
           exported_base_types << dt_hash[:type_definition]
         end
       end
