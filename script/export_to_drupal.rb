@@ -597,6 +597,43 @@ def find_or_create_ecqm_dataelement(element)
   @ecqm_dataelements[hash_dataelement(res.deep_symbolize_keys)] = { type: res['type'], id: res['id'] }
 end
 
+def create_dataelement_description(description)
+  cf_raw = description.split("Clinical Focus:")[1]
+  return '' unless cf_raw
+  cf = cf_raw.split(/\),[^ ]/)[0].strip
+  cf = if cf == ''
+         'span class="na">n/a</span>'
+       else
+         cf.concat('<br>')
+       end
+
+  des = description.split("Data Element Scope:")[1].split(/\),[^ ]/)[0].strip
+  des = if des == ''
+          'span class="na">n/a</span>'
+        else
+          des.concat('<br>')
+        end
+  ic = description.split("Inclusion Criteria:")[1].split(/\),[^ ]/)[0].strip
+  ic = if ic == ''
+         'span class="na">n/a</span>'
+       else
+         ic.concat('<br>')
+       end
+
+  ec = description.split("Exclusion Criteria:")[1].split(") --")[0].strip
+  ec.chop! if ec.end_with? ')'
+  ec = if ec == ''
+    'span class="na">n/a</span>'
+  else
+    ec.concat('<br>')
+  end
+
+  %(<span class="de-label">Clinical Focus:</span> #{cf}
+  <span class="de-label">Data Element Scope:</span> #{des}
+  <span class="de-label">Inclusion Criteria:</span> #{ic}
+  <span class="de-label">Exclusion Criteria:</span> #{ec})
+end
+
 def print_ecqm_dataelement
   sorted_vs = @value_set_hash.sort_by { |_key, value| value[:display_name] || 'zzz' }
   sorted_vs.each do |oid, vs_hash|
@@ -616,7 +653,7 @@ def print_ecqm_dataelement
               attributes: {
                 title: vs_hash[:display_name],
                 body: {
-                  value: vs_description,
+                  value: create_dataelement_description(vs_description),
                   format: 'body_html'
                 },
                 field_data_element_version: @data_element_version
@@ -651,35 +688,35 @@ def print_ecqm_dataelement
           find_or_create_ecqm_dataelement(element)
           exported_base_types << dt_hash[:type_definition]
         end
+        # if data_type != dt_hash[:vs_extension_name]
+          # "#{dt_hash[:type_definition]}, #{dt_hash[:type_status]}: #{vs_hash[:display_name]}"
+          # f.puts ''
+          # f.puts "EntryElement: #{vs_hash[:display_name].titleize.gsub(/[^a-zA-Z0-9]/, '')}#{dt_hash[:type_status]}"
+          # f.puts "Based on: #{data_type}"
+          # f.puts "Description: \"#{vs_description} -- Subject constrained to the #{vs_hash[:display_name]}\""
+          # f.puts "Subject value is type #{vs_hash[:display_name].titleize.gsub(/[^a-zA-Z0-9]/, '')}"
+          # @datatypes[data_type].each do |attribute|
+          #   f.puts "    0..0   #{attribute[:name].titleize.gsub(/\s+/, '')}" unless dt_hash[:attributes].nil? || dt_hash[:attributes].include?(attribute[:name])
+          # end
+        # else
+          # f.puts ''
+          # f.puts "EntryElement: #{vs_hash[:display_name].titleize.gsub(/[^a-zA-Z0-9]/, '')}#{data_type}"
+          # f.puts "Based on: #{data_type}"
+          # # Handle direct reference codes
+          # if oid.include?('drc-')
+          #   concept = @valuesets.where(oid: oid).first&.concepts&.first
+          #   f.puts "Description: \"#{vs_description} -- #{vs_type(data_type)} constrained to '#{concept.display_name}' #{concept.code_system_name.upcase.gsub(/[^a-zA-Z0-9]/, '')} code\""
+          #   f.puts "#{vs_type(data_type)} from #{generate_url(concept)}"
+          # else
+          #   f.puts "Description: \"#{vs_description} -- #{vs_type(data_type)} constrained to codes in the #{vs_hash[:display_name]} valueset `(#{oid})`\""
+          #   f.puts "#{vs_type(data_type)} from https://vsac.nlm.nih.gov/valueset/#{oid}/expansion"
+          # end
+          # next if @datatypes[data_type].nil?
+          # @datatypes[data_type].each do |attribute|
+          #   f.puts "    0..0   #{attribute[:name].titleize.gsub(/\s+/, '')}" unless dt_hash[:attributes].nil? || dt_hash[:attributes].include?(attribute[:name])
+          # end
+        # end
       end
-      #   if data_type != dt_hash[:vs_extension_name]
-      #     f.puts ''
-      #     f.puts "EntryElement: #{vs_hash[:display_name].titleize.gsub(/[^a-zA-Z0-9]/, '')}#{dt_hash[:type_status]}"
-      #     f.puts "Based on: #{data_type}"
-      #     f.puts "Description: \"#{vs_description} -- Subject constrained to the #{vs_hash[:display_name]}\""
-      #     f.puts "Subject value is type #{vs_hash[:display_name].titleize.gsub(/[^a-zA-Z0-9]/, '')}"
-      #     @datatypes[data_type].each do |attribute|
-      #       f.puts "    0..0   #{attribute[:name].titleize.gsub(/\s+/, '')}" unless dt_hash[:attributes].nil? || dt_hash[:attributes].include?(attribute[:name])
-      #     end
-      #   else
-      #     f.puts ''
-      #     f.puts "EntryElement: #{vs_hash[:display_name].titleize.gsub(/[^a-zA-Z0-9]/, '')}#{data_type}"
-      #     f.puts "Based on: #{data_type}"
-      #     # Handle direct reference codes
-      #     if oid.include?('drc-')
-      #       concept = @valuesets.where(oid: oid).first&.concepts&.first
-      #       f.puts "Description: \"#{vs_description} -- #{vs_type(data_type)} constrained to '#{concept.display_name}' #{concept.code_system_name.upcase.gsub(/[^a-zA-Z0-9]/, '')} code\""
-      #       f.puts "#{vs_type(data_type)} from #{generate_url(concept)}"
-      #     else
-      #       f.puts "Description: \"#{vs_description} -- #{vs_type(data_type)} constrained to codes in the #{vs_hash[:display_name]} valueset `(#{oid})`\""
-      #       f.puts "#{vs_type(data_type)} from https://vsac.nlm.nih.gov/valueset/#{oid}/expansion"
-      #     end
-      #     next if @datatypes[data_type].nil?
-      #     @datatypes[data_type].each do |attribute|
-      #       f.puts "    0..0   #{attribute[:name].titleize.gsub(/\s+/, '')}" unless dt_hash[:attributes].nil? || dt_hash[:attributes].include?(attribute[:name])
-      #     end
-      #   end
-      # end
     end
     # next unless vs_hash[:attribute_types]
     # vs_description = @vs_desc[oid] ? @vs_desc[oid].tr('"', "'") : ''
