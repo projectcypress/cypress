@@ -21,6 +21,9 @@ PASS = 'mokeefe'.freeze
   'Accept': 'application/vnd.api+json'
 }
 
+# version (for testing purposes)
+@data_element_version = '0.0.6'
+
 def execute_request(method, url, data = nil)
   puts "#{method.to_s.upcase}ing #{url}"
   begin
@@ -73,9 +76,6 @@ def to_drupal_lookup_table_with_revisions(ary)
     [yield(term), { type: term['type'], id: term['id'], meta: { target_revision_id: term['attributes']['drupal_internal__revision_id'] } }]
   end.to_h
 end
-
-# version (for testing purposes)
-@data_element_version = '0.0.2'
 
 # Get the taxonomy of datatypes from Drupal, then turn them into a hash where:
 # key = the datatype name (e.g. "Averse event")
@@ -597,41 +597,76 @@ def find_or_create_ecqm_dataelement(element)
   @ecqm_dataelements[hash_dataelement(res.deep_symbolize_keys)] = { type: res['type'], id: res['id'] }
 end
 
+def content_or_na(content)
+  if content == ''
+    '<span class="na">n/a</span>'
+  else
+    content.concat('<br>')
+  end
+end
+
 def create_dataelement_description(description)
-  cf_raw = description.split("Clinical Focus:")[1]
+  cf_raw = description.split('Clinical Focus:')[1]
   return '' unless cf_raw
   cf = cf_raw.split(/\),[^ ]/)[0].strip
-  cf = if cf == ''
-         'span class="na">n/a</span>'
-       else
-         cf.concat('<br>')
-       end
+  cf = content_or_na(cf)
 
-  des = description.split("Data Element Scope:")[1].split(/\),[^ ]/)[0].strip
-  des = if des == ''
-          'span class="na">n/a</span>'
-        else
-          des.concat('<br>')
-        end
-  ic = description.split("Inclusion Criteria:")[1].split(/\),[^ ]/)[0].strip
-  ic = if ic == ''
-         'span class="na">n/a</span>'
-       else
-         ic.concat('<br>')
-       end
+  des = description.split('Data Element Scope:')[1].split(/\),[^ ]/)[0].strip
+  des = content_or_na(des)
 
-  ec = description.split("Exclusion Criteria:")[1].split(") --")[0].strip
+  ic = description.split('Inclusion Criteria:')[1].split(/\),[^ ]/)[0].strip
+  ic = content_or_na(ic)
+
+  ec = description.split('Exclusion Criteria:')[1].split(') --')[0].strip
   ec.chop! if ec.end_with? ')'
-  ec = if ec == ''
-    'span class="na">n/a</span>'
-  else
-    ec.concat('<br>')
-  end
+  ec = content_or_na(ec)
 
   %(<span class="de-label">Clinical Focus:</span> #{cf}
   <span class="de-label">Data Element Scope:</span> #{des}
   <span class="de-label">Inclusion Criteria:</span> #{ic}
   <span class="de-label">Exclusion Criteria:</span> #{ec})
+end
+
+def build_dataelement(title:, typedef:, vs_description:, oid:)
+  element = {
+    data: {
+      type: 'node--data_element2',
+      attributes: {
+        title: title,
+        body: {
+          value: create_dataelement_description(vs_description),
+          format: 'body_html'
+        },
+        field_data_element_version: @data_element_version
+      },
+      relationships: {
+        field_package: { data: @data_element_packages['ecqm.dataelement'] },
+        field_stage: { data: @data_element_stages['Active'] },
+        field_base_element: { data: @qdm_dataelements[typedef] }
+      }
+    }
+  }
+
+  if oid.include?('drc-')
+    concept = @valuesets.where(oid: oid).first&.concepts&.first
+    # byebug
+    element[:data][:relationships][:field_code_constraint] = { data:
+                                  find_or_create_code_constraint(type: "Direct Reference Code",
+                                    display_name: concept.display_name,
+                                    oid: nil,
+                                    code_system_name: concept.code_system_name.upcase.gsub(/[^a-zA-Z0-9]/, ''),
+                                    url: generate_url(concept))
+                                  }
+  else
+    element[:data][:relationships][:field_code_constraint] = { data: 
+                                  find_or_create_code_constraint(type: "Value Set",
+                                    display_name: title,
+                                    oid: oid,
+                                    code_system_name: nil,
+                                    url: "https://vsac.nlm.nih.gov/valueset/#{oid}/expansion")
+                                  }
+  end
+  element
 end
 
 def print_ecqm_dataelement
@@ -647,48 +682,15 @@ def print_ecqm_dataelement
           # Start building the drupal data element as a hash
           # attributes are simple datatypes
           # relationships are links to other datatypes
-          element = {
-            data: {
-              type: 'node--data_element2',
-              attributes: {
-                title: vs_hash[:display_name],
-                body: {
-                  value: create_dataelement_description(vs_description),
-                  format: 'body_html'
-                },
-                field_data_element_version: @data_element_version
-              },
-              relationships: {
-                field_package: { data: @data_element_packages['ecqm.dataelement'] },
-                field_stage: { data: @data_element_stages['Active'] },
-                field_base_element: { data: @qdm_dataelements[dt_hash[:type_definition]] }
-              }
-            }
-          }
-
-          if oid.include?('drc-')
-            concept = @valuesets.where(oid: oid).first&.concepts&.first
-            # byebug
-            element[:data][:relationships][:field_code_constraint] = { data:
-                                         find_or_create_code_constraint(type: "Direct Reference Code",
-                                           display_name: concept.display_name,
-                                           oid: nil,
-                                           code_system_name: concept.code_system_name.upcase.gsub(/[^a-zA-Z0-9]/, ''),
-                                           url: generate_url(concept))
-                                         }
-          else
-            element[:data][:relationships][:field_code_constraint] = { data: 
-                                         find_or_create_code_constraint(type: "Value Set",
-                                           display_name: vs_hash[:display_name],
-                                           oid: oid,
-                                           code_system_name: nil,
-                                           url: "https://vsac.nlm.nih.gov/valueset/#{oid}/expansion")
-                                         }
-          end
+          element = build_dataelement(title: vs_hash[:display_name],
+                                      typedef: dt_hash[:type_definition],
+                                      vs_description: vs_description,
+                                      oid: oid)
           find_or_create_ecqm_dataelement(element)
           exported_base_types << dt_hash[:type_definition]
         end
-        # if data_type != dt_hash[:vs_extension_name]
+        if data_type != dt_hash[:vs_extension_name]
+          # byebug
           # "#{dt_hash[:type_definition]}, #{dt_hash[:type_status]}: #{vs_hash[:display_name]}"
           # f.puts ''
           # f.puts "EntryElement: #{vs_hash[:display_name].titleize.gsub(/[^a-zA-Z0-9]/, '')}#{dt_hash[:type_status]}"
@@ -698,7 +700,8 @@ def print_ecqm_dataelement
           # @datatypes[data_type].each do |attribute|
           #   f.puts "    0..0   #{attribute[:name].titleize.gsub(/\s+/, '')}" unless dt_hash[:attributes].nil? || dt_hash[:attributes].include?(attribute[:name])
           # end
-        # else
+        else
+          # byebug
           # f.puts ''
           # f.puts "EntryElement: #{vs_hash[:display_name].titleize.gsub(/[^a-zA-Z0-9]/, '')}#{data_type}"
           # f.puts "Based on: #{data_type}"
@@ -715,7 +718,7 @@ def print_ecqm_dataelement
           # @datatypes[data_type].each do |attribute|
           #   f.puts "    0..0   #{attribute[:name].titleize.gsub(/\s+/, '')}" unless dt_hash[:attributes].nil? || dt_hash[:attributes].include?(attribute[:name])
           # end
-        # end
+        end
       end
     end
     # next unless vs_hash[:attribute_types]
