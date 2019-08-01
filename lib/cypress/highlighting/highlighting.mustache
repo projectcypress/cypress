@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <script type="text/javascript">
+         $("document").ready(function() {
+            var measureTeamplate = $("#MustacheTemplate").html();
+
+        </script>
+</head>
+    <body>
+        <script type="text/HanldeBarTemplate" id="measureTemplate"></script>
+            <div class="measureDataWrapper">
+                {{#highlight}}
+                    {{#colored}}                
+                        {{#isTrue}} 
+                            <span style="background-color:green"> 
+                        {{/isTrue}}
+                        {{^isTrue}} 
+                            <span style="background-color:red"> 
+                        {{/isTrue}}
+                    {{/colored}}  
+                    {{^colored}}  
+                        <span style> 
+                    {{/colored}}  
+                    {{description}} 
+                    </span>
+                {{/highlight}}
+            </div>
+        </script>
+        <div id="container"></div>
+    </body>
+</html>

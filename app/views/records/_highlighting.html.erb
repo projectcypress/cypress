@@ -1,0 +1,17 @@
+<!-- This is used to perform highlighting of measures -->
+<% if measure && individual_result %>
+  <% result_values = get_result_values(patients, [measure], measure.key_for_population_set(population_set_hash), population_keys, 'patient_id') %>
+<% end %>
+<h1><%= measure ? measure_display_name(measure, population_set_hash) : 'All' %> Patients</h1>
+<% if (measure && individual_result) %>
+    <!-- need to send in measure and individual result -->
+<% end %>
+
+  <tbody>
+    <%= render 'highlighting',
+        # <!-- need to send in measure and individual result -->
+    %>
+  </tbody>
+</table>
+<% end %>
+

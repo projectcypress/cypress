@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MustacheMeasures</title>
+        <script type="text/javascript" src="../jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="../handlebars-v1.3.0.js"></script>
+        <script type="text/javascript">
+         $("document").ready(function() {
+            var measureTeamplate = $("#MustacheTemplate").html();
+
+            Handlebars.registerHelper("ChooseColor", function (measureResult) 
+            {
+                return function(text, render)
+                {
+                    if (measure.measureResult == true)
+                        return "<p style=\"background-color:green\">" + render(text) + "</p>";
+                    else
+                        return "<p style=\"background-color:red\">" + render(text) + "</p>";
+                }
+            });
+
+            var measureData =
+            {
+                "measures" : 
+                [
+                    { measureText: "This part is true", measureResult: true },
+                    { measureText: "This part is false", measureResult: false },
+                    { measureText: "This part is uncolored", measureResult: null },
+                ]
+            };
+
+            var renderer = Handlebars.compile(measureTeamplate);
+            var result = renderer({ measureData });          
+            $("#container").html(result);
+         });
+        </script>
+    </head>
+    <body>
+        <script type="text/HanldeBarTemplate" id="measureTemplate"></script>
+            <div class="measureDataWrapper">
+                {{#measures}}
+                    {{#measures.measureResult}}
+                        <div>{{#ChooseColor measures.measureResult}} {{measureText}}  {{/ChooseColor}} </div>
+                    {{/measures.measureResult}}
+                    {{^measures.measureResult}}
+                        <div>{{measureText}}</div>
+                    {{/measures.measureResult}}
+                {{/measures}}
+            </div>
+        </script>
+        <div id="container"></div>
+    </body>
+</html>

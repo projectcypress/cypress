@@ -1,0 +1,92 @@
+class Highlighting < Mustache
+
+    class HighlightObject
+        attr_accessor :description, :colored, :isTrue
+
+        def initialize(description, colored, isTrue)
+            self.description = description
+            self.colored = colored
+            self.isTrue = isTrue
+        end
+    end
+
+    class Result
+        attr_accessor :userId, :library, :isTrue
+
+        def initialize(userId, library, isTrue = "NA")
+            self.userId = userId
+            self.library = library
+            self.isTrue = isTrue
+        end
+    end
+    
+    self.template_path = __dir__
+
+    def initialize(measures, measureResults)
+        @highlightObject = []
+        @neasureResultList = []
+
+        measureResults.each_with_index do |result, index|
+            @measureResultList = []
+            measure = measures.find { |x| x._id == result.measure_id }
+            if measure._id == result.measure_id
+                ParseResults(result)
+                ParseElm(measure.cql_libraries[0].elm)
+            end
+        end
+        @highlight = highlight
+    end
+
+    def highlight
+        JSON.parse(@highlightObject.to_json)
+    end
+
+    def ParseElm(elm)
+        ParseStatement(elm.library.statements.def)
+    end
+
+    def ParseResults(measureResult)
+        measureResult.clause_results.each do |clause|
+            if clause.respond_to?(:localId) && clause.respond_to?(:final)
+                @measureResultList << Result.new(clause.localId, clause.library_name, clause.final)
+            end
+        end 
+    end
+
+    def ParseStatement(array)
+        array.each_with_index do |statement, index|
+            # check for Annotation and localId. if none move to next
+#             if statement.include?(:annotation) && statement.include?(:localId) && statement.include?(:library_name)
+            print "Next Statement " + index.to_s + "\n"
+             if statement.include?(:annotation) && statement.include?(:localId)
+                statement.annotation.each do |annotation|
+ #                   byebug
+                    localId = statement.localId
+ #                   libraryName = statement.library_name
+ #                   result = @measureResultList.find { |x| x.userId == localId && x.library_name == libraryName }
+                    result = @measureResultList.find { |x| x.userId.eql?(localId) }
+                    ParseTree(annotation.s, result)
+                end
+             end
+        end
+    end
+
+    def ParseTree(array, result)
+        if array.include?(:s)
+            array.s.each do |sarray|
+                ParseTree(sarray, result)
+            end
+        else array.include?(:value)
+            array['value'].each do |text|
+                unless result.nil?
+                    if result.isTrue.eql?("NA")
+                        @highlightObject << HighlightObject.new(text, false, false)
+                    else
+                        @highlightObject << HighlightObject.new(text, true, result.isTrue)
+                        print result.isTrue + "\n" 
+                    end
+                end
+            end
+        end
+    end
+end
