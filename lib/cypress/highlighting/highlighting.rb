@@ -31,7 +31,9 @@ class Highlighting < Mustache
             measure = measures.find { |x| x._id == result.measure_id }
             if measure._id == result.measure_id
                 ParseResults(result)
-                ParseElm(measure.cql_libraries[0].elm)
+                measure.cql_libraries.each do |cql_library|
+                    ParseElm(cql_library.elm)
+                end
             end
         end
         @highlight = highlight
@@ -82,7 +84,7 @@ class Highlighting < Mustache
                     if result.isTrue.eql?("NA")
                         @highlightObject << HighlightObject.new(text, false, false)
                     else
-                        @highlightObject << HighlightObject.new(text, true, result.isTrue)
+                        @highlightObject << HighlightObject.new(text, true, ActiveModel::Type::Boolean.new.cast(result.isTrue))
                         print result.isTrue + "\n" 
                     end
                 end
