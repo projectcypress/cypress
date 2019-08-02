@@ -1,12 +1,13 @@
 class Highlighting < Mustache
 
     class HighlightObject
-        attr_accessor :description, :colored, :isTrue
+        attr_accessor :description, :colored, :isTrue, :userId, :isClauseStart, :isClauseEnd
 
-        def initialize(description, colored, isTrue)
+        def initialize(description, colored, isTrue, userId)
             self.description = description
             self.colored = colored
             self.isTrue = isTrue
+            self.userId = userId
         end
     end
 
@@ -40,6 +41,10 @@ class Highlighting < Mustache
     end
 
     def highlight
+        @highlightObject.each_with_index do |highlight_object, index|
+            highlight_object.isClauseStart = (highlight_object.userId != @highlightObject[index - 1].userId)
+            highlight_object.isClauseEnd = (index == @highlightObject.size - 1) || highlight_object.userId != @highlightObject[index + 1].userId
+        end
         JSON.parse(@highlightObject.to_json)
     end
 
@@ -79,9 +84,9 @@ class Highlighting < Mustache
             array['value'].each do |text|
                 unless result.nil?
                     if result.isTrue.eql?("NA")
-                        @highlightObject << HighlightObject.new(text, false, false)
+                        @highlightObject << HighlightObject.new(text, false, false, result.userId)
                     else
-                        @highlightObject << HighlightObject.new(text, true, ActiveModel::Type::Boolean.new.cast(result.isTrue))
+                        @highlightObject << HighlightObject.new(text, true, ActiveModel::Type::Boolean.new.cast(result.isTrue), result.userId)
                         print result.isTrue + "\n" 
                     end
                 end
