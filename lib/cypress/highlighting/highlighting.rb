@@ -1,21 +1,22 @@
 class Highlighting < Mustache
 
     class HighlightObject
-        attr_accessor :description, :colored, :isTrue, :userId, :isClauseStart, :isClauseEnd
+        attr_accessor :description, :colored, :isTrue, :statement_name, :isClauseStart, :isClauseEnd
 
-        def initialize(description, colored, isTrue, userId)
+        def initialize(description, colored, isTrue, statement_name)
             self.description = description
             self.colored = colored
             self.isTrue = isTrue
-            self.userId = userId
+            self.statement_name = statement_name
         end
     end
 
     class Result
-        attr_accessor :userId, :library, :isTrue
+        attr_accessor :userId, :statement_name, :library, :isTrue
 
-        def initialize(userId, library, isTrue = "NA")
+        def initialize(userId, statement_name, library, isTrue = "NA")
             self.userId = userId
+            self.statement_name = statement_name
             self.library = library
             self.isTrue = isTrue
         end
@@ -42,8 +43,8 @@ class Highlighting < Mustache
 
     def highlight
         @highlightObject.each_with_index do |highlight_object, index|
-            highlight_object.isClauseStart = (highlight_object.userId != @highlightObject[index - 1].userId)
-            highlight_object.isClauseEnd = (index == @highlightObject.size - 1) || highlight_object.userId != @highlightObject[index + 1].userId
+            highlight_object.isClauseStart = (highlight_object.statement_name != @highlightObject[index - 1].statement_name)
+            highlight_object.isClauseEnd = (index == @highlightObject.size - 1) || highlight_object.statement_name != @highlightObject[index + 1].statement_name
         end
         JSON.parse(@highlightObject.to_json)
     end
@@ -55,7 +56,7 @@ class Highlighting < Mustache
     def ParseResults(measureResult)
         measureResult.clause_results.each do |clause|
             if clause.respond_to?(:localId) && clause.respond_to?(:final)
-                @measureResultList << Result.new(clause.localId, clause.library_name, clause.final)
+                @measureResultList << Result.new(clause.localId, clause.statement_name, clause.library_name, clause.final)
             end
         end 
     end
@@ -67,26 +68,29 @@ class Highlighting < Mustache
             print "Next Statement " + index.to_s + "\n"
              if statement.include?(:annotation) && statement.include?(:localId)
                 statement.annotation.each do |annotation|
-                    localId = statement.localId
-                    result = @measureResultList.find { |x| x.userId.eql?(localId) && x.library.eql?(libraryName) }
-                    ParseTree(annotation.s, result)
+                    statement_name = statement.name
+                    results = @measureResultList.select { |x| x.statement_name.eql?(statement_name) && x.library.eql?(libraryName) }
+                    ParseTree(annotation.s, results)
                 end
              end
         end
     end
 
-    def ParseTree(array, result)
+    def ParseTree(array, results, r = nil)
         if array.include?(:s)
             array.s.each do |sarray|
-                ParseTree(sarray, result)
+                r_val = sarray['r'] ? sarray['r'] : array['r']
+                r_val ||= r
+                ParseTree(sarray, results, r_val)
             end
         else array.include?(:value)
             array['value'].each do |text|
+                result = results.find { |res| res.userId == r }
                 unless result.nil?
                     if result.isTrue.eql?("NA")
-                        @highlightObject << HighlightObject.new(text, false, false, result.userId)
+                        @highlightObject << HighlightObject.new(text, false, false, result.statement_name)
                     else
-                        @highlightObject << HighlightObject.new(text, true, ActiveModel::Type::Boolean.new.cast(result.isTrue), result.userId)
+                        @highlightObject << HighlightObject.new(text, true, ActiveModel::Type::Boolean.new.cast(result.isTrue), result.statement_name)
                         print result.isTrue + "\n" 
                     end
                 end
