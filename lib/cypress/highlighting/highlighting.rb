@@ -44,7 +44,7 @@ class Highlighting < Mustache
     end
 
     def ParseElm(elm)
-        ParseStatement(elm.library.statements.def)
+        ParseStatement(elm.library.statements.def, elm.library.identifier.id)
     end
 
     def ParseResults(measureResult)
@@ -55,18 +55,15 @@ class Highlighting < Mustache
         end 
     end
 
-    def ParseStatement(array)
+    def ParseStatement(array, libraryName)
         array.each_with_index do |statement, index|
             # check for Annotation and localId. if none move to next
 #             if statement.include?(:annotation) && statement.include?(:localId) && statement.include?(:library_name)
             print "Next Statement " + index.to_s + "\n"
              if statement.include?(:annotation) && statement.include?(:localId)
                 statement.annotation.each do |annotation|
- #                   byebug
                     localId = statement.localId
- #                   libraryName = statement.library_name
- #                   result = @measureResultList.find { |x| x.userId == localId && x.library_name == libraryName }
-                    result = @measureResultList.find { |x| x.userId.eql?(localId) }
+                    result = @measureResultList.find { |x| x.userId.eql?(localId) && x.library.eql?(libraryName) }
                     ParseTree(annotation.s, result)
                 end
              end
