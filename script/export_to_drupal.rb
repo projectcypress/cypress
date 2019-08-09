@@ -4,15 +4,18 @@ require 'byebug'
 require 'health-data-standards'
 require 'bonnie_bundler'
 
+
 Mongoid.load!('config/mongoid.yml', :development)
 @valuesets = HealthDataStandards::SVS::ValueSet.all
 measures = HealthDataStandards::CQM::Measure.all
 
 # Drupal loading section
 require 'rest-client'
-require 'pry'
+require 'digest'
+require 'date'
 
-BASE_URL = 'https://ecqid8-local.dd:8443'.freeze
+BASE_URL = 'https://ecqi-proto.dd:8443'.freeze
+# BASE_URL = 'https://ecqid8-local.dd:8443'.freeze
 USER = 'mokeefe'.freeze
 PASS = 'mokeefe'.freeze
 
@@ -22,7 +25,19 @@ PASS = 'mokeefe'.freeze
 }
 
 # version (for testing purposes)
-@data_element_version = '0.0.6'
+@data_element_version = '0.0.1'
+@data_element_year = 2019
+@created_on_date = DateTime.now.to_s
+@md5 = Digest::MD5.new
+
+# This will always return a three digit cms identifier, e.g., CMS9v3 => CMS009v3
+def padded_cms_id(cms_id)
+  cms_id.sub(/(?<=cms)(\d{1,3})/i) { Regexp.last_match(1).rjust(3, '0') }
+end
+
+def idFor(package, name)
+  @md5.hexdigest("DERep-dataElement-#{package}-#{name}")
+end
 
 def execute_request(method, url, data = nil)
   puts "#{method.to_s.upcase}ing #{url}"
@@ -71,6 +86,12 @@ def to_drupal_lookup_table(ary)
   end.to_h
 end
 
+def to_drupal_lookup_table_with_description(ary)
+  ary.map do |term|
+    [yield(term), { drupal_hash: { type: term['type'], id: term['id'] }, description: term.dig('attributes', 'description', 'value'), name: term.dig('attributes', 'name') }]
+  end.to_h
+end
+
 def to_drupal_lookup_table_with_revisions(ary)
   ary.map do |term|
     [yield(term), { type: term['type'], id: term['id'], meta: { target_revision_id: term['attributes']['drupal_internal__revision_id'] } }]
@@ -93,9 +114,14 @@ end
 @data_element_stages = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/taxonomy_term/data_element_stage")) { |term| term['attributes']['name'] }
 
 # Code constraint types are either 'Direct Reference Code' or 'Value Set'
-# key = stage name (e.g. 'Value Set')
+# key = constraint name (e.g. 'Value Set')
 # value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
 @code_constraint_types = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/taxonomy_term/code_type")) { |term| term['attributes']['name'] }
+
+# Base element types are the taxonomy terms representing QDM Data Types
+# key = term name (e.g. '')
+# value = a hash with a drupal hash (with type and ID), as well as a 'name' and 'description'
+@base_element_types = to_drupal_lookup_table_with_description(execute_request(:get, "#{BASE_URL}/jsonapi/taxonomy_term/qdm_datatype")) { |term| term['attributes']['name'].gsub('/', ' ') }
 
 # A hash of all the code constraints that exist in Drupal
 # Note: this hash gets updated as we POST new code constraints within this exporter
@@ -107,31 +133,21 @@ end
 # The filter filters by the ID of 'qdm.dataelement' in the package taxonomy
 # key = a hash of the code constraint details (code system, oid, and display name, delimited by dashes)
 # value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@qdm_dataelements = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['qdm.dataelement'][:id]}")) { |term| term['attributes']['title'] }
+@qdm_dataelements = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['qdm.dataelement'][:id]}")) { |term| term['attributes']['title'].gsub(/[^A-Za-z0-9]/, '') }
 
+# A hash of the ecqm.dataelement data element objects. These are the whole reason the site exists.
+# The filter filters by the ID of 'ecqm.dataelement' in the package taxonomy
+# NOTE: these get added to when new data elements are built in this script
+# key = a hash of various elements of the ecqm data element (title, code constraint OID/codesystem, version, etc)
+# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
 @ecqm_dataelements = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['ecqm.dataelement'][:id]}")) { |term| hash_dataelement(term.deep_symbolize_keys) }
 
-modelinfo = File.open('script/noversion/model_info_file_5_3.xml') { |f| Nokogiri::XML(f) }
+# A hash of the electronic clinical quality emasure objects (built by Battelle, not us)
+# key = the CMS ID of the measure (which is version specific, aka it's different between annual update years)
+# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
+@drupal_measures = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/clinical_quality_measure")) { |term| term['attributes']['field_cms_id'] }
 
-TYPE_LOOKUP_RB = {
-  'System.DateTime': 'dateTime',
-  'System.Quantity': 'Quantity',
-  'System.Code': 'Coding',
-  # 'System.Any': 'Any',
-  'System.Integer': 'integer',
-  'interval<System.DateTime>': 'TimePeriod',
-  'interval<System.Quantity>': 'Range',
-  # 'list<QDM.Component>': 'Array',
-  'System.String': 'string',
-  # 'list<QDM.Id>': 'Array',
-  # 'list<QDM.ResultComponent>': 'Array',
-  # 'list<QDM.FacilityLocation>': 'Array',
-  'list<System.Code>': 'CodeableConcept',
-  'QDM.Id': 'string',
-  'System.Decimal': 'decimal',
-  'System.Time': 'time',
-  # 'System.Concept': 'Any'
-}.stringify_keys!
+modelinfo = File.open('script/noversion/model_info_file_5_3.xml') { |f| Nokogiri::XML(f) }
 
 # Datatypes (keys are the datatype name, values are the datatype attributes)
 @datatypes = {}
@@ -285,6 +301,7 @@ measures.nin(cms_id: %w[CMS167v7 CMS123v7 CMS164v7 CMS169v7 CMS158v7 CMS65v8]).e
         def_status_att_cl[dsac] ? def_status_att_cl[dsac] << measure.cms_id : def_status_att_cl[dsac] = [measure.cms_id]
       end
     else
+      sdc['definition'] = 'patient_characteristic_sex' if sdc['definition'] == 'patient_characteristic_gender'
       ds = sdc['status'] ? sdc['definition'] + ':' + sdc['status'] + '::' : sdc['definition'] + ':::'
       dsc = ds + ':' + sdc['code_list_id']
       def_status_att_cl[dsc] ? def_status_att_cl[dsc] << measure.cms_id : def_status_att_cl[dsc] = [measure.cms_id]
@@ -298,11 +315,11 @@ b_hash.each do |key, measure_ids|
   split_key = key.split(':')
   @def_stat[split_key[0]] ? @def_stat[split_key[0]] << split_key[1] : @def_stat[split_key[0]] = [split_key[1]]
   vs_oid = split_key[4]
-  data_type_name = "#{split_key[0]} #{split_key[1]}".titleize.gsub(/[^A-Za-z]/, '')
+  data_type_name = "#{split_key[0]} #{split_key[1]}".titleize.strip
   name_for_extension = split_key[1] == '' ? split_key[0] : split_key[1]
-  data_type = { type_definition: split_key[0].titleize.gsub(/[^A-Za-z]/, ''),
-                type_status: split_key[1].titleize.gsub(/[^A-Za-z]/, ''),
-                vs_extension_name: name_for_extension.titleize.gsub(/[^A-Za-z]/, '') }
+  data_type = { type_definition: split_key[0].titleize.strip,
+                type_status: split_key[1].titleize.strip,
+                vs_extension_name: name_for_extension.titleize.strip }
   @value_set_hash[vs_oid][:data_types] = {} unless @value_set_hash[vs_oid][:data_types]
   @value_set_hash[vs_oid][:data_types][data_type_name] = data_type unless @value_set_hash[vs_oid][:data_types][data_type_name]
   @value_set_hash[vs_oid][:data_types][data_type_name][:measures] = measure_ids.uniq
@@ -318,7 +335,7 @@ b_hash.each do |key, measure_ids|
     attribute_oid = split_key[3]
     @value_set_hash[attribute_oid] = {} unless @value_set_hash[attribute_oid]
     @value_set_hash[attribute_oid][:attribute_types] = [] unless @value_set_hash[attribute_oid][:attribute_types]
-    attribute_name = split_key[2].titleize.gsub(/[^A-Za-z]/, '')
+    attribute_name = split_key[2].titleize
     @value_set_hash[attribute_oid][:attribute_types] << attribute_name unless @value_set_hash[attribute_oid][:attribute_types].include?(attribute_name)
     measure_list = @value_set_hash[attribute_oid][:measures] ? @value_set_hash[attribute_oid][:measures] : []
     @value_set_hash[attribute_oid][:measures] = measure_list + measure_ids.uniq
@@ -334,6 +351,8 @@ csv = CSV.parse(csv_text, headers: true)
 csv.each do |row|
   @vs_desc[row[0]] = row['Purpose']
 end
+
+# qdm_attributes = File.read('script/noversion/qdm_attributes.csv')
 
 @vs_measure.each_key { |key| @vs_measure[key] =  @vs_measure[key].uniq }
 @measure_vs.each_key { |key| @measure_vs[key] =  @measure_vs[key].uniq }
@@ -504,39 +523,81 @@ def vs_type(data_type)
   CODE_HASH[data_type] || 'ResultValue'
 end
 
+def find_or_create_qdm_dataelement(element)
+  if @qdm_dataelements[element[:data][:attributes][:title].gsub(/[^A-Za-z0-9]/, '')]
+    puts "QDM Datatype \"#{element[:data][:attributes][:title]}\" found"
+    return @qdm_dataelements[element[:data][:attributes][:title].gsub(/[^A-Za-z0-9]/, '')]
+  end
+
+  puts "QDM Datatype \"#{element[:data][:attributes][:title]}\" not found, creating"
+  res = execute_request(:post, "#{BASE_URL}/jsonapi/node/data_element2", JSON.generate(element))
+  @qdm_dataelements[res.deep_symbolize_keys.dig(:attributes, :title).gsub(/[^A-Za-z0-9]/, '')] = { type: res['type'], id: res['id'] }
+end
+
+def build_qdm_dataelement(title:, description:, qdm_datatype:)
+  element = {
+    data: {
+      type: 'node--data_element2',
+      attributes: {
+        title: title,
+        body: {
+          value: description,
+          format: 'body_html'
+        },
+        field_year: @data_element_year,
+        field_data_element_version: @data_element_version,
+        field_filename: title.gsub(/[^A-Za-z0-9]/, '').downcase,
+        field_data_element_id: idFor('qdm.dataelement', title.gsub(/[^A-Za-z0-9]/, '')),
+        field_date_generated: @created_on_date
+      },
+      relationships: {
+        field_qdm_datatype: { data: qdm_datatype },
+        field_package: { data: @data_element_packages['qdm.dataelement'] },
+        field_stage: { data: @data_element_stages['Active'] }
+      }
+    }
+  }
+
+  element
+end
+
 def print_qdm_category
-  File.open('./script/qdm_dataelement.txt', 'w') do |f|
-    f.puts 'Grammar: DataElement 5.0'
-    f.puts 'Namespace: qdm.dataelement'
-    f.puts 'Description: "Insert Text Here"'
-    f.puts 'Uses: shr.core, shr.base, shr.entity, qdm.attribute'
+  @def_stat.each do |definition, status|
+    definition_title = definition.titleize
+    qdm_datatype = @base_element_types[definition_title]
+    if qdm_datatype
+      element = build_qdm_dataelement(
+        title: definition_title,
+        description: qdm_datatype[:description],
+        qdm_datatype: qdm_datatype[:drupal_hash]
+      )
 
-    @def_stat.each do |definition, status|
-      definition_title = definition.titleize.gsub(/[^a-zA-Z]/, '')
-      f.puts ''
-      f.puts "EntryElement: #{definition_title}"
-      f.puts "Based on: #{based_on(definition_title)}"
-      f.puts "Description: \"#{definition_title}\""
-      # f.puts "    ObservableCode is #TODO"
-      f.puts '    Subject value is type Patient'
+      find_or_create_qdm_dataelement(element)
+    else
+      byebug
+    end
 
-      status.each do |stat|
-        definition_status_title = definition_title
-        if stat != ''
-          definition_status_title = (definition + ' ' + stat).titleize.gsub(/[^a-zA-Z]/, '')
-          f.puts ''
-          f.puts "EntryElement: #{definition_status_title}"
-          f.puts "Based on: #{based_on(definition_status_title)}"
-          f.puts "Description: \"#{definition_status_title}\""
-          # f.puts "    ObservableCode is #TODO"
-          f.puts "    Subject value is type #{subject(definition_status_title)}"
-        end
+    status.each do |stat|
+      definition_status_title = (definition + ', ' + stat).titleize
+      if stat != ''
+        qdm_datatype = @base_element_types[definition_status_title]
+        if qdm_datatype
+          element = build_qdm_dataelement(
+            title: definition_status_title,
+            description: qdm_datatype[:description],
+            qdm_datatype: qdm_datatype[:drupal_hash]
+          )
 
-        next unless @datatypes[definition_status_title]
-        @datatypes[definition_status_title]&.each do |attribute|
-          f.puts "    0..1   #{attribute[:name].titleize.gsub(/\s+/, '')}"
+          find_or_create_qdm_dataelement(element)
+        else
+          byebug
         end
       end
+
+      # next unless @datatypes[definition_status_title.gsub(/[^a-zA-Z]/, '')]
+      # @datatypes[definition_status_title.gsub(/[^a-zA-Z]/, '')]&.each do |attribute|
+      #   # f.puts "    0..1   #{attribute[:name].titleize.gsub(/\s+/, '')}"
+      # end
     end
   end
 end
@@ -546,14 +607,13 @@ def create_code_constraint_description(type:, display_name:, code_system_name:, 
   when 'Value Set'
     return "<p>Constrained to codes in the #{display_name} value set <a href='#{url}' target='_blank' rel='noopener noreferrer'> <code>(#{oid})</code></a></p>"
   when 'Direct Reference Code'
-    return "<p>Constrained to '#{display_name}' <a href='#{url}' target='_blank' rel='noopener noreferrer'> <code>#{code_system_name} code</code></a></p>"
+    return "<p>Constrained to '#{display_name}' <a href='#{url}' target='_blank' rel='noopener noreferrer'><code>#{code_system_name} code</code></a></p>"
   end
 end
 
 def find_or_create_code_constraint(type:, display_name:, code_system_name:, url:, oid:)
   hash = "#{code_system_name}-#{oid}-#{display_name}"
   cc = @code_constraints[hash]
-  # byebug if type == "Direct Reference Code"
   return cc if cc
   cc_obj = {
     data: {
@@ -627,7 +687,7 @@ def create_dataelement_description(description)
   <span class="de-label">Exclusion Criteria:</span> #{ec})
 end
 
-def build_dataelement(title:, typedef:, vs_description:, oid:)
+def build_dataelement(title:, typedef:, vs_description:, oid:, cms_ids:)
   element = {
     data: {
       type: 'node--data_element2',
@@ -637,19 +697,25 @@ def build_dataelement(title:, typedef:, vs_description:, oid:)
           value: create_dataelement_description(vs_description),
           format: 'body_html'
         },
-        field_data_element_version: @data_element_version
+        field_data_element_version: @data_element_version,
+        field_year: @data_element_year,
+        field_filename: title.gsub(/[^A-Za-z0-9]/, '').downcase,
+        field_data_element_id: idFor('ecqm.dataelement', title.gsub(/[^A-Za-z0-9]/, '')),
+        field_date_generated: @created_on_date
       },
       relationships: {
         field_package: { data: @data_element_packages['ecqm.dataelement'] },
         field_stage: { data: @data_element_stages['Active'] },
-        field_base_element: { data: @qdm_dataelements[typedef] }
+        field_base_element: { data: @qdm_dataelements[typedef.gsub(/[^A-Za-z0-9]/, '')] },
+        # Note: the '*' operator in the next line is the Ruby 'splat' operator
+        # Which expands an array into a list of arguments
+        field_parent_measures: { data: @drupal_measures.values_at(*cms_ids).compact }
       }
     }
   }
 
   if oid.include?('drc-')
     concept = @valuesets.where(oid: oid).first&.concepts&.first
-    # byebug
     element[:data][:relationships][:field_code_constraint] = { data:
                                   find_or_create_code_constraint(type: "Direct Reference Code",
                                     display_name: concept.display_name,
@@ -679,63 +745,50 @@ def print_ecqm_dataelement
       vs_hash[:data_types].each do |data_type, dt_hash|
         if (data_type != dt_hash[:vs_extension_name]) && !exported_base_types.include?(dt_hash[:type_definition])
 
+          measure_ids = dt_hash[:measures].map { |id| padded_cms_id(id) }
           # Start building the drupal data element as a hash
           # attributes are simple datatypes
           # relationships are links to other datatypes
           element = build_dataelement(title: vs_hash[:display_name],
                                       typedef: dt_hash[:type_definition],
                                       vs_description: vs_description,
-                                      oid: oid)
+                                      oid: oid,
+                                      cms_ids: measure_ids)
+          # byebug
           find_or_create_ecqm_dataelement(element)
           exported_base_types << dt_hash[:type_definition]
         end
-        if data_type != dt_hash[:vs_extension_name]
-          # byebug
-          # "#{dt_hash[:type_definition]}, #{dt_hash[:type_status]}: #{vs_hash[:display_name]}"
-          # f.puts ''
-          # f.puts "EntryElement: #{vs_hash[:display_name].titleize.gsub(/[^a-zA-Z0-9]/, '')}#{dt_hash[:type_status]}"
-          # f.puts "Based on: #{data_type}"
-          # f.puts "Description: \"#{vs_description} -- Subject constrained to the #{vs_hash[:display_name]}\""
-          # f.puts "Subject value is type #{vs_hash[:display_name].titleize.gsub(/[^a-zA-Z0-9]/, '')}"
-          # @datatypes[data_type].each do |attribute|
-          #   f.puts "    0..0   #{attribute[:name].titleize.gsub(/\s+/, '')}" unless dt_hash[:attributes].nil? || dt_hash[:attributes].include?(attribute[:name])
-          # end
-        else
-          # byebug
-          # f.puts ''
-          # f.puts "EntryElement: #{vs_hash[:display_name].titleize.gsub(/[^a-zA-Z0-9]/, '')}#{data_type}"
-          # f.puts "Based on: #{data_type}"
-          # # Handle direct reference codes
-          # if oid.include?('drc-')
-          #   concept = @valuesets.where(oid: oid).first&.concepts&.first
-          #   f.puts "Description: \"#{vs_description} -- #{vs_type(data_type)} constrained to '#{concept.display_name}' #{concept.code_system_name.upcase.gsub(/[^a-zA-Z0-9]/, '')} code\""
-          #   f.puts "#{vs_type(data_type)} from #{generate_url(concept)}"
-          # else
-          #   f.puts "Description: \"#{vs_description} -- #{vs_type(data_type)} constrained to codes in the #{vs_hash[:display_name]} valueset `(#{oid})`\""
-          #   f.puts "#{vs_type(data_type)} from https://vsac.nlm.nih.gov/valueset/#{oid}/expansion"
-          # end
-          # next if @datatypes[data_type].nil?
-          # @datatypes[data_type].each do |attribute|
-          #   f.puts "    0..0   #{attribute[:name].titleize.gsub(/\s+/, '')}" unless dt_hash[:attributes].nil? || dt_hash[:attributes].include?(attribute[:name])
-          # end
-        end
+        element = if data_type != dt_hash[:vs_extension_name]
+                    # byebug if !dt_hash[:type_status] || dt_hash[:type_status] == ''
+                    build_dataelement(title: "#{dt_hash[:type_definition]}, #{dt_hash[:type_status]}: #{vs_hash[:display_name]}",
+                                                typedef: data_type,
+                                                vs_description: vs_description,
+                                                oid: oid,
+                                                cms_ids: measure_ids)
+                  else
+                    build_dataelement(title: "#{dt_hash[:type_definition]}: #{vs_hash[:display_name]}",
+                                                typedef: data_type,
+                                                vs_description: vs_description,
+                                                oid: oid,
+                                                cms_ids: measure_ids)
+                  end
+        # byebug if element.dig(:data, :attributes, :title) == 'Assessment, Performed: KCCQ Self Efficacy Score'
+        find_or_create_ecqm_dataelement(element)
       end
     end
-    # next unless vs_hash[:attribute_types]
-    # vs_description = @vs_desc[oid] ? @vs_desc[oid].tr('"', "'") : ''
-    # next if vs_hash[:display_name].nil?
-    # vs_hash[:attribute_types].each do |att|
-    #   f.puts ''
-    #   f.puts "EntryElement: #{vs_hash[:display_name].titleize.gsub(/[^a-zA-Z0-9]/, '')}#{att}"
-    #   f.puts "Based on: #{att}"
-    #   f.puts "Description: \"#{vs_description}\""
-    #   if oid.include?('drc-')
-    #     concept = @valuesets.where(oid: oid).first&.concepts&.first
-    #     f.puts "ResultValue from #{generate_url(concept)}"
-    #   else
-    #     f.puts "ResultValue from https://vsac.nlm.nih.gov/valueset/#{oid}/expansion"
-    #   end
-    # end
+    next unless vs_hash[:attribute_types]
+    vs_description = @vs_desc[oid] ? @vs_desc[oid].tr('"', "'") : ''
+    next if vs_hash[:display_name].nil?
+    vs_hash[:attribute_types].each do |att|
+      element = build_dataelement(
+        title: "#{att}: #{vs_hash[:display_name].titleize}",
+        typedef: att,
+        vs_description: vs_description,
+        oid: oid,
+        cms_ids: vs_hash[:measures].map { |id| padded_cms_id(id) }
+      )
+      find_or_create_ecqm_dataelement(element)
+    end
   end
 end
 
@@ -757,7 +810,6 @@ def print_cms_ecqm
       f.puts 'Based on: CmsEcqmComposition'
       f.puts "Description: \"#{measure_id}\""
       vs -= ['']
-      # byebug
 
       vs.each do |oid|
         next unless @value_set_hash[oid][:display_name]
@@ -782,5 +834,5 @@ end
 
 # print_union
 # print_cms_ecqm
+print_qdm_category  # This has human generated content
 print_ecqm_dataelement
-# print_qdm_category  # This has human generated content
