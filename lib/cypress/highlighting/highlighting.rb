@@ -108,7 +108,7 @@ class Highlighting < Mustache
   def parse_tree(array, results, r = nil)
     if array.include?(:s)
       array.s.each do |sarray|
-        r_val = sarray['r'] ? sarray['r'] : array['r']
+        r_val = sarray['r'] || array['r']
         r_val ||= r
         parse_tree(sarray, results, r_val)
       end
