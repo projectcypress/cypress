@@ -4,7 +4,6 @@ require 'byebug'
 require 'health-data-standards'
 require 'bonnie_bundler'
 
-
 Mongoid.load!('config/mongoid.yml', :development)
 @valuesets = HealthDataStandards::SVS::ValueSet.all
 measures = HealthDataStandards::CQM::Measure.all
@@ -25,7 +24,7 @@ PASS = 'mokeefe'.freeze
 }
 
 # version (for testing purposes)
-@data_element_version = '0.0.1'
+@data_element_version = '0.0.2'
 @data_element_year = 2019
 @created_on_date = DateTime.now.to_s
 @md5 = Digest::MD5.new
@@ -35,7 +34,7 @@ def padded_cms_id(cms_id)
   cms_id.sub(/(?<=cms)(\d{1,3})/i) { Regexp.last_match(1).rjust(3, '0') }
 end
 
-def idFor(package, name)
+def id_for(package, name)
   @md5.hexdigest("DERep-dataElement-#{package}-#{name}")
 end
 
@@ -147,6 +146,10 @@ end
 # value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
 @drupal_measures = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/clinical_quality_measure")) { |term| term['attributes']['field_cms_id'] }
 
+@qdm_attributes = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['qdm.attribute'][:id]}")) { |term| term['attributes']['title'].gsub(/[^A-Za-z0-9]/, '').downcase }
+
+@ecqm_unions = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['ecqm.unions'][:id]}")) { |term| term['attributes']['title'].gsub(/[^A-Za-z0-9]/, '').downcase }
+
 modelinfo = File.open('script/noversion/model_info_file_5_3.xml') { |f| Nokogiri::XML(f) }
 
 # Datatypes (keys are the datatype name, values are the datatype attributes)
@@ -241,10 +244,10 @@ def_status_att_cl = {}
 def new_or_exisiting_vs_name(vs_oid, display_name, index = 0)
   if index == 0 && @value_set_hash.value?({ :display_name => display_name })
     new_or_exisiting_vs_name(vs_oid, display_name, 1)
-  elsif index > 0 && @value_set_hash.value?({ :display_name => display_name + index.to_s })
+  elsif index > 0 && @value_set_hash.value?({ :display_name => display_name + ' ' + index.to_s })
     new_or_exisiting_vs_name(vs_oid, display_name, index + 1)
   else
-    display_name = index == 0 ? display_name : display_name + index.to_s
+    display_name = index == 0 ? display_name : display_name + ' ' + index.to_s
     @value_set_hash[vs_oid] = { display_name: display_name }
   end
 end
@@ -352,8 +355,6 @@ csv.each do |row|
   @vs_desc[row[0]] = row['Purpose']
 end
 
-# qdm_attributes = File.read('script/noversion/qdm_attributes.csv')
-
 @vs_measure.each_key { |key| @vs_measure[key] =  @vs_measure[key].uniq }
 @measure_vs.each_key { |key| @measure_vs[key] =  @measure_vs[key].uniq }
 @def_stat.each_key { |key| @def_stat[key] = @def_stat[key].uniq }
@@ -400,36 +401,81 @@ all_unions.each do |key, value|
   new_or_exising_group(key, value[:values], value[:cms_ids])
 end
 
+def find_or_create_union(element)
+  if @ecqm_unions[element[:data][:attributes][:title].gsub(/[^A-Za-z0-9]/, '').downcase]
+    puts "Union \"#{element[:data][:attributes][:title]}\" found"
+    return @ecqm_unions[element[:data][:attributes][:title].gsub(/[^A-Za-z0-9]/, '').downcase]
+  end
+
+  puts "Union \"#{element[:data][:attributes][:title]}\" not found, creating"
+  res = execute_request(:post, "#{BASE_URL}/jsonapi/node/data_element2", JSON.generate(element))
+  @ecqm_unions[res.deep_symbolize_keys.dig(:attributes, :title).gsub(/[^A-Za-z0-9]/, '').downcase] = { type: res['type'], id: res['id'] }
+end
+
+def build_union(title:, cms_ids:, union_elements:)
+  element = {
+    data: {
+      type: 'node--data_element2',
+      attributes: {
+        title: title,
+        field_data_element_version: @data_element_version,
+        field_year: @data_element_year,
+        field_filename: title.gsub(/[^A-Za-z0-9]/, '').downcase,
+        field_data_element_id: id_for('ecqm.unions', title.gsub(/[^A-Za-z0-9]/, '')),
+        field_date_generated: @created_on_date
+      },
+      relationships: {
+        field_package: { data: @data_element_packages['ecqm.unions'] },
+        field_stage: { data: @data_element_stages['Active'] },
+        # Note: the '*' operator in the next line is the Ruby 'splat' operator
+        # Which expands an array into a list of arguments
+        field_parent_measures: { data: @drupal_measures.values_at(*cms_ids).compact },
+        field_union_elements: { data: union_elements}
+      }
+    }
+  }
+end
+
 def print_union
-  File.open('./script/ecqm_unions.txt', 'w') do |f|
-    f.puts 'Grammar: DataElement 5.0'
-    f.puts 'Namespace: ecqm.unions'
-    f.puts 'Description: "Insert Text Here"'
-    f.puts 'Uses: shr.core, shr.base, shr.entity, ecqm.dataelement, ecqm.measure'
-    f.puts ''
-    @all_unions_generic_name.each do |union_values, hash|
-      f.puts "EntryElement: #{hash[:generic_key]}"
-      hash[:cms_ids].each do |cms_id|
-        f.puts "    0..* #{cms_id}"
-      end
-      f.puts ''
-      hash[:union_keys].each do |union_key|
-        already_included = []
-        # byebug
-        f.puts "EntryElement: #{union_key.titleize.gsub(/[^A-Za-z0-9]/, '')}Union"
-        f.puts "Based on: #{hash[:generic_key]}"
-        hash[:cms_ids].each do |_cms_id|
-          union_values.each do |vs|
-            next unless @value_set_hash[vs]
-            @value_set_hash[vs][:data_types]&.each do |data_type, inner_hash|
-              next if already_included.include? "#{@value_set_hash[vs][:display_name]}#{data_type}"
-              already_included << "#{@value_set_hash[vs][:display_name]}#{data_type}"
-              f.puts "    0..* #{@value_set_hash[vs][:display_name].titleize.gsub(/[^A-Za-z0-9]/, '')}#{inner_hash[:vs_extension_name]}"
-            end
+  @all_unions_generic_name.each do |union_values, hash|
+
+    measure_ids = hash[:cms_ids].map { |id| padded_cms_id(id) }
+
+    hash[:union_keys].each do |union_key|
+      referenced_data_elements = []
+      already_included = []
+      union_values.each do |vs|
+        next unless @value_set_hash[vs]
+        @value_set_hash[vs][:data_types]&.each do |data_type, inner_hash|
+          next if already_included.include? "#{@value_set_hash[vs][:display_name]}#{data_type}"
+          already_included << "#{@value_set_hash[vs][:display_name]}#{data_type}"
+          concept = @valuesets.where(oid: vs).first&.concepts&.first
+
+          title = if !inner_hash[:type_status]&.empty?
+            "#{inner_hash[:type_definition]}, #{inner_hash[:type_status]}: #{@value_set_hash[vs][:display_name]}"
+          else
+            "#{inner_hash[:type_definition]}: #{@value_set_hash[vs][:display_name]}"
           end
+          # byebug
+          included_code_constraint = if vs.include?('drc-')
+            @code_constraints["#{concept.code_system_name.upcase.gsub(/[^a-zA-Z0-9]/, '')}--#{title}"]
+          else
+            @code_constraints["-#{vs}-#{title}"]
+          end
+          included_data_element = {
+            title: title,
+            version: @data_element_version,
+            code_constraint: included_code_constraint
+          }
+          referenced_data_elements << @ecqm_dataelements[included_data_element]
         end
-        f.puts ''
       end
+      element = build_union(title: "#{union_key.titleize} Union",
+                            cms_ids: measure_ids,
+                            union_elements: referenced_data_elements.compact)
+      # byebug
+
+      find_or_create_union(element)
     end
   end
 end
@@ -547,7 +593,7 @@ def build_qdm_dataelement(title:, description:, qdm_datatype:)
         field_year: @data_element_year,
         field_data_element_version: @data_element_version,
         field_filename: title.gsub(/[^A-Za-z0-9]/, '').downcase,
-        field_data_element_id: idFor('qdm.dataelement', title.gsub(/[^A-Za-z0-9]/, '')),
+        field_data_element_id: id_for('qdm.dataelement', title.gsub(/[^A-Za-z0-9]/, '')),
         field_date_generated: @created_on_date
       },
       relationships: {
@@ -687,7 +733,7 @@ def create_dataelement_description(description)
   <span class="de-label">Exclusion Criteria:</span> #{ec})
 end
 
-def build_dataelement(title:, typedef:, vs_description:, oid:, cms_ids:)
+def build_dataelement(title:, typedef:, vs_description:, oid:, cms_ids:, attribute_ids:)
   element = {
     data: {
       type: 'node--data_element2',
@@ -700,7 +746,7 @@ def build_dataelement(title:, typedef:, vs_description:, oid:, cms_ids:)
         field_data_element_version: @data_element_version,
         field_year: @data_element_year,
         field_filename: title.gsub(/[^A-Za-z0-9]/, '').downcase,
-        field_data_element_id: idFor('ecqm.dataelement', title.gsub(/[^A-Za-z0-9]/, '')),
+        field_data_element_id: id_for('ecqm.dataelement', title.gsub(/[^A-Za-z0-9]/, '')),
         field_date_generated: @created_on_date
       },
       relationships: {
@@ -709,7 +755,8 @@ def build_dataelement(title:, typedef:, vs_description:, oid:, cms_ids:)
         field_base_element: { data: @qdm_dataelements[typedef.gsub(/[^A-Za-z0-9]/, '')] },
         # Note: the '*' operator in the next line is the Ruby 'splat' operator
         # Which expands an array into a list of arguments
-        field_parent_measures: { data: @drupal_measures.values_at(*cms_ids).compact }
+        field_parent_measures: { data: @drupal_measures.values_at(*cms_ids).compact },
+        field_child_attributes: { data: attribute_ids }
       }
     }
   }
@@ -743,9 +790,10 @@ def print_ecqm_dataelement
       vs_description = @vs_desc[oid] ? @vs_desc[oid].tr('"', "'") : ''
       exported_base_types = []
       vs_hash[:data_types].each do |data_type, dt_hash|
-        if (data_type != dt_hash[:vs_extension_name]) && !exported_base_types.include?(dt_hash[:type_definition])
+        measure_ids = dt_hash[:measures].map { |id| padded_cms_id(id) }
 
-          measure_ids = dt_hash[:measures].map { |id| padded_cms_id(id) }
+        attribute_ids = dt_hash[:attributes] ? dt_hash[:attributes].map { |attr_name| @qdm_attributes[attr_name.gsub(/[^a-zA-Z0-9]/, '').downcase] } : []
+        if (data_type != dt_hash[:vs_extension_name]) && !exported_base_types.include?(dt_hash[:type_definition])
           # Start building the drupal data element as a hash
           # attributes are simple datatypes
           # relationships are links to other datatypes
@@ -753,26 +801,26 @@ def print_ecqm_dataelement
                                       typedef: dt_hash[:type_definition],
                                       vs_description: vs_description,
                                       oid: oid,
-                                      cms_ids: measure_ids)
-          # byebug
+                                      cms_ids: measure_ids,
+                                      attribute_ids: attribute_ids)
           find_or_create_ecqm_dataelement(element)
           exported_base_types << dt_hash[:type_definition]
         end
         element = if data_type != dt_hash[:vs_extension_name]
-                    # byebug if !dt_hash[:type_status] || dt_hash[:type_status] == ''
                     build_dataelement(title: "#{dt_hash[:type_definition]}, #{dt_hash[:type_status]}: #{vs_hash[:display_name]}",
                                                 typedef: data_type,
                                                 vs_description: vs_description,
                                                 oid: oid,
-                                                cms_ids: measure_ids)
+                                                cms_ids: measure_ids,
+                                                attribute_ids: attribute_ids)
                   else
                     build_dataelement(title: "#{dt_hash[:type_definition]}: #{vs_hash[:display_name]}",
                                                 typedef: data_type,
                                                 vs_description: vs_description,
                                                 oid: oid,
-                                                cms_ids: measure_ids)
+                                                cms_ids: measure_ids,
+                                                attribute_ids: attribute_ids)
                   end
-        # byebug if element.dig(:data, :attributes, :title) == 'Assessment, Performed: KCCQ Self Efficacy Score'
         find_or_create_ecqm_dataelement(element)
       end
     end
@@ -785,54 +833,61 @@ def print_ecqm_dataelement
         typedef: att,
         vs_description: vs_description,
         oid: oid,
-        cms_ids: vs_hash[:measures].map { |id| padded_cms_id(id) }
+        cms_ids: vs_hash[:measures].map { |id| padded_cms_id(id) },
+        attribute_ids: []
       )
       find_or_create_ecqm_dataelement(element)
     end
   end
 end
 
-def print_cms_ecqm
-  File.open('./script/ecqm_measure.txt', 'w') do |f|
-    f.puts 'Grammar: DataElement 5.0'
-    f.puts 'Namespace: ecqm.measure'
-    f.puts 'Description: "Insert Text Here"'
-    f.puts 'Uses: shr.core, shr.base, shr.entity, ecqm.dataelement, ecqm.unions'
-    f.puts 'Abstract Element: CmsEcqmComposition'
-    f.puts 'Based on: Composition'
-    f.puts 'Description: "Abstract eCQM Definition."'
-    f.puts '    Subject value is type Patient'
+def build_qdm_attribute(title:, description:)
+  element = {
+    data: {
+      type: 'node--data_element2',
+      attributes: {
+        title: title,
+        body: {
+          value: description,
+          format: 'body_html'
+        },
+        field_year: @data_element_year,
+        field_data_element_version: @data_element_version,
+        field_filename: title.gsub(/[^A-Za-z0-9]/, '').downcase,
+        field_data_element_id: id_for('qdm.attribute', title.gsub(/[^A-Za-z0-9]/, '')),
+        field_date_generated: @created_on_date
+      },
+      relationships: {
+        field_package: { data: @data_element_packages['qdm.attribute'] },
+        field_stage: { data: @data_element_stages['Active'] }
+      }
+    }
+  }
 
-    sorted_measures = @measure_vs.sort_by { |measure_id, _vs| measure_id }
-    sorted_measures.each do |measure_id, vs|
-      f.puts ''
-      f.puts "EntryElement: #{measure_id}"
-      f.puts 'Based on: CmsEcqmComposition'
-      f.puts "Description: \"#{measure_id}\""
-      vs -= ['']
+  element
+end
 
-      vs.each do |oid|
-        next unless @value_set_hash[oid][:display_name]
-        vs_name = @value_set_hash[oid][:display_name]
-        @value_set_hash[oid][:data_types]&.each do |_data_type, dt_hash|
-          f.puts "    0..* #{vs_name.titleize.gsub(/[^a-zA-Z0-9]/, '')}#{dt_hash[:vs_extension_name]}" if dt_hash[:measures].include?(measure_id)
-        end
-        next unless @value_set_hash[oid][:attribute_types]
-        @value_set_hash[oid][:attribute_types]&.each do |att|
-          f.puts "    0..* #{vs_name.titleize.gsub(/[^a-zA-Z0-9]/, '')}#{att}" if @value_set_hash[oid][:measures].include?(measure_id)
-        end
-      end
-      @all_unions_with_name.each do |union_name, hash|
-        hash[:cms_ids].each do |cms_id|
-          next unless cms_id == measure_id
-          f.puts "    0..* #{union_name.titleize.gsub(/[^a-zA-Z0-9]/, '')}Union"
-        end
-      end
-    end
+def find_or_create_qdm_attribute(element)
+  if @qdm_attributes[element[:data][:attributes][:title].gsub(/[^A-Za-z0-9]/, '').downcase]
+    puts "QDM Attribute \"#{element[:data][:attributes][:title]}\" found"
+    return @qdm_attributes[element[:data][:attributes][:title].gsub(/[^A-Za-z0-9]/, '').downcase]
+  end
+
+  puts "QDM Attribute \"#{element[:data][:attributes][:title]}\" not found, creating"
+  res = execute_request(:post, "#{BASE_URL}/jsonapi/node/data_element2", JSON.generate(element))
+  @qdm_attributes[res.deep_symbolize_keys.dig(:attributes, :title).gsub(/[^A-Za-z0-9]/, '').downcase] = { type: res['type'], id: res['id'] }
+end
+
+def print_qdm_attributes
+  csv_text = File.read('script/noversion/qdm_attributes.csv')
+  csv = CSV.parse(csv_text, headers: true)
+  csv.each do |row|
+    element = build_qdm_attribute(title: row['title'], description: row['description'])
+    find_or_create_qdm_attribute(element)
   end
 end
 
-# print_union
-# print_cms_ecqm
-print_qdm_category  # This has human generated content
+print_qdm_attributes
+print_qdm_category
 print_ecqm_dataelement
+print_union
