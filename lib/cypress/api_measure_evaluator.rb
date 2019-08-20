@@ -72,7 +72,7 @@ module Cypress
 
         # create vendor
         vendor_link = create_new_vendor("MeasureEvaluationVendor - #{bundle_id}")
-        run_vendor_tests(vendor_link, measures_list[0,1].uniq, 'All Measures', false, bundle_id) if c1_c2
+        run_vendor_tests(vendor_link, measures_list.uniq, 'All Measures', false, bundle_id) if c1_c2
 
         next unless c4
 
