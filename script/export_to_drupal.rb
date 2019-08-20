@@ -13,8 +13,8 @@ require 'rest-client'
 require 'digest'
 require 'date'
 
-BASE_URL = 'https://ecqi-proto.dd:8443'.freeze
-# BASE_URL = 'https://ecqid8-local.dd:8443'.freeze
+# BASE_URL = 'https://ecqi-dev.dd:8443'.freeze
+BASE_URL = 'https://va00027-pc.mitre.org:8443'.freeze
 USER = 'mokeefe'.freeze
 PASS = 'mokeefe'.freeze
 
@@ -24,10 +24,12 @@ PASS = 'mokeefe'.freeze
 }
 
 # version (for testing purposes)
-@data_element_version = '0.0.2'
+@data_element_version = '0.0.1'
 @data_element_year = 2019
-@created_on_date = DateTime.now.to_s
+@created_on_date = DateTime.current.to_s
 @md5 = Digest::MD5.new
+
+@errors = []
 
 # This will always return a three digit cms identifier, e.g., CMS9v3 => CMS009v3
 def padded_cms_id(cms_id)
@@ -59,16 +61,14 @@ def execute_request(method, url, data = nil)
                                         payload: data)
           end
   rescue RestClient::ExceptionWithResponse => e
-    byebug
-    puts e.message
-    return nil
+    @errors << { url: url, data: data, error: e }
+    warn e.message
+    return {}
   end
   res = JSON.parse(res)
-  if res['links']['next'] && method == :get
-    return res['data'] + execute_request(method, res['links']['next']['href'])
-  else
-    return res['data']
-  end
+
+  return res['data'] + execute_request(method, res['links']['next']['href']) if res['links']['next'] && method == :get
+  res['data']
 end
 
 def hash_dataelement(term)
