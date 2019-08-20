@@ -19,7 +19,10 @@ class VendorPatientUploadJob < ApplicationJob
     patients, failed_files = parse_patients(vendor_patient_file, vendor_id, bundle)
 
     # do patient calculation against bundle
-    generate_calculations(patients, bundle, vendor_id) unless patients.empty?
+    unless patients.empty?
+      generate_calculations(patients, bundle, vendor_id)
+      PatientAnalysisJob.perform_later(bundle.id.to_s, vendor_id)
+    end
 
     raise failed_files.to_s unless failed_files.empty?
   end
@@ -88,14 +91,17 @@ class VendorPatientUploadJob < ApplicationJob
 
   def generate_calculations(patients, bundle, vendor_id)
     patient_ids = patients.map { |p| p.id.to_s }
-    effective_date_end = Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number)
-    effective_date = Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number)
-    options = { 'effectiveDateEnd' => effective_date_end, 'effectiveDate' => effective_date, 'includeClauseResults' => true }
+    options = { 'effectiveDateEnd' => Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number),
+                'effectiveDate' => Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number),
+                'includeClauseResults' => true }
+    tracker_index = 0
+    total_count = ((patient_ids.size / 20) + 1) * bundle.measures.size
     patient_ids.each_slice(20) do |patient_ids_slice|
       bundle.measures.each do |measure|
+        tracker.log("Calculating (#{((tracker_index.to_f / total_count) * 100).to_i}% complete) ")
         SingleMeasureCalculationJob.perform_now(patient_ids_slice, measure.id.to_s, vendor_id, options)
+        tracker_index += 1
       end
     end
-    PatientAnalysisJob.perform_later(bundle.id.to_s, vendor_id)
   end
 end
