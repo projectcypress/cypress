@@ -1,5 +1,7 @@
 module Cypress
   class DataCriteriaAttributeBuilder
+    attr_reader :unionlist, :unions, :root_data_criteria
+
     def build_data_criteria_for_measure(measure)
       @measure = measure
       @vs_hash = {}
@@ -48,14 +50,6 @@ module Cypress
         @dependencies[library['library_name']] << statement['statement_name'] unless @dependencies[library['library_name']].include? statement['statement_name']
       end
     end
-
-    # def unions
-    #   @unions
-    # end
-
-    # def root_data_criteria
-    #   @root_data_criteria
-    # end
 
     def update_measure_data_criteria
       @cql_data_criteria.each do |cdc|
@@ -287,6 +281,7 @@ module Cypress
     end
 
     def parse_query_source(query_source, library_id, statement, source_value)
+      byebug
       if query_source['alias'] && query_source['expression']['name']
         @alias_expression_hash[library_id][statement['localId']][query_source['alias']] = query_source['expression']['name']
         source_value << query_source['expression']['name']

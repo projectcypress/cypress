@@ -1,20 +1,18 @@
 require 'mongoid'
 require 'csv'
 require 'byebug'
-require 'health-data-standards'
-require 'bonnie_bundler'
 
 Mongoid.load!('config/mongoid.yml', :development)
-@valuesets = HealthDataStandards::SVS::ValueSet.all
-measures = HealthDataStandards::CQM::Measure.all
+@valuesets = ValueSet.all
+measures = CQM::Measure.all
 
 # Drupal loading section
 require 'rest-client'
 require 'digest'
 require 'date'
 
-# BASE_URL = 'https://ecqi-dev.dd:8443'.freeze
-BASE_URL = 'https://va00027-pc.mitre.org:8443'.freeze
+BASE_URL = 'https://ecqi-dev.dd:8443'.freeze
+# BASE_URL = 'https://va00027-pc.mitre.org:8443'.freeze
 USER = 'mokeefe'.freeze
 PASS = 'mokeefe'.freeze
 
@@ -25,7 +23,7 @@ PASS = 'mokeefe'.freeze
 
 # version (for testing purposes)
 @data_element_version = '0.0.1'
-@data_element_year = 2019
+@data_element_year = 2020
 @created_on_date = DateTime.current.to_s
 @md5 = Digest::MD5.new
 
@@ -72,7 +70,7 @@ def execute_request(method, url, data = nil)
 end
 
 def hash_dataelement(term)
-  { title: term.dig(:attributes, :title), version: term.dig(:attributes, :field_data_element_version), code_constraint: term.dig(:relationships, :field_code_constraint, :data) }
+  { title: term.dig(:attributes, :title), version: term.dig(:attributes, :field_data_element_version), year: term.dig(:attributes, :field_year), code_constraint: term.dig(:relationships, :field_code_constraint, :data) }
 end
 
 # to_drupal_lookup_table takes an array of Drupal objects from JSON API calls, and turns them into a hash
@@ -280,11 +278,13 @@ end
 # Filtered measures updated by Measure Developers
 # measures.in(cms_id: %w[CMS50v7 CMS149v7 CMS142v7 CMS143v7 CMS161v7 CMS129v8 CMS177v7 CMS157v7]).each do |measure|
 # All but measures that were removed from the 2019 PY
-measures.nin(cms_id: %w[CMS167v7 CMS123v7 CMS164v7 CMS169v7 CMS158v7 CMS65v8]).each do |measure|
+measures.nin(cms_id: %w[CMS167v8 CMS123v8 CMS164v8 CMS169v8 CMS158v8 CMS65v9]).each do |measure|
   next if completed_measures.include? measure.cms_id
 
   dcab = Cypress::DataCriteriaAttributeBuilder.new
   dcab.build_data_criteria_for_measure(measure)
+
+  byebug unless dcab.unions.empty?
 
   @measure_unions[measure.cms_id] = { unions: dcab.unions, dcab: dcab }
 
