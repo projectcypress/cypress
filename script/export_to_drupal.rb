@@ -24,7 +24,7 @@ PASS = 'mokeefe'.freeze
 }
 
 # version (for testing purposes)
-@data_element_version = '0.0.1'
+@data_element_version = '0.0.4'
 @data_element_year = 2019
 @created_on_date = DateTime.current.to_s
 @md5 = Digest::MD5.new
@@ -72,7 +72,31 @@ def execute_request(method, url, data = nil)
 end
 
 def hash_dataelement(term)
-  { title: term.dig(:attributes, :title), version: term.dig(:attributes, :field_data_element_version), code_constraint: term.dig(:relationships, :field_code_constraint, :data) }
+  { title: term.dig(:attributes, :title), version: term.dig(:attributes, :field_data_element_version), code_constraint: term.dig(:relationships, :field_code_constraint, :data), year: term.dig(:attributes, :field_year) }
+end
+
+def hash_element(term)
+  { title: term.dig(:attributes, :title)&.gsub(/[^a-zA-Z0-9]/, '')&.downcase, version: term.dig(:attributes, :field_data_element_version), year: term.dig(:attributes, :field_year) }
+end
+
+def find_qdm_element_by_title(title)
+  @qdm_dataelements[
+    {
+      title: title.gsub(/[^a-zA-Z0-9]/, '').downcase,
+      version: @data_element_version,
+      year: @data_element_year
+    }
+  ]
+end
+
+def find_qdm_attribute_by_title(title)
+  @qdm_attributes[
+    {
+      title: title.gsub(/[^a-zA-Z0-9]/, '').downcase,
+      version: @data_element_version,
+      year: @data_element_year
+    }
+  ]
 end
 
 # to_drupal_lookup_table takes an array of Drupal objects from JSON API calls, and turns them into a hash
@@ -132,7 +156,7 @@ end
 # The filter filters by the ID of 'qdm.dataelement' in the package taxonomy
 # key = a hash of the code constraint details (code system, oid, and display name, delimited by dashes)
 # value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@qdm_dataelements = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['qdm.dataelement'][:id]}")) { |term| term['attributes']['title'].gsub(/[^A-Za-z0-9]/, '') }
+@qdm_dataelements = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['qdm.dataelement'][:id]}")) { |term| hash_element(term.deep_symbolize_keys) }
 
 # A hash of the ecqm.dataelement data element objects. These are the whole reason the site exists.
 # The filter filters by the ID of 'ecqm.dataelement' in the package taxonomy
@@ -146,9 +170,11 @@ end
 # value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
 @drupal_measures = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/clinical_quality_measure")) { |term| term['attributes']['field_cms_id'] }
 
-@qdm_attributes = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['qdm.attribute'][:id]}")) { |term| term['attributes']['title'].gsub(/[^A-Za-z0-9]/, '').downcase }
+@qdm_attributes = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['qdm.attribute'][:id]}")) { |term| hash_element(term.deep_symbolize_keys) }
 
-@ecqm_unions = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['ecqm.unions'][:id]}")) { |term| term['attributes']['title'].gsub(/[^A-Za-z0-9]/, '').downcase }
+@ecqm_unions = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['ecqm.unions'][:id]}")) { |term| hash_element(term.deep_symbolize_keys) }
+
+@views = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/view/view")) { |term| term['attributes']['drupal_internal__id'] }
 
 modelinfo = File.open('script/noversion/model_info_file_5_3.xml') { |f| Nokogiri::XML(f) }
 
@@ -402,14 +428,15 @@ all_unions.each do |key, value|
 end
 
 def find_or_create_union(element)
-  if @ecqm_unions[element[:data][:attributes][:title].gsub(/[^A-Za-z0-9]/, '').downcase]
-    puts "Union \"#{element[:data][:attributes][:title]}\" found"
-    return @ecqm_unions[element[:data][:attributes][:title].gsub(/[^A-Za-z0-9]/, '').downcase]
+  elem_hash = hash_element(element[:data])
+  if @ecqm_unions[elem_hash]
+    puts "Union \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} year #{element[:data][:attributes][:field_year]} found"
+    return @ecqm_unions[elem_hash]
   end
 
-  puts "Union \"#{element[:data][:attributes][:title]}\" not found, creating"
+  puts "Union \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} year #{element[:data][:attributes][:field_year]} not found, creating"
   res = execute_request(:post, "#{BASE_URL}/jsonapi/node/data_element2", JSON.generate(element))
-  @ecqm_unions[res.deep_symbolize_keys.dig(:attributes, :title).gsub(/[^A-Za-z0-9]/, '').downcase] = { type: res['type'], id: res['id'] }
+  @ecqm_unions[hash_dataelement(res.deep_symbolize_keys)] = { type: res['type'], id: res['id'] }
 end
 
 def build_union(title:, cms_ids:, union_elements:)
@@ -420,7 +447,7 @@ def build_union(title:, cms_ids:, union_elements:)
         title: title,
         field_data_element_version: @data_element_version,
         field_year: @data_element_year,
-        field_filename: title.gsub(/[^A-Za-z0-9]/, '').downcase,
+        field_filename: "ecqm-union/#{title.gsub(/[^A-Za-z0-9]/, '')}.html",
         field_data_element_id: id_for('ecqm.unions', title.gsub(/[^A-Za-z0-9]/, '')),
         field_date_generated: @created_on_date
       },
@@ -434,6 +461,8 @@ def build_union(title:, cms_ids:, union_elements:)
       }
     }
   }
+
+  element
 end
 
 def print_union
@@ -456,7 +485,6 @@ def print_union
           else
             "#{inner_hash[:type_definition]}: #{@value_set_hash[vs][:display_name]}"
           end
-          # byebug
           included_code_constraint = if vs.include?('drc-')
             @code_constraints["#{concept.code_system_name.upcase.gsub(/[^a-zA-Z0-9]/, '')}--#{title}"]
           else
@@ -465,7 +493,8 @@ def print_union
           included_data_element = {
             title: title,
             version: @data_element_version,
-            code_constraint: included_code_constraint
+            code_constraint: included_code_constraint,
+            year: @data_element_year
           }
           referenced_data_elements << @ecqm_dataelements[included_data_element]
         end
@@ -473,7 +502,6 @@ def print_union
       element = build_union(title: "#{union_key.titleize} Union",
                             cms_ids: measure_ids,
                             union_elements: referenced_data_elements.compact)
-      # byebug
 
       find_or_create_union(element)
     end
@@ -537,25 +565,25 @@ BASED_ON_HASH = { 'AdverseEvent' => 'Observation',
                   'SubstanceAdministered' => 'Activity'}.freeze
 
 SUBJECT_HASH = { 'AssessmentPerformed' => 'Assessment',
-                'DeviceApplied' => 'Device',
-                'DeviceOrder' => 'Device',
-                'DiagnosticStudyOrder' => 'DiagnosticStudy',
-                'DiagnosticStudyPerformed' => 'DiagnosticStudy',
-                'EncounterOrder' => 'Encounter',
-                'EncounterPerformed' => 'Encounter',
-                'ImmunizationAdministered' => 'Immunization',
-                'InterventionOrder' => 'Intervention',
-                'InterventionPerformed' => 'Intervention',
-                'LaboratoryTestOrder' => 'LaboratoryTest',
-                'LaboratoryTestPerformed' => 'LaboratoryTest',
-                'MedicationActive' => 'Medication',
-                'MedicationAdministered' => 'Medication',
-                'MedicationDischarge' => 'Medication',
-                'MedicationOrder' => 'Medication',
-                'PhysicalExamPerformed' => 'PhysicalExam',
-                'ProcedureOrder' => 'Procedure',
-                'ProcedurePerformed' => 'Procedure',
-                'SubstanceAdministered' => 'Substance'}.freeze
+                 'DeviceApplied' => 'Device',
+                 'DeviceOrder' => 'Device',
+                 'DiagnosticStudyOrder' => 'DiagnosticStudy',
+                 'DiagnosticStudyPerformed' => 'DiagnosticStudy',
+                 'EncounterOrder' => 'Encounter',
+                 'EncounterPerformed' => 'Encounter',
+                 'ImmunizationAdministered' => 'Immunization',
+                 'InterventionOrder' => 'Intervention',
+                 'InterventionPerformed' => 'Intervention',
+                 'LaboratoryTestOrder' => 'LaboratoryTest',
+                 'LaboratoryTestPerformed' => 'LaboratoryTest',
+                 'MedicationActive' => 'Medication',
+                 'MedicationAdministered' => 'Medication',
+                 'MedicationDischarge' => 'Medication',
+                 'MedicationOrder' => 'Medication',
+                 'PhysicalExamPerformed' => 'PhysicalExam',
+                 'ProcedureOrder' => 'Procedure',
+                 'ProcedurePerformed' => 'Procedure',
+                 'SubstanceAdministered' => 'Substance' }.freeze
 
 def based_on(data_type)
   BASED_ON_HASH[data_type] ? BASED_ON_HASH[data_type] : 'Observation'
@@ -569,18 +597,31 @@ def vs_type(data_type)
   CODE_HASH[data_type] || 'ResultValue'
 end
 
-def find_or_create_qdm_dataelement(element)
-  if @qdm_dataelements[element[:data][:attributes][:title].gsub(/[^A-Za-z0-9]/, '')]
-    puts "QDM Datatype \"#{element[:data][:attributes][:title]}\" found"
-    return @qdm_dataelements[element[:data][:attributes][:title].gsub(/[^A-Za-z0-9]/, '')]
-  end
-
-  puts "QDM Datatype \"#{element[:data][:attributes][:title]}\" not found, creating"
-  res = execute_request(:post, "#{BASE_URL}/jsonapi/node/data_element2", JSON.generate(element))
-  @qdm_dataelements[res.deep_symbolize_keys.dig(:attributes, :title).gsub(/[^A-Za-z0-9]/, '')] = { type: res['type'], id: res['id'] }
+def build_referenced_view(display_id)
+  merge_hash = {
+    meta: {
+      display_id: display_id,
+      argument: nil,
+      title: '0',
+      data: nil
+    }
+  }
+  @views['data_element_references'].merge(merge_hash)
 end
 
-def build_qdm_dataelement(title:, description:, qdm_datatype:)
+def find_or_create_qdm_dataelement(element)
+  elem_hash = hash_element(element[:data])
+  if @qdm_dataelements[elem_hash]
+    puts "QDM Datatype \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} year #{element[:data][:attributes][:field_year]} found"
+    return @qdm_dataelements[elem_hash]
+  end
+
+  puts "QDM Datatype \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} year #{element[:data][:attributes][:field_year]} not found, creating"
+  res = execute_request(:post, "#{BASE_URL}/jsonapi/node/data_element2", JSON.generate(element))
+  @qdm_dataelements[hash_element(res.deep_symbolize_keys)] = { type: res['type'], id: res['id'] }
+end
+
+def build_qdm_dataelement(title:, description:, qdm_datatype:, attribute_ids:)
   element = {
     data: {
       type: 'node--data_element2',
@@ -592,14 +633,16 @@ def build_qdm_dataelement(title:, description:, qdm_datatype:)
         },
         field_year: @data_element_year,
         field_data_element_version: @data_element_version,
-        field_filename: title.gsub(/[^A-Za-z0-9]/, '').downcase,
+        field_filename: "qdm-dataelement/#{title.gsub(/[^A-Za-z0-9]/, '')}.html",
         field_data_element_id: id_for('qdm.dataelement', title.gsub(/[^A-Za-z0-9]/, '')),
         field_date_generated: @created_on_date
       },
       relationships: {
         field_qdm_datatype: { data: qdm_datatype },
         field_package: { data: @data_element_packages['qdm.dataelement'] },
-        field_stage: { data: @data_element_stages['Active'] }
+        field_stage: { data: @data_element_stages['Active'] },
+        field_direct_descendants: {  data: build_referenced_view('data_element_view_ref') },
+        field_child_attributes: { data: attribute_ids }
       }
     }
   }
@@ -612,10 +655,14 @@ def print_qdm_category
     definition_title = definition.titleize
     qdm_datatype = @base_element_types[definition_title]
     if qdm_datatype
+      attribute_names = @datatypes[definition_title.gsub(/[^a-zA-Z0-9]/, '')]&.map { |attr| attr[:name]}
+      attribute_ids = attribute_names ? attribute_names.sort.map { |attr_name| find_qdm_attribute_by_title(attr_name) }.compact : []
+      
       element = build_qdm_dataelement(
         title: definition_title,
         description: qdm_datatype[:description],
-        qdm_datatype: qdm_datatype[:drupal_hash]
+        qdm_datatype: qdm_datatype[:drupal_hash],
+        attribute_ids: attribute_ids
       )
 
       find_or_create_qdm_dataelement(element)
@@ -628,10 +675,14 @@ def print_qdm_category
       if stat != ''
         qdm_datatype = @base_element_types[definition_status_title]
         if qdm_datatype
+          attribute_names = @datatypes[definition_status_title.gsub(/[^a-zA-Z0-9]/, '')]&.map { |attr| attr[:name]}
+          attribute_ids = attribute_names ? attribute_names.sort.map { |attr_name| find_qdm_attribute_by_title(attr_name) }.compact : []
+
           element = build_qdm_dataelement(
             title: definition_status_title,
             description: qdm_datatype[:description],
-            qdm_datatype: qdm_datatype[:drupal_hash]
+            qdm_datatype: qdm_datatype[:drupal_hash],
+            attribute_ids: attribute_ids
           )
 
           find_or_create_qdm_dataelement(element)
@@ -639,11 +690,6 @@ def print_qdm_category
           byebug
         end
       end
-
-      # next unless @datatypes[definition_status_title.gsub(/[^a-zA-Z]/, '')]
-      # @datatypes[definition_status_title.gsub(/[^a-zA-Z]/, '')]&.each do |attribute|
-      #   # f.puts "    0..1   #{attribute[:name].titleize.gsub(/\s+/, '')}"
-      # end
     end
   end
 end
@@ -695,10 +741,10 @@ end
 
 def find_or_create_ecqm_dataelement(element)
   if @ecqm_dataelements[hash_dataelement(element[:data])]
-    puts "Element \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]}  found"
+    puts "Element \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} year #{element[:data][:attributes][:field_year]} found"
     return @ecqm_dataelements[hash_dataelement(element[:data])]
   end
-  puts "Element \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} not found, creating"
+  puts "Element \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} year #{element[:data][:attributes][:field_year]} not found, creating"
   res = execute_request(:post, "#{BASE_URL}/jsonapi/node/data_element2", JSON.generate(element))
   @ecqm_dataelements[hash_dataelement(res.deep_symbolize_keys)] = { type: res['type'], id: res['id'] }
 end
@@ -745,14 +791,14 @@ def build_dataelement(title:, typedef:, vs_description:, oid:, cms_ids:, attribu
         },
         field_data_element_version: @data_element_version,
         field_year: @data_element_year,
-        field_filename: title.gsub(/[^A-Za-z0-9]/, '').downcase,
+        field_filename: "ecqm-dataelement/#{title.gsub(/[^A-Za-z0-9]/, '')}.html",
         field_data_element_id: id_for('ecqm.dataelement', title.gsub(/[^A-Za-z0-9]/, '')),
         field_date_generated: @created_on_date
       },
       relationships: {
         field_package: { data: @data_element_packages['ecqm.dataelement'] },
         field_stage: { data: @data_element_stages['Active'] },
-        field_base_element: { data: @qdm_dataelements[typedef.gsub(/[^A-Za-z0-9]/, '')] },
+        field_base_element: { data: typedef },
         # Note: the '*' operator in the next line is the Ruby 'splat' operator
         # Which expands an array into a list of arguments
         field_parent_measures: { data: @drupal_measures.values_at(*cms_ids).compact },
@@ -792,30 +838,31 @@ def print_ecqm_dataelement
       vs_hash[:data_types].each do |data_type, dt_hash|
         measure_ids = dt_hash[:measures].map { |id| padded_cms_id(id) }
 
-        attribute_ids = dt_hash[:attributes] ? dt_hash[:attributes].map { |attr_name| @qdm_attributes[attr_name.gsub(/[^a-zA-Z0-9]/, '').downcase] } : []
+        attribute_ids = dt_hash[:attributes] ? dt_hash[:attributes].map { |attr_name| find_qdm_attribute_by_title(attr_name) } : []
         if (data_type != dt_hash[:vs_extension_name]) && !exported_base_types.include?(dt_hash[:type_definition])
           # Start building the drupal data element as a hash
           # attributes are simple datatypes
           # relationships are links to other datatypes
           element = build_dataelement(title: vs_hash[:display_name],
-                                      typedef: dt_hash[:type_definition],
+                                      typedef: find_qdm_element_by_title(dt_hash[:type_definition]),
                                       vs_description: vs_description,
                                       oid: oid,
                                       cms_ids: measure_ids,
                                       attribute_ids: attribute_ids)
+          byebug if vs_hash[:display_name] == 'Result: Current Tobacco Smoker'
           find_or_create_ecqm_dataelement(element)
           exported_base_types << dt_hash[:type_definition]
         end
         element = if data_type != dt_hash[:vs_extension_name]
                     build_dataelement(title: "#{dt_hash[:type_definition]}, #{dt_hash[:type_status]}: #{vs_hash[:display_name]}",
-                                                typedef: data_type,
+                                                typedef: find_qdm_element_by_title(data_type),
                                                 vs_description: vs_description,
                                                 oid: oid,
                                                 cms_ids: measure_ids,
                                                 attribute_ids: attribute_ids)
                   else
                     build_dataelement(title: "#{dt_hash[:type_definition]}: #{vs_hash[:display_name]}",
-                                                typedef: data_type,
+                                                typedef: find_qdm_element_by_title(data_type),
                                                 vs_description: vs_description,
                                                 oid: oid,
                                                 cms_ids: measure_ids,
@@ -830,7 +877,7 @@ def print_ecqm_dataelement
     vs_hash[:attribute_types].each do |att|
       element = build_dataelement(
         title: "#{att}: #{vs_hash[:display_name].titleize}",
-        typedef: att,
+        typedef: find_qdm_attribute_by_title(att),
         vs_description: vs_description,
         oid: oid,
         cms_ids: vs_hash[:measures].map { |id| padded_cms_id(id) },
@@ -853,13 +900,14 @@ def build_qdm_attribute(title:, description:)
         },
         field_year: @data_element_year,
         field_data_element_version: @data_element_version,
-        field_filename: title.gsub(/[^A-Za-z0-9]/, '').downcase,
+        field_filename: "qdm-attribute/#{title.gsub(/[^A-Za-z0-9]/, '')}.html",
         field_data_element_id: id_for('qdm.attribute', title.gsub(/[^A-Za-z0-9]/, '')),
         field_date_generated: @created_on_date
       },
       relationships: {
         field_package: { data: @data_element_packages['qdm.attribute'] },
-        field_stage: { data: @data_element_stages['Active'] }
+        field_stage: { data: @data_element_stages['Active'] },
+        field_used_by: {  data: build_referenced_view('data_element_used_by_ref') }
       }
     }
   }
@@ -868,14 +916,15 @@ def build_qdm_attribute(title:, description:)
 end
 
 def find_or_create_qdm_attribute(element)
-  if @qdm_attributes[element[:data][:attributes][:title].gsub(/[^A-Za-z0-9]/, '').downcase]
-    puts "QDM Attribute \"#{element[:data][:attributes][:title]}\" found"
-    return @qdm_attributes[element[:data][:attributes][:title].gsub(/[^A-Za-z0-9]/, '').downcase]
+  elem_hash = hash_element(element[:data])
+  if @qdm_attributes[elem_hash]
+    puts "QDM Attribute \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} year #{element[:data][:attributes][:field_year]} found"
+    return @qdm_attributes[elem_hash]
   end
 
-  puts "QDM Attribute \"#{element[:data][:attributes][:title]}\" not found, creating"
+  puts "QDM Attribute \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} year #{element[:data][:attributes][:field_year]} not found, creating"
   res = execute_request(:post, "#{BASE_URL}/jsonapi/node/data_element2", JSON.generate(element))
-  @qdm_attributes[res.deep_symbolize_keys.dig(:attributes, :title).gsub(/[^A-Za-z0-9]/, '').downcase] = { type: res['type'], id: res['id'] }
+  @qdm_attributes[hash_element(res.deep_symbolize_keys)] = { type: res['type'], id: res['id'] }
 end
 
 def print_qdm_attributes
@@ -891,3 +940,5 @@ print_qdm_attributes
 print_qdm_category
 print_ecqm_dataelement
 print_union
+
+File.open('errors.json', 'w') { |f| f.write(JSON.pretty_generate(@errors)) } 
