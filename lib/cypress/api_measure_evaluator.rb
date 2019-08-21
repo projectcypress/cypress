@@ -471,9 +471,6 @@ module Cypress
 
     def calcuate_cat_3(product_test_id, bundle_id)
       pt = ProductTest.find(product_test_id)
-
-      puts pt.cms_id
-
       patient_ids = []
 
       correlation_id = "#{product_test_id}_u"
