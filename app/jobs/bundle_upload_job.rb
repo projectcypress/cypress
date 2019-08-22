@@ -15,6 +15,7 @@ class BundleUploadJob < ApplicationJob
 
     importer = Cypress::CqlBundleImporter
     @bundle = importer.import(bundle_file)
+    calculate_results
 
     if already_have_default
       @bundle.active = false
@@ -36,6 +37,17 @@ class BundleUploadJob < ApplicationJob
   end
 
   private
+
+  def calculate_results
+    patient_ids = @bundle.patients.map { |p| p.id.to_s }
+    effective_date_end = Time.at(@bundle.effective_date).in_time_zone.to_formatted_s(:number)
+    effective_date = Time.at(@bundle.measure_period_start).in_time_zone.to_formatted_s(:number)
+    options = { 'effectiveDateEnd': effective_date_end, 'effectiveDate': effective_date }
+    @bundle.measures.each_with_index do |measure, index|
+      tracker.log("Calculating (#{index} of #{@bundle.measures.size} measures complete) ")
+      SingleMeasureCalculationJob.perform_now(patient_ids, measure.id.to_s, @bundle.id.to_s, options)
+    end
+  end
 
   def calculate_default_code_options(bundle)
     # entry.qdmCategory -> [ordered code system list]
