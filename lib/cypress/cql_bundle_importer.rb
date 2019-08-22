@@ -16,7 +16,7 @@ module Cypress
     #
     # @param [File] zip The bundle zip file.
 
-    def self.import(zip)
+    def self.import(zip, tracker)
       bundle = nil
       Zip::ZipFile.open(zip.path) do |zip_file|
         bundle = unpack_bundle(zip_file)
@@ -29,6 +29,7 @@ module Cypress
         unpack_and_store_valuesets(zip_file, bundle)
         unpack_and_store_measures(zip_file, bundle)
         unpack_and_store_cqm_patients(zip_file, bundle)
+        calculate_results(bundle, tracker)
       end
 
       bundle
@@ -133,6 +134,17 @@ module Cypress
     def self.report_progress(label, percent)
       print "\rLoading: #{label} #{percent}% complete"
       STDOUT.flush
+    end
+
+    def self.calculate_results(bundle, tracker)
+      patient_ids = bundle.patients.map { |p| p.id.to_s }
+      effective_date_end = Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number)
+      effective_date = Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number)
+      options = { 'effectiveDateEnd': effective_date_end, 'effectiveDate': effective_date }
+      bundle.measures.each_with_index do |measure, index|
+        tracker.log("Calculating (#{index} of #{bundle.measures.size} measures complete) ")
+        SingleMeasureCalculationJob.perform_now(patient_ids, measure.id.to_s, bundle.id.to_s, options)
+      end
     end
 
     def self.reconnect_valueset_references(measure, bundle)
