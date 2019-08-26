@@ -1,6 +1,20 @@
 include RecordsHelper
 include ApplicationHelper
 
+Given(/^a vendor patient has measure_calculations$/) do
+  Bundle.destroy_all
+  @bundle = FactoryBot.create(:executable_bundle)
+  @vendor = Vendor.create!(name: 'test_vendor_name')
+  @patient = FactoryBot.create(:vendor_test_patient, bundleId: @bundle._id, correlation_id: @vendor.id)
+  @patient.calculation_results.destroy_all
+  measure = @bundle.measures.first
+  effective_date_end = Time.at(@bundle.effective_date).in_time_zone.to_formatted_s(:number)
+  effective_date = Time.at(@bundle.measure_period_start).in_time_zone.to_formatted_s(:number)
+  options = { 'effectiveDateEnd' => effective_date_end, 'effectiveDate' => effective_date, 'includeClauseResults' => true }
+  SingleMeasureCalculationJob.perform_now([@patient.id.to_s], measure.id.to_s, @vendor.id.to_s, options)
+  wait_for_all_delayed_jobs_to_run
+end
+
 When(/^the user visits the records page$/) do
   visit '/records/'
   @bundle = Bundle.default
@@ -147,15 +161,15 @@ Then(/^the user should see a list of vendor patients$/) do
 end
 
 When(/^the user visits the vendor patient link$/) do
-  @bundle = Bundle.default
-  @vendor = Vendor.create!(name: 'test_vendor_name')
-  @patient = FactoryBot.create(:vendor_test_patient, bundleId: @bundle._id, correlation_id: @vendor.id)
   visit "/vendors/#{@vendor.id}/records/#{@patient.id}"
 end
 
 Then(/^the user should see vendor patient details$/) do
   page.assert_text "Cypress Certification Patient Test Record: #{@patient.first_names} #{@patient.familyName}"
   page.assert_text @patient.gender
+  page.assert_text 'View Logic Highlighting'
+  page.first('button', text: 'View Logic Highlighting').click
+  assert page.first(:xpath, './/span[@id="ED Visit_24" and @class="clause-true"]'), 'clause should highlighted as true'
   @measures = @bundle.measures.where(:_id.in => @patient.calculation_results.map(&:measure_id))
   sf_patient = @patient.clone
   Cypress::ScoopAndFilter.new(@measures).scoop_and_filter(sf_patient)
