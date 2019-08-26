@@ -31,11 +31,13 @@ PASS = 'mokeefe'.freeze
 
 @errors = []
 
-# This will always return a three digit cms identifier, e.g., CMS9v3 => CMS009v3
+# padded_cms_id will always return a three digit cms identifier, e.g., CMS9v3 => CMS009v3
+# Which conforms to the format used by the rest of the eCQI Resource Center
 def padded_cms_id(cms_id)
   cms_id.sub(/(?<=cms)(\d{1,3})/i) { Regexp.last_match(1).rjust(3, '0') }
 end
 
+# Generate a hashed ID for an element, which should be the same as the one from the D7 DERep
 def id_for(package, name)
   @md5.hexdigest("DERep-dataElement-#{package}-#{name}")
 end
@@ -79,6 +81,7 @@ def hash_element(term)
   { title: term.dig(:attributes, :title)&.gsub(/[^a-zA-Z0-9]/, '')&.downcase, version: term.dig(:attributes, :field_data_element_version), year: term.dig(:attributes, :field_year) }
 end
 
+# Look up a QDM DataElement by passed-in title (needed because we also hash on element version/year)
 def find_qdm_element_by_title(title)
   @qdm_dataelements[
     {
@@ -89,6 +92,7 @@ def find_qdm_element_by_title(title)
   ]
 end
 
+# Look up a QDM Attribute by passed in title (needed because we also hash on element version/year)
 def find_qdm_attribute_by_title(title)
   @qdm_attributes[
     {
@@ -176,7 +180,7 @@ end
 
 @views = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/view/view")) { |term| term['attributes']['drupal_internal__id'] }
 
-modelinfo = File.open('script/noversion/model_info_file_5_3.xml') { |f| Nokogiri::XML(f) }
+modelinfo = File.open('script/noversion/model_info_file_5_4.xml') { |f| Nokogiri::XML(f) }
 
 # Datatypes (keys are the datatype name, values are the datatype attributes)
 @datatypes = {}
@@ -226,6 +230,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'MI'
   inflect.acronym 'LDL'
   inflect.acronym 'BP'
+  inflect.acronym 'HiB'
 end
 
 # Loop through each typeInfo node (each of these is a QDM datatype)
@@ -315,24 +320,27 @@ measures.nin(cms_id: %w[CMS167v7 CMS123v7 CMS164v7 CMS169v7 CMS158v7 CMS65v8]).e
   @measure_unions[measure.cms_id] = { unions: dcab.unions, dcab: dcab }
 
   completed_measures << measure.cms_id
-  measure['source_data_criteria'].each do |_key, sdc|
-    sdc['status'] = 'order' if sdc['status'] == 'ordered'
-    if sdc['attributes']
-      sdc['attributes'].each do |att|
-        ds = sdc['status'] ? sdc['definition'] + ':' + sdc['status'] : sdc['definition'] + ':'
+  measure.source_data_criteria.each do |sdc|
+    # Necessary because cqm-models insists the category is 'condition'
+    sdc['qdmCategory'] = 'diagnosis' if sdc['qdmCategory'] == 'condition'
+    sdc['qdmStatus'] = 'order' if sdc['qdmStatus'] == 'ordered'
+
+    if !sdc.dataElementAttributes&.empty?
+      sdc.dataElementAttributes.each do |att|
+        ds = sdc['qdmStatus'] ? sdc['qdmCategory'] + ':' + sdc['qdmStatus'] : sdc['qdmCategory'] + ':'
         dsa = ds + ':' + att[:attribute_name]
-        if att[:attribute_valueset]
-          dsa = dsa + ':' + att[:attribute_valueset]
+        if att.attribute_valueset
+          dsa = dsa + ':' + att.attribute_valueset
         else
           dsa = dsa + ':'
         end
-        dsac = dsa + ':' + sdc['code_list_id']
+        dsac = dsa + ':' + sdc['codeListId']
         def_status_att_cl[dsac] ? def_status_att_cl[dsac] << measure.cms_id : def_status_att_cl[dsac] = [measure.cms_id]
       end
     else
-      sdc['definition'] = 'patient_characteristic_sex' if sdc['definition'] == 'patient_characteristic_gender'
-      ds = sdc['status'] ? sdc['definition'] + ':' + sdc['status'] + '::' : sdc['definition'] + ':::'
-      dsc = ds + ':' + sdc['code_list_id']
+      sdc['qdmStatus'] = 'sex' if sdc['qdmStatus'] == 'gender'
+      ds = sdc['qdmStatus'] ? sdc['qdmCategory'] + ':' + sdc['qdmStatus'] + '::' : sdc['qdmCategory'] + ':::'
+      dsc = ds + ':' + sdc['codeListId']
       def_status_att_cl[dsc] ? def_status_att_cl[dsc] << measure.cms_id : def_status_att_cl[dsc] = [measure.cms_id]
     end
   end
@@ -499,7 +507,8 @@ def print_union
           referenced_data_elements << @ecqm_dataelements[included_data_element]
         end
       end
-      element = build_union(title: "#{union_key.titleize} Union",
+      union_title = union_key.sub(/(.*[a-z])([0-9]+)\z/, '\1 \2').titleize
+      element = build_union(title: "#{union_title} Union",
                             cms_ids: measure_ids,
                             union_elements: referenced_data_elements.compact)
 
@@ -508,93 +517,16 @@ def print_union
   end
 end
 
-CODE_HASH = { 'AdverseEvent' => 'ResultValue',
-              'AllergyIntolerance' => 'ResultValue',
-              'Assessment' => 'ObservableCode',
-              'CommunicationFromPatientToProvider' => 'ObservableCode',
-              'CommunicationFromProviderToPatient' => 'ObservableCode',
-              'CommunicationFromProviderToProvider' => 'ObservableCode',
-              'Device' => 'ObjectTypeCode',
-              'Diagnosis' => 'ResultValue',
-              'DiagnosticStudy' => 'ObservableCode',
-              'Encounter' => 'ActivityCode',
-              'Immunization' => 'ObjectTypeCode',
-              'Intervention' => 'ActivityCode',
-              'LaboratoryTest' => 'ObservableCode',
-              'Medication' => 'ObjectTypeCode',
-              'PhysicalExam' => 'ObservableCode',
-              'Procedure' => 'ObservableCode',
-              'Substance' => 'ObjectTypeCode'}.freeze
-
-BASED_ON_HASH = { 'AdverseEvent' => 'Observation',
-                  'AllergyIntolerance' => 'Observation',
-                  'Assessment' => 'Observation',
-                  'AssessmentPerformed' => 'Activity',
-                  'CommunicationFromPatientToProvider' => 'Observation',
-                  'CommunicationFromProviderToPatient' => 'Observation',
-                  'CommunicationFromProviderToProvider' => 'Observation',
-                  'Device' => 'ObjectPresentOrAbsent',
-                  'DeviceApplied' => 'Activity',
-                  'DeviceOrder' => 'Activity',
-                  'Diagnosis' => 'Observation',
-                  'DiagnosticStudy' => 'Observation',
-                  'DiagnosticStudyOrder' => 'Activity',
-                  'DiagnosticStudyPerformed' => 'Activity',
-                  'Encounter' => 'Activity',
-                  'EncounterOrder' => 'Activity',
-                  'EncounterPerformed' => 'Activity',
-                  'Immunization' => 'ObjectPresentOrAbsent',
-                  'ImmunizationAdministered' => 'Activity',
-                  'Intervention' => 'Activity',
-                  'InterventionOrder' => 'Activity',
-                  'InterventionPerformed' => 'Activity',
-                  'LaboratoryTest' => 'Observation',
-                  'LaboratoryTestOrder' => 'Activity',
-                  'LaboratoryTestPerformed' => 'Activity',
-                  'Medication' => 'ObjectPresentOrAbsent',
-                  'MedicationActive' => 'Activity',
-                  'MedicationAdministered' => 'Activity',
-                  'MedicationDischarge' => 'Activity',
-                  'MedicationOrder' => 'Activity',
-                  'PhysicalExam' => 'Observation',
-                  'PhysicalExamPerformed' => 'Activity',
-                  'Procedure' => 'Observation',
-                  'ProcedureOrder' => 'Activity',
-                  'ProcedurePerformed' => 'Activity',
-                  'Substance' => 'ObjectPresentOrAbsent',
-                  'SubstanceAdministered' => 'Activity'}.freeze
-
-SUBJECT_HASH = { 'AssessmentPerformed' => 'Assessment',
-                 'DeviceApplied' => 'Device',
-                 'DeviceOrder' => 'Device',
-                 'DiagnosticStudyOrder' => 'DiagnosticStudy',
-                 'DiagnosticStudyPerformed' => 'DiagnosticStudy',
-                 'EncounterOrder' => 'Encounter',
-                 'EncounterPerformed' => 'Encounter',
-                 'ImmunizationAdministered' => 'Immunization',
-                 'InterventionOrder' => 'Intervention',
-                 'InterventionPerformed' => 'Intervention',
-                 'LaboratoryTestOrder' => 'LaboratoryTest',
-                 'LaboratoryTestPerformed' => 'LaboratoryTest',
-                 'MedicationActive' => 'Medication',
-                 'MedicationAdministered' => 'Medication',
-                 'MedicationDischarge' => 'Medication',
-                 'MedicationOrder' => 'Medication',
-                 'PhysicalExamPerformed' => 'PhysicalExam',
-                 'ProcedureOrder' => 'Procedure',
-                 'ProcedurePerformed' => 'Procedure',
-                 'SubstanceAdministered' => 'Substance' }.freeze
-
-def based_on(data_type)
-  BASED_ON_HASH[data_type] ? BASED_ON_HASH[data_type] : 'Observation'
-end
-
-def subject(data_type)
-  SUBJECT_HASH[data_type] ? SUBJECT_HASH[data_type] : 'Patient'
-end
-
-def vs_type(data_type)
-  CODE_HASH[data_type] || 'ResultValue'
+def build_referenced_view(display_id)
+  merge_hash = {
+    meta: {
+      display_id: display_id,
+      argument: nil,
+      title: '0',
+      data: nil
+    }
+  }
+  @views['data_element_references'].merge(merge_hash)
 end
 
 def build_referenced_view(display_id)
@@ -657,7 +589,6 @@ def print_qdm_category
     if qdm_datatype
       attribute_names = @datatypes[definition_title.gsub(/[^a-zA-Z0-9]/, '')]&.map { |attr| attr[:name]}
       attribute_ids = attribute_names ? attribute_names.sort.map { |attr_name| find_qdm_attribute_by_title(attr_name) }.compact : []
-      
       element = build_qdm_dataelement(
         title: definition_title,
         description: qdm_datatype[:description],
@@ -666,12 +597,19 @@ def print_qdm_category
       )
 
       find_or_create_qdm_dataelement(element)
-    else
+    elsif definition != 'patient_characteristic'
       byebug
     end
 
     status.each do |stat|
-      definition_status_title = (definition + ', ' + stat).titleize
+      if definition == 'allergy' && stat == 'intolerance'
+        definition_status_title = 'Allergy Intolerance'
+      elsif definition == 'patient_characteristic'
+        definition_status_title = (definition + ' ' + stat).titleize
+      else
+        definition_status_title = (definition + ', ' + stat).titleize
+      end
+
       if stat != ''
         qdm_datatype = @base_element_types[definition_status_title]
         if qdm_datatype
@@ -837,22 +775,21 @@ def print_ecqm_dataelement
       exported_base_types = []
       vs_hash[:data_types].each do |data_type, dt_hash|
         measure_ids = dt_hash[:measures].map { |id| padded_cms_id(id) }
-
         attribute_ids = dt_hash[:attributes] ? dt_hash[:attributes].map { |attr_name| find_qdm_attribute_by_title(attr_name) } : []
-        if (data_type != dt_hash[:vs_extension_name]) && !exported_base_types.include?(dt_hash[:type_definition])
-          # Start building the drupal data element as a hash
-          # attributes are simple datatypes
-          # relationships are links to other datatypes
-          element = build_dataelement(title: vs_hash[:display_name],
-                                      typedef: find_qdm_element_by_title(dt_hash[:type_definition]),
-                                      vs_description: vs_description,
-                                      oid: oid,
-                                      cms_ids: measure_ids,
-                                      attribute_ids: attribute_ids)
-          byebug if vs_hash[:display_name] == 'Result: Current Tobacco Smoker'
-          find_or_create_ecqm_dataelement(element)
-          exported_base_types << dt_hash[:type_definition]
-        end
+
+        # if (data_type != dt_hash[:vs_extension_name]) && !exported_base_types.include?(dt_hash[:type_definition])
+        #   # Start building the drupal data element as a hash
+        #   # attributes are simple datatypes
+        #   # relationships are links to other datatypes
+        #   element = build_dataelement(title: vs_hash[:display_name],
+        #                               typedef: find_qdm_element_by_title(dt_hash[:type_definition]),
+        #                               vs_description: vs_description,
+        #                               oid: oid,
+        #                               cms_ids: measure_ids,
+        #                               attribute_ids: attribute_ids)
+        #   find_or_create_ecqm_dataelement(element)
+        #   exported_base_types << dt_hash[:type_definition]
+        # end
         element = if data_type != dt_hash[:vs_extension_name]
                     build_dataelement(title: "#{dt_hash[:type_definition]}, #{dt_hash[:type_status]}: #{vs_hash[:display_name]}",
                                                 typedef: find_qdm_element_by_title(data_type),
