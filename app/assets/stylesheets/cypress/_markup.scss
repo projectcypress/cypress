@@ -1,0 +1,40 @@
+.cql-logic {
+
+  .cql-statement-group {
+    font-weight: bold;
+    font-size: large;
+  }
+
+  .cql-statement-name {
+    font-weight: bold;
+  }
+
+  .clause-true {
+    background-color: $state-success-bg;
+    color: $state-success-text;
+    border-bottom-color: $state-success-text;
+    border-bottom-style: solid;
+  }
+
+  .clause-false {
+    background-color: $state-danger-bg;
+    color: $state-danger-text;
+    border-bottom-color: $state-danger-text;
+    border-bottom-style: double;
+  }
+
+  .cql-statement {
+    white-space: pre-wrap;
+    padding-bottom: 8px;
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+
+    span {
+      border-bottom-width: 4px;
+      line-height: 1.8;
+    }
+    
+  }
+}
