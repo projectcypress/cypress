@@ -1,10 +1,10 @@
 class Highlighting < Mustache
   # This is a set of helper methods to allow for measure highlighting.  Currently it
   # can display the results of the data and hightlight the portions as true, or false
-  # based on individual result. 
+  # based on individual result.
   class ClauseObject
     # A ClauseObject will hold a specific clause with the information to which statement
-    # it belongs to and the individual result for highlighting purposes. 
+    # it belongs to and the individual result for highlighting purposes.
     attr_accessor :description, :colored, :is_true, :statement_name, :local_id
 
     def initialize(description, colored, is_true, statement_name, local_id)
@@ -18,7 +18,7 @@ class Highlighting < Mustache
 
   class Result
     # A result holds a specific result for purposes of identifying the highlighting
-    # of specific clauses. 
+    # of specific clauses.
     attr_accessor :local_id, :statement_name, :library, :is_true
 
     def initialize(local_id, statement_name, library, is_true = 'NA')
@@ -36,10 +36,10 @@ class Highlighting < Mustache
     @clause_list = []                 # List of specific Clauses
     @measure = measure                # specific measure sent in
     @measure_result = measure_result  # result of the measure sent in
-    @measure_result_list = []         # Used to contain the full list of results. 
+    @measure_result_list = []         # Used to contain the full list of results.
 
     if measure._id == measure_result.measure_id
-      # Validate that result is for measure sent in. 
+      # Validate that result is for measure sent in.
       parse_results(measure_result)
       measure.cql_libraries.each do |cql_library|
         parse_elm(cql_library.elm)
@@ -56,8 +56,8 @@ class Highlighting < Mustache
   end
 
   def colate_population_statements
-    # Loop through and sort the statements into a more desirable order. 
-    @population_statements = [] # used to all population statements. 
+    # Loop through and sort the statements into a more desirable order.
+    @population_statements = [] # used to all population statements.
     population_titles = ['Initial Population', 'Denominator', 'Numerator', 'Measure Population']
     population_titles.each do |pop_title|
       statements_for_population = @statements.select { |k| k.start_with?(pop_title) }.values
@@ -109,8 +109,9 @@ class Highlighting < Mustache
 
   def parse_statement(array, library_name)
     array.each do |statement|
-      # check for Annotation and local_id. if none move to next 
+      # check for Annotation and local_id. if none move to next
       next unless statement.include?(:annotation) && statement.include?(:localId)
+
       statement.annotation.each do |annotation|
         # When there is an annotation, find the result that matches and follow down the parse tree
         statement_name = statement.name
@@ -124,7 +125,8 @@ class Highlighting < Mustache
     # Follow down each subtree until reaching the clause text then add it with the result to the clause_list
     if array.include?(:s)
       array.s.each do |sarray|
-        # If sub array contains its own ID, use that one for the clause 
+
+        # If sub array contains its own ID, use that one for the clause
         r_val = sarray['r'] || array['r']
         r_val ||= r
         parse_tree(sarray, results, r_val)
@@ -133,6 +135,7 @@ class Highlighting < Mustache
       array['value'].each do |text|
         result = results.find { |res| res.local_id == r }
         next if result.nil?
+        
         # when reaching the bottom of the tree, find result for this clause and add it to the clause_list.
         @clause_list << if result.is_true == 'NA'
                           ClauseObject.new(text, false, false, result.statement_name, result.local_id)
