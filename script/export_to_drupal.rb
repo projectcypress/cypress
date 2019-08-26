@@ -185,6 +185,9 @@ modelinfo = File.open('script/noversion/model_info_file_5_4.xml') { |f| Nokogiri
 # Datatypes (keys are the datatype name, values are the datatype attributes)
 @datatypes = {}
 
+# Inflector controlls the "titlelize" method on strings
+# So adding acronyms to it ensures that they stay properly capitalized
+# And don't get spaces added
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.acronym 'ACE'
   inflect.acronym 'ARB'
@@ -320,27 +323,24 @@ measures.nin(cms_id: %w[CMS167v7 CMS123v7 CMS164v7 CMS169v7 CMS158v7 CMS65v8]).e
   @measure_unions[measure.cms_id] = { unions: dcab.unions, dcab: dcab }
 
   completed_measures << measure.cms_id
-  measure.source_data_criteria.each do |sdc|
-    # Necessary because cqm-models insists the category is 'condition'
-    sdc['qdmCategory'] = 'diagnosis' if sdc['qdmCategory'] == 'condition'
-    sdc['qdmStatus'] = 'order' if sdc['qdmStatus'] == 'ordered'
-
-    if !sdc.dataElementAttributes&.empty?
-      sdc.dataElementAttributes.each do |att|
-        ds = sdc['qdmStatus'] ? sdc['qdmCategory'] + ':' + sdc['qdmStatus'] : sdc['qdmCategory'] + ':'
+  measure['source_data_criteria'].each do |_key, sdc|
+    sdc['status'] = 'order' if sdc['status'] == 'ordered'
+    if sdc['attributes']
+      sdc['attributes'].each do |att|
+        ds = sdc['status'] ? sdc['definition'] + ':' + sdc['status'] : sdc['definition'] + ':'
         dsa = ds + ':' + att[:attribute_name]
-        if att.attribute_valueset
-          dsa = dsa + ':' + att.attribute_valueset
+        if att[:attribute_valueset]
+          dsa = dsa + ':' + att[:attribute_valueset]
         else
           dsa = dsa + ':'
         end
-        dsac = dsa + ':' + sdc['codeListId']
+        dsac = dsa + ':' + sdc['code_list_id']
         def_status_att_cl[dsac] ? def_status_att_cl[dsac] << measure.cms_id : def_status_att_cl[dsac] = [measure.cms_id]
       end
     else
-      sdc['qdmStatus'] = 'sex' if sdc['qdmStatus'] == 'gender'
-      ds = sdc['qdmStatus'] ? sdc['qdmCategory'] + ':' + sdc['qdmStatus'] + '::' : sdc['qdmCategory'] + ':::'
-      dsc = ds + ':' + sdc['codeListId']
+      sdc['definition'] = 'patient_characteristic_sex' if sdc['definition'] == 'patient_characteristic_gender'
+      ds = sdc['status'] ? sdc['definition'] + ':' + sdc['status'] + '::' : sdc['definition'] + ':::'
+      dsc = ds + ':' + sdc['code_list_id']
       def_status_att_cl[dsc] ? def_status_att_cl[dsc] << measure.cms_id : def_status_att_cl[dsc] = [measure.cms_id]
     end
   end
