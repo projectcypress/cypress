@@ -299,9 +299,19 @@ def as_columns(key, key_size)
   end
 end
 
+@default_code_system_versions = {
+  'AdministrativeGender' => 'HL7V3.0_2019-03',
+  'CPT' => '2019',
+  'CVX' => '2019-07',
+  'ICD10CM' => '2020',
+  'LOINC' => '2.66',
+  'RXNORM' => '2019-08',
+  'SNOMEDCT' => '2019-03'
+}
+
 def generate_url(concept)
-  version = concept.code_system_version.split(':').last
-  codesystem = concept.code_system_name.upcase.gsub(/[^A-Za-z]/, '')
+  codesystem = concept.code_system_name.gsub(/[^A-Za-z0-9]/, '')
+  version = concept.code_system_version ? concept.code_system_version.split(':').last : @default_code_system_versions[codesystem]
   code = concept.code
   "https://vsac.nlm.nih.gov/context/cs/codesystem/#{codesystem}/version/#{version}/code/#{code}/info"
 end
