@@ -125,7 +125,6 @@ class Highlighting < Mustache
     # Follow down each subtree until reaching the clause text then add it with the result to the clause_list
     if array.include?(:s)
       array.s.each do |sarray|
-
         # If sub array contains its own ID, use that one for the clause
         r_val = sarray['r'] || array['r']
         r_val ||= r
@@ -135,7 +134,7 @@ class Highlighting < Mustache
       array['value'].each do |text|
         result = results.find { |res| res.local_id == r }
         next if result.nil?
-        
+
         # when reaching the bottom of the tree, find result for this clause and add it to the clause_list.
         @clause_list << if result.is_true == 'NA'
                           ClauseObject.new(text, false, false, result.statement_name, result.local_id)
