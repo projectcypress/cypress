@@ -67,6 +67,7 @@ module Cypress
           sdc.save
         end
       end
+      @measure.save!
     end
 
     # expression_id = statement's localId
@@ -281,7 +282,6 @@ module Cypress
     end
 
     def parse_query_source(query_source, library_id, statement, source_value)
-      byebug
       if query_source['alias'] && query_source['expression']['name']
         @alias_expression_hash[library_id][statement['localId']][query_source['alias']] = query_source['expression']['name']
         source_value << query_source['expression']['name']
