@@ -37,6 +37,16 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     assert_empty @validator.errors
   end
 
+  def test_validate_file_with_incorrect_population_count
+    modified_expected_results = @product_test.expected_results
+    modified_expected_results['40280382-5FA6-FE85-0160-0918E74D2075']['PopulationCriteria1']['IPP'] = 0
+    validator = ExpectedResultsValidator.new(modified_expected_results)
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')).read
+
+    validator.validate(file, 'task' => @task)
+    assert_equal 1, (validator.errors.count { |e| e.message == "Expected IPP value 0\n      does not match reported value 1" })
+  end
+
   # Add in test for stratification
   # def test_validate_missing_stratifications
   #   file = File.new(File.join(Rails.root, 'test/fixtures/qrda/cat_III/ep_test_qrda_cat3_missing_stratification.xml')).read
