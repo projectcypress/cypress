@@ -99,6 +99,10 @@ class VendorPatientUploadJob < ApplicationJob
     # 20 patients was selected after monitoring performance when experimenting with varying counts (from 1 to 100)
     # with all of the measures
     patients_per_calculation = 20
+    # Total count is the number of patient slices - (total patients / patients_per_calculation) + 1
+    # multiplied by the total number of measures.
+    # For example, and upload of 115 patients for 5 measures would be 6 patient slices (101 / 20) + 1 = 6
+    # multiplied by 5 measures for a total of 30.
     total_count = ((patient_ids.size / patients_per_calculation) + 1) * bundle.measures.size
     patient_ids.each_slice(patients_per_calculation) do |patient_ids_slice|
       bundle.measures.each do |measure|
