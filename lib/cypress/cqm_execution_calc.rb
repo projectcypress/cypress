@@ -12,18 +12,17 @@ module Cypress
       @measures = measures
       @correlation_id = correlation_id
       @options = options
-      @ir_list = []
     end
 
     def execute(save = true)
       results = @measures.map do |measure|
         request_for(measure, save)
       end.flatten
-      IndividualResult.create!(@ir_list) if save
       results
     end
 
     def request_for(measure, save = true)
+      ir_list = []
       @options['requestDocument'] = true
       post_data = { patients: @patients, measure: measure, valueSets: measure.value_sets, options: @options }
       # cqm-execution-service expects a field called value_set_oids which is really just our
@@ -41,9 +40,10 @@ module Cypress
       results.each do |patient_id, result|
         # Aggregate the results returned from the calculation engine for a specific patient.
         # If saving the individual results, update identifiers (patient id, population_set_key) in the individual result.
-        aggregate_population_results_from_individual_results(result, @cqm_patient_mapping[patient_id], save)
+        aggregate_population_results_from_individual_results(result, @cqm_patient_mapping[patient_id], save, ir_list)
         patient_result_hash[patient_id] = result.values
       end
+      measure.calculation_results.create(ir_list) if save
       patient_result_hash.values
     end
 
@@ -54,14 +54,14 @@ module Cypress
 
     private
 
-    def aggregate_population_results_from_individual_results(individual_results, patient, save)
+    def aggregate_population_results_from_individual_results(individual_results, patient, save, ir_list)
       individual_results.each_pair do |population_set_key, individual_result|
         # store the population_set within the indivdual result
         individual_result['population_set_key'] = population_set_key
         # update the patient_id to match the cqm_patient id, not the qdm_patient id
         individual_result['patient_id'] = patient.id.to_s
         # save to database (if in the IPP, or has a file name (i.e., a file that was uploaded for CVU+))
-        @ir_list << postprocess_individual_result(individual_result) if save && (individual_result.IPP != 0 || @options[:file_name])
+        ir_list << postprocess_individual_result(individual_result) if save && (individual_result.IPP != 0 || @options[:file_name])
         # update the patients, measure_relevance_hash
         patient.update_measure_relevance_hash(individual_result) if individual_result.IPP != 0
       end

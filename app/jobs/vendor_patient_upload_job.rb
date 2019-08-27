@@ -19,7 +19,10 @@ class VendorPatientUploadJob < ApplicationJob
     patients, failed_files = parse_patients(vendor_patient_file, vendor_id, bundle)
 
     # do patient calculation against bundle
-    generate_calculations(patients, bundle, vendor_id) unless patients.empty?
+    unless patients.empty?
+      generate_calculations(patients, bundle, vendor_id)
+      PatientAnalysisJob.perform_later(bundle.id.to_s, vendor_id)
+    end
 
     raise failed_files.to_s unless failed_files.empty?
   end
@@ -88,14 +91,25 @@ class VendorPatientUploadJob < ApplicationJob
 
   def generate_calculations(patients, bundle, vendor_id)
     patient_ids = patients.map { |p| p.id.to_s }
-    effective_date_end = Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number)
-    effective_date = Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number)
-    options = { 'effectiveDateEnd' => effective_date_end, 'effectiveDate' => effective_date, 'includeClauseResults' => true }
-    patient_ids.each_slice(20) do |patient_ids_slice|
+    options = { 'effectiveDateEnd' => Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number),
+                'effectiveDate' => Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number),
+                'includeClauseResults' => true }
+    tracker_index = 0
+    # cqm-execution-service (using includeClauseResults) can run out of memory when it is run with a lot of patients.
+    # 20 patients was selected after monitoring performance when experimenting with varying counts (from 1 to 100)
+    # with all of the measures
+    patients_per_calculation = 20
+    # Total count is the number of patient slices - (total patients / patients_per_calculation) + 1
+    # multiplied by the total number of measures.
+    # For example, and upload of 115 patients for 5 measures would be 6 patient slices (101 / 20) + 1 = 6
+    # multiplied by 5 measures for a total of 30.
+    total_count = ((patient_ids.size / patients_per_calculation) + 1) * bundle.measures.size
+    patient_ids.each_slice(patients_per_calculation) do |patient_ids_slice|
       bundle.measures.each do |measure|
+        tracker.log("Calculating (#{((tracker_index.to_f / total_count) * 100).to_i}% complete) ")
         SingleMeasureCalculationJob.perform_now(patient_ids_slice, measure.id.to_s, vendor_id, options)
+        tracker_index += 1
       end
     end
-    PatientAnalysisJob.perform_later(bundle.id.to_s, vendor_id)
   end
 end
