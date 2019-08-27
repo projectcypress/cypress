@@ -45,8 +45,8 @@ module Cypress
       bundle_versions = Hash[* Bundle.where(deprecated: false).collect { |b| [b.version, b.id] }.flatten]
 
       # no bundles before 2018 and no non-deprecated bundles with same year
-      old_year_err = 'Please use bundles for year 2018 or later.'
-      raise old_year_err if bundle.version[0..3].to_i < 2018
+      old_year_err = 'Please use bundles for year 2019 or later.'
+      raise old_year_err if bundle.version[0..3].to_i < 2019
 
       same_year_err = "A non-deprecated bundle with year #{bundle.version[0..3]} already exists in the database. Please deprecate previous bundles."
       raise same_year_err unless bundle_versions.select { |vers, _id| vers[0..3] == bundle.version[0..3] }.empty?
