@@ -14,7 +14,7 @@ class BundleUploadJob < ApplicationJob
     already_have_default = Bundle.where(active: true).exists?
 
     importer = Cypress::CqlBundleImporter
-    @bundle = importer.import(bundle_file)
+    @bundle = importer.import(bundle_file, tracker)
 
     if already_have_default
       @bundle.active = false
