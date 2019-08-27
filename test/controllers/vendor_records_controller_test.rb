@@ -184,8 +184,8 @@ class VendorsRecordsControllerTest < ActionController::TestCase
         get :index, params: { vendor_id: redirect_to_url.split('/')[-2], bundle_id: @bundle._id }
 
         tracker = Tracker.where('options.vendor_id' => @vendor.id.to_s, 'options.original_filename' => 'full_fail_patient_upload.zip').first
-        # This is an error message returned from patient import when a low value for a time range is not included
-        assert tracker.log_message.last.include? 'no implicit conversion of nil into String'
+        # This is an error message returned from patient import when realmCode is in the wrong place
+        assert tracker.log_message.last.include? 'This element is not expected'
         assert_equal orig_patient_count, Patient.count
       end
     end
