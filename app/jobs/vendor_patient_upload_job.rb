@@ -95,8 +95,12 @@ class VendorPatientUploadJob < ApplicationJob
                 'effectiveDate' => Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number),
                 'includeClauseResults' => true }
     tracker_index = 0
-    total_count = ((patient_ids.size / 20) + 1) * bundle.measures.size
-    patient_ids.each_slice(20) do |patient_ids_slice|
+    # cqm-execution-service (using includeClauseResults) can run out of memory when it is run with a lot of patients.
+    # 20 patients was selected after monitoring performance when experimenting with varying counts (from 1 to 100)
+    # with all of the measures
+    patients_per_calculation = 20
+    total_count = ((patient_ids.size / patients_per_calculation) + 1) * bundle.measures.size
+    patient_ids.each_slice(patients_per_calculation) do |patient_ids_slice|
       bundle.measures.each do |measure|
         tracker.log("Calculating (#{((tracker_index.to_f / total_count) * 100).to_i}% complete) ")
         SingleMeasureCalculationJob.perform_now(patient_ids_slice, measure.id.to_s, vendor_id, options)
