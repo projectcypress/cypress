@@ -66,7 +66,7 @@ module Validators
       if !reported_result.empty? && !reported_result.key?(pop_key)
         generate_could_not_find_population_error_message(measure.hqmf_id, population_id, pop_key, pop_set_hash, stratification_id)
       elsif (expected_result[pop_key] != reported_result[pop_key]) && !reported_result.empty?
-        generate_does_not_match_population_error_message(measure.hqmf_id, population_id, pop_key, stratification_id)
+        generate_does_not_match_population_error_message(measure.hqmf_id, population_id, pop_key, stratification_id, expected_result, reported_result)
       end
     end
 
@@ -77,7 +77,7 @@ module Validators
       add_error(message, location: '/', measure_id: measure_id, population_id: population_id, stratification: stratification_id)
     end
 
-    def generate_does_not_match_population_error_message(measure_id, population_id, pop_key, stratification_id)
+    def generate_does_not_match_population_error_message(measure_id, population_id, pop_key, stratification_id, expected_result, reported_result)
       err = %(Expected #{pop_key} value #{expected_result[pop_key]}
       does not match reported value #{reported_result[pop_key]})
       error_details = { type: 'population', population_id: population_id, stratification: stratification_id,
