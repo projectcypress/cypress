@@ -13,18 +13,43 @@ require 'rest-client'
 require 'digest'
 require 'date'
 
-# BASE_URL = 'https://ecqi-dev.dd:8443'.freeze
-BASE_URL = 'https://va00027-pc.mitre.org:8443'.freeze
-USER = 'mokeefe'.freeze
-PASS = 'mokeefe'.freeze
+@options = {}
 
+# Parse the arguments file (json), if passed:
+if ARGV[0]
+  options_file = ARGV[0].chomp
+  File.open(options_file, 'r') { |f| @options = JSON.parse(f.read) }
+  puts @options
+end
+
+# Only ask for the username if it wasn't supplied
+unless @options['username']
+  print 'Drupal Username: '
+  @options['username'] = STDIN.gets.chomp
+end
+
+# Don't use a password from the file, because there's no way that's secure
+print 'Drupal Password: '
+@options['password'] = STDIN.noecho(&:gets).chomp
+
+# Only ask for the data element version if it wasn't supplied
+unless @options['data_element_version']
+  print "\nData Element Version (e.g. 0.1.3): "
+  @options['data_element_version'] = STDIN.gets.chomp
+end
+
+# Only ask for the base url if it wasn't supplied
+unless @options['base_url']
+  print 'Drupal base url (e.g. https://ecqi.healthit.gov): '
+  @options['base_url'] = STDIN.gets.chomp
+end
+
+# Headers for execute_request (required by JSON:API)
 @base_opts = {
   'Content-Type': 'application/vnd.api+json',
   'Accept': 'application/vnd.api+json'
 }
 
-# version (for testing purposes)
-@data_element_version = '0.0.4'
 @data_element_year = 2019
 @created_on_date = DateTime.current.to_s
 @md5 = Digest::MD5.new
@@ -48,16 +73,16 @@ def execute_request(method, url, data = nil)
     res = if method == :get
             RestClient::Request.execute(method: method,
                                         url: url,
-                                        user: USER,
-                                        password: PASS,
+                                        user: @options['username'],
+                                        password: @options['password'],
                                         verify_ssl: OpenSSL::SSL::VERIFY_NONE,
                                         headers: @base_opts)
           else
             data = JSON.generate(data) unless data.is_a? String
             RestClient::Request.execute(method: method,
                                         url: url,
-                                        user: USER,
-                                        password: PASS,
+                                        user: @options['username'],
+                                        password: @options['password'],
                                         verify_ssl: OpenSSL::SSL::VERIFY_NONE,
                                         headers: @base_opts,
                                         payload: data)
@@ -86,7 +111,7 @@ def find_qdm_element_by_title(title)
   @qdm_dataelements[
     {
       title: title.gsub(/[^a-zA-Z0-9]/, '').downcase,
-      version: @data_element_version,
+      version: @options['data_element_version'],
       year: @data_element_year
     }
   ]
@@ -97,7 +122,7 @@ def find_qdm_attribute_by_title(title)
   @qdm_attributes[
     {
       title: title.gsub(/[^a-zA-Z0-9]/, '').downcase,
-      version: @data_element_version,
+      version: @options['data_element_version'],
       year: @data_element_year
     }
   ]
@@ -128,57 +153,57 @@ end
 # Get the taxonomy of datatypes from Drupal, then turn them into a hash where:
 # key = the datatype name (e.g. "Averse event")
 # value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@all_qdm_datatypes = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/taxonomy_term/qdm_datatype")) { |term| term['attributes']['name'] }
+@all_qdm_datatypes = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/qdm_datatype")) { |term| term['attributes']['name'] }
 
 # Get the taxonomy of package types from Drupal, then turn them into a hash where:
 # key = the package name (e.g. "ecqm.dataelement")
 # value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@data_element_packages = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/taxonomy_term/data_element_package")) { |term| term['attributes']['name'] }
+@data_element_packages = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/data_element_package")) { |term| term['attributes']['name'] }
 
 # "stages" are the statuses of a data element (such as 'draft', 'active', and 'retired')
 # key = stage name (e.g. 'active')
 # value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@data_element_stages = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/taxonomy_term/data_element_stage")) { |term| term['attributes']['name'] }
+@data_element_stages = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/data_element_stage")) { |term| term['attributes']['name'] }
 
 # Code constraint types are either 'Direct Reference Code' or 'Value Set'
 # key = constraint name (e.g. 'Value Set')
 # value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@code_constraint_types = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/taxonomy_term/code_type")) { |term| term['attributes']['name'] }
+@code_constraint_types = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/code_type")) { |term| term['attributes']['name'] }
 
 # Base element types are the taxonomy terms representing QDM Data Types
 # key = term name (e.g. '')
 # value = a hash with a drupal hash (with type and ID), as well as a 'name' and 'description'
-@base_element_types = to_drupal_lookup_table_with_description(execute_request(:get, "#{BASE_URL}/jsonapi/taxonomy_term/qdm_datatype")) { |term| term['attributes']['name'].gsub('/', ' ') }
+@base_element_types = to_drupal_lookup_table_with_description(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/qdm_datatype")) { |term| term['attributes']['name'].gsub('/', ' ') }
 
 # A hash of all the code constraints that exist in Drupal
 # Note: this hash gets updated as we POST new code constraints within this exporter
 # key = a hash of the code constraint details (code system, oid, and display name, delimited by dashes)
 # value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@code_constraints = to_drupal_lookup_table_with_revisions(execute_request(:get, "#{BASE_URL}/jsonapi/paragraph/code_constraint")) { |term| "#{term['attributes']['field_code_system']}-#{term['attributes']['field_oid']}-#{term['attributes']['field_name']}" }
+@code_constraints = to_drupal_lookup_table_with_revisions(execute_request(:get, "#{@options['base_url']}/jsonapi/paragraph/code_constraint")) { |term| "#{term['attributes']['field_code_system']}-#{term['attributes']['field_oid']}-#{term['attributes']['field_name']}" }
 
 # A hash of the qdm.dataelement data element objects, to be used as "base types"
 # The filter filters by the ID of 'qdm.dataelement' in the package taxonomy
 # key = a hash of the code constraint details (code system, oid, and display name, delimited by dashes)
 # value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@qdm_dataelements = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['qdm.dataelement'][:id]}")) { |term| hash_element(term.deep_symbolize_keys) }
+@qdm_dataelements = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['qdm.dataelement'][:id]}")) { |term| hash_element(term.deep_symbolize_keys) }
 
 # A hash of the ecqm.dataelement data element objects. These are the whole reason the site exists.
 # The filter filters by the ID of 'ecqm.dataelement' in the package taxonomy
 # NOTE: these get added to when new data elements are built in this script
 # key = a hash of various elements of the ecqm data element (title, code constraint OID/codesystem, version, etc)
 # value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@ecqm_dataelements = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['ecqm.dataelement'][:id]}")) { |term| hash_dataelement(term.deep_symbolize_keys) }
+@ecqm_dataelements = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['ecqm.dataelement'][:id]}")) { |term| hash_dataelement(term.deep_symbolize_keys) }
 
 # A hash of the electronic clinical quality emasure objects (built by Battelle, not us)
 # key = the CMS ID of the measure (which is version specific, aka it's different between annual update years)
 # value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@drupal_measures = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/clinical_quality_measure")) { |term| term['attributes']['field_cms_id'] }
+@drupal_measures = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/node/clinical_quality_measure")) { |term| term['attributes']['field_cms_id'] }
 
-@qdm_attributes = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['qdm.attribute'][:id]}")) { |term| hash_element(term.deep_symbolize_keys) }
+@qdm_attributes = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['qdm.attribute'][:id]}")) { |term| hash_element(term.deep_symbolize_keys) }
 
-@ecqm_unions = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['ecqm.unions'][:id]}")) { |term| hash_element(term.deep_symbolize_keys) }
+@ecqm_unions = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['ecqm.unions'][:id]}")) { |term| hash_element(term.deep_symbolize_keys) }
 
-@views = to_drupal_lookup_table(execute_request(:get, "#{BASE_URL}/jsonapi/view/view")) { |term| term['attributes']['drupal_internal__id'] }
+@views = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/view/view")) { |term| term['attributes']['drupal_internal__id'] }
 
 modelinfo = File.open('script/noversion/model_info_file_5_4.xml') { |f| Nokogiri::XML(f) }
 
@@ -383,7 +408,7 @@ b_hash.each do |key, measure_ids|
   end
 end
 
-csv_text = File.read('script/noversion/value-set-codes-march-release-UniqueValueSets.csv')
+csv_text = File.read('script/noversion/value-set-codes-2020.csv')
 csv = CSV.parse(csv_text, headers: true)
 csv.each do |row|
   @vs_desc[row[0]] = row['Purpose']
@@ -443,7 +468,7 @@ def find_or_create_union(element)
   end
 
   puts "Union \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} year #{element[:data][:attributes][:field_year]} not found, creating"
-  res = execute_request(:post, "#{BASE_URL}/jsonapi/node/data_element2", JSON.generate(element))
+  res = execute_request(:post, "#{@options['base_url']}/jsonapi/node/data_element2", JSON.generate(element))
   @ecqm_unions[hash_dataelement(res.deep_symbolize_keys)] = { type: res['type'], id: res['id'] }
 end
 
@@ -453,7 +478,7 @@ def build_union(title:, cms_ids:, union_elements:)
       type: 'node--data_element2',
       attributes: {
         title: title,
-        field_data_element_version: @data_element_version,
+        field_data_element_version: @options['data_element_version'],
         field_year: @data_element_year,
         field_filename: "ecqm-union/#{title.gsub(/[^A-Za-z0-9]/, '')}.html",
         field_data_element_id: id_for('ecqm.unions', title.gsub(/[^A-Za-z0-9]/, '')),
@@ -500,7 +525,7 @@ def print_union
           end
           included_data_element = {
             title: title,
-            version: @data_element_version,
+            version: @options['data_element_version'],
             code_constraint: included_code_constraint,
             year: @data_element_year
           }
@@ -549,7 +574,7 @@ def find_or_create_qdm_dataelement(element)
   end
 
   puts "QDM Datatype \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} year #{element[:data][:attributes][:field_year]} not found, creating"
-  res = execute_request(:post, "#{BASE_URL}/jsonapi/node/data_element2", JSON.generate(element))
+  res = execute_request(:post, "#{@options['base_url']}/jsonapi/node/data_element2", JSON.generate(element))
   @qdm_dataelements[hash_element(res.deep_symbolize_keys)] = { type: res['type'], id: res['id'] }
 end
 
@@ -564,7 +589,7 @@ def build_qdm_dataelement(title:, description:, qdm_datatype:, attribute_ids:)
           format: 'body_html'
         },
         field_year: @data_element_year,
-        field_data_element_version: @data_element_version,
+        field_data_element_version: @options['data_element_version'],
         field_filename: "qdm-dataelement/#{title.gsub(/[^A-Za-z0-9]/, '')}.html",
         field_data_element_id: id_for('qdm.dataelement', title.gsub(/[^A-Za-z0-9]/, '')),
         field_date_generated: @created_on_date
@@ -669,7 +694,7 @@ def find_or_create_code_constraint(type:, display_name:, code_system_name:, url:
       }
     }
   }
-  ret = execute_request(:post, "#{BASE_URL}/jsonapi/paragraph/code_constraint", cc_obj)
+  ret = execute_request(:post, "#{@options['base_url']}/jsonapi/paragraph/code_constraint", cc_obj)
   if ret
     @code_constraints[hash] = { type: 'paragraph--code_constraint', id: ret['id'], meta: { target_revision_id: ret['attributes']['drupal_internal__revision_id'] } }
     return @code_constraints[hash]
@@ -683,7 +708,7 @@ def find_or_create_ecqm_dataelement(element)
     return @ecqm_dataelements[hash_dataelement(element[:data])]
   end
   puts "Element \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} year #{element[:data][:attributes][:field_year]} not found, creating"
-  res = execute_request(:post, "#{BASE_URL}/jsonapi/node/data_element2", JSON.generate(element))
+  res = execute_request(:post, "#{@options['base_url']}/jsonapi/node/data_element2", JSON.generate(element))
   @ecqm_dataelements[hash_dataelement(res.deep_symbolize_keys)] = { type: res['type'], id: res['id'] }
 end
 
@@ -727,7 +752,7 @@ def build_dataelement(title:, typedef:, vs_description:, oid:, cms_ids:, attribu
           value: create_dataelement_description(vs_description),
           format: 'body_html'
         },
-        field_data_element_version: @data_element_version,
+        field_data_element_version: @options['data_element_version'],
         field_year: @data_element_year,
         field_filename: "ecqm-dataelement/#{title.gsub(/[^A-Za-z0-9]/, '')}.html",
         field_data_element_id: id_for('ecqm.dataelement', title.gsub(/[^A-Za-z0-9]/, '')),
@@ -836,7 +861,7 @@ def build_qdm_attribute(title:, description:)
           format: 'body_html'
         },
         field_year: @data_element_year,
-        field_data_element_version: @data_element_version,
+        field_data_element_version: @options['data_element_version'],
         field_filename: "qdm-attribute/#{title.gsub(/[^A-Za-z0-9]/, '')}.html",
         field_data_element_id: id_for('qdm.attribute', title.gsub(/[^A-Za-z0-9]/, '')),
         field_date_generated: @created_on_date
@@ -860,7 +885,7 @@ def find_or_create_qdm_attribute(element)
   end
 
   puts "QDM Attribute \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} year #{element[:data][:attributes][:field_year]} not found, creating"
-  res = execute_request(:post, "#{BASE_URL}/jsonapi/node/data_element2", JSON.generate(element))
+  res = execute_request(:post, "#{@options['base_url']}/jsonapi/node/data_element2", JSON.generate(element))
   @qdm_attributes[hash_element(res.deep_symbolize_keys)] = { type: res['type'], id: res['id'] }
 end
 
