@@ -3,6 +3,7 @@ require 'csv'
 require 'byebug'
 require 'health-data-standards'
 require 'bonnie_bundler'
+require 'io/console'
 
 Mongoid.load!('config/mongoid.yml', :development)
 @valuesets = HealthDataStandards::SVS::ValueSet.all
@@ -31,6 +32,8 @@ end
 # Don't use a password from the file, because there's no way that's secure
 print 'Drupal Password: '
 @options['password'] = STDIN.noecho(&:gets).chomp
+
+print "\n"
 
 # Only ask for the data element version if it wasn't supplied
 unless @options['data_element_version']
