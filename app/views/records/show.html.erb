@@ -68,7 +68,21 @@
 <% end %>
 
   <div class="col-md-6" style="overflow-y: scroll; height:100vh;">
-    <!--h2>Patient Details</h2-->
+
+      <div class="btn-group" align="right">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Select Measure(s) <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+        <li><%= link_to "All Measures" %></li>
+          <% @measures.each do |measure| %>
+            <% measure.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
+              <li><%= link_to "#{measure_display_name(measure, population_set_hash)}", vendor_record_path(:vendor_id => @vendor.id, :id => r.id, :bundle_id => @bundle.id)%></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    
+      
     <% sf_patient = @record.clone %>
     <%= QdmPatient.new(Cypress::ScoopAndFilter.new(@measures).scoop_and_filter(sf_patient), false).render.html_safe %>
   </div>
