@@ -81,7 +81,7 @@ gem 'vmstat'
 
 # Devise is the gem we use for user authentication
 gem 'cancancan'
-gem 'devise', '4.6.2'
+gem 'devise', '4.7.1'
 gem 'devise_invitable'
 gem 'rolify'
 
