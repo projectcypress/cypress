@@ -73,7 +73,8 @@
 
 <% end %>
 <% measure_cache_key = @measure.nil? ? 'none' : @measure.id %>
-<% cache [@patients.map(&:id), measure_cache_key, hide_patient_calculation?] do %>
+<% measure_population_cache_key = @measure.nil? ? 'none' : @measure.key_for_population_set(@population_set_hash) %>
+<% cache [@patients.map(&:id), measure_cache_key, measure_population_cache_key, hide_patient_calculation?] do %>
   <div class="row">
     <div id="records_list" class="col-sm-12">
       <%= render 'records_list', :patients => @patients, :measure => @measure, :population_set_hash => @population_set_hash, :product_test => @product_test, :bundle => @bundle, :task => @task, :vendor => @vendor %>
