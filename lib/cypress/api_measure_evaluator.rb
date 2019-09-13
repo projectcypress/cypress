@@ -401,7 +401,8 @@ module Cypress
       file_name ||= product_test_link.split('/')[2]
       resource = RestClient::Resource.new("#{@cypress_host}#{product_test_link}", timeout: 90_000_000,
                                                                                   user: @username,
-                                                                                  password: @password)
+                                                                                  password: @password,
+                                                                                  headers: { accept: :json })
       begin
         response = resource.get
         if !response.empty?
@@ -477,7 +478,7 @@ module Cypress
       import_cat1_zip(File.new("tmp/#{product_test_id}.zip"), patient_ids, bundle_id)
       do_calculation(pt, patient_ids, correlation_id)
 
-      erc = Cypress::ExpectedResultsCalculator.new(Patient.find(patient_ids), correlation_id)
+      erc = Cypress::ExpectedResultsCalculator.new(Patient.find(patient_ids), correlation_id, pt.effective_date)
       results = erc.aggregate_results_for_measures(pt.measures)
 
       cms_compatibility = pt&.product&.c3_test
@@ -534,7 +535,8 @@ module Cypress
     def import_cat1_file(doc, patient_ids, bundle_id)
       patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, Bundle.find(bundle_id))
-      patient.save
+      patient.update(_type: CQM::TestExecutionPatient, correlation_id: 'api_eval')
+      patient.save!
       patient_ids << patient.id
     end
   end
