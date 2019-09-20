@@ -25,10 +25,20 @@ Similar to 2019, 2020 Reporting/Performance Period measures were downloaded as M
 ## 2019 Measures
 The Exporter for the 2019 measures is based off of Cypress v4. The branch containing the Exporter is called `generate_cimpl_d8`. To set it up, change branches to `generate_cimpl_d8` by executing the command `git checkout generate_cimpl_d8` in the Cypress folder. Then, follow the instructions at https://github.com/projectcypress/cypress/wiki/Cypress-4-Install-Instructions, including the [bundle installation instructions](https://github.com/projectcypress/cypress/wiki/Cypress-4-Initial-Setup) (UMLS Credentials will be required to download the bundle). 
 
+Things that need to get run in the Terminal for Cypress v4 to install a Measure Bundle
+* (In the Cypress directory): `bundle exec rails server`
+* (In the Cypress directory): `bundle exec rake jobs:work`
+* (In the js-ecqm-engine directory): `./bin/rabbit_worker.js`
+
 Note: The rails server, the job worker, and the `js-ecqm-engine` referenced above do not need to be running in order to run the Drupal 8 exporter. The only running service needed for the Drupal 8 exporter to work is the MongoDB server.
 
 ## 2020 Measures
 The Exporter for the 2020 measures is based off of Cypress v5. The branch containing the Exporter is called `generate_cimpl_d8_2020`. To set it up, change branches to `generate_cimpl_d8_2020` by executing the command `git checkout generate_cimpl_d8_2020` in the Cypress folder. Then, follow the instructions at https://github.com/projectcypress/cypress/wiki/Cypress-5-Install-Instructions, including the [bundle installation instructions](https://github.com/projectcypress/cypress/wiki/Cypress-5-Initial-Setup) (UMLS Credentials will be required to download the bundle).
+
+Things that need to get run in the Terminal for Cypress v5 to install a Measure Bundle
+* (In the Cypress directory): `bundle exec rails server`
+* (In the Cypress directory): `bundle exec rake jobs:work`
+* (In the cqm-execution-service directory): `yarn start`
 
 Note: The rails server, the job worker, and the `cqm-execution-service` referenced above do not need to be running in order to run the Drupal 8 exporter. The only running service needed for the Drupal 8 exporter to work is the MongoDB server.
 
@@ -43,7 +53,7 @@ Several options must be supplied to the exporter in order for it to work.
 # Exporter Running
 To run the exporter:
 * 2019:
-    * In the Cypress directory, execute the command `bundle exec rails script/export_to_drupal.rb <path_to_json_file>.json`
+    * In the Cypress directory, execute the command `bundle exec ruby script/export_to_drupal.rb <path_to_json_file>.json`
 * 2020
     * In the Cypress directory, execute the command `rails runner script/export_to_drupal.rb <path_to_json_file>.json`
 Note: the JSON file path is relative to the cypress root directory.

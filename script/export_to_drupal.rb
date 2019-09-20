@@ -411,7 +411,7 @@ b_hash.each do |key, measure_ids|
   end
 end
 
-csv_text = File.read('script/noversion/value-set-codes-2020.csv')
+csv_text = File.read('script/noversion/value-set-codes-march-release-UniquevalueSets.csv')
 csv = CSV.parse(csv_text, headers: true)
 csv.each do |row|
   @vs_desc[row[0]] = row['Purpose']
