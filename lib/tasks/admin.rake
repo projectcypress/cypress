@@ -53,16 +53,22 @@ namespace :cypress do
   end
 
   desc %(
-    Upload bundle
+    Upload measure bundle file with extension .zip
   )
   task :upload_bundle, [:file] => :setup do |_, args|
-    puts "is happening"
     bundle_file = args.file
+    bundle_name = bundle_file.split("/").last()
+    unless File.extname(bundle_name) == '.zip'
+      puts 'Bundle file must have extension .zip'
+      return
+    end
+
     FileUtils.mkdir_p(APP_CONSTANTS['bundle_file_path'])
     file_name = "bundle_#{rand(Time.now.to_i)}.zip"
     file_path = File.join(APP_CONSTANTS['bundle_file_path'], file_name)
     FileUtils.mv(bundle_file, file_path)
-    BundleUploadJob.perform_later(file_path, bundle_file.split("/").last())
+    BundleUploadJob.perform_later(file_path, bundle_name)
+    puts "Uploading #{bundle_name} bundle"
   end
 
 end
