@@ -97,3 +97,16 @@ Scenario: View Vendor Patient Page
   Then the user should see vendor patient details
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
+
+Scenario: Scoop and Filter Vendor Patient Page
+  Given a vendor patient has measure_calculations
+  When the user visits the vendor patient link
+  When the user filters on CMS32v7
+  Then the user should see text EncounterPerformed
+  When the user filters on CMS032v7
+  Then the user should not see text EncounterPerformed
+  Then the user should see text PatientCharacteristicBirthdate
+  When the user filters on All Measures
+  Then the user should see text EncounterPerformed
+  Then the page should be accessible according to: section508
+  Then the page should be accessible according to: wcag2aa
