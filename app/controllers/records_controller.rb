@@ -28,6 +28,7 @@ class RecordsController < ApplicationController
     @record = @source.patients.find(params[:id])
     @results = @record.calculation_results
     @measures = (@vendor ? @bundle : @source).measures.where(:_id.in => @results.map(&:measure_id))
+    @hqmf_id = params[:hqmf_id]
     @continuous_measures = @measures.where(measure_scoring: 'CONTINUOUS_VARIABLE').sort_by { |m| [m.cms_int] }
     @proportion_measures = @measures.where(measure_scoring: 'PROPORTION').sort_by { |m| [m.cms_int] }
     expires_in 1.week, public: true
