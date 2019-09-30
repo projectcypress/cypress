@@ -37,6 +37,10 @@ And(/^the user views multi measure cat3 task$/) do
   visit new_task_test_execution_path(task)
 end
 
+And(/^the user views a task record$/) do
+  find(:xpath, "//a[@href='/records/#{@product_test.patients.first.id}?task_id=#{@product_test.tasks.first.id}']").trigger('click')
+end
+
 # # # # # # # #
 #   T H E N   #
 # # # # # # # #
