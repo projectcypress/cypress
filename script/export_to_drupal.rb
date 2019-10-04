@@ -388,6 +388,7 @@ b_hash.each do |key, measure_ids|
   @value_set_hash[vs_oid][:data_types] = {} unless @value_set_hash[vs_oid][:data_types]
   @value_set_hash[vs_oid][:data_types][data_type_name] = data_type unless @value_set_hash[vs_oid][:data_types][data_type_name]
   @value_set_hash[vs_oid][:data_types][data_type_name][:measures] = measure_ids.uniq
+  # byebug if vs_oid == '2.16.840.1.113883.3.464.1003.198.11.1029'
   @value_set_hash[vs_oid][:data_types][data_type_name][:measures].each do |measure_id|
     @vs_measure[vs_oid] ? @vs_measure[vs_oid] << measure_id : @vs_measure[vs_oid] = [measure_id]
     @measure_vs[measure_id] ? @measure_vs[measure_id] << vs_oid : @measure_vs[measure_id] = [vs_oid]
@@ -493,7 +494,7 @@ def build_union(title:, cms_ids:, union_elements:)
         # Note: the '*' operator in the next line is the Ruby 'splat' operator
         # Which expands an array into a list of arguments
         field_parent_measures: { data: @drupal_measures.values_at(*cms_ids).compact },
-        field_union_elements: { data: union_elements}
+        field_union_elements: { data: union_elements }
       }
     }
   }
@@ -503,7 +504,6 @@ end
 
 def print_union
   @all_unions_generic_name.each do |union_values, hash|
-
     measure_ids = hash[:cms_ids].map { |id| padded_cms_id(id) }
 
     hash[:union_keys].each do |union_key|
@@ -554,19 +554,7 @@ def build_referenced_view(display_id)
       data: nil
     }
   }
-  @views['data_element_references'].merge(merge_hash)
-end
-
-def build_referenced_view(display_id)
-  merge_hash = {
-    meta: {
-      display_id: display_id,
-      argument: nil,
-      title: '0',
-      data: nil
-    }
-  }
-  @views['data_element_references'].merge(merge_hash)
+  @views['data_element_references'] ? merge_hash.merge(@views['data_element_references']) : merge_hash
 end
 
 def find_or_create_qdm_dataelement(element)
@@ -797,41 +785,28 @@ end
 def print_ecqm_dataelement
   sorted_vs = @value_set_hash.sort_by { |_key, value| value[:display_name] || 'zzz' }
   sorted_vs.each do |oid, vs_hash|
+    # byebug if oid == '2.16.840.1.113883.3.464.1003.198.11.1029'
     next unless @vs_measure[oid]
     if vs_hash[:data_types]
       vs_description = @vs_desc[oid] ? @vs_desc[oid].tr('"', "'") : ''
-      exported_base_types = []
       vs_hash[:data_types].each do |data_type, dt_hash|
-        measure_ids = dt_hash[:measures].map { |id| padded_cms_id(id) }
+        measure_ids = dt_hash[:measures].uniq.map { |id| padded_cms_id(id) }
         attribute_ids = dt_hash[:attributes] ? dt_hash[:attributes].map { |attr_name| find_qdm_attribute_by_title(attr_name) } : []
 
-        # if (data_type != dt_hash[:vs_extension_name]) && !exported_base_types.include?(dt_hash[:type_definition])
-        #   # Start building the drupal data element as a hash
-        #   # attributes are simple datatypes
-        #   # relationships are links to other datatypes
-        #   element = build_dataelement(title: vs_hash[:display_name],
-        #                               typedef: find_qdm_element_by_title(dt_hash[:type_definition]),
-        #                               vs_description: vs_description,
-        #                               oid: oid,
-        #                               cms_ids: measure_ids,
-        #                               attribute_ids: attribute_ids)
-        #   find_or_create_ecqm_dataelement(element)
-        #   exported_base_types << dt_hash[:type_definition]
-        # end
         element = if data_type != dt_hash[:vs_extension_name]
                     build_dataelement(title: "#{dt_hash[:type_definition]}, #{dt_hash[:type_status]}: #{vs_hash[:display_name]}",
-                                                typedef: find_qdm_element_by_title(data_type),
-                                                vs_description: vs_description,
-                                                oid: oid,
-                                                cms_ids: measure_ids,
-                                                attribute_ids: attribute_ids)
+                                      typedef: find_qdm_element_by_title(data_type),
+                                      vs_description: vs_description,
+                                      oid: oid,
+                                      cms_ids: measure_ids,
+                                      attribute_ids: attribute_ids)
                   else
                     build_dataelement(title: "#{dt_hash[:type_definition]}: #{vs_hash[:display_name]}",
-                                                typedef: find_qdm_element_by_title(data_type),
-                                                vs_description: vs_description,
-                                                oid: oid,
-                                                cms_ids: measure_ids,
-                                                attribute_ids: attribute_ids)
+                                      typedef: find_qdm_element_by_title(data_type),
+                                      vs_description: vs_description,
+                                      oid: oid,
+                                      cms_ids: measure_ids,
+                                      attribute_ids: attribute_ids)
                   end
         find_or_create_ecqm_dataelement(element)
       end
@@ -845,7 +820,7 @@ def print_ecqm_dataelement
         typedef: find_qdm_attribute_by_title(att),
         vs_description: vs_description,
         oid: oid,
-        cms_ids: vs_hash[:measures].map { |id| padded_cms_id(id) },
+        cms_ids: vs_hash[:measures].uniq.map { |id| padded_cms_id(id) },
         attribute_ids: []
       )
       find_or_create_ecqm_dataelement(element)
