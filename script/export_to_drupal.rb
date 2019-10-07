@@ -131,83 +131,6 @@ def find_qdm_attribute_by_title(title)
   ]
 end
 
-# to_drupal_lookup_table takes an array of Drupal objects from JSON API calls, and turns them into a hash
-# key of the hash = a "lookup key" for the object, usually either the name or a string of attributes put together
-# value of the hash = a second hash with "type" and "id" attributes, which is the format that the JSON API uses
-# for references between objects
-def to_drupal_lookup_table(ary)
-  ary.map do |term|
-    [yield(term), { type: term['type'], id: term['id'] }]
-  end.to_h
-end
-
-def to_drupal_lookup_table_with_description(ary)
-  ary.map do |term|
-    [yield(term), { drupal_hash: { type: term['type'], id: term['id'] }, description: term.dig('attributes', 'description', 'value'), name: term.dig('attributes', 'name') }]
-  end.to_h
-end
-
-def to_drupal_lookup_table_with_revisions(ary)
-  ary.map do |term|
-    [yield(term), { type: term['type'], id: term['id'], meta: { target_revision_id: term['attributes']['drupal_internal__revision_id'] } }]
-  end.to_h
-end
-
-# Get the taxonomy of datatypes from Drupal, then turn them into a hash where:
-# key = the datatype name (e.g. "Averse event")
-# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@all_qdm_datatypes = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/qdm_datatype")) { |term| term['attributes']['name'] }
-
-# Get the taxonomy of package types from Drupal, then turn them into a hash where:
-# key = the package name (e.g. "ecqm.dataelement")
-# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@data_element_packages = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/data_element_package")) { |term| term['attributes']['name'] }
-
-# "stages" are the statuses of a data element (such as 'draft', 'active', and 'retired')
-# key = stage name (e.g. 'active')
-# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@data_element_stages = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/data_element_stage")) { |term| term['attributes']['name'] }
-
-# Code constraint types are either 'Direct Reference Code' or 'Value Set'
-# key = constraint name (e.g. 'Value Set')
-# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@code_constraint_types = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/code_type")) { |term| term['attributes']['name'] }
-
-# Base element types are the taxonomy terms representing QDM Data Types
-# key = term name (e.g. '')
-# value = a hash with a drupal hash (with type and ID), as well as a 'name' and 'description'
-@base_element_types = to_drupal_lookup_table_with_description(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/qdm_datatype")) { |term| term['attributes']['name'].gsub('/', ' ') }
-
-# A hash of all the code constraints that exist in Drupal
-# Note: this hash gets updated as we POST new code constraints within this exporter
-# key = a hash of the code constraint details (code system, oid, and display name, delimited by dashes)
-# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@code_constraints = to_drupal_lookup_table_with_revisions(execute_request(:get, "#{@options['base_url']}/jsonapi/paragraph/code_constraint")) { |term| "#{term['attributes']['field_code_system']}-#{term['attributes']['field_oid']}-#{term['attributes']['field_name']}" }
-
-# A hash of the qdm.dataelement data element objects, to be used as "base types"
-# The filter filters by the ID of 'qdm.dataelement' in the package taxonomy
-# key = a hash of the code constraint details (code system, oid, and display name, delimited by dashes)
-# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@qdm_dataelements = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['qdm.dataelement'][:id]}")) { |term| hash_element(term.deep_symbolize_keys) }
-
-# A hash of the ecqm.dataelement data element objects. These are the whole reason the site exists.
-# The filter filters by the ID of 'ecqm.dataelement' in the package taxonomy
-# NOTE: these get added to when new data elements are built in this script
-# key = a hash of various elements of the ecqm data element (title, code constraint OID/codesystem, version, etc)
-# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@ecqm_dataelements = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['ecqm.dataelement'][:id]}")) { |term| hash_dataelement(term.deep_symbolize_keys) }
-
-# A hash of the electronic clinical quality emasure objects (built by Battelle, not us)
-# key = the CMS ID of the measure (which is version specific, aka it's different between annual update years)
-# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@drupal_measures = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/node/clinical_quality_measure")) { |term| term['attributes']['field_cms_id'] }
-
-@qdm_attributes = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['qdm.attribute'][:id]}")) { |term| hash_element(term.deep_symbolize_keys) }
-
-@ecqm_unions = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['ecqm.unions'][:id]}")) { |term| hash_element(term.deep_symbolize_keys) }
-
-@views = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/view/view")) { |term| term['attributes']['drupal_internal__id'] }
-
 modelinfo = File.open('script/noversion/model_info_file_5_4.xml') { |f| Nokogiri::XML(f) }
 
 # Datatypes (keys are the datatype name, values are the datatype attributes)
@@ -345,6 +268,10 @@ end
 measures.nin(cms_id: %w[CMS167v7 CMS123v7 CMS164v7 CMS169v7 CMS158v7 CMS65v8]).each do |measure|
   next if completed_measures.include? measure.cms_id
 
+  measure['source_data_criteria'].each do |_key, sdc|
+    sdc['attributes'] = []
+  end
+
   dcab = Cypress::DataCriteriaAttributeBuilder.new
   dcab.build_data_criteria_for_measure(measure)
 
@@ -353,7 +280,7 @@ measures.nin(cms_id: %w[CMS167v7 CMS123v7 CMS164v7 CMS169v7 CMS158v7 CMS65v8]).e
   completed_measures << measure.cms_id
   measure['source_data_criteria'].each do |_key, sdc|
     sdc['status'] = 'order' if sdc['status'] == 'ordered'
-    if sdc['attributes']
+    if sdc['attributes'] && !sdc['attributes'].empty?
       sdc['attributes'].each do |att|
         ds = sdc['status'] ? sdc['definition'] + ':' + sdc['status'] : sdc['definition'] + ':'
         dsa = ds + ':' + att[:attribute_name]
@@ -388,7 +315,6 @@ b_hash.each do |key, measure_ids|
   @value_set_hash[vs_oid][:data_types] = {} unless @value_set_hash[vs_oid][:data_types]
   @value_set_hash[vs_oid][:data_types][data_type_name] = data_type unless @value_set_hash[vs_oid][:data_types][data_type_name]
   @value_set_hash[vs_oid][:data_types][data_type_name][:measures] = measure_ids.uniq
-  # byebug if vs_oid == '2.16.840.1.113883.3.464.1003.198.11.1029'
   @value_set_hash[vs_oid][:data_types][data_type_name][:measures].each do |measure_id|
     @vs_measure[vs_oid] ? @vs_measure[vs_oid] << measure_id : @vs_measure[vs_oid] = [measure_id]
     @measure_vs[measure_id] ? @measure_vs[measure_id] << vs_oid : @measure_vs[measure_id] = [vs_oid]
@@ -463,6 +389,83 @@ all_unions = @all_unions_with_name.sort_by { |key, _value| key }
 all_unions.each do |key, value|
   new_or_exising_group(key, value[:values], value[:cms_ids])
 end
+
+# to_drupal_lookup_table takes an array of Drupal objects from JSON API calls, and turns them into a hash
+# key of the hash = a "lookup key" for the object, usually either the name or a string of attributes put together
+# value of the hash = a second hash with "type" and "id" attributes, which is the format that the JSON API uses
+# for references between objects
+def to_drupal_lookup_table(ary)
+  ary.map do |term|
+    [yield(term), { type: term['type'], id: term['id'] }]
+  end.to_h
+end
+
+def to_drupal_lookup_table_with_description(ary)
+  ary.map do |term|
+    [yield(term), { drupal_hash: { type: term['type'], id: term['id'] }, description: term.dig('attributes', 'description', 'value'), name: term.dig('attributes', 'name') }]
+  end.to_h
+end
+
+def to_drupal_lookup_table_with_revisions(ary)
+  ary.map do |term|
+    [yield(term), { type: term['type'], id: term['id'], meta: { target_revision_id: term['attributes']['drupal_internal__revision_id'] } }]
+  end.to_h
+end
+
+# Get the taxonomy of datatypes from Drupal, then turn them into a hash where:
+# key = the datatype name (e.g. "Averse event")
+# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
+@all_qdm_datatypes = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/qdm_datatype")) { |term| term['attributes']['name'] }
+
+# Get the taxonomy of package types from Drupal, then turn them into a hash where:
+# key = the package name (e.g. "ecqm.dataelement")
+# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
+@data_element_packages = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/data_element_package")) { |term| term['attributes']['name'] }
+
+# "stages" are the statuses of a data element (such as 'draft', 'active', and 'retired')
+# key = stage name (e.g. 'active')
+# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
+@data_element_stages = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/data_element_stage")) { |term| term['attributes']['name'] }
+
+# Code constraint types are either 'Direct Reference Code' or 'Value Set'
+# key = constraint name (e.g. 'Value Set')
+# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
+@code_constraint_types = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/code_type")) { |term| term['attributes']['name'] }
+
+# Base element types are the taxonomy terms representing QDM Data Types
+# key = term name (e.g. '')
+# value = a hash with a drupal hash (with type and ID), as well as a 'name' and 'description'
+@base_element_types = to_drupal_lookup_table_with_description(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/qdm_datatype")) { |term| term['attributes']['name'].gsub('/', ' ') }
+
+# A hash of all the code constraints that exist in Drupal
+# Note: this hash gets updated as we POST new code constraints within this exporter
+# key = a hash of the code constraint details (code system, oid, and display name, delimited by dashes)
+# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
+@code_constraints = to_drupal_lookup_table_with_revisions(execute_request(:get, "#{@options['base_url']}/jsonapi/paragraph/code_constraint")) { |term| "#{term['attributes']['field_code_system']}-#{term['attributes']['field_oid']}-#{term['attributes']['field_name']}" }
+
+# A hash of the qdm.dataelement data element objects, to be used as "base types"
+# The filter filters by the ID of 'qdm.dataelement' in the package taxonomy
+# key = a hash of the code constraint details (code system, oid, and display name, delimited by dashes)
+# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
+@qdm_dataelements = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['qdm.dataelement'][:id]}")) { |term| hash_element(term.deep_symbolize_keys) }
+
+# A hash of the ecqm.dataelement data element objects. These are the whole reason the site exists.
+# The filter filters by the ID of 'ecqm.dataelement' in the package taxonomy
+# NOTE: these get added to when new data elements are built in this script
+# key = a hash of various elements of the ecqm data element (title, code constraint OID/codesystem, version, etc)
+# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
+@ecqm_dataelements = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['ecqm.dataelement'][:id]}")) { |term| hash_dataelement(term.deep_symbolize_keys) }
+
+# A hash of the electronic clinical quality emasure objects (built by Battelle, not us)
+# key = the CMS ID of the measure (which is version specific, aka it's different between annual update years)
+# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
+@drupal_measures = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/node/clinical_quality_measure")) { |term| term['attributes']['field_cms_id'] }
+
+@qdm_attributes = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['qdm.attribute'][:id]}")) { |term| hash_element(term.deep_symbolize_keys) }
+
+@ecqm_unions = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/node/data_element2?filter[field_package.id]=#{@data_element_packages['ecqm.unions'][:id]}")) { |term| hash_element(term.deep_symbolize_keys) }
+
+@views = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/view/view")) { |term| term['attributes']['drupal_internal__id'] }
 
 def find_or_create_union(element)
   elem_hash = hash_element(element[:data])
@@ -785,7 +788,6 @@ end
 def print_ecqm_dataelement
   sorted_vs = @value_set_hash.sort_by { |_key, value| value[:display_name] || 'zzz' }
   sorted_vs.each do |oid, vs_hash|
-    # byebug if oid == '2.16.840.1.113883.3.464.1003.198.11.1029'
     next unless @vs_measure[oid]
     if vs_hash[:data_types]
       vs_description = @vs_desc[oid] ? @vs_desc[oid].tr('"', "'") : ''

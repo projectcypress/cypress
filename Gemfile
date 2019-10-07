@@ -13,9 +13,10 @@ gem 'bson_ext'
 gem 'mustache'
 gem 'os'
 
-gem 'bonnie_bundler', git: 'https://github.com/projectcypress/bonnie_bundler.git', branch: 'simple_export'
+# gem 'bonnie_bundler', git: 'https://github.com/projectcypress/bonnie_bundler.git', branch: 'simple_export'
+gem 'bonnie_bundler', path: '../bonnie_bundler'
 
-gem 'cql_qdm_patientapi'
+gem 'cql_qdm_patientapi', '~> 1.2.0'
 gem 'cqm-converter', '~> 0.3.6'
 gem 'cqm-models', '~> 0.8.4'
 gem 'cqm-parsers', '~> 0.2.1'
