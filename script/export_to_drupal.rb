@@ -796,7 +796,7 @@ def print_ecqm_dataelement
     if vs_hash[:data_types]
       vs_description = @vs_desc[oid] ? @vs_desc[oid].tr('"', "'") : ''
       vs_hash[:data_types].each do |data_type, dt_hash|
-        measure_ids = dt_hash[:measures].uniq.map { |id| padded_cms_id(id) }
+        measure_ids = @vs_measure[oid].uniq.map { |id| padded_cms_id(id) }
         attribute_ids = dt_hash[:attributes] ? dt_hash[:attributes].map { |attr_name| find_qdm_attribute_by_title(attr_name) } : []
 
         element = if data_type != dt_hash[:vs_extension_name]
