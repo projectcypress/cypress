@@ -19,17 +19,21 @@ namespace :bundle do
       end
     end
     Zip::File.open(args.file, Zip::File::CREATE) do |zip|
-      zip.remove('calculations/measure-id-mapping.csv') if zip.find_entry('calculations/measure-id-mapping.csv')
-      zip.remove('calculations/patient-id-mapping.csv') if zip.find_entry('calculations/patient-id-mapping.csv')
-      zip.remove('calculations/individual-results') if zip.find_entry('calculations/individual-results')
+      if zip.find_entry('calculations/measure-id-mapping.csv')
+        puts 'Bundle already has calculations'
+        break
+      end
       zip.add('calculations/measure-id-mapping.csv', measure_id_mapping)
       zip.add('calculations/patient-id-mapping.csv', patient_id_mapping)
       bundle.results.each_with_index do |result, index|
         individual_result_file = Tempfile.new("individual-result-#{index}.json")
         individual_result_file.write(result.to_json)
         zip.add("calculations/individual-results/individual-result-#{index}.json", individual_result_file)
+        individual_result_file.close
       end
     end
+    measure_id_mapping.close
+    patient_id_mapping.close
     bundle.destroy
   end
 end
