@@ -82,6 +82,7 @@ class VendorPatientUploadJob < ApplicationJob
       end
 
       patient.update(_type: CQM::VendorPatient, correlation_id: vendor_id, bundleId: bundle.id)
+      Cypress::QRDAPostProcessor.replace_negated_codes(patient, bundle)
       patient.save
       return [true, patient]
     rescue => e
