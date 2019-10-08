@@ -42,35 +42,37 @@ module Cypress
     end
 
     def self.unpack_and_store_calcuations(zip, bundle, tracker)
-      begin
-        patient_id_mapping = {}
-        measure_id_mapping = {}
-        patient_id_csv = CSV.parse(zip.read(File.join(SOURCE_ROOTS[:calculations],'patient-id-mapping.csv')), headers: false)
-        measure_id_csv = CSV.parse(zip.read(File.join(SOURCE_ROOTS[:calculations],'measure-id-mapping.csv')), headers: false)
-        patient_id_csv.each do |row|
-          patient_id_mapping[row[0]] = { givenNames: row[1],
-                                         familyName: row[2],
-                                         new_id: Patient.where(givenNames: [row[1]], familyName: row[2]).first.id }
-        end
-        measure_id_csv.each do |row|
-          measure_id_mapping[row[0]] = { cms_id: row[1], new_id: Measure.where(cms_id: row[1]).first.id }
-        end
-        individual_result_files = zip.glob(File.join(SOURCE_ROOTS[:calculations],'individual-results', '*.json'))
-        total_count = individual_result_files.size
-        individual_result_files.each_with_index do |ir_file, index|
-          ir = JSON.parse(ir_file.get_input_stream.read)
-          new_ir = CQM::IndividualResult.new(ir)
-          new_ir.correlation_id = bundle.id.to_s
-          new_ir.patient_id = patient_id_mapping[ir.patient_id][:new_id]
-          new_ir.measure_id = measure_id_mapping[ir.measure_id][:new_id]
-          new_ir.save
-          new_ir.patient.update_measure_relevance_hash(new_ir)
-          new_ir.patient.save
-          tracker.log("Calculating (#{((index.to_f / total_count) * 100).to_i}% complete) ")
-        end
-        return true
-      rescue
-        return false
+      patient_id_mapping = {}
+      measure_id_mapping = {}
+      patient_id_csv = CSV.parse(zip.read(File.join(SOURCE_ROOTS[:calculations], 'patient-id-mapping.csv')), headers: false)
+      measure_id_csv = CSV.parse(zip.read(File.join(SOURCE_ROOTS[:calculations], 'measure-id-mapping.csv')), headers: false)
+      patient_id_csv.each do |row|
+        patient_id_mapping[row[0]] = { givenNames: row[1],
+                                       familyName: row[2],
+                                       new_id: Patient.where(givenNames: [row[1]], familyName: row[2]).first.id }
+      end
+      measure_id_csv.each do |row|
+        measure_id_mapping[row[0]] = { cms_id: row[1], new_id: Measure.where(cms_id: row[1]).first.id }
+      end
+      unpack_and_store_individual_results(zip, bundle, patient_id_mapping, measure_id_mapping, tracker)
+      true
+    rescue
+      false
+    end
+
+    def self.unpack_and_store_individual_results(zip, bundle, patient_id_mapping, measure_id_mapping, tracker)
+      individual_result_files = zip.glob(File.join(SOURCE_ROOTS[:calculations], 'individual-results', '*.json'))
+      total_count = individual_result_files.size
+      individual_result_files.each_with_index do |ir_file, index|
+        ir = JSON.parse(ir_file.get_input_stream.read)
+        new_ir = CQM::IndividualResult.new(ir)
+        new_ir.correlation_id = bundle.id.to_s
+        new_ir.patient_id = patient_id_mapping[ir.patient_id][:new_id]
+        new_ir.measure_id = measure_id_mapping[ir.measure_id][:new_id]
+        new_ir.save
+        new_ir.patient.update_measure_relevance_hash(new_ir)
+        new_ir.patient.save
+        tracker.log("Calculating (#{((index.to_f / total_count) * 100).to_i}% complete) ")
       end
     end
 
@@ -175,20 +177,24 @@ module Cypress
       effective_date = Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number)
       options = { 'effectiveDateEnd': effective_date_end, 'effectiveDate': effective_date, 'includeClauseResults': include_highlighting }
       if include_highlighting
-        tracker_index = 0
-        patients_per_calculation = 20
-        total_count = ((patient_ids.size / patients_per_calculation) + 1) * bundle.measures.size
-        patient_ids.each_slice(patients_per_calculation) do |patient_ids_slice|
-          bundle.measures.each do |measure|
-            tracker.log("Calculating (#{((tracker_index.to_f / total_count) * 100).to_i}% complete) ")
-            SingleMeasureCalculationJob.perform_now(patient_ids_slice, measure.id.to_s, bundle.id.to_s, options)
-            tracker_index += 1
-          end
-        end
+        calculate_results_with_highlighting(bundle, patient_ids, tracker, options)
       else
         bundle.measures.each_with_index do |measure, index|
           tracker.log("Calculating (#{index} of #{bundle.measures.size} measures complete) ")
           SingleMeasureCalculationJob.perform_now(patient_ids, measure.id.to_s, bundle.id.to_s, options)
+        end
+      end
+    end
+
+    def self.calculate_results_with_highlighting(bundle, patient_ids, tracker, options)
+      tracker_index = 0
+      patients_per_calculation = 20
+      total_count = ((patient_ids.size / patients_per_calculation) + 1) * bundle.measures.size
+      patient_ids.each_slice(patients_per_calculation) do |patient_ids_slice|
+        bundle.measures.each do |measure|
+          tracker.log("Calculating (#{((tracker_index.to_f / total_count) * 100).to_i}% complete) ")
+          SingleMeasureCalculationJob.perform_now(patient_ids_slice, measure.id.to_s, bundle.id.to_s, options)
+          tracker_index += 1
         end
       end
     end
