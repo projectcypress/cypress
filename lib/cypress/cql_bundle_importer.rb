@@ -125,6 +125,7 @@ module Cypress
         patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
         patient['bundleId'] = bundle.id
         patient.update(_type: CQM::BundlePatient, correlation_id: bundle.id)
+        Cypress::QRDAPostProcessor.replace_negated_codes(patient, bundle)
         patient.save!
         report_progress('patients', (index * 100 / qrda_files.length)) if (index % 10).zero?
       end
