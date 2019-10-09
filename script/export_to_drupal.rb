@@ -347,6 +347,10 @@ end
 measures.nin(cms_id: %w[CMS167v7 CMS123v7 CMS164v7 CMS169v7 CMS158v7 CMS65v8]).each do |measure|
   next if completed_measures.include? measure.cms_id
 
+  # measure.source_data_criteria.each do |sdc|
+  #   sdc.dataElementAttributes = []
+  # end
+
   dcab = Cypress::DataCriteriaAttributeBuilder.new
   dcab.build_data_criteria_for_measure(measure)
 
@@ -358,7 +362,7 @@ measures.nin(cms_id: %w[CMS167v7 CMS123v7 CMS164v7 CMS169v7 CMS158v7 CMS65v8]).e
     sdc['qdmCategory'] = 'diagnosis' if sdc['qdmCategory'] == 'condition'
     sdc['qdmStatus'] = 'order' if sdc['qdmStatus'] == 'ordered'
 
-    if !sdc.dataElementAttributes&.empty?
+    if sdc.dataElementAttributes && !sdc.dataElementAttributes&.empty?
       sdc.dataElementAttributes.each do |att|
         ds = sdc['qdmStatus'] ? sdc['qdmCategory'] + ':' + sdc['qdmStatus'] : sdc['qdmCategory'] + ':'
         dsa = ds + ':' + att[:attribute_name]
@@ -791,7 +795,6 @@ end
 def print_ecqm_dataelement
   sorted_vs = @value_set_hash.sort_by { |_key, value| value[:display_name] || 'zzz' }
   sorted_vs.each do |oid, vs_hash|
-    # byebug if oid == '2.16.840.1.113883.3.464.1003.198.11.1029'
     next unless @vs_measure[oid]
     if vs_hash[:data_types]
       vs_description = @vs_desc[oid] ? @vs_desc[oid].tr('"', "'") : ''
