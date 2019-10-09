@@ -43,6 +43,6 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     assert_equal 1, result.IPP
     assert_equal 1, result.MSRPOPL
     assert_equal [5], result.episode_results[result.episode_results.keys[0]]['observation_values']
-    assert !result.clause_results.empty?
+    assert_not result.clause_results.empty?
   end
 end
