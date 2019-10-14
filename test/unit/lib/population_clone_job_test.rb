@@ -3,17 +3,20 @@ require 'fileutils'
 
 class PopulationCloneJobTest < ActiveSupport::TestCase
   def setup
+    @pt = FactoryBot.create(:product_test_static_result)
+    @pt.save!
+  end
+
+  def test_randomization_of_names
+    original_male_first = NAMES_RANDOM['first']['M']
+    original_female_first = NAMES_RANDOM['first']['F']
+    original_last = NAMES_RANDOM['first']['F']
     # 6 unique male first names
     NAMES_RANDOM['first']['M'] = %w[Joe Jack John James Jethro Jackson]
     # 6 uniqiue Female first names
     NAMES_RANDOM['first']['F'] = %w[Jill Julie Jackie Jessica Joy Jenna]
     # 6 uniqiue last names
     NAMES_RANDOM['last'] = %w[Smith Doe]
-    @pt = FactoryBot.create(:product_test_static_result)
-    @pt.save!
-  end
-
-  def test_this
     pcj = Cypress::PopulationCloneJob.new({})
     patient = @pt.patients.first
     @pt.patients.destroy
@@ -31,6 +34,9 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     assert_equal 12, @pt.patients.size
     # All 12 patients have unqiue names
     assert_equal 12, @pt.patients.map { |p| "#{p.givenNames[0]}_#{p.familyName}" }.uniq.size
+    NAMES_RANDOM['first']['M'] = original_male_first
+    NAMES_RANDOM['first']['F'] = original_female_first
+    NAMES_RANDOM['last'] = original_last
   end
 
   def test_perform_full_deck

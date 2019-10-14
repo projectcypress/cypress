@@ -15,9 +15,14 @@ module Cypress
     # Pass in an array of patients that you would like to maintain uniqueness
     def self.randomize_name(patient, prng, patients = [], allow_dups = false)
       used_names = patients.map { |p| "#{p.first_names}-#{p.familyName}" }
+      loop_index = 0
       loop do
         assign_random_name(patient, prng)
         break if allow_dups || used_names.index("#{patient.first_names}-#{patient.familyName}").nil?
+
+        loop_index += 1
+        # This is extremely unlikely, but provide an out of 100 tries does not create a unique name
+        break if loop_index == 10000
       end
     end
 

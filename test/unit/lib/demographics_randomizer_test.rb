@@ -47,6 +47,9 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
   end
 
   def test_randomize_multiple_names
+    original_male_first = NAMES_RANDOM['first']['M']
+    original_female_first = NAMES_RANDOM['first']['F']
+    original_last = NAMES_RANDOM['first']['F']
     10.times do
       NAMES_RANDOM['first']['M'] = ['Marion']
       NAMES_RANDOM['first']['F'] = %w[Marion Jill]
@@ -67,6 +70,9 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
       assert_equal ['Jake'], record2.givenNames
       assert_equal ['Jill'], record3.givenNames
     end
+    NAMES_RANDOM['first']['M'] = original_male_first
+    NAMES_RANDOM['first']['F'] = original_female_first
+    NAMES_RANDOM['last'] = original_last
   end
 
   def test_randomize_race
