@@ -3,8 +3,34 @@ require 'fileutils'
 
 class PopulationCloneJobTest < ActiveSupport::TestCase
   def setup
+    # 6 unique male first names
+    NAMES_RANDOM['first']['M'] = %w[Joe Jack John James Jethro Jackson]
+    # 6 uniqiue Female first names
+    NAMES_RANDOM['first']['F'] = %w[Jill Julie Jackie Jessica Joy Jenna]
+    # 6 uniqiue last names
+    NAMES_RANDOM['last'] = %w[Smith Doe]
     @pt = FactoryBot.create(:product_test_static_result)
     @pt.save!
+  end
+
+  def test_this
+    pcj = Cypress::PopulationCloneJob.new({})
+    patient = @pt.patients.first
+    @pt.patients.destroy
+    options = { 'test_id' => @pt.id,
+                'randomize_demographics' => true }
+    pcj.instance_variable_set(:@test, @pt)
+    pcj.instance_variable_set(:@options, options)
+    # There are 6 unique first names, and 2 unique last names, we can create 12 unique patients
+    12.times do
+      pcj.send(:clone_and_save_patient, patient, Random.new(@pt.rand_seed.to_i))
+    end
+    @pt.save
+    @pt.reload
+    # Assert that 12 patients have been made
+    assert_equal 12, @pt.patients.size
+    # All 12 patients have unqiue names
+    assert_equal 12, @pt.patients.map { |p| "#{p.givenNames[0]}_#{p.familyName}" }.uniq.size
   end
 
   def test_perform_full_deck
@@ -181,12 +207,16 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
 
   def test_perform_replace_other_race
     # Clone and ensure that "Other" is always replaced with the same code '2106-3'
-    pcj = Cypress::PopulationCloneJob.new('randomize_demographics' => false)
+    pcj = Cypress::PopulationCloneJob.new({})
+    options = { 'test_id' => @pt.id,
+                'randomize_demographics' => false }
+    pcj.instance_variable_set(:@test, @pt)
+    pcj.instance_variable_set(:@options, options)
     prng = Random.new(@pt.rand_seed.to_i)
     patient = Patient.first
     # Replace original race code with the code for 'Other'
     patient.qdmPatient.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code'] = '2131-1'
-    pcj.clone_and_save_patient(patient, prng, Provider.first)
+    pcj.send(:clone_and_save_patient, patient, prng, Provider.first)
     cloned_patient = Patient.where(original_patient_id: patient.id).first
     # Assert that the new race is consistent '2106-3'
     assert_equal '2106-3', cloned_patient.race
