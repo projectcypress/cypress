@@ -12,9 +12,9 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     original_female_first = NAMES_RANDOM['first']['F']
     original_last = NAMES_RANDOM['first']['F']
     # 6 unique male first names
-    NAMES_RANDOM['first']['M'] = %w[Joe Jack John James Jethro Jackson]
+    NAMES_RANDOM['first']['M'] = %w[Joe Jack John James Jethro Jackson Joseph]
     # 6 uniqiue Female first names
-    NAMES_RANDOM['first']['F'] = %w[Jill Julie Jackie Jessica Joy Jenna]
+    NAMES_RANDOM['first']['F'] = %w[Jill Julie Jackie Jessica Joy Jenna Jennifer]
     # 6 uniqiue last names
     NAMES_RANDOM['last'] = %w[Smith Doe]
     pcj = Cypress::PopulationCloneJob.new({})
@@ -24,16 +24,17 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
                 'randomize_demographics' => true }
     pcj.instance_variable_set(:@test, @pt)
     pcj.instance_variable_set(:@options, options)
-    # There are 6 unique first names, and 2 unique last names, we can create 12 unique patients
-    12.times do
+    # There are 6 unique first names, and 2 unique last names, we can create 13 unique patients
+    # There are only 14 possible unique combinations.
+    13.times do
       pcj.send(:clone_and_save_patient, patient, Random.new(@pt.rand_seed.to_i))
     end
     @pt.save
     @pt.reload
-    # Assert that 12 patients have been made
-    assert_equal 12, @pt.patients.size
-    # All 12 patients have unqiue names
-    assert_equal 12, @pt.patients.map { |p| "#{p.givenNames[0]}_#{p.familyName}" }.uniq.size
+    # Assert that 13 patients have been made
+    assert_equal 13, @pt.patients.size
+    # All 13 patients have unqiue names
+    assert_equal 13, @pt.patients.map { |p| "#{p.givenNames[0]}_#{p.familyName}" }.uniq.size
     NAMES_RANDOM['first']['M'] = original_male_first
     NAMES_RANDOM['first']['F'] = original_female_first
     NAMES_RANDOM['last'] = original_last

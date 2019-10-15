@@ -22,7 +22,7 @@ module Cypress
 
         loop_index += 1
         # This is extremely unlikely, but provide an out of 100 tries does not create a unique name
-        break if loop_index == 10000
+        break if loop_index == 100
       end
     end
 
