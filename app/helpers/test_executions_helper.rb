@@ -101,9 +101,10 @@ module TestExecutionsHelper
 
   def info_title_for_product_test(product_test)
     case product_test
-    when MeasureTest then 'Measure Test Information'
-    when FilteringTest then 'Filtering Test Information'
+    when MeasureTest then "#{product_test.cms_id} Measure Test"
+    when FilteringTest then "#{product_test.cms_id} Filtering Test"
     when ChecklistTest then 'Record Sample Test Information'
+    when MultiMeasureTest then product_test.reporting_program_type == 'eh' ? 'EH Measures Test' : 'EP/EC Measures Test'
     else 'Test Information'
     end
   end

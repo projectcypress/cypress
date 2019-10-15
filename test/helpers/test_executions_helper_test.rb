@@ -168,9 +168,11 @@ class TestExecutionHelper < ActiveSupport::TestCase
   end
 
   def test_info_title_for_product_test
-    assert_equal 'Measure Test Information', info_title_for_product_test(MeasureTest.new)
-    assert_equal 'Filtering Test Information', info_title_for_product_test(FilteringTest.new)
+    assert_equal 'CMS123 Measure Test', info_title_for_product_test(MeasureTest.new(cms_id: 'CMS123'))
+    assert_equal 'CMS123 Filtering Test', info_title_for_product_test(FilteringTest.new(cms_id: 'CMS123'))
     assert_equal 'Record Sample Test Information', info_title_for_product_test(ChecklistTest.new)
+    assert_equal 'EH Measures Test', info_title_for_product_test(MultiMeasureTest.new(reporting_program_type: 'eh'))
+    assert_equal 'EP/EC Measures Test', info_title_for_product_test(MultiMeasureTest.new(reporting_program_type: 'ep'))
     assert_equal 'Test Information', info_title_for_product_test(ProductTest.new)
   end
 
