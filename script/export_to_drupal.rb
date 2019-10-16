@@ -177,7 +177,7 @@ end
 # Note: this hash gets updated as we POST new code constraints within this exporter
 # key = a hash of the code constraint details (code system, oid, and display name, delimited by dashes)
 # value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@code_constraints = to_drupal_lookup_table_with_revisions(execute_request(:get, "#{@options['base_url']}/jsonapi/paragraph/code_constraint")) { |term| "#{term['attributes']['field_code_system']}-#{term['attributes']['field_oid']}-#{term['attributes']['field_name']}" }
+@code_constraints = to_drupal_lookup_table_with_revisions(execute_request(:get, "#{@options['base_url']}/jsonapi/paragraph/code_constraint")) { |term| "#{term['attributes']['field_code_system']}-#{term['attributes']['field_oid']}-#{term['attributes']['field_name']}-#{term['attributes']['field_url']['uri']}" }
 
 # A hash of the qdm.dataelement data element objects, to be used as "base types"
 # The filter filters by the ID of 'qdm.dataelement' in the package taxonomy
@@ -668,7 +668,7 @@ def create_code_constraint_description(type:, display_name:, code_system_name:, 
 end
 
 def find_or_create_code_constraint(type:, display_name:, code_system_name:, url:, oid:)
-  hash = "#{code_system_name}-#{oid}-#{display_name}"
+  hash = "#{code_system_name}-#{oid}-#{display_name}-#{url}"
   cc = @code_constraints[hash]
   return cc if cc
   cc_obj = {
@@ -786,7 +786,7 @@ def build_dataelement(title:, typedef:, vs_description:, oid:, cms_ids:, attribu
                                     display_name: title,
                                     oid: oid,
                                     code_system_name: nil,
-                                    url: "https://vsac.nlm.nih.gov/valueset/#{oid}/expansion")
+                                    url: "https://vsac.nlm.nih.gov/valueset/#{oid}/expansion/eCQM%20Update%202019-05-10")
                                   }
   end
   element
