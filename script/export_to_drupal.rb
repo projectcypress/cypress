@@ -779,7 +779,7 @@ def build_dataelement(title:, typedef:, vs_description:, oid:, cms_ids:, attribu
                                     display_name: title,
                                     oid: oid,
                                     code_system_name: nil,
-                                    url: "https://vsac.nlm.nih.gov/valueset/#{oid}/expansion")
+                                    url: "https://vsac.nlm.nih.gov/valueset/#{oid}/expansion/eCQM%20Update%202018-09-17")
                                   }
   end
   element
