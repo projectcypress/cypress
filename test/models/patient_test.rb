@@ -52,8 +52,8 @@ class PatientTest < ActiveSupport::TestCase
       r2.qdmPatient.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'code_system' => 'AdministrativeGender' }])
 
       assert(record_demographics_equal?(r1, r2), 'The two records should be equal')
-      r1copy_set = r1.duplicate_randomization(random: prng1)
-      r2copy_set = r2.duplicate_randomization(random: prng2)
+      r1copy_set = r1.duplicate_randomization([], random: prng1)
+      r2copy_set = r2.duplicate_randomization([], random: prng2)
       assert(record_demographics_equal?(r1copy_set[0], r2copy_set[0]), 'The two records should be equal')
       assert_not(record_demographics_equal?(r1, r1copy_set[0]), 'The two records should not be equal')
       assert(record_birthyear_equal?(r1, r1copy_set[0]), 'The two records should always have the same birthyear')
