@@ -48,10 +48,19 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
     @patient6.save!
 
     @patient7 = BundlePatient.new(givenNames: ['SplitDate'], familyName: 'Reversed', bundleId: @bundle.id)
-    @patient7.qdmPatient.dataElements.push QDM::CommunicationPerformed.new(relatedTo: [QDM::Id.new(value: 'test_id')], relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
-    @patient7.qdmPatient.dataElements.push QDM::InterventionPerformed.new(id: QDM::Id.new(value: 'test_id'), relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 24, 20, 53, 20).utc, nil))
+    @patient7.qdmPatient.dataElements.push QDM::CommunicationPerformed.new(relatedTo: [QDM::Id.new(value: 'test_id2')], relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
+    @patient7.qdmPatient.dataElements.push QDM::InterventionPerformed.new(id: QDM::Id.new(value: 'test_id2'), relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 24, 20, 53, 20).utc, nil))
     @patient7.qdmPatient.dataElements.push QDM::PatientCharacteristicPayer.new(dataElementCodes: @payer_codes, relevantPeriod: QDM::Interval.new(@start, nil))
     @patient7.save!
+
+    # relatedTo multiple complex
+    @patient8 = BundlePatient.new(givenNames: ['SplitDate'], familyName: 'Multiple', bundleId: @bundle.id)
+    @patient8.qdmPatient.dataElements.push QDM::CommunicationPerformed.new(id: QDM::Id.new(value: 'communication'), relatedTo: [QDM::Id.new(value: 'assessment')], relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
+    @patient8.qdmPatient.dataElements.push QDM::AssessmentPerformed.new(id: QDM::Id.new(value: 'assessment'), authorDatetime: DateTime.new(2011, 3, 24, 20, 53, 20).utc)
+    @patient8.qdmPatient.dataElements.push QDM::CareGoal.new(id: QDM::Id.new(value: 'care_goal'), relatedTo: [QDM::Id.new(value: 'communication')], relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 26, 20, 53, 20).utc, nil))
+    @patient8.qdmPatient.dataElements.push QDM::PatientCharacteristicPayer.new(dataElementCodes: @payer_codes, relevantPeriod: QDM::Interval.new(@start, nil))
+    @patient8.save!
+    # , relatedTo: [QDM::Id.new(value: 'care_goal')]
   end
 
   def test_split_by_date
@@ -64,22 +73,29 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
   def test_randomize_by_date_related
     r1, r2 = Cypress::ClinicalRandomizer.split_by_date(@patient6, @end, @start, Random.new)
 
-    assert_equal r1.qdmPatient.dataElements.length, 3, 'First split record should 3 entries because entries should not be split'
-    assert_equal r2.qdmPatient.dataElements.length, 1, 'Second split record should 1 entry for the patient characteristic payer'
+    assert_equal r1.qdmPatient.dataElements.length, 3, 'First split record should contain 3 entries because entries should not be split'
+    assert_equal r2.qdmPatient.dataElements.length, 1, 'Second split record should contain 1 entry for the patient characteristic payer'
   end
 
   def test_randomize_by_date_reversed_related
     r1, r2 = Cypress::ClinicalRandomizer.split_by_date(@patient7, @end, @start, Random.new)
 
-    assert_equal r1.qdmPatient.dataElements.length, 3, 'First split record should 3 entries because entries should not be split'
-    assert_equal r2.qdmPatient.dataElements.length, 1, 'Second split record should 1 entry for the patient characteristic payer'
+    assert_equal r1.qdmPatient.dataElements.length, 3, 'First split record should contain 3 entries because entries should not be split'
+    assert_equal r2.qdmPatient.dataElements.length, 1, 'Second split record should contain 1 entry for the patient characteristic payer'
+  end
+
+  def test_randomize_by_date_related_complex
+    r1, r2 = Cypress::ClinicalRandomizer.split_by_date(@patient8, @end, @start, Random.new)
+
+    assert_equal r1.qdmPatient.dataElements.length, 4, 'First split record should contain 4 entries because entries should not be split'
+    assert_equal r2.qdmPatient.dataElements.length, 1, 'Second split record should contain 1 entry for the patient characteristic payer'
   end
 
   def test_randomize_by_type_related
     r1, r2 = Cypress::ClinicalRandomizer.split_by_type(@patient6, @end, @start, Random.new)
 
-    assert_equal r1.qdmPatient.dataElements.length, 3, 'First split record should 3 entries because entries should not be split'
-    assert_equal r2.qdmPatient.dataElements.length, 1, 'Second split record should 1 entry for the patient characteristic payer'
+    assert_equal r1.qdmPatient.dataElements.length, 3, 'First split record should contain 3 entries because entries should not be split'
+    assert_equal r2.qdmPatient.dataElements.length, 1, 'Second split record should contain 1 entry for the patient characteristic payer'
   end
 
   def test_randomize_by_date
