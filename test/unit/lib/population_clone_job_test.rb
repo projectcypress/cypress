@@ -24,8 +24,9 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
                 'randomize_demographics' => true }
     pcj.instance_variable_set(:@test, @pt)
     pcj.instance_variable_set(:@options, options)
-    # There are 6 unique first names, and 2 unique last names, we can create 13 unique patients
-    # There are only 14 possible unique combinations.
+    # There are 7 unique first names, and 2 unique last names.
+    # There are only 14 possible unique combinations. 
+    # We test with 13 to avoid having to randomly hit the last name combination with a 1/14 chance on each name generation.
     13.times do
       pcj.send(:clone_and_save_patient, patient, Random.new(@pt.rand_seed.to_i))
     end
