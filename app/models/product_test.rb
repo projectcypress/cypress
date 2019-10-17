@@ -117,7 +117,7 @@ class ProductTest
     # choose up to 3 duplicate patients
     dups.sample(random.rand(1..3), random: random).each do |pat|
       prng_repeat = Random.new(rand_seed.to_i)
-      dup_pat, pat_augments, old_pat = pat.duplicate_randomization(random: prng_repeat)
+      dup_pat, pat_augments, old_pat = pat.duplicate_randomization(augmented_patients, random: prng_repeat)
       # only add if augmented patient validates
       if car.validate_calculated_results(dup_pat, effective_date: effective_date, orig_product_patient: old_pat)
         augmented_patients << pat_augments

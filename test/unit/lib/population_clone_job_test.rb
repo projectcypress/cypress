@@ -7,6 +7,40 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     @pt.save!
   end
 
+  def test_randomization_of_names
+    original_male_first = NAMES_RANDOM['first']['M']
+    original_female_first = NAMES_RANDOM['first']['F']
+    original_last = NAMES_RANDOM['first']['F']
+    # 6 unique male first names
+    NAMES_RANDOM['first']['M'] = %w[Joe Jack John James Jethro Jackson Joseph]
+    # 6 uniqiue Female first names
+    NAMES_RANDOM['first']['F'] = %w[Jill Julie Jackie Jessica Joy Jenna Jennifer]
+    # 6 uniqiue last names
+    NAMES_RANDOM['last'] = %w[Smith Doe]
+    pcj = Cypress::PopulationCloneJob.new({})
+    patient = @pt.patients.first
+    @pt.patients.destroy
+    options = { 'test_id' => @pt.id,
+                'randomize_demographics' => true }
+    pcj.instance_variable_set(:@test, @pt)
+    pcj.instance_variable_set(:@options, options)
+    # There are 7 unique first names, and 2 unique last names.
+    # There are only 14 possible unique combinations.
+    # We test with 13 to avoid having to randomly hit the last name combination with a 1/14 chance on each name generation.
+    13.times do
+      pcj.send(:clone_and_save_patient, patient, Random.new(@pt.rand_seed.to_i))
+    end
+    @pt.save
+    @pt.reload
+    # Assert that 13 patients have been made
+    assert_equal 13, @pt.patients.size
+    # All 13 patients have unqiue names
+    assert_equal 13, @pt.patients.map { |p| "#{p.givenNames[0]}_#{p.familyName}" }.uniq.size
+    NAMES_RANDOM['first']['M'] = original_male_first
+    NAMES_RANDOM['first']['F'] = original_female_first
+    NAMES_RANDOM['last'] = original_last
+  end
+
   def test_perform_full_deck
     pcj = Cypress::PopulationCloneJob.new('test_id' => @pt.id)
     pcj.perform
@@ -181,12 +215,16 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
 
   def test_perform_replace_other_race
     # Clone and ensure that "Other" is always replaced with the same code '2106-3'
-    pcj = Cypress::PopulationCloneJob.new('randomize_demographics' => false)
+    pcj = Cypress::PopulationCloneJob.new({})
+    options = { 'test_id' => @pt.id,
+                'randomize_demographics' => false }
+    pcj.instance_variable_set(:@test, @pt)
+    pcj.instance_variable_set(:@options, options)
     prng = Random.new(@pt.rand_seed.to_i)
     patient = Patient.first
     # Replace original race code with the code for 'Other'
     patient.qdmPatient.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code'] = '2131-1'
-    pcj.clone_and_save_patient(patient, prng, Provider.first)
+    pcj.send(:clone_and_save_patient, patient, prng, Provider.first)
     cloned_patient = Patient.where(original_patient_id: patient.id).first
     # Assert that the new race is consistent '2106-3'
     assert_equal '2106-3', cloned_patient.race
