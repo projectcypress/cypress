@@ -24,7 +24,3 @@ Rake::Task['tmp:cache:clear'].enhance do
   Rake::Task['tmp:cache:rebuild'].invoke
   Rake::Task['tmp:cache:mpl_download_rebuild'].invoke
 end
-
-Rake::Task['bundle:download_and_install'].enhance do
-  Rake::Task['tmp:cache:mpl_download_rebuild'].invoke
-end

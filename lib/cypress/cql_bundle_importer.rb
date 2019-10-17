@@ -4,7 +4,7 @@ module Cypress
   class CqlBundleImporter
     SOURCE_ROOTS = { bundle: 'bundle.json',
                      measures: 'measures', measures_info: 'measures-info.json',
-                     results: 'results',
+                     calculations: 'calculations',
                      valuesets: File.join('value-sets', 'value-set-codes.csv'),
                      patients: 'patients' }.freeze
     COLLECTION_NAMES = ['bundles', 'records', 'measures', 'individual_results', 'system.js'].freeze
@@ -16,7 +16,7 @@ module Cypress
     #
     # @param [File] zip The bundle zip file.
 
-    def self.import(zip, tracker)
+    def self.import(zip, tracker, include_highlighting = false)
       bundle = nil
       Zip::ZipFile.open(zip.path) do |zip_file|
         bundle = unpack_bundle(zip_file)
@@ -29,7 +29,7 @@ module Cypress
         unpack_and_store_valuesets(zip_file, bundle)
         unpack_and_store_measures(zip_file, bundle)
         unpack_and_store_cqm_patients(zip_file, bundle)
-        calculate_results(bundle, tracker)
+        calculate_results(bundle, tracker, include_highlighting) unless unpack_and_store_calcuations(zip_file, bundle, tracker)
       end
 
       bundle
@@ -38,6 +38,41 @@ module Cypress
       if bundle&.created_at
         bundle.done_importing = true
         bundle.save
+      end
+    end
+
+    def self.unpack_and_store_calcuations(zip, bundle, tracker)
+      patient_id_mapping = {}
+      measure_id_mapping = {}
+      patient_id_csv = CSV.parse(zip.read(File.join(SOURCE_ROOTS[:calculations], 'patient-id-mapping.csv')), headers: false)
+      measure_id_csv = CSV.parse(zip.read(File.join(SOURCE_ROOTS[:calculations], 'measure-id-mapping.csv')), headers: false)
+      patient_id_csv.each do |row|
+        patient_id_mapping[row[0]] = { givenNames: row[1],
+                                       familyName: row[2],
+                                       new_id: Patient.where(givenNames: [row[1]], familyName: row[2]).first.id }
+      end
+      measure_id_csv.each do |row|
+        measure_id_mapping[row[0]] = { cms_id: row[1], new_id: Measure.where(cms_id: row[1]).first.id }
+      end
+      unpack_and_store_individual_results(zip, bundle, patient_id_mapping, measure_id_mapping, tracker)
+      true
+    rescue
+      false
+    end
+
+    def self.unpack_and_store_individual_results(zip, bundle, patient_id_mapping, measure_id_mapping, tracker)
+      individual_result_files = zip.glob(File.join(SOURCE_ROOTS[:calculations], 'individual-results', '*.json'))
+      total_count = individual_result_files.size
+      individual_result_files.each_with_index do |ir_file, index|
+        ir = JSON.parse(ir_file.get_input_stream.read)
+        new_ir = CQM::IndividualResult.new(ir)
+        new_ir.correlation_id = bundle.id.to_s
+        new_ir.patient_id = patient_id_mapping[ir.patient_id][:new_id]
+        new_ir.measure_id = measure_id_mapping[ir.measure_id][:new_id]
+        new_ir.save
+        new_ir.patient.update_measure_relevance_hash(new_ir)
+        new_ir.patient.save
+        tracker.log("Calculating (#{((index.to_f / total_count) * 100).to_i}% complete) ")
       end
     end
 
@@ -137,14 +172,31 @@ module Cypress
       STDOUT.flush
     end
 
-    def self.calculate_results(bundle, tracker)
+    def self.calculate_results(bundle, tracker, include_highlighting = false)
       patient_ids = bundle.patients.map { |p| p.id.to_s }
       effective_date_end = Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number)
       effective_date = Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number)
-      options = { 'effectiveDateEnd': effective_date_end, 'effectiveDate': effective_date }
-      bundle.measures.each_with_index do |measure, index|
-        tracker.log("Calculating (#{index} of #{bundle.measures.size} measures complete) ")
-        SingleMeasureCalculationJob.perform_now(patient_ids, measure.id.to_s, bundle.id.to_s, options)
+      options = { 'effectiveDateEnd': effective_date_end, 'effectiveDate': effective_date, 'includeClauseResults': include_highlighting }
+      if include_highlighting
+        calculate_results_with_highlighting(bundle, patient_ids, tracker, options)
+      else
+        bundle.measures.each_with_index do |measure, index|
+          tracker.log("Calculating (#{index} of #{bundle.measures.size} measures complete) ")
+          SingleMeasureCalculationJob.perform_now(patient_ids, measure.id.to_s, bundle.id.to_s, options)
+        end
+      end
+    end
+
+    def self.calculate_results_with_highlighting(bundle, patient_ids, tracker, options)
+      tracker_index = 0
+      patients_per_calculation = 20
+      total_count = ((patient_ids.size / patients_per_calculation) + 1) * bundle.measures.size
+      patient_ids.each_slice(patients_per_calculation) do |patient_ids_slice|
+        bundle.measures.each do |measure|
+          tracker.log("Calculating (#{((tracker_index.to_f / total_count) * 100).to_i}% complete) ")
+          SingleMeasureCalculationJob.perform_now(patient_ids_slice, measure.id.to_s, bundle.id.to_s, options)
+          tracker_index += 1
+        end
       end
     end
 
