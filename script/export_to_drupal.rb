@@ -525,11 +525,10 @@ def print_union
             "#{inner_hash[:type_definition]}: #{@value_set_hash[vs][:display_name]}"
           end
           included_code_constraint = if vs.include?('drc-')
-            concept = @valuesets.where(oid: vs).first&.concepts&.first
             url = generate_url(concept)
             @code_constraints["#{concept.code_system_name.upcase.gsub(/[^a-zA-Z0-9]/, '')}--#{title}-#{url}"]
           else
-            url = "https://vsac.nlm.nih.gov/valueset/#{vs}/expansion/eCQM%20Update%202019-05-10"
+            url = "https://vsac.nlm.nih.gov/valueset/#{vs}/expansion/eCQM%20Update%202018-09-17"
             @code_constraints["-#{vs}-#{title}-#{url}"]
           end
           included_data_element = {
