@@ -137,6 +137,8 @@ group :test do
   gem 'minitest-reporters'
   gem 'mocha', require: false
   gem 'simplecov', require: false
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :production do
