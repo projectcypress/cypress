@@ -7,7 +7,7 @@ module Cypress
         # Each time, start with original name
         new_given_name = original_given_name.clone
         # Try to create a new random name
-        new_given_name = random_given_name(patient, original_given_name, random: random)
+        new_given_name = random_given_name(patient, new_given_name, random: random)
         # Verify that the new random name, does not conflict with an existing Augmented Patient
         patient.givenNames = new_given_name if name_unique?(new_given_name, patient.familyName, patients, augmented_patients)
         # Break when a new unique name is found
