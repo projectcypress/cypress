@@ -3,8 +3,9 @@ module Cypress
     def self.randomize_patient_name_first(patient, augmented_patients, random: Random.new)
       patients = patient.product_test ? patient.product_test.patients : []
       original_given_name = patient.givenNames
-      new_given_name = original_given_name.clone
       loop do
+        # Each time, start with original name
+        new_given_name = original_given_name.clone
         # Try to create a new random name
         new_given_name = random_given_name(patient, original_given_name, random: random)
         # Verify that the new random name, does not conflict with an existing Augmented Patient
@@ -35,8 +36,9 @@ module Cypress
     def self.randomize_patient_name_last(patient, augmented_patients, random: Random.new)
       patients = patient.product_test ? patient.product_test.patients : []
       original_family_name = patient.familyName
-      new_family_name = original_family_name.clone
       loop do
+        # Each time, start with original name
+        new_family_name = original_family_name.clone
         # Try to create a new random name
         case random.rand(2)
         when 0 then new_family_name = patient.familyName[0] # replace with initial
