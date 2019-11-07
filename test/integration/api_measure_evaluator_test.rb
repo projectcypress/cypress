@@ -6,6 +6,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
   include ActiveJob::TestHelper
 
   def test_complete_roundtrip_using_real_bundle
+    # Leverage using functions in the ApiMeasureEvaluator
     @apime = Cypress::ApiMeasureEvaluator.new('test', 'test')
     import_bundle_and_create_product(retrieve_bundle)
     perform_filtering_tests
@@ -13,6 +14,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     assert_equal 0, TestExecution.where(state: 'failed').size
   end
 
+  # Get bundle from the demo server.  Use VCR if available
   def retrieve_bundle
     VCR.use_cassette('bundle_download') do
       bundle_resource = RestClient::Request.execute(method: :get,
@@ -26,6 +28,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     end
   end
 
+  # import @bundle from zip file, after complete, create @vendor and @product for use throughout
   def import_bundle_and_create_product(bundle_zip)
     # Create admin user
     FactoryBot.create(:admin_user)
@@ -45,23 +48,26 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     @product = Product.where(name: 'MeasureEvaluationProduct').first
   end
 
+  # run 2 of the 5 filtering tests for @product
   def perform_filtering_tests
     filtering_tests = @product.product_tests.filtering_tests
-    # Save the Filter Test Deck
+    # Save the Filter Test Deck, each filter test uses the same unfiltered test deck
     File.open('tmp/filter_patients.zip', 'wb') do |output|
       output.write(filtering_tests.first.patient_archive.read)
     end
-    sampled_filtering_tests = filtering_tests.sample(2)
     # Test 2 out of the 5 filtering tests
+    sampled_filtering_tests = filtering_tests.sample(2)
     sampled_filtering_tests.each do |ft|
-      # Since were are leveraging the ApiMeasureEvaluator, it uses JSON returned from the API to find filter criteria, stored as filter_test_json
+      # Since were are leveraging the ApiMeasureEvaluator, it uses JSON returned from the API to find filter criteria, stored as filter_test_parameters
       filter_test_parameters = {}
+      # As the Admin user, use the ProductTestsController to find the filter criteria for the filtering test
       for_each_logged_in_user([ADMIN]) do
         @controller = ProductTestsController.new
         get :show, params: { format: :json, product_id: ft.product.id, id: ft.id }
         filter_test_parameters = JSON.parse(response.body)
       end
-      created_filtered_uploads(filter_test_parameters, ft)
+      # Using the filter criteria, filter
+      filter_and_save_cat_1_zip(filter_test_parameters, ft)
     end
     sampled_filtering_tests.each do |ft|
       upload_test_artifacts('Cat1FilterTask', 'Cat3FilterTask', ft)
@@ -70,13 +76,15 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     File.delete('tmp/filter_patients.zip')
   end
 
-  def created_filtered_uploads(filter_test_parameters, filter_test)
-    # Loop through filter test
+  # Filter the 'filter_patients.zip' using the filter test parameters to create a new filtred zip file
+  def filter_and_save_cat_1_zip(filter_test_parameters, filter_test)
+    # Loop through all entries in filter_patients.zip
     Zip::ZipFile.open('tmp/filter_patients.zip') do |zipfile|
       zipfile.entries.each do |entry|
         doc = Nokogiri::XML(zipfile.read(entry))
         doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+        # do not include patient if they do not have required criteria
         next unless @apime.filter_out_patients(doc, filter_test_parameters)
 
         Zip::ZipFile.open("tmp/#{filter_test.id}.zip", Zip::File::CREATE) do |z|
@@ -88,6 +96,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
 
   def perform_measure_tests
     @product.product_tests.measure_tests.each do |mt|
+      # save test deck for measure test
       File.open("tmp/#{mt.id}.zip", 'wb') do |output|
         output.write(mt.patient_archive.read)
       end
@@ -96,12 +105,15 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     end
   end
 
+  # As the Admim user, use the test execution controller to submit results
   def upload_test_artifacts(cat_1_task_type, cat_3_task_type, product_test)
     @controller = TestExecutionsController.new
     perform_enqueued_jobs do
       for_each_logged_in_user([ADMIN]) do
+        # Find the appropriate tasks for the type of test
         cat_1_task = product_test.tasks.where(_type: cat_1_task_type).first
         cat_3_task = product_test.tasks.where(_type: cat_3_task_type).first
+        # We need to perform calculation before upload.  For Cat III file, and to remove patients that don't meet IPP
         calcuate_and_create_test_uploads(product_test)
         post :create, params: { task_id: cat_1_task.id, results: Rack::Test::UploadedFile.new(File.new("tmp/#{product_test.id}_only_ipp.zip"), 'application/zip') }
         post :create, params: { task_id: cat_3_task.id, results: Rack::Test::UploadedFile.new(File.new("tmp/#{product_test.id}.xml"), 'application/xml') }
@@ -110,21 +122,28 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
   end
 
   def calcuate_and_create_test_uploads(product_test)
+    # Hash to store the file_name (key) and the corresponding patient id (value)
     patient_id_file_map = {}
 
+    # correlation_id for stored individual results
     correlation_id = "#{product_test.id}_u"
 
     import_cat1_zip(File.new("tmp/#{product_test.id}.zip"), patient_id_file_map)
+
+    # Use ApiMeasureEvaluator to call cqm-execution-service
     @apime.do_calculation_cqm_execution(product_test, Patient.find(patient_id_file_map.values), correlation_id)
 
+    # Seed ExpectedResultsCalculator with patients and correlation_id for cat III generation
     erc = Cypress::ExpectedResultsCalculator.new(Patient.find(patient_id_file_map.values), correlation_id, product_test.effective_date)
     results = erc.aggregate_results_for_measures(product_test.measures)
 
+    # from the results, generate a Cat 3 file
     cms_compatibility = product_test&.product&.c3_test
     options = { provider: product_test.patients.first.providers.first, submission_program: cms_compatibility,
                 start_time: product_test.start_date, end_time: product_test.end_date }
-    xml = Qrda3R21.new(results, product_test.measures, options).render
+    cat_3_xml = Qrda3R21.new(results, product_test.measures, options).render
 
+    # Loop through all entries in product_test.zip to remove patients that do not meed IPP (i.e., do not have IndividualResult)
     Zip::ZipFile.open("tmp/#{product_test.id}.zip") do |zipfile|
       zipfile.entries.each do |entry|
         doc = Nokogiri::XML(zipfile.read(entry))
@@ -138,14 +157,17 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
       end
     end
 
+    # CLean up and remove all imported patients
     Patient.find(patient_id_file_map.values).each(&:destroy)
 
-    File.write("tmp/#{product_test.id}.xml", xml)
+    File.write("tmp/#{product_test.id}.xml", cat_3_xml)
   end
 
+  # Import all patients in the zip file, and maintain mapping between filename and id
   def import_cat1_zip(zip, patient_id_file_map)
     Zip::ZipFile.open(zip.path) do |zip_file|
       zip_file.entries.each do |entry|
+        # Use ApiMeasureEvaluator to build nokogiri document
         doc = @apime.build_document(zip_file.read(entry))
         patient_id = import_cat1_file(doc)
         patient_id_file_map[entry.name] = patient_id
@@ -153,6 +175,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     end
   end
 
+  # Import and save Cat I file
   def import_cat1_file(doc)
     patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
     Cypress::QRDAPostProcessor.replace_negated_codes(patient, @bundle)
