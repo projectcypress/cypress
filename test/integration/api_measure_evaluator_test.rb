@@ -18,7 +18,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
   def retrieve_bundle
     VCR.use_cassette('bundle_download') do
       bundle_resource = RestClient::Request.execute(method: :get,
-                                                    url: 'https://cypress.healthit.gov/measure_bundles/test-bundle.zip',
+                                                    url: 'https://cypress.healthit.gov/measure_bundles/bundle-2019.1.0.zip',
                                                     user: ENV['VSAC_USERNAME'],
                                                     password: ENV['VSAC_PASSWORD'],
                                                     raw_response: true,
