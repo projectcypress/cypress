@@ -49,10 +49,10 @@ module Cypress
       patient_id_csv.each do |row|
         patient_id_mapping[row[0]] = { givenNames: row[1],
                                        familyName: row[2],
-                                       new_id: Patient.where(givenNames: [row[1]], familyName: row[2]).first.id }
+                                       new_id: bundle.patients.where(givenNames: [row[1]], familyName: row[2]).first.id }
       end
       measure_id_csv.each do |row|
-        measure_id_mapping[row[0]] = { cms_id: row[1], new_id: Measure.where(cms_id: row[1]).first.id }
+        measure_id_mapping[row[0]] = { cms_id: row[1], new_id: bundle.measures.where(cms_id: row[1]).first.id }
       end
       unpack_and_store_individual_results(zip, bundle, patient_id_mapping, measure_id_mapping, tracker)
       true
