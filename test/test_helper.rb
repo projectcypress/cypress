@@ -11,7 +11,7 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 require 'mocha/setup'
 
-Minitest::Reporters.use!
+Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new]
 # comment the previous line and uncomment the next one for test-by-test details
 # Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new]
 
