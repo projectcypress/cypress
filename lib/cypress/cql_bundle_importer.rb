@@ -72,7 +72,11 @@ module Cypress
         new_ir.save
         new_ir.patient.update_measure_relevance_hash(new_ir)
         new_ir.patient.save
-        tracker.log("Calculating (#{((index.to_f / total_count) * 100).to_i}% complete) ")
+        next unless (index % 100).zero?
+
+        log_message = "Calculating (#{((index.to_f / total_count) * 100).to_i}% complete) "
+        tracker.log(log_message)
+        puts "\r#{log_message}"
       end
     end
 
