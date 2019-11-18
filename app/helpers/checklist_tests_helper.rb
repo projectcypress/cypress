@@ -12,6 +12,10 @@ module ChecklistTestsHelper
     end
   end
 
+  def available_attributes(criteria)
+    criteria['dataElementAttributes'].map{ |a| a['attribute_name'] }.sort
+  end
+
   def available_data_criteria(measure, criteria, original_sdc)
     dc_hash = {}
     og_string = ''
