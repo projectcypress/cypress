@@ -130,7 +130,7 @@ class Product
       product_tests.build({ name: m.title, measure_ids: [measure_id], cms_id: m.cms_id }, MeasureTest)
     end
     # remove measure and checklist tests if their measure ids have been removed
-    product_tests.in(measure_ids: (old_ids - new_ids)).destroy
+    ProductTest.destroy_by_ids(product_tests.in(measure_ids: (old_ids - new_ids)).pluck(:id))
   end
 
   # builds a checklist test if product does not have a checklist test
