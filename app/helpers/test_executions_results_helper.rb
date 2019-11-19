@@ -28,8 +28,9 @@ module TestExecutionsResultsHelper
       %(The following errors were identified for #{supp_data_errors.first.error_details['population_key']}
       #{supp_data_errors.first.error_details['population_id']}.)
     elsif stratification_errors.present?
+      population_id = stratification_errors.first.error_details['population_id']
       %(The following errors were identified for
-      #{@task.product_test_expected_results.first[1].population_ids.key(stratification_errors.first.error_details['population_id'])}
+      #{@task.product_test.measures.first.population_criteria.select { |_key, pc| pc['hqmf_id'] == population_id }.keys.first}
       #{stratification_errors.first.error_details['population_id']}.)
     end
   end
