@@ -8,6 +8,7 @@ class ChecklistSourceDataCriteria
   field :measure_id, type: String
   field :source_data_criteria, type: Hash
   field :replacement_data_criteria, type: String
+  field :replacement_attribute, type: String
 
   field :recorded_result, type: String
   field :code, type: String
@@ -33,14 +34,40 @@ class ChecklistSourceDataCriteria
     if replacement_data_criteria && replacement_data_criteria != source_data_criteria._id.to_s
       measure = Measure.find_by(_id: measure_id)
       new_source_data_criteria = measure.source_data_criteria.find(replacement_data_criteria).attributes.slice('qdmCategory', 'qdmStatus', '_type',
-                                                                                                               'description', 'codeListId', '_id',
-                                                                                                               'hqmfOid', 'dataElementAttributes')
-      new_attribute_index = checklist_test.attribute_index?(new_source_data_criteria)
+                                                                                                    'description', 'codeListId', '_id', 'hqmfOid', 'dataElementAttributes')
+      if change_attribute?(new_source_data_criteria)
+        # find attribute index for new criteria
+        new_attribute_index = index_for_replacement_attribute(new_source_data_criteria)
+      else
+        new_attribute_index = checklist_test.attribute_index(new_source_data_criteria)
+      end
       checklist_test.checked_criteria.create(measure_id: measure_id, source_data_criteria: new_source_data_criteria,
                                              negated_valueset: false, replacement_data_criteria: replacement_data_criteria,
                                              attribute_index: new_attribute_index)
       delete
+    elsif change_attribute?(source_data_criteria)
+      # replacement attribute only
+      attribute_index = index_for_replacement_attribute(source_data_criteria)
     end
+  end
+
+  def index_for_replacement_attribute(criteria)
+    attributes = criteria['dataElementAttributes']
+    return nil if attributes.blank?
+
+    attributes.each_with_index do |attr, index|
+      return index if attr.attribute_name == replacement_attribute
+    end
+
+    nil
+  end
+
+  def change_attribute?(criteria)
+    return false unless replacement_attribute
+    return false unless criteria['dataElementAttributes']
+    return false unless criteria['dataElementAttributes'][attribute_index]
+    existing_name = criteria['dataElementAttributes'][attribute_index].attribute_name
+    return replacement_attribute != existing_name
   end
 
   def checklist_complete?
