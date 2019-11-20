@@ -198,9 +198,10 @@ class ProductTest
 
   def update_with_checklist_tests(checklist_test_params)
     update(checklist_test_params)
-    checked_criteria.each(&:validate_criteria)
     # reverse_each as criteria may be deleted as iterating
     checked_criteria.reverse_each(&:change_criteria)
+    checked_criteria.each(&:validate_criteria)
+
     save!
   end
 

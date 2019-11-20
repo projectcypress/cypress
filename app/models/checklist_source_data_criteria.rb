@@ -31,6 +31,7 @@ class ChecklistSourceDataCriteria
   end
 
   def change_criteria
+    # byebug unless replacement_attribute.nil?
     if replacement_data_criteria && replacement_data_criteria != source_data_criteria._id.to_s
       measure = Measure.find_by(_id: measure_id)
       new_source_data_criteria = measure.source_data_criteria.find(replacement_data_criteria).attributes.slice('qdmCategory', 'qdmStatus', '_type',
@@ -47,7 +48,7 @@ class ChecklistSourceDataCriteria
       delete
     elsif change_attribute?(source_data_criteria)
       # replacement attribute only
-      attribute_index = index_for_replacement_attribute(source_data_criteria)
+      self.attribute_index = index_for_replacement_attribute(source_data_criteria)
     end
   end
 
@@ -90,7 +91,7 @@ class ChecklistSourceDataCriteria
 
   def attribute_code_matches_valueset?
     # validate if an attribute_code is required and is correct
-    if attribute_code
+    if attribute_code && !attribute_code.empty?
       measure = Measure.find_by(_id: measure_id)
       valueset = source_data_criteria['dataElementAttributes'][attribute_index]['attribute_valueset'] if source_data_criteria['dataElementAttributes']
       self.attribute_complete = code_in_valuesets(valueset, attribute_code, measure.bundle_id)
