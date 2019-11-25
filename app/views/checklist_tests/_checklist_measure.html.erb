@@ -120,8 +120,8 @@
                       <% end %>
                       <tr>
                         <td> <strong> Attributes </strong> </td>
-                        <% selected_attribute = checklist_test_criteria_attribute(criteria, checked_criteria.attribute_index) %>
-                        <td><%= selected_attribute %></td>
+                        <% selected_attribute = checklist_test_criteria_attribute(criteria, checked_criteria.attribute_index, true) %>
+                        <td><%= checklist_test_criteria_attribute(criteria, checked_criteria.attribute_index)  %></td>
                         <td>
                           <%= render partial: 'checklist_tests/field_values', locals: { attribute: criteria['dataElementAttributes'][checked_criteria.attribute_index], result: criteria['value'], product_test: product_test, index: criteria_field.index, disable_modal: false } if criteria['dataElementAttributes'] %>
                         </td>

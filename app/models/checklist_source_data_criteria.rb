@@ -31,7 +31,6 @@ class ChecklistSourceDataCriteria
   end
 
   def change_criteria
-    # byebug unless replacement_attribute.nil?
     if replacement_data_criteria && replacement_data_criteria != source_data_criteria._id.to_s
       measure = Measure.find_by(_id: measure_id)
       new_source_data_criteria = measure.source_data_criteria.find(replacement_data_criteria).attributes.slice('qdmCategory', 'qdmStatus', '_type',
@@ -47,17 +46,32 @@ class ChecklistSourceDataCriteria
                                              attribute_index: new_attribute_index)
       delete
     elsif change_attribute?(source_data_criteria)
+      self.attribute_complete = nil
+      self.result_complete = nil
+
       # replacement attribute only
+
       self.attribute_index = index_for_replacement_attribute(source_data_criteria)
+      if source_data_criteria['dataElementAttributes'][self.attribute_index]['attribute_valueset']
+        #initially set as empty
+        self.attribute_code = ""
+        self.recorded_result = nil
+      else
+        self.attribute_code = nil
+        self.recorded_result = ""
+      end
     end
   end
 
   def index_for_replacement_attribute(criteria)
     attributes = criteria['dataElementAttributes']
-    return nil if attributes.blank?
+    return nil if attributes.blank? || replacement_attribute.blank?
 
-    attributes.each_with_index do |attr, index|
-      return index if attr.attribute_name == replacement_attribute
+    if replacement_attribute.include?(':')
+      name, valueset = replacement_attribute.split(':')
+      return attributes.index { |a| a.attribute_name == name && a.attribute_valueset == valueset }
+    else
+      return attributes.index { |a| a.attribute_name == replacement_attribute }
     end
 
     nil
@@ -67,8 +81,10 @@ class ChecklistSourceDataCriteria
     return false unless replacement_attribute
     return false unless criteria['dataElementAttributes']
     return false unless criteria['dataElementAttributes'][attribute_index]
-    existing_name = criteria['dataElementAttributes'][attribute_index].attribute_name
-    return replacement_attribute != existing_name
+    attr = criteria['dataElementAttributes'][attribute_index]
+    comp_str = attr['attribute_name']
+    comp_str = comp_str + ':' + attr['attribute_valueset'] if attr['attribute_valueset']
+    return replacement_attribute != comp_str
   end
 
   def checklist_complete?
