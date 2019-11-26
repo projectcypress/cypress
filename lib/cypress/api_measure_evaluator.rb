@@ -308,11 +308,11 @@ module Cypress
     def get_payer_name(payer_code)
       case payer_code
       when '1'
-        'Medicare'
+        1
       when '2'
-        'Medicaid'
+        2
       when '349'
-        'Other'
+        349
       end
     end
 
