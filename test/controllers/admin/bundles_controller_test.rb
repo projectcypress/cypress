@@ -67,15 +67,15 @@ module Admin
         upload = Rack::Test::UploadedFile.new(Rails.root.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_4.zip'), 'application/zip')
         perform_enqueued_jobs do
           post :create, params: { file: upload }
-          @vendor.reload
-          assert_equal orig_bundle_count + 1, Bundle.count, 'Should have added 1 new Bundle'
-          # Default Code Systems for encounter will now have 2 code systems
-          assert_equal 2, Settings.current.default_code_systems['encounter'].size
-          assert_equal 2, @vendor.preferred_code_systems['encounter'].size
-          # The new code system will be added to the end
-          assert_equal '2.16.840.1.113883.6.96', Settings.current.default_code_systems['encounter'].last
-          assert_equal '2.16.840.1.113883.6.96', @vendor.preferred_code_systems['encounter'].last
         end
+        @vendor.reload
+        assert_equal orig_bundle_count + 1, Bundle.count, 'Should have added 1 new Bundle'
+        # Default Code Systems for encounter will now have 2 code systems
+        assert_equal 2, Settings.current.default_code_systems['encounter'].size
+        assert_equal 2, @vendor.preferred_code_systems['encounter'].size
+        # The new code system will be added to the end
+        assert_equal '2.16.840.1.113883.6.96', Settings.current.default_code_systems['encounter'].last
+        assert_equal '2.16.840.1.113883.6.96', @vendor.preferred_code_systems['encounter'].last
       end
     end
 
