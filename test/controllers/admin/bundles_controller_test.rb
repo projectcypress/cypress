@@ -46,13 +46,13 @@ module Admin
         upload = Rack::Test::UploadedFile.new(Rails.root.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_4.zip'), 'application/zip')
         perform_enqueued_jobs do
           post :create, params: { file: upload }
-          assert_performed_jobs 2
-          assert_equal orig_bundle_count + 1, Bundle.count, 'Should have added 1 new Bundle'
-          # Default Code Systems will not be empty after to loading bundle
-          assert_not Settings.current.default_code_systems.empty?
-          assert orig_measure_count < Measure.count, 'Should have added new measures in the bundle'
-          assert orig_patient_count < Patient.count, 'Should have added new patients in the bundle'
         end
+        assert_performed_jobs 2
+        assert_equal orig_bundle_count + 1, Bundle.count, 'Should have added 1 new Bundle'
+        # Default Code Systems will not be empty after to loading bundle
+        assert_not Settings.current.default_code_systems.empty?
+        assert orig_measure_count < Measure.count, 'Should have added new measures in the bundle'
+        assert orig_patient_count < Patient.count, 'Should have added new patients in the bundle'
       end
     end
 
@@ -111,6 +111,7 @@ module Admin
         inactive_bundle = Bundle.where('$or' => [{ 'active' => false }, { :active.exists => false }]).sample
 
         post :set_default, params: { id: inactive_bundle._id }
+        assert_response 302
 
         active_bundle.reload
         inactive_bundle.reload
