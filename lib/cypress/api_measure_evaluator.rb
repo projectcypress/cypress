@@ -275,10 +275,9 @@ module Cypress
       race_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:raceCode/@code'
       gender_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:administrativeGenderCode/@code'
       ethnic_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:ethnicGroupCode/@code'
-      # Currently, with randomization off, all payers are expected to be returned
-      # payer_xpath = %(/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/
-      #   cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.55']/cda:value/@code)
-      # payer_value = doc.at_xpath(payer_xpath).value if doc.at_xpath(payer_xpath)
+      payer_xpath = %(/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/
+        cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.55']/cda:value/@code)
+      payer_value = doc.at_xpath(payer_xpath).value if doc.at_xpath(payer_xpath)
       if filters.key?('age')
         age_filter_holder = filters['age']
         counter += 1 if compare_age(doc, age_filter_holder, creation_time)
@@ -287,9 +286,7 @@ module Cypress
       counter += 1 if filters.value?(doc.at_xpath(race_xpath).value)
       counter += 1 if filters.value?(doc.at_xpath(gender_xpath).value)
       counter += 1 if filters.value?(doc.at_xpath(ethnic_xpath).value)
-      # Currently, with randomization off, all payers are expected to be returned
-      counter += 1 if filters.key?('payer')
-      # counter += 1 if filters.value?(get_payer_name(payer_value))
+      counter += 1 if filters.value?(get_payer_name(payer_value))
       filters['age'] = age_filter_holder if age_filter_holder
       return true if counter == 2
     end
@@ -311,11 +308,11 @@ module Cypress
     def get_payer_name(payer_code)
       case payer_code
       when '1'
-        'Medicare'
+        1
       when '2'
-        'Medicaid'
+        2
       when '349'
-        'Other'
+        349
       end
     end
 
