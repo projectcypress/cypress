@@ -19,7 +19,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
   def retrieve_bundle
     VCR.use_cassette('bundle_download') do
       bundle_resource = RestClient::Request.execute(method: :get,
-                                                    url: 'https://cypress.healthit.gov/measure_bundles/bundle-2019.1.0.zip',
+                                                    url: 'https://cypress.healthit.gov/measure_bundles/2019-fixture-bundle.zip',
                                                     user: ENV['VSAC_USERNAME'],
                                                     password: ENV['VSAC_PASSWORD'],
                                                     raw_response: true,
@@ -40,8 +40,11 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
       perform_enqueued_jobs do
         # Import the bundle
         @bundle = Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new, false)
-        # Pick out 10 random measures
-        measure_ids = @bundle.measures.distinct(:hqmf_id).sample(10)
+        # Pick 2 random EH measures
+        eh_measures = @bundle.measures.where(reporting_program_type: 'eh').distinct(:hqmf_id).sample(2)
+        # Pick 2 random EH measures
+        ep_measures = @bundle.measures.where(reporting_program_type: 'ep').distinct(:hqmf_id).sample(8)
+        measure_ids = eh_measures + ep_measures
         @vendor = Vendor.find_or_create_by(name: 'MeasureEvaluationVendor')
         post :create, params: { vendor_id: @vendor.id, product: { name: 'MeasureEvaluationProduct', bundle_id: @bundle.id.to_s, c1_test: true, c2_test: true, c3_test: true, c4_test: true, duplicate_patients: false, randomize_patients: true, measure_ids: measure_ids } }
       end
@@ -56,9 +59,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     File.open('tmp/filter_patients.zip', 'wb') do |output|
       output.write(filtering_tests.first.patient_archive.read)
     end
-    # Test 2 out of the 5 filtering tests
-    sampled_filtering_tests = filtering_tests.sample(2)
-    sampled_filtering_tests.each do |ft|
+    filtering_tests.each do |ft|
       # Since were are leveraging the ApiMeasureEvaluator, it uses JSON returned from the API to find filter criteria, stored as filter_test_parameters
       filter_test_parameters = {}
       # As the Admin user, use the ProductTestsController to find the filter criteria for the filtering test
@@ -70,7 +71,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
       # Using the filter criteria, filter
       filter_and_save_cat_1_zip(filter_test_parameters, ft)
     end
-    sampled_filtering_tests.each do |ft|
+    filtering_tests.each do |ft|
       upload_test_artifacts('Cat1FilterTask', 'Cat3FilterTask', ft)
       delete_test_zip_files(ft)
     end
