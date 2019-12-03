@@ -5,8 +5,7 @@ module ChecklistTestsHelper
   end
 
   def checklist_test_criteria_attribute(criteria, attribute_index, include_vs = false)
-    if criteria['dataElementAttributes']
-      attr = criteria['dataElementAttributes'][attribute_index]
+    if criteria['dataElementAttributes'] && (attr = criteria['dataElementAttributes'][attribute_index])
       if attr['attribute_valueset'] && include_vs
         attr['attribute_name'] + ':' + attr['attribute_valueset']
       else

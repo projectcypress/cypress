@@ -30,6 +30,11 @@ And(/^the user picks (.*) as a replacement for the first data criteria$/) do |cr
   page.select(criteria_text, from: 'product_test_checked_criteria_attributes_0_replacement_data_criteria')
 end
 
+And(/^the user picks (.*) as a replacement for the first attribute$/) do |attribute_text|
+  # may use simplify_criteria(test, include_attribute_code = false) if needed for consistent results
+  page.select(attribute_text, from: 'product_test_checked_criteria_attributes_0_replacement_attribute')
+end
+
 And(/^the user saves the record sample test$/) do
   page.find("input[value='Save']").click
 end
@@ -224,5 +229,9 @@ Then(/^the user should see the individual measure checklist page for measure (.*
 end
 
 Then(/^the (.*) data criteria should exist$/) do |criteria_text|
-  page.has_text?(criteria_text)
+  assert page.has_text?(criteria_text)
+end
+
+Then(/^the (.*) attribute should exist$/) do |attribute_text|
+  assert page.has_text?(attribute_text)
 end

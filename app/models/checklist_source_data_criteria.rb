@@ -33,33 +33,38 @@ class ChecklistSourceDataCriteria
   def change_criteria
     if replacement_data_criteria && replacement_data_criteria != source_data_criteria._id.to_s
       measure = Measure.find_by(_id: measure_id)
-      new_source_data_criteria = measure.source_data_criteria.find(replacement_data_criteria).attributes.slice('qdmCategory', 'qdmStatus', '_type',
-                                                                                                    'description', 'codeListId', '_id', 'hqmfOid', 'dataElementAttributes')
-      if change_attribute?(new_source_data_criteria)
-        # find attribute index for new criteria
-        new_attribute_index = index_for_replacement_attribute(new_source_data_criteria)
-      else
-        new_attribute_index = checklist_test.attribute_index(new_source_data_criteria)
-      end
+      new_source_data_criteria = measure.source_data_criteria.find(replacement_data_criteria).attributes.slice(
+        'qdmCategory', 'qdmStatus', '_type', 'description', 'codeListId', '_id', 'hqmfOid', 'dataElementAttributes'
+      )
+      new_attribute_index = if change_attribute?(new_source_data_criteria)
+                              # find attribute index for new criteria
+                              index_for_replacement_attribute(new_source_data_criteria)
+                            else
+                              checklist_test.attribute_index(new_source_data_criteria)
+                            end
       checklist_test.checked_criteria.create(measure_id: measure_id, source_data_criteria: new_source_data_criteria,
                                              negated_valueset: false, replacement_data_criteria: replacement_data_criteria,
                                              attribute_index: new_attribute_index)
       delete
     elsif change_attribute?(source_data_criteria)
-      self.attribute_complete = nil
-      self.result_complete = nil
+      update_attribute
+    end
+  end
 
-      # replacement attribute only
+  def update_attribute
+    self.attribute_complete = nil
+    self.result_complete = nil
 
-      self.attribute_index = index_for_replacement_attribute(source_data_criteria)
-      if source_data_criteria['dataElementAttributes'][self.attribute_index]['attribute_valueset']
-        #initially set as empty
-        self.attribute_code = ""
-        self.recorded_result = nil
-      else
-        self.attribute_code = nil
-        self.recorded_result = ""
-      end
+    # replacement attribute only
+
+    self.attribute_index = index_for_replacement_attribute(source_data_criteria)
+    if source_data_criteria['dataElementAttributes'][attribute_index]['attribute_valueset']
+      # initially set as empty
+      self.attribute_code = ''
+      self.recorded_result = nil
+    else
+      self.attribute_code = nil
+      self.recorded_result = ''
     end
   end
 
@@ -67,24 +72,21 @@ class ChecklistSourceDataCriteria
     attributes = criteria['dataElementAttributes']
     return nil if attributes.blank? || replacement_attribute.blank?
 
-    if replacement_attribute.include?(':')
-      name, valueset = replacement_attribute.split(':')
-      return attributes.index { |a| a.attribute_name == name && a.attribute_valueset == valueset }
-    else
-      return attributes.index { |a| a.attribute_name == replacement_attribute }
-    end
+    return attributes.index { |a| a.attribute_name == replacement_attribute } unless replacement_attribute.include?(':')
 
-    nil
+    name, valueset = replacement_attribute.split(':')
+    attributes.index { |a| a.attribute_name == name && a.attribute_valueset == valueset }
   end
 
   def change_attribute?(criteria)
     return false unless replacement_attribute
     return false unless criteria['dataElementAttributes']
     return false unless criteria['dataElementAttributes'][attribute_index]
+
     attr = criteria['dataElementAttributes'][attribute_index]
     comp_str = attr['attribute_name']
     comp_str = comp_str + ':' + attr['attribute_valueset'] if attr['attribute_valueset']
-    return replacement_attribute != comp_str
+    replacement_attribute != comp_str
   end
 
   def checklist_complete?
@@ -107,7 +109,7 @@ class ChecklistSourceDataCriteria
 
   def attribute_code_matches_valueset?
     # validate if an attribute_code is required and is correct
-    if attribute_code && !attribute_code.empty?
+    if attribute_code.present?
       measure = Measure.find_by(_id: measure_id)
       valueset = source_data_criteria['dataElementAttributes'][attribute_index]['attribute_valueset'] if source_data_criteria['dataElementAttributes']
       self.attribute_complete = code_in_valuesets(valueset, attribute_code, measure.bundle_id)
