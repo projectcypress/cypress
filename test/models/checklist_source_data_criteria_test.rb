@@ -23,9 +23,25 @@ class ChecklistSourceDataCriteriaTest < ActiveJob::TestCase
     end
     assert has_relevant_period
 
+    # attribute change with valueset
+    @test.checked_criteria[0].replacement_attribute = 'dischargeDisposition:1.5.6.7'
+    @test.checked_criteria[0].change_criteria
+    has_discharge_disposition = @test.checked_criteria.any? do |cc|
+      cc.source_data_criteria['dataElementAttributes'][cc.attribute_index]['attribute_name'] == 'dischargeDisposition'
+    end
+    assert has_discharge_disposition
+
     # data_criteria change
     index = Measure.first.source_data_criteria.index { |a| a['description'] == 'Patient Characteristic Ethnicity: Ethnicity' }
     @test.checked_criteria[0].replacement_data_criteria = Measure.first.source_data_criteria[index]._id.to_s
+    @test.checked_criteria[0].change_criteria
+    has_ethnicity = @test.checked_criteria.any? { |cc| cc.source_data_criteria['description'] == 'Patient Characteristic Ethnicity: Ethnicity' }
+    assert has_ethnicity
+
+    # both change
+    index = Measure.first.source_data_criteria.index { |a| a['description'] == 'Encounter, Performed: EncounterInpatient' }
+    @test.checked_criteria[0].replacement_data_criteria = Measure.first.source_data_criteria[index]._id.to_s
+    @test.checked_criteria[0].replacement_attribute = 'relevantPeriod'
     @test.checked_criteria[0].change_criteria
     has_ethnicity = @test.checked_criteria.any? { |cc| cc.source_data_criteria['description'] == 'Patient Characteristic Ethnicity: Ethnicity' }
     assert has_ethnicity
