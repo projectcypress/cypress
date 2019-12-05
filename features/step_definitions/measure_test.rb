@@ -99,6 +99,14 @@ And(/^the user uploads a CAT 3 XML file$/) do
   xml_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')
   page.attach_file('results', xml_path, visible: false)
   page.find('#submit-upload').click
+  wait_for_all_delayed_jobs_to_run
+end
+
+And(/^the user uploads a CAT 3 XML file with errors$/) do
+  xml_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_bad_strat.xml')
+  page.attach_file('results', xml_path, visible: false)
+  page.find('#submit-upload').click
+  wait_for_all_delayed_jobs_to_run
 end
 
 And(/^the user uploads an invalid file$/) do
