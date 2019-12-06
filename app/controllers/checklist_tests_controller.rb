@@ -79,6 +79,7 @@ class ChecklistTestsController < ProductTestsController
                                                                  recorded_result
                                                                  negated_valueset
                                                                  selected_negated_valueset
-                                                                 replacement_data_criteria])
+                                                                 replacement_data_criteria
+                                                                 replacement_attribute])
   end
 end
