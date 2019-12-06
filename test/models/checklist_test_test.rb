@@ -19,8 +19,8 @@ class ChecklistTestTest < ActiveJob::TestCase
     attributes3 = { 'dataElementAttributes' => [{ 'attribute_name' => 'relevantPeriod', 'attribute_valueset' => nil },
                                                 { 'attribute_name' => 'dischargeDisposition', 'attribute_valueset' => nil },
                                                 { 'attribute_name' => 'dischargeDisposition', 'attribute_valueset' => '1.1.2.3' }] }
-    assert_equal 1, @test.attribute_index?(attributes1), 'should return index for dischargeDisposition with a valueset oid'
-    assert_equal 2, @test.attribute_index?(attributes3), 'should return index for dischargeDisposition with a valueset oid'
+    assert_equal 1, @test.attribute_index(attributes1), 'should return index for dischargeDisposition with a valueset oid'
+    assert_equal 2, @test.attribute_index(attributes3), 'should return index for dischargeDisposition with a valueset oid'
   end
 
   def test_create_checked_criteria

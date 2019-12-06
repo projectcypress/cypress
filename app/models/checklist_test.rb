@@ -64,7 +64,8 @@ class ChecklistTest < ProductTest
     criteria['dataElementAttributes'][att_index]['attribute_name'] == 'negationRationale'
   end
 
-  def attribute_index?(criteria)
+  # index of randomly sampled attribute that can be used in test
+  def attribute_index(criteria)
     attributes = criteria['dataElementAttributes']
     return nil if attributes.blank?
 
@@ -102,7 +103,7 @@ class ChecklistTest < ProductTest
 
       checklist_measures << measure.hqmf_id
       measure_criteria_map[measure].each do |criteria|
-        att_index = attribute_index?(criteria)
+        att_index = attribute_index(criteria)
         # slice source_data_criteria to remove fields unrelated to the checklist test
         sdc = criteria.attributes.slice('qdmCategory', 'qdmStatus', '_type', 'hqmfOid', 'codeListId', 'description', 'dataElementAttributes', '_id')
         checked_criterias.push(ChecklistSourceDataCriteria.new(measure_id: measure.id.to_s, source_data_criteria: sdc,
