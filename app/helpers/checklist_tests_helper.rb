@@ -4,12 +4,24 @@ module ChecklistTestsHelper
     @product_test.checked_criteria.group_by(&:measure_id).values.all? { |cc_group| cc_group.any? { |cc| !cc.checklist_complete? } }
   end
 
-  def checklist_test_criteria_attribute(criteria, attribute_index)
-    if criteria['dataElementAttributes']
-      criteria['dataElementAttributes'][attribute_index]['attribute_name']
+  def checklist_test_criteria_attribute(criteria, attribute_index, include_vs = false)
+    if criteria['dataElementAttributes'] && (attr = criteria['dataElementAttributes'][attribute_index])
+      if attr['attribute_valueset'] && include_vs
+        attr['attribute_name'] + ':' + attr['attribute_valueset']
+      else
+        attr['attribute_name']
+      end
     else
       ''
     end
+  end
+
+  def available_attributes(criteria)
+    criteria['dataElementAttributes'].map do |a|
+      composite_name = a['attribute_name']
+      composite_name = composite_name + ':' + a['attribute_valueset'] unless a['attribute_valueset'].nil?
+      composite_name
+    end.sort
   end
 
   def available_data_criteria(measure, criteria, original_sdc)

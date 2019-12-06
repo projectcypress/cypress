@@ -15,7 +15,18 @@ class ChecklistTestsHelperTest < ActiveSupport::TestCase
   def test_checklist_test_criteria_attribute
     c1 = {}
 
-    c1['dataElementAttributes'] = [{ 'attribute_name' => 'Test' }]
+    c1['dataElementAttributes'] = [{ 'attribute_name' => 'Test', 'attribute_valueset' => 'vs' }]
     assert_equal 'Test', checklist_test_criteria_attribute(c1, 0)
+    assert_equal 'Test:vs', checklist_test_criteria_attribute(c1, 0, true)
+    assert_equal '', checklist_test_criteria_attribute({}, 0)
+    assert_equal '', checklist_test_criteria_attribute(c1, 1)
+  end
+
+  def test_available_attributes
+    c1 = {}
+    c1['dataElementAttributes'] = [{ 'attribute_name' => 'Test' }]
+    assert_equal ['Test'], available_attributes(c1)
+    c1['dataElementAttributes'][0]['attribute_valueset'] = 'vs'
+    assert_equal ['Test:vs'], available_attributes(c1)
   end
 end
