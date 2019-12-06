@@ -63,6 +63,38 @@ class PatientZipperTest < ActiveSupport::TestCase
     assert_equal 1, count, 'Zip should contain 1 QRDA file for the patient with a negated valueset'
   end
 
+  test 'Should create valid qrda file with two negated valuesets' do
+    format = :qrda
+    filename = "pTest-#{Time.now.to_i}.qrda.zip"
+    file = Tempfile.new(filename)
+
+    patient = @static_patient
+    modified_procedure = patient.qdmPatient.procedures.first
+    modified_procedure.negationRationale = modified_procedure.codes.first
+    patient.save
+
+    # Add the negated code to a second valueset
+    vs = patient.bundle.measures.first.value_sets.first
+    vs.concepts.create(code: modified_procedure.codes.first.code, code_system_oid: modified_procedure.codes.first.codeSystemOid)
+    vs.save
+
+    Cypress::PatientZipper.zip(file, [patient], format)
+    file.close
+
+    count = 0
+    Zip::ZipFile.foreach(file.path) do |zip_entry|
+      if zip_entry.name.include?('.xml') && !zip_entry.name.include?('__MACOSX')
+        doc = Nokogiri::XML(zip_entry.get_input_stream, &:strict)
+        doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+        doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+        assert_equal 2, doc.xpath('//cda:code[@nullFlavor="NA"]').size, 'There should be 1 negated code in the exported QRDA'
+        count += 1
+      end
+    end
+    File.delete(file.path)
+    assert_equal 1, count, 'Zip should contain 1 QRDA file for the patient with negated valuesets'
+  end
+
   def confirm_imported_patient_can_be_saved_after_replaced_codes(doc, patient, original_code)
     negated_oid = ValueSet.where('concepts.code': original_code).first.oid
     imported_patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
