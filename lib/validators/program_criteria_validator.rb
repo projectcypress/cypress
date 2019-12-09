@@ -41,7 +41,7 @@ module Validators
       patient.update(_type: CQM::TestExecutionPatient, correlation_id: options.test_execution.id.to_s)
       patient.save!
       patient_has_pcp_and_other_element(patient, options)
-      Cypress::QRDAPostProcessor.replace_negated_codes(patient, options.task.bundle)
+      post_processsor_check(patient, options)
       calc_job = Cypress::CqmExecutionCalc.new([patient.qdmPatient],
                                                options.task.product_test.measures,
                                                options.test_execution.id.to_s,
@@ -49,6 +49,13 @@ module Validators
                                                'effectiveDate': Time.at(options.task.measure_period_start).in_time_zone.to_formatted_s(:number),
                                                'file_name': options[:file_name])
       calc_job.execute(true)
+    end
+
+    def post_processsor_check(patient, options)
+      # check for single code negation errors
+      errors = Cypress::QRDAPostProcessor.issues_for_negated_single_codes(patient, options.task.bundle)
+      errors.each { |e| add_error e, file_name: options[:file_name] }
+      Cypress::QRDAPostProcessor.replace_negated_codes(patient, options.task.bundle)
     end
 
     # Check that a patient as a patient_characteristic_payer and atleast 1 other (non-demographic) data criteria
