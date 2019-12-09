@@ -21,7 +21,7 @@ module ChecklistTestsHelper
       composite_name = a['attribute_name']
       composite_name = composite_name + ':' + a['attribute_valueset'] unless a['attribute_valueset'].nil?
       composite_name
-    end.sort
+    end.sort - ['id']
   end
 
   def available_data_criteria(measure, criteria, original_sdc)

@@ -73,6 +73,7 @@ class ChecklistTest < ProductTest
     codeless_indices = []
     attributes.each_with_index do |attribute, index|
       if attribute['attribute_valueset'].nil?
+        next if attribute.attribute_name == 'id'
         # A codeless attribute (i.e. time periods, result, etc.)
         codeless_indices << index
       else
