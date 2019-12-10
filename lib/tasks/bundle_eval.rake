@@ -178,6 +178,15 @@ namespace :bundle do
       end
     end
 
+    task :find_duplicate_encounters, [:bundle_version] => :setup do |_, args|
+      CSV.open('tmp/find_duplicate_encounters.csv', 'w') do |csv|
+        bundle = Bundle.where(version: args.bundle_version).first
+        bundle.patients.each do |bp|
+          csv << [bp.givenNames[0], bp.familyName] unless bp.qdmPatient.get_data_elements('encounter', 'performed').collect { |ep| "#{ep.relevantPeriod.low}_#{ep.relevantPeriod.high}" }.uniq!.nil?
+        end 
+      end
+    end
+
     def do_codes_match?(data_element_code, valueset_code)
       valueset_code['code'] == data_element_code['code'] && valueset_code['code_system_oid'] == data_element_code['codeSystemOid']
     end
