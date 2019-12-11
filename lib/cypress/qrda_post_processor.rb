@@ -30,7 +30,7 @@ module Cypress
         next unless de['negationRationale']
 
         de.codes.each do |c|
-          next unless c.codeSystemOid != '1.2.3.4.5.6.7.8.9.10' && !drc_codes.include?(c)
+          next unless c.codeSystemOid != '1.2.3.4.5.6.7.8.9.10' && !drc_codes.include?(c.code)
 
           # pull relevant measures from patient if possible
           vs_ids = measures.map(&:value_set_ids).flatten.uniq
