@@ -23,7 +23,7 @@ module Cypress
     end
 
     # create an issue message for any negations that are done with a single code rather than vs
-    def self.issues_for_negated_single_codes(patient, bundle)
+    def self.issues_for_negated_single_codes(patient, bundle, measures)
       drc_codes = ValueSet.where(oid: /drc/i).map { |vs| vs.concepts.first.code }
       error_list = []
       patient.qdmPatient.dataElements.each do |de|
@@ -32,11 +32,13 @@ module Cypress
         de.codes.each do |c|
           next unless c.codeSystemOid != '1.2.3.4.5.6.7.8.9.10' && !drc_codes.include?(c)
 
-          potential_vs = ValueSet.where('concepts.code' => code, bundle_id: bundle._id)
+          # pull relevant measures from patient if possible
+          vs_ids = measures.map(&:value_set_ids).flatten.unique
+          potential_vs = ValueSet.where(:id.in => vs_ids, 'concepts.code' => c.code, bundle_id: bundle._id).map(&:oid)
           msg = 'CMS QRDA Implementation Guide, Section 5.2.3.1, “Not Done” with a Reason: ' \
                 'Must provide the value set OID instead of a specific code from the value set. ' \
                 'Set the code attribute code/sdtc:valueset="[VSAC value set OID]" ' \
-                "Valuesets using code #{c} include: #{potential_vs.join(', ')}"
+                "Valuesets for code #{c.code} that may be relevant for this test include: #{potential_vs.join(', ')}"
           error_list << msg
         end
       end
