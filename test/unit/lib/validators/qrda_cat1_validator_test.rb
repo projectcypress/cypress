@@ -29,4 +29,19 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
       assert_equal :error, e.msg_type, 'All validation messages should be errors for a bad schema'
     end
   end
+
+  def test_single_code_error
+    @product_test = FactoryBot.create(:product_test_static_result)
+    @calc_validator_with_c3 = CalculatingSmokingGunValidator.new(@product_test.measures, @product_test.patients, @product_test.id)
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_single_code.xml')).read
+    doc = Nokogiri::XML(file)
+    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+    @calc_validator_with_c3.parse_record(doc, file_name: 'sample_patient_single_code')
+    errors = @calc_validator_with_c3.errors
+    assert_not_empty errors
+    errors.each do |e|
+      assert e.message.include?('CMS QRDA Implementation Guide, Section 5.2.3.1'), 'All validation errors should show single code negation error'
+    end
+  end
 end
