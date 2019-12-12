@@ -87,7 +87,7 @@ class PatientZipperTest < ActiveSupport::TestCase
         doc = Nokogiri::XML(zip_entry.get_input_stream, &:strict)
         doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
-        assert_equal 2, doc.xpath('//cda:code[@nullFlavor="NA"]').size, 'There should be 1 negated code in the exported QRDA'
+        assert_equal 2, doc.xpath('//cda:code[@nullFlavor="NA"]').size, 'There should be 2 negated valusets in the exported QRDA'
         count += 1
       end
     end
