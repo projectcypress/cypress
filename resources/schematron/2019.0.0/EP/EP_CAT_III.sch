@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 CMS 2020 QRDA Category III
-Version 1.0 
+Version 1.1 
 
     THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
     THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -11,35 +11,43 @@ Version 1.0
     THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             
-    Changes made for the 2020 CMS QRDA Category III Schematron version 1.0:
+    Changes made for the 2020 CMS QRDA Category III Schematron version 1.1:
     
             Document-level templates:
                 - QRDA Category III Report - CMS V4  
+                  - Removed 3338-18180 since the same conformance statement appears in the QRDA Category III Report V4 template 
+                  - Corrected conformance ID and text for timezone validation CMS_0122
+                  - Added or corrected conformance statements governing NPI and TIN for CPC+ and MIPS reporting
+                  
+    Changes made for the 2020 CMS QRDA Category III Schematron version 1.0:
+                  
+            Document-level templates:
+               - QRDA Category III Report - CMS V4  
                   - Updated 2.16.840.1.113883.10.20.27.1.2 template to have extension 2019-05-01
                   - Updated conformance id prefix from 3338 to 4437 in a-3338-17281_C01, a-3338-21394_C01
                   - Updated 2.16.840.1.113883.10.20.27.2.3 template to have extension 2019-05-01 in 4427-21394_C01  
                   - Removed empty rules (i.e schematron rules elements containing no asserts)           
                   - Added conformance statement CMS_92
                   
-            Section-level templates:
+           Section-level templates:
                -  Removed Improvement Activity Section CMS template
                -  QRDA Category III Measure Section - CMS V4  
                   - Updated template 2.16.840.1.113883.10.20.27.2.3 extension to 2019-05-01 throughout template
                   - Updated template 2.16.840.1.113883.10.20.27.2.17 extension to 2019-05-01 throughout template
                   - Updated conformance id prefix from 3338 to 4427 in 4427-17906_C01      
-            
-            Entry-level templates:
-                - Removed Improvement Activity Performed Measure Reference and Results CMS template
-                - Measure Data - CMS V4
+                  
+           Entry-level templates:
+               - Removed Improvement Activity Performed Measure Reference and Results CMS template
+               - Measure Data - CMS V4
                   - Updated extension for template 2.16.840.1.113883.10.20.27.3.16 to 2019-05-01 throughout template
                   - Replaced conformance id prefix of 3259- with 4427- throughout template
-                - Measure Reference and Results - CMS V4
+               - Measure Reference and Results - CMS V4
                   - Updated extension for template 2.16.840.1.113883.10.20.27.3.17 to 2019-05-01 throughout template
                   - Replaced conformance id prefix of 3259- with 4427- throughout template
-                - Performance Rate for Proportion Measure CMS V3
+               - Performance Rate for Proportion Measure CMS V3
                   - Removed empty rules (i.e schematron rules elements containing no asserts) 
 
-Fri Jun 28 15:39:43 MDT 2019
+Mon Nov 25 10:29:36 MST 2019
 -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:svs="urn:ihe:iti:svs:2008" xmlns:voc="http://www.lantanagroup.com/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sch:ns prefix="voc" uri="http://www.lantanagroup.com/voc" />
@@ -185,8 +193,9 @@ Fri Jun 28 15:39:43 MDT 2019
   </sch:pattern>
   <sch:pattern id="p-validate_TZ-errors">
     <sch:let name="timeZoneExists" value="string-length(normalize-space(/cda:ClinicalDocument/cda:effectiveTime/@value)) &gt; 8 and (contains(normalize-space(/cda:ClinicalDocument/cda:effectiveTime/@value), '-') or contains(normalize-space(/cda:ClinicalDocument/cda:effectiveTime/@value), '+'))" />
+    <!-- 11-19-2019 Corrected conformance ID (from 0121 to 0122) QRDA-710 (Update for v1.1) -->
     <sch:rule id="r-validate_TZ-errors" context="//cda:time[@value] | //cda:effectiveTime[@value] | //cda:time/cda:low[@value] | //cda:time/cda:high[@value] | //cda:effectiveTime/cda:low[@value] | //cda:effectiveTime/cda:high[@value]">
-      <sch:assert id="a-CMS_0121-error" test="string-length(normalize-space(@value)) &lt;= 8 or (parent::node()[parent::node()[parent::node()[cda:act[cda:templateId[@root='2.16.840.1.113883.10.20.17.3.8.1'][@extension='2016-03-01']]]]]) or ($timeZoneExists=(contains(normalize-space(@value), '-') or contains(normalize-space(@value), '+'))) or @nullFlavor">A Coordinated Universal Time (UTC time) offset should not be used anywhere in a QRDA Category I file or, if a UTC time offset is needed anywhere, then it must be specified everywhere a time field is provided (CONF: CMS_0121).</sch:assert>
+      <sch:assert id="a-CMS_0122-error" test="string-length(normalize-space(@value)) &lt;= 8 or (parent::node()[parent::node()[parent::node()[cda:act[cda:templateId[@root='2.16.840.1.113883.10.20.17.3.8.1'][@extension='2016-03-01']]]]]) or ($timeZoneExists=(contains(normalize-space(@value), '-') or contains(normalize-space(@value), '+'))) or @nullFlavor">A Coordinated Universal Time (UTC time) offset should not be used anywhere in a QRDA Category III file or, if a UTC time offset is needed anywhere, then it *must* be specified *everywhere* a time field is provided. (CONF: CMS_0122)</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="p-CMS-QRDA-III-templateId-errors">
@@ -339,24 +348,42 @@ Fri Jun 28 15:39:43 MDT 2019
       <sch:assert id="a-CMS_91-error" test="@extension">This id SHALL contain exactly one [1..1] @extension (CONF: CMS_91). Note: The value of @extension is the CMS EHR Certification ID, which must be 15 alpha numeric characters in length.</sch:assert>
     </sch:rule>
     <sch:rule id="QRDA_Category_III_CMS-documentationOf-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2019-05-01']]/cda:documentationOf">
-      <sch:assert id="a-4427-18171_C01-error" test="count(cda:serviceEvent)=1">his documentationOf SHALL contain exactly one [1..1] serviceEvent (CONF:4427-18171_C01).</sch:assert>
+      <sch:assert id="a-4427-18171_C01-error" test="count(cda:serviceEvent)=1">This documentationOf SHALL contain exactly one [1..1] serviceEvent (CONF:4427-18171_C01).</sch:assert>
     </sch:rule>
-    <!-- Removed the following empty rules 04-29-2019 -->
-    <!--
-            <sch:rule id="QRDA_Category_III_CMS-documentationOf-serviceEvent-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2019-05-01']]/cda:documentationOf/cda:serviceEvent">
-            </sch:rule>
-            <sch:rule id="QRDA_Category_III_CMS-documentationOf-serviceEvent-performer-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2019-05-01']]/cda:documentationOf/cda:serviceEvent/cda:performer">
-            </sch:rule>
-            <sch:rule id="QRDA_Category_III_CMS-component-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2019-05-01']]/cda:component">
-            </sch:rule>
-       -->
+    <!-- Documentation of Service Event rules (Update for v1.1) -->
+    <sch:rule id="QRDA_Category_III_CMS-documentationOf-serviceEvent-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2019-05-01']]/cda:documentationOf/cda:serviceEvent">
+      <!-- If CPCPLUS, service event must have at least one performer, each must contain one TIN and one NPI -->
+      <sch:assert id="a-4427-18171_C01-CPCPLUS-performer-error" test="$intendedRecipient-Doc != 'CPCPLUS' or ($intendedRecipient-Doc='CPCPLUS' and count(cda:performer)&gt;=1)">For CPC+ reporting, serviceEvent must contain at least one performer, each performer contains one TIN and one NPI. Only CPC+ Practice Site providers are listed as performers. (CONF:4427-18171_C01).</sch:assert>
+      <!-- If MIPS_GROUP, service event must have 1 performer. That performer must contain one TIN and no NPI -->
+      <sch:assert id="a-4427-18171_C01-MIPSGROUP-performer-error" test="$intendedRecipient-Doc != 'MIPS_GROUP' or ($intendedRecipient-Doc='MIPS_GROUP' and count(cda:performer)=1)">For MIPS group reporting, serviceEvent must contain exactly one performer (CONF:4427-18171_C01).</sch:assert>
+      <!-- If MIPS_VIRTUAL GROUP, service event must have 1 performer. That performer must contain one virtual group ID and no NPI -->
+      <sch:assert id="a-4427-18171_C01-MIPSVIRTUALGROUP-performer-error" test="$intendedRecipient-Doc != 'MIPS_VIRTUALGROUP' or ($intendedRecipient-Doc='MIPS_VIRTUALGROUP' and count(cda:performer)=1)">For MIPS virtual group reporting, serviceEvent must contain exactly one performer, which contains one TIN and one NPI. (CONF:4427-18171_C01).</sch:assert>
+      <!-- If MIPS_INDIV, service event must have 1 performer. That performer must contain one TIN and one NPI -->
+      <sch:assert id="a-4427-18171_C01-MIPSINDIV-performer-error" test="$intendedRecipient-Doc != 'MIPS_INDIV' or ($intendedRecipient-Doc='MIPS_INDIV' and count(cda:performer)=1)">For MIPS individual reporting, serviceEvent must contain exactly one performer, which contains one TIN and one NPI. (CONF:4427-18171_C01).</sch:assert>
+    </sch:rule>
+    <!-- NPI (assignedEntity) rules (Update for v1.1) -->
     <sch:rule id="QRDA_Category_III_CMS-documentationOf-serviceEvent-performer-assignedEntity-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2019-05-01']]/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity">
-      <sch:assert id="a-4427-18177_C01-error" test="count(cda:id[@root='2.16.840.1.113883.4.6'])=1">This assignedEntity SHALL contain exactly one [1..1] id (CONF:4427-18177_C01) such that it  MAY contain zero or one [0..1] @nullFlavor (CONF:CMS_29). SHALL contain exactly one [1..1] @root="2.16.840.1.113883.4.6" National Provider ID (CONF:4427-18178_C01).  MAY contain zero or one [0..1] @extension (CONF:3338-18247).</sch:assert>
-      <sch:assert id="a-3338-18180-error" test="count(cda:representedOrganization)=1">This assignedEntity SHALL contain exactly one [1..1] representedOrganization (CONF:3338-18180).</sch:assert>
+      <!-- If CPCPLUS, service event must have at least 1 performer, each must contain one NPI -->
+      <sch:assert id="a-4427-18177_C01-CPCPLUS-NPI-error" test="$intendedRecipient-Doc != 'CPCPLUS' or ($intendedRecipient-Doc='CPCPLUS' and count(cda:id[@root='2.16.840.1.113883.4.6'][@extension])=1)">For CPC+ reporting, this assignedEntity SHALL contain exactly one [1..1] id (CONF:4427-18177_C01) such that it  SHALL contain exactly one [1..1] @root="2.16.840.1.113883.4.6" National Provider ID (CONF:4427-18178_C01). Note: This OID contained in the @root (2.16.840.1.113883.4.6) designates that the @extension must hold a National Provider ID.</sch:assert>
+      <!-- If MIPS_INDIV, service event  performer must contain one NPI -->
+      <sch:assert id="a-4427-18177_C01-MIPSINDIV-NPI-error" test="$intendedRecipient-Doc != 'MIPS_INDIV' or ($intendedRecipient-Doc='MIPS_INDIV' and count(cda:id[@root='2.16.840.1.113883.4.6'][@extension])=1)">For MIPS individual reporting, this assignedEntity SHALL contain exactly one [1..1] id (CONF:4427-18177_C01) such that it  SHALL contain exactly one [1..1] @root="2.16.840.1.113883.4.6" National Provider ID (CONF:4427-18178_C01). Note: This OID contained in the @root (2.16.840.1.113883.4.6) designates that the @extension must hold a National Provider ID.</sch:assert>
+      <!-- If MIPS_GROUP, service event performer must contain  no NPI -->
+      <sch:assert id="a-4427-18178_C01-MIPSGROUP-NPI-count-error" test="$intendedRecipient-Doc != 'MIPS_GROUP' or ($intendedRecipient-Doc='MIPS_GROUP' and count(cda:id[@root='2.16.840.1.113883.4.6'][@extension])=0)">For MIPS  group reporting: No NPI is allowed. (CONF:4427-18171_C01).</sch:assert>
+      <sch:assert id="a-4427-18178_C01-MIPSGROUP-NPI-format-error" test="$intendedRecipient-Doc != 'MIPS_GROUP' or ($intendedRecipient-Doc='MIPS_GROUP' and count(cda:id[@root='2.16.840.1.113883.4.6'][@nullFlavor='NA'][not(@extension)])=1)">For MIPS  group reporting, id/@root=' 2.16.840.1.113883.4.6' is coupled with @nullFlavor="NA", and @extension shall be omitted.(CONF:4427-18171_C01).</sch:assert>
+      <!-- If MIPS_VIRTUALGROUP, service event performer must contain  no NPI -->
+      <sch:assert id="a-4427-18178_C01-MIPSVIRTUALGROUP-NPI-count-error" test="$intendedRecipient-Doc != 'MIPS_VIRTUALGROUP' or ($intendedRecipient-Doc='MIPS_VIRTUALGROUP' and count(cda:id[@root='2.16.840.1.113883.4.6'][@extension])=0)">For MIPS  virtual group reporting: No NPI is allowed. (CONF:4427-18171_C01).</sch:assert>
+      <sch:assert id="a-4427-18178_C01-MIPSIVIRTUALGROUP-NPI-format-error" test="$intendedRecipient-Doc != 'MIPS_VIRTUALGROUP' or ($intendedRecipient-Doc='MIPS_VIRTUALGROUP' and count(cda:id[@root='2.16.840.1.113883.4.6'][@nullFlavor='NA'][not(@extension)])=1)">For MIPS  virtual group reporting, id/@root=' 2.16.840.1.113883.4.6' is coupled with @nullFlavor="NA", and @extension shall be omitted.(CONF:4427-18171_C01).</sch:assert>
     </sch:rule>
+    <!-- TIN rules (Update for v1.1) -->
     <sch:rule id="QRDA_Category_III_CMS-documentationOf-serviceEvent-performer-assignedEntity-representedOrganization-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2019-05-01']]/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization">
-      <sch:assert id="a-CMS_82-error" test="$intendedRecipient-Doc != 'MIPS_GROUP' or ($intendedRecipient-Doc='MIPS_GROUP' and count(cda:id[@root='2.16.840.1.113883.4.2'][@extension])=1)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MIPS_GROUP", then this representedOrganization SHALL contain exactly one [1..1] id such that it SHALL be the group's TIN (CONF:CMS_82).</sch:assert>
-      <sch:assert id="a-CMS_83-error" test="$intendedRecipient-Doc != 'MIPS_VIRTUALGROUP' or ($intendedRecipient-Doc='MIPS_VIRTUALGROUP' and count(cda:id['2.16.840.1.113883.3.249.5.2'][@extension])=1)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MIPS_VIRTUALGROUP", then this representedOrganization SHALL contain exactly one [1..1] id such that it SHALL be the virtual group's Virtual Group Identifier (CONF:CMS_83).</sch:assert>
+      <!-- If CPCPLUS, each service event  performer must contain one TIN -->
+      <sch:assert id="a-4427-18171_C01-CPCPLUS-TIN-error" test="$intendedRecipient-Doc != 'CPCPLUS' or ($intendedRecipient-Doc='CPCPLUS' and count(cda:id[@root='2.16.840.1.113883.4.2'][@extension])=1)">For CPC+ reporting: sericeEvent must contain at least one performer, each containing one [1..1] id @root=2.16.840.1.113883.4.2 where @extension is the TIN. (CONF:4427-18171_C01)</sch:assert>
+      <!-- If MIPS_GROUP, service event must have 1 performer. That performer must contain one TIN -->
+      <sch:assert id="a-CMS_82" test="$intendedRecipient-Doc != 'MIPS_GROUP' or ($intendedRecipient-Doc='MIPS_GROUP' and count(cda:id[@root='2.16.840.1.113883.4.2'][@extension])=1)">For MIPS group reporting,  this representedOrganization SHALL contain one [1..1] id such that it, SHALL be the group's TIN (CONF:CMS_82).</sch:assert>
+      <!-- If MIPS_VIRTUALGROUP, service event  performer must contain one Virtual Group identifier -->
+      <sch:assert id="a-CMS_83" test="$intendedRecipient-Doc != 'MIPS_VIRTUALGROUP' or ($intendedRecipient-Doc='MIPS_VIRTUALGROUP' and count(cda:id[@root='2.16.840.1.113883.3.249.5.2'][@extension])=1)">For MIPS virtual group reporting, this representedOrganization SHALL contain one [1..1] id such that it, SHALL be the group's virtual group number (CONF:CMS_83).</sch:assert>
+      <!-- If MIPS_INDIV, service event  performer must contain one TIN -->
+      <sch:assert id="a-4427-18171_C01-MIPSINDIV-TIN-error" test="$intendedRecipient-Doc != 'MIPS_INDIV' or ($intendedRecipient-Doc='MIPS_INDIV' and count(cda:id[@root='2.16.840.1.113883.4.2'][@extension])=1)">For MIPS individual reporting: performer assignedEntity  must contain exactly one representedOrganization, which SHALL contain one [1..]1 id TIN (CONF:4427-18171_C01)</sch:assert>
     </sch:rule>
     <sch:rule id="QRDA_Category_III_CMS-component-structuredBody-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2019-05-01']]/cda:component/cda:structuredBody">
       <sch:assert id="a-4427-17281_C01-error" test="count(cda:component[count(cda:section[cda:templateId[@root='2.16.840.1.113883.10.20.27.2.2']])=1])=0">This structuredBody SHALL NOT contain [0..0] component (CONF:4427-17281_C01) such that it  SHALL contain exactly one [1..1] QRDA Category III Reporting Parameters Section (identifier: urn:oid:2.16.840.1.113883.10.20.27.2.2) (CONF:3338-17282).</sch:assert>
@@ -505,18 +532,33 @@ Fri Jun 28 15:39:43 MDT 2019
       <sch:assert id="a-3259-17888-error" test="@moodCode='EVN'">SHALL contain exactly one [1..1] @moodCode="EVN" (CodeSystem: ActMood urn:oid:2.16.840.1.113883.5.1001 STATIC) (CONF:3259-17888).</sch:assert>
       <sch:assert id="a-3259-17908-error" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1'][@extension='2016-09-01'])=1">SHALL contain exactly one [1..1] templateId (CONF:3259-17908) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.27.3.1" (CONF:3259-17909). SHALL contain exactly one [1..1] @extension="2016-09-01" (CONF:3259-21170).</sch:assert>
       <!-- Removed 06-28-2019 -->
-      <!-- <sch:assert id="a-3259-17889-error" test="count(cda:statusCode)=1">SHALL contain exactly one [1..1] statusCode (CONF:3259-17889).</sch:assert> -->
-      <sch:assert id="a-3259-17890-error" test="count(cda:reference[@typeCode='REFR'][count(cda:externalDocument[@classCode='DOC'][count(cda:id [@root='2.16.840.1.113883.4.738'] [@extension])=1])=1])=1">SHALL contain exactly one [1..1] reference (CONF:3259-17890) such that it SHALL contain exactly one [1..1] @typeCode="REFR" (CONF:3259-17891). SHALL contain exactly one [1..1] externalDocument (CodeSystem: HL7ActClass urn:oid:2.16.840.1.113883.5.6 STATIC) (CONF:3259-17892). This externalDocument SHALL contain exactly one [1..1] @classCode="DOC" Document (CodeSystem: HL7ActClass urn:oid:2.16.840.1.113883.5.6) (CONF:3259-19548). This externalDocument SHALL contain exactly one [1..1] id (CONF:3259-18192) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.4.738" (CONF:3259-18193). SHALL contain exactly one [1..1] @extension (CONF:3259-21169).</sch:assert>
+      <!-- <sch:assert id="a-3259-17889-error" test="count(cda:statusCode)=1">SHALL contain exactly one [1..1] statusCode CONF:3259-17889.</sch:assert> -->
+      <!-- 07-25-2019 Rewrote 3259-17890 to be less restrictive, per IG  https://tracker.esacinc.com/browse/QRDA-487 -->
+      <sch:assert id="a-3259-17890-error" test="count(cda:reference[@typeCode='REFR'][count(cda:externalDocument)=1])=1">SHALL contain exactly one [1..1] reference (CONF:3259-17890) such that it SHALL contain exactly one [1..1] @typeCode="REFR" (CONF:3259-17891). SHALL contain exactly one [1..1] externalDocument (CodeSystem: HL7ActClass urn:oid:2.16.840.1.113883.5.6 STATIC) (CONF:3259-17892).</sch:assert>
       <sch:assert id="a-3259-18425-error" test="count(cda:component[count(cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.5'][@extension='2016-09-01']])=1]) &gt; 0">SHALL contain at least one [1..*] component (CONF:3259-18425) such that it SHALL contain exactly one [1..1] Measure Data (V3) (identifier: urn:hl7ii:2.16.840.1.113883.10.20.27.3.5:2016-09-01) (CONF:3259-18426).</sch:assert>
     </sch:rule>
     <!-- Removed 06-28-2019 -->
     <!--
         <sch:rule id="Measure_Reference_and_Results-statusCode-errors" context="cda:organizer[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1'][@extension='2016-09-01']]/cda:statusCode">
-            <sch:assert id="a-3259-19552-error" test="@code='completed'">This statusCode SHALL contain exactly one [1..1] @code="completed" Completed (CodeSystem: ActStatus urn:oid:2.16.840.1.113883.5.14) (CONF:3259-19552).</sch:assert>
+            <sch:assert id="a-3259-19552-error" test="@code='completed'">This statusCode SHALL contain exactly one [1..1] @code="completed" Completed (CodeSystem: ActStatus urn:oid:2.16.840.1.113883.5.14) CONF:3259-19552.</sch:assert>
         </sch:rule>
         -->
+    <!-- 07-25-2019  Added new rules because 3259-17980 was written incorrectly.  https://tracker.esacinc.com/browse/QRDA-487 -->
+    <sch:rule id="Measure_Reference_and_Results-reference-externalDocument-errors" context="cda:organizer[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1'][@extension='2016-09-01']]/cda:reference[@typeCode='REFR']/cda:externalDocument">
+      <sch:assert id="a-3259-19548-error" test="@classCode='DOC'">This externalDocument SHALL contain exactly one [1..1] @classCode="DOC" Document (CodeSystem: HL7ActClass urn:oid:2.16.840.1.113883.5.6) (CONF:3259-19548).</sch:assert>
+      <sch:assert id="a-3259-18192-error" test="count(cda:id[@root='2.16.840.1.113883.4.738'][@extension])=1">This externalDocument SHALL contain exactly one [1..1] id (CONF:3259-18192) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.4.738" (CONF:3259-18193).  SHALL contain exactly one [1..1] @extension (CONF:3259-21169).</sch:assert>
+    </sch:rule>
     <sch:rule id="Measure_Reference_and_Results-reference-externalDocument-code-errors" context="cda:organizer[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1'][@extension='2016-09-01']]/cda:reference/cda:externalDocument/cda:code">
       <sch:assert id="a-3259-19553-error" test="@code='57024-2'">The code, if present, SHALL contain exactly one [1..1] @code="57024-2" Health Quality Measure Document (CodeSystem: LOINC urn:oid:2.16.840.1.113883.6.1) (CONF:3259-19553).</sch:assert>
+    </sch:rule>
+    <!-- 07-25-2019  Added new rules because 3259-18353 was written incorrectly.  https://tracker.esacinc.com/browse/QRDA-487 -->
+    <sch:rule id="Measure_Reference_and_Results-reference-externalObservation-errors" context="cda:organizer[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1'][@extension='2016-09-01']]/cda:reference/cda:externalObservation">
+      <sch:assert id="a-3259-18355-error" test="count(cda:id) &gt; 0">This externalObservation SHALL contain at least one [1..*] id (CONF:3259-18355).</sch:assert>
+      <sch:assert id="a-3259-18357-error" test="count(cda:code)=1">This externalObservation SHALL contain exactly one [1..1] code (CodeSystem: LOINC urn:oid:2.16.840.1.113883.6.1 STATIC) (CONF:3259-18357).</sch:assert>
+      <sch:assert id="a-3259-18358-error" test="count(cda:text)=1">This externalObservation SHALL contain exactly one [1..1] text (CONF:3259-18358).</sch:assert>
+    </sch:rule>
+    <sch:rule id="Measure_Reference_and_Results-reference-externalObservation-code-errors" context="cda:organizer[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1'][@extension='2016-09-01']]/cda:reference/cda:externalObservation/cda:code">
+      <sch:assert id="a-3259-19554-error" test="@code='55185-3'">This code SHALL contain exactly one [1..1] @code="55185-3" measure set (CodeSystem: LOINC urn:oid:2.16.840.1.113883.6.1) (CONF:3259-19554).</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="Payer_Supplemental_Data_Element-pattern-errors">
@@ -954,7 +996,8 @@ Fri Jun 28 15:39:43 MDT 2019
   </sch:pattern>
   <sch:pattern id="Measure_Reference_and_Results-pattern-warnings">
     <sch:rule id="Measure_Reference_and_Results-warnings" context="cda:organizer[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1'][@extension='2016-09-01']]">
-      <sch:assert id="a-3259-18353-warning" test="count(cda:reference[count(cda:externalObservation[count(cda:id)=1][count(cda:code[@code='55185-3'][@codeSystem='2.16.840.1.113883.6.1'])=1][count(cda:text)=1])=1])=1">SHOULD contain exactly one [1..1] reference (CONF:3259-18353) such that it SHALL contain exactly one [1..1] externalObservation (CONF:3259-18354). This externalObservation SHALL contain at least one [1..*] id (CONF:3259-18355). This externalObservation SHALL contain exactly one [1..1] code (CodeSystem: LOINC urn:oid:2.16.840.1.113883.6.1 STATIC) (CONF:3259-18357). This code SHALL contain exactly one [1..1] @code="55185-3" measure set (CodeSystem: LOINC urn:oid:2.16.840.1.113883.6.1) (CONF:3259-19554). This externalObservation SHALL contain exactly one [1..1] text (CONF:3259-18358).</sch:assert>
+      <!-- 07-25-2019  Rewrote 3259-18353 to be less restrictive, per IG  https://tracker.esacinc.com/browse/QRDA-487 -->
+      <sch:assert id="a-3259-18353-warning" test="count(cda:reference[count(cda:externalObservation)=1])=1">SHOULD contain exactly one [1..1] reference (CONF:3259-18353) such that it SHALL contain exactly one [1..1] externalObservation (CONF:3259-18354).</sch:assert>
     </sch:rule>
     <sch:rule id="Measure_Reference_and_Results-reference-externalDocument-warnings" context="cda:organizer[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1'][@extension='2016-09-01']]/cda:reference/cda:externalDocument">
       <sch:assert id="a-3259-17896-warning" test="count(cda:code)=1">This externalDocument SHOULD contain zero or one [0..1] code (CodeSystem: LOINC urn:oid:2.16.840.1.113883.6.1 STATIC) (CONF:3259-17896).</sch:assert>
