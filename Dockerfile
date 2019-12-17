@@ -1,5 +1,5 @@
 # Pinned to the latest ruby 2.6.0 version of the Passenger base Docker image
-FROM phusion/passenger-ruby26:1.0.1
+FROM phusion/passenger-ruby26:1.0.6
 
 RUN apt-get update \
     && apt-get upgrade -y -o Dpkg::Options::="--force-confold" \
