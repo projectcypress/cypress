@@ -43,20 +43,14 @@ module Admin
 
     def deprecate
       bundle_title = @bundle.title
-      @bundle.deprecate
-
-      # clear this cache just in case it's pointing to the bundle just deprecated
-      Rails.cache.delete('any_installed_bundle')
+      BundleDeprecateJob.perform_later(@bundle.id.to_s, bundle_title)
       flash_comment(bundle_title, 'danger', 'deprecated')
       redirect_to admin_path(anchor: 'bundles')
     end
 
     def destroy
       bundle_title = @bundle.title
-      @bundle.destroy
-
-      # clear this cache just in case it's pointing to the bundle just deleted
-      Rails.cache.delete('any_installed_bundle')
+      BundleDestroyJob.perform_later(@bundle.id.to_s, bundle_title)
       flash_comment(bundle_title, 'danger', 'deleted')
       redirect_to admin_path(anchor: 'bundles')
     end
