@@ -48,8 +48,8 @@
     <% end %>
   </tbody>
 </table>
-
-<% if BundleUploadJob.trackers.count.positive?  %>
+<% bundle_trackers = Tracker.where('job_class'=> { '$in' => ['BundleUploadJob','BundleDestroyJob','BundleDeprecateJob'] }) %>
+<% if bundle_trackers.count.positive?  %>
   <p>
   <h1>Current Bundle Import Jobs</h1>
   <table class="table table-hover">
@@ -62,7 +62,7 @@
       </tr>
     </thead>
     <tbody>
-      <% BundleUploadJob.trackers.reverse_each do |tracker| %>
+      <% bundle_trackers.reverse_each do |tracker| %>
       <tr>
         <td><%= tracker.options["original_filename"]%></td>
         <td class="tracker-status">
