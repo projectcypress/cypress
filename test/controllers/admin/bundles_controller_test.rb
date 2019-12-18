@@ -141,9 +141,9 @@ module Admin
         orig_results_count = CQM::IndividualResult.count
         orig_vendor_patient_count = CQM::VendorPatient.count
         id = @static_bundle.id
-
-        delete :destroy, params: { id: id }
-
+        perform_enqueued_jobs do
+          delete :destroy, params: { id: id }
+        end
         assert_equal 0, Bundle.where(_id: id).count, 'Should have deleted bundle'
         assert_equal orig_bundle_count - 1, Bundle.count, 'Should have deleted Bundle'
         assert orig_measure_count > Measure.count, 'Should have removed measures in the bundle'
@@ -171,8 +171,9 @@ module Admin
         orig_results_count = CQM::IndividualResult.count
         orig_vendor_patient_calculation = patient.calculation_results.size
         id = @static_bundle.id
-        post :deprecate, params: { id: id }
-
+        perform_enqueued_jobs do
+          post :deprecate, params: { id: id }
+        end
         patient.reload
         assert_not_equal orig_vendor_patient_calculation, patient.calculation_results.size
         assert_equal 0, Bundle.available.where(_id: id).count, 'Should have deprecated bundle'
