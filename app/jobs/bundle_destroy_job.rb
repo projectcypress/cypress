@@ -6,7 +6,7 @@ class BundleDestroyJob < ApplicationJob
     tracker.save
   end
   def perform(bundle_id, bundle_title)
-    tracker.log("Destroying #{bundle_title}")
+    tracker.log("Removing #{bundle_title}")
     bundle = Bundle.find(bundle_id)
     bundle.destroy
 
