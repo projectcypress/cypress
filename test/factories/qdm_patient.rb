@@ -10,12 +10,12 @@ FactoryBot.define do
         'dataElementCodes' => [
           {
             'codeSystem' => 'SNOMEDCT',
-            'codeSystemOid' => '2.16.840.1.113883.6.96',
+            'system' => '2.16.840.1.113883.6.96',
             'code' => '210'
           },
           {
             'codeSystem' => 'CPT',
-            'codeSystemOid' => '2.16.840.1.113883.6.12',
+            'system' => '2.16.840.1.113883.6.12',
             'code' => '60'
           }
         ],
@@ -35,7 +35,7 @@ FactoryBot.define do
         'dataElementCodes' => [
           {
             'codeSystem' => 'SNOMEDCT',
-            'codeSystemOid' => '2.16.840.1.113883.6.96',
+            'system' => '2.16.840.1.113883.6.96',
             'code' => '24'
           }
         ],
@@ -56,7 +56,7 @@ FactoryBot.define do
         'dataElementCodes' => [
           {
             'codeSystem' => 'SNOMEDCT',
-            'codeSystemOid' => '2.16.840.1.113883.6.96',
+            'system' => '2.16.840.1.113883.6.96',
             'code' => '504'
           }
         ],
@@ -78,7 +78,7 @@ FactoryBot.define do
         'dataElementCodes' => [
           {
             'codeSystem' => 'SNOMEDCT',
-            'codeSystemOid' => '2.16.840.1.113883.6.96',
+            'system' => '2.16.840.1.113883.6.96',
             'code' => '720'
           }
         ],
@@ -99,7 +99,7 @@ FactoryBot.define do
         'dataElementCodes' => [
           {
             'codeSystem' => 'SNOMEDCT',
-            'codeSystemOid' => '2.16.840.1.113883.6.96',
+            'system' => '2.16.840.1.113883.6.96',
             'code' => '5814'
           }
         ],
@@ -122,7 +122,7 @@ FactoryBot.define do
             'code' => 'F',
             'codeSystem' => 'AdministrativeGender',
             'descriptor' => 'F',
-            'codeSystemOid' => '2.16.840.1.113883.5.1'
+            'system' => '2.16.840.1.113883.5.1'
           }
         ],
         'hqmfOid' => '2.16.840.1.113883.10.20.28.3.55',
@@ -136,7 +136,7 @@ FactoryBot.define do
           {
             'code' => '21112-8',
             'codeSystem' => 'LOINC',
-            'codeSystemOid' => '2.16.840.1.113883.6.1'
+            'system' => '2.16.840.1.113883.6.1'
           }
         ],
         '_type' => 'QDM::PatientCharacteristicBirthdate',
@@ -153,7 +153,7 @@ FactoryBot.define do
             'code' => '2186-5',
             'codeSystem' => 'cdcrec',
             'descriptor' => 'Not Hispanic or Latino',
-            'codeSystemOid' => '2.16.840.1.113883.6.238'
+            'system' => '2.16.840.1.113883.6.238'
           }
         ],
         '_type' => 'QDM::PatientCharacteristicEthnicity',
@@ -169,7 +169,7 @@ FactoryBot.define do
             'code' => '1',
             'codeSystem' => 'sop',
             'descriptor' => 'Medicare',
-            'codeSystemOid' => '2.16.840.1.113883.3.221.5'
+            'system' => '2.16.840.1.113883.3.221.5'
           }
         ],
         'relevantPeriod' => {
@@ -191,7 +191,7 @@ FactoryBot.define do
             'code' => '1002-5',
             'codeSystem' => 'cdcrec',
             'descriptor' => 'American Indian or Alaska Native',
-            'codeSystemOid' => '2.16.840.1.113883.6.238'
+            'system' => '2.16.840.1.113883.6.238'
           }
         ],
         '_type' => 'QDM::PatientCharacteristicRace',

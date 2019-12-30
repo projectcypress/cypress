@@ -67,9 +67,8 @@ module Cypress
           # only add attribute if it is approprate for the QDM type
           next unless sdc.respond_to? cdc['attribute']
 
-          dea = sdc.dataElementAttributes.new
-          dea.attribute_name = cdc['attribute']
-          dea.attribute_valueset = cdc['attribute_vs']
+          dea = { attribute_name: cdc['attribute'], attribute_valueset: cdc['attribute_vs'] }
+          sdc.dataElementAttributes << dea
           sdc.save
         end
       end

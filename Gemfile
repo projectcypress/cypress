@@ -14,10 +14,10 @@ gem 'bson_ext'
 gem 'mustache'
 gem 'os'
 
-gem 'cqm-models', '~> 2.0.0'
-gem 'cqm-parsers', '~> 2.0.0'
-gem 'cqm-reports', '~> 2.0.5'
-gem 'cqm-validators', '~> 2.0.1'
+gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', branch: 'qrda_5_2_updates'
+gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: '2019-standards-update-mongoid-6'
+gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'master'
+gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators', branch: 'master'
 
 # Use faker to generate addresses
 gem 'faker', '~> 1.5.0'

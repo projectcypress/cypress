@@ -53,7 +53,7 @@ module Cypress
          race_element.first.dataElementCodes.any?
         new_race = race_element.first.dataElementCodes.first
         new_race['code'] = race_hash['code']
-        new_race['codeSystemOid'] = race_hash['codeSystem']
+        new_race['system'] = race_hash['codeSystem']
         new_race['codeSystem'] = race_hash['codeSystemName']
         new_race['descriptor'] = race_hash['name']
         race_element.first.dataElementCodes << new_race
@@ -70,7 +70,7 @@ module Cypress
          ethnicity_element.first.dataElementCodes.any?
         new_ethnicity = ethnicity_element.first.dataElementCodes.first
         new_ethnicity['code'] = ethnicity_hash['code']
-        new_ethnicity['codeSystemOid'] = ethnicity_hash['codeSystem']
+        new_ethnicity['system'] = ethnicity_hash['codeSystem']
         new_ethnicity['codeSystem'] = ethnicity_hash['codeSystemName']
         new_ethnicity['descriptor'] = ethnicity_hash ['name']
         ethnicity_element.first.dataElementCodes << new_ethnicity
@@ -98,7 +98,7 @@ module Cypress
          payer_element.first.dataElementCodes.any?
         new_payer = payer_element.first.dataElementCodes.first
         new_payer['code'] = payer_hash['code']
-        new_payer['codeSystemOid'] = payer_hash['codeSystem']
+        new_payer['system'] = payer_hash['codeSystem']
         new_payer['codeSystem'] = payer_hash['codeSystemName']
         new_payer['descriptor'] = payer_hash ['name']
         payer_element.first.dataElementCodes << new_payer

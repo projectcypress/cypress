@@ -49,7 +49,7 @@ module Validators
     def data_elements_that_meet_criteria(data_elements, checked_criteria, attribute)
       checked_code = checked_criteria['negated_valueset'] ? checked_criteria['selected_negated_valueset'] : checked_criteria['code']
       de_with_code = data_elements.keep_if { |de| de.dataElementCodes.map(&:code).include?(checked_code) }
-      return de_with_code.keep_if { |de| attribute_has_data(de[attribute], checked_criteria) } if attribute
+      return de_with_code.keep_if { |de| attribute_has_data(extract_attribute_from_data_element(de, attribute), checked_criteria) } if attribute
 
       de_with_code
     end
@@ -68,15 +68,24 @@ module Validators
       confirm_qdm_type_have_contents(attribute, checked_criteria)
     end
 
+    def extract_attribute_from_data_element(data_element, attribute_name)
+      attribute = data_element[attribute_name]
+      attribute ||= data_element.send(attribute_name)
+      attribute
+    end
+
     def confirm_qdm_type_have_contents(attribute, checked_criteria)
       # Return false if no attribute is not passed in
       return false unless attribute
       return verify_code_attribute(attribute, checked_criteria) if attribute._type == 'QDM::Code'
       return verify_component_attribute(attribute, checked_criteria) if attribute._type == 'QDM::Component'
-      return verify_id_attribute(attribute) if attribute._type == 'QDM::Id'
+      return verify_id_attribute(attribute) if attribute._type == 'QDM::Identifier'
       return verify_interval_attribute(attribute) if attribute._type == 'QDM::Interval'
       return verify_facility_location_attribute(attribute, checked_criteria) if attribute._type == 'QDM::FacilityLocation'
       return verify_quantity_attribute(attribute) if attribute._type == 'QDM::Quantity'
+
+      entity_types = ['QDM::Entity', 'QDM::CarePartner', 'QDM::Organization', 'QDM::PatientEntity', 'QDM::Practitioner']
+      return verify_entity_attribute(attribute) if entity_types.include? attribute._type
       return verify_ratio_attribute(attribute) if attribute._type == 'QDM::Ratio'
 
       # Return false if no checks pass
@@ -112,6 +121,11 @@ module Validators
 
       # If a attribute_code is not specified in the checked_criteria (i.e., filled in the Record Sample Form) make any code is there
       !attribute['code'].nil?
+    end
+
+    def verify_entity_attribute(attribute)
+      # An entity attribute should have (at a minimum) an 'identifier' value
+      !attribute.identifier.nil?
     end
 
     def verify_quantity_attribute(attribute)

@@ -5,34 +5,34 @@ FactoryBot.define do
     specialty { '200000000X' }
     trait :default do
       ids do
-        [QDM::Id.new(namingSystem: '2.16.840.1.113883.4.6', value: '020700270'),
-         QDM::Id.new(namingSystem: '2.16.840.1.113883.4.2', value: '1520670765'),
-         QDM::Id.new(namingSystem: '2.16.840.1.113883.4.336', value: '563358')]
+        [QDM::Identifier.new(namingSystem: '2.16.840.1.113883.4.6', value: '020700270'),
+         QDM::Identifier.new(namingSystem: '2.16.840.1.113883.4.2', value: '1520670765'),
+         QDM::Identifier.new(namingSystem: '2.16.840.1.113883.4.336', value: '563358')]
       end
       addresses { [{ 'street' => ['202 Burlington Rd'], 'city' => 'Bedford', 'state' => 'MA', 'zip' => '01730', 'country' => 'US' }] }
     end
 
     trait :tin do
       ids do
-        [QDM::Id.new(namingSystem: '2.16.840.1.113883.4.6', value: '1520670765'),
-         QDM::Id.new(namingSystem: '2.16.840.1.113883.4.2', value: '897230473'),
-         QDM::Id.new(namingSystem: '2.16.840.1.113883.4.336', value: '563358')]
+        [QDM::Identifier.new(namingSystem: '2.16.840.1.113883.4.6', value: '1520670765'),
+         QDM::Identifier.new(namingSystem: '2.16.840.1.113883.4.2', value: '897230473'),
+         QDM::Identifier.new(namingSystem: '2.16.840.1.113883.4.336', value: '563358')]
       end
     end
 
     trait :npi do
       ids do
-        [QDM::Id.new(namingSystem: '2.16.840.1.113883.4.6', value: '1480614951'),
-         QDM::Id.new(namingSystem: '2.16.840.1.113883.4.2', value: '020700270'),
-         QDM::Id.new(namingSystem: '2.16.840.1.113883.4.336', value: '563358')]
+        [QDM::Identifier.new(namingSystem: '2.16.840.1.113883.4.6', value: '1480614951'),
+         QDM::Identifier.new(namingSystem: '2.16.840.1.113883.4.2', value: '020700270'),
+         QDM::Identifier.new(namingSystem: '2.16.840.1.113883.4.336', value: '563358')]
       end
     end
 
     trait :combination do
       ids do
-        [QDM::Id.new(namingSystem: '2.16.840.1.113883.4.6', value: '1520670765'),
-         QDM::Id.new(namingSystem: '2.16.840.1.113883.4.2', value: '020700270'),
-         QDM::Id.new(namingSystem: '2.16.840.1.113883.4.336', value: '563358')]
+        [QDM::Identifier.new(namingSystem: '2.16.840.1.113883.4.6', value: '1520670765'),
+         QDM::Identifier.new(namingSystem: '2.16.840.1.113883.4.2', value: '020700270'),
+         QDM::Identifier.new(namingSystem: '2.16.840.1.113883.4.336', value: '563358')]
       end
       addresses { [{ 'street' => ['100 Bureau Drive'], 'city' => 'Gaithersburg', 'state' => 'MD', 'zip' => '20899', 'country' => 'US' }] }
     end

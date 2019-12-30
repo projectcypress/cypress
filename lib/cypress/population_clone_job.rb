@@ -116,7 +116,7 @@ module Cypress
           # if the vendor has a preference, loop through in order
           vendor_preference.each do |vp|
             # find data element codes that match the preference
-            pc = entry.dataElementCodes.map { |dec| dec if dec['codeSystemOid'] == vp }.compact
+            pc = entry.dataElementCodes.map { |dec| dec if dec['system'] == vp }.compact
             # if none found, look for the next one
             next if pc.blank?
 
@@ -138,7 +138,7 @@ module Cypress
       cloned_patient.qdmPatient.dataElements.each do |entry|
         entry_id_hash[entry._id.to_s] = BSON::ObjectId.new
         entry._id = entry_id_hash[entry._id.to_s]
-        entry.id = QDM::Id.new(value: entry._id)
+        entry.id = entry._id.to_s
         entries_with_references.push(index) unless entry['relatedTo'].nil?
         index += 1
       end
@@ -151,10 +151,10 @@ module Cypress
         entry_with_reference = cloned_patient.qdmPatient.dataElements[entry_with_reference_index]
         references_to_add = []
         entry_with_reference.relatedTo.each do |ref|
-          new_ref = QDM::Id.new(value: entry_id_hash[ref.value].to_s)
+          new_ref = entry_id_hash[ref].to_s
           references_to_add << new_ref
         end
-        entry_with_reference.relatedTo.destroy
+        entry_with_reference.relatedTo = []
         references_to_add.each do |ref|
           entry_with_reference.relatedTo << ref
         end

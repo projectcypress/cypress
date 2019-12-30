@@ -80,7 +80,7 @@ class ChecklistSourceDataCriteria
 
   def change_attribute?(criteria)
     return false unless replacement_attribute
-    return false unless criteria['dataElementAttributes']
+    return false unless criteria['dataElementAttributes']&.any?
     return false unless criteria['dataElementAttributes'][attribute_index]
 
     attr = criteria['dataElementAttributes'][attribute_index]
@@ -154,14 +154,14 @@ class ChecklistSourceDataCriteria
     if data_criteria._type == criteria['_type']
       # value set should not be included if there is a negation, and the negation doesn't match
       # if the criteria has a field_value, check it is the same as the data_criteria, else return true
-      include_vset = criteria['dataElementAttributes'] ? compare_attributes(data_criteria, criteria) : true
+      include_vset = criteria['dataElementAttributes']&.any? ? compare_attributes(data_criteria, criteria) : true
     end
     data_criteria.codeListId if include_vset
   end
 
   # data_criteria is from the measure defintion, criteria is for the specific checklist test
   def compare_attributes(data_criteria, criteria)
-    return false unless data_criteria['dataElementAttributes']
+    return false unless data_criteria['dataElementAttributes']&.any?
 
     data_criteria['dataElementAttributes'].map { |dc| dc.except('_id') }.include? criteria['dataElementAttributes'][attribute_index].except('_id')
   end
