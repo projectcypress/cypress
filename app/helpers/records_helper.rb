@@ -142,4 +142,21 @@ module RecordsHelper
     population_set_display = population_set_hash[:stratification_id] || population_set_hash[:population_set_id]
     "#{cms_id} - #{population_set_display.tr('_', ' ')}"
   end
+
+  # creates a folder with html patient files and zipped html patient files
+  def html_zip(patients, temp_path, name)
+    path = Rails.root.join(temp_path, Time.now.in_time_zone.getutc.to_s)
+    FileUtils.mkdir_p(path)
+
+    mes, sd, ed = Cypress::PatientZipper.measure_start_end(patients)
+    formatter = Cypress::HTMLExporter.new(mes, sd, ed)
+    patients.each do |r|
+      filename = "#{r.first_names}_#{r.familyName}.html".delete("'").tr(' ', '_')
+      File.open(File.join(path, filename), 'w') do |f|
+        f.write(formatter.export(r))
+      end
+    end
+    zfg = ZipFileGenerator.new(path, Rails.root.join(temp_path, name))
+    zfg.write
+  end
 end
