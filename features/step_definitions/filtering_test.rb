@@ -112,6 +112,10 @@ Then(/^the user should see a Total row$/) do
   assert page.has_selector?('table tfoot tr', count: 1), 'different count'
 end
 
+And(/^the user selects download html patients$/) do
+  find('button', text: 'Download HTML Patients').trigger('click')
+end
+
 # 'Then the user should see a list of patients' included in step_definitions/record.rb
 
 # 'Then the user should be able to download a CAT 1 zip file' included in step_definitions/measure_test.rb

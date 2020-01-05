@@ -144,6 +144,8 @@ When(/^the user clicks a Download button$/) do
 end
 
 Then(/^a zip file should be downloaded$/) do
+  # TODO: is there a better place to force wait for download to finish?
+  sleep 1
   assert_match(/attachment; filename=\".*\.zip\"/, page.response_headers['Content-Disposition'])
 end
 
