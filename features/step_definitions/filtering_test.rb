@@ -82,6 +82,9 @@ end
 # # # # # # # #
 
 Then(/^the user should see the CAT 1 test$/) do
+  # expect from rspec is more resilient to waiting for the page to load rather than assert's immediate check
+  # but rspec overloads assert which causes other issues. May look into later
+  # expect(page).to have_content('a zip file of QRDA Category I documents')
   sleep(0.5)
   assert page.has_content?('a zip file of QRDA Category I documents')
 end

@@ -143,9 +143,11 @@ When(/^the user clicks a Download button$/) do
   page.all('.download-btn').first.click_link 'Download'
 end
 
-Then(/^a zip file should be downloaded$/) do
-  # TODO: is there a better place to force wait for download to finish?
-  sleep 1
+Then("a zip file should be downloaded within {int} seconds") do |int|
+  # expect(page.response_headers['Content-Disposition']).to be("attachment; filename=\".*\.zip\"")
+  Timeout.timeout(int) do
+    sleep 0.1 until page.response_headers['Content-Disposition']
+  end
   assert_match(/attachment; filename=\".*\.zip\"/, page.response_headers['Content-Disposition'])
 end
 
