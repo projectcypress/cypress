@@ -56,8 +56,9 @@ Rails.application.routes.draw do
     resources :tasks, only: %i[index show]
     resources :records, only: %i[index show] do
       collection do
-        resources :tasks, controller: :records, only: [:by_filter_task] do
+        resources :tasks, controller: :records, only: %i[by_filter_task html_filter_patients] do
           get :by_filter_task
+          get :html_filter_patients
         end
       end
     end

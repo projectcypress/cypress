@@ -31,7 +31,7 @@ Scenario: Download MPL from Master Patient List Page
   When the Master Patient List zip is ready for download
   Then the user should see a Download button
   When the user clicks a Download button
-  Then a zip file should be downloaded
+  Then a zip file should be downloaded within 1 seconds
 
 Scenario: Download MPL from Master Patient List Page, Single Bundle
   When the user visits the records page
@@ -41,7 +41,7 @@ Scenario: Download MPL from Master Patient List Page, Single Bundle
   When the Master Patient List zip is ready for download
   Then the user should see a Download button
   When the user clicks a Download button
-  Then a zip file should be downloaded
+  Then a zip file should be downloaded within 1 seconds
 
 Scenario: Successful switch bundles
   When the user visits the records page

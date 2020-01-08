@@ -1,5 +1,6 @@
 class RecordsController < ApplicationController
-  before_action :set_record_source, only: %i[index show by_measure by_filter_task]
+  include RecordsHelper
+  before_action :set_record_source, only: %i[index show by_measure by_filter_task html_filter_patients]
 
   respond_to :js, only: [:index]
 
@@ -49,6 +50,18 @@ class RecordsController < ApplicationController
 
   def by_filter_task
     @patients = Patient.where(:_id.in => @product_test.filtered_patients.map(&:id))
+  end
+
+  def html_filter_patients
+    html_path = Rails.root.join('tmp', 'cache', 'html_download')
+    temp_name = 'html_patients.zip'
+    html_zip(Patient.where(:_id.in => @product_test.filtered_patients.map(&:id)), html_path, temp_name)
+
+    file = File.new(Rails.root.join(html_path, temp_name))
+    # measure_id_test_id.debug.html.zip
+    send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "#{@measure.cms_id}_#{@task.product_test_id}.debug.html.zip"
+
+    FileUtils.rm_rf(html_path)
   end
 
   def download_mpl
