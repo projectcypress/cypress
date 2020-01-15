@@ -55,6 +55,7 @@ class ChecklistTest < ProductTest
     return 'not_started' if criterias.count == criterias.count { |criteria| criteria.complete?.nil? }
     # incomplete if no files have been uploaded
     return 'incomplete' if tasks.c1_checklist_task.most_recent_execution.nil?
+
     pass_count = criterias.count(&:complete?)
     pass_count == criterias.count ? 'passed' : 'failed'
   end
