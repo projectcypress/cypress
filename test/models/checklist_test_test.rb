@@ -114,6 +114,10 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal 'not_started', @test.measure_status(measure_id)
     @test.checked_criteria.first.code_complete = false
     @test.checked_criteria.first.code = '123'
+    assert_equal 'incomplete', @test.measure_status(measure_id)
+    # check if file uploaded
+    task = checklist_test.tasks.create!({}, C1ChecklistTask)
+    task.test_executions.create(state: :failed, user: user)
     assert_equal 'failed', @test.measure_status(measure_id)
     @test.checked_criteria.each do |criteria|
       criteria.code_complete = true
