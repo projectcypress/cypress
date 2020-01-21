@@ -96,11 +96,8 @@ module CQM
 
     def gender
       gender_chars = qdmPatient.get_data_elements('patient_characteristic', 'gender')
-      if gender_chars&.any? && gender_chars.first.dataElementCodes &&
-         gender_chars.first.dataElementCodes.any?
+      if gender_chars&.any? && gender_chars.first.dataElementCodes && gender_chars.first.dataElementCodes.any?
         gender_chars.first.dataElementCodes.first['code']
-      else
-        raise 'Cannot find gender element'
       end
     end
 
@@ -109,8 +106,6 @@ module CQM
       if race_element&.any? && race_element.first.dataElementCodes &&
          race_element.first.dataElementCodes.any?
         race_element.first.dataElementCodes.first['code']
-      else
-        raise 'Cannot find race element'
       end
     end
 
@@ -119,8 +114,6 @@ module CQM
       if ethnicity_element&.any? && ethnicity_element.first.dataElementCodes &&
          ethnicity_element.first.dataElementCodes.any?
         ethnicity_element.first.dataElementCodes.first['code']
-      else
-        raise 'Cannot find ethnicity element'
       end
     end
 
