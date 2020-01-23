@@ -114,6 +114,10 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal 'not_started', @test.measure_status(measure_id)
     @test.checked_criteria.first.code_complete = false
     @test.checked_criteria.first.code = '123'
+    task = @test.tasks.create!({}, C1ChecklistTask)
+    assert_equal 'incomplete', @test.measure_status(measure_id)
+    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+    task.test_executions.create(state: :failed, user: user)
     assert_equal 'failed', @test.measure_status(measure_id)
     @test.checked_criteria.each do |criteria|
       criteria.code_complete = true
