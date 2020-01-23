@@ -53,6 +53,8 @@ class ChecklistTest < ProductTest
   def measure_status(measure_id)
     criterias = checked_criteria.select { |criteria| criteria.measure_id == measure_id.to_s }
     return 'not_started' if criterias.count == criterias.count { |criteria| criteria.complete?.nil? }
+    # incomplete if no files have been uploaded
+    return 'incomplete' if tasks.c1_checklist_task.most_recent_execution.nil?
 
     pass_count = criterias.count(&:complete?)
     pass_count == criterias.count ? 'passed' : 'failed'
