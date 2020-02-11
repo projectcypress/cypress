@@ -83,7 +83,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     # There should only be one codes in the cloned patients procedure
     assert_equal 1, cloned_procedure_codes.size
     # The cloned code should not be from the FAKECS code system
-    assert_not_equal '1.2.3', cloned_procedure_codes[0].codeSystemOid
+    assert_not_equal '1.2.3', cloned_procedure_codes[0].system
   end
 
   def test_preferred_code_procedure_with_ordered_vendor_perference_snomedct_first
@@ -109,7 +109,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     # There should only be one codes in the cloned patients procedure
     assert_equal 1, cloned_procedure_codes.size
     # The cloned code should be from the SNOMEDCT code system
-    assert_equal preferred_code_systems[0], cloned_procedure_codes[0].codeSystemOid
+    assert_equal preferred_code_systems[0], cloned_procedure_codes[0].system
   end
 
   def test_assigns_default_provider
@@ -188,7 +188,7 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     # Add an element with a reference to the first patient in the product test
     patient_with_ref = @pt.bundle.patients.first
     comm_with_ref = QDM::CommunicationPerformed.new(dataElementCodes: [QDM::Code.new('336', '2.16.840.1.113883.6.96')])
-    comm_with_ref.relatedTo << patient_with_ref.qdmPatient.dataElements[0].id
+    comm_with_ref.relatedTo = [patient_with_ref.qdmPatient.dataElements[0].id]
     patient_with_ref.qdmPatient.dataElements << comm_with_ref
     patient_with_ref.save
     pcj = Cypress::PopulationCloneJob.new('subset_id' => 'all',
@@ -197,8 +197,8 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
                                           'randomize_demographics' => true)
     pcj.perform
     new_record_with_ref = Patient.where(correlation_id: @pt.id, original_patient_id: patient_with_ref.id).first
-    new_ref = new_record_with_ref.qdmPatient.communications.first.relatedTo.first.value
-    original_ref = patient_with_ref.qdmPatient.communications.first.relatedTo.first.value
+    new_ref = new_record_with_ref.qdmPatient.communications.first.relatedTo.first
+    original_ref = patient_with_ref.qdmPatient.communications.first.relatedTo.first
     assert_not_equal new_ref, original_ref
   end
 

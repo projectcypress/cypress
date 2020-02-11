@@ -46,7 +46,7 @@
                           </span></td>
                         <% end %>
                         <td style="vertical-align:top"><%= checklist_test_criteria_attribute(criteria, criteria_field.object.attribute_index) %></td>
-                        <td style="vertical-align:top"><%= render partial: 'checklist_tests/field_values', locals: { attribute: criteria['dataElementAttributes'][criteria_field.object.attribute_index], result: criteria['value'], disable_modal: true } if criteria['dataElementAttributes'] %></td>
+                        <td style="vertical-align:top"><%= render partial: 'checklist_tests/field_values', locals: { attribute: criteria['dataElementAttributes'][criteria_field.object.attribute_index], result: criteria['value'], disable_modal: true } if criteria['dataElementAttributes'].any? %></td>
                       </tr>
                     <% end %>
                   <% end %>

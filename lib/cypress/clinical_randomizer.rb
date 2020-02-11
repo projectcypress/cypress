@@ -93,9 +93,11 @@ module Cypress
     end
 
     def self.data_element_time(data_element)
-      return data_element.relevantPeriod.low if data_element['relevantPeriod']
-      return data_element.prevalencePeriod.low if data_element['prevalencePeriod']
+      return data_element.relevantPeriod.low if data_element['relevantPeriod']&.low
+      return data_element.relevantDatetime if data_element['relevantDatetime']
+      return data_element.prevalencePeriod.low if data_element['prevalencePeriod']&.low
       return data_element.authorDatetime if data_element['authorDatetime']
+      return data_element.sentDatetime if data_element['sentDatetime']
     end
 
     def self.find_split_date(sorted_de_groups, effective_date, measure_period_start, random)
@@ -135,13 +137,13 @@ module Cypress
         grouped_de.push([de])
         added[index] = true
         # iterate through relatedTo and find each match in the data element list
-        de.relatedTo.each { |related| group_reference(related, grouped_de, data_elements, added) } if de.respond_to?(:relatedTo)
+        de&.relatedTo&.each { |related| group_reference(related, grouped_de, data_elements, added) } if de.respond_to?(:relatedTo)
       end
       grouped_de
     end
 
     def self.group_reference(related, grouped_de, data_elements, added)
-      match_idx = data_elements.index { |x| x.id.value == related.value }
+      match_idx = data_elements.index { |x| x.id == related }
 
       # if can't find reference
       return unless match_idx
@@ -164,7 +166,7 @@ module Cypress
         added[match_idx] = true
         # check match for relatedTo's and repeat for children
         if data_elements[match_idx].respond_to?(:relatedTo)
-          data_elements[match_idx].relatedTo.each { |ref| group_reference(ref, grouped_de, data_elements, added) }
+          data_elements[match_idx]&.relatedTo&.each { |ref| group_reference(ref, grouped_de, data_elements, added) }
         end
       end
     end

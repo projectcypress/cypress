@@ -6,7 +6,7 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
     @patient = BundlePatient.new(givenNames: ['Foo'], familyName: 'Bar', bundleId: @bundle.id)
     @start = DateTime.new(2011, 1, 1, 0, 0, 0).utc
     @end = DateTime.new(2011, 12, 31, 23, 59, 59).utc
-    @payer_codes = [{ 'code' => '1', 'codeSystemOid' => '2.16.840.1.113883.3.221.5' }]
+    @payer_codes = [{ 'code' => '1', 'system' => '2.16.840.1.113883.3.221.5' }]
 
     @patient.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
     @patient.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 10, 1, 23, 59, 59).utc, nil))
@@ -42,22 +42,22 @@ class ClinicalRandomizerTest < ActiveSupport::TestCase
     @patient5.save!
 
     @patient6 = BundlePatient.new(givenNames: ['SplitDate'], familyName: 'Related', bundleId: @bundle.id)
-    @patient6.qdmPatient.dataElements.push QDM::CommunicationPerformed.new(relatedTo: [QDM::Id.new(value: 'test_id')], relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 24, 20, 53, 20).utc, nil))
-    @patient6.qdmPatient.dataElements.push QDM::InterventionPerformed.new(id: QDM::Id.new(value: 'test_id'), relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
+    @patient6.qdmPatient.dataElements.push QDM::CommunicationPerformed.new(relatedTo: ['test_id'], sentDatetime: DateTime.new(2011, 3, 24, 20, 53, 20).utc, receivedDatetime: nil)
+    @patient6.qdmPatient.dataElements.push QDM::InterventionPerformed.new(id: 'test_id', relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
     @patient6.qdmPatient.dataElements.push QDM::PatientCharacteristicPayer.new(dataElementCodes: @payer_codes, relevantPeriod: QDM::Interval.new(@start, nil))
     @patient6.save!
 
     @patient7 = BundlePatient.new(givenNames: ['SplitDate'], familyName: 'Reversed', bundleId: @bundle.id)
-    @patient7.qdmPatient.dataElements.push QDM::CommunicationPerformed.new(relatedTo: [QDM::Id.new(value: 'test_id2')], relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
-    @patient7.qdmPatient.dataElements.push QDM::InterventionPerformed.new(id: QDM::Id.new(value: 'test_id2'), relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 24, 20, 53, 20).utc, nil))
+    @patient7.qdmPatient.dataElements.push QDM::CommunicationPerformed.new(relatedTo: ['test_id2'], sentDatetime: DateTime.new(2011, 3, 31, 23, 59, 59).utc, receivedDatetime: nil)
+    @patient7.qdmPatient.dataElements.push QDM::InterventionPerformed.new(id: 'test_id2', relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 24, 20, 53, 20).utc, nil))
     @patient7.qdmPatient.dataElements.push QDM::PatientCharacteristicPayer.new(dataElementCodes: @payer_codes, relevantPeriod: QDM::Interval.new(@start, nil))
     @patient7.save!
 
     # relatedTo multiple complex
     @patient8 = BundlePatient.new(givenNames: ['SplitDate'], familyName: 'Multiple', bundleId: @bundle.id)
-    @patient8.qdmPatient.dataElements.push QDM::CommunicationPerformed.new(id: QDM::Id.new(value: 'communication'), relatedTo: [QDM::Id.new(value: 'assessment')], relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 31, 23, 59, 59).utc, nil))
-    @patient8.qdmPatient.dataElements.push QDM::AssessmentPerformed.new(id: QDM::Id.new(value: 'assessment'), authorDatetime: DateTime.new(2011, 3, 24, 20, 53, 20).utc)
-    @patient8.qdmPatient.dataElements.push QDM::CareGoal.new(id: QDM::Id.new(value: 'care_goal'), relatedTo: [QDM::Id.new(value: 'communication')], relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 26, 20, 53, 20).utc, nil))
+    @patient8.qdmPatient.dataElements.push QDM::CommunicationPerformed.new(id: 'communication', relatedTo: ['assessment'], sentDatetime: DateTime.new(2011, 3, 31, 23, 59, 59).utc, receivedDatetime: nil)
+    @patient8.qdmPatient.dataElements.push QDM::AssessmentPerformed.new(id: 'assessment', authorDatetime: DateTime.new(2011, 3, 24, 20, 53, 20).utc)
+    @patient8.qdmPatient.dataElements.push QDM::CareGoal.new(id: 'care_goal', relatedTo: ['communication'], relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 26, 20, 53, 20).utc, nil))
     @patient8.qdmPatient.dataElements.push QDM::PatientCharacteristicPayer.new(dataElementCodes: @payer_codes, relevantPeriod: QDM::Interval.new(@start, nil))
     @patient8.save!
     # , relatedTo: [QDM::Id.new(value: 'care_goal')]

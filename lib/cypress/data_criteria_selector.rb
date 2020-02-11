@@ -28,7 +28,7 @@ module Cypress
 
     def coded_attributes?(data_criteria)
       if data_criteria.dataElementAttributes
-        data_criteria.dataElementAttributes.keep_if(&:attribute_valueset).empty? ? false : true
+        data_criteria.dataElementAttributes.any?(&:attribute_valueset)
       else
         false
       end
