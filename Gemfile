@@ -10,12 +10,13 @@ gem 'mongoid', '~> 6.4.2'
 
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson_ext'
+gem 'bson', '4.5.0'
 
 gem 'mustache'
 gem 'os'
 
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', branch: 'qrda_5_2_updates'
-gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: '2019-standards-update-mongoid-6'
+gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'v3_rails5'
 gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'master'
 gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators', branch: 'master'
 
