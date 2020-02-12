@@ -9,6 +9,7 @@ gem 'delayed_job_mongoid', '~> 2.3.0'
 gem 'mongoid', '~> 6.4.2'
 
 # gem 'mongoid', '~> 4.0.2'
+gem 'bson', '4.5.0'
 gem 'bson_ext'
 
 gem 'mustache'
