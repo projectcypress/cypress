@@ -52,7 +52,7 @@
       <% end %>
       <% errors.each do |err| %>
         <li>
-          <%= err.message %>
+          <%= err.message.encode('ASCII', invalid: :replace, undef: :replace) %>
           <%= " (#{err.file_name})" if err.has_attribute?('file_name') && err.file_name != '' %>
         </li>
       <% end %>
