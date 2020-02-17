@@ -89,8 +89,6 @@ module CQM
       if payer_element&.any? && payer_element.first.dataElementCodes &&
          payer_element.first.dataElementCodes.any?
         payer_element.first.dataElementCodes.first['code']
-      else
-        raise 'Cannot find payer element'
       end
     end
 

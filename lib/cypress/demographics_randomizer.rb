@@ -146,12 +146,12 @@ module Cypress
     # work around for null gender | race | ethnicity
     def self.assign_default_demographics(patient)
       elements = []
-      elements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'codeSystem' => 'NA' }]) unless patient&.gender
-      elements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => 'NA', 'codeSystem' => 'NA' }]) unless patient&.race
-      elements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => 'NA', 'codeSystem' => 'NA' }]) unless patient&.ethnicity
+      elements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'codeSystem' => '2.16.840.1.113883.5.1' }]) unless patient&.gender
+      elements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => '2028-9', 'codeSystem' => '2.16.840.1.113883.6.238' }]) unless patient&.race
+      elements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => '2186-5', 'codeSystem' => '2.16.840.1.113883.6.238' }]) unless patient&.ethnicity
       unless patient&.payer
-        elements << QDM::PatientCharacteristicPayer.new(dataElementCodes: [{ 'code' => '1', 'codeSystem' => 'NA' }],
-                                                        relevantPeriod: QDM::Interval.new(patient.birthDatetime, nil))
+        elements << QDM::PatientCharacteristicPayer.new(dataElementCodes: [{ 'code' => '1', 'codeSystem' => '2.16.840.1.113883.3.221.5' }],
+                                                        relevantPeriod: QDM::Interval.new(patient.qdmPatient.birthDatetime, nil))
       end
       patient.qdmPatient.dataElements.concat(elements)
     end
