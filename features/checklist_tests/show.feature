@@ -16,7 +16,7 @@ Scenario: Successful Revisit Checklist Test
 Scenario: Fill Out Checklist Incorrectly Produces Errors
   When the user creates a product that certifies c1 and visits the record sample page
   And the user fills out the record sample with bad data
-  Then the user should see they are failing the checklist test
+  Then the user should see they are incomplete the checklist test
   And the user should not be able to upload a Cat I file
 
 Scenario: Fill Out Checklist Correctly
