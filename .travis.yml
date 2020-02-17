@@ -36,31 +36,42 @@ env:
   global:
     - MONGODB=3.4.5
   matrix:
-  - TEST_SUITE=cucumber-product-tests
-  - TEST_SUITE=cucumber-product-vendor
-  - TEST_SUITE=cucumber-admin-users
-  - TEST_SUITE=cucumber-record
   - TEST_SUITE=units
   - TEST_SUITE=controllers
   - TEST_SUITE=helpers
+  - TEST_SUITE=cucumber-product-tests-first
+  - TEST_SUITE=cucumber-product-tests-second
+  - TEST_SUITE=cucumber-product-tests-third
+  - TEST_SUITE=cucumber-product-tests-fourth
+  - TEST_SUITE=cucumber-product-tests-fifth
   - TEST_SUITE=jobs
   - TEST_SUITE=audit
   - TEST_SUITE=integration
+  - TEST_SUITE=cucumber-admin-users
+  - TEST_SUITE=cucumber-record
+  - TEST_SUITE=cucumber-product
+  - TEST_SUITE=cucumber-vendor
 script:
   - 'if [ ${TEST_SUITE} = "cucumber-admin-users" ]; then
-      bundle exec cucumber features/admin/;
-      bundle exec cucumber features/users/;
-    elif [ ${TEST_SUITE} = "cucumber-product-vendor" ]; then
+      bundle exec cucumber features/admin/ features/users/;
+    elif [ ${TEST_SUITE} = "cucumber-product" ]; then
       bundle exec cucumber features/products/;
+    elif [ ${TEST_SUITE} = "cucumber-vendor" ]; then
       bundle exec cucumber features/vendors/;
     elif [ ${TEST_SUITE} = "cucumber-record" ]; then
       bundle exec cucumber features/records/;
-    elif [ ${TEST_SUITE} = "cucumber-product-tests" ]; then
+    elif [ ${TEST_SUITE} = "cucumber-product-tests-first" ]; then
       bundle exec cucumber features/checklist_tests/;
+    elif [ ${TEST_SUITE} = "cucumber-product-tests-second" ]; then
       bundle exec cucumber features/filtering_tests/;
+    elif [ ${TEST_SUITE} = "cucumber-product-tests-third" ]; then
       bundle exec cucumber features/measure_tests/;
+    elif [ ${TEST_SUITE} = "cucumber-product-tests-fourth" ]; then
       bundle exec cucumber features/multi_measure_tests/;
+    elif [ ${TEST_SUITE} = "cucumber-product-tests-fifth" ]; then
       bundle exec cucumber features/program_tests/;
+    elif [ ${TEST_SUITE} = "cucumber-product-tests" ]; then
+      bundle exec cucumber features/checklist_tests/ features/filtering_tests/ features/measure_tests/ features/multi_measure_tests/ features/program_tests/;
     elif [ ${TEST_SUITE} = "audit" ]; then
       bundle exec bundle-audit check --update &&
       bundle exec overcommit --sign &&

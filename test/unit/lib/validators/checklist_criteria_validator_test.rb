@@ -42,6 +42,7 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
                 ['adverse_event', nil, 'severity', false, '20170503000000', nil, 'QDM::AdverseEvent'],
                 ['adverse_event', nil, 'facilityLocation', false, '20170503000000', nil, 'QDM::AdverseEvent'],
                 ['adverse_event', nil, 'type', false, '20170503000000', nil, 'QDM::AdverseEvent'],
+                ['adverse_event', nil, 'recorder', false, '20170503000000', nil, 'QDM::AdverseEvent'],
 
                 ['allergy_intolerance', nil, 'authorDatetime', false, '20170503000000', nil, 'QDM::AllergyIntolerance', false],
                 ['allergy_intolerance', nil, 'prevalencePeriod', false, '20170503000000', nil, 'QDM::AllergyIntolerance', false],
