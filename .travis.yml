@@ -36,22 +36,7 @@ env:
   global:
     - MONGODB=3.4.5
   matrix:
-  - TEST_SUITE=cucumber-admin
-  - TEST_SUITE=cucumber-checklist-tests
-  - TEST_SUITE=cucumber-filtering-tests
-  - TEST_SUITE=cucumber-measure-tests
-  - TEST_SUITE=cucumber-multi-measure-tests
-  - TEST_SUITE=cucumber-products
-  - TEST_SUITE=cucumber-program-tests
-  - TEST_SUITE=cucumber-records
-  - TEST_SUITE=cucumber-users
-  - TEST_SUITE=cucumber-vendors
   - TEST_SUITE=units
-  - TEST_SUITE=controllers
-  - TEST_SUITE=helpers
-  - TEST_SUITE=jobs
-  - TEST_SUITE=audit
-  - TEST_SUITE=integration
 script:
   - 'if [ ${TEST_SUITE} = "cucumber-admin" ]; then
       bundle exec cucumber features/admin/;
