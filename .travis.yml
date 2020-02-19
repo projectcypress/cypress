@@ -37,6 +37,8 @@ env:
     - MONGODB=3.4.5
   matrix:
   - TEST_SUITE=audit
+  - TEST_SUITE=cucumber-first
+  - TEST_SUITE=cucumber-second
   - TEST_SUITE=units
 script:
   - 'if [ ${TEST_SUITE} = "cucumber-admin" ]; then
@@ -63,6 +65,10 @@ script:
       bundle exec bundle-audit check --update &&
       bundle exec overcommit --sign &&
       bundle exec overcommit --run;
+    elif [ ${TEST_SUITE} = "cucumber-first" ]; then
+      bundle exec cucumber features/admin/ features/checklist_tests/ features/filtering_tests/ features/measure_tests/ features/multi_measure_tests/;
+    elif [ ${TEST_SUITE} = "cucumber-second" ]; then
+      bundle exec cucumber features/products/ features/program_tests/ features/records/ features/users/ features/vendors/;
     else
-      RUBYOPT="-W0" bundle exec rake test:$TEST_SUITE;
+      RUBYOPT="-W0" bundle exec rake test;
     fi'
