@@ -36,6 +36,7 @@ env:
   global:
     - MONGODB=3.4.5
   matrix:
+  - TEST_SUITE=audit
   - TEST_SUITE=units
 script:
   - 'if [ ${TEST_SUITE} = "cucumber-admin" ]; then
