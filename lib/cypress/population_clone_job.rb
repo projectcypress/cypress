@@ -92,7 +92,35 @@ module Cypress
       restrict_entry_codes(cloned_patient) if @test.is_a? MultiMeasureTest
       provider ? assign_existing_provider(cloned_patient, provider) : assign_provider(cloned_patient)
       cloned_patient.save!
+      # CMS128v8 has a bug that will allow for patients in the IPP when they shouldn't be, remove these from our test decks
+      restrict_patients_for_cms128(cloned_patient) if @test.measure_ids.include? '40280382-6963-BF5E-0169-E4D266793DA0'
       cloned_patient
+    end
+
+    def restrict_patients_for_cms128(cloned_patient)
+      # Get the id for CMS128v8
+      measure_id = @test.bundle.measures.where(hqmf_id: '40280382-6963-BF5E-0169-E4D266793DA0').first.id.to_s
+      # Set options
+      options = { 'effectiveDateEnd' => Time.at(@test.bundle.effective_date).in_time_zone.to_formatted_s(:number),
+                  'effectiveDate' => Time.at(@test.bundle.measure_period_start).in_time_zone.to_formatted_s(:number) }
+      # Perform measure calculation ot see if patient calculates into CMS128v8
+      SingleMeasureCalculationJob.perform_now([cloned_patient.id.to_s], measure_id, cloned_patient.id.to_s, options)
+      # Individual Results for the cloned patient
+      ir = IndividualResult.where(correlation_id: cloned_patient.id.to_s).first
+      # If there is no individual result, patient is not in IPP, no other action is needed
+      return unless ir
+
+      # If the patient is in the IPP, make sure the patient also has an antidepressant_dispensed
+      if ir.IPP
+        # All codes in antidepressant valueset
+        antidepressant_codes = @test.bundle.value_sets.where(oid: '2.16.840.1.113883.3.464.1003.196.12.1213').first.concepts.collect(&:code)
+        # All medications_dispensed elements for cloned patient
+        medications_dispensed = cloned_patient.qdmPatient.get_data_elements('medication', 'dispensed')
+        # Are any of the medications_dispensed for an antidepressant?
+        antidepressant_dispensed = medications_dispensed.any? { |de| de.dataElementCodes.any? { |dec| antidepressant_codes.include? dec.code } }
+        # If none of the medications_dispensed are for an antidepressant, remove the patient from the test deck (i.e., destroy the cloned patient)
+        cloned_patient.destroy unless antidepressant_dispensed
+      end
     end
 
     def unnumerify(patient)
