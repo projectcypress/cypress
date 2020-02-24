@@ -9,10 +9,23 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     # Leverage using functions in the ApiMeasureEvaluator
     @apime = Cypress::ApiMeasureEvaluator.new('test', 'test')
     import_bundle_and_create_product(retrieve_bundle)
+    confirm_cms_128_test_patients
     perform_filtering_tests
     perform_measure_tests
     failed_tests = TestExecution.where(state: 'failed')
     assert failed_tests.empty?, "Test failed for #{failed_tests.first.task.product_test.cms_id} - #{failed_tests.collect { |ft| ft.execution_errors.collect(&:message) }}" unless failed_tests.empty?
+  end
+
+  # confirm that all test patients for CMS128 have at least 1 antidepressant medications dispensed
+  def confirm_cms_128_test_patients
+    antidepressant_codes = @product.bundle.value_sets.where(oid: '2.16.840.1.113883.3.464.1003.196.12.1213').first.concepts.collect(&:code)
+    cms128_patients = @product.product_tests.where(cms_id: 'CMS128v8').first.tasks.c1_task.patients
+    test_deck_size = cms128_patients.size
+    patients_with_meds = cms128_patients.keep_if do |patient|
+      medications_dispensed = patient.qdmPatient.get_data_elements('medication', 'dispensed')
+      medications_dispensed.any? { |de| de.dataElementCodes.any? { |dec| antidepressant_codes.include? dec.code } }
+    end.size
+    assert_equal test_deck_size, patients_with_meds
   end
 
   # Get bundle from the demo server.  Use VCR if available
@@ -42,8 +55,8 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
         @bundle = Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new, false)
         # Pick 2 random EH measures
         eh_measures = @bundle.measures.where(reporting_program_type: 'eh').distinct(:hqmf_id).sample(2)
-        # Pick 2 random EH measures
-        ep_measures = @bundle.measures.where(reporting_program_type: 'ep').distinct(:hqmf_id).sample(8)
+        # Pick 7 random EP measures and add CMS128v8
+        ep_measures = @bundle.measures.where(reporting_program_type: 'ep').distinct(:hqmf_id).sample(7) + ['40280382-6963-BF5E-0169-E4D266793DA0']
         measure_ids = eh_measures + ep_measures
         @vendor = Vendor.find_or_create_by(name: 'MeasureEvaluationVendor')
         post :create, params: { vendor_id: @vendor.id, product: { name: 'MeasureEvaluationProduct', bundle_id: @bundle.id.to_s, c1_test: true, c2_test: true, c3_test: true, c4_test: true, duplicate_patients: false, randomize_patients: true, measure_ids: measure_ids } }
