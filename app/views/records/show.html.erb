@@ -97,7 +97,7 @@
 
 
     <% sf_patient = @record.clone %>
-    <% sf_measures = @measures %>
+    <% sf_measures = @record.bundle.measures %>
     <% sf_title = "All Measures" %>
     <% if @hqmf_id %>
       <%# use selected measure and population_set_hash %>
