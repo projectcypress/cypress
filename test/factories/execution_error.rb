@@ -3,7 +3,7 @@ FactoryBot.define do
     test_execution
 
     after(:build) do |ee|
-      ee[:validator_type] = ee.validation_type
+      ee[:validator_type] = ee.validation_type&.to_sym
     end
 
     factory :calculating_smoking_gun_validator do
