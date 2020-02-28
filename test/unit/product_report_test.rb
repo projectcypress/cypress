@@ -2,12 +2,17 @@ require 'test_helper'
 
 class ProductReportTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
+  include Cypress::ErrorCollector
   include ActiveJob::TestHelper
 
   setup do
     @user = FactoryBot.create(:atl_user)
     @product_test = FactoryBot.create(:cv_product_test_static_result)
     @first_product = @product_test.product
+    @first_product.c3_test = true
+    checklist_test = @first_product.product_tests.checklist_tests.first
+    checklist_test.tasks.create({}, C3ChecklistTask)
+    checklist_test.save
     @product_test.tasks.create({}, C1Task)
     @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
     @product_test.tasks.create({}, C3Cat1Task)
@@ -176,6 +181,7 @@ class ProductReportTest < ActionController::TestCase
 
   test 'should generate a report' do
     # Iterate through each validator
+    random = Random.new
     TEST_EXECUTION_ERROR_HASH.each_value do |sample_errors|
       # Iterate through each sample_error for validator
       sample_errors.each do |sample_error_hash|
@@ -183,9 +189,18 @@ class ProductReportTest < ActionController::TestCase
         testfile = Tempfile.new(['report', '.zip'])
         # create a test execution to assign the error message to. We're just using C2 test execution or all errors
         te = @product_test.tasks.c2_task.test_executions.build(state: :failed, user: @user)
+        ste = @product_test.tasks.c3_cat3_task.test_executions.build(state: :failed, user: @user, sibling_execution_id: te.id.to_s)
+        te.sibling_execution_id = ste.id.to_s
         # add error message
-        build_execution_error(te, sample_error_hash['factory_name'])
+        if random.rand(2).zero?
+          build_execution_error(te, sample_error_hash['factory_name'], ste)
+          check_error_collector(te)
+        else
+          build_execution_error(ste, sample_error_hash['factory_name'], te)
+          check_error_collector(ste)
+        end
         te.save
+        ste.save
         # Use product controller to generate report
         @controller = ProductsController.new
         for_each_logged_in_user([ATL]) do
@@ -201,15 +216,33 @@ class ProductReportTest < ActionController::TestCase
         # Clean up
         testfile.unlink
         te.execution_errors.destroy
+        ste.execution_errors.destroy
       end
     end
   end
 
-  def build_execution_error(test_execution, factory_name)
+  def check_error_collector(test_execution)
+    return unless test_execution.execution_errors.first.validator_type
+
+    collected_errors = collected_errors(test_execution)
+    error_count = collected_errors[:nonfile].size
+    collected_errors[:files].each_value do |collected_error_values|
+      error_count += collected_error_values['QRDA'][:execution_errors].size
+      error_count += collected_error_values['Reporting'][:execution_errors].size
+      error_count += collected_error_values['Submission'][:execution_errors].size
+      error_count += collected_error_values['CMS Warnings'][:execution_errors].size
+      error_count += collected_error_values['Other Warnings'][:execution_errors].size
+    end
+    assert_equal error_count, test_execution.execution_errors.size
+  end
+
+  def build_execution_error(test_execution, factory_name, sibling_execution)
     # A test execution needs an artifact, since we are always using a C2 test execution, create a Cat 3 artifact
     file_name = 'cat_III/ep_test_qrda_cat3_good.xml'
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', file_name))
     Artifact.create!(test_execution: test_execution, file: file)
+    Artifact.create!(test_execution: sibling_execution, file: file)
+    sibling_execution.state = :passed
     FactoryBot.create(factory_name, test_execution: test_execution, file_name: file_name.split('/')[1])
   end
 end
