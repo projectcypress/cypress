@@ -45,5 +45,24 @@ module Cypress
       end
       error_list
     end
+
+    def self.issues_for_mismatched_units(patient, bundle, measures)
+      error_list = []
+      # only a limited set of units need to be checked for matches
+      APP_CONSTANTS['unit_matches'].each do |match|
+        next unless measures.any? { |m| m.hqmf_set_id == match['hqmf_set_id'] }
+
+        valueset = bundle.value_sets.where(oid: match['code_list_id']).first
+        patient.qdmPatient.dataElements.each do |de|
+          # check for matching data element type and code in valueset
+          next unless de._type == match['de_type'] && de.dataElementCodes.any? { |dec| valueset.concepts.any? { |conc| conc.code == dec.code } }
+
+          msg = "Unit '#{de.result.unit}' does not match expected unit '#{match['unit']}'. Units must match measure-defined units. "
+          # add unit error
+          error_list << msg unless de.result.unit == match['unit']
+        end
+      end
+      error_list
+    end
   end
 end

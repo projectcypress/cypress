@@ -44,19 +44,19 @@ class TestExecutionTest < ActiveSupport::TestCase
 
   def test_qrda_reporting_and_submission_errors
     qrda_errors = [
-      { validator: 'CDA SDTC Validator' },
-      { validator: 'QRDA Cat 1 R3 Validator' },
-      { validator: 'QRDA Cat 1 Validator' },
-      { validator: 'QRDA Cat 3 Validator' },
-      { validator_type: :xml_validation }
+      { validator: 'CDA SDTC Validator', msg_type: :error },
+      { validator: 'QRDA Cat 1 R3 Validator', msg_type: :error },
+      { validator: 'QRDA Cat 1 Validator', msg_type: :error },
+      { validator: 'QRDA Cat 3 Validator', msg_type: :error },
+      { validator_type: :xml_validation, msg_type: :error }
     ]
     reporting_errors = [
-      { validator: 'Cat 1 Measure ID Validator' },
-      { validator: 'Cat 3 Measure ID Validator' },
-      { validator_type: :result_validation }
+      { validator: 'Cat 1 Measure ID Validator', msg_type: :error },
+      { validator: 'Cat 3 Measure ID Validator', msg_type: :error },
+      { validator_type: :result_validation, msg_type: :error }
     ]
     submission_errors = [
-      { validator_type: :submission_validation }
+      { validator_type: :submission_validation, msg_type: :error }
     ]
     execution_errors = qrda_errors + reporting_errors + submission_errors
 

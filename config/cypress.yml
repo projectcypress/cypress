@@ -198,3 +198,15 @@ CPC_measures:
 '40280382-6258-7581-0162-92A37A9B15DF', '40280382-6258-7581-0162-9208CE991364', '40280382-6240-B6B9-0162-5096917708E0',
 '40280382-6258-7581-0162-92877E281530', '40280382-6258-7581-0162-92CDAF46165E', '40280382-610B-E7A4-0161-9A6155603811',
 '40280382-6258-7581-0162-92106B67138D']
+
+unit_matches:
+  # relevant for CMS9v8+ GestationalAge.result >= 37 weeks, drc "Gestational age--at birth" 
+  - hqmf_set_id : '7D374C6A-3821-4333-A1BC-4531005D77B8'
+    de_type     : 'QDM::AssessmentPerformed'
+    code_list_id: 'drc-4c33d7b8f32e35a207115db38533831b6f4ecd2459f3921a33641217cb04b75b' # drc 76516-4
+    unit        : 'weeks'
+    # relevant for CMS105v8+ where Max( ... Ldl.result as Quantity) < 70 'mg/dL', "LDL-c"
+  - hqmf_set_id : '1F503318-BB8D-4B91-AF63-223AE0A2328E'
+    de_type     : 'QDM::LaboratoryTestPerformed'
+    code_list_id: '2.16.840.1.113883.3.117.1.7.1.215'
+    unit        : 'mg/dL'
