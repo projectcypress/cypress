@@ -8,7 +8,9 @@ class XmlViewHelperTest < ActiveSupport::TestCase
     user = FactoryBot.create(:vendor_user)
     product_test = FactoryBot.create(:cv_product_test_static_result)
     product_test.product.c1_test = true
+    product_test.product.c3_test = true
     task = product_test.tasks.create({}, C1Task)
+    product_test.tasks.create({}, C3Cat1Task)
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_wrong_templates.zip'))
 
     perform_enqueued_jobs do

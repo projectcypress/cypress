@@ -45,11 +45,13 @@ module Validators
       # check for single code negation errors
       product_test = ProductTest.find(@test_id)
       errors = Cypress::QRDAPostProcessor.issues_for_negated_single_codes(patient, @bundle, product_test.measures)
+      unit_errors = Cypress::QRDAPostProcessor.issues_for_mismatched_units(patient, @bundle, product_test.measures)
       if product_test.product.c3_test
         errors.each { |e| add_error e, file_name: options[:file_name] }
       else
-        errors.each { |e| add_warning e, file_name: options[:file_name] }
+        errors.each { |e| add_warning e, file_name: options[:file_name], cms: true }
       end
+      unit_errors.each { |e| add_warning e, file_name: options[:file_name], cms: true }
 
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, @bundle)
       patient
