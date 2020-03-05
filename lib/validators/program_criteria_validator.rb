@@ -54,7 +54,9 @@ module Validators
     def post_processsor_check(patient, options)
       # check for single code negation errors
       errors = Cypress::QRDAPostProcessor.issues_for_negated_single_codes(patient, options.task.bundle, options.task.product_test.measures)
+      unit_errors = Cypress::QRDAPostProcessor.issues_for_mismatched_units(patient, options.task.bundle, options.task.product_test.measures)
       errors.each { |e| add_error e, file_name: options[:file_name] }
+      unit_errors.each { |e| add_error e, file_name: options[:file_name] }
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, options.task.bundle)
     end
 
