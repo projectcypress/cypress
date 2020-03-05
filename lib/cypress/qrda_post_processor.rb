@@ -57,12 +57,24 @@ module Cypress
           # check for matching data element type and code in valueset
           next unless de._type == match['de_type'] && de.dataElementCodes.any? { |dec| valueset.concepts.any? { |conc| conc.code == dec.code } }
 
-          msg = "Unit '#{de.result.unit}' does not match expected unit '#{match['unit']}'. Units must match measure-defined units. "
-          # add unit error
-          error_list << msg unless de.result.unit == match['unit']
+          msg = unit_error_message(de, match, valueset)
+          error_list << msg if msg
         end
       end
       error_list
+    end
+
+    def self.unit_error_message(data_element, expected_unit, valueset)
+      data_element_title = "#{data_element._type} (#{valueset.display_name})"
+      # If a unit is not specified in the QRDA, it is imported as an Integer or Float.
+      if (data_element.result.is_a? Integer) || (data_element.result.is_a? Float)
+        "Unspecified unit for #{data_element_title} does not match expected unit '#{expected_unit['unit']}'. " \
+        'Units must match measure-defined units. '
+      # If a unit is specified in the QRDA, it is imported as a Quantity.  Check the Quantity's unit
+      elsif data_element.result._type == 'QDM::Quantity' && data_element.result.unit != expected_unit['unit']
+        "Unit '#{data_element.result.unit}' for #{data_element_title} does not match expected unit '#{expected_unit['unit']}'. " \
+        'Units must match measure-defined units. '
+      end
     end
   end
 end
