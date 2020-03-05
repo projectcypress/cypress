@@ -69,4 +69,29 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
       assert e.message.include?('does not match expected unit'), 'Validation warnings should show unit mismatch warning'
     end
   end
+
+  def test_unit_missing_warning
+    @product_test = FactoryBot.create(:product_test_static_result)
+
+    measure = @product_test.measures.first
+    measure.hqmf_set_id = '7D374C6A-3821-4333-A1BC-4531005D77B8' # set id for CMS9 with gestational age unit
+    measure.save
+
+    # create gestational age code that can be found in fixture patient file
+    vs = ValueSet.new('oid': 'drc-4c33d7b8f32e35a207115db38533831b6f4ecd2459f3921a33641217cb04b75b', 'bundle_id': @product_test.bundle._id)
+    vs.concepts = [Concept.new('code': '76516-4')]
+    vs.save
+
+    @calc_validator_with_c3 = CalculatingSmokingGunValidator.new([measure], @product_test.patients, @product_test.id, measure_ids: ['temp_id'])
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_unit_missing.xml')).read
+    doc = Nokogiri::XML(file)
+    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+    @calc_validator_with_c3.parse_record(doc, file_name: 'sample_patient_unit_missing')
+    errors = @calc_validator_with_c3.errors
+    assert_not_empty errors
+    errors.each do |e|
+      assert e.message.include?('Unspecified unit'), 'Validation warnings should show unit missing warning'
+    end
+  end
 end
