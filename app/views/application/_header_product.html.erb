@@ -13,7 +13,7 @@
       <%= button_to edit_vendor_product_path(product.vendor_id, product), :method => :get, :class => "btn btn-default" do %>
         <%= icon('fas fa-fw', 'wrench', :"aria-hidden" => true) %> Edit Product
       <% end %>
-      <% if current_user.user_role?(:atl) || current_user.user_role?(:admin) %>
+      <% if current_user.user_role?(:atl) || current_user.user_role?(:admin) || Settings.current.enable_debug_features  %>
         <% unless product.supplemental_test_artifact.file.nil? %>
           <%= button_to supplemental_test_artifact_vendor_product_path(product.vendor_id, product), :method => :get, :class => "btn btn-default" do %>
             <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download Supplemental Test Artifact
