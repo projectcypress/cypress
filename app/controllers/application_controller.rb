@@ -31,7 +31,9 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin_atl
-    raise CanCan::AccessDenied.new, 'Forbidden' unless current_user.user_role?(:admin) || current_user.user_role?(:atl)
+    return if current_user.user_role?(:admin) || current_user.user_role?(:atl) || Settings.current.enable_debug_features
+
+    raise CanCan::AccessDenied.new, 'Forbidden'
   end
 
   private
