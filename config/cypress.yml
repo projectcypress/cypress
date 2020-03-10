@@ -204,9 +204,12 @@ unit_matches:
   - hqmf_set_id : '7D374C6A-3821-4333-A1BC-4531005D77B8'
     de_type     : 'QDM::AssessmentPerformed'
     code_list_id: 'drc-4c33d7b8f32e35a207115db38533831b6f4ecd2459f3921a33641217cb04b75b' # drc 76516-4
-    unit        : 'weeks'
+    units       : 
+      - 'weeks'
+      - 'wk'
     # relevant for CMS105v8+ where Max( ... Ldl.result as Quantity) < 70 'mg/dL', "LDL-c"
   - hqmf_set_id : '1F503318-BB8D-4B91-AF63-223AE0A2328E'
     de_type     : 'QDM::LaboratoryTestPerformed'
     code_list_id: '2.16.840.1.113883.3.117.1.7.1.215'
-    unit        : 'mg/dL'
+    units        :
+      - 'mg/dL'
