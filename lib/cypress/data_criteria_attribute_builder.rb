@@ -287,11 +287,11 @@ module Cypress
         parse_query_source(query_source, library_id, statement, source_value)
       end
       rsource.each do |rel_source|
-        parse_query_relationship(rel_source, statement)
+        parse_query_relationship(rel_source, library_id, statement, source_value)
       end
     end
 
-    def parse_query_relationship(rel_source, statement)
+    def parse_query_relationship(rel_source, library_id, statement, source_value)
       if rel_source['expression']['dataType']
         if rel_source['expression']['codes']
           name = rel_source['expression']['codes']['name']
