@@ -2,7 +2,7 @@ require 'test_helper'
 
 class DataCriteriaAttributeBuilderTest < ActiveSupport::TestCase
   test 'should successfully add attributes to data criteria from a union' do
-    measure_package = Rack::Test::UploadedFile.new(Rails.root.join('test', 'fixtures', 'artifacts', 'CMS249v2.zip'), 'application/zip')
+    measure_package = Rack::Test::UploadedFile.new(Rails.root.join('test', 'fixtures', 'artifacts', 'CMS249v3.zip'), 'application/zip')
     measure_details = { 'episode_of_care' => false }
     loader = Measures::CqlLoader.new(measure_package, measure_details)
     # will return an array of CQMMeasures, most of the time there will only be a single measure
@@ -22,7 +22,7 @@ class DataCriteriaAttributeBuilderTest < ActiveSupport::TestCase
   end
 
   test 'should successfully add attributes from multiple definitions to data criteria' do
-    measure_package = Rack::Test::UploadedFile.new(Rails.root.join('test', 'fixtures', 'artifacts', 'CMS142v8.zip'), 'application/zip')
+    measure_package = Rack::Test::UploadedFile.new(Rails.root.join('test', 'fixtures', 'artifacts', 'CMS142v9.zip'), 'application/zip')
     measure_details = { 'episode_of_care' => false }
     loader = Measures::CqlLoader.new(measure_package, measure_details)
     # will return an array of CQMMeasures, most of the time there will only be a single measure
@@ -39,9 +39,7 @@ class DataCriteriaAttributeBuilderTest < ActiveSupport::TestCase
     new_sdc = measure.source_data_criteria.where(codeListId: '2.16.840.1.113883.3.526.3.1283').first
 
     assert_equal 1, new_sdc.dataElementAttributes.select { |dea| dea.attribute_name == 'authorDatetime' }.size
-    # TODO: Figure out why DCAB is not finding these attributes any more.
-    # assert_equal 3, new_sdc.dataElementAttributes.select { |dea| dea.attribute_name == 'sender' }.size
-    # assert_equal 3, new_sdc.dataElementAttributes.select { |dea| dea.attribute_name == 'recipient' }.size
-    # assert_equal 2, new_sdc.dataElementAttributes.select { |dea| dea.attribute_name == 'negationRationale' }.size
+    assert_equal 1, new_sdc.dataElementAttributes.select { |dea| dea.attribute_name == 'sentDatetime' }.size
+    assert_equal 2, new_sdc.dataElementAttributes.select { |dea| dea.attribute_name == 'negationRationale' }.size
   end
 end
