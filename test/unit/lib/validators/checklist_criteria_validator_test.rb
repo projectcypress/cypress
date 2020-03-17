@@ -41,14 +41,14 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
                 ['adverse_event', nil, 'relevantDatetime', false, '20170503000000', nil, 'QDM::AdverseEvent', false],
                 ['adverse_event', nil, 'severity', false, '20170503000000', nil, 'QDM::AdverseEvent'],
                 ['adverse_event', nil, 'facilityLocation', false, '20170503000000', nil, 'QDM::AdverseEvent'],
-                ['adverse_event', nil, 'type', false, '20170503000000', nil, 'QDM::AdverseEvent'],
-                ['adverse_event', nil, 'recorder', false, '20170503000000', nil, 'QDM::AdverseEvent'],
+                ['adverse_event', nil, 'type', false, nil, '1234', 'QDM::AdverseEvent'],
+                ['adverse_event', nil, 'recorder', false, nil, '1234', 'QDM::AdverseEvent'],
 
                 ['allergy_intolerance', nil, 'authorDatetime', false, '20170503000000', nil, 'QDM::AllergyIntolerance', false],
                 ['allergy_intolerance', nil, 'prevalencePeriod', false, '20170503000000', nil, 'QDM::AllergyIntolerance', false],
                 ['allergy_intolerance', nil, 'type', false, '20170503000000', nil, 'QDM::AllergyIntolerance'],
                 ['allergy_intolerance', nil, 'severity', false, '20170503000000', nil, 'QDM::AllergyIntolerance'],
-                ['allergy_intolerance', nil, 'recorder', false, '20170503000000', nil, 'QDM::AllergyIntolerance'],
+                ['allergy_intolerance', nil, 'recorder', false, nil, '1234', 'QDM::AllergyIntolerance'],
 
                 ['assessment', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::AssessmentOrder', true],
                 ['assessment', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::AssessmentOrder', false],
@@ -64,7 +64,7 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
                 ['assessment', 'performed', 'result', false, '20170503000000', nil, 'QDM::AssessmentPerformed', false],
                 ['assessment', 'performed', 'components', false, '20170503000000', nil, 'QDM::AssessmentPerformed', false],
                 # ['assessment', 'performed', 'relatedTo', false, '20170503000000', nil, 'QDM::AssessmentPerformed', false], # Not currently in patient generator
-                ['assessment', 'performed', 'performer', false, '20170503000000', nil, 'QDM::AssessmentPerformed', false],
+                ['assessment', 'performed', 'performer', false, nil, '1234', 'QDM::AssessmentPerformed', false],
 
                 ['assessment', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::AssessmentRecommended', true],
                 ['assessment', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::AssessmentRecommended', false],
@@ -81,249 +81,305 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
                 ['communication', 'performed', 'sentDatetime', false, '20170503000000', nil, 'QDM::CommunicationPerformed', false],
                 ['communication', 'performed', 'receivedDatetime', false, '20170503000000', nil, 'QDM::CommunicationPerformed', false],
 
-  # ['device', 'applied', 'negationRationale', false, nil, '1234', 'QDM::DeviceApplied', true],
-  # ['device', 'applied', 'authorDatetime', false, '20170503000000', nil, 'QDM::DeviceApplied', false],
-  # ['device', 'applied', 'relevantPeriod', false, '20170503000000', nil, 'QDM::DeviceApplied', false],
-  # ['device', 'applied', 'reason', false, nil, '1234', 'QDM::DeviceApplied', false],
-  # ['device', 'applied', 'anatomicalLocationSite', false, nil, '1234', 'QDM::DeviceApplied', false],
+                ['device', 'applied', 'negationRationale', false, nil, '1234', 'QDM::DeviceApplied', true],
+                ['device', 'applied', 'authorDatetime', false, '20170503000000', nil, 'QDM::DeviceApplied', false],
+                ['device', 'applied', 'relevantDatetime', false, '20170503000000', nil, 'QDM::DeviceApplied', false],
+                ['device', 'applied', 'relevantPeriod', false, '20170503000000', nil, 'QDM::DeviceApplied', false],
+                ['device', 'applied', 'reason', false, nil, '1234', 'QDM::DeviceApplied', false],
+                ['device', 'applied', 'anatomicalLocationSite', false, nil, '1234', 'QDM::DeviceApplied', false],
+                ['device', 'applied', 'performer', false, nil, '1234', 'QDM::DeviceApplied', false],
 
-  # ['device', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::DeviceOrder', true],
-  # ['device', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::DeviceOrder', false],
-  # ['device', 'ordered', 'reason', false, nil, '1234', 'QDM::DeviceOrder', false],
+                ['device', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::DeviceOrder', true],
+                ['device', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::DeviceOrder', false],
+                ['device', 'ordered', 'reason', false, nil, '1234', 'QDM::DeviceOrder', false],
+                ['device', 'ordered', 'requester', false, nil, '1234', 'QDM::DeviceOrder', false],
 
-  # ['device', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::DeviceRecommended', true],
-  # ['device', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::DeviceRecommended', false],
-  # ['device', 'recommended', 'reason', false, nil, '1234', 'QDM::DeviceRecommended', false],
+                ['device', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::DeviceRecommended', true],
+                ['device', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::DeviceRecommended', false],
+                ['device', 'recommended', 'reason', false, nil, '1234', 'QDM::DeviceRecommended', false],
+                ['device', 'recommended', 'requester', false, nil, '1234', 'QDM::DeviceRecommended', false],
 
-  # ['diagnosis', nil, 'authorDatetime', false, '20170503000000', nil, 'QDM::Diagnosis', false],
-  # ['diagnosis', nil, 'prevalencePeriod', false, '20170503000000', nil, 'QDM::Diagnosis', false],
-  # ['diagnosis', nil, 'anatomicalLocationSite', false, nil, '1234', 'QDM::Diagnosis', false],
-  # ['diagnosis', nil, 'severity', false, nil, '1234', 'QDM::Diagnosis', false],
+                ['diagnosis', nil, 'authorDatetime', false, '20170503000000', nil, 'QDM::Diagnosis', false],
+                ['diagnosis', nil, 'prevalencePeriod', false, '20170503000000', nil, 'QDM::Diagnosis', false],
+                ['diagnosis', nil, 'anatomicalLocationSite', false, nil, '1234', 'QDM::Diagnosis', false],
+                ['diagnosis', nil, 'severity', false, nil, '1234', 'QDM::Diagnosis', false],
+                ['diagnosis', nil, 'recorder', false, nil, '1234', 'QDM::Diagnosis', false],
 
-  # ['diagnostic_study', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::DiagnosticStudyOrder', true],
-  # ['diagnostic_study', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::DiagnosticStudyOrder', false],
-  # ['diagnostic_study', 'ordered', 'reason', false, nil, '1234', 'QDM::DiagnosticStudyOrder', false],
+                ['diagnostic_study', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::DiagnosticStudyOrder', true],
+                ['diagnostic_study', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::DiagnosticStudyOrder', false],
+                ['diagnostic_study', 'ordered', 'reason', false, nil, '1234', 'QDM::DiagnosticStudyOrder', false],
+                ['diagnostic_study', 'requester', 'reason', false, nil, '1234', 'QDM::DiagnosticStudyOrder', false],
 
-  # ['diagnostic_study', 'performed', 'negationRationale', false, nil, '1234', 'QDM::DiagnosticStudyPerformed', true],
-  # ['diagnostic_study', 'performed', 'authorDatetime', false, '20170503000000', nil, 'QDM::DiagnosticStudyPerformed', false],
-  # ['diagnostic_study', 'performed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::DiagnosticStudyPerformed', false],
-  # ['diagnostic_study', 'performed', 'reason', false, nil, '1234', 'QDM::DiagnosticStudyPerformed', false],
-  # ['diagnostic_study', 'performed', 'result', false, nil, '1234', 'QDM::DiagnosticStudyPerformed', false],
-  # # ['diagnostic_study', 'performed', 'resultDatetime', false, '20170503000000', nil, 'QDM::DiagnosticStudyPerformed', false], # Cannot selective remove resultDatetime
-  # ['diagnostic_study', 'performed', 'status', false, nil, '1234', 'QDM::DiagnosticStudyPerformed', false],
-  # ['diagnostic_study', 'performed', 'method', false, nil, '1234', 'QDM::DiagnosticStudyPerformed', false],
-  # ['diagnostic_study', 'performed', 'facilityLocation', false, nil, '1234', 'QDM::DiagnosticStudyPerformed', false],
-  # ['diagnostic_study', 'performed', 'components', false, nil, '1234', 'QDM::DiagnosticStudyPerformed', false],
+                ['diagnostic_study', 'performed', 'negationRationale', false, nil, '1234', 'QDM::DiagnosticStudyPerformed', true],
+                ['diagnostic_study', 'performed', 'authorDatetime', false, '20170503000000', nil, 'QDM::DiagnosticStudyPerformed', false],
+                ['diagnostic_study', 'performed', 'relevantDatetime', false, '20170503000000', nil, 'QDM::DiagnosticStudyPerformed', false],
+                ['diagnostic_study', 'performed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::DiagnosticStudyPerformed', false],
+                ['diagnostic_study', 'performed', 'reason', false, nil, '1234', 'QDM::DiagnosticStudyPerformed', false],
+                ['diagnostic_study', 'performed', 'result', false, nil, '1234', 'QDM::DiagnosticStudyPerformed', false],
+                # ['diagnostic_study', 'performed', 'resultDatetime', false, '20170503000000', nil, 'QDM::DiagnosticStudyPerformed', false], # Cannot selective remove resultDatetime
+                ['diagnostic_study', 'performed', 'status', false, nil, '1234', 'QDM::DiagnosticStudyPerformed', false],
+                ['diagnostic_study', 'performed', 'method', false, nil, '1234', 'QDM::DiagnosticStudyPerformed', false],
+                ['diagnostic_study', 'performed', 'facilityLocation', false, nil, '1234', 'QDM::DiagnosticStudyPerformed', false],
+                ['diagnostic_study', 'performed', 'components', false, nil, '1234', 'QDM::DiagnosticStudyPerformed', false],
+                ['diagnostic_study', 'performed', 'performer', false, nil, '1234', 'QDM::DiagnosticStudyPerformed', false],
 
-  # ['diagnostic_study', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::DiagnosticStudyRecommended', true],
-  # ['diagnostic_study', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::DiagnosticStudyRecommended', false],
+                ['diagnostic_study', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::DiagnosticStudyRecommended', true],
+                ['diagnostic_study', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::DiagnosticStudyRecommended', false],
+                ['diagnostic_study', 'recommended', 'requester', false, '20170503000000', nil, 'QDM::DiagnosticStudyRecommended', false],
 
-  # ['encounter', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::EncounterOrder', true],
-  # ['encounter', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::EncounterOrder', false],
-  # ['encounter', 'ordered', 'reason', false, nil, '1234', 'QDM::EncounterOrder', false],
-  # ['encounter', 'ordered', 'facilityLocation', false, nil, '1234', 'QDM::EncounterOrder', false],
+                ['encounter', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::EncounterOrder', true],
+                ['encounter', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::EncounterOrder', false],
+                ['encounter', 'ordered', 'reason', false, nil, '1234', 'QDM::EncounterOrder', false],
+                ['encounter', 'ordered', 'facilityLocation', false, nil, '1234', 'QDM::EncounterOrder', false],
+                ['encounter', 'ordered', 'requester', false, nil, '1234', 'QDM::EncounterOrder', false],
+                ['encounter', 'ordered', 'priority', false, nil, '1234', 'QDM::EncounterOrder', false],
 
-  # ['encounter', 'performed', 'negationRationale', false, nil, '1234', 'QDM::EncounterPerformed', true],
-  # ['encounter', 'performed', 'authorDatetime', false, '20170503000000', nil, 'QDM::EncounterPerformed', false],
-  # ['encounter', 'performed', 'admissionSource', false, nil, '1234', 'QDM::EncounterPerformed', false],
-  # ['encounter', 'performed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::EncounterPerformed', false],
-  # ['encounter', 'performed', 'dischargeDisposition', false, nil, '1234', 'QDM::EncounterPerformed', false],
-  # ['encounter', 'performed', 'facilityLocations', false, nil, '1234', 'QDM::EncounterPerformed', false],
-  # ['encounter', 'performed', 'diagnoses', false,  nil, '1234', 'QDM::EncounterPerformed'],
-  # ['encounter', 'performed', 'principalDiagnosis', false, nil, '1234', 'QDM::EncounterPerformed', false],
-  # # ['encounter', 'performed', 'lengthOfStay', false, '2', nil, 'QDM::EncounterPerformed'], # Not currently in patient generator
+                ['encounter', 'performed', 'negationRationale', false, nil, '1234', 'QDM::EncounterPerformed', true],
+                ['encounter', 'performed', 'authorDatetime', false, '20170503000000', nil, 'QDM::EncounterPerformed', false],
+                ['encounter', 'performed', 'admissionSource', false, nil, '1234', 'QDM::EncounterPerformed', false],
+                ['encounter', 'performed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::EncounterPerformed', false],
+                ['encounter', 'performed', 'dischargeDisposition', false, nil, '1234', 'QDM::EncounterPerformed', false],
+                ['encounter', 'performed', 'facilityLocations', false, nil, '1234', 'QDM::EncounterPerformed', false],
+                ['encounter', 'performed', 'diagnoses', false,  nil, '1234', 'QDM::EncounterPerformed'],
+                # ['encounter', 'performed', 'priority', false, nil, '1234', 'QDM::EncounterPerformed', false], # priority not in QRDA spec
+                ['encounter', 'performed', 'participant', false, '20170503000000', nil, 'QDM::EncounterPerformed', false],
+                # ['encounter', 'performed', 'lengthOfStay', false, '2', nil, 'QDM::EncounterPerformed'], # Not currently in patient generator
 
-  # ['encounter', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::EncounterRecommended', true],
-  # ['encounter', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::EncounterRecommended', false],
-  # ['encounter', 'recommended', 'facilityLocation', false, nil, '1234', 'QDM::EncounterRecommended', false],
-  # ['encounter', 'recommended', 'reason', false, nil, '1234', 'QDM::EncounterRecommended', false],
+                ['encounter', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::EncounterRecommended', true],
+                ['encounter', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::EncounterRecommended', false],
+                ['encounter', 'recommended', 'facilityLocation', false, nil, '1234', 'QDM::EncounterRecommended', false],
+                ['encounter', 'recommended', 'reason', false, nil, '1234', 'QDM::EncounterRecommended', false],
+                ['encounter', 'recommended', 'requester', false, '20170503000000', nil, 'QDM::EncounterRecommended', false],
 
-  # ['family_history', nil, 'authorDatetime', false, '20170503000000', nil, 'QDM::FamilyHistory', false],
+                ['family_history', nil, 'authorDatetime', false, '20170503000000', nil, 'QDM::FamilyHistory', false],
+                ['family_history', nil, 'relationship', false, nil, '1234', 'QDM::FamilyHistory', false],
+                ['family_history', nil, 'recorder', false, '20170503000000', nil, 'QDM::FamilyHistory', false],
 
-  # ['immunization', 'administered', 'negationRationale', false, nil, '1234', 'QDM::ImmunizationAdministered', true],
-  # ['immunization', 'administered', 'authorDatetime', false, '20170503000000', nil, 'QDM::ImmunizationAdministered', false],
-  # ['immunization', 'administered', 'reason', false, nil, '1234', 'QDM::ImmunizationAdministered', false],
-  # ['immunization', 'administered', 'dosage', false, nil, '1234', 'QDM::ImmunizationAdministered', false],
-  # ['immunization', 'administered', 'route', false, nil, '1234', 'QDM::ImmunizationAdministered', false],
+                ['immunization', 'administered', 'negationRationale', false, nil, '1234', 'QDM::ImmunizationAdministered', true],
+                ['immunization', 'administered', 'authorDatetime', false, '20170503000000', nil, 'QDM::ImmunizationAdministered', false],
+                ['immunization', 'administered', 'relevantDatetime', false, '20170503000000', nil, 'QDM::ImmunizationAdministered', false],
+                ['immunization', 'administered', 'reason', false, nil, '1234', 'QDM::ImmunizationAdministered', false],
+                ['immunization', 'administered', 'dosage', false, nil, '1234', 'QDM::ImmunizationAdministered', false],
+                ['immunization', 'administered', 'route', false, nil, '1234', 'QDM::ImmunizationAdministered', false],
+                ['immunization', 'administered', 'performer', false, '20170503000000', nil, 'QDM::ImmunizationAdministered', false],
 
-  # ['immunization', 'order', 'negationRationale', false, nil, '1234', 'QDM::ImmunizationOrder', true],
-  # ['immunization', 'order', 'activeDatetime', false, '20170503000000', nil, 'QDM::ImmunizationOrder', false],
-  # ['immunization', 'order', 'authorDatetime', false, '20170503000000', nil, 'QDM::ImmunizationOrder', false],
-  # ['immunization', 'order', 'dosage', false, '20170503000000', nil, 'QDM::ImmunizationOrder', false],
-  # ['immunization', 'order', 'supply', false, '20170503000000', nil, 'QDM::ImmunizationOrder', false],
-  # ['immunization', 'order', 'route', false, nil, '1234', 'QDM::ImmunizationOrder', false],
-  # ['immunization', 'order', 'reason', false, nil, '1234', 'QDM::ImmunizationOrder', false],
+                ['immunization', 'order', 'negationRationale', false, nil, '1234', 'QDM::ImmunizationOrder', true],
+                ['immunization', 'order', 'activeDatetime', false, '20170503000000', nil, 'QDM::ImmunizationOrder', false],
+                ['immunization', 'order', 'authorDatetime', false, '20170503000000', nil, 'QDM::ImmunizationOrder', false],
+                ['immunization', 'order', 'dosage', false, '20170503000000', nil, 'QDM::ImmunizationOrder', false],
+                ['immunization', 'order', 'supply', false, '20170503000000', nil, 'QDM::ImmunizationOrder', false],
+                ['immunization', 'order', 'route', false, nil, '1234', 'QDM::ImmunizationOrder', false],
+                ['immunization', 'order', 'reason', false, nil, '1234', 'QDM::ImmunizationOrder', false],
+                ['immunization', 'order', 'requester', false, '20170503000000', nil, 'QDM::ImmunizationOrder', false],
 
-  # ['intervention', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::InterventionOrder', true],
-  # ['intervention', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::InterventionOrder', false],
-  # ['intervention', 'ordered', 'reason', false, nil, '1234', 'QDM::InterventionOrder', false],
+                ['intervention', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::InterventionOrder', true],
+                ['intervention', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::InterventionOrder', false],
+                ['intervention', 'ordered', 'reason', false, nil, '1234', 'QDM::InterventionOrder', false],
+                ['intervention', 'ordered', 'requester', false, '20170503000000', nil, 'QDM::InterventionOrder', false],
 
-  # ['intervention', 'performed', 'negationRationale', false, nil, '1234', 'QDM::InterventionPerformed', true],
-  # ['intervention', 'performed', 'authorDatetime', false, '20170503000000', nil, 'QDM::InterventionPerformed', false],
-  # ['intervention', 'performed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::InterventionPerformed', false],
-  # ['intervention', 'performed', 'reason', false, nil, '1234', 'QDM::InterventionPerformed', false],
-  # ['intervention', 'performed', 'result', false, nil, '1234', 'QDM::InterventionPerformed', false],
-  # ['intervention', 'performed', 'status', false, nil, '1234', 'QDM::InterventionPerformed', false],
+                ['intervention', 'performed', 'negationRationale', false, nil, '1234', 'QDM::InterventionPerformed', true],
+                ['intervention', 'performed', 'authorDatetime', false, '20170503000000', nil, 'QDM::InterventionPerformed', false],
+                ['intervention', 'performed', 'relevantDatetime', false, '20170503000000', nil, 'QDM::InterventionPerformed', false],
+                ['intervention', 'performed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::InterventionPerformed', false],
+                ['intervention', 'performed', 'reason', false, nil, '1234', 'QDM::InterventionPerformed', false],
+                ['intervention', 'performed', 'result', false, nil, '1234', 'QDM::InterventionPerformed', false],
+                ['intervention', 'performed', 'status', false, nil, '1234', 'QDM::InterventionPerformed', false],
+                ['intervention', 'performed', 'performer', false, '20170503000000', nil, 'QDM::InterventionPerformed', false],
 
-  # ['intervention', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::InterventionRecommended', true],
-  # ['intervention', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::InterventionRecommended', false],
-  # ['intervention', 'recommended', 'reason', false, nil, '1234', 'QDM::InterventionRecommended', false],
+                ['intervention', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::InterventionRecommended', true],
+                ['intervention', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::InterventionRecommended', false],
+                ['intervention', 'recommended', 'reason', false, nil, '1234', 'QDM::InterventionRecommended', false],
+                ['intervention', 'recommended', 'requester', false, '20170503000000', nil, 'QDM::InterventionRecommended', false],
 
-  # ['laboratory_test', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::LaboratoryTestOrder', true],
-  # ['laboratory_test', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::LaboratoryTestOrder', false],
-  # ['laboratory_test', 'ordered', 'reason', false, nil, '1234', 'QDM::LaboratoryTestOrder', false],
+                ['laboratory_test', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::LaboratoryTestOrder', true],
+                ['laboratory_test', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::LaboratoryTestOrder', false],
+                ['laboratory_test', 'ordered', 'reason', false, nil, '1234', 'QDM::LaboratoryTestOrder', false],
+                ['laboratory_test', 'ordered', 'requester', false, '20170503000000', nil, 'QDM::LaboratoryTestOrder', false],
 
-  # ['laboratory_test', 'performed', 'negationRationale', false, nil, '1234', 'QDM::LaboratoryTestPerformed', true],
-  # ['laboratory_test', 'performed', 'authorDatetime', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
-  # ['laboratory_test', 'performed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
-  # ['laboratory_test', 'performed', 'status', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
-  # ['laboratory_test', 'performed', 'method', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
-  # ['laboratory_test', 'performed', 'result', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
-  # # resultDatetime cannot be confirmed in the negative tests, since if a resultDatetime isn't include, we will then export the authorDatetime or relevantPeriod in its place
-  # # ['laboratory_test', 'performed', 'resultDatetime', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
-  # ['laboratory_test', 'performed', 'reason', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
-  # # ['laboratory_test', 'performed', 'referenceRange', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false], # Not currently in cqm-reports
-  # ['laboratory_test', 'performed', 'components', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
+                ['laboratory_test', 'performed', 'negationRationale', false, nil, '1234', 'QDM::LaboratoryTestPerformed', true],
+                ['laboratory_test', 'performed', 'authorDatetime', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
+                ['laboratory_test', 'performed', 'relevantDatetime', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
+                ['laboratory_test', 'performed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
+                ['laboratory_test', 'performed', 'status', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
+                ['laboratory_test', 'performed', 'method', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
+                ['laboratory_test', 'performed', 'result', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
+                # resultDatetime cannot be confirmed in the negative tests, since if a resultDatetime isn't include, we will then export the authorDatetime or relevantPeriod in its place
+                # ['laboratory_test', 'performed', 'resultDatetime', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
+                ['laboratory_test', 'performed', 'reason', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
+                # ['laboratory_test', 'performed', 'referenceRange', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false], # Not currently in cqm-reports
+                ['laboratory_test', 'performed', 'components', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
+                ['laboratory_test', 'performed', 'performer', false, '20170503000000', nil, 'QDM::LaboratoryTestPerformed', false],
 
-  # ['laboratory_test', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::LaboratoryTestRecommended', true],
-  # ['laboratory_test', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::LaboratoryTestRecommended', false],
-  # ['laboratory_test', 'recommended', 'reason', false, nil, '1234', 'QDM::LaboratoryTestRecommended', false],
+                ['laboratory_test', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::LaboratoryTestRecommended', true],
+                ['laboratory_test', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::LaboratoryTestRecommended', false],
+                ['laboratory_test', 'recommended', 'reason', false, nil, '1234', 'QDM::LaboratoryTestRecommended', false],
+                ['laboratory_test', 'recommended', 'requester', false, '20170503000000', nil, 'QDM::LaboratoryTestRecommended', false],
 
-  # ['medication', 'active', 'relevantPeriod', false, '20170503000000', nil, 'QDM::MedicationActive', false],
-  # ['medication', 'active', 'dosage', false, '20170503000000', nil, 'QDM::MedicationActive', false],
-  # # ['medication', 'active', 'frequency', false, nil, '1234', 'QDM::MedicationActive', false], # roundtrip does not work with code specified in patient generator
-  # ['medication', 'active', 'route', false, nil, '1234', 'QDM::MedicationActive', false],
+                ['medication', 'active', 'relevantDatetime', false, '20170503000000', nil, 'QDM::MedicationActive', false],
+                ['medication', 'active', 'relevantPeriod', false, '20170503000000', nil, 'QDM::MedicationActive', false],
+                ['medication', 'active', 'dosage', false, '20170503000000', nil, 'QDM::MedicationActive', false],
+                # ['medication', 'active', 'frequency', false, nil, '1234', 'QDM::MedicationActive', false], # roundtrip does not work with code specified in patient generator
+                ['medication', 'active', 'route', false, nil, '1234', 'QDM::MedicationActive', false],
+                ['medication', 'active', 'recorder', false, '20170503000000', nil, 'QDM::MedicationActive', false],
 
-  # ['medication', 'administered', 'negationRationale', false, nil, '1234', 'QDM::MedicationAdministered', true],
-  # ['medication', 'administered', 'authorDatetime', false, '20170503000000', nil, 'QDM::MedicationAdministered', false],
-  # ['medication', 'administered', 'relevantPeriod', false, '20170503000000', nil, 'QDM::MedicationAdministered', false],
-  # ['medication', 'administered', 'dosage', false, '20170503000000', nil, 'QDM::MedicationAdministered', false],
-  # # ['medication', 'administered', 'frequency', false, '20170503000000', nil, 'QDM::MedicationAdministered', false], # roundtrip does not work with code specified in patient generator
-  # ['medication', 'administered', 'route', false, nil, '1234', 'QDM::MedicationAdministered', false],
-  # ['medication', 'administered', 'reason', false, '20170503000000', nil, 'QDM::MedicationAdministered', false],
+                ['medication', 'administered', 'negationRationale', false, nil, '1234', 'QDM::MedicationAdministered', true],
+                ['medication', 'administered', 'authorDatetime', false, '20170503000000', nil, 'QDM::MedicationAdministered', false],
+                ['medication', 'administered', 'relevantDatetime', false, '20170503000000', nil, 'QDM::MedicationAdministered', false],
+                ['medication', 'administered', 'relevantPeriod', false, '20170503000000', nil, 'QDM::MedicationAdministered', false],
+                ['medication', 'administered', 'dosage', false, '20170503000000', nil, 'QDM::MedicationAdministered', false],
+                # ['medication', 'administered', 'frequency', false, '20170503000000', nil, 'QDM::MedicationAdministered', false], # roundtrip does not work with code specified in patient generator
+                ['medication', 'administered', 'route', false, nil, '1234', 'QDM::MedicationAdministered', false],
+                ['medication', 'administered', 'reason', false, '20170503000000', nil, 'QDM::MedicationAdministered', false],
+                ['medication', 'administered', 'performer', false, '20170503000000', nil, 'QDM::MedicationAdministered', false],
 
-  # ['medication', 'discharge', 'negationRationale', false, nil, '1234', 'QDM::MedicationDischarge', true],
-  # ['medication', 'discharge', 'authorDatetime', false, '20170503000000', nil, 'QDM::MedicationDischarge', false],
-  # ['medication', 'discharge', 'refills', false, '20170503000000', nil, 'QDM::MedicationDischarge', false],
-  # ['medication', 'discharge', 'dosage', false, '20170503000000', nil, 'QDM::MedicationDischarge', false],
-  # ['medication', 'discharge', 'supply', false, '20170503000000', nil, 'QDM::MedicationDischarge', false],
-  # # ['medication', 'discharge', 'frequency', false, nil, '1234', 'QDM::MedicationDischarge', false], # roundtrip does not work with code specified in patient generator
-  # ['medication', 'discharge', 'daysSupplied', false, '20170503000000', nil, 'QDM::MedicationDischarge', false],
-  # ['medication', 'discharge', 'route', false, nil, '1234', 'QDM::MedicationDischarge', false],
+                ['medication', 'discharge', 'negationRationale', false, nil, '1234', 'QDM::MedicationDischarge', true],
+                ['medication', 'discharge', 'authorDatetime', false, '20170503000000', nil, 'QDM::MedicationDischarge', false],
+                ['medication', 'discharge', 'refills', false, '20170503000000', nil, 'QDM::MedicationDischarge', false],
+                ['medication', 'discharge', 'dosage', false, '20170503000000', nil, 'QDM::MedicationDischarge', false],
+                ['medication', 'discharge', 'supply', false, '20170503000000', nil, 'QDM::MedicationDischarge', false],
+                # ['medication', 'discharge', 'frequency', false, nil, '1234', 'QDM::MedicationDischarge', false], # roundtrip does not work with code specified in patient generator
+                ['medication', 'discharge', 'daysSupplied', false, '20170503000000', nil, 'QDM::MedicationDischarge', false],
+                ['medication', 'discharge', 'route', false, nil, '1234', 'QDM::MedicationDischarge', false],
+                ['medication', 'discharge', 'prescriber', false, '20170503000000', nil, 'QDM::MedicationDischarge', false],
+                ['medication', 'discharge', 'recorder', false, '20170503000000', nil, 'QDM::MedicationDischarge', false],
 
-  # ['medication', 'dispensed', 'negationRationale', false, nil, '1234', 'QDM::MedicationDispensed', true],
-  # ['medication', 'dispensed', 'authorDatetime', false, '20170503000000', nil, 'QDM::MedicationDispensed', false],
-  # ['medication', 'dispensed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::MedicationDispensed', false],
-  # ['medication', 'dispensed', 'refills', false, '20170503000000', nil, 'QDM::MedicationDispensed', false],
-  # ['medication', 'dispensed', 'dosage', false, '20170503000000', nil, 'QDM::MedicationDispensed', false],
-  # ['medication', 'dispensed', 'supply', false, '20170503000000', nil, 'QDM::MedicationDispensed', false],
-  # # ['medication', 'dispensed', 'frequency', false, nil, '1234', 'QDM::MedicationDispensed', false], # roundtrip does not work with code specified in patient generator
-  # ['medication', 'dispensed', 'daysSupplied', false, '20170503000000', nil, 'QDM::MedicationDispensed', false],
-  # ['medication', 'dispensed', 'route', false, nil, '1234', 'QDM::MedicationDispensed', false],
-  # # ['medication', 'dispensed', 'prescriberId', false, '20170503000000', nil, 'QDM::MedicationDispensed', false], #still need the ids
-  # # ['medication', 'dispensed', 'dispenserId', false, '20170503000000', nil, 'QDM::MedicationDispensed', false], #still need the ids
+                ['medication', 'dispensed', 'negationRationale', false, nil, '1234', 'QDM::MedicationDispensed', true],
+                ['medication', 'dispensed', 'authorDatetime', false, '20170503000000', nil, 'QDM::MedicationDispensed', false],
+                ['medication', 'dispensed', 'relevantDatetime', false, '20170503000000', nil, 'QDM::MedicationDispensed', false],
+                ['medication', 'dispensed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::MedicationDispensed', false],
+                ['medication', 'dispensed', 'refills', false, '20170503000000', nil, 'QDM::MedicationDispensed', false],
+                ['medication', 'dispensed', 'dosage', false, '20170503000000', nil, 'QDM::MedicationDispensed', false],
+                ['medication', 'dispensed', 'supply', false, '20170503000000', nil, 'QDM::MedicationDispensed', false],
+                # ['medication', 'dispensed', 'frequency', false, nil, '1234', 'QDM::MedicationDispensed', false], # roundtrip does not work with code specified in patient generator
+                ['medication', 'dispensed', 'daysSupplied', false, '20170503000000', nil, 'QDM::MedicationDispensed', false],
+                ['medication', 'dispensed', 'route', false, nil, '1234', 'QDM::MedicationDispensed', false],
+                ['medication', 'dispensed', 'prescriber', false, '20170503000000', nil, 'QDM::MedicationDispensed', false],
+                ['medication', 'dispensed', 'dispenser', false, '20170503000000', nil, 'QDM::MedicationDispensed', false],
 
-  # ['medication', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::MedicationOrder', true],
-  # # ['medication', 'ordered', 'relevantPeriod', false, '20170503000000', nil, 'QDM::MedicationOrder', false],
-  # ['medication', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::MedicationOrder', false],
-  # ['medication', 'ordered', 'refills', false, '20170503000000', nil, 'QDM::MedicationOrder', false],
-  # ['medication', 'ordered', 'dosage', false, '20170503000000', nil, 'QDM::MedicationOrder', false],
-  # ['medication', 'ordered', 'supply', false, '20170503000000', nil, 'QDM::MedicationOrder', false],
-  # # ['medication', 'ordered', 'frequency', false, nil, '1234', 'QDM::MedicationOrder', false], # roundtrip does not work with code specified in patient generator
-  # ['medication', 'ordered', 'daysSupplied', false, '20170503000000', nil, 'QDM::MedicationOrder', false],
-  # ['medication', 'ordered', 'route', false, nil, '1234', 'QDM::MedicationOrder', false],
-  # ['medication', 'ordered', 'setting', false, nil, '1234', 'QDM::MedicationOrder', false],
-  # ['medication', 'ordered', 'reason', false, nil, '1234', 'QDM::MedicationOrder', false],
-  # # ['medication', 'ordered', 'prescriberId', false, '20170503000000', nil, 'QDM::MedicationOrder', false],
+                ['medication', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::MedicationOrder', true],
+                # ['medication', 'ordered', 'relevantPeriod', false, '20170503000000', nil, 'QDM::MedicationOrder', false],
+                ['medication', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::MedicationOrder', false],
+                ['medication', 'ordered', 'refills', false, '20170503000000', nil, 'QDM::MedicationOrder', false],
+                ['medication', 'ordered', 'dosage', false, '20170503000000', nil, 'QDM::MedicationOrder', false],
+                ['medication', 'ordered', 'supply', false, '20170503000000', nil, 'QDM::MedicationOrder', false],
+                # ['medication', 'ordered', 'frequency', false, nil, '1234', 'QDM::MedicationOrder', false], # roundtrip does not work with code specified in patient generator
+                ['medication', 'ordered', 'daysSupplied', false, '20170503000000', nil, 'QDM::MedicationOrder', false],
+                ['medication', 'ordered', 'route', false, nil, '1234', 'QDM::MedicationOrder', false],
+                ['medication', 'ordered', 'setting', false, nil, '1234', 'QDM::MedicationOrder', false],
+                ['medication', 'ordered', 'reason', false, nil, '1234', 'QDM::MedicationOrder', false],
+                ['medication', 'ordered', 'prescriber', false, '20170503000000', nil, 'QDM::MedicationOrder', false],
 
-  # ['patient_characteristic', 'clinical_trial_participant', 'reason', false, nil, '1234', 'QDM::PatientCharacteristicClinicalTrialParticipant', false],
-  # ['patient_characteristic', 'clinical_trial_participant', 'relevantPeriod', false, '20170503000000', nil, 'QDM::PatientCharacteristicClinicalTrialParticipant', false],
+                ['care_experience', nil, 'authorDatetime', false, '20170503000000', nil, 'QDM::PatientCareExperience', false],
+                ['recorder', nil, 'authorDatetime', false, '20170503000000', nil, 'QDM::PatientCareExperience', false],
 
-  # # ['patient_characteristic_expired', nil, 'expiredDatetime', false, '20170503000000', nil, 'QDM::PatientCharacteristicExpired', false], # these will need to override the code, as the code is 419099009 not 1234
-  # # ['patient_characteristic_expired', nil, 'cause', false, nil, '1234', 'QDM::PatientCharacteristicExpired', false] # these will need to override the code, as the code is 419099009 not 1234
+                ['patient_characteristic', 'clinical_trial_participant', 'reason', false, nil, '1234', 'QDM::PatientCharacteristicClinicalTrialParticipant', false],
+                ['patient_characteristic', 'clinical_trial_participant', 'relevantPeriod', false, '20170503000000', nil, 'QDM::PatientCharacteristicClinicalTrialParticipant', false],
 
-  # ['physical_exam', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::PhysicalExamOrder', true],
-  # ['physical_exam', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::PhysicalExamOrder', false],
-  # ['physical_exam', 'ordered', 'reason', false, nil, '1234', 'QDM::PhysicalExamOrder', false],
-  # ['physical_exam', 'ordered', 'anatomicalLocationSite', false, nil, '1234', 'QDM::PhysicalExamOrder', false],
+                # ['patient_characteristic_expired', nil, 'expiredDatetime', false, '20170503000000', nil, 'QDM::PatientCharacteristicExpired', false], # these will need to override the code, as the code is 419099009 not 1234
+                # ['patient_characteristic_expired', nil, 'cause', false, nil, '1234', 'QDM::PatientCharacteristicExpired', false] # these will need to override the code, as the code is 419099009 not 1234
 
-  # ['physical_exam', 'performed', 'negationRationale', false, nil, '1234', 'QDM::PhysicalExamPerformed', true],
-  # ['physical_exam', 'performed', 'authorDatetime', false, '20170503000000', nil, 'QDM::PhysicalExamPerformed', false],
-  # ['physical_exam', 'performed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::PhysicalExamPerformed', false],
-  # ['physical_exam', 'performed', 'reason', false, nil, '1234', 'QDM::PhysicalExamPerformed', false],
-  # ['physical_exam', 'performed', 'method', false, nil, '1234', 'QDM::PhysicalExamPerformed', false],
-  # ['physical_exam', 'performed', 'result', false, '20170503000000', nil, 'QDM::PhysicalExamPerformed', false],
-  # ['physical_exam', 'performed', 'anatomicalLocationSite', false, nil, '1234', 'QDM::PhysicalExamPerformed', false],
-  # ['physical_exam', 'performed', 'components', false, '20170503000000', nil, 'QDM::PhysicalExamPerformed', false],
+                ['physical_exam', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::PhysicalExamOrder', true],
+                ['physical_exam', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::PhysicalExamOrder', false],
+                ['physical_exam', 'ordered', 'reason', false, nil, '1234', 'QDM::PhysicalExamOrder', false],
+                ['physical_exam', 'ordered', 'anatomicalLocationSite', false, nil, '1234', 'QDM::PhysicalExamOrder', false],
+                ['physical_exam', 'ordered', 'requester', false, '20170503000000', nil, 'QDM::PhysicalExamOrder', false],
 
-  # ['physical_exam', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::PhysicalExamRecommended', true],
-  # ['physical_exam', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::PhysicalExamRecommended', false],
-  # ['physical_exam', 'recommended', 'reason', false, nil, '1234', 'QDM::PhysicalExamRecommended', false],
-  # ['physical_exam', 'recommended', 'anatomicalLocationSite', false, nil, '1234', 'QDM::PhysicalExamRecommended', false],
+                ['physical_exam', 'performed', 'negationRationale', false, nil, '1234', 'QDM::PhysicalExamPerformed', true],
+                ['physical_exam', 'performed', 'authorDatetime', false, '20170503000000', nil, 'QDM::PhysicalExamPerformed', false],
+                ['physical_exam', 'performed', 'relevantDatetime', false, '20170503000000', nil, 'QDM::PhysicalExamPerformed', false],
+                ['physical_exam', 'performed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::PhysicalExamPerformed', false],
+                ['physical_exam', 'performed', 'reason', false, nil, '1234', 'QDM::PhysicalExamPerformed', false],
+                ['physical_exam', 'performed', 'method', false, nil, '1234', 'QDM::PhysicalExamPerformed', false],
+                ['physical_exam', 'performed', 'result', false, '20170503000000', nil, 'QDM::PhysicalExamPerformed', false],
+                ['physical_exam', 'performed', 'anatomicalLocationSite', false, nil, '1234', 'QDM::PhysicalExamPerformed', false],
+                ['physical_exam', 'performed', 'components', false, '20170503000000', nil, 'QDM::PhysicalExamPerformed', false],
+                ['physical_exam', 'performed', 'performer', false, '20170503000000', nil, 'QDM::PhysicalExamPerformed', false],
 
-  # ['procedure', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::ProcedureOrder', true],
-  # ['procedure', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::ProcedureOrder', false],
-  # ['procedure', 'ordered', 'reason', false, nil, '1234', 'QDM::ProcedureOrder', false],
-  # ['procedure', 'ordered', 'anatomicalLocationSite', false, nil, '1234', 'QDM::ProcedureOrder', false],
-  # ['procedure', 'ordered', 'ordinality', false, nil, '1234', 'QDM::ProcedureOrder', false],
+                ['physical_exam', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::PhysicalExamRecommended', true],
+                ['physical_exam', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::PhysicalExamRecommended', false],
+                ['physical_exam', 'recommended', 'reason', false, nil, '1234', 'QDM::PhysicalExamRecommended', false],
+                ['physical_exam', 'recommended', 'anatomicalLocationSite', false, nil, '1234', 'QDM::PhysicalExamRecommended', false],
+                ['physical_exam', 'recommended', 'requester', false, '20170503000000', nil, 'QDM::PhysicalExamRecommended', false],
 
-  # ['procedure', 'performed', 'negationRationale', false, nil, '1234', 'QDM::ProcedurePerformed', true],
-  # ['procedure', 'performed', 'negationRationale', false, nil, '1234', 'QDM::ProcedurePerformed', true],
-  # ['procedure', 'performed', 'authorDatetime', false, '20170503000000', nil, 'QDM::ProcedurePerformed', false],
-  # ['procedure', 'performed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::ProcedurePerformed', false],
-  # ['procedure', 'performed', 'reason', false, nil, '1234', 'QDM::ProcedurePerformed', false],
-  # ['procedure', 'performed', 'method', false, nil, '1234', 'QDM::ProcedurePerformed', false],
-  # ['procedure', 'performed', 'result', false, '20170503000000', nil, 'QDM::ProcedurePerformed', false],
-  # ['procedure', 'performed', 'status', false, nil, '1234', 'QDM::ProcedurePerformed', false],
-  # ['procedure', 'performed', 'anatomicalLocationSite', false, nil, '1234', 'QDM::ProcedurePerformed', false],
-  # ['procedure', 'performed', 'ordinality', false, nil, '1234', 'QDM::ProcedurePerformed', false],
-  # ['procedure', 'performed', 'incisionDatetime', false, '20170503000000', nil, 'QDM::ProcedurePerformed', false],
-  # ['procedure', 'performed', 'components', false, nil, '1234', 'QDM::ProcedurePerformed', false],
+                ['procedure', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::ProcedureOrder', true],
+                ['procedure', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::ProcedureOrder', false],
+                ['procedure', 'ordered', 'reason', false, nil, '1234', 'QDM::ProcedureOrder', false],
+                ['procedure', 'ordered', 'anatomicalLocationSite', false, nil, '1234', 'QDM::ProcedureOrder', false],
+                ['procedure', 'ordered', 'rank', false, nil, '1234', 'QDM::ProcedureOrder', false],
+                # ['procedure', 'ordered', 'priority', false, nil, '1234', 'QDM::ProcedureOrder', false],
+                ['procedure', 'ordered', 'requester', false, '20170503000000', nil, 'QDM::ProcedureOrder', false],
 
-  # ['procedure', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::ProcedureRecommended', true],
-  # ['procedure', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::ProcedureRecommended', false],
-  # ['procedure', 'recommended', 'reason', false, nil, '1234', 'QDM::ProcedureRecommended', false],
-  # ['procedure', 'recommended', 'anatomicalLocationSite', false, nil, '1234', 'QDM::ProcedureRecommended', false],
-  # ['procedure', 'recommended', 'ordinality', false, nil, '1234', 'QDM::ProcedureRecommended', false],
+                ['procedure', 'performed', 'negationRationale', false, nil, '1234', 'QDM::ProcedurePerformed', true],
+                ['procedure', 'performed', 'authorDatetime', false, '20170503000000', nil, 'QDM::ProcedurePerformed', false],
+                ['procedure', 'performed', 'relevantDatetime', false, '20170503000000', nil, 'QDM::ProcedurePerformed', false],
+                ['procedure', 'performed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::ProcedurePerformed', false],
+                ['procedure', 'performed', 'reason', false, nil, '1234', 'QDM::ProcedurePerformed', false],
+                ['procedure', 'performed', 'method', false, nil, '1234', 'QDM::ProcedurePerformed', false],
+                ['procedure', 'performed', 'result', false, '20170503000000', nil, 'QDM::ProcedurePerformed', false],
+                ['procedure', 'performed', 'status', false, nil, '1234', 'QDM::ProcedurePerformed', false],
+                ['procedure', 'performed', 'anatomicalLocationSite', false, nil, '1234', 'QDM::ProcedurePerformed', false],
+                ['procedure', 'performed', 'rank', false, '20170503000000', nil, 'QDM::ProcedurePerformed', false],
+                # ['procedure', 'performed', 'priority', false, nil, '1234', 'QDM::ProcedurePerformed', false],
+                ['procedure', 'performed', 'incisionDatetime', false, '20170503000000', nil, 'QDM::ProcedurePerformed', false],
+                ['procedure', 'performed', 'components', false, nil, '1234', 'QDM::ProcedurePerformed', false],
+                ['procedure', 'performed', 'performer', false, '20170503000000', nil, 'QDM::ProcedurePerformed', false],
 
-  # ['provider_characteristic', nil, 'authorDatetime', false, '20170503000000', nil, 'QDM::ProviderCharacteristic', false],
-  # ['provider_care_experience', nil, 'authorDatetime', false, '20170503000000', nil, 'QDM::ProviderCareExperience', false],
+                ['procedure', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::ProcedureRecommended', true],
+                ['procedure', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::ProcedureRecommended', false],
+                ['procedure', 'recommended', 'reason', false, nil, '1234', 'QDM::ProcedureRecommended', false],
+                ['procedure', 'recommended', 'anatomicalLocationSite', false, nil, '1234', 'QDM::ProcedureRecommended', false],
+                ['procedure', 'recommended', 'rank', false, '20170503000000', nil, 'QDM::ProcedureRecommended', false],
+                ['procedure', 'recommended', 'requester', false, '20170503000000', nil, 'QDM::ProcedureRecommended', false],
 
-  # ['substance', 'administered', 'negationRationale', false, nil, '1234', 'QDM::SubstanceAdministered', true],
-  # ['substance', 'administered', 'authorDatetime', false, '20170503000000', nil, 'QDM::SubstanceAdministered', false],
-  # ['substance', 'administered', 'relevantPeriod', false, '20170503000000', nil, 'QDM::SubstanceAdministered', false],
-  # ['substance', 'administered', 'dosage', false, '20170503000000', nil, 'QDM::SubstanceAdministered', false],
-  # # ['substance', 'administered', 'frequency', false, '1234', nil, 'QDM::SubstanceAdministered', false], # roundtrip does not work with code specified in patient generator
-  # ['substance', 'administered', 'route', false, nil, '1234', 'QDM::SubstanceAdministered', false],
+                ['provider_care_experience', nil, 'authorDatetime', false, '20170503000000', nil, 'QDM::ProviderCareExperience', false],
+                ['provider_care_experience', nil, 'recorder', false, '20170503000000', nil, 'QDM::ProviderCareExperience', false],
 
-  # ['substance', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::SubstanceOrder', true],
-  # ['substance', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::SubstanceOrder', false],
-  # ['substance', 'ordered', 'reason', false, nil, '1234', 'QDM::SubstanceOrder', false],
-  # ['substance', 'ordered', 'dosage', false, '20170503000000', nil, 'QDM::SubstanceOrder', false],
-  # ['substance', 'ordered', 'supply', false, '20170503000000', nil, 'QDM::SubstanceOrder', false],
-  # # ['substance', 'ordered', 'frequency', false, '1234', nil, 'QDM::SubstanceOrder', false],# roundtrip does not work with code specified in patient generator
-  # ['substance', 'ordered', 'refills', false, '20170503000000', nil, 'QDM::SubstanceOrder', false],
-  # ['substance', 'ordered', 'route', false, nil, '1234', 'QDM::SubstanceOrder', false],
+                # ['related_person', nil, 'identifier', false, '20170503000000', nil, 'QDM::RelatedPerson', false],
+                # ['related_person', nil, 'linkedPatientId', false, '20170503000000', nil, 'QDM::RelatedPerson', false],
 
-  # ['substance', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::SubstanceRecommended', true],
-  # ['substance', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::SubstanceRecommended', false],
-  # ['substance', 'recommended', 'reason', false, nil, '1234', 'QDM::SubstanceRecommended', false],
-  # ['substance', 'recommended', 'dosage', false, '20170503000000', nil, 'QDM::SubstanceRecommended', false],
-  # # ['substance', 'recommended', 'frequency', false, '1234', nil, 'QDM::SubstanceRecommended', false], # roundtrip does not work with code specified in patient generator
-  # ['substance', 'recommended', 'refills', false, '20170503000000', nil, 'QDM::SubstanceRecommended', false],
-  # ['substance', 'recommended', 'route', false, nil, '1234', 'QDM::SubstanceRecommended', false],
+                ['substance', 'administered', 'negationRationale', false, nil, '1234', 'QDM::SubstanceAdministered', true],
+                ['substance', 'administered', 'authorDatetime', false, '20170503000000', nil, 'QDM::SubstanceAdministered', false],
+                ['substance', 'administered', 'relevantDatetime', false, '20170503000000', nil, 'QDM::SubstanceAdministered', false],
+                ['substance', 'administered', 'relevantPeriod', false, '20170503000000', nil, 'QDM::SubstanceAdministered', false],
+                ['substance', 'administered', 'dosage', false, '20170503000000', nil, 'QDM::SubstanceAdministered', false],
+                # ['substance', 'administered', 'frequency', false, '1234', nil, 'QDM::SubstanceAdministered', false], # roundtrip does not work with code specified in patient generator
+                ['substance', 'administered', 'route', false, nil, '1234', 'QDM::SubstanceAdministered', false],
+                ['substance', 'administered', 'performer', false, '20170503000000', nil, 'QDM::SubstanceAdministered', false],
 
-  # ['symptom', nil, 'prevalencePeriod', false, '20170503000000', nil, 'QDM::Symptom', false],
-  # ['symptom', nil, 'severity', false, nil, '1234', 'QDM::Symptom', false]].freeze
-  ].freeze
+                ['substance', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::SubstanceOrder', true],
+                ['substance', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::SubstanceOrder', false],
+                # ['substance', 'ordered', 'relevantPeriod', false, '20170503000000', nil, 'QDM::SubstanceOrder', false],
+                ['substance', 'ordered', 'reason', false, nil, '1234', 'QDM::SubstanceOrder', false],
+                ['substance', 'ordered', 'dosage', false, '20170503000000', nil, 'QDM::SubstanceOrder', false],
+                ['substance', 'ordered', 'supply', false, '20170503000000', nil, 'QDM::SubstanceOrder', false],
+                # ['substance', 'ordered', 'frequency', false, '1234', nil, 'QDM::SubstanceOrder', false],# roundtrip does not work with code specified in patient generator
+                ['substance', 'ordered', 'refills', false, '20170503000000', nil, 'QDM::SubstanceOrder', false],
+                ['substance', 'ordered', 'route', false, nil, '1234', 'QDM::SubstanceOrder', false],
+                # ['substance', 'ordered', 'requester', false, '20170503000000', nil, 'QDM::SubstanceOrder', false], # Do not see this in QRDA
+
+                ['substance', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::SubstanceRecommended', true],
+                ['substance', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::SubstanceRecommended', false],
+                ['substance', 'recommended', 'reason', false, nil, '1234', 'QDM::SubstanceRecommended', false],
+                ['substance', 'recommended', 'dosage', false, '20170503000000', nil, 'QDM::SubstanceRecommended', false],
+                # ['substance', 'recommended', 'frequency', false, '1234', nil, 'QDM::SubstanceRecommended', false], # roundtrip does not work with code specified in patient generator
+                ['substance', 'recommended', 'refills', false, '20170503000000', nil, 'QDM::SubstanceRecommended', false],
+                ['substance', 'recommended', 'route', false, nil, '1234', 'QDM::SubstanceRecommended', false],
+                ['substance', 'recommended', 'requester', false, '20170503000000', nil, 'QDM::SubstanceRecommended', false],
+
+                ['symptom', nil, 'prevalencePeriod', false, '20170503000000', nil, 'QDM::Symptom', false],
+                ['symptom', nil, 'severity', false, nil, '1234', 'QDM::Symptom', false],
+                ['symptom', nil, 'recorder', false, '20170503000000', nil, 'QDM::Symptom', false]].freeze
+
   def test_validate_good_files
-    validator = CqmValidators::Cat1R5.instance
+    validator = CqmValidators::Cat1R52.instance
     cda_validator = CqmValidators::CDA.instance
 
     TEST_ARRAY.each do |ta|
       puts "#{ta[6]} - #{ta[2]}"
       dt = QDM::PatientGeneration.generate_loaded_datatype(ta[6], ta[7])
       setup_sdc(dt.clone, ta[2], ta[3], ta[4], ta[5])
+
+      dt.reason = nil if ta[7] && dt.respond_to?(:reason)
 
       dt.prescriberId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if dt.respond_to?(:prescriberId)
       dt.dispenserId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if dt.respond_to?(:dispenserId)
@@ -346,8 +402,9 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
         exported_qrda = doc
         errors = validator.validate(exported_qrda)
         cda_errors = cda_validator.validate(exported_qrda)
+        # File.write("script/checklist_errors/#{ta[6].gsub(/:/, '')}_#{ta[2]}.xml", exported_qrda.to_xml)
         errors.each do |error|
-          puts "\e[31mSchema Error In #{ta[0]}_#{ta[1]}: #{error.message}\e[0m"
+          puts "\e[31mSchematron Error In #{ta[0]}_#{ta[1]}: #{error.message}\e[0m"
         end
         cda_errors.each do |error|
           puts "\e[31mSchema Error In #{ta[0]}_#{ta[1]}: #{error.message}\e[0m"
@@ -360,31 +417,45 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
     end
   end
 
-  # def test_validate_bad_files
-  #   TEST_ARRAY.each do |ta|
-  #     restricted_dt = QDM::PatientGeneration.generate_loaded_datatype(ta[6])
-  #     setup_sdc(restricted_dt, ta[2], ta[3], ta[4], ta[5])
+  def test_validate_bad_files
+    TEST_ARRAY.each do |ta|
+      restricted_dt = QDM::PatientGeneration.generate_loaded_datatype(ta[6])
+      setup_sdc(restricted_dt, ta[2], ta[3], ta[4], ta[5])
 
-  #     restricted_dt.prescriberId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if restricted_dt.respond_to?(:prescriberId)
-  #     restricted_dt.dispenserId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if restricted_dt.respond_to?(:dispenserId)
+      restricted_dt.prescriberId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if restricted_dt.respond_to?(:prescriberId)
+      restricted_dt.dispenserId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if restricted_dt.respond_to?(:dispenserId)
 
-  #     restricted_dt.relevantDatetime = nil if restricted_dt.respond_to?(:relevantDatetime) && restricted_dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantPeriod'
-  #     restricted_dt.relevantPeriod = nil if restricted_dt.respond_to?(:relevantDatetime) && restricted_dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantDatetime'
+      restricted_dt.relevantDatetime = nil if restricted_dt.respond_to?(:relevantDatetime) && restricted_dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantPeriod'
+      restricted_dt.relevantPeriod = nil if restricted_dt.respond_to?(:relevantDatetime) && restricted_dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantDatetime'
 
-  #     restricted_dt[ta[2]] = nil
+      restricted_dt[ta[2]] = nil
+      remove_embeded_objects(restricted_dt, ta[2])
 
-  #     test_specific_qdm_patient = @qdm_patient.clone
-  #     test_specific_qdm_patient.dataElements << restricted_dt
-  #     @cqm_patient.qdmPatient = test_specific_qdm_patient
+      test_specific_qdm_patient = @qdm_patient.clone
+      test_specific_qdm_patient.dataElements << restricted_dt
+      @cqm_patient.qdmPatient = test_specific_qdm_patient
 
-  #     patient_xml = Qrda1R5.new(@cqm_patient, Measure.where(hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'), @options).render
+      patient_xml = Qrda1R5.new(@cqm_patient, Measure.where(hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'), @options).render
 
-  #     doc = Nokogiri::XML::Document.parse(patient_xml)
-  #     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-  #     doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+      doc = Nokogiri::XML::Document.parse(patient_xml)
+      doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+      doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
 
-  #     @validator.validate(doc)
-  #     assert_nil @checklist_test.checked_criteria.first[:passed_qrda], "should fail with a bad file for #{ta[0]} #{ta[1]} with a #{ta[2]}"
-  #   end
-  # end
+      @validator.validate(doc)
+
+      # File.write("script/checklist_without/#{ta[6].gsub(/:/, '')}_#{ta[2]}.xml", doc.to_xml)
+      assert_nil @checklist_test.checked_criteria.first[:passed_qrda], "should fail with a bad file for #{ta[0]} #{ta[1]} without a #{ta[2]}"
+    end
+  end
+
+  def remove_embeded_objects(restricted_dt, attribute_name)
+    restricted_dt.performer.destroy if attribute_name == 'performer'
+    restricted_dt.recorder.destroy if attribute_name == 'recorder'
+    restricted_dt.requester.destroy if attribute_name == 'requester'
+    restricted_dt.sender.destroy if attribute_name == 'sender'
+    restricted_dt.recipient.destroy if attribute_name == 'recipient'
+    restricted_dt.participant.destroy if attribute_name == 'participant'
+    restricted_dt.prescriber.destroy if attribute_name == 'prescriber'
+    restricted_dt.dispenser.destroy if attribute_name == 'dispenser'
+  end
 end
