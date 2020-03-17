@@ -42,38 +42,44 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
                 ['adverse_event', nil, 'severity', false, '20170503000000', nil, 'QDM::AdverseEvent'],
                 ['adverse_event', nil, 'facilityLocation', false, '20170503000000', nil, 'QDM::AdverseEvent'],
                 ['adverse_event', nil, 'type', false, '20170503000000', nil, 'QDM::AdverseEvent'],
+                ['adverse_event', nil, 'recorder', false, '20170503000000', nil, 'QDM::AdverseEvent'],
 
                 ['allergy_intolerance', nil, 'authorDatetime', false, '20170503000000', nil, 'QDM::AllergyIntolerance', false],
                 ['allergy_intolerance', nil, 'prevalencePeriod', false, '20170503000000', nil, 'QDM::AllergyIntolerance', false],
-                # ['allergy_intolerance', nil, 'type', false, '20170503000000', nil, 'QDM::AllergyIntolerance'], # Not currently in cqm-reports
-                # ['allergy_intolerance', nil, 'severity', false, '20170503000000', nil, 'QDM::AllergyIntolerance'], # Not currently in cqm-reports
+                ['allergy_intolerance', nil, 'type', false, '20170503000000', nil, 'QDM::AllergyIntolerance'],
+                ['allergy_intolerance', nil, 'severity', false, '20170503000000', nil, 'QDM::AllergyIntolerance'],
+                ['allergy_intolerance', nil, 'recorder', false, '20170503000000', nil, 'QDM::AllergyIntolerance'],
 
                 ['assessment', 'ordered', 'negationRationale', false, nil, '1234', 'QDM::AssessmentOrder', true],
                 ['assessment', 'ordered', 'authorDatetime', false, '20170503000000', nil, 'QDM::AssessmentOrder', false],
                 ['assessment', 'ordered', 'reason', false, nil, '1234', 'QDM::AssessmentOrder', false],
+                ['assessment', 'ordered', 'requester', false, nil, '1234', 'QDM::AssessmentOrder', false],
 
                 ['assessment', 'performed', 'negationRationale', false, nil, '1234', 'QDM::AssessmentPerformed', true],
                 ['assessment', 'performed', 'authorDatetime', false, '20170503000000', nil, 'QDM::AssessmentPerformed', false],
                 ['assessment', 'performed', 'relevantDatetime', false, '20170503000000', nil, 'QDM::AssessmentPerformed', false],
-                # ['assessment', 'performed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::AssessmentPerformed', false],
+                ['assessment', 'performed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::AssessmentPerformed', false],
                 ['assessment', 'performed', 'reason', false, '20170503000000', nil, 'QDM::AssessmentPerformed', false],
                 ['assessment', 'performed', 'method', false, '20170503000000', nil, 'QDM::AssessmentPerformed', false],
                 ['assessment', 'performed', 'result', false, '20170503000000', nil, 'QDM::AssessmentPerformed', false],
                 ['assessment', 'performed', 'components', false, '20170503000000', nil, 'QDM::AssessmentPerformed', false],
                 # ['assessment', 'performed', 'relatedTo', false, '20170503000000', nil, 'QDM::AssessmentPerformed', false], # Not currently in patient generator
+                ['assessment', 'performed', 'performer', false, '20170503000000', nil, 'QDM::AssessmentPerformed', false],
 
                 ['assessment', 'recommended', 'negationRationale', false, nil, '1234', 'QDM::AssessmentRecommended', true],
                 ['assessment', 'recommended', 'authorDatetime', false, '20170503000000', nil, 'QDM::AssessmentRecommended', false],
                 ['assessment', 'recommended', 'reason', false, nil, '1234', 'QDM::AssessmentRecommended', false],
+                ['assessment', 'recommended', 'requester', false, nil, '1234', 'QDM::AssessmentRecommended', false],
 
                 ['communication', 'performed', 'negationRationale', false, nil, '1234', 'QDM::CommunicationPerformed', true],
                 ['communication', 'performed', 'authorDatetime', false, '20170503000000', nil, 'QDM::CommunicationPerformed', false],
                 ['communication', 'performed', 'category', false, nil, '1234', 'QDM::CommunicationPerformed', false],
                 ['communication', 'performed', 'medium', false, nil, '1234', 'QDM::CommunicationPerformed', false],
-                ['communication', 'performed', 'sender', false, nil, '1234', 'QDM::CommunicationPerformed', false]].freeze
-  # ['communication', 'performed', 'recipient', false, nil, '1234', 'QDM::CommunicationPerformed', false], # Not currently in patient generator
-  # ['communication', 'performed', 'relatedTo', false, '20170503000000', nil, 'QDM::CommunicationPerformed', false], # Not currently in patient generator
-  # ['communication', 'performed', 'relevantPeriod', false, '20170503000000', nil, 'QDM::CommunicationPerformed', false],
+                ['communication', 'performed', 'sender', false, nil, '1234', 'QDM::CommunicationPerformed', false],
+                ['communication', 'performed', 'recipient', false, nil, '1234', 'QDM::CommunicationPerformed', false],
+                # ['communication', 'performed', 'relatedTo', false, '20170503000000', nil, 'QDM::CommunicationPerformed', false], # Not currently in patient generator
+                ['communication', 'performed', 'sentDatetime', false, '20170503000000', nil, 'QDM::CommunicationPerformed', false],
+                ['communication', 'performed', 'receivedDatetime', false, '20170503000000', nil, 'QDM::CommunicationPerformed', false],
 
   # ['device', 'applied', 'negationRationale', false, nil, '1234', 'QDM::DeviceApplied', true],
   # ['device', 'applied', 'authorDatetime', false, '20170503000000', nil, 'QDM::DeviceApplied', false],
@@ -309,16 +315,21 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
 
   # ['symptom', nil, 'prevalencePeriod', false, '20170503000000', nil, 'QDM::Symptom', false],
   # ['symptom', nil, 'severity', false, nil, '1234', 'QDM::Symptom', false]].freeze
+  ].freeze
   def test_validate_good_files
     validator = CqmValidators::Cat1R5.instance
     cda_validator = CqmValidators::CDA.instance
 
     TEST_ARRAY.each do |ta|
+      puts "#{ta[6]} - #{ta[2]}"
       dt = QDM::PatientGeneration.generate_loaded_datatype(ta[6], ta[7])
       setup_sdc(dt.clone, ta[2], ta[3], ta[4], ta[5])
 
       dt.prescriberId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if dt.respond_to?(:prescriberId)
       dt.dispenserId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if dt.respond_to?(:dispenserId)
+
+      dt.relevantDatetime = nil if dt.respond_to?(:relevantDatetime) && dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantPeriod'
+      dt.relevantPeriod = nil if dt.respond_to?(:relevantDatetime) && dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantDatetime'
 
       test_specific_qdm_patient = @qdm_patient.clone
       test_specific_qdm_patient.dataElements << dt
@@ -356,6 +367,9 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
 
   #     restricted_dt.prescriberId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if restricted_dt.respond_to?(:prescriberId)
   #     restricted_dt.dispenserId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if restricted_dt.respond_to?(:dispenserId)
+
+  #     restricted_dt.relevantDatetime = nil if restricted_dt.respond_to?(:relevantDatetime) && restricted_dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantPeriod'
+  #     restricted_dt.relevantPeriod = nil if restricted_dt.respond_to?(:relevantDatetime) && restricted_dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantDatetime'
 
   #     restricted_dt[ta[2]] = nil
 
