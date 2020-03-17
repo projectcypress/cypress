@@ -43,7 +43,7 @@ module Cypress
                                 end
       options = { provider: patient.providers.first, submission_program: cat1_submission_program, start_time: start_time, end_time: end_time }
       case patient.bundle.qrda_version
-      when 'r5_1'
+      when 'r5_2'
         Qrda1R5.new(patient, measures, options).render
       end
     end
