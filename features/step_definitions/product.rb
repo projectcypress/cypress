@@ -15,6 +15,8 @@ end
 
 Given(/^the user is signed in as a non admin$/) do
   User.all.destroy # FIXME: there's gotta be a better way
+  Settings.destroy_all
+  Settings.create(enable_debug_features: false)
   @user = FactoryBot.create(:user)
   @user.approved = true
   login_as @user, scope: :user
