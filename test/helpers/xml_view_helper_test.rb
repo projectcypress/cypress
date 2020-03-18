@@ -29,7 +29,7 @@ class XmlViewHelperTest < ActiveSupport::TestCase
   def test_popup_attributes_multiple_errors
     errs = collected_errors(@te)
     error = errs.files['0_Dental_Peds_A.xml']['QRDA'].execution_errors
-    title, button_text, message = popup_attributes(error)
+    title, button_text, _message = popup_attributes(error)
     assert_match 'Execution Errors (2)', title
     assert_match error.count.to_s, title
     assert_match 'view errors (2)', button_text
