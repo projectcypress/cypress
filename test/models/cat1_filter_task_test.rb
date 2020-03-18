@@ -20,9 +20,7 @@ class Cat1FilterTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(testfile, user)
       te.reload
-      # TODO, should be empty once QDRA QDM template validator is implemented
-      assert_equal 5, te.execution_errors.size
-      # assert_empty te.execution_errors, 'test execution with known good results should have no errors'
+      assert_empty te.execution_errors, 'test execution with known good results should have no errors'
     end
   end
 end

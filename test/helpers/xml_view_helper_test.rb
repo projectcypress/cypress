@@ -34,7 +34,6 @@ class XmlViewHelperTest < ActiveSupport::TestCase
     assert_match error.count.to_s, title
     assert_match 'view errors (2)', button_text
     assert_match error.count.to_s, button_text
-    assert_match '["2.16.840.1.113883.10.20.24.3.133:2015-08-01"] are not valid Patient Data Section QDM entries for this QRDA Version', message
   end
 
   def test_popup_attributes_one_error
