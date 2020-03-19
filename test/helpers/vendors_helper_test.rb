@@ -12,17 +12,22 @@ class VendorsHelperTest < ActiveJob::TestCase
     @vendor = product_test.product.vendor
     @product = Product.new(vendor: @vendor.id, name: 'test_product', c1_test: true, c2_test: true, c3_test: true, c4_test: true,
                            bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
-    setup_checklist_test
-    setup_measure_tests
-    setup_filtering_tests
+    @eh_product = Product.new(vendor: @vendor.id, name: 'eh_test_product', c1_test: true, c2_test: true, c3_test: true, c4_test: true,
+                              bundle_id: @bundle.id, measure_ids: ['AE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+    setup_checklist_test(@product, 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE')
+    setup_measure_tests(@product, 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE')
+    setup_filtering_tests(@product, 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE')
+    setup_checklist_test(@eh_product, 'AE65090C-EB1F-11E7-8C3F-9A214CF093AE')
+    setup_measure_tests(@eh_product, 'AE65090C-EB1F-11E7-8C3F-9A214CF093AE')
+    setup_filtering_tests(@eh_product, 'AE65090C-EB1F-11E7-8C3F-9A214CF093AE')
   end
 
-  def setup_checklist_test
-    checklist_test = @product.product_tests.build({ name: 'c1 visual',
-                                                    measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, ChecklistTest)
+  def setup_checklist_test(product, measure_id)
+    checklist_test = product.product_tests.build({ name: 'c1 visual',
+                                                   measure_ids: [measure_id] }, ChecklistTest)
     checklist_test.save!
     checked_criterias = []
-    measures = Measure.where(:hqmf_id.in => checklist_test.measure_ids, :bundle_id => @product.bundle_id)
+    measures = Measure.where(:hqmf_id.in => checklist_test.measure_ids, :bundle_id => product.bundle_id)
     measures.each do |measure|
       # chose criteria randomly
       criterias = measure['source_data_criteria'].sort_by { rand }[0..4]
@@ -36,14 +41,14 @@ class VendorsHelperTest < ActiveJob::TestCase
     checklist_test.tasks.create!({}, C3ChecklistTask)
   end
 
-  def setup_measure_tests
-    @product.product_tests.build({ name: 'test_product_test_name_1',
-                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
-    @product.save!
-    @product.product_tests.build({ name: 'test_product_test_name_2',
-                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
-    @product.save!
-    @product.product_tests.measure_tests.each do |test|
+  def setup_measure_tests(product, measure_id)
+    product.product_tests.build({ name: 'test_product_test_name_1',
+                                  measure_ids: [measure_id] }, MeasureTest)
+    product.save!
+    product.product_tests.build({ name: 'test_product_test_name_2',
+                                  measure_ids: [measure_id] }, MeasureTest)
+    product.save!
+    product.product_tests.measure_tests.each do |test|
       test.tasks.build({}, C1Task)
       test.tasks.build({}, C2Task)
       test.tasks.build({}, C3Cat1Task)
@@ -52,16 +57,22 @@ class VendorsHelperTest < ActiveJob::TestCase
   end
 
   # one C1 failing test, one C3 passing test
-  def setup_cat1_measure_executions
+  def setup_ep_cat1_measure_executions
     c1_cat1_execution = @product.product_tests.measure_tests.find_by(name: 'test_product_test_name_2').tasks.c1_task.test_executions.create!(state: :failed, user: @user)
-    c3_cat1_execution = @product.product_tests.measure_tests.find_by(name: 'test_product_test_name_2').tasks.c3_cat1_task.test_executions.create!(state: :passed, user: @user)
+    c1_cat1_execution.save
+  end
+
+  # one C1 failing test, one C3 passing test
+  def setup_eh_cat1_measure_executions
+    c1_cat1_execution = @eh_product.product_tests.measure_tests.find_by(name: 'test_product_test_name_2').tasks.c1_task.test_executions.create!(state: :failed, user: @user)
+    c3_cat1_execution = @eh_product.product_tests.measure_tests.find_by(name: 'test_product_test_name_2').tasks.c3_cat1_task.test_executions.create!(state: :passed, user: @user)
     c1_cat1_execution.sibling_execution_id = c3_cat1_execution.id
     c1_cat1_execution.save
     c3_cat1_execution.save
   end
 
   # one C2 passing test, one C3 failing test
-  def setup_cat3_measure_executions
+  def setup_ep_cat3_measure_executions
     c2_cat3_execution = @product.product_tests.measure_tests.find_by(name: 'test_product_test_name_2').tasks.c2_task.test_executions.create!(state: :passed, user: @user)
     c3_cat3_execution = @product.product_tests.measure_tests.find_by(name: 'test_product_test_name_2').tasks.c3_cat3_task.test_executions.create!(state: :failed, user: @user)
     c2_cat3_execution.sibling_execution_id = c3_cat3_execution.id
@@ -69,34 +80,40 @@ class VendorsHelperTest < ActiveJob::TestCase
     c3_cat3_execution.save
   end
 
-  def setup_filtering_tests
-    @product.product_tests.create!({ name: 'Filter Test 1', cms_id: 'SomeCMSID', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                     options: { filters: { filt1: ['val1'], filt2: ['val2'] } } }, FilteringTest)
-    @product.product_tests.filtering_tests.each do |test|
+  # one C2 passing test, one C3 failing test
+  def setup_eh_cat3_measure_executions
+    c2_cat3_execution = @eh_product.product_tests.measure_tests.find_by(name: 'test_product_test_name_2').tasks.c2_task.test_executions.create!(state: :passed, user: @user)
+    c2_cat3_execution.save
+  end
+
+  def setup_filtering_tests(product, measure_id)
+    product.product_tests.create!({ name: 'Filter Test 1', cms_id: 'SomeCMSID', measure_ids: [measure_id],
+                                    options: { filters: { filt1: ['val1'], filt2: ['val2'] } } }, FilteringTest)
+    product.product_tests.filtering_tests.each do |test|
       test.tasks.build({}, Cat1FilterTask)
       test.tasks.build({}, Cat3FilterTask)
     end
 
     # one cat1 passing execution, one cat3 failing execution
-    @product.product_tests.filtering_tests.find_by(name: 'Filter Test 1').cat1_task.test_executions.create(state: :passed, user: @user)
-    @product.product_tests.filtering_tests.find_by(name: 'Filter Test 1').cat3_task.test_executions.create(state: :passed, user: @user)
+    product.product_tests.filtering_tests.find_by(name: 'Filter Test 1').cat1_task.test_executions.create(state: :passed, user: @user)
+    product.product_tests.filtering_tests.find_by(name: 'Filter Test 1').cat3_task.test_executions.create(state: :passed, user: @user)
   end
 
   # # # # # # # # #
   #   T E S T S   #
   # # # # # # # # #
 
-  def test_get_product_status_values
-    setup_cat1_measure_executions
-    setup_cat3_measure_executions
+  def test_get_ep_product_status_values
+    setup_ep_cat1_measure_executions
+    setup_ep_cat3_measure_executions
     certs = get_product_status_values(@product)
-    assert_c1(certs.C1)
-    assert_c2(certs.C2)
-    assert_c3(certs.C3)
-    assert_c4(certs.C4)
+    assert_ep_c1(certs.C1)
+    assert_ep_c2(certs.C2)
+    assert_ep_c3(certs.C3)
+    assert_ep_c4(certs.C4)
   end
 
-  def assert_c1(cert)
+  def assert_ep_c1(cert)
     assert_equal 0, cert['Checklist'].passing
     assert_equal 0, cert['Checklist'].failing
     assert_equal 1, cert['Checklist'].not_started
@@ -108,18 +125,18 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal 2, cert['QRDA Category I'].total
   end
 
-  def assert_c2(cert)
+  def assert_ep_c2(cert)
     assert_equal 1, cert['QRDA Category III'].passing
     assert_equal 0, cert['QRDA Category III'].failing
     assert_equal 1, cert['QRDA Category III'].not_started
     assert_equal 2, cert['QRDA Category III'].total
   end
 
-  def assert_c3(cert)
-    assert_equal 1, cert['QRDA Category I'].passing
+  def assert_ep_c3(cert)
+    assert_equal 0, cert['QRDA Category I'].passing
     assert_equal 0, cert['QRDA Category I'].failing
-    assert_equal 1, cert['QRDA Category I'].not_started
-    assert_equal 2, cert['QRDA Category I'].total
+    assert_equal 0, cert['QRDA Category I'].not_started
+    assert_equal 0, cert['QRDA Category I'].total
 
     assert_equal 0, cert['QRDA Category III'].passing
     assert_equal 1, cert['QRDA Category III'].failing
@@ -127,7 +144,60 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal 2, cert['QRDA Category III'].total
   end
 
-  def assert_c4(cert)
+  def assert_ep_c4(cert)
+    assert_equal 1, cert['QRDA Category I'].passing
+    assert_equal 0, cert['QRDA Category I'].failing
+    assert_equal 0, cert['QRDA Category I'].not_started
+    assert_equal 1, cert['QRDA Category I'].total
+
+    assert_equal 1, cert['QRDA Category III'].passing
+    assert_equal 0, cert['QRDA Category III'].failing
+    assert_equal 0, cert['QRDA Category III'].not_started
+    assert_equal 1, cert['QRDA Category III'].total
+  end
+
+  def test_get_eh_product_status_values
+    setup_eh_cat1_measure_executions
+    setup_eh_cat3_measure_executions
+    certs = get_product_status_values(@eh_product)
+    assert_eh_c1(certs.C1)
+    assert_eh_c2(certs.C2)
+    assert_eh_c3(certs.C3)
+    assert_eh_c4(certs.C4)
+  end
+
+  def assert_eh_c1(cert)
+    assert_equal 0, cert['Checklist'].passing
+    assert_equal 0, cert['Checklist'].failing
+    assert_equal 1, cert['Checklist'].not_started
+    assert_equal 1, cert['Checklist'].total
+
+    assert_equal 0, cert['QRDA Category I'].passing
+    assert_equal 1, cert['QRDA Category I'].failing
+    assert_equal 1, cert['QRDA Category I'].not_started
+    assert_equal 2, cert['QRDA Category I'].total
+  end
+
+  def assert_eh_c2(cert)
+    assert_equal 1, cert['QRDA Category III'].passing
+    assert_equal 0, cert['QRDA Category III'].failing
+    assert_equal 1, cert['QRDA Category III'].not_started
+    assert_equal 2, cert['QRDA Category III'].total
+  end
+
+  def assert_eh_c3(cert)
+    assert_equal 1, cert['QRDA Category I'].passing
+    assert_equal 0, cert['QRDA Category I'].failing
+    assert_equal 1, cert['QRDA Category I'].not_started
+    assert_equal 2, cert['QRDA Category I'].total
+
+    assert_equal 0, cert['QRDA Category III'].passing
+    assert_equal 0, cert['QRDA Category III'].failing
+    assert_equal 0, cert['QRDA Category III'].not_started
+    assert_equal 0, cert['QRDA Category III'].total
+  end
+
+  def assert_eh_c4(cert)
     assert_equal 1, cert['QRDA Category I'].passing
     assert_equal 0, cert['QRDA Category I'].failing
     assert_equal 0, cert['QRDA Category I'].not_started
@@ -140,15 +210,15 @@ class VendorsHelperTest < ActiveJob::TestCase
   end
 
   def test_vendor_statuses
-    setup_cat1_measure_executions
-    setup_cat3_measure_executions
+    setup_ep_cat1_measure_executions
+    setup_ep_cat3_measure_executions
     vendor_status = vendor_statuses(@product.vendor)
 
     assert_equal 0, vendor_status['passing']
     assert_equal 0, vendor_status['errored']
     assert_equal 1, vendor_status['failing']
-    assert_equal 1, vendor_status['incomplete']
-    assert_equal 2, vendor_status['total']
+    assert_equal 2, vendor_status['incomplete']
+    assert_equal 3, vendor_status['total']
   end
 
   def test_status_to_css_classes
@@ -328,28 +398,28 @@ class VendorsHelperTest < ActiveJob::TestCase
   def test_product_test_statuses_cat1
     tests = @product.product_tests.measure_tests
     c1_execution = tests.find_by(name: 'test_product_test_name_2').tasks.where(_type: 'C1Task').first.test_executions.build(state: :failed, user: @user)
-    c3_execution = tests.find_by(name: 'test_product_test_name_2').tasks.where(_type: 'C3Cat1Task').first.test_executions.build(state: :passed, user: @user)
-    c1_execution.sibling_execution_id = c3_execution.id
+    # c3_execution = tests.find_by(name: 'test_product_test_name_2').tasks.where(_type: 'C3Cat1Task').first.test_executions.build(state: :passed, user: @user)
+    # c1_execution.sibling_execution_id = c3_execution.id
     c1_execution.save
-    c3_execution.save
+    # c3_execution.save
     passing, failing, errored, _, total = product_test_statuses(tests, 'C3Cat1Task')
 
-    assert_equal 1, passing
+    assert_equal 0, passing
     assert_equal 0, failing
-    assert_equal 1, passing
+    assert_equal 0, passing
     assert_equal 0, errored
     assert_equal 2, total
   end
 
   def test_product_test_statuses_cat1_errored
     tests = @product.product_tests.measure_tests
-    c1_execution = tests.first.tasks.where(_type: 'C1Task').first.test_executions.create!(state: :passed, user: @user)
-    c3_execution = tests.first.tasks.where(_type: 'C3Cat1Task').first.test_executions.create!(state: :errored, user: @user)
-    c1_execution.sibling_execution_id = c3_execution.id
+    # c1_execution = tests.first.tasks.where(_type: 'C1Task').first.test_executions.create!(state: :passed, user: @user)
+    # c3_execution = tests.first.tasks.where(_type: 'C3Cat1Task').first.test_executions.create!(state: :errored, user: @user)
+    # c1_execution.sibling_execution_id = c3_execution.id
     passing, failing, errored, _, total = product_test_statuses(tests, 'C3Cat1Task')
     assert_equal 0, failing
     assert_equal 0, passing
-    assert_equal 1, errored
+    assert_equal 0, errored
     assert_equal 2, total
   end
 

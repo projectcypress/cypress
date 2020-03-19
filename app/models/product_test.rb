@@ -213,6 +213,36 @@ class ProductTest
     tasks.any? && tasks[0].most_recent_execution && tasks[0].most_recent_execution.incomplete?
   end
 
+  # Are any of the measures in this test EH
+  def eh_measures?
+    measures.any? { |m| m.reporting_program_type == 'eh' }
+  end
+
+  # Are any of the measures in this test EH
+  def ep_measures?
+    measures.any? { |m| m.reporting_program_type == 'ep' }
+  end
+
+  # A measure test has a C1 Task if the product has C1 criteria, or C3 criteria with EH measures
+  def c1_task?
+    product.c1_test || (product.c3_test && eh_measures?)
+  end
+
+  # A measure test has a C2 Task if the product has C2 criteria, or C3 criteria with EP measures
+  def c2_task?
+    product.c2_test || (product.c3_test && ep_measures?)
+  end
+
+  # A measure test has a C3 Cat I Task if the product has C3 and EH measures
+  def c3_cat1_task?
+    product.c3_test && eh_measures?
+  end
+
+  # A measure test has a C3 Cat III Task if the product has C3 and EP measures
+  def c3_cat3_task?
+    product.c3_test && ep_measures?
+  end
+
   private
 
   def gather_patient_ids
