@@ -20,9 +20,19 @@
   </td>
 <% end %>
 <% if include_c3 %>
+  <!-- If the Task is C1 and the Test does not have a C3 Cat I task (i.e., EP eCQM), the C3 task is not applicable -->
+  <!-- If the Task is C2 and the Test does not have a C3 Cat III task (i..e, EH eCQM), the C3 task is not applicable -->
+  <% test_state = if task._type == 'C1Task' && !test.c3_cat1_task?
+                    :na
+                  elsif task._type == 'C2Task' && !test.c3_cat3_task?
+                    :na
+                  else
+                    test.state
+                  end
+  %>
   <% sibling_execution = task.most_recent_execution ? task.most_recent_execution.sibling_execution : nil %>
   <td data-order="<%= set_sorting(test, task.status) %>">
-    <%= render 'execution_status_message', :execution => sibling_execution, :test_state => test.state %>
+    <%= render 'execution_status_message', :execution => sibling_execution, :test_state => test_state %>
   </td>
 <% end %>
 <td id = "<%= id_for_html_wrapper_of_task(task) %>" class="no-wrap" data-order="<%= set_sorting(test, task.status) %>">

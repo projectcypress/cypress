@@ -281,8 +281,12 @@ class ProductsHelperTest < ActiveJob::TestCase
     c3_cat1_task = pt.tasks.build({}, C3Cat1Task)
     c3_cat3_task = pt.tasks.build({}, C3Cat3Task)
     pt.tasks.each(&:save!)
-    assert_equal [c1_task, c3_cat1_task], with_c3_task(c1_task)
+
     assert_equal [c2_task, c3_cat3_task], with_c3_task(c2_task)
+    measure = pt.measures.first
+    measure.reporting_program_type = 'eh'
+    measure.save
+    assert_equal [c1_task, c3_cat1_task], with_c3_task(c1_task)
   end
 
   def test_each_tab_c1_only

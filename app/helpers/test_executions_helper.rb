@@ -117,12 +117,17 @@ module TestExecutionsHelper
     tests = task.product_test.product.product_tests
     tests = tests_for_task_by_type(task, tests)
     index = tests.index(task.product_test)
-    next_test = if direction == 'next'
-                  tests[(index + 1) % tests.count]
-                else
-                  tests[(index - 1 + tests.count) % tests.count]
-                end
-    next_test._type == 'MultiMeasureTest' ? next_test.tasks.first : next_test.tasks.find_by(_type: task._type)
+    next_test_with_type(task._type, tests, index, direction)
+  end
+
+  def next_test_with_type(task_type, tests, index, direction)
+    incremented_index = direction == 'next' ? (index + 1) : (index - 1)
+    possible = tests[incremented_index % tests.count]
+    if possible.tasks.where(_type: task_type).empty?
+      next_test_with_type(task_type, tests, incremented_index, direction)
+    else
+      possible.tasks.where(_type: task_type).first
+    end
   end
 
   def tests_for_task_by_type(task, tests)

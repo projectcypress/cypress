@@ -89,14 +89,20 @@ class MeasureTestTest < ActiveJob::TestCase
     assert_equal false, pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
   end
 
-  def test_create_task_c3_creates_c1_and_c2_also
+  def test_create_task_c3_creates_c2_also_for_ep_measure
     @product.c3_test = true
     pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
     pt.create_tasks
-    assert pt.tasks.c1_task, 'product test should have a c1_task'
     assert pt.tasks.c2_task, 'product test should have a c2_task'
-    assert pt.tasks.c3_cat1_task, 'product test should have a c3_cat1_task'
     assert pt.tasks.c3_cat3_task, 'product test should have a c3_cat3_task'
+  end
+
+  def test_create_task_c3_creates_c1_also_for_eh_measure
+    @product.c3_test = true
+    pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['AE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+    pt.create_tasks
+    assert pt.tasks.c1_task, 'product test should have a c1_task'
+    assert pt.tasks.c3_cat1_task, 'product test should have a c3_cat1_task'
   end
 
   def test_create_task_c1_and_c2
@@ -118,7 +124,8 @@ class MeasureTestTest < ActiveJob::TestCase
     assert pt.tasks.c1_task, 'product test should have a c1_task'
     # should have a c2_task, just no validators
     assert pt.tasks.c2_task, 'product test should have a c2_task'
-    assert pt.tasks.c3_cat1_task, 'product test should have a c3_cat1_task'
+    # should not have a c3_cat1_task for an EP measure
+    assert_equal false, pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
     # should have a c3_cat3 task
     assert pt.tasks.c3_cat3_task, 'product test should have a c3_cat3_task'
   end
@@ -128,15 +135,15 @@ class MeasureTestTest < ActiveJob::TestCase
     @product.c3_test = true
     pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
     pt.create_tasks
-    # should have a c1_task, just no validators
-    assert pt.tasks.c1_task, 'product test should have a c1_task'
+    # should not have a c1_task, just no validators (for an EP measure)
+    assert_equal false, pt.tasks.c1_task, 'product test should not have a c1_task'
     assert pt.tasks.c2_task, 'product test should have a c2_task'
-    # should have a c3_cat1 task
-    assert pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
+    # should not have a c3_cat1 task for EP measure
+    assert_equal false, pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
     assert pt.tasks.c3_cat3_task, 'product test should have a c3_cat3_task'
   end
 
-  def test_create_task_c1_c2_and_c3
+  def test_create_task_c1_c2_and_c3_ep_measure
     @product.c1_test = true
     @product.c2_test = true
     @product.c3_test = true
@@ -144,8 +151,22 @@ class MeasureTestTest < ActiveJob::TestCase
     pt.create_tasks
     assert pt.tasks.c1_task, 'product test should have a c1_task'
     assert pt.tasks.c2_task, 'product test should have a c2_task'
-    assert pt.tasks.c3_cat1_task, 'product test should have a c3_cat1_task'
+    # should not have a c3_cat1 task for EP measure
+    assert_equal false, pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
     assert pt.tasks.c3_cat3_task, 'product test should have a c3_cat3_task'
+  end
+
+  def test_create_task_c1_c2_and_c3_eh_measure
+    @product.c1_test = true
+    @product.c2_test = true
+    @product.c3_test = true
+    pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['AE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+    pt.create_tasks
+    assert pt.tasks.c1_task, 'product test should have a c1_task'
+    assert pt.tasks.c2_task, 'product test should have a c2_task'
+    assert pt.tasks.c3_cat1_task, 'product test should have a c3_cat1_task'
+    # should not have a c3_cat3 task for EH measure
+    assert_equal false, pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
   end
 
   # Provider generation is now a before_validation hook on the MeasureTest model
