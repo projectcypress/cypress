@@ -46,7 +46,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
         ep_measures = @bundle.measures.where(reporting_program_type: 'ep').distinct(:hqmf_id).sample(8)
         measure_ids = eh_measures + ep_measures
         @vendor = Vendor.find_or_create_by(name: 'MeasureEvaluationVendor')
-        post :create, params: { vendor_id: @vendor.id, product: { name: 'MeasureEvaluationProduct', bundle_id: @bundle.id.to_s, c1_test: true, c2_test: true, c3_test: true, c4_test: true, duplicate_patients: false, randomize_patients: true, measure_ids: measure_ids } }
+        post :create, params: { vendor_id: @vendor.id, product: { name: 'MeasureEvaluationProduct', bundle_id: @bundle.id.to_s, c1_test: true, c2_test: true, c3_test: false, c4_test: true, duplicate_patients: false, randomize_patients: true, measure_ids: measure_ids } }
       end
     end
     @product = Product.where(name: 'MeasureEvaluationProduct').first
