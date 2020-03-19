@@ -15,23 +15,15 @@ class C3Cat3TaskTest < ActiveSupport::TestCase
     assert(@task.validators.any? { |v| v.is_a?(MeasurePeriodValidator) })
   end
 
-  def test_should_cause_error_when_measure_is_not_included_in_report_with_c3
-    xml = create_rack_test_file('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_missing_measure.xml', 'text/xml')
-    perform_enqueued_jobs do
-      te = @task.execute(xml, @user, nil)
-      te.reload
-      assert_equal 0, te.execution_errors.where(msg_type: :error).length, 'should have no errors for the invalid measure ids, this is a c2 validaton'
-    end
-  end
-
   def test_should_cause_error_when_performance_rate_is_incorrect_with_c3
     xml = create_rack_test_file('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_bad_performance_rate.xml', 'text/xml')
     perform_enqueued_jobs do
       te = @task.execute(xml, @user, nil)
       te.reload
-      assert_equal 1, te.execution_errors.where(msg_type: :error).length, 'should have 1 error for the invalid performance rate'
+      errors = te.execution_errors.where(validator: 'CqmValidators::Cat3PerformanceRate')
+      assert_equal 1, errors.length, 'should have 1 error for the invalid performance rate'
       msg = 'Reported Performance Rate of 0.5 for Numerator D285D0D1-0AB5-4228-A5A3-F3DE5952F4AF does not match expected value of 0.0.'
-      assert_equal msg, te.execution_errors[0].message
+      assert_equal msg, errors[0].message
     end
   end
 
@@ -44,7 +36,7 @@ class C3Cat3TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = @task.execute(xml, @user, nil)
       te.reload
-      execution_errors = te.execution_errors.where(msg_type: :error)
+      execution_errors = te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator')
       assert_equal 2, execution_errors.length, 'should have 2 errors for the invalid reporting period'
       assert_equal 'Reported Measurement Period should start on 20150101', execution_errors[0].message
       assert_equal 'Reported Measurement Period should end on 20151231', execution_errors[1].message

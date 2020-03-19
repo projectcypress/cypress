@@ -45,7 +45,7 @@ end
 
 # certification types should be a comma separated list either: 'c1' or 'c1, c3'
 When(/^the user creates a product that certifies (.*) and visits the record sample page$/) do |certification_types|
-  measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
+  measure_ids = ['AE65090C-EB1F-11E7-8C3F-9A214CF093AE']
   certification_types = certification_types.split(', ')
   @product = @vendor.products.build(name: "my product #{rand}", measure_ids: measure_ids, bundle_id: @bundle_id)
   @product.c1_test = true if certification_types.include? 'c1'

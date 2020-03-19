@@ -12,7 +12,7 @@ class PatientAnalysisHelperTest < ActiveSupport::TestCase
   def test_generate_analysis_no_measures
     analysis = generate_analysis(@vendor.patients, nil, @bundle)
     assert_equal 1, analysis['patient_count']
-    assert_equal 0.1, analysis['measure_coverage']
+    assert_equal 0.09090909090909091, analysis['measure_coverage']
     assert_equal 0.16666666666666666, analysis['population_coverage']
     assert_equal 8, analysis['data_element_types'].size
     assert_equal 8, analysis['value_sets'].size
