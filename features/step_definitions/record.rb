@@ -7,7 +7,7 @@ Given(/^a vendor patient has measure_calculations$/) do
   @vendor = Vendor.create!(name: 'test_vendor_name')
   @patient = FactoryBot.create(:vendor_test_patient, bundleId: @bundle._id, correlation_id: @vendor.id)
   @patient.calculation_results.destroy_all
-  measure = @bundle.measures.first
+  measure = @bundle.measures.find_by(hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE')
   second_measure = measure.clone
   second_measure.hqmf_id = 'CE65090C-EB1F-11E7-8C3F-9A214CF093AE'
   second_measure.cms_id = 'CMS032v7'

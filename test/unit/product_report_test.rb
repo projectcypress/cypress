@@ -210,6 +210,8 @@ class ProductReportTest < ActionController::TestCase
         # Open zipfile to find report
         Zip::File.open(testfile.path, Zip::File::CREATE) do |zip|
           report_html = Nokogiri::HTML.parse(zip.read('product_report.html'))
+          # Un-comment line below to print out the report (for easier debugging)
+          # File.write("script/report_#{sample_error_hash['factory_name']}.html", report_html)
           # search product_report to find 'report_text'.  This will assert that the report included the error message
           assert report_html.at("ul:contains('#{sample_error_hash['report_text']}')"), "error with factory #{sample_error_hash['factory_name']}"
         end

@@ -62,6 +62,10 @@ class C1ChecklistTaskTest < ActiveSupport::TestCase
     product.c3_test = true
     product.save!
 
+    checklist_measure = @checklist_test.measures.first
+    checklist_measure.reporting_program_type = 'eh'
+    checklist_measure.save
+
     task = @checklist_test.tasks.create!({}, C1ChecklistTask)
     @checklist_test.tasks.create!({}, C3ChecklistTask)
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'c1_checklist_correct_codes.zip'))
