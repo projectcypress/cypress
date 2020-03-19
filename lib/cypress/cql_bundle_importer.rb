@@ -99,8 +99,7 @@ module Cypress
       current_row = nil
       previous_row = nil
       codes = []
-      csv_text = zip.read(SOURCE_ROOTS[:valuesets])
-      csv = CSV.parse(csv_text, headers: true, col_sep: '|')
+      csv = CSV.parse(zip.read(SOURCE_ROOTS[:valuesets]), headers: true, col_sep: '|')
       csv.each do |row|
         current_row = row
         previous_row = row if previous_row.nil?
@@ -111,7 +110,8 @@ module Cypress
           codes = []
         end
         codes << CQM::Concept.new(code: row['Code'], code_system_oid: row['CodeSystemOID'], code_system_name: row['CodeSystemName'],
-                                  code_system_version: row['CodeSystemVersion'], display_name: row['Descriptor'])
+                                  code_system_version: row['CodeSystemVersion'],
+                                  display_name: row['Descriptor'].encode('utf-8', invalid: :replace, undef: :replace))
       end
       CQM::ValueSet.new(oid: current_row['OID'], display_name: current_row['ValueSetName'], version: current_row['ExpansionVersion'],
                         concepts: codes, bundle: bundle).save

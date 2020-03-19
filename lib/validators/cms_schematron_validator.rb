@@ -33,21 +33,21 @@ module Validators
   end
 
   class CMSQRDA3SchematronValidator < CMSSchematronValidator
-    def initialize(bundle_version = Settings.current.default_bundle, as_warnings = true)
+    def initialize(bundle_version = Settings.current.default_bundle, as_warnings = false)
       super(Rails.root.join('resources', 'schematron', schematron_folder_for_bundle_version(bundle_version), 'EP', 'EP_CAT_III.sch').to_s,
             self.class.to_s, as_warnings, bundle_version)
     end
   end
 
   class CMSQRDA1HQRSchematronValidator < CMSSchematronValidator
-    def initialize(bundle_version = Settings.current.default_bundle, as_warnings = true)
+    def initialize(bundle_version = Settings.current.default_bundle, as_warnings = false)
       super(Rails.root.join('resources', 'schematron', schematron_folder_for_bundle_version(bundle_version), 'EH', 'EH_CAT_I.sch').to_s,
             self.class.to_s, as_warnings, bundle_version)
     end
   end
 
   class CMSQRDA1PQRSSchematronValidator < CMSSchematronValidator
-    def initialize(bundle_version = Settings.current.default_bundle, as_warnings = true)
+    def initialize(bundle_version = Settings.current.default_bundle, as_warnings = false)
       super(Rails.root.join('resources', 'schematron', schematron_folder_for_bundle_version(bundle_version), 'EP', 'EP_CAT_I.sch').to_s,
             self.class.to_s, as_warnings, bundle_version)
     end

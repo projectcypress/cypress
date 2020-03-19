@@ -107,9 +107,9 @@ module ProductsHelper
 
     case task
     when C1Task
-      return [task, task.product_test.tasks.c3_cat1_task]
+      return [task, task.product_test.tasks.c3_cat1_task] if task.product_test.c3_cat1_task?
     when C2Task
-      return [task, task.product_test.tasks.c3_cat3_task]
+      return [task, task.product_test.tasks.c3_cat3_task] if task.product_test.c3_cat3_task?
     end
     [task]
   end
@@ -132,25 +132,25 @@ module ProductsHelper
     end
   end
 
-  def title_description_and_html_id_for(product, test_type, is_c1_measure_test = true)
-    title = title_for(product, test_type, is_c1_measure_test)
-    description = description_for(product, test_type, is_c1_measure_test)
-    html_id = html_id_for_tab(product, test_type, is_c1_measure_test)
+  def title_description_and_html_id_for(product, test_type, is_qrda_1_measure_test = true)
+    title = title_for(product, test_type, is_qrda_1_measure_test)
+    description = description_for(product, test_type, is_qrda_1_measure_test)
+    html_id = html_id_for_tab(product, test_type, is_qrda_1_measure_test)
     [title, description, html_id]
   end
 
-  def html_id_for_tab(product, test_type, is_c1_measure_test = true)
-    title_for(product, test_type, is_c1_measure_test).tr(' ', '_').tr('(', '_').tr(')', '_').tr('+', '_').underscore
+  def html_id_for_tab(product, test_type, is_qrda_1_measure_test = true)
+    title_for(product, test_type, is_qrda_1_measure_test).tr(' ', '_').tr('(', '_').tr(')', '_').tr('+', '_').underscore
   end
 
   # input test_type should only be 'ChecklistTest', 'MeasureTest', or 'FilteringTest'
   # input task_type is only used to differentiate between C1 measure tests and C2 measure test tabs
-  def title_for(product, test_type, is_c1_measure_test = true)
+  def title_for(product, test_type, is_qrda_1_measure_test = true)
     case test_type
     when 'ChecklistTest'
       product.c3_test ? 'C1 + C3 Sample' : 'C1 Sample'
     when 'MeasureTest'
-      measure_test_title(product, is_c1_measure_test)
+      measure_test_title(product, is_qrda_1_measure_test)
     when 'FilteringTest'
       'C4 (QRDA-I and QRDA-III)'
     when 'MultiMeasureTest'
@@ -160,8 +160,8 @@ module ProductsHelper
     end
   end
 
-  def measure_test_title(product, is_c1_measure_test = true)
-    if is_c1_measure_test
+  def measure_test_title(product, is_qrda_1_measure_test = true)
+    if is_qrda_1_measure_test
       if product.c1_test && product.c3_test
         'C1 + C3 (QRDA-I)'
       elsif product.c1_test
@@ -178,20 +178,40 @@ module ProductsHelper
     end
   end
 
-  def description_for(product, test_type, is_c1_measure_test = true)
+  def description_for(product, test_type, is_qrda_1_measure_test = true)
     case test_type
     when 'ChecklistTest'
       certifications = product.c3_test ? 'C1 and C3 certifications' : 'C1 certification'
       "Validate the EHR system for #{certifications} by entering specified patient data for the following measures."
     when 'MeasureTest'
-      what_certifications_test_for = if is_c1_measure_test
-                                       product.c3_test ? 'record and export (C1) and submit (C3)' : 'record and export (C1)'
+      what_certifications_test_for = if is_qrda_1_measure_test
+                                       qrda_1_measure_test_description(product)
                                      else
-                                       product.c3_test ? 'import and calculate (C2) and submit (C3)' : 'import and calculate (C2)'
+                                       qrda_3_measure_test_description(product)
                                      end
       "Test the EHR system's ability to #{what_certifications_test_for} measure based data."
     when 'FilteringTest'
       'Test the EHR system\'s ability to filter patient records.'
+    end
+  end
+
+  def qrda_1_measure_test_description(product)
+    if product.c1_test && product.c3_test
+      'record and export (C1) and submit (C3)'
+    elsif product.c1_test
+      'record and export (C1)'
+    elsif product.c3_test
+      'submit (C3)'
+    end
+  end
+
+  def qrda_3_measure_test_description(product)
+    if product.c2_test && product.c3_test
+      'import and calculate (C2) and submit (C3)'
+    elsif product.c2_test
+      'import and calculate (C2)'
+    elsif product.c3_test
+      'submit (C3)'
     end
   end
 

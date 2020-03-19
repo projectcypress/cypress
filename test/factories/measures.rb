@@ -74,6 +74,14 @@ FactoryBot.define do
         source_measure['population_sets'].each do |population_set|
           measure.population_sets << CQM::PopulationSet.new(population_set)
         end
+        eh_clone = measure.clone
+        eh_clone.id = BSON::ObjectId.new
+        eh_clone.hqmf_id = 'AE65090C-EB1F-11E7-8C3F-9A214CF093AE'
+        eh_clone.hqmf_set_id = 'E621C7B6-EB1F-11E7-8C3F-9A214CF093AE'
+        eh_clone.reporting_program_type = 'eh'
+        eh_clone.description = 'Static EH Measure Description'
+        eh_clone.cms_id = 'CMS4321v1'
+        eh_clone.save
       end
     end
 

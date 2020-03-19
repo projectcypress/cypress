@@ -93,6 +93,10 @@ class C1TaskTest < ActiveSupport::TestCase
   end
 
   def test_should_have_c3_execution_as_sibling_test_execution_when_c3_task_exists
+    measure = @product_test.measures.first
+    measure.reporting_program_type = 'eh'
+    measure.save
+
     c1_task = @product_test.tasks.create!({}, C1Task)
     c3_task = @product_test.tasks.create!({}, C3Cat1Task)
     @product_test.product.c1_test = true

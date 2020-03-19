@@ -20,7 +20,7 @@ class C1ChecklistTask < Task
     te = test_executions.new(artifact: Artifact.new(file: file), user_id: user)
     te.save!
     TestExecutionJob.perform_later(te, self)
-    te.sibling_execution_id = product_test.tasks.c3_checklist_task.execute(file, user, te.id).id if product_test.c3_test
+    te.sibling_execution_id = product_test.tasks.c3_checklist_task.execute(file, user, te.id).id if product_test.c3_cat1_task?
     te.save
     te
   end
