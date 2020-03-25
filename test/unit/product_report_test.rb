@@ -227,11 +227,8 @@ class ProductReportTest < ActionController::TestCase
     collected_errors = collected_errors(test_execution)
     error_count = collected_errors[:nonfile].size
     collected_errors[:files].each_value do |collected_error_values|
-      error_count += collected_error_values['QRDA'][:execution_errors].size
-      error_count += collected_error_values['Reporting'][:execution_errors].size
-      error_count += collected_error_values['Submission'][:execution_errors].size
-      error_count += collected_error_values['CMS Warnings'][:execution_errors].size
-      error_count += collected_error_values['Other Warnings'][:execution_errors].size
+      error_count += collected_error_values['Errors'][:execution_errors].size
+      error_count += collected_error_values['Warnings'][:execution_errors].size
     end
     assert_equal error_count, test_execution.execution_errors.size
   end

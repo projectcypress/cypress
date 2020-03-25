@@ -42,31 +42,6 @@ class TestExecutionTest < ActiveSupport::TestCase
     assert te.errored?, 'te.errored? not returning true when execution is errored'
   end
 
-  def test_qrda_reporting_and_submission_errors
-    qrda_errors = [
-      { validator: 'CDA SDTC Validator', msg_type: :error },
-      { validator: 'QRDA Cat 1 R3 Validator', msg_type: :error },
-      { validator: 'QRDA Cat 1 Validator', msg_type: :error },
-      { validator: 'QRDA Cat 3 Validator', msg_type: :error },
-      { validator_type: :xml_validation, msg_type: :error }
-    ]
-    reporting_errors = [
-      { validator: 'Cat 1 Measure ID Validator', msg_type: :error },
-      { validator: 'Cat 3 Measure ID Validator', msg_type: :error },
-      { validator_type: :result_validation, msg_type: :error }
-    ]
-    submission_errors = [
-      { validator_type: :submission_validation, msg_type: :error }
-    ]
-    execution_errors = qrda_errors + reporting_errors + submission_errors
-
-    te = TestExecution.new(execution_errors: execution_errors)
-
-    assert_equal te.execution_errors.qrda_errors.count, qrda_errors.count
-    assert_equal te.execution_errors.reporting_errors.count, reporting_errors.count
-    assert_equal te.execution_errors.submission_errors.count, submission_errors.count
-  end
-
   def test_validate_artifact_builds_execution_errors_for_incomplete_checked_criteria
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     vendor = Vendor.new(name: "my vendor #{rand}")

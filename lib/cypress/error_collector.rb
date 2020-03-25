@@ -47,17 +47,12 @@ module Cypress
 
     def create_file_error_hash(doc, all_errs, related_errs)
       file_error_hash = {}
-      submission_errors = all_errs.submission_errors
-      submission_errors += related_errs.only_errors if related_errs.count.positive?
-      file_error_hash['QRDA'] = error_hash(doc, all_errs.qrda_errors)
-      file_error_hash['Reporting'] = error_hash(doc, all_errs.reporting_errors)
-      file_error_hash['Submission'] = error_hash(doc, submission_errors)
-      cms_warn = all_errs.only_cms_warnings
-      cms_warn.concat(related_errs.only_cms_warnings) if related_errs.count.positive?
-      file_error_hash['CMS Warnings'] = error_hash(doc, cms_warn)
-      other_warn = all_errs.non_cms_warnings
-      other_warn.concat(related_errs.non_cms_warnings) if related_errs.count.positive?
-      file_error_hash['Other Warnings'] = error_hash(doc, other_warn)
+      errors = all_errs.only_errors
+      errors += related_errs.only_errors if related_errs.count.positive?
+      warnings = all_errs.only_warnings
+      warnings += related_errs.only_warnings if related_errs.count.positive?
+      file_error_hash['Errors'] = error_hash(doc, errors)
+      file_error_hash['Warnings'] = error_hash(doc, warnings)
       file_error_hash
     end
 

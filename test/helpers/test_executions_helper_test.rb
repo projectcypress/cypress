@@ -78,11 +78,10 @@ class TestExecutionHelper < ActiveSupport::TestCase
   def test_get_error_counts_no_execution
     setup_product_tests(true, false, true, true, filt1: 'val1')
 
-    errors_hash = get_error_counts(nil, @product_test.tasks.find_by(_type: 'C1Task'))
+    errors_hash = get_error_counts(nil)
 
-    assert_equal '--', errors_hash['QRDA Errors']
-    assert_equal '--', errors_hash['Reporting Errors']
-    assert_equal '--', errors_hash['Submission Errors']
+    assert_equal '--', errors_hash['Errors']
+    assert_equal '--', errors_hash['Warnings']
   end
 
   def test_get_error_counts
@@ -95,11 +94,9 @@ class TestExecutionHelper < ActiveSupport::TestCase
     execution.execution_errors.create(message: 'result error 2', msg_type: :error, validator_type: :result_validation)
     execution.state = :failed
 
-    errors_hash = get_error_counts(execution, c1_task)
+    errors_hash = get_error_counts(execution)
 
-    assert_equal 1, errors_hash['QRDA Errors']
-    assert_equal 2, errors_hash['Reporting Errors']
-    assert_nil errors_hash['Submission Errors']
+    assert_equal 3, errors_hash['Errors']
   end
 
   def test_get_select_history_message
