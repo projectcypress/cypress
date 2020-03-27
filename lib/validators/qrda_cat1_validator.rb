@@ -8,7 +8,7 @@ module Validators
     def initialize(bundle, is_c3_validation_task, test_has_c3, test_has_c1, measures = [])
       @test_has_c3 = test_has_c3
       @measures = measures
-      format_validators = [CDA.instance, Cat1R51.instance]
+      format_validators = [CDA.instance, Cat1R52.instance]
       @validators = if is_c3_validation_task
                       [CqmValidators::DataValidator.new(measures.collect(&:_id))]
                     else

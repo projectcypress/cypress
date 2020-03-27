@@ -79,6 +79,7 @@ module Validators
       return false unless attribute
       return verify_code_attribute(attribute, checked_criteria) if attribute._type == 'QDM::Code'
       return verify_component_attribute(attribute, checked_criteria) if attribute._type == 'QDM::Component'
+      return verify_dx_component_attribute(attribute, checked_criteria) if attribute._type == 'QDM::DiagnosisComponent'
       return verify_id_attribute(attribute) if attribute._type == 'QDM::Identifier'
       return verify_interval_attribute(attribute) if attribute._type == 'QDM::Interval'
       return verify_facility_location_attribute(attribute, checked_criteria) if attribute._type == 'QDM::FacilityLocation'
@@ -103,6 +104,11 @@ module Validators
     def verify_component_attribute(attribute, checked_criteria)
       # A component has nested attributes, check those
       attribute_has_data(attribute.result, checked_criteria)
+    end
+
+    def verify_dx_component_attribute(attribute, checked_criteria)
+      # A component has nested attributes, check those
+      attribute_has_data(attribute.code, checked_criteria)
     end
 
     def verify_id_attribute(attribute)

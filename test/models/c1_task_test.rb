@@ -111,7 +111,7 @@ class C1TaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(zip, @user)
       te.reload
-      assert_equal 1, te.execution_errors.by_file('0_Dental_Peds_A.xml').where(message: '["2.16.840.1.113883.10.20.24.3.133:2015-08-01"] are not valid Patient Data Section QDM entries for this QRDA Version', msg_type: :warning).count
+      assert_equal 1, te.execution_errors.by_file('0_Dental_Peds_A.xml').where(message: 'SHALL contain exactly one [1..1] templateId (CONF:4444-28475) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.24.3.133" (CONF:4444-28479). SHALL contain exactly one [1..1] @extension="2019-12-01" (CONF:4444-29422).').count
     end
   end
 
