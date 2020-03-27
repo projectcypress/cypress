@@ -36,7 +36,6 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
     @checklist_test.save
   end
 
-  # TODO: Finish the rest.
   TEST_ARRAY = [['adverse_event', nil, 'authorDatetime', false, '20170503000000', nil, 'QDM::AdverseEvent', false],
                 ['adverse_event', nil, 'relevantDatetime', false, '20170503000000', nil, 'QDM::AdverseEvent', false],
                 ['adverse_event', nil, 'severity', false, '20170503000000', nil, 'QDM::AdverseEvent'],
@@ -375,7 +374,6 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
     cda_validator = CqmValidators::CDA.instance
 
     TEST_ARRAY.each do |ta|
-      puts "#{ta[6]} - #{ta[2]}"
       dt = QDM::PatientGeneration.generate_loaded_datatype(ta[6], ta[7])
       setup_sdc(dt.clone, ta[2], ta[3], ta[4], ta[5])
 
