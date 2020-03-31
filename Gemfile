@@ -17,7 +17,8 @@ gem 'os'
 
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', branch: 'qrda_5_2_updates'
 gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'v3_rails5'
-gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'use_schematron'
+gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'full_html_rendering'
+# gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'use_schematron'
 gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators', branch: 'master'
 
 # Use faker to generate addresses

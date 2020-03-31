@@ -145,6 +145,23 @@ class ActiveSupport::TestCase
     end
   end
 
+  def qdm_patient_for_attribute(dt, ta, src_qdm_patient)
+    dt.reason = nil if ta[7] && dt.respond_to?(:reason)
+    reset_datatype_fields(dt, ta)
+
+    single_dt_qdm_patient = src_qdm_patient.clone
+    single_dt_qdm_patient.dataElements << dt
+    single_dt_qdm_patient
+  end
+
+  def reset_datatype_fields(dt, ta)
+    dt.prescriberId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if dt.respond_to?(:prescriberId)
+    dt.dispenserId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if dt.respond_to?(:dispenserId)
+
+    dt.relevantDatetime = nil if dt.respond_to?(:relevantDatetime) && dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantPeriod'
+    dt.relevantPeriod = nil if dt.respond_to?(:relevantDatetime) && dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantDatetime'
+  end
+
   class ActionController::TestCase
     include Devise::Test::ControllerHelpers
     ADMIN = '4def93dd4f85cf8968000010'.freeze
