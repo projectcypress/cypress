@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :bundle, class: Bundle do
     sequence(:name) { |i| "Bundle Name #{i}" }
-    sequence(:version) { |i| "#{2020 + i}.0.0" }
+    sequence(:version) { |i| "#{2050 + i}.0.0" }
     sequence(:title) { |i| "Bundle Name #{i}" }
 
     # static_bundle includes random measures that will not execute in the cqm-execution-service
