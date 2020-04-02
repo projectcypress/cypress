@@ -1,0 +1,337 @@
+
+# TODO: finish
+# [category, status, attribute, vs negation, freetext field, coded values, qdm type, negated?]
+[
+  ['adverse_event', null, 'authorDatetime', false, '20170503000000', null, 'QDM::AdverseEvent', false],
+  ['adverse_event', null, 'relevantDatetime', false, '20170503000000', null, 'QDM::AdverseEvent', false],
+  ['adverse_event', null, 'severity', false, '20170503000000', null, 'QDM::AdverseEvent'],
+  ['adverse_event', null, 'facilityLocation', false, '20170503000000', null, 'QDM::AdverseEvent'],
+  ['adverse_event', null, 'type', false, null, '1234', 'QDM::AdverseEvent'],
+  ['adverse_event', null, 'recorder', false, null, '1234', 'QDM::AdverseEvent'],
+
+  ['allergy_intolerance', null, 'authorDatetime', false, '20170503000000', null, 'QDM::AllergyIntolerance', false],
+  ['allergy_intolerance', null, 'prevalencePeriod', false, '20170503000000', null, 'QDM::AllergyIntolerance', false],
+  ['allergy_intolerance', null, 'type', false, '20170503000000', null, 'QDM::AllergyIntolerance'],
+  ['allergy_intolerance', null, 'severity', false, '20170503000000', null, 'QDM::AllergyIntolerance'],
+  ['allergy_intolerance', null, 'recorder', false, null, '1234', 'QDM::AllergyIntolerance'],
+
+  ['assessment', 'ordered', 'negationRationale', false, null, '1234', 'QDM::AssessmentOrder', true],
+  ['assessment', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::AssessmentOrder', false],
+  ['assessment', 'ordered', 'reason', false, null, '1234', 'QDM::AssessmentOrder', false],
+  ['assessment', 'ordered', 'requester', false, null, '1234', 'QDM::AssessmentOrder', false],
+
+  ['assessment', 'performed', 'negationRationale', false, null, '1234', 'QDM::AssessmentPerformed', true],
+  ['assessment', 'performed', 'authorDatetime', false, '20170503000000', null, 'QDM::AssessmentPerformed', false],
+  ['assessment', 'performed', 'relevantDatetime', false, '20170503000000', null, 'QDM::AssessmentPerformed', false],
+  ['assessment', 'performed', 'relevantPeriod', false, '20170503000000', null, 'QDM::AssessmentPerformed', false],
+  ['assessment', 'performed', 'reason', false, '20170503000000', null, 'QDM::AssessmentPerformed', false],
+  ['assessment', 'performed', 'method', false, '20170503000000', null, 'QDM::AssessmentPerformed', false],
+  ['assessment', 'performed', 'result', false, '20170503000000', null, 'QDM::AssessmentPerformed', false],
+  ['assessment', 'performed', 'components', false, '20170503000000', null, 'QDM::AssessmentPerformed', false],
+  # ['assessment', 'performed', 'relatedTo', false, '20170503000000', null, 'QDM::AssessmentPerformed', false], # Not currently in patient generator
+  ['assessment', 'performed', 'performer', false, null, '1234', 'QDM::AssessmentPerformed', false],
+
+  ['assessment', 'recommended', 'negationRationale', false, null, '1234', 'QDM::AssessmentRecommended', true],
+  ['assessment', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::AssessmentRecommended', false],
+  ['assessment', 'recommended', 'reason', false, null, '1234', 'QDM::AssessmentRecommended', false],
+  ['assessment', 'recommended', 'requester', false, null, '1234', 'QDM::AssessmentRecommended', false],
+
+  ['communication', 'performed', 'negationRationale', false, null, '1234', 'QDM::CommunicationPerformed', true],
+  ['communication', 'performed', 'authorDatetime', false, '20170503000000', null, 'QDM::CommunicationPerformed', false],
+  ['communication', 'performed', 'category', false, null, '1234', 'QDM::CommunicationPerformed', false],
+  ['communication', 'performed', 'medium', false, null, '1234', 'QDM::CommunicationPerformed', false],
+  ['communication', 'performed', 'sender', false, null, '1234', 'QDM::CommunicationPerformed', false],
+  ['communication', 'performed', 'recipient', false, null, '1234', 'QDM::CommunicationPerformed', false],
+  # ['communication', 'performed', 'relatedTo', false, '20170503000000', null, 'QDM::CommunicationPerformed', false], # Not currently in patient generator
+  ['communication', 'performed', 'sentDatetime', false, '20170503000000', null, 'QDM::CommunicationPerformed', false],
+  ['communication', 'performed', 'receivedDatetime', false, '20170503000000', null, 'QDM::CommunicationPerformed', false],
+
+  ['device', 'applied', 'negationRationale', false, null, '1234', 'QDM::DeviceApplied', true],
+  ['device', 'applied', 'authorDatetime', false, '20170503000000', null, 'QDM::DeviceApplied', false],
+  ['device', 'applied', 'relevantDatetime', false, '20170503000000', null, 'QDM::DeviceApplied', false],
+  ['device', 'applied', 'relevantPeriod', false, '20170503000000', null, 'QDM::DeviceApplied', false],
+  ['device', 'applied', 'reason', false, null, '1234', 'QDM::DeviceApplied', false],
+  ['device', 'applied', 'anatomicalLocationSite', false, null, '1234', 'QDM::DeviceApplied', false],
+  ['device', 'applied', 'performer', false, null, '1234', 'QDM::DeviceApplied', false],
+
+  ['device', 'ordered', 'negationRationale', false, null, '1234', 'QDM::DeviceOrder', true],
+  ['device', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::DeviceOrder', false],
+  ['device', 'ordered', 'reason', false, null, '1234', 'QDM::DeviceOrder', false],
+  ['device', 'ordered', 'requester', false, null, '1234', 'QDM::DeviceOrder', false],
+
+  ['device', 'recommended', 'negationRationale', false, null, '1234', 'QDM::DeviceRecommended', true],
+  ['device', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::DeviceRecommended', false],
+  ['device', 'recommended', 'reason', false, null, '1234', 'QDM::DeviceRecommended', false],
+  ['device', 'recommended', 'requester', false, null, '1234', 'QDM::DeviceRecommended', false],
+
+  ['diagnosis', null, 'authorDatetime', false, '20170503000000', null, 'QDM::Diagnosis', false],
+  ['diagnosis', null, 'prevalencePeriod', false, '20170503000000', null, 'QDM::Diagnosis', false],
+  ['diagnosis', null, 'anatomicalLocationSite', false, null, '1234', 'QDM::Diagnosis', false],
+  ['diagnosis', null, 'severity', false, null, '1234', 'QDM::Diagnosis', false],
+  ['diagnosis', null, 'recorder', false, null, '1234', 'QDM::Diagnosis', false],
+
+  ['diagnostic_study', 'ordered', 'negationRationale', false, null, '1234', 'QDM::DiagnosticStudyOrder', true],
+  ['diagnostic_study', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::DiagnosticStudyOrder', false],
+  ['diagnostic_study', 'ordered', 'reason', false, null, '1234', 'QDM::DiagnosticStudyOrder', false],
+  ['diagnostic_study', 'requester', 'reason', false, null, '1234', 'QDM::DiagnosticStudyOrder', false],
+
+  ['diagnostic_study', 'performed', 'negationRationale', false, null, '1234', 'QDM::DiagnosticStudyPerformed', true],
+  ['diagnostic_study', 'performed', 'authorDatetime', false, '20170503000000', null, 'QDM::DiagnosticStudyPerformed', false],
+  ['diagnostic_study', 'performed', 'relevantDatetime', false, '20170503000000', null, 'QDM::DiagnosticStudyPerformed', false],
+  ['diagnostic_study', 'performed', 'relevantPeriod', false, '20170503000000', null, 'QDM::DiagnosticStudyPerformed', false],
+  ['diagnostic_study', 'performed', 'reason', false, null, '1234', 'QDM::DiagnosticStudyPerformed', false],
+  ['diagnostic_study', 'performed', 'result', false, null, '1234', 'QDM::DiagnosticStudyPerformed', false],
+  # ['diagnostic_study', 'performed', 'resultDatetime', false, '20170503000000', null, 'QDM::DiagnosticStudyPerformed', false], # Cannot selective remove resultDatetime
+  ['diagnostic_study', 'performed', 'status', false, null, '1234', 'QDM::DiagnosticStudyPerformed', false],
+  ['diagnostic_study', 'performed', 'method', false, null, '1234', 'QDM::DiagnosticStudyPerformed', false],
+  ['diagnostic_study', 'performed', 'facilityLocation', false, null, '1234', 'QDM::DiagnosticStudyPerformed', false],
+  ['diagnostic_study', 'performed', 'components', false, null, '1234', 'QDM::DiagnosticStudyPerformed', false],
+  ['diagnostic_study', 'performed', 'performer', false, null, '1234', 'QDM::DiagnosticStudyPerformed', false],
+
+  ['diagnostic_study', 'recommended', 'negationRationale', false, null, '1234', 'QDM::DiagnosticStudyRecommended', true],
+  ['diagnostic_study', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::DiagnosticStudyRecommended', false],
+  ['diagnostic_study', 'recommended', 'requester', false, '20170503000000', null, 'QDM::DiagnosticStudyRecommended', false],
+
+  ['encounter', 'ordered', 'negationRationale', false, null, '1234', 'QDM::EncounterOrder', true],
+  ['encounter', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::EncounterOrder', false],
+  ['encounter', 'ordered', 'reason', false, null, '1234', 'QDM::EncounterOrder', false],
+  ['encounter', 'ordered', 'facilityLocation', false, null, '1234', 'QDM::EncounterOrder', false],
+  ['encounter', 'ordered', 'requester', false, null, '1234', 'QDM::EncounterOrder', false],
+  ['encounter', 'ordered', 'priority', false, null, '1234', 'QDM::EncounterOrder', false],
+
+  ['encounter', 'performed', 'negationRationale', false, null, '1234', 'QDM::EncounterPerformed', true],
+  ['encounter', 'performed', 'authorDatetime', false, '20170503000000', null, 'QDM::EncounterPerformed', false],
+  ['encounter', 'performed', 'admissionSource', false, null, '1234', 'QDM::EncounterPerformed', false],
+  ['encounter', 'performed', 'relevantPeriod', false, '20170503000000', null, 'QDM::EncounterPerformed', false],
+  ['encounter', 'performed', 'dischargeDisposition', false, null, '1234', 'QDM::EncounterPerformed', false],
+  ['encounter', 'performed', 'facilityLocations', false, null, '1234', 'QDM::EncounterPerformed', false],
+  ['encounter', 'performed', 'diagnoses', false,  null, '1234', 'QDM::EncounterPerformed'],
+  # ['encounter', 'performed', 'priority', false, null, '1234', 'QDM::EncounterPerformed', false], # priority not in QRDA spec
+  ['encounter', 'performed', 'participant', false, '20170503000000', null, 'QDM::EncounterPerformed', false],
+  # ['encounter', 'performed', 'lengthOfStay', false, '2', null, 'QDM::EncounterPerformed'], # Not currently in patient generator
+
+  ['encounter', 'recommended', 'negationRationale', false, null, '1234', 'QDM::EncounterRecommended', true],
+  ['encounter', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::EncounterRecommended', false],
+  ['encounter', 'recommended', 'facilityLocation', false, null, '1234', 'QDM::EncounterRecommended', false],
+  ['encounter', 'recommended', 'reason', false, null, '1234', 'QDM::EncounterRecommended', false],
+  ['encounter', 'recommended', 'requester', false, '20170503000000', null, 'QDM::EncounterRecommended', false],
+
+  ['family_history', null, 'authorDatetime', false, '20170503000000', null, 'QDM::FamilyHistory', false],
+  ['family_history', null, 'relationship', false, null, '1234', 'QDM::FamilyHistory', false],
+  ['family_history', null, 'recorder', false, '20170503000000', null, 'QDM::FamilyHistory', false],
+
+  ['immunization', 'administered', 'negationRationale', false, null, '1234', 'QDM::ImmunizationAdministered', true],
+  # ['immunization', 'administered', 'authorDatetime', false, '20170503000000', null, 'QDM::ImmunizationAdministered', false],
+  ['immunization', 'administered', 'relevantDatetime', false, '20170503000000', null, 'QDM::ImmunizationAdministered', false],
+  ['immunization', 'administered', 'reason', false, null, '1234', 'QDM::ImmunizationAdministered', false],
+  ['immunization', 'administered', 'dosage', false, null, '1234', 'QDM::ImmunizationAdministered', false],
+  ['immunization', 'administered', 'route', false, null, '1234', 'QDM::ImmunizationAdministered', false],
+  ['immunization', 'administered', 'performer', false, '20170503000000', null, 'QDM::ImmunizationAdministered', false],
+
+  ['immunization', 'order', 'negationRationale', false, null, '1234', 'QDM::ImmunizationOrder', true],
+  ['immunization', 'order', 'activeDatetime', false, '20170503000000', null, 'QDM::ImmunizationOrder', false],
+  ['immunization', 'order', 'authorDatetime', false, '20170503000000', null, 'QDM::ImmunizationOrder', false],
+  ['immunization', 'order', 'dosage', false, '20170503000000', null, 'QDM::ImmunizationOrder', false],
+  ['immunization', 'order', 'supply', false, '20170503000000', null, 'QDM::ImmunizationOrder', false],
+  ['immunization', 'order', 'route', false, null, '1234', 'QDM::ImmunizationOrder', false],
+  ['immunization', 'order', 'reason', false, null, '1234', 'QDM::ImmunizationOrder', false],
+  ['immunization', 'order', 'requester', false, '20170503000000', null, 'QDM::ImmunizationOrder', false],
+
+  ['intervention', 'ordered', 'negationRationale', false, null, '1234', 'QDM::InterventionOrder', true],
+  ['intervention', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::InterventionOrder', false],
+  ['intervention', 'ordered', 'reason', false, null, '1234', 'QDM::InterventionOrder', false],
+  ['intervention', 'ordered', 'requester', false, '20170503000000', null, 'QDM::InterventionOrder', false],
+
+  ['intervention', 'performed', 'negationRationale', false, null, '1234', 'QDM::InterventionPerformed', true],
+  ['intervention', 'performed', 'authorDatetime', false, '20170503000000', null, 'QDM::InterventionPerformed', false],
+  ['intervention', 'performed', 'relevantDatetime', false, '20170503000000', null, 'QDM::InterventionPerformed', false],
+  ['intervention', 'performed', 'relevantPeriod', false, '20170503000000', null, 'QDM::InterventionPerformed', false],
+  ['intervention', 'performed', 'reason', false, null, '1234', 'QDM::InterventionPerformed', false],
+  ['intervention', 'performed', 'result', false, null, '1234', 'QDM::InterventionPerformed', false],
+  ['intervention', 'performed', 'status', false, null, '1234', 'QDM::InterventionPerformed', false],
+  ['intervention', 'performed', 'performer', false, '20170503000000', null, 'QDM::InterventionPerformed', false],
+
+  ['intervention', 'recommended', 'negationRationale', false, null, '1234', 'QDM::InterventionRecommended', true],
+  ['intervention', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::InterventionRecommended', false],
+  ['intervention', 'recommended', 'reason', false, null, '1234', 'QDM::InterventionRecommended', false],
+  ['intervention', 'recommended', 'requester', false, '20170503000000', null, 'QDM::InterventionRecommended', false],
+
+  ['laboratory_test', 'ordered', 'negationRationale', false, null, '1234', 'QDM::LaboratoryTestOrder', true],
+  ['laboratory_test', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::LaboratoryTestOrder', false],
+  ['laboratory_test', 'ordered', 'reason', false, null, '1234', 'QDM::LaboratoryTestOrder', false],
+  ['laboratory_test', 'ordered', 'requester', false, '20170503000000', null, 'QDM::LaboratoryTestOrder', false],
+
+  ['laboratory_test', 'performed', 'negationRationale', false, null, '1234', 'QDM::LaboratoryTestPerformed', true],
+  ['laboratory_test', 'performed', 'authorDatetime', false, '20170503000000', null, 'QDM::LaboratoryTestPerformed', false],
+  ['laboratory_test', 'performed', 'relevantDatetime', false, '20170503000000', null, 'QDM::LaboratoryTestPerformed', false],
+  ['laboratory_test', 'performed', 'relevantPeriod', false, '20170503000000', null, 'QDM::LaboratoryTestPerformed', false],
+  ['laboratory_test', 'performed', 'status', false, '20170503000000', null, 'QDM::LaboratoryTestPerformed', false],
+  ['laboratory_test', 'performed', 'method', false, '20170503000000', null, 'QDM::LaboratoryTestPerformed', false],
+  ['laboratory_test', 'performed', 'result', false, '20170503000000', null, 'QDM::LaboratoryTestPerformed', false],
+  # resultDatetime cannot be confirmed in the negative tests, since if a resultDatetime isn't include, we will then export the authorDatetime or relevantPeriod in its place
+  # ['laboratory_test', 'performed', 'resultDatetime', false, '20170503000000', null, 'QDM::LaboratoryTestPerformed', false],
+  ['laboratory_test', 'performed', 'reason', false, '20170503000000', null, 'QDM::LaboratoryTestPerformed', false],
+  # ['laboratory_test', 'performed', 'referenceRange', false, '20170503000000', null, 'QDM::LaboratoryTestPerformed', false], # Not currently in cqm-reports
+  ['laboratory_test', 'performed', 'components', false, '20170503000000', null, 'QDM::LaboratoryTestPerformed', false],
+  ['laboratory_test', 'performed', 'performer', false, '20170503000000', null, 'QDM::LaboratoryTestPerformed', false],
+
+  ['laboratory_test', 'recommended', 'negationRationale', false, null, '1234', 'QDM::LaboratoryTestRecommended', true],
+  ['laboratory_test', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::LaboratoryTestRecommended', false],
+  ['laboratory_test', 'recommended', 'reason', false, null, '1234', 'QDM::LaboratoryTestRecommended', false],
+  ['laboratory_test', 'recommended', 'requester', false, '20170503000000', null, 'QDM::LaboratoryTestRecommended', false],
+
+  ['medication', 'active', 'relevantDatetime', false, '20170503000000', null, 'QDM::MedicationActive', false],
+  ['medication', 'active', 'relevantPeriod', false, '20170503000000', null, 'QDM::MedicationActive', false],
+  ['medication', 'active', 'dosage', false, '20170503000000', null, 'QDM::MedicationActive', false],
+  # ['medication', 'active', 'frequency', false, null, '1234', 'QDM::MedicationActive', false], # roundtrip does not work with code specified in patient generator
+  ['medication', 'active', 'route', false, null, '1234', 'QDM::MedicationActive', false],
+  ['medication', 'active', 'recorder', false, '20170503000000', null, 'QDM::MedicationActive', false],
+
+  ['medication', 'administered', 'negationRationale', false, null, '1234', 'QDM::MedicationAdministered', true],
+  ['medication', 'administered', 'authorDatetime', false, '20170503000000', null, 'QDM::MedicationAdministered', false],
+  ['medication', 'administered', 'relevantDatetime', false, '20170503000000', null, 'QDM::MedicationAdministered', false],
+  ['medication', 'administered', 'relevantPeriod', false, '20170503000000', null, 'QDM::MedicationAdministered', false],
+  ['medication', 'administered', 'dosage', false, '20170503000000', null, 'QDM::MedicationAdministered', false],
+  # ['medication', 'administered', 'frequency', false, '20170503000000', null, 'QDM::MedicationAdministered', false], # roundtrip does not work with code specified in patient generator
+  ['medication', 'administered', 'route', false, null, '1234', 'QDM::MedicationAdministered', false],
+  ['medication', 'administered', 'reason', false, '20170503000000', null, 'QDM::MedicationAdministered', false],
+  ['medication', 'administered', 'performer', false, '20170503000000', null, 'QDM::MedicationAdministered', false],
+
+  ['medication', 'discharge', 'negationRationale', false, null, '1234', 'QDM::MedicationDischarge', true],
+  ['medication', 'discharge', 'authorDatetime', false, '20170503000000', null, 'QDM::MedicationDischarge', false],
+  ['medication', 'discharge', 'refills', false, '20170503000000', null, 'QDM::MedicationDischarge', false],
+  ['medication', 'discharge', 'dosage', false, '20170503000000', null, 'QDM::MedicationDischarge', false],
+  ['medication', 'discharge', 'supply', false, '20170503000000', null, 'QDM::MedicationDischarge', false],
+  # ['medication', 'discharge', 'frequency', false, null, '1234', 'QDM::MedicationDischarge', false], # roundtrip does not work with code specified in patient generator
+  ['medication', 'discharge', 'daysSupplied', false, '20170503000000', null, 'QDM::MedicationDischarge', false],
+  ['medication', 'discharge', 'route', false, null, '1234', 'QDM::MedicationDischarge', false],
+  ['medication', 'discharge', 'prescriber', false, '20170503000000', null, 'QDM::MedicationDischarge', false],
+  ['medication', 'discharge', 'recorder', false, '20170503000000', null, 'QDM::MedicationDischarge', false],
+
+  ['medication', 'dispensed', 'negationRationale', false, null, '1234', 'QDM::MedicationDispensed', true],
+  # ['medication', 'dispensed', 'authorDatetime', false, '20170503000000', null, 'QDM::MedicationDispensed', false],
+  ['medication', 'dispensed', 'relevantDatetime', false, '20170503000000', null, 'QDM::MedicationDispensed', false],
+  ['medication', 'dispensed', 'relevantPeriod', false, '20170503000000', null, 'QDM::MedicationDispensed', false],
+  ['medication', 'dispensed', 'refills', false, '20170503000000', null, 'QDM::MedicationDispensed', false],
+  ['medication', 'dispensed', 'dosage', false, '20170503000000', null, 'QDM::MedicationDispensed', false],
+  ['medication', 'dispensed', 'supply', false, '20170503000000', null, 'QDM::MedicationDispensed', false],
+  # ['medication', 'dispensed', 'frequency', false, null, '1234', 'QDM::MedicationDispensed', false], # roundtrip does not work with code specified in patient generator
+  ['medication', 'dispensed', 'daysSupplied', false, '20170503000000', null, 'QDM::MedicationDispensed', false],
+  ['medication', 'dispensed', 'route', false, null, '1234', 'QDM::MedicationDispensed', false],
+  ['medication', 'dispensed', 'prescriber', false, '20170503000000', null, 'QDM::MedicationDispensed', false],
+  ['medication', 'dispensed', 'dispenser', false, '20170503000000', null, 'QDM::MedicationDispensed', false],
+
+  ['medication', 'ordered', 'negationRationale', false, null, '1234', 'QDM::MedicationOrder', true],
+  # ['medication', 'ordered', 'relevantPeriod', false, '20170503000000', null, 'QDM::MedicationOrder', false],
+  ['medication', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::MedicationOrder', false],
+  ['medication', 'ordered', 'refills', false, '20170503000000', null, 'QDM::MedicationOrder', false],
+  ['medication', 'ordered', 'dosage', false, '20170503000000', null, 'QDM::MedicationOrder', false],
+  ['medication', 'ordered', 'supply', false, '20170503000000', null, 'QDM::MedicationOrder', false],
+  # ['medication', 'ordered', 'frequency', false, null, '1234', 'QDM::MedicationOrder', false], # roundtrip does not work with code specified in patient generator
+  ['medication', 'ordered', 'daysSupplied', false, '20170503000000', null, 'QDM::MedicationOrder', false],
+  ['medication', 'ordered', 'route', false, null, '1234', 'QDM::MedicationOrder', false],
+  # ['medication', 'ordered', 'setting', false, null, '1234', 'QDM::MedicationOrder', false],
+  ['medication', 'ordered', 'reason', false, null, '1234', 'QDM::MedicationOrder', false],
+  ['medication', 'ordered', 'prescriber', false, '20170503000000', null, 'QDM::MedicationOrder', false],
+
+  ['care_experience', null, 'authorDatetime', false, '20170503000000', null, 'QDM::PatientCareExperience', false],
+  ['recorder', null, 'authorDatetime', false, '20170503000000', null, 'QDM::PatientCareExperience', false],
+
+  ['patient_characteristic', 'clinical_trial_participant', 'reason', false, null, '1234', 'QDM::PatientCharacteristicClinicalTrialParticipant', false],
+  ['patient_characteristic', 'clinical_trial_participant', 'relevantPeriod', false, '20170503000000', null, 'QDM::PatientCharacteristicClinicalTrialParticipant', false],
+
+  # ['patient_characteristic_expired', null, 'expiredDatetime', false, '20170503000000', null, 'QDM::PatientCharacteristicExpired', false], # these will need to override the code, as the code is 419099009 not 1234
+  # ['patient_characteristic_expired', null, 'cause', false, null, '1234', 'QDM::PatientCharacteristicExpired', false] # these will need to override the code, as the code is 419099009 not 1234
+
+  ['physical_exam', 'ordered', 'negationRationale', false, null, '1234', 'QDM::PhysicalExamOrder', true],
+  ['physical_exam', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::PhysicalExamOrder', false],
+  ['physical_exam', 'ordered', 'reason', false, null, '1234', 'QDM::PhysicalExamOrder', false],
+  ['physical_exam', 'ordered', 'anatomicalLocationSite', false, null, '1234', 'QDM::PhysicalExamOrder', false],
+  ['physical_exam', 'ordered', 'requester', false, '20170503000000', null, 'QDM::PhysicalExamOrder', false],
+
+  ['physical_exam', 'performed', 'negationRationale', false, null, '1234', 'QDM::PhysicalExamPerformed', true],
+  ['physical_exam', 'performed', 'authorDatetime', false, '20170503000000', null, 'QDM::PhysicalExamPerformed', false],
+  ['physical_exam', 'performed', 'relevantDatetime', false, '20170503000000', null, 'QDM::PhysicalExamPerformed', false],
+  ['physical_exam', 'performed', 'relevantPeriod', false, '20170503000000', null, 'QDM::PhysicalExamPerformed', false],
+  ['physical_exam', 'performed', 'reason', false, null, '1234', 'QDM::PhysicalExamPerformed', false],
+  ['physical_exam', 'performed', 'method', false, null, '1234', 'QDM::PhysicalExamPerformed', false],
+  ['physical_exam', 'performed', 'result', false, '20170503000000', null, 'QDM::PhysicalExamPerformed', false],
+  ['physical_exam', 'performed', 'anatomicalLocationSite', false, null, '1234', 'QDM::PhysicalExamPerformed', false],
+  ['physical_exam', 'performed', 'components', false, '20170503000000', null, 'QDM::PhysicalExamPerformed', false],
+  ['physical_exam', 'performed', 'performer', false, '20170503000000', null, 'QDM::PhysicalExamPerformed', false],
+
+  ['physical_exam', 'recommended', 'negationRationale', false, null, '1234', 'QDM::PhysicalExamRecommended', true],
+  ['physical_exam', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::PhysicalExamRecommended', false],
+  ['physical_exam', 'recommended', 'reason', false, null, '1234', 'QDM::PhysicalExamRecommended', false],
+  ['physical_exam', 'recommended', 'anatomicalLocationSite', false, null, '1234', 'QDM::PhysicalExamRecommended', false],
+  ['physical_exam', 'recommended', 'requester', false, '20170503000000', null, 'QDM::PhysicalExamRecommended', false],
+
+  ['procedure', 'ordered', 'negationRationale', false, null, '1234', 'QDM::ProcedureOrder', true],
+  ['procedure', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::ProcedureOrder', false],
+  ['procedure', 'ordered', 'reason', false, null, '1234', 'QDM::ProcedureOrder', false],
+  ['procedure', 'ordered', 'anatomicalLocationSite', false, null, '1234', 'QDM::ProcedureOrder', false],
+  # ['procedure', 'ordered', 'rank', false, null, '1234', 'QDM::ProcedureOrder', false],
+  # ['procedure', 'ordered', 'priority', false, null, '1234', 'QDM::ProcedureOrder', false],
+  ['procedure', 'ordered', 'requester', false, '20170503000000', null, 'QDM::ProcedureOrder', false],
+
+  ['procedure', 'performed', 'negationRationale', false, null, '1234', 'QDM::ProcedurePerformed', true],
+  ['procedure', 'performed', 'authorDatetime', false, '20170503000000', null, 'QDM::ProcedurePerformed', false],
+  ['procedure', 'performed', 'relevantDatetime', false, '20170503000000', null, 'QDM::ProcedurePerformed', false],
+  ['procedure', 'performed', 'relevantPeriod', false, '20170503000000', null, 'QDM::ProcedurePerformed', false],
+  ['procedure', 'performed', 'reason', false, null, '1234', 'QDM::ProcedurePerformed', false],
+  ['procedure', 'performed', 'method', false, null, '1234', 'QDM::ProcedurePerformed', false],
+  ['procedure', 'performed', 'result', false, '20170503000000', null, 'QDM::ProcedurePerformed', false],
+  ['procedure', 'performed', 'status', false, null, '1234', 'QDM::ProcedurePerformed', false],
+  ['procedure', 'performed', 'anatomicalLocationSite', false, null, '1234', 'QDM::ProcedurePerformed', false],
+  # ['procedure', 'performed', 'rank', false, '20170503000000', null, 'QDM::ProcedurePerformed', false],
+  # ['procedure', 'performed', 'priority', false, null, '1234', 'QDM::ProcedurePerformed', false],
+  ['procedure', 'performed', 'incisionDatetime', false, '20170503000000', null, 'QDM::ProcedurePerformed', false],
+  ['procedure', 'performed', 'components', false, null, '1234', 'QDM::ProcedurePerformed', false],
+  ['procedure', 'performed', 'performer', false, '20170503000000', null, 'QDM::ProcedurePerformed', false],
+
+  ['procedure', 'recommended', 'negationRationale', false, null, '1234', 'QDM::ProcedureRecommended', true],
+  ['procedure', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::ProcedureRecommended', false],
+  ['procedure', 'recommended', 'reason', false, null, '1234', 'QDM::ProcedureRecommended', false],
+  ['procedure', 'recommended', 'anatomicalLocationSite', false, null, '1234', 'QDM::ProcedureRecommended', false],
+  # ['procedure', 'recommended', 'rank', false, '20170503000000', null, 'QDM::ProcedureRecommended', false],
+  ['procedure', 'recommended', 'requester', false, '20170503000000', null, 'QDM::ProcedureRecommended', false],
+
+  ['provider_care_experience', null, 'authorDatetime', false, '20170503000000', null, 'QDM::ProviderCareExperience', false],
+  ['provider_care_experience', null, 'recorder', false, '20170503000000', null, 'QDM::ProviderCareExperience', false],
+
+  # ['related_person', null, 'identifier', false, '20170503000000', null, 'QDM::RelatedPerson', false],
+  # ['related_person', null, 'linkedPatientId', false, '20170503000000', null, 'QDM::RelatedPerson', false],
+
+  ['substance', 'administered', 'negationRationale', false, null, '1234', 'QDM::SubstanceAdministered', true],
+  ['substance', 'administered', 'authorDatetime', false, '20170503000000', null, 'QDM::SubstanceAdministered', false],
+  ['substance', 'administered', 'relevantDatetime', false, '20170503000000', null, 'QDM::SubstanceAdministered', false],
+  ['substance', 'administered', 'relevantPeriod', false, '20170503000000', null, 'QDM::SubstanceAdministered', false],
+  ['substance', 'administered', 'dosage', false, '20170503000000', null, 'QDM::SubstanceAdministered', false],
+  # ['substance', 'administered', 'frequency', false, '1234', null, 'QDM::SubstanceAdministered', false], # roundtrip does not work with code specified in patient generator
+  ['substance', 'administered', 'route', false, null, '1234', 'QDM::SubstanceAdministered', false],
+  ['substance', 'administered', 'performer', false, '20170503000000', null, 'QDM::SubstanceAdministered', false],
+
+  ['substance', 'ordered', 'negationRationale', false, null, '1234', 'QDM::SubstanceOrder', true],
+  ['substance', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::SubstanceOrder', false],
+  # ['substance', 'ordered', 'relevantPeriod', false, '20170503000000', null, 'QDM::SubstanceOrder', false],
+  ['substance', 'ordered', 'reason', false, null, '1234', 'QDM::SubstanceOrder', false],
+  ['substance', 'ordered', 'dosage', false, '20170503000000', null, 'QDM::SubstanceOrder', false],
+  ['substance', 'ordered', 'supply', false, '20170503000000', null, 'QDM::SubstanceOrder', false],
+  # ['substance', 'ordered', 'frequency', false, '1234', null, 'QDM::SubstanceOrder', false],# roundtrip does not work with code specified in patient generator
+  ['substance', 'ordered', 'refills', false, '20170503000000', null, 'QDM::SubstanceOrder', false],
+  ['substance', 'ordered', 'route', false, null, '1234', 'QDM::SubstanceOrder', false],
+  # ['substance', 'ordered', 'requester', false, '20170503000000', null, 'QDM::SubstanceOrder', false], # Do not see this in QRDA
+
+  ['substance', 'recommended', 'negationRationale', false, null, '1234', 'QDM::SubstanceRecommended', true],
+  ['substance', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::SubstanceRecommended', false],
+  ['substance', 'recommended', 'reason', false, null, '1234', 'QDM::SubstanceRecommended', false],
+  ['substance', 'recommended', 'dosage', false, '20170503000000', null, 'QDM::SubstanceRecommended', false],
+  # ['substance', 'recommended', 'frequency', false, '1234', null, 'QDM::SubstanceRecommended', false], # roundtrip does not work with code specified in patient generator
+  ['substance', 'recommended', 'refills', false, '20170503000000', null, 'QDM::SubstanceRecommended', false],
+  ['substance', 'recommended', 'route', false, null, '1234', 'QDM::SubstanceRecommended', false],
+  ['substance', 'recommended', 'requester', false, '20170503000000', null, 'QDM::SubstanceRecommended', false],
+
+  ['symptom', null, 'prevalencePeriod', false, '20170503000000', null, 'QDM::Symptom', false],
+  ['symptom', null, 'severity', false, null, '1234', 'QDM::Symptom', false],
+  ['symptom', null, 'recorder', false, '20170503000000', null, 'QDM::Symptom', false]
+]
