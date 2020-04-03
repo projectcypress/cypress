@@ -157,7 +157,7 @@ module Cypress
         end
         entry_with_reference.relatedTo = []
         references_to_add.each do |ref|
-          entry_with_reference.relatedTo << ref
+          entry_with_reference.relatedTo << ref.to_s
         end
       end
     end
