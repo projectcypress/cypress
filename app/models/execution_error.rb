@@ -27,42 +27,6 @@ class ExecutionError
     by_type(:warning).entries
   end
 
-  def self.only_cms_warnings
-    by_type(:warning).where(cms: true).entries
-  end
-
-  def self.non_cms_warnings
-    by_type(:warning).where(cms: false).entries
-  end
-
-  # only if validator is one of 'CDA SDTC Validator', 'QRDA Cat 1 R3 Validator', 'QRDA Cat 1 Validator', or 'QRDA Cat 3 Validator'
-  #   or if validator type is xml_validation
-  def self.qrda_errors
-    valid_strings = %w[CDA\ SDTC\ Validator QRDA\ Cat\ 1\ R3\ Validator QRDA\ Cat\ 1\ Validator QRDA\ Cat\ 3\ Validator]
-    only_errors.select do |execution_error|
-      true if (execution_error.has_attribute?('validator') &&
-               valid_strings.include?(execution_error[:validator])) ||
-              (execution_error.has_attribute?('validator_type') && execution_error[:validator_type] == :xml_validation)
-    end
-  end
-
-  # only if validator is one of 'Cat 1 Measure ID Validator' or 'Cat 3 Measure ID Validator'
-  #   or if validator type is result_validation
-  def self.reporting_errors
-    only_errors.select do |execution_error|
-      true if (execution_error.has_attribute?('validator') &&
-               %w[Cat\ 1\ Measure\ ID\ Validator Cat\ 3\ Measure\ ID\ Validator].include?(execution_error[:validator])) ||
-              (execution_error.has_attribute?('validator_type') && execution_error[:validator_type] == :result_validation)
-    end
-  end
-
-  # only if validator type is submission_validation
-  def self.submission_errors
-    only_errors.select do |execution_error|
-      true if execution_error.has_attribute?('validator_type') && execution_error[:validator_type] == :submission_validation
-    end
-  end
-
   def empty_location_or_c3_error?
     location.nil? || location == '/' || %w[C3Cat1Task C3Cat3Task].include?(test_execution.task._type)
   end

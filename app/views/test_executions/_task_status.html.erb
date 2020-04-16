@@ -20,7 +20,7 @@
     </div>
     <div class = 'panel-body'>
       <dl class = 'dl-horizontal'>
-      <% get_error_counts(execution, task).each do |error_name, num_errors| %>
+      <% get_error_counts(execution).each do |error_name, num_errors| %>
         <dt><%= error_name %></dt>
         <dd class = 'text-nowrap'><%= num_errors || "--" %></dd>
       <% end %>

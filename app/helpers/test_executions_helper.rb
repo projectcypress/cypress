@@ -36,23 +36,18 @@ module TestExecutionsHelper
   end
 
   # returns the number of each type of error
-  def get_error_counts(execution, task)
-    h = Hash[['QRDA Errors', 'Reporting Errors', 'Submission Errors', 'Warnings'].zip(get_error_counts_helper(execution))]
-    h.except!('Submission Errors', 'Warnings') unless task.product_test.product.c3_test
-    h
+  def get_error_counts(execution)
+    Hash[%w[Errors Warnings].zip(get_error_counts_helper(execution))]
   end
 
   def get_error_counts_helper(execution)
-    return ['--', '--', '--'] unless execution&.failing?
+    return ['--', '--'] unless execution&.failing?
 
-    qrda = execution.execution_errors.qrda_errors.count
-    reporting = execution.execution_errors.reporting_errors.count
-    submit_errors = submit_warnings = 0
-    if execution.sibling_execution
-      submit_errors = execution.sibling_execution.execution_errors.only_errors.count
-      submit_warnings = execution.sibling_execution.execution_errors.only_warnings.count
-    end
-    [qrda, reporting, submit_errors, submit_warnings]
+    errors = execution.execution_errors.only_errors.count
+    errors += execution.sibling_execution.execution_errors.only_errors.count if execution.sibling_execution
+    warnings = execution.execution_errors.only_warnings.count
+    warnings += execution.sibling_execution.execution_errors.only_warnings.count if execution.sibling_execution
+    [errors, warnings]
   end
 
   def date_of_execution(execution)
