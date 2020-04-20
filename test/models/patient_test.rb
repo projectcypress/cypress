@@ -59,4 +59,44 @@ class PatientTest < ActiveSupport::TestCase
       assert(record_birthyear_equal?(r1, r1copy_set[0]), 'The two records should always have the same birthyear')
     end
   end
+
+  def test_randomize_patient_name_or_birth_counts
+    first_count = 0
+    last_count = 0
+    birthdate_count = 0
+    100.times do
+      random = Random.new_seed
+      prng1 = Random.new(random)
+
+      r1 = Patient.new(familyName: 'Robert', givenNames: ['Johnson'])
+      r1.qdmPatient.birthDatetime = DateTime.new(1985, 2, 18).utc
+      r1.qdmPatient.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['races'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
+      r1.qdmPatient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
+      r1.qdmPatient.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'code_system' => 'AdministrativeGender' }])
+
+      clone_patient = r1.clone
+      _patient, changed = r1.randomize_patient_name_or_birth(clone_patient, {}, [], random: prng1)
+
+      first_count += 1 unless changed[:first].nil?
+      last_count += 1 unless changed[:last].nil?
+      next unless changed[:birthdate]
+
+      birthdate_count += 1
+      # Year should always remain unchanged
+      assert(changed[:birthdate][0].year, changed[:birthdate][1].year)
+      # Month should always remain unchanged
+      assert(changed[:birthdate][0].month, changed[:birthdate][1].month)
+      # Day should always be changed
+      assert_not_equal(changed[:birthdate][0].day, changed[:birthdate][1].day)
+    end
+    # at least one first name should be changed
+    assert first_count.positive?
+    # at least one last name should be changed
+    assert last_count.positive?
+    # at least one birthdate should be changed
+    assert birthdate_count.positive?
+    # fewer than 10 birthdates should be changed (there should be ~5)
+    # Padding in assert to account for randomness (count will be 13+ on ~0.15% of runs)
+    assert birthdate_count < 13
+  end
 end
