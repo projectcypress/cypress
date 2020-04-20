@@ -152,9 +152,13 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     erc = Cypress::ExpectedResultsCalculator.new(Patient.find(patient_id_file_map.values), correlation_id, product_test.effective_date)
     results = erc.aggregate_results_for_measures(product_test.measures)
 
-    # from the results, generate a Cat 3 file
-    cms_compatibility = product_test&.product&.c3_test
-    options = { provider: product_test.patients.first.providers.first, submission_program: cms_compatibility,
+    # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
+    cat3_submission_program = if product_test&.product&.c3_test
+                                product_test&.measures&.first&.reporting_program_type == 'ep' ? 'MIPS_INDIV' : false
+                              else
+                                false
+                              end
+    options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
                 start_time: product_test.start_date, end_time: product_test.end_date }
     cat_3_xml = Qrda3R21.new(results, product_test.measures, options).render
 
