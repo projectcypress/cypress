@@ -478,8 +478,13 @@ module Cypress
       erc = Cypress::ExpectedResultsCalculator.new(Patient.find(patient_ids), correlation_id, pt.effective_date)
       results = erc.aggregate_results_for_measures(pt.measures)
 
-      cms_compatibility = pt&.product&.c3_test
-      options = { provider: pt.patients.first.providers.first, submission_program: cms_compatibility,
+      # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
+      cat3_submission_program = if pt&.product&.c3_test
+                                  pt&.measures&.first&.reporting_program_type == 'ep' ? 'MIPS_INDIV' : false
+                                else
+                                  false
+                                end
+      options = { provider: pt.patients.first.providers.first, submission_program: cat3_submission_program,
                   start_time: pt.start_date, end_time: pt.end_date }
       xml = Qrda3R21.new(results, pt.measures, options).render
 
