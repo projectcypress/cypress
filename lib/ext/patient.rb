@@ -70,14 +70,14 @@ module CQM
     end
 
     def randomize_patient_name_or_birth(patient, changed, augmented_patients, random: Random.new)
-      case random.rand(3) # random chooses which part of the patient is modified
-      when 0 # first name
+      case random.rand(21) # random chooses which part of the patient is modified. Limit birthdate to ~1/20
+      when 0..9 # first name
         patient = Cypress::NameRandomizer.randomize_patient_name_first(patient, augmented_patients, random: random)
         changed[:first] = [first_names, patient.first_names]
-      when 1 # last name
+      when 10..19 # last name
         patient = Cypress::NameRandomizer.randomize_patient_name_last(patient, augmented_patients, random: random)
         changed[:last] = [familyName, patient.familyName]
-      when 2 # birthdate
+      when 20 # birthdate
         Cypress::DemographicsRandomizer.randomize_birthdate(patient.qdmPatient, random: random)
         changed[:birthdate] = [qdmPatient.birthDatetime, patient.qdmPatient.birthDatetime]
       end
