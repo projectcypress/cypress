@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :bundle, class: Bundle do
     sequence(:name) { |i| "Bundle Name #{i}" }
-    sequence(:version) { |i| "#{2017 + i}.0.0" }
+    sequence(:version) { |i| "#{2050 + i}.0.0" }
     sequence(:title) { |i| "Bundle Name #{i}" }
 
     # static_bundle includes random measures that will not execute in the cqm-execution-service
@@ -11,7 +11,7 @@ FactoryBot.define do
       done_importing { true }
       name { 'Static Bundle' }
       title { 'Static Bundle' }
-      version { '2018.0.0.2' }
+      version { '2019.0.0' }
       extensions { %w[map_reduce_utils hqmf_utils] }
       measure_period_start { 1_483_228_800 } # Jan 1 2017
       effective_date { 1_514_764_799 } # Dec 31 2017
