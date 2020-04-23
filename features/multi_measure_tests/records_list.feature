@@ -37,4 +37,4 @@ Scenario: Admin should be able to filter patient data
   Then the user should see text Value Set Name 8
   Then the user should see text Value Set Name 5
   Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
+  Then the page should be accessible according to: wcag2aaa
