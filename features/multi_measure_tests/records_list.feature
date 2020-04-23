@@ -20,7 +20,7 @@ Scenario: Admin should be able to view list of measures
   And the user views the task records
   Then the user should see the list of measures
   Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
+  Then the page should be accessible according to: wcag2aaa
 
 Scenario: Admin should be able to filter patient data
   When the user creates a cvu plus product with records
@@ -36,5 +36,3 @@ Scenario: Admin should be able to filter patient data
   When the user filters on All Measures
   Then the user should see text Value Set Name 8
   Then the user should see text Value Set Name 5
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aaa
