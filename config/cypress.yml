@@ -199,6 +199,12 @@ CPC_measures:
 '40280382-6258-7581-0162-92877E281530', '40280382-6258-7581-0162-92CDAF46165E', '40280382-610B-E7A4-0161-9A6155603811',
 '40280382-6258-7581-0162-92106B67138D']
 
+# These eCQMs store a list of "Results" within the statement_results of an Individual Result
+result_measures:
+  # CMS529
+  - hqmf_set_id : 'FA75DE85-A934-45D7-A2F7-C700A756078B'
+    statement_name : 'Results'
+
 unit_matches:
   # relevant for CMS9v8+ GestationalAge.result >= 37 weeks, drc "Gestational age--at birth" 
   - hqmf_set_id : '7D374C6A-3821-4333-A1BC-4531005D77B8'

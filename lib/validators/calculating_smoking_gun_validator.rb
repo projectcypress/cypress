@@ -6,39 +6,6 @@ module Validators
       super
     end
 
-    def compare_results(original, calculated, options, previously_passed)
-      if original.nil? && calculated.nil?
-        true && previously_passed
-      else
-        comp = true
-        %w[IPP DENOM NUMER DENEX DENEXCEP MSRPOPL MSRPOPLEXCEP values].each do |pop|
-          original_value, calculated_value, pop = extract_calcuated_and_original_results(original, calculated, pop)
-          next unless original_value != calculated_value
-
-          pop_statment = options[:population_set].populations[pop].hqmf_id
-          pop_statment << " Stratification #{options[:stratification_id]}" if options[:stratification_id]
-          add_error("Calculated value (#{calculated_value}) for #{pop} (#{pop_statment}) does not match expected value (#{original_value})",
-                    file_name: options[:file_name])
-          comp = false
-        end
-        previously_passed && comp
-      end
-    end
-
-    def extract_calcuated_and_original_results(original, calculated, pop)
-      # set original value to 0 if it wasn't calculated
-      original_value = original.nil? || original[pop].nil? ? 0.0 : original[pop]
-      # set calculated value to 0 if there is no calculation for the measure or population
-      calculated_value = calculated.nil? || calculated[pop].nil? ? 0.0 : calculated[pop]
-      if pop == 'values'
-        pop = 'OBSERV'
-        # the orginal and calculated values should be an array make empty if it doesn't exist
-        original_value = [] if original.nil? || !original.is_a?(Array)
-        calculated_value = [] if calculated.nil? || !calculated.is_a?(Array)
-      end
-      [original_value, calculated_value, pop]
-    end
-
     def parse_record(doc, options)
       patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
 
@@ -92,7 +59,10 @@ module Validators
               arr.population_set_key == original_result['population_set_key']
           end.first
           options[:population_set], options[:stratification_id] = measure.population_set_for_key(original_result['population_set_key'])
-          passed = compare_results(original_result, new_result, options, passed)
+          passed, issues = original_result.compare_results(new_result, options, passed)
+          issues.each do |issue|
+            add_error(issue, file_name: options[:file_name])
+          end
         end
       end
       passed
