@@ -20,15 +20,16 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
     @options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }
   end
 
-  def setup_sdc(data_type, attribute_name, negated_valueset, recorded_result, attribute_code)
+  def setup_sdc(data_type, attribute_name, negated_valueset)
     data_type.codeListId = '1.3.4.5'
     atts = data_type.attributes.slice('qdmCategory', 'qdmStatus', '_type', 'hqmfOid', 'codeListId')
     atts['dataElementAttributes'] = [{ 'attribute_name' => attribute_name }]
+    isCode = data_type[attribute_name].respond_to? :code
     @checklist_test.checked_criteria.destroy_all
     @checklist_test.checked_criteria.new(attribute_index: 0,
-                                         code: '1234',
-                                         recorded_result: recorded_result,
-                                         attribute_code: attribute_code,
+                                         code: data_type.dataElementCodes.first[:code],#'1234',
+                                         recorded_result: isCode ? nil : data_type[attribute_name],
+                                         attribute_code: isCode ? data_type[attribute_name].code : nil,
                                          negated_valueset: negated_valueset,
                                          measure_id: @measure._id,
                                          passed_qrda: nil,
@@ -42,7 +43,7 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
 
     TEST_ATTRIBUTES.each do |ta|
       dt = QDM::PatientGeneration.generate_loaded_datatype(ta[6], ta[7])
-      setup_sdc(dt.clone, ta[2], ta[3], ta[4], ta[5])
+      setup_sdc(dt.clone, ta[2], ta[3])
       test_specific_qdm_patient = qdm_patient_for_attribute(dt, ta, @qdm_patient)
 
       @cqm_patient.qdmPatient = test_specific_qdm_patient
@@ -77,7 +78,7 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
     # bad deletes attribute, then confirms that we don't import it
     TEST_ATTRIBUTES.each do |ta|
       restricted_dt = QDM::PatientGeneration.generate_loaded_datatype(ta[6])
-      setup_sdc(restricted_dt, ta[2], ta[3], ta[4], ta[5])
+      setup_sdc(restricted_dt, ta[2], ta[3])
 
       restricted_dt.prescriberId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if restricted_dt.respond_to?(:prescriberId)
       restricted_dt.dispenserId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if restricted_dt.respond_to?(:dispenserId)
