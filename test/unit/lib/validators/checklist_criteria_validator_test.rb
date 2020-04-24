@@ -24,12 +24,12 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
     data_type.codeListId = '1.3.4.5'
     atts = data_type.attributes.slice('qdmCategory', 'qdmStatus', '_type', 'hqmfOid', 'codeListId')
     atts['dataElementAttributes'] = [{ 'attribute_name' => attribute_name }]
-    isCode = data_type[attribute_name].respond_to? :code
+    is_code = data_type[attribute_name].respond_to? :code
     @checklist_test.checked_criteria.destroy_all
     @checklist_test.checked_criteria.new(attribute_index: 0,
-                                         code: data_type.dataElementCodes.first[:code],#'1234',
-                                         recorded_result: isCode ? nil : data_type[attribute_name],
-                                         attribute_code: isCode ? data_type[attribute_name].code : nil,
+                                         code: data_type.dataElementCodes.first[:code], # '1234',
+                                         recorded_result: is_code ? nil : data_type[attribute_name],
+                                         attribute_code: is_code ? data_type[attribute_name].code : nil,
                                          negated_valueset: negated_valueset,
                                          measure_id: @measure._id,
                                          passed_qrda: nil,
