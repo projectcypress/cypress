@@ -120,7 +120,8 @@ module Cypress
 
     def self.randomize_birthdate(patient, random: Random.new)
       birth_datetime = patient.birthDatetime
-      patient.birthDatetime = patient.birthDatetime.change(day: random.rand(28) + 1) while birth_datetime == patient.birthDatetime
+      days_in_month = Time.days_in_month(patient.birthDatetime.month, patient.birthDatetime.year)
+      patient.birthDatetime = patient.birthDatetime.change(day: random.rand(days_in_month) + 1) while birth_datetime == patient.birthDatetime
       if patient.dataElements.where(_type: QDM::PatientCharacteristicBirthdate).first
         patient.dataElements.where(_type: QDM::PatientCharacteristicBirthdate).first.birthDatetime = patient.birthDatetime
       end
