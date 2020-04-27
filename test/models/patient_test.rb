@@ -96,7 +96,7 @@ class PatientTest < ActiveSupport::TestCase
     # at least one birthdate should be changed
     assert birthdate_count.positive?
     # fewer than 10 birthdates should be changed (there should be ~5)
-    # Padding in assert to account for randomness
+    # Padding in assert to account for randomness (count will be 13+ on ~0.15% of runs)
     assert birthdate_count < 13
   end
 end
