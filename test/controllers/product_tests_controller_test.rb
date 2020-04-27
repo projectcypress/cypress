@@ -72,6 +72,52 @@ class ProductTestsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'should get show filter with json request' do
+    Vendor.destroy_all
+    filter_test = FactoryBot.create(:static_filter_test)
+    filter_test.options['filters'] = { 'genders' => ['F'],
+                                       'payers' => [2],
+                                       'ethnicities' => ['2186-5'],
+                                       'races' => ['1002-5'],
+                                       'age' => { 'max' => 78 } }
+    filter_test.state = 'ready'
+    filter_test.save
+    for_each_logged_in_user([ADMIN]) do
+      @controller = ProductTestsController.new
+      get :show, params: { format: :json, product_id: filter_test.product.id, id: filter_test.id }
+      filter_test_parameters = JSON.parse(response.body)
+      assert_equal filter_test_parameters.filters.keys.sort, %w[age ethnicity gender payer race]
+    end
+  end
+
+  test 'should get show problems filter with json request' do
+    Vendor.destroy_all
+    filter_test = FactoryBot.create(:static_filter_test)
+    filter_test.options['filters'] = { 'problems' => { 'oid' => ['2.16.840.1.113762.1.4.1110.21'] } }
+    filter_test.state = 'ready'
+    filter_test.save
+    for_each_logged_in_user([ADMIN]) do
+      @controller = ProductTestsController.new
+      get :show, params: { format: :json, product_id: filter_test.product.id, id: filter_test.id }
+      filter_test_parameters = JSON.parse(response.body)
+      assert_equal filter_test_parameters.filters.keys.sort, %w[problem]
+    end
+  end
+
+  test 'should get show provider filter with json request' do
+    Vendor.destroy_all
+    filter_test = FactoryBot.create(:static_filter_test)
+    filter_test.options['filters'] = { 'providers' => { 'npis' => ['1914908714'], 'tins' => ['897074685'] } }
+    filter_test.state = 'ready'
+    filter_test.save
+    for_each_logged_in_user([ADMIN]) do
+      @controller = ProductTestsController.new
+      get :show, params: { format: :json, product_id: filter_test.product.id, id: filter_test.id }
+      filter_test_parameters = JSON.parse(response.body)
+      assert_equal filter_test_parameters.filters.keys.sort, %w[provider]
+    end
+  end
+
   # xml
 
   test 'should get index with xml request' do
