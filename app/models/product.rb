@@ -228,7 +228,7 @@ class Product
     filter_tests.concat [build_filtering_test(measure, criteria[0, 2]), build_filtering_test(measure, criteria[2, 2])]
     filter_tests << build_filtering_test(measure, ['providers'], 'NPI, TIN & Provider Location')
     filter_tests << build_filtering_test(measure, ['providers'], 'NPI & TIN', false)
-    criteria = ApplicationController.helpers.measure_has_diagnosis_criteria?(measure) ? ['problems'] : criteria.values_at(4, (0..3).to_a.sample)
+    criteria = ApplicationController.helpers.measure_has_snomed_dx_criteria?(measure) ? ['problems'] : criteria.values_at(4, (0..3).to_a.sample)
     filter_tests << build_filtering_test(measure, criteria)
     ApplicationController.helpers.generate_filter_patients(filter_tests)
   end
