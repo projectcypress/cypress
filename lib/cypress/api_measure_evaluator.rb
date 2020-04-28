@@ -13,7 +13,6 @@ module Cypress
       @filter_patient_link = nil
       @hqmf_path = @options[:hqmf_path]
       @cypress_host = @options[:cypress_host] || 'http://localhost:3000'
-      @use_js_ecqm = (@options[:use_js_ecqm] || false).eql? 'true'
       @username = username
       @password = password
     end
@@ -473,9 +472,10 @@ module Cypress
       correlation_id = "#{product_test_id}_u"
 
       import_cat1_zip(File.new("tmp/#{product_test_id}.zip"), patient_ids, bundle_id)
-      do_calculation(pt, patient_ids, correlation_id)
+      patients = Patient.find(patient_ids)
+      do_calculation(pt, patients, correlation_id)
 
-      erc = Cypress::ExpectedResultsCalculator.new(Patient.find(patient_ids), correlation_id, pt.effective_date)
+      erc = Cypress::ExpectedResultsCalculator.new(patients, correlation_id, pt.effective_date)
       results = erc.aggregate_results_for_measures(pt.measures)
 
       # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
@@ -493,24 +493,7 @@ module Cypress
       File.write("tmp/#{product_test_id}.xml", xml)
     end
 
-    def do_calculation(product_test, patient_ids, correlation_id)
-      if @use_js_ecqm
-        do_calculation_js_ecqm(product_test, patient_ids, correlation_id)
-      else
-        do_calculation_cqm_execution(product_test, Patient.find(patient_ids), correlation_id)
-      end
-    end
-
-    # Once we are fully comfortable with cqm_execution_service this whole
-    # codepath can be removed
-    def do_calculation_js_ecqm(product_test, patient_ids, correlation_id)
-      calc_job = Cypress::JsEcqmCalc.new(correlation_id: correlation_id,
-                                         effective_date: Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number))
-      calc_job.sync_job(patient_ids.map(&:to_s), product_test.measures.map { |mes| mes._id.to_s })
-      calc_job.stop
-    end
-
-    def do_calculation_cqm_execution(product_test, patients, correlation_id)
+    def do_calculation(product_test, patients, correlation_id)
       measures = product_test.measures
       calc_job = Cypress::CqmExecutionCalc.new(patients.map(&:qdmPatient), measures, correlation_id,
                                                effectiveDateEnd: Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
