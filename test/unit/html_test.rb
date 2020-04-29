@@ -41,7 +41,7 @@ class HTMLTest < ActiveSupport::TestCase
             assert html.include?(attr_elem.code), "html should include code value #{attr_elem.code}"
           end
         end
-      elsif dt[ta[2]].is_a?(Integer) || dt[ta[2]].is_a?(String)
+      elsif dt[ta[2]].is_a?(Integer) || dt[ta[2]].is_a?(String) || dt[ta[2]].is_a?(Float)
         assert html.include?(dt[ta[2]].to_s), "html should include text value #{dt[ta[2]]}"
 
       elsif dt[ta[2]].key?(:low)
