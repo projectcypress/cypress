@@ -18,9 +18,9 @@ module CQM
           original_value, calculated_value, pop = extract_calcuated_and_original_results(calculated, pop)
           next unless original_value != calculated_value
 
-          pop_statment = options[:population_set].populations[pop].hqmf_id
-          pop_statment << " Stratification #{options[:stratification_id]}" if options[:stratification_id]
-          issues << "Calculated value (#{calculated_value}) for #{pop} (#{pop_statment}) does not match expected value (#{original_value})"
+          pop_statement = options[:population_set].populations[pop].hqmf_id
+          pop_statement << " Stratification #{options[:stratification_id]}" if options[:stratification_id]
+          issues << "Calculated value (#{calculated_value}) for #{pop} (#{pop_statement}) does not match expected value (#{original_value})"
           comp = false
         end
         APP_CONSTANTS['result_measures'].each do |result_measure|
