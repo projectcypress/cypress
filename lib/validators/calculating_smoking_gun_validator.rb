@@ -98,20 +98,6 @@ module Validators
       passed
     end
 
-    def cached_value(vs)
-      @loaded_valuesets ||= {}
-      return @loaded_valuesets[vs.oid] if @loaded_valuesets[vs.oid]
-
-      js = {}
-      vs.concepts.each do |con|
-        name = con.code_system_name
-        js[name] ||= []
-        js[name] << con.code.downcase unless js[name].index(con.code.downcase)
-      end
-      @loaded_valuesets[vs.oid] = js
-      js
-    end
-
     def validate(doc, options)
       @can_continue = true
       valid = validate_calculated_results(doc, options)
