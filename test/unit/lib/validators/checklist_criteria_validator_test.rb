@@ -17,14 +17,14 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
     @qdm_patient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [QDM::Code.new('2186-5', '2.16.840.1.113883.6.238', 'Not Hispanic or Latino', 'Race & Ethnicity - CDC')])
     @qdm_patient.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [QDM::Code.new('M', '2.16.840.1.113883.12.1', 'Male', 'Administrative sex (HL7)')])
     address = CQM::Address.new(
-      use: 'B',
+      use: 'HP',
       street: ['123 Main Lane'],
       city: 'Portland',
       state: 'Maine',
       zip: '99999',
       country: 'ZZ'
     )
-    telecom = CQM::Telecom(
+    telecom = CQM::Telecom.new(
       use: 'HP',
       value: '555-555-5555'
     )
