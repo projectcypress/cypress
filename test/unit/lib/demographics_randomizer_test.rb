@@ -14,13 +14,17 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     @ethnicity = QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => @original_ethnicity_code, 'codeSystem' => 'NA' }])
     @gender = QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => @original_gender_code, 'codeSystem' => 'NA' }])
     @payer = QDM::PatientCharacteristicPayer.new(dataElementCodes: [{ 'code' => @original_payer_code, 'codeSystem' => 'NA' }], relevantPeriod: QDM::Interval.new(@start, nil))
-    @address = CQM::Address.new(
-      use: 'H',
-      street: ['123 Tregslofsterlang Lane'],
-      city: 'Rthysdambibob',
-      state: 'AA',
+    @patient_address = CQM::Address.new(
+      use: 'B',
+      street: ['123 Main Lane'],
+      city: 'Portland',
+      state: 'Maine',
       zip: '99999',
       country: 'ZZ'
+    )
+    @patient_telecom = CQM::Telecom.new(
+      use: 'HP',
+      value: 'tel:+1(555)555-2003'
     )
     setup_secondary_instances
   end
@@ -29,7 +33,8 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     @record = Patient.new(
       givenNames: @given_names,
       familyName: @family_name,
-      addresses: [@address]
+      addresses: [@patient_address],
+      telecoms: [@patient_telecom]
     )
     QDM::Patient.create!(cqmPatient: @record, dataElements: [@race, @gender, @ethnicity, @payer], birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     @record.bundleId = @bundle.id
@@ -42,7 +47,8 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     assert_not_equal @family_name, @record.familyName
     assert_equal @original_race_code, @record.qdmPatient.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code']
     assert_equal @original_ethnicity_code, @record.qdmPatient.get_data_elements('patient_characteristic', 'ethnicity').first.dataElementCodes.first['code']
-    assert_equal [@address], @record.addresses
+    assert_equal [@patient_address], @record.addresses
+    assert_equal [@patient_telecom], @record.telecoms
     assert_equal @original_payer_code, @record.qdmPatient.get_data_elements('patient_characteristic', 'payer').first.dataElementCodes.first['code']
   end
 
@@ -81,7 +87,8 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     assert_equal @given_names, @record.givenNames
     assert_equal @family_name, @record.familyName
     assert_equal @original_ethnicity_code, @record.qdmPatient.get_data_elements('patient_characteristic', 'ethnicity').first.dataElementCodes.first['code']
-    assert_equal [@address], @record.addresses
+    assert_equal [@patient_address], @record.addresses
+    assert_equal [@patient_telecom], @record.telecoms
     assert_equal @original_payer_code, @record.qdmPatient.get_data_elements('patient_characteristic', 'payer').first.dataElementCodes.first['code']
   end
 
@@ -91,20 +98,23 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     assert_equal @given_names, @record.givenNames
     assert_equal @family_name, @record.familyName
     assert_equal @original_race_code, @record.qdmPatient.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code']
-    assert_equal [@address], @record.addresses
+    assert_equal [@patient_address], @record.addresses
+    assert_equal [@patient_telecom], @record.telecoms
     assert_equal @original_payer_code, @record.qdmPatient.get_data_elements('patient_characteristic', 'payer').first.dataElementCodes.first['code']
   end
 
   def test_randomize_address
     Cypress::DemographicsRandomizer.randomize_address(@record)
     addr = @record.addresses[0]
-    assert_not_equal @address, addr
-    assert_not_equal @address.use, addr.use
-    assert_not_equal @address.street, addr.street
-    assert_not_equal @address.city, addr.city
-    assert_not_equal @address.state, addr.state
-    assert_not_equal @address.zip, addr.zip
-    assert_not_equal @address.country, addr.country
+    assert_not_equal @patient_address, addr
+    assert_not_equal @patient_address.use, addr.use
+    assert_not_equal @patient_address.street, addr.street
+    assert_not_equal @patient_address.city, addr.city
+    assert_not_equal @patient_address.state, addr.state
+    assert_not_equal @patient_address.zip, addr.zip
+    assert_not_equal @patient_address.country, addr.country
+    assert_not_equal @patient_telecom.value, @record.telecoms[0].value
+
     assert_equal @given_names, @record.givenNames
     assert_equal @family_name, @record.familyName
     assert_equal @original_race_code, @record.qdmPatient.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code']
@@ -127,7 +137,8 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     assert_equal @given_names, @record.givenNames
     assert_equal @family_name, @record.familyName
     assert_equal @original_race_code, @record.qdmPatient.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code']
-    assert_equal [@address], @record.addresses
+    assert_equal [@patient_address], @record.addresses
+    assert_equal [@patient_telecom], @record.telecoms
   end
 
   def test_randomize_all
@@ -136,7 +147,8 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     assert_not_equal @family_name, @record.familyName
     assert_not_equal @original_race_code, @record.qdmPatient.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code']
     assert_not_equal @original_ethnicity_code, @record.qdmPatient.get_data_elements('patient_characteristic', 'ethnicity').first.dataElementCodes.first['code']
-    assert_not_equal [@address], @record.addresses
+    assert_not_equal [@patient_address], @record.addresses
+    assert_not_equal [@patient_telecom], @record.telecoms
     assert_not_equal [@original_payer_code], @record.qdmPatient.get_data_elements('patient_characteristic', 'payer').first.dataElementCodes.first['code']
   end
 end
