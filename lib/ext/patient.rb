@@ -7,12 +7,28 @@ module CQM
     field :original_medical_record_number, type: String
     field :medical_record_number, type: String
     field :measure_relevance_hash, type: Hash, default: {}
-    embeds_many :addresses
+    embeds_many :addresses # patient addresses
+    embeds_many :telecoms
 
     # This allows us to instantiate Patients that do not belong to specific type of patient
     # for the purposes of testing but blocks us from saving them to the database to ensure
     # every patient actually in the database is of a valid type.
     validates :_type, inclusion: %w[CQM::BundlePatient CQM::VendorPatient CQM::ProductTestPatient CQM::TestExecutionPatient]
+
+    after_initialize do
+      self[:addresses] ||= [CQM::Address.new(
+        use: 'HP',
+        street: ['202 Burlington Rd.'],
+        city: 'Bedford',
+        state: 'MA',
+        zip: '01730',
+        country: 'US'
+      )]
+      self[:telecoms] ||= [CQM::Telecom.new(
+        use: 'HP',
+        value: '555-555-2003 x1234'
+      )]
+    end
 
     def destroy
       calculation_results.destroy
