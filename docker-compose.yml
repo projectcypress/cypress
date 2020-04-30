@@ -17,7 +17,7 @@ services:
     networks:
       - cypress-net
   mongodb:
-    image: mongo:3.4.5
+    image: mongo:4.0.18
     volumes:
       - /data/db
       - ./mongo:/etc/mongo

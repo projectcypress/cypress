@@ -34,7 +34,7 @@ before_script:
   - cp ./.travis/mongoid.yml ./config/mongoid.yml
 env:
   global:
-    - MONGODB=3.4.5
+    - MONGODB=4.0.18
   matrix:
   - TEST_SUITE=audit
   - TEST_SUITE=cucumber-first
