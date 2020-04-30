@@ -16,8 +16,20 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
     @qdm_patient.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [QDM::Code.new('2106-3', '2.16.840.1.113883.6.238', 'White', 'Race & Ethnicity - CDC')])
     @qdm_patient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [QDM::Code.new('2186-5', '2.16.840.1.113883.6.238', 'Not Hispanic or Latino', 'Race & Ethnicity - CDC')])
     @qdm_patient.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [QDM::Code.new('M', '2.16.840.1.113883.12.1', 'Male', 'Administrative sex (HL7)')])
-    @cqm_patient = CQM::Patient.new(givenNames: %w['First Middle'], familyName: 'Family', bundleId: '1')
-    @options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }
+    address = CQM::Address.new(
+      use: 'B',
+      street: ['123 Main Lane'],
+      city: 'Portland',
+      state: 'Maine',
+      zip: '99999',
+      country: 'ZZ'
+    )
+    telecom = CQM::Telecom(
+      use: 'HP',
+      value: '555-555-5555'
+    )
+    @cqm_patient = CQM::Patient.new(givenNames: %w['First Middle'], familyName: 'Family', bundleId: '1', addresses: [address], telecoms: [telecom])
+    @options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31), patient_addresses: [address], patient_telecoms: [telecom] }
   end
 
   def setup_sdc(data_type, attribute_name, negated_valueset, recorded_result, attribute_code)

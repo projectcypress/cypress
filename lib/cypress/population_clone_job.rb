@@ -75,6 +75,7 @@ module Cypress
       # This operates on the assumption that we are always cloning a patient for a product test.
       # If we need to clone a patient for any other reason then we will need to paramaterize
       # the type coming into this class.
+      # TODO: create default patient address?
       cloned_patient = ProductTestPatient.new(patient.attributes.except(:_id, :_type, :providers))
       cloned_patient.attributes = {
         original_medical_record_number: patient.medical_record_number,

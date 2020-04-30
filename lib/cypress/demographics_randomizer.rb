@@ -81,6 +81,13 @@ module Cypress
     end
 
     def self.randomize_address(patient)
+      patient.addresses = create_address
+      # creates a random address for provider
+      patient.providers = [CQM::Provider.generate_provider] #could maybe use 'ep'/'eh' measure option?
+      patient.telecoms = create_telecom
+    end
+
+    def self.create_address
       address = {}
       address['use'] = 'HP'
       address['street'] = ["#{Faker::Address.street_address} #{Faker::Address.street_suffix}"]
@@ -88,7 +95,14 @@ module Cypress
       address['state'] = Faker::Address.state_abbr
       address['zip'] = Faker::Address.zip(address['state'])
       address['country'] = 'US'
-      patient.addresses = [address]
+      [address]
+    end
+
+    def self.create_telecom
+      telecom = {}
+      telecom['use'] = 'HP'
+      telecom['value'] = Faker::PhoneNumber.phone_number
+      [telecom]
     end
 
     def self.randomize_payer(patient, prng)
