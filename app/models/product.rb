@@ -119,6 +119,7 @@ class Product
     update(params)
     add_multi_measure_tests(new_eh_ids, new_eh_ids != old_eh_ids, new_ep_ids, new_ep_ids != old_ep_ids)
     add_cms_program_tests(new_eh_ids, new_eh_ids != old_eh_ids, new_ep_ids, new_ep_ids != old_ep_ids)
+    add_hl7_tests(new_ids)
   end
 
   def add_measure_tests(params)
@@ -202,6 +203,17 @@ class Product
                               reporting_program_type: 'ep' }, CMSProgramTest)
       end
     end
+  end
+
+  def add_hl7_tests(measure_ids)
+    # Only create the hl7 tests if they don't already exist
+    return unless product_tests.cms_program_tests.where(cms_program: 'HL7_Cat_I').empty?
+
+    # The 'reporting_program_type' is used to restrict the upload type.  Use EH for Cat I, and EP for Cat III
+    product_tests.build({ name: 'HL7 Cat I Test', cms_program: 'HL7_Cat_I', measure_ids: measure_ids,
+                          reporting_program_type: 'eh' }, CMSProgramTest)
+    product_tests.build({ name: 'HL7 Cat III Test', cms_program: 'HL7_Cat_III', measure_ids: measure_ids,
+                          reporting_program_type: 'ep' }, CMSProgramTest)
   end
 
   def add_filtering_tests
