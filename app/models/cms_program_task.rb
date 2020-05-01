@@ -10,6 +10,9 @@ class CMSProgramTask < Task
                    MeasurePeriodValidator.new]
     # Each program may have program specific validations add them
     @validators.concat program_specific_validators
+    # If the CMSProgramTask is for HL7 validation, only include QRDA validation
+    @validators = hl7_validators if %w[HL7_Cat_I HL7_Cat_III].include? product_test.cms_program
+    @validators
   end
 
   # Each cms program may have program specific validations
@@ -24,6 +27,15 @@ class CMSProgramTask < Task
     return mips_virtual_group_validators if product_test.cms_program == 'MIPS_VIRTUALGROUP'
 
     []
+  end
+
+  def hl7_validators
+    if product_test.reporting_program_type == 'eh'
+      # ProgramCriteriaValidator is how the measure calculation is being called. Add it as well to Cat I files
+      [::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.c3_test, true), ProgramCriteriaValidator.new(product_test)]
+    else
+      [::Validators::QrdaCat3Validator.new(nil, false, true, false, product_test.bundle)]
+    end
   end
 
   def hqr_pi_validators
