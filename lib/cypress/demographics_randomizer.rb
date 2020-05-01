@@ -83,7 +83,7 @@ module Cypress
     def self.randomize_address(patient)
       patient.addresses = create_address
       # creates a random address for provider
-      patient.providers = [CQM::Provider.generate_provider] # could maybe use 'ep'/'eh' measure option?
+      # patient.providers = [CQM::Provider.generate_provider] # could maybe use 'ep'/'eh' measure option?
       patient.telecoms = create_telecom
     end
 
