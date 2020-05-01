@@ -119,7 +119,7 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     assert_not_equal @patient_address.state, addr.state
     assert_not_equal @patient_address.zip, addr.zip
     assert_not_equal @patient_address.country, addr.country
-    
+
     assert_not_equal @patient_telecom.value, @record.telecoms[0].value
 
     # country and use should always be the same for generated addresses
