@@ -23,8 +23,8 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
       country: 'ZZ'
     )
     @patient_telecom = CQM::Telecom.new(
-    	use: 'HP',
-    	value: 'tel:+1(555)555-2003'
+      use: 'HP',
+      value: 'tel:+1(555)555-2003'
     )
     setup_secondary_instances
   end

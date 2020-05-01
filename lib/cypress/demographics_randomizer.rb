@@ -83,25 +83,28 @@ module Cypress
     def self.randomize_address(patient)
       patient.addresses = create_address
       # creates a random address for provider
-      patient.providers = [CQM::Provider.generate_provider] #could maybe use 'ep'/'eh' measure option?
+      patient.providers = [CQM::Provider.generate_provider] # could maybe use 'ep'/'eh' measure option?
       patient.telecoms = create_telecom
     end
 
     def self.create_address
-      address = {}
-      address['use'] = 'HP'
-      address['street'] = ["#{Faker::Address.street_address} #{Faker::Address.street_suffix}"]
-      address['city'] = Faker::Address.city
-      address['state'] = Faker::Address.state_abbr
-      address['zip'] = Faker::Address.zip(address['state'])
-      address['country'] = 'US'
+      state = Faker::Address.state_abbr
+      address = CQM::Address.new(
+        use: 'HP',
+        street: ["#{Faker::Address.street_address} #{Faker::Address.street_suffix}"],
+        city: Faker::Address.city,
+        state: state,
+        zip: Faker::Address.zip(state),
+        country: 'US'
+      )
       [address]
     end
 
     def self.create_telecom
-      telecom = {}
-      telecom['use'] = 'HP'
-      telecom['value'] = Faker::PhoneNumber.phone_number
+      telecom = CQM::Telecom.new(
+        use: 'HP',
+        value: Faker::PhoneNumber.phone_number
+      )
       [telecom]
     end
 
@@ -168,6 +171,24 @@ module Cypress
                                                         relevantPeriod: QDM::Interval.new(patient.qdmPatient.birthDatetime, nil))
       end
       patient.qdmPatient.dataElements.concat(elements)
+      assign_default_contacts(patient)
+    end
+
+    def self.assign_default_contacts(patient)
+      address = CQM::Address.new(
+        use: 'HP',
+        street: ['202 Burlington Rd.'],
+        city: 'Bedford',
+        state: 'MA',
+        zip: '01730',
+        country: 'US'
+      )
+      patient.addresses = [address]
+      telecom = CQM::Telecom.new(
+        use: 'HP',
+        value: '555-555-2003 x1234'
+      )
+      patient.telecoms = [telecom]
     end
   end
 end
