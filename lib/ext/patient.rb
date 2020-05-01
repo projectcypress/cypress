@@ -15,6 +15,21 @@ module CQM
     # every patient actually in the database is of a valid type.
     validates :_type, inclusion: %w[CQM::BundlePatient CQM::VendorPatient CQM::ProductTestPatient CQM::TestExecutionPatient]
 
+    after_initialize do
+      self[:addresses] ||= [CQM::Address.new(
+        use: 'HP',
+        street: ['202 Burlington Rd.'],
+        city: 'Bedford',
+        state: 'MA',
+        zip: '01730',
+        country: 'US'
+      )]
+      self[:telecoms] ||= [CQM::Telecom.new(
+        use: 'HP',
+        value: '555-555-2003 x1234'
+      )]
+    end
+
     def destroy
       calculation_results.destroy
       delete

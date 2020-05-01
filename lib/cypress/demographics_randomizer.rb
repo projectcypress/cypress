@@ -171,24 +171,6 @@ module Cypress
                                                         relevantPeriod: QDM::Interval.new(patient.qdmPatient.birthDatetime, nil))
       end
       patient.qdmPatient.dataElements.concat(elements)
-      assign_default_contacts(patient)
-    end
-
-    def self.assign_default_contacts(patient)
-      address = CQM::Address.new(
-        use: 'HP',
-        street: ['202 Burlington Rd.'],
-        city: 'Bedford',
-        state: 'MA',
-        zip: '01730',
-        country: 'US'
-      )
-      patient.addresses = [address]
-      telecom = CQM::Telecom.new(
-        use: 'HP',
-        value: '555-555-2003 x1234'
-      )
-      patient.telecoms = [telecom]
     end
   end
 end
