@@ -95,6 +95,20 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     end
   end
 
+  def test_qrda1_task_with_errors
+    setup_eh
+    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HL7_Cat_I').first
+    task = pt.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_bad_schema.xml'))
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal 1, te.execution_errors.size
+      # This is a schematron error
+      assert_equal 1, te.execution_errors.where(validator: 'CqmValidators::Cat1R51').size
+    end
+  end
+
   def test_eh_task_with_errors_quarter_reporting
     setup_eh
     pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first

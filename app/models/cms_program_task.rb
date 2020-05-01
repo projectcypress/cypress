@@ -12,6 +12,7 @@ class CMSProgramTask < Task
     @validators.concat program_specific_validators
     # If the CMSProgramTask is for HL7 validation, only include QRDA validation
     @validators = hl7_validators if %w[HL7_Cat_I HL7_Cat_III].include? product_test.cms_program
+    @validators
   end
 
   # Each cms program may have program specific validations
