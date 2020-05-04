@@ -103,7 +103,7 @@ module Cypress
     def self.create_telecom
       telecom = CQM::Telecom.new(
         use: 'HP',
-        value: Faker::PhoneNumber.phone_number
+        value: Faker::PhoneNumber.cell_phone
       )
       [telecom]
     end
