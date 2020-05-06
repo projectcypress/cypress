@@ -32,7 +32,7 @@ gem 'sass-rails', '~> 5.0.4'
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'font-awesome-sass', '~> 5.0.13'
 gem 'jquery-rails', '~> 4.0.4'
-gem 'jquery-ui-rails', '~> 5.0.5'
+gem 'jquery-ui-rails', '~> 6.0.0'
 
 # Add pagination support
 gem 'kaminari-mongoid'
