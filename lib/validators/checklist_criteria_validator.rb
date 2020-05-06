@@ -61,6 +61,7 @@ module Validators
       return true if attribute.is_a? DateTime
       return true if attribute.is_a? Integer
       return true if attribute.is_a? Float
+      return true if attribute.is_a? String
       # If the attribute is an Array, loop through the array
       return attribute.any? { |at| attribute_has_data(at, checked_criteria) } if attribute.is_a? Array
 
