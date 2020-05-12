@@ -26,7 +26,7 @@ module CQM
       )]
       self[:telecoms] ||= [CQM::Telecom.new(
         use: 'HP',
-        value: '555-555-2003 x1234'
+        value: '555-555-2003'
       )]
     end
 
