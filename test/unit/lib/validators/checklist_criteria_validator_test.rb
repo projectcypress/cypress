@@ -92,7 +92,7 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
 
     dt = QDM::PatientGeneration.generate_loaded_datatype('QDM::LaboratoryTestPerformed')
     dt.result = 'Positive'
-    setup_sdc(dt.clone, 'result', false, 'Positive', nil)
+    setup_sdc(dt.clone, 'result', false)
 
     test_specific_qdm_patient = @qdm_patient.clone
     test_specific_qdm_patient.dataElements << dt

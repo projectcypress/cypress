@@ -104,7 +104,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
       te.reload
       assert_equal 1, te.execution_errors.size
       # This is a schematron error
-      assert_equal 1, te.execution_errors.where(validator: 'CqmValidators::Cat1R51').size
+      assert_equal 1, te.execution_errors.where(validator: 'CqmValidators::Cat1R52').size
     end
   end
 
