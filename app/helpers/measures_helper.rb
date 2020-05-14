@@ -14,7 +14,7 @@ module MeasuresHelper
     cpc_msrs = available_measures & APP_CONSTANTS['CPC_measures'].values.flatten
 
     # this seems slow but there doesn't seem to be any way to do it purely with mongo
-    with_diag = bundle.measures.in(hqmf_id: available_measures).select { |m| measure_has_diagnosis_criteria?(m) }.collect!(&:hqmf_id)
+    with_diag = bundle.measures.in(hqmf_id: available_measures).select { |m| measure_has_snomed_dx_criteria?(m) }.collect!(&:hqmf_id)
 
     cpc_and_diag = cpc_msrs & with_diag
     # not all cpc measures have a diagnosis, for example CMS 138
@@ -26,10 +26,12 @@ module MeasuresHelper
     available_measures.sample
   end
 
-  def measure_has_diagnosis_criteria?(measure)
+  def measure_has_snomed_dx_criteria?(measure)
     return false unless measure.source_data_criteria
 
-    measure.source_data_criteria.any? { |criteria| criteria._type == 'QDM::Diagnosis' }
+    measure.source_data_criteria.any? do |criteria|
+      criteria._type == 'QDM::Diagnosis' && Bundle.find(measure.bundle_id).value_sets.where(oid: criteria.codeListId).first.snomed_codes?
+    end
   end
 
   # used in _measure_tests_table.html.erb view
