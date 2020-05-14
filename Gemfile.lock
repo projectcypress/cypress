@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/projecttacoma/cqm-models
-  revision: a77c3499da1736eeda3a0920ddfcd16a7330083d
-  branch: master
-  specs:
-    cqm-models (3.0.1)
-
-GIT
   remote: https://github.com/projecttacoma/cqm-parsers
   revision: 87715f20ab1682d010b1314b61f30f71cc4b9678
   branch: v3_rails5
@@ -26,22 +19,6 @@ GIT
       rubyzip (~> 1.3)
       typhoeus
       uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-reports
-  revision: 65e61b4bfaa7225d63112d5ed764252c26f73ec5
-  branch: master
-  specs:
-    cqm-reports (3.0.0)
-      cqm-models (~> 3.0.0)
-      erubis (~> 2.7)
-      log4r (~> 1.1)
-      memoist (~> 0.9)
-      mongoid-tree (> 2.0)
-      mustache
-      nokogiri (~> 1.10)
-      uuid (~> 2.3)
       zip-zip (~> 0.3)
 
 GIT
@@ -179,6 +156,17 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.6)
+    cqm-models (3.0.1)
+    cqm-reports (3.0.0)
+      cqm-models (~> 3.0.0)
+      erubis (~> 2.7)
+      log4r (~> 1.1)
+      memoist (~> 0.9)
+      mongoid-tree (> 2.0)
+      mustache
+      nokogiri (~> 1.10)
+      uuid (~> 2.3)
+      zip-zip (~> 0.3)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
@@ -546,9 +534,9 @@ DEPENDENCIES
   carrierwave (~> 0.11.2)
   carrierwave-mongoid
   codecov
-  cqm-models!
+  cqm-models (~> 3.0.1)
   cqm-parsers!
-  cqm-reports!
+  cqm-reports (~> 3.0.0)
   cqm-validators!
   cucumber (~> 3.0.2)
   cucumber-rails
