@@ -59,6 +59,10 @@ class TestExecutionHelper < ActiveSupport::TestCase
 
   def test_get_title_message_cat1_plural
     setup_product_tests(true, false, true, true, filt1: 'val1', filt2: 'val2')
+    measure = @product_test.measures.first
+    measure.reporting_program_type = 'eh'
+    measure.save
+    @product_test.reload
     assert_equal get_title_message(@product_test, @product_test.tasks.find_by(_type: 'C1Task')), 'C1 and C3 certifications for TEST_CMSID test_measure_test_name'
     assert_equal get_title_message(@f_test, @f_test.tasks.find_by(_type: 'Cat1FilterTask')), 'CQM Filters Filt1/Filt2 for TEST_CMSID test_filtering_test_name'
   end

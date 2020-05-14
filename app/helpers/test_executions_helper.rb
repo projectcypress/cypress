@@ -8,17 +8,17 @@ module TestExecutionsHelper
       (task.is_a?(CMSProgramTask) && task.product_test.reporting_program_type == 'eh')
   end
 
-  def task_type_to_title(task_type, c3)
+  def task_type_to_title(task_type)
     case task_type
     when 'C1Task'
       if @product_test.c1_test
-        c3 ? 'C1 and C3' : 'C1'
+        @product_test.c3_cat1_task? ? 'C1 and C3' : 'C1'
       else
         'C3 (QRDA-I)'
       end
     when 'C2Task'
       if @product_test.c2_test
-        c3 ? 'C2 and C3' : 'C2'
+        @product_test.c3_cat3_task? ? 'C2 and C3' : 'C2'
       else
         'C3 (QRDA-III)'
       end
@@ -57,7 +57,7 @@ module TestExecutionsHelper
   def get_title_message(test, task)
     msg = ''
     if test.is_a? MeasureTest
-      msg << task_type_to_title(task._type, task.product_test.product.c3_test)
+      msg << task_type_to_title(task._type)
       msg << ' certification'
       msg << 's' if test.product.c3_test
     else
