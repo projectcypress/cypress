@@ -81,14 +81,31 @@ module Cypress
     end
 
     def self.randomize_address(patient)
-      address = {}
-      address['use'] = 'HP'
-      address['street'] = ["#{Faker::Address.street_address} #{Faker::Address.street_suffix}"]
-      address['city'] = Faker::Address.city
-      address['state'] = Faker::Address.state_abbr
-      address['zip'] = Faker::Address.zip(address['state'])
-      address['country'] = 'US'
-      patient.addresses = [address]
+      patient.addresses = create_address
+      # creates a random address for provider
+      # patient.providers = [CQM::Provider.generate_provider] # could maybe use 'ep'/'eh' measure option?
+      patient.telecoms = create_telecom
+    end
+
+    def self.create_address
+      state = Faker::Address.state_abbr
+      address = CQM::Address.new(
+        use: 'HP',
+        street: ["#{Faker::Address.street_address} #{Faker::Address.street_suffix}"],
+        city: Faker::Address.city,
+        state: state,
+        zip: Faker::Address.zip(state),
+        country: 'US'
+      )
+      [address]
+    end
+
+    def self.create_telecom
+      telecom = CQM::Telecom.new(
+        use: 'HP',
+        value: Faker::PhoneNumber.cell_phone
+      )
+      [telecom]
     end
 
     def self.randomize_payer(patient, prng)
@@ -120,15 +137,8 @@ module Cypress
 
     def self.randomize_birthdate(patient, random: Random.new)
       birth_datetime = patient.birthDatetime
-      while birth_datetime == patient.birthDatetime
-        patient.birthDatetime = patient.birthDatetime.change(
-          case random.rand(3)
-          when 0 then { day: 1, month: 1 }
-          when 1 then { day: random.rand(28) + 1 }
-          when 2 then { month: random.rand(12) + 1 }
-          end
-        )
-      end
+      days_in_month = Time.days_in_month(patient.birthDatetime.month, patient.birthDatetime.year)
+      patient.birthDatetime = patient.birthDatetime.change(day: random.rand(days_in_month) + 1) while birth_datetime == patient.birthDatetime
       if patient.dataElements.where(_type: QDM::PatientCharacteristicBirthdate).first
         patient.dataElements.where(_type: QDM::PatientCharacteristicBirthdate).first.birthDatetime = patient.birthDatetime
       end

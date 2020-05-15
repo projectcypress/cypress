@@ -16,8 +16,20 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
     @qdm_patient.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [QDM::Code.new('2106-3', '2.16.840.1.113883.6.238', 'White', 'Race & Ethnicity - CDC')])
     @qdm_patient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [QDM::Code.new('2186-5', '2.16.840.1.113883.6.238', 'Not Hispanic or Latino', 'Race & Ethnicity - CDC')])
     @qdm_patient.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [QDM::Code.new('M', '2.16.840.1.113883.12.1', 'Male', 'Administrative sex (HL7)')])
-    @cqm_patient = CQM::Patient.new(givenNames: %w['First Middle'], familyName: 'Family', bundleId: '1')
-    @options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }
+    address = CQM::Address.new(
+      use: 'HP',
+      street: ['123 Main Lane'],
+      city: 'Portland',
+      state: 'Maine',
+      zip: '99999',
+      country: 'ZZ'
+    )
+    telecom = CQM::Telecom.new(
+      use: 'HP',
+      value: '555-555-5555'
+    )
+    @cqm_patient = CQM::Patient.new(givenNames: %w['First Middle'], familyName: 'Family', bundleId: '1', addresses: [address], telecoms: [telecom])
+    @options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31), patient_addresses: [address], patient_telecoms: [telecom] }
   end
 
   def setup_sdc(data_type, attribute_name, negated_valueset)
@@ -72,6 +84,41 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
 
       assert @checklist_test.checked_criteria.first[:passed_qrda], "should pass with a good file for #{ta[0]} #{ta[1]} with a #{ta[2]}"
     end
+  end
+
+  def test_validate_result_with_string
+    validator = CqmValidators::Cat1R5.instance
+    cda_validator = CqmValidators::CDA.instance
+
+    dt = QDM::PatientGeneration.generate_loaded_datatype('QDM::LaboratoryTestPerformed')
+    dt.result = 'Positive'
+    setup_sdc(dt.clone, 'result', false)
+
+    test_specific_qdm_patient = @qdm_patient.clone
+    test_specific_qdm_patient.dataElements << dt
+    @cqm_patient.qdmPatient = test_specific_qdm_patient
+
+    patient_xml = Qrda1R5.new(@cqm_patient, Measure.where(hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'), @options).render
+
+    doc = Nokogiri::XML::Document.parse(patient_xml)
+    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+    @validator.validate(doc)
+
+    begin
+      exported_qrda = doc
+      errors = validator.validate(exported_qrda)
+      cda_errors = cda_validator.validate(exported_qrda)
+      errors.each do |error|
+        puts "\e[31mSchema Error In test_validate_result_with_string: #{error.message}\e[0m"
+      end
+      cda_errors.each do |error|
+        puts "\e[31mSchema Error In test_validate_result_with_string: #{error.message}\e[0m"
+      end
+    rescue StandardError => e
+      puts "\e[31mException validating test_validate_result_with_string: #{e.message}\e[0m"
+    end
+    assert @checklist_test.checked_criteria.first[:passed_qrda]
   end
 
   def test_validate_bad_files

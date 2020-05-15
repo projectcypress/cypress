@@ -40,7 +40,6 @@ module Validators
       patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(@file)
       patient.update(_type: CQM::TestExecutionPatient, correlation_id: options.test_execution.id.to_s)
       patient.save!
-      patient_has_pcp_and_other_element(patient, options)
       post_processsor_check(patient, options)
       calc_job = Cypress::CqmExecutionCalc.new([patient.qdmPatient],
                                                options.task.product_test.measures,
@@ -52,11 +51,15 @@ module Validators
     end
 
     def post_processsor_check(patient, options)
-      # check for single code negation errors
-      errors = Cypress::QRDAPostProcessor.issues_for_negated_single_codes(patient, options.task.bundle, options.task.product_test.measures)
-      unit_errors = Cypress::QRDAPostProcessor.issues_for_mismatched_units(patient, options.task.bundle, options.task.product_test.measures)
-      errors.each { |e| add_error e, file_name: options[:file_name] }
-      unit_errors.each { |e| add_error e, file_name: options[:file_name] }
+      # Do not perform these validations if only running against the HL7 schematron
+      unless options.task.product_test.cms_program == 'HL7_Cat_I'
+        patient_has_pcp_and_other_element(patient, options)
+        # check for single code negation errors
+        errors = Cypress::QRDAPostProcessor.issues_for_negated_single_codes(patient, options.task.bundle, options.task.product_test.measures)
+        unit_errors = Cypress::QRDAPostProcessor.issues_for_mismatched_units(patient, options.task.bundle, options.task.product_test.measures)
+        errors.each { |e| add_error e, file_name: options[:file_name] }
+        unit_errors.each { |e| add_error e, file_name: options[:file_name] }
+      end
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, options.task.bundle)
     end
 

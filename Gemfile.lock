@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/projecttacoma/cqm-models
-  revision: a77c3499da1736eeda3a0920ddfcd16a7330083d
-  branch: master
-  specs:
-    cqm-models (3.0.1)
-
-GIT
   remote: https://github.com/projecttacoma/cqm-parsers
   revision: 87715f20ab1682d010b1314b61f30f71cc4b9678
   branch: v3_rails5
@@ -26,21 +19,6 @@ GIT
       rubyzip (~> 1.3)
       typhoeus
       uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-reports
-  revision: 9245e1a4accdb346aa9e6f8535d876415125f809
-  branch: master
-  specs:
-    cqm-reports (3.0.0.pre.alpha.2)
-      erubis (~> 2.7)
-      log4r (~> 1.1)
-      memoist (~> 0.9)
-      mongoid-tree (> 2.0)
-      mustache
-      nokogiri (~> 1.10)
-      uuid (~> 2.3)
       zip-zip (~> 0.3)
 
 GIT
@@ -178,6 +156,17 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.6)
+    cqm-models (3.0.1)
+    cqm-reports (3.0.0)
+      cqm-models (~> 3.0.0)
+      erubis (~> 2.7)
+      log4r (~> 1.1)
+      memoist (~> 0.9)
+      mongoid-tree (> 2.0)
+      mustache
+      nokogiri (~> 1.10)
+      uuid (~> 2.3)
+      zip-zip (~> 0.3)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
@@ -204,7 +193,7 @@ GEM
     cucumber-tag_expressions (2.0.2)
     cucumber-wire (0.0.1)
     daemons (1.3.1)
-    database_cleaner (1.8.4)
+    database_cleaner (1.8.5)
     declarative (0.0.10)
     declarative-option (0.1.0)
     delayed_job (4.1.8)
@@ -221,7 +210,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise_invitable (2.0.1)
+    devise_invitable (2.0.2)
       actionmailer (>= 5.0)
       devise (>= 4.6)
     diff-lcs (1.3)
@@ -236,10 +225,10 @@ GEM
     ethon (0.12.0)
       ffi (>= 1.3.0)
     execjs (2.7.0)
-    factory_bot (5.1.2)
+    factory_bot (5.2.0)
       activesupport (>= 4.2.0)
-    factory_bot_rails (5.1.1)
-      factory_bot (~> 5.1.0)
+    factory_bot_rails (5.2.0)
+      factory_bot (~> 5.2.0)
       railties (>= 4.2.0)
     faker (1.5.0)
       i18n (~> 0.5)
@@ -300,8 +289,8 @@ GEM
     method_source (0.9.2)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2019.1009)
-    mimemagic (0.3.4)
+    mime-types-data (3.2020.0425)
+    mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
@@ -343,7 +332,7 @@ GEM
       childprocess (>= 0.6.3, < 4)
       iniparse (~> 1.4)
     parallel (1.19.1)
-    parser (2.7.1.1)
+    parser (2.7.1.2)
       ast (~> 2.4.0)
     poltergeist (1.18.1)
       capybara (>= 2.1, < 4)
@@ -357,7 +346,7 @@ GEM
     pry-nav (0.3.0)
       pry (>= 0.9.10, < 0.13.0)
     psych (3.1.0)
-    public_suffix (4.0.4)
+    public_suffix (4.0.5)
     rack (2.2.2)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -401,7 +390,7 @@ GEM
     rainbow (3.0.0)
     raindrops (0.19.1)
     rake (13.0.1)
-    rb-fsevent (0.10.3)
+    rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (1.7.0)
@@ -479,7 +468,7 @@ GEM
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.10)
-    typhoeus (1.3.1)
+    typhoeus (1.4.0)
       ethon (>= 0.9.0)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
@@ -490,7 +479,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.7)
     unicode-display_width (1.5.0)
-    unicorn (5.5.4)
+    unicorn (5.5.5)
       kgio (~> 2.6)
       raindrops (~> 0.7)
     unicorn-rails (2.2.1)
@@ -545,9 +534,9 @@ DEPENDENCIES
   carrierwave (~> 0.11.2)
   carrierwave-mongoid
   codecov
-  cqm-models!
+  cqm-models (~> 3.0.1)
   cqm-parsers!
-  cqm-reports!
+  cqm-reports (~> 3.0.0)
   cqm-validators!
   cucumber (~> 3.0.2)
   cucumber-rails

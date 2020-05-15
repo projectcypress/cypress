@@ -119,6 +119,7 @@ class Product
     update(params)
     add_multi_measure_tests(new_eh_ids, new_eh_ids != old_eh_ids, new_ep_ids, new_ep_ids != old_ep_ids)
     add_cms_program_tests(new_eh_ids, new_eh_ids != old_eh_ids, new_ep_ids, new_ep_ids != old_ep_ids)
+    add_hl7_tests(new_ids)
   end
 
   def add_measure_tests(params)
@@ -204,6 +205,17 @@ class Product
     end
   end
 
+  def add_hl7_tests(measure_ids)
+    # Only create the hl7 tests if they don't already exist
+    return unless product_tests.cms_program_tests.where(cms_program: 'HL7_Cat_I').empty?
+
+    # The 'reporting_program_type' is used to restrict the upload type.  Use EH for Cat I, and EP for Cat III
+    product_tests.build({ name: 'HL7 Cat I Test', cms_program: 'HL7_Cat_I', measure_ids: measure_ids,
+                          reporting_program_type: 'eh' }, CMSProgramTest)
+    product_tests.build({ name: 'HL7 Cat III Test', cms_program: 'HL7_Cat_III', measure_ids: measure_ids,
+                          reporting_program_type: 'ep' }, CMSProgramTest)
+  end
+
   def add_filtering_tests
     measure = ApplicationController.helpers.pick_measure_for_filtering_test(measure_ids, bundle)
     reload_relations
@@ -216,7 +228,7 @@ class Product
     filter_tests.concat [build_filtering_test(measure, criteria[0, 2]), build_filtering_test(measure, criteria[2, 2])]
     filter_tests << build_filtering_test(measure, ['providers'], 'NPI, TIN & Provider Location')
     filter_tests << build_filtering_test(measure, ['providers'], 'NPI & TIN', false)
-    criteria = ApplicationController.helpers.measure_has_diagnosis_criteria?(measure) ? ['problems'] : criteria.values_at(4, (0..3).to_a.sample)
+    criteria = ApplicationController.helpers.measure_has_snomed_dx_criteria?(measure) ? ['problems'] : criteria.values_at(4, (0..3).to_a.sample)
     filter_tests << build_filtering_test(measure, criteria)
     ApplicationController.helpers.generate_filter_patients(filter_tests)
   end

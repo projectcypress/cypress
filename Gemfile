@@ -15,9 +15,9 @@ gem 'bson_ext'
 gem 'mustache'
 gem 'os'
 
-gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', branch: 'master'
+gem 'cqm-models', '~> 3.0.1'
 gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'v3_rails5'
-gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'master'
+gem 'cqm-reports', '~> 3.0.0'
 gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators', branch: 'master'
 
 # Use faker to generate addresses

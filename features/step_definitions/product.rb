@@ -18,6 +18,8 @@ Given(/^the user is signed in as a non admin$/) do
   Settings.destroy_all
   Settings.create(enable_debug_features: false)
   @user = FactoryBot.create(:user)
+  Settings.destroy_all
+  Settings.create(enable_debug_features: false)
   @user.approved = true
   login_as @user, scope: :user
   steps %( Given the user is on the sign in page )
