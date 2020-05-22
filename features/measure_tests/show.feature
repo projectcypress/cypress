@@ -38,7 +38,7 @@ Scenario: View C1 And C2 Execution Pages
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
-Scenario: View C1 And C2 and C3 Execution Pages
+Scenario: View C1 with C2 and C3 Execution Pages
   When the user creates a product with tasks c1, c2, c3
   And the product has an ep measure
   And the user views task c1
@@ -48,7 +48,7 @@ Scenario: View C1 And C2 and C3 Execution Pages
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
-Scenario: View C1 and C3 And C2 Execution Pages
+Scenario: View C1 with C3 And C2 Execution Pages
   When the user creates a product with tasks c1, c2, c3
   And the product has an eh measure
   And the user views task c2
