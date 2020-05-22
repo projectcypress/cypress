@@ -62,7 +62,7 @@ module Cypress
         data_criteria_name = cdc['data_criteria']
         valuesets = find_root_vs([data_criteria_name])
         @measure.source_data_criteria.each do |sdc|
-          next unless (valuesets.include? sdc.codeListId) || ((sdc.codeListId[0,3] == 'drc') && (valuesets.include? ValueSet.where(oid: sdc.codeListId).first.concepts.first.code))
+          next unless (valuesets.include? sdc.codeListId) || ((sdc.codeListId[0, 3] == 'drc') && (valuesets.include? ValueSet.where(oid: sdc.codeListId).first&.concepts&.first&.code))
           next if sdc.dataElementAttributes && (sdc.dataElementAttributes.any? { |h| h.attribute_name == cdc['attribute'] && h.attribute_valueset == cdc['attribute_vs'] })
           # only add attribute if it is approprate for the QDM type
           next unless sdc.respond_to? cdc['attribute']
@@ -272,11 +272,11 @@ module Cypress
         parse_query_source(query_source, library_id, statement, source_value)
       end
       rsource.each do |rel_source|
-        parse_query_relationship(rel_source, library_id, statement, source_value)
+        parse_query_relationship(rel_source, statement)
       end
     end
 
-    def parse_query_relationship(rel_source, library_id, statement, source_value)
+    def parse_query_relationship(rel_source, statement)
       if rel_source['expression']['dataType']
         if rel_source['expression']['codes']
           name = rel_source['expression']['codes']['name']
