@@ -55,6 +55,7 @@ class PatientZipperTest < ActiveSupport::TestCase
         doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
         assert_equal 1, doc.xpath('//cda:code[@nullFlavor="NA"]').size, 'There should be 1 negated code in the exported QRDA'
+        assert_equal 1, doc.xpath("//cda:patientRole/cda:id[@extension='#{patient.id}']").size, 'The id should match the original patient id'
         confirm_imported_patient_can_be_saved_after_replaced_codes(doc, patient, original_code)
         count += 1
       end
