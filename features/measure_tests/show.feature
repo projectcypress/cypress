@@ -158,7 +158,7 @@ Scenario: View C1 And C2 Execution Pages on Deprecated Product
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
-Scenario: View C1 and C3 And C2 and C3 Execution Pages on Deprecated Product
+Scenario: View C1 With C3 And C2 With C3 Execution Pages on Deprecated Product
   When the user creates a product with tasks c1, c2, c3
   And the default bundle has been deprecated
   And the user views task c1
