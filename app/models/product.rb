@@ -19,6 +19,7 @@ class Product
   # NOTE: more relationships must be defined
 
   field :cvuplus, type: Boolean, default: false
+  field :cures_update, type: Boolean
   field :vendor_patients, type: Boolean, default: false
   field :bundle_patients, type: Boolean, default: true
   field :name, type: String
