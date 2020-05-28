@@ -40,6 +40,7 @@ class ProductTest
   mount_uploader :patient_archive, PatientArchiveUploader
   mount_uploader :html_archive, PatientArchiveUploader
 
+  delegate :cures_update, to: :product
   delegate :name, :version, to: :product, prefix: true
   delegate :effective_date, to: :product
   delegate :measure_period_start, to: :product
