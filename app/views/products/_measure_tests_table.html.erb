@@ -13,7 +13,7 @@
   <p>There are no additional tests for this criteria.</p>
 <% else %>
   <% first_results_col_label = tasks.first.is_a?(C1Task) ? 'C1 Results' : 'C2 Results' %>
-  <% include_c3 = product.c3_test %>
+  <% include_c3 = include_c3_column(tasks.first) %>
 
   <table class = 'table table-hover measure_tests_table'>
     <thead>
