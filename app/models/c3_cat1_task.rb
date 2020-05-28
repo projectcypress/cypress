@@ -13,9 +13,11 @@ class C3Cat1Task < Task
   def cms_cat1_schematron_validator
     measure = product_test.measures[0]
     if measure.reporting_program_type == 'eh'
-      ::Validators::CMSQRDA1HQRSchematronValidator.new(product_test.bundle.version)
+      # If product is not for 21st Centutry Cures, then CMS errors are treated as warnings
+      ::Validators::CMSQRDA1HQRSchematronValidator.new(product_test.bundle.version, !product_test.cures_update)
     else
-      ::Validators::CMSQRDA1PQRSSchematronValidator.new(product_test.bundle.version)
+      # If product is not for 21st Centutry Cures, then CMS errors are treated as warnings
+      ::Validators::CMSQRDA1PQRSSchematronValidator.new(product_test.bundle.version, !product_test.cures_update)
     end
   end
 
