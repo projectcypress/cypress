@@ -133,6 +133,7 @@ Then(/^the user sees details$/) do
   sf_patient.qdmPatient.dataElements.each do |data_criteria|
     page.assert_text data_criteria['description']
   end
+  page.assert_text @patient.id.to_s
   @measures.each do |m|
     page.assert_text m.description
   end

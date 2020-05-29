@@ -71,14 +71,10 @@ module Cypress
       Zip::ZipOutputStream.open(file.path) do |z|
         patients.each_with_index do |patient, i|
           sf_patient = patient.clone
+          sf_patient.id = patient.id
           patient_scoop_and_filter.scoop_and_filter(sf_patient)
           z.put_next_entry("#{next_entry_path(patient, i)}.#{FORMAT_EXTENSIONS[format.to_sym]}")
-          # TODO: R2P: make sure using correct exporter
-          z << if formatter == Cypress::HTMLExporter
-                 formatter.new.export(patient)
-               else
-                 formatter.export(sf_patient)
-               end
+          z << formatter.export(sf_patient)
         end
       end
     end
