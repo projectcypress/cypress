@@ -38,12 +38,23 @@ Scenario: View C1 And C2 Execution Pages
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
-Scenario: View C1 and C3 And C2 and C3 Execution Pages
+Scenario: View C1 and C2 With C3 Execution Pages
   When the user creates a product with tasks c1, c2, c3
+  And the product has an ep measure
   And the user views task c1
   And the user switches to c2 and c3 certification
   And the user should be able to click eCQM Specification link
-  Then the user should see the c2 and c3 execution page
+  Then the user should see the c1 only and c2 and c3 execution page
+  Then the page should be accessible according to: section508
+  Then the page should be accessible according to: wcag2aa
+
+Scenario: View C1 With C3 And C2 Execution Pages
+  When the user creates a product with tasks c1, c2, c3
+  And the product has an eh measure
+  And the user views task c2
+  And the user switches to c1 and c3 certification
+  And the user should be able to click eCQM Specification link
+  Then the user should see the c2 only and c1 and c3 execution page
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
@@ -147,13 +158,14 @@ Scenario: View C1 And C2 Execution Pages on Deprecated Product
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
-Scenario: View C1 and C3 And C2 and C3 Execution Pages on Deprecated Product
+Scenario: View C1 And C2 With C3 Execution Pages on Deprecated Product
   When the user creates a product with tasks c1, c2, c3
+  And the product has an ep measure
   And the default bundle has been deprecated
   And the user views task c1
   Then the user should see a notification saying the product was deprecated
   And the user switches to c2 and c3 certification
-  Then the user should see the c2 and c3 execution page
+  Then the user should see the c1 only and c2 and c3 execution page
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
