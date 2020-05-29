@@ -179,19 +179,19 @@ class TestExecutionHelper < ActiveSupport::TestCase
 
   def test_current_certifications
     # c1 and c2 measure tests
-    assert_equal [true, false, false, false], current_certifications('C1Task', false)
-    assert_equal [false, true, false, false], current_certifications('C2Task', false)
-    assert_equal [true, false, true, false], current_certifications('C1Task', true)
-    assert_equal [false, true, true, false], current_certifications('C2Task', true)
+    assert_equal [true, false, false, false], current_certifications('C1Task', false, true, false)
+    assert_equal [false, true, false, false], current_certifications('C2Task', false, true, false)
+    assert_equal [true, false, true, false], current_certifications('C1Task', true, true, false)
+    assert_equal [false, true, true, false], current_certifications('C2Task', true, false, true)
 
     # filtering tests
-    assert_equal [false, false, false, true], current_certifications('Cat1FilterTask', false)
-    assert_equal [false, false, false, true], current_certifications('Cat1FilterTask', true)
-    assert_equal [false, false, false, true], current_certifications('Cat3FilterTask', false)
-    assert_equal [false, false, false, true], current_certifications('Cat3FilterTask', true)
+    assert_equal [false, false, false, true], current_certifications('Cat1FilterTask', false, true, false)
+    assert_equal [false, false, false, true], current_certifications('Cat1FilterTask', true, true, false)
+    assert_equal [false, false, false, true], current_certifications('Cat3FilterTask', false, true, false)
+    assert_equal [false, false, false, true], current_certifications('Cat3FilterTask', true, true, false)
 
     # checklist tests
-    assert_equal [true, false, false, false], current_certifications('C1ChecklistTask', false)
-    assert_equal [true, false, true, false], current_certifications('C1ChecklistTask', true)
+    assert_equal [true, false, false, false], current_certifications('C1ChecklistTask', false, false, true)
+    assert_equal [true, false, true, false], current_certifications('C1ChecklistTask', true, true, false)
   end
 end

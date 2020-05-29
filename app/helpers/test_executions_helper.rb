@@ -29,10 +29,15 @@ module TestExecutionsHelper
 
   # task_type is String and c3_task is boolean
   # returns an array of booleans [c1, c2, c3, c4]. true if page is testing these certification types
-  def current_certifications(task_type, c3_task)
+  def current_certifications(task_type, c3_task, eh_measures, ep_measures)
     return [false, false, false, true] if %w[Cat1FilterTask Cat3FilterTask].include?(task_type)
 
-    [%w[C1Task C1ChecklistTask].include?(task_type), task_type == 'C2Task', c3_task, false]
+    # matched_reporting_types are the following
+    # C2 Tasks (QRDA Cat III) with ep measures
+    # C1 Tasks (QRDA Cat I) with eh measures
+    qrda_cat_1_task = %w[C1Task C1ChecklistTask].include?(task_type)
+    matched_reporting_types = (task_type == 'C2Task' && ep_measures) || (qrda_cat_1_task && eh_measures)
+    [qrda_cat_1_task, task_type == 'C2Task', matched_reporting_types && c3_task, false]
   end
 
   # returns the number of each type of error
