@@ -9,7 +9,7 @@
   <% cat1_task = @task.product_test.tasks.cat1_filter_task %>
   <% cat3_task = @task.product_test.tasks.cat3_filter_task %>
 <% end %>
-<%= render partial: 'application/certification_bar', locals: { product: @product_test.product, active_certs: current_certifications(@task._type, @product_test.c3_test) } %>
+<%= render partial: 'application/certification_bar', locals: { product: @product_test.product, active_certs: current_certifications(@task._type, @product_test.c3_test, @product_test.eh_measures?, @product_test.ep_measures?) } %>
 <% unless @task.is_a?(C1ChecklistTask) || @task.is_a?(C3ChecklistTask) %>
   <div class="panel clearfix">
     <%= button_to new_task_test_execution_path(iterate_task(@task, 'prev').id), :method => :get, :class => "btn btn-default pull-left" do %>

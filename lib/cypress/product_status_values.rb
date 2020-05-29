@@ -50,6 +50,7 @@ module Cypress
       if h['Checklist']['total'].zero?
         default_number = CAT1_CONFIG['number_of_checklist_measures']
         h['Checklist']['not_started'] = product.measure_ids.size < default_number ? product.measure_ids.size : default_number
+        h['Checklist']['not_started'] = 0 unless product.eh_tests?
       end
       cat1_status_values = product_test_statuses(product.product_tests.measure_tests.filter(&:eh_measures?), 'C3Cat1Task')
       cat3_status_values = product_test_statuses(product.product_tests.measure_tests.filter(&:ep_measures?), 'C3Cat3Task')
@@ -68,6 +69,7 @@ module Cypress
     # returns zero for all values if test is false
     def checklist_status_vals(test, cert_type)
       return [0, 0, 0, 0, 0] unless test
+      return [0, 0, 0, 0, 0] if cert_type == 'C3' && !test.eh_measures?
 
       passing = test.num_measures_complete
       total = test.measures.count
@@ -78,6 +80,8 @@ module Cypress
 
     # returns the number of tasks with most recent test executions [passing, failing, errored, not_started, total]
     def checklist_status_vals_for_execution(test, cert_type)
+      return [0, 0, 0, 0, 0] if cert_type == 'C3'
+
       task = cert_type == 'C3' ? test.tasks.c3_checklist_task : test.tasks.c1_checklist_task
       return [0, 0, 0, 0, 0] unless task&.most_recent_execution
 

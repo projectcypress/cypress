@@ -283,9 +283,7 @@ class ProductsHelperTest < ActiveJob::TestCase
     pt.tasks.each(&:save!)
 
     assert_equal [c2_task, c3_cat3_task], with_c3_task(c2_task)
-    measure = pt.measures.first
-    measure.reporting_program_type = 'eh'
-    measure.save
+    replace_with_eh_measure(pt.measures.first)
     assert_equal [c1_task, c3_cat1_task], with_c3_task(c1_task)
   end
 
@@ -307,8 +305,9 @@ class ProductsHelperTest < ActiveJob::TestCase
     assert_equal 'C2 (QRDA-III)', titles[2]
   end
 
-  def test_each_tab_c1_c3
+  def test_each_tab_c1_c3_eh
     make_product_certify(@product, true, false, true, false)
+    replace_with_eh_measure(@product.product_tests.first.measures.first)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
     assert_equal 1, test_types.count, 'should only have record sample tab'
@@ -324,21 +323,31 @@ class ProductsHelperTest < ActiveJob::TestCase
     assert_equal 'C4 (QRDA-I and QRDA-III)', titles[1]
   end
 
-  def test_each_tab_c1_c3_c4
+  def test_each_tab_c1_c3_c4_ep
     make_product_certify(@product, true, false, true, true)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
     assert_equal 2, test_types.count, 'should have record sample tab and filtering test tab'
-    assert_equal 'C1 + C3 Sample', titles[0]
+    assert_equal 'C1 Sample', titles[0]
     assert_equal 'C4 (QRDA-I and QRDA-III)', titles[1]
   end
 
-  def test_each_tab_c1_c2_c3
+  def test_each_tab_c1_c2_c3_only_eh
     make_product_certify(@product, true, true, true, false)
+    replace_with_eh_measure(@product.product_tests.first.measures.first)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
     assert_equal 3, test_types.count, 'should have record sample, c1 measure, and c2 measure tabs'
     assert_equal 'C1 + C3 Sample', titles[0]
     assert_equal 'C1 + C3 (QRDA-I)', titles[1]
+    assert_equal 'C2 (QRDA-III)', titles[2]
+  end
+
+  def test_each_tab_c1_c2_c3_only_ep
+    make_product_certify(@product, true, true, true, false)
+    test_types, titles = get_test_types_titles_and_descriptions(@product)
+    assert_equal 3, test_types.count, 'should have record sample, c1 measure, and c2 measure tabs'
+    assert_equal 'C1 Sample', titles[0]
+    assert_equal 'C1 (QRDA-I)', titles[1]
     assert_equal 'C2 + C3 (QRDA-III)', titles[2]
   end
 
@@ -352,12 +361,23 @@ class ProductsHelperTest < ActiveJob::TestCase
     assert_equal 'C4 (QRDA-I and QRDA-III)', titles[3]
   end
 
-  def test_each_tab_c1_c2_c3_c4
+  def test_each_tab_c1_c2_c3_c4_only_eh
     make_product_certify(@product, true, true, true, true)
+    replace_with_eh_measure(@product.product_tests.first.measures.first)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
     assert_equal 4, test_types.count, 'should have record sample, c1 measure, c2 measure, and c4 filtering tabs'
     assert_equal 'C1 + C3 Sample', titles[0]
     assert_equal 'C1 + C3 (QRDA-I)', titles[1]
+    assert_equal 'C2 (QRDA-III)', titles[2]
+    assert_equal 'C4 (QRDA-I and QRDA-III)', titles[3]
+  end
+
+  def test_each_tab_c1_c2_c3_c4_only_ep
+    make_product_certify(@product, true, true, true, true)
+    test_types, titles = get_test_types_titles_and_descriptions(@product)
+    assert_equal 4, test_types.count, 'should have record sample, c1 measure, c2 measure, and c4 filtering tabs'
+    assert_equal 'C1 Sample', titles[0]
+    assert_equal 'C1 (QRDA-I)', titles[1]
     assert_equal 'C2 + C3 (QRDA-III)', titles[2]
     assert_equal 'C4 (QRDA-I and QRDA-III)', titles[3]
   end
@@ -418,21 +438,13 @@ class ProductsHelperTest < ActiveJob::TestCase
     product.product_tests.filtering_tests.each(&:destroy) unless c4
   end
 
-  def test_title_for
-    assert_equal 'C1 Sample', title_for(Product.new(c1: true), 'ChecklistTest')
-    assert_equal 'C1 + C3 Sample', title_for(Product.new(c1_test: true, c3_test: true), 'ChecklistTest')
-
-    assert_equal 'C1 (QRDA-I)', title_for(Product.new(c1_test: true), 'MeasureTest', true)
-    assert_equal 'C1 + C3 (QRDA-I)', title_for(Product.new(c1_test: true, c3_test: true), 'MeasureTest', true)
-
-    assert_equal 'C2 (QRDA-III)', title_for(Product.new(c2_test: true), 'MeasureTest', false)
-    assert_equal 'C2 + C3 (QRDA-III)', title_for(Product.new(c2_test: true, c3_test: true), 'MeasureTest', false)
-
-    assert_equal 'C4 (QRDA-I and QRDA-III)', title_for(Product.new(c4_test: true), 'FilteringTest')
-  end
-
   def test_measure_test_tasks
     assert(measure_test_tasks(@product, true).all? { |task| task.is_a? C1Task })
     assert(measure_test_tasks(@product, false).all? { |task| task.is_a? C2Task })
+  end
+
+  def replace_with_eh_measure(measure)
+    measure.reporting_program_type = 'eh'
+    measure.save
   end
 end
