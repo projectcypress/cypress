@@ -1,4 +1,4 @@
-<%= render partial: 'application/certification_bar', locals: { product: @task.product_test.product, active_certs: current_certifications(@task._type, @task.product_test.product.c3_test) } %>
+<%= render partial: 'application/certification_bar', locals: { product: @task.product_test.product, active_certs: current_certifications(@task._type, @task.product_test.product.c3_test, @task.product_test.eh_measures?, @task.product_test.ep_measures?) } %>
 
 <% is_passing = @test_execution.status_with_sibling == 'passing' %>
 

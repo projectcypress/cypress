@@ -234,6 +234,14 @@ class Product
     ApplicationController.helpers.generate_filter_patients(filter_tests)
   end
 
+  def ep_tests?
+    product_tests.any?(&:ep_measures?)
+  end
+
+  def eh_tests?
+    product_tests.any?(&:eh_measures?)
+  end
+
   # Here we validate that duplicate_patients is set if c2_test is set
   def enforce_duplicate_patient_settings
     self.duplicate_patients = c2_test if duplicate_patients.nil?

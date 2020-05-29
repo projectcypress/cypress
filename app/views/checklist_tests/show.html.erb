@@ -1,7 +1,7 @@
 <% product = @product %>
 <% has_many_measures = @product_test.measures.count > CAT1_CONFIG['number_of_checklist_measures'] %>
 
-<%= render 'application/certification_bar', :product => product, :active_certs => [true, false, product.c3_test, false] %>
+<%= render 'application/certification_bar', :product => product, :active_certs => [true, false, product.c3_test && @product_test.eh_measures?, false] %>
 
 <div class="panel-actions pull-right">
   <%= button_to print_criteria_product_checklist_test_path(@product, @product_test), :method => :get, :class => "btn btn-default" do %>
