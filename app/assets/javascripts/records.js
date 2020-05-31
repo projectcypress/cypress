@@ -1,6 +1,17 @@
 /*global Turbolinks */
 
 var ready;
+function showPanel(){
+  var checked = $('.delete_vendor_patients_form input:checkbox:checked');
+  if (checked.length > 0){
+    // Make remove panel visable
+    $('.checkbox-danger-panel').show();
+  }
+  else{
+    // Make remove panel invisible
+    $('.checkbox-danger-panel').hide();
+  }
+}
 ready = function() {
   // when the user selects a different bundle
   // just take them to the new page
@@ -16,16 +27,15 @@ ready = function() {
 
   // This is its own unique checkbox panel danger class, so should not affect
   // behavior of other danger panels
-  $(document).on('change', '.delete_vendor_patients_form input:checkbox', function() {
-    var checked = $('.delete_vendor_patients_form input:checkbox:checked');
-    if (checked.length > 0){
-      // Make remove panel visable
-      $('.checkbox-danger-panel').show();
-    }
-    else{
-      // Make remove panel invisible
-      $('.checkbox-danger-panel').hide();
-    }
+  $(document).on('change', '.delete_vendor_patients_form input:checkbox', showPanel);
+
+  $(document).on('click', '#vendor-patient-select-all', function() {
+    // alert("alert!");
+    var checkbox = $('.delete_vendor_patients_form input:checkbox');
+    checkbox.each(function () {
+      $(this).prop("checked", true);
+    });
+    showPanel();
   });
 }
 
