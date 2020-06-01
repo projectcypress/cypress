@@ -102,8 +102,8 @@ module Cypress
       # Get the id for CMS128v8
       measure_id = @test.bundle.measures.where(hqmf_id: '40280382-6963-BF5E-0169-E4D266793DA0').first.id.to_s
       # Set options
-      options = { 'effectiveDateEnd' => Time.at(@test.bundle.effective_date).in_time_zone.to_formatted_s(:number),
-                  'effectiveDate' => Time.at(@test.bundle.measure_period_start).in_time_zone.to_formatted_s(:number) }
+      options = { 'effectiveDateEnd' => Time.at(@test.effective_date).in_time_zone.to_formatted_s(:number),
+                  'effectiveDate' => Time.at(@test.measure_period_start).in_time_zone.to_formatted_s(:number) }
       # Perform measure calculation ot see if patient calculates into CMS128v8
       SingleMeasureCalculationJob.perform_now([cloned_patient.id.to_s], measure_id, cloned_patient.id.to_s, options)
       # Individual Results for the cloned patient
