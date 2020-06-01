@@ -85,7 +85,8 @@ module Validators
       passed = true
       @measures.each do |measure|
         original_results = CQM::IndividualResult.where('patient_id' => mrn,
-                                                       'measure_id' => measure.id, 'correlation_id' => options.task.product_test_id.to_s)
+                                                       'measure_id' => measure.id,
+                                                       'correlation_id' => @test_id.to_s)
         original_results.each do |original_result|
           new_result = results.select do |arr|
             arr.measure_id == measure.id.to_s &&
