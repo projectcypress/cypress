@@ -87,18 +87,5 @@ module Cypress
       end
       false # no record diagnosis matches a code in this valueset
     end
-
-    def self.hqmf_oids_for_problem(problem_oid, measures)
-      measure = measures.first
-      hqmf_oids = []
-      measure.source_data_criteria.each do |criteria|
-        next unless criteria.codeListId == problem_oid
-
-        hqmf_oid = HQMF::DataCriteria.template_id_for_definition(cr_hash['definition'], cr_hash['status'], cr_hash['negation'])
-        hqmf_oid ||= HQMF::DataCriteria.template_id_for_definition(cr_hash['definition'], cr_hash['status'], cr_hash['negation'], 'r2')
-        hqmf_oids << hqmf_oid
-      end
-      hqmf_oids.uniq
-    end
   end
 end
