@@ -24,7 +24,6 @@ module Validators
     end
 
     def init_data
-      @sgd = {}
       @expected_records = []
       @measures.each do |mes|
         @expected_records << CQM::IndividualResult.where('measure_id' => mes.id, 'IPP' => { '$gt' => 0 },
@@ -87,33 +86,6 @@ module Validators
       nil
     end
 
-    def validate_smg_data(doc, doc_name, mrn, options)
-      return unless validate_expected_results(doc_name, mrn, options)
-      return if @options[:validate_inclusion_only]
-
-      @sgd.each_pair do |_hqmf_id, patient_data|
-        patient_sgd = patient_data[mrn]
-        next unless patient_sgd
-
-        patient_sgd.each do |dc|
-          next if dc[:template] == 'N/A'
-
-          if find_dc_nodes(doc, dc).empty?
-            add_error("Cannot find expected entry with templateId = #{dc[:template]} with valueset #{dc[:oid]}",
-                      file_name: options[:file_name])
-          end
-        end
-      end
-    end
-
-    def find_dc_nodes(doc, data_criteria)
-      if data_criteria[:template] == '2.16.840.1.113883.10.20.24.3.9' && data_criteria[:rationale][:results][0][:json][:negationInd]
-        doc.xpath("//cda:act[cda:code/@code = 'SPLY']/..//*[@sdtc:valueSet='#{data_criteria[:oid]}']")
-      else
-        doc.xpath("//cda:templateId[@root='#{data_criteria[:template]}']/..//*[@sdtc:valueSet='#{data_criteria[:oid]}']")
-      end
-    end
-
     def build_doc_name(doc)
       # find the mrn for the document
       first = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:given/text()')
@@ -135,7 +107,7 @@ module Validators
       @found_names << ((@names[doc_name] ? doc_name : nil) || to_doc_name(aug_rec[:first][0], aug_rec[:last][0])) if mrn
       return unless validate_name(doc_name, options)
 
-      validate_smg_data(doc, doc_name, mrn, options)
+      validate_expected_results(doc_name, mrn, options)
     end
   end
 end
