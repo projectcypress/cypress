@@ -100,6 +100,20 @@ module Cypress
             @cql_data_criteria << { 'attribute' => current_hash['path'],
                                     'data_criteria' => scope,
                                     'attribute_vs' => @vs_hash[grand_parent_hash['where']['valueset']['name']] }
+          elsif grand_parent_hash['where'] && grand_parent_hash['where']['type'] == 'And'
+            grand_parent_hash['where']['operand'].each do |and_hash|
+              if and_hash['type'] == 'InValueSet'
+                @cql_data_criteria << { 'attribute' => current_hash['path'],
+                                        'data_criteria' => scope,
+                                        'attribute_vs' => @vs_hash[and_hash['valueset']['name']] }
+              elsif and_hash['type'] == 'Or'
+                and_hash['operand'].each do |or_hash|
+                  @cql_data_criteria << { 'attribute' => current_hash['path'],
+                                          'data_criteria' => scope,
+                                          'attribute_vs' => @vs_hash[or_hash['valueset']['name']] }
+                end
+              end
+            end
           end
         elsif name == 'type' &&  values == 'Property' && grand_parent_hash['type'] == 'Equivalent'
           scope = find_data_criteria_for_property(library_id, expression_id, current_hash)
