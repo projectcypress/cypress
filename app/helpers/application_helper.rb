@@ -39,14 +39,6 @@ module ApplicationHelper
     cms_id[/#{start_marker}(.*?)#{end_marker}/m, 1].to_i
   end
 
-  # All "Master Patients" has medical records numbers that are UUIDs following this pattern "007f5da0-4d3a-0135-867f-20999b0ed66f".
-  # These medical record numbers are set in the bundle. When patients are created for a test,
-  # they have a medical record number like "757442430658921". This "keep_if" statement makes sure we only returning an id for a Master Patient.
-  # TODO R2P: use correlation id to confirm master-patient list
-  def mpl_id?(patient_id)
-    patient_id[8] == '-'
-  end
-
   def cvu_status_row(hash, status)
     # uses the hash provided by the get_cvu_status_values method
     row_values = [0, 0, 0]
