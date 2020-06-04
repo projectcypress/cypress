@@ -108,26 +108,6 @@ module RecordsHelper
     end
   end
 
-  def display_field(field)
-    display_text = ''
-    return '' if field.nil?
-    return field if field.is_a? String
-    return display_time(field) + "\n" if field.is_a? Integer
-
-    if field.is_a? Array
-      field.each { |sub| display_text += display_field(sub) + "\n" }
-    else
-      field.each do |key, subfield|
-        display_text += display_field(subfield) + ' ' if SUBFIELDS.include? key
-      end
-      field['codes']&.each do |code_system_oid, code|
-        display_text += "\n" + code_system_oid + ': ' + code.join(', ')
-      end
-      display_text += "\n" + field['code_system_oid'] + ': ' + field['code'] if field['code_system_oid']
-    end
-    display_text
-  end
-
   def hide_patient_calculation?
     # Hide measure calculation if Cypress is in ATL Mode and the current user is not an ATL or admin
     Settings.current.mode_atl? && (!current_user.user_role?('admin') && !current_user.user_role?('atl'))
