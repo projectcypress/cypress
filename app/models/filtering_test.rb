@@ -62,40 +62,6 @@ class FilteringTest < ProductTest
     display_name.gsub(/[^0-9A-Za-z.\-]+/, '_').downcase
   end
 
-  # Final Rule defines 9 different criteria that can be filtered:
-  #
-  # (A) TIN .................... (F) Age
-  # (B) NPI .................... (G) Sex
-  # (C) Provider Type .......... (H) Race + Ethnicity
-  # (D) Practice Site Address .. (I) Problem
-  # (E) Patient Insurance
-  #
-  def patient_cache_filter
-    # TODO: R2P: pick patient cache filter using new model (find where options['filters'] is set)
-    input_filters = (options['filters'] || {}).dup
-    filters = {}
-    # QME can handle races, ethnicities, genders, providers, and patient_ids (and languages)
-    # so pass these through directly
-
-    filters['races'] = input_filters.delete 'races' if input_filters['races']
-    filters['ethnicities'] = input_filters.delete 'ethnicities' if input_filters['ethnicities']
-    filters['genders'] = input_filters.delete 'genders' if input_filters['genders']
-
-    if input_filters['providers']
-      providers = Cypress::ProviderFilter.filter(Provider.all, input_filters['providers'], options)
-      filters['providers'] = providers.pluck(:_id)
-      input_filters.delete 'providers'
-    end
-
-    # for the rest, manually filter to get the patient IDs and pass those in
-    if input_filters.count.positive?
-      filters['patients'] = Cypress::PatientFilter.filter(patients, input_filters, effective_date: created_at,
-                                                                                   bundle_id: measures.first.bundle_id).pluck(:_id)
-    end
-
-    filters
-  end
-
   def filtered_patients
     Cypress::PatientFilter.filter(patients, options['filters'], effective_date: created_at, bundle_id: measures.first.bundle_id)
   end
