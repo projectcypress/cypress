@@ -83,23 +83,6 @@ module Cypress
       patients.sort_by { |p| p.givenNames.join('_') + '_' + p.familyName }
     end
 
-    def self.zip_patients_all_measures(file, measure_tests)
-      # TODO: R2P: check exporter
-      Zip::ZipOutputStream.open(file.path) do |zip|
-        measure_tests.each do |measure_test|
-          patients = measure_test.patients.to_a
-          measures, start_date, end_date = measure_start_end(patients)
-          formatter = Cypress::QRDAExporter.new(measures, start_date, end_date)
-          measure_folder = "patients_#{measure_test.cms_id}"
-
-          patients.each_with_index do |patient, i|
-            zip.put_next_entry("#{measure_folder}/#{next_entry_path(patient, i)}.xml")
-            zip << formatter.export(patient)
-          end
-        end
-      end
-    end
-
     def self.measure_start_end(patients)
       return unless patients.first
 
