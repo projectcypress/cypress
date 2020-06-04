@@ -87,8 +87,6 @@ gem 'rolify'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'bunny'
-
 gem 'rest-client', '~>2.0.2'
 
 gem 'daemons'
