@@ -11,16 +11,13 @@ Installing
 -------
 Please choose your install instructions based on the certification rule you will certify under:
 
-If you wish to use the 2014 or 2015 ONC Edition and 2015 EH/EP, 2016 EH/EC, or 2017 EH/EC measure release, use [Cypress 3.2.3](https://github.com/projectcypress/cypress/wiki/Cypress-3-Install-Instructions)
-
-If you wish to use the 2015 ONC Edition with the eCQMs updated for calendar year 2019 reporting, use [Cypress 4.0.2](https://github.com/projectcypress/cypress/wiki/Cypress-4-Install-Instructions)
+If you wish to use the 2015 ONC Edition with the eCQMs updated for calendar year 2020 reporting, use [Cypress 5](https://github.com/projectcypress/cypress/wiki/Cypress-5-Install-Instructions)
 
 
 Reporting Issues
 ================
 To report issues with alpha/beta releases, please submit tickets to [GitHub](https://github.com/projectcypress/cypress/issues)
 To report issues with production releases, please submit tickets to [JIRA](https://oncprojectracking.healthit.gov/support/projects/CYPRESS/issues)
-
 
 License
 -------
