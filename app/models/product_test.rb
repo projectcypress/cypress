@@ -216,12 +216,12 @@ class ProductTest
 
   # Are any of the measures in this test EH
   def eh_measures?
-    measures.any? { |m| m.reporting_program_type == 'eh' }
+    measures.pluck(:reporting_program_type).include?('eh')
   end
 
   # Are any of the measures in this test EH
   def ep_measures?
-    measures.any? { |m| m.reporting_program_type == 'ep' }
+    measures.pluck(:reporting_program_type).include?('ep')
   end
 
   # A measure test has a C1 Task if the product has C1 criteria, or C3 criteria with EH measures
