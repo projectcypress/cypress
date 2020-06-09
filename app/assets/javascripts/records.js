@@ -1,7 +1,7 @@
 /*global Turbolinks */
 
 var ready;
-function showPanel(){
+function changePanel(){
   var checked = $('.delete_vendor_patients_form input:checkbox:checked');
   if (checked.length > 0){
     // Make remove panel visable
@@ -27,15 +27,30 @@ ready = function() {
 
   // This is its own unique checkbox panel danger class, so should not affect
   // behavior of other danger panels
-  $(document).on('change', '.delete_vendor_patients_form input:checkbox', showPanel);
+  $(document).on('change', '.delete_vendor_patients_form input:checkbox', changePanel);
 
   $(document).on('click', '#vendor-patient-select-all', function() {
     // alert("alert!");
+    var button_font = $(this).find( "i" );
     var checkbox = $('.delete_vendor_patients_form input:checkbox');
-    checkbox.each(function () {
-      $(this).prop("checked", true);
-    });
-    showPanel();
+    if ($(this).val() == "unchecked"){
+      checkbox.each(function () {
+        $(this).prop("checked", true);
+      });
+      button_font.removeClass("fa-square");
+      button_font.addClass("fa-check-square");
+      $(this).prop('title', "Unselect All");
+      $(this).val("checked");
+    }else{
+      checkbox.each(function () {
+        $(this).prop("checked", false);
+      });
+      button_font.removeClass("fa-check-square");
+      button_font.addClass("fa-square");
+      $(this).prop('title', "Select All");
+      $(this).val("unchecked");
+    }
+    changePanel();
   });
 }
 

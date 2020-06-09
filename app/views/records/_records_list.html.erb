@@ -11,8 +11,8 @@
   <%= link_to "View Patient Analytics", patient_analysis_vendor_records_path(:vendor_id => @vendor.id, :bundle_id => @bundle.id) %>
   <br>
   <br>
-  <button class="btn btn-primary pull-left" type="button" id="vendor-patient-select-all">
-    Select All
+  <button class="btn btn-primary pull-left" type="button" id="vendor-patient-select-all" value="unchecked" title="Select All">
+    <i class="fa fa-square" aria-hidden="true"></i>
   </button>
   <br>
   <br>
