@@ -1,6 +1,6 @@
 <!-- Only grab measure records and result values once to avoid duplicate queries -->
 <% if measure && patients.length.positive? %>
-  <% measure_records = records_by_measure(patients, measure) %>
+  <% measure_records = records_by_measure(patients, measure, product_test, vendor) %>
   <% population_keys = measure.population_keys %>
   <% result_values = get_result_values(patients, [measure], measure.key_for_population_set(population_set_hash), population_keys, 'patient_id') %>
 <% end %>
