@@ -22,6 +22,7 @@ class CMSProgramTask < Task
     return hqr_pi_iqr_validators if product_test.cms_program == 'HQR_PI_IQR'
     return hqr_iqr_vol_validators if product_test.cms_program == 'HQR_IQR_VOL'
     return cpcplus_validators if product_test.cms_program == 'CPCPLUS'
+    return pcf_validators if product_test.cms_program == 'PCF'
     return mips_group_validators if product_test.cms_program == 'MIPS_GROUP'
     return mips_indiv_validators if product_test.cms_program == 'MIPS_INDIV'
     return mips_virtual_group_validators if product_test.cms_program == 'MIPS_VIRTUALGROUP'
@@ -55,6 +56,10 @@ class CMSProgramTask < Task
   end
 
   def cpcplus_validators
+    ep_validators
+  end
+
+  def pcf_validators
     ep_validators
   end
 

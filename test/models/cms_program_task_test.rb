@@ -51,10 +51,10 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 27, te.execution_errors.size
+      assert_equal 49, te.execution_errors.size
       assert_equal 2, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
-      assert_equal 18, te.execution_errors.where(validator: 'Validators::CMSQRDA3SchematronValidator').size
+      assert_equal 40, te.execution_errors.where(validator: 'Validators::CMSQRDA3SchematronValidator').size
       assert_equal 4, te.execution_errors.where(validator: 'Validators::CMSPopulationCountValidator').size # One for each demographic
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::EHRCertificationIdValidator').size
@@ -72,6 +72,20 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
       assert_equal 2, te.execution_errors.where(validator: 'CqmValidators::Cat3Measure').size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
+    end
+  end
+
+  def test_pcf_task_with_errors_for_cv_measure
+    setup_ep
+    task = @product.product_tests.cms_program_tests.where(cms_program: 'PCF').first.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3_cv.xml'))
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal 7, te.execution_errors.size
+      assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
+      assert_equal 2, te.execution_errors.where(validator: 'CqmValidators::Cat3Measure').size
+      assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
     end
   end
 

@@ -27,15 +27,15 @@ Version 1.0
                      warning if the item is absent. Similar logic applies for SHOULD conformance statements with cardinality of "zero or more [0..*]" and the Schematron
                      assertion checks for at least one of the item (i.e. "count(item) > 0").             
            
-           - MAY statements imply the conformance adherence is not required or even recommended. The subject of the conformance is entirely optional.
+           - MAY statements imply the conformance adherence is truly optional.
              MAY conformance statements are not enforced in the Schematron.
            
            Each type of conformance statement has three possible flavors:
            
-           -    Simple statements are simply the conformance statement with no further qualifications.
+           -  Simple statements are simply the conformance statement with no further qualifications.
                 For example: "SHALL contain exactly one [1..1] id."
            
-           -    Compound statements have additional requirements, represented by one or more "such that" conformance sub-clauses presented beneath the main conformance statment. 
+           -  Compound statements have additional requirements, represented by one or more "such that" conformance sub-clauses presented beneath the main conformance statement. 
                 These are also referred to as "such that" statements.
                 For example: "SHALL contain exactly one[1..] id such that 
                                 1) SHALL contain exactly one [1..1] root, 
@@ -46,23 +46,23 @@ Version 1.0
                 Schematron assertion also includes testing for the "sub-sub-clauses".
                 In the cases where one or more of a compound conformance sub-clauses have simple conformance statements under them, those are enforced as separate Schematron assertions.
            
-           -    Guidance conformance statements are those that represent conformance requirements that cannot or need not be implmented in Schematron assertions. 
+           -  Guidance conformance statements are those that represent conformance requirements that cannot or need not be implemented in Schematron assertions. 
                 For example: "If patient name was not provided at time of admission, then a value of UNK SHALL be used."
-                Guidance conformance statments of any type (SHALL, SHOULD, MAY) are not enforced in the Schematron.
+                Guidance conformance statements of any type (SHALL, SHOULD, MAY) are not enforced in the Schematron.
            
            Examples:
            
-           A) SHALL contain extactly one [1..1] id
+           A) SHALL contain exactly one [1..1] id
                1) This id SHALL contain exactly one [1..1] @root
                2) This id SHALL contain exactly one [1..1] @extension
-                   ii) This id SHALL contain exactly one [1..1] source such that
+                   i) This id SHALL contain exactly one [1..1] source such that
                         a) SHALL contain exactly one [1..1] @value
            
-           For the above example, the Schematron will have 4 assertions: One for A and one each for A.1, A.2 and A.2.ii 
-           (where A.2.ii is a compound conformance that includes the "such that" A.2.ii.a sub-clause in its test.)  
+           For the above example, the Schematron will have 4 assertions: One for A and one each for A.1, A.2 and A.2.i 
+           (where A.2.i is a compound conformance that includes the "such that" A.2.i.a sub-clause in its test.)  
            
            
-           B) SHALL contain extactly one [1..1] id such that
+           B) SHALL contain exactly one [1..1] id such that
                1) SHALL contain exactly one [1..1] @root
                2) SHALL contain exactly one [1..1] @extension
                3) SHALL contain exactly one [1..1] source  
@@ -71,7 +71,7 @@ Version 1.0
            For the above example, the Schematron will have 2 assertions: One for B (where B is a compound conformance that includes "such that" sub-clauses B.1, B.2, and B.3), 
            and one for B.3.i since it is NOT a such-that clause for B.3.
            
-           C) MAY contain extactly one [1..1] id such that
+           C) MAY contain exactly one [1..1] id such that
                1) SHALL contain exactly one [1..1] @root
                2) SHALL contain exactly one [1..1] @extension
                3) SHALL contain exactly one [1..1] source  
@@ -85,21 +85,25 @@ Version 1.0
     REPORTING PERIOD: 2021
     Version 1.0
     
+    CMS-related changes in version 1.0 from 2020 Schematron:
     
-            This version contains changes to QRDA Category I Report CMS V7 template that enforce the presence of the correct
-            extension of 2020-02-01 in the templateId[@root='2.16.840.1.113883.10.20.24.1.3'].
-            https://tracker.esacinc.com/browse/QRDA-763
-            
-            Changes in version 1.0 from 2020 Schematron:
-            
+              
             Template QRDA Category I Report CMS V7:
+            - Enforce the presence of the correct extension of 2020-02-01 in the templateId[@root='2.16.840.1.113883.10.20.24.1.3'].
+              https://tracker.esacinc.com/browse/QRDA-763
             - STATIC version in CMS_0026 changed to 2020-02-01 
             - Added _C01 suffix to conformance ID 4444-16587. Updated conformance id for 4444-16588 
             - Corrected incorrect extension in conformance text of  assertion a-CMS_0001-extension-error
+            - Conformance text of assertion a-CMS_0057-error references V5. Should be V7. (https://tracker.esacinc.com/browse/QRDA-818)
         
-            Datatype Validations
+            Template Patient Data Section QDM CMS V7
+            - Changed CMS_0051 from "at least one" to "exactly one" template other than Patient Characteristic Payer
+            
+             Datatype Validations
             - Changed CMS_0113 assertion to correctly enforce the value/nullFlavor rule in time elements.
               https://tracker.esacinc.com/browse/QRDA-781
+            - Adjusted CMS_0113 test to exclude elements using the  PIVL_TS and EIVL_TS timestamp datatype
+              https://tracker.esacinc.com/browse/QRDA-832
                       
             Base IG templates, represented in HL7 STU 5.2, that have changed from previous version:
 
@@ -181,7 +185,7 @@ Version 1.0
                 Symptom V3
                 Symptom Concern Act V4 
 
-Thu May 07 12:40:12 MDT 2020
+Wed May 27 11:38:24 MDT 2020
 -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:svs="urn:ihe:iti:svs:2008" xmlns:voc="http://www.lantanagroup.com/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sch:ns prefix="voc" uri="http://www.lantanagroup.com/voc" />
@@ -467,7 +471,6 @@ Thu May 07 12:40:12 MDT 2020
     <sch:active pattern="Measure_Reference-pattern-warnings" />
     <sch:active pattern="Medication_Activity-pattern-warnings" />
     <sch:active pattern="Medication_Dispense-pattern-warnings" />
-    <sch:active pattern="Medication_Dispensed-pattern-warnings" />
     <sch:active pattern="Medication_Free_Text_Sig-pattern-warnings" />
     <sch:active pattern="Medication_Supply_Order-pattern-warnings" />
     <sch:active pattern="Patient_Characteristic_Payer-pattern-warnings" />
@@ -662,19 +665,25 @@ Thu May 07 12:40:12 MDT 2020
       <sch:assert id="a-4444-29613-error" test="count(cda:id) &gt;=1">SHALL contain at least one [1..*] id (CONF:4444-29613).</sch:assert>
       <sch:assert id="a-4444-28656-error" test="count(cda:code)=1">SHALL contain exactly one [1..1] code (CONF:4444-28656).</sch:assert>
       <sch:assert id="a-4444-28653-error" test="count(cda:statusCode)=1">SHALL contain exactly one [1..1] statusCode (CONF:4444-28653).</sch:assert>
-      <sch:assert id="a-4444-28818-error" test="count(cda:author[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.155'][@extension='2019-12-01']]) = 1">SHALL contain exactly one [1..1] Author SHALL contain exactly one [1..1] Author (V2) (identifier: urn:hl7ii:2.16.840.1.113883.10.20.24.3.155:2019-12-01) (CONF:4444-29242). (identifier: urn:hl7ii:2.16.840.1.113883.10.20.24.3.155:2019-12-01) (CONF:4444-28818).</sch:assert>
+      <!-- 05-26-2020 Conformance 4444-28818 change from a SHALL to a MAY per STU comment 1976  -->
+      <!-- <sch:assert id="a-4444-28818-error" test="count(cda:author[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.155'][@extension='2019-12-01']]) = 1">SHALL contain exactly one [1..1] Author SHALL contain exactly one [1..1] Author (V2) (identifier: urn:hl7ii:2.16.840.1.113883.10.20.24.3.155:2019-12-01) (CONF:4444-29242). (identifier: urn:hl7ii:2.16.840.1.113883.10.20.24.3.155:2019-12-01) (CONF:4444-28818).</sch:assert> -->
       <!--Removed 33443-28783 as it was included in V2 (per http://www.hl7.org/dstucomments/showdetail_comment.cfm?commentid=1787), but not in V3    -->
       <!--  <sch:assert id="a-4444-28783-error" test="count(cda:author[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.155'][@extension='2017-08-01']]) = 1">SHALL contain exactly one [1..1] Author (identifier: urn:hl7ii:2.16.840.1.113883.10.20.24.3.155:2017-08-01) (CONF:4444-28783). </sch:assert> -->
-      <!-- 4444-29563 added for STU 5.2 -->
+      <!-- 05-26-2020 4444-29122 added per STU comment 1976 -->
+      <sch:assert id="a-4444-29122-error" test="count(cda:effectiveTime[count(@value | @nullFlavor | cda:low) =1 ]) =1">SHALL contain exactly one [1..1] effectiveTime (CONF:4444-29122) such that it  SHOULD contain zero or one [0..1] @value (CONF:4444-30016).  SHOULD contain zero or one [0..1] low (CONF:4444-29123). MAY contain zero or one [0..1] high (CONF:4444-29124).  This effectiveTime SHALL contain exactly one of @value, @nullFlavor, or low (CONF:4444-29125).</sch:assert>
+      <!-- 4444-29563 error added for STU 5.2 -->
       <sch:assert id="a-4444-29563-error" test="(@negationInd='true' and count(cda:entryRelationship[cda:observation[@classCode='OBS'][@moodCode='EVN'][cda:templateId[@root='2.16.840.1.113883.10.20.24.3.88'][@extension='2017-08-01']]])=1) or (not(@negationInd)) or (@negationInd != 'true')">If @negationInd="true" is present, SHALL contain one [1..1] entryRelationship such that it contains exactly one [1..1] Reason (V3) to state the reason for Assessment Not Performed (CONF:4444-29563).</sch:assert>
     </sch:rule>
     <sch:rule id="Assessment_performed-statusCode-errors" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.144'][@extension='2019-12-01']]/cda:statusCode">
       <sch:assert id="a-4444-28662-error" test="@code='completed'">This statusCode SHALL contain exactly one [1..1] @code="completed" Completed (CodeSystem: ActStatus urn:oid:2.16.840.1.113883.5.14) (CONF:4444-28662).</sch:assert>
     </sch:rule>
-    <sch:rule id="Assessment_performed-effectiveTime-errors" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.144'][@extension='2019-12-01']]/cda:effectiveTime">
-      <!-- 05-06-2020 Added  @nullFlavor to the test -->
-      <sch:assert id="a-4444-29125-error" test="count(cda:low | @value | @nullFlavor)=1">This effectiveTime SHALL contain exactly one of @value, @nullFlavor, or low (CONF:4444-29125).</sch:assert>
-    </sch:rule>
+    <!-- 05-06-2020 Added  @nullFlavor to the test -->
+    <!-- 05-26-2020 STU 1976 dictates that 4444-29125 is subsumed within the "such that it" clauses of 4444-29122 -->
+    <!--
+        <sch:rule id="Assessment_performed-effectiveTime-errors" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.144'][@extension='2019-12-01']]/cda:effectiveTime">
+            <sch:assert id="a-4444-29125-error" test="count(cda:low | @value | @nullFlavor)=1">This effectiveTime SHALL contain exactly one of @value, @nullFlavor, or low (CONF:4444-29125).</sch:assert>
+        </sch:rule>
+        -->
   </sch:pattern>
   <sch:pattern id="Assessment_recommended-pattern-extension-check">
     <sch:rule id="Assessment_recommended-extension-check" context="cda:observation/cda:templateId[@root='2.16.840.1.113883.10.20.24.3.145']">
@@ -1069,7 +1078,8 @@ Thu May 07 12:40:12 MDT 2020
       <sch:assert id="a-4444-16550-error" test="@classCode='ACT'">SHALL contain exactly one [1..1] @classCode="ACT" (CodeSystem: HL7ActClass urn:oid:2.16.840.1.113883.5.6) (CONF:4444-16550).</sch:assert>
       <sch:assert id="a-4444-16551-error" test="@moodCode='RQO'">SHALL contain exactly one [1..1] @moodCode="RQO" (CodeSystem: ActMood urn:oid:2.16.840.1.113883.5.1001) (CONF:4444-16551).</sch:assert>
       <sch:assert id="a-4444-26956-error" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.24.3.105'][@extension='2019-12-01'])=1">SHALL contain exactly one [1..1] templateId (CONF:4444-26956) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.24.3.105" (CONF:4444-26957). SHALL contain exactly one [1..1] @extension="2019-12-01" (CONF:4444-27037).</sch:assert>
-      <sch:assert id="a-4444-26955-error" test="count(cda:id)&gt;=1">SHALL contain at least one [1..*] id (CONF:4444-26955).</sch:assert>
+      <!-- 05-18-2020 Removed 4444-26955 per STU comment 1973 -->
+      <!-- <sch:assert id="a-4444-26955-error" test="count(cda:id)&gt;=1">SHALL contain at least one [1..*] id (CONF:4444-26955).  </sch:assert> -->
       <sch:assert id="a-4444-16552-error" test="count(cda:code)=1">SHALL contain exactly one [1..1] code (CONF:4444-16552).</sch:assert>
       <sch:assert id="a-4444-16553-error" test="count(cda:entryRelationship[@typeCode='SUBJ'] [count(cda:substanceAdministration[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.16' ][@extension='2014-06-09']])=1])=1">SHALL contain exactly one [1..1] entryRelationship (CONF:4444-16553) such that it SHALL contain exactly one [1..1] @typeCode="SUBJ" (CodeSystem: HL7ActRelationshipType urn:oid:2.16.840.1.113883.5.1002) (CONF:4444-16554) SHALL contain exactly one [1..1] Medication Activity (V2) (identifier: urn:hl7ii:2.16.840.1.113883.10.20.22.4.16:2014-06-09) (CONF:4444-16555).</sch:assert>
       <!-- 4444-29845 added for STU 5.2 -->
@@ -1445,10 +1455,10 @@ Thu May 07 12:40:12 MDT 2020
     <!-- 08-16-2019 Conformance 1198-32847 should be ignored due to the new conformance text...we do not test for this condition. -->
     <!-- 08-14-2019 Changed conformance text for 1198-32847 from STATIC to DYNAMIC -->
     <!--
-        <sch:rule id="Family_History_Observation-code-errors" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.46'][@extension='2015-08-01']]/cda:code">
-            <sch:assert id="a-1198-32847-error" test="count(cda:translation) &gt; 0"> If code is selected from ValueSet Problem Type (SNOMEDCT) 2.16.840.1.113883.3.88.12.3221.7.2 DYNAMIC, then it SHALL have at least one [1..*] translation, which SHOULD be selected from ValueSet Problem Type (LOINC) 2.16.840.1.113762.1.4.1099.28 DYNAMIC (CONF:1198-32847).</sch:assert>
-        </sch:rule>
-        -->
+    <sch:rule id="Family_History_Observation-code-errors" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.46'][@extension='2015-08-01']]/cda:code">
+      <sch:assert id="a-1198-32847-error" test="count(cda:translation) &gt; 0"> If code is selected from ValueSet Problem Type (SNOMEDCT) 2.16.840.1.113883.3.88.12.3221.7.2 DYNAMIC, then it SHALL have at least one [1..*] translation, which SHOULD be selected from ValueSet Problem Type (LOINC) 2.16.840.1.113762.1.4.1099.28 DYNAMIC (CONF:1198-32847).</sch:assert>
+    </sch:rule>
+    -->
     <sch:rule id="Family_History_Observation-statusCode-errors" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.46'][@extension='2015-08-01']]/cda:statusCode">
       <sch:assert id="a-1198-19098-error" test="@code='completed'">This statusCode SHALL contain exactly one [1..1] @code="completed" Completed (CodeSystem: ActStatus urn:oid:2.16.840.1.113883.5.14 STATIC) (CONF:1198-19098).</sch:assert>
     </sch:rule>
@@ -1547,6 +1557,8 @@ Thu May 07 12:40:12 MDT 2020
     <sch:rule id="Immunization_administered-errors" context="cda:substanceAdministration [cda:templateId[@root='2.16.840.1.113883.10.20.24.3.140'][@extension='2019-12-01']]">
       <sch:assert id="a-4444-28588-error" test="@classCode='SBADM'">SHALL contain exactly one [1..1] @classCode="SBADM" Substance Administration (CodeSystem: HL7ActClass urn:oid:2.16.840.1.113883.5.6) (CONF:4444-28588).</sch:assert>
       <sch:assert id="a-4444-28589-error" test="@moodCode='EVN'">SHALL contain exactly one [1..1] @moodCode="EVN" (CodeSystem: ActMood urn:oid:2.16.840.1.113883.5.1001) (CONF:4444-28589).</sch:assert>
+      <!-- 05-18-2020 Added 4444-29684 per STU comment http://www.hl7.org/dstucomments/showdetail_comment.cfm?commentid=1972  -->
+      <sch:assert id="a-4444-29684-error" test="@negationInd">SHALL contain exactly one [1..1] @negationInd (CONF:4444-29684).</sch:assert>
       <sch:assert id="a-4444-28574-error" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.24.3.140'][@extension='2019-12-01'])=1">SHALL contain exactly one [1..1] templateId (CONF:4444-28574) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.24.3.140" (CONF:4444-28581). SHALL contain exactly one [1..1] @extension="2019-12-01" (CONF:4444-28958).</sch:assert>
       <sch:assert id="a-4444-28576-error" test="count(cda:statusCode)=1">SHALL contain exactly one [1..1] statusCode (CONF:4444-28576).</sch:assert>
       <sch:assert id="a-4444-28578-error" test="count(cda:effectiveTime)=1">SHALL contain exactly one [1..1] effectiveTime (CONF:4444-28578).</sch:assert>
@@ -1554,7 +1566,8 @@ Thu May 07 12:40:12 MDT 2020
       <!-- 4444-29699 added for STU 5.2 -->
       <sch:assert id="a-4444-29699-error" test="count(cda:author[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.119']]) = 0">SHALL NOT contain [0..0] Author Participation (identifier: urn:oid:2.16.840.1.113883.10.20.22.4.119) (CONF:4444-29699).</sch:assert>
       <!-- 4444-29694 added for STU 5.2 -->
-      <sch:assert id="a-4444-29694-error" test="(@negationInd='true' and count(cda:entryRelationship[cda:observation[@classCode='OBS'][@moodCode='EVN'][cda:templateId[@root='2.16.840.1.113883.10.20.24.3.88'][@extension='2017-08-01']]])=1) or (not(@negationInd)) or (@negationInd != 'true')">If @negationInd="true" is present, SHALL contain one [1..1] entryRelationship such that it contains exactly one [1..1] Reason (V3) to state the reason for Immunization Not Administered (CONF:4444-29694).</sch:assert>
+      <!-- 05-27-2020 QRDA-870 Updated test to remove "or (not(negationInd))" because it is now required via 4444-29684 -->
+      <sch:assert id="a-4444-29694-error" test="(@negationInd='true' and count(cda:entryRelationship[cda:observation[@classCode='OBS'][@moodCode='EVN'][cda:templateId[@root='2.16.840.1.113883.10.20.24.3.88'][@extension='2017-08-01']]])=1) or (@negationInd != 'true')">If @negationInd="true" is present, SHALL contain one [1..1] entryRelationship such that it contains exactly one [1..1] Reason (V3) to state the reason for Immunization Not Administered (CONF:4444-29694).</sch:assert>
     </sch:rule>
     <sch:rule id="Immunization_administered-statusCode-errors" context="cda:substanceAdministration [cda:templateId[@root='2.16.840.1.113883.10.20.24.3.140'][@extension='2019-12-01']]/cda:statusCode">
       <sch:assert id="a-4444-28585-error" test="@code='completed'">This statusCode SHALL contain exactly one [1..1] @code="completed" (CodeSystem: ActStatus urn:oid:2.16.840.1.113883.5.14) (CONF:4444-28585).</sch:assert>
@@ -1930,7 +1943,8 @@ Thu May 07 12:40:12 MDT 2020
       <sch:assert id="a-4444-28562-error" test="@classCode='ACT'">SHALL contain exactly one [1..1] @classCode="ACT" Act (CodeSystem: HL7ActClass urn:oid:2.16.840.1.113883.5.6) (CONF:4444-28562).</sch:assert>
       <sch:assert id="a-4444-28563-error" test="@moodCode='EVN'">SHALL contain exactly one [1..1] @moodCode="EVN" Event (CodeSystem: ActMood urn:oid:2.16.840.1.113883.5.1001) (CONF:4444-28563).</sch:assert>
       <sch:assert id="a-4444-28558-error" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.24.3.139'][@extension='2019-12-01']) = 1">SHALL contain exactly one [1..1] templateId (CONF:4444-28558) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.24.3.139" (CONF:4444-28560). SHALL contain exactly one [1..1] @extension="2019-12-01" (CONF:4444-28907).</sch:assert>
-      <sch:assert id="a-4444-28564-error" test="count(cda:id) &gt; 0">SHALL contain at least one [1..*] id (CONF:4444-28564).</sch:assert>
+      <!-- 05-18-2020 Removed 4444-28564 per STU comment 1973 -->
+      <!-- <sch:assert id="a-4444-28564-error" test="count(cda:id) &gt; 0">SHALL contain at least one [1..*] id (CONF:4444-28564).</sch:assert> -->
       <sch:assert id="a-4444-28567-error" test="count(cda:code) = 1">SHALL contain exactly one [1..1] code (CONF:4444-28567).</sch:assert>
       <sch:assert id="a-4444-28557-error" test="count(cda:entryRelationship[@typeCode='SUBJ'][count(cda:supply[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.45'][@extension='2019-12-01']])=1]) = 1">SHALL contain exactly one [1..1] entryRelationship (CONF:4444-28557) such that it SHALL contain exactly one [1..1] @typeCode="SUBJ" has subject (CodeSystem: HL7ActRelationshipType urn:oid:2.16.840.1.113883.5.1002) (CONF:4444-28561). SHALL contain exactly one [1..1] Medication Dispensed (V5) (identifier: urn:hl7ii:2.16.840.1.113883.10.20.24.3.45:2019-12-01) (CONF:4444-28566).</sch:assert>
       <!-- 4444-29895 added for STU 5.2 -->
@@ -1952,16 +1966,24 @@ Thu May 07 12:40:12 MDT 2020
       <sch:assert id="a-4444-27529-error" test="@moodCode='EVN'">SHALL contain exactly one [1..1] @moodCode="EVN" (CodeSystem: ActMood urn:oid:2.16.840.1.113883.5.1001) (CONF:4444-27529).</sch:assert>
       <sch:assert id="a-4444-13851-error" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.24.3.45'][@extension='2019-12-01']) = 1">SHALL contain exactly one [1..1] templateId (CONF:4444-13851) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.24.3.45" (CONF:4444-13852). SHALL contain exactly one [1..1] @extension="2019-12-01" (CONF:4444-26555).</sch:assert>
       <sch:assert id="a-4444-19440-error" test="count(cda:statusCode) = 1">SHALL contain exactly one [1..1] statusCode (CONF:4444-19440).</sch:assert>
-      <sch:assert id="a-4444-28910-error" test="count(cda:author[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.155'][@extension='2019-12-01']]) = 1">SHALL contain exactly one [1..1] Author (V2) (identifier: urn:hl7ii:2.16.840.1.113883.10.20.24.3.155:2019-12-01) (CONF:4444-28910).</sch:assert>
+      <!-- 05-26-2020 Conformkance 4444-28910 change from a SHALL to a MAY per STU comment 1976  -->
+      <!-- <sch:assert id="a-4444-28910-error" test="count(cda:author[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.155'][@extension='2019-12-01']]) = 1">SHALL contain exactly one [1..1] Author (V2) (identifier: urn:hl7ii:2.16.840.1.113883.10.20.24.3.155:2019-12-01) (CONF:4444-28910). </sch:assert> -->
+      <!-- 05-26-2020 4444-29859 added per STU comment 1976 -->
+      <sch:assert id="a-4444-29859-error" test="count(cda:effectiveTime[count(@value | @nullFlavor | cda:low) =1 ]) =1">SHALL contain exactly one [1..1] effectiveTime (CONF:4444-29859) such that it  SHOULD contain zero or one [0..1] @value (CONF:4444-29899).  SHOULD contain zero or one [0..1] low (CONF:4444-29864). MAY contain zero or one [0..1] high (CONF:4444-29865).  This effectiveTime SHALL contain exactly one of @value, @nullFlavor, or low (CONF:4444-30019).</sch:assert>
       <sch:assert id="a-4444-28908-error" test="count(../../cda:templateId[@root='2.16.840.1.113883.10.20.24.3.139'][@extension='2019-12-01']) = 1">This template SHALL be contained by a Medication Dispensed Act (V4) (CONF:4444-28908).</sch:assert>
+      <!-- 05-25-2020 4444-30039 added per STU comment 1977 -->
+      <sch:assert id="a-4444-30039-error" test="count(cda:product[count(cda:manufacturedProduct[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.23'][@extension='2014-06-09']])=1])=1">SHALL contain exactly one [1..1] product (CONF:4444-30039) such that it SHALL contain exactly one [1..1] Medication Information (V2) (identifier: urn:hl7ii:2.16.840.1.113883.10.20.22.4.23:2014-06-09) (CONF:4444-30040).</sch:assert>
     </sch:rule>
     <sch:rule id="Medication_Dispensed-statuscode-errors" context="cda:supply[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.45'][@extension='2019-12-01']]/cda:statusCode">
       <sch:assert id="a-4444-19441-error" test="@code='completed'">This statusCode SHALL contain exactly one [1..1] @code="completed" (CodeSystem: ActStatus urn:oid:2.16.840.1.113883.5.14) (CONF:4444-19441).</sch:assert>
     </sch:rule>
+    <!-- 05-06-20202 Added @nullFlavor to test -->
+    <!-- 05-26-2020 STU 1976 dictates that 4444-30019 is subsumed within the "such that it" clauses of 4444-29859 -->
+    <!--
     <sch:rule id="Medication_Dispensed-effectiveTime-errors" context="cda:supply[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.45'][@extension='2019-12-01']]/cda:effectiveTime">
-      <!-- 05-06-20202 Added @nullFlavor to test -->
       <sch:assert id="a-4444-30019-error" test="count(cda:low | @value | @nullFlavor)=1">This effectiveTime SHALL contain exactly one of @value, @nullFlavor, or low (CONF:4444-30019).</sch:assert>
     </sch:rule>
+    -->
     <sch:rule id="Medication_Dispensed-participant-participantRole-errors" context="cda:supply[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.45'][@extension='2019-12-01']]/cda:participant/cda:participantRole">
       <sch:assert id="a-4444-29223-error" test="count(cda:id) &gt;= 1">This participantRole SHALL contain at least one [1..*] id (CONF:4444-29223).</sch:assert>
     </sch:rule>
@@ -2766,7 +2788,8 @@ Thu May 07 12:40:12 MDT 2020
       <sch:assert id="a-4444-28964-error" test="count(cda:code) = 1">SHALL contain exactly one [1..1] code (CONF:4444-28964).</sch:assert>
       <sch:assert id="a-4444-28977-error" test="count(cda:statusCode[@code='completed']) = 1">SHALL contain exactly one [1..1] statusCode="completed" Completed (CONF:4444-28977).</sch:assert>
       <sch:assert id="a-4444-28966-error" test="count(cda:effectiveTime) = 1">SHALL contain exactly one [1..1] effectiveTime (CONF:4444-28966).</sch:assert>
-      <sch:assert id="a-4444-28973-error" test="count(cda:value[@xsi:type='CD']) = 1">SHALL contain exactly one [1..1] value with @xsi:type="CD" (CONF:4444-28973)</sch:assert>
+      <!-- 05-11-2020 Added valueset text to conformance statement for 4444-28973-->
+      <sch:assert id="a-4444-28973-error" test="count(cda:value[@xsi:type='CD']) = 1">SHALL contain exactly one [1..1] value with @xsi:type="CD", where the code SHOULD be selected from ValueSet HL7ActCoverageType urn:oid:2.16.840.1.113883.1.11.19832 DYNAMIC (CONF:4444-28973). (CONF:4444-28973)</sch:assert>
     </sch:rule>
     <sch:rule id="Program_Participation-code-errors" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.154'][@extension='2019-12-01']]/cda:code">
       <sch:assert id="a-4444-28967-error" test="@code='ASSERTION'">This code SHALL contain exactly one [1..1] @code="ASSERTION" (CONF:4444-28967).</sch:assert>
@@ -3722,10 +3745,10 @@ Thu May 07 12:40:12 MDT 2020
     <!-- 08-14-2019 Changed conformance text for 1198-32427 from STATIC to DYNAMIC -->
     <!-- 08-16-2019 Conformance 1198-32847 should be ignored due to the new conformance text...we do not test for this condition. -->
     <!--
-        <sch:rule id="Family_History_Observation-code-translation-warnings" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.46'][@extension='2015-08-01']]/cda:code/cda:translation">
-            <sch:assert id="a-1198-32847-warning" test="@sdtc:valueSet='2.16.840.1.113883.3.88.12.3221.7.2'">This translation, if present, SHOULD be selected from ValueSet Problem Type urn:oid:2.16.840.1.113883.3.88.12.3221.7.2 DYNAMIC (CONF:1198-32847).</sch:assert>
-        </sch:rule>
-        -->
+    <sch:rule id="Family_History_Observation-code-translation-warnings" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.46'][@extension='2015-08-01']]/cda:code/cda:translation">
+      <sch:assert id="a-1198-32847-warning" test="@sdtc:valueSet='2.16.840.1.113883.3.88.12.3221.7.2'">This translation, if present, SHOULD be selected from ValueSet Problem Type urn:oid:2.16.840.1.113883.3.88.12.3221.7.2 DYNAMIC (CONF:1198-32847).</sch:assert>
+    </sch:rule>
+    -->
     <sch:rule id="Family_History_Observation-warnings" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.46'][@extension='2015-08-01']]">
       <sch:assert id="a-1198-8593-warning" test="count(cda:effectiveTime)=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:1198-8593).</sch:assert>
     </sch:rule>
@@ -3817,12 +3840,6 @@ Thu May 07 12:40:12 MDT 2020
     </sch:rule>
     <sch:rule id="Medication_Dispense-performer-assignedEntity-warnings" context="cda:supply[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.18'][@extension='2014-06-09']]/cda:performer/cda:assignedEntity">
       <sch:assert id="a-1098-7468-warning" test="count(cda:addr) = 1">This assignedEntity SHOULD contain zero or one [0..1] US Realm Address (AD.US.FIELDED) (identifier: urn:oid:2.16.840.1.113883.10.20.22.5.2) (CONF:1098-7468).</sch:assert>
-    </sch:rule>
-  </sch:pattern>
-  <sch:pattern id="Medication_Dispensed-pattern-warnings">
-    <sch:rule id="Medication_Dispensed-effectiveTime-warnings" context="cda:supply[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.45'][@extension='2019-12-01']]/cda:effectiveTime">
-      <sch:assert id="a-4444-29864-error" test="count(cda:low)=1">The effectiveTime, if present, SHOULD contain zero or one [0..1] low (CONF:4444-29864).</sch:assert>
-      <sch:assert id="a-4444-29899-error" test="count(@value)=1">The effectiveTime, if present, SHOULD contain zero or one [0..1] @value (CONF:4444-29899).</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="Medication_Free_Text_Sig-pattern-warnings">
