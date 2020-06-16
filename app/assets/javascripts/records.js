@@ -40,6 +40,7 @@ ready = function() {
       button_font.removeClass("fa-square");
       button_font.addClass("fa-check-square");
       $(this).prop('title', "Unselect All");
+      $('#vendor-patient-select-all-text').text("Unselect All");
       $(this).val("checked");
     }else{
       checkbox.each(function () {
@@ -48,6 +49,7 @@ ready = function() {
       button_font.removeClass("fa-check-square");
       button_font.addClass("fa-square");
       $(this).prop('title', "Select All");
+      $('#vendor-patient-select-all-text').text("Select All");
       $(this).val("unchecked");
     }
     changePanel();

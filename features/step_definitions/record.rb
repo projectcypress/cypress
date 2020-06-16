@@ -59,6 +59,11 @@ And(/^the user should see a way to filter patients$/) do
   assert page.has_selector?('#search_measures'), 'no search box'
 end
 
+And(/^the user should see a way to select all patients$/) do
+  page.assert_text 'Select All'
+  assert page.has_selector?('#vendor-patient-select-all'), 'no select button'
+end
+
 And(/^the user should see a way to switch bundles$/) do
   assert Bundle.count > 1
   page.assert_text 'Annual Update Bundle'
