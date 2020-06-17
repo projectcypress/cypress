@@ -82,7 +82,7 @@ class MeasureTestTest < ActiveJob::TestCase
   def test_create_with_slim_records
     perform_enqueued_jobs do
       patient_to_copy = @bundle.patients.first
-      # Add a bunch of patients to the bundle to exagerate the number of patients
+      # Add a bunch of patients to the bundle to exaggerate the number of patients
       50.times do
         patient_copy = patient_to_copy.clone
         patient_copy.save
