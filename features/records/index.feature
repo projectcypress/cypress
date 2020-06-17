@@ -63,6 +63,7 @@ Scenario: View Vendor Patient List Page
   Then the user should see a list of vendor patients
   And the user should see a way to switch bundles
   And the user should see a way to filter patients
+  And the user should see a way to select all patients
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
 
