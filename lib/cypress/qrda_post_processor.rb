@@ -56,6 +56,8 @@ module Cypress
         patient.qdmPatient.dataElements.each do |de|
           # check for matching data element type and code in valueset
           next unless de._type == match['de_type'] && de.dataElementCodes.any? { |dec| valueset.concepts.any? { |conc| conc.code == dec.code } }
+          # check that the data element has a result value
+          next unless de.result
 
           msg = unit_error_message(de, match, valueset)
           error_list << msg if msg
