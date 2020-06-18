@@ -140,7 +140,7 @@
                           <td class='show-me' style='display: none;'>
                             <%= criteria_field.select :replacement_attribute, available_attributes(criteria), {:selected => selected_attribute}, {class: 'show-me attribute-selector'} %>
                           <td>
-                        <% elsif criteria['value'] && criteria['value'].type != 'CD' || criteria['dataElementAttributes'] %>
+                        <% elsif criteria['value'] && criteria['value'].type != 'CD' || criteria['dataElementAttributes'].any? %>
                           <td class='hide-me'>
                             <% if criteria_field.object.complete?.nil? %>
                               <%= icon('fas fa-fw text-info invisible', 'play-circle', :"aria-hidden" => true) %>

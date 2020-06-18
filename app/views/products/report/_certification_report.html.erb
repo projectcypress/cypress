@@ -10,8 +10,8 @@
         <th scope="col">Submeasures</th>
         <%= @product.c1_test ? "<th scope='col' class = 'text-center'>C1 QRDA Category I</th>".html_safe : "<td></td>".html_safe %>
         <%= @product.c2_test ? "<th scope='col' class = 'text-center'>C2 QRDA Category III</th>".html_safe : "<td></td>".html_safe %>
-        <%= @product.c3_test ? "<th scope='col' class = 'text-center'>C3 QRDA Category I</th>".html_safe : "<td></td>".html_safe %>
-        <%= @product.c3_test ? "<th scope='col' class = 'text-center'>C3 QRDA Category III</th>".html_safe : "<td></td>".html_safe %>
+        <%= @product.c3_test && @product.eh_tests? ? "<th scope='col' class = 'text-center'>C3 QRDA Category I</th>".html_safe : "<td></td>".html_safe %>
+        <%= @product.c3_test && @product.ep_tests? ? "<th scope='col' class = 'text-center'>C3 QRDA Category III</th>".html_safe : "<td></td>".html_safe %>
       </tr>
     </thead>
     <tbody>

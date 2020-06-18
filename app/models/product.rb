@@ -3,8 +3,6 @@ class Product
   include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps
 
-  TEST_DECK_MAX = 50
-
   before_save :enforce_duplicate_patient_settings
 
   mount_uploader :supplemental_test_artifact, SupplementUploader
@@ -19,6 +17,7 @@ class Product
   # NOTE: more relationships must be defined
 
   field :cvuplus, type: Boolean, default: false
+  field :cures_update, type: Boolean
   field :vendor_patients, type: Boolean, default: false
   field :bundle_patients, type: Boolean, default: true
   field :name, type: String
@@ -231,6 +230,24 @@ class Product
     criteria = ApplicationController.helpers.measure_has_snomed_dx_criteria?(measure) ? ['problems'] : criteria.values_at(4, (0..3).to_a.sample)
     filter_tests << build_filtering_test(measure, criteria)
     ApplicationController.helpers.generate_filter_patients(filter_tests)
+  end
+
+  def ep_tests?
+    product_tests.any?(&:ep_measures?)
+  end
+
+  def eh_tests?
+    product_tests.any?(&:eh_measures?)
+  end
+
+  def slim_test_deck?
+    !c2_test
+  end
+
+  def test_deck_max
+    return 5 if slim_test_deck?
+
+    50
   end
 
   # Here we validate that duplicate_patients is set if c2_test is set

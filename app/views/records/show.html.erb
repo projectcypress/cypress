@@ -97,6 +97,7 @@
 
 
     <% sf_patient = @record.clone %>
+    <% sf_patient.id =  @record.id %>
     <% sf_measures = @record.bundle.measures %>
     <% sf_title = "All Measures" %>
     <% if @hqmf_id %>

@@ -80,6 +80,7 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Max: 10
   Exclude:
+    - 'app/helpers/products_helper.rb'
     - 'lib/cypress/data_criteria_attribute_builder.rb'
     - 'lib/validators/checklist_criteria_validator.rb'
     - 'test/unit/lib/validators/checklist_criteria_validator_test.rb'

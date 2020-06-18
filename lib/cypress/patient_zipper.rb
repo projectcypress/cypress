@@ -71,37 +71,16 @@ module Cypress
       Zip::ZipOutputStream.open(file.path) do |z|
         patients.each_with_index do |patient, i|
           sf_patient = patient.clone
+          sf_patient.id = patient.id
           patient_scoop_and_filter.scoop_and_filter(sf_patient)
           z.put_next_entry("#{next_entry_path(patient, i)}.#{FORMAT_EXTENSIONS[format.to_sym]}")
-          # TODO: R2P: make sure using correct exporter
-          z << if formatter == Cypress::HTMLExporter
-                 formatter.new.export(patient)
-               else
-                 formatter.export(sf_patient)
-               end
+          z << formatter.export(sf_patient)
         end
       end
     end
 
     def self.apply_sort_to(patients)
       patients.sort_by { |p| p.givenNames.join('_') + '_' + p.familyName }
-    end
-
-    def self.zip_patients_all_measures(file, measure_tests)
-      # TODO: R2P: check exporter
-      Zip::ZipOutputStream.open(file.path) do |zip|
-        measure_tests.each do |measure_test|
-          patients = measure_test.patients.to_a
-          measures, start_date, end_date = measure_start_end(patients)
-          formatter = Cypress::QRDAExporter.new(measures, start_date, end_date)
-          measure_folder = "patients_#{measure_test.cms_id}"
-
-          patients.each_with_index do |patient, i|
-            zip.put_next_entry("#{measure_folder}/#{next_entry_path(patient, i)}.xml")
-            zip << formatter.export(patient)
-          end
-        end
-      end
     end
 
     def self.measure_start_end(patients)

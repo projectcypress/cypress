@@ -10,7 +10,7 @@
 <% status_with_sibling = execution ? execution.status_with_sibling : nil %>
 <% c3_execution = execution ? execution.sibling_execution : nil %>
 <% should_include_c1 = task.product_test.product.c1_test %>
-<% should_include_c3 = task.product_test.product.c3_test %>
+<% should_include_c3 = task.product_test.product.c3_test && task.product_test.product.eh_tests? %>
 
 <table class = 'table table-hover table-condensed'>
   <thead>

@@ -40,10 +40,13 @@ class ProductTest
   mount_uploader :patient_archive, PatientArchiveUploader
   mount_uploader :html_archive, PatientArchiveUploader
 
+  delegate :cures_update, to: :product
   delegate :name, :version, to: :product, prefix: true
   delegate :effective_date, to: :product
   delegate :measure_period_start, to: :product
   delegate :bundle, to: :product
+  delegate :slim_test_deck?, to: :product
+  delegate :test_deck_max, to: :product
   delegate :c1_test, :c2_test, :c3_test, to: :product
 
   before_create :generate_random_seed
@@ -82,8 +85,7 @@ class ProductTest
   def generate_patients(job_id = nil)
     if product.randomize_patients
       # If we're using a "slim test deck", don't pass in any random IDs
-      # random_ids = bundle.patients.pluck(:_id)
-      random_ids = gather_patient_ids
+      random_ids = slim_test_deck? ? [] : gather_patient_ids
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'randomization_ids' => random_ids,
                                       'randomize_demographics' => true, 'generate_provider' => product.c4_test, 'job_id' => job_id).perform
     else
@@ -215,12 +217,12 @@ class ProductTest
 
   # Are any of the measures in this test EH
   def eh_measures?
-    measures.any? { |m| m.reporting_program_type == 'eh' }
+    measures.pluck(:reporting_program_type).include?('eh')
   end
 
   # Are any of the measures in this test EH
   def ep_measures?
-    measures.any? { |m| m.reporting_program_type == 'ep' }
+    measures.pluck(:reporting_program_type).include?('ep')
   end
 
   # A measure test has a C1 Task if the product has C1 criteria, or C3 criteria with EH measures
@@ -321,8 +323,8 @@ class ProductTest
     ipp_ids = (mpl_ids - denom_ids - msrpopl_ids)
 
     # Pick some IDs from the IPP. If we've already got a lot of patients, only pick a couple more, otherwise pick 1/2 or more
-    ipp_ids = if (mpl_ids.count + denom_ids.count + msrpopl_ids.count) > Product::TEST_DECK_MAX
-                ipp_ids.sample(Product::TEST_DECK_MAX / 2)
+    ipp_ids = if (mpl_ids.count + denom_ids.count + msrpopl_ids.count) > test_deck_max
+                ipp_ids.sample(test_deck_max / 2)
               else
                 ipp_ids.sample(prng.rand((ipp_ids.count / 2.0).ceil..(ipp_ids.count)))
               end
@@ -331,18 +333,18 @@ class ProductTest
 
   def pick_denom_ids
     # numer_id ensures we get at least one patient who is in the Numerator, no matter what
-    numer_id = patient_in_numerator
+    numer_id = patient_in_numerator.sample
     denom_ids = patients_in_denominator_and_greater
 
     # If there are a lot of patients in denom_ids (usually when the IPP and denominator are the same thing),
     # pull out the numerator/Denex/Denexcep patients as high value (this is numer_ids), then sample from the rest to get to TEST_DECK_MAX
     # NOTE: "a lot" is defined by the relation to "TEST_DECK_MAX" on the product,
-    if denom_ids.count > (Product::TEST_DECK_MAX - 1)
+    if denom_ids.count > (test_deck_max - 1)
       high_value_ids = patients_in_high_value_populations
-      high_value_ids = high_value_ids.sample(Product::TEST_DECK_MAX - 1)
-      denom_ids = high_value_ids + denom_ids.sample(Product::TEST_DECK_MAX - high_value_ids.count - 1)
+      high_value_ids = high_value_ids.sample(test_deck_max - 1)
+      denom_ids = high_value_ids + denom_ids.sample(test_deck_max - high_value_ids.count - 1)
     end
-    patients_in_denominator_and_greater.empty? ? numer_id.uniq : (denom_ids << numer_id).uniq
+    patients_in_denominator_and_greater.empty? ? [numer_id] : (denom_ids << numer_id).uniq
   end
 
   def pick_msrpopl_ids
@@ -350,10 +352,10 @@ class ProductTest
 
     # If there are a lot of patients in the MSRPOPL results above, (usually if there are a lot of MSRPOPLEX values)
     # pull out only those patients with more than one episode in the MSRPOPL
-    if msrpopl_ids.count > Product::TEST_DECK_MAX
+    if msrpopl_ids.count > test_deck_max
       numer_ids = BundlePatient.where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.MSRPOPL": true).pluck(:_id)
-      numer_ids = numer_ids.sample(Product::TEST_DECK_MAX)
-      msrpopl_ids = numer_ids + msrpopl_ids.sample(Product::TEST_DECK_MAX - numer_ids.count)
+      numer_ids = numer_ids.sample(test_deck_max)
+      msrpopl_ids = numer_ids + msrpopl_ids.sample(test_deck_max - numer_ids.count)
     end
     msrpopl_ids
   end
