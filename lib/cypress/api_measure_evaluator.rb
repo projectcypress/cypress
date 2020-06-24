@@ -223,6 +223,8 @@ module Cypress
       return filter_providers(doc, filters) if filters.key?('provider')
       return filter_problems(doc, filters) if filters.key?('problem')
 
+      # Normalize payer to a string value.  Parsing from JSON directly may have the parameter as an integer
+      filters = Hash[filters.map { |k, v| [k, k == 'payer' ? v.to_s : v] }] if filters.key?('payer')
       filter_demographics(doc, filters, creation_time)
     end
 
@@ -285,7 +287,7 @@ module Cypress
       counter += 1 if filters.value?(doc.at_xpath(race_xpath).value)
       counter += 1 if filters.value?(doc.at_xpath(gender_xpath).value)
       counter += 1 if filters.value?(doc.at_xpath(ethnic_xpath).value)
-      counter += 1 if filters.value?(get_payer_name(payer_value))
+      counter += 1 if filters.value?(payer_value)
       filters['age'] = age_filter_holder if age_filter_holder
       return true if counter == 2
     end
@@ -301,17 +303,6 @@ module Cypress
         filter_time < patient_birth_time + age_shit + 31_556_952
       else
         filter_time > patient_birth_time + age_shit
-      end
-    end
-
-    def get_payer_name(payer_code)
-      case payer_code
-      when '1'
-        1
-      when '2'
-        2
-      when '349'
-        349
       end
     end
 
