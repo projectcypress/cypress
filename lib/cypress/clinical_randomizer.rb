@@ -98,6 +98,7 @@ module Cypress
       return data_element.prevalencePeriod.low if data_element['prevalencePeriod']&.low
       return data_element.authorDatetime if data_element['authorDatetime']
       return data_element.sentDatetime if data_element['sentDatetime']
+      return data_element.participationPeriod.low if data_element['participationPeriod']
     end
 
     def self.find_split_date(sorted_de_groups, effective_date, measure_period_start, random)

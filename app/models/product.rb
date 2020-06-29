@@ -3,8 +3,6 @@ class Product
   include Mongoid::Attributes::Dynamic
   include Mongoid::Timestamps
 
-  TEST_DECK_MAX = 50
-
   before_save :enforce_duplicate_patient_settings
 
   mount_uploader :supplemental_test_artifact, SupplementUploader
@@ -240,6 +238,16 @@ class Product
 
   def eh_tests?
     product_tests.any?(&:eh_measures?)
+  end
+
+  def slim_test_deck?
+    !c2_test
+  end
+
+  def test_deck_max
+    return 5 if slim_test_deck?
+
+    50
   end
 
   # Here we validate that duplicate_patients is set if c2_test is set
