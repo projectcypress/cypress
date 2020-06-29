@@ -37,7 +37,8 @@ module Validators
     end
 
     def calculate_patient(options)
-      patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(@file)
+      patient, warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(@file)
+      warnings.each { |w| add_warning w, file_name: options[:file_name] }
       patient.update(_type: CQM::TestExecutionPatient, correlation_id: options.test_execution.id.to_s)
       patient.save!
       post_processsor_check(patient, options)
