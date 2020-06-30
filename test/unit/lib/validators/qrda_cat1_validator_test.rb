@@ -75,9 +75,7 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
     @calc_validator_with_c3.parse_record(doc, file_name: 'sample_patient_unit_mismatch')
     errors = @calc_validator_with_c3.errors
     assert_not_empty errors
-    errors.each do |e|
-      assert e.message.include?('does not match expected unit'), 'Validation warnings should show unit mismatch warning'
-    end
+    assert errors.map(&:message).include?("Unit 'days' for QDM::AssessmentPerformed () does not match expected units (weeks, wk). Units must match measure-defined units. "), 'Validation warnings should show unit mismatch warning'
   end
 
   def test_unit_missing_warning
@@ -100,9 +98,37 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
     @calc_validator_with_c3.parse_record(doc, file_name: 'sample_patient_unit_missing')
     errors = @calc_validator_with_c3.errors
     assert_not_empty errors
-    errors.each do |e|
-      assert e.message.include?('Unspecified unit'), 'Validation warnings should show unit missing warning'
-    end
+    assert errors.map(&:message).include?('Unspecified unit for QDM::AssessmentPerformed () does not match expected units (weeks, wk). Units must match measure-defined units. '), 'Validation warnings should show unit missing warning'
+  end
+
+  def test_import_warning
+    @product_test = FactoryBot.create(:product_test_static_result)
+
+    measure = @product_test.measures.first
+    measure.hqmf_set_id = '7D374C6A-3821-4333-A1BC-4531005D77B8'
+    measure.save
+
+    # create gestational age code that can be found in fixture patient file
+    vs = ValueSet.new('oid': 'drc-4c33d7b8f32e35a207115db38533831b6f4ecd2459f3921a33641217cb04b75b', 'bundle_id': @product_test.bundle._id)
+    vs.concepts = [Concept.new('code': '76516-4')]
+    vs.save
+
+    @calc_validator_with_c3 = CalculatingSmokingGunValidator.new([measure], @product_test.patients, @product_test.id, measure_ids: ['temp_id'])
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'import_warnings.xml')).read
+    doc = Nokogiri::XML(file)
+    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+    @calc_validator_with_c3.parse_record(doc, file_name: 'import_warnings')
+    errors = @calc_validator_with_c3.errors
+
+    assert_not_empty errors
+
+    # should contain one of each import error type
+    messages = errors.map(&:message)
+    assert messages.include?('Code element contains nullFlavor code and no valueset')
+    assert messages.include?('Interval with low time after high time')
+    assert messages.include?('Interval with nullFlavor low time and nullFlavor high time')
+    assert messages.include?("Value with string type found. When possible, it's best practice to use a coded value or scalar.")
   end
 
   def test_no_result_value
@@ -124,6 +150,9 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
     doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
     @calc_validator_with_c3.parse_record(doc, file_name: 'sample_patient_unit_missing')
     errors = @calc_validator_with_c3.errors
-    assert_empty errors
+    # check that all are warnings
+    errors.each do |e|
+      assert e.msg_type == :warning
+    end
   end
 end
