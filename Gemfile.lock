@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers
-  revision: 87715f20ab1682d010b1314b61f30f71cc4b9678
-  branch: v3_rails5
+  revision: 76d3478c2204ee7caf2b7d46ae70aead448ccb0a
+  branch: master
   specs:
-    cqm-parsers (2.0.0)
+    cqm-parsers (3.1.0.0)
       activesupport (~> 5.0)
       builder (~> 3.1)
       cqm-models (~> 3.0.0)
@@ -19,6 +19,22 @@ GIT
       rubyzip (~> 1.3)
       typhoeus
       uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-reports
+  revision: 3ad3196ff32370f146a32ded337f7a2882847098
+  branch: qrda_5_2_errata
+  specs:
+    cqm-reports (3.0.0)
+      cqm-models (~> 3.0.0)
+      erubis (~> 2.7)
+      log4r (~> 1.1)
+      memoist (~> 0.9)
+      mongoid-tree (> 2.0)
+      mustache
+      nokogiri (~> 1.10)
+      uuid (~> 2.3)
       zip-zip (~> 0.3)
 
 GIT
@@ -154,16 +170,6 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.6)
     cqm-models (3.0.1)
-    cqm-reports (3.0.0)
-      cqm-models (~> 3.0.0)
-      erubis (~> 2.7)
-      log4r (~> 1.1)
-      memoist (~> 0.9)
-      mongoid-tree (> 2.0)
-      mustache
-      nokogiri (~> 1.10)
-      uuid (~> 2.3)
-      zip-zip (~> 0.3)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
@@ -532,7 +538,7 @@ DEPENDENCIES
   codecov
   cqm-models (~> 3.0.1)
   cqm-parsers!
-  cqm-reports (~> 3.0.0)
+  cqm-reports!
   cqm-validators!
   cucumber (~> 3.0.2)
   cucumber-rails
