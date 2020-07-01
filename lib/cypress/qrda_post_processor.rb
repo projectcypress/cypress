@@ -17,6 +17,8 @@ module Cypress
                  system: bundle.default_negation_codes[negated_vs]['codeSystem'] }
              else
                valueset = ValueSet.where(oid: negated_vs, bundle_id: bundle.id)
+               return if valueset.empty?
+
                { code: valueset.first.concepts.first['code'], system: valueset.first.concepts.first['code_system_oid'] }
              end
       data_element.dataElementCodes << code
