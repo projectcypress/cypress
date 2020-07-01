@@ -15,7 +15,7 @@
                          elsif (controller.controller_name == 'records' && params[:task_id].nil? &&
                                params[:vendor_id].nil?)  || (current_page?(:records) && params[:task_id].nil? && params[:vendor_id].nil?)
                            :master_patient_list
-                         elsif current_page?(admin_path)
+                         elsif current_page?(admin_path) || current_page?(new_admin_bundle_path)
                            :admin
                          else
                            :dashboard
