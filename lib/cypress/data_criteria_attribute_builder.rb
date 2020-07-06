@@ -39,8 +39,8 @@ module Cypress
         end
         update_measure_data_criteria
       rescue => e
-        # This parser can be brittle, not the end of the world to return without parsing attributes
         binding.pry
+        # This parser can be brittle, not the end of the world to return without parsing attributes
         return
       end
     end
@@ -57,18 +57,16 @@ module Cypress
         data_criteria_name = cdc['data_criteria']
         valuesets = find_root_vs([data_criteria_name])
         @measure.source_data_criteria.each do |sdc|
-          next unless valuesets.include? sdc.codeListId
+          next unless (valuesets.include? sdc.codeListId) || ((sdc.codeListId[0, 3] == 'drc') && (valuesets.include? ValueSet.where(oid: sdc.codeListId).first&.concepts&.first&.code))
           next if sdc.dataElementAttributes && (sdc.dataElementAttributes.any? { |h| h.attribute_name == cdc['attribute'] && h.attribute_valueset == cdc['attribute_vs'] })
           # only add attribute if it is approprate for the QDM type
           next unless sdc.respond_to? cdc['attribute']
 
           dea = { attribute_name: cdc['attribute'], attribute_valueset: cdc['attribute_vs'] }
-          binding.pry
           sdc.dataElementAttributes << dea
           sdc.save
         end
       end
-      @measure.save!
     end
 
     # expression_id = statement's localId
@@ -97,6 +95,30 @@ module Cypress
             @cql_data_criteria << { 'attribute' => current_hash['path'],
                                     'data_criteria' => scope,
                                     'attribute_vs' => @vs_hash[grand_parent_hash['where']['valueset']['name']] }
+          elsif grand_parent_hash['where'] && (%w[And Or].include? grand_parent_hash['where']['type'])
+            grand_parent_hash['where']['operand'].each do |and_or_hash|
+              if and_or_hash['type'] == 'InValueSet'
+                @cql_data_criteria << { 'attribute' => current_hash['path'],
+                                        'data_criteria' => scope,
+                                        'attribute_vs' => @vs_hash[and_or_hash['valueset']['name']] }
+              elsif %w[And Or].include? and_or_hash['type']
+                and_or_hash['operand'].each do |inner_and_or_hash|
+                  if inner_and_or_hash['valueset']
+                  @cql_data_criteria << { 'attribute' => current_hash['path'],
+                                          'data_criteria' => scope,
+                                          'attribute_vs' => @vs_hash[inner_and_or_hash['valueset']['name']] }
+                  elsif  %w[And Or].include? inner_and_or_hash['type']
+                    inner_and_or_hash['operand'].each do |inner_inner_and_or_hash|
+                      if inner_inner_and_or_hash['valueset']
+                      @cql_data_criteria << { 'attribute' => current_hash['path'],
+                                              'data_criteria' => scope,
+                                              'attribute_vs' => @vs_hash[inner_inner_and_or_hash['valueset']['name']] }
+                      end
+                    end
+                  end
+                end
+              end
+            end
           end
         elsif name == 'type' &&  values == 'Property' && grand_parent_hash['type'] == 'Equivalent'
           scope = find_data_criteria_for_property(library_id, expression_id, current_hash)
@@ -133,6 +155,23 @@ module Cypress
           end
         end
       end
+    end
+
+    def find_root_vs(criteria_array, root_vs = [])
+      criteria_array.each do |criteria_name|
+        if @root_data_criteria[criteria_name]
+          if @vs_hash.key? criteria_name
+            root_vs << @vs_hash[criteria_name]
+          else
+            return root_vs if criteria_name == @root_data_criteria[criteria_name]
+
+            find_root_vs([@root_data_criteria[criteria_name]].flatten, root_vs)
+          end
+        elsif @vs_hash[criteria_name]
+          root_vs << @vs_hash[criteria_name]
+        end
+      end
+      root_vs
     end
 
     def find_data_criteria_for_property(library_id, expression_id, current_hash)
@@ -252,16 +291,22 @@ module Cypress
         parse_query_source(query_source, library_id, statement, source_value)
       end
       rsource.each do |rel_source|
-        parse_query_relationship(rel_source)
+        parse_query_relationship(rel_source, statement)
       end
     end
 
-    def parse_query_relationship(rel_source)
+    def parse_query_relationship(rel_source, statement)
       if rel_source['expression']['dataType']
         if rel_source['expression']['codes']
           name = rel_source['expression']['codes']['name']
           @root_data_criteria[name] = name
         end
+      elsif rel_source['expression']['type'] && rel_source['expression']['type'] == 'Union'
+        @root_data_criteria[rel_source['alias']] = rel_source['alias']
+        @root_data_criteria[statement['name']] = statement['name']
+        @unions[rel_source['alias']] = []
+        @unions[statement['name']] = []
+        @unionlist << rel_source
       end
     end
 
@@ -317,7 +362,7 @@ module Cypress
         @unionlist << statement
       end
       @expression_hash[library_id][statement['name']] = source_value.uniq
-      @root_data_criteria[statement['name']] = statement['name']
+      @root_data_criteria[statement['name']] = source_value.uniq
     end
 
     def parse_statement_for_aliases(statement, library_id)
