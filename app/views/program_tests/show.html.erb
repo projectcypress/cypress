@@ -1,30 +1,5 @@
-<h1>CMS Implementation Guide Checklist (<%= @product_test.cms_program %>)</h1>
-<div class = 'test-steps'>
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <h1 class="panel-title test-step"> 1 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> CMS Implementation Guide Checklist Instructions</h1>
-    </div>
-    <%= render 'checklist_tests/checklist_instructions', :instructions => APP_CONSTANTS['tests']['CMSProgramTest']['instructions'] %>
-  </div>
-</div>
-<div class = 'test-steps'>
-  <div class="panel panel-info">
-    <div class="panel-heading disable">
-      <h1 class="panel-title test-step disable">
-        2 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> <%= 'Upload Files' %>
-      </h1>
-    </div>
-    <div class="panel-body">
-      <%= render 'test_executions/execution_upload', :disable => false, :product_test => @product_test, :task => @product_test.tasks.first %>
-      <div id = 'display_checklist_execution_results'>
-        <%= render 'checklist_execution_results', :task => @product_test.tasks.first %>
-      </div>
-      <div id = 'display_checklist_status' >
-        <%= render 'checklist_status_display', :product => @product, :product_test => @product_test %>
-      </div>
-    </div>
-  </div>
-</div>
-<div id = 'display_program_fields'>
-  <%= render 'program_fields', :product => @product, :product_test => @product_test, :task => @product_test.tasks.first %>
-</div>
+<% if %w[HL7_Cat_I HL7_Cat_III].include? @product_test.cms_program %>
+  <%= render 'hl7_program_test', :product_test => @product_test %>
+<% else %>
+  <%= render 'cms_program_test', :product_test => @product_test %>
+<% end %>

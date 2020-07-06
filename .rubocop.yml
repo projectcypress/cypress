@@ -56,6 +56,7 @@ Metrics/AbcSize:
   # a Float.
   Max: 32
   Exclude:
+    - 'app/models/cms_program_task.rb'
     - 'lib/cypress/data_criteria_attribute_builder.rb'
     - 'lib/cypress/population_clone_job.rb'
     - 'test/**/*.rb'

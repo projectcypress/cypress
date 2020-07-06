@@ -1,0 +1,6 @@
+<% if product_test.cms_program = "HL7_Cat_III" %> 
+  <h1>HL7 QRDA Category III Validation</h1>
+<% else %>
+  <h1>HL7 QRDA Category I Validation</h1>
+<% end %>
+<%= render 'upload_panel', :product_test => product_test, :panel_index => "1" %>

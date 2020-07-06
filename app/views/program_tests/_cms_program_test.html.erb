@@ -1,0 +1,13 @@
+<h1>CMS Implementation Guide Checklist (<%= product_test.cms_program %>)</h1>
+<div class = 'test-steps'>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h1 class="panel-title test-step"> 1 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> CMS Implementation Guide Checklist Instructions</h1>
+    </div>
+    <%= render 'checklist_tests/checklist_instructions', :instructions => APP_CONSTANTS['tests']['CMSProgramTest']['instructions'] %>
+  </div>
+</div>
+<%= render 'upload_panel', :product_test => product_test, :panel_index => "2" %>
+<div id = 'display_program_fields'>
+  <%= render 'program_fields', :product => product_test.product, :product_test => product_test, :task => product_test.tasks.first %>
+</div>
