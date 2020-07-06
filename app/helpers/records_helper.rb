@@ -59,10 +59,10 @@ module RecordsHelper
   # of measures and then pass in the other as an array containing a single element.
   def get_result_values(records, measures, pop_set, pop_keys, key)
     CQM::IndividualResult.where(
-      :patient_id.in => records.collect(&:id),
-      :measure_id.in => measures.collect(&:id),
+      :patient_id.in => records.pluck(:id),
+      :measure_id.in => measures.pluck(:id),
       :population_set_key => pop_set
-    ).collect do |elem|
+    ).only(:IPP, :DENOM, :NUMER, :NUMEX, :DENEX, :DENEXCEP, :MSRPOPL, :OBSERV, :MSRPOPLEX, :patient_id, :measure_id).collect do |elem|
       [
         elem[key],
         pop_keys.collect { |pop_key| [pop_key, elem[pop_key].to_i] }.to_h
@@ -101,10 +101,19 @@ module RecordsHelper
     end.to_h
   end
 
-  def records_by_measure(records, measure)
-    # Returns array of records that have at least one calculation result for the given measure id
-    records.includes(:calculation_results).reject do |r|
-      r.calculation_results.select { |c| c['measure'].eql?(measure.id) }.empty?
+  def records_by_measure(records, measure, product_test, vendor)
+    # When searching vendors or master patient list, there can be a lot of patients
+    # if there is a vendor, use the correlation_id to filter Individual Results
+    if vendor
+      patient_ids = IndividualResult.where(correlation_id: vendor.id.to_s, measure_id: measure.id).pluck(:patient_id)
+      records.find(patient_ids)
+    # if there isn't a vendor, or product test, use the bundle correlation_id
+    elsif product_test.nil?
+      patient_ids = IndividualResult.where(correlation_id: measure.bundle_id, measure_id: measure.id).pluck(:patient_id)
+      records.find(patient_ids)
+    # otherwise, just return the list of patients
+    else
+      records
     end
   end
 
