@@ -28,13 +28,7 @@ end
 
 # # Don't use a password from the file, because there's no way that's secure
 # print 'Drupal Password: '
-# @options['password'] = STDIN.noecho(&:gets).chomp
-
-# Only ask for the username if it wasn't supplied
-unless @options['password']
-  print 'Drupal password: '
-  @options['password'] = STDIN.gets.chomp
-end
+@options['password'] = STDIN.noecho(&:gets).chomp
 
 # Only ask for the data element version if it wasn't supplied
 unless @options['data_element_version']
@@ -136,7 +130,7 @@ end
 def find_qdm_category_by_title(title)
   @qdm_categories[
     {
-      title: title.gsub(/[^a-zA-Z0-9]/, '').downcase,
+      title: @type_category_map[title].gsub(/[^a-zA-Z0-9]/, '').downcase,
       version: @options['data_element_version'],
       year: @data_element_year
     }
@@ -193,11 +187,6 @@ def to_drupal_lookup_table_with_revisions(ary)
   end.to_h
 end
 
-# Get the taxonomy of datatypes from Drupal, then turn them into a hash where:
-# key = the datatype name (e.g. "Averse event")
-# value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
-@all_qdm_datatypes = to_drupal_lookup_table(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/qdm_datatype")) { |term| term['attributes']['name'] }
-
 # Get the taxonomy of package types from Drupal, then turn them into a hash where:
 # key = the package name (e.g. "ecqm.dataelement")
 # value = a hash with "type" and "id" attributes, that can be used in building other Drupal objects
@@ -217,11 +206,6 @@ end
 # key = term name (e.g. '')
 # value = a hash with a drupal hash (with type and ID), as well as a 'name' and 'description'
 @base_element_types = to_drupal_lookup_table_with_description(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/qdm_datatype?filter[field_year]=#{@data_element_year}")) { |term| term['attributes']['name'].gsub('/', ' ') }
-
-# # Base element types are the taxonomy terms representing QDM Data Types
-# # key = term name (e.g. '')
-# # value = a hash with a drupal hash (with type and ID), as well as a 'name' and 'description'
-# @base_element_types = to_drupal_lookup_table_with_description(execute_request(:get, "#{@options['base_url']}/jsonapi/taxonomy_term/qdm_datatype")) { |term| term['attributes']['name'].gsub('/', ' ') }
 
 # A hash of all the code constraints that exist in Drupal
 # Note: this hash gets updated as we POST new code constraints within this exporter
@@ -668,11 +652,11 @@ end
 def find_or_create_qdm_dataelement(element)
   elem_hash = hash_element(element[:data])
   if @qdm_dataelements[elem_hash]
-    puts "QDM Datatype \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} year #{element[:data][:attributes][:field_year]} found"
+    puts "QDM DataElement \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} year #{element[:data][:attributes][:field_year]} found"
     return @qdm_dataelements[elem_hash]
   end
 
-  puts "QDM Datatype \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} year #{element[:data][:attributes][:field_year]} not found, creating"
+  puts "QDM DataElement \"#{element[:data][:attributes][:title]}\" version #{element[:data][:attributes][:field_data_element_version]} year #{element[:data][:attributes][:field_year]} not found, creating"
   res = execute_request(:post, "#{@options['base_url']}/jsonapi/node/data_element2", JSON.generate(element))
   @qdm_dataelements[hash_element(res.deep_symbolize_keys)] = { type: res['type'], id: res['id'] }
 end
@@ -718,7 +702,7 @@ end
 
 @type_category_map = {
   'Adverse Event' => 'Adverse Event',
-  'Allergy Intolerance' => 'Allergy',
+  'Allergy Intolerance' => 'Allergy Intolerance',
   'Assessment, Order' => 'Assessment',
   'Assessment, Performed' => 'Assessment',
   'Assessment, Recommended' => 'Assessment',
@@ -750,12 +734,12 @@ end
   'Medication, Order' => 'Medication',
   'Participation' => 'Participation',
   'Patient Care Experience' => 'Care Experience',
-  'Patient Characteristic, Birthdate' => 'Patient Characteristic',
-  'Patient Characteristic, Ethnicity' => 'Patient Characteristic',
-  'Patient Characteristic, Expired' => 'Patient Characteristic',
-  'Patient Characteristic, Payer' => 'Patient Characteristic',
-  'Patient Characteristic, Race' => 'Patient Characteristic',
-  'Patient Characteristic, Sex' => 'Patient Characteristic',
+  'Patient Characteristic, Birthdate' => 'Individual Characteristic',
+  'Patient Characteristic, Ethnicity' => 'Individual Characteristic',
+  'Patient Characteristic, Expired' => 'Individual Characteristic',
+  'Patient Characteristic, Payer' => 'Individual Characteristic',
+  'Patient Characteristic, Race' => 'Individual Characteristic',
+  'Patient Characteristic, Sex' => 'Individual Characteristic',
   'Physical Exam, Order' => 'Physical Exam',
   'Physical Exam, Performed' => 'Physical Exam',
   'Physical Exam, Recommended' => 'Physical Exam',
@@ -767,8 +751,8 @@ end
   'Substance, Order' => 'Substance',
   'Substance, Recommended' => 'Substance',
   'Symptom' => 'Symptom',
-  'Patient Characteristic' => 'Patient Characteristic',
-  'Patient Characteristic, Clinical Trial Participant' => 'Patient Characteristic',
+  'Patient Characteristic' => 'Individual Characteristic',
+  'Patient Characteristic, Clinical Trial Participant' => 'Individual Characteristic',
   'Related Person' => 'Related Person'
 }
 
@@ -776,7 +760,7 @@ def print_qdm_dataelement
   @base_element_types.each do |title, type_hash|
     attribute_names = @datatypes[title.gsub(/[^a-zA-Z0-9]/, '')]&.map { |attr| attr[:name]}
     attribute_ids = attribute_names ? attribute_names.sort.map { |attr_name| find_qdm_attribute_by_title(attr_name) }.compact : []
-    qdm_category = find_qdm_category_by_title(title.downcase.gsub(/[^a-zA-Z0-9]/, ''))
+    qdm_category = find_qdm_category_by_title(title)
 
     element = build_qdm_dataelement(
       title: title,
