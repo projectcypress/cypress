@@ -98,11 +98,11 @@
 
     <% sf_patient = @record.clone %>
     <% sf_patient.id =  @record.id %>
-    <% sf_measures = @record.bundle.measures %>
+    <% sf_measures = @measures %>
     <% sf_title = "All Measures" %>
     <% if @hqmf_id %>
       <%# use selected measure and population_set_hash %>
-      <% sf_measures= Measure.where(:hqmf_id => @hqmf_id) %>
+      <% sf_measures = Measure.where(:hqmf_id => @hqmf_id) %>
       <% sf_title = sf_measures.first.cms_id %>
     <% end %>
     <h4>Patient Data for <%= sf_title %></h4>
