@@ -1,33 +1,18 @@
 GIT
-  remote: https://github.com/projecttacoma/cqm-parsers
-  revision: 87715f20ab1682d010b1314b61f30f71cc4b9678
-  branch: v3_rails5
+  remote: https://github.com/projecttacoma/cqm-reports
+  revision: 3ad3196ff32370f146a32ded337f7a2882847098
+  branch: qrda_5_2_errata
   specs:
-    cqm-parsers (2.0.0)
-      activesupport (~> 5.0)
-      builder (~> 3.1)
+    cqm-reports (3.0.0)
       cqm-models (~> 3.0.0)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (~> 6.4)
-      mongoid-tree (~> 2.1)
+      erubis (~> 2.7)
+      log4r (~> 1.1)
+      memoist (~> 0.9)
+      mongoid-tree (> 2.0)
       mustache
-      nokogiri (>= 1.8.5, < 1.11.0)
-      protected_attributes_continued (~> 1.4.0)
-      rubyzip (~> 1.3)
-      typhoeus
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-validators
-  revision: 3b64251b0df67d6baf39a5cbcff99d23d5a35316
-  branch: master
-  specs:
-    cqm-validators (2.0.0)
       nokogiri (~> 1.10)
+      uuid (~> 2.3)
+      zip-zip (~> 0.3)
 
 GIT
   remote: https://github.com/turbolinks/turbolinks-classic
@@ -154,16 +139,25 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.6)
     cqm-models (3.0.1)
-    cqm-reports (3.0.0)
+    cqm-parsers (3.1.0.0)
+      activesupport (~> 5.0)
+      builder (~> 3.1)
       cqm-models (~> 3.0.0)
-      erubis (~> 2.7)
-      log4r (~> 1.1)
-      memoist (~> 0.9)
-      mongoid-tree (> 2.0)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 6.4)
+      mongoid-tree (~> 2.1)
       mustache
-      nokogiri (~> 1.10)
-      uuid (~> 2.3)
+      nokogiri (>= 1.8.5, < 1.11.0)
+      protected_attributes_continued (~> 1.4.0)
+      rubyzip (~> 1.3)
+      typhoeus
+      uuid (~> 2.3.7)
       zip-zip (~> 0.3)
+    cqm-validators (3.0.0)
+      nokogiri (~> 1.10)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
@@ -531,9 +525,9 @@ DEPENDENCIES
   carrierwave-mongoid
   codecov
   cqm-models (~> 3.0.1)
-  cqm-parsers!
-  cqm-reports (~> 3.0.0)
-  cqm-validators!
+  cqm-parsers (~> 3.1.0)
+  cqm-reports!
+  cqm-validators (~> 3.0.0)
   cucumber (~> 3.0.2)
   cucumber-rails
   daemons

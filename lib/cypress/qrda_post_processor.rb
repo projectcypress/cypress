@@ -17,6 +17,8 @@ module Cypress
                  system: bundle.default_negation_codes[negated_vs]['codeSystem'] }
              else
                valueset = ValueSet.where(oid: negated_vs, bundle_id: bundle.id)
+               return if valueset.empty?
+
                { code: valueset.first.concepts.first['code'], system: valueset.first.concepts.first['code_system_oid'] }
              end
       data_element.dataElementCodes << code
@@ -56,6 +58,8 @@ module Cypress
         patient.qdmPatient.dataElements.each do |de|
           # check for matching data element type and code in valueset
           next unless de._type == match['de_type'] && de.dataElementCodes.any? { |dec| valueset.concepts.any? { |conc| conc.code == dec.code } }
+          # check that the data element has a result value
+          next unless de.result
 
           msg = unit_error_message(de, match, valueset)
           error_list << msg if msg
