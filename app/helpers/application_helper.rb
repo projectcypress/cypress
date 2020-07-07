@@ -40,7 +40,9 @@ module ApplicationHelper
   end
 
   def ecqi_link(cms_id)
-    measure = Measure.find_by(cms_id: cms_id)
+    measure = Measure.where(cms_id: cms_id).first
+    return unless measure
+
     program = measure.reporting_program_type
     year = Bundle.find(measure.bundle_id).major_version.to_i + 1
     "https://ecqi.healthit.gov/ecqm/#{program}/#{year}/#{padded_cms_id(cms_id)}"
