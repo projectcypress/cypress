@@ -110,7 +110,7 @@
   </assignedEntity>
 </legalAuthenticator><participant typeCode="DEV">
   <associatedEntity classCode="RGPR">
-    <!-- CMS EHR Certification Number (formerly known as Office of the 
+    <!-- CMS EHR Certification Number (formerly known as Office of the
         National Coordinator Certification Number) -->
     <id extension="123456789" root="2.16.840.1.113883.3.2074.1"/>
   </associatedEntity>
@@ -162,7 +162,7 @@
   <structuredBody>
     <component>
       <section>
-        <!-- 
+        <!--
           *****************************************************************
           Measure Section
           *****************************************************************
@@ -286,7 +286,8 @@
                 <!-- Assessment Performed -->
                 <templateId root="2.16.840.1.113883.10.20.24.3.144" extension="2019-12-01" />
                 <id root="1.3.6.1.4.1.115" extension="5ebee1ac66105e684b013812"/>
-                  <code code="73831-0" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+                  <!-- nullFlavored code element (without a valueset) warning -->
+                  <code nullFlavor="NA" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
                 <text>Adolescent depression screening assessment</text>
                 <statusCode code="completed"/>
                   <!-- QDM Attribute: Relevant dateTime -->
@@ -305,7 +306,7 @@
                       <id root="1.3.6.1.4.1.115" extension="c2fdd7a0-992a-0138-3a19-784f43709e4a" />
                       <code code="77301-0" codeSystem="2.16.840.1.113883.6.1" displayName="reason" codeSystemName="LOINC"/>
                       <statusCode code="completed"/>
-                      <!-- nullFlavored code element (without a valueset) warning -->
+                      <!-- nullFlavored code element that isn't the negated code, shouldn't throw a warning -->
                       <value nullFlavor="NA" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMEDCT" xsi:type="CD"/>
                     </observation>
                   </entryRelationship>              </observation>
@@ -339,14 +340,14 @@
               <!-- Patient Characteristic Payer -->
               <observation classCode="OBS" moodCode="EVN">
                 <templateId root="2.16.840.1.113883.10.20.24.3.55"/>
-                <id root="88ed68d0-9bcd-0138-3a2d-784f43709e4a"/> 
-                <code code="48768-6" codeSystemName="LOINC" codeSystem="2.16.840.1.113883.6.1" displayName="Payment source"/> 
+                <id root="88ed68d0-9bcd-0138-3a2d-784f43709e4a"/>
+                <code code="48768-6" codeSystemName="LOINC" codeSystem="2.16.840.1.113883.6.1" displayName="Payment source"/>
                 <statusCode code="completed"/>
                   <!-- QDM Attribute: Relevant Period -->
                   <!-- low and high both null warning -->
                   <effectiveTime><low nullFlavor='UNK'/><high nullFlavor='UNK'/></effectiveTime>
                   <value xsi:type="CD" code="1" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="Source of Payment Typology"/>
-              </observation>            
+              </observation>
             </entry>
         </section>
       </component>
