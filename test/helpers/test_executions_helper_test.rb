@@ -200,4 +200,20 @@ class TestExecutionHelper < ActiveSupport::TestCase
     assert_equal 'CMS020v5', padded_cms_id('CMS20v5')
     assert_equal 'CMS200v5', padded_cms_id('CMS200v5')
   end
+
+  def test_ecqi_link
+    # test with a measure from the 2021 reporting period
+    bundle2020 = Bundle.create(version: '2020.5.0')
+    measure2020 = Measure.create(reporting_program_type: 'ep', cms_id: 'CMS161v9', bundle_id: bundle2020.id)
+    ecqi_url2020 = ecqi_link(measure2020.cms_id)
+    ecqi_request2020 = RestClient::Request.execute(method: :get, url: ecqi_url2020)
+    assert_equal 200, ecqi_request2020.code
+
+    # test with a measure from the 2020 reporting period
+    bundle2021 = Bundle.create(version: '2019.5.0')
+    measure2021 = Measure.create(reporting_program_type: 'eh', cms_id: 'CMS71v9', bundle_id: bundle2021.id)
+    ecqi_url2021 = ecqi_link(measure2021.cms_id)
+    ecqi_request2021 = RestClient::Request.execute(method: :get, url: ecqi_url2021)
+    assert_equal 200, ecqi_request2021.code
+  end
 end
