@@ -39,6 +39,11 @@ module ApplicationHelper
     cms_id[/#{start_marker}(.*?)#{end_marker}/m, 1].to_i
   end
 
+  # This will always return a three digit cms identifier, e.g., CMS9v3 => CMS009v3
+  def padded_cms_id(cms_id)
+    cms_id.sub(/(?<=cms)(\d{1,3})/i) { Regexp.last_match(1).rjust(3, '0') }
+  end
+
   def cvu_status_row(hash, status)
     # uses the hash provided by the get_cvu_status_values method
     row_values = [0, 0, 0]

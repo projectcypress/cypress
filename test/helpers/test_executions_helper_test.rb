@@ -194,4 +194,10 @@ class TestExecutionHelper < ActiveSupport::TestCase
     assert_equal [true, false, false, false], current_certifications('C1ChecklistTask', false, false, true)
     assert_equal [true, false, true, false], current_certifications('C1ChecklistTask', true, true, false)
   end
+
+  def test_padding_cms_id
+    assert_equal 'CMS002v5', padded_cms_id('CMS2v5')
+    assert_equal 'CMS020v5', padded_cms_id('CMS20v5')
+    assert_equal 'CMS200v5', padded_cms_id('CMS200v5')
+  end
 end
