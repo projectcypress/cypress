@@ -124,8 +124,8 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
     assert_not_empty errors
 
     # should contain one of each import error type
-    messages = errors.map(&:message)
-    assert messages.include?('Code element contains nullFlavor code and no valueset')
+    messages = errors.map(&:message).join
+    assert messages.include?('Negated code element contains nullFlavor code but no valueset')
     assert messages.include?('Interval with low time after high time')
     assert messages.include?('Interval with nullFlavor low time and nullFlavor high time')
     assert messages.include?("Value with string type found. When possible, it's best practice to use a coded value or scalar.")
