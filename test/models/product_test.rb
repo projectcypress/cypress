@@ -292,6 +292,24 @@ class ProducTest < ActiveSupport::TestCase
   #   product.product_tests.each(&:destroy)
   # end
 
+  def test_cvu_plus_not_slim
+    cvu_product = @vendor.products.create(name: 'test_product_cvu_random', cvuplus: true, randomize_patients: true,
+                                          bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+    assert_not cvu_product.slim_test_deck?
+  end
+
+  def test_c1_slim
+    cvu_product = @vendor.products.create(name: 'test_product_c1_random', c1_test: true, randomize_patients: true,
+                                          bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+    assert cvu_product.slim_test_deck?
+  end
+
+  def test_c1_c2_not_slim
+    cvu_product = @vendor.products.create(name: 'test_product_c1_random', c1_test: true, c2_test: true, randomize_patients: true,
+                                          bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+    assert_not cvu_product.slim_test_deck?
+  end
+
   # # # # # # # # # # # # # # # #
   #   S T A T U S   T E S T S   #
   # # # # # # # # # # # # # # # #

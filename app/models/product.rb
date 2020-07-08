@@ -240,8 +240,9 @@ class Product
     product_tests.any?(&:eh_measures?)
   end
 
+  # Create a slim test deck if the product does not have a C2 test, and the product is not a CVU+ test
   def slim_test_deck?
-    !c2_test
+    !c2_test && !cvuplus
   end
 
   def test_deck_max
