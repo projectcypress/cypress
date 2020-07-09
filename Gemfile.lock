@@ -1,10 +1,11 @@
 GIT
   remote: https://github.com/projecttacoma/cqm-reports
-  revision: 3ad3196ff32370f146a32ded337f7a2882847098
-  branch: qrda_5_2_errata
+  revision: 48fa1c2eaf44f201ed59c9f4e24990cc7cc4b04f
+  branch: master
   specs:
-    cqm-reports (3.0.0)
+    cqm-reports (3.1.0)
       cqm-models (~> 3.0.0)
+      cqm-validators (~> 3.0.0)
       erubis (~> 2.7)
       log4r (~> 1.1)
       memoist (~> 0.9)
@@ -296,7 +297,7 @@ GEM
     mocha (1.11.2)
     mongo (2.11.4)
       bson (>= 4.4.2, < 5.0.0)
-    mongoid (6.4.4)
+    mongoid (6.4.5)
       activemodel (>= 5.1, < 6.0.0)
       mongo (>= 2.5.1, < 3.0.0)
     mongoid-compatibility (0.5.1)
@@ -315,7 +316,7 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (6.10.0.364)
     nio4r (2.5.2)
-    nokogiri (1.10.9)
+    nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     os (1.1.0)

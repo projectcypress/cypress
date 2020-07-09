@@ -98,7 +98,7 @@ class PatientZipperTest < ActiveSupport::TestCase
 
   def confirm_imported_patient_can_be_saved_after_replaced_codes(doc, patient, original_code)
     negated_oid = ValueSet.where('concepts.code': original_code).first.oid
-    imported_patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+    imported_patient, _warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
     imported_patient.update(_type: CQM::VendorPatient)
     cloned_import = imported_patient.clone
     cloned_import2 = imported_patient.clone

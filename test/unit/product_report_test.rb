@@ -29,6 +29,10 @@ class ProductReportTest < ActionController::TestCase
       {
         'report_text' => 'does not match expected value',
         'factory_name' => :calculating_smoking_gun_validator_compare_results
+      },
+      {
+        'report_text' => 'Interval with nullFlavor low time and nullFlavor high time',
+        'factory_name' => :calculating_smoking_gun_validator_qrda_import_warning
       }
     ],
     'Cat3PopulationValidator' => [
