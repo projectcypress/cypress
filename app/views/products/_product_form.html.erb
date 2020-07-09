@@ -132,7 +132,7 @@
           </fieldset>
           <fieldset>
             <%= f.form_group help: "Selecting Shift Records will move patient data forward into the appropriate reporting period. Otherwise patient data will remain in a previously completed calendar year." do %>
-              <%= f.check_box :shift_patients, label: 'Shift Records', label_class: "btn btn-checkbox", checked: product.new_record? ? false : product.shift_patients, disabled: false %>
+              <%= f.check_box :shift_patients, label: 'Shift Records', label_class: "btn btn-checkbox", checked: product.new_record? ? false : product.shift_patients, disabled: !product.new_record? %>
             <% end %>
           </fieldset>
           <% unless bundle&.deprecated %>
