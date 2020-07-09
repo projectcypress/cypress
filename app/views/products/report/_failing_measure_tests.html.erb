@@ -47,11 +47,27 @@
           <% end %>
         <% end %>
       <% end %>
-      <% errors.each do |err| %>
-        <li>
-          <%= err.message.encode('ASCII', invalid: :replace, undef: :replace) %>
-          <%= " (#{err.file_name})" if err.has_attribute?('file_name') && err.file_name != '' %>
-        </li>
+      <% unless errors.empty? || errors.only_errors.empty? %>
+        <li>Errors</li>
+        <ul>
+        <% errors.only_errors.each do |err| %>
+          <li>
+            <%= err.message.encode('ASCII', invalid: :replace, undef: :replace) %>
+            <%= " (#{err.file_name})" if err.has_attribute?('file_name') && err.file_name != '' %>
+          </li>
+        <% end %>
+      </ul>
+      <% end %>
+      <% unless errors.empty? || errors.only_warnings.empty? %>
+        <li>Warnings</li>
+        <ul>
+        <% errors.only_warnings.each do |err| %>
+          <li>
+            <%= err.message.encode('ASCII', invalid: :replace, undef: :replace) %>
+            <%= " (#{err.file_name})" if err.has_attribute?('file_name') && err.file_name != '' %>
+          </li>
+        <% end %>
+      </ul>
       <% end %>
     </ul>
   <% end %>

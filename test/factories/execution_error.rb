@@ -16,7 +16,13 @@ FactoryBot.define do
         message { 'Calculated value (0) for IPP (78A9F833-07AA-448F-B94F-B2C4D8BF4F3F) does not match expected value (1)' }
       end
 
+      trait :qrda_import_warning do
+        msg_type { 'warning' }
+        message { 'Interval with nullFlavor low time and nullFlavor high time' }
+      end
+
       factory :calculating_smoking_gun_validator_compare_results, traits: [:compare_results]
+      factory :calculating_smoking_gun_validator_qrda_import_warning, traits: [:qrda_import_warning]
     end
 
     factory :cat3_population_validator do
