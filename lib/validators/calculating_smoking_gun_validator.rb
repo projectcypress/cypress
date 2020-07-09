@@ -19,7 +19,7 @@ module Validators
         errors.each { |e| add_warning e, file_name: options[:file_name], cms: true }
       end
       unit_errors.each { |e| add_warning e, file_name: options[:file_name], cms: true }
-      warnings.each { |e| add_warning e, file_name: options[:file_name] }
+      warnings.each { |e| add_warning e.message, {file_name: options[:file_name], location: e.location} }
 
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, @bundle)
       patient
