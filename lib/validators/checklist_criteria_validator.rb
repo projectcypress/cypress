@@ -19,7 +19,7 @@ module Validators
     def validate(file, _options = {})
       @file = file
       # parse the cat 1 file into the patient model
-      patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(@file)
+      patient, _warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(@file)
       # iterate through each criteria to see if it is contained in the patient
       @criteria_list.each do |criteria|
         # if a criteria has already passed, no need to check again
