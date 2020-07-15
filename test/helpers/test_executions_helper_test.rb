@@ -112,13 +112,13 @@ class TestExecutionHelper < ActiveSupport::TestCase
     execution.execution_errors.create(message: 'result error 2', msg_type: :error, validator_type: :result_validation)
 
     execution.state = :failed
-    msg = get_select_history_message(execution, true)
+    msg = get_select_history_message(execution, 0)
 
     assert_includes msg, 'Most Recent'
     assert_includes msg, '(3 errors)'
 
     execution.state = :passed
-    msg = get_select_history_message(execution, false)
+    msg = get_select_history_message(execution, 1)
 
     assert_not_includes msg, 'Most Recent'
     assert_includes msg, '(passing)'
