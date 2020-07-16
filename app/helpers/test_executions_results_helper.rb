@@ -1,8 +1,7 @@
 module TestExecutionsResultsHelper
   include ActionView::Helpers::TextHelper
 
-  def get_select_history_message(execution, index)
-    total_test_executions = execution.task.test_executions.size
+  def get_select_history_message(execution, index, total_test_executions)
     execution_number = total_test_executions - index
     msg = ''
     msg << 'Most Recent - ' if index.zero?
