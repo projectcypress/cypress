@@ -1,10 +1,11 @@
 module TestExecutionsResultsHelper
   include ActionView::Helpers::TextHelper
 
-  def get_select_history_message(execution, is_most_recent)
+  def get_select_history_message(execution, index, total_test_executions)
+    execution_number = total_test_executions - index
     msg = ''
-    msg << 'Most Recent - ' if is_most_recent
-    msg << execution.created_at.in_time_zone.strftime('%B %e, %Y %l:%M%P')
+    msg << 'Most Recent - ' if index.zero?
+    msg << "Upload #{execution_number} of #{total_test_executions}"
     case execution.status_with_sibling
     when 'passing' then msg << ' (passing)'
     when 'incomplete' then msg << ' (in progress)'

@@ -76,8 +76,9 @@
         Results
         <div class = 'pull-right'>
           <select id="select_execution" aria-label="View test execution">
+            <% total_test_executions = @task.test_executions.size %>
             <% @task.test_executions.sort_by { |obj| obj.created_at }.reverse.each_with_index do |execution, i| %>
-              <option value = <%= task_test_execution_path(@task, execution) %> <%= 'selected="selected"' if execution.id == @test_execution.id %>><%= get_select_history_message(execution, i.zero?) %></option>
+              <option value = <%= task_test_execution_path(@task, execution) %> <%= 'selected="selected"' if execution.id == @test_execution.id %>><%= get_select_history_message(execution, i, total_test_executions) %></option>
             <% end %>
           </select>
           <button id="view_execution" class="btn btn-xs btn-<%= execution_status_class(@test_execution) %>">Refresh View</button>
