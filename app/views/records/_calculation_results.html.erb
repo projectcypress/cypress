@@ -1,4 +1,4 @@
-<% patients.each do |r| %>
+<% patients.sort_by { |patient| full_name(patient) }.each do |r| %>
   <tr>
     <% if product_test %>
       <td><%= link_to full_name(r), record_path(:id => r.id, :task_id => task.id) %></td>
