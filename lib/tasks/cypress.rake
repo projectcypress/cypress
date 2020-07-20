@@ -24,7 +24,7 @@ namespace :cypress do
 
     task all: %i[environment database temp_files]
   end
-
+  # Usage: bundle exec rake cypress:recalculate:product_tests[5ed687f566105e4e3b9737a0] 
   namespace :recalculate do
     task setup: :environment
 
