@@ -51,7 +51,7 @@
         <td></td>
         <td></td>
         <!-- will show calculation results for product test records -->
-          <% pop_sums(result_values).each do |_, value| %>
+          <% pop_sums(result_values)&.each do |_, value| %>
             <td class="text-center">
               <%= render 'calculation_result_icon', :result => value, :episode_of_care => measure.calculation_method == 'EPISODE_OF_CARE'  %>
             </td>
