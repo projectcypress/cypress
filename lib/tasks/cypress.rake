@@ -25,6 +25,23 @@ namespace :cypress do
     task all: %i[environment database temp_files]
   end
 
+  namespace :recalculate do
+    task setup: :environment
+
+    desc 'Recalculate test deck for provided product.  This will delete the calculations made during the ProductTestSetupJob'
+    task :product_tests, %i[product_id] => :setup do |_, args|
+      product_tests = ProductTest.where(product_id: args.product_id)
+      product_tests.each do |pt|
+        # Remove prior calcuations (if they are there)
+        IndividualResult.where(correlation_id: pt.id.to_s).delete
+        pt.expected_results = nil
+        pt.save
+        results = ProductTestSetupJob.new.calculate_product_test(pt)
+        MeasureEvaluationJob.perform_now(pt, individual_results: results)
+      end
+    end
+  end
+
   namespace :import do
     task :config, %i[config_file environment] => :environment do |_, args|
       if File.exist?(args.config_file)
