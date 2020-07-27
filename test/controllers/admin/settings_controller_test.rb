@@ -24,5 +24,38 @@ module Admin
       assert_equal :admin, Settings.current.default_role
       assert_equal false, Settings.current.enable_debug_features
     end
+
+    test 'should successfully update internal settings' do
+      for_each_logged_in_user([ADMIN]) do
+        patch :update, params: { banner_message: 'banner test', warning_message: 'banner warning test', mailer_address: 'smtp.example.com', mailer_port: 3000, mailer_domain: 'example.com', mailer_user_name: 'testuser', mailer_password: 'password123', mode: 'internal' }
+      end
+      assert_equal 'Internal', Settings.current.application_mode
+      assert_equal true, Settings.current.auto_approve
+      assert_equal true, Settings.current.ignore_roles
+      assert_equal :'', Settings.current.default_role
+      assert_equal true, Settings.current.enable_debug_features
+    end
+
+    test 'should successfully update demo settings' do
+      for_each_logged_in_user([ADMIN]) do
+        patch :update, params: { banner_message: 'banner test', warning_message: 'banner warning test', mailer_address: 'smtp.example.com', mailer_port: 3000, mailer_domain: 'example.com', mailer_user_name: 'testuser', mailer_password: 'password123', mode: 'demo' }
+      end
+      assert_equal 'Demo', Settings.current.application_mode
+      assert_equal true, Settings.current.auto_approve
+      assert_equal false, Settings.current.ignore_roles
+      assert_equal :user, Settings.current.default_role
+      assert_equal true, Settings.current.enable_debug_features
+    end
+
+    test 'should successfully update atl settings' do
+      for_each_logged_in_user([ADMIN]) do
+        patch :update, params: { banner_message: 'banner test', warning_message: 'banner warning test', mailer_address: 'smtp.example.com', mailer_port: 3000, mailer_domain: 'example.com', mailer_user_name: 'testuser', mailer_password: 'password123', mode: 'atl' }
+      end
+      assert_equal 'ATL', Settings.current.application_mode
+      assert_equal false, Settings.current.auto_approve
+      assert_equal false, Settings.current.ignore_roles
+      assert_equal :'', Settings.current.default_role
+      assert_equal false, Settings.current.enable_debug_features
+    end
   end
 end
