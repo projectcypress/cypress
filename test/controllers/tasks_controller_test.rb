@@ -25,11 +25,7 @@ class TasksControllerTest < ActionController::TestCase
       testfile.close
       count = 0
       Zip::ZipFile.foreach(testfile.path) do |zip_entry|
-        if zip_entry.name.include?('.xml') && !zip_entry.name.include?('__MACOSX')
-          doc = Nokogiri::HTML(zip_entry.get_input_stream, &:strict)
-          doc.at_css('head title').to_s
-          count += 1
-        end
+        count += 1 if zip_entry.name.include?('.xml') && !zip_entry.name.include?('__MACOSX')
       end
       assert_equal @task.patients.count, count, 'Zip file has wrong number of records'
       assert_response 200, "#{@user.email} should have access "

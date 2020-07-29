@@ -31,6 +31,20 @@ class ChecklistTestsControllerTest < ActionController::TestCase
       assert_not_nil assigns(:product_test)
     end
 
+    # admin, atl, owner, and user should have access to view print_criteria for checklist test
+    for_each_logged_in_user([ADMIN, ATL, OWNER, USER]) do
+      get :print_criteria, params: { product_id: product.id, id: checklist_test.id }
+      testfile = Tempfile.new(['print_criteria', '.zip'])
+      testfile.write response.body
+      testfile.close
+      count = 0
+      Zip::ZipFile.foreach(testfile.path) do |zip_entry|
+        count += 1 if zip_entry.name.include?('.html') && !zip_entry.name.include?('__MACOSX')
+      end
+      assert_equal 2, count, 'Zip file should have 2 files.  A sample patient, and criteria list'
+      assert_response :success, "#{@user.email} should have access. response was #{response.status}"
+    end
+
     # vendor and other vendor should not have access to view measure for checklist test
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
       get :measure, params: { id: checklist_test.id, measure_id: measure.id, format: :format_does_not_matter }
