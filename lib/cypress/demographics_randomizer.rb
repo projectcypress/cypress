@@ -110,6 +110,7 @@ module Cypress
 
     def self.randomize_payer(patient, prng)
       payer_element = patient.qdmPatient.get_data_elements('patient_characteristic', 'payer')
+      payer_element.first.relevantPeriod = QDM::Interval.new(get_random_payer_start_date(patient), nil)
       payer_hash = sample_payer(patient, prng)
       if payer_element&.any? && payer_element.first.dataElementCodes &&
          payer_element.first.dataElementCodes.any?
