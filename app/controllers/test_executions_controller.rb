@@ -50,8 +50,7 @@ class TestExecutionsController < ApplicationController
 
   def destroy
     authorize! :delete, @test_execution.task.product_test.product.vendor
-    task_ids = [@test_execution.task.id]
-    test_executions = TestExecution.where(:task_id.in => task_ids)
+    test_executions = TestExecution.where(task_id: @test_execution.task.id)
     test_execution_ids = test_executions.pluck(:_id)
     test_executions.delete
     Artifact.where(:test_execution_id.in => test_execution_ids).destroy
