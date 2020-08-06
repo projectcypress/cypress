@@ -7,6 +7,15 @@ module Cypress
       end
     end
 
+    def self.build_code_descriptions(codes, patient, bundle)
+      codes.each do |code|
+        code_only, code_system = code.split(':')
+        concepts = ValueSet.find_by('concepts.code' => code_only, 'concepts.code_system_oid' => code_system, bundle_id: bundle.id).concepts
+        # mongo keys cannot contain '.', so replace all '.', key example: '21112-8:2_16_840_1_113883_6_1'
+        patient.code_description_hash[code.gsub('.','_')] = concepts.detect {|x| "#{x.code}:#{x.code_system_oid}" == code }.display_name
+      end
+    end
+
     # use "code" (which is used to store the valuset) to find an appropriate actual code to use for calculation
     def self.select_negated_code(data_element, bundle)
       negated_element = data_element.dataElementCodes.map { |dec| dec if dec.system == '1.2.3.4.5.6.7.8.9.10' }.first
