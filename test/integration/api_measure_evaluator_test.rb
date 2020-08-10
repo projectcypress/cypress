@@ -137,8 +137,13 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     @apime.do_calculation(product_test, patients, correlation_id)
 
     # Seed ExpectedResultsCalculator with patients and correlation_id for cat III generation
-    erc = Cypress::ExpectedResultsCalculator.new(patients, correlation_id, product_test.effective_date)
-    results = erc.aggregate_results_for_measures(product_test.measures)
+    # erc = Cypress::ExpectedResultsCalculator.new(patients, correlation_id, product_test.effective_date)
+    # results = erc.aggregate_results_for_measures(product_test.measures)
+    ar = ProductTestAggregateResult.create(product_test: product_test, measure_id: product_test.measures.first.id)
+    IndividualResult.where(correlation_id: product_test.id.to_s).each do |individual_result|
+      ar.add_individual_result(individual_result)
+    end
+    ar.save
 
     # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
     cat3_submission_program = if product_test&.product&.c3_test
@@ -148,7 +153,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
                               end
     options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
                 start_time: product_test.start_date, end_time: product_test.end_date }
-    cat_3_xml = Qrda3R21.new(results, product_test.measures, options).render
+    cat_3_xml = Qrda3R21.new([ar], product_test.measures, options).render
 
     # Loop through all entries in product_test.zip to remove patients that do not meed IPP (i.e., do not have IndividualResult)
     Zip::ZipFile.open("tmp/#{product_test.id}.zip") do |zipfile|

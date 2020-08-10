@@ -4,7 +4,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
 
   def setup
     @product_test = FactoryBot.create(:product_test_static_result)
-    @validator = ExpectedResultsValidator.new(@product_test.expected_results)
+    @validator = ExpectedResultsValidator.new(@product_test.aggregate_results)
     @vendor_user = FactoryBot.create(:vendor_user)
     # For this test, any measure will work
     @measure = Measure.first
@@ -15,19 +15,19 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
 
   def setup_augmented_patients
     @patient1 = ProductTestPatient.create(givenNames: ['Jill'], familyName: 'Mcguire', medical_record_number: '198718e0-4d42-0135-8680-12999b0ed66f')
-    CQM::IndividualResult.create(IPP: 1, patient_id: @patient1.id, patient: @patient1, measure: @measure)
-    @augmented_patient1 = { 'original_patient_id' => @patient1.id, 'medical_record_number' => '198718e0-4d42-0135-8680-12999b0ed66f',
-                            'first' => %w[Jill J], 'last' => %w[Mcguire Mcguirn], :gender => %w[F M] }
+    CQM::IndividualResult.create(IPP: 1, patient_id: @patient1.id, patient: @patient1, measure: @measure, population_set_key: 'PopulationCriteria1')
+    @augmented_patient1 = { original_patient_id: @patient1.id, medical_record_number: '198718e0-4d42-0135-8680-12999b0ed66f',
+                            first: %w[Jill J], last: %w[Mcguire Mcguirn], gender: %w[F M] }
 
     @patient2 = ProductTestPatient.create(givenNames: ['Ivan'], familyName: 'Mcguire', medical_record_number: '098718e0-4d42-0135-8680-12999b0ed66f')
     CQM::IndividualResult.create(IPP: 1, patient_id: @patient2.id, patient: @patient2, measure: @measure)
-    @augmented_patient2 = { 'original_patient_id' => @patient2.id, 'medical_record_number' => '098718e0-4d42-0135-8680-12999b0ed66f',
-                            'first' => %w[Ivan Ivan], 'last' => %w[Mcguire Mcguirn], :gender => %w[M F] }
+    @augmented_patient2 = { original_patient_id: @patient2.id, medical_record_number: '098718e0-4d42-0135-8680-12999b0ed66f',
+                            first: %w[Ivan Ivan], last: %w[Mcguire Mcguirn], gender: %w[M F] }
 
     @patient3 = ProductTestPatient.create(givenNames: ['Joe'], familyName: 'Mcguire', medical_record_number: '298718e0-4d42-0135-8680-12999b0ed66f')
     CQM::IndividualResult.create(IPP: 1, patient_id: @patient3.id, patient: @patient3, measure: @measure)
-    @augmented_patient3 = { 'original_patient_id' => @patient3.id, 'medical_record_number' => '298718e0-4d42-0135-8680-12999b0ed66f',
-                            'first' => %w[Joe John], 'last' => %w[Mcguire Mcguirn], :gender => %w[M M] }
+    @augmented_patient3 = { original_patient_id: @patient3.id, medical_record_number: '298718e0-4d42-0135-8680-12999b0ed66f',
+                            first: %w[Joe John], last: %w[Mcguire Mcguirn], gender: %w[M M] }
   end
 
   def test_validate_good_file
@@ -38,8 +38,8 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   end
 
   def test_validate_file_with_incorrect_population_count
-    modified_expected_results = @product_test.expected_results
-    modified_expected_results['40280382-5FA6-FE85-0160-0918E74D2075']['PopulationCriteria1']['IPP'] = 0
+    modified_expected_results = @product_test.aggregate_results
+    modified_expected_results.first.population_set_results.first['IPP'] = 0
     validator = ExpectedResultsValidator.new(modified_expected_results)
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')).read
 
@@ -65,6 +65,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     @validator.validate(file, 'task' => @task)
 
     errors = @validator.errors
+
     assert_equal 2, errors.length, 'should error on missing supplemental data'
     errors.each { |e| (assert_equal :result_validation, e.validator_type) }
   end
@@ -72,10 +73,17 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   def test_validate_augmented_results_one_augmented_patient
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_extra_male.xml')).read
     @task.product_test.augmented_patients = [@augmented_patient1]
+    @task.product_test.save
     @patient1.correlation_id = @task.product_test.id
     @patient1.save!
-    @validator.validate(file, 'task' => @task)
-    errors = @validator.errors
+    ir = @patient1.calculation_results.first
+    ir.correlation_id = @task.product_test.id.to_s
+    ir.save
+    MeasureEvaluationJob.new.account_for_augmented_records(@task.product_test.aggregate_results.first)
+    @task.product_test.save
+    validator = ExpectedResultsValidator.new(@product_test.aggregate_results)
+    validator.validate(file, 'task' => @task)
+    errors = validator.errors
 
     assert_empty errors, 'should be no errors when changing the gender count in accordance with the augmented patients'
   end

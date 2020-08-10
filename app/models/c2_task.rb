@@ -10,12 +10,11 @@ class C2Task < Task
   # do that validation here
   def validators
     @validators = if product_test.c2_test
-                    [::Validators::QrdaCat3Validator.new(product_test.expected_results,
-                                                         false,
+                    [::Validators::QrdaCat3Validator.new(false,
                                                          product_test.c3_test,
                                                          true,
                                                          product_test.bundle),
-                     ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
+                     ::Validators::ExpectedResultsValidator.new(product_test.aggregate_results)]
                   else
                     # A C2 task is created whenever C3 is selected.  If C2 isn't also selected, this task doesn't perform any validations
                     []
@@ -24,7 +23,7 @@ class C2Task < Task
   end
 
   def execute(file, user)
-    te = test_executions.new(expected_results: expected_results, artifact: Artifact.new(file: file), user_id: user)
+    te = test_executions.new(artifact: Artifact.new(file: file), user_id: user)
     te.save!
     TestExecutionJob.perform_later(te, self)
     te.sibling_execution_id = product_test.tasks.c3_cat3_task.execute(file, user, te.id).id if product_test.c3_cat3_task?
@@ -41,7 +40,7 @@ class C2Task < Task
                               end
     options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
                 start_time: start_date, end_time: end_date }
-    Qrda3R21.new(product_test.expected_results, product_test.measures, options).render
+    Qrda3R21.new(product_test.aggregate_results, product_test.measures, options).render
   end
 
   def last_updated_with_sibling

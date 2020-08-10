@@ -466,9 +466,7 @@ module Cypress
       patients = Patient.find(patient_ids)
       do_calculation(pt, patients, correlation_id)
 
-      erc = Cypress::ExpectedResultsCalculator.new(patients, correlation_id, pt.effective_date)
-      results = erc.aggregate_results_for_measures(pt.measures)
-
+      aggregate_result = compile_aggregate_result(pt, correlation_id)
       # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
       cat3_submission_program = if pt&.product&.c3_test
                                   pt&.measures&.first&.reporting_program_type == 'ep' ? 'MIPS_INDIV' : false
@@ -477,11 +475,19 @@ module Cypress
                                 end
       options = { provider: pt.patients.first.providers.first, submission_program: cat3_submission_program,
                   start_time: pt.start_date, end_time: pt.end_date }
-      xml = Qrda3R21.new(results, pt.measures, options).render
+      xml = Qrda3R21.new([aggregate_result], pt.measures, options).render
 
       Patient.find(patient_ids).each(&:destroy)
 
       File.write("tmp/#{product_test_id}.xml", xml)
+    end
+
+    def compile_aggregate_result(product_test, correlation_id)
+      ar = AggregateResult.create(measure_id: product_test.measures.first.id)
+      IndividualResult.where(correlation_id: correlation_id).each do |individual_result|
+        ar.add_individual_result(individual_result)
+      end
+      ar
     end
 
     def do_calculation(product_test, patients, correlation_id)

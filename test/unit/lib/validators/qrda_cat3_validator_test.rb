@@ -5,8 +5,8 @@ class QrdaCat3ValidatorTest < ActiveSupport::TestCase
   def setup
     @product_test = FactoryBot.create(:product_test_static_result)
 
-    @validator_with_c3 = QrdaCat3Validator.new(@product_test.expected_results, true, true, true, @product_test.bundle)
-    @validator_without_c3 = QrdaCat3Validator.new(@product_test.expected_results, false, false, true, @product_test.bundle)
+    @validator_with_c3 = QrdaCat3Validator.new(true, true, true, @product_test.bundle)
+    @validator_without_c3 = QrdaCat3Validator.new(false, false, true, @product_test.bundle)
   end
 
   def test_validate_good_file

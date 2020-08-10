@@ -1,15 +1,14 @@
 class Cat3FilterTask < Task
   def validators
-    @validators = [::Validators::QrdaCat3Validator.new(product_test.expected_results,
-                                                       false,
+    @validators = [::Validators::QrdaCat3Validator.new(false,
                                                        product_test.c3_test,
                                                        product_test.c2_test,
                                                        product_test.bundle),
-                   ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
+                   ::Validators::ExpectedResultsValidator.new(product_test.aggregate_results)]
   end
 
   def execute(file, user)
-    te = test_executions.new(expected_results: product_test.expected_results, artifact: Artifact.new(file: file), user_id: user)
+    te = test_executions.new(artifact: Artifact.new(file: file), user_id: user)
     te.save!
     TestExecutionJob.perform_later(te, self)
     te.save
@@ -25,6 +24,6 @@ class Cat3FilterTask < Task
                               end
     options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
                 start_time: start_date, end_time: end_date }
-    Qrda3R21.new(product_test.expected_results, product_test.measures, options).render
+    Qrda3R21.new(product_test.aggregate_results, product_test.measures, options).render
   end
 end

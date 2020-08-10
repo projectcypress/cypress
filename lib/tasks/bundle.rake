@@ -37,6 +37,12 @@ namespace :bundle do
     bundle.destroy
   end
 
+  task create_aggregate_results_for_product_test: :setup do
+    ProductTest.all.each do |product_test|
+      MeasureEvaluationJob.perform_now(product_test) if product_test.aggregate_results.blank?
+    end
+  end
+
   task :test_dcab, [:cms_id] => :setup do |_, args|
     measure = Measure.where(cms_id: args.cms_id).first
     measure.source_data_criteria.each do |sdc|

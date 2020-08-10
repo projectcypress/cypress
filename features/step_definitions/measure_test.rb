@@ -19,8 +19,9 @@ When(/^the user creates a product with records with tasks (.*)$/) do |tasks|
   measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
   bundle_id = Bundle.default._id
   tasks = tasks.split(', ')
-  @product = Product.new(vendor: @vendor, name: 'Product 1', measure_ids: measure_ids, c1_test: tasks.include?('c1'),
-                         c2_test: tasks.include?('c2'), c3_test: tasks.include?('c3'), c4_test: tasks.include?('c4'), bundle_id: bundle_id)
+  @product = Product.new(vendor: @vendor, name: 'Product 1', measure_ids: measure_ids, randomize_patients: false, duplicate_patients: false,
+                         c1_test: tasks.include?('c1'), c2_test: tasks.include?('c2'), c3_test: tasks.include?('c3'), c4_test: tasks.include?('c4'),
+                         bundle_id: bundle_id)
   @product.save!
   @product_test = @product.product_tests.create!({ name: @measure.description, measure_ids: measure_ids, cms_id: @measure.cms_id }, MeasureTest)
 
@@ -50,7 +51,8 @@ end
 
 When(/^the user views the uploaded xml$/) do
   # page.click_button 'View Uploaded XML with Errors'
-  visit file_result_test_execution_path(@product_test.tasks.c2_task.most_recent_execution, route_file_name('ep_test_qrda_cat3_good.xml'))
+  visit file_result_test_execution_path(@product_test.tasks.c2_task.most_recent_execution,
+                                        route_file_name('ep_test_qrda_cat3_supplemental_error.xml'))
 end
 
 #   A N D   #
@@ -108,7 +110,7 @@ And(/^the user uploads a CAT 1 zip file$/) do
 end
 
 And(/^the user uploads a CAT 3 XML file$/) do
-  xml_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')
+  xml_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_supplemental_error.xml')
   page.attach_file('results', xml_path, visible: false)
   page.find('#submit-upload').click
   wait_for_all_delayed_jobs_to_run

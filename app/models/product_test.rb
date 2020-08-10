@@ -22,7 +22,7 @@ class ProductTest
 
   field :augmented_patients, type: Array, default: []
 
-  field :expected_results, type: Hash
+  embeds_many :aggregate_results, class_name: 'ProductTestAggregateResult'
   # this the hqmf id of the measure
   field :measure_ids, type: Array
   # Test Details

@@ -95,14 +95,17 @@ class ProductTestTest < ActiveJob::TestCase
 
   def compare_results(test1, test2)
     # compare expected results
-    test1.expected_results.each do |k, _v|
-      assert_equal test1.expected_results[k]['IPP'], test2.expected_results[k]['IPP'], 'random repeatability error: IPP results different'
-      assert_equal test1.expected_results[k]['DENOM'], test2.expected_results[k]['DENOM'], 'random repeatability error: DENOM results different'
-      assert_equal test1.expected_results[k]['NUMER'], test2.expected_results[k]['NUMER'], 'random repeatability error: NUMER results different'
-      assert_equal test1.expected_results[k]['DENEX'], test2.expected_results[k]['DENEX'], 'random repeatability error: DENEX results different'
-      assert_equal test1.expected_results[k]['DENEXCEP'], test2.expected_results[k]['DENEXCEP'], 'random repeatability error: DENEXCEP results different'
-      assert_equal test1.expected_results[k]['MSRPOPL'], test2.expected_results[k]['MSRPOPL'], 'random repeatability error: MSRPOPL results different'
-      assert_equal test1.expected_results[k]['MSRPOPLEX'], test2.expected_results[k]['MSRPOPLEX'], 'random repeatability error: MSRPOPLEX results different'
+    test1.aggregate_results.each do |aggregate_result|
+      aggregate_result.population_set_results.each do |population_set|
+        test2_population_set = test2.aggregate_results.select { |ar| ar.measure_id == aggregate_result.measure_id }.first.population_set_results.select { |ps| ps.population_set_hash == population_set.population_set_hash }.first
+        assert_equal population_set['IPP'], test2_population_set['IPP'], 'random repeatability error: IPP results different'
+        assert_equal population_set['DENOM'], test2_population_set['DENOM'], 'random repeatability error: DENOM results different'
+        assert_equal population_set['NUMER'], test2_population_set['NUMER'], 'random repeatability error: NUMER results different'
+        assert_equal population_set['DENEX'], test2_population_set['DENEX'], 'random repeatability error: DENEX results different'
+        assert_equal population_set['DENEXCEP'], test2_population_set['DENEXCEP'], 'random repeatability error: DENEXCEP results different'
+        assert_equal population_set['MSRPOPL'], test2_population_set['MSRPOPL'], 'random repeatability error: MSRPOPL results different'
+        assert_equal population_set['MSRPOPLEX'], test2_population_set['MSRPOPLEX'], 'random repeatability error: MSRPOPLEX results different'
+      end
     end
   end
 

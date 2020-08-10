@@ -15,7 +15,7 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
       pt.save
       pt.reload
       # clear out expected_results created with product test
-      pt.expected_results = nil
+      pt.aggregate_results = nil
 
       correlation_id = BSON::ObjectId.new.to_s
       calc_job = Cypress::CqmExecutionCalc.new(pt.patients.map!(&:qdmPatient), pt.measures, correlation_id,
@@ -25,14 +25,14 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
 
       # calculate expected_results using individual results stored in database (don't pass in individual results)
       MeasureEvaluationJob.perform_now(pt, {})
-      db_expected_results = pt.expected_results
+      db_aggregate_results = pt.aggregate_results
 
-      pt.expected_results = nil
+      pt.aggregate_results = nil
 
       # calculate expected_results using individual results returned from sync_job (pass in individual results)
       MeasureEvaluationJob.perform_now(pt, individual_results: individual_results_from_sync_job)
-      sync_job_expected_results = pt.expected_results
-      assert_equal db_expected_results, sync_job_expected_results
+      sync_job_aggregate_results = pt.aggregate_results
+      assert_equal db_aggregate_results, sync_job_aggregate_results
     end
   end
 
@@ -58,23 +58,8 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
       ptest.save!
       assert_performed_jobs 1
       ptest.reload
-      assert_not ptest.expected_results.empty?
-      assert_equal ptest.expected_results.keys, ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
-    end
-  end
-
-  def test_can_run_task_job
-    assert_enqueued_jobs 0
-    perform_enqueued_jobs do
-      ptest = @product.product_tests.build({ name: 'test_for_measure_job_calculation',
-                                             measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
-      ptest.save!
-      task = ptest.tasks.create({})
-      MeasureEvaluationJob.perform_later(task, {})
-      assert_performed_jobs 2
-      task.reload
-      assert_not task.expected_results.empty?
-      assert_equal task.expected_results.keys, ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
+      assert_not ptest.aggregate_results.empty?
+      # assert_equal ptest.expected_results.keys, ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     end
   end
 end

@@ -31,17 +31,18 @@ module Validators
         measure.population_sets_and_stratifications_for_measure.each do |pop_set_hash|
           # Extract reported results for each population set for the measure
           reported_result, _errors = extract_results_by_ids(measure, pop_set_hash[:population_set_id], @document, pop_set_hash[:stratification_id])
+          population_set_result = reported_result.population_set_results.first
           measure.population_keys.each do |pop_key|
             # Return an error message if the document is missing a resported result for this population key
-            add_error("Missing #{pop_key} for #{measure.cms_id}", file_name: options[:file_name]) if reported_result[pop_key].nil?
+            add_error("Missing #{pop_key} for #{measure.cms_id}", file_name: options[:file_name]) if population_set_result[pop_key].nil?
             # Skip demographic validators if population is missing
-            next if reported_result[pop_key].nil?
+            next if population_set_result[pop_key].nil?
 
             # Skip demographic validators if a code is already found to be missing. Otherwise, validate that all demographic codes are present
-            verify_all_codes_reported(reported_result, pop_key, 'PAYER', options) unless @missing_codes['PAYER']
-            verify_all_codes_reported(reported_result, pop_key, 'SEX', options) unless @missing_codes['SEX']
-            verify_all_codes_reported(reported_result, pop_key, 'RACE', options) unless @missing_codes['RACE']
-            verify_all_codes_reported(reported_result, pop_key, 'ETHNICITY', options) unless @missing_codes['ETHNICITY']
+            verify_all_codes_reported(population_set_result, pop_key, 'PAYER', options) unless @missing_codes['PAYER']
+            verify_all_codes_reported(population_set_result, pop_key, 'SEX', options) unless @missing_codes['SEX']
+            verify_all_codes_reported(population_set_result, pop_key, 'RACE', options) unless @missing_codes['RACE']
+            verify_all_codes_reported(population_set_result, pop_key, 'ETHNICITY', options) unless @missing_codes['ETHNICITY']
           end
         end
       end
@@ -51,9 +52,10 @@ module Validators
 
     # Verifiy that all demographic codes for a sup_key (e.g., RACE) are present for a pop_key (e.g., DENOM) in a reported result
     def verify_all_codes_reported(reported_result, pop_key, sup_key, options)
-      reported_codes = reported_result[:supplemental_data][pop_key][sup_key]
       required_codes = REQUIRED_CODES[sup_key]
-      missing_codes = required_codes - reported_codes.keys
+      reported_codes = reported_result.get_supplemental_information(pop_key, required_codes).map(&:code)
+
+      missing_codes = required_codes - reported_codes
       return if missing_codes.empty?
 
       msg = "For CMS eligible clinicians and eligible professionals programs, all #{sup_key} codes present in the value set must be reported," \

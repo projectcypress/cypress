@@ -3,7 +3,6 @@ class Task
   include Mongoid::Timestamps
   include GlobalID::Identification
   field :options, type: Hash
-  field :expected_results, type: Hash
 
   belongs_to :product_test, inverse_of: :tasks, touch: true
   has_many :test_executions, dependent: :destroy
@@ -16,7 +15,7 @@ class Task
   delegate :measure_period_start, to: :product_test
   delegate :bundle, to: :product_test
   delegate :name, :state, to: :product_test, prefix: true
-  delegate :cms_id, :expected_results, to: :product_test, prefix: true
+  delegate :cms_id, :aggregate_results, to: :product_test, prefix: true
 
   %w[
     C1Task C1ChecklistTask C3ChecklistTask C2Task C3Cat1Task C3Cat3Task

@@ -3,12 +3,11 @@ module Validators
   class QrdaCat3Validator < QrdaFileValidator
     include ::CqmValidators
 
-    def initialize(expected_results, is_c3_validation_task, test_has_c3, test_has_c2, bundle)
+    def initialize(is_c3_validation_task, test_has_c3, test_has_c2, bundle)
       @bundle = bundle
       @is_c3_validation_task = is_c3_validation_task
       @test_has_c3 = test_has_c3
       @test_has_c2 = test_has_c2
-      @expected_results = expected_results
     end
 
     def validate(file, options = {})

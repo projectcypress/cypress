@@ -23,7 +23,7 @@ class C2TaskTest < ActiveSupport::TestCase
   end
 
   def test_execute
-    task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
+    task = @product_test.tasks.create({}, C2Task)
     xml = create_rack_test_file('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_good.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml, @user)
@@ -33,7 +33,7 @@ class C2TaskTest < ActiveSupport::TestCase
   end
 
   def test_should_not_error_when_measure_period_is_wrong_without_c3
-    task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
+    task = @product_test.tasks.create({}, C2Task)
     xml = create_rack_test_file('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_bad_mp.xml', 'text/xml')
     perform_enqueued_jobs do
       te = task.execute(xml, @user)
@@ -43,7 +43,7 @@ class C2TaskTest < ActiveSupport::TestCase
   end
 
   def test_should_cause_error_when_supplemental_data_is_missing
-    task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
+    task = @product_test.tasks.create({}, C2Task)
     @product_test.product.c2_test = true
     xml = create_rack_test_file('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_missing_supplemental.xml', 'text/xml')
     perform_enqueued_jobs do
@@ -57,7 +57,7 @@ class C2TaskTest < ActiveSupport::TestCase
   end
 
   def test_should_cause_error_when_the_schema_structure_is_bad
-    task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
+    task = @product_test.tasks.create({}, C2Task)
     @product_test.product.c2_test = true
     xml = create_rack_test_file('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_bad_schematron.xml', 'text/xml')
     perform_enqueued_jobs do
@@ -68,7 +68,7 @@ class C2TaskTest < ActiveSupport::TestCase
   end
 
   def test_task_good_results_should_pass
-    task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
+    task = @product_test.tasks.create({}, C2Task)
     xml = Tempfile.new(['good_results_debug_file', '.xml'])
     xml.write task.good_results
     perform_enqueued_jobs do

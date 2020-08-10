@@ -43,6 +43,7 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
   def test_single_code_error
     @product_test = FactoryBot.create(:product_test_static_result)
     @calc_validator_with_c3 = CalculatingSmokingGunValidator.new(@product_test.measures, @product_test.patients, @product_test.id)
+    @calc_validator_with_c3.expected_records = []
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_single_code.xml')).read
     doc = Nokogiri::XML(file)
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
@@ -144,6 +145,7 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
     vs.save
 
     @calc_validator_with_c3 = CalculatingSmokingGunValidator.new([measure], @product_test.patients, @product_test.id, measure_ids: ['temp_id'])
+    @calc_validator_with_c3.expected_records = []
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_no_result.xml')).read
     doc = Nokogiri::XML(file)
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')

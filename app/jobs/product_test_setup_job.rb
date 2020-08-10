@@ -4,9 +4,9 @@ class ProductTestSetupJob < ApplicationJob
   def perform(product_test)
     product_test.building
     product_test.generate_patients(@job_id) if product_test.patients.count.zero?
-    results = calculate_product_test(product_test)
-    MeasureEvaluationJob.perform_now(product_test, individual_results: results)
+    calculate_product_test(product_test)
     product_test.archive_patients if product_test.patient_archive.path.nil?
+    MeasureEvaluationJob.perform_now(product_test)
     product_test.ready
   rescue StandardError => e
     product_test.backtrace = e.backtrace.join("\n")
@@ -33,10 +33,9 @@ class ProductTestSetupJob < ApplicationJob
     effective_date = Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number)
     patient_ids = patients.map { |p| p.id.to_s }
     options = { 'effectiveDateEnd': effective_date_end, 'effectiveDate': effective_date }
-    results = product_test.measures.map do |measure|
+    product_test.measures.each do |measure|
       SingleMeasureCalculationJob.perform_now(patient_ids, measure.id.to_s, correlation_id, options)
-    end.flatten
-    results
+    end
   end
 
   private

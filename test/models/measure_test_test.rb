@@ -51,7 +51,7 @@ class MeasureTestTest < ActiveJob::TestCase
       # assert pt.patients.count < count_zip_entries(pt.patient_archive.file.path), 'Archive should contain more files than the test'
       pt.archive_patients
       assert count_zip_entries(pt.html_archive.file.path) == count_zip_entries(pt.patient_archive.file.path), 'QRDA Archive and HTML archive should have same # files'
-      assert_not_nil pt.expected_results, 'Product test should have expected results'
+      assert_not_nil pt.aggregate_results, 'Product test should have expected results'
     end
   end
 
@@ -75,7 +75,7 @@ class MeasureTestTest < ActiveJob::TestCase
       assert_not_nil pt.patient_archive, 'Product test should have archived patient records'
       assert_not_nil pt.html_archive, 'Product test should have archived patient HTMLs'
       assert count_zip_entries(pt.html_archive.file.path) == count_zip_entries(pt.patient_archive.file.path), 'QRDA Archive and HTML archive should have same # files'
-      assert_not_nil pt.expected_results, 'Product test should have expected results'
+      assert_not_nil pt.aggregate_results, 'Product test should have expected results'
     end
   end
 

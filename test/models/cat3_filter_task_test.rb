@@ -14,7 +14,7 @@ class Cat3FilterTaskTest < ActiveSupport::TestCase
 
   def test_task_good_results_should_pass
     user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
-    task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, Cat3FilterTask)
+    task = @product_test.tasks.create({}, Cat3FilterTask)
     xml = Tempfile.new(['good_results_debug_file', '.xml'])
     xml.write task.good_results
     perform_enqueued_jobs do

@@ -82,4 +82,20 @@ class TestExecutionTest < ActiveSupport::TestCase
     c3_execution.update(state: :failed)
     assert_equal false, c1_execution.executions_pending?
   end
+
+  def test_rescue
+    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+    te = @task.test_executions.build
+    user.test_executions << te
+    te.save
+
+    validator = Validators::ExpectedResultsValidator.new(nil)
+    filename = Rails.root.join('test', 'fixtures', 'artifacts', 'qrda.zip')
+    artifact = Artifact.new(file: File.new(filename))
+
+    te_exception = assert_raises do
+      te.validate_artifact([validator], artifact)
+    end
+    assert_equal("Encountered an exception in Test Execution #{te.id}: undefined method `each' for nil:NilClass", te_exception.message)
+  end
 end

@@ -1,4 +1,28 @@
 GIT
+  remote: https://github.com/projecttacoma/cqm-reports.git
+  revision: 5d7610450527f805ed942e7b2ae731ba7b180c52
+  branch: aggregate_result_model
+  specs:
+    cqm-reports (3.1.2)
+      cqm-models (~> 3.0.3)
+      erubis (~> 2.7)
+      log4r (~> 1.1)
+      memoist (~> 0.9)
+      mongoid-tree (> 2.0)
+      mustache
+      nokogiri (~> 1.10)
+      uuid (~> 2.3)
+      zip-zip (~> 0.3)
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-validators.git
+  revision: ccce4004f5fa27fc8d7a755176ad8aff0d55cf4f
+  branch: aggregate_result_model
+  specs:
+    cqm-validators (3.0.0)
+      nokogiri (~> 1.10)
+
+GIT
   remote: https://github.com/turbolinks/turbolinks-classic
   revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
   branch: master
@@ -121,8 +145,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.6)
-    cqm-models (3.0.1)
+    concurrent-ruby (1.1.7)
+    cqm-models (3.0.3)
     cqm-parsers (3.1.0.0)
       activesupport (~> 5.0)
       builder (~> 3.1)
@@ -140,19 +164,6 @@ GEM
       typhoeus
       uuid (~> 2.3.7)
       zip-zip (~> 0.3)
-    cqm-reports (3.1.1)
-      cqm-models (~> 3.0.0)
-      cqm-validators (~> 3.0.0)
-      erubis (~> 2.7)
-      log4r (~> 1.1)
-      memoist (~> 0.9)
-      mongoid-tree (> 2.0)
-      mustache
-      nokogiri (~> 1.10)
-      uuid (~> 2.3)
-      zip-zip (~> 0.3)
-    cqm-validators (3.0.0)
-      nokogiri (~> 1.10)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
@@ -289,7 +300,7 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     mocha (1.11.2)
-    mongo (2.11.4)
+    mongo (2.11.5)
       bson (>= 4.4.2, < 5.0.0)
     mongoid (6.4.5)
       activemodel (>= 5.1, < 6.0.0)
@@ -521,8 +532,8 @@ DEPENDENCIES
   codecov
   cqm-models (~> 3.0.1)
   cqm-parsers (~> 3.1.0)
-  cqm-reports (~> 3.1.0)
-  cqm-validators (~> 3.0.0)
+  cqm-reports!
+  cqm-validators!
   cucumber (~> 3.0.2)
   cucumber-rails
   daemons

@@ -6,7 +6,6 @@ class TestExecution
   # include Cypress::ErrorCollector
 
   field :state, type: Symbol, default: :pending
-  field :expected_results, type: Hash
   field :reported_results, type: Hash
   field :qrda_type, type: String
   field :backtrace, type: String
@@ -46,7 +45,7 @@ class TestExecution
     execution_errors.only_errors.count.positive? ? fail : pass
   rescue => e
     errored(e)
-    logger.error("Encountered an exception in Test Execution #{id}: #{e.message}, backgrace:\n#{e.backtrace}")
+    raise "Encountered an exception in Test Execution #{id}: #{e.message}"
   end
 
   def conditionally_add_task_specific_errors(file_count)
@@ -113,8 +112,6 @@ class TestExecution
     return 'incomplete' if incomplete? || sibling.incomplete?
     return 'failing' if failing? || sibling.failing?
     return 'errored' if errored? || sibling.errored?
-
-    'failing' # failing if status's do not match
   end
 
   def last_updated_with_sibling

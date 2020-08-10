@@ -1,4 +1,4 @@
-<% if task.product_test_expected_results %>
+<% if task.product_test_aggregate_results %>
 <h1>Expected Aggregate Results</h1>
 <table class="table table-condensed table-hover">
   <thead>
@@ -12,15 +12,17 @@
   </thead>
   <tbody>
     <!-- Only show records that are part of the measures IPP-->
-    <% task.product_test_expected_results.each do |hqmf_id, expected_results| %>
-      <% mes = Measure.where(hqmf_id: hqmf_id).first %>
-      <% expected_results.each do |population_set, expected_result| %>
+    <% task.product_test_aggregate_results.each do |aggregate_result| %>
+      <% mes = Measure.find(aggregate_result.measure_id) %>
+      <% mes.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
+        <% key = mes.key_for_population_set(population_set_hash) %>
+        <% population_set = aggregate_result.population_set_results.select { |psr| psr.population_set_key == key }&.first %>
         <tr>
-          <td><%= measure_display_name(mes, mes.population_set_hash_for_key(population_set)) %></td>
+          <td><%= measure_display_name(mes, population_set_hash) %></td>
           <% population_keys.each do |population| %>
           <% if population_keys.include? population %>
             <td class="text-center">
-              <%= render 'expected_result_icon', :result => expected_result[population] %>
+              <%= render 'expected_result_icon', :result => population_set ? population_set[population] : 0 %>
             </td>
             <% end %>
           <% end %>
