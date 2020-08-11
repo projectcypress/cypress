@@ -15,7 +15,8 @@ module Cypress
       example_patient = nil
       patient_ids = IndividualResult.where(correlation_id: measure.bundle_id, measure_id: measure.id).pluck(:patient_id)
       CQM::Patient.find(patient_ids).each do |record|
-        result_value = record.calculation_results.where('measure_id' => measure.id)
+        result_value = record.calculation_results.where(measure_id: measure.id).only(:IPP, :DENOM, :NUMER, :NUMEX, :DENEX,
+                                                                                     :DENEXCEP, :MSRPOPL, :OBSERV, :MSRPOPLEX)
         next unless get_result_value(result_value, pop)
 
         count = population_matches_for_patient(result_value, measure)
