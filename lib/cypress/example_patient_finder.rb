@@ -13,8 +13,12 @@ module Cypress
     def self.example_patient_by_pop(measure, _populations, pop)
       simplest = 100
       example_patient = nil
-      Bundle.find(measure.bundle_id).patients.each do |record|
-        result_value = record.calculation_results.where('measure_id' => measure.id)
+      # patient_ids for patients with IndividualResult for the measure specified
+      patient_ids = IndividualResult.where(correlation_id: measure.bundle_id, measure_id: measure.id).pluck(:patient_id)
+      CQM::Patient.find(patient_ids).each do |record|
+        # result_value is limited to including the population values, no need to include all of the highlighting information
+        result_value = record.calculation_results.where(measure_id: measure.id).only(:IPP, :DENOM, :NUMER, :NUMEX, :DENEX,
+                                                                                     :DENEXCEP, :MSRPOPL, :OBSERV, :MSRPOPLEX)
         next unless get_result_value(result_value, pop)
 
         count = population_matches_for_patient(result_value, measure)
