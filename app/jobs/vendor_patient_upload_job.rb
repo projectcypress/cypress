@@ -70,7 +70,7 @@ class VendorPatientUploadJob < ApplicationJob
 
     # import
     begin
-      patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+      patient, _warnings, _codes_modifiers = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
 
       # shift date
       utc_start = DateTime.parse(doc_start).to_time.utc

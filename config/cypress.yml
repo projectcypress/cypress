@@ -199,6 +199,17 @@ CPC_measures:
 '40280382-6258-7581-0162-92877E281530', '40280382-6258-7581-0162-92CDAF46165E', '40280382-610B-E7A4-0161-9A6155603811',
 '40280382-6258-7581-0162-92106B67138D']
 
+# These measures do not 
+telehealth_ineligible_measures:
+  # CMS22v8, CMS69v8, CMS157v8
+  # CMS129v9 CMS133v8 are not included beacuse measures do not contain telehealth-eligible codes and do not require an encounter during the measurement period
+ [ '40280382-6A17-9FBF-016A-31C183A90723',
+   '40280382-6963-BF5E-0169-E8DC81613F8B',
+   '40280382-6963-BF5E-0169-E4C228C93D69' ]
+
+telehealth_modifier_codes:
+  [ '95', 'GQ', 'GT' ]
+
 unit_matches:
   # relevant for CMS9v8+ GestationalAge.result >= 37 weeks, drc "Gestational age--at birth" 
   - hqmf_set_id : '7D374C6A-3821-4333-A1BC-4531005D77B8'

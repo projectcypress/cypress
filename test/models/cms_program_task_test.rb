@@ -109,6 +109,29 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     end
   end
 
+  def test_telehealth_calcuations
+    setup_eh
+    measure = Measure.find_by(cms_id: 'CMS32v7')
+    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HL7_Cat_I').first
+    task = pt.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_good_telehealth.xml'))
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      ir = CQM::IndividualResult.where(measure_id: measure.id, correlation_id: te.id, population_set_key: 'PopulationCriteria1')
+      assert_equal 1, ir.first['IPP']
+    end
+
+    APP_CONSTANTS['telehealth_ineligible_measures'] = pt.measure_ids
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      ir = CQM::IndividualResult.where(measure_id: measure.id, correlation_id: te.id, population_set_key: 'PopulationCriteria1')
+      assert_equal 0, ir.first['IPP']
+      assert_equal 1, te.execution_errors.where(message: 'Telehealth encounter 720 with modifier GQ not used in calculation for eCQMs (CMS32v7, CMS134v6) that are not eligible for telehealth.').size
+    end
+  end
+
   def test_eh_task_with_errors_quarter_reporting
     setup_eh
     pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
