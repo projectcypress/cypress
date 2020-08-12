@@ -63,10 +63,8 @@ class VendorPatientUploadJob < ApplicationJob
     # check for start date
     year_validator = MeasurePeriodValidator.new
     doc_start = year_validator.measure_period_start(doc)&.value
-    unless doc_start
-      return false, 'Document needs to report the Measurement Start Date'
-      # doc_end = validator.measure_period_end(doc).value -> should we validate end???
-    end
+    # doc_end = validator.measure_period_end(doc).value -> should we validate end???
+    return false, 'Document needs to report the Measurement Start Date' unless doc_start
 
     # import
     begin

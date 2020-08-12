@@ -88,12 +88,21 @@ module Cypress
       DemographicsRandomizer.randomize(cloned_patient, prng, @test.patients, allow_dups) if options['randomize_demographics']
       # work around to replace 'Other' race codes in Cypress bundle. Pass in static seed for consistent results.
       DemographicsRandomizer.randomize_race(cloned_patient, Random.new(0)) if cloned_patient.race == '2131-1'
+      update_demographic_codes(cloned_patient)
       randomize_entry_ids(cloned_patient) unless options['disable_randomization']
       # if the test is a multi measure test, restrict to a single code
       restrict_entry_codes(cloned_patient) if @test.is_a? MultiMeasureTest
       provider ? assign_existing_provider(cloned_patient, provider) : assign_provider(cloned_patient)
       cloned_patient.save!
       cloned_patient
+    end
+
+    def update_demographic_codes(patient)
+      %w[race gender ethnicity payer].each do |characteristic|
+        patient.qdmPatient.get_data_elements('patient_characteristic', characteristic).first.dataElementCodes.each do |dec|
+          Cypress::QRDAPostProcessor.build_code_descriptions(["#{dec.code}:#{dec.system}"], patient, patient.bundle)
+        end
+      end
     end
 
     def unnumerify(patient)

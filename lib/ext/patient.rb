@@ -7,7 +7,7 @@ module CQM
     field :original_medical_record_number, type: String
     field :medical_record_number, type: String
     field :measure_relevance_hash, type: Hash, default: {}
-    field :code_description_hash, type: Hash, default: {}
+    field :code_description_hash, type: Hash, default: {} # may contain extra code descriptions for original codes
     embeds_many :addresses # patient addresses
     embeds_many :telecoms
 

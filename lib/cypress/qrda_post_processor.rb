@@ -10,9 +10,15 @@ module Cypress
     def self.build_code_descriptions(codes, patient, bundle)
       codes.each do |code|
         code_only, code_system = code.split(':')
-        concepts = ValueSet.find_by('concepts.code' => code_only, 'concepts.code_system_oid' => code_system, bundle_id: bundle.id).concepts
+        if code_system == '1.2.3.4.5.6.7.8.9.10'
+          # find valueset description
+          description = ValueSet.where(oid: code_only).first.display_name
+        else
+          concepts = ValueSet.find_by('concepts.code' => code_only, 'concepts.code_system_oid' => code_system, bundle_id: bundle.id).concepts
+          description = concepts.detect { |x| code == "#{x.code}:#{x.code_system_oid}" }.display_name
+        end
         # mongo keys cannot contain '.', so replace all '.', key example: '21112-8:2_16_840_1_113883_6_1'
-        patient.code_description_hash[code.gsub('.','_')] = concepts.detect {|x| "#{x.code}:#{x.code_system_oid}" == code }.display_name
+        patient.code_description_hash[code.tr('.', '_')] = description
       end
     end
 
@@ -31,6 +37,7 @@ module Cypress
                { code: valueset.first.concepts.first['code'], system: valueset.first.concepts.first['code_system_oid'] }
              end
       data_element.dataElementCodes << code
+      code
     end
 
     # create an issue message for any negations that are done with a single code rather than vs
