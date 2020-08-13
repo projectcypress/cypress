@@ -13,6 +13,8 @@ Please choose your install instructions based on the certification rule you will
 
 If you wish to use the 2015 ONC Edition with the eCQMs updated for calendar year 2020 reporting, use [Cypress 5](https://github.com/projectcypress/cypress/wiki/Cypress-5-Install-Instructions)
 
+If you wish to use the 2015 ONC Edition with the eCQMs updated for calendar year 2021 reporting, use [Cypress 6](https://github.com/projectcypress/cypress/wiki/Cypress-6-Install-Instructions)
+
 
 Reporting Issues
 ================
