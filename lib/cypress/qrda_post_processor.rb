@@ -12,10 +12,13 @@ module Cypress
         code_only, code_system = code.split(':')
         if code_system == '1.2.3.4.5.6.7.8.9.10'
           # find valueset description
-          description = ValueSet.where(oid: code_only).first.display_name
+          description = ValueSet.where(oid: code_only, bundle_id: bundle.id).first&.display_name
+          Rails.logger.warn "ValueSet #{code_only} not found for Bundle #{bundle.id}" if description.nil?
         else
-          concepts = ValueSet.find_by('concepts.code' => code_only, 'concepts.code_system_oid' => code_system, bundle_id: bundle.id).concepts
-          description = concepts.detect { |x| code == "#{x.code}:#{x.code_system_oid}" }.display_name
+          # ValueSet.find_by may be more efficient if there are performance concerns, but may need to handle Mongoid::Errors::DocumentNotFound
+          concepts = ValueSet.where('concepts.code' => code_only, 'concepts.code_system_oid' => code_system, bundle_id: bundle.id).first&.concepts
+          description = concepts&.detect { |x| code == "#{x.code}:#{x.code_system_oid}" }&.display_name
+          Rails.logger.warn "Code #{code_only}, System #{code_system} not found for Bundle #{bundle.id}" if description.nil?
         end
         # mongo keys cannot contain '.', so replace all '.', key example: '21112-8:2_16_840_1_113883_6_1'
         patient.code_description_hash[code.tr('.', '_')] = description
