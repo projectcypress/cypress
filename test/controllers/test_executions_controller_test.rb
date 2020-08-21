@@ -90,7 +90,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     # access users
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       @first_c2_task.test_executions.destroy
-      te = @first_c2_task.test_executions.build
+      te, _file_name = create_execution_with_task_type(@first_c2_task._type)
       @user.test_executions << te
       te.save!
       delete :destroy, params: { id: te.id }
