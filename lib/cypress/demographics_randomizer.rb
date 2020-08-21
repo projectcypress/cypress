@@ -165,5 +165,13 @@ module Cypress
       end
       patient.qdmPatient.dataElements.concat(elements)
     end
+
+    def self.update_demographic_codes(patient)
+      %w[race gender ethnicity payer].each do |characteristic|
+        patient.qdmPatient.get_data_elements('patient_characteristic', characteristic).first.dataElementCodes.each do |dec|
+          Cypress::QRDAPostProcessor.build_code_descriptions(["#{dec.code}:#{dec.system}"], patient, patient.bundle)
+        end
+      end
+    end
   end
 end

@@ -5,14 +5,62 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
   include ActiveJob::TestHelper
 
-  def test_complete_roundtrip_using_real_bundle
-    # Leverage using functions in the ApiMeasureEvaluator
+  def setup
     @apime = Cypress::ApiMeasureEvaluator.new('test', 'test')
     import_bundle_and_create_product(retrieve_bundle)
+  end
+
+  def test_complete_roundtrip_using_real_bundle
+    # Leverage using functions in the ApiMeasureEvaluator
     perform_filtering_tests
     perform_measure_tests
     failed_tests = TestExecution.where(state: 'failed')
     assert failed_tests.empty?, "Test failed for #{failed_tests.first.task.product_test.cms_id} - #{failed_tests.collect { |ft| ft.execution_errors.collect(&:message) }}" unless failed_tests.empty?
+  end
+
+  def test_display_codes
+    # use file with negation
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_single_code.xml')).read
+    doc = Nokogiri::XML(file)
+    doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+    doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+
+    # import and build code descriptions
+    patient, _warnings, codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+    Cypress::QRDAPostProcessor.build_code_descriptions(codes, patient, @bundle)
+    patient['bundleId'] = @bundle.id
+    patient.update(_type: CQM::BundlePatient, correlation_id: @bundle.id)
+    Cypress::QRDAPostProcessor.replace_negated_codes(patient, @bundle)
+    patient.save!
+    saved_patient = Patient.find(patient.id)
+
+    # export to html
+    formatter = Cypress::HTMLExporter.new([Measure.where(hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE').first], Date.new(2012, 1, 1), Date.new(2012, 12, 31))
+    html = formatter.export(saved_patient)
+
+    # initial html
+    assert html.include?('Male'), 'HTML should include gender code description'
+    assert html.include?('American Indian or Alaska Native'), 'HTML should include race code description'
+    assert html.include?('Not Hispanic or Latino'), 'HTML should include ethnicity code description'
+    assert html.include?('MEDICARE'), 'HTML should include payer code description'
+    assert html.include?('Procedure contraindicated (situation)'), 'HTML should include negation rationale code description'
+    assert html.include?('carvedilol 6.25 MG Oral Tablet'), 'HTML should include medication code description'
+    # Note: code="60" from sdtc:valueSet="1.3.4.5" is unknown (fake) and therefore appropriately omits a description
+
+    # randomize patient and re-export
+    Cypress::DemographicsRandomizer.randomize(saved_patient, Random.new(Random.new_seed))
+    Cypress::DemographicsRandomizer.update_demographic_codes(saved_patient)
+    html = formatter.export(saved_patient)
+
+    # assertions
+    # check if race and ethnicity updated
+    race_same = saved_patient.qdmPatient.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first == '1002-5'
+    assert_not html.include?('American Indian or Alaska Native'), 'HTML should include race code description' unless race_same
+    ethnicity_same = saved_patient.qdmPatient.get_data_elements('patient_characteristic', 'ethnicity').first.dataElementCodes.first == '2186-5'
+    assert_not html.include?('Not Hispanic or Latino'), 'HTML should include ethnicity code description' unless ethnicity_same
+
+    assert html.include?('Procedure contraindicated (situation)'), 'HTML should include negation rationale code description'
+    assert html.include?('carvedilol 6.25 MG Oral Tablet'), 'HTML should include medication code description'
   end
 
   # Get bundle from the demo server.  Use VCR if available
