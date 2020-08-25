@@ -155,6 +155,45 @@ class C1TaskTest < ActiveSupport::TestCase
     end
   end
 
+  def test_c1_task_last_update_with_sibling
+    c1_task = @product_test.tasks.create({}, C1Task)
+    # sleep to make sure the tasks are saved at different times
+    sleep(1)
+    c3_cat1_task = @product_test.tasks.create({}, C3Cat1Task)
+    c1_task.reload
+    c3_cat1_task.reload
+    # c3_cat1_task was saved last and should be returned
+    assert_equal c3_cat1_task.updated_at, c1_task.last_updated_with_sibling
+    c1_task.options = { what: 'what' }
+    c1_task.save
+    c1_task.reload
+    # c1_task was saved last and should be returned
+    assert_equal c1_task.updated_at, c1_task.last_updated_with_sibling
+  end
+
+  def test_c1_task_status_with_sibling
+    c1_task = @product_test.tasks.find_by(_type: 'C1Task')
+    c3_cat1_task = @product_test.tasks.create({}, C3Cat1Task)
+    c1_execution = c1_task.test_executions.create!(user: @user)
+    c3_execution = c3_cat1_task.test_executions.create!(user: @user)
+    c1_execution.state = :passed
+    c1_execution.save
+    # status is incomplete when there isn't a c3 execution
+    assert_equal 'pending', c1_task.status_with_sibling
+
+    c1_execution.state = :failed
+    c1_execution.save
+    c3_execution.state = :passed
+    c3_execution.save
+    # c1 failed overrides passed c3
+    assert_equal 'failing', c1_task.status_with_sibling
+
+    c3_execution.state = :errored
+    c3_execution.save
+    # c3 errored overrides failed c1
+    assert_equal 'errored', c1_task.status_with_sibling
+  end
+
   # def test_should_be_able_to_tell_when_potentialy_too_much_data_is_in_documents
   #   # ptest = ProductTest.find('51703a883054cf84390000d3')
   #   task = @product_test.tasks.create({}, C3Cat1Task)

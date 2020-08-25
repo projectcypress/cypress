@@ -127,7 +127,8 @@ module Cypress
 
     def self.get_random_payer_start_date(patient)
       start_times = patient.qdmPatient.dataElements.map { |de| de.try(:authorDatetime) }.compact
-      random_offset = rand(60 * 60 * 24 * 365)
+      # Offset is a random date within the same year
+      random_offset = rand(365)
       if !start_times.empty?
         [start_times.min - random_offset, patient.qdmPatient.birthDatetime].max
       else

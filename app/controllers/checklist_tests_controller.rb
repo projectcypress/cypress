@@ -4,14 +4,6 @@ class ChecklistTestsController < ProductTestsController
   before_action :check_bundle_deprecated, only: [:show]
   respond_to :js, only: [:show]
 
-  def create
-    @product_test = @product.product_tests.build({ name: 'c1 visual', measure_ids: @product.measure_ids }, ChecklistTest)
-    @product_test.save!
-    @product_test.create_checked_criteria
-    C1ChecklistTask.new(product_test: @product_test).save!
-    redirect_to vendor_product_path(@product.vendor_id, @product, anchor: 'ChecklistTest')
-  end
-
   def show
     @product = @product_test.product
     set_breadcrumbs
@@ -30,13 +22,6 @@ class ChecklistTestsController < ProductTestsController
     set_measures
     set_breadcrumbs
     render :show
-  end
-
-  def destroy
-    @product_test.destroy
-    respond_to do |format|
-      format.html { redirect_to vendor_product_path(@product.vendor_id, @product) }
-    end
   end
 
   def measure
