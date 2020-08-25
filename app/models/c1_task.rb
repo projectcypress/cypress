@@ -51,6 +51,7 @@ class C1Task < Task
     return status if status == sibling.status
     return 'errored' if errored? || sibling.errored?
     return 'incomplete' if incomplete? || sibling.incomplete?
+    return 'pending' if pending? || sibling.pending?
 
     'failing'
   end
