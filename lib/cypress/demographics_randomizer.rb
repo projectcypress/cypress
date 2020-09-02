@@ -120,15 +120,16 @@ module Cypress
         new_payer['descriptor'] = payer_hash ['name']
         payer_element.first.dataElementCodes << new_payer
         payer_element.first.dataElementCodes.shift # get rid of existing dataElementCode
+        payer_element.first.relevantPeriod = QDM::Interval.new(get_random_payer_start_date(patient, prng), nil)
       else
         raise 'Cannot find payer element'
       end
     end
 
-    def self.get_random_payer_start_date(patient)
+    def self.get_random_payer_start_date(patient, prng)
       start_times = patient.qdmPatient.dataElements.map { |de| de.try(:authorDatetime) }.compact
       # Offset is a random date within the same year
-      random_offset = rand(365)
+      random_offset = prng.rand(365)
       if !start_times.empty?
         [start_times.min - random_offset, patient.qdmPatient.birthDatetime].max
       else

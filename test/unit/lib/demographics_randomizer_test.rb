@@ -79,12 +79,12 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     QDM::Patient.create!(cqmPatient: @record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     @record.bundleId = @bundle.id
     @prng = Random.new(Random.new_seed)
-    payer_date = Cypress::DemographicsRandomizer.get_random_payer_start_date(@record)
+    payer_date = Cypress::DemographicsRandomizer.get_random_payer_start_date(@record, @prng)
     # If a patient only has a birthdate, the payer start time should be the birthdate
     assert_equal payer_date, @record.qdmPatient.birthDatetime
     assessment_performed = QDM::AssessmentPerformed.new(id: 'assessment', authorDatetime: DateTime.new(2011, 3, 24, 20, 53, 20).utc)
     @record.qdmPatient.dataElements.push assessment_performed
-    payer_date_with_author_times = Cypress::DemographicsRandomizer.get_random_payer_start_date(@record)
+    payer_date_with_author_times = Cypress::DemographicsRandomizer.get_random_payer_start_date(@record, @prng)
     # If a patient has a birthdate and an element with an authordate, the payer start time should be between the birthdate and authorDatetime
     assert payer_date_with_author_times > @record.qdmPatient.birthDatetime
     assert payer_date_with_author_times < assessment_performed.authorDatetime
