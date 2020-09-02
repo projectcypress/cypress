@@ -132,11 +132,12 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
 
     import_cat1_zip(File.new("tmp/#{product_test.id}.zip"), patient_id_file_map)
 
+    patients = Patient.find(patient_id_file_map.values)
     # Use ApiMeasureEvaluator to call cqm-execution-service
-    @apime.do_calculation_cqm_execution(product_test, Patient.find(patient_id_file_map.values), correlation_id)
+    @apime.do_calculation(product_test, patients, correlation_id)
 
     # Seed ExpectedResultsCalculator with patients and correlation_id for cat III generation
-    erc = Cypress::ExpectedResultsCalculator.new(Patient.find(patient_id_file_map.values), correlation_id, product_test.effective_date)
+    erc = Cypress::ExpectedResultsCalculator.new(patients, correlation_id, product_test.effective_date)
     results = erc.aggregate_results_for_measures(product_test.measures)
 
     # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
@@ -183,7 +184,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
 
   # Import and save Cat I file
   def import_cat1_file(doc)
-    patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+    patient, _warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
     Cypress::QRDAPostProcessor.replace_negated_codes(patient, @bundle)
     patient.update(_type: CQM::TestExecutionPatient, correlation_id: 'api_eval')
     patient.save!

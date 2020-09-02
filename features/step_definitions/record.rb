@@ -59,6 +59,11 @@ And(/^the user should see a way to filter patients$/) do
   assert page.has_selector?('#search_measures'), 'no search box'
 end
 
+And(/^the user should see a way to select all patients$/) do
+  page.assert_text 'Select All'
+  assert page.has_selector?('#vendor-patient-select-all'), 'no select button'
+end
+
 And(/^the user should see a way to switch bundles$/) do
   assert Bundle.count > 1
   page.assert_text 'Annual Update Bundle'
@@ -93,7 +98,7 @@ end
 
 Then(/^the user should see results for that measure$/) do
   page.assert_text measure_display_name(@measure, @measure.population_sets_and_stratifications_for_measure.first) + ' Patients'
-  records = records_by_measure(@vendor ? @vendor.patients.where(bundleId: @bundle.id.to_s) : @bundle.patients, @measure)
+  records = records_by_measure(@vendor ? @vendor.patients.where(bundleId: @bundle.id.to_s) : @bundle.patients, @measure, nil, @vendor)
 
   assert page.has_selector?('table tbody tr', count: records.length), 'different number'
   assert page.has_selector?('.result-marker'), 'no result marker'
@@ -133,6 +138,7 @@ Then(/^the user sees details$/) do
   sf_patient.qdmPatient.dataElements.each do |data_criteria|
     page.assert_text data_criteria['description']
   end
+  page.assert_text @patient.id.to_s
   @measures.each do |m|
     page.assert_text m.description
   end

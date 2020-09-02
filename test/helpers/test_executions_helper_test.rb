@@ -59,6 +59,10 @@ class TestExecutionHelper < ActiveSupport::TestCase
 
   def test_get_title_message_cat1_plural
     setup_product_tests(true, false, true, true, filt1: 'val1', filt2: 'val2')
+    measure = @product_test.measures.first
+    measure.reporting_program_type = 'eh'
+    measure.save
+    @product_test.reload
     assert_equal get_title_message(@product_test, @product_test.tasks.find_by(_type: 'C1Task')), 'C1 and C3 certifications for TEST_CMSID test_measure_test_name'
     assert_equal get_title_message(@f_test, @f_test.tasks.find_by(_type: 'Cat1FilterTask')), 'CQM Filters Filt1/Filt2 for TEST_CMSID test_filtering_test_name'
   end
@@ -108,13 +112,13 @@ class TestExecutionHelper < ActiveSupport::TestCase
     execution.execution_errors.create(message: 'result error 2', msg_type: :error, validator_type: :result_validation)
 
     execution.state = :failed
-    msg = get_select_history_message(execution, true)
+    msg = get_select_history_message(execution, 0, 1)
 
     assert_includes msg, 'Most Recent'
     assert_includes msg, '(3 errors)'
 
     execution.state = :passed
-    msg = get_select_history_message(execution, false)
+    msg = get_select_history_message(execution, 1, 1)
 
     assert_not_includes msg, 'Most Recent'
     assert_includes msg, '(passing)'
@@ -175,19 +179,41 @@ class TestExecutionHelper < ActiveSupport::TestCase
 
   def test_current_certifications
     # c1 and c2 measure tests
-    assert_equal [true, false, false, false], current_certifications('C1Task', false)
-    assert_equal [false, true, false, false], current_certifications('C2Task', false)
-    assert_equal [true, false, true, false], current_certifications('C1Task', true)
-    assert_equal [false, true, true, false], current_certifications('C2Task', true)
+    assert_equal [true, false, false, false], current_certifications('C1Task', false, true, false)
+    assert_equal [false, true, false, false], current_certifications('C2Task', false, true, false)
+    assert_equal [true, false, true, false], current_certifications('C1Task', true, true, false)
+    assert_equal [false, true, true, false], current_certifications('C2Task', true, false, true)
 
     # filtering tests
-    assert_equal [false, false, false, true], current_certifications('Cat1FilterTask', false)
-    assert_equal [false, false, false, true], current_certifications('Cat1FilterTask', true)
-    assert_equal [false, false, false, true], current_certifications('Cat3FilterTask', false)
-    assert_equal [false, false, false, true], current_certifications('Cat3FilterTask', true)
+    assert_equal [false, false, false, true], current_certifications('Cat1FilterTask', false, true, false)
+    assert_equal [false, false, false, true], current_certifications('Cat1FilterTask', true, true, false)
+    assert_equal [false, false, false, true], current_certifications('Cat3FilterTask', false, true, false)
+    assert_equal [false, false, false, true], current_certifications('Cat3FilterTask', true, true, false)
 
     # checklist tests
-    assert_equal [true, false, false, false], current_certifications('C1ChecklistTask', false)
-    assert_equal [true, false, true, false], current_certifications('C1ChecklistTask', true)
+    assert_equal [true, false, false, false], current_certifications('C1ChecklistTask', false, false, true)
+    assert_equal [true, false, true, false], current_certifications('C1ChecklistTask', true, true, false)
+  end
+
+  def test_padding_cms_id
+    assert_equal 'CMS002v5', padded_cms_id('CMS2v5')
+    assert_equal 'CMS020v5', padded_cms_id('CMS20v5')
+    assert_equal 'CMS200v5', padded_cms_id('CMS200v5')
+  end
+
+  def test_ecqi_link
+    # test with a measure from the 2021 reporting period
+    bundle2020 = Bundle.create(version: '2020.5.0')
+    measure2020 = Measure.create(reporting_program_type: 'ep', cms_id: 'CMS161v9', bundle_id: bundle2020.id)
+    ecqi_url2020 = ecqi_link(measure2020.cms_id)
+    ecqi_request2020 = RestClient::Request.execute(method: :get, url: ecqi_url2020)
+    assert_equal 200, ecqi_request2020.code
+
+    # test with a measure from the 2020 reporting period
+    bundle2021 = Bundle.create(version: '2019.5.0')
+    measure2021 = Measure.create(reporting_program_type: 'eh', cms_id: 'CMS71v9', bundle_id: bundle2021.id)
+    ecqi_url2021 = ecqi_link(measure2021.cms_id)
+    ecqi_request2021 = RestClient::Request.execute(method: :get, url: ecqi_url2021)
+    assert_equal 200, ecqi_request2021.code
   end
 end

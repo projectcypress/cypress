@@ -7,7 +7,7 @@ module Validators
     end
 
     def parse_record(doc, options)
-      patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+      patient, warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
 
       # check for single code negation errors
       product_test = ProductTest.find(@test_id)
@@ -19,6 +19,7 @@ module Validators
         errors.each { |e| add_warning e, file_name: options[:file_name], cms: true }
       end
       unit_errors.each { |e| add_warning e, file_name: options[:file_name], cms: true }
+      warnings.each { |e| add_warning e.message, file_name: options[:file_name], location: e.location }
 
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, @bundle)
       patient
@@ -66,20 +67,6 @@ module Validators
         end
       end
       passed
-    end
-
-    def cached_value(vs)
-      @loaded_valuesets ||= {}
-      return @loaded_valuesets[vs.oid] if @loaded_valuesets[vs.oid]
-
-      js = {}
-      vs.concepts.each do |con|
-        name = con.code_system_name
-        js[name] ||= []
-        js[name] << con.code.downcase unless js[name].index(con.code.downcase)
-      end
-      @loaded_valuesets[vs.oid] = js
-      js
     end
 
     def validate(doc, options)

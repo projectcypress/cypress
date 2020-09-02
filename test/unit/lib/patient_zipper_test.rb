@@ -55,6 +55,7 @@ class PatientZipperTest < ActiveSupport::TestCase
         doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
         assert_equal 1, doc.xpath('//cda:code[@nullFlavor="NA"]').size, 'There should be 1 negated code in the exported QRDA'
+        assert_equal 1, doc.xpath("//cda:patientRole/cda:id[@extension='#{patient.id}']").size, 'The id should match the original patient id'
         confirm_imported_patient_can_be_saved_after_replaced_codes(doc, patient, original_code)
         count += 1
       end
@@ -97,20 +98,29 @@ class PatientZipperTest < ActiveSupport::TestCase
 
   def confirm_imported_patient_can_be_saved_after_replaced_codes(doc, patient, original_code)
     negated_oid = ValueSet.where('concepts.code': original_code).first.oid
-    imported_patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+    imported_patient, _warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
     imported_patient.update(_type: CQM::VendorPatient)
     cloned_import = imported_patient.clone
+    cloned_import2 = imported_patient.clone
     codefound = imported_patient.qdmPatient.procedures.first.dataElementCodes.any? { |dec| dec[:code] == original_code }
     assert_equal false, codefound, 'code should not be found prior to replace_negated_codes'
+    # Should replace with a code from the valueset
     Cypress::QRDAPostProcessor.replace_negated_codes(imported_patient, patient.bundle)
     codefound = imported_patient.qdmPatient.procedures.first.dataElementCodes.any? { |dec| dec[:code] == original_code }
     assert codefound, 'replaced code should equal original code'
     assert imported_patient.save
-    APP_CONSTANTS['version_config']['~>2020.0.0']['default_negation_codes'][negated_oid] = { 'code' => '123', 'codeSystem' => 'SNOMEDCT' }
+    # Should not replace a code when valuesets do not exist
+    ValueSet.destroy_all
     Cypress::QRDAPostProcessor.replace_negated_codes(cloned_import, patient.bundle)
-    codefound = cloned_import.qdmPatient.procedures.first.dataElementCodes.any? { |dec| dec[:code] == '123' }
-    assert codefound, 'replaced code should equal default code'
+    codefound = cloned_import.qdmPatient.procedures.first.dataElementCodes.any? { |dec| dec[:code] == original_code }
+    assert_not codefound, 'Without valusets the code should not be replaced'
     assert cloned_import.save
+    # Should replace with the default code
+    APP_CONSTANTS['version_config']['~>2020.0.0']['default_negation_codes'][negated_oid] = { 'code' => '123', 'codeSystem' => 'SNOMEDCT' }
+    Cypress::QRDAPostProcessor.replace_negated_codes(cloned_import2, patient.bundle)
+    codefound = cloned_import2.qdmPatient.procedures.first.dataElementCodes.any? { |dec| dec[:code] == '123' }
+    assert codefound, 'replaced code should equal default code'
+    assert cloned_import2.save
   end
 
   test 'Should create valid qrda file' do

@@ -16,9 +16,9 @@ gem 'mustache'
 gem 'os'
 
 gem 'cqm-models', '~> 3.0.1'
-gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'v3_rails5'
-gem 'cqm-reports', '~> 3.0.0'
-gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators', branch: 'master'
+gem 'cqm-parsers', '~> 3.1.0'
+gem 'cqm-reports', '~> 3.1.0'
+gem 'cqm-validators', '~> 3.0.0'
 
 # Use faker to generate addresses
 gem 'faker', '~> 1.5.0'
@@ -86,8 +86,6 @@ gem 'rolify'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
-gem 'bunny'
 
 gem 'rest-client', '~>2.0.2'
 

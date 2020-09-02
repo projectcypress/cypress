@@ -1,35 +1,4 @@
 GIT
-  remote: https://github.com/projecttacoma/cqm-parsers
-  revision: 87715f20ab1682d010b1314b61f30f71cc4b9678
-  branch: v3_rails5
-  specs:
-    cqm-parsers (2.0.0)
-      activesupport (~> 5.0)
-      builder (~> 3.1)
-      cqm-models (~> 3.0.0)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (~> 6.4)
-      mongoid-tree (~> 2.1)
-      mustache
-      nokogiri (>= 1.8.5, < 1.11.0)
-      protected_attributes_continued (~> 1.4.0)
-      rubyzip (~> 1.3)
-      typhoeus
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-validators
-  revision: 3b64251b0df67d6baf39a5cbcff99d23d5a35316
-  branch: master
-  specs:
-    cqm-validators (2.0.0)
-      nokogiri (~> 1.10)
-
-GIT
   remote: https://github.com/turbolinks/turbolinks-classic
   revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
   branch: master
@@ -83,7 +52,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    amq-protocol (2.3.1)
     ansi (1.5.0)
     arel (9.0.0)
     ast (2.4.0)
@@ -113,8 +81,6 @@ GEM
     bundler-audit (0.6.1)
       bundler (>= 1.2.0, < 3)
       thor (~> 0.18)
-    bunny (2.15.0)
-      amq-protocol (~> 2.3, >= 2.3.1)
     byebug (11.1.3)
     cancancan (3.1.0)
     capybara (3.32.1)
@@ -157,8 +123,26 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.6)
     cqm-models (3.0.1)
-    cqm-reports (3.0.0)
+    cqm-parsers (3.1.0.0)
+      activesupport (~> 5.0)
+      builder (~> 3.1)
       cqm-models (~> 3.0.0)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 6.4)
+      mongoid-tree (~> 2.1)
+      mustache
+      nokogiri (>= 1.8.5, < 1.11.0)
+      protected_attributes_continued (~> 1.4.0)
+      rubyzip (~> 1.3)
+      typhoeus
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+    cqm-reports (3.1.1)
+      cqm-models (~> 3.0.0)
+      cqm-validators (~> 3.0.0)
       erubis (~> 2.7)
       log4r (~> 1.1)
       memoist (~> 0.9)
@@ -167,6 +151,8 @@ GEM
       nokogiri (~> 1.10)
       uuid (~> 2.3)
       zip-zip (~> 0.3)
+    cqm-validators (3.0.0)
+      nokogiri (~> 1.10)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
@@ -305,7 +291,7 @@ GEM
     mocha (1.11.2)
     mongo (2.11.4)
       bson (>= 4.4.2, < 5.0.0)
-    mongoid (6.4.4)
+    mongoid (6.4.5)
       activemodel (>= 5.1, < 6.0.0)
       mongo (>= 2.5.1, < 3.0.0)
     mongoid-compatibility (0.5.1)
@@ -324,7 +310,7 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (6.10.0.364)
     nio4r (2.5.2)
-    nokogiri (1.10.9)
+    nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     os (1.1.0)
@@ -347,7 +333,7 @@ GEM
       pry (>= 0.9.10, < 0.13.0)
     psych (3.1.0)
     public_suffix (4.0.5)
-    rack (2.2.2)
+    rack (2.2.3)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.4.3)
@@ -508,7 +494,7 @@ GEM
       hashdiff (>= 0.4.0, < 2.0.0)
     websocket-driver (0.7.2)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.4)
+    websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zip-zip (0.3)
@@ -526,7 +512,6 @@ DEPENDENCIES
   bson (= 4.5.0)
   bson_ext
   bundler-audit
-  bunny
   byebug
   cancancan
   capybara
@@ -535,9 +520,9 @@ DEPENDENCIES
   carrierwave-mongoid
   codecov
   cqm-models (~> 3.0.1)
-  cqm-parsers!
-  cqm-reports (~> 3.0.0)
-  cqm-validators!
+  cqm-parsers (~> 3.1.0)
+  cqm-reports (~> 3.1.0)
+  cqm-validators (~> 3.0.0)
   cucumber (~> 3.0.2)
   cucumber-rails
   daemons

@@ -1,6 +1,6 @@
 <!-- Only grab measure records and result values once to avoid duplicate queries -->
 <% if measure && patients.length.positive? %>
-  <% measure_records = records_by_measure(patients, measure) %>
+  <% measure_records = records_by_measure(patients, measure, product_test, vendor) %>
   <% population_keys = measure.population_keys %>
   <% result_values = get_result_values(patients, [measure], measure.key_for_population_set(population_set_hash), population_keys, 'patient_id') %>
 <% end %>
@@ -8,7 +8,12 @@
 <% if (measure && measure_records.length.positive?) || (!measure  && patients.length.positive?) %>
 
 <% if @vendor %>
-<%= link_to "View Patient Analytics", patient_analysis_vendor_records_path(:vendor_id => @vendor.id, :bundle_id => @bundle.id) %>
+  <%= link_to "View Patient Analytics", patient_analysis_vendor_records_path(:vendor_id => @vendor.id, :bundle_id => @bundle.id) %>
+  <br>
+  <br>
+  <button class="btn btn-primary pull-left" type="button" id="vendor-patient-select-all" value="unchecked" title="Select All">
+    <i class="fa fa-square" aria-hidden="true"></i> <span id="vendor-patient-select-all-text">Select All</span>
+  </button>
   <br>
   <br>
 <% end %>
@@ -46,7 +51,7 @@
         <td></td>
         <td></td>
         <!-- will show calculation results for product test records -->
-          <% pop_sums(result_values).each do |_, value| %>
+          <% pop_sums(result_values)&.each do |_, value| %>
             <td class="text-center">
               <%= render 'calculation_result_icon', :result => value, :episode_of_care => measure.calculation_method == 'EPISODE_OF_CARE'  %>
             </td>

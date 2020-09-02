@@ -320,6 +320,7 @@ ready_run_once = function() {
     }
       setElementHidden('#bundle_options', !cvuplus_checked);
       setElementHidden('#certification_options', cvuplus_checked);
+      setElementHidden('#certification_edition', cvuplus_checked);
   });
 
   // run this piece once too

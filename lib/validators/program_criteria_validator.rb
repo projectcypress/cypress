@@ -37,7 +37,8 @@ module Validators
     end
 
     def calculate_patient(options)
-      patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(@file)
+      patient, warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(@file)
+      warnings.each { |e| add_warning e.message, file_name: options[:file_name], location: e.location }
       patient.update(_type: CQM::TestExecutionPatient, correlation_id: options.test_execution.id.to_s)
       patient.save!
       post_processsor_check(patient, options)
@@ -90,6 +91,7 @@ module Validators
         'NPI' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.4.6']",
         'TIN' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.4.2']",
         'CPCPLUS APM Entity Identifier' => "//cda:participant/cda:associatedEntity/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.3.249.5.1']",
+        'PCF APM Entity Identifier' => "//cda:participant/cda:associatedEntity/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.3.249.5.3']",
         'Virtual Group Identifier' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.3.249.5.2']"
       }
       results = @file.xpath(xpath_map[checked_criteria[:criterion_key]])

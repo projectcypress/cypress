@@ -17,6 +17,24 @@
             <% end %>
           </fieldset>
 
+          <fieldset id="certification_edition">
+            <legend class="control-label">Certification Edition</legend>
+            <div class="radio">
+              <%= f.form_group :cert_edition, help: "Select the certification edition." do %>
+                <%= f.radio_button :cures_update, "false",
+                                   label: "2015 Edition",
+                                   label_class: "btn btn-checkbox",
+                                   disabled: !@product.new_record?,
+                                   checked: !@product.cures_update %>
+                <%= f.radio_button :cures_update, "true",
+                                   label: "2015 Edition Cures Update",
+                                   label_class: "btn btn-checkbox",
+                                   disabled: !@product.new_record?,
+                                   checked: @product.cures_update %>
+              <% end # form_group %>
+            </div>
+          </fieldset>
+
           <fieldset id="certification_options">
             <legend class="control-label">Certification Types</legend>
             <div id="certifications_errors_container"></div>
@@ -114,7 +132,7 @@
           </fieldset>
           <fieldset>
             <%= f.form_group help: "Selecting Shift Records will move patient data forward into the appropriate reporting period. Otherwise patient data will remain in a previously completed calendar year." do %>
-              <%= f.check_box :shift_patients, label: 'Shift Records', label_class: "btn btn-checkbox", checked: product.new_record? ? false : product.shift_patients, disabled: false %>
+              <%= f.check_box :shift_patients, label: 'Shift Records', label_class: "btn btn-checkbox", checked: product.new_record? ? false : product.shift_patients, disabled: !product.new_record? %>
             <% end %>
           </fieldset>
           <% unless bundle&.deprecated %>

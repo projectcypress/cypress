@@ -13,7 +13,6 @@ module Cypress
       @filter_patient_link = nil
       @hqmf_path = @options[:hqmf_path]
       @cypress_host = @options[:cypress_host] || 'http://localhost:3000'
-      @use_js_ecqm = (@options[:use_js_ecqm] || false).eql? 'true'
       @username = username
       @password = password
     end
@@ -224,6 +223,8 @@ module Cypress
       return filter_providers(doc, filters) if filters.key?('provider')
       return filter_problems(doc, filters) if filters.key?('problem')
 
+      # Normalize payer to a string value.  Parsing from JSON directly may have the parameter as an integer
+      filters = Hash[filters.map { |k, v| [k, k == 'payer' ? v.to_s : v] }] if filters.key?('payer')
       filter_demographics(doc, filters, creation_time)
     end
 
@@ -286,7 +287,7 @@ module Cypress
       counter += 1 if filters.value?(doc.at_xpath(race_xpath).value)
       counter += 1 if filters.value?(doc.at_xpath(gender_xpath).value)
       counter += 1 if filters.value?(doc.at_xpath(ethnic_xpath).value)
-      counter += 1 if filters.value?(get_payer_name(payer_value))
+      counter += 1 if filters.value?(payer_value)
       filters['age'] = age_filter_holder if age_filter_holder
       return true if counter == 2
     end
@@ -302,17 +303,6 @@ module Cypress
         filter_time < patient_birth_time + age_shit + 31_556_952
       else
         filter_time > patient_birth_time + age_shit
-      end
-    end
-
-    def get_payer_name(payer_code)
-      case payer_code
-      when '1'
-        1
-      when '2'
-        2
-      when '349'
-        349
       end
     end
 
@@ -473,9 +463,10 @@ module Cypress
       correlation_id = "#{product_test_id}_u"
 
       import_cat1_zip(File.new("tmp/#{product_test_id}.zip"), patient_ids, bundle_id)
-      do_calculation(pt, patient_ids, correlation_id)
+      patients = Patient.find(patient_ids)
+      do_calculation(pt, patients, correlation_id)
 
-      erc = Cypress::ExpectedResultsCalculator.new(Patient.find(patient_ids), correlation_id, pt.effective_date)
+      erc = Cypress::ExpectedResultsCalculator.new(patients, correlation_id, pt.effective_date)
       results = erc.aggregate_results_for_measures(pt.measures)
 
       # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
@@ -493,24 +484,7 @@ module Cypress
       File.write("tmp/#{product_test_id}.xml", xml)
     end
 
-    def do_calculation(product_test, patient_ids, correlation_id)
-      if @use_js_ecqm
-        do_calculation_js_ecqm(product_test, patient_ids, correlation_id)
-      else
-        do_calculation_cqm_execution(product_test, Patient.find(patient_ids), correlation_id)
-      end
-    end
-
-    # Once we are fully comfortable with cqm_execution_service this whole
-    # codepath can be removed
-    def do_calculation_js_ecqm(product_test, patient_ids, correlation_id)
-      calc_job = Cypress::JsEcqmCalc.new(correlation_id: correlation_id,
-                                         effective_date: Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number))
-      calc_job.sync_job(patient_ids.map(&:to_s), product_test.measures.map { |mes| mes._id.to_s })
-      calc_job.stop
-    end
-
-    def do_calculation_cqm_execution(product_test, patients, correlation_id)
+    def do_calculation(product_test, patients, correlation_id)
       measures = product_test.measures
       calc_job = Cypress::CqmExecutionCalc.new(patients.map(&:qdmPatient), measures, correlation_id,
                                                effectiveDateEnd: Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
@@ -535,7 +509,7 @@ module Cypress
     end
 
     def import_cat1_file(doc, patient_ids, bundle_id)
-      patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+      patient, _warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, Bundle.find(bundle_id))
       patient.update(_type: CQM::TestExecutionPatient, correlation_id: 'api_eval')
       patient.save!

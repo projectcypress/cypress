@@ -39,12 +39,18 @@ module ApplicationHelper
     cms_id[/#{start_marker}(.*?)#{end_marker}/m, 1].to_i
   end
 
-  # All "Master Patients" has medical records numbers that are UUIDs following this pattern "007f5da0-4d3a-0135-867f-20999b0ed66f".
-  # These medical record numbers are set in the bundle. When patients are created for a test,
-  # they have a medical record number like "757442430658921". This "keep_if" statement makes sure we only returning an id for a Master Patient.
-  # TODO R2P: use correlation id to confirm master-patient list
-  def mpl_id?(patient_id)
-    patient_id[8] == '-'
+  def ecqi_link(cms_id)
+    measure = Measure.where(cms_id: cms_id).first
+    return unless measure
+
+    program = measure.reporting_program_type
+    year = Bundle.find(measure.bundle_id).major_version.to_i + 1
+    "https://ecqi.healthit.gov/ecqm/#{program}/#{year}/#{padded_cms_id(cms_id)}"
+  end
+
+  # This will always return a three digit cms identifier, e.g., CMS9v3 => CMS009v3
+  def padded_cms_id(cms_id)
+    cms_id.sub(/(?<=cms)(\d{1,3})/i) { Regexp.last_match(1).rjust(3, '0') }
   end
 
   def cvu_status_row(hash, status)

@@ -79,6 +79,31 @@ class MeasureTestTest < ActiveJob::TestCase
     end
   end
 
+  def test_create_with_slim_records
+    perform_enqueued_jobs do
+      patient_to_copy = @bundle.patients.first
+      # Add a bunch of patients to the bundle to exaggerate the number of patients
+      50.times do
+        patient_copy = patient_to_copy.clone
+        patient_copy.save
+      end
+      slim_product = @vendor.products.create(name: 'test_product_slim_random', c1_test: true, randomize_patients: true,
+                                             bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+      product = @vendor.products.create(name: 'test_product_random', c2_test: true, randomize_patients: true,
+                                        bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+      assert_enqueued_jobs 0
+      slim_pt = slim_product.product_tests.build({ name: 'slim_test_for_measure_1a', bundle_id: @bundle.id,
+                                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+      pt = product.product_tests.build({ name: 'test_for_measure_1a', bundle_id: @bundle.id,
+                                         measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+      assert pt.save, 'should be able to save valid product test'
+      assert slim_pt.save, 'should be able to save valid product test'
+      assert slim_pt.patients.count < pt.patients.count, 'there should be fewer records in the slim test deck'
+      assert pt.patients.count > 20, 'there should be greater than 20 records in the regular test deck'
+      assert slim_pt.patients.count < 10, 'there should be fewer than 10 records in the slim test deck'
+    end
+  end
+
   def test_create_task_c2
     @product.c2_test = true
     pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
@@ -144,19 +169,29 @@ class MeasureTestTest < ActiveJob::TestCase
   end
 
   def test_create_task_c1_c2_and_c3_ep_measure
+    vendor_user = FactoryBot.create(:vendor_user)
     @product.c1_test = true
     @product.c2_test = true
     @product.c3_test = true
     pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
     pt.create_tasks
+    pt.save
     assert pt.tasks.c1_task, 'product test should have a c1_task'
     assert pt.tasks.c2_task, 'product test should have a c2_task'
     # should not have a c3_cat1 task for EP measure
     assert_equal false, pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
     assert pt.tasks.c3_cat3_task, 'product test should have a c3_cat3_task'
+    assert_equal 'incomplete', pt.cat1_status
+    assert_equal 'incomplete', pt.cat3_status
+    pt.tasks.c1_task.test_executions.create(state: :passed, user: vendor_user.id)
+    pt.tasks.c2_task.test_executions.create(state: :passed, user: vendor_user.id)
+    pt.tasks.c3_cat3_task.test_executions.create(state: :passed, user: vendor_user.id)
+    assert_equal 'passing', pt.cat1_status
+    assert_equal 'passing', pt.cat3_status
   end
 
   def test_create_task_c1_c2_and_c3_eh_measure
+    vendor_user = FactoryBot.create(:vendor_user)
     @product.c1_test = true
     @product.c2_test = true
     @product.c3_test = true
@@ -167,6 +202,13 @@ class MeasureTestTest < ActiveJob::TestCase
     assert pt.tasks.c3_cat1_task, 'product test should have a c3_cat1_task'
     # should not have a c3_cat3 task for EH measure
     assert_equal false, pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
+    assert_equal 'incomplete', pt.cat1_status
+    assert_equal 'incomplete', pt.cat3_status
+    pt.tasks.c1_task.test_executions.create(state: :passed, user: vendor_user.id)
+    pt.tasks.c2_task.test_executions.create(state: :passed, user: vendor_user.id)
+    pt.tasks.c3_cat1_task.test_executions.create(state: :failed, user: vendor_user.id)
+    assert_equal 'failing', pt.cat1_status
+    assert_equal 'passing', pt.cat3_status
   end
 
   # Provider generation is now a before_validation hook on the MeasureTest model
