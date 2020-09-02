@@ -43,10 +43,10 @@ module Validators
       post_processsor_check(patient, options)
       eligible_measures, ineligible_measures = telehealth_eligible_and_ineligible_ecqms(options.task.product_test.measures)
       calculate_patient_for_measures(patient, options, eligible_measures) unless eligible_measures.empty?
-      return if ineligible_measures.empty?
-
-      Cypress::QRDAPostProcessor.remove_telehealth_encounters(patient, codes_modifiers, warnings, ineligible_measures) if codes_modifiers
-      calculate_patient_for_measures(patient, options, ineligible_measures)
+      unless ineligible_measures.empty?
+        Cypress::QRDAPostProcessor.remove_telehealth_encounters(patient, codes_modifiers, warnings, ineligible_measures) if codes_modifiers
+        calculate_patient_for_measures(patient, options, ineligible_measures)
+      end
       warnings.each { |e| add_warning e.message, file_name: options[:file_name], location: e.location }
     end
 
