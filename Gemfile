@@ -76,7 +76,7 @@ gem 'bootsnap', require: false
 # gem 'bcrypt', '~> 3.1.7'
 
 # Devise is the gem we use for user authentication
-gem 'cancancan' , '~> 1.10'
+gem 'cancancan', '~> 1.10'
 gem 'devise'
 gem 'devise_invitable'
 gem 'rolify'
