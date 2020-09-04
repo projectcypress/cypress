@@ -49,6 +49,8 @@ namespace :cypress do
     end
 
     task descriptions: :setup do
+      description_hash = {}
+
       start = Time.new.in_time_zone
       Patient.not_in(_type: CQM::ProductTestPatient).each do |p|
         # pull out codes by exporting and re-importing
@@ -63,8 +65,16 @@ namespace :cypress do
         Cypress::QRDAPostProcessor.build_code_descriptions(codes, p, p.bundle)
 
         p.save
+        description_hash[p.id] = p.code_description_hash
       end
       print "#{Patient.not_in(_type: CQM::ProductTestPatient).all.count} patients were updated in #{Time.new.in_time_zone - start} seconds\n"
+
+      start = Time.new.in_time_zone
+      CQM::ProductTestPatient.each do |ptp|
+        ptp.code_description_hash = description_hash[ptp.original_patient_id]
+        ptp.save
+      end
+      print "#{CQM::ProductTestPatient.all.count} patients were updated in #{Time.new.in_time_zone - start} seconds\n"
     end
   end
 end
