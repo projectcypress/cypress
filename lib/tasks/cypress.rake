@@ -47,5 +47,24 @@ namespace :cypress do
         Settings.current.update(yaml_content)
       end
     end
+
+    task descriptions: :setup do
+      start = Time.new.in_time_zone
+      Patient.not_in(_type: CQM::ProductTestPatient).each do |p|
+        # pull out codes by exporting and re-importing
+        @options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }
+        patient_xml = Qrda1R5.new(p, Measure.where(hqmf_id: Measure.first.hqmf_id), @options).render # measure is arbitrary placeholder
+        doc = Nokogiri::XML::Document.parse(patient_xml)
+        doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+        doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+        _patient, _warnings, codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+
+        # build code descriptions for original patient
+        Cypress::QRDAPostProcessor.build_code_descriptions(codes, p, p.bundle)
+
+        p.save
+      end
+      print "#{Patient.not_in(_type: CQM::ProductTestPatient).all.count} patients were updated in #{Time.new.in_time_zone - start} seconds\n"
+    end
   end
 end
