@@ -167,9 +167,11 @@ module Cypress
     end
 
     def self.update_demographic_codes(patient)
+      randomization_mapping = { 'race' => 'races', 'gender' => 'genders', 'ethnicity' => 'ethnicities', 'payer' => 'payers' }
       %w[race gender ethnicity payer].each do |characteristic|
         patient.qdmPatient.get_data_elements('patient_characteristic', characteristic).first.dataElementCodes.each do |dec|
-          Cypress::QRDAPostProcessor.build_code_descriptions(["#{dec.code}:#{dec.system}"], patient, patient.bundle)
+          description = APP_CONSTANTS['randomization'][randomization_mapping[characteristic]].select { |r| r.code == dec.code }&.first&.name
+          patient.code_description_hash["#{dec.code}:#{dec.system}".tr('.', '_')] = description
         end
       end
     end
