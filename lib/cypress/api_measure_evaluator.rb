@@ -509,7 +509,7 @@ module Cypress
     end
 
     def import_cat1_file(doc, patient_ids, bundle_id)
-      patient, _warnings, codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+      patient, _warnings, _codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, Bundle.find(bundle_id))
       patient.update(_type: CQM::TestExecutionPatient, correlation_id: 'api_eval')
       patient.save!
