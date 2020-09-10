@@ -71,6 +71,15 @@ randomization:
       name           : Not Hispanic or Latino
       codeSystem     : 2.16.840.1.113883.6.238
       codeSystemName : CDC Race
+  genders:
+    - code           : F
+      name           : Female
+      codeSystem     : 2.16.840.1.113883.5.1
+      codeSystemName : HL7 AdministrativeGender
+    - code           : M
+      name           : Male
+      codeSystem     : 2.16.840.1.113883.5.1
+      codeSystemName : HL7 AdministrativeGender
   payers:
     - type           : MA
       code           : 1
