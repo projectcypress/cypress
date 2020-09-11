@@ -326,6 +326,19 @@
               </entryRelationship>
             </act>
           </entry>
+
+          <entry>
+            <!-- Patient Characteristic Payer -->
+            <observation classCode="OBS" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.24.3.55"/>
+              <id root="6511f600-92f0-0138-3932-2cde48001122"/>
+              <code code="48768-6" codeSystemName="LOINC" codeSystem="2.16.840.1.113883.6.1" displayName="Payment source"/>
+              <statusCode code="completed"/>
+                <!-- QDM Attribute: Relevant Period -->
+                <effectiveTime><low value='19520104150000'/><high nullFlavor='UNK'/></effectiveTime>
+                <value xsi:type="CD" code="1" codeSystem="2.16.840.1.113883.3.221.5" codeSystemName="Source of Payment Typology"/>
+            </observation>
+          </entry>
         </section>
       </component>
     </structuredBody>

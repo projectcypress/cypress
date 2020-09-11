@@ -8,6 +8,7 @@ VCR.configure do |c|
   c.cassette_library_dir = 'test/fixtures/vcr_cassettes'
   c.hook_into :webmock
   c.ignore_localhost = true
+  c.allow_http_connections_when_no_cassette = true
 
   # To avoid storing plain text VSAC credentials or requiring the VSAC credentials
   # be provided at every run of the rake tests, provide the VSAC_USERNAME and VSAC_PASSWORD

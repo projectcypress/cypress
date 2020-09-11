@@ -5,10 +5,13 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
   include ActiveJob::TestHelper
 
-  def test_complete_roundtrip_using_real_bundle
-    # Leverage using functions in the ApiMeasureEvaluator
+  def setup
     @apime = Cypress::ApiMeasureEvaluator.new('test', 'test')
     import_bundle_and_create_product(retrieve_bundle)
+  end
+
+  def test_complete_roundtrip_using_real_bundle
+    # Leverage using functions in the ApiMeasureEvaluator
     perform_filtering_tests
     perform_measure_tests
     failed_tests = TestExecution.where(state: 'failed')

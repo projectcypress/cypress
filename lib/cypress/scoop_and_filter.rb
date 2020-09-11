@@ -25,7 +25,8 @@ module Cypress
       multi_vs_negation_elements = []
       patient.qdmPatient.dataElements.keep_if { |de| data_element_used_by_measure(de) }
       patient.qdmPatient.dataElements.each do |data_element|
-        scoop_and_filter_data_element_codes(data_element, multi_vs_negation_elements)
+        scoop_and_filter_data_element_codes(data_element, multi_vs_negation_elements, patient)
+        data_element.dataElementCodes.first
       end
       # keep data element if codes is not empty
       patient.qdmPatient.dataElements.keep_if { |data_element| data_element.dataElementCodes.present? }
@@ -38,7 +39,7 @@ module Cypress
 
     # Method to remove codes from a data element that are not relevant to measure.
     # Multi_vs_negation_elements is an array of cloned elements to add to patient record to capture all of the negated valuesets
-    def scoop_and_filter_data_element_codes(data_element, multi_vs_negation_elements)
+    def scoop_and_filter_data_element_codes(data_element, multi_vs_negation_elements, patient)
       # keep if data_element code and codesystem is in one of the relevant_codes
       data_element.dataElementCodes.keep_if { |de_code| @relevant_codes.include?(code: de_code.code, system: de_code.system) }
       # Do not try to replace with negated valueset if all codes are removed
@@ -48,6 +49,9 @@ module Cypress
       return unless data_element.respond_to?('negationRationale') && data_element.negationRationale
 
       replace_negated_code_with_valueset(data_element, multi_vs_negation_elements)
+      # add data element valueset and other potentially relevant valueset descriptions
+      codes = (multi_vs_negation_elements + [data_element]).map { |de| "#{de.dataElementCodes.first.code}:#{de.dataElementCodes.first.system}" }
+      Cypress::QRDAPostProcessor.build_code_descriptions(codes, patient, patient.bundle)
     end
 
     def data_element_category_and_status(data_element)
