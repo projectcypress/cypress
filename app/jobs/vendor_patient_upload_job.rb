@@ -63,14 +63,15 @@ class VendorPatientUploadJob < ApplicationJob
     # check for start date
     year_validator = MeasurePeriodValidator.new
     doc_start = year_validator.measure_period_start(doc)&.value
-    unless doc_start
-      return false, 'Document needs to report the Measurement Start Date'
-      # doc_end = validator.measure_period_end(doc).value -> should we validate end???
-    end
+    # doc_end = validator.measure_period_end(doc).value -> should we validate end???
+    return false, 'Document needs to report the Measurement Start Date' unless doc_start
 
     # import
     begin
-      patient, _warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+      patient, _warnings, codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+
+      # use all patient codes to build description map
+      Cypress::QRDAPostProcessor.build_code_descriptions(codes, patient, bundle)
 
       # shift date
       utc_start = DateTime.parse(doc_start).to_time.utc
