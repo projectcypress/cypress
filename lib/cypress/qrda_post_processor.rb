@@ -103,5 +103,23 @@ module Cypress
         'Units must match measure-defined units. '
       end
     end
+
+    def self.remove_telehealth_encounters(patient, codes_modifiers, warnings, ineligible_measures)
+      codes_modifiers.each do |encounter_id, codes_modifier|
+        # Exclude encounter for appropriate qualifier name 'VR' or value (from config)
+        has_telehealth_value = APP_CONSTANTS['telehealth_modifier_codes'].include? codes_modifier[:value]&.code
+        has_telehealth_name = codes_modifier[:name]&.code == 'VR'
+        next unless has_telehealth_value || has_telehealth_name
+
+        telehealth_encounter = patient.qdmPatient.encounters.where(_id: encounter_id.value)
+        qualifier_value = has_telehealth_value ? codes_modifier[:value]&.code : codes_modifier[:name]&.code
+        ineligible_measures_ids = ineligible_measures.pluck('cms_id').join(', ')
+        msg = "Telehealth encounter #{telehealth_encounter.first.codes.first.code} with modifier " \
+              "#{qualifier_value} not used in calculation for eCQMs (#{ineligible_measures_ids}) that are not eligible for telehealth."
+        warnings << ValidationError.new(message: msg,
+                                        location: codes_modifier[:xpath_location])
+        telehealth_encounter.delete
+      end
+    end
   end
 end
