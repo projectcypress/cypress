@@ -161,7 +161,7 @@ module Cypress
         doc = Nokogiri::XML::Document.parse(qrda)
         doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
-        patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+        patient, _warnings, _codes_modifiers = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
         patient['bundleId'] = bundle.id
         patient.update(_type: CQM::BundlePatient, correlation_id: bundle.id)
         Cypress::QRDAPostProcessor.replace_negated_codes(patient, bundle)

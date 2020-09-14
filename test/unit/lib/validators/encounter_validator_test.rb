@@ -36,7 +36,7 @@ class EncounterValidatorTest < ActiveSupport::TestCase
   end
 
   def test_end_date_in_the_future
-    change_encounter_period(@document, '20160829140000', '20200829150000')
+    change_encounter_period(@document, '20160829140000', '20300829150000')
     @validator.validate(@document)
 
     assert_equal 1, @validator.errors.count, "Expected 1 error, got #{@validator.errors}"

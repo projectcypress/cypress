@@ -40,7 +40,7 @@ module Validators
     end
 
     def parse_record(doc, options)
-      patient = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+      patient, _warnings, _codes_modifiers = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
 
       # check for single code negation errors
       product_test = ProductTest.find(@test_id)
