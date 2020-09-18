@@ -74,6 +74,10 @@ module Cypress
         next unless measures.any? { |m| m.hqmf_set_id == match['hqmf_set_id'] }
 
         valueset = bundle.value_sets.where(oid: match['code_list_id']).first
+        if valueset.nil?
+          Rails.logger.warn "ValueSet #{match['code_list_id']} not found"
+          next
+        end
         patient.qdmPatient.dataElements.each do |de|
           # check for matching data element type and code in valueset
           next unless de._type == match['de_type'] && de.dataElementCodes.any? { |dec| valueset.concepts.any? { |conc| conc.code == dec.code } }
