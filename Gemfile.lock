@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/projecttacoma/cqm-reports
-  revision: d090831872aad657e2c1916542b76c181912e07f
-  branch: code_displays
+  revision: f5d7577a92a6c227d3af25242bcec04e9c90f590
+  branch: master
   specs:
-    cqm-reports (3.1.1)
-      cqm-models (~> 3.0.0)
+    cqm-reports (3.1.2)
+      cqm-models (~> 3.0.3)
       cqm-validators (~> 3.0.0)
       erubis (~> 2.7)
       log4r (~> 1.1)
@@ -124,10 +124,9 @@ GEM
     cliver (0.3.2)
     code_analyzer (0.5.1)
       sexp_processor
-    codecov (0.1.16)
+    codecov (0.2.11)
       json
       simplecov
-      url
     coderay (1.1.2)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -139,7 +138,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.7)
-    cqm-models (3.0.1)
+    cqm-models (3.0.4)
     cqm-parsers (3.1.0.0)
       activesupport (~> 5.0)
       builder (~> 3.1)
@@ -255,7 +254,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    json (2.3.0)
+    json (2.3.1)
     kaminari-core (1.2.0)
     kaminari-mongoid (1.0.1)
       kaminari-core (~> 1.0)
@@ -442,7 +441,7 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     sexp_processor (4.14.1)
-    simplecov (0.18.5)
+    simplecov (0.19.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
     simplecov-html (0.12.2)
@@ -477,7 +476,6 @@ GEM
     unicorn-rails (2.2.1)
       rack
       unicorn
-    url (0.3.2)
     uuid (2.3.9)
       macaddr (~> 1.0)
     vcr (5.1.0)
