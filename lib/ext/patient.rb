@@ -132,6 +132,35 @@ module CQM
       end
     end
 
+    # when laboratory_tests and physical_exams are reported for CMS529, they need to reference the
+    # encounter they are related to.  The time range can include 24 hours before and after the encounter occurs.
+    def add_encounter_ids_to_events
+      encounter_times = {}
+      qdmPatient.get_data_elements('encounter', 'performed').each do |ep|
+        # Only use inpatient encounter
+        next if (ep.dataElementCodes.map(&:code) & bundle.value_sets.where(oid: '2.16.840.1.113883.3.666.5.307').first.concepts.map(&:code)).empty?
+
+        rel_time = ep.relevantPeriod
+        # 1 day before and 1 day after
+        rel_time.low -= 86_400
+        rel_time.high += 86_400
+        encounter_times[ep.id] = rel_time
+      end
+      qdmPatient.get_data_elements('laboratory_test', 'performed').each do |lt|
+        lt.encounter_id = encounter_id_for_event(encounter_times, lt.resultDatetime)
+      end
+      qdmPatient.get_data_elements('physical_exam', 'performed').each do |pe|
+        pe.encounter_id = encounter_id_for_event(encounter_times, pe.relevantDatetime)
+      end
+    end
+
+    def encounter_id_for_event(encounter_time_hash, event_time)
+      encounter_time_hash.each do |e_id, range|
+        return e_id if (event_time > range.low) && (event_time < range.high)
+      end
+      nil
+    end
+
     def randomize_demographics(patient, changed, random: Random.new)
       case random.rand(3) # now, randomize demographics
       when 0 # gender
