@@ -36,6 +36,8 @@ module Validators
             add_error("Missing #{pop_key} for #{measure.cms_id}", file_name: options[:file_name]) if reported_result[pop_key].nil?
             # Skip demographic validators if population is missing
             next if reported_result[pop_key].nil?
+            # Skip if there is a stratification_id.  Stratifications do not report demographics
+            next if pop_set_hash[:stratification_id]
 
             # Skip demographic validators if a code is already found to be missing. Otherwise, validate that all demographic codes are present
             verify_all_codes_reported(reported_result, pop_key, 'PAYER', options) unless @missing_codes['PAYER']
