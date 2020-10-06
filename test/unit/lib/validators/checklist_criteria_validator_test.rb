@@ -32,20 +32,31 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
     @options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31), patient_addresses: [address], patient_telecoms: [telecom] }
   end
 
-  def setup_sdc(data_type, attribute_name, negated_valueset)
+  def setup_sdc(data_type, attribute_name, negated_valueset_or_drc)
     data_type.codeListId = '1.3.4.5'
     atts = data_type.attributes.slice('qdmCategory', 'qdmStatus', '_type', 'hqmfOid', 'codeListId')
     atts['dataElementAttributes'] = [{ 'attribute_name' => attribute_name }]
     is_code = data_type[attribute_name].respond_to? :code
     @checklist_test.checked_criteria.destroy_all
-    @checklist_test.checked_criteria.new(attribute_index: 0,
-                                         code: data_type.dataElementCodes.first[:code], # '1234',
-                                         recorded_result: is_code ? nil : data_type[attribute_name],
-                                         attribute_code: is_code ? data_type[attribute_name].code : nil,
-                                         negated_valueset: negated_valueset,
-                                         measure_id: @measure._id,
-                                         passed_qrda: nil,
-                                         source_data_criteria: atts)
+    if negated_valueset_or_drc
+      @checklist_test.checked_criteria.new(attribute_index: 0,
+                                           selected_negated_valueset: negated_valueset_or_drc,
+                                           recorded_result: is_code ? nil : data_type[attribute_name],
+                                           attribute_code: is_code ? data_type[attribute_name].code : nil,
+                                           negated_valueset: true,
+                                           measure_id: @measure._id,
+                                           passed_qrda: nil,
+                                           source_data_criteria: atts)
+    else
+      @checklist_test.checked_criteria.new(attribute_index: 0,
+                                           code: data_type.dataElementCodes.first[:code], # '1234',
+                                           recorded_result: is_code ? nil : data_type[attribute_name],
+                                           attribute_code: is_code ? data_type[attribute_name].code : nil,
+                                           negated_valueset: false,
+                                           measure_id: @measure._id,
+                                           passed_qrda: nil,
+                                           source_data_criteria: atts)
+    end
     @checklist_test.save
   end
 
@@ -55,7 +66,19 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
 
     TEST_ATTRIBUTES.each do |ta|
       dt = QDM::PatientGeneration.generate_loaded_datatype(ta[6], ta[7])
-      setup_sdc(dt.clone, ta[2], ta[3])
+      negated_valueset_or_drc = nil
+      if ta[3]
+        # For negations, randomly assign a valueset or direct reference code
+        if [true, false].sample
+          negated_valueset_or_drc = 'drc-8ea552d96b89cc373a6adc60b8c6d8afcbde72628d5ff6b519a3232fc211b2ee'
+          dt.dataElementCodes = [{ code: '1001', system: '2.16.840.1.113883.6.96' }]
+        else
+          negated_valueset_or_drc = '1.3.4.5'
+          dt.dataElementCodes = [{ code: '1.3.4.5', system: '1.2.3.4.5.6.7.8.9.10' }]
+        end
+      end
+
+      setup_sdc(dt.clone, ta[2], negated_valueset_or_drc)
       test_specific_qdm_patient = qdm_patient_for_attribute(dt, ta, @qdm_patient)
 
       @cqm_patient.qdmPatient = test_specific_qdm_patient

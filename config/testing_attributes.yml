@@ -15,12 +15,12 @@
   ['allergy_intolerance', null, 'severity', false, '20170503000000', null, 'QDM::AllergyIntolerance'],
   ['allergy_intolerance', null, 'recorder', false, null, '1234', 'QDM::AllergyIntolerance'],
 
-  ['assessment', 'ordered', 'negationRationale', false, null, '1234', 'QDM::AssessmentOrder', true],
+  ['assessment', 'ordered', 'negationRationale', true, null, '1234', 'QDM::AssessmentOrder', true],
   ['assessment', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::AssessmentOrder', false],
   ['assessment', 'ordered', 'reason', false, null, '1234', 'QDM::AssessmentOrder', false],
   ['assessment', 'ordered', 'requester', false, null, '1234', 'QDM::AssessmentOrder', false],
 
-  ['assessment', 'performed', 'negationRationale', false, null, '1234', 'QDM::AssessmentPerformed', true],
+  ['assessment', 'performed', 'negationRationale', true, null, '1234', 'QDM::AssessmentPerformed', true],
   ['assessment', 'performed', 'authorDatetime', false, '20170503000000', null, 'QDM::AssessmentPerformed', false],
   ['assessment', 'performed', 'relevantDatetime', false, '20170503000000', null, 'QDM::AssessmentPerformed', false],
   ['assessment', 'performed', 'relevantPeriod', false, '20170503000000', null, 'QDM::AssessmentPerformed', false],
@@ -31,12 +31,12 @@
   # ['assessment', 'performed', 'relatedTo', false, '20170503000000', null, 'QDM::AssessmentPerformed', false], # Not currently in patient generator
   ['assessment', 'performed', 'performer', false, null, '1234', 'QDM::AssessmentPerformed', false],
 
-  ['assessment', 'recommended', 'negationRationale', false, null, '1234', 'QDM::AssessmentRecommended', true],
+  ['assessment', 'recommended', 'negationRationale', true, null, '1234', 'QDM::AssessmentRecommended', true],
   ['assessment', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::AssessmentRecommended', false],
   ['assessment', 'recommended', 'reason', false, null, '1234', 'QDM::AssessmentRecommended', false],
   ['assessment', 'recommended', 'requester', false, null, '1234', 'QDM::AssessmentRecommended', false],
 
-  ['communication', 'performed', 'negationRationale', false, null, '1234', 'QDM::CommunicationPerformed', true],
+  ['communication', 'performed', 'negationRationale', true, null, '1234', 'QDM::CommunicationPerformed', true],
   ['communication', 'performed', 'authorDatetime', false, '20170503000000', null, 'QDM::CommunicationPerformed', false],
   ['communication', 'performed', 'category', false, null, '1234', 'QDM::CommunicationPerformed', false],
   ['communication', 'performed', 'medium', false, null, '1234', 'QDM::CommunicationPerformed', false],
@@ -46,7 +46,7 @@
   ['communication', 'performed', 'sentDatetime', false, '20170503000000', null, 'QDM::CommunicationPerformed', false],
   ['communication', 'performed', 'receivedDatetime', false, '20170503000000', null, 'QDM::CommunicationPerformed', false],
 
-  ['device', 'applied', 'negationRationale', false, null, '1234', 'QDM::DeviceApplied', true],
+  ['device', 'applied', 'negationRationale', true, null, '1234', 'QDM::DeviceApplied', true],
   ['device', 'applied', 'authorDatetime', false, '20170503000000', null, 'QDM::DeviceApplied', false],
   ['device', 'applied', 'relevantDatetime', false, '20170503000000', null, 'QDM::DeviceApplied', false],
   ['device', 'applied', 'relevantPeriod', false, '20170503000000', null, 'QDM::DeviceApplied', false],
@@ -54,12 +54,12 @@
   ['device', 'applied', 'anatomicalLocationSite', false, null, '1234', 'QDM::DeviceApplied', false],
   ['device', 'applied', 'performer', false, null, '1234', 'QDM::DeviceApplied', false],
 
-  ['device', 'ordered', 'negationRationale', false, null, '1234', 'QDM::DeviceOrder', true],
+  ['device', 'ordered', 'negationRationale', true, null, '1234', 'QDM::DeviceOrder', true],
   ['device', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::DeviceOrder', false],
   ['device', 'ordered', 'reason', false, null, '1234', 'QDM::DeviceOrder', false],
   ['device', 'ordered', 'requester', false, null, '1234', 'QDM::DeviceOrder', false],
 
-  ['device', 'recommended', 'negationRationale', false, null, '1234', 'QDM::DeviceRecommended', true],
+  ['device', 'recommended', 'negationRationale', true, null, '1234', 'QDM::DeviceRecommended', true],
   ['device', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::DeviceRecommended', false],
   ['device', 'recommended', 'reason', false, null, '1234', 'QDM::DeviceRecommended', false],
   ['device', 'recommended', 'requester', false, null, '1234', 'QDM::DeviceRecommended', false],
@@ -70,12 +70,12 @@
   ['diagnosis', null, 'severity', false, null, '1234', 'QDM::Diagnosis', false],
   ['diagnosis', null, 'recorder', false, null, '1234', 'QDM::Diagnosis', false],
 
-  ['diagnostic_study', 'ordered', 'negationRationale', false, null, '1234', 'QDM::DiagnosticStudyOrder', true],
+  ['diagnostic_study', 'ordered', 'negationRationale', true, null, '1234', 'QDM::DiagnosticStudyOrder', true],
   ['diagnostic_study', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::DiagnosticStudyOrder', false],
   ['diagnostic_study', 'ordered', 'reason', false, null, '1234', 'QDM::DiagnosticStudyOrder', false],
   ['diagnostic_study', 'requester', 'reason', false, null, '1234', 'QDM::DiagnosticStudyOrder', false],
 
-  ['diagnostic_study', 'performed', 'negationRationale', false, null, '1234', 'QDM::DiagnosticStudyPerformed', true],
+  ['diagnostic_study', 'performed', 'negationRationale', true, null, '1234', 'QDM::DiagnosticStudyPerformed', true],
   ['diagnostic_study', 'performed', 'authorDatetime', false, '20170503000000', null, 'QDM::DiagnosticStudyPerformed', false],
   ['diagnostic_study', 'performed', 'relevantDatetime', false, '20170503000000', null, 'QDM::DiagnosticStudyPerformed', false],
   ['diagnostic_study', 'performed', 'relevantPeriod', false, '20170503000000', null, 'QDM::DiagnosticStudyPerformed', false],
@@ -88,18 +88,18 @@
   ['diagnostic_study', 'performed', 'components', false, null, '1234', 'QDM::DiagnosticStudyPerformed', false],
   ['diagnostic_study', 'performed', 'performer', false, null, '1234', 'QDM::DiagnosticStudyPerformed', false],
 
-  ['diagnostic_study', 'recommended', 'negationRationale', false, null, '1234', 'QDM::DiagnosticStudyRecommended', true],
+  ['diagnostic_study', 'recommended', 'negationRationale', true, null, '1234', 'QDM::DiagnosticStudyRecommended', true],
   ['diagnostic_study', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::DiagnosticStudyRecommended', false],
   ['diagnostic_study', 'recommended', 'requester', false, '20170503000000', null, 'QDM::DiagnosticStudyRecommended', false],
 
-  ['encounter', 'ordered', 'negationRationale', false, null, '1234', 'QDM::EncounterOrder', true],
+  ['encounter', 'ordered', 'negationRationale', true, null, '1234', 'QDM::EncounterOrder', true],
   ['encounter', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::EncounterOrder', false],
   ['encounter', 'ordered', 'reason', false, null, '1234', 'QDM::EncounterOrder', false],
   ['encounter', 'ordered', 'facilityLocation', false, null, '1234', 'QDM::EncounterOrder', false],
   ['encounter', 'ordered', 'requester', false, null, '1234', 'QDM::EncounterOrder', false],
   ['encounter', 'ordered', 'priority', false, null, '1234', 'QDM::EncounterOrder', false],
 
-  ['encounter', 'performed', 'negationRationale', false, null, '1234', 'QDM::EncounterPerformed', true],
+  ['encounter', 'performed', 'negationRationale', true, null, '1234', 'QDM::EncounterPerformed', true],
   ['encounter', 'performed', 'authorDatetime', false, '20170503000000', null, 'QDM::EncounterPerformed', false],
   ['encounter', 'performed', 'admissionSource', false, null, '1234', 'QDM::EncounterPerformed', false],
   ['encounter', 'performed', 'relevantPeriod', false, '20170503000000', null, 'QDM::EncounterPerformed', false],
@@ -110,7 +110,7 @@
   ['encounter', 'performed', 'participant', false, '20170503000000', null, 'QDM::EncounterPerformed', false],
   # ['encounter', 'performed', 'lengthOfStay', false, '2', null, 'QDM::EncounterPerformed'], # Not currently in patient generator
 
-  ['encounter', 'recommended', 'negationRationale', false, null, '1234', 'QDM::EncounterRecommended', true],
+  ['encounter', 'recommended', 'negationRationale', true, null, '1234', 'QDM::EncounterRecommended', true],
   ['encounter', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::EncounterRecommended', false],
   ['encounter', 'recommended', 'facilityLocation', false, null, '1234', 'QDM::EncounterRecommended', false],
   ['encounter', 'recommended', 'reason', false, null, '1234', 'QDM::EncounterRecommended', false],
@@ -120,7 +120,7 @@
   ['family_history', null, 'relationship', false, null, '1234', 'QDM::FamilyHistory', false],
   ['family_history', null, 'recorder', false, '20170503000000', null, 'QDM::FamilyHistory', false],
 
-  ['immunization', 'administered', 'negationRationale', false, null, '1234', 'QDM::ImmunizationAdministered', true],
+  ['immunization', 'administered', 'negationRationale', true, null, '1234', 'QDM::ImmunizationAdministered', true],
   # ['immunization', 'administered', 'authorDatetime', false, '20170503000000', null, 'QDM::ImmunizationAdministered', false],
   ['immunization', 'administered', 'relevantDatetime', false, '20170503000000', null, 'QDM::ImmunizationAdministered', false],
   ['immunization', 'administered', 'reason', false, null, '1234', 'QDM::ImmunizationAdministered', false],
@@ -128,7 +128,7 @@
   ['immunization', 'administered', 'route', false, null, '1234', 'QDM::ImmunizationAdministered', false],
   ['immunization', 'administered', 'performer', false, '20170503000000', null, 'QDM::ImmunizationAdministered', false],
 
-  ['immunization', 'order', 'negationRationale', false, null, '1234', 'QDM::ImmunizationOrder', true],
+  ['immunization', 'order', 'negationRationale', true, null, '1234', 'QDM::ImmunizationOrder', true],
   ['immunization', 'order', 'activeDatetime', false, '20170503000000', null, 'QDM::ImmunizationOrder', false],
   ['immunization', 'order', 'authorDatetime', false, '20170503000000', null, 'QDM::ImmunizationOrder', false],
   ['immunization', 'order', 'dosage', false, '20170503000000', null, 'QDM::ImmunizationOrder', false],
@@ -137,12 +137,12 @@
   ['immunization', 'order', 'reason', false, null, '1234', 'QDM::ImmunizationOrder', false],
   ['immunization', 'order', 'requester', false, '20170503000000', null, 'QDM::ImmunizationOrder', false],
 
-  ['intervention', 'ordered', 'negationRationale', false, null, '1234', 'QDM::InterventionOrder', true],
+  ['intervention', 'ordered', 'negationRationale', true, null, '1234', 'QDM::InterventionOrder', true],
   ['intervention', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::InterventionOrder', false],
   ['intervention', 'ordered', 'reason', false, null, '1234', 'QDM::InterventionOrder', false],
   ['intervention', 'ordered', 'requester', false, '20170503000000', null, 'QDM::InterventionOrder', false],
 
-  ['intervention', 'performed', 'negationRationale', false, null, '1234', 'QDM::InterventionPerformed', true],
+  ['intervention', 'performed', 'negationRationale', true, null, '1234', 'QDM::InterventionPerformed', true],
   ['intervention', 'performed', 'authorDatetime', false, '20170503000000', null, 'QDM::InterventionPerformed', false],
   ['intervention', 'performed', 'relevantDatetime', false, '20170503000000', null, 'QDM::InterventionPerformed', false],
   ['intervention', 'performed', 'relevantPeriod', false, '20170503000000', null, 'QDM::InterventionPerformed', false],
@@ -151,17 +151,17 @@
   ['intervention', 'performed', 'status', false, null, '1234', 'QDM::InterventionPerformed', false],
   ['intervention', 'performed', 'performer', false, '20170503000000', null, 'QDM::InterventionPerformed', false],
 
-  ['intervention', 'recommended', 'negationRationale', false, null, '1234', 'QDM::InterventionRecommended', true],
+  ['intervention', 'recommended', 'negationRationale', true, null, '1234', 'QDM::InterventionRecommended', true],
   ['intervention', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::InterventionRecommended', false],
   ['intervention', 'recommended', 'reason', false, null, '1234', 'QDM::InterventionRecommended', false],
   ['intervention', 'recommended', 'requester', false, '20170503000000', null, 'QDM::InterventionRecommended', false],
 
-  ['laboratory_test', 'ordered', 'negationRationale', false, null, '1234', 'QDM::LaboratoryTestOrder', true],
+  ['laboratory_test', 'ordered', 'negationRationale', true, null, '1234', 'QDM::LaboratoryTestOrder', true],
   ['laboratory_test', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::LaboratoryTestOrder', false],
   ['laboratory_test', 'ordered', 'reason', false, null, '1234', 'QDM::LaboratoryTestOrder', false],
   ['laboratory_test', 'ordered', 'requester', false, '20170503000000', null, 'QDM::LaboratoryTestOrder', false],
 
-  ['laboratory_test', 'performed', 'negationRationale', false, null, '1234', 'QDM::LaboratoryTestPerformed', true],
+  ['laboratory_test', 'performed', 'negationRationale', true, null, '1234', 'QDM::LaboratoryTestPerformed', true],
   ['laboratory_test', 'performed', 'authorDatetime', false, '20170503000000', null, 'QDM::LaboratoryTestPerformed', false],
   ['laboratory_test', 'performed', 'relevantDatetime', false, '20170503000000', null, 'QDM::LaboratoryTestPerformed', false],
   ['laboratory_test', 'performed', 'relevantPeriod', false, '20170503000000', null, 'QDM::LaboratoryTestPerformed', false],
@@ -175,7 +175,7 @@
   ['laboratory_test', 'performed', 'components', false, '20170503000000', null, 'QDM::LaboratoryTestPerformed', false],
   ['laboratory_test', 'performed', 'performer', false, '20170503000000', null, 'QDM::LaboratoryTestPerformed', false],
 
-  ['laboratory_test', 'recommended', 'negationRationale', false, null, '1234', 'QDM::LaboratoryTestRecommended', true],
+  ['laboratory_test', 'recommended', 'negationRationale', true, null, '1234', 'QDM::LaboratoryTestRecommended', true],
   ['laboratory_test', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::LaboratoryTestRecommended', false],
   ['laboratory_test', 'recommended', 'reason', false, null, '1234', 'QDM::LaboratoryTestRecommended', false],
   ['laboratory_test', 'recommended', 'requester', false, '20170503000000', null, 'QDM::LaboratoryTestRecommended', false],
@@ -187,7 +187,7 @@
   ['medication', 'active', 'route', false, null, '1234', 'QDM::MedicationActive', false],
   ['medication', 'active', 'recorder', false, '20170503000000', null, 'QDM::MedicationActive', false],
 
-  ['medication', 'administered', 'negationRationale', false, null, '1234', 'QDM::MedicationAdministered', true],
+  ['medication', 'administered', 'negationRationale', true, null, '1234', 'QDM::MedicationAdministered', true],
   ['medication', 'administered', 'authorDatetime', false, '20170503000000', null, 'QDM::MedicationAdministered', false],
   ['medication', 'administered', 'relevantDatetime', false, '20170503000000', null, 'QDM::MedicationAdministered', false],
   ['medication', 'administered', 'relevantPeriod', false, '20170503000000', null, 'QDM::MedicationAdministered', false],
@@ -197,7 +197,7 @@
   ['medication', 'administered', 'reason', false, '20170503000000', null, 'QDM::MedicationAdministered', false],
   ['medication', 'administered', 'performer', false, '20170503000000', null, 'QDM::MedicationAdministered', false],
 
-  ['medication', 'discharge', 'negationRationale', false, null, '1234', 'QDM::MedicationDischarge', true],
+  ['medication', 'discharge', 'negationRationale', true, null, '1234', 'QDM::MedicationDischarge', true],
   ['medication', 'discharge', 'authorDatetime', false, '20170503000000', null, 'QDM::MedicationDischarge', false],
   ['medication', 'discharge', 'refills', false, '20170503000000', null, 'QDM::MedicationDischarge', false],
   ['medication', 'discharge', 'dosage', false, '20170503000000', null, 'QDM::MedicationDischarge', false],
@@ -208,7 +208,7 @@
   ['medication', 'discharge', 'prescriber', false, '20170503000000', null, 'QDM::MedicationDischarge', false],
   ['medication', 'discharge', 'recorder', false, '20170503000000', null, 'QDM::MedicationDischarge', false],
 
-  ['medication', 'dispensed', 'negationRationale', false, null, '1234', 'QDM::MedicationDispensed', true],
+  ['medication', 'dispensed', 'negationRationale', true, null, '1234', 'QDM::MedicationDispensed', true],
   # ['medication', 'dispensed', 'authorDatetime', false, '20170503000000', null, 'QDM::MedicationDispensed', false],
   ['medication', 'dispensed', 'relevantDatetime', false, '20170503000000', null, 'QDM::MedicationDispensed', false],
   ['medication', 'dispensed', 'relevantPeriod', false, '20170503000000', null, 'QDM::MedicationDispensed', false],
@@ -221,7 +221,7 @@
   ['medication', 'dispensed', 'prescriber', false, '20170503000000', null, 'QDM::MedicationDispensed', false],
   ['medication', 'dispensed', 'dispenser', false, '20170503000000', null, 'QDM::MedicationDispensed', false],
 
-  ['medication', 'ordered', 'negationRationale', false, null, '1234', 'QDM::MedicationOrder', true],
+  ['medication', 'ordered', 'negationRationale', true, null, '1234', 'QDM::MedicationOrder', true],
   # ['medication', 'ordered', 'relevantPeriod', false, '20170503000000', null, 'QDM::MedicationOrder', false],
   ['medication', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::MedicationOrder', false],
   ['medication', 'ordered', 'refills', false, '20170503000000', null, 'QDM::MedicationOrder', false],
@@ -243,13 +243,13 @@
   # ['patient_characteristic_expired', null, 'expiredDatetime', false, '20170503000000', null, 'QDM::PatientCharacteristicExpired', false], # these will need to override the code, as the code is 419099009 not 1234
   # ['patient_characteristic_expired', null, 'cause', false, null, '1234', 'QDM::PatientCharacteristicExpired', false] # these will need to override the code, as the code is 419099009 not 1234
 
-  ['physical_exam', 'ordered', 'negationRationale', false, null, '1234', 'QDM::PhysicalExamOrder', true],
+  ['physical_exam', 'ordered', 'negationRationale', true, null, '1234', 'QDM::PhysicalExamOrder', true],
   ['physical_exam', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::PhysicalExamOrder', false],
   ['physical_exam', 'ordered', 'reason', false, null, '1234', 'QDM::PhysicalExamOrder', false],
   ['physical_exam', 'ordered', 'anatomicalLocationSite', false, null, '1234', 'QDM::PhysicalExamOrder', false],
   ['physical_exam', 'ordered', 'requester', false, '20170503000000', null, 'QDM::PhysicalExamOrder', false],
 
-  ['physical_exam', 'performed', 'negationRationale', false, null, '1234', 'QDM::PhysicalExamPerformed', true],
+  ['physical_exam', 'performed', 'negationRationale', true, null, '1234', 'QDM::PhysicalExamPerformed', true],
   ['physical_exam', 'performed', 'authorDatetime', false, '20170503000000', null, 'QDM::PhysicalExamPerformed', false],
   ['physical_exam', 'performed', 'relevantDatetime', false, '20170503000000', null, 'QDM::PhysicalExamPerformed', false],
   ['physical_exam', 'performed', 'relevantPeriod', false, '20170503000000', null, 'QDM::PhysicalExamPerformed', false],
@@ -260,13 +260,13 @@
   ['physical_exam', 'performed', 'components', false, '20170503000000', null, 'QDM::PhysicalExamPerformed', false],
   ['physical_exam', 'performed', 'performer', false, '20170503000000', null, 'QDM::PhysicalExamPerformed', false],
 
-  ['physical_exam', 'recommended', 'negationRationale', false, null, '1234', 'QDM::PhysicalExamRecommended', true],
+  ['physical_exam', 'recommended', 'negationRationale', true, null, '1234', 'QDM::PhysicalExamRecommended', true],
   ['physical_exam', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::PhysicalExamRecommended', false],
   ['physical_exam', 'recommended', 'reason', false, null, '1234', 'QDM::PhysicalExamRecommended', false],
   ['physical_exam', 'recommended', 'anatomicalLocationSite', false, null, '1234', 'QDM::PhysicalExamRecommended', false],
   ['physical_exam', 'recommended', 'requester', false, '20170503000000', null, 'QDM::PhysicalExamRecommended', false],
 
-  ['procedure', 'ordered', 'negationRationale', false, null, '1234', 'QDM::ProcedureOrder', true],
+  ['procedure', 'ordered', 'negationRationale', true, null, '1234', 'QDM::ProcedureOrder', true],
   ['procedure', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::ProcedureOrder', false],
   ['procedure', 'ordered', 'reason', false, null, '1234', 'QDM::ProcedureOrder', false],
   ['procedure', 'ordered', 'anatomicalLocationSite', false, null, '1234', 'QDM::ProcedureOrder', false],
@@ -274,7 +274,7 @@
   # ['procedure', 'ordered', 'priority', false, null, '1234', 'QDM::ProcedureOrder', false],
   ['procedure', 'ordered', 'requester', false, '20170503000000', null, 'QDM::ProcedureOrder', false],
 
-  ['procedure', 'performed', 'negationRationale', false, null, '1234', 'QDM::ProcedurePerformed', true],
+  ['procedure', 'performed', 'negationRationale', true, null, '1234', 'QDM::ProcedurePerformed', true],
   ['procedure', 'performed', 'authorDatetime', false, '20170503000000', null, 'QDM::ProcedurePerformed', false],
   ['procedure', 'performed', 'relevantDatetime', false, '20170503000000', null, 'QDM::ProcedurePerformed', false],
   ['procedure', 'performed', 'relevantPeriod', false, '20170503000000', null, 'QDM::ProcedurePerformed', false],
@@ -289,7 +289,7 @@
   ['procedure', 'performed', 'components', false, null, '1234', 'QDM::ProcedurePerformed', false],
   ['procedure', 'performed', 'performer', false, '20170503000000', null, 'QDM::ProcedurePerformed', false],
 
-  ['procedure', 'recommended', 'negationRationale', false, null, '1234', 'QDM::ProcedureRecommended', true],
+  ['procedure', 'recommended', 'negationRationale', true, null, '1234', 'QDM::ProcedureRecommended', true],
   ['procedure', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::ProcedureRecommended', false],
   ['procedure', 'recommended', 'reason', false, null, '1234', 'QDM::ProcedureRecommended', false],
   ['procedure', 'recommended', 'anatomicalLocationSite', false, null, '1234', 'QDM::ProcedureRecommended', false],
@@ -302,7 +302,7 @@
   # ['related_person', null, 'identifier', false, '20170503000000', null, 'QDM::RelatedPerson', false],
   # ['related_person', null, 'linkedPatientId', false, '20170503000000', null, 'QDM::RelatedPerson', false],
 
-  ['substance', 'administered', 'negationRationale', false, null, '1234', 'QDM::SubstanceAdministered', true],
+  ['substance', 'administered', 'negationRationale', true, null, '1234', 'QDM::SubstanceAdministered', true],
   ['substance', 'administered', 'authorDatetime', false, '20170503000000', null, 'QDM::SubstanceAdministered', false],
   ['substance', 'administered', 'relevantDatetime', false, '20170503000000', null, 'QDM::SubstanceAdministered', false],
   ['substance', 'administered', 'relevantPeriod', false, '20170503000000', null, 'QDM::SubstanceAdministered', false],
@@ -311,7 +311,7 @@
   ['substance', 'administered', 'route', false, null, '1234', 'QDM::SubstanceAdministered', false],
   ['substance', 'administered', 'performer', false, '20170503000000', null, 'QDM::SubstanceAdministered', false],
 
-  ['substance', 'ordered', 'negationRationale', false, null, '1234', 'QDM::SubstanceOrder', true],
+  ['substance', 'ordered', 'negationRationale', true, null, '1234', 'QDM::SubstanceOrder', true],
   ['substance', 'ordered', 'authorDatetime', false, '20170503000000', null, 'QDM::SubstanceOrder', false],
   # ['substance', 'ordered', 'relevantPeriod', false, '20170503000000', null, 'QDM::SubstanceOrder', false],
   ['substance', 'ordered', 'reason', false, null, '1234', 'QDM::SubstanceOrder', false],
@@ -322,7 +322,7 @@
   ['substance', 'ordered', 'route', false, null, '1234', 'QDM::SubstanceOrder', false],
   # ['substance', 'ordered', 'requester', false, '20170503000000', null, 'QDM::SubstanceOrder', false], # Do not see this in QRDA
 
-  ['substance', 'recommended', 'negationRationale', false, null, '1234', 'QDM::SubstanceRecommended', true],
+  ['substance', 'recommended', 'negationRationale', true, null, '1234', 'QDM::SubstanceRecommended', true],
   ['substance', 'recommended', 'authorDatetime', false, '20170503000000', null, 'QDM::SubstanceRecommended', false],
   ['substance', 'recommended', 'reason', false, null, '1234', 'QDM::SubstanceRecommended', false],
   ['substance', 'recommended', 'dosage', false, '20170503000000', null, 'QDM::SubstanceRecommended', false],

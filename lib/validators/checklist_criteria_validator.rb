@@ -47,11 +47,21 @@ module Validators
     end
 
     def data_elements_that_meet_criteria(data_elements, checked_criteria, attribute)
-      checked_code = checked_criteria['negated_valueset'] ? checked_criteria['selected_negated_valueset'] : checked_criteria['code']
+      checked_code = if checked_criteria['negated_valueset']
+                       # the checked "code" should be the direct reference code, or the valueset oid
+                       drc_or_valueset_oid(checked_criteria['selected_negated_valueset'])
+                     else
+                       checked_criteria['code']
+                     end
       de_with_code = data_elements.keep_if { |de| de.dataElementCodes.map(&:code).include?(checked_code) }
       return de_with_code.keep_if { |de| attribute_has_data(extract_attribute_from_data_element(de, attribute), checked_criteria) } if attribute
 
       de_with_code
+    end
+
+    # if the oid is for a direct reference code, return the code.  if the oid is for a valueset, return the oid
+    def drc_or_valueset_oid(oid)
+      oid[0, 3] == 'drc' ? ValueSet.where(oid: oid).first.concepts.first.code : oid
     end
 
     # This method will return true if the specified attribute has a stored value
