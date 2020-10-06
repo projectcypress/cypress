@@ -214,6 +214,19 @@ result_measures:
   - hqmf_set_id : 'FA75DE85-A934-45D7-A2F7-C700A756078B'
     statement_name : 'Results'
 
+# These measures do not 
+telehealth_ineligible_measures:
+  # CMS22v9, CMS69v9, CMS142v9, CMS143v9, CMS771v2
+  # CMS75v9, CMS129v9 CMS133v8 are not included beacuse measures do not contain telehealth-eligible codes and do not require an encounter during the measurement period
+ [ '2C928085-7198-38EE-0171-996316C403A1',
+   '2C928085-7198-38EE-0171-9995E1F90412',
+   '2C928085-7198-38EE-0171-99A391370450',
+   '2C928085-7198-38EE-0171-9999E27A042B',
+   '2C928085-7198-38EE-0171-996032910386' ]
+
+telehealth_modifier_codes:
+  [ '95', 'GQ', 'GT' ]
+
 unit_matches:
   # relevant for CMS9v8+ GestationalAge.result >= 37 weeks, drc "Gestational age--at birth"
   - hqmf_set_id : '7D374C6A-3821-4333-A1BC-4531005D77B8'
