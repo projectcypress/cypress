@@ -27,7 +27,7 @@ class ExecutionError
     by_type(:warning).entries
   end
 
-  def empty_location_or_c3_error?
-    location.nil? || location == '/' || %w[C3Cat1Task C3Cat3Task].include?(test_execution.task._type)
+  def empty_location?
+    location.nil? || location == '/'
   end
 end

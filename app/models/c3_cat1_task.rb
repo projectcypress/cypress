@@ -5,6 +5,7 @@ class C3Cat1Task < Task
     @validators = [::Validators::SmokingGunValidator.new(product_test.measures, product_test.patients, product_test.id,
                                                          suppress_errors: true, validate_inclusion_only: true),
                    ::Validators::MeasurePeriodValidator.new,
+                   ::Validators::CoreClinicalDataElementValidator.new(product_test.measures),
                    ::Validators::QrdaCat1Validator.new(product_test.bundle, true, true, product_test.c1_test, product_test.measures)]
     @validators << cms_cat1_schematron_validator if product_test.bundle.cms_schematron
     @validators
