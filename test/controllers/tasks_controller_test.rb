@@ -10,10 +10,26 @@ class TasksControllerTest < ActionController::TestCase
     FactoryBot.create(:user_user)
     vendor_user = FactoryBot.create(:vendor_user)
     FactoryBot.create(:other_user)
-    @test = FactoryBot.create(:product_test_static_result)
+    @test = FactoryBot.create(:cv_product_test_static_result)
     @product = @test.product
-    @task = @test.tasks.first
+    @task = @test.tasks.create({}, C1Task)
     add_user_to_vendor(vendor_user, @product.vendor)
+  end
+
+  # download good test deck as admin
+  test 'should be able to get good result' do
+    for_each_logged_in_user([ADMIN]) do
+      get :good_results, params: { id: @task.id }
+      testfile = Tempfile.new(['good_results_debug_file', '.zip'])
+      testfile.write response.body
+      testfile.close
+      count = 0
+      Zip::ZipFile.foreach(testfile.path) do |zip_entry|
+        count += 1 if zip_entry.name.include?('.xml') && !zip_entry.name.include?('__MACOSX')
+      end
+      assert_equal @task.patients.count, count, 'Zip file has wrong number of records'
+      assert_response 200, "#{@user.email} should have access "
+    end
   end
 
   # need negative tests for user that does not have owner or vendor access

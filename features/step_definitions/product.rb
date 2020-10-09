@@ -212,7 +212,7 @@ And(/^the user manually selects all measures$/) do
 end
 
 And(/^the user types "([^"]*)" into the measure filter box$/) do |filter_text|
-  page.fill_in 'Type to filter by measure', with: filter_text
+  page.find('#product_search_measures').native.send_keys(filter_text)
 end
 
 # ^ ^ ^ Measure Selection ^ ^ ^

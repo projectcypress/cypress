@@ -45,37 +45,41 @@ module CQM
     end
 
     def compare_statement_results(calculated, statement_name, issues = [])
-      statement_results = gather_statement_results(calculated, statement_name)
-      statement_results.each do |statement_result|
+      combined_statement_results = gather_statement_results(calculated, statement_name)
+      combined_statement_results.each do |csr|
         # if original and reported match, move on
-        next unless statement_result[:original] != statement_result[:reported]
+        next unless csr[:original] != csr[:reported]
 
         # if the original value is nil, and a value is reported, return error message
-        if statement_result[:original].nil?
-          issues << "#{statement_result[:name]} not expected"
+        if csr[:original].nil?
+          issues << "#{csr[:name]} not expected"
           next
         end
-        issues << if statement_result[:reported].nil?
-                    "#{statement_result[:name]} of #{statement_result[:original]['value']} #{statement_result[:original]['unit']} is missing"
+        issues << if csr[:reported].nil?
+                    "#{csr[:name]} of #{csr[:original]['value']} #{csr[:original]['unit']} is missing"
                   else
-                    "#{statement_result[:name]} of #{statement_result[:original]['value']} #{statement_result[:original]['unit']} does not match "\
-                    "#{statement_result[:reported]['value']} #{statement_result[:reported]['unit']}"
+                    "#{csr[:name]} of #{csr[:original]['value']} #{csr[:original]['unit']} does not match "\
+                    "#{csr[:reported]['value']} #{csr[:reported]['unit']}"
                   end
       end
     end
 
     # Helper method that compiles an array with the orignial and reported value for each result type.
     def gather_statement_results(calculated, statement_name)
+      return [] if statement_results.blank?
+
       original_statement_results = statement_results.select { |sr| sr['statement_name'] == statement_name }.first['raw']
       calculated_statement_results = calculated['statement_results'].select { |sr| sr['statement_name'] == statement_name }.first['raw']
-      statement_results = []
+      combined_statement_results = []
       original_statement_results.each do |result_name, value|
+        next if calculated_statement_results[result_name].empty?
+
         statement_result_hash = { name: result_name,
                                   original: value.first['FirstResult'],
                                   reported: calculated_statement_results[result_name].first['FirstResult'] }
-        statement_results << statement_result_hash
+        combined_statement_results << statement_result_hash
       end
-      statement_results
+      combined_statement_results
     end
   end
 end

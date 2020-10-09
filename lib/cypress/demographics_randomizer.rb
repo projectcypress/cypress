@@ -120,14 +120,16 @@ module Cypress
         new_payer['descriptor'] = payer_hash ['name']
         payer_element.first.dataElementCodes << new_payer
         payer_element.first.dataElementCodes.shift # get rid of existing dataElementCode
+        payer_element.first.relevantPeriod = QDM::Interval.new(get_random_payer_start_date(patient, prng), nil)
       else
         raise 'Cannot find payer element'
       end
     end
 
-    def self.get_random_payer_start_date(patient)
+    def self.get_random_payer_start_date(patient, prng)
       start_times = patient.qdmPatient.dataElements.map { |de| de.try(:authorDatetime) }.compact
-      random_offset = rand(60 * 60 * 24 * 365)
+      # Offset is a random date within the same year
+      random_offset = prng.rand(365)
       if !start_times.empty?
         [start_times.min - random_offset, patient.qdmPatient.birthDatetime].max
       else
@@ -164,6 +166,16 @@ module Cypress
                                                         relevantPeriod: QDM::Interval.new(patient.qdmPatient.birthDatetime, nil))
       end
       patient.qdmPatient.dataElements.concat(elements)
+    end
+
+    def self.update_demographic_codes(patient)
+      randomization_mapping = { 'race' => 'races', 'gender' => 'genders', 'ethnicity' => 'ethnicities', 'payer' => 'payers' }
+      %w[race gender ethnicity payer].each do |characteristic|
+        patient.qdmPatient.get_data_elements('patient_characteristic', characteristic).first.dataElementCodes.each do |dec|
+          description = APP_CONSTANTS['randomization'][randomization_mapping[characteristic]].select { |r| r.code == dec.code }&.first&.name
+          patient.code_description_hash["#{dec.code}:#{dec.system}".tr('.', '_')] = description
+        end
+      end
     end
   end
 end

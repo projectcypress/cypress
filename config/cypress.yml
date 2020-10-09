@@ -71,6 +71,15 @@ randomization:
       name           : Not Hispanic or Latino
       codeSystem     : 2.16.840.1.113883.6.238
       codeSystemName : CDC Race
+  genders:
+    - code           : F
+      name           : Female
+      codeSystem     : 2.16.840.1.113883.5.1
+      codeSystemName : HL7 AdministrativeGender
+    - code           : M
+      name           : Male
+      codeSystem     : 2.16.840.1.113883.5.1
+      codeSystemName : HL7 AdministrativeGender
   payers:
     - type           : MA
       code           : 1
@@ -205,14 +214,33 @@ result_measures:
   - hqmf_set_id : 'FA75DE85-A934-45D7-A2F7-C700A756078B'
     statement_name : 'Results'
 
+# These measures do not 
+telehealth_ineligible_measures:
+  # CMS22v9, CMS69v9, CMS142v9, CMS143v9, CMS771v2
+  # CMS75v9, CMS129v9 CMS133v8 are not included beacuse measures do not contain telehealth-eligible codes and do not require an encounter during the measurement period
+ [ '2C928085-7198-38EE-0171-996316C403A1',
+   '2C928085-7198-38EE-0171-9995E1F90412',
+   '2C928085-7198-38EE-0171-99A391370450',
+   '2C928085-7198-38EE-0171-9999E27A042B',
+   '2C928085-7198-38EE-0171-996032910386' ]
+
+telehealth_modifier_codes:
+  [ '95', 'GQ', 'GT' ]
+
 unit_matches:
-  # relevant for CMS9v8+ GestationalAge.result >= 37 weeks, drc "Gestational age--at birth" 
+  # relevant for CMS9v8+ GestationalAge.result >= 37 weeks, drc "Gestational age--at birth"
   - hqmf_set_id : '7D374C6A-3821-4333-A1BC-4531005D77B8'
     de_type     : 'QDM::AssessmentPerformed'
     code_list_id: 'drc-4c33d7b8f32e35a207115db38533831b6f4ecd2459f3921a33641217cb04b75b' # drc 76516-4
-    units       : 
+    units       :
       - 'weeks'
       - 'wk'
+  # relevant for CMS9v9+ BirthWeight.result >= 3000 'g', "Birth Weight"
+  - hqmf_set_id : '7D374C6A-3821-4333-A1BC-4531005D77B8'
+    de_type     : 'QDM::AssessmentPerformed'
+    code_list_id: '2.16.840.1.113762.1.4.1029.194'
+    units       :
+      - 'g'
     # relevant for CMS105v8+ where Max( ... Ldl.result as Quantity) < 70 'mg/dL', "LDL-c"
   - hqmf_set_id : '1F503318-BB8D-4B91-AF63-223AE0A2328E'
     de_type     : 'QDM::LaboratoryTestPerformed'

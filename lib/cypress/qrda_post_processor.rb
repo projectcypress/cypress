@@ -7,6 +7,24 @@ module Cypress
       end
     end
 
+    def self.build_code_descriptions(codes, patient, bundle)
+      codes.each do |code|
+        code_only, code_system = code.split(':')
+        if code_system == '1.2.3.4.5.6.7.8.9.10'
+          # find valueset description
+          description = ValueSet.where(oid: code_only, bundle_id: bundle.id).first&.display_name
+          Rails.logger.warn "ValueSet #{code_only} not found for Bundle #{bundle.id}" if description.nil?
+        else
+          # ValueSet.find_by may be more efficient if there are performance concerns, but may need to handle Mongoid::Errors::DocumentNotFound
+          concepts = ValueSet.where('concepts.code' => code_only, 'concepts.code_system_oid' => code_system, bundle_id: bundle.id).first&.concepts
+          description = concepts&.detect { |x| code == "#{x.code}:#{x.code_system_oid}" }&.display_name
+          Rails.logger.warn "Code #{code_only}, System #{code_system} not found for Bundle #{bundle.id}" if description.nil?
+        end
+        # mongo keys cannot contain '.', so replace all '.', key example: '21112-8:2_16_840_1_113883_6_1'
+        patient.code_description_hash[code.tr('.', '_')] = description
+      end
+    end
+
     # use "code" (which is used to store the valuset) to find an appropriate actual code to use for calculation
     def self.select_negated_code(data_element, bundle)
       negated_element = data_element.dataElementCodes.map { |dec| dec if dec.system == '1.2.3.4.5.6.7.8.9.10' }.first
@@ -22,6 +40,7 @@ module Cypress
                { code: valueset.first.concepts.first['code'], system: valueset.first.concepts.first['code_system_oid'] }
              end
       data_element.dataElementCodes << code
+      code
     end
 
     # create an issue message for any negations that are done with a single code rather than vs
@@ -55,6 +74,10 @@ module Cypress
         next unless measures.any? { |m| m.hqmf_set_id == match['hqmf_set_id'] }
 
         valueset = bundle.value_sets.where(oid: match['code_list_id']).first
+        if valueset.nil?
+          Rails.logger.warn "ValueSet #{match['code_list_id']} not found"
+          next
+        end
         patient.qdmPatient.dataElements.each do |de|
           # check for matching data element type and code in valueset
           next unless de._type == match['de_type'] && de.dataElementCodes.any? { |dec| valueset.concepts.any? { |conc| conc.code == dec.code } }
@@ -78,6 +101,24 @@ module Cypress
       elsif data_element.result._type == 'QDM::Quantity' && !expected_unit['units'].include?(data_element.result.unit)
         "Unit '#{data_element.result.unit}' for #{data_element_title} does not match expected units (#{expected_unit['units'].join(', ')}). " \
         'Units must match measure-defined units. '
+      end
+    end
+
+    def self.remove_telehealth_encounters(patient, codes_modifiers, warnings, ineligible_measures)
+      codes_modifiers.each do |encounter_id, codes_modifier|
+        # Exclude encounter for appropriate qualifier name 'VR' or value (from config)
+        has_telehealth_value = APP_CONSTANTS['telehealth_modifier_codes'].include? codes_modifier[:value]&.code
+        has_telehealth_name = codes_modifier[:name]&.code == 'VR'
+        next unless has_telehealth_value || has_telehealth_name
+
+        telehealth_encounter = patient.qdmPatient.encounters.where(_id: encounter_id)
+        qualifier_value = has_telehealth_value ? codes_modifier[:value]&.code : codes_modifier[:name]&.code
+        ineligible_measures_ids = ineligible_measures.pluck('cms_id').join(', ')
+        msg = "Telehealth encounter #{telehealth_encounter.first.codes.first.code} with modifier " \
+              "#{qualifier_value} not used in calculation for eCQMs (#{ineligible_measures_ids}) that are not eligible for telehealth."
+        warnings << ValidationError.new(message: msg,
+                                        location: codes_modifier[:xpath_location])
+        telehealth_encounter.delete
       end
     end
   end

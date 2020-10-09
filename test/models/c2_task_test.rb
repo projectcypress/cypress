@@ -42,22 +42,6 @@ class C2TaskTest < ActiveSupport::TestCase
     end
   end
 
-  # def test_should_cause_error_when_stratifications_are_missing
-  #   task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
-  #   @product_test.product.c2_test = true
-  #   xml = create_rack_test_file('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_missing_stratification.xml', 'text/xml')
-  #   perform_enqueued_jobs do
-  #     te = task.execute(xml, User.first)
-  #     te.reload
-  #     # Missing strat for the 1 numerator that has data
-  #     assert_equal 11, te.execution_errors.length # 10 errors related to pop sums
-  #     assert_equal 10, te.execution_errors.to_a.count { |e| !pop_sum_err_regex.match(e.message).nil? }
-  #     assert_equal 1, (te.execution_errors.to_a.count do |e|
-  #       !/\ACould not find value for stratification [a-zA-Z\d\-]{36}  for Population \w+\z/.match(e.message).nil?
-  #     end), 'should error on missing stratifications'
-  #   end
-  # end
-
   def test_should_cause_error_when_supplemental_data_is_missing
     task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
     @product_test.product.c2_test = true
@@ -83,50 +67,6 @@ class C2TaskTest < ActiveSupport::TestCase
     end
   end
 
-  # def test_should_cause_error_when_measure_is_not_included_in_report
-  #   task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
-  #   @product_test.product.c2_test = true
-  #   xml = create_rack_test_file('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_missing_measure.xml', 'text/xml')
-  #   perform_enqueued_jobs do
-  #     te = task.execute(xml, User.first)
-  #     te.reload
-  #     assert_equal 19, te.execution_errors.length, 'should error on missing measure entry'
-  #   end
-  # end
-
-  # def test_should_cause_error_when_extra_supplemental_data_is_provided
-  #   task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
-  #   @product_test.product.c2_test = true
-  #   xml = create_rack_test_file('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_extra_supplemental.xml', 'text/xml')
-  #   perform_enqueued_jobs do
-  #     te = task.execute(xml, User.first)
-  #     te.reload
-  #     # 1 Error for additional Race
-  #     assert_equal 1, te.execution_errors.to_a.count { |e| e.message == 'supplemental data error' }, 'should error on additional supplemental data'
-  #   end
-  # end
-
-  # def test_should_not_cause_error_when_extra_supplemental_data_provided_has_zero_value
-  #   task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
-  #   xml = create_rack_test_file('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_extra_supplemental_is_zero.xml', 'text/xml')
-  #   perform_enqueued_jobs do
-  #     te = task.execute(xml, User.first)
-  #     te.reload
-  #     assert te.execution_errors.empty?, 'should not error on additional supplemental data value equal to 0'
-  #   end
-  # end
-
-  # def test_should_have_c3_execution_as_sibling_test_execution_when_c3_task_exists
-  #   c2_task = @product_test.tasks.create({}, C2Task)
-  #   c3_task = @product_test.tasks.create({}, C3Cat3Task)
-  #   @product_test.product.c3_test = true
-  #   xml = create_rack_test_file('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_good.xml', 'text/xml')
-  #   perform_enqueued_jobs do
-  #     te = c2_task.execute(xml, User.first)
-  #     assert_equal c3_task.test_executions.first.id.to_s, te.sibling_execution_id
-  #   end
-  # end
-
   def test_task_good_results_should_pass
     task = @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
     xml = Tempfile.new(['good_results_debug_file', '.xml'])
@@ -136,6 +76,45 @@ class C2TaskTest < ActiveSupport::TestCase
       te.reload
       assert_empty te.execution_errors, 'test execution with known good results should not have any errors'
     end
+  end
+
+  def test_c2_task_last_update_with_sibling
+    c2_task = @product_test.tasks.create({}, C2Task)
+    # sleep to make sure the tasks are saved at different times
+    sleep(1)
+    c3_cat3_task = @product_test.tasks.create({}, C3Cat3Task)
+    c2_task.reload
+    c3_cat3_task.reload
+    # c3_cat3_task was saved last and should be returned
+    assert_equal c3_cat3_task.updated_at, c2_task.last_updated_with_sibling
+    c2_task.options = { what: 'what' }
+    c2_task.save
+    c2_task.reload
+    # c2_task was saved last and should be returned
+    assert_equal c2_task.updated_at, c2_task.last_updated_with_sibling
+  end
+
+  def test_c2_task_status_with_sibling
+    c2_task = @product_test.tasks.find_by(_type: 'C2Task')
+    c3_cat3_task = @product_test.tasks.create({}, C3Cat3Task)
+    c2_execution = c2_task.test_executions.create!(user: @user)
+    c3_execution = c3_cat3_task.test_executions.create!(user: @user)
+    c2_execution.state = :passed
+    c2_execution.save
+    # status is incomplete when there isn't a c3 execution
+    assert_equal 'pending', c2_task.status_with_sibling
+
+    c2_execution.state = :failed
+    c2_execution.save
+    c3_execution.state = :passed
+    c3_execution.save
+    # c2 failed overrides passed c3
+    assert_equal 'failing', c2_task.status_with_sibling
+
+    c3_execution.state = :errored
+    c3_execution.save
+    # c3 errored overrides failed c2
+    assert_equal 'errored', c2_task.status_with_sibling
   end
 
   def pop_sum_err_regex
