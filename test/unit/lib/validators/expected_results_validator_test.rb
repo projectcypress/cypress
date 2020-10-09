@@ -90,6 +90,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     @validator.validate(file, 'task' => @task)
     errors = @validator.errors
 
+    assert_equal @patient3.bundle.id, @task.product_test.bundle.id
     assert_empty errors, 'should be no errors when changing the gender count in accordance with the augmented patients'
   end
 

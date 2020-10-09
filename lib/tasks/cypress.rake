@@ -69,7 +69,7 @@ namespace :cypress do
       description_hash = {}
 
       start = Time.new.in_time_zone
-      Patient.not_in(_type: CQM::ProductTestPatient).each do |p|
+      Patient.where(_type: { '$in': ['CQM::BundlePatient', 'CQM::VendorPatient'] }).each do |p|
         # pull out codes by exporting and re-importing
         if p.code_description_hash.empty?
           @options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }
