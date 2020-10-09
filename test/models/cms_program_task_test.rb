@@ -132,6 +132,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
       te = task.execute(file, @user)
       te.reload
       ir = CQM::IndividualResult.where(measure_id: measure.id, correlation_id: te.id, population_set_key: 'PopulationCriteria1')
+      assert_equal ir.first.patient.bundle.id, task.bundle.id
       assert_equal 1, ir.first['IPP']
     end
 

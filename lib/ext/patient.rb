@@ -43,7 +43,9 @@ module CQM
     def bundle
       if !self['bundleId'].nil?
         Bundle.find(self['bundleId'])
-      elsif !correlation_id.nil?
+      elsif self['_type'] == 'CQM::TestExecutionPatient'
+        TestExecution.find(correlation_id).task.bundle
+      elsif self['_type'] == 'CQM::ProductTestPatient'
         ProductTest.find(correlation_id).bundle
       end
     end
