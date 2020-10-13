@@ -1,5 +1,14 @@
 #!/bin/bash
 
+#import descriptions false by default
+desc=''
+
+while getopts 'm' flag; do
+  case "${flag}" in
+    m) desc="true";;
+  esac
+done
+
 # Make sure only root can run our script
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 1>&2
@@ -27,12 +36,9 @@ then
 else
   printf "${RED}---> Cypress not found, continuing...${NC}\n"
 fi
-while true; do
-    read -p "Do you wish to import descriptions? (y or n): " yn
-    case $yn in
-        [Yy]* ) cypress run rake cypress:import:descriptions; break;;
-        [Nn]* ) break;;
-        * ) echo "Please answer yes or no.";;
-    esac
-done
+#if description import flag true
+if [ "$desc" ]
+then
+  cypress run rake cypress:import:descriptions
+fi
 echo "Done!"
