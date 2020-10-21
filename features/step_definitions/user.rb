@@ -70,8 +70,8 @@ When(/^the user tries to log in with invalid information$/) do
 end
 
 When(/^the user tries to log in with invalid umls information$/) do
-  Settings.current.update(umls: true)
-  Settings.current.update(http_proxy: '')
+  Settings.destroy_all
+  Settings.create(umls: true, http_proxy: '')
   visit '/users/sign_in'
   page.fill_in 'Email', with: @user.email
   page.fill_in 'Password', with: @user.password
