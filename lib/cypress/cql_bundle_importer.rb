@@ -28,6 +28,8 @@ module Cypress
         puts 'bundle metadata unpacked...'
         unpack_and_store_valuesets(zip_file, bundle)
         unpack_and_store_measures(zip_file, bundle)
+        categorize_codes(bundle, 'substance')
+        categorize_codes(bundle, 'medication')
         unpack_and_store_cqm_patients(zip_file, bundle)
         calculate_results(bundle, tracker, include_highlighting) unless unpack_and_store_calcuations(zip_file, bundle, tracker)
       end
@@ -39,6 +41,13 @@ module Cypress
         bundle.done_importing = true
         bundle.save
       end
+    end
+
+    def self.categorize_codes(bundle, qdm_category)
+      data_criteria = bundle.measures.collect { |m| m.source_data_criteria.select { |sdc| sdc.qdmCategory == qdm_category } }.flatten
+      criteria_valuesets = bundle.value_sets.where(oid: { '$in': data_criteria.collect(&:codeListId) })
+      code_list = criteria_valuesets.collect(&:concepts).flatten
+      bundle.categorized_codes[qdm_category] = code_list.map { |cl| { code: cl.code, system: cl.code_system_oid } }
     end
 
     def self.unpack_and_store_calcuations(zip, bundle, tracker)
@@ -166,6 +175,8 @@ module Cypress
         patient['bundleId'] = bundle.id
         patient.update(_type: CQM::BundlePatient, correlation_id: bundle.id)
         Cypress::QRDAPostProcessor.replace_negated_codes(patient, bundle)
+        patient.save!
+        Cypress::QRDAPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
         patient.save!
         report_progress('patients', (index * 100 / qrda_files.length)) if (index % 10).zero?
       end

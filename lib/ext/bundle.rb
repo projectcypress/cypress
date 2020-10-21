@@ -16,6 +16,7 @@ class Bundle
   field :active, type: Boolean
   field :deprecated, type: Boolean, default: false
   field :done_importing, type: Boolean, default: false
+  field :categorized_codes, type: Hash, default: {}
 
   validates_presence_of :version
 
