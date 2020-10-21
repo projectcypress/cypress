@@ -64,6 +64,15 @@ end
 
 When(/^the user tries to log in with invalid information$/) do
   visit '/users/sign_in'
+  page.fill_in 'Email', with: @user.email
+  page.fill_in 'Password', with: @user.password
+  page.click_button 'Sign in'
+end
+
+When(/^the user tries to log in with invalid umls information$/) do
+  Settings.current.update(umls: true)
+  Settings.current.update(http_proxy: '')
+  visit '/users/sign_in'
   page.fill_in 'Email', with: 'unauth@mitre.org'
   page.fill_in 'Password', with: 'incorrectPassword'
   page.click_button 'Sign in'
@@ -109,6 +118,10 @@ end
 
 Then(/^the user should see an log in error message$/) do
   page.assert_text 'Invalid Email or password.'
+end
+
+Then(/^the user should see an umls error message$/) do
+  page.assert_text 'Could not verify NLM User Account.'
 end
 
 Then(/^the user should see an log in success message$/) do

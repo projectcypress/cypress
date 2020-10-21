@@ -9,7 +9,7 @@ class SessionsController < Devise::SessionsController
     if validated_nlm || Settings.current.umls == false
       super
     elsif Settings.current.umls && validated_nlm == false
-      flash[:danger] = 'Could not Validate NLM User Account'
+      flash[:danger] = 'Could not verify NLM User Account.'
       redirect_to user_session_path
     end
   end
