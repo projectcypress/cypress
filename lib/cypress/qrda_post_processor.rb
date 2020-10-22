@@ -131,7 +131,7 @@ module Cypress
     end
 
     def self.data_element_has_appropriate_codes(data_element, codes)
-      !(data_element.dataElementCodes.map { |dec| { code: dec[:code], system: dec[:system] } } & codes).flatten.empty?
+      !(data_element.dataElementCodes.map { |dec| { 'code' => dec[:code], 'system' => dec[:system] } } & codes).flatten.empty?
     end
   end
 end

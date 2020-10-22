@@ -28,8 +28,7 @@ module Cypress
         puts 'bundle metadata unpacked...'
         unpack_and_store_valuesets(zip_file, bundle)
         unpack_and_store_measures(zip_file, bundle)
-        categorize_codes(bundle, 'substance')
-        categorize_codes(bundle, 'medication')
+        bundle.collect_codes_by_qdm_category
         unpack_and_store_cqm_patients(zip_file, bundle)
         calculate_results(bundle, tracker, include_highlighting) unless unpack_and_store_calcuations(zip_file, bundle, tracker)
       end
@@ -41,13 +40,6 @@ module Cypress
         bundle.done_importing = true
         bundle.save
       end
-    end
-
-    def self.categorize_codes(bundle, qdm_category)
-      data_criteria = bundle.measures.collect { |m| m.source_data_criteria.select { |sdc| sdc.qdmCategory == qdm_category } }.flatten
-      criteria_valuesets = bundle.value_sets.where(oid: { '$in': data_criteria.collect(&:codeListId) })
-      code_list = criteria_valuesets.collect(&:concepts).flatten
-      bundle.categorized_codes[qdm_category] = code_list.map { |cl| { code: cl.code, system: cl.code_system_oid } }
     end
 
     def self.unpack_and_store_calcuations(zip, bundle, tracker)

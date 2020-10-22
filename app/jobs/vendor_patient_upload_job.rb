@@ -16,6 +16,10 @@ class VendorPatientUploadJob < ApplicationJob
     vendor_patient_file = File.new(file)
 
     bundle = Bundle.find(bundle_id)
+    if bundle.categorized_codes.empty?
+      bundle.collect_codes_by_qdm_category
+      bundle.save
+    end
     patients, failed_files = parse_patients(vendor_patient_file, vendor_id, bundle)
 
     # do patient calculation against bundle
@@ -84,6 +88,7 @@ class VendorPatientUploadJob < ApplicationJob
 
       patient.update(_type: CQM::VendorPatient, correlation_id: vendor_id, bundleId: bundle.id)
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, bundle)
+      Cypress::QRDAPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
       patient.save
       return [true, patient]
     rescue => e

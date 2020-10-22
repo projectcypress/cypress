@@ -124,6 +124,18 @@ class Bundle
     end
   end
 
+  def collect_codes_by_qdm_category
+    # Limited to Medication and Substance.  On import, cqm-reports creates a duplicate medication and substance entry
+    # This code list allows us to remove medication entries when substance codes are used
+    # This code list allows us to remove substance entries when medication codes are used
+    %w[medication substance].each do |qdm_category|
+      data_criteria = measures.collect { |m| m.source_data_criteria.select { |sdc| sdc.qdmCategory == qdm_category } }.flatten
+      criteria_valuesets = value_sets.where(oid: { '$in': data_criteria.collect(&:codeListId) })
+      code_list = criteria_valuesets.collect(&:concepts).flatten
+      categorized_codes[qdm_category] = code_list.map { |cl| { 'code' => cl.code, 'system' => cl.code_system_oid } }
+    end
+  end
+
   def self.default
     find_by(active: true)
   rescue
