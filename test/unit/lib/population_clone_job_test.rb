@@ -242,6 +242,21 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     assert found_random, 'Did not find any evidence that race was randomized.'
   end
 
+  def test_first_data_element_code
+    negated_vs_code = { 'code' => '2.16.840.1.113883.3.117.1.7.1.230', 'system' => '1.2.3.4.5.6.7.8.9.10' }
+    standard_code1 = { 'code' => '1', 'system' => '2.16.840.1.113883.6.96' }
+    standard_code2 = { 'code' => '2', 'system' => '2.16.840.1.113883.6.96' }
+    pcj = Cypress::PopulationCloneJob.new({})
+
+    data_element_codes = [negated_vs_code, standard_code1]
+    first_code = pcj.first_data_element_code(data_element_codes)
+    assert first_code, standard_code1
+
+    data_element_codes = [standard_code1, standard_code2]
+    first_code = pcj.first_data_element_code(data_element_codes)
+    assert first_code, standard_code2
+  end
+
   def clone_records(product_test, options = {})
     options['test_id'] = product_test.id unless options['test_id']
     options['subset_id'] = 'all'

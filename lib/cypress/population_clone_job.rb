@@ -113,7 +113,7 @@ module Cypress
         vendor_preference = @test.product.vendor.preferred_code_systems[entry.qdmCategory]
         # if the vendor does not have a preference, pick the first code
         if vendor_preference.blank?
-          entry.dataElementCodes = [entry.dataElementCodes[0]]
+          entry.dataElementCodes = first_data_element_code(entry.dataElementCodes)
         else
           # if the vendor has a preference, loop through in order
           vendor_preference.each do |vp|
@@ -129,8 +129,13 @@ module Cypress
           end
         end
         # if there are still multiple codes, use the first
-        entry.dataElementCodes = [entry.dataElementCodes[0]] if entry.dataElementCodes.size > 1
+        entry.dataElementCodes = first_data_element_code(entry.dataElementCodes) if entry.dataElementCodes.size > 1
       end
+    end
+
+    # Find the first code that isn't a negated valueset
+    def first_data_element_code(data_element_codes)
+      [data_element_codes.reject { |dec| dec['system'] == '1.2.3.4.5.6.7.8.9.10' }.first]
     end
 
     def randomize_entry_ids(cloned_patient)
