@@ -250,11 +250,11 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
 
     data_element_codes = [negated_vs_code, standard_code1]
     first_code = pcj.first_data_element_code(data_element_codes)
-    assert_equal first_code, standard_code1, "First code should be code 1"
+    assert_equal first_code, standard_code1, 'First code should be code 1'
 
     data_element_codes = [standard_code1, standard_code2]
     first_code = pcj.first_data_element_code(data_element_codes)
-    assert_equal first_code, standard_code1, "First code should be code 1"
+    assert_equal first_code, standard_code1, 'First code should be code 1'
   end
 
   def clone_records(product_test, options = {})
