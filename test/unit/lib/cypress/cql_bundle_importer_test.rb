@@ -10,7 +10,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new)
     assert_equal (before_measure_count + 2), Measure.count
     # 21 valuesets from csv file, 3 direct reference codes
-    assert_equal (before_value_set_count + 24), ValueSet.count
+    assert_equal (before_value_set_count + 25), ValueSet.count
     assert_equal (before_patient_count + 1), Patient.count
     # only 2 individual results are saved
     assert_equal (before_results_count + 2), IndividualResult.count
@@ -22,6 +22,9 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     assert_equal [5], result.episode_results[result.episode_results.keys[0]]['observation_values']
     # a bundle that has not been precalculated will not have clause results
     assert result.clause_results.empty?
+    bundle_patient = Patient.first
+    assert_equal 0, bundle_patient.qdmPatient.substances.size
+    assert_equal 1, bundle_patient.qdmPatient.medications.size
   end
 
   test 'should successfully import bundle and perform calculations with highlighting' do
@@ -33,7 +36,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new, true)
     assert_equal (before_measure_count + 2), Measure.count
     # 21 valuesets from csv file, 3 direct reference codes
-    assert_equal (before_value_set_count + 24), ValueSet.count
+    assert_equal (before_value_set_count + 25), ValueSet.count
     assert_equal (before_patient_count + 1), Patient.count
     # only 2 individual results are saved
     assert_equal (before_results_count + 2), IndividualResult.count

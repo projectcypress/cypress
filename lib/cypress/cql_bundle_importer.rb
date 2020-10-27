@@ -28,6 +28,7 @@ module Cypress
         puts 'bundle metadata unpacked...'
         unpack_and_store_valuesets(zip_file, bundle)
         unpack_and_store_measures(zip_file, bundle)
+        bundle.collect_codes_by_qdm_category
         unpack_and_store_cqm_patients(zip_file, bundle)
         calculate_results(bundle, tracker, include_highlighting) unless unpack_and_store_calcuations(zip_file, bundle, tracker)
       end
@@ -166,6 +167,7 @@ module Cypress
         patient['bundleId'] = bundle.id
         patient.update(_type: CQM::BundlePatient, correlation_id: bundle.id)
         Cypress::QRDAPostProcessor.replace_negated_codes(patient, bundle)
+        Cypress::QRDAPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
         patient.save!
         report_progress('patients', (index * 100 / qrda_files.length)) if (index % 10).zero?
       end

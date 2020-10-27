@@ -121,5 +121,17 @@ module Cypress
         telehealth_encounter.delete
       end
     end
+
+    def self.remove_unmatched_data_type_code_combinations(patient, bundle)
+      de_to_delete = []
+      bundle.categorized_codes.each do |qdm_category, codes|
+        de_to_delete += patient.qdmPatient.get_data_elements(qdm_category).map { |de| de unless data_element_has_appropriate_codes(de, codes) }
+      end
+      de_to_delete.compact.each(&:destroy)
+    end
+
+    def self.data_element_has_appropriate_codes(data_element, codes)
+      !(data_element.dataElementCodes.map { |dec| { 'code' => dec[:code], 'system' => dec[:system] } } & codes).flatten.empty?
+    end
   end
 end
