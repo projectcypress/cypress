@@ -59,14 +59,27 @@ module Cypress
     end
 
     def randomize_ids(patients, prng)
-      how_many = prng.rand(5) + 1
+      how_many = prng.rand(100) + 1
       randomization_ids = options['randomization_ids'].shuffle(random: prng)[0..how_many]
       random_patients = Patient.find(randomization_ids).to_a
       random_patients.each do |patient|
         plus_minus = prng.rand(2).zero? ? 1 : -1 # use this to make move dates forward or backwards
         date_shift = prng.rand(1_944_000) * plus_minus # 1_944_000 = 60 secs per min * 60 min per hour * 24 hours in day * 10 days
         patient.qdmPatient.shift_dates(date_shift)
+        add_telehealth_codes(patient)
         patients << patient
+      end
+    end
+
+    def add_telehealth_codes(patient)
+      non_encounters = patient.qdmPatient.dataElements.reject { |de| de.qdmCategory == 'encounter' }
+      patient.qdmPatient.get_data_elements('encounter', 'performed').each do |encounter|
+        next unless non_encounters.select { |de| de.occurs_during_range(encounter.relevantPeriod.low, encounter.relevantPeriod.high) }.empty?
+        next unless (encounter.dataElementCodes.map(&:code) & APP_CONSTANTS['telehealth_encounter_codes']).empty?
+        next unless encounter.relevantPeriod.high && encounter.relevantPeriod.low
+        next unless ((encounter.relevantPeriod.high - encounter.relevantPeriod.low)/60) <= 30
+        encounter.qualifier_name = 'VR'
+        encounter.qualifier_value = 'GT'
       end
     end
 

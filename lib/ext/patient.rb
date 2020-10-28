@@ -205,6 +205,13 @@ module CQM
         (measure_ids.include? BSON::ObjectId.from_string(measure_key)) && (population_keys.any? { |pop| mrh[pop] == true })
       end
     end
+
+    def remove_telehealth_encounters
+      telehealth_encounters = qdmPatient.encounters.where(qualifier_name: 'VR')
+      cloned_telehealth_encounters = telehealth_encounters.clone
+      telehealth_encounters.delete
+      cloned_telehealth_encounters
+    end
   end
 
   class BundlePatient < Patient; end

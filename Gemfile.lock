@@ -6,6 +6,21 @@ GIT
     turbolinks (3.0.0)
       coffee-rails
 
+PATH
+  remote: ../cqm-reports
+  specs:
+    cqm-reports (3.1.3)
+      cqm-models (~> 3.0.3)
+      cqm-validators (~> 3.0.0)
+      erubis (~> 2.7)
+      log4r (~> 1.1)
+      memoist (~> 0.9)
+      mongoid-tree (> 2.0)
+      mustache
+      nokogiri (~> 1.10)
+      uuid (~> 2.3)
+      zip-zip (~> 0.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -138,17 +153,6 @@ GEM
       rubyzip (~> 1.3)
       typhoeus
       uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-    cqm-reports (3.1.3)
-      cqm-models (~> 3.0.3)
-      cqm-validators (~> 3.0.0)
-      erubis (~> 2.7)
-      log4r (~> 1.1)
-      memoist (~> 0.9)
-      mongoid-tree (> 2.0)
-      mustache
-      nokogiri (~> 1.10)
-      uuid (~> 2.3)
       zip-zip (~> 0.3)
     cqm-validators (3.0.0)
       nokogiri (~> 1.10)
@@ -519,7 +523,7 @@ DEPENDENCIES
   codecov
   cqm-models (~> 3.0.1)
   cqm-parsers (~> 3.1.0)
-  cqm-reports (~> 3.1.3)
+  cqm-reports!
   cqm-validators (~> 3.0.0)
   cucumber (~> 3.0.2)
   cucumber-rails

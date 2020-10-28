@@ -7,7 +7,7 @@ module Validators
     end
 
     def parse_record(doc, options)
-      patient, warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+      patient, warnings, _codes, codes_modifiers = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
 
       # check for single code negation errors
       product_test = ProductTest.find(@test_id)
@@ -22,6 +22,9 @@ module Validators
       warnings.each { |e| add_warning e.message, file_name: options[:file_name], location: e.location }
 
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, @bundle)
+      unless @measures.where(:hqmf_id.in => APP_CONSTANTS['telehealth_ineligible_measures']).empty?
+        Cypress::QRDAPostProcessor.remove_telehealth_encounters(patient, codes_modifiers, warnings, @measures) if codes_modifiers
+      end
       patient
     rescue
       add_error('File failed import', file_name: options[:file_name])

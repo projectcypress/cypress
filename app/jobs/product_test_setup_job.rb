@@ -33,10 +33,22 @@ class ProductTestSetupJob < ApplicationJob
     effective_date = Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number)
     patient_ids = patients.map { |p| p.id.to_s }
     options = { 'effectiveDateEnd': effective_date_end, 'effectiveDate': effective_date }
-    results = product_test.measures.map do |measure|
+    telehealth_eligible_results = product_test.measures.reject(&:telehealth_ineligible?).map do |measure|
       SingleMeasureCalculationJob.perform_now(patient_ids, measure.id.to_s, correlation_id, options)
     end.flatten
-    results
+    cloned_telehealth_encounters = {}
+    patients.each do |patient|
+      cloned_telehealth_encounters[patient.id] = patient.remove_telehealth_encounters
+      patient.save
+    end
+    telehealth_ineligible_results = product_test.measures.select(&:telehealth_ineligible?).map do |measure|
+      SingleMeasureCalculationJob.perform_now(patient_ids, measure.id.to_s, correlation_id, options)
+    end.flatten
+    patients.each do |patient|
+      patient.qdmPatient.dataElements << cloned_telehealth_encounters[patient.id]
+      patient.save
+    end
+    (telehealth_eligible_results + telehealth_ineligible_results).flatten
   end
 
   private

@@ -65,5 +65,9 @@ module CQM
     def population_keys
       %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP MSRPOPL MSRPOPLEX].keep_if { |pop| population_sets.first.populations[pop]&.hqmf_id }
     end
+
+    def telehealth_ineligible?
+      APP_CONSTANTS['telehealth_ineligible_measures'].include?(hqmf_id)
+    end
   end
 end
