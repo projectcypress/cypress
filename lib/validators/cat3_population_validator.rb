@@ -26,9 +26,28 @@ module Validators
           # Otherwise, check proportion population are reported correctly
           validate_populations(measure_id, pop_counts, options)
         end
+        validate_population_ids(document, options)
+
       rescue StandardError => e
         # do nothing, if we get an exception the file is probably broken in some way
         Rails.logger.error(e)
+      end
+    end
+
+    def validate_population_ids(doc, options)
+      doc_measure_nodes = doc.xpath(measure_hqmf_id_selector)
+      doc_measure_nodes.each do |measure_node|
+        measure = options['test_execution'].task.bundle.measures.find_by(hqmf_id: measure_node.value.upcase)
+        measure.population_sets_and_stratifications_for_measure.each do |ps_hash|
+          reported_result, _errors = extract_results_by_ids(measure, ps_hash[:population_set_id], doc, ps_hash[:stratification_id])
+          measure.population_keys.each do |pop_key|
+            next if reported_result[pop_key]
+
+            population_set = measure.population_sets.select { |ps| ps[:population_set_id] == ps_hash[:population_set_id] }.first.populations[pop_key]
+            msg = "#{pop_key} (#{population_set['hqmf_id']}) is missing from entry for #{measure.cms_id}"
+            add_error(msg, location: measure_node.parent.path, file_name: options[:file_name])
+          end
+        end
       end
     end
 
@@ -65,6 +84,12 @@ module Validators
         add_error("Measure observvations value #{observ} cannot be greater than Measure Population value #{msrpopl}"\
         " for measure #{measure}", '/', location: '/', file_name: file)
       end
+    end
+
+    def measure_hqmf_id_selector
+      '/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry' \
+        "/cda:organizer[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1']]/cda:reference[@typeCode='REFR']" \
+        "/cda:externalDocument[@classCode='DOC']/cda:id[@root='2.16.840.1.113883.4.738']/@extension"
     end
 
     def measure_entry_selector
