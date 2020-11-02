@@ -1,9 +1,6 @@
   <div>
     <h2>Measure Calculations</h2>
-    <% continuous_measures = @task.measures.where(measure_scoring: 'CONTINUOUS_VARIABLE').sort_by { |m| [m.cms_int] }
-       proportion_measures = @task.measures.where(measure_scoring: 'PROPORTION').sort_by { |m| [m.cms_int] } %>
-    <% {
-          continuous_measures => RecordsHelper::CV_POPULATION_KEYS,
+    <% {  continuous_measures => RecordsHelper::CV_POPULATION_KEYS,
           proportion_measures => RecordsHelper::PROPORTION_POPULATION_KEYS
         }.each do |measures, pop_keys| %>
       <% if measures.length.positive? %>
@@ -17,9 +14,10 @@
             </tr>
           </thead>
           <tbody>
+            <% result_values = get_result_values_test_upload(params['id'], file_name, pop_keys, 'measure_id') %>
             <% measures.each do |m| %>
               <% m.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
-                <% result_values = get_result_values_test_upload(params['id'], file_name, [m], m.key_for_population_set(population_set_hash), pop_keys, 'measure_id') %>
+                <% next unless result_values[m.id]['IPP'] > 0 %>
                 <tr>
                   <th class="abbreviated" scope="row">
                     <%= measure_display_name(m, population_set_hash) %>
