@@ -4,6 +4,7 @@
           proportion_measures => RecordsHelper::PROPORTION_POPULATION_KEYS
         }.each do |measures, pop_keys| %>
       <% if measures.length.positive? %>
+        <% next if (patient.measure_relevance_hash.keys & measures.map { |m| m.id.to_s }).empty? %>
         <table class="table table-condensed">
           <thead>
             <tr>
@@ -14,10 +15,10 @@
             </tr>
           </thead>
           <tbody>
-            <% result_values = get_result_values_test_upload(params['id'], file_name, pop_keys, 'measure_id') %>
+            <% result_values = get_result_values_for_patient(@individual_results, patient.id, pop_keys, 'measure_id') %>
             <% measures.each do |m| %>
               <% m.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
-                <% next unless result_values[m.id]['IPP'] > 0 %>
+                <% next unless result_values[m.id] && result_values[m.id]['IPP'] > 0 %>
                 <tr>
                   <th class="abbreviated" scope="row">
                     <%= measure_display_name(m, population_set_hash) %>
