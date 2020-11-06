@@ -26,6 +26,7 @@ module Validators
           # Otherwise, check proportion population are reported correctly
           validate_populations(measure_id, pop_counts, options)
         end
+        validate_population_ids(document, options)
       rescue StandardError => e
         # do nothing, if we get an exception the file is probably broken in some way
         Rails.logger.error(e)
@@ -48,6 +49,22 @@ module Validators
       if (num + denex + denexcep) > denom
         add_error("Numerator value #{num} + Denominator Exclusions value #{denex} + Denominator Exceptions value #{denexcep}"\
         " is greater than Denominator value #{denom} for measure #{measure}", location: '/', file_name: file)
+      end
+    end
+
+    def validate_population_ids(doc, options)
+      doc.xpath(measure_hqmf_id_selector).each do |measure_ids|
+        measure = options['test_execution'].task.bundle.measures.find_by(hqmf_id: measure_ids.value.upcase)
+        measure.population_sets_and_stratifications_for_measure.each do |sets|
+          results, _errors = extract_results_by_ids(measure, sets[:population_set_id], doc, sets[:stratification_id])
+          measure.population_keys.each do |key|
+            unless results[key]
+              population = measure.population_sets.select { |pset| pset[:population_set_id] == sets[:population_set_id] }.first.populations[key]
+              add_error("#{key} (#{population['hqmf_id']}) is missing"\
+              " for #{measure.cms_id}", location: measure_ids.parent.path, file_name: options[:file_name])
+            end
+          end
+        end
       end
     end
 
@@ -87,6 +104,12 @@ module Validators
     def population_count_selector
       "cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.3']"\
       " and ./cda:code[@code='MSRAGG'] and ./cda:methodCode[@code='COUNT']]/cda:value/@value"
+    end
+
+    def measure_hqmf_id_selector
+      '/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry' \
+        "/cda:organizer[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1']]/cda:reference[@typeCode='REFR']" \
+        "/cda:externalDocument[@classCode='DOC']/cda:id[@root='2.16.840.1.113883.4.738']/@extension"
     end
   end
 end
