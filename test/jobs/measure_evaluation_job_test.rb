@@ -19,7 +19,6 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
 
       correlation_id = BSON::ObjectId.new.to_s
       calc_job = Cypress::CqmExecutionCalc.new(pt.patients.map!(&:qdmPatient), pt.measures, correlation_id,
-                                               'effectiveDateEnd': Time.at(pt.effective_date).in_time_zone.to_formatted_s(:number),
                                                'effectiveDate': Time.at(pt.measure_period_start).in_time_zone.to_formatted_s(:number))
       individual_results_from_sync_job = calc_job.execute(false)
 

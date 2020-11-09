@@ -54,7 +54,6 @@ module Validators
       calc_job = Cypress::CqmExecutionCalc.new([patient.qdmPatient],
                                                measures,
                                                options.test_execution.id.to_s,
-                                               'effectiveDateEnd': Time.at(options.task.effective_date).in_time_zone.to_formatted_s(:number),
                                                'effectiveDate': Time.at(options.task.measure_period_start).in_time_zone.to_formatted_s(:number),
                                                'file_name': options[:file_name])
       calc_job.execute(true)

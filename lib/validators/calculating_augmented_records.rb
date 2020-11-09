@@ -24,7 +24,6 @@ module Validators
       return false unless record
 
       calc_job = Cypress::CqmExecutionCalc.new([record.qdmPatient], product_test.measures, nil,
-                                               'effectiveDateEnd': Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
                                                'effectiveDate': Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
       results = calc_job.execute(false)
       passed = compare_results(results, record, options)
