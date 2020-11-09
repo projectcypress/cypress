@@ -10,9 +10,8 @@ class HighlightingTest < ActiveJob::TestCase
 
   def test_highting_results
     measure = @bundle.measures.first
-    effective_date_end = Time.at(@bundle.effective_date).in_time_zone.to_formatted_s(:number)
     effective_date = Time.at(@bundle.measure_period_start).in_time_zone.to_formatted_s(:number)
-    options = { 'effectiveDateEnd' => effective_date_end, 'effectiveDate' => effective_date, 'includeClauseResults' => true }
+    options = { 'effectiveDate' => effective_date, 'includeClauseResults' => true }
     perform_enqueued_jobs do
       SingleMeasureCalculationJob.perform_now([@patient.id.to_s], measure.id.to_s, @vendor.id.to_s, options)
       ir = IndividualResult.where(correlation_id: @vendor.id.to_s, measure_id: measure.id, patient_id: @patient.id).first

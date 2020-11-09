@@ -487,7 +487,6 @@ module Cypress
     def do_calculation(product_test, patients, correlation_id)
       measures = product_test.measures
       calc_job = Cypress::CqmExecutionCalc.new(patients.map(&:qdmPatient), measures, correlation_id,
-                                               effectiveDateEnd: Time.at(product_test.effective_date).in_time_zone.to_formatted_s(:number),
                                                effectiveDate: Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
       calc_job.execute
     end

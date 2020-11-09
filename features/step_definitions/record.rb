@@ -12,9 +12,8 @@ Given(/^a vendor patient has measure_calculations$/) do
   second_measure.hqmf_id = 'CE65090C-EB1F-11E7-8C3F-9A214CF093AE'
   second_measure.cms_id = 'CMS032v7'
   second_measure.save
-  effective_date_end = Time.at(@bundle.effective_date).in_time_zone.to_formatted_s(:number)
   effective_date = Time.at(@bundle.measure_period_start).in_time_zone.to_formatted_s(:number)
-  options = { 'effectiveDateEnd' => effective_date_end, 'effectiveDate' => effective_date, 'includeClauseResults' => true }
+  options = { 'effectiveDate' => effective_date, 'includeClauseResults' => true }
   SingleMeasureCalculationJob.perform_now([@patient.id.to_s], measure.id.to_s, @vendor.id.to_s, options)
   SingleMeasureCalculationJob.perform_now([@patient.id.to_s], second_measure.id.to_s, @vendor.id.to_s, options)
   second_measure.source_data_criteria = nil

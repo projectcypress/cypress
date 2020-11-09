@@ -179,9 +179,8 @@ module Cypress
 
     def self.calculate_results(bundle, tracker, include_highlighting = false)
       patient_ids = bundle.patients.map { |p| p.id.to_s }
-      effective_date_end = Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number)
       effective_date = Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number)
-      options = { 'effectiveDateEnd': effective_date_end, 'effectiveDate': effective_date, 'includeClauseResults': include_highlighting }
+      options = { 'effectiveDate': effective_date, 'includeClauseResults': include_highlighting }
       if include_highlighting
         calculate_results_with_highlighting(bundle, patient_ids, tracker, options)
       else

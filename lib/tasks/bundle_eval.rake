@@ -33,9 +33,8 @@ namespace :bundle do
 
               calc_diffs = false
               # Set up ecm-execution
-              effective_date_end = Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number)
               effective_date = Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number)
-              options = { 'effectiveDateEnd': effective_date_end, 'effectiveDate': effective_date }
+              options = { 'effectiveDate': effective_date }
               # create a new patient to calculate with the individual data element code and compare with the existing patient results;
               # any differences in calculation are noted as a crosswalk issue
               cw_patient = patient.clone
