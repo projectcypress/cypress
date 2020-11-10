@@ -58,11 +58,11 @@ module Validators
         measure.population_sets_and_stratifications_for_measure.each do |sets|
           results, _errors = extract_results_by_ids(measure, sets[:population_set_id], doc, sets[:stratification_id])
           measure.population_keys.each do |key|
-            unless results[key]
-              population = measure.population_sets.select { |pset| pset[:population_set_id] == sets[:population_set_id] }.first.populations[key]
-              add_error("#{key} (#{population['hqmf_id']}) is missing"\
-              " for #{measure.cms_id}", location: measure_ids.parent.path, file_name: options[:file_name])
-            end
+            next if results[key]
+            
+            population = measure.population_sets.select { |pset| pset[:population_set_id] == sets[:population_set_id] }.first.populations[key]
+            add_error("#{key} (#{population['hqmf_id']}) is missing"\
+            " for #{measure.cms_id}", location: measure_ids.parent.path, file_name: options[:file_name])
           end
         end
       end
