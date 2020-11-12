@@ -25,6 +25,7 @@ module Validators
         # if a criteria has already passed, no need to check again
         next if criteria.passed_qrda
 
+        patient.normalize_date_times
         if validate_criteria(criteria, patient.qdmPatient)
           criteria.passed_qrda = true
           criteria.save

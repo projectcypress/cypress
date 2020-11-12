@@ -99,4 +99,93 @@ class PatientTest < ActiveSupport::TestCase
     # Padding in assert to account for randomness (count will be 13+ on ~0.15% of runs)
     assert birthdate_count < 13
   end
+
+  def test_normalize_relevant_date_time
+    record = BundlePatient.new(familyName: 'normalize', givenNames: ['datetime'])
+    QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
+    time_value = DateTime.new(2011, 3, 24, 20, 53, 20).utc
+    record.qdmPatient.dataElements << QDM::AssessmentPerformed.new(id: 'assessment', relevantDatetime: time_value)
+    assert_nil record.qdmPatient.dataElements.first.relevantPeriod
+
+    record.normalize_date_times
+    normalized_element = record.qdmPatient.dataElements.first
+    assert normalized_element.relevantPeriod.is_a? QDM::Interval
+    assert_equal time_value, normalized_element.relevantPeriod.low
+    assert_equal time_value, normalized_element.relevantPeriod.high
+    assert_equal time_value, normalized_element.relevantDatetime
+
+    record.denormalize_date_times
+    denormalized_element = record.qdmPatient.dataElements.first
+    assert_nil denormalized_element.relevantPeriod
+    assert_equal time_value, denormalized_element.relevantDatetime
+  end
+
+  def test_normalize_relevant_period
+    record = BundlePatient.new(familyName: 'normalize', givenNames: ['period'])
+    QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
+    time_value_start = DateTime.new(2011, 3, 24, 20, 53, 20).utc
+    time_value_end = DateTime.new(2011, 3, 25, 20, 53, 20).utc
+    time_interval = QDM::Interval.new(time_value_start, time_value_end)
+    record.qdmPatient.dataElements << QDM::AssessmentPerformed.new(id: 'assessment', relevantPeriod: time_interval)
+    assert_nil record.qdmPatient.dataElements.first.relevantDatetime
+
+    record.normalize_date_times
+    normalized_element = record.qdmPatient.dataElements.first
+    assert normalized_element.relevantDatetime.is_a? DateTime
+    assert_equal time_value_start, normalized_element.relevantPeriod.low
+    assert_equal time_value_end, normalized_element.relevantPeriod.high
+    assert_equal time_value_start, normalized_element.relevantDatetime
+
+    record.denormalize_date_times
+    denormalized_element = record.qdmPatient.dataElements.first
+    assert_nil denormalized_element.relevantDatetime
+    assert_equal time_value_start, denormalized_element.relevantPeriod.low
+    assert_equal time_value_end, denormalized_element.relevantPeriod.high
+  end
+
+  def test_normalize_relevant_period_low_only
+    record = BundlePatient.new(familyName: 'normalize', givenNames: ['period'])
+    QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
+    time_value_start = DateTime.new(2011, 3, 24, 20, 53, 20).utc
+    time_value_end = nil
+    time_interval = QDM::Interval.new(time_value_start, time_value_end)
+    record.qdmPatient.dataElements << QDM::AssessmentPerformed.new(id: 'assessment', relevantPeriod: time_interval)
+    assert_nil record.qdmPatient.dataElements.first.relevantDatetime
+
+    record.normalize_date_times
+    normalized_element = record.qdmPatient.dataElements.first
+    assert normalized_element.relevantDatetime.is_a? DateTime
+    assert_equal time_value_start, normalized_element.relevantPeriod.low
+    assert_nil normalized_element.relevantPeriod.high
+    assert_equal time_value_start, normalized_element.relevantDatetime
+
+    record.denormalize_date_times
+    denormalized_element = record.qdmPatient.dataElements.first
+    assert_nil denormalized_element.relevantDatetime
+    assert_equal time_value_start, denormalized_element.relevantPeriod.low
+    assert_nil denormalized_element.relevantPeriod.high
+  end
+
+  def test_normalize_relevant_period_high_only
+    record = BundlePatient.new(familyName: 'normalize', givenNames: ['period'])
+    QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
+    time_value_start = nil
+    time_value_end = DateTime.new(2011, 3, 25, 20, 53, 20).utc
+    time_interval = QDM::Interval.new(time_value_start, time_value_end)
+    record.qdmPatient.dataElements << QDM::AssessmentPerformed.new(id: 'assessment', relevantPeriod: time_interval)
+    assert_nil record.qdmPatient.dataElements.first.relevantDatetime
+
+    record.normalize_date_times
+    normalized_element = record.qdmPatient.dataElements.first
+    assert normalized_element.relevantDatetime.is_a? DateTime
+    assert_nil normalized_element.relevantPeriod.low
+    assert_equal time_value_end, normalized_element.relevantPeriod.high
+    assert_equal time_value_end, normalized_element.relevantDatetime
+
+    record.denormalize_date_times
+    denormalized_element = record.qdmPatient.dataElements.first
+    assert_nil denormalized_element.relevantDatetime
+    assert_nil denormalized_element.relevantPeriod.low
+    assert_equal time_value_end, denormalized_element.relevantPeriod.high
+  end
 end

@@ -5,11 +5,16 @@ class SingleMeasureCalculationJob < ApplicationJob
   def perform(patient_ids, measure_id, correlation_id, options)
     measure = Measure.find(measure_id)
     patients = Patient.find(patient_ids)
-    qdm_patients = patients.map(&:qdmPatient)
+    qdm_patients = patients.map do |patient|
+      patient.normalize_date_times
+      patient.qdmPatient
+    end
     calc_job = Cypress::CqmExecutionCalc.new(qdm_patients,
                                              [measure],
                                              correlation_id,
                                              options)
-    calc_job.execute(true)
+    results = calc_job.execute(true)
+    patients.map(&:denormalize_date_times)
+    results
   end
 end
