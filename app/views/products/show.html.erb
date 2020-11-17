@@ -1,6 +1,0 @@
-<%= render 'header_product', :product => @product %>
-<% if @product.cvuplus %>
-  <%= render 'cvu_plus_product', :product => @product %>
-<% else %>
-  <%= render 'certification_product', :product => @product %>
-<% end %>

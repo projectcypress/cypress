@@ -1,15 +1,6 @@
 <div class="panel panel-primary">
   <div class="panel-body">
     <div class="panel-actions pull-right">
-      <% unless vendor.products.empty? %>
-        <%= button_to new_vendor_product_path(vendor), :method => :get, :class => "btn btn-primary" do %>
-          <%= icon('fas fa-fw', 'plus', :"aria-hidden" => true) %> Add Product
-        <% end %>
-      <% end %>
-
-      <%= button_to vendor_preferences_path(vendor.id), :method => :get, :class => "btn btn-default" do %>
-        <%= icon('fas fa-fw', 'cogs', :"aria-hidden" => true) %> Vendor Preferences
-      <% end %>
       <%= button_to vendor_records_path(vendor.id), :method => :get, :class => "btn btn-default" do %>
         <%= icon('fas fa-fw', 'users', :"aria-hidden" => true) %> Vendor Patients
       <% end %>

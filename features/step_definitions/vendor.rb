@@ -54,14 +54,14 @@ When(/^the user cancels creating a vendor$/) do
 end
 
 When(/^the user edits the vendor$/) do
-  visit '/'
+  steps %( When the user views the vendor information )
   page.click_button 'Edit Vendor'
   page.fill_in 'URL', with: 'www.example.com'
   page.click_button 'Save Changes'
 end
 
 When(/^the user removes the vendor$/) do
-  visit '/'
+  steps %( When the user views the vendor information )
   page.click_button 'Edit Vendor'
   page.click_button 'Delete Vendor'
   page.fill_in 'delete name', with: @vendor.name
@@ -69,7 +69,7 @@ When(/^the user removes the vendor$/) do
 end
 
 When(/^the user cancels removing a vendor$/) do
-  visit '/'
+  steps %( When the user views the vendor information )
   page.click_button 'Edit Vendor'
   page.click_button 'Delete Vendor'
   page.within 'div.modal-footer' do

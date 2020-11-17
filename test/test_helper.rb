@@ -68,28 +68,6 @@ class ActiveSupport::TestCase
     document
   end
 
-  def simplify_criteria(test, include_attribute_code = false)
-    criteria = test.checked_criteria[0, 1]
-    criteria[0].source_data_criteria = { 'codeListId' => '1.8.9.10',
-                                         '_id' => BSON::ObjectId.new,
-                                         'hqmfOid' => '2.16.840.1.113883.10.20.28.4.5',
-                                         '_type' => 'QDM::EncounterPerformed',
-                                         'qdmCategory' => 'encounter',
-                                         'dataElementAttributes' => [{ 'attribute_name' => 'relevantPeriod',
-                                                                       'attribute_valueset' => nil },
-                                                                     { 'attribute_name' => 'dischargeDisposition',
-                                                                       'attribute_valueset' => '1.5.6.7' }] }
-    criteria[0].code = '720'
-    criteria[0].code_complete = true
-    criteria[0].attribute_index = 1
-    criteria[0].attribute_code = '210'
-    criteria[0].attribute_complete = true
-    criteria[0].result_complete = true
-    criteria[0].passed_qrda = true if include_attribute_code
-    test.checked_criteria = criteria
-    test.save!
-  end
-
   def value_or_bson(v)
     if v.is_a? Hash
       if v['$oid']
@@ -127,17 +105,6 @@ class ActiveSupport::TestCase
     collections.each do |collection|
       Mongoid.default_client[collection].drop
       Dir.glob(Rails.root.join('test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
-        fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
-        map_bson_ids(fixture_json)
-        Mongoid.default_client[collection].insert_one(fixture_json)
-      end
-    end
-  end
-
-  def perf_test_collection_fixtures(*collections)
-    collections.each do |collection|
-      Mongoid.default_client[collection].drop
-      Dir.glob(Rails.root.join('test', 'fixtures', collection, 'perf_test', '*.json')).each do |json_fixture_file|
         fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
         map_bson_ids(fixture_json)
         Mongoid.default_client[collection].insert_one(fixture_json)

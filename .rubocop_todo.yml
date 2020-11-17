@@ -34,7 +34,6 @@ Metrics/BlockLength:
 # Include: app/models/**/*.rb
 Rails/InverseOf:
   Exclude:
-    - 'app/models/product_test.rb'
     - 'app/models/vendor.rb'
 
 # Offense count: 6
@@ -49,7 +48,6 @@ Rails/OutputSafety:
   Exclude:
     - 'app/controllers/application_controller.rb'
     - 'app/controllers/records_controller.rb'
-    - 'app/controllers/test_executions_controller.rb'
     - 'lib/bootstrap_breadcrumbs_builder.rb'
 
 # Offense count: 2
@@ -66,11 +64,3 @@ Style/ClassAndModuleChildren:
 # SupportedStyles: when_needed, always, never
 Style/FrozenStringLiteralComment:
   Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: ConvertCodeThatCanStartToReturnNil, Whitelist.
-# Whitelist: present?, blank?, presence, try, try!
-Style/SafeNavigation:
-  Exclude:
-    - 'app/models/checklist_test.rb'

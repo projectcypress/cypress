@@ -18,6 +18,6 @@
     }, 2000);
   <% else %>
     $('.vendor-upload-jobs').html("<%= escape_javascript render 'vendor_upload_jobs', :vendor => @vendor %>");
-    $('#records_list').html("<%= escape_javascript render 'records_list', :patients => @patients, :measure => @measure, :population_set_hash => @population_set_hash, :product_test => @product_test, :bundle => @bundle, :task => @task, :vendor => @vendor %>");
+    $('#records_list').html("<%= escape_javascript render 'records_list', :patients => @patients, :measure => @measure, :population_set_hash => @population_set_hash, :bundle => @bundle, :vendor => @vendor %>");
   <% end %>
 <% end %>

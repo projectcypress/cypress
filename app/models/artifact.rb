@@ -8,7 +8,6 @@ class Artifact
                       'text/xml' => :xml }.freeze
 
   mount_uploader :file, DocumentUploader
-  belongs_to :test_execution, index: true
 
   field :content_type, type: String
   field :file_size, type: Integer
@@ -21,16 +20,7 @@ class Artifact
     return unless file_changed?
 
     content_extension = file.content_type ? MIME_FILE_TYPES[file.content_type] : nil
-    case content_extension
-    when :zip
-      errors.add(:file, 'File upload extension should be .zip') unless %w[C1Task C1ChecklistTask C3ChecklistTask C3Cat1Task CMSProgramTask
-                                                                          Cat1FilterTask MultiMeasureCat1Task].include?(test_execution.task._type)
-    when :xml
-      errors.add(:file, 'File upload extension should be .xml') unless %w[C2Task C3Cat3Task Cat3FilterTask CMSProgramTask
-                                                                          MultiMeasureCat3Task].include?(test_execution.task._type)
-    else
-      errors.add(:file, 'File upload extension should be .zip or .xml')
-    end
+    errors.add(:file, 'File upload extension should be .zip') unless content_extension == :zip
   end
 
   def archive?

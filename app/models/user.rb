@@ -43,8 +43,6 @@ class User
   field :invitation_accepted_at, type: Time
   field :invitation_limit, type: Integer
 
-  has_many :test_executions, dependent: :nullify
-
   index(invitation_token: 1)
   index(invitation_by_id: 1)
 

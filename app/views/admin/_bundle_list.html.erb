@@ -28,7 +28,7 @@
                               :object_action => 'deprecate',
                               :action_path => deprecate_admin_bundle_path(bundle),
                               :modal_title => 'Deprecate Bundle',
-                              :modal_message => 'Deprecating a bundle will leave all products and test results, however new tests will not be able to created with this bundle.'
+                              :modal_message => 'New patients will not be able to be imported with this bundle.'
                          %>
             <% end %>
             <%= render 'action_button',
@@ -40,7 +40,7 @@
                             :action_path => admin_bundle_path(bundle),
                             :object_action => 'delete',
                             :modal_title => 'Remove Bundle',
-                            :modal_message => 'Removing a bundle will also delete all associated products and test results.'
+                            :modal_message => 'Removing a bundle will also delete all associated patients.'
                        %>
           </td>
         </tr>

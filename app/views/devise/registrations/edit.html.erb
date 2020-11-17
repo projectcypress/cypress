@@ -5,19 +5,8 @@
   <dl>
     <dt style="float:left; padding-right: 5px;">Registered </dt><dd><%= local_time_ago(resource.confirmed_at) %></dd>
     <dt style="float:left; padding-right: 5px;">Vendors </dt><dd><%= Vendor.accessible_by(resource).count %></dd>
-      <% numProducts = 0 %>
-      <% Vendor.accessible_by(resource).each do |v| %>
-        <% numProducts += v.products.count %>
-      <%end%>
-    <dt style="float:left; padding-right: 5px;">Products </dt><dd><%= numProducts %></dd>
   </dl>
 </div>
-
-<h3>Recent Activity </h3>
-
-  <div class="recent-activity-table">
-    <%= render 'recent_activity', :test_executions => @test_executions %>
-  </div>
 
 <div class="panel panel-default">
   <div class="panel-heading">

@@ -20,7 +20,6 @@ class Bundle
   validates_presence_of :version
 
   has_many :value_sets, class_name: 'ValueSet', inverse_of: :bundle
-  has_many :products, dependent: :destroy
   has_many :measures, foreign_key: :bundle_id, order: [:id.asc, :sub_id.asc]
   has_many :patients, class_name: 'CQM::BundlePatient', foreign_key: :bundleId
 
@@ -51,7 +50,6 @@ class Bundle
     patients.destroy
     # destroy vendor patients created for bundle
     Patient.where(_type: 'CQM::VendorPatient', bundleId: id.to_s).destroy_all
-    Product.where(bundle_id: id).destroy_all
     FileUtils.rm(mpl_path) if File.exist?(mpl_path)
     delete
   end

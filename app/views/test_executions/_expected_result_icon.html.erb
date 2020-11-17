@@ -1,9 +1,0 @@
-<% if result && result.positive? %>
-  <span class="sr-only">Pass</span>
-  <span class="result-marker">
-    <strong class="result-text-positive-contrast"><span class="sr-only">value of </span><%= result %></strong>
-  </span>
-<% else %>
-  <span class="sr-only">Fail</span>
-  <%= icon('far fa-2x empty-marker', 'circle', :"aria-hidden" => true) %>
-<% end %>

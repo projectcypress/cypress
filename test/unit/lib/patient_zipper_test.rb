@@ -3,8 +3,9 @@ require 'fileutils'
 
 class PatientZipperTest < ActiveSupport::TestCase
   setup do
-    pt = FactoryBot.create(:product_test_static_result)
-    @static_patient = FactoryBot.create(:static_test_patient, bundleId: pt.bundle.id)
+    @bundle = FactoryBot.create(:static_bundle)
+    @bundle.save
+    @static_patient = @bundle.patients.first
     @static_patient.save
     @patients = Patient.all.to_a.select { |p| p.gender == 'F' }
 
@@ -33,6 +34,49 @@ class PatientZipperTest < ActiveSupport::TestCase
     File.delete(file.path)
     assert_equal @patients.count, count, 'Zip file has wrong number of records'
   end
+
+  # TODO: Restore this test?
+  # test 'Should create valid qrda file with an encounter id' do
+  #   format = :qrda
+  #   filename = "pTest-#{Time.now.to_i}.qrda.zip"
+  #   file = Tempfile.new(filename)
+  #   patient = @static_patient
+  #   # Include the inpatient encounter valueset in the bundle
+  #   faked_inpatient_vs = patient.bundle.value_sets.first
+  #   faked_inpatient_vs.oid = '2.16.840.1.113883.3.666.5.307'
+  #   faked_inpatient_vs.save
+  #
+  #   # Include the result measure in the bundle
+  #   faked_result_measure = patient.bundle.measures.first
+  #   faked_result_measure.hqmf_set_id = APP_CONSTANTS['result_measures'].first.hqmf_set_id
+  #   faked_result_measure.save
+  #
+  #   # Add Core Clinical Data Elements
+  #   patient.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 24, 20, 53, 20).utc, DateTime.new(2011, 3, 25, 20, 53, 20).utc),
+  #                                                                    dataElementCodes: [QDM::Code.new(faked_inpatient_vs.concepts.first.code, '2.16.840.1.113883.6.96')])
+  #   patient.qdmPatient.dataElements.push QDM::LaboratoryTestPerformed.new(resultDatetime: DateTime.new(2011, 3, 24, 20, 53, 20).utc,
+  #                                                                         dataElementCodes: [QDM::Code.new('6', '2.16.840.1.113883.6.96')])
+  #   patient.qdmPatient.dataElements.push QDM::PhysicalExamPerformed.new(relevantDatetime: DateTime.new(2011, 3, 24, 20, 53, 20).utc,
+  #                                                                       dataElementCodes: [QDM::Code.new('24', '2.16.840.1.113883.6.96')])
+  #   patient.save
+  #
+  #   Cypress::PatientZipper.zip(file, [patient], format)
+  #   file.close
+  #
+  #   count = 0
+  #   Zip::ZipFile.foreach(file.path) do |zip_entry|
+  #     if zip_entry.name.include?('.xml') && !zip_entry.name.include?('__MACOSX')
+  #       doc = Nokogiri::XML(zip_entry.get_input_stream, &:strict)
+  #       doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+  #       doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+  #       # There should be 1 entry with encounter ids. The fixture measures do not have PhysicalExamPerformed criteria, so that entry will be filtered out
+  #       assert_equal 1, doc.xpath('//sdtc:templateId[@root="2.16.840.1.113883.10.20.24.3.150"]').size, 'There should be 1 entry with encounter ids'
+  #       count += 1
+  #     end
+  #   end
+  #   File.delete(file.path)
+  #   assert_equal 1, count, 'Zip should contain 1 QRDA file for the patient with a negated valueset'
+  # end
 
   test 'Should create valid qrda file with a negated valueset' do
     format = :qrda

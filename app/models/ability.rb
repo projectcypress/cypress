@@ -24,12 +24,6 @@ class Ability
           user.user_role?('atl')
       end
 
-      can :execute_task, Vendor do |vendor|
-        user.user_role?('vendor', vendor) ||
-          user.user_role?('owner', vendor) ||
-          user.user_role?('atl')
-      end
-
     end
     # Define abilities for the passed in user here. For example:
     #

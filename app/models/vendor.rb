@@ -6,7 +6,6 @@ class Vendor
 
   scope :by_updated_at, -> { order(updated_at: :desc) }
 
-  has_many :products, dependent: :destroy
   has_many :patients, dependent: :destroy, foreign_key: 'correlation_id', class_name: 'CQM::VendorPatient'
   embeds_many :points_of_contact, class_name: 'PointOfContact', cascade_callbacks: true
 
@@ -38,50 +37,7 @@ class Vendor
     end
   end
 
-  # This method does nothing more than attempt to cleanup a lot of data instead of making rails do it,
-  # since rails is really bad at cleaning up quickly. Note that this bypasses the dependent => destroy
-  # calls on product, product tests, etc, all the way down and does them manually. This means that
-  # if any of those structures change then this code will need to be updated accordingly.
-  def destroy
-    product_tests = ProductTest.where(:product_id.in => product_ids).by_updated_at
-    product_test_ids = product_tests.pluck(:_id)
-    ProductTest.destroy_by_ids(product_test_ids)
-
-    Product.in(id: product_ids).delete
-
-    super
-  end
-
-  def status
-    Rails.cache.fetch("#{cache_key}/status") do
-      total = products.size
-      if products_failing_count.positive?
-        'failing'
-      elsif products_passing_count == total && total.positive?
-        'passing'
-      elsif products_errored_count.positive?
-        'errored'
-      else
-        'incomplete'
-      end
-    end
-  end
-
-  %w[passing failing errored incomplete].each do |product_state|
-    define_method "products_#{product_state}_count" do
-      product_counts = Rails.cache.fetch("#{cache_key}/product_counts") do
-        products.includes(:product_tests).group_by(&:status)
-      end
-
-      product_counts.key?(product_state) ? product_counts[product_state].count : 0
-    end
-  end
-
   def header_fields?
     url? || address? || !points_of_contact.empty?
-  end
-
-  def favorite_products(current_user)
-    products.ordered_for_vendors.where(favorite_user_ids: current_user.id)
   end
 end

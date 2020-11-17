@@ -36,11 +36,7 @@ module Cypress
     end
 
     def export(patient)
-      cat1_submission_program = if patient.product_test&.product&.c3_test
-                                  patient.product_test&.measures&.first&.reporting_program_type == 'eh' ? 'HQR_IQR' : false
-                                else
-                                  false
-                                end
+      cat1_submission_program = false
       options = { provider: patient.providers.first,
                   patient_addresses: patient.addresses,
                   patient_telecoms: patient.telecoms,
@@ -72,6 +68,8 @@ module Cypress
         patients.each_with_index do |patient, i|
           sf_patient = patient.clone
           sf_patient.id = patient.id
+          # CMS529 requires that entries point to the ecounters that they are related to
+          sf_patient.add_encounter_ids_to_events unless (measures.map(&:hqmf_set_id) & APP_CONSTANTS['result_measures'].map(&:hqmf_set_id)).empty?
           patient_scoop_and_filter.scoop_and_filter(sf_patient)
           z.put_next_entry("#{next_entry_path(patient, i)}.#{FORMAT_EXTENSIONS[format.to_sym]}")
           z << formatter.export(sf_patient)
@@ -86,11 +84,9 @@ module Cypress
     def self.measure_start_end(patients)
       return unless patients.first
 
-      first = patients.first
-      ptest = first.product_test
-      measures = ptest ? ptest.measures : patients.first.bundle.measures
-      start_date = ptest ? ptest.start_date : Time.at(patients.first.bundle.measure_period_start).in_time_zone
-      end_date = ptest ? ptest.end_date : start_date + 1.year
+      measures = patients.first.bundle.measures
+      start_date = Time.at(patients.first.bundle.measure_period_start).in_time_zone
+      end_date = start_date + 1.year
       [measures, start_date, end_date]
     end
 

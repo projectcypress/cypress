@@ -101,20 +101,16 @@ module RecordsHelper
     end.to_h
   end
 
-  def records_by_measure(records, measure, product_test, vendor)
+  def records_by_measure(records, measure, vendor)
     # When searching vendors or master patient list, there can be a lot of patients
     # if there is a vendor, use the correlation_id to filter Individual Results
-    if vendor
-      patient_ids = IndividualResult.where(correlation_id: vendor.id.to_s, measure_id: measure.id).pluck(:patient_id)
-      records.find(patient_ids)
-    # if there isn't a vendor, or product test, use the bundle correlation_id
-    elsif product_test.nil?
-      patient_ids = IndividualResult.where(correlation_id: measure.bundle_id, measure_id: measure.id).pluck(:patient_id)
-      records.find(patient_ids)
-    # otherwise, just return the list of patients
-    else
-      records
-    end
+    patient_ids = if vendor
+                    IndividualResult.where(correlation_id: vendor.id.to_s, measure_id: measure.id).pluck(:patient_id)
+                    # if there isn't a vendor, use the bundle correlation_id
+                  else
+                    IndividualResult.where(correlation_id: measure.bundle_id, measure_id: measure.id).pluck(:patient_id)
+                  end
+    records.find(patient_ids)
   end
 
   def hide_patient_calculation?

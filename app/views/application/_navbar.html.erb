@@ -1,7 +1,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container">
     <div class="navbar-header">
-      <%= link_to root_path do %>cypress <small><%= Cypress::Application::VERSION %></small><% end %>
+      <%= link_to root_path do %>Cypress on FHIR <small><%= Cypress::Application::VERSION %></small><% end %>
       <button type="button" class="navbar-toggle navbar-right" data-toggle="collapse" data-target="#cypressNavbar" aria-label="navigation menu" role="button" aria-controls="cypressNavbar" aria-expanded="false">
         <%= icon('fas fa-2x', 'bars', :"aria-hidden" => true) %>
         <span class="sr-only">Expand navigation menu</span>
@@ -12,8 +12,8 @@
         <% if user_signed_in? %>
           <% curr_page = if current_page?(edit_user_registration_path)
                            :account
-                         elsif (controller.controller_name == 'records' && params[:task_id].nil? &&
-                               params[:vendor_id].nil?)  || (current_page?(:records) && params[:task_id].nil? && params[:vendor_id].nil?)
+                         elsif (controller.controller_name == 'records' && params[:vendor_id].nil?)  ||
+                          (current_page?(:records) && params[:vendor_id].nil?)
                            :master_patient_list
                          elsif current_page?(admin_path) || current_page?(new_admin_bundle_path)
                            :admin

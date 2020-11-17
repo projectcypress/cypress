@@ -1,88 +1,61 @@
-<% if @task && @product_test %>
-  <div class="pull-right button-row">
-    <% if (@measure && @measure.population_sets_and_stratifications_for_measure.size > 1) || (@product_test && @product_test.measure_ids.size > 1) %>
-      <div class="btn-group">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Measures and Sub Measures<span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-          <% measures = @product_test ? @product_test.measures : [@measure] %>
-          <% measures.each do |measure| %>
-            <% measure.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
-              <li><%= link_to "#{measure_display_name(measure, population_set_hash)}", { controller: 'records', hqmf_id: measure.hqmf_id, task_id: @task.id, population_set_hash: population_set_hash}, method: :get %></li>
-            <% end %>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+<%# add patients option #%>
+<% if @vendor %>
+  <%= button_to "+ Import Patients", new_vendor_record_path(@vendor.id), :method => :get, :params => {default: @bundle}, :class => "btn btn-primary pull-right", :disabled => @bundle.nil? %>
+  <h1><%= @vendor.name %> Patient List</h1>
+  <div class="vendor-upload-jobs">
+    <%= render 'vendor_upload_jobs', :vendor => @vendor %>
   </div>
-  <%= button_to html_patients_product_test_path(@product_test), :method => :get, :class => "btn btn-default" do %>
-    <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download HTML Patients
-  <% end %>
-  <h1>Patient List</h1>
-
 <% else %>
-  <%# add patients option #%>
-  <% if @vendor %>
-    <%= button_to "+ Import Patients", new_vendor_record_path(@vendor.id), :method => :get, :params => {default: @bundle}, :class => "btn btn-primary pull-right", :disabled => @bundle.nil? %>
-    <h1><%= @vendor.name %> Patient List</h1>
-    <div class="vendor-upload-jobs">
-      <%= render 'vendor_upload_jobs', :vendor => @vendor %>
-    </div>
-  <% else %>
-    <h1>Master Patient List</h1>
-  <% end %>
-  <div class="row">
-    <div class="col-md-5 col-sm-6">
-      <h1>Filter Patients</h1>
-      <div class="form-group">
-        <label for="search_measures">Type to search by measure</label>
-        <input id="search_measures" type="search" class="form-control" placeholder="Type the name or CMS ID of a measure"/>
-      </div>
-    </div>
-    <% if !@task && !@product_test %>
-      <div class="col-md-7 col-sm-6">
-        <h1>Annual Update Bundle</h1>
-        <div>
-            <%# loop through bundles & use radio buttons #%>
-            <%= bootstrap_form_tag do |f| %>
-              <%= f.form_group :bundle_id do %>
-                <% Bundle.available.all.each do |bundle| %>
-
-                  <% if @vendor %>
-                    <div style="display: inline-block">
-                      <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox vendor-checkbox",
-                                         checked: bundle == @bundle %>
-                    </div>
-                    <%# create qrda download package of vendor patients #%>
-                  <% else %>
-                    <div style="display: inline-block">
-                      <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox bundle-checkbox",
-                                         checked: bundle == @bundle %>
-                    </div>
-                    <div class="radio download-btn" id='<%= bundle.id %>'>
-                      <%= render "mpl_download", :bundle => bundle %>
-                    </div>
-                  <% end  %>
-                <% end %><%# bundle loop #%>
-              <% end %><%# form_group #%>
-            <% end %><%# form tag #%>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
+  <h1>Master Patient List</h1>
 <% end %>
+<div class="row">
+  <div class="col-md-5 col-sm-6">
+    <h1>Filter Patients</h1>
+    <div class="form-group">
+      <label for="search_measures">Type to search by measure</label>
+      <input id="search_measures" type="search" class="form-control" placeholder="Type the name or CMS ID of a measure"/>
+    </div>
+  </div>
+  <div class="col-md-7 col-sm-6">
+    <h1>Annual Update Bundle</h1>
+    <div>
+        <%# loop through bundles & use radio buttons #%>
+        <%= bootstrap_form_tag do |f| %>
+          <%= f.form_group :bundle_id do %>
+            <% Bundle.available.all.each do |bundle| %>
+
+              <% if @vendor %>
+                <div style="display: inline-block">
+                  <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox vendor-checkbox",
+                                     checked: bundle == @bundle %>
+                </div>
+                <%# create qrda download package of vendor patients #%>
+              <% else %>
+                <div style="display: inline-block">
+                  <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox bundle-checkbox",
+                                     checked: bundle == @bundle %>
+                </div>
+                <div class="radio download-btn" id='<%= bundle.id %>'>
+                  <%= render "mpl_download", :bundle => bundle %>
+                </div>
+              <% end  %>
+            <% end %><%# bundle loop #%>
+          <% end %><%# form_group #%>
+        <% end %><%# form tag #%>
+    </div>
+  </div>
+</div>
+
 <% measure_cache_key = @measure.nil? ? 'none' : @measure.id %>
 <% measure_population_cache_key = @measure.nil? ? 'none' : @measure.key_for_population_set(@population_set_hash) %>
 <% cache [@patients.map(&:id), measure_cache_key, measure_population_cache_key, hide_patient_calculation?] do %>
   <div class="row">
     <div id="records_list" class="col-sm-12">
-      <%= render 'records_list', :patients => @patients, :measure => @measure, :population_set_hash => @population_set_hash, :product_test => @product_test, :bundle => @bundle, :task => @task, :vendor => @vendor %>
+      <%= render 'records_list', :patients => @patients, :measure => @measure, :population_set_hash => @population_set_hash, :bundle => @bundle, :vendor => @vendor %>
     </div>
   </div>
 <% end %><%# cache records #%>
 
-<% if !@task || !@product_test %>
 <script type="text/javascript">
   // initialize jQueryUI Autocomplete for searching measures
   $('#search_measures').autocomplete({
@@ -114,10 +87,9 @@
   // rerender the records list to show records from all measures if no value searched
   $('#search_measures').on('keyup', function() {
     if (!$(this).val()) {
-      $("#records_list").html("<%= escape_javascript(render 'records_list', :patients => @patients, :measure => @measure, :population_set_hash => @population_set_hash, :product_test => @product_test, :bundle => @bundle, :task => @task, :vendor => @vendor ) %>");
+      $("#records_list").html("<%= escape_javascript(render 'records_list', :patients => @patients, :measure => @measure, :population_set_hash => @population_set_hash, :bundle => @bundle, :vendor => @vendor ) %>");
       // any statically changed form elements require a separate token refresh call
       $.rails.refreshCSRFTokens();
     }
   })
 </script>
-<% end %>

@@ -5,7 +5,7 @@ class DocumentUploader < CarrierWave::Uploader::Base
   process :set_content_type
 
   def store_dir
-    "#{APP_CONSTANTS['file_upload_root']}/test_executions/#{model.id}"
+    "#{APP_CONSTANTS['file_upload_root']}/#{model.id}"
   end
 
   def extension_white_list

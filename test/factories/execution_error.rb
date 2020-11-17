@@ -39,18 +39,6 @@ FactoryBot.define do
       factory :cat3_population_validator_validate_populations, traits: [:validate_populations]
     end
 
-    factory :checklist_test do
-      msg_type { 'error' }
-      validator { 'qrda_cat1' }
-      cms { false }
-
-      trait :build_execution_errors_for_incomplete_checked_criteria do
-        message { 'CMS159v8 - patient_characteristic, expired not complete' }
-      end
-
-      factory :checklist_test_build_execution_errors_for_incomplete_checked_criteria, traits: [:build_execution_errors_for_incomplete_checked_criteria]
-    end
-
     factory :cms_population_count_validator do
       msg_type { 'error' }
       validator { 'Validators::CMSPopulationCountValidator' }
@@ -62,18 +50,6 @@ FactoryBot.define do
       end
 
       factory :cms_population_count_validator_verify_all_codes_reported, traits: [:verify_all_codes_reported]
-    end
-
-    factory :cms_program_test do
-      msg_type { 'error' }
-      validator { 'Validators::ProgramCriteriaValidator' }
-      cms { false }
-
-      trait :build_execution_errors_for_incomplete_cms_criteria do
-        message { 'Tax Identification Number not complete' }
-      end
-
-      factory :cms_program_test_build_execution_errors_for_incomplete_cms_criteria, traits: [:build_execution_errors_for_incomplete_cms_criteria]
     end
 
     factory :cms_schematron_validator do
@@ -343,14 +319,6 @@ FactoryBot.define do
       factory :smoking_gun_validator_errors, traits: [:errors]
       factory :smoking_gun_validator_validate_name, traits: [:validate_name]
       factory :smoking_gun_validator_validate_expected_results, traits: [:validate_expected_results]
-    end
-
-    factory :test_execution_conditionally_add_task_specific_errors do
-      msg_type { 'error' }
-      validator { 'smoking_gun' }
-      validation_type { 'result_validation' }
-      cms { false }
-      message { '4 files expected but was 1' }
     end
   end
 end

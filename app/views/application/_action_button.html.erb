@@ -7,12 +7,12 @@
 #   button_text    String  ex.) 'remove', [optional]
 #   button_classes String  ex.) 'btn btn-default', [optional]
 #   button_action  String  ex.) 'delete'
-#   object         Object  ex.) @product, (object class must have .name field) [optional if object_type
+#   object         Object  ex.) @vendor, (object class must have .name field) [optional if object_type
 #                                and object_name provided]
-#   action_path    String  ex.) vendor_product_path(@product.vendor, @product)
-#   modal_title    String  ex.) 'Remove Product'
-#   modal_message  String  ex.) 'Removing a product will aslo delete all
-#                                associated product tests and test results.'
+#   action_path    String  ex.) vendor_path(@vendor)
+#   modal_title    String  ex.) 'Remove Vendor'
+#   modal_message  String  ex.) 'Removing a vendor will aslo delete all
+#                                associated patients.'
 #   object_type    String  ex.) 'vendor', [optional, defaults to object.model_name.element]
 #   object_name    String  ex.) identifier of the object being deleted [optional, defaults to object.name]
 %>

@@ -4,26 +4,26 @@
 development:
   clients:
     default:
-      database: cypress_development
+      database: cvu_fhir_development
       hosts:
         - <%= ENV.fetch('MONGO_PORT_27017_TCP_ADDR', '127.0.0.1') %>:<%= ENV.fetch('MONGO_PORT_27017_TCP_PORT', '27017') %>
 
 measure_eval:
   clients:
     default:
-      database: cypress_eval
+      database: cvu_fhir_eval
       hosts:
         - <%= ENV.fetch('MONGO_PORT_27017_TCP_ADDR', '127.0.0.1') %>:<%= ENV.fetch('MONGO_PORT_27017_TCP_PORT', '27017') %>
 test:
   clients:
     default:
-      database: cypress_test
+      database: cvu_fhir_test
       hosts:
         - <%= ENV['TEST_DB_HOST'] || '127.0.0.1' %>:27017
 production:
   clients:
     default:
-      database: cypress_production
+      database: cvu_fhir_production
       hosts:
         - <%= ENV.fetch('MONGO_PORT_27017_TCP_ADDR', '127.0.0.1') %>:<%= ENV.fetch('MONGO_PORT_27017_TCP_PORT', '27017') %>
 

@@ -15,7 +15,6 @@ module VendorRepresenter
   }
 
   self.links = {
-    self: proc { vendor_path(self) },
-    products: proc { vendor_products_path(self) }
+    self: proc { vendor_path(self) }
   }
 end

@@ -1,4 +1,3 @@
-<% vendor_statuses = vendor_statuses(vendor) %>
 <tr id="vendor-status-<%=vendor.id%>">
   <td>
     <%= button_to vendor_favorite_path(vendor), remote: true, :class => "btn btn-link btn-pop" do %>
@@ -12,29 +11,4 @@
     <% end %>
   </td>
   <th scope="row"><div class = "abbreviated"><%= link_to vendor.name, vendor_path(vendor) %></div></th>
-  <td>
-    <% if vendor_statuses['total'].zero? %>
-      <%= button_to new_vendor_product_path(vendor), :method => :get, :class => "btn btn-primary btn-sm" do %>
-        <%= icon('fas fa-fw', 'plus', :"aria-hidden" => true) %> Add Product
-      <% end %>
-    <% else %>
-      <%= vendor_statuses['total'] %>
-    <% end %>
-  </td>
-
-  <% %w(passing failing errored incomplete).each do |status| %>
-    <% if vendor_statuses[status].positive? %>
-      <% classes = status_to_css_classes(status) %>
-      <td class="<%= classes['cell'] %> text-center">
-        <%= vendor_statuses[status] %>
-      </td>
-    <% else %>
-      <td></td>
-    <% end %>
-  <% end %>
-  <td class="text-right">
-    <%= button_to edit_vendor_path(vendor), :method => :get, :class => "btn btn-sm btn-default" do %>
-      <%= icon('fas fa-fw', 'wrench', :"aria-hidden" => true) %> Edit Vendor
-    <% end %>
-  </td>
 </tr>

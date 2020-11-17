@@ -106,21 +106,6 @@ class HTMLTest < ActiveSupport::TestCase
     assert html.include?('Procedure contraindicated (situation)'), 'HTML should include negation rationale code description'
     assert html.include?('carvedilol 6.25 MG Oral Tablet'), 'HTML should include medication code description'
     # Note: code="60" from sdtc:valueSet="1.3.4.5" is unknown (fake) and therefore appropriately omits a description
-
-    # randomize patient and re-export
-    Cypress::DemographicsRandomizer.randomize(saved_patient, Random.new(Random.new_seed))
-    Cypress::DemographicsRandomizer.update_demographic_codes(saved_patient)
-    html = formatter.export(saved_patient)
-
-    # assertions
-    # check if race and ethnicity updated
-    race_same = saved_patient.qdmPatient.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first.code == '1002-5'
-    assert_not html.include?('American Indian or Alaska Native'), 'HTML should include race code description' unless race_same
-    ethnicity_same = saved_patient.qdmPatient.get_data_elements('patient_characteristic', 'ethnicity').first.dataElementCodes.first.code == '2186-5'
-    assert_not html.include?('Not Hispanic or Latino'), 'HTML should include ethnicity code description' unless ethnicity_same
-
-    assert html.include?('Procedure contraindicated (situation)'), 'HTML should include negation rationale code description'
-    assert html.include?('carvedilol 6.25 MG Oral Tablet'), 'HTML should include medication code description'
   end
 
   # Get bundle from the demo server.  Use VCR if available

@@ -27,7 +27,6 @@ class VendorsControllerTest < ActionController::TestCase
       get :show, params: { id: @vendor.id }
       assert_response :success, "#{@user.email} should  have acces to vendor "
       assert assigns(:vendor)
-      assert assigns(:products)
     end
   end
 

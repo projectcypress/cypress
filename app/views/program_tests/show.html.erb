@@ -1,5 +1,0 @@
-<% if %w[HL7_Cat_I HL7_Cat_III].include? @product_test.cms_program %>
-  <%= render 'hl7_program_test', :product_test => @product_test %>
-<% else %>
-  <%= render 'cms_program_test', :product_test => @product_test %>
-<% end %>

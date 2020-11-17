@@ -1,9 +1,0 @@
-<%#
-  local variable 'product' and 'show_product_link' boolean
-%>
-<% show_product_link ||= false %>
-<% if product.cvuplus %>
-  <%= render 'cvu_plus_status_table', :product => product, :show_product_link => show_product_link %>
-<% else %>
-  <%= render 'certification_status_table', :product => product, :show_product_link => show_product_link %>
-<% end %>

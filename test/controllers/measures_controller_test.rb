@@ -13,7 +13,7 @@ class MeasuresControllerTest < ActionController::TestCase
   test 'should get index with json' do
     bundle = Bundle.default
     get :index, params: { format: :json, bundle_id: bundle.id }
-    assert_response 200, 'response should be OK on product index'
+    assert_response 200, 'response should be OK on index'
     assert_equal bundle.measures.count, JSON.parse(response.body).count, 'response body should have all measures for bundle'
   end
 
@@ -22,7 +22,7 @@ class MeasuresControllerTest < ActionController::TestCase
   test 'should get index with xml' do
     bundle = Bundle.default
     get :index, params: { format: :json, bundle_id: bundle.id }
-    assert_response 200, 'response should be OK on product index'
+    assert_response 200, 'response should be OK on index'
   end
 
   # bad requests

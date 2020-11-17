@@ -8,11 +8,10 @@ class RecordsControllerTest < ActionController::TestCase
     FactoryBot.create(:user_user)
     vendor_user = FactoryBot.create(:vendor_user)
     FactoryBot.create(:other_user)
-    @product_test = FactoryBot.create(:product_test_static_result)
-    @patient_id = @product_test.bundle.patients.first.id
-    @bundle = @product_test.bundle
+    @bundle = FactoryBot.create(:static_bundle)
+    @patient_id = @bundle.patients.first.id
 
-    add_user_to_vendor(vendor_user, @product_test.product.vendor)
+    add_user_to_vendor(vendor_user, FactoryBot.create(:vendor_static_name))
   end
 
   test 'should redirect from index to default bundle' do
@@ -48,15 +47,6 @@ class RecordsControllerTest < ActionController::TestCase
       get :show, params: { id: @bundle.patients.find(@patient_id) }
       assert_response :success, "#{@user.email} should have access "
       assert assigns(:record)
-    end
-  end
-
-  # need negative tests for user that does not have owner or vendor access
-  test 'should be able to restrict access to product test records unauthorized users ' do
-    for_each_logged_in_user([OTHER_VENDOR]) do
-      task_id = @product_test.tasks.first.id
-      get :index, params: { task_id: task_id }
-      assert_response 401
     end
   end
 

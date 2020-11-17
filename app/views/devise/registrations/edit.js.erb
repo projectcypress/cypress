@@ -1,6 +1,6 @@
 
 
-$('.recent-activity-table').html("<%= escape_javascript render 'recent_activity', :test_executions => @test_executions %>");
+$('.recent-activity-table').html("<%= escape_javascript render 'recent_activity' %>");
 Turbolinks.ProgressBar.done();
 
 $('.activity-paginate').click(function (event) {

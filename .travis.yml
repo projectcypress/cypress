@@ -7,7 +7,6 @@ dist: trusty
 branches:
   only:
   - master
-  - /^cypress_v.*$/
 notifications:
   email:
     recipients:
@@ -37,21 +36,15 @@ env:
     - MONGODB=4.0.18
   matrix:
   - TEST_SUITE=audit
-  - TEST_SUITE=cucumber-first
-  - TEST_SUITE=cucumber-second
-  - TEST_SUITE=integration
+  - TEST_SUITE=cucumber
   - TEST_SUITE=units
 script:
   - 'if [ ${TEST_SUITE} = "audit" ]; then
       bundle exec bundle-audit check --update &&
       bundle exec overcommit --sign &&
       bundle exec overcommit --run;
-    elif [ ${TEST_SUITE} = "cucumber-first" ]; then
-      bundle exec cucumber features/admin/ features/checklist_tests/ features/filtering_tests/ features/measure_tests/ features/multi_measure_tests/;
-    elif [ ${TEST_SUITE} = "cucumber-second" ]; then
-      bundle exec cucumber features/products/ features/program_tests/ features/records/ features/users/ features/vendors/;
-    elif [ ${TEST_SUITE} = "integration" ]; then
-      RUBYOPT="-W0" bundle exec rake test:integration;
+    elif [ ${TEST_SUITE} = "cucumber" ]; then
+      bundle exec cucumber features/admin/ features/records/ features/users/ features/vendors/;
     else
-      RUBYOPT="-W0" bundle exec rake test:units test:controllers test:helpers test:jobs;
+      RUBYOPT="-W0" bundle exec rake test;
     fi'

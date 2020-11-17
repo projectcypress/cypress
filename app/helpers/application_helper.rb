@@ -52,39 +52,4 @@ module ApplicationHelper
   def padded_cms_id(cms_id)
     cms_id.sub(/(?<=cms)(\d{1,3})/i) { Regexp.last_match(1).rjust(3, '0') }
   end
-
-  def cvu_status_row(hash, status)
-    # uses the hash provided by the get_cvu_status_values method
-    row_values = [0, 0, 0]
-    row_values[0] = hash['EP_Measure']['EP Measure Test'][status]
-    row_values[1] = hash['EH_Measure']['EH Measure Test'][status]
-    row_values[2] = hash['CMS_Program']['CMS Program Tests'][status]
-    row_values
-  end
-
-  def product_status_row(hash, status)
-    # uses the hash provided by the get_product_status_values method
-    row_values = [0, 0, 0, 0, 0, 0, 0, 0]
-    c1_status_row(hash, status, row_values) if hash.key?('C1')
-    row_values[2] = hash['C2']['QRDA Category III'][status] if hash.key?('C2')
-    c3_status_row(hash, status, row_values) if hash.key?('C3')
-    c4_status_row(hash, status, row_values) if hash.key?('C4')
-    row_values
-  end
-
-  def c1_status_row(hash, status, row_values)
-    row_values[0] = hash['C1']['Checklist'][status] if hash['C1'].key?('Checklist')
-    row_values[1] = hash['C1']['QRDA Category I'][status]
-  end
-
-  def c3_status_row(hash, status, row_values)
-    row_values[3] = hash['C3']['Checklist'][status] if hash.key?('C1') && hash['C1'].key?('Checklist') # C3 only has checklist tests if C1
-    row_values[4] = hash['C3']['QRDA Category I'][status]
-    row_values[5] = hash['C3']['QRDA Category III'][status]
-  end
-
-  def c4_status_row(hash, status, row_values)
-    row_values[6] = hash['C4']['QRDA Category I'][status]
-    row_values[7] = hash['C4']['QRDA Category III'][status]
-  end
 end

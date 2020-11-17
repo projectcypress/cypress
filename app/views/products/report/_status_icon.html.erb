@@ -1,8 +1,0 @@
-<%
-
-# local variable 'passing'
-
-%>
-
-<span aria-hidden="true" class='<%= passing ? 'text-success' : 'text-danger' %>'><%= passing ? '&#10003;'.html_safe : '&#10060;'.html_safe %></span>
-<span class="sr-only"><%= passing ? 'passing' : 'failing' %></span>

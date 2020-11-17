@@ -62,18 +62,6 @@ FactoryBot.define do
       end
     end
 
-    factory :static_test_patient, class: ProductTestPatient do
-      familyName { 'A' }
-      givenNames { ['Dental_Peds'] }
-      qdmPatient { FactoryBot.build(:qdm_patient) }
-
-      after(:create) do |patient|
-        provider = create(:default_provider)
-        patient.providers << provider
-        patient.save!
-      end
-    end
-
     factory :vendor_test_patient, class: VendorPatient do
       familyName { 'A' }
       givenNames { ['Dental_Peds'] }

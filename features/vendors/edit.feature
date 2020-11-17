@@ -25,16 +25,3 @@ Scenario: Can View Vendor Information
   Then the user should see the vendor name
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
-
-Scenario: Can View Vendor Preference
-  When the user views the vendor preferences
-  Then the user should see choose code system preferences
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
-
-Scenario: Can Save Vendor Preference
-  When the user views the vendor preferences
-  Then the user should see choose code system preferences
-  Then the user should see save code system preferences
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa

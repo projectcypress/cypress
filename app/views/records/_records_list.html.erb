@@ -1,6 +1,6 @@
 <!-- Only grab measure records and result values once to avoid duplicate queries -->
 <% if measure && patients.length.positive? %>
-  <% measure_records = records_by_measure(patients, measure, product_test, vendor) %>
+  <% measure_records = records_by_measure(patients, measure, vendor) %>
   <% population_keys = measure.population_keys %>
   <% result_values = get_result_values(patients, [measure], measure.key_for_population_set(population_set_hash), population_keys, 'patient_id') %>
 <% end %>
@@ -24,9 +24,6 @@
         <th scope="col">Select</th>
       <% end%>
       <th scope="col">Patient Name</th>
-      <% if product_test && !hide_patient_calculation? %>
-        <th scope="col">Template Name</th>
-      <%end%>
       <th scope="col">DOB</th>
       <th scope="col">Gender</th>
       <% if measure && !hide_patient_calculation?%>
@@ -36,7 +33,7 @@
       <% end %>
     </tr>
   </thead>
-  <% if measure && !(product_test && hide_patient_calculation?) %>
+  <% if measure %>
   <tfoot style="border-top: 2px solid #ddd;">
       <!-- will show aggregate record populations -->
       <tr>
@@ -45,12 +42,8 @@
           <td></td>
         <% end %>
         <th scope="row">Total</th>
-        <% if product_test && !hide_patient_calculation? %>
-          <td></td>
-        <%end%>
         <td></td>
         <td></td>
-        <!-- will show calculation results for product test records -->
           <% pop_sums(result_values)&.each do |_, value| %>
             <td class="text-center">
               <%= render 'calculation_result_icon', :result => value, :episode_of_care => measure.calculation_method == 'EPISODE_OF_CARE'  %>
@@ -62,12 +55,10 @@
 
   <tbody>
     <%= render 'calculation_results',
-      :patients => (measure && !product_test) ? measure_records : patients,
-      :product_test => product_test,
+      :patients => measure ? measure_records : patients,
       :result_values => result_values,
       :bundle => bundle,
-      :measure => measure,
-      :task => task
+      :measure => measure
     %>
   </tbody>
 </table>

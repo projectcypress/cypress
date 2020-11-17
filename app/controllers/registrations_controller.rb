@@ -4,7 +4,6 @@ class RegistrationsController < Devise::RegistrationsController
   add_breadcrumb 'Cancel Account', :cancel_user_registration_path, only: [:cancel]
 
   before_action :configure_permitted_parameters
-  before_action :load_test_executions, only: %i[edit update]
 
   respond_to :js, only: [:edit]
 
@@ -23,11 +22,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   protected
-
-  def load_test_executions
-    @all_executions = current_user.test_executions.order(%i[updated_at desc])
-    @test_executions = Kaminari.paginate_array(@all_executions).page(params[:page]).per(15)
-  end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:terms_and_conditions])

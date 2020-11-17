@@ -18,25 +18,6 @@
       "user_input": "params[:format]",
       "confidence": "Weak",
       "note": ""
-    },
-    {
-      "warning_type": "File Access",
-      "warning_code": 16,
-      "fingerprint": "e52bc43d2b53ba50fc96f2765d7d01725e00c9f0cb297be67bad5506c47fedd1",
-      "message": "Parameter value used in file name",
-      "file": "app/controllers/products_controller.rb",
-      "line": 89,
-      "link": "http://brakemanscanner.org/docs/warning_types/file_access/",
-      "code": "send_file(((@vendor.products or Product).find(params[:product_id]) or (@vendor.products or Product).find(params[:id])).supplemental_test_artifact.file.path, :disposition => \"attachment\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "ProductsController",
-        "method": "supplemental_test_artifact"
-      },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
-      "note": ""
     }
   ],
   "updated": "2018-05-07 12:24:40 -0400",

@@ -15,7 +15,7 @@ class Settings
   field :warning_message, type: String, default: APP_CONSTANTS['default_warning_message']
   # ignore roles completely -- this is essentially the same as everyone in the system being an admin, default true
   field :ignore_roles, type: Boolean, default: (ENV['IGNORE_ROLES'].nil? ? true : ENV['IGNORE_ROLES'].to_boolean)
-  # enable the "debug features" such as allowing QA testers to produce known good results for a task, default true
+  # enable the "debug features" such as allowing QA testers to produce known good results, default true
   field :enable_debug_features, type: Boolean, default: (ENV['ENABLE_DEBUG_FEATURES'].nil? ? true : ENV['ENABLE_DEBUG_FEATURES'].to_boolean)
   # the default role to assign to a user upon at creation -- this should be either admin, atl, user or empty string
   # a user without a role will not be able to create or view any vendors.  You may want to set this to ''

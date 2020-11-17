@@ -1,8 +1,6 @@
 <% patients.sort_by { |patient| full_name(patient) }.each do |r| %>
   <tr>
-    <% if product_test %>
-      <td><%= link_to full_name(r), record_path(:id => r.id, :task_id => task.id) %></td>
-    <% elsif @vendor %>
+    <% if @vendor %>
         <td>
           <%= bootstrap_form_tag url: vendor_records_path(@vendor), html: {class: "delete_vendor_patients_form"} do |f| %>
              <%= f.check_box r.id, label: "", title: "delete_patient", label_class: "btn btn-checkbox"%>
@@ -12,14 +10,9 @@
     <% else %>
       <td><%= link_to full_name(r), bundle_record_path(bundle, r) %></td>
     <% end %>
-    <% if product_test && !hide_patient_calculation? %>
-      <% original_patient = r.original_patient %>
-      <td> <%="#{full_name(original_patient)}"%> </td>
-    <%end%>
     <td><%= display_time(r.qdmPatient.birthDatetime) %></td>
     <td><%= full_gender_name(r.gender) %></td>
-    <!-- will show calculation results for product test records -->
-    <% if measure && !(product_test && hide_patient_calculation?) %>
+    <% if measure %>
       <% result_values[r.id]&.each do |_, value| %>
         <td class="text-center">
           <!-- This is the relevant piece of the calculation_result_icon partial ported over to here. Rendering each circle in its own partial is far too slow and causes the application to take up to 8 seconds longer to load on some pages. -->
