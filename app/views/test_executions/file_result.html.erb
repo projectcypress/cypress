@@ -9,11 +9,14 @@
 <br/>
 <br/>
 
+<% continuous_measures = @task.measures.where(measure_scoring: 'CONTINUOUS_VARIABLE').only(:id, :population_sets, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }
+   proportion_measures = @task.measures.where(measure_scoring: 'PROPORTION').only(:id, :population_sets, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] } %>
+
 <div class = 'panel panel-default' id = 'results_panel'>
   <div class = 'panel-heading'>
     <h1 class='panel-title'>Results</h1>
   </div>
   <div class = 'panel-body' id = 'display_execution_results' >
-    <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: @test_execution, file_name: @file_name, error_result: @error_result, is_passing: is_passing, on_execution_show_page: false } %>
+    <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: @test_execution, file_name: @file_name, error_result: @error_result, is_passing: is_passing, on_execution_show_page: false, continuous_measures: continuous_measures, proportion_measures: proportion_measures } %>
   </div>
 </div>

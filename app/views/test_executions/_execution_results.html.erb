@@ -5,7 +5,16 @@
 # must specify local variable "execution"
 #
 %>
-<% uploaded_files = IndividualResult.where(correlation_id: params['id']).distinct(:file_name) %>
+<% uploaded_patients = Patient.where(correlation_id: params['id']) %>
+<% file_name_id_hash = {} %>
+<% uploaded_patients.each { |uploaded_patient| file_name_id_hash[uploaded_patient['file_name']] = uploaded_patient if uploaded_patient['file_name'] } %>
+<% if file_name_id_hash.size == 0
+  @individual_results.each do |ir|
+    next unless ir['file_name']
+    next if file_name_id_hash[ir['file_name']]
+    file_name_id_hash[ir['file_name']] = ir.patient
+  end
+end %>
 <% files_with_errors = [] %>
 
 <% if execution.status_with_sibling == 'incomplete' %>
@@ -91,7 +100,7 @@
           <% files_with_errors << file_name %>
         <% end %>
         <% if @task.is_a? CMSProgramTask
-          non_errored_files = uploaded_files - files_with_errors
+          non_errored_files = file_name_id_hash.keys - files_with_errors
           non_errored_files.each do |file_name| %>
           <li>
             <a href=<%= "##{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>>
@@ -104,24 +113,26 @@
       </ul>
 
       <% if (@task.is_a? CMSProgramTask) && @task.product_test.reporting_program_type == 'eh'
-        uploaded_files.each do |file_name|
+        continuous_measures = @task.measures.where(measure_scoring: 'CONTINUOUS_VARIABLE').only(:id, :population_sets, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }
+        proportion_measures = @task.measures.where(measure_scoring: 'PROPORTION').only(:id, :population_sets, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }
+        file_name_id_hash.each do |file_name, patient|
           if files_with_errors.include?(file_name) %>
             <div id=<%= "#{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>>
-              <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: execution, file_name: file_name, error_result: collected_errors.files[file_name], is_passing: passing, on_execution_show_page: true } %>
+              <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: execution, file_name: file_name, error_result: collected_errors.files[file_name], is_passing: passing, on_execution_show_page: true, continuous_measures: continuous_measures, proportion_measures: proportion_measures, patient: patient } %>
             </div>
           <% else %>
             <div id=<%= "#{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>>
               <p class="lead">
                 <%= "#{file_name}" %>
               </p>
-              <%= render partial: 'test_executions/results/calculation_results_for_file', locals: { execution: execution, file_name: file_name } %>
+              <%= render partial: 'test_executions/results/calculation_results_for_file', locals: { execution: execution, file_name: file_name, continuous_measures: continuous_measures, proportion_measures: proportion_measures, patient: patient } %>
             </div>
           <% end %>
         <% end %>
       <% else %>
         <% collected_errors.files.each do |file_name, error_result| %>
           <div id=<%= "#{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>>
-            <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: execution, file_name: file_name, error_result: error_result, is_passing: passing, on_execution_show_page: true } %>
+            <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: execution, file_name: file_name, error_result: error_result, is_passing: passing, on_execution_show_page: true, continuous_measures: continuous_measures, proportion_measures: proportion_measures, patient: nil } %>
           </div>
         <% end %>
       <% end %>

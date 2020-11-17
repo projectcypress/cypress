@@ -36,7 +36,7 @@ module Cypress
     end
 
     def export(patient)
-      cat1_submission_program = if patient.product_test&.product&.c3_test
+      cat1_submission_program = if patient.product_test&.product&.c3_test || patient.product_test&.product&.cvuplus
                                   patient.product_test&.measures&.first&.reporting_program_type == 'eh' ? 'HQR_IQR' : false
                                 else
                                   false
