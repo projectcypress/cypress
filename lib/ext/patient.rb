@@ -10,6 +10,10 @@ module CQM
     embeds_many :addresses # patient addresses
     embeds_many :telecoms
 
+    # These are for CVU+
+    field :file_name, type: String
+    field :codes_modifiers, type: Hash
+
     # This allows us to instantiate Patients that do not belong to specific type of patient
     # for the purposes of testing but blocks us from saving them to the database to ensure
     # every patient actually in the database is of a valid type.
@@ -172,6 +176,13 @@ module CQM
         # Does the measure relevance include a true value from on of the requested population keys.
         (measure_ids.include? BSON::ObjectId.from_string(measure_key)) && (population_keys.any? { |pop| mrh[pop] == true })
       end
+    end
+
+    def remove_telehealth_codes(ineligible_measures)
+      warnings = []
+      Cypress::QRDAPostProcessor.remove_telehealth_encounters(self, codes_modifiers, warnings, ineligible_measures) unless codes_modifiers.empty?
+      save
+      warnings
     end
   end
 
