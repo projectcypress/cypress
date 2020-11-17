@@ -20,3 +20,9 @@ Scenario: Not Logged In
   Then the user should be redirected to the sign in page
   Then the page should be accessible according to: section508
   Then the page should be accessible according to: wcag2aa
+
+Scenario: Unsuccessful umls login
+  When the user tries to log in with invalid umls information
+  Then the user should see an umls error message
+  Then the page should be accessible according to: section508
+  Then the page should be accessible according to: wcag2aa
