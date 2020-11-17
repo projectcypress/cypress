@@ -127,7 +127,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
       te = task.execute(file, @user)
       te.reload
       ir = CQM::IndividualResult.where(measure_id: measure.id, correlation_id: te.id, population_set_key: 'PopulationCriteria1')
-      assert_equal 0, ir.first['IPP']
+      assert_equal 0, ir.size
       assert_equal 1, te.execution_errors.where(message: 'Telehealth encounter 720 with modifier GQ not used in calculation for eCQMs (CMS32v7, CMS134v6) that are not eligible for telehealth.').size
     end
   end

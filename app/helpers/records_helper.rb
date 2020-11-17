@@ -87,13 +87,8 @@ module RecordsHelper
   #
   # Usage tip: It is strongly recommended you pass in either an array of records OR and array
   # of measures and then pass in the other as an array containing a single element.
-  def get_result_values_test_upload(correlation_id, file_name, measures, pop_set, pop_keys, key)
-    CQM::IndividualResult.where(
-      :correlation_id => correlation_id,
-      :file_name => file_name,
-      :measure_id.in => measures.collect(&:id),
-      :population_set_key => pop_set
-    ).collect do |elem|
+  def get_result_values_for_patient(individual_results, patient_id, pop_keys, key)
+    individual_results.select { |ir| ir.patient_id == patient_id }.collect do |elem|
       [
         elem[key],
         pop_keys.collect { |pop_key| [pop_key, elem[pop_key].to_i] }.to_h

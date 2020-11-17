@@ -44,6 +44,9 @@ class TestExecutionsController < ApplicationController
   end
 
   def show
+    @individual_results = CQM::IndividualResult.where(
+      correlation_id: params['id']
+    ).only(:IPP, :DENOM, :NUMER, :NUMEX, :DENEX, :DENEXCEP, :MSRPOPL, :OBSERV, :MSRPOPLEX, :measure_id, :patient_id, :file_name).to_a
     authorize! :read, @task.product_test.product.vendor
     respond_with(@test_execution)
   end

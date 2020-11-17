@@ -84,7 +84,7 @@ module Cypress
         has_telehealth_name = codes_modifier[:name]&.code == 'VR'
         next unless has_telehealth_value || has_telehealth_name
 
-        telehealth_encounter = patient.qdmPatient.encounters.where(_id: encounter_id.value)
+        telehealth_encounter = patient.qdmPatient.encounters.where(_id: encounter_id)
         qualifier_value = has_telehealth_value ? codes_modifier[:value]&.code : codes_modifier[:name]&.code
         ineligible_measures_ids = ineligible_measures.pluck('cms_id').join(', ')
         msg = "Telehealth encounter #{telehealth_encounter.first.codes.first.code} with modifier " \
