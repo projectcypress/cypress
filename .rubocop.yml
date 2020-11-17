@@ -43,6 +43,7 @@ Metrics/ClassLength:
     - 'test/**/*'
     - 'app/models/product.rb'
     - 'app/models/checklist_source_data_criteria.rb'
+    - 'app/models/settings.rb'
     - 'app/controllers/records_controller.rb'
     - 'lib/ext/patient.rb'
     - 'lib/cypress/api_measure_evaluator.rb'
@@ -89,6 +90,9 @@ Metrics/PerceivedComplexity:
     - 'test/unit/html_test.rb'
 Naming/UncommunicativeMethodParamName:
   Enabled: false
+Naming/VariableName:
+  Exclude:
+    - 'app/controllers/sessions_controller.rb'
 Style/DateTime:
   Enabled: false
 Style/GuardClause:

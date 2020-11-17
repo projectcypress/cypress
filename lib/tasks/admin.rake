@@ -51,4 +51,18 @@ namespace :cypress do
       puts "User #{args.email} not found "
     end
   end
+
+  desc %(
+    Change the UMLS License code
+  )
+  task :change_umls_license_code, [:license_code] => :setup do |_, args|
+    Settings.current.update(umls_license: args.license_code)
+  end
+
+  desc %(
+    Change the http_proxy
+  )
+  task :change_http_proxy, [:http_proxy] => :setup do |_, args|
+    Settings.current.update(http_proxy: args.http_proxy)
+  end
 end
