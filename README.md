@@ -1,7 +1,7 @@
 Cypress/CVU on FHIR
 =========
 
-[![GitHub version](https://badge.fury.io/gh/projectcypress%2Fcypress.svg)](https://badge.fury.io/gh/projectcypress%2Fcypress)
+[![GitHub version](https://badge.fury.io/gh/projecttacoma%2Fcvu-fhir.svg)](https://badge.fury.io/gh/projecttacoma%2Fcvu-fhir)
 [![Build Status](https://travis-ci.com/projecttacoma/cvu-fhir.svg?branch=master)](https://travis-ci.com/projecttacoma/cvu-fhir)
 [![codecov](https://codecov.io/gh/projecttacoma/cvu-fhir/branch/master/graph/badge.svg)](https://codecov.io/gh/projecttacoma/cvu-fhir)
 
