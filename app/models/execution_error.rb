@@ -7,6 +7,7 @@ class ExecutionError
   field :msg_type, type: Symbol
   field :measure_id, type: String
   field :validation_type, type: String
+  field :validator_type, type: Symbol
   field :validator, type: String
   field :stratification, type: String
   field :location
