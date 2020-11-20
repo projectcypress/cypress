@@ -8,6 +8,7 @@ class ExecutionError
   field :measure_id, type: String
   field :validation_type, type: String
   field :validator, type: String
+  field :validator_type, type: Symbol
   field :stratification, type: String
   field :location
   field :file_name, type: String
