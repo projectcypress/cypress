@@ -41,7 +41,7 @@ class CMSTestExecutionJob < ApplicationJob
   end
 
   def calculate_patients_for_measures(patient_ids, options, measures, test_execution)
-    patients_per_calculation = 500
+    patients_per_calculation = 200
     patient_ids.each_slice(patients_per_calculation) do |patient_ids_slice|
       measures.each do |measure|
         SingleMeasureCalculationJob.perform_now(patient_ids_slice, measure.id.to_s, test_execution.id.to_s, options)
