@@ -3,7 +3,7 @@ module Cypress
     class FileNotFound < StandardError
     end
 
-    def collected_errors(execution)
+    def self.collected_errors(execution)
       # gonna return all the errors for this execution, structured in a reasonable way.
       collected_errors = { nonfile: get_nonfile_errors(execution), files: {} }
       execution.artifact.file_names.each do |this_name|
@@ -19,33 +19,20 @@ module Cypress
       { nonfile: [], files: {}, exception: e }
     end
 
-    # returns [file_name, error_result]
-    def file_name_and_error_result_from_execution(execution)
-      errs = collected_errors(execution)
-      files = errs.files.select { |file_name, _| route_file_name(file_name) == params[:file_name] }
-      file_name_and_error_result_from_files(files, params[:file_name])
-    end
+    # functions currently only used in error_collector
 
-    def file_name_and_error_result_from_files(files, file_name)
-      [files.first[0], files.first[1]]
-    rescue
-      raise Mongoid::Errors::DocumentNotFound.new FileNotFound, "could not find results for file #{file_name}"
-    end
-
-    private
-
-    def get_file(artifact, file_name)
+    def self.get_file(artifact, file_name)
       data_to_doc(artifact.get_file(file_name))
     end
 
-    def get_nonfile_errors(execution)
+    def self.get_nonfile_errors(execution)
       messages1 = execution.execution_errors.by_file(nil).map(&:message)
       messages2 = execution.sibling_execution ? execution.sibling_execution.execution_errors.by_file(nil).map(&:message) : []
 
       (messages1 + messages2).uniq
     end
 
-    def create_file_error_hash(doc, all_errs, related_errs)
+    def self.create_file_error_hash(doc, all_errs, related_errs)
       file_error_hash = {}
       errors = all_errs.only_errors
       errors += related_errs.only_errors if related_errs.count.positive?
@@ -56,7 +43,7 @@ module Cypress
       file_error_hash
     end
 
-    def data_to_doc(data)
+    def self.data_to_doc(data)
       if data.is_a? String
         Nokogiri::XML(data)
       else
@@ -64,7 +51,7 @@ module Cypress
       end
     end
 
-    def error_hash(doc, file_errors)
+    def self.error_hash(doc, file_errors)
       return 0 unless file_errors.count
 
       error_map, error_attributes = match_xml_locations_to_error_ids(doc, file_errors)
@@ -77,7 +64,7 @@ module Cypress
     end
 
     # goes through each XML location and marks which errors that location is associated with
-    def match_xml_locations_to_error_ids(doc, errors)
+    def self.match_xml_locations_to_error_ids(doc, errors)
       uuid = UUID.new
       error_map = {}        # error_map[error_location] == xml_element_error_id
       error_attributes = [] # only gives error attribute if element has class Nokogiri::XML::Attr
@@ -99,7 +86,7 @@ module Cypress
       [error_map, error_attributes]
     end
 
-    def get_error_id(element, uuid)
+    def self.get_error_id(element, uuid)
       element = element.root if node_type(element.type) == :document
       element['error_id'] = uuid.generate.to_s unless element['error_id']
       element['error_id']
@@ -110,7 +97,7 @@ module Cypress
       7 => :instruction, 8 => :comment, 9 => :document, 10 => :doc_type, 11 => :doc_frag, 12 => :notaion
     }.freeze
 
-    def node_type(type)
+    def self.node_type(type)
       NODE_TYPES[type]
     end
   end

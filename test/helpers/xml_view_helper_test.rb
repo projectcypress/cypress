@@ -20,14 +20,14 @@ class XmlViewHelperTest < ActiveSupport::TestCase
   end
 
   def test_collected_errors
-    errs = collected_errors(@te)
+    errs = Cypress::ErrorCollector.collected_errors(@te)
     assert_equal 0, errs.nonfile.count
     assert_equal 1, errs.files.keys.count, 'should contain one file with errors'
     assert_equal %w[Errors Warnings], errs.files['0_Dental_Peds_A.xml'].keys, 'should contain right error keys for each file'
   end
 
   def test_popup_attributes_multiple_errors
-    errs = collected_errors(@te)
+    errs = Cypress::ErrorCollector.collected_errors(@te)
     error = errs.files['0_Dental_Peds_A.xml']['Errors'].execution_errors
     title, button_text, _message = popup_attributes(error)
     assert_match 'Execution Errors (2)', title
@@ -37,7 +37,7 @@ class XmlViewHelperTest < ActiveSupport::TestCase
   end
 
   def test_popup_attributes_one_error
-    errs = collected_errors(@te)
+    errs = Cypress::ErrorCollector.collected_errors(@te)
     error = [errs.files['0_Dental_Peds_A.xml']['Errors'].execution_errors.first] # get just one error
     title, button_text, message = popup_attributes(error)
 

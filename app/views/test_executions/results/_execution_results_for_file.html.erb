@@ -22,10 +22,10 @@
 </p>
 
 <% if (@task.is_a? CMSProgramTask) && @task.product_test.reporting_program_type == 'eh' %>
-  <%= render partial: 'test_executions/results/calculation_results_for_file', locals: { execution: execution, file_name: file_name, continuous_measures: continuous_measures, proportion_measures: proportion_measures, patient: patient } %>
+  <%= render partial: 'test_executions/results/calculation_results_for_file', locals: { execution: execution, file_name: file_name, continuous_measures: continuous_measures, proportion_measures: proportion_measures, patient: patient, export: export } %>
 <% end %>
 
-<% if on_execution_show_page %>
+<% if on_execution_show_page && !export %>
   <%= button_to 'View Uploaded XML with Errors', file_result_test_execution_path(execution, route_file_name(file_name)), :method => :get, :class => 'btn btn-primary' %>
   <br/>
 <% end %>
@@ -35,8 +35,12 @@
   <ul>
     <% error_result.each do |error_type, error_hash| %>
       <li>
-        <%= link_to "##{error_type.tr(' ', '_')}_#{identifier}" do %>
+        <% if export %>
           <%= error_type %> <span>(<%= error_hash.execution_errors.count %>)</span>
+        <% else %>
+          <%= link_to "##{error_type.tr(' ', '_')}_#{identifier}" do %>
+            <%= error_type %> <span>(<%= error_hash.execution_errors.count %>)</span>
+          <% end %>
         <% end %>
       </li>
     <% end %>
@@ -49,7 +53,7 @@
         <% pop_errors = population_data_errors(error_hash.execution_errors - report_sup_data_errors, 'population') %>
         <% pop_sum_errors = population_data_errors(error_hash.execution_errors - pop_errors, 'population_sum') %>
         <% non_pop_errors = error_hash.execution_errors - report_sup_data_errors - pop_errors - pop_sum_errors %>
-        <%= render partial: 'test_executions/results/error_table', locals: { errors: non_pop_errors, message_title: message_title } %>
+        <%= render partial: 'test_executions/results/error_table', locals: { errors: non_pop_errors, message_title: message_title, export: export} %>
         <%= render partial: 'test_executions/results/supplemental_data_error_table', locals: { errors: report_sup_data_errors + pop_errors + pop_sum_errors, pop_errors_hash: population_error_hash(pop_errors + pop_sum_errors, report_sup_data_errors) } %>
 
         <% unless on_execution_show_page %>

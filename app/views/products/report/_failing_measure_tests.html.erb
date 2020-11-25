@@ -34,7 +34,7 @@
       <% errors = execution.execution_errors %>
       <!-- C2 Tasks have complex error messages for population/demographic errors -->
       <% if task.is_a? C2Task
-        collected_errors = collected_errors(execution)
+        collected_errors = Cypress::ErrorCollector.collected_errors(execution)
         collected_errors.files.each do |file_name, error_result| %>
           <% error_result.each do |error_type, error_hash| %>
             <% report_sup_data_errors = population_data_errors(error_hash.execution_errors, 'supplemental_data') %>
@@ -42,7 +42,7 @@
             <% pop_sum_errors = population_data_errors(error_hash.execution_errors - pop_errors, 'population_sum') %>
             <% non_pop_errors = error_hash.execution_errors - report_sup_data_errors - pop_errors - pop_sum_errors %>
             <% errors = errors - report_sup_data_errors - pop_errors - pop_sum_errors - non_pop_errors %>
-            <%= render partial: 'test_executions/results/error_table', locals: { errors: non_pop_errors, message_title: error_type } %>
+            <%= render partial: 'test_executions/results/error_table', locals: { errors: non_pop_errors, message_title: error_type, export: false} %>
             <%= render partial: 'test_executions/results/supplemental_data_error_table', locals: { errors: report_sup_data_errors + pop_errors + pop_sum_errors, pop_errors_hash: population_error_hash(pop_errors + pop_sum_errors, report_sup_data_errors) } %>
           <% end %>
         <% end %>

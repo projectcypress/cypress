@@ -49,7 +49,7 @@ end %>
     </p>
   <% end %>
 
-  <% collected_errors = collected_errors(execution) %>
+  <% collected_errors = Cypress::ErrorCollector.collected_errors(execution) %>
 
   <% if collected_errors[:exception] %>
     <h2>An internal error occurred when loading this page</h2>
@@ -118,21 +118,21 @@ end %>
         file_name_id_hash.each do |file_name, patient|
           if files_with_errors.include?(file_name) %>
             <div id=<%= "#{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>>
-              <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: execution, file_name: file_name, error_result: collected_errors.files[file_name], is_passing: passing, on_execution_show_page: true, continuous_measures: continuous_measures, proportion_measures: proportion_measures, patient: patient } %>
+              <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: execution, file_name: file_name, error_result: collected_errors.files[file_name], is_passing: passing, on_execution_show_page: true, continuous_measures: continuous_measures, proportion_measures: proportion_measures, patient: patient, export: false } %>
             </div>
           <% else %>
             <div id=<%= "#{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>>
               <p class="lead">
                 <%= "#{file_name}" %>
               </p>
-              <%= render partial: 'test_executions/results/calculation_results_for_file', locals: { execution: execution, file_name: file_name, continuous_measures: continuous_measures, proportion_measures: proportion_measures, patient: patient } %>
+              <%= render partial: 'test_executions/results/calculation_results_for_file', locals: { execution: execution, file_name: file_name, continuous_measures: continuous_measures, proportion_measures: proportion_measures, patient: patient, export: false } %>
             </div>
           <% end %>
         <% end %>
       <% else %>
         <% collected_errors.files.each do |file_name, error_result| %>
           <div id=<%= "#{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>>
-            <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: execution, file_name: file_name, error_result: error_result, is_passing: passing, on_execution_show_page: true, continuous_measures: continuous_measures, proportion_measures: proportion_measures, patient: nil } %>
+            <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: execution, file_name: file_name, error_result: error_result, is_passing: passing, on_execution_show_page: true, continuous_measures: continuous_measures, proportion_measures: proportion_measures, patient: nil, export: false} %>
           </div>
         <% end %>
       <% end %>

@@ -224,7 +224,7 @@ class ProductReportTest < ActionController::TestCase
   def check_error_collector(test_execution)
     return unless test_execution.execution_errors.first.validator_type
 
-    collected_errors = collected_errors(test_execution)
+    collected_errors = Cypress::ErrorCollector.collected_errors(test_execution)
     error_count = collected_errors[:nonfile].size
     collected_errors[:files].each_value do |collected_error_values|
       error_count += collected_error_values['Errors'][:execution_errors].size

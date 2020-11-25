@@ -1,6 +1,5 @@
 module TestExecutionsHelper
   include TestExecutionsResultsHelper
-  include Cypress::ErrorCollector
 
   def displaying_cat1?(task)
     # A CMSProgramTask only uses the cat I upload when the reporting_program_type is eh
@@ -91,12 +90,8 @@ module TestExecutionsHelper
   end
 
   def execution_status_class(execution)
-    case execution.status_with_sibling
-    when 'incomplete' then 'info'
-    when 'passing' then 'success'
-    when 'errored' then 'warning'
-    else 'danger'
-    end
+    status = { 'incomplete' => 'info', 'passing' => 'success', 'errored' => 'warning' }[execution.status_with_sibling]
+    status || 'danger'
   end
 
   def info_title_for_product_test(product_test)
@@ -107,6 +102,19 @@ module TestExecutionsHelper
     when MultiMeasureTest then product_test.reporting_program_type == 'eh' ? 'EH Measures Test' : 'EP/EC Measures Test'
     else 'Test Information'
     end
+  end
+
+  # returns [file_name, error_result]
+  def file_name_and_error_result_from_execution(execution)
+    errs = Cypress::ErrorCollector.collected_errors(execution)
+    files = errs.files.select { |file_name, _| route_file_name(file_name) == params[:file_name] }
+    file_name_and_error_result_from_files(files, params[:file_name])
+  end
+
+  def file_name_and_error_result_from_files(files, file_name)
+    [files.first[0], files.first[1]]
+  rescue
+    raise Mongoid::Errors::DocumentNotFound.new Cypress::ErrorCollector::FileNotFound, "could not find results for file #{file_name}"
   end
 
   def route_file_name(file_name)
