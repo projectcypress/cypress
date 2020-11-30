@@ -39,7 +39,6 @@ env:
   - TEST_SUITE=audit
   - TEST_SUITE=cucumber-first
   - TEST_SUITE=cucumber-second
-  - TEST_SUITE=integration
   - TEST_SUITE=units
 script:
   - 'if [ ${TEST_SUITE} = "audit" ]; then
@@ -50,8 +49,6 @@ script:
       bundle exec cucumber features/admin/ features/checklist_tests/ features/filtering_tests/ features/measure_tests/ features/multi_measure_tests/;
     elif [ ${TEST_SUITE} = "cucumber-second" ]; then
       bundle exec cucumber features/products/ features/program_tests/ features/records/ features/users/ features/vendors/;
-    elif [ ${TEST_SUITE} = "integration" ]; then
-      RUBYOPT="-W0" bundle exec rake test:integration;
     else
       RUBYOPT="-W0" bundle exec rake test:units test:controllers test:helpers test:jobs;
     fi'
