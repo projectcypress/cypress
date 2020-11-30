@@ -26,11 +26,11 @@ module Validators
           # Otherwise, check proportion population are reported correctly
           validate_populations(measure_id, pop_counts, options)
         end
-        validate_population_ids(document, options)
       rescue StandardError => e
         # do nothing, if we get an exception the file is probably broken in some way
         Rails.logger.error(e)
       end
+      validate_population_ids(document, options)
     end
 
     def validate_populations(measure, pop, options)
@@ -53,16 +53,16 @@ module Validators
     end
 
     def validate_population_ids(doc, options)
-      doc.xpath(measure_hqmf_id_selector).each do |measure_ids|
-        measure = options['test_execution'].task.bundle.measures.find_by(hqmf_id: measure_ids.value.upcase)
-        measure.population_sets_and_stratifications_for_measure.each do |sets|
-          results, _errors = extract_results_by_ids(measure, sets[:population_set_id], doc, sets[:stratification_id])
+      doc.xpath(measure_hqmf_id_selector).each do |measure_id|
+        measure = options['test_execution'].task.bundle.measures.find_by(hqmf_id: measure_id.value.upcase)
+        measure.population_sets_and_stratifications_for_measure.each do |set|
+          results, _errors = extract_results_by_ids(measure, set[:population_set_id], doc, set[:stratification_id])
           measure.population_keys.each do |key|
             next if results[key]
 
-            population = measure.population_sets.select { |pset| pset[:population_set_id] == sets[:population_set_id] }.first.populations[key]
+            population = measure.population_sets.select { |pset| pset[:population_set_id] == set[:population_set_id] }.first.populations[key]
             add_error("#{key} (#{population['hqmf_id']}) is missing"\
-            " for #{measure.cms_id}", location: measure_ids.parent.path, file_name: options[:file_name])
+            " for #{measure.cms_id}", location: measure_id.parent.path, file_name: options[:file_name])
           end
         end
       end
