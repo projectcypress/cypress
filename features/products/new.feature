@@ -8,32 +8,22 @@ Scenario: View Create Product Page
   When the user navigates to the create product page
   Then the default bundle should be pre-selected
   Then the shift_records option should not be pre-selected
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
 
 Scenario: Successfully Create Product
   When the user creates a product using appropriate information
   Then the user should see a notification saying the product was created
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
 
 Scenario: Unsuccessful Create Product Because No Name
   When the user creates a product with no name
   Then the user should not be able to create a product
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
 
 Scenario: Unsuccessful Create Product Because Name Taken
   When the user creates two products with the same name
   Then the user should see an error message saying "name was already taken"
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
 
 Scenario: Unsuccessful Create Product Because No Task Type Selected
   When the user creates a product with no task type
   Then the user should not be able to create a product
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
 
 Scenario: Successful Create Product with debug mode off and C2 Type selected
   When debug mode is false
@@ -50,21 +40,15 @@ Scenario: Successful Create Product with debug mode off and C1 Type selected
 Scenario: Successful Create Product with Multiple Measures From Different Groups
   When the user creates a product with multiple measures from different groups
   Then the user should see a notification saying the product was created
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
 
 Scenario: Successful Create Product with Group of Measures
   When the user creates a product with selecting a group of measures
   Then the user should see a notification saying the product was created
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
 
 Scenario: Measure Group Unchecked After Deselecting Measure In Group
   When the user fills out all product information but measures
   And the user selects a group of measures but deselects one
   Then the group of measures should no longer be selected
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
 
 Scenario: Filtering does not clear selected measures
   When the user navigates to the create product page
@@ -115,8 +99,6 @@ Scenario: Checking CVU+ Product updates Bundle Options
   Then "Include bundle patients" checkbox should be checked
   Then "Include vendor patients" checkbox should be enabled
   Then "Include vendor patients" checkbox should be unchecked
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
 
 Scenario: Checking Certification Product updates Bundle Options
   When the user navigates to the create product page
@@ -125,8 +107,6 @@ Scenario: Checking Certification Product updates Bundle Options
   Then "Include bundle patients" input should be disabled
   Then "Include vendor patients" input should be invisible
   Then "Include vendor patients" input should be disabled
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
 
   Scenario: Checking Certification Product updates Bundle Options after Enabling CVU+
   When the user creates a cvu+ product then selects certification product
@@ -137,5 +117,3 @@ Scenario: Checking Certification Product updates Bundle Options
 Scenario: Successful Cancel Create Product
   When the user cancels creating a product
   Then the user should not see the product
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
