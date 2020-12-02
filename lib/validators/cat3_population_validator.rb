@@ -5,10 +5,18 @@ module Validators
     include Validators::Validator
     include ::CqmValidators::ReportedResultExtractor
 
+    # These are the demographic codes specified in the CMS IG for Payer, Sex, Race and Ethnicity
+    REQUIRED_CODES = { 'PAYER' => %w[A B C D],
+                       'SEX' => %w[M F],
+                       'RACE' => %w[2106-3 2076-8 2054-5 2028-9 1002-5 2131-1],
+                       'ETHNICITY' => %w[2135-2 2186-5] }.freeze
+
     def initialize; end
 
     def validate(file, options = {})
       document = get_document(file)
+      # Set missing codes to false by default
+      @missing_codes = { 'PAYER' => false, 'SEX' => false, 'RACE' => false, 'ETHNICITY' => false }
       document.xpath(measure_entry_selector).each do |measure|
         pop_counts = {}
         measure_id = measure.at_xpath(measure_id_selector).value
@@ -53,19 +61,44 @@ module Validators
     end
 
     def validate_population_ids(doc, options)
-      doc.xpath(measure_hqmf_id_selector).each do |measure_id|
+      measure_ids_from_file(doc).each do |measure_id|
         measure = options['test_execution'].task.bundle.measures.find_by(hqmf_id: measure_id.value.upcase)
-        measure.population_sets_and_stratifications_for_measure.each do |set|
-          results, _errors = extract_results_by_ids(measure, set[:population_set_id], doc, set[:stratification_id])
+        measure.population_sets_and_stratifications_for_measure.each do |pop_set_hash|
+          results, _errors = extract_results_by_ids(measure, pop_set_hash[:population_set_id], doc, pop_set_hash[:stratification_id])
           measure.population_keys.each do |key|
             next if results[key]
 
-            population = measure.population_sets.select { |pset| pset[:population_set_id] == set[:population_set_id] }.first.populations[key]
+            population = measure.population_sets.select { |pset| pset[:population_set_id] == pop_set_hash[:population_set_id] }.first.populations[key]
             add_error("#{key} (#{population['hqmf_id']}) is missing"\
             " for #{measure.cms_id}", location: measure_id.parent.path, file_name: options[:file_name])
+            validate_demographics(results, key, options)
           end
         end
       end
+    end
+
+    def validate_demographics(reported_result, pop_key, options)
+      #  Skip demographic validators if population is missing
+      # Skip if there is a stratification_id.  Stratifications do not report demographics
+      return if reported_result[pop_key].nil? || pop_set_hash[:stratification_id]
+
+      verify_all_codes_reported(reported_result, pop_key, 'PAYER', options) unless @missing_codes['PAYER']
+      verify_all_codes_reported(reported_result, pop_key, 'SEX', options) unless @missing_codes['SEX']
+      verify_all_codes_reported(reported_result, pop_key, 'RACE', options) unless @missing_codes['RACE']
+      verify_all_codes_reported(reported_result, pop_key, 'ETHNICITY', options) unless @missing_codes['ETHNICITY']
+    end
+
+    # Verifiy that all demographic codes for a sup_key (e.g., RACE) are present for a pop_key (e.g., DENOM) in a reported result
+    def verify_all_codes_reported(reported_result, pop_key, sup_key, options)
+      reported_codes = reported_result[:supplemental_data][pop_key][sup_key]
+      required_codes = REQUIRED_CODES[sup_key]
+      missing_codes = required_codes - reported_codes.keys
+      return if missing_codes.empty?
+
+      msg = "For CMS eligible clinicians and eligible professionals programs, all #{sup_key} codes present in the value set must be reported," \
+      'even if the count is zero. If an eCQM is episode-based, the count will reflect the patient count rather than the episode count.'
+      add_error(msg, file_name: options[:file_name])
+      @missing_codes[sup_key] = true
     end
 
     def validate_cv_populations(measure, pop, options)
@@ -101,15 +134,13 @@ module Validators
       'cda:value/@code'
     end
 
-    def population_count_selector
-      "cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.3']"\
-      " and ./cda:code[@code='MSRAGG'] and ./cda:methodCode[@code='COUNT']]/cda:value/@value"
-    end
+    def measure_ids_from_file(doc)
+      measure_ids = doc.xpath("//cda:entry/cda:organizer[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1']]" \
+        "/cda:reference[@typeCode='REFR']/cda:externalDocument[@classCode='DOC']" \
+        "/cda:id[@root='2.16.840.1.113883.4.738']/@extension")
+      return nil unless measure_ids
 
-    def measure_hqmf_id_selector
-      '/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/cda:entry' \
-        "/cda:organizer[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1']]/cda:reference[@typeCode='REFR']" \
-        "/cda:externalDocument[@classCode='DOC']/cda:id[@root='2.16.840.1.113883.4.738']/@extension"
+      measure_ids
     end
   end
 end

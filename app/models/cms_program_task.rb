@@ -90,8 +90,7 @@ class CMSProgramTask < Task
   def ep_validators
     [::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version, false),
      ::Validators::QrdaCat3Validator.new(nil, false, true, false, product_test.bundle),
-     Cat3PopulationValidator.new,
-     CMSPopulationCountValidator.new]
+     Cat3PopulationValidator.new]
   end
 
   # Program Specific fields to be added to checklist portion of test
