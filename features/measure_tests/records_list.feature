@@ -11,5 +11,3 @@ Scenario: Admin should be able to view calculation results
   And the user views task c1
   And the user views the task records
   Then the user should see calculation results
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa

@@ -45,16 +45,12 @@ Scenario: Successful Download All Patients
   And all product tests have a state of ready
   And the user visits the product page
   Then the user should be able to download all patients
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
 
 Scenario: Cannot View Download All Patients
   When a user creates a product with c2 certifications and visits that product page
   And all product tests do not have a state of ready
   And the user visits the product page
   Then the user should not be able to download all patients
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
 
 Scenario: Can Download Report
   When a user creates a product with c2 certifications and visits that product page

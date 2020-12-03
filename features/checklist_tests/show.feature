@@ -10,8 +10,6 @@ Scenario: Successful Revisit Checklist Test
   And the user views that product
   And the user views the record sample tab
   Then the user should see a button to revisit the checklist test
-  Then the page should be accessible according to: section508
-  Then the page should be accessible according to: wcag2aa
 
 Scenario: Fill Out Checklist Incorrectly Produces Errors
   When the user creates a product that certifies c1 and visits the record sample page
