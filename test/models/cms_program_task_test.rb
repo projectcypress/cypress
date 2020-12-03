@@ -55,7 +55,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
       assert_equal 2, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
       assert_equal 39, te.execution_errors.where(validator: 'Validators::CMSQRDA3SchematronValidator').size
-      assert_equal 4, te.execution_errors.where(validator: 'Validators::CMSPopulationCountValidator').size # One for each demographic
+      assert_equal 4, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size # One for each demographic
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::EHRCertificationIdValidator').size
     end

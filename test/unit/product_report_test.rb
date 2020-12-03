@@ -47,12 +47,6 @@ class ProductReportTest < ActionController::TestCase
         'report_text' => 'CMS159v8 - patient_characteristic, expired not complete'
       }
     ],
-    'CMSPopulationCountValidator' => [
-      {
-        'factory_name' => :cms_population_count_validator_verify_all_codes_reported,
-        'report_text' => 'all PAYER codes present'
-      }
-    ],
     'CMSProgramTest' => [
       {
         'factory_name' => :cms_program_test_build_execution_errors_for_incomplete_cms_criteria,
