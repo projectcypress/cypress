@@ -45,7 +45,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
         @bundle = Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new, false)
         # Pick 2 random EH measures
         eh_measures = @bundle.measures.where(reporting_program_type: 'eh').distinct(:hqmf_id).sample(2)
-        # Pick 2 random EH measures
+        # Pick 8 random EP measures
         ep_measures = @bundle.measures.where(reporting_program_type: 'ep').distinct(:hqmf_id).sample(8)
         measure_ids = eh_measures + ep_measures
         @vendor = Vendor.find_or_create_by(name: 'MeasureEvaluationVendor')
@@ -101,9 +101,17 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
 
   def perform_measure_tests
     @product.product_tests.measure_tests.each do |mt|
+      # Iterate through all patients and randomly swap relevant times. These will be reflected in the downloaded QRDA files.
+      # When re-imported, the new calculations should match the expected.
+      mt.patients.each do |patient|
+        next unless [true, false].sample
+
+        swap_relevant_times(patient)
+        patient.save
+      end
       # save test deck for measure test
       File.open("tmp/#{mt.id}.zip", 'wb') do |output|
-        output.write(mt.patient_archive.read)
+        output.write(mt.tasks.c1_task.good_results)
       end
       upload_test_artifacts('C1Task', 'C2Task', mt)
       delete_test_zip_files(mt)
@@ -136,6 +144,9 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     import_cat1_zip(File.new("tmp/#{product_test.id}.zip"), patient_id_file_map)
 
     patients = Patient.find(patient_id_file_map.values)
+    # We need to normalize_date_times prior to calculating our Cat III
+    patients.map(&:normalize_date_times)
+
     # Use ApiMeasureEvaluator to call cqm-execution-service
     @apime.do_calculation(product_test, patients, correlation_id)
 
@@ -198,5 +209,25 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     File.delete("tmp/#{test.id}_only_ipp.zip")
     File.delete("tmp/#{test.id}.zip")
     File.delete("tmp/#{test.id}.xml")
+  end
+
+  # if a data element uses relevant dateTime, swap to relevant period
+  # if a data element uses relevant period, swap to relevant dateTime
+  def swap_relevant_times(patient)
+    patient.qdmPatient.dataElements.each do |de|
+      next unless de.respond_to?(:relevantDatetime) && de.respond_to?(:relevantPeriod)
+
+      if de.relevantDatetime
+        de.relevantPeriod = QDM::Interval.new(de.relevantDatetime, de.relevantDatetime).shift_dates(0)
+        de.relevantDatetime = nil
+      elsif de.relevantPeriod
+        # Don't swap Relevant Periods that are ongoing or longer than 1 minute
+        next if de.relevantPeriod.high.nil? || de.relevantPeriod.low.nil?
+        next if ((de.relevantPeriod.high - de.relevantPeriod.low) / 60) > 1
+
+        de.relevantDatetime = de.relevantPeriod.low
+        de.relevantPeriod = nil
+      end
+    end
   end
 end

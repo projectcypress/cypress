@@ -33,6 +33,7 @@ module Validators
       return false unless mrn
 
       record = parse_record(doc, options)
+      record.normalize_date_times
       return false unless record
 
       product_test = options['task'].product_test
