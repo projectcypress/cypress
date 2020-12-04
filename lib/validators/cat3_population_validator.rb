@@ -66,18 +66,18 @@ module Validators
         measure.population_sets_and_stratifications_for_measure.each do |pop_set_hash|
           results, _errors = extract_results_by_ids(measure, pop_set_hash[:population_set_id], doc, pop_set_hash[:stratification_id])
           measure.population_keys.each do |key|
+            validate_demographics(results, key, pop_set_hash, options)
             next if results[key]
 
             population = measure.population_sets.select { |pset| pset[:population_set_id] == pop_set_hash[:population_set_id] }.first.populations[key]
             add_error("#{key} (#{population['hqmf_id']}) is missing"\
             " for #{measure.cms_id}", location: measure_id.parent.path, file_name: options[:file_name])
-            validate_demographics(results, key, options)
           end
         end
       end
     end
 
-    def validate_demographics(reported_result, pop_key, options)
+    def validate_demographics(reported_result, pop_key, pop_set_hash, options)
       #  Skip demographic validators if population is missing
       # Skip if there is a stratification_id.  Stratifications do not report demographics
       return if reported_result[pop_key].nil? || pop_set_hash[:stratification_id]

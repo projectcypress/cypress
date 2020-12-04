@@ -68,9 +68,9 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 4, te.execution_errors.size
+      assert_equal 14, te.execution_errors.size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
-      assert_equal 2, te.execution_errors.where(validator: 'CqmValidators::Cat3Measure').size
+      assert_equal 12, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
     end
   end
@@ -82,9 +82,9 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 7, te.execution_errors.size
+      assert_equal 17, te.execution_errors.size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
-      assert_equal 2, te.execution_errors.where(validator: 'CqmValidators::Cat3Measure').size
+      assert_equal 12, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size
       assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
     end
   end
