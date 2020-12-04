@@ -78,6 +78,7 @@ module Validators
     end
 
     def validate_demographics(reported_result, pop_key, pop_set_hash, options)
+      return unless %w[CMSProgramTask C3Cat3Task MultiMeasureCat3Task].include? options['test_execution'].task._type
       #  Skip demographic validators if population is missing
       # Skip if there is a stratification_id.  Stratifications do not report demographics
       return if reported_result[pop_key].nil? || pop_set_hash[:stratification_id]
@@ -132,6 +133,11 @@ module Validators
 
     def population_name_selector
       'cda:value/@code'
+    end
+
+    def population_count_selector
+      "cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.3']"\
+      " and ./cda:code[@code='MSRAGG'] and ./cda:methodCode[@code='COUNT']]/cda:value/@value"
     end
 
     def measure_ids_from_file(doc)
