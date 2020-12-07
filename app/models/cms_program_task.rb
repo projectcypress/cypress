@@ -35,7 +35,7 @@ class CMSProgramTask < Task
       # ProgramCriteriaValidator is how the measure calculation is being called. Add it as well to Cat I files
       [::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.c3_test, true), ProgramCriteriaValidator.new(product_test)]
     else
-      [::Validators::QrdaCat3Validator.new(nil, false, true, false, product_test.bundle)]
+      [::Validators::QrdaCat3Validator.new(nil, false, true, false, product_test.bundle), Cat3PopulationValidator.new]
     end
   end
 
@@ -90,8 +90,7 @@ class CMSProgramTask < Task
   def ep_validators
     [::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version, false),
      ::Validators::QrdaCat3Validator.new(nil, false, true, false, product_test.bundle),
-     Cat3PopulationValidator.new,
-     CMSPopulationCountValidator.new]
+     Cat3PopulationValidator.new]
   end
 
   # Program Specific fields to be added to checklist portion of test

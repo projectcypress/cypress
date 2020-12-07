@@ -55,7 +55,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
       assert_equal 2, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
       assert_equal 39, te.execution_errors.where(validator: 'Validators::CMSQRDA3SchematronValidator').size
-      assert_equal 4, te.execution_errors.where(validator: 'Validators::CMSPopulationCountValidator').size # One for each demographic
+      assert_equal 4, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size # One for each demographic
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::EHRCertificationIdValidator').size
     end
@@ -68,9 +68,9 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 4, te.execution_errors.size
+      assert_equal 14, te.execution_errors.size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
-      assert_equal 2, te.execution_errors.where(validator: 'CqmValidators::Cat3Measure').size
+      assert_equal 12, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
     end
   end
@@ -82,9 +82,9 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 7, te.execution_errors.size
+      assert_equal 17, te.execution_errors.size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
-      assert_equal 2, te.execution_errors.where(validator: 'CqmValidators::Cat3Measure').size
+      assert_equal 12, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size
       assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
     end
   end

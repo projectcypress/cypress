@@ -3,6 +3,11 @@ class Cat3PopulationValidatorTest < ActiveSupport::TestCase
   include ::Validators
 
   def setup
+    @product_test = FactoryBot.create(:product_test_static_result)
+    @task = C2Task.new
+    @task.product_test = @product_test
+    @test_execution = FactoryBot.build(:test_execution)
+    @task.test_executions << @test_execution
     @validator = Validators::Cat3PopulationValidator.new
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')).read
     @document = get_document(file)
@@ -11,7 +16,7 @@ class Cat3PopulationValidatorTest < ActiveSupport::TestCase
   def test_document_with_bad_data
     numer_greater_than_denom(@document)
 
-    @validator.validate(@document)
+    @validator.validate(@document, 'test_execution' => @test_execution)
 
     assert_equal 1, @validator.errors.count
 
@@ -21,7 +26,7 @@ class Cat3PopulationValidatorTest < ActiveSupport::TestCase
   end
 
   def test_good_document
-    @validator.validate(@document)
+    @validator.validate(@document, 'test_execution' => @test_execution)
 
     assert_empty @validator.errors, "Expected no errors for good Cat 3 document, found #{@validator.errors}"
   end
@@ -29,7 +34,7 @@ class Cat3PopulationValidatorTest < ActiveSupport::TestCase
   def test_no_exception_thrown_on_bad_document
     @document.xpath('/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component').each(&:remove)
 
-    @validator.validate(@document)
+    @validator.validate(@document, 'test_execution' => @test_execution)
 
     assert @validator.errors
   end
