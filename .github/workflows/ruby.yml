@@ -33,5 +33,6 @@ jobs:
         nvm install 10.0
         nvm use stable
         npm install -g eslint
+        bundle install
     - name: Run tests
       run: bundle exec bundle-audit check --update && bundle exec overcommit --sign && bundle exec overcommit --run
