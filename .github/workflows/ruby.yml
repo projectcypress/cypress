@@ -32,7 +32,10 @@ jobs:
         . $HOME/.nvm/nvm.sh
         nvm install 10.0
         nvm use stable
-        npm install -g eslint
         bundle install
     - name: Run tests
-      run: bundle exec bundle-audit check --update && bundle exec overcommit --sign && bundle exec overcommit --run
+      run: |
+        npm install -g eslint
+        bundle exec bundle-audit check --update
+        bundle exec overcommit --sign
+        bundle exec overcommit --run
