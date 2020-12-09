@@ -222,7 +222,6 @@ class ProductReportTest < ActionController::TestCase
   end
 
   test 'should generate calculations in a report' do
-    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     vendor = FactoryBot.create(:vendor)
     bundle = FactoryBot.create(:static_bundle)
 
@@ -230,7 +229,7 @@ class ProductReportTest < ActionController::TestCase
     product = vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
                                      bundle_id: bundle.id)
 
-    params = { measure_ids: measure_ids, 'cvuplus' => 'true' }
+    params = { measure_ids: measure_ids }
     perform_enqueued_jobs do
       product.update_with_tests(params)
       product.save
@@ -239,7 +238,7 @@ class ProductReportTest < ActionController::TestCase
 
     perform_enqueued_jobs do
       zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
-      hl7_test.tasks.first.execute(zip, user)
+      hl7_test.tasks.first.execute(zip, @user)
     end
 
     testfile = Tempfile.new(['report', '.zip'])
