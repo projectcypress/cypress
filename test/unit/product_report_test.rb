@@ -221,6 +221,43 @@ class ProductReportTest < ActionController::TestCase
     end
   end
 
+  test 'should generate calculations in a report' do
+    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+    vendor = FactoryBot.create(:vendor)
+    bundle = FactoryBot.create(:static_bundle)
+
+    measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE', '40280382-5FA6-FE85-0160-0918E74D2075']
+    product = vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
+                                     bundle_id: bundle.id)
+
+    params = { measure_ids: measure_ids, 'cvuplus' => 'true' }
+    perform_enqueued_jobs do
+      product.update_with_tests(params)
+      product.save
+    end
+    hl7_test = product.product_tests.cms_program_tests.find_by(cms_program: 'HL7_Cat_I')
+
+    perform_enqueued_jobs do
+      zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
+      hl7_test.tasks.first.execute(zip, user)
+    end
+
+    testfile = Tempfile.new(['report', '.zip'])
+
+    @controller = ProductsController.new
+    for_each_logged_in_user([ATL]) do
+      get :report, params: { format: :format_does_not_matter, vendor_id: vendor.id, id: product.id }
+      testfile.write response.body
+    end
+    # Open zipfile to find report
+    Zip::File.open(testfile.path, Zip::File::CREATE) do |zip|
+      report_html = Nokogiri::HTML.parse(zip.read('cms-program-tests/hl7-cat-i/calculations/0_Dental_Peds_A.xml.html'))
+      assert report_html.at("th:contains('CMS32v7 - PopulationCriteria1')"), 'calculations missing for upload'
+    end
+    # Clean up
+    testfile.unlink
+  end
+
   def check_error_collector(test_execution)
     return unless test_execution.execution_errors.first.validator_type
 

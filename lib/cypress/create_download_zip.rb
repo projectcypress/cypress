@@ -53,7 +53,7 @@ module Cypress
 
         if product_test.is_a?(CMSProgramTest)
           # append test type
-          folder_name = "#{folder_name}/#{product_test.name}"
+          folder_name = "#{folder_name}#{product_test.cms_program.underscore.dasherize}"
           options[:report_hash][product_test.name].each do |file_name, text|
             add_file_to_zip(z, "#{folder_name}/calculations/#{file_name}.html", text)
           end
