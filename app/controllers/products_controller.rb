@@ -133,15 +133,10 @@ class ProductsController < ApplicationController
         @task = t
         @individual_results = individual_results
         errors = Cypress::ErrorCollector.collected_errors(most_recent_execution).files
-        most_recent_execution.artifact.file_names.each do |file_name|
-          begin
-            Cypress::ErrorCollector.get_file(most_recent_execution.artifact, file_name)
-          rescue Nokogiri::XML::SyntaxError
-            next
-            # ignore unusable file (likely system artifact or other)
-          end
+        file_name_id_hash.keys.each do |file_name|
           error_result = errors[file_name]
           patient = file_name_id_hash[file_name]
+          next unless patient
           html = if error_result
                    render_to_string partial: 'test_executions/results/execution_results_for_file', locals: {
                      execution: most_recent_execution,
