@@ -28,6 +28,10 @@ jobs:
       with:
         ruby-version: 2.6.3
     - name: Install dependencies
-      run: bundle install
+      run: |
+        . $HOME/.nvm/nvm.sh
+        nvm install 10.0
+        nvm use stable
+        install -g eslint
     - name: Run tests
       run: bundle exec bundle-audit check --update && bundle exec overcommit --sign && bundle exec overcommit --run
