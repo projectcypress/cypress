@@ -3,7 +3,8 @@ module Cypress
     class FileNotFound < StandardError
     end
 
-    def self.collected_errors(execution)
+    # include_locations (default true) to include the xml locations mapping with collected errors
+    def self.collected_errors(execution, include_locations = true)
       # gonna return all the errors for this execution, structured in a reasonable way.
       collected_errors = { nonfile: get_nonfile_errors(execution), files: {} }
       execution.artifact.file_names.each do |this_name|
@@ -11,7 +12,7 @@ module Cypress
         related_errs = execution.sibling_execution ? execution.sibling_execution.execution_errors.by_file(this_name) : [] # c3
         next unless (all_errs.count + related_errs.count).positive?
 
-        doc = get_file(execution.artifact, this_name)
+        doc = include_locations ? get_file(execution.artifact, this_name) : nil
         collected_errors[:files][this_name] = create_file_error_hash(doc, all_errs, related_errs)
       end
       collected_errors
@@ -68,6 +69,9 @@ module Cypress
       uuid = UUID.new
       error_map = {}        # error_map[error_location] == xml_element_error_id
       error_attributes = [] # only gives error attribute if element has class Nokogiri::XML::Attr
+      # If no doc is provided don't look for xml mappings
+      return [error_map, error_attributes] unless doc
+
       locations = errors.collect(&:location).compact
 
       locations.each do |location|
