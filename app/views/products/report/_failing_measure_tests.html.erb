@@ -47,10 +47,12 @@
           <% end %>
         <% end %>
       <% end %>
-      <% unless errors.empty? || errors.only_errors.empty? %>
+      <% only_error_list = errors.select { |e| e.msg_type == :error } %>
+      <% only_warning_list = errors.select { |e| e.msg_type == :warning } %>
+      <% unless only_error_list.empty? %>
         <li>Errors</li>
         <ul>
-        <% errors.only_errors.each do |err| %>
+        <% only_error_list.each do |err| %>
           <li>
             <%= err.message.encode('ASCII', invalid: :replace, undef: :replace) %>
             <%= " (#{err.file_name})" if err.has_attribute?('file_name') && err.file_name != '' %>
@@ -58,10 +60,10 @@
         <% end %>
       </ul>
       <% end %>
-      <% unless errors.empty? || errors.only_warnings.empty? %>
+      <% unless only_warning_list.empty? %>
         <li>Warnings</li>
         <ul>
-        <% errors.only_warnings.each do |err| %>
+        <% only_warning_list.each do |err| %>
           <li>
             <%= err.message.encode('ASCII', invalid: :replace, undef: :replace) %>
             <%= " (#{err.file_name})" if err.has_attribute?('file_name') && err.file_name != '' %>
