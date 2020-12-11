@@ -192,9 +192,11 @@ class ProductReportTest < ActionController::TestCase
         # add error message
         if random.rand(2).zero?
           build_execution_error(te, sample_error_hash['factory_name'], ste)
+          build_execution_error(te, TEST_EXECUTION_ERROR_HASH[TEST_EXECUTION_ERROR_HASH.keys.sample].sample['factory_name'], ste, false)
           check_error_collector(te)
         else
           build_execution_error(ste, sample_error_hash['factory_name'], te)
+          build_execution_error(ste, TEST_EXECUTION_ERROR_HASH[TEST_EXECUTION_ERROR_HASH.keys.sample].sample['factory_name'], te, false)
           check_error_collector(ste)
         end
         te.save
@@ -269,13 +271,17 @@ class ProductReportTest < ActionController::TestCase
     assert_equal error_count, test_execution.execution_errors.size
   end
 
-  def build_execution_error(test_execution, factory_name, sibling_execution)
-    # A test execution needs an artifact, since we are always using a C2 test execution, create a Cat 3 artifact
-    file_name = 'cat_III/ep_test_qrda_cat3_good.xml'
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', file_name))
-    Artifact.create!(test_execution: test_execution, file: file)
-    Artifact.create!(test_execution: sibling_execution, file: file)
+  def build_execution_error(test_execution, factory_name, sibling_execution, include_file = true)
     sibling_execution.state = :passed
-    FactoryBot.create(factory_name, test_execution: test_execution, file_name: file_name.split('/')[1])
+    if include_file
+      # A test execution needs an artifact, since we are always using a C2 test execution, create a Cat 3 artifact
+      file_name = 'cat_III/ep_test_qrda_cat3_good.xml'
+      file = File.new(Rails.root.join('test', 'fixtures', 'qrda', file_name))
+      Artifact.create!(test_execution: test_execution, file: file)
+      Artifact.create!(test_execution: sibling_execution, file: file)
+      FactoryBot.create(factory_name, test_execution: test_execution, file_name: file_name.split('/')[1])
+    else
+      FactoryBot.create(factory_name, test_execution: test_execution)
+    end
   end
 end
