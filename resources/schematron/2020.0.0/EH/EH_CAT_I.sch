@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 EH CMS 2021 QRDA Category I
-Version 1.0 
+Version 1.1 
 
     THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
     THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -83,10 +83,17 @@ Version 1.0
            
     
     REPORTING PERIOD: 2021
-    Version 1.0
+    Version 1.1
     
-    CMS-related changes in version 1.0 from 2020 Schematron:
+    December 2020: Changes in version 1.1 from version 1.0 2021 Schematron:
     
+            Template QRDA Category I Report CMS V7:
+            -  Corrected typo in 'such that' subclause text for 4444-16587_C01, to reflect the conformance ID used in the IG (4444-28497)
+            
+            Template Encounter Performed V5:
+            -  Added test enforcing having at most one diagnosis of rank = 1
+            
+    Changes in version 1.0 from 2020 Schematron:  
               
             Template QRDA Category I Report CMS V7:
             - Enforce the presence of the correct extension of 2020-02-01 in the templateId[@root='2.16.840.1.113883.10.20.24.1.3'].
@@ -185,7 +192,7 @@ Version 1.0
                 Symptom V3
                 Symptom Concern Act V4 
 
-Wed May 27 11:38:24 MDT 2020
+Thu Dec 10 09:44:31 MST 2020
 -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:svs="urn:ihe:iti:svs:2008" xmlns:voc="http://www.lantanagroup.com/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sch:ns prefix="voc" uri="http://www.lantanagroup.com/voc" />
@@ -1289,6 +1296,8 @@ Wed May 27 11:38:24 MDT 2020
       <sch:assert id="a-4444-29420-error" test="count(../../cda:templateId[@root='2.16.840.1.113883.10.20.24.3.133'][@extension='2019-12-01'])=1">This template SHALL be contained by an Encounter Performed Act (V3) (CONF:4444-29420).</sch:assert>
       <!-- 05-06-2020 Added 4444-30035 -->
       <sch:assert id="a-4444-30035-error" test="count(cda:entryRelationship[count(cda:act[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.80'][@extension='2015-08-01']])&gt;=1])=0">SHALL NOT contain [0..0] entryRelationship (CONF:4444-30035) such that it  SHALL contain one or more [1..*] Encounter Diagnosis (V3) (identifier: urn:hl7ii:2.16.840.1.113883.10.20.22.4.80:2015-08-01) (CONF:4444-30036).</sch:assert>
+      <!-- 11-04-2020 Added test for having at most one diagnosis of rank = 1 https://tracker.esacinc.com/browse/QRDA-938 -->
+      <sch:assert id="a-Diagnosis-Count-error" test="count(cda:entryRelationship[cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.168'][@extension='2019-12-01']][cda:entryRelationship[cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.166'][@extension='2019-12-01']]/cda:value[@xsi:type='INT'][@value=1]]]]) &lt;= 1">SHALL contain at most one Encounter Diagnosis QDM of rank 1, as principal diagnosis.</sch:assert>
     </sch:rule>
     <sch:rule id="Encounter-Performed-id-errors" context="cda:encounter[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.23'][@extension='2019-12-01']]/cda:id">
       <sch:assert id="a-4444-29418-error" test="@root">Such ids SHALL contain exactly one [1..1] @root (CONF:4444-29418).</sch:assert>
@@ -2607,7 +2616,7 @@ Wed May 27 11:38:24 MDT 2020
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="Procedure-Activity-Observation-pattern-extension-check">
-    <sch:rule id="Procedure-Activity-Observation-v" context="cda:observation/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.13']">
+    <sch:rule id="Procedure-Activity-Observation-extension-check" context="cda:observation/cda:templateId[@root='2.16.840.1.113883.10.20.22.4.13']">
       <sch:assert id="a-1098-8238-extension-error" test="@extension='2014-06-09'">SHALL contain exactly one [1..1] templateId (CONF:1098-8238) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.22.4.13" (CONF:1098-10520). SHALL contain exactly one [1..1] @extension="2014-06-09" (CONF:1098-32507).</sch:assert>
     </sch:rule>
   </sch:pattern>
@@ -3614,7 +3623,7 @@ Wed May 27 11:38:24 MDT 2020
     </sch:rule>
     <sch:rule id="QRDA_Category_I_Report_CMS-informationRecipient-intendedRecipient-id-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.24.1.3'][@extension='2020-02-01']]/cda:informationRecipient/cda:intendedRecipient/cda:id">
       <sch:assert id="a-CMS_0025-error" test="@root='2.16.840.1.113883.3.249.7'">This id SHALL contain exactly one [1..1] @root="2.16.840.1.113883.3.249.7" (CONF:CMS_0025).</sch:assert>
-      <!-- STATIC version in CMS_0026 changed to 2020-02-01  for 2021-->
+      <!-- STATIC version in CMS_0026 changed to 2020-02-01  for 2021 -->
       <sch:assert id="a-CMS_0026-error" test="@extension=document('voc.xml')/voc:systems/voc:system[@valueSetOid='2.16.840.1.113883.3.249.14.103']/voc:code/@value">This id SHALL contain exactly one [1..1] @extension, which SHALL be selected from ValueSet QRDA I CMS Program Name urn:oid:2.16.840.1.113883.3.249.14.103 STATIC 2020-02-01 (CONF:CMS_0026).</sch:assert>
     </sch:rule>
     <sch:rule id="QRDA_Category_I_Report_CMS-participant-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.24.1.3'][@extension='2020-02-01']]/cda:participant">
@@ -3924,7 +3933,7 @@ Wed May 27 11:38:24 MDT 2020
   <sch:pattern id="Planned-Procedure-pattern-warnings">
     <sch:rule id="Planned-Procedure-warnings" context="cda:procedure[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.41'][@extension='2014-06-09']]">
       <sch:assert id="a-1098-30447-warning" test="count(cda:effectiveTime)=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:1098-30447).</sch:assert>
-      <sch:assert id="a1098-31979-warning" test="count(cda:author[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.119']])&gt;=1">SHOULD contain zero or one [0..1] Author Participation (identifier: urn:oid:2.16.840.1.113883.10.20.22.4.119) (CONF:1098-31979).</sch:assert>
+      <sch:assert id="a-1098-31979-warning" test="count(cda:author[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.119']])&gt;=1">SHOULD contain zero or one [0..1] Author Participation (identifier: urn:oid:2.16.840.1.113883.10.20.22.4.119) (CONF:1098-31979).</sch:assert>
     </sch:rule>
     <sch:rule id="Planned-Procedure-code-warnings" context="cda:procedure[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.41'][@extension='2014-06-09']]/cda:code">
       <sch:assert id="a-1098-31977-warning" test="@codeSystem='2.16.840.1.113883.6.1' or @codeSystem='2.16.840.1.113883.6.96' or @codeSystem='2.16.840.1.113883.6.12' or @codeSystem='2.16.840.1.113883.6.4'">The procedure/code in a planned procedure SHOULD be selected from LOINC (codeSystem 2.16.840.1.113883.6.1) *OR* SNOMED CT (CodeSystem: 2.16.840.1.113883.6.96), and *MAY* be selected from CPT-4 (CodeSystem: 2.16.840.1.113883.6.12) *OR* ICD10 PCS (CodeSystem: 2.16.840.1.113883.6.4) (CONF:1098-31977).</sch:assert>
@@ -4182,7 +4191,8 @@ Wed May 27 11:38:24 MDT 2020
     </sch:rule>
     <sch:rule id="QRDA_Category_I_Report_CMS-documentationOf-serviceEvent-performer-assignedEntity-warnings" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.24.1.3'][@extension='2020-02-01']]/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity">
       <!-- Added _C01 suffix to 4444-16587. Updated conformance id for 4444-16588  for 2021, QRDA-631-->
-      <sch:assert id="a-4444-16587_C01-warning" test="count(cda:id[@root='2.16.840.1.113883.4.6']) = 1">This assignedEntity SHOULD contain zero or one [0..1] id (CONF:4444-16587_C01) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.4.6" National Provider ID (CONF:4444-16588).</sch:assert>
+      <!-- 12-07-2020 Corrected such that subclause text to reflect the conformance ID used in the IG (4444-28497). -->
+      <sch:assert id="a-4444-16587_C01-warning" test="count(cda:id[@root='2.16.840.1.113883.4.6']) = 1">This assignedEntity SHOULD contain zero or one [0..1] id (CONF:4444-16587_C01) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.4.6" National Provider ID (CONF:4444-28497).</sch:assert>
     </sch:rule>
   </sch:pattern>
 </sch:schema>
