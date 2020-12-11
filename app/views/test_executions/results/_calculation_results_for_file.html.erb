@@ -30,14 +30,30 @@
                       <% if value && value.positive? %>
                         <span class="sr-only">Pass</span>
                         <span class="fa-stack result-marker">
-                          <%= icon('fas fa-stack-2x', 'circle', :"aria-hidden" => true) %>
-                          <% unless value == 1 && m.calculation_method != 'EPISODE_OF_CARE' %>
-                            <strong class="fa-stack-1x result-text"><span class="sr-only">value of </span><%= value %></strong>
+                          <% if export %>
+                            <div class="exportcircle">
+                              <% unless value == 1 && m.calculation_method != 'EPISODE_OF_CARE' %>
+                                <strong class="fa-stack-1x result-text"><span class="sr-only">value of </span><%= value %></strong>
+                              <% end %>
+                            </div>
+                          <% else %>
+                            <%= icon('fas fa-stack-2x', 'circle', :"aria-hidden" => true) %>
+                            <% unless value == 1 && m.calculation_method != 'EPISODE_OF_CARE' %>
+                              <strong class="fa-stack-1x result-text"><span class="sr-only">value of </span><%= value %></strong>
+                            <% end %>
                           <% end %>
+
                         </span>
                       <% else %>
                         <span class="sr-only">Fail</span>
-                        <%= icon('far fa-2x empty-marker', 'circle', :"aria-hidden" => true) %>
+                        <% if export %>
+                          <span class="fa-stack result-marker">
+                            <div class="exportcircle exportcircle-empty"></div>
+                          </span>
+                        <% else %>
+                          <%= icon('far fa-2x empty-marker', 'circle', :"aria-hidden" => true) %>
+                        <% end %>
+
                       <% end %>
                     </td>
                   <% end %>

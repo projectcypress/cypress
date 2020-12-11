@@ -9,6 +9,7 @@ AllCops:
     - config/initializers/*
     - 'vendor/**/*'
     - 'lib/tasks/cucumber.rake'
+    - 'app/controllers/products_controller.rb'
 Rails:
   Enabled: true
 Rails/FindEach: # Find_each does not work with mongoid

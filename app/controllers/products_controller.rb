@@ -80,8 +80,96 @@ class ProductsController < ApplicationController
   # includes an html report plus all the test records and files
   def report
     report_content = render_to_string layout: 'report'
-    file = Cypress::CreateDownloadZip.create_combined_report_zip(@product, report_content)
+    file = if @product.cvuplus
+             Cypress::CreateDownloadZip.create_combined_report_zip(@product, report_content: report_content, report_hash: program_report_files)
+           else
+             Cypress::CreateDownloadZip.create_combined_report_zip(@product, report_content: report_content)
+           end
     send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "#{@product.name}_#{@product.id}_report.zip".tr(' ', '_')
+  end
+
+  def program_report_files
+    report_hash = {}
+    header = "<head>
+      <style type=\"text/css\">
+        #{Rails.application.assets_manifest.find_sources('application.css').first.to_s.html_safe}
+        .exportcircle {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background: #527E73;
+        }
+        .exportcircle-empty {
+          background: white;
+          border: 1px solid #527E73;
+        }
+      </style>
+    </head>"
+
+    @product.product_tests.each do |pt|
+      next unless pt.is_a?(CMSProgramTest)
+
+      report_hash[pt.name] = {}
+      pt.tasks.each do |t|
+        most_recent_execution = t.most_recent_execution
+        next unless most_recent_execution
+
+        # TODO: make sure report isn't available for download until individual results are available
+        individual_results = CQM::IndividualResult.where(
+          correlation_id: most_recent_execution.id
+        ).only(:IPP, :DENOM, :NUMER, :NUMEX, :DENEX, :DENEXCEP, :MSRPOPL, :OBSERV, :MSRPOPLEX, :measure_id, :patient_id, :file_name).to_a
+        uploaded_patients = Patient.where(correlation_id: most_recent_execution.id)
+        file_name_id_hash = {}
+        uploaded_patients.each { |uploaded_patient| file_name_id_hash[uploaded_patient['file_name']] = uploaded_patient if uploaded_patient['file_name'] }
+        individual_results.each do |ir|
+          next unless ir['file_name']
+          next if file_name_id_hash[ir['file_name']]
+
+          file_name_id_hash[ir['file_name']] = ir.patient
+        end
+
+        continuous_measures = t.measures.where(measure_scoring: 'CONTINUOUS_VARIABLE').only(:id, :population_sets, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }
+        proportion_measures = t.measures.where(measure_scoring: 'PROPORTION').only(:id, :population_sets, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }
+        @task = t
+        @individual_results = individual_results
+        errors = Cypress::ErrorCollector.collected_errors(most_recent_execution, false).files
+        file_name_id_hash.keys.each do |file_name|
+          error_result = errors[file_name]
+          patient = file_name_id_hash[file_name]
+          next unless patient
+          html = if error_result
+                   render_to_string partial: 'test_executions/results/execution_results_for_file', locals: {
+                     execution: most_recent_execution,
+                     file_name: file_name,
+                     error_result: error_result,
+                     is_passing: most_recent_execution.status_with_sibling == 'passing',
+                     on_execution_show_page: true,
+                     continuous_measures: continuous_measures,
+                     proportion_measures: proportion_measures,
+                     patient: patient,
+                     export: true
+                   }
+
+                 else
+                   render_to_string partial: 'test_executions/results/calculation_results_for_file', locals: {
+                     execution: most_recent_execution,
+                     file_name: file_name,
+                     error_result: error_result,
+                     is_passing: most_recent_execution.status_with_sibling == 'passing',
+                     on_execution_show_page: true,
+                     continuous_measures: continuous_measures,
+                     proportion_measures: proportion_measures,
+                     patient: patient,
+                     export: true
+                   }
+                 end
+          # note assumes 1 task per CMPSProgramTest producttest
+          report_hash[pt.name][file_name] = header + html
+        end
+      end
+    end
+
+    report_hash
   end
 
   def supplemental_test_artifact

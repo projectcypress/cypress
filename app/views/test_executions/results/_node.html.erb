@@ -19,7 +19,7 @@
       <span id = <%= "error_#{err.id}" %>></span>
     <% end %>
   <% end %>
-  <% case node_type(doc.node_type) %>
+  <% case Cypress::ErrorCollector.node_type(doc.node_type) %>
   <% when :element %>
     <% prefix = doc.namespace.nil? ? "" : (doc.namespace.prefix || "") %>
     <% doc_name = prefix == "" ? doc.name : "#{prefix}:#{doc.name}" %>
@@ -51,7 +51,7 @@
   <% end %>
 
   <% if doc.children.length.positive? %>
-    <% if node_type(doc.node_type) == :element %>
+    <% if Cypress::ErrorCollector.node_type(doc.node_type) == :element %>
       <span class="markup">&gt;</span></div>
       <% if error_id && errors && errors.count.positive? %>
         <% popup_title, popup_button_text, popup_content = popup_attributes(errors) %>
@@ -65,7 +65,7 @@
     <% end %>
 
     <% doc.children.each do |child| %>
-      <% case node_type(child.node_type) %>
+      <% case Cypress::ErrorCollector.node_type(child.node_type) %>
       <% when :attribute %>
         <% # should not happen but just in case %>
       <% when :text %>
@@ -89,13 +89,13 @@
       <% end %>
     <% end %>
 
-    <% if node_type(doc.node_type) == :element %>
+    <% if Cypress::ErrorCollector.node_type(doc.node_type) == :element %>
       <span class="markup">&lt;/</span><span class="end-tag"><%= doc_name %></span><span class="markup">&gt;</span>
     <% end %>
 
   <% # JB: doc has no children %>
   <% else %>
-    <% if node_type(doc.node_type) == :element %>
+    <% if Cypress::ErrorCollector.node_type(doc.node_type) == :element %>
       <span class="markup">/&gt;</span></div>
     <% end %>
   <% end %>

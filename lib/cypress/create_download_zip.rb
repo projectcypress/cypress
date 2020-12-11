@@ -27,10 +27,10 @@ module Cypress
       end
     end
 
-    def self.create_combined_report_zip(product, report_content)
+    def self.create_combined_report_zip(product, options)
       file = Tempfile.new("combined-report-#{Time.now.to_i}")
       Zip::ZipOutputStream.open(file.path) do |z|
-        add_file_to_zip(z, 'product_report.html', report_content)
+        add_file_to_zip(z, 'product_report.html', options[:report_content])
 
         product.product_tests.each do |m|
           next if m.is_a?(ChecklistTest)
@@ -39,18 +39,28 @@ module Cypress
 
           folder_name = "#{m._type.underscore.dasherize}s/#{m.cms_id}#{filter_folder}"
 
-          add_file_to_zip(z, "#{folder_name}/records/#{m.cms_id}_#{m.id}.qrda.zip", m.patient_archive.read)
-
-          m.tasks.each do |t|
-            most_recent_execution = t.most_recent_execution
-            if most_recent_execution
-              mre_filename = "#{folder_name}/uploads/#{most_recent_execution.artifact.file.uploaded_filename}"
-              add_file_to_zip(z, mre_filename, most_recent_execution.artifact.file.read)
-            end
-          end
+          add_file_to_zip(z, "#{folder_name}/records/#{m.cms_id}_#{m.id}.qrda.zip", m.patient_archive.read) unless m.is_a?(CMSProgramTest)
+          add_execution_data(z, m, options, folder_name)
         end
       end
       file
+    end
+
+    def self.add_execution_data(z, product_test, options, folder_name)
+      product_test.tasks.each do |task|
+        most_recent_execution = task.most_recent_execution
+        next unless most_recent_execution
+
+        if product_test.is_a?(CMSProgramTest)
+          # append test type
+          folder_name = "#{folder_name}#{product_test.cms_program.underscore.dasherize}"
+          options[:report_hash][product_test.name].each do |file_name, text|
+            add_file_to_zip(z, "#{folder_name}/calculations/#{file_name}.html", text)
+          end
+        end
+        mre_filename = "#{folder_name}/uploads/#{most_recent_execution.artifact.file.uploaded_filename}"
+        add_file_to_zip(z, mre_filename, most_recent_execution.artifact.file.read)
+      end
     end
 
     def self.create_c1_criteria_zip(checklist_test, criteria_list)
