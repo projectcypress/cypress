@@ -17,7 +17,6 @@ class User
   field :unconfirmed_email
   field :encrypted_password, type: String, default: ''
 
-  field :umls_username,           type: String, default: ''
   field :encrypted_umls_password, type: String, default: ''
 
   ## Recoverable

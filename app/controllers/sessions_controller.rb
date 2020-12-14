@@ -17,17 +17,19 @@ class SessionsController < Devise::SessionsController
   protected
 
   def valid_nlm_user?
-    validate_nlm_user('https://uts-ws.nlm.nih.gov/restful/isValidUMLSUser',
+    validate_nlm_user('https://utslogin.nlm.nih.gov/cas/v1/api-key',
                       Settings.current.http_proxy,
-                      Settings.current.umls_license,
-                      params[:user][:umls_username],
                       params[:user][:umls_password])
   end
 
-  def validate_nlm_user(nlm_url, proxy, nlm_license_code, nlm_user, nlm_password)
+  def validate_nlm_user(nlm_url, proxy, apikey)
     RestClient.proxy = proxy
-    nlmResult = RestClient.post nlm_url, user: nlm_user, password: nlm_password, licenseCode: nlm_license_code
-    doc = Nokogiri::HTML(nlmResult.body)
-    doc.search('result').text == 'true'
+    begin
+      nlmResult = RestClient.post nlm_url, apikey: apikey
+      doc = Nokogiri::HTML(nlmResult.body)
+      doc.search('title').text == '201 Created'
+    rescue
+      false
+    end
   end
 end
