@@ -47,12 +47,6 @@ class ProductReportTest < ActionController::TestCase
         'report_text' => 'CMS159v8 - patient_characteristic, expired not complete'
       }
     ],
-    'CMSPopulationCountValidator' => [
-      {
-        'factory_name' => :cms_population_count_validator_verify_all_codes_reported,
-        'report_text' => 'all PAYER codes present'
-      }
-    ],
     'CMSProgramTest' => [
       {
         'factory_name' => :cms_program_test_build_execution_errors_for_incomplete_cms_criteria,
@@ -198,9 +192,11 @@ class ProductReportTest < ActionController::TestCase
         # add error message
         if random.rand(2).zero?
           build_execution_error(te, sample_error_hash['factory_name'], ste)
+          build_execution_error(te, TEST_EXECUTION_ERROR_HASH[TEST_EXECUTION_ERROR_HASH.keys.sample].sample['factory_name'], ste, false)
           check_error_collector(te)
         else
           build_execution_error(ste, sample_error_hash['factory_name'], te)
+          build_execution_error(ste, TEST_EXECUTION_ERROR_HASH[TEST_EXECUTION_ERROR_HASH.keys.sample].sample['factory_name'], te, false)
           check_error_collector(ste)
         end
         te.save
@@ -227,10 +223,46 @@ class ProductReportTest < ActionController::TestCase
     end
   end
 
+  test 'should generate calculations in a report' do
+    vendor = FactoryBot.create(:vendor)
+    bundle = FactoryBot.create(:static_bundle)
+
+    measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE', '40280382-5FA6-FE85-0160-0918E74D2075']
+    product = vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
+                                     bundle_id: bundle.id)
+
+    params = { measure_ids: measure_ids }
+    perform_enqueued_jobs do
+      product.update_with_tests(params)
+      product.save
+    end
+    hl7_test = product.product_tests.cms_program_tests.find_by(cms_program: 'HL7_Cat_I')
+
+    perform_enqueued_jobs do
+      zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
+      hl7_test.tasks.first.execute(zip, @user)
+    end
+
+    testfile = Tempfile.new(['report', '.zip'])
+
+    @controller = ProductsController.new
+    for_each_logged_in_user([ATL]) do
+      get :report, params: { format: :format_does_not_matter, vendor_id: vendor.id, id: product.id }
+      testfile.write response.body
+    end
+    # Open zipfile to find report
+    Zip::File.open(testfile.path, Zip::File::CREATE) do |zip|
+      report_html = Nokogiri::HTML.parse(zip.read('cms-program-tests/hl7-cat-i/calculations/0_Dental_Peds_A.xml.html'))
+      assert report_html.at("th:contains('CMS32v7 - PopulationCriteria1')"), 'calculations missing for upload'
+    end
+    # Clean up
+    testfile.unlink
+  end
+
   def check_error_collector(test_execution)
     return unless test_execution.execution_errors.first.validator_type
 
-    collected_errors = collected_errors(test_execution)
+    collected_errors = Cypress::ErrorCollector.collected_errors(test_execution)
     error_count = collected_errors[:nonfile].size
     collected_errors[:files].each_value do |collected_error_values|
       error_count += collected_error_values['Errors'][:execution_errors].size
@@ -239,13 +271,17 @@ class ProductReportTest < ActionController::TestCase
     assert_equal error_count, test_execution.execution_errors.size
   end
 
-  def build_execution_error(test_execution, factory_name, sibling_execution)
-    # A test execution needs an artifact, since we are always using a C2 test execution, create a Cat 3 artifact
-    file_name = 'cat_III/ep_test_qrda_cat3_good.xml'
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', file_name))
-    Artifact.create!(test_execution: test_execution, file: file)
-    Artifact.create!(test_execution: sibling_execution, file: file)
+  def build_execution_error(test_execution, factory_name, sibling_execution, include_file = true)
     sibling_execution.state = :passed
-    FactoryBot.create(factory_name, test_execution: test_execution, file_name: file_name.split('/')[1])
+    if include_file
+      # A test execution needs an artifact, since we are always using a C2 test execution, create a Cat 3 artifact
+      file_name = 'cat_III/ep_test_qrda_cat3_good.xml'
+      file = File.new(Rails.root.join('test', 'fixtures', 'qrda', file_name))
+      Artifact.create!(test_execution: test_execution, file: file)
+      Artifact.create!(test_execution: sibling_execution, file: file)
+      FactoryBot.create(factory_name, test_execution: test_execution, file_name: file_name.split('/')[1])
+    else
+      FactoryBot.create(factory_name, test_execution: test_execution)
+    end
   end
 end

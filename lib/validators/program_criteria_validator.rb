@@ -19,7 +19,7 @@ module Validators
       @file = file
       @doc = get_document(file)
       # Perform measure calculation for uploaded Cat I files
-      calculate_patient(options) if options.task.product_test.reporting_program_type == 'eh'
+      import_patient(options) if options.task.product_test.reporting_program_type == 'eh'
       # Validate to correct HQMF ids are being reported
       add_cqm_validation_error_as_execution_error(Cat1Measure.instance.validate(@doc, file_name: options[:file_name]),
                                                   'CqmValidators::Cat1Measure',
@@ -36,34 +36,14 @@ module Validators
       end
     end
 
-    def calculate_patient(options)
+    def import_patient(options)
       patient, warnings, _codes, codes_modifiers = QRDA::Cat1::PatientImporter.instance.parse_cat1(@file)
-      patient.update(_type: CQM::TestExecutionPatient, correlation_id: options.test_execution.id.to_s)
+      persisible_codes_modifiers = {}
+      codes_modifiers.each { |key, cm| persisible_codes_modifiers[key.to_s] = cm }
+      patient.update(_type: CQM::TestExecutionPatient, correlation_id: options.test_execution.id.to_s, codes_modifiers: persisible_codes_modifiers, file_name: options[:file_name])
       patient.save!
       post_processsor_check(patient, options)
-      eligible_measures, ineligible_measures = telehealth_eligible_and_ineligible_ecqms(options.task.product_test.measures)
-      calculate_patient_for_measures(patient, options, eligible_measures) unless eligible_measures.empty?
-      unless ineligible_measures.empty?
-        Cypress::QRDAPostProcessor.remove_telehealth_encounters(patient, codes_modifiers, warnings, ineligible_measures) if codes_modifiers
-        calculate_patient_for_measures(patient, options, ineligible_measures)
-      end
       warnings.each { |e| add_warning e.message, file_name: options[:file_name], location: e.location }
-    end
-
-    def calculate_patient_for_measures(patient, options, measures)
-      calc_job = Cypress::CqmExecutionCalc.new([patient.qdmPatient],
-                                               measures,
-                                               options.test_execution.id.to_s,
-                                               'effectiveDateEnd': Time.at(options.task.effective_date).in_time_zone.to_formatted_s(:number),
-                                               'effectiveDate': Time.at(options.task.measure_period_start).in_time_zone.to_formatted_s(:number),
-                                               'file_name': options[:file_name])
-      calc_job.execute(true)
-    end
-
-    def telehealth_eligible_and_ineligible_ecqms(measures)
-      ineligible_measures = measures.where(:hqmf_id.in => APP_CONSTANTS['telehealth_ineligible_measures'])
-      eligible_measures = measures.where(:hqmf_id.nin => APP_CONSTANTS['telehealth_ineligible_measures'])
-      [eligible_measures, ineligible_measures]
     end
 
     def post_processsor_check(patient, options)

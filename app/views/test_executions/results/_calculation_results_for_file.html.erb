@@ -1,12 +1,10 @@
   <div>
     <h2>Measure Calculations</h2>
-    <% continuous_measures = @task.measures.where(measure_scoring: 'CONTINUOUS_VARIABLE').sort_by { |m| [m.cms_int] }
-       proportion_measures = @task.measures.where(measure_scoring: 'PROPORTION').sort_by { |m| [m.cms_int] } %>
-    <% {
-          continuous_measures => RecordsHelper::CV_POPULATION_KEYS,
+    <% {  continuous_measures => RecordsHelper::CV_POPULATION_KEYS,
           proportion_measures => RecordsHelper::PROPORTION_POPULATION_KEYS
         }.each do |measures, pop_keys| %>
       <% if measures.length.positive? %>
+        <% next if (patient.measure_relevance_hash.keys & measures.map { |m| m.id.to_s }).empty? %>
         <table class="table table-condensed">
           <thead>
             <tr>
@@ -17,9 +15,10 @@
             </tr>
           </thead>
           <tbody>
+            <% result_values = get_result_values_for_patient(@individual_results, patient.id, pop_keys, 'measure_id') %>
             <% measures.each do |m| %>
               <% m.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
-                <% result_values = get_result_values_test_upload(params['id'], file_name, [m], m.key_for_population_set(population_set_hash), pop_keys, 'measure_id') %>
+                <% next unless result_values[m.id] && result_values[m.id]['IPP'] > 0 %>
                 <tr>
                   <th class="abbreviated" scope="row">
                     <%= measure_display_name(m, population_set_hash) %>
@@ -31,14 +30,30 @@
                       <% if value && value.positive? %>
                         <span class="sr-only">Pass</span>
                         <span class="fa-stack result-marker">
-                          <%= icon('fas fa-stack-2x', 'circle', :"aria-hidden" => true) %>
-                          <% unless value == 1 && m.calculation_method != 'EPISODE_OF_CARE' %>
-                            <strong class="fa-stack-1x result-text"><span class="sr-only">value of </span><%= value %></strong>
+                          <% if export %>
+                            <div class="exportcircle">
+                              <% unless value == 1 && m.calculation_method != 'EPISODE_OF_CARE' %>
+                                <strong class="fa-stack-1x result-text"><span class="sr-only">value of </span><%= value %></strong>
+                              <% end %>
+                            </div>
+                          <% else %>
+                            <%= icon('fas fa-stack-2x', 'circle', :"aria-hidden" => true) %>
+                            <% unless value == 1 && m.calculation_method != 'EPISODE_OF_CARE' %>
+                              <strong class="fa-stack-1x result-text"><span class="sr-only">value of </span><%= value %></strong>
+                            <% end %>
                           <% end %>
+
                         </span>
                       <% else %>
                         <span class="sr-only">Fail</span>
-                        <%= icon('far fa-2x empty-marker', 'circle', :"aria-hidden" => true) %>
+                        <% if export %>
+                          <span class="fa-stack result-marker">
+                            <div class="exportcircle exportcircle-empty"></div>
+                          </span>
+                        <% else %>
+                          <%= icon('far fa-2x empty-marker', 'circle', :"aria-hidden" => true) %>
+                        <% end %>
+
                       <% end %>
                     </td>
                   <% end %>

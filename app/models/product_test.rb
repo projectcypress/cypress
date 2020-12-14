@@ -115,7 +115,8 @@ class ProductTest
     car = ::Validators::CalculatingAugmentedRecords.new(measures, [], id)
     dups = patients.find(ids)
 
-    pat_arr, dups = randomize_clinical_data(pat_arr, dups, random)
+    # Don't randomize clinical_data for hybrid measures
+    pat_arr, dups = randomize_clinical_data(pat_arr, dups, random) unless hybrid_measures?
     # choose up to 3 duplicate patients
     dups.sample(random.rand(1..3), random: random).each do |pat|
       prng_repeat = Random.new(rand_seed.to_i)
@@ -213,6 +214,11 @@ class ProductTest
 
   def most_recent_task_execution_incomplete?
     tasks.any? && tasks[0].most_recent_execution && tasks[0].most_recent_execution.incomplete?
+  end
+
+  # Are any of the measures in this test a Hybrid measure
+  def hybrid_measures?
+    !(measures.map(&:hqmf_set_id) & APP_CONSTANTS['result_measures'].map(&:hqmf_set_id)).empty?
   end
 
   # Are any of the measures in this test EH

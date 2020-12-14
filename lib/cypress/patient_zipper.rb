@@ -36,7 +36,7 @@ module Cypress
     end
 
     def export(patient)
-      cat1_submission_program = if patient.product_test&.product&.c3_test
+      cat1_submission_program = if patient.product_test&.product&.c3_test || patient.product_test&.product&.cvuplus
                                   patient.product_test&.measures&.first&.reporting_program_type == 'eh' ? 'HQR_IQR' : false
                                 else
                                   false
@@ -90,7 +90,12 @@ module Cypress
 
       first = patients.first
       ptest = first.product_test
-      measures = ptest ? ptest.measures : patients.first.bundle.measures
+      measures = if ptest
+                   ptest.measures.only(:id, :population_sets, :cms_id, :description, :hqmf_id, :hqmf_set_id, :value_set_ids, :source_data_criteria)
+                 else
+                   patients.first.bundle.measures.only(:id, :population_sets, :cms_id, :description, :hqmf_id, :hqmf_set_id,
+                                                       :value_set_ids, :source_data_criteria)
+                 end
       start_date = ptest ? ptest.start_date : Time.at(patients.first.bundle.measure_period_start).in_time_zone
       end_date = ptest ? ptest.end_date : start_date + 1.year
       [measures, start_date, end_date]

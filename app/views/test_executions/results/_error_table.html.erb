@@ -16,7 +16,9 @@
       <% message_title = 'Error' if message_title == 'Errors'
          message_title = 'Warning' if message_title == 'Warnings' %>
       <th scope="col"><%= "#{message_title} message" %></th>
-      <th scope="col" class = 'col-sm-2'>Go To in XML</th>
+      <% unless export %>
+        <th scope="col" class = 'col-sm-2'>Go To in XML</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -24,7 +26,7 @@
       <tr>
         <td><%= error.message %></td>
         <td>
-          <% unless error.empty_location? %>
+          <% unless error.empty_location? || export%>
             <% line_num = get_line_number(error) %>
             <a class = 'execution_error_link' href = <%= "#error_#{error.id}" %> data-line-number = <%= line_num %>>jump to error</a>
           <% end %>

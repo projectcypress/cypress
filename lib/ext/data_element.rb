@@ -3,6 +3,7 @@ module QDM
   class DataElement
     field :dataElementAttributes, type: Array, default: []
     field :encounter_id, type: BSON::ObjectId
+    field :denormalize_as_datetime, type: Boolean
   end
 
   class DataElementAttribute

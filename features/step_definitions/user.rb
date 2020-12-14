@@ -69,6 +69,15 @@ When(/^the user tries to log in with invalid information$/) do
   page.click_button 'Sign in'
 end
 
+When(/^the user tries to log in with invalid umls information$/) do
+  Settings.destroy_all
+  Settings.create(umls: true, http_proxy: '')
+  visit '/users/sign_in'
+  page.fill_in 'Email', with: @user.email
+  page.fill_in 'Password', with: @user.password
+  page.click_button 'Sign in'
+end
+
 When(/^the user navigates to the home page$/) do
   visit '/'
 end
@@ -109,6 +118,10 @@ end
 
 Then(/^the user should see an log in error message$/) do
   page.assert_text 'Invalid Email or password.'
+end
+
+Then(/^the user should see an umls error message$/) do
+  page.assert_text 'Could not verify NLM User Account.'
 end
 
 Then(/^the user should see an log in success message$/) do

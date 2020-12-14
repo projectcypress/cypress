@@ -11,6 +11,10 @@ module CQM
     embeds_many :addresses # patient addresses
     embeds_many :telecoms
 
+    # These are for CVU+
+    field :file_name, type: String
+    field :codes_modifiers, type: Hash
+
     # This allows us to instantiate Patients that do not belong to specific type of patient
     # for the purposes of testing but blocks us from saving them to the database to ensure
     # every patient actually in the database is of a valid type.
@@ -134,6 +138,41 @@ module CQM
       end
     end
 
+    # Iterates through each data element to add
+    # 1. A Relevant DateTime if a Relevant Period is specified
+    # 2. A Relevant Period if a Relevant DateTime is specified
+    # This is used to normalize for eCQM calculations that may use one or the other
+    # The denormalize_as_datetime flag is used by the "denormalize_date_times" to return the record to the original state
+    def normalize_date_times
+      qdmPatient.dataElements.each do |de|
+        next unless de.respond_to?(:relevantDatetime) && de.respond_to?(:relevantPeriod)
+
+        if de.relevantDatetime
+          de.relevantPeriod = QDM::Interval.new(de.relevantDatetime, de.relevantDatetime).shift_dates(0)
+          de.denormalize_as_datetime = true
+        elsif de.relevantPeriod
+          # if low time exists, use it.  Otherwise high time
+          de.relevantDatetime = de.relevantPeriod.low || de.relevantPeriod.high
+          de.denormalize_as_datetime = false
+        end
+      end
+    end
+
+    # "normalize_date_times" add a flag "denormalize_as_datetime" to indicate if a dataElement originally used relevantDatetime
+    # using that flag, return record to the original state
+    def denormalize_date_times
+      qdmPatient.dataElements.each do |de|
+        next unless de.respond_to?(:relevantDatetime) && de.respond_to?(:relevantPeriod)
+
+        if de.denormalize_as_datetime
+          de.relevantPeriod = nil
+        else
+          de.relevantDatetime = nil
+        end
+      end
+      save
+    end
+
     # when laboratory_tests and physical_exams are reported for CMS529, they need to reference the
     # encounter they are related to.  The time range can include 24 hours before and after the encounter occurs.
     def add_encounter_ids_to_events
@@ -204,6 +243,13 @@ module CQM
         # Does the measure relevance include a true value from on of the requested population keys.
         (measure_ids.include? BSON::ObjectId.from_string(measure_key)) && (population_keys.any? { |pop| mrh[pop] == true })
       end
+    end
+
+    def remove_telehealth_codes(ineligible_measures)
+      warnings = []
+      Cypress::QRDAPostProcessor.remove_telehealth_encounters(self, codes_modifiers, warnings, ineligible_measures) unless codes_modifiers.empty?
+      save
+      warnings
     end
   end
 

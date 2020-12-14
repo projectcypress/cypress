@@ -28,6 +28,7 @@ module Cypress
         puts 'bundle metadata unpacked...'
         unpack_and_store_valuesets(zip_file, bundle)
         unpack_and_store_measures(zip_file, bundle)
+        bundle.collect_codes_by_qdm_category
         unpack_and_store_cqm_patients(zip_file, bundle)
         calculate_results(bundle, tracker, include_highlighting) unless unpack_and_store_calcuations(zip_file, bundle, tracker)
       end
@@ -166,6 +167,7 @@ module Cypress
         patient['bundleId'] = bundle.id
         patient.update(_type: CQM::BundlePatient, correlation_id: bundle.id)
         Cypress::QRDAPostProcessor.replace_negated_codes(patient, bundle)
+        Cypress::QRDAPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
         patient.save!
         report_progress('patients', (index * 100 / qrda_files.length)) if (index % 10).zero?
       end
@@ -179,9 +181,8 @@ module Cypress
 
     def self.calculate_results(bundle, tracker, include_highlighting = false)
       patient_ids = bundle.patients.map { |p| p.id.to_s }
-      effective_date_end = Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number)
       effective_date = Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number)
-      options = { 'effectiveDateEnd': effective_date_end, 'effectiveDate': effective_date, 'includeClauseResults': include_highlighting }
+      options = { 'effectiveDate': effective_date, 'includeClauseResults': include_highlighting }
       if include_highlighting
         calculate_results_with_highlighting(bundle, patient_ids, tracker, options)
       else

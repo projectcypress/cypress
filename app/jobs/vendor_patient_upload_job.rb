@@ -16,6 +16,10 @@ class VendorPatientUploadJob < ApplicationJob
     vendor_patient_file = File.new(file)
 
     bundle = Bundle.find(bundle_id)
+    if bundle.categorized_codes.empty?
+      bundle.collect_codes_by_qdm_category
+      bundle.save
+    end
     patients, failed_files = parse_patients(vendor_patient_file, vendor_id, bundle)
 
     # do patient calculation against bundle
@@ -84,6 +88,7 @@ class VendorPatientUploadJob < ApplicationJob
 
       patient.update(_type: CQM::VendorPatient, correlation_id: vendor_id, bundleId: bundle.id)
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, bundle)
+      Cypress::QRDAPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
       patient.save
       return [true, patient]
     rescue => e
@@ -93,8 +98,7 @@ class VendorPatientUploadJob < ApplicationJob
 
   def generate_calculations(patients, bundle, vendor_id)
     patient_ids = patients.map { |p| p.id.to_s }
-    options = { 'effectiveDateEnd' => Time.at(bundle.effective_date).in_time_zone.to_formatted_s(:number),
-                'effectiveDate' => Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number),
+    options = { 'effectiveDate' => Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number),
                 'includeClauseResults' => true }
     tracker_index = 0
     # cqm-execution-service (using includeClauseResults) can run out of memory when it is run with a lot of patients.
