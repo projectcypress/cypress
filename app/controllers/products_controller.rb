@@ -147,7 +147,8 @@ class ProductsController < ApplicationController
                      continuous_measures: continuous_measures,
                      proportion_measures: proportion_measures,
                      patient: patient,
-                     export: true
+                     export: true,
+                     display_calculations: true
                    }
 
                  else
@@ -160,7 +161,8 @@ class ProductsController < ApplicationController
                      continuous_measures: continuous_measures,
                      proportion_measures: proportion_measures,
                      patient: patient,
-                     export: true
+                     export: true,
+                     display_calculations: true
                    }
                  end
           # note assumes 1 task per CMPSProgramTest producttest
