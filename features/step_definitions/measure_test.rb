@@ -197,6 +197,11 @@ Then(/^the user should see test results$/) do
   assert_text 'Results'
 end
 
+Then(/^the user should see failed results$/) do
+  page.refresh
+  assert_text 'Failed'
+end
+
 Then(/^the user should see a link to view the the uploaded xml$/) do
   page.find(:xpath, "//input[@value='View Uploaded XML with Errors']")
 end
