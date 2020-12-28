@@ -35,6 +35,8 @@ jobs:
         bundle install
     - name: Run tests
       run: |
+        git config --global user.email "travis@travis.ci"
+        git config --global user.name "Travis CI"
         sudo npm install -g eslint
         bundle exec bundle-audit check --update
         bundle exec overcommit --sign
