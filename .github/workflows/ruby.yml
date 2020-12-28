@@ -33,6 +33,14 @@ jobs:
         nvm install 10.0
         nvm use stable
         bundle install
+        git clone -b cypress_v6 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service
+        yarn --cwd /tmp/cqm-execution-service install --only=production
+        yarn --cwd /tmp/cqm-execution-service start &
+        wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.18.tgz -O /tmp/mongodb.tgz
+        tar -xvf /tmp/mongodb.tgz
+        mkdir /tmp/data
+        ${PWD}/mongodb-linux-x86_64-4.0.18/bin/mongod --setParameter cursorTimeoutMillis=3600000 --setParameter maxBSONDepth=500 --dbpath /tmp/data --bind_ip 127.0.0.1 &> /dev/null &
+        cp ./.travis/mongoid.yml ./config/mongoid.yml
     - name: Run tests
       run: |
         git config --global user.email "travis@travis.ci"
@@ -41,3 +49,7 @@ jobs:
         bundle exec bundle-audit check --update
         bundle exec overcommit --sign
         bundle exec overcommit --run
+        bundle exec cucumber features/admin/ features/checklist_tests/ features/filtering_tests/ features/measure_tests/ features/multi_measure_tests/;
+        bundle exec cucumber features/products/ features/program_tests/ features/records/ features/users/ features/vendors/;
+        RUBYOPT="-W0"
+        bundle exec rake test:units test:controllers test:helpers test:jobs;
