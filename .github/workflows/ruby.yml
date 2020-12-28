@@ -35,7 +35,7 @@ jobs:
         bundle install
     - name: Run tests
       run: |
-        npm install -g eslint
+        sudo npm install -g eslint
         bundle exec bundle-audit check --update
         bundle exec overcommit --sign
         bundle exec overcommit --run
