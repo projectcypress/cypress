@@ -72,6 +72,10 @@ Scenario: Successful Upload CAT 3 XML
   Then the user should see failed results
   Then the page should be axe clean according to: section508
   Then the page should be axe clean according to: wcag2aa
+  And the user clicks user name
+  Then the user should see recently failed tests
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
 
 Scenario: Unsuccessful Upload CAT 1 Zip Because Incorrect File Type
   When the user creates a product with tasks c1

@@ -65,6 +65,8 @@ Scenario: View Vendor Patient List Analyize Page
   And the user should see a way to analyize patients
   And the user views patient analytics
   And the user should see patient analytics
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa; skipping: color-contrast
 
 Scenario: Successful switch bundles for vendor patients
   When the user visits the vendor records page
