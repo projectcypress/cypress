@@ -635,7 +635,7 @@ Then(/^the user should see a cat III test (.*) for filtering test (.*)$/) do |ta
 end
 
 Then(/^the user should see the Measures Options heading$/) do
-  page.assert_text 'Measures Opptions'
+  page.assert_text 'Measures Options'
 end
 
 Then(/^the user should not see the Measures Options heading$/) do
