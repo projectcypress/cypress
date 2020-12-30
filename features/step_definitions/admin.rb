@@ -20,7 +20,7 @@ end
 # # # # # # # #
 
 Then(/^the user should be able to access the page$/) do
-  page.assert_text 'Application Seettings'
+  page.assert_text 'Application Settings'
 end
 
 Then(/^the user should not be able to access the page$/) do
