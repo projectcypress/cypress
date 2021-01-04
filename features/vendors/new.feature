@@ -7,6 +7,8 @@ Background:
 Scenario: Successful Create Vendor
   When the user creates a vendor with appropriate information
   Then the user should see the vendor name
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
 
 Scenario: Unsuccessful Create Vendor Because No Name
   When the user creates a vendor with no name

@@ -80,7 +80,7 @@ And(/^the user views patient analytics$/) do
 end
 
 And(/^the user should see patient analytics$/) do
-  page.assert_text 'Analysis of patients'
+  page.assert_text 'Analysis of Patients'
 end
 
 And(/^the user searches for a measure$/) do
@@ -166,6 +166,8 @@ When(/^the user visits the vendor records page$/) do
   @vendor = Vendor.create!(name: 'test_vendor_name')
   @measure = @bundle.measures.find_by(hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE') unless @bundle.measures.count.eql? 0
   @patient = FactoryBot.create(:vendor_test_patient, bundleId: @bundle._id, correlation_id: @vendor.id)
+  PatientAnalysisJob.perform_now(@bundle.id.to_s, @vendor.id.to_s)
+  wait_for_all_delayed_jobs_to_run
   visit "/records?vendor_id=#{@vendor.id}&bundle_id=#{@bundle.id}"
 end
 
