@@ -9,11 +9,13 @@ class CMSTestExecutionJob < ApplicationJob
   def perform(te, task, options = {})
     te.state = :running
     te.validate_artifact(task.validators, te.artifact, options.merge('test_execution' => te, 'task' => task))
-    precalc_state = te.state
-    te.state = :calculating
-    te.save
-    calculate_patients(te) if te.task.product_test.reporting_program_type == 'eh'
-    te.state = precalc_state
+    if te.task.product_test.reporting_program_type == 'eh'
+      precalc_state = te.state
+      te.state = :calculating
+      te.save
+      calculate_patients(te)
+      te.state = validate_measures(te) ? precalc_state : :failed
+    end
     te.save
   end
 
@@ -28,6 +30,22 @@ class CMSTestExecutionJob < ApplicationJob
       address_telehealth_codes_in_patients(patients, ineligible_measures, test_execution)
       calculate_patients_for_measures(patient_ids, options, ineligible_measures, test_execution)
     end
+  end
+
+  def validate_measures(test_execution)
+    has_missing_ids = false
+    measure_id_hash = test_execution.task.bundle.measures.only(:id, :hqmf_id).to_h { |m| [m.hqmf_id, m.id.to_s] }
+    patients = Patient.where(correlation_id: test_execution.id)
+    patients.each do |patient|
+      reported_measure_ids = patient.reported_measure_hqmf_ids.map { |h| measure_id_hash[h] }
+      missing_ids = patient.measure_relevance_hash.keys - reported_measure_ids
+      missing_ids.each do |missing_measure|
+        has_missing_ids = true
+        msg = "Document does not state it is reporting measure #{Measure.find(missing_measure).cms_id}"
+        test_execution.execution_errors.build(message: msg, msg_type: :error, validator: :qrda_cat1, file_name: patient.file_name)
+      end
+    end
+    has_missing_ids ? false : true
   end
 
   def address_telehealth_codes_in_patients(patients, ineligible_measures, test_execution)
