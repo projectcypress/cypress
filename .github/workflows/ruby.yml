@@ -1,0 +1,61 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
+# For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
+
+name: Ruby
+
+on:
+  push:
+    branches:
+      - master
+      - cypress_v5
+      - cypress_v6
+  pull_request:
+    branches:
+      - master
+      - cypress_v5
+      - cypress_v6
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
+    # change this to (see https://github.com/ruby/setup-ruby#versioning):
+    # uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@21351ecc0a7c196081abca5dc55b08f085efe09a
+      with:
+        ruby-version: 2.6.3
+    - name: Install dependencies
+      run: |
+        . $HOME/.nvm/nvm.sh
+        nvm install 10.0
+        nvm use stable
+        bundle install
+        git clone -b cypress_v5 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service
+        yarn --cwd /tmp/cqm-execution-service install --only=production
+        yarn --cwd /tmp/cqm-execution-service start &
+        wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.18.tgz -O /tmp/mongodb.tgz
+        tar -xvf /tmp/mongodb.tgz
+        mkdir /tmp/data
+        ${PWD}/mongodb-linux-x86_64-4.0.18/bin/mongod --setParameter cursorTimeoutMillis=3600000 --setParameter maxBSONDepth=500 --dbpath /tmp/data --bind_ip 127.0.0.1 &> /dev/null &
+        cp ./.travis/mongoid.yml ./config/mongoid.yml
+    - name: Run tests
+      run: |
+        git config --global user.email "travis@travis.ci"
+        git config --global user.name "Travis CI"
+        sudo npm install -g eslint
+        bundle exec bundle-audit check --update
+        bundle exec overcommit --sign
+        bundle exec overcommit --run
+        bundle exec cucumber features/admin/ features/checklist_tests/ features/filtering_tests/ features/measure_tests/ features/multi_measure_tests/;
+        bundle exec cucumber features/products/ features/program_tests/ features/records/ features/users/ features/vendors/;
+        RUBYOPT="-W0"
+        bundle exec rake test:units test:controllers test:helpers test:jobs;
