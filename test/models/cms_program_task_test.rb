@@ -100,11 +100,22 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 13, te.execution_errors.size
+      assert_equal 12, te.execution_errors.size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
       assert_equal 6, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
       assert_equal 5, te.execution_errors.where(validator: 'Validators::CMSQRDA1HQRSchematronValidator').size
-      assert_equal 1, te.execution_errors.where(validator: 'Validators::QrdaCat1Validator').size
+    end
+  end
+
+  def test_eh_task_with_missing_measure_id
+    setup_eh
+    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
+    task = pt.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_wrong_ecqm.zip'))
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal 1, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS32v7').size
     end
   end
 
@@ -157,10 +168,9 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 12, te.execution_errors.size
+      assert_equal 11, te.execution_errors.size
       assert_equal 6, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
       assert_equal 5, te.execution_errors.where(validator: 'Validators::CMSQRDA1HQRSchematronValidator').size
-      assert_equal 1, te.execution_errors.where(validator: 'Validators::QrdaCat1Validator').size
     end
   end
 end

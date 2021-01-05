@@ -41,7 +41,8 @@ class CMSTestExecutionJob < ApplicationJob
       missing_ids = patient.measure_relevance_hash.keys - reported_measure_ids
       missing_ids.each do |missing_measure|
         msg = "Document does not state it is reporting measure #{Measure.find(missing_measure).cms_id}"
-        test_execution.execution_errors.build(message: msg, msg_type: :warning, validator: :qrda_cat1, file_name: patient.file_name)
+        test_execution.execution_errors.build(message: msg, msg_type: :warning,
+                                              validator: 'Validators::ProgramCriteriaValidator', file_name: patient.file_name)
       end
     end
   end
