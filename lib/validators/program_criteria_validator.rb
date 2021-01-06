@@ -41,8 +41,8 @@ module Validators
       persisible_codes_modifiers = {}
       codes_modifiers.each { |key, cm| persisible_codes_modifiers[key.value.to_s] = cm }
       patient.update(_type: CQM::TestExecutionPatient, correlation_id: options.test_execution.id.to_s, codes_modifiers: persisible_codes_modifiers, file_name: options[:file_name])
-      patient.save!
       post_processsor_check(patient, options)
+      patient.save!
       warnings.each { |e| add_warning e.message, file_name: options[:file_name], location: e.location }
     end
 
