@@ -22,7 +22,7 @@ on:
 jobs:
   test:
     strategy:
-      fails-fast: false
+      fail-fast: false
 
     runs-on: ubuntu-latest
 
