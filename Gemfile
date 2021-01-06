@@ -96,7 +96,8 @@ group :development, :test do
   gem 'rubocop', '~>0.66.0'
   gem 'rubocop-rspec'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'axe-matchers'
+  gem 'axe-core-capybara'
+  gem 'axe-core-cucumber'
   gem 'byebug'
   gem 'capybara'
   gem 'capybara-accessible'

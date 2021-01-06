@@ -69,7 +69,13 @@ Scenario: Successful Upload CAT 3 XML
   When the user creates a product with records with tasks c2
   And the user views task c2
   And the user uploads a CAT 3 XML file with errors
-  Then the user should see test results
+  Then the user should see failed results
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the user clicks user name
+  Then the user should see recently failed tests
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
 
 Scenario: Unsuccessful Upload CAT 1 Zip Because Incorrect File Type
   When the user creates a product with tasks c1
@@ -93,6 +99,8 @@ Scenario: Successful View Uploaded XML for Measure Test
   Then the user should see a link to view the the uploaded xml
   When the user views the uploaded xml
   Then the user should see the uploaded xml
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa; skipping: color-contrast
 
 Scenario: Successfully View a Measure Test on Deprecated Product
   When the user creates a product with tasks c1

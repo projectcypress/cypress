@@ -140,6 +140,10 @@ And(/^the user changes the selected bundle$/) do
   end
 end
 
+And(/^the user clicks user name$/) do
+  page.find("[href='/users/edit']").click
+end
+
 # # # # # # # #
 #   T H E N   #
 # # # # # # # #
@@ -197,10 +201,19 @@ Then(/^the user should see test results$/) do
   assert_text 'Results'
 end
 
+Then(/^the user should see failed results$/) do
+  page.refresh
+  assert_text 'Failed'
+end
+
 Then(/^the user should see a link to view the the uploaded xml$/) do
   page.find(:xpath, "//input[@value='View Uploaded XML with Errors']")
 end
 
 Then(/^the user should see the uploaded xml$/) do
   page.assert_text '<?xml versio'
+end
+
+Then(/^the user should see recently failed tests$/) do
+  assert_text 'Failed'
 end
