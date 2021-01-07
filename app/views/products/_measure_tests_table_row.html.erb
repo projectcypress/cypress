@@ -10,7 +10,7 @@
 <% parent_reloading = false unless (defined? parent_reloading) %>
 
 <% test = task.product_test %>
-<% include_c3 = include_c3_column(task) %>
+<% include_c3 = include_c3_column(task, has_eh_tests, has_ep_tests) %>
 
 <td data-sort="<%= cms_int(test.cms_id) %>"><%= test.cms_id %></td>
 <td><%= link_to test.name, new_task_test_execution_path(task) %></td>

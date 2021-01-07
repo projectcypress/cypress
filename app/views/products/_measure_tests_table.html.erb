@@ -8,12 +8,14 @@
 %>
 <% # Convert get_c1_tasks into a boolean if it is a string. %>
 <% get_c1_tasks = get_c1_tasks.eql? "true" if get_c1_tasks.is_a? String %>
+<% has_eh_tests = product.eh_tests?
+   has_ep_tests = product.ep_tests? %>
 <% tasks = measure_test_tasks(product, get_c1_tasks) %>
 <% if !tasks.any? %>
   <p>There are no additional tests for this criteria.</p>
 <% else %>
   <% first_results_col_label = tasks.first.is_a?(C1Task) ? 'C1 Results' : 'C2 Results' %>
-  <% include_c3 = include_c3_column(tasks.first) %>
+  <% include_c3 = include_c3_column(tasks.first, has_eh_tests, has_ep_tests) %>
 
   <table class = 'table table-hover measure_tests_table'>
     <thead>
@@ -31,7 +33,7 @@
     <tbody>
       <% tasks.sort_by { |t| cms_int(t.product_test.cms_id) }.each do |task| %>
         <tr id = '<%= measure_tests_table_row_wrapper_id(task) %>'>
-          <%= render 'measure_tests_table_row', :task => task, :parent_reloading => true %>
+          <%= render 'measure_tests_table_row', :task => task, :parent_reloading => true, :has_eh_tests => has_eh_tests, :has_ep_tests => has_ep_tests %>
         </tr>
       <% end %>
     </tbody>
