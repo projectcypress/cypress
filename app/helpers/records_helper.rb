@@ -90,7 +90,7 @@ module RecordsHelper
   def get_result_values_for_patient(individual_results, patient_id, pop_keys, key)
     individual_results.select { |ir| ir.patient_id == patient_id }.collect do |elem|
       [
-        elem[key],
+        "#{elem[key]}|#{elem['population_set_key']}",
         pop_keys.collect { |pop_key| [pop_key, elem[pop_key].to_i] }.to_h
       ]
     end.to_h
