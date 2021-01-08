@@ -29,6 +29,6 @@
 <% elsif params[:partial] == 'measure_tests_table_row' %>
   <% wrapper_id = measure_tests_table_row_wrapper_id(@task) %>
   setTimeout(function() {
-    $("#<%= wrapper_id %>").html("<%= escape_javascript render 'measure_tests_table_row', :task => @task %>");
+    $("#<%= wrapper_id %>").html("<%= escape_javascript render 'measure_tests_table_row', :task => @task, :has_eh_tests => @has_eh_tests, :has_ep_tests => @has_ep_tests%>");
   }, 2000);
 <% end %>

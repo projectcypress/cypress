@@ -20,7 +20,30 @@ on:
       - cypress_v6
 
 jobs:
+  audit:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
+    # change this to (see https://github.com/ruby/setup-ruby#versioning):
+    # uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@21351ecc0a7c196081abca5dc55b08f085efe09a
+      with:
+        ruby-version: 2.6.3
+    - name: Install dependencies
+      run: |
+        bundle install
+    - name: Bundle audit check
+      run: |
+        bundle exec bundle-audit check --update
   test:
+    strategy:
+      fail-fast: false
 
     runs-on: ubuntu-latest
 
@@ -52,7 +75,6 @@ jobs:
         git config --global user.email "travis@travis.ci"
         git config --global user.name "Travis CI"
         sudo npm install -g eslint
-        bundle exec bundle-audit check --update
         bundle exec overcommit --sign
         bundle exec overcommit --run
         bundle exec cucumber features/admin/ features/checklist_tests/ features/filtering_tests/ features/measure_tests/ features/multi_measure_tests/;
