@@ -147,6 +147,7 @@ module CQM
     def normalize_date_times
       # normalization is only necessary for the 2020 bundles
       return unless bundle.major_version == '2020'
+
       qdmPatient.dataElements.each do |de|
         next unless de.respond_to?(:relevantDatetime) && de.respond_to?(:relevantPeriod)
 
@@ -166,6 +167,7 @@ module CQM
     def denormalize_date_times
       # normalization is only necessary for the 2020 bundles
       return unless bundle.major_version == '2020'
+
       qdmPatient.dataElements.each do |de|
         next unless de.respond_to?(:relevantDatetime) && de.respond_to?(:relevantPeriod)
 
