@@ -100,12 +100,12 @@ module ProductsHelper
     "wrapper-task-id-#{task.id}"
   end
 
-  def include_c3_column(task)
+  def include_c3_column(task, has_eh_tests, has_ep_tests)
     case task
     when C1Task
-      task.product_test.product.c3_test && task.product_test.product.eh_tests?
+      task.product_test.product.c3_test && has_eh_tests
     when C2Task
-      task.product_test.product.c3_test && task.product_test.product.ep_tests?
+      task.product_test.product.c3_test && has_ep_tests
     end
   end
 

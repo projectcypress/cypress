@@ -20,6 +20,8 @@ class TestExecutionsController < ApplicationController
   def create
     authorize! :execute_task, @task.product_test.product.vendor
     @test_execution = @task.execute(results_params, current_user)
+    @has_eh_tests = @task.product_test.product.eh_tests?
+    @has_ep_tests = @task.product_test.product.ep_tests?
     @curr_task = Task.find(params[:task_id])
     respond_with(@test_execution) do |f|
       if @task.is_a? C1ChecklistTask

@@ -21,6 +21,8 @@ class ProductsController < ApplicationController
     add_breadcrumb 'Vendor: ' + @product.vendor_name, vendor_path(@product.vendor_id)
     add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor_id, @product)
     @task = Task.find(params[:task_id]) if params[:task_id]
+    @has_eh_tests = @product.eh_tests?
+    @has_ep_tests = @product.ep_tests?
     respond_with(@product, &:js)
   end
 
