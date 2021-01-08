@@ -119,7 +119,7 @@ class ProductsController < ApplicationController
         # TODO: make sure report isn't available for download until individual results are available
         individual_results = CQM::IndividualResult.where(
           correlation_id: most_recent_execution.id
-        ).only(:IPP, :DENOM, :NUMER, :NUMEX, :DENEX, :DENEXCEP, :MSRPOPL, :OBSERV, :MSRPOPLEX, :measure_id, :patient_id, :file_name).to_a
+        ).only(:IPP, :DENOM, :NUMER, :NUMEX, :DENEX, :DENEXCEP, :MSRPOPL, :OBSERV, :MSRPOPLEX, :measure_id, :patient_id, :file_name, :population_set_key).to_a
         uploaded_patients = Patient.where(correlation_id: most_recent_execution.id)
         file_name_id_hash = {}
         uploaded_patients.each { |uploaded_patient| file_name_id_hash[uploaded_patient['file_name']] = uploaded_patient if uploaded_patient['file_name'] }
