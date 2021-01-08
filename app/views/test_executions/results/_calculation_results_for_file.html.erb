@@ -18,12 +18,13 @@
             <% result_values = get_result_values_for_patient(@individual_results, patient.id, pop_keys, 'measure_id') %>
             <% measures.each do |m| %>
               <% m.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
-                <% next unless result_values[m.id] && result_values[m.id]['IPP'] > 0 %>
+                <% result_key = "#{m.id}|#{population_set_hash[:population_set_id]}" %>
+                <% next unless result_values[result_key] && result_values[result_key]['IPP'] > 0 %>
                 <tr>
                   <th class="abbreviated" scope="row">
                     <%= measure_display_name(m, population_set_hash) %>
                   </th>
-                  <% result_values[m.id]&.each do |population, value| %>
+                  <% result_values[result_key]&.each do |population, value| %>
                     <td class="text-center">
                       <span class="sr-only">Measure <%= m.description %> population <%= population %> result: </span>
                       <!-- This is the relevant piece of the calculation_result_icon partial ported over to here. Rendering each circle in its own partial is far too slow and causes the application to take up to 8 seconds longer to load on some pages. -->
