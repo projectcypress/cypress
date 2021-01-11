@@ -18,7 +18,7 @@
             <% result_values = get_result_values_for_patient(@individual_results, patient.id, pop_keys, 'measure_id') %>
             <% measures.each do |m| %>
               <% m.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
-                <% result_key = "#{m.id}|#{population_set_hash[:population_set_id]}" %>
+                <% result_key = "#{m.id}|#{m.key_for_population_set(population_set_hash)}" %>
                 <% next unless result_values[result_key] && result_values[result_key]['IPP'] > 0 %>
                 <tr>
                   <th class="abbreviated" scope="row">
