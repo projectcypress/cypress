@@ -146,7 +146,7 @@ module CQM
     # The denormalize_as_datetime flag is used by the "denormalize_date_times" to return the record to the original state
     def normalize_date_times
       # normalization is only necessary for the 2020 bundles
-      return unless bundle.major_version == '2020'
+      return unless bundle&.major_version == '2020'
 
       qdmPatient.dataElements.each do |de|
         next unless de.respond_to?(:relevantDatetime) && de.respond_to?(:relevantPeriod)
@@ -166,7 +166,7 @@ module CQM
     # using that flag, return record to the original state
     def denormalize_date_times
       # normalization is only necessary for the 2020 bundles
-      return unless bundle.major_version == '2020'
+      return unless bundle&.major_version == '2020'
 
       qdmPatient.dataElements.each do |de|
         next unless de.respond_to?(:relevantDatetime) && de.respond_to?(:relevantPeriod)
