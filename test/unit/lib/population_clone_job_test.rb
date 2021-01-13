@@ -179,7 +179,11 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     # assert patient2_randomized_shift_clone has shifted by 2 years which is the offset in the bundle associated with the product test
     assert_equal Time.zone.at(patient2_randomized_shift_clone.qdmPatient.birthDatetime).year, Time.zone.at(patient2_shift.qdmPatient.birthDatetime).year + 2
     # assert patient2_randomized_shift_clone randomized
-    assert_not_equal Time.zone.at(patient2_randomized_shift_clone.qdmPatient.birthDatetime).day, Time.zone.at(patient2_shift.qdmPatient.birthDatetime).day
+    cloned_time = Time.zone.at(patient2_randomized_shift_clone.qdmPatient.birthDatetime)
+    cloned_date_string = "#{cloned_time.day}_#{cloned_time.hour}_#{cloned_time.min}"
+    not_cloned_time = Time.zone.at(patient2_shift.qdmPatient.birthDatetime)
+    not_cloned_date_string = "#{not_cloned_time.day}_#{not_cloned_time.hour}_#{not_cloned_time.min}"
+    assert_not_equal cloned_date_string, not_cloned_date_string
   end
 
   def test_perform_reconnect_reference
