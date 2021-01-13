@@ -150,10 +150,8 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
     assert_equal patient1_no_shift_clone.qdmPatient.birthDatetime, patient1_no_shift_clone.qdmPatient.birthDatetime
     # assert patient2_randomized_no_shift_clone has not been shifted
     assert_equal Time.zone.at(patient2_randomized_no_shift_clone.qdmPatient.birthDatetime).year, Time.zone.at(patient2_no_shift.qdmPatient.birthDatetime).year
-    # assert patient2_no_shift_clone has been randomized
-    assert_not_equal Time.zone.at(patient2_randomized_no_shift_clone.qdmPatient.birthDatetime).day, Time.zone.at(patient2_no_shift.qdmPatient.birthDatetime).day
     # assert patient2_randomized_shift_clone randomized
-    assert_not_equal Time.zone.at(patient2_randomized_no_shift_clone.qdmPatient.birthDatetime).day, Time.zone.at(patient2_no_shift.qdmPatient.birthDatetime).day
+    assert_not_equal Time.zone.at(patient2_randomized_no_shift_clone.qdmPatient.birthDatetime), Time.zone.at(patient2_no_shift.qdmPatient.birthDatetime)
   end
 
   def test_shifts_dates_with_shift
