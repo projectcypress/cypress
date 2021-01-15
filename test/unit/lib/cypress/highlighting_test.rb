@@ -16,7 +16,7 @@ class HighlightingTest < ActiveJob::TestCase
       SingleMeasureCalculationJob.perform_now([@patient.id.to_s], measure.id.to_s, @vendor.id.to_s, options)
       ir = IndividualResult.where(correlation_id: @vendor.id.to_s, measure_id: measure.id, patient_id: @patient.id).first
       logic_html = Highlighting.new(measure, ir).render
-      document = Nokogiri::HTML(logic_html, &:strict)
+      document = Nokogiri::HTML(logic_html)
       ir.clause_results.each do |cr|
         next unless %w[TRUE FALSE].include? cr.final
 
