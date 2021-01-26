@@ -69,7 +69,7 @@ jobs:
         sudo npm install -g eslint
         bundle exec overcommit --sign
         bundle exec overcommit --run
-  cucumber1:
+  cucumber-1:
     strategy:
       fail-fast: false
 
@@ -101,7 +101,7 @@ jobs:
     - name: Run cucumber
       run: |
         bundle exec cucumber features/admin/ features/checklist_tests/ features/filtering_tests/ features/measure_tests/ features/multi_measure_tests/;
-  cucumber1:
+  cucumber-2:
     strategy:
       fail-fast: false
 
