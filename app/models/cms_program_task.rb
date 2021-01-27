@@ -92,8 +92,8 @@ class CMSProgramTask < Task
   end
 
   def mips_apm_entity_validators
-    # For MIPS submissions, CMS EHR Certification ID is only required if Promoting Interoperability is included
-    [EHRCertificationIdValidator.new].concat ep_validators
+    # Unlike other MIPS submissions, the Promoting Interoperability should not be present for APMENTITY
+    ep_validators
   end
 
   # Common validators for EH programs
