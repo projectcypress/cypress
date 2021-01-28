@@ -16,6 +16,8 @@ class Bundle
   field :active, type: Boolean
   field :deprecated, type: Boolean, default: false
   field :done_importing, type: Boolean, default: false
+  field :fhir_measures, type: Array, default: []
+  field :fhir_patients, type: Array, default: []
 
   validates_presence_of :version
 
