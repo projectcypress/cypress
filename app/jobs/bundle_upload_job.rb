@@ -14,7 +14,12 @@ class BundleUploadJob < ApplicationJob
     already_have_default = Bundle.where(active: true).exists?
 
     importer = Cypress::FHIRBundleImporter
-    @bundle = importer.import(bundle_file, tracker)
+    begin
+      @bundle = importer.import(bundle_file, tracker)
+    rescue => error
+      byebug
+      puts error.message
+    end
 
     if already_have_default
       @bundle.active = false
