@@ -112,6 +112,9 @@ module Cypress
         next unless has_telehealth_value || has_telehealth_name
 
         telehealth_encounter = patient.qdmPatient.encounters.where(_id: encounter_id)
+        # The telehealth_encounter may have already been removed if there is a duplicate entry in the QRDA file
+        next if telehealth_encounter.empty?
+
         qualifier_value = has_telehealth_value ? codes_modifier[:value]&.code : codes_modifier[:name]&.code
         ineligible_measures_ids = ineligible_measures.pluck('cms_id').join(', ')
         msg = "Telehealth encounter #{telehealth_encounter.first.codes.first.code} with modifier " \
