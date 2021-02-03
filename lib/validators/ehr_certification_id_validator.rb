@@ -13,7 +13,7 @@ module Validators
       @document = get_document(file)
       # Look for Promoting Interoperability Section (V2) identifier
       has_pi = @document.at_xpath("//cda:component/cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.27.2.5']")
-      # If Promoting Interoperability Section is there, return
+      # If Promoting Interoperability Section is not there, return
       return unless has_pi
 
       # Otherwise, look for the certification ID
