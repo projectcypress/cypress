@@ -17,15 +17,28 @@ class CMSProgramTask < Task
 
   # Each cms program may have program specific validations
   def program_specific_validators
+    return eh_program_specific_validators if product_test.reporting_program_type == 'eh'
+    return ep_program_specific_validators if product_test.reporting_program_type == 'ep'
+
+    []
+  end
+
+  def eh_program_specific_validators
     return hqr_pi_validators if product_test.cms_program == 'HQR_PI'
     return hqr_iqr_validators if product_test.cms_program == 'HQR_IQR'
     return hqr_pi_iqr_validators if product_test.cms_program == 'HQR_PI_IQR'
     return hqr_iqr_vol_validators if product_test.cms_program == 'HQR_IQR_VOL'
+
+    []
+  end
+
+  def ep_program_specific_validators
     return cpcplus_validators if product_test.cms_program == 'CPCPLUS'
     return pcf_validators if product_test.cms_program == 'PCF'
     return mips_group_validators if product_test.cms_program == 'MIPS_GROUP'
     return mips_indiv_validators if product_test.cms_program == 'MIPS_INDIV'
     return mips_virtual_group_validators if product_test.cms_program == 'MIPS_VIRTUALGROUP'
+    return mips_apm_entity_validators if product_test.cms_program == 'MIPS_APMENTITY'
 
     []
   end
@@ -78,12 +91,17 @@ class CMSProgramTask < Task
     [EHRCertificationIdValidator.new].concat ep_validators
   end
 
+  def mips_apm_entity_validators
+    # Unlike other MIPS submissions, the Promoting Interoperability should not be present for APMENTITY
+    ep_validators
+  end
+
   # Common validators for EH programs
   def eh_validators
     [::Validators::CMSQRDA1HQRSchematronValidator.new(product_test.bundle.version, false),
      ::Validators::EncounterValidator.new,
      ::Validators::CoreClinicalDataElementValidator.new(product_test.measures),
-     ::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.c3_test, true, product_test.measures)]
+     ::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.c3_test, true)]
   end
 
   # Common validators for EP programs

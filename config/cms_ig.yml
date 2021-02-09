@@ -3,6 +3,7 @@ CMS Programs:
     - MIPS_GROUP
     - MIPS_INDIV
     - MIPS_VIRTUALGROUP
+    - MIPS_APMENTITY
     - CPCPLUS
     - PCF
   eh:
@@ -134,4 +135,12 @@ Program Criterion:
       ep: '(CONF:CMS_101)'
     programs:
       - PCF
+  MIPS APM Entity Identifier:
+    name: 'MIPS APM Entity Identifier'
+    description:
+      ep: 'This is the PCF APM Entity Identifier assigned to the PCF practice site.'
+    conf:
+      ep: '(CONF:CMS_109)'
+    programs:
+      - MIPS_APMENTITY
 

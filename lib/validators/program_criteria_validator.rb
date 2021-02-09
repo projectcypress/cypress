@@ -19,7 +19,7 @@ module Validators
       @file = file
       @doc = get_document(file)
       # Perform measure calculation for uploaded Cat I files
-      import_patient(options) if options.task.product_test.reporting_program_type == 'eh'
+      import_patient(options, measure_ids_from_file(@doc)) if options.task.product_test.reporting_program_type == 'eh'
       # Validate to correct HQMF ids are being reported
       add_cqm_validation_error_as_execution_error(Cat1Measure.instance.validate(@doc, file_name: options[:file_name]),
                                                   'CqmValidators::Cat1Measure',
@@ -36,11 +36,21 @@ module Validators
       end
     end
 
-    def import_patient(options)
+    def measure_ids_from_file(doc)
+      measure_ids = doc.xpath("//cda:entry/cda:organizer[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.98']]" \
+        "/cda:reference[@typeCode='REFR']/cda:externalDocument[@classCode='DOC']" \
+        "/cda:id[@root='2.16.840.1.113883.4.738']/@extension")
+      return nil unless measure_ids
+
+      measure_ids.map(&:value)
+    end
+
+    def import_patient(options, measure_ids)
       patient, warnings, _codes, codes_modifiers = QRDA::Cat1::PatientImporter.instance.parse_cat1(@file)
       persisible_codes_modifiers = {}
       codes_modifiers.each { |key, cm| persisible_codes_modifiers[key.to_s] = cm }
-      patient.update(_type: CQM::TestExecutionPatient, correlation_id: options.test_execution.id.to_s, codes_modifiers: persisible_codes_modifiers, file_name: options[:file_name])
+      patient.update(_type: CQM::TestExecutionPatient, correlation_id: options.test_execution.id.to_s, codes_modifiers: persisible_codes_modifiers,
+                     reported_measure_hqmf_ids: measure_ids, file_name: options[:file_name])
       post_processsor_check(patient, options)
       patient.save!
       warnings.each { |e| add_warning e.message, file_name: options[:file_name], location: e.location }
@@ -87,6 +97,7 @@ module Validators
         'TIN' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.4.2']",
         'CPCPLUS APM Entity Identifier' => "//cda:participant/cda:associatedEntity/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.3.249.5.1']",
         'PCF APM Entity Identifier' => "//cda:participant/cda:associatedEntity/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.3.249.5.3']",
+        'MIPS APM Entity Identifier' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.3.249.5.4']",
         'Virtual Group Identifier' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.3.249.5.2']"
       }
       results = @file.xpath(xpath_map[checked_criteria[:criterion_key]])
