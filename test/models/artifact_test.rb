@@ -23,7 +23,7 @@ class ArtifactTest < ActiveSupport::TestCase
     artifact = Artifact.new(file: File.new(filename))
     assert_equal expected.sort, artifact.file_names.sort
 
-    root = Rails.root.join('tmp', 'test', 'artifacts')
+    root = Rails.root.join('test', 'fixtures', 'artifacts')
     FileUtils.mkdir_p(root)
     filename = "#{root}/good_file_extension.xml"
     FileUtils.touch(filename)
@@ -40,7 +40,7 @@ class ArtifactTest < ActiveSupport::TestCase
   end
 
   def test_should_be_able_to_give_file_count_single_file
-    root = Rails.root.join('tmp', 'test', 'artifacts')
+    root = Rails.root.join('test', 'fixtures', 'artifacts')
     FileUtils.mkdir_p(root)
     filename = "#{root}/good_file_extension.xml"
     FileUtils.touch(filename)
@@ -60,7 +60,7 @@ class ArtifactTest < ActiveSupport::TestCase
   end
 
   def test_should_be_able_to_loop_on_single_file
-    root = Rails.root.join('tmp', 'test', 'artifacts')
+    root = Rails.root.join('test', 'fixtures', 'artifacts')
     FileUtils.mkdir_p(root)
     filename = "#{root}/good_file_extension.xml"
     FileUtils.touch(filename)
@@ -86,7 +86,7 @@ class ArtifactTest < ActiveSupport::TestCase
     task = C1Task.new
     zip_execution = task.test_executions.build
     xml_execution = task.test_executions.build
-    root = Rails.root.join('tmp', 'test', 'artifacts')
+    root = Rails.root.join('test', 'fixtures', 'artifacts')
     FileUtils.mkdir_p(root)
 
     zip_filename = "#{root}/good_file_extension.zip"
@@ -107,7 +107,7 @@ class ArtifactTest < ActiveSupport::TestCase
     task = C2Task.new
     zip_execution = task.test_executions.build
     xml_execution = task.test_executions.build
-    root = Rails.root.join('tmp', 'test', 'artifacts')
+    root = Rails.root.join('test', 'fixtures', 'artifacts')
     FileUtils.mkdir_p(root)
 
     zip_filename = "#{root}/good_file_extension.zip"
