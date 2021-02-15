@@ -46,7 +46,7 @@ module ProductTestRepresenter
        if: ->(_) { _type == 'FilteringTest' && options.filters.key?('problems') && state == :ready },
        wrap: :filters, as: :filters
 
-  hash :other_filters, getter: ->(_) { options.filters.map { |filter_type, filter_val| [filter_type.to_s.singularize, filter_val.first] }.to_h },
+  hash :other_filters, getter: ->(_) { options.filters.map { |filter_type, filter_val| [filter_type.to_s.singularize, filter_val.first.to_s] }.to_h },
                        if: ->(_) { _type == 'FilteringTest' && !options.filters['providers'] && !options.filters['problems'] && state == :ready },
                        wrap: :filters, as: :filters
 
