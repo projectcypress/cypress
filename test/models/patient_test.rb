@@ -100,8 +100,36 @@ class PatientTest < ActiveSupport::TestCase
     assert birthdate_count < 13
   end
 
-  def test_normalize_relevant_date_time
+  def test_normalize_relevant_date_time_2021
+    @bundle.version = '2021.0.0'
+    @bundle.save
+    record = BundlePatient.new(familyName: 'normalize', givenNames: ['datetime'], bundleId: @bundle.id)
+    QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
+    time_value = DateTime.new(2011, 3, 24, 20, 53, 20).utc
+    record.qdmPatient.dataElements << QDM::AssessmentPerformed.new(id: 'assessment', relevantDatetime: time_value)
+    assert_nil record.qdmPatient.dataElements.first.relevantPeriod
+
+    record.normalize_date_times
+    normalized_element = record.qdmPatient.dataElements.first
+    # relevantPeriod should still be nil
+    assert_nil normalized_element.relevantPeriod
+  end
+
+  def test_normalize_relevant_date_time_no_bundle
     record = BundlePatient.new(familyName: 'normalize', givenNames: ['datetime'])
+    QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
+    time_value = DateTime.new(2011, 3, 24, 20, 53, 20).utc
+    record.qdmPatient.dataElements << QDM::AssessmentPerformed.new(id: 'assessment', relevantDatetime: time_value)
+    assert_nil record.qdmPatient.dataElements.first.relevantPeriod
+
+    record.normalize_date_times
+    normalized_element = record.qdmPatient.dataElements.first
+    # relevantPeriod should still be nil
+    assert_nil normalized_element.relevantPeriod
+  end
+
+  def test_normalize_relevant_date_time
+    record = BundlePatient.new(familyName: 'normalize', givenNames: ['datetime'], bundleId: @bundle.id)
     QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     time_value = DateTime.new(2011, 3, 24, 20, 53, 20).utc
     record.qdmPatient.dataElements << QDM::AssessmentPerformed.new(id: 'assessment', relevantDatetime: time_value)
@@ -121,7 +149,7 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   def test_normalize_relevant_period
-    record = BundlePatient.new(familyName: 'normalize', givenNames: ['period'])
+    record = BundlePatient.new(familyName: 'normalize', givenNames: ['period'], bundleId: @bundle.id)
     QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     time_value_start = DateTime.new(2011, 3, 24, 20, 53, 20).utc
     time_value_end = DateTime.new(2011, 3, 25, 20, 53, 20).utc
@@ -144,7 +172,7 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   def test_normalize_relevant_period_low_only
-    record = BundlePatient.new(familyName: 'normalize', givenNames: ['period'])
+    record = BundlePatient.new(familyName: 'normalize', givenNames: ['period'], bundleId: @bundle.id)
     QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     time_value_start = DateTime.new(2011, 3, 24, 20, 53, 20).utc
     time_value_end = nil
@@ -167,7 +195,7 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   def test_normalize_relevant_period_high_only
-    record = BundlePatient.new(familyName: 'normalize', givenNames: ['period'])
+    record = BundlePatient.new(familyName: 'normalize', givenNames: ['period'], bundleId: @bundle.id)
     QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     time_value_start = nil
     time_value_end = DateTime.new(2011, 3, 25, 20, 53, 20).utc
