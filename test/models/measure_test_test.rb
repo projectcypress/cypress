@@ -71,7 +71,7 @@ class MeasureTestTest < ActiveJob::TestCase
       assert_equal 'MPL record', patient.familyName, 'Patient name should not be randomized'
       assert_equal '1989db70-4d42-0135-8680-20999b0ed66f', patient.medical_record_number, 'Patient record # should not be randomized'
 
-      pt.reload
+      pt = ProductTest.find(pt.id)
       assert_not_nil pt.patient_archive, 'Product test should have archived patient records'
       assert_not_nil pt.html_archive, 'Product test should have archived patient HTMLs'
       assert count_zip_entries(pt.html_archive.file.path) == count_zip_entries(pt.patient_archive.file.path), 'QRDA Archive and HTML archive should have same # files'

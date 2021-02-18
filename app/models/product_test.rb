@@ -103,11 +103,11 @@ class ProductTest
       pat_arr = sample_and_duplicate_patients(pat_arr, ids, random: prng) if ids.present?
     end
     Cypress::PatientZipper.zip(file, pat_arr, :qrda)
-    self.patient_archive = file
+    patient_archive.store!(file)
 
     file = Tempfile.new("product_test-html-#{id}.zip")
     Cypress::PatientZipper.zip(file, pat_arr, :html)
-    self.html_archive = file
+    html_archive.store!(file)
     save
   end
 
