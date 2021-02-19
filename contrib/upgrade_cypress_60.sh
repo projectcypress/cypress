@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ $(id -u) != 0 ]; then
+   echo "This script requires root permissions"
+   sudo "$0" "$@"
+   exit
+fi
+
 #import descriptions false by default
 desc=''
 
@@ -8,12 +14,6 @@ while getopts 'm' flag; do
     m) desc="true";;
   esac
 done
-
-# Make sure only root can run our script
-if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root" 1>&2
-   exit 1
-fi
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
