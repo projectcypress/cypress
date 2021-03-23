@@ -38,14 +38,13 @@ class RecordsController < ApplicationController
   end
 
   def by_measure
-    @patients = @vendor.patients.includes(:calculation_results).where(bundleId: @bundle.id.to_s) if @vendor
-    @patients ||= @source.patients.includes(:calculation_results)
+    @patients = @vendor.patients.where(bundleId: @bundle.id.to_s) if @vendor
+    @patients ||= @source.patients
 
     if params[:measure_id]
       measures = @vendor ? @bundle.measures : @source.measures
       @measure = measures.find_by(hqmf_id: params[:measure_id])
       @population_set_hash = params[:population_set_hash] || @measure.population_sets_and_stratifications_for_measure.first
-      expires_in 1.week, public: true
     end
   end
 
