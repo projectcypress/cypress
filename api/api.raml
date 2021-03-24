@@ -242,3 +242,43 @@ baseUriParameters:
             body:
                application/json:
                 schema: !include schema/json/measures.json
+/qrda_validation:
+  description: QRDA Validations on the system
+  get:
+    description: View a list of all avaliable QRDA Validations
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include schema/json/qrda_validations.json
+  /{year}/{qrda_type}/{implementation_guide}:
+    uriParameters:
+      year:
+        displayName: Performance Period
+        type: string
+      qrda_type:
+        displayName: QRDA Types (I or III)
+        type: string
+      implementation_guide:
+        displayName: Implemenation Guide (CMS or HL7)
+        type: string
+    post:
+      description: Upload a new test artifact
+      body:
+        multipart/form-data:
+          formParameters:
+            file:
+              description: Artifact to be tested
+              required: true
+              type: file
+      responses:
+        201:
+          description: File Uploaded Successfully. Cypress is checking data for accuracy and correctness
+          body:
+            application/json:
+              schema: !include schema/json/qrda_validation.json
+        422:
+          description: File uploaded is not processable by Cypress
+          body:
+            application/json:
+              schema: !include schema/json/errors.json
