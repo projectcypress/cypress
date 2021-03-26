@@ -63,7 +63,7 @@ module CQM
 
     # This method returns the subset of population keys used in a specific measure
     def population_keys
-      %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP MSRPOPL MSRPOPLEX].keep_if { |pop| population_sets.first.populations[pop]&.hqmf_id }
+      %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP MSRPOPL MSRPOPLEX].keep_if { |pop| population_sets.any? { |ps| ps.populations[pop]&.hqmf_id } }
     end
   end
 end

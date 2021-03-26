@@ -309,7 +309,7 @@ class ProductTest
   # Returns a listing of all ids for patients in the Measure Population
   def patients_in_high_value_populations
     Patient.find(gather_patient_ids).keep_if do |p|
-      p.patient_relevant?(measures.pluck(:_id), %w[NUMER DENEXCEP DENEX])
+      p.patient_relevant?(measures.pluck(:_id), %w[NUMER NUMEX DENEXCEP DENEX])
     end.pluck(:_id)
   end
 
