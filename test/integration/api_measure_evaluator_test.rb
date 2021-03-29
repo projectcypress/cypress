@@ -14,7 +14,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     # Leverage using functions in the ApiMeasureEvaluator
     perform_filtering_tests
     perform_measure_tests
-    failed_tests = TestExecution.where(state: 'failed')
+    failed_tests = TestExecution.where(state: { '$in': %w[failed errored] })
     assert failed_tests.empty?, "Test failed for #{failed_tests.first.task.product_test.cms_id} - #{failed_tests.collect { |ft| ft.execution_errors.collect(&:message) }}" unless failed_tests.empty?
   end
 
@@ -43,11 +43,13 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
       perform_enqueued_jobs do
         # Import the bundle
         @bundle = Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new, false)
+        # Pick 1 measure with an observation
+        obs_measures = @bundle.measures.where(measure_scoring: { '$in': %w[RATIO CONTINUOUS_VARIABLE] }).distinct(:hqmf_id).sample(1)
         # Pick 2 random EH measures
         eh_measures = @bundle.measures.where(reporting_program_type: 'eh').distinct(:hqmf_id).sample(2)
         # Pick 8 random EP measures
         ep_measures = @bundle.measures.where(reporting_program_type: 'ep').distinct(:hqmf_id).sample(8)
-        measure_ids = eh_measures + ep_measures
+        measure_ids = eh_measures + ep_measures + obs_measures
         @vendor = Vendor.find_or_create_by(name: 'MeasureEvaluationVendor')
         post :create, params: { vendor_id: @vendor.id, product: { name: 'MeasureEvaluationProduct', bundle_id: @bundle.id.to_s, c1_test: true, c2_test: true, c3_test: false, c4_test: true, duplicate_patients: false, randomize_patients: true, measure_ids: measure_ids } }
       end

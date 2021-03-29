@@ -115,6 +115,7 @@ end %>
       <% if (@task.is_a? CMSProgramTask) && @task.product_test.reporting_program_type == 'eh'
         continuous_measures = @task.measures.where(measure_scoring: 'CONTINUOUS_VARIABLE').only(:id, :population_sets, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }
         proportion_measures = @task.measures.where(measure_scoring: 'PROPORTION').only(:id, :population_sets, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }
+        ratio_measures = @task.measures.where(measure_scoring: 'RATIO').only(:id, :population_sets, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }
         display_calculations = file_name_id_hash.size < APP_CONSTANTS['max_cvu_calculations_displayed'] ? true : false
         file_name_id_hash.each do |file_name, patient|
           if files_with_errors.include?(file_name) %>
@@ -122,7 +123,7 @@ end %>
               <% unless display_calculations %>
                 <p><strong>Please use Product Report to view eCQM calculations for uploads with greater than <%= APP_CONSTANTS['max_cvu_calculations_displayed'] %> files.</strong></p>
               <% end %> 
-              <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: execution, file_name: file_name, error_result: collected_errors.files[file_name], is_passing: passing, on_execution_show_page: true, continuous_measures: continuous_measures, proportion_measures: proportion_measures, patient: patient, export: false, display_calculations: display_calculations } %>
+              <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: execution, file_name: file_name, error_result: collected_errors.files[file_name], is_passing: passing, on_execution_show_page: true, continuous_measures: continuous_measures, proportion_measures: proportion_measures, ratio_measures: ratio_measures, patient: patient, export: false, display_calculations: display_calculations } %>
             </div>
           <% else %>
             <div id=<%= "#{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>>
@@ -130,7 +131,7 @@ end %>
                 <%= "#{file_name}" %>
               </p>
               <% if display_calculations %>
-                <%= render partial: 'test_executions/results/calculation_results_for_file', locals: { execution: execution, file_name: file_name, continuous_measures: continuous_measures, proportion_measures: proportion_measures, patient: patient, export: false } %>
+                <%= render partial: 'test_executions/results/calculation_results_for_file', locals: { execution: execution, file_name: file_name, continuous_measures: continuous_measures, proportion_measures: proportion_measures, ratio_measures: ratio_measures, patient: patient, export: false } %>
               <% else %>
                 <p><strong>Please use Product Report to view eCQM calculations for uploads with greater than <%= APP_CONSTANTS['max_cvu_calculations_displayed'] %> files.</strong></p>
               <% end %>
@@ -140,7 +141,7 @@ end %>
       <% else %>
         <% collected_errors.files.each do |file_name, error_result| %>
           <div id=<%= "#{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>>
-            <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: execution, file_name: file_name, error_result: error_result, is_passing: passing, on_execution_show_page: true, continuous_measures: continuous_measures, proportion_measures: proportion_measures, patient: nil, export: false, display_calculations: false } %>
+            <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: execution, file_name: file_name, error_result: error_result, is_passing: passing, on_execution_show_page: true, continuous_measures: continuous_measures, proportion_measures: proportion_measures, ratio_measures: ratio_measures, patient: nil, export: false, display_calculations: false } %>
           </div>
         <% end %>
       <% end %>

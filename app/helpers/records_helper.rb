@@ -10,6 +10,7 @@ module RecordsHelper
   SUBFIELDS = %w[title scalar value unit units description period dispenseDate quantityDispensed time].freeze
   CV_POPULATION_KEYS = %w[IPP MSRPOPL MSRPOPLEX OBSERV].freeze
   PROPORTION_POPULATION_KEYS = %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP].freeze
+  RATIO_POPULATION_KEYS = %w[IPP DENOM NUMER DENEX DENEXCEP OBSERV].freeze
 
   def full_gender_name(gender)
     case gender
@@ -71,6 +72,34 @@ module RecordsHelper
   end
 
   # This method returns a hash of the form
+  #  {BSON::ObjectId('1')=>[[75]],
+  #  BSON::ObjectId('2')=>[[]],
+  #  BSON::ObjectId('3')=>[[50][10]]}
+  #
+  # Inputs:
+  # records: An array of records (If you only care about a single record then pass in [record])
+  # measures: An array of measures (If you only care about a single measure then pass in [measure])
+  # pop_set: The population set identifier for the result set you care about, for example ['PopulationCriteria1']
+  # key: The name of the element which should be the key of the key value pair returned.
+  # We currently use 'patient_id' and 'measure_id' as keys and then do lookups for the values
+  # in the hash when generating miscellaneous views around the Master Patient List.
+  #
+  # Usage tip: It is strongly recommended you pass in either an array of records OR and array
+  # of measures and then pass in the other as an array containing a single element.
+  def get_observation_values(records, measures, pop_set, key)
+    CQM::IndividualResult.where(
+      :patient_id.in => records.pluck(:id),
+      :measure_id.in => measures.pluck(:id),
+      :population_set_key => pop_set
+    ).only(:episode_results, :patient_id, :measure_id).collect do |elem|
+      [
+        elem[key],
+        elem.observed_values
+      ]
+    end.to_h
+  end
+
+  # This method returns a hash of the form
   #  {BSON::ObjectId('1')=>{"IPP"=>1, "DENOM"=>0, "DENEX"=>0, "NUMER"=>0, "DENEXCEP"=>0},
   #  BSON::ObjectId('2')=>{"IPP"=>1, "DENOM"=>0, "DENEX"=>0, "NUMER"=>0, "DENEXCEP"=>0},
   #  BSON::ObjectId('3')=>{"IPP"=>1, "DENOM"=>0, "DENEX"=>0, "NUMER"=>0, "DENEXCEP"=>0},}
@@ -92,6 +121,22 @@ module RecordsHelper
       [
         "#{elem[key]}|#{elem['population_set_key']}",
         pop_keys.collect { |pop_key| [pop_key, elem[pop_key].to_i] }.to_h
+      ]
+    end.to_h
+  end
+
+  # This method returns a hash of the form
+  #  {"606b4219c1c388103e35a23e|PopulationSet_1"=>[[9, 1]]}
+  #
+  # Inputs:
+  # individual_results: An array of individual_results
+  # patient_id: The id for the patient you care about
+  # key: The name of the element which should be the key of the key value pair returned.
+  def get_observation_values_for_patient(individual_results, patient_id, key)
+    individual_results.select { |ir| ir.patient_id == patient_id }.collect do |elem|
+      [
+        "#{elem[key]}|#{elem['population_set_key']}",
+        elem.observed_values
       ]
     end.to_h
   end

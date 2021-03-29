@@ -5,7 +5,8 @@
     <h2>Measure Information</h2>
     <% {
           @continuous_measures => RecordsHelper::CV_POPULATION_KEYS,
-          @proportion_measures => RecordsHelper::PROPORTION_POPULATION_KEYS
+          @proportion_measures => RecordsHelper::PROPORTION_POPULATION_KEYS,
+          @ratio_measures => RecordsHelper::RATIO_POPULATION_KEYS
         }.each do |measures, pop_keys| %>
       <% if measures.length.positive? %>
         <table class="table table-condensed">
@@ -21,12 +22,15 @@
             <% measures.each do |m| %>
               <% m.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
                 <% result_values = get_result_values([@record], [m], m.key_for_population_set(population_set_hash), pop_keys, 'measure_id') %>
+                <% observation_values = get_observation_values([@record], [m], m.key_for_population_set(population_set_hash), 'measure_id') %>
                 <% unless result_values.empty? %>
                   <tr>
                     <th class="abbreviated" scope="row">
                       <%= measure_display_name(m, population_set_hash) %>
                     </th>
                     <% result_values[m.id].each do |population, value| %>
+                      <!-- Observations are dealt with separately since there can be more than one per measure. -->
+                      <% next if population == 'OBSERV' %>
                       <td class="text-center">
                         <span class="sr-only">Measure <%= m.description %> population <%= population %> result: </span>
                         <!-- This is the relevant piece of the calculation_result_icon partial ported over to here. Rendering each circle in its own partial is far too slow and causes the application to take up to 8 seconds longer to load on some pages. -->
@@ -43,6 +47,9 @@
                           <%= icon('far fa-2x empty-marker', 'circle', :"aria-hidden" => true) %>
                         <% end %>
                       </td>
+                    <% end %>
+                    <% if observation_values[m.id] %>
+                      <td class="text-center"><% observation_values[m.id].each do |ov| %><%= ov.join('|') %><br/><% end %></td>
                     <% end %>
                   </tr>
                   <% unless @record.calculation_results.first.clause_results.empty? %>

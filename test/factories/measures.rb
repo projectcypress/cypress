@@ -20,6 +20,8 @@ FactoryBot.define do
     source_data_criteria { source_measure['source_data_criteria'] }
     population_criteria { source_measure['population_criteria'] }
 
+    measure_attributes { source_measure['measure_attributes'] }
+
     main_cql_library { source_measure['main_cql_library'] }
 
     trait :diagnosis do
@@ -50,6 +52,8 @@ FactoryBot.define do
 
       source_data_criteria { source_measure['source_data_criteria'] }
       population_criteria { source_measure['population_criteria'] }
+
+      measure_attributes { source_measure['measure_attributes'] }
 
       main_cql_library { source_measure['main_cql_library'] }
 
@@ -101,7 +105,9 @@ FactoryBot.define do
       category { 'none_0' }
 
       source_data_criteria { source_proportion_measure['source_data_criteria'] }
-      population_criteria { source_measure['population_criteria'] }
+      population_criteria { source_proportion_measure['population_criteria'] }
+
+      measure_attributes { source_proportion_measure['measure_attributes'] }
 
       main_cql_library { source_proportion_measure['main_cql_library'] }
 

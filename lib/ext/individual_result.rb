@@ -8,13 +8,19 @@ module CQM
     field :correlation_id, type: String
     field :file_name, type: String
 
+    def observed_values
+      return nil unless episode_results&.values&.any? { |er| er.key?('observation_values') }
+
+      episode_results.values.map(&:observation_values)
+    end
+
     def compare_results(calculated, options, previously_passed)
       issues = []
       if calculated.nil?
         [true && previously_passed, issues]
       else
         comp = true
-        %w[IPP DENOM NUMER DENEX DENEXCEP MSRPOPL MSRPOPLEXCEP values].each do |pop|
+        %w[IPP DENOM NUMER DENEX DENEXCEP MSRPOPL MSRPOPLEXCEP].each do |pop|
           original_value, calculated_value, pop = extract_calcuated_and_original_results(calculated, pop)
           next unless original_value != calculated_value
 
@@ -26,6 +32,7 @@ module CQM
         APP_CONSTANTS['result_measures'].each do |result_measure|
           compare_statement_results(calculated, result_measure['statement_name'], issues) if measure.hqmf_set_id == result_measure['hqmf_set_id']
         end
+        compare_observations(calculated, issues) if observed_values
         [previously_passed && comp, issues]
       end
     end
@@ -42,6 +49,13 @@ module CQM
         calculated_value = [] if calculated_value.nil? || !calculated_value.is_a?(Array)
       end
       [original_value, calculated_value, pop]
+    end
+
+    def compare_observations(calculated, issues = [])
+      if calculated['observation_values'] != observation_values
+        issues << "Calculated observations (#{calculated['observation_values'].join(', ')}) do not match "\
+                  "expected observations (#{observation_values.join(', ')})"
+      end
     end
 
     def compare_statement_results(calculated, statement_name, issues = [])

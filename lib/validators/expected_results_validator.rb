@@ -37,6 +37,7 @@ module Validators
 
         stratification_id = population_set.stratifications.where(stratification_id: pop_set_hash[:stratification_id]).first&.hqmf_id
         check_population(expected_result, reported_result, pop_key, pop_set_hash, measure)
+
         # Check supplemental data elements
         ex_sup = (expected_result['supplemental_data'] || {})[pop_key]
         next unless pop_set_hash[:stratification_id].nil? && ex_sup
@@ -48,6 +49,7 @@ module Validators
 
         check_sup_keys(ex_sup, reported_result, keys_and_ids, options)
       end
+      check_observations(expected_result, reported_result, measure.hqmf_id) if expected_result[:observations]
     end
 
     # def check_for_reported_results_population_ids(expected_result, reported_result, measure_id, stratification_id)
@@ -59,6 +61,17 @@ module Validators
     #     add_error(message, location: '/', measure_id: measure_id, stratification: stratification_id, file_name: @file_name)
     #   end
     # end
+
+    def check_observations(expected_result, reported_result, measure_id)
+      expected_result[:observations].each do |population, expected_observation|
+        next if reported_result[:observations][population].to_f == expected_observation['value'].to_f
+
+        err = %(Expected #{population} Observation value #{expected_observation['value']}
+        does not match reported value #{reported_result[:observations][population]})
+        options = { location: '/', measure_id: measure_id, file_name: @file_name }
+        add_error(err, options)
+      end
+    end
 
     def check_population(expected_result, reported_result, pop_key, pop_set_hash, measure)
       # only add the error that they dont match if there was an actual result
