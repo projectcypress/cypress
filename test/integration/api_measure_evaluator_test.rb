@@ -147,8 +147,12 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     # We need to normalize_date_times prior to calculating our Cat III
     patients.map(&:normalize_date_times)
 
-    # Use ApiMeasureEvaluator to call cqm-execution-service
-    @apime.do_calculation(product_test, patients, correlation_id)
+    successful_calculation = false
+    until successful_calculation
+      # Use ApiMeasureEvaluator to call cqm-execution-service
+      @apime.do_calculation(product_test, patients, correlation_id)
+      successful_calculation = IndividualResult.where(correlation_id: correlation_id, IPP: { '$gte' => 1 }).size.positive?
+    end
 
     # Seed ExpectedResultsCalculator with patients and correlation_id for cat III generation
     erc = Cypress::ExpectedResultsCalculator.new(patients, correlation_id, product_test.effective_date)
@@ -200,7 +204,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
   def import_cat1_file(doc)
     patient, _warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
     Cypress::QRDAPostProcessor.replace_negated_codes(patient, @bundle)
-    patient.update(_type: CQM::TestExecutionPatient, correlation_id: 'api_eval')
+    patient.update(_type: CQM::TestExecutionPatient, correlation_id: 'api_eval', bundleId: @bundle.id)
     patient.save!
     patient.id
   end
