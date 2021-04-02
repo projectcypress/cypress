@@ -78,7 +78,7 @@ class QrdaUploadsControllerTest < ActionController::TestCase
 
   # XML
 
-  test 'should get index with xml request' do
+  test 'should create qrda upload with execution errors with xml request' do
     for_each_logged_in_user([USER]) do
       artifacts_before = Artifact.all.size
 

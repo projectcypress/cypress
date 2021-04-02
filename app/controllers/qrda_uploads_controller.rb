@@ -19,7 +19,7 @@ class QrdaUploadsController < ApplicationController
       respond_with(uploader)
     else
       respond_to do |format|
-        format.all  { render plain: '404 Not Found', status: :not_found }
+        format.all  { render plain: "Validator not found. Visit '/qrda_validation' for listing of available validators", status: :not_found }
       end
     end
   end

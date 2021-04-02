@@ -17,17 +17,13 @@ module Validators
     end
 
     def qrda_1_validator(bundle_year, organization)
-      if bundle_year == 2020
-        organization == 'hl7' ? Cat1R52.instance : ::Validators::CMSQRDA1HQRSchematronValidator.new(bundle_year, false)
-      elsif bundle_year == 2021
+      if [2020, 2021].include? bundle_year
         organization == 'hl7' ? Cat1R52.instance : ::Validators::CMSQRDA1HQRSchematronValidator.new(bundle_year, false)
       end
     end
 
     def qrda_3_validator(bundle_year, organization)
-      if bundle_year == 2020
-        organization == 'hl7' ? Cat3R21.instance : ::Validators::CMSQRDA3SchematronValidator.new(bundle_year, false)
-      elsif bundle_year == 2021
+      if [2020, 2021].include? bundle_year
         organization == 'hl7' ? Cat3R21.instance : ::Validators::CMSQRDA3SchematronValidator.new(bundle_year, false)
       end
     end
