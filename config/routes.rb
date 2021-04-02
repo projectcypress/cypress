@@ -97,6 +97,9 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :qrda_uploads, only: [:create], path: '/qrda_validation/:year/:qrda_type/:organization'
+  resources :qrda_uploads, only: [:index], path: '/qrda_validation'
+
   resource :admin, only: [:show], controller: 'admin'
 
   namespace 'admin' do

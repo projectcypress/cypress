@@ -599,4 +599,43 @@
   "$schema": "http://json-schema.org/schema#",
   "type": "array",
   "items": { "$ref": "measure" }
-}</code></pre></div><div class="tab-pane" id="bundles__id__measures_get_securedby"><h1>Secured by basic</h1></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#vendors">Vendors</a></li><li><a href="#products__product_id__product_tests">Product Tests (Single Measure Testing and Filter Tests)</a></li><li><a href="#product_tests__product_test_id__tasks">/product_tests/{product_test_id}/tasks</a></li><li><a href="#tasks__task_id__test_executions">Task</a></li><li><a href="#bundles">/bundles</a></li></ul></div></div></div></div></body></html>
+}</code></pre></div><div class="tab-pane" id="bundles__id__measures_get_securedby"><h1>Secured by basic</h1></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="qrda_validation" class="panel-title">/qrda_validation</h3></div><div class="panel-body"><div class="top-resource-description"><p>QRDA Validations on the system</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_qrda_validation"><span class="parent"></span>/qrda_validation</a> <span class="methods"><a href="#qrda_validation_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_qrda_validation" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#qrda_validation_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>View a list of all avaliable QRDA Validations</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="qrda_validation_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/qrda_validation</h4></div><div class="modal-body"><div class="alert alert-info"><p>View a list of all avaliable QRDA Validations</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>basic</b><p>This API supports Basic Authentication.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#qrda_validation_get_response" data-toggle="tab">Response</a></li><li><a href="#qrda_validation_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="qrda_validation_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "QRDA Validatons",
+  "id": "http://cypress.healthit.gov/schemas/qrda_validatons.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "array",
+  "items": { "$ref": "qrda_validaton" }
+}</code></pre></div><div class="tab-pane" id="qrda_validation_get_securedby"><h1>Secured by basic</h1></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_qrda_validation__year___qrda_type___implementation_guide_"><span class="parent">/qrda_validation</span>/{year}/{qrda_type}/{implementation_guide}</a> <span class="methods"><a href="#qrda_validation__year___qrda_type___implementation_guide__post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_qrda_validation__year___qrda_type___implementation_guide_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#qrda_validation__year___qrda_type___implementation_guide__post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Upload a new test artifact</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="qrda_validation__year___qrda_type___implementation_guide__post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/qrda_validation</span>/{year}/{qrda_type}/{implementation_guide}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Upload a new test artifact</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by <b>basic</b><p>This API supports Basic Authentication.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#qrda_validation__year___qrda_type___implementation_guide__post_request" data-toggle="tab">Request</a></li><li><a href="#qrda_validation__year___qrda_type___implementation_guide__post_response" data-toggle="tab">Response</a></li><li><a href="#qrda_validation__year___qrda_type___implementation_guide__post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="qrda_validation__year___qrda_type___implementation_guide__post_request"><h3>URI Parameters</h3><ul><li><strong>Performance Period</strong>: <em>required (string)</em></li><li><strong>QRDA Types (I or III)</strong>: <em>required (string)</em></li><li><strong>Implemenation Guide (CMS or HL7)</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: multipart/form-data</strong></p><strong>Form Parameters</strong><ul><li><strong>file</strong>: <em>required (file)</em><p>Artifact to be tested</p></li></ul></div><div class="tab-pane" id="qrda_validation__year___qrda_type___implementation_guide__post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>File Uploaded Successfully. Cypress is checking data for accuracy and correctness</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "QRDA Validation",
+  "id": "http://cypress.healthit.gov/schemas/qrda_validation.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "validator": {"type": "string"},
+    "path": {"type": "string"},
+    "execution_errors": {"type": "array", "items": { "$ref": "execution_error" } }
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/422" target="_blank">422</a></h2><p>File uploaded is not processable by Cypress</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+  "title": "Errors",
+  "id": "http://cypress.healthit.gov/schemas/errors.json",
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "messages": {
+            "type": "array",
+            "items": { "type" : "string" }
+          }
+        }
+      }
+    }
+  }
+}</code></pre></div><div class="tab-pane" id="qrda_validation__year___qrda_type___implementation_guide__post_securedby"><h1>Secured by basic</h1></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#vendors">Vendors</a></li><li><a href="#products__product_id__product_tests">Product Tests (Single Measure Testing and Filter Tests)</a></li><li><a href="#product_tests__product_test_id__tasks">/product_tests/{product_test_id}/tasks</a></li><li><a href="#tasks__task_id__test_executions">Task</a></li><li><a href="#bundles">/bundles</a></li><li><a href="#qrda_validation">/qrda_validation</a></li></ul></div></div></div></div></body></html>
