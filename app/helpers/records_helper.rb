@@ -9,7 +9,7 @@ module RecordsHelper
               transferFrom laterality anatomical_location diagnosis].freeze
   SUBFIELDS = %w[title scalar value unit units description period dispenseDate quantityDispensed time].freeze
   CV_POPULATION_KEYS = %w[IPP MSRPOPL MSRPOPLEX OBSERV].freeze
-  PROPORTION_POPULATION_KEYS = %w[IPP DENOM NUMER DENEX DENEXCEP].freeze
+  PROPORTION_POPULATION_KEYS = %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP].freeze
 
   def full_gender_name(gender)
     case gender
