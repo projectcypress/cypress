@@ -296,13 +296,13 @@ module Cypress
       age_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:birthTime/@value'
       patient_birth_time = DateTime.parse(doc.at_xpath(age_xpath).value).to_i
       filter_time = Time.parse(creation_time).to_i
-      age_shit = 31_556_952 * age_filter[1]
+      age_shift = 31_556_952 * age_filter[1].to_i
       if age_filter[0] == 'max'
         # Need to add a year e.g. you are 8 until you are 9.
         # This is currently simplistic, since it doesn't take birth 'time' into consideration
-        filter_time < patient_birth_time + age_shit + 31_556_952
+        filter_time < patient_birth_time + age_shift + 31_556_952
       else
-        filter_time > patient_birth_time + age_shit
+        filter_time > patient_birth_time + age_shift
       end
     end
 
@@ -509,8 +509,10 @@ module Cypress
 
     def import_cat1_file(doc, patient_ids, bundle_id)
       patient, _warnings, _codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
-      Cypress::QRDAPostProcessor.replace_negated_codes(patient, Bundle.find(bundle_id))
-      patient.update(_type: CQM::TestExecutionPatient, correlation_id: 'api_eval')
+      bundle = Bundle.find(bundle_id)
+      Cypress::QRDAPostProcessor.replace_negated_codes(patient, bundle)
+      patient.update(_type: CQM::TestExecutionPatient, correlation_id: 'api_eval', bundleId: bundle_id)
+      patient.normalize_date_times
       patient.save!
       patient_ids << patient.id
     end

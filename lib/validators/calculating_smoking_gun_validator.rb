@@ -22,6 +22,7 @@ module Validators
       warnings.each { |e| add_warning e.message, file_name: options[:file_name], location: e.location }
 
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, @bundle)
+      patient.bundleId = @bundle.id
       patient
     rescue
       add_error('File failed import', file_name: options[:file_name])

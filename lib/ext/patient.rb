@@ -198,7 +198,8 @@ module CQM
         lt.encounter_id = encounter_id_for_event(encounter_times, lt.resultDatetime)
       end
       qdmPatient.get_data_elements('physical_exam', 'performed').each do |pe|
-        pe.encounter_id = encounter_id_for_event(encounter_times, pe.relevantDatetime)
+        event_time = pe.relevantDatetime || pe.relevantPeriod&.low
+        pe.encounter_id = encounter_id_for_event(encounter_times, event_time)
       end
     end
 
