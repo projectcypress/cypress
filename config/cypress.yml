@@ -249,6 +249,12 @@ telehealth_ineligible_measures:
    '2C928085-7198-38EE-0171-9999E27A042B',
    '2C928085-7198-38EE-0171-996032910386' ]
 
+# These measures have specific timing constraints
+timing_constraints:
+  - hqmf_id : '2C928085-7198-38EE-0171-9D44015105A3'
+    start_time : '20210701'
+    end_time : '20220630'
+
 telehealth_modifier_codes:
   [ '95', 'GQ', 'GT' ]
 
