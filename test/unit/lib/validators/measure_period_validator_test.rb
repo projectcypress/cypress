@@ -9,6 +9,62 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
     @vendor_user.test_executions << @test_execution
   end
 
+  def test_file_with_good_measure_specific_mp
+    measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
+    APP_CONSTANTS['timing_constraints'].first['hqmf_id'] = measure_id
+    APP_CONSTANTS['timing_constraints'].first['start_time'] = '20170101'
+    APP_CONSTANTS['timing_constraints'].first['end_time'] = '20171231'
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_good.xml')).read
+    pt = CMSProgramTest.new(name: 'CMS Program Test', cms_program: 'HQR_PI', measure_ids: [measure_id],
+                            reporting_program_type: 'eh')
+    pt.create_tasks
+    te = pt.tasks.first.test_executions.build
+    @validator.validate(file, 'test_execution' => te)
+    assert_empty @validator.errors
+  end
+
+  def test_file_with_bad_measure_specific_mp_start_qrda_1
+    measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
+    APP_CONSTANTS['timing_constraints'].first['hqmf_id'] = measure_id
+    APP_CONSTANTS['timing_constraints'].first['start_time'] = '20170102'
+    APP_CONSTANTS['timing_constraints'].first['end_time'] = '20171231'
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_good.xml')).read
+    pt = CMSProgramTest.new(name: 'CMS Program Test', cms_program: 'HQR_PI', measure_ids: [measure_id],
+                            reporting_program_type: 'eh')
+    pt.create_tasks
+    te = pt.tasks.first.test_executions.build
+    @validator.validate(file, 'test_execution' => te)
+    assert_equal 'Reported Measurement Period should start on 20170102', @validator.errors[0].message
+  end
+
+  def test_file_with_bad_measure_specific_mp_start_qrda_3
+    measure_id = '40280382-5FA6-FE85-0160-0918E74D2075'
+    APP_CONSTANTS['timing_constraints'].first['hqmf_id'] = measure_id
+    APP_CONSTANTS['timing_constraints'].first['start_time'] = '20170102'
+    APP_CONSTANTS['timing_constraints'].first['end_time'] = '20171231'
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_missing_measure.xml')).read
+    pt = CMSProgramTest.new(name: 'CMS Program Test', cms_program: 'MIPS_APMENTITY', measure_ids: [measure_id],
+                            reporting_program_type: 'ep')
+    pt.create_tasks
+    te = pt.tasks.first.test_executions.build
+    @validator.validate(file, 'test_execution' => te)
+    assert_equal 'Reported Measurement Period should start on 20170102', @validator.errors[0].message
+  end
+
+  def test_file_with_bad_measure_specific_mp_end_qrda_1
+    measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
+    APP_CONSTANTS['timing_constraints'].first['hqmf_id'] = measure_id
+    APP_CONSTANTS['timing_constraints'].first['start_time'] = '20170101'
+    APP_CONSTANTS['timing_constraints'].first['end_time'] = '20171230'
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_good.xml')).read
+    pt = CMSProgramTest.new(name: 'CMS Program Test', cms_program: 'HQR_PI', measure_ids: [measure_id],
+                            reporting_program_type: 'eh')
+    pt.create_tasks
+    te = pt.tasks.first.test_executions.build
+    @validator.validate(file, 'test_execution' => te)
+    assert_equal 'Reported Measurement Period should end on 20171230', @validator.errors[0].message
+  end
+
   def test_file_with_good_mp
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_missing_measure.xml')).read
     @validator.validate(file, 'test_execution' => @test_execution)

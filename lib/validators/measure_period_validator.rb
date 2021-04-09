@@ -22,7 +22,7 @@ module Validators
     end
 
     def validate_timing
-      timing_constraint = APP_CONSTANTS['timing_constraints'].detect { |tc| measure_ids_from_cat_1_file(@document).include? tc['hqmf_id'] }
+      timing_constraint = find_timing_constraints
       if timing_constraint && (@product_test.is_a? CMSProgramTest)
         validate_measurement_period(timing_constraint['start_time'], timing_constraint['end_time'])
       elsif (@product_test.is_a? CMSProgramTest) && @product_test.reporting_program_type == 'eh'
@@ -135,6 +135,14 @@ module Validators
     end
 
     private
+
+    def find_timing_constraints
+      # We need to look for measure ids in QRDA I and QRDA III files
+      timing_constraint = APP_CONSTANTS['timing_constraints'].detect { |tc| measure_ids_from_cat_1_file(@document).include? tc['hqmf_id'] }
+      timing_constraint || APP_CONSTANTS['timing_constraints'].detect do |tc|
+        measure_ids_from_cat_3_file(@document).map(&:value).include? tc['hqmf_id']
+      end
+    end
 
     def error_options
       { location: '/',
