@@ -61,6 +61,18 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     end
   end
 
+  def test_ep_task_returns_appropriate_error_for_incorrect_measure_id
+    setup_ep
+    task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good_invalid_id.xml'))
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal :failed, te.state
+      assert_equal 1, te.execution_errors.where(message: 'Invalid HQMF ID Found: 40280382-5FA6-FE85-0160-0918E74D2076').size
+    end
+  end
+
   def test_ep_task_with_errors_for_cv_measure
     setup_ep
     task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first.tasks.first
