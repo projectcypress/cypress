@@ -52,9 +52,12 @@ module CQM
     end
 
     def compare_observations(calculated, issues = [])
-      if calculated['observation_values'] != observation_values
-        issues << "Calculated observations (#{calculated['observation_values'].join(', ')}) do not match "\
-                  "expected observations (#{observation_values.join(', ')})"
+      calculated_er = calculated['episode_results'].values.map(&:observation_values).sort
+      expected_er = episode_results.values.map(&:observation_values).sort
+
+      if calculated_er != expected_er
+        issues << "Calculated observations (#{calculated_er}) do not match "\
+                  "expected observations (#{expected_er})"
       end
     end
 
