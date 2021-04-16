@@ -1,15 +1,51 @@
 module Validators
   class CoreClinicalDataElementValidator < QrdaFileValidator
     include Validators::Validator
+    include QrdaHelper
 
     def initialize(measures)
-      @measures = measures
+      @test_measure_ids = measures.pluck(:hqmf_set_id)
+      @ccde_measure_ids = APP_CONSTANTS['result_measures'].map(&:hqmf_set_id)
     end
 
     def validate(file, options = {})
-      return if (APP_CONSTANTS['result_measures'].map(&:hqmf_set_id) & @measures.pluck(:hqmf_set_id)).empty?
+      return if (@ccde_measure_ids & @test_measure_ids).empty?
 
       doc = get_document(file)
+      if options.task._type == 'CMSProgramTask'
+        verify_patient_ids(doc, options)
+        verify_ccde_program(doc, options)
+      end
+      verify_only_ccde_measures(doc, options)
+      verify_encounters(doc, options)
+    end
+
+    def verify_patient_ids(doc, options)
+      reported_id = doc.at_xpath('//cda:recordTarget/cda:patientRole/cda:id[@root="2.16.840.1.113883.4.927"]')
+      reported_id ||= doc.at_xpath('//cda:recordTarget/cda:patientRole/cda:id[@root="2.16.840.1.113883.4.572"]')
+      return if reported_id
+
+      msg = 'CMS_0084 - QRDA files for hybrid measure/CCDE submissions must contain a HICN or MBI.'
+      add_error(msg, file_name: options[:file_name])
+    end
+
+    def verify_ccde_program(doc, options)
+      prog = doc.at_xpath('//cda:informationRecipient/cda:intendedRecipient/cda:id/@extension')
+      return if prog.value == 'HQR_IQR_VOL'
+
+      msg = 'CMS_0085 - CMS program name for hybrid measure/CCDE submissions must be HQR_IQR_VOL.'
+      add_error(msg, file_name: options[:file_name])
+    end
+
+    def verify_only_ccde_measures(doc, options)
+      reported_measure_ids = measure_ids_from_cat_1_file(doc)
+      return if (reported_measure_ids - @ccde_measure_ids).empty?
+
+      msg = 'CMS_0086 - Files containing hybrid measure/CCDE submissions and eCQM cannot be submitted within the same batch'
+      add_error(msg, file_name: options[:file_name])
+    end
+
+    def verify_encounters(doc, options)
       encounter_ids = encounter_ids_in_doc(doc)
       # Get Entries related to Core Clinical Data Element (Laboraty Test, Performed (V5) and Physical Exam, Performed (V5)
       ccde_xpath = %(//cda:entry/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.38'
