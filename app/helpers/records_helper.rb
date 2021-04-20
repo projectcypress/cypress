@@ -56,8 +56,8 @@ module RecordsHelper
   # We currently use 'patient_id' and 'measure_id' as keys and then do lookups for the values
   # in the hash when generating miscellaneous views around the Master Patient List.
   #
-  # Usage tip: It is strongly recommended you pass in either an array of records OR and array
-  # of measures and then pass in the other as an array containing a single element.
+  # Usage tip: It is strongly recommended you pass in either an array of records OR an array
+  # of measures (this should match the key) as resulting hash includes a single key value.
   def get_result_values(records, measures, pop_set, pop_keys, key)
     CQM::IndividualResult.where(
       :patient_id.in => records.pluck(:id),
@@ -84,19 +84,14 @@ module RecordsHelper
   # We currently use 'patient_id' and 'measure_id' as keys and then do lookups for the values
   # in the hash when generating miscellaneous views around the Master Patient List.
   #
-  # Usage tip: It is strongly recommended you pass in either an array of records OR and array
-  # of measures and then pass in the other as an array containing a single element.
+  # Usage tip: It is strongly recommended you pass in either an array of records OR an array
+  # of measures (this should match the key) as resulting hash includes a single key value.
   def get_observation_values(records, measures, pop_set, key)
     CQM::IndividualResult.where(
       :patient_id.in => records.pluck(:id),
       :measure_id.in => measures.pluck(:id),
       :population_set_key => pop_set
-    ).only(:episode_results, :patient_id, :measure_id).collect do |elem|
-      [
-        elem[key],
-        elem.observed_values
-      ]
-    end.to_h
+    ).only(:episode_results, :patient_id, :measure_id).to_h { |elem| [elem[key], elem.observed_values] }
   end
 
   # This method returns a hash of the form
@@ -112,10 +107,7 @@ module RecordsHelper
   # pop_keys: The population keys which you care about, for example ['IPP', 'DENOM']
   # key: The name of the element which should be the key of the key value pair returned.
   # We currently use 'patient_id' and 'measure_id' as keys and then do lookups for the values
-  # in the hash when generating miscellaneous views around the Master Patient List.
-  #
-  # Usage tip: It is strongly recommended you pass in either an array of records OR and array
-  # of measures and then pass in the other as an array containing a single element.
+  # in the hash when generating miscellaneous views around the Master Patient List.s
   def get_result_values_for_patient(individual_results, patient_id, pop_keys, key)
     individual_results.select { |ir| ir.patient_id == patient_id }.collect do |elem|
       [
@@ -133,12 +125,7 @@ module RecordsHelper
   # patient_id: The id for the patient you care about
   # key: The name of the element which should be the key of the key value pair returned.
   def get_observation_values_for_patient(individual_results, patient_id, key)
-    individual_results.select { |ir| ir.patient_id == patient_id }.collect do |elem|
-      [
-        "#{elem[key]}|#{elem['population_set_key']}",
-        elem.observed_values
-      ]
-    end.to_h
+    individual_results.select { |ir| ir.patient_id == patient_id }.to_h { |e| ["#{e[key]}|#{e['population_set_key']}", e.observed_values] }
   end
 
   def records_by_measure(records, measure, product_test, vendor)

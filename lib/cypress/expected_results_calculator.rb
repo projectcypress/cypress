@@ -91,23 +91,25 @@ module Cypress
     def collect_observations(observation_hash, individual_result, measure)
       key = individual_result['population_set_key']
       population_set = measure.population_set_for_key(key).first
-      # collect the observation_statments for the population_set. There may be more than one. episode_results are recorded in the same order
-      observation_statments = population_set.observations.map { |obs| obs.observation_parameter.statement_name }
+      # collect the observation_statements for the population_set. There may be more than one. episode_results are recorded in the same order
+      observation_statements = population_set.observations.map { |obs| obs.observation_parameter.statement_name }
       # collect the observation_values from and individual_result
       # a scenario with multiple episodes and multiple observations would look like this [[2], [9, 1]]
       observation_values = get_observ_values(individual_result['episode_results']).compact
       observation_values.each do |observation_value|
         observation_value.each_with_index do |observation, index|
           # lookup the population code (e.g., DENOM is the population code for the statement named 'Denominator')
-          obs_pop = measure.population_keys.find { |pop| population_set.populations[pop]['statement_name'] == observation_statments[index] }
+          obs_pop = measure.population_keys.find { |pop| population_set.populations[pop]['statement_name'] == observation_statements[index] }
           # create an empty hash value if one doesn't already exist
-          observation_hash[key][obs_pop] = { values: [], statement_name: observation_statments[index] } unless observation_hash[key][obs_pop]
+          observation_hash[key][obs_pop] = { values: [], statement_name: observation_statements[index] } unless observation_hash[key][obs_pop]
           # add the observation to the hash
           observation_hash[key][obs_pop][:values] << observation
         end
       end
     end
 
+    # Calculate the aggregate observation totals for the values in an observation_hash
+    # these aggregate totals will be added to the appropriate measure/popuation in the @measure_result_hash
     def calculate_observation(observation_hash, measure, population_set_key)
       key = population_set_key
       return unless observation_hash[key]

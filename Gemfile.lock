@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/projecttacoma/cqm-reports.git
-  revision: 771a2f83ceecf9c56f2f47dcb49ac79061712f19
+  revision: c1bc5d481e1898e53d6ac7f62a498023e1fc41bc
   branch: master
   specs:
     cqm-reports (3.1.3)
@@ -11,17 +11,17 @@ GIT
       memoist (~> 0.9)
       mongoid-tree (> 2.0)
       mustache
-      nokogiri (~> 1.11)
+      nokogiri (>= 1.8.5, < 1.12.0)
       uuid (~> 2.3)
       zip-zip (~> 0.3)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-validators.git
-  revision: f10f79348a61fe1302db9d1ca4a840d982039b39
+  revision: cecddf3ff6ff40d1a250dad24a8f67197eeea060
   branch: master
   specs:
     cqm-validators (3.1.0)
-      nokogiri (~> 1.10)
+      nokogiri (>= 1.8.5, < 1.12.0)
 
 GIT
   remote: https://github.com/turbolinks/turbolinks-classic
