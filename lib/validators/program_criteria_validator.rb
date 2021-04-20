@@ -4,6 +4,7 @@ module Validators
   class ProgramCriteriaValidator < QrdaFileValidator
     include Validators::Validator
     include ::CqmValidators
+    include QrdaHelper
 
     def initialize(program_test)
       @criteria_list = program_test.program_criteria
@@ -19,7 +20,7 @@ module Validators
       @file = file
       @doc = get_document(file)
       # Perform measure calculation for uploaded Cat I files
-      import_patient(options, measure_ids_from_file(@doc)) if options.task.product_test.reporting_program_type == 'eh'
+      import_patient(options, measure_ids_from_cat_1_file(@doc)) if options.task.product_test.reporting_program_type == 'eh'
       # Validate to correct HQMF ids are being reported
       add_cqm_validation_error_as_execution_error(Cat1Measure.instance.validate(@doc, file_name: options[:file_name]),
                                                   'CqmValidators::Cat1Measure',
@@ -34,15 +35,6 @@ module Validators
         criteria.file_name = options[:file_name]
         criteria.save
       end
-    end
-
-    def measure_ids_from_file(doc)
-      measure_ids = doc.xpath("//cda:entry/cda:organizer[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.98']]" \
-        "/cda:reference[@typeCode='REFR']/cda:externalDocument[@classCode='DOC']" \
-        "/cda:id[@root='2.16.840.1.113883.4.738']/@extension")
-      return nil unless measure_ids
-
-      measure_ids.map(&:value)
     end
 
     def import_patient(options, measure_ids)

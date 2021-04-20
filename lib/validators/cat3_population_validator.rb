@@ -4,6 +4,7 @@ module Validators
   class Cat3PopulationValidator < QrdaFileValidator
     include Validators::Validator
     include ::CqmValidators::ReportedResultExtractor
+    include QrdaHelper
 
     # These are the demographic codes specified in the CMS IG for Payer, Sex, Race and Ethnicity
     REQUIRED_CODES = { 'PAYER' => %w[A B C D],
@@ -61,7 +62,7 @@ module Validators
     end
 
     def validate_population_ids(doc, options)
-      measure_ids_from_file(doc).each do |measure_id|
+      measure_ids_from_cat_3_file(doc).each do |measure_id|
         measure = find_measure_to_validate(measure_id.value.upcase, options)
         next unless measure
 
@@ -146,15 +147,6 @@ module Validators
     def population_count_selector
       "cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.3']"\
       " and ./cda:code[@code='MSRAGG'] and ./cda:methodCode[@code='COUNT']]/cda:value/@value"
-    end
-
-    def measure_ids_from_file(doc)
-      measure_ids = doc.xpath("//cda:entry/cda:organizer[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1']]" \
-        "/cda:reference[@typeCode='REFR']/cda:externalDocument[@classCode='DOC']" \
-        "/cda:id[@root='2.16.840.1.113883.4.738']/@extension")
-      return nil unless measure_ids
-
-      measure_ids
     end
   end
 end

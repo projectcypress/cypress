@@ -1,6 +1,7 @@
 module Validators
   class MeasurePeriodValidator < QrdaFileValidator
     include Validators::Validator
+    include QrdaHelper
 
     # All Encounter end times
     DISCHARGE_SELECTOR = "//cda:encounter[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.23']]/cda:effectiveTime/cda:high/@value".freeze
@@ -16,26 +17,32 @@ module Validators
       @product_test = @options['test_execution'].task.product_test
       @doc_start_time = measure_period_start(@document)
       @doc_end_time = measure_period_end(@document)
-      if (@product_test.is_a? CMSProgramTest) && @product_test.reporting_program_type == 'eh'
+      validate_encounter_during_reporting_period if (@product_test.is_a? CMSProgramTest) && @product_test.reporting_program_type == 'eh'
+      validate_timing
+    end
+
+    def validate_timing
+      timing_constraint = find_timing_constraints
+      if timing_constraint && (@product_test.is_a? CMSProgramTest)
+        validate_measurement_period(timing_constraint['start_time'], timing_constraint['end_time'])
+      elsif (@product_test.is_a? CMSProgramTest) && @product_test.reporting_program_type == 'eh'
         # For EH measures, Reports are for a single quarter
         validate_quarters_measurement_period
-        # For EH measures, and enounter or procedure needs to end during the quarter reported
-        validate_encounter_during_reporting_period
       else
         # Otherwise, measurement period should be for the correct year.
         validate_measurement_period
       end
     end
 
-    def validate_measurement_period
+    def validate_measurement_period(measure_start = nil, measure_end = nil)
       # Validate that start and end date are reported
-      validate_start
-      validate_end
+      validate_start(measure_start)
+      validate_end(measure_end)
     end
 
-    def validate_start
+    def validate_start(measure_start = nil)
       # Precise to day
-      measure_start = Time.at(@product_test.measure_period_start).utc.strftime('%Y%m%d')
+      measure_start ||= Time.at(@product_test.measure_period_start).utc.strftime('%Y%m%d')
       if !@doc_start_time
         msg = 'Document needs to report the Measurement Start Date'
         add_error(msg, error_options)
@@ -47,9 +54,9 @@ module Validators
       end
     end
 
-    def validate_end
+    def validate_end(measure_end = nil)
       # Precise to day
-      measure_end = Time.at(@product_test.effective_date).utc.strftime('%Y%m%d')
+      measure_end ||= Time.at(@product_test.effective_date).utc.strftime('%Y%m%d')
       if !@doc_end_time
         msg = 'Document needs to report the Measurement End Date'
         add_error(msg, error_options)
@@ -128,6 +135,14 @@ module Validators
     end
 
     private
+
+    def find_timing_constraints
+      # We need to look for measure ids in QRDA I and QRDA III files
+      timing_constraint = APP_CONSTANTS['timing_constraints'].detect { |tc| measure_ids_from_cat_1_file(@document).include? tc['hqmf_id'] }
+      timing_constraint || APP_CONSTANTS['timing_constraints'].detect do |tc|
+        measure_ids_from_cat_3_file(@document).map(&:value).include? tc['hqmf_id']
+      end
+    end
 
     def error_options
       { location: '/',
