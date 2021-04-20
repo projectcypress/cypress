@@ -94,6 +94,19 @@ module RecordsHelper
     ).only(:episode_results, :patient_id, :measure_id).to_h { |elem| [elem[key], elem.observed_values] }
   end
 
+  def get_observation_values_by_population(records, measures, pop_set, key)
+    CQM::IndividualResult.where(
+      :patient_id.in => records.pluck(:id),
+      :measure_id.in => measures.pluck(:id),
+      :population_set_key => pop_set
+    ).collect do |elem|
+      [
+        elem[key],
+        elem.collect_observations
+      ]
+    end.to_h
+  end
+
   # This method returns a hash of the form
   #  {BSON::ObjectId('1')=>{"IPP"=>1, "DENOM"=>0, "DENEX"=>0, "NUMER"=>0, "DENEXCEP"=>0},
   #  BSON::ObjectId('2')=>{"IPP"=>1, "DENOM"=>0, "DENEX"=>0, "NUMER"=>0, "DENEXCEP"=>0},

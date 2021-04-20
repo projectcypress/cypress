@@ -14,6 +14,7 @@
             <tr>
               <td></td>
               <% pop_keys.each do |population| %>
+                <% next if population == 'OBSERV' %>
                 <th scope="col" class="text-center"><%= population_label(@bundle, population) %></th>
               <% end %>
             </tr>
@@ -23,6 +24,7 @@
               <% m.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
                 <% result_values = get_result_values([@record], [m], m.key_for_population_set(population_set_hash), pop_keys, 'measure_id') %>
                 <% observation_values = get_observation_values([@record], [m], m.key_for_population_set(population_set_hash), 'measure_id') %>
+                <% observation_pops = get_observation_values_by_population([@record], [m], m.key_for_population_set(population_set_hash), 'measure_id') %>
                 <% unless result_values.empty? %>
                   <tr>
                     <th class="abbreviated" scope="row">
@@ -48,10 +50,23 @@
                         <% end %>
                       </td>
                     <% end %>
-                    <% if observation_values[m.id] %>
-                      <td class="text-center"><% observation_values[m.id].each do |ov| %><%= ov.join('|') %><br/><% end %></td>
-                    <% end %>
                   </tr>
+                    <% if observation_pops[m.id] && observation_pops[m.id][@record.id] && observation_pops[m.id][@record.id].keys.size > 1 %>
+                      <% episodes = observation_pops[m.id][@record.id].values.collect { |val| val[:values].size }.max %>
+                      <% episodes.times do |episode_index| %>
+                        <tr>
+                          <td><%= "Episode #{episode_index + 1} Observations: "%></td>
+                          <% pop_keys.each do |pop_key| %>
+                            <% if observation_pops[m.id][@record.id][pop_key].nil? || observation_pops[m.id][@record.id][pop_key][:values].empty? %>
+                              <td/>
+                            <% else %>
+                              <% population_observation = observation_pops[m.id][@record.id][pop_key][:values].detect { |v| v.episode_index == episode_index } %>
+                              <td class="text-center"><%=  population_observation ? population_observation[:value] : '' %></td>
+                            <% end %>
+                          <% end %>
+                        </tr>
+                      <% end %>
+                    <% end %>
                   <% unless @record.calculation_results.first.clause_results.empty? %>
                     <tr><td colspan="<%= pop_keys.size + 1 %>">
                     <% @record.calculation_results.where(measure_id: m.id).each_with_index do |ir, index| %>
