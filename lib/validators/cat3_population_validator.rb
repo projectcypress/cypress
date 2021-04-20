@@ -62,7 +62,9 @@ module Validators
 
     def validate_population_ids(doc, options)
       measure_ids_from_file(doc).each do |measure_id|
-        measure = options['test_execution'].task.bundle.measures.find_by(hqmf_id: measure_id.value.upcase)
+        measure = find_measure_to_validate(measure_id.value.upcase, options)
+        next unless measure
+
         measure.population_sets_and_stratifications_for_measure.each do |pop_set_hash|
           results, _errors = extract_results_by_ids(measure, pop_set_hash[:population_set_id], doc, pop_set_hash[:stratification_id])
           measure.population_keys.each do |key|
@@ -75,6 +77,12 @@ module Validators
           end
         end
       end
+    end
+
+    def find_measure_to_validate(measure_id, options)
+      return nil unless options['test_execution'].task.bundle.measures.distinct(:hqmf_id).include? measure_id
+
+      options['test_execution'].task.bundle.measures.find_by(hqmf_id: measure_id)
     end
 
     def validate_demographics(reported_result, pop_key, pop_set_hash, options)
