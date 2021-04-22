@@ -62,6 +62,17 @@ module CQM
     end
 
     # adds the observation values found in an individual_result to the observation_hash
+    # Set agg_results to true if you are collecting aggregate results for multiple patients
+    #
+    # Below is an example hash for an individual (the hash key is the patient id)
+    # {BSON::ObjectId('60806298c1c388315523be47')=>{"IPP"=>{:values=>[]},
+    # "MSRPOPL"=>{:values=>[{:episode_index=>0, :value=>75}, {:episode_index=>1, :value=>50}], :statement_name=>"Measure Population"},
+    # "MSRPOPLEX"=>{:values=>[]}}}
+
+    # Below is an example hash for aggregate results (the hash keys are the population set keys)
+    # {"PopulationSet_1"=>{"IPP"=>{:values=>[]},
+    # "DENOM"=>{:values=>[{:episode_index=>0, :value=>9}, {:episode_index=>0, :value=>2}, :statement_name=>"Denominator"},
+    # "NUMER"=>{:values=>[]}}}
     def collect_observations(observation_hash = {}, agg_results = false)
       return unless episode_results
 
