@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.6.3'
+ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
@@ -93,7 +93,7 @@ gem 'daemons'
 
 group :development, :test do
   # rubocop 0.67 currently has a bug that is causing it to crash in product.rb and vendor.rb
-  gem 'rubocop', '~>0.66.0'
+  gem 'rubocop'
   gem 'rubocop-rspec'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'axe-core-capybara'
