@@ -1,8 +1,5 @@
 # Below are Cops that return errors that had not be caught by ~v0.66.0
 # TODO: fix, or intentionally Exclude them 
-Lint/FloatComparison:
-  Exclude:
-    - 'lib/validators/expected_results_validator.rb'
 Lint/MissingSuper:
   Exclude:
     - 'lib/cypress/highlighting/highlighting.rb'
