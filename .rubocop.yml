@@ -29,6 +29,9 @@ Layout/LineLength:
     - 'lib/cypress/demographics_randomizer.rb'
     - 'lib/validators/program_criteria_validator.rb'
     - 'test/**/*'
+Lint/UnreachableLoop:
+  Exclude:
+    - 'test/unit/lib/record_filter_test.rb'    
 Metrics/AbcSize:
   # The ABC size is a calculated magnitude, so this number can be a Fixnum or
   # a Float.
