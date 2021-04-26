@@ -359,7 +359,7 @@ class ProductTest
     # If there are a lot of patients in the MSRPOPL results above, (usually if there are a lot of MSRPOPLEX values)
     # pull out only those patients with more than one episode in the MSRPOPL
     if msrpopl_ids.count > test_deck_max
-      numer_ids = BundlePatient.where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.MSRPOPL": true).pluck(:_id)
+      numer_ids = BundlePatient.where("measure_relevance_hash.#{measures.pluck(:_id).first}.MSRPOPL": true).pluck(:_id)
       numer_ids = numer_ids.sample(test_deck_max)
       msrpopl_ids = numer_ids + msrpopl_ids.sample(test_deck_max - numer_ids.count)
     end
