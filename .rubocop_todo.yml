@@ -1,8 +1,5 @@
 # Below are Cops that return errors that had not be caught by ~v0.66.0
 # TODO: fix, or intentionally Exclude them 
-Lint/BinaryOperatorWithIdenticalOperands:
-  Exclude:
-    - 'test/helpers/products_helper_test.rb'
 Layout/EmptyLineAfterGuardClause:
   Exclude:
     - 'app/controllers/products_controller.rb'
