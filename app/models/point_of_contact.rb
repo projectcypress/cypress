@@ -20,6 +20,7 @@ class PointOfContact
   def user
     User.find_by(email: email) if email
   rescue
+    # do nothing
   end
 
   def vendor_role?
@@ -48,6 +49,7 @@ class PointOfContact
           u = User.find_by(email: old_email)
           u.remove_role(:vendor, vendor)
         rescue
+          # do nothing
         end
       end
     end
