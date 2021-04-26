@@ -7,6 +7,7 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
     @vendor_user = FactoryBot.create(:vendor_user)
     @test_execution = FactoryBot.build(:test_execution)
     @vendor_user.test_executions << @test_execution
+    @original_timing_constraints_id = APP_CONSTANTS['timing_constraints'].first['hqmf_id']
   end
 
   def test_file_with_good_measure_specific_mp
@@ -20,6 +21,8 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
     pt.create_tasks
     te = pt.tasks.first.test_executions.build
     @validator.validate(file, 'test_execution' => te)
+    # reset constant
+    APP_CONSTANTS['timing_constraints'].first['hqmf_id'] = @original_timing_constraints_id
     assert_empty @validator.errors
   end
 
@@ -34,6 +37,8 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
     pt.create_tasks
     te = pt.tasks.first.test_executions.build
     @validator.validate(file, 'test_execution' => te)
+    # reset constant
+    APP_CONSTANTS['timing_constraints'].first['hqmf_id'] = @original_timing_constraints_id
     assert_equal 'Reported Measurement Period should start on 20170102', @validator.errors[0].message
   end
 
@@ -48,6 +53,8 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
     pt.create_tasks
     te = pt.tasks.first.test_executions.build
     @validator.validate(file, 'test_execution' => te)
+    # reset constant
+    APP_CONSTANTS['timing_constraints'].first['hqmf_id'] = @original_timing_constraints_id
     assert_equal 'Reported Measurement Period should start on 20170102', @validator.errors[0].message
   end
 
@@ -62,6 +69,8 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
     pt.create_tasks
     te = pt.tasks.first.test_executions.build
     @validator.validate(file, 'test_execution' => te)
+    # reset constant
+    APP_CONSTANTS['timing_constraints'].first['hqmf_id'] = @original_timing_constraints_id
     assert_equal 'Reported Measurement Period should end on 20171230', @validator.errors[0].message
   end
 

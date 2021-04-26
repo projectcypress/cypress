@@ -25,17 +25,20 @@ class RecordsController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def show
     @record = @source.patients.find(params[:id])
     @results = @record.calculation_results
     @measures = (@vendor ? @bundle : @source).measures.where(:_id.in => @results.map(&:measure_id))
     @hqmf_id = params[:hqmf_id]
     @continuous_measures = @measures.where(measure_scoring: 'CONTINUOUS_VARIABLE').sort_by { |m| [m.cms_int] }
+    @ratio_measures = @measures.where(measure_scoring: 'RATIO').sort_by { |m| [m.cms_int] }
     @proportion_measures = @measures.where(measure_scoring: 'PROPORTION').sort_by { |m| [m.cms_int] }
     @result_measures = @measures.where(hqmf_set_id: { '$in': APP_CONSTANTS['result_measures'].map(&:hqmf_set_id) }).sort_by { |m| [m.cms_int] }
     expires_in 1.week, public: true
     add_breadcrumb 'Patient: ' + @record.first_names + ' ' + @record.familyName, :record_path
   end
+  # rubocop:enable Metrics/AbcSize
 
   def by_measure
     @patients = @vendor.patients.where(bundleId: @bundle.id.to_s) if @vendor

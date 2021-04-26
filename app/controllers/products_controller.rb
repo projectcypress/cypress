@@ -119,7 +119,7 @@ class ProductsController < ApplicationController
         # TODO: make sure report isn't available for download until individual results are available
         individual_results = CQM::IndividualResult.where(
           correlation_id: most_recent_execution.id
-        ).only(:IPP, :DENOM, :NUMER, :NUMEX, :DENEX, :DENEXCEP, :MSRPOPL, :OBSERV, :MSRPOPLEX, :measure_id, :patient_id, :file_name, :population_set_key).to_a
+        ).only(:IPP, :DENOM, :NUMER, :NUMEX, :DENEX, :DENEXCEP, :MSRPOPL, :OBSERV, :MSRPOPLEX, :measure_id, :patient_id, :file_name, :population_set_key, :episode_results).to_a
         uploaded_patients = Patient.where(correlation_id: most_recent_execution.id)
         file_name_id_hash = {}
         uploaded_patients.each { |uploaded_patient| file_name_id_hash[uploaded_patient['file_name']] = uploaded_patient if uploaded_patient['file_name'] }
@@ -132,6 +132,7 @@ class ProductsController < ApplicationController
 
         continuous_measures = t.measures.where(measure_scoring: 'CONTINUOUS_VARIABLE').only(:id, :population_sets, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }
         proportion_measures = t.measures.where(measure_scoring: 'PROPORTION').only(:id, :population_sets, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }
+        ratio_measures = t.measures.where(measure_scoring: 'RATIO').only(:id, :population_sets, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }
         @task = t
         @individual_results = individual_results
         errors = Cypress::ErrorCollector.collected_errors(most_recent_execution, false).files
@@ -148,6 +149,7 @@ class ProductsController < ApplicationController
                      on_execution_show_page: true,
                      continuous_measures: continuous_measures,
                      proportion_measures: proportion_measures,
+                     ratio_measures: ratio_measures,
                      patient: patient,
                      export: true,
                      display_calculations: true
@@ -162,6 +164,7 @@ class ProductsController < ApplicationController
                      on_execution_show_page: true,
                      continuous_measures: continuous_measures,
                      proportion_measures: proportion_measures,
+                     ratio_measures: ratio_measures,
                      patient: patient,
                      export: true,
                      display_calculations: true

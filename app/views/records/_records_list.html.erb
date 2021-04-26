@@ -3,6 +3,7 @@
   <% measure_records = records_by_measure(patients, measure, product_test, vendor) %>
   <% population_keys = measure.population_keys %>
   <% result_values = get_result_values(patients, [measure], measure.key_for_population_set(population_set_hash), population_keys, 'patient_id') %>
+  <% observation_values = get_observation_values(patients, [measure], measure.key_for_population_set(population_set_hash), 'patient_id') %>
 <% end %>
 <h1><%= measure ? measure_display_name(measure, population_set_hash) : 'All' %> Patients</h1>
 <% if (measure && measure_records.length.positive?) || (!measure  && patients.length.positive?) %>
@@ -32,6 +33,10 @@
       <% if measure && !hide_patient_calculation?%>
         <% population_keys.each do |population| %>
           <th scope="col" class="text-center"><%= population_label(bundle, population) %></th>
+        <% end %>
+        <!-- If measure calculations include observation_values, include a column to display them. -->
+        <% unless observation_values.values.compact.empty? %>
+          <th scope="col" class="text-center"><%= "OBSERV" %></th>
         <% end %>
       <% end %>
     </tr>
@@ -65,6 +70,7 @@
       :patients => (measure && !product_test) ? measure_records : patients,
       :product_test => product_test,
       :result_values => result_values,
+      :observation_values => observation_values,
       :bundle => bundle,
       :measure => measure,
       :task => task

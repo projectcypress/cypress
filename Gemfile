@@ -17,7 +17,7 @@ gem 'os'
 
 gem 'cqm-models', '~> 3.0.1'
 gem 'cqm-parsers', '~> 3.1.1.0'
-gem 'cqm-reports', '~> 3.1.3'
+gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports.git', branch: 'master'
 gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators.git', branch: 'master'
 
 # Use faker to generate addresses

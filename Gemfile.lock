@@ -1,10 +1,27 @@
 GIT
-  remote: https://github.com/projecttacoma/cqm-validators.git
-  revision: fab1e5bac5368b51f528fe92e5135ca7d2e1dc22
+  remote: https://github.com/projecttacoma/cqm-reports.git
+  revision: c1bc5d481e1898e53d6ac7f62a498023e1fc41bc
   branch: master
   specs:
-    cqm-validators (3.0.1)
-      nokogiri (~> 1.10)
+    cqm-reports (3.1.3)
+      cqm-models (~> 3.0.3)
+      cqm-validators (~> 3.0)
+      erubis (~> 2.7)
+      log4r (~> 1.1)
+      memoist (~> 0.9)
+      mongoid-tree (> 2.0)
+      mustache
+      nokogiri (>= 1.8.5, < 1.12.0)
+      uuid (~> 2.3)
+      zip-zip (~> 0.3)
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-validators.git
+  revision: cecddf3ff6ff40d1a250dad24a8f67197eeea060
+  branch: master
+  specs:
+    cqm-validators (3.1.0)
+      nokogiri (>= 1.8.5, < 1.12.0)
 
 GIT
   remote: https://github.com/turbolinks/turbolinks-classic
@@ -158,17 +175,6 @@ GEM
       rubyzip (~> 1.3)
       typhoeus
       uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-    cqm-reports (3.1.3)
-      cqm-models (~> 3.0.3)
-      cqm-validators (~> 3.0.0)
-      erubis (~> 2.7)
-      log4r (~> 1.1)
-      memoist (~> 0.9)
-      mongoid-tree (> 2.0)
-      mustache
-      nokogiri (~> 1.10)
-      uuid (~> 2.3)
       zip-zip (~> 0.3)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -333,7 +339,7 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (6.10.0.364)
     nio4r (2.5.5)
-    nokogiri (1.11.2)
+    nokogiri (1.11.3)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     orm_adapter (0.5.0)
@@ -552,7 +558,7 @@ DEPENDENCIES
   codecov
   cqm-models (~> 3.0.1)
   cqm-parsers (~> 3.1.1.0)
-  cqm-reports (~> 3.1.3)
+  cqm-reports!
   cqm-validators!
   cucumber (~> 3.0.2)
   cucumber-rails
