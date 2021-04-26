@@ -55,7 +55,6 @@ module Cypress
       @measure_result_hash
     end
 
-    # rubocop:disable Metrics/AbcSize
     def aggregate_results_for_measure(measure, individual_results = nil)
       # If individual_results are provided, use them.  Otherwise, look them up in the database by measure id and correlation_id
       individual_results ||= CQM::IndividualResult.where('measure_id' => measure._id, correlation_id: @correlation_id)
@@ -116,7 +115,6 @@ module Cypress
         end
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     def increment_sup_info(patient_sup, pop, single_measure_result_hash)
       # If supplemental_data for a population does not already exist, create a new hash

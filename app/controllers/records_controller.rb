@@ -25,7 +25,6 @@ class RecordsController < ApplicationController
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
   def show
     @record = @source.patients.find(params[:id])
     @results = @record.calculation_results
@@ -38,7 +37,6 @@ class RecordsController < ApplicationController
     expires_in 1.week, public: true
     add_breadcrumb 'Patient: ' + @record.first_names + ' ' + @record.familyName, :record_path
   end
-  # rubocop:enable Metrics/AbcSize
 
   def by_measure
     @patients = @vendor.patients.where(bundleId: @bundle.id.to_s) if @vendor

@@ -17,10 +17,6 @@ Lint/MissingSuper:
     - 'lib/validators/qrda_cat1_validator.rb'
     - 'lib/validators/qrda_cat3_validator.rb'
     - 'lib/validators/qrda_upload_validator.rb'
-Lint/RedundantCopDisableDirective:
-  Exclude:
-    - 'lib/cypress/expected_results_calculator.rb'
-    - 'app/controllers/records_controller.rb'
 Lint/RedundantStringCoercion:
   Exclude:
     - 'app/models/product_test.rb'
