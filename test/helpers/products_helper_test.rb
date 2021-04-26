@@ -422,7 +422,7 @@ class ProductsHelperTest < ActiveJob::TestCase
     each_tab(product) do |test_type, title|
       test_types << test_type
       titles << title
-      descriptions << descriptions
+      descriptions << 'description'
     end
     [test_types, titles, descriptions]
   end
