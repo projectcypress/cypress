@@ -99,12 +99,7 @@ module RecordsHelper
       :patient_id.in => records.pluck(:id),
       :measure_id.in => measures.pluck(:id),
       :population_set_key => pop_set
-    ).collect do |elem|
-      [
-        elem[key],
-        elem.collect_observations
-      ]
-    end.to_h
+    ).to_h { |elem| [elem[key], elem.collect_observations] }
   end
 
   # This method returns a hash of the form
