@@ -140,6 +140,7 @@ class ProductsController < ApplicationController
           error_result = errors[file_name]
           patient = file_name_id_hash[file_name]
           next unless patient
+
           html = if error_result
                    render_to_string partial: 'test_executions/results/execution_results_for_file', locals: {
                      execution: most_recent_execution,
@@ -183,6 +184,7 @@ class ProductsController < ApplicationController
     if @product.supplemental_test_artifact.file.nil?
       redirect_back(fallback_location: root_path, alert: 'Supplement Test Artifact does not exist for this product') && return
     end
+
     send_file @product.supplemental_test_artifact.file.path, disposition: 'attachment'
   end
 

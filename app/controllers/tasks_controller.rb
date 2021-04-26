@@ -36,6 +36,7 @@ class TasksController < ApplicationController
 
   def good_results
     redirect_back(fallback_location: root_path) && return unless Settings.current.enable_debug_features
+
     task_type = @task._type
     redirect_back(fallback_location: root_path) && return if %w[C3Cat1Task C3Cat3Task].include? task_type
 
