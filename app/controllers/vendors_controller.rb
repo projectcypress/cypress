@@ -18,7 +18,7 @@ class VendorsController < ApplicationController
   end
 
   def show
-    add_breadcrumb 'Vendor: ' + @vendor.name, :vendor_path
+    add_breadcrumb "Vendor: #{@vendor.name}", :vendor_path
     @products_fav = @vendor.favorite_products(current_user)
 
     # paginate non-favorites
@@ -50,12 +50,12 @@ class VendorsController < ApplicationController
   end
 
   def edit
-    add_breadcrumb 'Vendor: ' + @vendor.name, :vendor_path
+    add_breadcrumb "Vendor: #{@vendor.name}", :vendor_path
     add_breadcrumb 'Edit Vendor', :edit_vendor_path
   end
 
   def update
-    add_breadcrumb 'Vendor: ' + @vendor.name, :vendor_path
+    add_breadcrumb "Vendor: #{@vendor.name}", :vendor_path
     add_breadcrumb 'Edit Vendor', :edit_vendor_path
     @vendor.update(vendor_params)
     @vendor.save!
@@ -86,7 +86,7 @@ class VendorsController < ApplicationController
   end
 
   def preferences
-    add_breadcrumb 'Vendor: ' + @vendor.name, vendor_path(@vendor)
+    add_breadcrumb "Vendor: #{@vendor.name}", vendor_path(@vendor)
     add_breadcrumb 'Preferences', vendor_preferences_path(@vendor)
     # TODO: change to pull from Cypress app settings
     @vendor.preferred_code_systems = Settings.current.default_code_systems if @vendor.preferred_code_systems.empty?

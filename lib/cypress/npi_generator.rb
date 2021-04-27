@@ -1,8 +1,8 @@
 class NpiGenerator
   def self.generate
     random_number = rand.to_s[2..9]
-    random_number = '1' + random_number
-    check_digit = checksum('80840' + random_number)
+    random_number = "1#{random_number}"
+    check_digit = checksum("80840#{random_number}")
     random_number + check_digit.to_s
   end
 

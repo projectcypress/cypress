@@ -80,7 +80,7 @@ module Cypress
     end
 
     def self.apply_sort_to(patients)
-      patients.sort_by { |p| p.givenNames.join('_') + '_' + p.familyName }
+      patients.sort_by { |p| "#{p.givenNames.join('_')}_#{p.familyName}" }
     end
 
     def self.measure_start_end(patients)

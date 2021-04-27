@@ -18,8 +18,8 @@ class ProductsController < ApplicationController
   end
 
   def show
-    add_breadcrumb 'Vendor: ' + @product.vendor_name, vendor_path(@product.vendor_id)
-    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor_id, @product)
+    add_breadcrumb "Vendor: #{@product.vendor_name}", vendor_path(@product.vendor_id)
+    add_breadcrumb "Product: #{@product.name}", vendor_product_path(@product.vendor_id, @product)
     @task = Task.find(params[:task_id]) if params[:task_id]
     @has_eh_tests = @product.eh_tests?
     @has_ep_tests = @product.ep_tests?
@@ -50,8 +50,8 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    add_breadcrumb 'Vendor: ' + @product.vendor_name, vendor_path(@product.vendor_id)
-    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor_id, @product)
+    add_breadcrumb "Vendor: #{@product.vendor_name}", vendor_path(@product.vendor_id)
+    add_breadcrumb "Product: #{@product.name}", vendor_product_path(@product.vendor_id, @product)
     add_breadcrumb 'Edit Product', :edit_vendor_path
     @selected_measure_ids = @product.measure_ids
   end
@@ -221,7 +221,7 @@ class ProductsController < ApplicationController
   end
 
   def setup_new
-    add_breadcrumb 'Vendor: ' + @vendor.name, vendor_path(@product.vendor_id)
+    add_breadcrumb "Vendor: #{@vendor.name}", vendor_path(@product.vendor_id)
     add_breadcrumb 'Add Product', :new_vendor_path
     set_measures
     params[:action] = 'new'

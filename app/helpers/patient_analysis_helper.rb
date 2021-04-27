@@ -62,7 +62,7 @@ module PatientAnalysisHelper
         remove_hit_populations(ir, un_hit_populations) unless un_hit_populations[measure].length.zero?
         next if un_hit_clauses[measure].length.zero?
 
-        hit_clauses = ir.clause_results.where(final: 'TRUE').map { |cl| cl.library_name + '_' + cl.localId }
+        hit_clauses = ir.clause_results.where(final: 'TRUE').map { |cl| "#{cl.library_name}_#{cl.localId}" }
         un_hit_clauses[measure] -= hit_clauses
       end
     end
@@ -105,7 +105,7 @@ module PatientAnalysisHelper
         clauses.each do |clause|
           next if ignore_clause_result(clause)
 
-          key = clause.library_name + '_' + clause.localId
+          key = "#{clause.library_name}_#{clause.localId}"
           possible_clauses[measure_id] << key
         end
       end

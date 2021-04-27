@@ -90,7 +90,7 @@ class TestExecution
 
   def errored(error = nil, options = {})
     self.state = :errored
-    self.backtrace = error.message + "\n" + error.backtrace.join("\n")
+    self.backtrace = "#{error.message}\n#{error.backtrace.join("\n")}"
     self.error_summary = "Errored validating #{options[:file_name]}: #{error.message} on #{error.backtrace.first.remove(Rails.root.to_s)}"
     save
   end

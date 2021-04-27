@@ -40,6 +40,6 @@ class ProductTestSetupJob < ApplicationJob
   private
 
   def error_message(error)
-    error.message + ' on ' + error.backtrace.first.remove(Rails.root.to_s)
+    "#{error.message} on #{error.backtrace.first.remove(Rails.root.to_s)}"
   end
 end

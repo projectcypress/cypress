@@ -125,7 +125,7 @@ class VendorsRecordsControllerTest < ActionController::TestCase
 
       # destroy_multiple is expecting patient IDs
       orig_patient_count = Patient.count # This should check the DB directly...?
-      post :destroy_multiple, params: { patient_ids: @patient2.id.to_s + ',' + @patient3.id.to_s, vendor_id: @vendor.id }
+      post :destroy_multiple, params: { patient_ids: "#{@patient2.id},#{@patient3.id}", vendor_id: @vendor.id }
       assert_redirected_to(root_path, 'response should redirect to index')
 
       # cannot use redirect url since it is root, use vendor id instead
@@ -143,7 +143,7 @@ class VendorsRecordsControllerTest < ActionController::TestCase
 
       # destroy_multiple is expecting patient IDs
       orig_patient_count = Patient.count # This should check the DB directly...?
-      post :destroy_multiple, params: { patient_ids: @patient2.id.to_s + ',' + 'FAKE', vendor_id: @vendor.id, bundle_id: @bundle.id }
+      post :destroy_multiple, params: { patient_ids: "#{@patient2.id},FAKE", vendor_id: @vendor.id, bundle_id: @bundle.id }
       assert_redirected_to(root_path, 'response should redirect to index')
 
       # cannot use redirect url since it is root, use vendor id instead
