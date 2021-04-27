@@ -86,7 +86,7 @@ class TestExecution
 
   def errored(error = nil)
     self.state = :errored
-    self.backtrace = error.message + "\n" + error.backtrace.join("\n")
+    self.backtrace = "#{error.message}\n#{error.backtrace.join("\n")}"
     save
   end
 

@@ -35,7 +35,7 @@ class RecordsController < ApplicationController
     @proportion_measures = @measures.where(measure_scoring: 'PROPORTION').sort_by { |m| [m.cms_int] }
     @result_measures = @measures.where(hqmf_set_id: { '$in': APP_CONSTANTS['result_measures'].map(&:hqmf_set_id) }).sort_by { |m| [m.cms_int] }
     expires_in 1.week, public: true
-    add_breadcrumb 'Patient: ' + @record.first_names + ' ' + @record.familyName, :record_path
+    add_breadcrumb "Patient: #{@record.first_names} #{@record.familyName}", :record_path
   end
 
   def by_measure
@@ -116,7 +116,7 @@ class RecordsController < ApplicationController
 
   def breadcrumbs_for_vendor_path
     add_breadcrumb 'Dashboard', :vendors_path
-    add_breadcrumb 'Vendor: ' + @vendor.name, vendor_path(@vendor)
+    add_breadcrumb "Vendor: #{@vendor.name}", vendor_path(@vendor)
     add_breadcrumb 'Patient List', vendor_records_path(vendor_id: @vendor.id, bundle_id: @bundle&.id)
   end
 
@@ -136,9 +136,9 @@ class RecordsController < ApplicationController
 
   def breadcrumbs_for_test_path
     add_breadcrumb 'Dashboard', :vendors_path
-    add_breadcrumb 'Vendor: ' + @product_test.product.vendor.name, vendor_path(@product_test.product.vendor)
-    add_breadcrumb 'Product: ' + @product_test.product_name, vendor_product_path(@product_test.product.vendor, @product_test.product)
-    add_breadcrumb 'Test: ' + @product_test.name, new_task_test_execution_path(@task.id)
+    add_breadcrumb "Vendor: #{@product_test.product.vendor.name}", vendor_path(@product_test.product.vendor)
+    add_breadcrumb "Product: #{@product_test.product_name}", vendor_product_path(@product_test.product.vendor, @product_test.product)
+    add_breadcrumb "Test: #{@product_test.name}", new_task_test_execution_path(@task.id)
     add_breadcrumb 'Patient List', records_path(task_id: @task.id)
   end
 

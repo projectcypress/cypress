@@ -122,7 +122,7 @@ module Cypress
     end
 
     def measure_opts_for(measure_ids)
-      '--measure ' + measure_ids.join(' --measure ')
+      "--measure #{measure_ids.join(' --measure ')}"
     end
 
     def create_patient_zip(patients)

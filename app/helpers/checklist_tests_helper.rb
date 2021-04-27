@@ -7,7 +7,7 @@ module ChecklistTestsHelper
   def checklist_test_criteria_attribute(criteria, attribute_index, include_vs = false)
     if criteria['dataElementAttributes']&.any? && (attr = criteria['dataElementAttributes'][attribute_index])
       if attr['attribute_valueset'] && include_vs
-        attr['attribute_name'] + ':' + attr['attribute_valueset']
+        "#{attr['attribute_name']}:#{attr['attribute_valueset']}"
       else
         attr['attribute_name']
       end
@@ -19,7 +19,7 @@ module ChecklistTestsHelper
   def available_attributes(criteria)
     criteria['dataElementAttributes'].map do |a|
       composite_name = a['attribute_name']
-      composite_name = composite_name + ':' + a['attribute_valueset'] unless a['attribute_valueset'].nil?
+      composite_name = "#{composite_name}:#{a['attribute_valueset']}" unless a['attribute_valueset'].nil?
       composite_name
     end.sort - ['id']
   end

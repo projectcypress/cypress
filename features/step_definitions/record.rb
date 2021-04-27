@@ -96,7 +96,7 @@ And(/^the user selects a measure from the dropdown$/) do
 end
 
 Then(/^the user should see results for that measure$/) do
-  page.assert_text measure_display_name(@measure, @measure.population_sets_and_stratifications_for_measure.first) + ' Patients'
+  page.assert_text "#{measure_display_name(@measure, @measure.population_sets_and_stratifications_for_measure.first)} Patients"
   records = records_by_measure(@vendor ? @vendor.patients.where(bundleId: @bundle.id.to_s) : @bundle.patients, @measure, nil, @vendor)
 
   assert page.has_selector?('table tbody tr', count: records.length), 'different number'

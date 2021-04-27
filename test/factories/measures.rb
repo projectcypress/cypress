@@ -70,7 +70,7 @@ FactoryBot.define do
               code_system_def = cql_library['elm']['library']['codeSystems']['def'].find { |code_sys| code_sys['name'] == code['codeSystem']['name'] }
               code_system_name = code_system_def['id']
               code_system_version = code_system_def['version']
-              code_hash = 'drc-' + Digest::SHA2.hexdigest("#{code_system_name} #{code['id']} #{code['name']} #{code_system_version}")
+              code_hash = "drc-#{Digest::SHA2.hexdigest("#{code_system_name} #{code['id']} #{code['name']} #{code_system_version}")}"
               measure.value_sets << ValueSet.where(oid: code_hash).first
             end
           end
@@ -126,7 +126,7 @@ FactoryBot.define do
               code_system_def = cql_library['elm']['library']['codeSystems']['def'].find { |code_sys| code_sys['name'] == code['codeSystem']['name'] }
               code_system_name = code_system_def['id']
               code_system_version = code_system_def['version']
-              code_hash = 'drc-' + Digest::SHA2.hexdigest("#{code_system_name} #{code['id']} #{code['name']} #{code_system_version}")
+              code_hash = "drc-#{Digest::SHA2.hexdigest("#{code_system_name} #{code['id']} #{code['name']} #{code_system_version}")}"
               measure.value_sets << ValueSet.where(oid: code_hash).first
             end
           end

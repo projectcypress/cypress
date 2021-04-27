@@ -85,7 +85,7 @@ class ChecklistSourceDataCriteria
 
     attr = criteria['dataElementAttributes'][attribute_index]
     comp_str = attr['attribute_name']
-    comp_str = comp_str + ':' + attr['attribute_valueset'] if attr['attribute_valueset']
+    comp_str = "#{comp_str}:#{attr['attribute_valueset']}" if attr['attribute_valueset']
     replacement_attribute != comp_str
   end
 

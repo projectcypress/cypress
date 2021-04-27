@@ -35,7 +35,7 @@ class Bundle
   def title
     return super unless deprecated?
 
-    self[:title] + ' (Deprecated)'
+    "#{self[:title]} (Deprecated)"
   end
 
   def deprecate
