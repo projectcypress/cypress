@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'vcr_setup.rb'
+require 'vcr_setup'
 
 class HTMLTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
