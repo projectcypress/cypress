@@ -1,8 +1,8 @@
 module PatientAnalysisHelper
-  def collate_element_data(de, de_types_found, codes_found)
-    de_types_found.add(de._type)
-    code_array = de.dataElementCodes
-    code_array.concat(collate_attribute_codes(de))
+  def collate_element_data(data_element, de_types_found, codes_found)
+    de_types_found.add(data_element._type)
+    code_array = data_element.dataElementCodes
+    code_array.concat(collate_attribute_codes(data_element))
     codes_found.merge(code_array)
   end
 
@@ -18,14 +18,14 @@ module PatientAnalysisHelper
     end
   end
 
-  def collate_attribute_codes(de)
+  def collate_attribute_codes(data_element)
     attribute_codes = []
     %w[
       admissionSource anatomicalLocationSite category cause dischargeDisposition frequency
       medium negationRationale ordinality principalDiagnosis reason recipient relationship
       route sender setting severity status type
     ].each do |attribute_name|
-      attribute_codes << de[attribute_name] if de[attribute_name] && de[attribute_name]['code']
+      attribute_codes << data_element[attribute_name] if data_element[attribute_name] && data_element[attribute_name]['code']
     end
     attribute_codes.compact
   end

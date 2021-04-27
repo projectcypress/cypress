@@ -26,8 +26,8 @@ class TestExecutionHelper < ActiveSupport::TestCase
                  error_details: { 'population_id' => 'IPP', 'stratification' => false, 'type' => 'supplemental_data' } }
   end
 
-  def setup_product_tests(c1, c2, c3, c4, filters)
-    product = @vendor.products.create!(name: 'test_product_name', c1_test: c1, c2_test: c2, c3_test: c3, c4_test: c4,
+  def setup_product_tests(c1_test, c2_test, c3_test, c4_test, filters)
+    product = @vendor.products.create!(name: 'test_product_name', c1_test: c1_test, c2_test: c2_test, c3_test: c3_test, c4_test: c4_test,
                                        measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: @bundle.id)
     @product_test = product.product_tests.build({ name: 'test_measure_test_name', cms_id: 'TEST_CMSID',
                                                   measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)

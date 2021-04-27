@@ -6,18 +6,18 @@ class CMSTestExecutionJob < ApplicationJob
     job.tracker.add_options(test_execution_id: job.arguments[0].id,
                             task_id: job.arguments[1].id)
   end
-  def perform(te, task, options = {})
-    te.state = :running
-    te.validate_artifact(task.validators, te.artifact, options.merge('test_execution' => te, 'task' => task))
-    if te.task.product_test.reporting_program_type == 'eh'
-      precalc_state = te.state
-      te.state = :calculating
-      te.save
-      calculate_patients(te)
-      validate_measures(te)
-      te.state = precalc_state
+  def perform(test_execution, task, options = {})
+    test_execution.state = :running
+    test_execution.validate_artifact(task.validators, test_execution.artifact, options.merge('test_execution' => test_execution, 'task' => task))
+    if test_execution.task.product_test.reporting_program_type == 'eh'
+      precalc_state = test_execution.state
+      test_execution.state = :calculating
+      test_execution.save
+      calculate_patients(test_execution)
+      validate_measures(test_execution)
+      test_execution.state = precalc_state
     end
-    te.save
+    test_execution.save
   end
 
   def calculate_patients(test_execution)

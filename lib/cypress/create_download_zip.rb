@@ -46,7 +46,7 @@ module Cypress
       file
     end
 
-    def self.add_execution_data(z, product_test, options, folder_name)
+    def self.add_execution_data(zip, product_test, options, folder_name)
       product_test.tasks.each do |task|
         most_recent_execution = task.most_recent_execution
         next unless most_recent_execution
@@ -55,11 +55,11 @@ module Cypress
           # append test type
           folder_name = "#{folder_name}#{product_test.cms_program.underscore.dasherize}"
           options[:report_hash][product_test.name].each do |file_name, text|
-            add_file_to_zip(z, "#{folder_name}/calculations/#{file_name}.html", text)
+            add_file_to_zip(zip, "#{folder_name}/calculations/#{file_name}.html", text)
           end
         end
         mre_filename = "#{folder_name}/uploads/#{most_recent_execution.artifact.file.uploaded_filename}"
-        add_file_to_zip(z, mre_filename, most_recent_execution.artifact.file.read)
+        add_file_to_zip(zip, mre_filename, most_recent_execution.artifact.file.read)
       end
     end
 
@@ -115,9 +115,9 @@ module Cypress
       file
     end
 
-    def self.add_file_to_zip(z, file_name, file_content)
-      z.put_next_entry(file_name)
-      z << file_content
+    def self.add_file_to_zip(zip, file_name, file_content)
+      zip.put_next_entry(file_name)
+      zip << file_content
     end
 
     def self.formatter_for_patients(patients, format)

@@ -24,13 +24,15 @@ class PatientTest < ActiveSupport::TestCase
     assert_equal 5, r.calculation_results.count, 'record should have 5 calculated results. 1 for the proportion measure and 4 for the stratified measure'
   end
 
-  def record_demographics_equal?(r1, r2)
+  def record_demographics_equal?(record1, record2)
+    r1 = record1
+    r2 = record2
     r1.givenNames == r2.givenNames && r1.familyName == r2.familyName && r1.gender == r2.gender &&
       r1.qdmPatient.birthDatetime == r2.qdmPatient.birthDatetime && r1.race['code'] == r2.race['code'] && r1.ethnicity['code'] == r2.ethnicity['code']
   end
 
-  def record_birthyear_equal?(r1, r2)
-    r1.qdmPatient.birthDatetime.year == r2.qdmPatient.birthDatetime.year
+  def record_birthyear_equal?(record1, record2)
+    record1.qdmPatient.birthDatetime.year == record2.qdmPatient.birthDatetime.year
   end
 
   def test_record_duplicate_randomization

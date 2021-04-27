@@ -55,7 +55,7 @@ module Cypress
       end
     end
 
-    def run_measure_eval(c1_c2, c4)
+    def run_measure_eval(c1_c2_test, c4_test)
       parse_hqmf_for_population_ids if @hqmf_path
 
       # getting measures from bundles is a little convoluted
@@ -71,9 +71,9 @@ module Cypress
 
         # create vendor
         vendor_link = create_new_vendor("MeasureEvaluationVendor - #{bundle_id}")
-        run_vendor_tests(vendor_link, measures_list.uniq, 'All Measures', false, bundle_id) if c1_c2
+        run_vendor_tests(vendor_link, measures_list.uniq, 'All Measures', false, bundle_id) if c1_c2_test
 
-        next unless c4
+        next unless c4_test
 
         measures_list.uniq.each do |measure|
           run_vendor_tests(vendor_link, Array.new(1, measure), "Measures - #{measure}", true, bundle_id)

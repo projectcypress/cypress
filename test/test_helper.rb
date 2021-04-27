@@ -45,11 +45,11 @@ class ActiveSupport::TestCase
     Mongoid.default_client[collection].drop
   end
 
-  def arrays_equivalent(a1, a2)
-    return true if a1 == a2
-    return false unless a1 && a2 # either one is nil
+  def arrays_equivalent(array1, array2)
+    return true if array1 == array2
+    return false unless array1 && array2 # either one is nil
 
-    a1.count == a2.count && (a1 - a2).empty? && (a2 - a1).empty?
+    array1.count == array2.count && (array1 - array2).empty? && (array2 - array1).empty?
   end
 
   def get_document(input)
@@ -90,15 +90,15 @@ class ActiveSupport::TestCase
     test.save!
   end
 
-  def value_or_bson(v)
-    if v.is_a? Hash
-      if v['$oid']
-        BSON::ObjectId.from_string(v['$oid'])
+  def value_or_bson(value)
+    if value.is_a? Hash
+      if value['$oid']
+        BSON::ObjectId.from_string(value['$oid'])
       else
-        map_bson_ids(v)
+        map_bson_ids(value)
       end
     else
-      v
+      value
     end
   end
 
@@ -145,16 +145,18 @@ class ActiveSupport::TestCase
     end
   end
 
-  def qdm_patient_for_attribute(dt, ta, src_qdm_patient)
-    dt.reason = nil if ta[7] && dt.respond_to?(:reason)
-    reset_datatype_fields(dt, ta)
+  def qdm_patient_for_attribute(data_type, test_attributes, src_qdm_patient)
+    data_type.reason = nil if test_attributes[7] && data_type.respond_to?(:reason)
+    reset_datatype_fields(data_type, test_attributes)
 
     single_dt_qdm_patient = src_qdm_patient.clone
-    single_dt_qdm_patient.dataElements << dt
+    single_dt_qdm_patient.dataElements << data_type
     single_dt_qdm_patient
   end
 
-  def reset_datatype_fields(dt, ta)
+  def reset_datatype_fields(data_type, test_attributes)
+    dt = data_type
+    ta = test_attributes
     dt.prescriberId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if dt.respond_to?(:prescriberId)
     dt.dispenserId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if dt.respond_to?(:dispenserId)
 
