@@ -1,4 +1,4 @@
-require 'test_helper.rb'
+require 'test_helper'
 class DefaultProviderTest < MiniTest::Test
   def test_default_provider
     assert Provider.default_provider, 'should have created default provider'
