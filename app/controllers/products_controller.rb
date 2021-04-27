@@ -136,7 +136,7 @@ class ProductsController < ApplicationController
         @task = t
         @individual_results = individual_results
         errors = Cypress::ErrorCollector.collected_errors(most_recent_execution, false).files
-        file_name_id_hash.keys.each do |file_name|
+        file_name_id_hash.each_key do |file_name|
           error_result = errors[file_name]
           patient = file_name_id_hash[file_name]
           next unless patient

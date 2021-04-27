@@ -78,7 +78,7 @@ module Cypress
 
         individual_result.collect_observations(observation_hash, true)
       end
-      @measure_result_hash[measure.hqmf_id].keys.each do |key|
+      @measure_result_hash[measure.hqmf_id].each_key do |key|
         calculate_observation(observation_hash, measure, key)
         @measure_result_hash[measure.hqmf_id][key]['measure_id'] = measure.hqmf_id
         @measure_result_hash[measure.hqmf_id][key]['pop_set_hash'] = measure.population_set_hash_for_key(key)
@@ -121,7 +121,7 @@ module Cypress
       unless single_measure_result_hash['supplemental_data'][pop]
         single_measure_result_hash['supplemental_data'][pop] = { 'RACE' => {}, 'ETHNICITY' => {}, 'SEX' => {}, 'PAYER' => {} }
       end
-      patient_sup.keys.each do |sup_type|
+      patient_sup.each_key do |sup_type|
         # For each type of supplemental data (e.g., RACE, SEX), increment code values
         add_or_increment_code(pop, sup_type, patient_sup[sup_type], single_measure_result_hash)
       end
