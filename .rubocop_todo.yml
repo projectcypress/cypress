@@ -105,33 +105,6 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Style/GuardClause:
   Exclude:
-    - 'app/controllers/admin/users_controller.rb'
-    - 'app/controllers/application_controller.rb'
-    - 'app/controllers/records_controller.rb'
-    - 'app/helpers/checklist_tests_helper.rb'
-    - 'app/jobs/cms_test_execution_job.rb'
-    - 'app/models/c3_cat3_task.rb'
-    - 'app/models/checklist_source_data_criteria.rb'
-    - 'app/models/point_of_contact.rb'
-    - 'app/models/product.rb'
-    - 'app/models/settings.rb'
-    - 'app/models/user.rb'
-    - 'lib/cypress/data_criteria_attribute_builder.rb'
-    - 'lib/cypress/demographics_randomizer.rb'
-    - 'lib/ext/bundle.rb'
-    - 'lib/ext/individual_result.rb'
-    - 'lib/ext/patient.rb'
-    - 'lib/validators/cat3_population_validator.rb'
-    - 'lib/validators/cms_schematron_validator.rb'
-    - 'lib/validators/ehr_certification_id_validator.rb'
-    - 'lib/validators/expected_supplemental_results.rb'
-    - 'lib/validators/measure_period_validator.rb'
-    - 'lib/validators/program_criteria_validator.rb'
-    - 'lib/validators/provider_type_validator.rb'
-    - 'lib/validators/qrda_cat3_validator.rb'
-    - 'lib/validators/qrda_upload_validator.rb'
-    - 'lib/validators/qrda_upload_validator.rb'
-    - 'test/api_test.rb'
 Style/HashLikeCase:
   Exclude:
     - 'features/step_definitions/checklist_test.rb'

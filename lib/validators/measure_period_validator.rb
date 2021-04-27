@@ -86,11 +86,11 @@ module Validators
       end
 
       # Return error message is reported quarter cannot be found
-      unless matches_quarter
-        msg = "Reported Measurement Period (#{@doc_start_time} - #{@doc_end_time}) does not align to a quarter " \
-              '(ex, 1/1-3/31, 4/1-6/30, 7/1-9/30, 10/1-12/31).'
-        add_error(msg, error_options)
-      end
+      return if matches_quarter
+
+      msg = "Reported Measurement Period (#{@doc_start_time} - #{@doc_end_time}) does not align to a quarter " \
+            '(ex, 1/1-3/31, 4/1-6/30, 7/1-9/30, 10/1-12/31).'
+      add_error(msg, error_options)
     end
 
     def validate_encounter_during_reporting_period
@@ -110,10 +110,10 @@ module Validators
         end
       end
 
-      unless any_date_within_period
-        msg = 'Documents must contain at least one encounter or procedure with a discharge date during the reporting period'
-        add_error(msg, error_options)
-      end
+      return if any_date_within_period
+
+      msg = 'Documents must contain at least one encounter or procedure with a discharge date during the reporting period'
+      add_error(msg, error_options)
     end
 
     def formatted_start_and_end(rp_start, rp_end)

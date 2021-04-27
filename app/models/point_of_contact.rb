@@ -42,16 +42,16 @@ class PointOfContact
   end
 
   def check_for_email_changes
-    if changes['email']
-      old_email, _new_email = changes['email']
-      if !old_email.nil? && !old_email.delete(' ').empty?
-        begin
-          u = User.find_by(email: old_email)
-          u.remove_role(:vendor, vendor)
-        rescue
-          # do nothing
-        end
-      end
+    return unless changes['email']
+
+    old_email, _new_email = changes['email']
+    return unless !old_email.nil? && !old_email.delete(' ').empty?
+
+    begin
+      u = User.find_by(email: old_email)
+      u.remove_role(:vendor, vendor)
+    rescue
+      # do nothing
     end
   end
 end

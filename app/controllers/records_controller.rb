@@ -42,11 +42,11 @@ class RecordsController < ApplicationController
     @patients = @vendor.patients.where(bundleId: @bundle.id.to_s) if @vendor
     @patients ||= @source.patients
 
-    if params[:measure_id]
-      measures = @vendor ? @bundle.measures : @source.measures
-      @measure = measures.find_by(hqmf_id: params[:measure_id])
-      @population_set_hash = params[:population_set_hash] || @measure.population_sets_and_stratifications_for_measure.first
-    end
+    return unless params[:measure_id]
+
+    measures = @vendor ? @bundle.measures : @source.measures
+    @measure = measures.find_by(hqmf_id: params[:measure_id])
+    @population_set_hash = params[:population_set_hash] || @measure.population_sets_and_stratifications_for_measure.first
   end
 
   def by_filter_task

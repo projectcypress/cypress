@@ -46,9 +46,9 @@ module ChecklistTestsHelper
   end
 
   def coded_attribute?(criteria, attribute_index)
-    if criteria['dataElementAttributes']&.any?
-      true if criteria['dataElementAttributes'][attribute_index]['attribute_valueset']
-    end
+    return unless criteria['dataElementAttributes']&.any?
+
+    true if criteria['dataElementAttributes'][attribute_index]['attribute_valueset']
   end
 
   def lookup_valueset_name(oid)

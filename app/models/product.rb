@@ -135,12 +135,12 @@ class Product
 
   # builds a checklist test if product does not have a checklist test
   def add_checklist_test
-    if product_tests.checklist_tests.empty? && c1_test
-      checklist_test = product_tests.create!({ name: 'c1 visual', measure_ids: measure_ids }, ChecklistTest)
-      checklist_test.create_checked_criteria
-      checklist_test.tasks.create!({}, C1ChecklistTask)
-      checklist_test.tasks.create!({}, C3ChecklistTask) if c3_test
-    end
+    return unless product_tests.checklist_tests.empty? && c1_test
+
+    checklist_test = product_tests.create!({ name: 'c1 visual', measure_ids: measure_ids }, ChecklistTest)
+    checklist_test.create_checked_criteria
+    checklist_test.tasks.create!({}, C1ChecklistTask)
+    checklist_test.tasks.create!({}, C3ChecklistTask) if c3_test
   end
 
   def self.most_recent
@@ -173,10 +173,10 @@ class Product
       product_tests.where(name: 'EH Measures').destroy
       product_tests.build({ name: 'EH Measures', measure_ids: eh_ids, reporting_program_type: 'eh' }, MultiMeasureTest)
     end
-    if build_ep
-      product_tests.where(name: 'EP Measures').destroy
-      product_tests.build({ name: 'EP Measures', measure_ids: ep_ids, reporting_program_type: 'ep' }, MultiMeasureTest)
-    end
+    return unless build_ep
+
+    product_tests.where(name: 'EP Measures').destroy
+    product_tests.build({ name: 'EP Measures', measure_ids: ep_ids, reporting_program_type: 'ep' }, MultiMeasureTest)
   end
 
   # eh_ids: eh measure to include in a multimeasure test
@@ -194,13 +194,13 @@ class Product
       end
     end
     # don't rebuild if eh cms_program_tests already exist
-    if build_ep && product_tests.cms_program_tests.where(reporting_program_type: 'ep').empty?
-      # if no ep_ids remain, remove exiting test
-      product_tests.cms_program_tests.where(reporting_program_type: 'ep').destroy if ep_ids.empty?
-      CMS_IG_CONFIG['CMS Programs']['ep'].each do |cms_program|
-        product_tests.build({ name: "#{cms_program} Test", cms_program: cms_program, measure_ids: ep_ids,
-                              reporting_program_type: 'ep' }, CMSProgramTest)
-      end
+    return unless build_ep && product_tests.cms_program_tests.where(reporting_program_type: 'ep').empty?
+
+    # if no ep_ids remain, remove exiting test
+    product_tests.cms_program_tests.where(reporting_program_type: 'ep').destroy if ep_ids.empty?
+    CMS_IG_CONFIG['CMS Programs']['ep'].each do |cms_program|
+      product_tests.build({ name: "#{cms_program} Test", cms_program: cms_program, measure_ids: ep_ids,
+                            reporting_program_type: 'ep' }, CMSProgramTest)
     end
   end
 

@@ -27,10 +27,10 @@ class CMSTestExecutionJob < ApplicationJob
     options = { 'effectiveDate': effective_date }
     eligible_measures, ineligible_measures = telehealth_eligible_and_ineligible_ecqms(test_execution.task.product_test.measures)
     calculate_patients_for_measures(patient_ids, options, eligible_measures, test_execution) unless eligible_measures.empty?
-    unless ineligible_measures.empty?
-      address_telehealth_codes_in_patients(patients, ineligible_measures, test_execution)
-      calculate_patients_for_measures(patient_ids, options, ineligible_measures, test_execution)
-    end
+    return if ineligible_measures.empty?
+
+    address_telehealth_codes_in_patients(patients, ineligible_measures, test_execution)
+    calculate_patients_for_measures(patient_ids, options, ineligible_measures, test_execution)
   end
 
   def validate_measures(test_execution)

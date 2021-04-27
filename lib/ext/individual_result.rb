@@ -55,10 +55,10 @@ module CQM
       calculated_er = calculated['episode_results'].values.map(&:observation_values).sort
       expected_er = episode_results.values.map(&:observation_values).sort
 
-      if calculated_er != expected_er
-        issues << "Calculated observations (#{calculated_er}) do not match "\
-                  "expected observations (#{expected_er})"
-      end
+      return unless calculated_er != expected_er
+
+      issues << "Calculated observations (#{calculated_er}) do not match "\
+                "expected observations (#{expected_er})"
     end
 
     # adds the observation values found in an individual_result to the observation_hash

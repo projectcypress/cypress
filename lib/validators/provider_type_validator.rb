@@ -11,19 +11,18 @@ module Validators
       @options = options
       first, last = extract_first_and_last_names
       patient = @options['task'].patients.select { |p| p.givenNames[0] == first.to_s && p.familyName == last.to_s }.first
-      if patient
-        expected_provider_types = [patient.providers.first.specialty]
+      return unless patient
 
-        found_provider_types = @document.xpath(PROVIDER_TYPE_SELECTOR).map(&:value)
+      expected_provider_types = [patient.providers.first.specialty]
 
-        expected_provider_types.sort
-        found_provider_types.sort
+      found_provider_types = @document.xpath(PROVIDER_TYPE_SELECTOR).map(&:value)
 
-        if expected_provider_types != found_provider_types
-          add_error("Provider specialties (#{found_provider_types.join(', ')}) do not match expected value (#{expected_provider_types.join(', ')})",
-                    file_name: options[:file_name])
-        end
-      end
+      expected_provider_types.sort
+      found_provider_types.sort
+      return unless expected_provider_types != found_provider_types
+
+      add_error("Provider specialties (#{found_provider_types.join(', ')}) do not match expected value (#{expected_provider_types.join(', ')})",
+                file_name: options[:file_name])
     end
 
     def extract_first_and_last_names

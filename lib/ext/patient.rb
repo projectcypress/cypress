@@ -118,9 +118,9 @@ module CQM
 
     def gender
       gender_chars = qdmPatient.get_data_elements('patient_characteristic', 'gender')
-      if gender_chars&.any? && gender_chars.first.dataElementCodes && gender_chars.first.dataElementCodes.any?
-        gender_chars.first.dataElementCodes.first['code']
-      end
+      return unless gender_chars&.any? && gender_chars.first.dataElementCodes && gender_chars.first.dataElementCodes.any?
+
+      gender_chars.first.dataElementCodes.first['code']
     end
 
     def race
