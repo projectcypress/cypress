@@ -62,7 +62,7 @@ class TasksController < ApplicationController
 
   def task_type(type)
     type.camelize.constantize
-  rescue
+  rescue StandardError
     raise TypeNotFound, "#{type} could not be created"
   end
 end

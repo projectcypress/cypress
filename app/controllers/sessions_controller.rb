@@ -28,7 +28,7 @@ class SessionsController < Devise::SessionsController
       nlm_result = RestClient.post nlm_url, apikey: apikey
       doc = Nokogiri::HTML(nlm_result.body)
       doc.search('title').text == '201 Created'
-    rescue
+    rescue StandardError
       false
     end
   end

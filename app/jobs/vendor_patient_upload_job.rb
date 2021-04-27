@@ -91,7 +91,7 @@ class VendorPatientUploadJob < ApplicationJob
       Cypress::QRDAPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
       patient.save
       [true, patient]
-    rescue => e
+    rescue StandardError => e
       [false, e.to_s]
     end
   end

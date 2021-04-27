@@ -33,7 +33,7 @@ class FilteringTest < ProductTest
   def task_status(task_type)
     begin
       task = tasks.find_by(_type: task_type)
-    rescue
+    rescue StandardError
       return 'incomplete'
     end
     task.status

@@ -16,7 +16,7 @@ module Cypress
         collected_errors[:files][this_name] = create_file_error_hash(doc, all_errs, related_errs)
       end
       collected_errors
-    rescue => e
+    rescue StandardError => e
       { nonfile: [], files: {}, exception: e }
     end
 

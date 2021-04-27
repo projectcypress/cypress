@@ -26,7 +26,7 @@ class Task
     # for example (Task.c1_task, Task.cat1_filter_task, etc)
     define_singleton_method task_type.underscore do
       find_by(_type: task_type)
-    rescue
+    rescue StandardError
       false
     end
   end

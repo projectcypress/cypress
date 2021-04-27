@@ -44,7 +44,7 @@ class TestExecution
     end
     conditionally_add_task_specific_errors(file_count)
     execution_errors.only_errors.count.positive? ? fail : pass
-  rescue => e
+  rescue StandardError => e
     errored(e)
     logger.error("Encountered an exception in Test Execution #{id}: #{e.message}, backgrace:\n#{e.backtrace}")
   end
@@ -92,7 +92,7 @@ class TestExecution
 
   def sibling_execution
     TestExecution.find(sibling_execution_id)
-  rescue
+  rescue StandardError
     nil
   end
 
