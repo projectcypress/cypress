@@ -25,9 +25,7 @@ module Cypress
   end
 
   class QRDAExporter
-    attr_accessor :measures
-    attr_accessor :start_time
-    attr_accessor :end_time
+    attr_accessor :measures, :start_time, :end_time
 
     def initialize(measures, start_time, end_time)
       @measures = measures
