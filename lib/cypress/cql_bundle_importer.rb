@@ -176,7 +176,7 @@ module Cypress
 
     def self.report_progress(label, percent)
       print "\rLoading: #{label} #{percent}% complete"
-      STDOUT.flush
+      $stdout.flush
     end
 
     def self.calculate_results(bundle, tracker, include_highlighting = false)
