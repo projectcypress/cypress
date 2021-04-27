@@ -113,7 +113,7 @@ module TestExecutionsHelper
 
   def file_name_and_error_result_from_files(files, file_name)
     [files.first[0], files.first[1]]
-  rescue
+  rescue StandardError
     raise Mongoid::Errors::DocumentNotFound.new Cypress::ErrorCollector::FileNotFound, "could not find results for file #{file_name}"
   end
 

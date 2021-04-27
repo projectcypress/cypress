@@ -12,7 +12,7 @@ module Validators
       record.correlation_id = @test_id
       record.medical_record_number = rand(1_000_000_000_000_000)
       record
-    rescue
+    rescue StandardError
       nil
     end
 

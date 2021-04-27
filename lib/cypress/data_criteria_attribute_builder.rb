@@ -36,7 +36,7 @@ module Cypress
           end
         end
         update_measure_data_criteria
-      rescue
+      rescue StandardError
         # Do nothing
       end
     end

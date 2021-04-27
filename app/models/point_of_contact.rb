@@ -19,7 +19,7 @@ class PointOfContact
 
   def user
     User.find_by(email: email) if email
-  rescue
+  rescue StandardError
     # do nothing
   end
 
@@ -50,7 +50,7 @@ class PointOfContact
     begin
       u = User.find_by(email: old_email)
       u.remove_role(:vendor, vendor)
-    rescue
+    rescue StandardError
       # do nothing
     end
   end

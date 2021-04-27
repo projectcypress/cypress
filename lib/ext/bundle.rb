@@ -138,7 +138,7 @@ class Bundle
 
   def self.default
     find_by(active: true)
-  rescue
+  rescue StandardError
     most_recent
   end
 

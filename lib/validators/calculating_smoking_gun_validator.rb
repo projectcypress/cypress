@@ -24,7 +24,7 @@ module Validators
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, @bundle)
       patient.bundleId = @bundle.id
       patient
-    rescue
+    rescue StandardError
       add_error('File failed import', file_name: options[:file_name])
       nil
     end

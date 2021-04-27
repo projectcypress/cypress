@@ -57,7 +57,7 @@ module Cypress
       end
       unpack_and_store_individual_results(zip, bundle, patient_id_mapping, measure_id_mapping, tracker)
       true
-    rescue
+    rescue StandardError
       false
     end
 

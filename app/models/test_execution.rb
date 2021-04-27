@@ -97,7 +97,7 @@ class TestExecution
 
   def sibling_execution
     TestExecution.find(sibling_execution_id)
-  rescue
+  rescue StandardError
     nil
   end
 

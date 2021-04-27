@@ -401,7 +401,7 @@ module Cypress
         else
           false
         end
-      rescue
+      rescue StandardError
         false
       end
     end
