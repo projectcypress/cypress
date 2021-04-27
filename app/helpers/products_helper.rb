@@ -31,15 +31,15 @@ module ProductsHelper
 
     case test_status
     when 'passing'
-      return 6
+      6
     when 'failing'
-      return 5
+      5
     when 'errored'
-      return 4
+      4
     when 'incomplete'
-      return 3
+      3
     else
-      return 7
+      7
     end
   end
 
