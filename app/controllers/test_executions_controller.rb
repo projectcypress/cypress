@@ -24,10 +24,9 @@ class TestExecutionsController < ApplicationController
     @has_ep_tests = @task.product_test.product.ep_tests?
     @curr_task = Task.find(params[:task_id])
     respond_with(@test_execution) do |f|
-      case @task._type
-      when 'C1ChecklistTask'
+      if @task.is_a? C1ChecklistTask
         f.html { redirect_to product_checklist_test_path(@task.product_test.product, @task.product_test) }
-      when 'CMSProgramTask'
+      elsif @task.is_a? CMSProgramTask
         f.html { redirect_to product_program_test_path(@task.product_test.product, @task.product_test) }
       else
         f.html { redirect_to task_test_execution_path(task_id: @task.id, id: @test_execution.id) }
