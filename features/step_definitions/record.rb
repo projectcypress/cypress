@@ -154,7 +154,7 @@ Then('a zip file should be downloaded within {int} seconds') do |int|
   Timeout.timeout(int) do
     sleep 0.1 until page.response_headers['Content-Disposition']
   end
-  assert_match(/attachment; filename=\".*\.zip\"/, page.response_headers['Content-Disposition'])
+  assert_match(/attachment; filename=".*\.zip"/, page.response_headers['Content-Disposition'])
 end
 
 Then(/^the user should not see deprecated bundles$/) do
