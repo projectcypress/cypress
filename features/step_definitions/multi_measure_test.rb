@@ -6,7 +6,7 @@ include TestExecutionsHelper
 
 When(/^the user creates a cvu plus product with records$/) do
   bundle_id = Bundle.default._id
-  measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE', '40280382-5FA6-FE85-0160-0918E74D2075']
+  measure_ids = %w[BE65090C-EB1F-11E7-8C3F-9A214CF093AE 40280382-5FA6-FE85-0160-0918E74D2075]
   @product = @vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
                                      bundle_id: bundle_id)
 
@@ -20,7 +20,7 @@ end
 
 When(/^the user creates a cvu plus product$/) do
   bundle_id = Bundle.default._id
-  measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE', '40280382-5FA6-FE85-0160-0918E74D2075']
+  measure_ids = %w[BE65090C-EB1F-11E7-8C3F-9A214CF093AE 40280382-5FA6-FE85-0160-0918E74D2075]
   eh_measure = Measure.where(hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE').first
   eh_measure.reporting_program_type = 'eh'
   eh_measure.save
