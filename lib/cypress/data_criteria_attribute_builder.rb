@@ -37,8 +37,7 @@ module Cypress
         end
         update_measure_data_criteria
       rescue
-        # This parser can be brittle, not the end of the world to return without parsing attributes
-        return
+        # Do nothing
       end
     end
 
