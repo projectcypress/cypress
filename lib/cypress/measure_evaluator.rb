@@ -112,13 +112,13 @@ module Cypress
       end
     end
 
-    def upload_cat1(t)
-      zip = create_patient_zip(t.tasks.c1_task.patients)
+    def upload_cat1(test)
+      zip = create_patient_zip(test.tasks.c1_task.patients)
       FileUtils.mv zip, "#{File.dirname(zip)}/#{File.basename(zip)}.zip"
       zip2 = File.new("#{File.dirname(zip)}/#{File.basename(zip)}.zip")
-      t.tasks.c1_task.execute(zip2)
+      test.tasks.c1_task.execute(zip2)
     rescue StandardError => e
-      @logger.error "Cat 1 test #{t.id} failed: #{e}"
+      @logger.error "Cat 1 test #{test.id} failed: #{e}"
     end
 
     def measure_opts_for(measure_ids)

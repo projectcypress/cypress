@@ -40,7 +40,8 @@ module ChecklistTestsHelper
   end
 
   # A data criteria cannot be used for subtitution if it is derived (e.g., Occurrence A of), or birthtime
-  def unsubstituable_data_criteria?(cr)
+  def unsubstituable_data_criteria?(data_criteria)
+    cr = data_criteria
     cr['negation'] || cr['definition'] == 'derived' || cr['type'] == 'derived' || (cr['type'] == 'characteristic' && cr['property'] == 'birthtime')
   end
 

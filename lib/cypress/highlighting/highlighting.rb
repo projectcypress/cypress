@@ -121,18 +121,18 @@ class Highlighting < Mustache
     end
   end
 
-  def parse_tree(array, results, r = nil)
+  def parse_tree(array, results, r_id = nil)
     # Follow down each subtree until reaching the clause text then add it with the result to the clause_list
     if array.include?(:s)
       array.s.each do |sarray|
         # If sub array contains its own ID, use that one for the clause
         r_val = sarray['r'] || array['r']
-        r_val ||= r
+        r_val ||= r_id
         parse_tree(sarray, results, r_val)
       end
     elsif array.include?(:value)
       array['value'].each do |text|
-        result = results.find { |res| res.local_id == r }
+        result = results.find { |res| res.local_id == r_id }
         next if result.nil?
 
         # when reaching the bottom of the tree, find result for this clause and add it to the clause_list.

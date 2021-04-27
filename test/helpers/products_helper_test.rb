@@ -427,15 +427,15 @@ class ProductsHelperTest < ActiveJob::TestCase
     [test_types, titles, descriptions]
   end
 
-  def make_product_certify(product, c1 = false, c2 = false, c3 = false, c4 = false)
-    product.c1_test = c1
-    product.c2_test = c2
-    product.c3_test = c3
-    product.c4_test = c4
+  def make_product_certify(product, c1_test = false, c2_test = false, c3_test = false, c4_test = false)
+    product.c1_test = c1_test
+    product.c2_test = c2_test
+    product.c3_test = c3_test
+    product.c4_test = c4_test
     product.save!
-    product.product_tests.checklist_tests.each(&:destroy) unless c1
-    product.product_tests.measure_tests.each(&:destroy) unless c2
-    product.product_tests.filtering_tests.each(&:destroy) unless c4
+    product.product_tests.checklist_tests.each(&:destroy) unless c1_test
+    product.product_tests.measure_tests.each(&:destroy) unless c2_test
+    product.product_tests.filtering_tests.each(&:destroy) unless c4_test
   end
 
   def test_measure_test_tasks

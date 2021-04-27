@@ -49,8 +49,8 @@ module Cypress
       [patient1, patient2]
     end
 
-    def self.de_before_date(de, date)
-      data_element_time(de) < date
+    def self.de_before_date(data_element, date)
+      data_element_time(data_element) < date
     end
 
     def self.split_by_type(patient, effective_date, measure_period_start, random)
