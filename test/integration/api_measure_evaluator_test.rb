@@ -15,7 +15,9 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     perform_filtering_tests
     perform_measure_tests
     failed_tests = TestExecution.where(state: { '$in': %w[failed errored] })
-    assert failed_tests.empty?, "Test failed for #{failed_tests.first.task.product_test.cms_id} - #{failed_tests.collect { |ft| ft.execution_errors.collect(&:message) }}" unless failed_tests.empty?
+    return if failed_tests.empty?
+
+    assert failed_tests.empty?, "Test failed for #{failed_tests.first.task.product_test.cms_id} - #{failed_tests.collect { |ft| ft.execution_errors.collect(&:message) }}"
   end
 
   # Get bundle from the demo server.  Use VCR if available
