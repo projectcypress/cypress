@@ -209,10 +209,6 @@ class ChecklistTestTest < ActiveJob::TestCase
     # compare each checked criteria mongoid measure ids
     test1.checked_criteria.each_index do |x|
       assert_equal test1.checked_criteria.fetch(x).measure_id, test2.checked_criteria.fetch(x).measure_id, 'random repeatability error: checklist test checked criteria measure id not matched'
-    end
-
-    # compare each checked criteria source data criteria
-    test1.checked_criteria.each_index do |x|
       assert_equal test1.checked_criteria.fetch(x).source_data_criteria, test2.checked_criteria.fetch(x).source_data_criteria, 'random repeatability error: checklist test checked criteria source data not matched'
     end
 

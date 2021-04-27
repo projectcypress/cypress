@@ -75,8 +75,6 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
       end
       # Using the filter criteria, filter
       filter_and_save_cat_1_zip(filter_test_parameters, ft)
-    end
-    filtering_tests.each do |ft|
       upload_test_artifacts('Cat1FilterTask', 'Cat3FilterTask', ft)
       delete_test_zip_files(ft)
     end
