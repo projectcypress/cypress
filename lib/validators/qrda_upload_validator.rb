@@ -7,9 +7,11 @@ module Validators
 
     def initialize(year, qrda_type, organization)
       bundle_year = year.to_i - 1
-      qrda_validator = if qrda_type == 'qrdaI'
+
+      qrda_validator = case qrda_type
+                       when 'qrdaI'
                          qrda_1_validator(bundle_year, organization)
-                       elsif qrda_type == 'qrdaIII'
+                       when 'qrdaIII'
                          qrda_3_validator(bundle_year, organization)
                        end
       format_validators = [CDA.instance, qrda_validator]

@@ -122,7 +122,8 @@ module Cypress
 
     def populate_patient_download_hashes(product_test)
       # get link for product test tasks
-      if product_test.type == 'measure'
+      case product_test.type
+      when 'measure'
         product_test_tasks_link = extract_link(product_test, 'tasks')
         # get product tasks objects
         product_test_tasks = call_get_product_test_tasks(product_test_tasks_link)
@@ -132,7 +133,7 @@ module Cypress
         @patient_links_task_hash[patient_download_link] = parsed_api_object(product_test_tasks)
         # hash of patient list with product tests - this is used to see if the patiets are ready
         @patient_link_product_test_hash[patient_download_link] = extract_link(product_test, 'self')
-      elsif product_test.type == 'filter'
+      when 'filter'
         product_test_tasks_link = extract_link(product_test, 'tasks')
         # get product tasks objects
         product_test_tasks = parsed_api_object(call_get_product_test_tasks(product_test_tasks_link))
