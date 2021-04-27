@@ -32,10 +32,9 @@ class ProductTestSetupJob < ApplicationJob
     effective_date = Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number)
     patient_ids = patients.map { |p| p.id.to_s }
     options = { 'effectiveDate': effective_date }
-    results = product_test.measures.map do |measure|
+    product_test.measures.map do |measure|
       SingleMeasureCalculationJob.perform_now(patient_ids, measure.id.to_s, correlation_id, options)
     end.flatten
-    results
   end
 
   private

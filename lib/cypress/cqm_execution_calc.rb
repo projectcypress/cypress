@@ -15,10 +15,9 @@ module Cypress
     end
 
     def execute(save = true)
-      results = @measures.map do |measure|
+      @measures.map do |measure|
         request_for(measure, save)
       end.flatten
-      results
     end
 
     def request_for(measure, save = true)
