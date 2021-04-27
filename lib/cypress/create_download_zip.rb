@@ -122,9 +122,10 @@ module Cypress
 
     def self.formatter_for_patients(patients, format)
       mes, sd, ed = Cypress::PatientZipper.measure_start_end(patients)
-      if format == 'html'
+      case format
+      when 'html'
         formatter = Cypress::HTMLExporter.new(mes, sd, ed)
-      elsif format == 'qrda'
+      when 'qrda'
         formatter = Cypress::QRDAExporter.new(mes, sd, ed)
       end
       formatter
