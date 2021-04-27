@@ -647,30 +647,19 @@ Then(/^the product value for (.*) should be (.*)$/) do |method, value|
 end
 
 def task_status_to_execution_status_message(task_status)
-  case task_status
-  when 'passing'
-    'Passed'
-  when 'failing'
-    'Failed'
-  when 'testing'
-    'In Progress'
-  when 'errored'
-    'Errored'
-  when 'incomplete'
-    'Not Started'
-  end
+  status_description = { 'passing' => 'Passed',
+                         'failing' => 'Failed',
+                         'testing' => 'In Progress',
+                         'errored' => 'Errored',
+                         'incomplete' => 'Not Started' }
+  status_description[task_status]
 end
 
 # task status should be one of 'testing', 'passing', 'failing'
 def task_status_to_task_link_text(task_status)
-  case task_status
-  when 'passing'
-    'view'
-  when 'failing'
-    'retry'
-  when 'testing'
-    'testing...'
-  when 'incomplete'
-    'start'
-  end
+  status_description = { 'passing' => 'view',
+                         'failing' => 'retry',
+                         'testing' => 'testing...',
+                         'incomplete' => 'start' }
+  status_description[task_status]
 end
