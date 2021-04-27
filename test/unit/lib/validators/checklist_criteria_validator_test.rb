@@ -153,8 +153,12 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
       restricted_dt.prescriberId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if restricted_dt.respond_to?(:prescriberId)
       restricted_dt.dispenserId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if restricted_dt.respond_to?(:dispenserId)
 
-      restricted_dt.relevantDatetime = nil if restricted_dt.respond_to?(:relevantDatetime) && restricted_dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantPeriod'
-      restricted_dt.relevantPeriod = nil if restricted_dt.respond_to?(:relevantDatetime) && restricted_dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantDatetime'
+      if restricted_dt.respond_to?(:relevantDatetime) && restricted_dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantPeriod'
+        restricted_dt.relevantDatetime = nil
+      end
+      if restricted_dt.respond_to?(:relevantDatetime) && restricted_dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantDatetime'
+        restricted_dt.relevantPeriod = nil
+      end
 
       restricted_dt[ta[2]] = nil
       remove_embeded_objects(restricted_dt, ta[2])

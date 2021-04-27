@@ -122,7 +122,9 @@ class ProductsController < ApplicationController
         ).only(:IPP, :DENOM, :NUMER, :NUMEX, :DENEX, :DENEXCEP, :MSRPOPL, :OBSERV, :MSRPOPLEX, :measure_id, :patient_id, :file_name, :population_set_key, :episode_results).to_a
         uploaded_patients = Patient.where(correlation_id: most_recent_execution.id)
         file_name_id_hash = {}
-        uploaded_patients.each { |uploaded_patient| file_name_id_hash[uploaded_patient['file_name']] = uploaded_patient if uploaded_patient['file_name'] }
+        uploaded_patients.each do |uploaded_patient|
+          file_name_id_hash[uploaded_patient['file_name']] = uploaded_patient if uploaded_patient['file_name']
+        end
         individual_results.each do |ir|
           next unless ir['file_name']
           next if file_name_id_hash[ir['file_name']]
