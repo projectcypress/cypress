@@ -116,12 +116,12 @@ class Bundle
   end
 
   def update_default
-    unless version == Settings.current.default_bundle
-      Bundle.where(active: true).each { |b| b.update(active: false) }
-      update(active: true)
-      Bundle.find_by(id: id).active = true
-      Settings.current.update(default_bundle: version)
-    end
+    return if version == Settings.current.default_bundle
+
+    Bundle.where(active: true).each { |b| b.update(active: false) }
+    update(active: true)
+    Bundle.find_by(id: id).active = true
+    Settings.current.update(default_bundle: version)
   end
 
   def collect_codes_by_qdm_category

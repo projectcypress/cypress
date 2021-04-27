@@ -20,14 +20,14 @@ module Validators
       default_errors&.each do |error|
         add_warning error, validator_type: :xml_validation, file_name: @options[:file_name], cms: true
       end
-      if @validator
-        errors = @validator.validate(doc, options)
-        type = @as_warnings ? :warning : :error
-        errors.each do |error|
-          add_issue error.message, type, message: error.message,
-                                         location: error.location, validator: error.validator,
-                                         validator_type: :xml_validation, file_name: @options[:file_name], cms: true
-        end
+      return unless @validator
+
+      errors = @validator.validate(doc, options)
+      type = @as_warnings ? :warning : :error
+      errors.each do |error|
+        add_issue error.message, type, message: error.message,
+                                       location: error.location, validator: error.validator,
+                                       validator_type: :xml_validation, file_name: @options[:file_name], cms: true
       end
     end
   end

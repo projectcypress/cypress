@@ -149,12 +149,12 @@ class Settings
   private
 
   def sync_bundle
-    if default_bundle_changed?
-      # sync default bundle with settings
-      Bundle.each do |bundle|
-        bundle.active = bundle.version == default_bundle
-        bundle.save!
-      end
+    return unless default_bundle_changed?
+
+    # sync default bundle with settings
+    Bundle.each do |bundle|
+      bundle.active = bundle.version == default_bundle
+      bundle.save!
     end
   end
 

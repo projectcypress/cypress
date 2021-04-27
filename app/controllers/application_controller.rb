@@ -70,11 +70,11 @@ class ApplicationController < ActionController::Base
   def check_backend_jobs
     running = `pgrep -f jobs:work`.split("\n").count.positive?
 
-    unless running
-      alert_msg = 'The backend processes for setting up tests and performing measure calculations are not running.
-                    Please refer to the Cypress installation manual for instructions on starting the processes.'
-      flash[:backend_job_warning] = alert_msg
-    end
+    return if running
+
+    alert_msg = 'The backend processes for setting up tests and performing measure calculations are not running.
+                  Please refer to the Cypress installation manual for instructions on starting the processes.'
+    flash[:backend_job_warning] = alert_msg
   end
 
   def check_bundle_deprecated
@@ -82,21 +82,21 @@ class ApplicationController < ActionController::Base
                       'You will still be able to run test executions however '\
                       'no new products will be able to be created using this bundle.'
     current_product = @product || @task&.product_test&.product || @product_test&.product
-    if current_product&.bundle&.deprecated?
-      flash.now['warning'] ||= []
-      flash.now['warning'] << deprecation_msg
-    end
+    return unless current_product&.bundle&.deprecated?
+
+    flash.now['warning'] ||= []
+    flash.now['warning'] << deprecation_msg
   end
 
   def check_bundle_installed
-    unless any_bundle
-      install_instr = APP_CONSTANTS['references']['install_guide']
+    return if any_bundle
 
-      install_instr_link = view_context.link_to install_instr['title'], install_instr['url']
+    install_instr = APP_CONSTANTS['references']['install_guide']
 
-      flash.now[:no_bundle_alert] = "There are no bundles currently available.
-                                      Please follow the #{install_instr_link} to get started.".html_safe
-    end
+    install_instr_link = view_context.link_to install_instr['title'], install_instr['url']
+
+    flash.now[:no_bundle_alert] = "There are no bundles currently available.
+                                    Please follow the #{install_instr_link} to get started.".html_safe
   end
 
   # Clear basic auth token if user is not using the JSON API. This fixes a bug where basic auth

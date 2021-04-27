@@ -55,10 +55,10 @@ module Validators
         add_error("Denominator value #{denom} is greater than Initial Population value #{ipp} for measure #{measure}",
                   location: '/', file_name: file)
       end
-      if (num + denex + denexcep) > denom
-        add_error("Numerator value #{num} + Denominator Exclusions value #{denex} + Denominator Exceptions value #{denexcep}"\
-        " is greater than Denominator value #{denom} for measure #{measure}", location: '/', file_name: file)
-      end
+      return unless (num + denex + denexcep) > denom
+
+      add_error("Numerator value #{num} + Denominator Exclusions value #{denex} + Denominator Exceptions value #{denexcep}"\
+      " is greater than Denominator value #{denom} for measure #{measure}", location: '/', file_name: file)
     end
 
     def validate_population_ids(doc, options)
@@ -121,10 +121,10 @@ module Validators
         add_error("Measure Population value #{msrpopl} is greater than Initial Population value #{ipp} for  "\
         "measure #{measure}", '/', location: '/', file_name: file)
       end
-      if observ > msrpopl
-        add_error("Measure observvations value #{observ} cannot be greater than Measure Population value #{msrpopl}"\
-        " for measure #{measure}", '/', location: '/', file_name: file)
-      end
+      return unless observ > msrpopl
+
+      add_error("Measure observvations value #{observ} cannot be greater than Measure Population value #{msrpopl}"\
+      " for measure #{measure}", '/', location: '/', file_name: file)
     end
 
     def measure_entry_selector
