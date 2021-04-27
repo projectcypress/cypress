@@ -15,12 +15,12 @@ Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new]
 # comment the previous line and uncomment the next one for test-by-test details
 # Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new]
 
-include Warden::Test::Helpers
-Warden.test_mode!
-
 Mongoid.logger.level = Logger::INFO
 
 class ActiveSupport::TestCase
+  include Warden::Test::Helpers
+  Warden.test_mode!
+
   def teardown
     drop_database
     # Not clearing the rails settings cache means that settings are left in an inconsistent state
