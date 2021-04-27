@@ -27,7 +27,7 @@ class Task
     define_singleton_method task_type.underscore do
       find_by(_type: task_type)
     rescue StandardError
-      false
+      nil
     end
   end
 
