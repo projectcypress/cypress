@@ -94,3 +94,7 @@ Metrics/PerceivedComplexity:
     - 'lib/validators/checklist_criteria_validator.rb'
     - 'test/unit/lib/validators/checklist_criteria_validator_test.rb'
     - 'test/unit/html_test.rb'
+Style/CaseLikeIf:
+  Exclude:
+    - 'app/controllers/test_executions_controller.rb'
+    - 'app/jobs/measure_evaluation_job.rb'

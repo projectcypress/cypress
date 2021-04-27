@@ -10,10 +10,9 @@ class MeasureEvaluationJob < ApplicationJob
   # @return none
   def perform(test_or_task, options)
     # Measure Evaluation Job can be run for a test (Measure Test), or a task (Filter Tasks)
-    case test_or_task._type
-    when 'ProductTest'
+    if test_or_task.is_a? ProductTest
       perform_for_product_test(test_or_task, options)
-    when 'Task'
+    elsif test_or_task.is_a? Task
       perform_for_task(test_or_task, options)
     end
   end
