@@ -12,7 +12,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
   def setup_eh
     modify_reporting_program_type('eh')
     perform_enqueued_jobs do
-      measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE', '40280382-5FA6-FE85-0160-0918E74D2075']
+      measure_ids = %w[BE65090C-EB1F-11E7-8C3F-9A214CF093AE 40280382-5FA6-FE85-0160-0918E74D2075]
       @product = @vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
                                          bundle_id: @bundle.id)
 
@@ -25,7 +25,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
   def setup_ep
     modify_reporting_program_type('ep')
     perform_enqueued_jobs do
-      measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE', '40280382-5FA6-FE85-0160-0918E74D2075']
+      measure_ids = %w[BE65090C-EB1F-11E7-8C3F-9A214CF093AE 40280382-5FA6-FE85-0160-0918E74D2075]
       @product = @vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
                                          bundle_id: @bundle.id)
 
