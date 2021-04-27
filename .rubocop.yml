@@ -100,3 +100,7 @@ Style/CaseLikeIf:
   Exclude:
     - 'app/controllers/test_executions_controller.rb'
     - 'app/jobs/measure_evaluation_job.rb'
+Style/ClassAndModuleChildren:
+  Exclude:
+    - '.simplecov'
+    - 'test/test_helper.rb'
