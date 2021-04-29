@@ -2,21 +2,6 @@
 # TODO: fix, or intentionally Exclude them 
 Lint/MissingSuper:
   Exclude:
-    - 'lib/cypress/highlighting/highlighting.rb'
-    - 'lib/validators/cat3_population_validator.rb'
-    - 'lib/validators/checklist_criteria_validator.rb'
-    - 'lib/validators/cms_schematron_validator.rb'
-    - 'lib/validators/core_clinical_data_element_validator.rb'
-    - 'lib/validators/ehr_certification_id_validator.rb'
-    - 'lib/validators/encounter_validator.rb'
-    - 'lib/validators/expected_results_validator.rb'
-    - 'lib/validators/measure_period_validator.rb'
-    - 'lib/validators/program_criteria_validator.rb'
-    - 'lib/validators/program_validator.rb'
-    - 'lib/validators/provider_type_validator.rb'
-    - 'lib/validators/qrda_cat1_validator.rb'
-    - 'lib/validators/qrda_cat3_validator.rb'
-    - 'lib/validators/qrda_upload_validator.rb'
 Naming/MethodParameterName:
   Exclude:
 Naming/RescuedExceptionsVariableName:
@@ -27,66 +12,10 @@ Metrics/AbcSize:
   # The ABC size is a calculated magnitude, so this number can be a Fixnum or
   # a Float.
   Exclude:
-    - 'app/controllers/records_controller.rb'
-    - 'app/helpers/patient_analysis_helper.rb'
-    - 'lib/cypress/cql_bundle_importer.rb'
-    - 'lib/cypress/demographics_randomizer.rb'
-    - 'lib/cypress/expected_results_calculator.rb'
-    - 'lib/cypress/product_status_values.rb'
-    - 'lib/ext/individual_result.rb'
-    - 'lib/ext/patient.rb'
 Metrics/CyclomaticComplexity:
   Exclude:
-    - 'app/controllers/application_controller.rb'
-    - 'app/controllers/products_controller.rb'
-    - 'app/controllers/records_controller.rb'
-    - 'app/helpers/filtering_tests_helper.rb'
-    - 'app/helpers/products_helper.rb'
-    - 'app/helpers/test_executions_helper.rb'
-    - 'app/models/ability.rb'
-    - 'app/models/c1_task.rb'
-    - 'app/models/c2_task.rb'
-    - 'app/models/cat3_filter_task.rb'
-    - 'app/models/measure_test.rb'
-    - 'app/models/product.rb'
-    - 'app/models/product.rb'
-    - 'app/models/product_test.rb'
-    - 'app/models/test_execution.rb'
-    - 'lib/cypress/api_measure_evaluator.rb'
-    - 'lib/cypress/clinical_randomizer.rb'
-    - 'lib/cypress/data_criteria_attribute_builder.rb'
-    - 'lib/cypress/data_criteria_selector.rb'
-    - 'lib/cypress/expected_results_calculator.rb'
-    - 'lib/cypress/highlighting/highlighting.rb'
-    - 'lib/cypress/patient_filter.rb'
-    - 'lib/cypress/patient_zipper.rb'
-    - 'lib/cypress/population_clone_job.rb'
-    - 'lib/cypress/product_status_values.rb'
-    - 'lib/cypress/qrda_post_processor.rb'
-    - 'lib/ext/individual_result.rb'
-    - 'lib/ext/patient.rb'
-    - 'lib/tasks/bundle_eval.rake'
-    - 'lib/validators/calculating_augmented_records.rb'
-    - 'lib/validators/calculating_augmented_results.rb'
-    - 'lib/validators/cat3_population_validator.rb'
-    - 'lib/validators/checklist_criteria_validator.rb'
-    - 'lib/validators/expected_results_validator.rb'
-    - 'test/integration/api_measure_evaluator_test.rb'
-    - 'test/test_helper.rb'
-    - 'test/unit/html_test.rb'
-    - 'test/unit/lib/provider_filter_test.rb'
-    - 'test/unit/lib/validators/checklist_criteria_validator_test.rb'
 Metrics/PerceivedComplexity:
   Exclude:
-    - 'app/models/product.rb'
-    - 'lib/cypress/expected_results_calculator.rb'
-    - 'lib/cypress/highlighting/highlighting.rb'
-    - 'lib/cypress/patient_filter.rb'
-    - 'lib/cypress/patient_zipper.rb'
-    - 'lib/cypress/qrda_post_processor.rb'
-    - 'lib/ext/individual_result.rb'
-    - 'lib/validators/expected_results_validator.rb'
-    - 'test/integration/api_measure_evaluator_test.rb'
 Style/AccessorGrouping:
   Exclude:
 Style/CaseLikeIf:
