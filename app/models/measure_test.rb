@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MeasureTest < ProductTest
   before_validation :generate_provider
 

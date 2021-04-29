@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 IndividualResult = CQM::IndividualResult
 
 module CQM

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PatientAnalysisJob < ApplicationJob
   include Job::Status
   include PatientAnalysisHelper

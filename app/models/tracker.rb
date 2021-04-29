@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tracker
   include Mongoid::Document
   field :job_id

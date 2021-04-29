@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProductTestSetupJob < ApplicationJob
   queue_as :product_test_setup
   include Job::Status

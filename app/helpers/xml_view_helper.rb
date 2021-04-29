@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module XmlViewHelper
   include Cypress::ErrorCollector
   # used for errors popup in node partial

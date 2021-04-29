@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :bundle do
   task setup: :environment
 

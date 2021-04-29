@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TestExecutionsResultsHelper
   include ActionView::Helpers::TextHelper
 

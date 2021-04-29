@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :evaluator do
   task setup: :environment
 

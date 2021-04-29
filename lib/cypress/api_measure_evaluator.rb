@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # :nocov:
 require 'time'
 module Cypress

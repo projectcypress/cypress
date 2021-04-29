@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PatientAnalysisHelper
   def collate_element_data(data_element, de_types_found, codes_found)
     de_types_found.add(data_element._type)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'validators/qrda_cat3_validator'
 
 class C2Task < Task

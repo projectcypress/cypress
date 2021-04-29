@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProductsController < ApplicationController
   include API::Controller
   before_action :set_vendor, only: %i[index new create report patients favorite]

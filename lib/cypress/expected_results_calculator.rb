@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   class ExpectedResultsCalculator
     # The ExpectedResultsCalculator aggregates Individual Results to calculated the expected results for a

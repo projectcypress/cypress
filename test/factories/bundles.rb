@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :bundle, class: Bundle do
     sequence(:name) { |i| "Bundle Name #{i}" }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TestExecutionsController < ApplicationController
   include API::Controller
   include TestExecutionsHelper

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Vendor
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic

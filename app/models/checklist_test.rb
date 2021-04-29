@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChecklistTest < ProductTest
   include Cypress::DataCriteriaSelector
 

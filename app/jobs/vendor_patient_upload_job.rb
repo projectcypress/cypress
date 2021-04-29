@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VendorPatientUploadJob < ApplicationJob
   include Job::Status
   include ::CqmValidators

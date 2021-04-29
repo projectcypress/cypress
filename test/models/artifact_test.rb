@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 class ArtifactTest < ActiveSupport::TestCase
   def test_should_be_able_to_tell_if_a_file_is_an_archive

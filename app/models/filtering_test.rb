@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FilteringTest < ProductTest
   field :options, type: Hash
   field :incl_addr, type: Boolean

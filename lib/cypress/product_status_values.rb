@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   module ProductStatusValues
     def cms_status_values(product)

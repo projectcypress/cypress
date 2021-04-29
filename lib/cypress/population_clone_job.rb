@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   # This is Resque job that will create patients for a ProductTest. Currently you have the choice between doing a full
   # clone of the test deck or a specific subset to cover the 3 core measures. In the near future we will support more

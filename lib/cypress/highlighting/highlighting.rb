@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Highlighting < Mustache
   # This is a set of helper methods to allow for measure highlighting.  Currently it
   # can display the results of the data and hightlight the portions as true, or false

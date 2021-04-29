@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MultiMeasureCat1Task < Task
   def validators
     @validators = [::Validators::CalculatingSmokingGunValidator.new(product_test.measures, product_test.patients, product_test.id),

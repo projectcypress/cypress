@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChecklistTestsController < ProductTestsController
   before_action :set_measures, only: [:show]
   before_action :set_measure, only: [:measure]

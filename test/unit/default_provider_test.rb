@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 class DefaultProviderTest < MiniTest::Test
   def test_default_provider

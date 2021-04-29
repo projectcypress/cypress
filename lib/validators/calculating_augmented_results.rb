@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Validators
   # This is a set of helper methods to assist in working with randomized
   # demographics on patients, so that the Expected Results Validator can

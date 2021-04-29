@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SingleMeasureCalculationJob < ApplicationJob
   queue_as :measure_calculation
   include Job::Status

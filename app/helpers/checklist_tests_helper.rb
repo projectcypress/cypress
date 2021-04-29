@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChecklistTestsHelper
   def disable_qrda_submission?
     # only disable if none of the measures have all good checklist criteria

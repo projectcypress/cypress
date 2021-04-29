@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class QrdaUpload
   include Mongoid::Document
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   class PatientFilter
     def self.filter(records, filters, options)

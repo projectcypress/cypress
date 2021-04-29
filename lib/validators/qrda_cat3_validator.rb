@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'validators/qrda_cat1_validator'
 module Validators
   class QrdaCat3Validator < QrdaFileValidator

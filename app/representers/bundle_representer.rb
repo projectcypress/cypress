@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BundleRepresenter
   include API::Representer
 

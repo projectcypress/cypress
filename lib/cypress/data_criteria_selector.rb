@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   module DataCriteriaSelector
     def data_criteria_selector(measure, prng)

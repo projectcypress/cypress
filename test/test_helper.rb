@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 
 # Mongo::Logger.logger.level = Logger::WARN
@@ -166,15 +168,15 @@ class ActiveSupport::TestCase
 
   class ActionController::TestCase
     include Devise::Test::ControllerHelpers
-    ADMIN = '4def93dd4f85cf8968000010'.freeze
-    ATL = '4def93dd4f85cf8968000001'.freeze
-    OWNER = '4def93dd4f85cf8968000002'.freeze
-    USER = '4def93dd4f85cf8968000002'.freeze
-    VENDOR = '4def93dd4f85cf8968000003'.freeze
-    OTHER_VENDOR = '4def93dd4f85cf8968000004'.freeze
+    ADMIN = '4def93dd4f85cf8968000010'
+    ATL = '4def93dd4f85cf8968000001'
+    OWNER = '4def93dd4f85cf8968000002'
+    USER = '4def93dd4f85cf8968000002'
+    VENDOR = '4def93dd4f85cf8968000003'
+    OTHER_VENDOR = '4def93dd4f85cf8968000004'
 
-    EHR1 = '4f57a8791d41c851eb000002'.freeze
-    EHR2 = '4f636aba1d41c851eb00048c'.freeze
+    EHR1 = '4f57a8791d41c851eb000002'
+    EHR2 = '4f636aba1d41c851eb00048c'
 
     def add_user_to_vendor(user, vendor)
       test_params = { user: { email: user.email },
