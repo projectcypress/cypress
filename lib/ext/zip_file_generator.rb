@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ZipFileGenerator
   # Initialize with the directory to zip and the location of the output archive.
   def initialize(input_dir, output_file)

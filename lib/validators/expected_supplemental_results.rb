@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Validators
   # This is a set of helper methods to validate reported supplemental values associated
   # with a population key against reported ones.

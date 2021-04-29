@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   class CreateDownloadZip
     include ChecklistTestsHelper

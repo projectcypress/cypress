@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # require "cypress/qrda_file_validator"
 
 module Validators

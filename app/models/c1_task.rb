@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class C1Task < Task
   include Mongoid::Attributes::Dynamic
 

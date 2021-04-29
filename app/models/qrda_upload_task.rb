@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class QrdaUploadTask < Task
   include Mongoid::Attributes::Dynamic
   include ActionView::Helpers::NumberHelper

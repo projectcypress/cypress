@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # The Patient model is an extension of app/models/qdm/patient.rb as defined by CQM-Models.
 
 module CQM

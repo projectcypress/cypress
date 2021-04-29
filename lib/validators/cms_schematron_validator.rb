@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Validators
   class CMSSchematronValidator < QrdaFileValidator
     include Validators::Validator

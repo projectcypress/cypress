@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given(/^the user is signed in$/) do
   steps %( Given a user has an account )
   login_as @user, scope: :user

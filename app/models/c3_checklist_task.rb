@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class C3ChecklistTask < Task
   # include Mongoid::Attributes::Dynamic
   include ::Validators

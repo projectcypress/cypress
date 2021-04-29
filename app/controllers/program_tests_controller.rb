@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProgramTestsController < ProductTestsController
   respond_to :js, only: [:show]
 

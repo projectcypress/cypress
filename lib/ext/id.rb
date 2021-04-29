@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # The Id model is an extension of app/models/qdm/id.rb as defined by CQM-Models.
 module QDM
   class Id

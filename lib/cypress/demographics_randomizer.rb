@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Faker::Config.locale = 'en-US'
 module Cypress
   # This is a set of helper methods to randomize demographic components of records.  Currently it

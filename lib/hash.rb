@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Hash
   def method_missing(sym)
     if key?(sym.to_s)

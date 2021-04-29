@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   class NameRandomizer
     def self.randomize_patient_name_first(patient, augmented_patients, random: Random.new)

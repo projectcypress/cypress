@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class C3Cat1Task < Task
   def validators
     # not using the "calculating" smoking gun validator here

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MeasureEvaluationJob < ApplicationJob
   queue_as :default
   include Job::Status

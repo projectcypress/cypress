@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Requires a bundleId to be passed in as a string, not a BSON Object
 
 FactoryBot.define do

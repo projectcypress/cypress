@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # # # # # # # # #
 #   G I V E N   #
 # # # # # # # # #

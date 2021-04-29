@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class QrdaUploadsController < ApplicationController
   include API::Controller
   include VersionConfigHelper

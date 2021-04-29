@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RecordsController < ApplicationController
   include RecordsHelper
   before_action :set_record_source, only: %i[index show by_measure by_filter_task html_filter_patients]

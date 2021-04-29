@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 When(/^the default bundle has been deprecated$/) do
   active_bundle = Bundle.default
   inactive_bundle = FactoryBot.create(:bundle)

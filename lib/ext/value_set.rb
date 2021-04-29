@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ValueSet = CQM::ValueSet
 Concept = CQM::Concept
 

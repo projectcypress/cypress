@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BundleUploadJob < ApplicationJob
   include Job::Status
   DEFAULT_OPTIONS = { delete_existing: false, update_measures: false, exclude_results: false }.freeze

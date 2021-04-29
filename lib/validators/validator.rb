@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Validators
   module Validator
     def errors

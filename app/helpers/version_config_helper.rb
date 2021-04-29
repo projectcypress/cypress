@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module VersionConfigHelper
   def config_for_version(bundle_version = Settings.current.default_bundle)
     versions = APP_CONSTANTS['version_config'].keys.map { |k| { spec: Gem::Dependency.new('', k), key: k } }.sort_by { |b| b[:key] }.reverse

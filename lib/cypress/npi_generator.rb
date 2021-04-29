@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NpiGenerator
   def self.generate
     random_number = rand.to_s[2..9]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Validators
   class CoreClinicalDataElementValidator < QrdaFileValidator
     include Validators::Validator

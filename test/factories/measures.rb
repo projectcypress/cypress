@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :measure, class: Measure do
     entry = Rails.root.join('test', 'fixtures', 'artifacts', 'cms32v7.json')

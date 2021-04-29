@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Vendors
   class RecordsController < ::RecordsController
     include PatientAnalysisHelper

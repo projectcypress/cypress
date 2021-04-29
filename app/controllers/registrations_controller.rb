@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RegistrationsController < Devise::RegistrationsController
   add_breadcrumb 'New Account', :new_user_registration_path, only: %i[new create]
   add_breadcrumb 'Edit User', :edit_user_registration_path, only: %i[edit update]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module QrdaHelper
   def measure_ids_from_cat_1_file(doc)
     measure_ids = doc.xpath("//cda:entry/cda:organizer[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.98']]" \

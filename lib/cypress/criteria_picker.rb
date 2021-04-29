@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   class CriteriaPicker
     # TODO: R2P: pick filter criteria using new model

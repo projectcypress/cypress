@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   class ClinicalRandomizer
     def self.randomize(patient, effective_date, measure_period_start, random: Random.new)

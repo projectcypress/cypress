@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RecordsHelper
   SECTIONS = %w[adverse_event allergy assessment care_experience care_goal communication condition
                 device diagnostic_study encounter family_history functional_status immunization intervention

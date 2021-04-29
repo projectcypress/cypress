@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MultiMeasureCat3Task < Task
   def validators
     @validators = [::Validators::MeasurePeriodValidator.new,

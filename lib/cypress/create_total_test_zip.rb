@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   class CreateTotalTestZip
     def self.create_total_test_zip(product, criteria_list, filtering_list, format = 'qrda')

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   class ExamplePatientFinder
     # TODO: R2P: get sample patients (for checklist test) with new model

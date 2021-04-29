@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiTest
   def assert_has_attributes(hash, attr_names, link_names = nil)
     attr_names.each { |key| assert hash.key?(key), "should have key #{key}" }

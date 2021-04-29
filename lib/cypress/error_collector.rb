@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   module ErrorCollector
     class FileNotFound < StandardError

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Job
   module Status
     extend ActiveSupport::Concern

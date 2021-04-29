@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   class DataCriteriaAttributeBuilder
     def build_data_criteria_for_measure(measure)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CMSProgramTest < ProductTest
   field :cms_program, type: String
   field :reporting_program_type, type: String
