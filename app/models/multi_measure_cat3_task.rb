@@ -2,7 +2,7 @@ class MultiMeasureCat3Task < Task
   def validators
     @validators = [::Validators::MeasurePeriodValidator.new,
                    ::Validators::QrdaCat3Validator.new(product_test.expected_results, true, true, false, product_test.bundle),
-                   ::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version, false),
+                   ::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version, as_warnings: false),
                    ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
     @validators
   end

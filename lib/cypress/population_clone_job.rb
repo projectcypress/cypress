@@ -44,7 +44,7 @@ module Cypress
       # providers for each patient
       provider = @test.provider if @test.class == MeasureTest
 
-      patients.collect { |patient| clone_and_save_patient(patient, prng, provider, @test.product.allow_duplicate_names) }
+      patients.collect { |patient| clone_and_save_patient(patient, prng, provider, allow_dups: @test.product.allow_duplicate_names) }
     end
 
     def find_patients_to_clone
@@ -71,7 +71,7 @@ module Cypress
     end
 
     # if provider argument is nil, this function will assign a new provider based on the @option['providers'] and @option['generate_provider'] options
-    def clone_and_save_patient(patient, prng, provider = nil, allow_dups = false)
+    def clone_and_save_patient(patient, prng, provider = nil, allow_dups: false)
       # This operates on the assumption that we are always cloning a patient for a product test.
       # If we need to clone a patient for any other reason then we will need to paramaterize
       # the type coming into this class.
@@ -85,7 +85,7 @@ module Cypress
       cloned_patient.medical_record_number = next_medical_record_number unless options['disable_randomization']
       @test.reload
       DemographicsRandomizer.assign_default_demographics(cloned_patient)
-      DemographicsRandomizer.randomize(cloned_patient, prng, @test.patients, allow_dups) if options['randomize_demographics']
+      DemographicsRandomizer.randomize(cloned_patient, prng, @test.patients, allow_dups: allow_dups) if options['randomize_demographics']
       # work around to replace 'Other' race codes in Cypress bundle. Pass in static seed for consistent results.
       DemographicsRandomizer.randomize_race(cloned_patient, Random.new(0)) if cloned_patient.race == '2131-1'
       DemographicsRandomizer.update_demographic_codes(cloned_patient)

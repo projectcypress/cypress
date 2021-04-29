@@ -33,7 +33,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     before_patient_count = Patient.count
     before_results_count = IndividualResult.count
     bundle_zip = File.new(File.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_4.zip'))
-    Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new, true)
+    Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new, include_highlighting: true)
     assert_equal (before_measure_count + 2), Measure.count
     # 21 valuesets from csv file, 3 direct reference codes
     assert_equal (before_value_set_count + 25), ValueSet.count

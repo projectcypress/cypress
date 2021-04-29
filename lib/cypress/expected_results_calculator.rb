@@ -76,7 +76,7 @@ module Cypress
         # Each episode will have its own observation
         next unless individual_result['episode_results']
 
-        individual_result.collect_observations(observation_hash, true)
+        individual_result.collect_observations(observation_hash, agg_results: true)
       end
       @measure_result_hash[measure.hqmf_id].each_key do |key|
         calculate_observation(observation_hash, measure, key)
@@ -152,7 +152,7 @@ module Cypress
       array.inject(0.0) { |sum, elem| sum + elem } / array.size
     end
 
-    def median(array, already_sorted = false)
+    def median(array, already_sorted: false)
       return 0.0 if array.empty?
 
       array = array.sort unless already_sorted

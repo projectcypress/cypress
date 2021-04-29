@@ -14,13 +14,13 @@ module Cypress
       @options = options
     end
 
-    def execute(save = true)
+    def execute(save: true)
       @measures.map do |measure|
-        request_for(measure, save)
+        request_for(measure, save: save)
       end.flatten
     end
 
-    def request_for(measure, save = true)
+    def request_for(measure, save: true)
       ir_list = []
       @options['requestDocument'] = true
       post_data = { patients: @patients, measure: measure, valueSets: measure.value_sets, options: @options }

@@ -226,7 +226,7 @@ class Product
     filter_tests = []
     filter_tests.concat [build_filtering_test(measure, criteria[0, 2]), build_filtering_test(measure, criteria[2, 2])]
     filter_tests << build_filtering_test(measure, ['providers'], 'NPI, TIN & Provider Location')
-    filter_tests << build_filtering_test(measure, ['providers'], 'NPI & TIN', false)
+    filter_tests << build_filtering_test(measure, ['providers'], 'NPI & TIN', incl_addr: false)
     criteria = ApplicationController.helpers.measure_has_snomed_dx_criteria?(measure) ? ['problems'] : criteria.values_at(4, (0..3).to_a.sample)
     filter_tests << build_filtering_test(measure, criteria)
     ApplicationController.helpers.generate_filter_patients(filter_tests)
@@ -258,7 +258,7 @@ class Product
     true
   end
 
-  def build_filtering_test(measure, criteria, display_name = '', incl_addr = true)
+  def build_filtering_test(measure, criteria, display_name = '', incl_addr: true)
     # construct options hash from criteria array and create the test
     options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
     product_tests.create({ name: measure.description, product: self, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,

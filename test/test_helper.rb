@@ -68,7 +68,7 @@ class ActiveSupport::TestCase
     document
   end
 
-  def simplify_criteria(test, include_attribute_code = false)
+  def simplify_criteria(test, include_attribute_code: false)
     criteria = test.checked_criteria[0, 1]
     criteria[0].source_data_criteria = { 'codeListId' => '1.8.9.10',
                                          '_id' => BSON::ObjectId.new,

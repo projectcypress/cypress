@@ -98,7 +98,7 @@ class CMSProgramTask < Task
 
   # Common validators for EH programs
   def eh_validators
-    [::Validators::CMSQRDA1HQRSchematronValidator.new(product_test.bundle.version, false),
+    [::Validators::CMSQRDA1HQRSchematronValidator.new(product_test.bundle.version, as_warnings: false),
      ::Validators::EncounterValidator.new,
      ::Validators::CoreClinicalDataElementValidator.new(product_test.measures),
      ::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.c3_test, true)]
@@ -106,7 +106,7 @@ class CMSProgramTask < Task
 
   # Common validators for EP programs
   def ep_validators
-    [::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version, false),
+    [::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version, as_warnings: false),
      ::Validators::QrdaCat3Validator.new(nil, false, true, false, product_test.bundle),
      Cat3PopulationValidator.new]
   end

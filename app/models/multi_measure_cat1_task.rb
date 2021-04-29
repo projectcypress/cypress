@@ -2,7 +2,7 @@ class MultiMeasureCat1Task < Task
   def validators
     @validators = [::Validators::CalculatingSmokingGunValidator.new(product_test.measures, product_test.patients, product_test.id),
                    ::Validators::MeasurePeriodValidator.new,
-                   ::Validators::CMSQRDA1HQRSchematronValidator.new(product_test.bundle.version, false),
+                   ::Validators::CMSQRDA1HQRSchematronValidator.new(product_test.bundle.version, as_warnings: false),
                    ::Validators::CoreClinicalDataElementValidator.new(product_test.measures),
                    ::Validators::QrdaCat1Validator.new(product_test.bundle, true, true, false, product_test.measures)]
     @validators

@@ -33,7 +33,7 @@ module Validators
         add_cqm_validation_error_as_execution_error(validator.validate(doc, options),
                                                     validator.class.to_s,
                                                     :xml_validation,
-                                                    as_warning)
+                                                    as_warning: as_warning)
       end
       # dont' validate measures for C1 Checklist or C3 Checklist
       validate_measures(doc) unless %w[C1ChecklistTask C3ChecklistTask].include? options.task._type

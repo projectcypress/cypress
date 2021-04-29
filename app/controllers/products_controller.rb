@@ -137,7 +137,7 @@ class ProductsController < ApplicationController
         ratio_measures = t.measures.where(measure_scoring: 'RATIO').only(:id, :population_sets, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }
         @task = t
         @individual_results = individual_results
-        errors = Cypress::ErrorCollector.collected_errors(most_recent_execution, false).files
+        errors = Cypress::ErrorCollector.collected_errors(most_recent_execution, include_locations: false).files
         file_name_id_hash.each_key do |file_name|
           error_result = errors[file_name]
           patient = file_name_id_hash[file_name]
