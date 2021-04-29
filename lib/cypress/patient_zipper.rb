@@ -44,10 +44,7 @@ module Cypress
                   patient_telecoms: patient.telecoms,
                   submission_program: cat1_submission_program,
                   start_time: start_time, end_time: end_time }
-      case patient.bundle.qrda_version
-      when 'r5_2'
-        Qrda1R5.new(patient, measures, options).render
-      end
+      Qrda1R5.new(patient, measures, options).render
     end
   end
 

@@ -29,6 +29,23 @@ Layout/LineLength:
     - 'lib/cypress/demographics_randomizer.rb'
     - 'lib/validators/program_criteria_validator.rb'
     - 'test/**/*'
+Lint/MissingSuper:
+  Exclude:
+    - 'lib/cypress/highlighting/highlighting.rb'
+    - 'lib/validators/cat3_population_validator.rb'
+    - 'lib/validators/checklist_criteria_validator.rb'
+    - 'lib/validators/cms_schematron_validator.rb'
+    - 'lib/validators/core_clinical_data_element_validator.rb'
+    - 'lib/validators/ehr_certification_id_validator.rb'
+    - 'lib/validators/encounter_validator.rb'
+    - 'lib/validators/expected_results_validator.rb'
+    - 'lib/validators/measure_period_validator.rb'
+    - 'lib/validators/program_criteria_validator.rb'
+    - 'lib/validators/program_validator.rb'
+    - 'lib/validators/provider_type_validator.rb'
+    - 'lib/validators/qrda_cat1_validator.rb'
+    - 'lib/validators/qrda_cat3_validator.rb'
+    - 'lib/validators/qrda_upload_validator.rb'
 Lint/UnreachableLoop:
   Exclude:
     - 'test/unit/lib/record_filter_test.rb'    
@@ -38,10 +55,18 @@ Metrics/AbcSize:
   Max: 32
   Exclude:
     - 'app/controllers/products_controller.rb'
+    - 'app/controllers/records_controller.rb'
     - 'app/controllers/test_executions_controller.rb'
+    - 'app/helpers/patient_analysis_helper.rb'
     - 'app/models/cms_program_task.rb'
+    - 'lib/cypress/cql_bundle_importer.rb'
     - 'lib/cypress/data_criteria_attribute_builder.rb'
+    - 'lib/cypress/demographics_randomizer.rb'
+    - 'lib/cypress/expected_results_calculator.rb'
     - 'lib/cypress/population_clone_job.rb'
+    - 'lib/cypress/product_status_values.rb'
+    - 'lib/ext/individual_result.rb'
+    - 'lib/ext/patient.rb'
     - 'test/**/*.rb'
     - 'lib/validators/program_criteria_validator.rb'
 Metrics/BlockLength:
@@ -69,6 +94,14 @@ Metrics/ClassLength:
     - 'lib/cypress/demographics_randomizer.rb'
     - 'lib/cypress/expected_results_calculator.rb'
     - 'lib/cypress/population_clone_job.rb'
+Metrics/CyclomaticComplexity:
+  Max: 12
+  Exclude:
+    - 'app/controllers/products_controller.rb'
+    - 'lib/cypress/data_criteria_attribute_builder.rb'
+    - 'lib/validators/checklist_criteria_validator.rb'
+    - 'test/unit/lib/validators/checklist_criteria_validator_test.rb'
+    - 'test/unit/html_test.rb'
 Metrics/MethodLength:
   CountComments: false  # count full line comments?
   Max: 20
@@ -88,7 +121,7 @@ Metrics/ParameterLists:
     - 'lib/cypress/data_criteria_attribute_builder.rb'
     - 'lib/validators/expected_results_validator.rb'
 Metrics/PerceivedComplexity:
-  Max: 10
+  Max: 12
   Exclude:
     - 'app/controllers/products_controller.rb'
     - 'app/helpers/products_helper.rb'

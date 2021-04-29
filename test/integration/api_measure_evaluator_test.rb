@@ -149,26 +149,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     # We need to normalize_date_times prior to calculating our Cat III
     patients.map(&:normalize_date_times)
 
-    successful_calculation = false
-    until successful_calculation
-      # Use ApiMeasureEvaluator to call cqm-execution-service
-      @apime.do_calculation(product_test, patients, correlation_id)
-      successful_calculation = IndividualResult.where(correlation_id: correlation_id, IPP: { '$gte' => 1 }).size.positive?
-    end
-
-    # Seed ExpectedResultsCalculator with patients and correlation_id for cat III generation
-    erc = Cypress::ExpectedResultsCalculator.new(patients, correlation_id, product_test.effective_date)
-    results = erc.aggregate_results_for_measures(product_test.measures)
-
-    # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
-    cat3_submission_program = if product_test&.product&.c3_test
-                                product_test&.measures&.first&.reporting_program_type == 'ep' ? 'MIPS_INDIV' : false
-                              else
-                                false
-                              end
-    options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
-                start_time: product_test.start_date, end_time: product_test.end_date }
-    cat_3_xml = Qrda3R21.new(results, product_test.measures, options).render
+    cat_3_xml = calculate_cat_3(product_test, patients, correlation_id)
 
     # Loop through all entries in product_test.zip to remove patients that do not meed IPP (i.e., do not have IndividualResult)
     Zip::ZipFile.open("tmp/#{product_test.id}.zip") do |zipfile|
@@ -188,6 +169,29 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     Patient.find(patient_id_file_map.values).each(&:destroy)
 
     File.write("tmp/#{product_test.id}.xml", cat_3_xml)
+  end
+
+  def calculate_cat_3(product_test, patients, correlation_id)
+    successful_calculation = false
+    until successful_calculation
+      # Use ApiMeasureEvaluator to call cqm-execution-service
+      @apime.do_calculation(product_test, patients, correlation_id)
+      successful_calculation = IndividualResult.where(correlation_id: correlation_id, IPP: { '$gte' => 1 }).size.positive?
+    end
+
+    # Seed ExpectedResultsCalculator with patients and correlation_id for cat III generation
+    erc = Cypress::ExpectedResultsCalculator.new(patients, correlation_id, product_test.effective_date)
+    results = erc.aggregate_results_for_measures(product_test.measures)
+
+    # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
+    cat3_submission_program = if product_test&.product&.c3_test
+                                product_test&.measures&.first&.reporting_program_type == 'ep' ? 'MIPS_INDIV' : false
+                              else
+                                false
+                              end
+    options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
+                start_time: product_test.start_date, end_time: product_test.end_date }
+    Qrda3R21.new(results, product_test.measures, options).render
   end
 
   # Import all patients in the zip file, and maintain mapping between filename and id
