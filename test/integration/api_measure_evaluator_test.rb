@@ -44,7 +44,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN]) do
       perform_enqueued_jobs do
         # Import the bundle
-        @bundle = Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new, false)
+        @bundle = Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new, include_highlighting: false)
         # Pick 1 measure with an observation
         obs_measures = @bundle.measures.where(measure_scoring: { '$in': %w[RATIO CONTINUOUS_VARIABLE] }).distinct(:hqmf_id).sample(1)
         # Pick 2 random EH measures

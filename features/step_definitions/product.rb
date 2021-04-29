@@ -380,11 +380,11 @@ When(/^the user switches to the record sample tab$/) do
 end
 
 When(/^the user switches to the c1 measure test tab$/) do
-  page.find(:xpath, "//a[@href=\"##{html_id_for_tab(@product, 'MeasureTest', true)}\"]").click
+  page.find(:xpath, "//a[@href=\"##{html_id_for_tab(@product, 'MeasureTest', is_qrda_1_measure_test: true)}\"]").click
 end
 
 When(/^the user switches to the c2 measure test tab$/) do
-  page.find(:xpath, "//a[@href=\"##{html_id_for_tab(@product, 'MeasureTest', false)}\"]").click
+  page.find(:xpath, "//a[@href=\"##{html_id_for_tab(@product, 'MeasureTest', is_qrda_1_measure_test: false)}\"]").click
 end
 
 When(/^the user switches to the filtering test tab$/) do
@@ -524,9 +524,9 @@ Then(/^the user should see the the appropriate tabs$/) do
     assert_tab_and_content_exist(title, description, html_id)
   end
   if @product.c2_test
-    title, description, html_id = title_description_and_html_id_for(@product, 'MeasureTest', true)
+    title, description, html_id = title_description_and_html_id_for(@product, 'MeasureTest', is_qrda_1_measure_test: true)
     assert_tab_and_content_exist(title, description, html_id) if @product.c1_test
-    title, description, html_id = title_description_and_html_id_for(@product, 'MeasureTest', false)
+    title, description, html_id = title_description_and_html_id_for(@product, 'MeasureTest', is_qrda_1_measure_test: false)
     assert_tab_and_content_exist(title, description, html_id)
   end
   if @product.c4_test

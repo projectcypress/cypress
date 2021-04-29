@@ -175,7 +175,7 @@ class ChecklistTestTest < ActiveJob::TestCase
     execution.save!
     assert_equal @test.checked_criteria.count, execution.execution_errors.count
 
-    simplify_criteria(@test, true)
+    simplify_criteria(@test, include_attribute_code: true)
 
     execution = task.test_executions.build
     assert_equal 0, execution.execution_errors.count

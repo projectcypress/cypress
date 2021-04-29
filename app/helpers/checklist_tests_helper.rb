@@ -4,7 +4,7 @@ module ChecklistTestsHelper
     @product_test.checked_criteria.group_by(&:measure_id).values.all? { |cc_group| cc_group.any? { |cc| !cc.checklist_complete? } }
   end
 
-  def checklist_test_criteria_attribute(criteria, attribute_index, include_vs = false)
+  def checklist_test_criteria_attribute(criteria, attribute_index, include_vs: false)
     if criteria['dataElementAttributes']&.any? && (attr = criteria['dataElementAttributes'][attribute_index])
       if attr['attribute_valueset'] && include_vs
         "#{attr['attribute_name']}:#{attr['attribute_valueset']}"

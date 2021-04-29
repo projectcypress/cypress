@@ -13,7 +13,7 @@ class SingleMeasureCalculationJob < ApplicationJob
                                              [measure],
                                              correlation_id,
                                              options)
-    results = calc_job.execute(true)
+    results = calc_job.execute(save: true)
     patients.map(&:denormalize_date_times)
     results
   end

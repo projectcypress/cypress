@@ -192,11 +192,11 @@ class ProductReportTest < ActionController::TestCase
         # add error message
         if random.rand(2).zero?
           build_execution_error(te, sample_error_hash['factory_name'], ste)
-          build_execution_error(te, TEST_EXECUTION_ERROR_HASH[TEST_EXECUTION_ERROR_HASH.keys.sample].sample['factory_name'], ste, false)
+          build_execution_error(te, TEST_EXECUTION_ERROR_HASH[TEST_EXECUTION_ERROR_HASH.keys.sample].sample['factory_name'], ste, include_file: true)
           check_error_collector(te)
         else
           build_execution_error(ste, sample_error_hash['factory_name'], te)
-          build_execution_error(ste, TEST_EXECUTION_ERROR_HASH[TEST_EXECUTION_ERROR_HASH.keys.sample].sample['factory_name'], te, false)
+          build_execution_error(ste, TEST_EXECUTION_ERROR_HASH[TEST_EXECUTION_ERROR_HASH.keys.sample].sample['factory_name'], te, include_file: true)
           check_error_collector(ste)
         end
         te.save
@@ -271,7 +271,7 @@ class ProductReportTest < ActionController::TestCase
     assert_equal error_count, test_execution.execution_errors.size
   end
 
-  def build_execution_error(test_execution, factory_name, sibling_execution, include_file = true)
+  def build_execution_error(test_execution, factory_name, sibling_execution, include_file: true)
     sibling_execution.state = :passed
     if include_file
       # A test execution needs an artifact, since we are always using a C2 test execution, create a Cat 3 artifact

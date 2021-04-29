@@ -76,7 +76,7 @@ class HTMLTest < ActiveSupport::TestCase
 
   def test_display_codes
     perform_enqueued_jobs do
-      @bundle = Cypress::CqlBundleImporter.import(retrieve_mini_bundle, Tracker.new, false)
+      @bundle = Cypress::CqlBundleImporter.import(retrieve_mini_bundle, Tracker.new, include_highlighting: false)
     end
 
     # use file with negation

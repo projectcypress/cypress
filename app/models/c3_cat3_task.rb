@@ -11,7 +11,7 @@ class C3Cat3Task < Task
     return unless measure.reporting_program_type == 'ep'
 
     # If product is not for 21st Centutry Cures, then CMS errors are treated as warnings
-    @validators << ::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version, !product_test.cures_update)
+    @validators << ::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version, as_warnings: !product_test.cures_update)
   end
 
   def execute(file, user, sibling_execution_id)
