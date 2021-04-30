@@ -5,10 +5,10 @@ source 'https://rubygems.org'
 ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.2'
+gem 'rails', '~> 6.0.0'
 
 gem 'delayed_job_mongoid', '~> 2.3.0'
-gem 'mongoid', '~> 6.4.2'
+gem 'mongoid', '~> 7.0.5'
 
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson', '4.5.0'
@@ -18,7 +18,7 @@ gem 'mustache'
 gem 'os'
 
 gem 'cqm-models', '~> 3.0.1'
-gem 'cqm-parsers', '~> 3.1.1.0'
+gem 'cqm-parsers', path: '../cqm-parsers' #'~> 3.1.1.0'
 gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports.git', branch: 'master'
 gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators.git', branch: 'master'
 
