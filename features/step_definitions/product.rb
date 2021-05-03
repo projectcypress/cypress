@@ -552,11 +552,11 @@ Then(/^"(.*)" checkbox should be (\w*)$/) do |element, state|
   case state
   when 'enabled', 'disabled'
     # Convert state from disabled/enabled to true/false
-    state = state.eql?('disabled') ? true : false
+    state = state.eql?('disabled')
     result = checkbox.disabled?
   when 'checked', 'unchecked'
     # Convert state from checked/unchecked to true/false
-    state = state.eql?('checked') ? true : false
+    state = state.eql?('checked')
     result = checkbox.checked?
   end
   assert_equal state, result

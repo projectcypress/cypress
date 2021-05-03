@@ -180,10 +180,10 @@ module Cypress
         @alias_hash[library_id][expression_id][current_hash['scope']]['name']
       # if scope of current_hash has an valueset associated with it, use that
       elsif !@alias_hash[library_id][expression_id][current_hash['scope']]['codes'].nil?
-        if !@alias_hash[library_id][expression_id][current_hash['scope']]['codes']['name'].nil?
-          @alias_hash[library_id][expression_id][current_hash['scope']]['codes']['name']
-        else
+        if @alias_hash[library_id][expression_id][current_hash['scope']]['codes']['name'].nil?
           @alias_hash[library_id][expression_id][current_hash['scope']]['codes']['operand']['name']
+        else
+          @alias_hash[library_id][expression_id][current_hash['scope']]['codes']['name']
         end
         # if scope of current_hash has an union associated with it, use that
       elsif @alias_hash[library_id][expression_id][current_hash['scope']]['type'] == 'Union'

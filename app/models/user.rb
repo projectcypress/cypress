@@ -64,10 +64,10 @@ class User
   end
 
   def inactive_message
-    if !approved?
-      :not_approved
-    else
-      super # Use whatever other message
+    if approved?
+
+      super
+    else :not_approved # Use whatever other message
     end
   end
 
@@ -126,4 +126,6 @@ class User
     self.unlock_token = nil
     save
   end
+
+  def will_save_change_to_email?; end
 end

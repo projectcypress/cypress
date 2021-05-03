@@ -159,7 +159,9 @@ class PopulationCloneJobTest < ActiveSupport::TestCase
   def test_shifts_dates_with_shift
     # Setup test data for date-shifting patients
     pt2 = @pt.clone
-    pt2.product.shift_patients = true
+    product = pt2.product
+    product.shift_patients = true
+    product.save
     pt2.save!
     patient1_shift = Patient.all[0].clone
     patient2_shift = Patient.all[1].clone

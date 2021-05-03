@@ -71,13 +71,13 @@ class RecordsController < ApplicationController
     if BSON::ObjectId.legal?(params[:format])
       bundle = Bundle.find(BSON::ObjectId.from_string(params[:format]))
 
-      if bundle.mpl_status != :ready
-        flash[:info] = 'This bundle is currently preparing for download.'
-        redirect_to :back
-      else
+      if bundle.mpl_status == :ready
         file = File.new(bundle.mpl_path)
         expires_in 1.month, public: true
         send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "bundle_#{bundle.version}_mpl.zip"
+      else
+        flash[:info] = 'This bundle is currently preparing for download.'
+        redirect_to :back
       end
     else
       render body: nil, status: :bad_request
@@ -86,7 +86,7 @@ class RecordsController < ApplicationController
 
   private
 
-  # note: case vendor will also have a bundle id
+  # NOTE: case vendor will also have a bundle id
   def set_record_source
     if params[:vendor_id]
       set_record_source_vendor

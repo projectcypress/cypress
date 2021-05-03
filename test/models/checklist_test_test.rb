@@ -50,7 +50,7 @@ class ChecklistTestTest < ActiveJob::TestCase
   end
 
   def test_status
-    @product.product_tests.each(&:destroy!)
+    @product.product_tests.destroy_all
     user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
 
     checklist_test = create_checklist_test_for_product_with_measure_id(@product, 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE')
@@ -67,7 +67,7 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal 'passing', checklist_test.status
 
     # add a c1 checklist task with test execution
-    @product.update(c3_test: true)
+    @product.c3_test = true
     assert_equal 'incomplete', checklist_test.status
     task = checklist_test.tasks.create!({}, C1ChecklistTask)
     assert_equal 'incomplete', checklist_test.status

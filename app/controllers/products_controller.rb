@@ -175,7 +175,7 @@ class ProductsController < ApplicationController
                      display_calculations: true
                    }
                  end
-          # note assumes 1 task per CMPSProgramTest producttest
+          # NOTE: assumes 1 task per CMPSProgramTest producttest
           report_hash[pt.name][file_name] = header + html
         end
       end

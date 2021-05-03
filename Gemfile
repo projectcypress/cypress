@@ -17,10 +17,10 @@ gem 'bson_ext'
 gem 'mustache'
 gem 'os'
 
-gem 'cqm-models', '~> 3.0.1'
-gem 'cqm-parsers', path: '../cqm-parsers' #'~> 3.1.1.0'
-gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports.git', branch: 'master'
-gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators.git', branch: 'master'
+gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models.git', branch: 'rails_6'
+gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers.git', branch: 'rails_6'
+gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports.git', branch: 'rails_6'
+gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators.git', branch: 'rails_6'
 
 # Use faker to generate addresses
 gem 'faker', '~> 1.5.0'
@@ -103,9 +103,8 @@ group :development, :test do
   gem 'byebug'
   gem 'capybara'
   gem 'capybara-accessible'
-  gem 'cucumber', '~> 3.0.2', require: false
   gem 'cucumber-rails', require: false
-  gem 'database_cleaner'
+  gem 'database_cleaner-mongoid'
   gem 'overcommit'
   gem 'poltergeist'
   gem 'pry'

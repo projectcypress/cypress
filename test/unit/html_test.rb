@@ -48,24 +48,18 @@ class HTMLTest < ActiveSupport::TestCase
         end
       elsif dt[ta[2]].is_a?(Integer) || dt[ta[2]].is_a?(String) || dt[ta[2]].is_a?(Float)
         assert html.include?(dt[ta[2]].to_s), "html should include text value #{dt[ta[2]]}"
-
-      elsif dt[ta[2]].key?(:low)
+      elsif dt[ta[2]].respond_to?(:low)
         # interval (may or may not include high)
         formatted_date = dt[ta[2]].low.strftime('%FT%T')
         assert html.include?(formatted_date), "html should include low value #{formatted_date}"
+      elsif dt[ta[2]].respond_to?(:code)
+        verify_code_in_html(dt[ta[2]], html)
+      elsif dt[ta[2]].respond_to?(:value)
+        verify_value_in_html(dt[ta[2]], html)
+      elsif dt[ta[2]].key?(:code)
+        verify_code_in_html(dt[ta[2]], html)
       elsif dt[ta[2]].key?(:value)
-        # value for basic identifier, result, or quantity (may or may not include unit)
-        # must come before code to match result logic
-        assert html.include?(dt[ta[2]].value.to_s), "html should include value #{dt[ta[2]].value}"
-      elsif dt[ta[2]].key?(:code) || dt[ta[2]].key?('code')
-        # must come after value to match result logic
-        if dt[ta[2]].code.is_a?(Hash)
-          # nested code
-          assert html.include?(dt[ta[2]].code.code), "html should include nested code value #{dt[ta[2]].code.code}"
-        else
-          # code
-          assert html.include?(dt[ta[2]].code), "html should include code value #{dt[ta[2]].code}"
-        end
+        verify_value_in_html(dt[ta[2]], html)
       elsif dt[ta[2]].key?('identifier')
         # entity
         assert html.include?(dt[ta[2]].identifier.value), "html should include identifier value #{dt[ta[2]].identifier.value}"
@@ -74,6 +68,24 @@ class HTMLTest < ActiveSupport::TestCase
         assert html.include?(dt[ta[2]].to_s), "html should include text value #{dt[ta[2]]}"
       end
     end
+  end
+
+  def verify_code_in_html(element, html)
+    # must come after value to match result logic
+    if element.code.is_a?(Hash)
+      # nested code
+      assert html.include?(element.code.code), "html should include nested code value #{element.code.code}"
+    else
+      # code
+      code = element.code.respond_to?(:code) ? element.code.code : element.code
+      assert html.include?(code), "html should include code value #{code}"
+    end
+  end
+
+  def verify_value_in_html(element, html)
+    # value for basic identifier, result, or quantity (may or may not include unit)
+    # must come before code to match result logic
+    assert html.include?(element.value.to_s), "html should include value #{element.value}"
   end
 
   def test_display_codes
@@ -107,7 +119,7 @@ class HTMLTest < ActiveSupport::TestCase
     assert html.include?('MEDICARE'), 'HTML should include payer code description'
     assert html.include?('Procedure contraindicated (situation)'), 'HTML should include negation rationale code description'
     assert html.include?('carvedilol 6.25 MG Oral Tablet'), 'HTML should include medication code description'
-    # Note: code="60" from sdtc:valueSet="1.3.4.5" is unknown (fake) and therefore appropriately omits a description
+    # NOTE: code="60" from sdtc:valueSet="1.3.4.5" is unknown (fake) and therefore appropriately omits a description
 
     # randomize patient and re-export
     Cypress::DemographicsRandomizer.randomize(saved_patient, Random.new(Random.new_seed))

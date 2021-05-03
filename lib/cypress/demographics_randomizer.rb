@@ -74,7 +74,7 @@ module Cypress
         new_ethnicity['code'] = ethnicity_hash['code']
         new_ethnicity['system'] = ethnicity_hash['codeSystem']
         new_ethnicity['codeSystem'] = ethnicity_hash['codeSystemName']
-        new_ethnicity['descriptor'] = ethnicity_hash ['name']
+        new_ethnicity['descriptor'] = ethnicity_hash['name']
         ethnicity_element.first.dataElementCodes << new_ethnicity
         ethnicity_element.first.dataElementCodes.shift # get rid of existing dataElementCode
       else
@@ -119,7 +119,7 @@ module Cypress
         new_payer['code'] = payer_hash['code']
         new_payer['system'] = payer_hash['codeSystem']
         new_payer['codeSystem'] = payer_hash['codeSystemName']
-        new_payer['descriptor'] = payer_hash ['name']
+        new_payer['descriptor'] = payer_hash['name']
         payer_element.first.dataElementCodes << new_payer
         payer_element.first.dataElementCodes.shift # get rid of existing dataElementCode
         payer_element.first.relevantPeriod = QDM::Interval.new(get_random_payer_start_date(patient, prng), nil)
@@ -132,10 +132,10 @@ module Cypress
       start_times = patient.qdmPatient.dataElements.map { |de| de.try(:authorDatetime) }.compact
       # Offset is a random date within the same year
       random_offset = prng.rand(365)
-      if !start_times.empty?
-        [start_times.min - random_offset, patient.qdmPatient.birthDatetime].max
-      else
+      if start_times.empty?
         patient.qdmPatient.birthDatetime
+      else
+        [start_times.min - random_offset, patient.qdmPatient.birthDatetime].max
       end
     end
 

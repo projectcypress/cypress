@@ -12,6 +12,7 @@ class ProductReportTest < ActionController::TestCase
     @product_test = FactoryBot.create(:cv_product_test_static_result)
     @first_product = @product_test.product
     @first_product.c3_test = true
+    @first_product.save
     checklist_test = @first_product.product_tests.checklist_tests.first
     checklist_test.tasks.create({}, C3ChecklistTask)
     checklist_test.save

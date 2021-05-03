@@ -29,6 +29,14 @@ Layout/LineLength:
     - 'lib/cypress/demographics_randomizer.rb'
     - 'lib/validators/program_criteria_validator.rb'
     - 'test/**/*'
+Lint/DuplicateBranch:
+  Exclude:
+    # Safeguard in test
+    - 'test/unit/html_test.rb'
+Lint/EmptyBlock:
+  Exclude:
+    # Readability for Cucumber tests
+    - 'features/step_definitions/admin.rb'
 Lint/MissingSuper:
   Exclude:
     - 'lib/cypress/highlighting/highlighting.rb'

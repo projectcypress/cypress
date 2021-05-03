@@ -314,7 +314,7 @@ class ProductsControllerTest < ActionController::TestCase
     end
   end
 
-  # note product show is independant of vendor_id (need second vendor)
+  # NOTE: product show is independant of vendor_id (need second vendor)
   # test 'should get show with json request' do
   #   for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
   #     get :show, :format => :json, :id => '4f57a88a1d41c851eb000004'

@@ -104,7 +104,7 @@ class PatientTest < ActiveSupport::TestCase
     assert birthdate_count < 13
   end
 
-  def test_normalize_relevant_date_time_2021
+  def test_normalize_relevant_date_time2021
     @bundle.version = '2021.0.0'
     @bundle.save
     record = BundlePatient.new(familyName: 'normalize', givenNames: ['datetime'], bundleId: @bundle.id)

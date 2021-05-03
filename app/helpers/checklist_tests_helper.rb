@@ -38,7 +38,7 @@ module ChecklistTestsHelper
       og_string = dc['description'] if dc == criteria
     end
     dc_hash[og_string] = original_sdc._id.to_s
-    Hash[dc_hash.sort]
+    dc_hash.sort.to_h
   end
 
   # A data criteria cannot be used for subtitution if it is derived (e.g., Occurrence A of), or birthtime

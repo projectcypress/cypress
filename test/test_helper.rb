@@ -6,7 +6,7 @@ require 'simplecov'
 ENV['RAILS_ENV'] ||= 'test'
 ENV['IGNORE_ROLES'] ||= 'false'
 require File.expand_path('../config/environment', __dir__)
-require 'rails/test_help'
+# require 'rails/test_help'
 
 require 'minitest/spec'
 require 'minitest/autorun'
@@ -43,9 +43,9 @@ class ActiveSupport::TestCase
     Mongoid.default_client['system.js'].delete_many({})
   end
 
-  def drop_collection(collection)
-    Mongoid.default_client[collection].drop
-  end
+  # def drop_collection(collection)
+  #   Mongoid.default_client[collection].drop
+  # end
 
   def arrays_equivalent(array1, array2)
     return true if array1 == array2
@@ -125,27 +125,27 @@ class ActiveSupport::TestCase
     json
   end
 
-  def collection_fixtures(*collections)
-    collections.each do |collection|
-      Mongoid.default_client[collection].drop
-      Dir.glob(Rails.root.join('test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
-        fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
-        map_bson_ids(fixture_json)
-        Mongoid.default_client[collection].insert_one(fixture_json)
-      end
-    end
-  end
+  # def collection_fixtures(*collections)
+  #   collections.each do |collection|
+  #     Mongoid.default_client[collection].drop
+  #     Dir.glob(Rails.root.join('test', 'fixtures', collection, '*.json')).each do |json_fixture_file|
+  #       fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
+  #       map_bson_ids(fixture_json)
+  #       Mongoid.default_client[collection].insert_one(fixture_json)
+  #     end
+  #   end
+  # end
 
-  def perf_test_collection_fixtures(*collections)
-    collections.each do |collection|
-      Mongoid.default_client[collection].drop
-      Dir.glob(Rails.root.join('test', 'fixtures', collection, 'perf_test', '*.json')).each do |json_fixture_file|
-        fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
-        map_bson_ids(fixture_json)
-        Mongoid.default_client[collection].insert_one(fixture_json)
-      end
-    end
-  end
+  # def perf_test_collection_fixtures(*collections)
+  #   collections.each do |collection|
+  #     Mongoid.default_client[collection].drop
+  #     Dir.glob(Rails.root.join('test', 'fixtures', collection, 'perf_test', '*.json')).each do |json_fixture_file|
+  #       fixture_json = JSON.parse(File.read(json_fixture_file), max_nesting: 250)
+  #       map_bson_ids(fixture_json)
+  #       Mongoid.default_client[collection].insert_one(fixture_json)
+  #     end
+  #   end
+  # end
 
   def qdm_patient_for_attribute(data_type, test_attributes, src_qdm_patient)
     data_type.reason = nil if test_attributes[7] && data_type.respond_to?(:reason)
@@ -168,6 +168,7 @@ class ActiveSupport::TestCase
 
   class ActionController::TestCase
     include Devise::Test::ControllerHelpers
+
     ADMIN = '4def93dd4f85cf8968000010'
     ATL = '4def93dd4f85cf8968000001'
     OWNER = '4def93dd4f85cf8968000002'
@@ -177,6 +178,11 @@ class ActiveSupport::TestCase
 
     EHR1 = '4f57a8791d41c851eb000002'
     EHR2 = '4f636aba1d41c851eb00048c'
+
+    def initialize(test)
+      @routes = Rails.application.routes
+      super
+    end
 
     def add_user_to_vendor(user, vendor)
       test_params = { user: { email: user.email },

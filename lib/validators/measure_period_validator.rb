@@ -45,28 +45,28 @@ module Validators
     def validate_start(measure_start = nil)
       # Precise to day
       measure_start ||= Time.at(@product_test.measure_period_start).utc.strftime('%Y%m%d')
-      if !@doc_start_time
-        msg = 'Document needs to report the Measurement Start Date'
-        add_error(msg, error_options)
-      else
+      if @doc_start_time
         unless @doc_start_time.value.to_s.start_with? measure_start
           msg = "Reported Measurement Period should start on #{measure_start}"
           add_error(msg, error_options)
         end
+      else
+        msg = 'Document needs to report the Measurement Start Date'
+        add_error(msg, error_options)
       end
     end
 
     def validate_end(measure_end = nil)
       # Precise to day
       measure_end ||= Time.at(@product_test.effective_date).utc.strftime('%Y%m%d')
-      if !@doc_end_time
-        msg = 'Document needs to report the Measurement End Date'
-        add_error(msg, error_options)
-      else
+      if @doc_end_time
         unless @doc_end_time.value.to_s.start_with? measure_end
           msg = "Reported Measurement Period should end on #{measure_end}"
           add_error(msg, error_options)
         end
+      else
+        msg = 'Document needs to report the Measurement End Date'
+        add_error(msg, error_options)
       end
     end
 

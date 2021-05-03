@@ -40,14 +40,14 @@ class ChecklistTest < ProductTest
 
   def measures
     # measure list is changed once checklist is created, measures are based on checklist criteria
-    if !checked_criteria.empty?
+    if checked_criteria.empty?
+      bundle.measures.in(hqmf_id: measure_ids.sample(50))
+    else
       m_ids = []
       checked_criteria.each do |criteria|
         m_ids << criteria.measure_id unless m_ids.include? criteria.measure_id
       end
       Measure.where(:_id.in => m_ids)
-    else
-      bundle.measures.in(hqmf_id: measure_ids.sample(50))
     end
   end
 

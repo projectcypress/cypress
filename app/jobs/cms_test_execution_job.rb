@@ -28,7 +28,7 @@ class CMSTestExecutionJob < ApplicationJob
     patients = Patient.where(correlation_id: test_execution.id)
     patient_ids = patients.map { |p| p.id.to_s }
     effective_date = Time.at(test_execution.task.product_test.measure_period_start).in_time_zone.to_formatted_s(:number)
-    options = { 'effectiveDate': effective_date }
+    options = { effectiveDate: effective_date }
     eligible_measures, ineligible_measures = telehealth_eligible_and_ineligible_ecqms(test_execution.task.product_test.measures)
     total = (patient_ids.size / PATIENTS_PER_CALCUATION.to_f).ceil * test_execution.task.product_test.measures.size
     complete = 0

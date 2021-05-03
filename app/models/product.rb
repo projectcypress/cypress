@@ -262,7 +262,7 @@ class Product
 
   def build_filtering_test(measure, criteria, display_name = '', incl_addr: true)
     # construct options hash from criteria array and create the test
-    options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
+    options = { 'filters' => criteria.map { |c| [c, []] }.to_h }
     product_tests.create({ name: measure.description, product: self, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,
                            incl_addr: incl_addr, display_name: display_name, options: options }, FilteringTest)
   end

@@ -151,7 +151,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     # We need to normalize_date_times prior to calculating our Cat III
     patients.map(&:normalize_date_times)
 
-    cat_3_xml = calculate_cat_3(product_test, patients, correlation_id)
+    cat_3_xml = calculate_cat3(product_test, patients, correlation_id)
 
     # Loop through all entries in product_test.zip to remove patients that do not meed IPP (i.e., do not have IndividualResult)
     Zip::ZipFile.open("tmp/#{product_test.id}.zip") do |zipfile|
@@ -173,7 +173,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     File.write("tmp/#{product_test.id}.xml", cat_3_xml)
   end
 
-  def calculate_cat_3(product_test, patients, correlation_id)
+  def calculate_cat3(product_test, patients, correlation_id)
     successful_calculation = false
     until successful_calculation
       # Use ApiMeasureEvaluator to call cqm-execution-service

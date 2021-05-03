@@ -34,12 +34,12 @@ module Vendors
       number_deleted = Patient.where(id: { '$in': id_list }).destroy_all
       redirect_back(fallback_location: root_path)
       # If something can't be deleted, we want to flash that as well as anything that was deleted.
-      if number_deleted != id_list.length
+      if number_deleted == id_list.length
+        flash[:notice] = "Deleted #{number_deleted} #{'patient'.pluralize(number_deleted)}."
+      else
         difference = id_list.length - number_deleted
         flash[:notice] = "#{difference} #{'patient'.pluralize(difference)} could not be deleted. \
           Deleted #{number_deleted} #{'patient'.pluralize(number_deleted)}."
-      else
-        flash[:notice] = "Deleted #{number_deleted} #{'patient'.pluralize(number_deleted)}."
       end
     end
 

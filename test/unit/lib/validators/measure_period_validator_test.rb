@@ -28,7 +28,7 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
     assert_empty @validator.errors
   end
 
-  def test_file_with_bad_measure_specific_mp_start_qrda_1
+  def test_file_with_bad_measure_specific_mp_start_qrda_i
     measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
     APP_CONSTANTS['timing_constraints'].first['hqmf_id'] = measure_id
     APP_CONSTANTS['timing_constraints'].first['start_time'] = '20170102'
@@ -44,7 +44,7 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
     assert_equal 'Reported Measurement Period should start on 20170102', @validator.errors[0].message
   end
 
-  def test_file_with_bad_measure_specific_mp_start_qrda_3
+  def test_file_with_bad_measure_specific_mp_start_qrda_iii
     measure_id = '40280382-5FA6-FE85-0160-0918E74D2075'
     APP_CONSTANTS['timing_constraints'].first['hqmf_id'] = measure_id
     APP_CONSTANTS['timing_constraints'].first['start_time'] = '20170102'
@@ -60,7 +60,7 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
     assert_equal 'Reported Measurement Period should start on 20170102', @validator.errors[0].message
   end
 
-  def test_file_with_bad_measure_specific_mp_end_qrda_1
+  def test_file_with_bad_measure_specific_mp_end_qrda_i
     measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
     APP_CONSTANTS['timing_constraints'].first['hqmf_id'] = measure_id
     APP_CONSTANTS['timing_constraints'].first['start_time'] = '20170101'

@@ -43,7 +43,7 @@ module TestExecutionsHelper
 
   # returns the number of each type of error
   def get_error_counts(execution)
-    Hash[%w[Errors Warnings].zip(get_error_counts_helper(execution))]
+    %w[Errors Warnings].zip(get_error_counts_helper(execution)).to_h
   end
 
   def get_error_counts_helper(execution)

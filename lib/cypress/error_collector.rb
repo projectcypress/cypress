@@ -82,7 +82,7 @@ module Cypress
         elem = doc.at_xpath(clean_location)
         next unless elem
 
-        if elem.class == Nokogiri::XML::Attr
+        if elem.instance_of?(Nokogiri::XML::Attr)
           error_attributes << elem
           elem = elem.element
         end

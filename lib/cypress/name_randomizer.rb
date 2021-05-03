@@ -58,7 +58,7 @@ module Cypress
       lowercases = ('a'..'z').to_a
       lsamples = lowercases.sample(2, random: random)
       name_pos = random.rand(name.length - 1) + 1
-      name[name_pos] = name[name_pos] != lsamples[0] ? lsamples[0] : lsamples[1]
+      name[name_pos] = name[name_pos] == lsamples[0] ? lsamples[1] : lsamples[0]
       name
     end
 

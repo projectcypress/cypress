@@ -33,11 +33,8 @@ FactoryBot.define do
         measure.source_data_criteria << diagnosis_sdc
       end
     end
-    trait :no_diagnosis do
-    end
 
     factory  :measure_with_diagnosis, traits: [:diagnosis]
-    factory  :measure_without_diagnosis, traits: [:no_diagnosis]
 
     factory  :static_measure do
       description { 'Static Measure Description' }

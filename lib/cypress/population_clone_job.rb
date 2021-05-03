@@ -44,7 +44,7 @@ module Cypress
 
       # get single provider if @test is a measure test. measure tests have a single provider for each patient while filtering tests can have different
       # providers for each patient
-      provider = @test.provider if @test.class == MeasureTest
+      provider = @test.provider if @test.instance_of?(MeasureTest)
 
       patients.collect { |patient| clone_and_save_patient(patient, prng, provider, allow_dups: @test.product.allow_duplicate_names) }
     end
@@ -77,7 +77,7 @@ module Cypress
       # This operates on the assumption that we are always cloning a patient for a product test.
       # If we need to clone a patient for any other reason then we will need to paramaterize
       # the type coming into this class.
-      cloned_patient = ProductTestPatient.new(patient.attributes.except(:_id, :_type, :providers))
+      cloned_patient = ProductTestPatient.new(patient.attributes.except('_id', '_type', 'providers'))
       cloned_patient.attributes = {
         original_medical_record_number: patient.medical_record_number,
         original_patient_id: patient.id,
