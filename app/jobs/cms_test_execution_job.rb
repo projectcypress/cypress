@@ -2,6 +2,8 @@ class CMSTestExecutionJob < ApplicationJob
   include Job::Status
   queue_as :default
 
+  PATIENTS_PER_CALCUATION = 200
+
   after_enqueue do |job|
     job.tracker.add_options(test_execution_id: job.arguments[0].id,
                             task_id: job.arguments[1].id)
@@ -26,11 +28,13 @@ class CMSTestExecutionJob < ApplicationJob
     effective_date = Time.at(test_execution.task.product_test.measure_period_start).in_time_zone.to_formatted_s(:number)
     options = { 'effectiveDate': effective_date }
     eligible_measures, ineligible_measures = telehealth_eligible_and_ineligible_ecqms(test_execution.task.product_test.measures)
-    calculate_patients_for_measures(patient_ids, options, eligible_measures, test_execution) unless eligible_measures.empty?
-    unless ineligible_measures.empty?
-      address_telehealth_codes_in_patients(patients, ineligible_measures, test_execution)
-      calculate_patients_for_measures(patient_ids, options, ineligible_measures, test_execution)
-    end
+    total = (patient_ids.size / PATIENTS_PER_CALCUATION.to_f).ceil * test_execution.task.product_test.measures.size
+    complete = 0
+    calculate_patients_for_measures(patient_ids, options, eligible_measures, test_execution, total, complete) unless eligible_measures.empty?
+    return if ineligible_measures.empty?
+
+    address_telehealth_codes_in_patients(patients, ineligible_measures, test_execution)
+    calculate_patients_for_measures(patient_ids, options, ineligible_measures, test_execution, total, complete)
   end
 
   def validate_measures(test_execution)
@@ -57,11 +61,12 @@ class CMSTestExecutionJob < ApplicationJob
     end
   end
 
-  def calculate_patients_for_measures(patient_ids, options, measures, test_execution)
-    patients_per_calculation = 200
-    patient_ids.each_slice(patients_per_calculation) do |patient_ids_slice|
+  def calculate_patients_for_measures(patient_ids, options, measures, test_execution, total_slices, slices_complete)
+    patient_ids.each_slice(PATIENTS_PER_CALCUATION) do |patient_ids_slice|
       measures.each do |measure|
         SingleMeasureCalculationJob.perform_now(patient_ids_slice, measure.id.to_s, test_execution.id.to_s, options)
+        slices_complete += 1
+        test_execution.tracker.log("#{((slices_complete.to_f / total_slices) * 100).to_i}% of calculations complete")
       end
     end
   end

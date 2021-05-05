@@ -29,6 +29,8 @@ class TestExecution
   # I dont think this belongs here and it will need to eventually be moved to a
   # more approperiate location
   def validate_artifact(validators, artifact, options = {})
+    total_files = artifact.count
+    validated_files = 0
     # TODO: R2P: change R/P model through all validators
     file_count = artifact.count do |name, file|
       doc = build_document(file)
@@ -37,6 +39,7 @@ class TestExecution
         validator.validate(doc, merged_options)
         break unless validator.can_continue
       end
+      tracker.log("#{validated_files += 1} of #{total_files} files validated")
       true
     end
     validators.each do |validator|
@@ -94,6 +97,10 @@ class TestExecution
     TestExecution.find(sibling_execution_id)
   rescue
     nil
+  end
+
+  def tracker
+    Tracker.where('options.test_execution_id' => id).first
   end
 
   def status
