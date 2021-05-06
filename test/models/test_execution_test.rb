@@ -38,6 +38,7 @@ class TestExecutionTest < ActiveSupport::TestCase
     te.errored(se)
 
     assert_equal te.backtrace, "message\nline1\nline2", 'te.errored doesn\'t set the correct backtrace message'
+    assert_equal te.error_summary, 'Errored validating : message on line1', 'te.errored doesn\'t set the correct backtrace message'
 
     assert te.errored?, 'te.errored? not returning true when execution is errored'
   end
