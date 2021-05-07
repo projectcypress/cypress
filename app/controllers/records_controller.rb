@@ -47,6 +47,7 @@ class RecordsController < ApplicationController
     if params[:measure_id]
       measures = @vendor ? @bundle.measures : @source.measures
       @measure = measures.find_by(hqmf_id: params[:measure_id])
+      @pop_set_key = params[:pop_set_key]
       @population_set_hash = params[:population_set_hash] || @measure.population_sets_and_stratifications_for_measure.first
     end
   end
@@ -144,19 +145,29 @@ class RecordsController < ApplicationController
     add_breadcrumb 'Patient List', records_path(task_id: @task.id)
   end
 
+  # include measure subpopulations
   def measures_for_source
     Rails.cache.fetch("#{@source.cache_key}/measure_dropdown") do
-      if @vendor
-        @bundle.measures.order_by(cms_int: 1).map do |m|
-          { label: "#{m.cms_id}: #{m.description}",
-            value: by_measure_vendor_records_path(@vendor, measure_id: m.hqmf_id, bundle_id: @bundle.id) }
+      meas_src = @vendor ? @bundle : @source
+      meas_src.measures.order_by(cms_int: 1).map do |m|
+        m.population_sets_and_stratifications_for_measure.map do |p|
+          pop_set_key = p[:stratification_id] || p[:population_set_id]
+          label_str = m.cms_id
+          if m.population_sets_and_stratifications_for_measure.count > 1
+            # only add population description if there is more than one
+            label_str += " (#{pop_set_key})"
+          end
+          label_str += ": #{m.title}"
+
+          val = if @vendor
+                  by_measure_vendor_records_path(@vendor, measure_id: m.hqmf_id, bundle_id: @bundle.id, pop_set_key: pop_set_key)
+                else
+                  by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id, pop_set_key: pop_set_key)
+                end
+
+          { label: label_str, value: val }
         end
-      else
-        @source.measures.order_by(cms_int: 1).map do |m|
-          { label: "#{m.cms_id}: #{m.description}",
-            value: by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id) }
-        end
-      end.to_json.html_safe
+      end.flatten.to_json.html_safe
     end
   end
 end

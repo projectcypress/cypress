@@ -1,11 +1,12 @@
 <!-- Only grab measure records and result values once to avoid duplicate queries -->
+<% (pop_set_key = pop_set_key || measure.key_for_population_set(population_set_hash)) if measure %>
 <% if measure && patients.length.positive? %>
-  <% measure_records = records_by_measure(patients, measure, product_test, vendor) %>
+  <% measure_records = records_by_measure(patients, measure, product_test, vendor, pop_set_key) %>
   <% population_keys = measure.population_keys %>
-  <% result_values = get_result_values(patients, [measure], measure.key_for_population_set(population_set_hash), population_keys, 'patient_id') %>
-  <% observation_values = get_observation_values(patients, [measure], measure.key_for_population_set(population_set_hash), 'patient_id') %>
+  <% result_values = get_result_values(patients, [measure], pop_set_key, population_keys, 'patient_id') %>
+  <% observation_values = get_observation_values(patients, [measure], pop_set_key, 'patient_id') %>
 <% end %>
-<h1><%= measure ? measure_display_name(measure, population_set_hash) : 'All' %> Patients</h1>
+<h1><%= measure ? measure_display_name(measure, population_set_hash, pop_set_key) : 'All' %> Patients</h1>
 <% if (measure && measure_records.length.positive?) || (!measure  && patients.length.positive?) %>
 
 <% if @vendor %>
