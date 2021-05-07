@@ -62,11 +62,12 @@ class CMSTestExecutionJob < ApplicationJob
   end
 
   def calculate_patients_for_measures(patient_ids, options, measures, test_execution, total_slices, slices_complete)
+    tracker = test_execution.tracker
     patient_ids.each_slice(PATIENTS_PER_CALCUATION) do |patient_ids_slice|
       measures.each do |measure|
         SingleMeasureCalculationJob.perform_now(patient_ids_slice, measure.id.to_s, test_execution.id.to_s, options)
         slices_complete += 1
-        test_execution.tracker.log("#{((slices_complete.to_f / total_slices) * 100).to_i}% of calculations complete")
+        tracker&.log("#{((slices_complete.to_f / total_slices) * 100).to_i}% of calculations complete")
       end
     end
   end

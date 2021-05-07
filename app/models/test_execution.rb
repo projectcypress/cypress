@@ -31,15 +31,15 @@ class TestExecution
   def validate_artifact(validators, artifact, options = {})
     total_files = artifact.count
     validated_files = 0
+    validation_tracker = tracker
     # TODO: R2P: change R/P model through all validators
     file_count = artifact.count do |name, file|
       doc = build_document(file)
-      merged_options = options.merge(file_name: name)
       validators.each do |validator|
-        validator.validate(doc, merged_options)
+        validator.validate(doc, options.merge!(file_name: name))
         break unless validator.can_continue
       end
-      tracker.log("#{validated_files += 1} of #{total_files} files validated")
+      validation_tracker&.log("#{validated_files += 1} of #{total_files} files validated")
       true
     end
     validators.each do |validator|
