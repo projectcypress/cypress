@@ -139,7 +139,7 @@ module RecordsHelper
   def records_by_measure(records, measure, product_test, vendor, ps_key = nil)
     # When searching vendors or master patient list, there can be a lot of patients
     # if there is a vendor, use the correlation_id to filter Individual Results
-    pop_key = ps_key || measure.population_sets_and_stratifications_for_measure.first
+    pop_key = ps_key || measure.population_sets_and_stratifications_for_measure.first.population_set_id
     if vendor
       patient_ids = IndividualResult.where(correlation_id: vendor.id.to_s, measure_id: measure.id, population_set_key: pop_key).pluck(:patient_id)
       records.find(patient_ids)

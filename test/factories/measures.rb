@@ -85,6 +85,7 @@ FactoryBot.define do
         eh_clone.reporting_program_type = 'eh'
         eh_clone.description = 'Static EH Measure Description'
         eh_clone.cms_id = 'CMS4321v1'
+        eh_clone.title = 'Static Title'
         eh_clone.save
       end
     end
