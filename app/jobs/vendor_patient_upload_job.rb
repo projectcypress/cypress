@@ -27,7 +27,7 @@ class VendorPatientUploadJob < ApplicationJob
       generate_calculations(patients, bundle, vendor_id)
       PatientAnalysisJob.perform_later(bundle.id.to_s, vendor_id)
     end
-
+    File.delete(file)
     raise failed_files.to_s unless failed_files.empty?
   end
 
