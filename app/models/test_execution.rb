@@ -10,6 +10,7 @@ class TestExecution
   field :reported_results, type: Hash
   field :qrda_type, type: String
   field :backtrace, type: String
+  field :error_summary, type: String
   # a sibling test execution is a c3 test execution if the current execution is a c1 or c2 execution. vice versa
   #   and nil if c3 execution does not exist
   field :sibling_execution_id, type: String
@@ -32,9 +33,8 @@ class TestExecution
     # TODO: R2P: change R/P model through all validators
     file_count = artifact.count do |name, file|
       doc = build_document(file)
-      merged_options = options.merge(file_name: name)
       validators.each do |validator|
-        validator.validate(doc, merged_options)
+        validator.validate(doc, options.merge!(file_name: name))
         break unless validator.can_continue
       end
       true
@@ -44,8 +44,8 @@ class TestExecution
     end
     conditionally_add_task_specific_errors(file_count)
     execution_errors.only_errors.count.positive? ? fail : pass
-  rescue => e
-    errored(e)
+  rescue StandardError => e
+    errored(e, options)
     logger.error("Encountered an exception in Test Execution #{id}: #{e.message}, backgrace:\n#{e.backtrace}")
   end
 
@@ -84,9 +84,10 @@ class TestExecution
     save
   end
 
-  def errored(e = nil)
+  def errored(error = nil, options = {})
     self.state = :errored
-    self.backtrace = e.message + "\n" + e.backtrace.join("\n")
+    self.backtrace = error.message + "\n" + error.backtrace.join("\n")
+    self.error_summary = "Errored validating #{options[:file_name]}: #{error.message} on #{error.backtrace.first.remove(Rails.root.to_s)}"
     save
   end
 
