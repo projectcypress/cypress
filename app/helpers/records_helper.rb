@@ -50,7 +50,7 @@ module RecordsHelper
   # Inputs:
   # records: An array of records (If you only care about a single record then pass in [record])
   # measures: An array of measures (If you only care about a single measure then pass in [measure])
-  # pop_set: The population set identifier for the result set you care about, for example ['PopulationCriteria1']
+  # pop_set_key: The population set identifier for the result set you care about, for example ['PopulationCriteria1']
   # pop_keys: The population keys which you care about, for example ['IPP', 'DENOM']
   # key: The name of the element which should be the key of the key value pair returned.
   # We currently use 'patient_id' and 'measure_id' as keys and then do lookups for the values
@@ -58,11 +58,11 @@ module RecordsHelper
   #
   # Usage tip: It is strongly recommended you pass in either an array of records OR an array
   # of measures (this should match the key) as resulting hash includes a single key value.
-  def get_result_values(records, measures, pop_set, pop_keys, key)
+  def get_result_values(records, measures, pop_set_key, pop_keys, key)
     CQM::IndividualResult.where(
       :patient_id.in => records.pluck(:id),
       :measure_id.in => measures.pluck(:id),
-      :population_set_key => pop_set
+      :population_set_key => pop_set_key
     ).only(:IPP, :DENOM, :NUMER, :NUMEX, :DENEX, :DENEXCEP, :MSRPOPL, :OBSERV, :MSRPOPLEX, :patient_id, :measure_id).collect do |elem|
       [
         elem[key],
@@ -136,15 +136,16 @@ module RecordsHelper
     individual_results.select { |ir| ir.patient_id == patient_id }.to_h { |e| ["#{e[key]}|#{e['population_set_key']}", e.observed_values] }
   end
 
-  def records_by_measure(records, measure, product_test, vendor)
+  def records_by_measure(records, measure, product_test, vendor, ps_key = nil)
     # When searching vendors or master patient list, there can be a lot of patients
     # if there is a vendor, use the correlation_id to filter Individual Results
+    pop_key = ps_key || measure.population_sets_and_stratifications_for_measure.first.population_set_id
     if vendor
-      patient_ids = IndividualResult.where(correlation_id: vendor.id.to_s, measure_id: measure.id).pluck(:patient_id)
+      patient_ids = IndividualResult.where(correlation_id: vendor.id.to_s, measure_id: measure.id, population_set_key: pop_key).pluck(:patient_id)
       records.find(patient_ids)
     # if there isn't a vendor, or product test, use the bundle correlation_id
     elsif product_test.nil?
-      patient_ids = IndividualResult.where(correlation_id: measure.bundle_id, measure_id: measure.id).pluck(:patient_id)
+      patient_ids = IndividualResult.where(correlation_id: measure.bundle_id, measure_id: measure.id, population_set_key: pop_key).pluck(:patient_id)
       records.find(patient_ids)
     # otherwise, just return the list of patients
     else
@@ -161,9 +162,9 @@ module RecordsHelper
     bundle.modified_population_labels && bundle.modified_population_labels[pop] ? bundle.modified_population_labels[pop] : pop
   end
 
-  def measure_display_name(measure, population_set_hash)
+  def measure_display_name(measure, population_set_hash, pop_set_key = nil)
     cms_id = measure.cms_id
-    population_set_display = population_set_hash[:stratification_id] || population_set_hash[:population_set_id]
+    population_set_display = pop_set_key || (population_set_hash[:stratification_id] || population_set_hash[:population_set_id])
     "#{cms_id} - #{population_set_display.tr('_', ' ')}"
   end
 
