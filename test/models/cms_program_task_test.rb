@@ -169,6 +169,22 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     end
   end
 
+  def test_calcuation_status
+    setup_eh
+    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HL7_Cat_I').first
+    task = pt.tasks.first
+    execution = task.test_executions.build
+    Tracker.create(options: { test_execution_id: execution.id })
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_good_telehealth.xml'))
+    options = { file_name: 'sample_patient_good_telehealth.xml', task: task, test_execution: execution }
+    pcv = ProgramCriteriaValidator.new(pt)
+    pcv.instance_variable_set(:@file, execution.build_document(file))
+    pcv.import_patient(options, @product.product_tests.first.measure_ids)
+    tej = CMSTestExecutionJob.new
+    tej.calculate_patients(execution)
+    assert_equal execution.tracker.log_message[0], '50% of calculations complete'
+  end
+
   def test_eh_task_with_errors_quarter_reporting
     setup_eh
     pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
