@@ -169,7 +169,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     end
   end
 
-  def test_calcuation_status
+  def test_calculation_status
     setup_eh
     pt = @product.product_tests.cms_program_tests.where(cms_program: 'HL7_Cat_I').first
     task = pt.tasks.first
