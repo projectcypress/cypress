@@ -7,7 +7,7 @@ namespace :bundle do
     Upload precalculate bundle file with extension .zip
   )
   task :precalculate_bundle, [:file] => :setup do |_, args|
-    bundle = Cypress::CqlBundleImporter.import(File.new(args.file), Tracker.new, true)
+    bundle = Cypress::CqlBundleImporter.import(File.new(args.file), Tracker.new, include_highlighting: true)
     measure_id_mapping = Tempfile.new('measure-id-mapping.csv')
     CSV.open(measure_id_mapping, 'w') do |csv|
       bundle.measures.each do |measure|
