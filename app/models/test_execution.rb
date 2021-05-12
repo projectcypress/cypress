@@ -30,6 +30,9 @@ class TestExecution
   # I dont think this belongs here and it will need to eventually be moved to a
   # more approperiate location
   def validate_artifact(validators, artifact, options = {})
+    total_files = artifact.count
+    validated_files = 0
+    validation_tracker = tracker
     # TODO: R2P: change R/P model through all validators
     file_count = artifact.count do |name, file|
       doc = build_document(file)
@@ -37,6 +40,7 @@ class TestExecution
         validator.validate(doc, options.merge!(file_name: name))
         break unless validator.can_continue
       end
+      validation_tracker&.log("#{validated_files += 1} of #{total_files} files validated")
       true
     end
     validators.each do |validator|
@@ -96,6 +100,13 @@ class TestExecution
   rescue
     nil
   end
+
+  # rubocop:disable Rails/FindBy
+  # A tracker may not exist for the test execution, nil is ok.
+  def tracker
+    Tracker.where('options.test_execution_id' => id).first
+  end
+  # rubocop:enable Rails/FindBy
 
   def status
     return 'passing' if passing?

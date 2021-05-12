@@ -216,6 +216,10 @@ class ProductTest
     tasks.any? && tasks[0].most_recent_execution && tasks[0].most_recent_execution.incomplete?
   end
 
+  def most_recent_task_execution
+    tasks[0].most_recent_execution
+  end
+
   # Are any of the measures in this test a Hybrid measure
   def hybrid_measures?
     !(measures.map(&:hqmf_set_id) & APP_CONSTANTS['result_measures'].map(&:hqmf_set_id)).empty?

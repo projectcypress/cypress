@@ -52,6 +52,7 @@ class TestExecutionTest < ActiveSupport::TestCase
     test.create_checked_criteria
     task = test.tasks.create!({}, C1ChecklistTask)
     execution = task.test_executions.build
+    Tracker.create(options: { test_execution_id: execution.id })
 
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'c1_checklist_incorrect_codes.zip'))
     execution.artifact = Artifact.new(file: zip)
@@ -59,6 +60,7 @@ class TestExecutionTest < ActiveSupport::TestCase
     execution.validate_artifact(task.validators, execution.artifact, task: task)
     num_failed_criteria = test.checked_criteria.reject(&:passed_qrda).count
     assert_equal num_failed_criteria, execution.execution_errors.select { |err| err.validator == 'qrda_cat1' }.count
+    assert_equal execution.tracker.log_message[0], '1 of 1 files validated'
   end
 
   def test_executions_pending
