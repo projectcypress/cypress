@@ -103,12 +103,9 @@ class TestExecution
     nil
   end
 
-  # rubocop:disable Rails/FindBy
-  # A tracker may not exist for the test execution, nil is ok.
   def tracker
     Tracker.where('options.test_execution_id' => id).first
   end
-  # rubocop:enable Rails/FindBy
 
   def status
     return 'passing' if passing?
