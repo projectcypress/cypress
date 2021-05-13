@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsController < Devise::SessionsController
   def new
     @title = 'Sign In'
@@ -25,10 +27,10 @@ class SessionsController < Devise::SessionsController
   def validate_nlm_user(nlm_url, proxy, apikey)
     RestClient.proxy = proxy
     begin
-      nlmResult = RestClient.post nlm_url, apikey: apikey
-      doc = Nokogiri::HTML(nlmResult.body)
+      nlm_result = RestClient.post nlm_url, apikey: apikey
+      doc = Nokogiri::HTML(nlm_result.body)
       doc.search('title').text == '201 Created'
-    rescue
+    rescue StandardError
       false
     end
   end

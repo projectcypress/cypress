@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   class ExpectedResultsCalculator
     # The ExpectedResultsCalculator aggregates Individual Results to calculated the expected results for a
@@ -55,7 +57,6 @@ module Cypress
       @measure_result_hash
     end
 
-    # rubocop:disable Metrics/AbcSize
     def aggregate_results_for_measure(measure, individual_results = nil)
       # If individual_results are provided, use them.  Otherwise, look them up in the database by measure id and correlation_id
       individual_results ||= CQM::IndividualResult.where('measure_id' => measure._id, correlation_id: @correlation_id)
@@ -77,9 +78,9 @@ module Cypress
         # Each episode will have its own observation
         next unless individual_result['episode_results']
 
-        individual_result.collect_observations(observation_hash, true)
+        individual_result.collect_observations(observation_hash, agg_results: true)
       end
-      @measure_result_hash[measure.hqmf_id].keys.each do |key|
+      @measure_result_hash[measure.hqmf_id].each_key do |key|
         calculate_observation(observation_hash, measure, key)
         @measure_result_hash[measure.hqmf_id][key]['measure_id'] = measure.hqmf_id
         @measure_result_hash[measure.hqmf_id][key]['pop_set_hash'] = measure.population_set_hash_for_key(key)
@@ -116,14 +117,13 @@ module Cypress
         end
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     def increment_sup_info(patient_sup, pop, single_measure_result_hash)
       # If supplemental_data for a population does not already exist, create a new hash
       unless single_measure_result_hash['supplemental_data'][pop]
         single_measure_result_hash['supplemental_data'][pop] = { 'RACE' => {}, 'ETHNICITY' => {}, 'SEX' => {}, 'PAYER' => {} }
       end
-      patient_sup.keys.each do |sup_type|
+      patient_sup.each_key do |sup_type|
         # For each type of supplemental data (e.g., RACE, SEX), increment code values
         add_or_increment_code(pop, sup_type, patient_sup[sup_type], single_measure_result_hash)
       end
@@ -154,7 +154,7 @@ module Cypress
       array.inject(0.0) { |sum, elem| sum + elem } / array.size
     end
 
-    def median(array, already_sorted = false)
+    def median(array, already_sorted: false)
       return 0.0 if array.empty?
 
       array = array.sort unless already_sorted

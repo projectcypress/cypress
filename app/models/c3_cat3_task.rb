@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class C3Cat3Task < Task
   def validators
     @validators = [::Validators::MeasurePeriodValidator.new,
@@ -8,10 +10,10 @@ class C3Cat3Task < Task
 
   def cms_cat3_schematron_validator
     measure = product_test.measures[0]
-    if measure.reporting_program_type == 'ep'
-      # If product is not for 21st Centutry Cures, then CMS errors are treated as warnings
-      @validators << ::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version, !product_test.cures_update)
-    end
+    return unless measure.reporting_program_type == 'ep'
+
+    # If product is not for 21st Centutry Cures, then CMS errors are treated as warnings
+    @validators << ::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version, as_warnings: !product_test.cures_update)
   end
 
   def execute(file, user, sibling_execution_id)

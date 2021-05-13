@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User
   include Mongoid::Document
   rolify
@@ -62,27 +64,27 @@ class User
   end
 
   def inactive_message
-    if !approved?
-      :not_approved
-    else
-      super # Use whatever other message
+    if approved?
+
+      super
+    else :not_approved # Use whatever other message
     end
   end
 
   validate :password_complexity
 
   def password_complexity
-    if password.present?
-      # returns nil if no match, index of match otherwise
-      lowcase = password =~ /^(?=.*[a-z])./
-      upcase = password =~ /^(?=.*[A-Z])./
-      num = password =~ /^(?=.*[\d])./
-      special = password =~ /^(?=.*[\W])./
-      unless [lowcase, upcase, num, special].compact.length >= 3
-        errors.add :password, 'password must include at least 3 of the following: lowercase letters, uppercase letters, digits, special characters'
-      end
-      errors.add :password, 'email and password must be different' if password == email
+    return unless password.present?
+
+    # returns nil if no match, index of match otherwise
+    lowcase = password =~ /^(?=.*[a-z])./
+    upcase = password =~ /^(?=.*[A-Z])./
+    num = password =~ /^(?=.*\d)./
+    special = password =~ /^(?=.*\W)./
+    unless [lowcase, upcase, num, special].compact.length >= 3
+      errors.add :password, 'password must include at least 3 of the following: lowercase letters, uppercase letters, digits, special characters'
     end
+    errors.add :password, 'email and password must be different' if password == email
   end
 
   ## Lockable
@@ -91,10 +93,10 @@ class User
   # field :locked_at,       type: Time
 
   def associate_points_of_contact
-    if Settings.current.auto_associate_pocs
-      Vendor.where('points_of_contact.email' => email).by_updated_at.each do |vendor|
-        add_role :vendor, vendor
-      end
+    return unless Settings.current.auto_associate_pocs
+
+    Vendor.where('points_of_contact.email' => email).by_updated_at.each do |vendor|
+      add_role :vendor, vendor
     end
   end
 
@@ -124,4 +126,6 @@ class User
     self.unlock_token = nil
     save
   end
+
+  def will_save_change_to_email?; end
 end

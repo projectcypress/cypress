@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :poc, class: PointOfContact do
     sequence(:name) { |i| "Contact #{i}" }

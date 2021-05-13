@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MeasuresHelper
   def pick_measure_for_filtering_test(available_measures, bundle)
     bundle.measures.find_by(hqmf_id: pick_measure_id_for_filtering_test(available_measures, bundle))

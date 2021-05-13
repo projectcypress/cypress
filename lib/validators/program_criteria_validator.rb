@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # require "cypress/qrda_file_validator"
 
 module Validators
@@ -93,10 +95,10 @@ module Validators
         'Virtual Group Identifier' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.3.249.5.2']"
       }
       results = @file.xpath(xpath_map[checked_criteria[:criterion_key]])
-      if results.present?
-        checked_criteria.criterion_verified = true
-        checked_criteria.save
-      end
+      return unless results.present?
+
+      checked_criteria.criterion_verified = true
+      checked_criteria.save
     end
   end
 end

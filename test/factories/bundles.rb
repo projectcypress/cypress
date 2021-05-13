@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :bundle, class: Bundle do
     sequence(:name) { |i| "Bundle Name #{i}" }
@@ -16,7 +18,7 @@ FactoryBot.define do
       measure_period_start { 1_483_228_800 } # Jan 1 2017
       effective_date { 1_514_764_799 } # Dec 31 2017
 
-      after(:build) do |bundle|
+      after(:create) do |bundle|
         # Load the extensions included in the bundle from the filesystem into mongo
         Dir.glob(Rails.root.join('test', 'fixtures', 'library_functions', '*.js')).each do |js_path|
           fn = "function () {\n #{File.read(js_path)} \n }"
@@ -50,7 +52,7 @@ FactoryBot.define do
 
         # Include 6 random measures
         6.times do |count|
-          random_measure = create(:measure_without_diagnosis, bundle_id: bundle._id, seq_id: count + 2)
+          random_measure = create(:measure, bundle_id: bundle._id, seq_id: count + 2)
           random_measure['id'] = random_measure.hqmf_id
           random_measure.save
         end
@@ -73,7 +75,7 @@ FactoryBot.define do
       measure_period_start { 1_483_228_800 } # Jan 1 2017
       effective_date { 1_514_764_799 } # Dec 31 2017
 
-      after(:build) do |bundle|
+      after(:create) do |bundle|
         # Load the extensions included in the bundle from the filesystem into mongo
         Dir.glob(Rails.root.join('test', 'fixtures', 'library_functions', '*.js')).each do |js_path|
           fn = "function () {\n #{File.read(js_path)} \n }"

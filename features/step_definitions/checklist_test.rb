@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 include ProductsHelper
 
 # # # # # # # # #
@@ -207,18 +209,12 @@ Then(/^the user should see (.*) for upload results$/) do |status|
 end
 
 def task_status_to_execution_status_message(task_status)
-  case task_status
-  when 'passing'
-    'Passed'
-  when 'failing'
-    'Failed'
-  when 'testing'
-    'In Progress'
-  when 'errored'
-    'Errored'
-  when 'incomplete'
-    'Not Started'
-  end
+  status_description = { 'passing' => 'Passed',
+                         'failing' => 'Failed',
+                         'testing' => 'In Progress',
+                         'errored' => 'Errored',
+                         'incomplete' => 'Not Started' }
+  status_description[task_status]
 end
 
 Then(/^the user should see the individual measure checklist page for measure (.*)$/) do |measure_number|

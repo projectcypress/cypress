@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :filter_test, class: FilteringTest do
     sequence(:name) { |i| "Product Test Name #{i}" }

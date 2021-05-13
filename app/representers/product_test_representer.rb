@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'representable/xml'
 module ProductTestRepresenter
   include API::Representer

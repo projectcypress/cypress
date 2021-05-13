@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChecklistTest < ProductTest
   include Cypress::DataCriteriaSelector
 
@@ -11,8 +13,7 @@ class ChecklistTest < ProductTest
   def status
     return 'incomplete' if measures.empty?
     return 'passing' if num_measures_complete == measures.count && !product.c3_test
-    return tasks.c1_checklist_task.most_recent_execution.status_with_sibling if tasks.c1_checklist_task &&
-                                                                                tasks.c1_checklist_task.most_recent_execution
+    return tasks.c1_checklist_task.most_recent_execution.status_with_sibling if tasks&.c1_checklist_task&.most_recent_execution
 
     'incomplete'
   end
@@ -39,14 +40,14 @@ class ChecklistTest < ProductTest
 
   def measures
     # measure list is changed once checklist is created, measures are based on checklist criteria
-    if !checked_criteria.empty?
+    if checked_criteria.empty?
+      bundle.measures.in(hqmf_id: measure_ids.sample(50))
+    else
       m_ids = []
       checked_criteria.each do |criteria|
         m_ids << criteria.measure_id unless m_ids.include? criteria.measure_id
       end
       Measure.where(:_id.in => m_ids)
-    else
-      bundle.measures.in(hqmf_id: measure_ids.sample(50))
     end
   end
 

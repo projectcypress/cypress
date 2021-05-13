@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 class ChecklistCriteriaValidator < ActiveSupport::TestCase
   include ::Validators
@@ -37,12 +39,13 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
     atts = data_type.attributes.slice('qdmCategory', 'qdmStatus', '_type', 'hqmfOid', 'codeListId')
     atts['dataElementAttributes'] = [{ 'attribute_name' => attribute_name }]
     is_code = data_type[attribute_name].respond_to? :code
+    attribute_code = (data_type[attribute_name].is_a?(QDM::Code) ? data_type[attribute_name].code : data_type[attribute_name].code.code) if is_code
     @checklist_test.checked_criteria.destroy_all
     if negated_valueset_or_drc
       @checklist_test.checked_criteria.new(attribute_index: 0,
                                            selected_negated_valueset: negated_valueset_or_drc,
                                            recorded_result: is_code ? nil : data_type[attribute_name],
-                                           attribute_code: is_code ? data_type[attribute_name].code : nil,
+                                           attribute_code: is_code ? attribute_code : nil,
                                            negated_valueset: true,
                                            measure_id: @measure._id,
                                            passed_qrda: nil,
@@ -51,7 +54,7 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
       @checklist_test.checked_criteria.new(attribute_index: 0,
                                            code: data_type.dataElementCodes.first[:code], # '1234',
                                            recorded_result: is_code ? nil : data_type[attribute_name],
-                                           attribute_code: is_code ? data_type[attribute_name].code : nil,
+                                           attribute_code: is_code ? attribute_code : nil,
                                            negated_valueset: false,
                                            measure_id: @measure._id,
                                            passed_qrda: nil,
@@ -88,13 +91,13 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
       doc = Nokogiri::XML::Document.parse(patient_xml)
       doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
       doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+      exported_qrda = doc
+      # File.write("script/checklist_errors/#{ta[6].gsub(/:/, '')}_#{ta[2]}.xml", exported_qrda.to_xml)
       @validator.validate(doc)
 
       begin
-        exported_qrda = doc
         errors = validator.validate(exported_qrda)
         cda_errors = cda_validator.validate(exported_qrda)
-        # File.write("script/checklist_errors/#{ta[6].gsub(/:/, '')}_#{ta[2]}.xml", exported_qrda.to_xml)
         errors.each do |error|
           puts "\e[31mSchematron Error In #{ta[0]}_#{ta[1]}: #{error.message}\e[0m"
         end
@@ -104,7 +107,6 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
       rescue StandardError => e
         puts "\e[31mException validating #{ta[0]}_#{ta[1]}: #{e.message}\e[0m"
       end
-
       assert @checklist_test.checked_criteria.first[:passed_qrda], "should pass with a good file for #{ta[0]} #{ta[1]} with a #{ta[2]}"
     end
   end
@@ -153,8 +155,12 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
       restricted_dt.prescriberId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if restricted_dt.respond_to?(:prescriberId)
       restricted_dt.dispenserId = QDM::Identifier.new(namingSystem: '1.2.3.4', value: '1234') if restricted_dt.respond_to?(:dispenserId)
 
-      restricted_dt.relevantDatetime = nil if restricted_dt.respond_to?(:relevantDatetime) && restricted_dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantPeriod'
-      restricted_dt.relevantPeriod = nil if restricted_dt.respond_to?(:relevantDatetime) && restricted_dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantDatetime'
+      if restricted_dt.respond_to?(:relevantDatetime) && restricted_dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantPeriod'
+        restricted_dt.relevantDatetime = nil
+      end
+      if restricted_dt.respond_to?(:relevantDatetime) && restricted_dt.respond_to?(:relevantPeriod) && ta[2] == 'relevantDatetime'
+        restricted_dt.relevantPeriod = nil
+      end
 
       restricted_dt[ta[2]] = nil
       remove_embeded_objects(restricted_dt, ta[2])

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Validators
   class ExpectedResultsValidator < QrdaFileValidator
     include ::CqmValidators::ReportedResultExtractor
@@ -64,7 +66,7 @@ module Validators
 
     def check_observations(expected_result, reported_result, measure_id)
       expected_result[:observations].each do |population, expected_observation|
-        next if reported_result[:observations][population].to_f == expected_observation['value'].to_f
+        next if reported_result[:observations][population].to_d == expected_observation['value'].to_d
 
         err = %(Expected #{population} Observation value #{expected_observation['value']}
         does not match reported value #{reported_result[:observations][population]})

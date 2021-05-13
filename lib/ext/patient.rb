@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # The Patient model is an extension of app/models/qdm/patient.rb as defined by CQM-Models.
 
 module CQM
@@ -118,9 +120,9 @@ module CQM
 
     def gender
       gender_chars = qdmPatient.get_data_elements('patient_characteristic', 'gender')
-      if gender_chars&.any? && gender_chars.first.dataElementCodes && gender_chars.first.dataElementCodes.any?
-        gender_chars.first.dataElementCodes.first['code']
-      end
+      return unless gender_chars&.any? && gender_chars.first.dataElementCodes && gender_chars.first.dataElementCodes.any?
+
+      gender_chars.first.dataElementCodes.first['code']
     end
 
     def race

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 After do |scenario|
   if scenario.failed?
     # When a scenario fails, print the page source and stop running tests.

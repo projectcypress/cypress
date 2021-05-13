@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cat1FilterTask < Task
   include ::Validators
   # C1 = Record and Export

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # require "cypress/qrda_file_validator"
 
 module Validators
@@ -7,9 +9,11 @@ module Validators
 
     def initialize(year, qrda_type, organization)
       bundle_year = year.to_i - 1
-      qrda_validator = if qrda_type == 'qrdaI'
+
+      qrda_validator = case qrda_type
+                       when 'qrdaI'
                          qrda_1_validator(bundle_year, organization)
-                       elsif qrda_type == 'qrdaIII'
+                       when 'qrdaIII'
                          qrda_3_validator(bundle_year, organization)
                        end
       format_validators = [CDA.instance, qrda_validator]
@@ -17,15 +21,15 @@ module Validators
     end
 
     def qrda_1_validator(bundle_year, organization)
-      if [2020, 2021].include? bundle_year
-        organization == 'hl7' ? Cat1R52.instance : ::Validators::CMSQRDA1HQRSchematronValidator.new(bundle_year, false)
-      end
+      return unless [2020, 2021].include? bundle_year
+
+      organization == 'hl7' ? Cat1R52.instance : ::Validators::CMSQRDA1HQRSchematronValidator.new(bundle_year, as_warnings: false)
     end
 
     def qrda_3_validator(bundle_year, organization)
-      if [2020, 2021].include? bundle_year
-        organization == 'hl7' ? Cat3R21.instance : ::Validators::CMSQRDA3SchematronValidator.new(bundle_year, false)
-      end
+      return unless [2020, 2021].include? bundle_year
+
+      organization == 'hl7' ? Cat3R21.instance : ::Validators::CMSQRDA3SchematronValidator.new(bundle_year, as_warnings: false)
     end
 
     def validate(file, options = {})

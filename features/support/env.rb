@@ -3,13 +3,13 @@
 # newer version of cucumber-rails. Consider adding your own code to a new file
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
+# frozen_string_literal: true
 
 require 'simplecov'
 
 ENV['IGNORE_ROLES'] ||= 'false'
 
 require 'cucumber/rails'
-
 require 'capybara/cucumber'
 require 'capybara/poltergeist'
 require 'capybara/accessible'
@@ -63,7 +63,7 @@ ActionController::Base.allow_rescue = false
 # Remove/comment out the lines below if your app doesn't have a database.
 # For some databases (like MongoDB and CouchDB) you may need to use :truncation instead.
 begin
-  DatabaseCleaner[:mongoid].strategy = :truncation
+  DatabaseCleaner[:mongoid].strategy = :deletion
 rescue NameError
   raise 'You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it.'
 end
@@ -72,13 +72,13 @@ end
 # See the DatabaseCleaner documentation for details. Example:
 #
 #   Before('@no-txn,@selenium,@culerity,@celerity,@javascript') do
-#     # { :except => [:widgets] } may not do what you expect here
+#     # { except: [:widgets] } may not do what you expect here
 #     # as Cucumber::Rails::Database.javascript_strategy overrides
 #     # this setting.
 #     DatabaseCleaner.strategy = :truncation
 #   end
 #
-#   Before('~@no-txn', '~@selenium', '~@culerity', '~@celerity', '~@javascript') do
+#   Before('not @no-txn', 'not @selenium', 'not @culerity', 'not @celerity', 'not @javascript') do
 #     DatabaseCleaner.strategy = :transaction
 #   end
 #
@@ -87,23 +87,6 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
-
-# Make these rules throw errors instead of warnings.
-# Rules list: https://github.com/GoogleChrome/accessibility-developer-tools/wiki/Audit-Rules
-# Capybara::Accessible::Auditor.severe_rules = %w[
-#   AX_COLOR_01
-#   AX_FOCUS_01
-#   AX_FOCUS_02
-#   AX_FOCUS_03
-#   AX_VIDEO_01
-#   AX_ARIA_06
-#   AX_ARIA_07
-#   AX_ARIA_11
-#   AX_ARIA_13
-#   AX_HTML_01
-#   AX_TITLE_01
-#   AX_TEXT_04
-# ]
 
 # to allow CSS and Javascript to be loaded when we use save_and_open_page, the
 # development server must be running at localhost:3000 as specified below or

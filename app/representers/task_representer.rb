@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TaskRepresenter
   include API::Representer
 

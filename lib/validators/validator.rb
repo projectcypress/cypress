@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Validators
   module Validator
     def errors
@@ -27,7 +29,7 @@ module Validators
     end
 
     # validaton_errors from cqm-validators
-    def add_cqm_validation_error_as_execution_error(validaton_errors, validation_class, validation_type, as_warning = false)
+    def add_cqm_validation_error_as_execution_error(validaton_errors, validation_class, validation_type, as_warning: false)
       # The HDS validators hand back ValidationError objects, but we need ExecutionError objects
       validaton_errors.map do |error|
         type = as_warning ? :warning : :error

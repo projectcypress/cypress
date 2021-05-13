@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'validators/checklist_criteria_validator'
 
 class C1ChecklistTask < Task

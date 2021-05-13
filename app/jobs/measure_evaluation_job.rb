@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MeasureEvaluationJob < ApplicationJob
   queue_as :default
   include Job::Status
@@ -33,7 +35,6 @@ class MeasureEvaluationJob < ApplicationJob
     erc = Cypress::ExpectedResultsCalculator.new(product_test.patients, product_test.id.to_s, product_test.effective_date)
     # If there are no individual results, set to nil
     cqm_execution_results = options[:individual_results] || nil
-    results = erc.aggregate_results_for_measures(measures, cqm_execution_results)
-    results
+    erc.aggregate_results_for_measures(measures, cqm_execution_results)
   end
 end

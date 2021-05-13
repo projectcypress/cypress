@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RegistrationsController < Devise::RegistrationsController
   add_breadcrumb 'New Account', :new_user_registration_path, only: %i[new create]
   add_breadcrumb 'Edit User', :edit_user_registration_path, only: %i[edit update]
@@ -7,10 +9,6 @@ class RegistrationsController < Devise::RegistrationsController
   before_action :load_test_executions, only: %i[edit update]
 
   respond_to :js, only: [:edit]
-
-  def update
-    super
-  end
 
   def new
     @title = 'Create Account'

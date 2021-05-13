@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :cypress do
   namespace :cleanup do
     task setup: :environment

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 class MeasureTestTest < ActiveJob::TestCase
   def setup
@@ -39,9 +41,9 @@ class MeasureTestTest < ActiveJob::TestCase
                                          bundle_id: @bundle.id }, MeasureTest)
       pt.create_tasks
       assert pt.tasks.c1_task, 'product test should have a c1_task'
-      assert_equal false, pt.tasks.c2_task, 'product test should not have a c2_task'
-      assert_equal false, pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
-      assert_equal false, pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
+      assert_nil pt.tasks.c2_task, 'product test should not have a c2_task'
+      assert_nil pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
+      assert_nil pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
       assert pt.save, 'should be able to save valid product test'
       assert_performed_jobs 1
       assert pt.patients.count.positive?, 'product test creation should have created random number of test records'
@@ -108,10 +110,10 @@ class MeasureTestTest < ActiveJob::TestCase
     @product.c2_test = true
     pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
     pt.create_tasks
-    assert_equal false, pt.tasks.c1_task, 'product test should not have a c1_task'
+    assert_nil pt.tasks.c1_task, 'product test should not have a c1_task'
     assert pt.tasks.c2_task, 'product test should have a c2_task'
-    assert_equal false, pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
-    assert_equal false, pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
+    assert_nil pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
+    assert_nil pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
   end
 
   def test_create_task_c3_creates_c2_also_for_ep_measure
@@ -137,8 +139,8 @@ class MeasureTestTest < ActiveJob::TestCase
     pt.create_tasks
     assert pt.tasks.c1_task, 'product test should have a c1_task'
     assert pt.tasks.c2_task, 'product test should have a c2_task'
-    assert_equal false, pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
-    assert_equal false, pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
+    assert_nil pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
+    assert_nil pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
   end
 
   def test_create_task_c1_and_c3
@@ -150,7 +152,7 @@ class MeasureTestTest < ActiveJob::TestCase
     # should have a c2_task, just no validators
     assert pt.tasks.c2_task, 'product test should have a c2_task'
     # should not have a c3_cat1_task for an EP measure
-    assert_equal false, pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
+    assert_nil pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
     # should have a c3_cat3 task
     assert pt.tasks.c3_cat3_task, 'product test should have a c3_cat3_task'
   end
@@ -161,10 +163,10 @@ class MeasureTestTest < ActiveJob::TestCase
     pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
     pt.create_tasks
     # should not have a c1_task, just no validators (for an EP measure)
-    assert_equal false, pt.tasks.c1_task, 'product test should not have a c1_task'
+    assert_nil pt.tasks.c1_task, 'product test should not have a c1_task'
     assert pt.tasks.c2_task, 'product test should have a c2_task'
     # should not have a c3_cat1 task for EP measure
-    assert_equal false, pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
+    assert_nil pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
     assert pt.tasks.c3_cat3_task, 'product test should have a c3_cat3_task'
   end
 
@@ -179,7 +181,7 @@ class MeasureTestTest < ActiveJob::TestCase
     assert pt.tasks.c1_task, 'product test should have a c1_task'
     assert pt.tasks.c2_task, 'product test should have a c2_task'
     # should not have a c3_cat1 task for EP measure
-    assert_equal false, pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
+    assert_nil pt.tasks.c3_cat1_task, 'product test should not have a c3_cat1_task'
     assert pt.tasks.c3_cat3_task, 'product test should have a c3_cat3_task'
     assert_equal 'incomplete', pt.cat1_status
     assert_equal 'incomplete', pt.cat3_status
@@ -201,7 +203,7 @@ class MeasureTestTest < ActiveJob::TestCase
     assert pt.tasks.c2_task, 'product test should have a c2_task'
     assert pt.tasks.c3_cat1_task, 'product test should have a c3_cat1_task'
     # should not have a c3_cat3 task for EH measure
-    assert_equal false, pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
+    assert_nil pt.tasks.c3_cat3_task, 'product test should not have a c3_cat3_task'
     assert_equal 'incomplete', pt.cat1_status
     assert_equal 'incomplete', pt.cat3_status
     pt.tasks.c1_task.test_executions.create(state: :passed, user: vendor_user.id)

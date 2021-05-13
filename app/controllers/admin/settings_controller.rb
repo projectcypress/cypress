@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   class SettingsController < AdminController
     def show
@@ -18,13 +20,14 @@ module Admin
     private
 
     def update_application_mode(mode_name, options = {})
-      if mode_name == 'internal'
+      case mode_name
+      when 'internal'
         mode_internal
-      elsif mode_name == 'demo'
+      when 'demo'
         mode_demo
-      elsif mode_name == 'atl'
+      when 'atl'
         mode_atl
-      elsif mode_name == 'custom'
+      when 'custom'
         mode_custom options
       end
     end

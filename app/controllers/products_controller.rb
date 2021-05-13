@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProductsController < ApplicationController
   include API::Controller
   before_action :set_vendor, only: %i[index new create report patients favorite]
@@ -18,8 +20,8 @@ class ProductsController < ApplicationController
   end
 
   def show
-    add_breadcrumb 'Vendor: ' + @product.vendor_name, vendor_path(@product.vendor_id)
-    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor_id, @product)
+    add_breadcrumb "Vendor: #{@product.vendor_name}", vendor_path(@product.vendor_id)
+    add_breadcrumb "Product: #{@product.name}", vendor_product_path(@product.vendor_id, @product)
     @task = Task.find(params[:task_id]) if params[:task_id]
     @has_eh_tests = @product.eh_tests?
     @has_ep_tests = @product.ep_tests?
@@ -50,8 +52,8 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    add_breadcrumb 'Vendor: ' + @product.vendor_name, vendor_path(@product.vendor_id)
-    add_breadcrumb 'Product: ' + @product.name, vendor_product_path(@product.vendor_id, @product)
+    add_breadcrumb "Vendor: #{@product.vendor_name}", vendor_path(@product.vendor_id)
+    add_breadcrumb "Product: #{@product.name}", vendor_product_path(@product.vendor_id, @product)
     add_breadcrumb 'Edit Product', :edit_vendor_path
     @selected_measure_ids = @product.measure_ids
   end
@@ -122,7 +124,9 @@ class ProductsController < ApplicationController
         ).only(:IPP, :DENOM, :NUMER, :NUMEX, :DENEX, :DENEXCEP, :MSRPOPL, :OBSERV, :MSRPOPLEX, :measure_id, :patient_id, :file_name, :population_set_key, :episode_results).to_a
         uploaded_patients = Patient.where(correlation_id: most_recent_execution.id)
         file_name_id_hash = {}
-        uploaded_patients.each { |uploaded_patient| file_name_id_hash[uploaded_patient['file_name']] = uploaded_patient if uploaded_patient['file_name'] }
+        uploaded_patients.each do |uploaded_patient|
+          file_name_id_hash[uploaded_patient['file_name']] = uploaded_patient if uploaded_patient['file_name']
+        end
         individual_results.each do |ir|
           next unless ir['file_name']
           next if file_name_id_hash[ir['file_name']]
@@ -135,11 +139,12 @@ class ProductsController < ApplicationController
         ratio_measures = t.measures.where(measure_scoring: 'RATIO').only(:id, :population_sets, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }
         @task = t
         @individual_results = individual_results
-        errors = Cypress::ErrorCollector.collected_errors(most_recent_execution, false).files
-        file_name_id_hash.keys.each do |file_name|
+        errors = Cypress::ErrorCollector.collected_errors(most_recent_execution, include_locations: false).files
+        file_name_id_hash.each_key do |file_name|
           error_result = errors[file_name]
           patient = file_name_id_hash[file_name]
           next unless patient
+
           html = if error_result
                    render_to_string partial: 'test_executions/results/execution_results_for_file', locals: {
                      execution: most_recent_execution,
@@ -170,7 +175,7 @@ class ProductsController < ApplicationController
                      display_calculations: true
                    }
                  end
-          # note assumes 1 task per CMPSProgramTest producttest
+          # NOTE: assumes 1 task per CMPSProgramTest producttest
           report_hash[pt.name][file_name] = header + html
         end
       end
@@ -183,6 +188,7 @@ class ProductsController < ApplicationController
     if @product.supplemental_test_artifact.file.nil?
       redirect_back(fallback_location: root_path, alert: 'Supplement Test Artifact does not exist for this product') && return
     end
+
     send_file @product.supplemental_test_artifact.file.path, disposition: 'attachment'
   end
 
@@ -217,7 +223,7 @@ class ProductsController < ApplicationController
   end
 
   def setup_new
-    add_breadcrumb 'Vendor: ' + @vendor.name, vendor_path(@product.vendor_id)
+    add_breadcrumb "Vendor: #{@vendor.name}", vendor_path(@product.vendor_id)
     add_breadcrumb 'Add Product', :new_vendor_path
     set_measures
     params[:action] = 'new'

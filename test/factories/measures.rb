@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :measure, class: Measure do
     entry = Rails.root.join('test', 'fixtures', 'artifacts', 'cms32v7.json')
@@ -31,11 +33,8 @@ FactoryBot.define do
         measure.source_data_criteria << diagnosis_sdc
       end
     end
-    trait :no_diagnosis do
-    end
 
     factory  :measure_with_diagnosis, traits: [:diagnosis]
-    factory  :measure_without_diagnosis, traits: [:no_diagnosis]
 
     factory  :static_measure do
       description { 'Static Measure Description' }
@@ -70,7 +69,7 @@ FactoryBot.define do
               code_system_def = cql_library['elm']['library']['codeSystems']['def'].find { |code_sys| code_sys['name'] == code['codeSystem']['name'] }
               code_system_name = code_system_def['id']
               code_system_version = code_system_def['version']
-              code_hash = 'drc-' + Digest::SHA2.hexdigest("#{code_system_name} #{code['id']} #{code['name']} #{code_system_version}")
+              code_hash = "drc-#{Digest::SHA2.hexdigest("#{code_system_name} #{code['id']} #{code['name']} #{code_system_version}")}"
               measure.value_sets << ValueSet.where(oid: code_hash).first
             end
           end
@@ -127,7 +126,7 @@ FactoryBot.define do
               code_system_def = cql_library['elm']['library']['codeSystems']['def'].find { |code_sys| code_sys['name'] == code['codeSystem']['name'] }
               code_system_name = code_system_def['id']
               code_system_version = code_system_def['version']
-              code_hash = 'drc-' + Digest::SHA2.hexdigest("#{code_system_name} #{code['id']} #{code['name']} #{code_system_version}")
+              code_hash = "drc-#{Digest::SHA2.hexdigest("#{code_system_name} #{code['id']} #{code['name']} #{code_system_version}")}"
               measure.value_sets << ValueSet.where(oid: code_hash).first
             end
           end

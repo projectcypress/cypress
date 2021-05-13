@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 class BundlesControllerTest < ActionController::TestCase
   include ActiveJob::TestHelper

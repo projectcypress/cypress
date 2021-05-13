@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RecordsController < ApplicationController
   include RecordsHelper
   before_action :set_record_source, only: %i[index show by_measure by_filter_task html_filter_patients]
@@ -25,7 +27,6 @@ class RecordsController < ApplicationController
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
   def show
     @record = @source.patients.find(params[:id])
     @results = @record.calculation_results
@@ -36,20 +37,18 @@ class RecordsController < ApplicationController
     @proportion_measures = @measures.where(measure_scoring: 'PROPORTION').sort_by { |m| [m.cms_int] }
     @result_measures = @measures.where(hqmf_set_id: { '$in': APP_CONSTANTS['result_measures'].map(&:hqmf_set_id) }).sort_by { |m| [m.cms_int] }
     expires_in 1.week, public: true
-    add_breadcrumb 'Patient: ' + @record.first_names + ' ' + @record.familyName, :record_path
+    add_breadcrumb "Patient: #{@record.first_names} #{@record.familyName}", :record_path
   end
-  # rubocop:enable Metrics/AbcSize
 
   def by_measure
     @patients = @vendor.patients.where(bundleId: @bundle.id.to_s) if @vendor
     @patients ||= @source.patients
+    return unless params[:measure_id]
 
-    if params[:measure_id]
-      measures = @vendor ? @bundle.measures : @source.measures
-      @measure = measures.find_by(hqmf_id: params[:measure_id])
-      @pop_set_key = params[:pop_set_key]
-      @population_set_hash = params[:population_set_hash] || @measure.population_sets_and_stratifications_for_measure.first
-    end
+    measures = @vendor ? @bundle.measures : @source.measures
+    @measure = measures.find_by(hqmf_id: params[:measure_id])
+    @pop_set_key = params[:pop_set_key]
+    @population_set_hash = params[:population_set_hash] || @measure.population_sets_and_stratifications_for_measure.first
   end
 
   def by_filter_task
@@ -72,13 +71,13 @@ class RecordsController < ApplicationController
     if BSON::ObjectId.legal?(params[:format])
       bundle = Bundle.find(BSON::ObjectId.from_string(params[:format]))
 
-      if bundle.mpl_status != :ready
-        flash[:info] = 'This bundle is currently preparing for download.'
-        redirect_to :back
-      else
+      if bundle.mpl_status == :ready
         file = File.new(bundle.mpl_path)
         expires_in 1.month, public: true
         send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "bundle_#{bundle.version}_mpl.zip"
+      else
+        flash[:info] = 'This bundle is currently preparing for download.'
+        redirect_to :back
       end
     else
       render body: nil, status: :bad_request
@@ -87,7 +86,7 @@ class RecordsController < ApplicationController
 
   private
 
-  # note: case vendor will also have a bundle id
+  # NOTE: case vendor will also have a bundle id
   def set_record_source
     if params[:vendor_id]
       set_record_source_vendor
@@ -119,7 +118,7 @@ class RecordsController < ApplicationController
 
   def breadcrumbs_for_vendor_path
     add_breadcrumb 'Dashboard', :vendors_path
-    add_breadcrumb 'Vendor: ' + @vendor.name, vendor_path(@vendor)
+    add_breadcrumb "Vendor: #{@vendor.name}", vendor_path(@vendor)
     add_breadcrumb 'Patient List', vendor_records_path(vendor_id: @vendor.id, bundle_id: @bundle&.id)
   end
 
@@ -139,9 +138,9 @@ class RecordsController < ApplicationController
 
   def breadcrumbs_for_test_path
     add_breadcrumb 'Dashboard', :vendors_path
-    add_breadcrumb 'Vendor: ' + @product_test.product.vendor.name, vendor_path(@product_test.product.vendor)
-    add_breadcrumb 'Product: ' + @product_test.product_name, vendor_product_path(@product_test.product.vendor, @product_test.product)
-    add_breadcrumb 'Test: ' + @product_test.name, new_task_test_execution_path(@task.id)
+    add_breadcrumb "Vendor: #{@product_test.product.vendor.name}", vendor_path(@product_test.product.vendor)
+    add_breadcrumb "Product: #{@product_test.product_name}", vendor_product_path(@product_test.product.vendor, @product_test.product)
+    add_breadcrumb "Test: #{@product_test.name}", new_task_test_execution_path(@task.id)
     add_breadcrumb 'Patient List', records_path(task_id: @task.id)
   end
 

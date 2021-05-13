@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   class ClinicalRandomizer
     def self.randomize(patient, effective_date, measure_period_start, random: Random.new)
@@ -36,7 +38,7 @@ module Cypress
       [patient1, patient2]
     end
 
-    # note: also adds any related to elements, which may not be in the same date split
+    # NOTE: also adds any related to elements, which may not be in the same date split
     def self.set_split_data_elements(sorted_de_groups, patient1, patient2, split_date)
       patient1.qdmPatient.dataElements = []
       patient2.qdmPatient.dataElements = []
@@ -49,8 +51,8 @@ module Cypress
       [patient1, patient2]
     end
 
-    def self.de_before_date(de, date)
-      data_element_time(de) < date
+    def self.de_before_date(data_element, date)
+      data_element_time(data_element) < date
     end
 
     def self.split_by_type(patient, effective_date, measure_period_start, random)
@@ -76,7 +78,7 @@ module Cypress
       patients_with_characteristics(patient1, patient2, patient_char_de)
     end
 
-    # note: also adds any related to elements, which may not be the same category
+    # NOTE: also adds any related to elements, which may not be the same category
     def self.de_for_category(de_groups, categories, start_point, end_point)
       data_elements = []
       categories[start_point...end_point].each do |cat|
@@ -155,7 +157,7 @@ module Cypress
         # find match in grouped_de sublists (all but this *latest* one)
         group_idx = grouped_de.index { |group| group.include?(data_elements[match_idx]) }
         if group_idx && group_idx < grouped_de.count - 1
-          # note: if in this (latest in grouped_de) sublist, there is a cycle
+          # NOTE: if in this (latest in grouped_de) sublist, there is a cycle
           # pop entire sublist and add to sublist for latest in grouped_de
           group = grouped_de.delete_at(group_idx)
           grouped_de.last.concat(group)

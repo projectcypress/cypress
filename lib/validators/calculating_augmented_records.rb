@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Validators
   # This is a set of helper methods to assist in working with randomized
   # demographics on patients, so that population results for an augmented
@@ -12,7 +14,7 @@ module Validators
       record.correlation_id = @test_id
       record.medical_record_number = rand(1_000_000_000_000_000)
       record
-    rescue
+    rescue StandardError
       nil
     end
 
@@ -24,17 +26,16 @@ module Validators
       return false unless record
 
       calc_job = Cypress::CqmExecutionCalc.new([record.qdmPatient], product_test.measures, nil,
-                                               'effectiveDate': Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
-      results = calc_job.execute(false)
-      passed = compare_results(results, record, options)
-      passed
+                                               effectiveDate: Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
+      results = calc_job.execute(save: false)
+      compare_results(results, record, options)
     end
 
     def compare_results(results, record, options)
       passed = true
       @measures.each do |measure|
         # compare results to patient as it was initially calculated for product test (use original product patient id before cloning)
-        orig_results = CQM::IndividualResult.where('patient_id': options[:orig_product_patient].id, 'measure_id': measure.id)
+        orig_results = CQM::IndividualResult.where(patient_id: options[:orig_product_patient].id, measure_id: measure.id)
         orig_results.each do |orig_result|
           new_result = results.select do |arr|
             arr.measure_id == measure.id.to_s &&

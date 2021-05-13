@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module QDM
   # Represents QDM datatype (parent class of all generated QDM datatype models)
   class DataElement

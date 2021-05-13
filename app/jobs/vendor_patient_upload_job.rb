@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VendorPatientUploadJob < ApplicationJob
   include Job::Status
   include ::CqmValidators
@@ -90,9 +92,9 @@ class VendorPatientUploadJob < ApplicationJob
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, bundle)
       Cypress::QRDAPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
       patient.save
-      return [true, patient]
-    rescue => e
-      return [false, e.to_s]
+      [true, patient]
+    rescue StandardError => e
+      [false, e.to_s]
     end
   end
 

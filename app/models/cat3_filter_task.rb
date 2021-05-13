@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Cat3FilterTask < Task
   def validators
     @validators = [::Validators::QrdaCat3Validator.new(product_test.expected_results,

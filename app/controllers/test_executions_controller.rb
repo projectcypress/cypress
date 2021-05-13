@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TestExecutionsController < ApplicationController
   include API::Controller
   include TestExecutionsHelper
@@ -96,17 +98,17 @@ class TestExecutionsController < ApplicationController
   def add_breadcrumbs
     product = @product_test.product
     add_breadcrumb 'Dashboard', :vendors_path
-    add_breadcrumb 'Vendor: ' + product.vendor_name, vendor_path(product.vendor)
-    add_breadcrumb 'Product: ' + product.name, vendor_product_path(product.vendor, product)
+    add_breadcrumb "Vendor: #{product.vendor_name}", vendor_path(product.vendor)
+    add_breadcrumb "Product: #{product.name}", vendor_product_path(product.vendor, product)
     add_breadcrumb 'Record Sample Test', product_checklist_test_path(product, @product_test) if @product_test.is_a? ChecklistTest
     add_test_execution_breadcrumb
   end
 
   def add_test_execution_breadcrumb
     if @task.most_recent_execution
-      add_breadcrumb 'Test: ' + @product_test.name, task_test_execution_path(task_id: @task.id, id: @task.most_recent_execution.id)
+      add_breadcrumb "Test: #{@product_test.name}", task_test_execution_path(task_id: @task.id, id: @task.most_recent_execution.id)
     else
-      add_breadcrumb 'Test: ' + @product_test.name, ''
+      add_breadcrumb "Test: #{@product_test.name}", ''
     end
   end
 

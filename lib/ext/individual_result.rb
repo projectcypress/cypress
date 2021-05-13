@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 IndividualResult = CQM::IndividualResult
 
 module CQM
@@ -55,10 +57,10 @@ module CQM
       calculated_er = calculated['episode_results'].values.map(&:observation_values).sort
       expected_er = episode_results.values.map(&:observation_values).sort
 
-      if calculated_er != expected_er
-        issues << "Calculated observations (#{calculated_er}) do not match "\
-                  "expected observations (#{expected_er})"
-      end
+      return unless calculated_er != expected_er
+
+      issues << "Calculated observations (#{calculated_er}) do not match "\
+                "expected observations (#{expected_er})"
     end
 
     # adds the observation values found in an individual_result to the observation_hash
@@ -73,7 +75,7 @@ module CQM
     # {"PopulationSet_1"=>{"IPP"=>{:values=>[]},
     # "DENOM"=>{:values=>[{:episode_index=>0, :value=>9}, {:episode_index=>0, :value=>2}, :statement_name=>"Denominator"},
     # "NUMER"=>{:values=>[]}}}
-    def collect_observations(observation_hash = {}, agg_results = false)
+    def collect_observations(observation_hash = {}, agg_results: false)
       return unless episode_results
 
       key = agg_results ? population_set_key : patient_id

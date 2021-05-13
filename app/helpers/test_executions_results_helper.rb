@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 module TestExecutionsResultsHelper
   include ActionView::Helpers::TextHelper
 
@@ -92,18 +94,18 @@ module TestExecutionsResultsHelper
     error_to_line_number(error, get_doc(error.test_execution.artifact, error.file_name))
   end
 
-  # inputs: a and b are execution errors
-  # returns: 1 if a should be sorted first or -1 if b should be sorted first
-  #   1 if a is from an aphabetically higher document or higher location in the same document
-  #  -1 if b is ...
-  def compare_error_locations_across_files(a, b)
-    return 1 if a.file_name.nil?
-    return -1 if b.file_name.nil?
-    return a.file_name <=> b.file_name if a.file_name != b.file_name
-    return 1 if a.location.nil?
-    return -1 if b.location.nil?
+  # inputs: error1 and error2 are execution errors
+  # returns: 1 if error1 should be sorted first or -1 if error_2 should be sorted first
+  #   1 if error1 is from an aphabetically higher document or higher location in the same document
+  #  -1 if error2 is ...
+  def compare_error_locations_across_files(error1, error2)
+    return 1 if error1.file_name.nil?
+    return -1 if error2.file_name.nil?
+    return error1.file_name <=> error2.file_name if error1.file_name != error2.file_name
+    return 1 if error1.location.nil?
+    return -1 if error2.location.nil?
 
-    a.location <=> b.location
+    error1.location <=> error2.location
   end
 
   private

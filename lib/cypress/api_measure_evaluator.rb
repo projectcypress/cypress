@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # :nocov:
 require 'time'
 module Cypress
@@ -55,7 +57,7 @@ module Cypress
       end
     end
 
-    def run_measure_eval(c1_c2, c4)
+    def run_measure_eval(c1_c2_test, c4_test)
       parse_hqmf_for_population_ids if @hqmf_path
 
       # getting measures from bundles is a little convoluted
@@ -71,9 +73,9 @@ module Cypress
 
         # create vendor
         vendor_link = create_new_vendor("MeasureEvaluationVendor - #{bundle_id}")
-        run_vendor_tests(vendor_link, measures_list.uniq, 'All Measures', false, bundle_id) if c1_c2
+        run_vendor_tests(vendor_link, measures_list.uniq, 'All Measures', false, bundle_id) if c1_c2_test
 
-        next unless c4
+        next unless c4_test
 
         measures_list.uniq.each do |measure|
           run_vendor_tests(vendor_link, Array.new(1, measure), "Measures - #{measure}", true, bundle_id)
@@ -85,7 +87,7 @@ module Cypress
       setup_vendor_test(vendor_link, measures, product_name, skip_c1_test, bundle_id)
       download_patient_test_data
       @patient_links_task_hash.each do |patient_links|
-        calcuate_cat_3(patient_links[0].split('/')[2], bundle_id)
+        calcuate_cat3(patient_links[0].split('/')[2], bundle_id)
         upload_test_execution(extract_test_execution_link(patient_links[1], 'C1'), patient_links[0].split('/')[2], true) unless skip_c1_test
         upload_test_execution(extract_test_execution_link(patient_links[1], 'C2'), patient_links[0].split('/')[2], false, skip_c1_test)
       end
@@ -122,7 +124,8 @@ module Cypress
 
     def populate_patient_download_hashes(product_test)
       # get link for product test tasks
-      if product_test.type == 'measure'
+      case product_test.type
+      when 'measure'
         product_test_tasks_link = extract_link(product_test, 'tasks')
         # get product tasks objects
         product_test_tasks = call_get_product_test_tasks(product_test_tasks_link)
@@ -132,7 +135,7 @@ module Cypress
         @patient_links_task_hash[patient_download_link] = parsed_api_object(product_test_tasks)
         # hash of patient list with product tests - this is used to see if the patiets are ready
         @patient_link_product_test_hash[patient_download_link] = extract_link(product_test, 'self')
-      elsif product_test.type == 'filter'
+      when 'filter'
         product_test_tasks_link = extract_link(product_test, 'tasks')
         # get product tasks objects
         product_test_tasks = parsed_api_object(call_get_product_test_tasks(product_test_tasks_link))
@@ -213,7 +216,7 @@ module Cypress
 
     def calculate_filtered_cat3(bundle_id)
       @cat3_filter_hash.each_key do |product_test|
-        calcuate_cat_3(product_test.split('/')[4], bundle_id)
+        calcuate_cat3(product_test.split('/')[4], bundle_id)
       end
     end
 
@@ -224,7 +227,7 @@ module Cypress
       return filter_problems(doc, filters) if filters.key?('problem')
 
       # Normalize payer to a string value.  Parsing from JSON directly may have the parameter as an integer
-      filters = Hash[filters.map { |k, v| [k, k == 'payer' ? v.to_s : v] }] if filters.key?('payer')
+      filters = filters.map { |k, v| [k, k == 'payer' ? v.to_s : v] }.to_h if filters.key?('payer')
       filter_demographics(doc, filters, creation_time)
     end
 
@@ -392,15 +395,15 @@ module Cypress
                                                                                   headers: { accept: :json })
       begin
         response = resource.get
-        if !response.empty?
+        if response.empty?
+          false
+        else
           File.open("tmp/#{file_name}.zip", 'wb') do |output|
             output.write(response)
           end
           true
-        else
-          false
         end
-      rescue
+      rescue StandardError
         false
       end
     end
@@ -456,7 +459,7 @@ module Cypress
       JSON.parse(unparsed_string)
     end
 
-    def calcuate_cat_3(product_test_id, bundle_id)
+    def calcuate_cat3(product_test_id, bundle_id)
       pt = ProductTest.find(product_test_id)
       patient_ids = []
 

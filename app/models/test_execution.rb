@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TestExecution
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -90,23 +92,20 @@ class TestExecution
 
   def errored(error = nil, options = {})
     self.state = :errored
-    self.backtrace = error.message + "\n" + error.backtrace.join("\n")
+    self.backtrace = "#{error.message}\n#{error.backtrace.join("\n")}"
     self.error_summary = "Errored validating #{options[:file_name]}: #{error.message} on #{error.backtrace.first.remove(Rails.root.to_s)}"
     save
   end
 
   def sibling_execution
     TestExecution.find(sibling_execution_id)
-  rescue
+  rescue StandardError
     nil
   end
 
-  # rubocop:disable Rails/FindBy
-  # A tracker may not exist for the test execution, nil is ok.
   def tracker
     Tracker.where('options.test_execution_id' => id).first
   end
-  # rubocop:enable Rails/FindBy
 
   def status
     return 'passing' if passing?
@@ -145,10 +144,10 @@ class TestExecution
   end
 
   def errored_or_sibling_errored?
-    errored? || (sibling_execution&.errored?)
+    errored? || sibling_execution&.errored?
   end
 
   def incomplete_or_sibling_incomplete?
-    incomplete? || (sibling_execution&.incomplete?)
+    incomplete? || sibling_execution&.incomplete?
   end
 end

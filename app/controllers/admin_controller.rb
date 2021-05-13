@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdminController < ApplicationController
   add_breadcrumb 'Admin', :admin_path
   before_action :require_admin
