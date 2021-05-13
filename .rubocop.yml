@@ -53,10 +53,7 @@ Lint/MissingSuper:
     - 'lib/validators/provider_type_validator.rb'
     - 'lib/validators/qrda_cat1_validator.rb'
     - 'lib/validators/qrda_cat3_validator.rb'
-    - 'lib/validators/qrda_upload_validator.rb'
-Lint/UnreachableLoop:
-  Exclude:
-    - 'test/unit/lib/record_filter_test.rb'    
+    - 'lib/validators/qrda_upload_validator.rb'  
 Metrics/AbcSize:
   # The ABC size is a calculated magnitude, so this number can be a Fixnum or
   # a Float.

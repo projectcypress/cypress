@@ -217,14 +217,10 @@ class RecordFilterTest < ActiveSupport::TestCase
   end
 
   def record_has_problem?(record, code_set)
-    search_fields = [record.qdmPatient.conditions, record.qdmPatient.encounters, record.qdmPatient.procedures]
+    search_fields = [record.qdmPatient.conditions, record.qdmPatient.encounters, record.qdmPatient.procedures].flatten
 
-    search_fields.each do |search_field|
-      next unless search_field
-
-      search_field.each do |item|
-        return item.code_system_pairs.map { |csp| csp[:system] == '2.16.840.1.113883.6.96' && (code_set.include? csp[:code]) }.include? true
-      end
+    search_fields.each do |item|
+      return true if item.code_system_pairs.any? { |csp| csp[:system] == '2.16.840.1.113883.6.96' && (code_set.include? csp[:code]) }
     end
 
     false
