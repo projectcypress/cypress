@@ -32,10 +32,10 @@ Version 1.0
            
            Each type of conformance statement has three possible flavors:
            
-           -  Simple statements are simply the conformance statement with no further qualifications.
+           -    Simple statements are simply the conformance statement with no further qualifications.
                 For example: "SHALL contain exactly one [1..1] id."
            
-           -  Compound statements have additional requirements, represented by one or more "such that" conformance sub-clauses presented beneath the main conformance statement. 
+           -    Compound statements have additional requirements, represented by one or more "such that" conformance sub-clauses presented beneath the main conformance statement. 
                 These are also referred to as "such that" statements.
                 For example: "SHALL contain exactly one[1..] id such that 
                                 1) SHALL contain exactly one [1..1] root, 
@@ -46,7 +46,7 @@ Version 1.0
                 Schematron assertion also includes testing for the "sub-sub-clauses".
                 In the cases where one or more of a compound conformance sub-clauses have simple conformance statements under them, those are enforced as separate Schematron assertions.
            
-           -  Guidance conformance statements are those that represent conformance requirements that cannot or need not be implemented in Schematron assertions. 
+           -    Guidance conformance statements are those that represent conformance requirements that cannot or need not be implemented in Schematron assertions. 
                 For example: "If patient name was not provided at time of admission, then a value of UNK SHALL be used."
                 Guidance conformance statements of any type (SHALL, SHOULD, MAY) are not enforced in the Schematron.
            
@@ -59,7 +59,7 @@ Version 1.0
                         a) SHALL contain exactly one [1..1] @value
            
            For the above example, the Schematron will have 4 assertions: One for A and one each for A.1, A.2 and A.2.i 
-           (where A.2.i is a compound conformance that includes the "such that" A.2.i.a sub-clause in its test.)  
+           (where A.2.i is a compound conformance that includes the "such that" A.2.i.a sub-clause in its test.)    
            
            
            B) SHALL contain exactly one [1..1] id such that
@@ -245,7 +245,7 @@ Version 1.0
     NOTE: Schematrons may be updated after initial publication to address stakeholder or policy requirements. 
     Be sure to revisit the eCQI Resource Center (https://ecqi.healthit.gov/) for updated resources prior to use. 
 
-Wed Feb 24 14:11:41 MST 2021
+Tue Apr 27 16:15:57 MDT 2021
 -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:svs="urn:ihe:iti:svs:2008" xmlns:voc="http://www.lantanagroup.com/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sch:ns prefix="voc" uri="http://www.lantanagroup.com/voc" />
@@ -1517,10 +1517,10 @@ Wed Feb 24 14:11:41 MST 2021
     <!-- 08-16-2019 Conformance 1198-32847 should be ignored due to the new conformance text...we do not test for this condition. -->
     <!-- 08-14-2019 Changed conformance text for 1198-32847 from STATIC to DYNAMIC -->
     <!--
-    <sch:rule id="Family_History_Observation-code-errors" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.46'][@extension='2015-08-01']]/cda:code">
-      <sch:assert id="a-1198-32847-error" test="count(cda:translation) &gt; 0"> If code is selected from ValueSet Problem Type (SNOMEDCT) 2.16.840.1.113883.3.88.12.3221.7.2 DYNAMIC, then it SHALL have at least one [1..*] translation, which SHOULD be selected from ValueSet Problem Type (LOINC) 2.16.840.1.113762.1.4.1099.28 DYNAMIC (CONF:1198-32847).</sch:assert>
-    </sch:rule>
-    -->
+        <sch:rule id="Family_History_Observation-code-errors" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.46'][@extension='2015-08-01']]/cda:code">
+            <sch:assert id="a-1198-32847-error" test="count(cda:translation) &gt; 0"> If code is selected from ValueSet Problem Type (SNOMEDCT) 2.16.840.1.113883.3.88.12.3221.7.2 DYNAMIC, then it SHALL have at least one [1..*] translation, which SHOULD be selected from ValueSet Problem Type (LOINC) 2.16.840.1.113762.1.4.1099.28 DYNAMIC (CONF:1198-32847).</sch:assert>
+        </sch:rule>
+        -->
     <sch:rule id="Family_History_Observation-statusCode-errors" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.46'][@extension='2015-08-01']]/cda:statusCode">
       <sch:assert id="a-1198-19098-error" test="@code='completed'">This statusCode SHALL contain exactly one [1..1] @code="completed" Completed (CodeSystem: ActStatus urn:oid:2.16.840.1.113883.5.14 STATIC) (CONF:1198-19098).</sch:assert>
     </sch:rule>
@@ -2042,10 +2042,10 @@ Wed Feb 24 14:11:41 MST 2021
     <!-- 05-06-20202 Added @nullFlavor to test -->
     <!-- 05-26-2020 STU 1976 dictates that 4444-30019 is subsumed within the "such that it" clauses of 4444-29859 -->
     <!--
-    <sch:rule id="Medication_Dispensed-effectiveTime-errors" context="cda:supply[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.45'][@extension='2019-12-01']]/cda:effectiveTime">
-      <sch:assert id="a-4444-30019-error" test="count(cda:low | @value | @nullFlavor)=1">This effectiveTime SHALL contain exactly one of @value, @nullFlavor, or low (CONF:4444-30019).</sch:assert>
-    </sch:rule>
-    -->
+        <sch:rule id="Medication_Dispensed-effectiveTime-errors" context="cda:supply[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.45'][@extension='2019-12-01']]/cda:effectiveTime">
+            <sch:assert id="a-4444-30019-error" test="count(cda:low | @value | @nullFlavor)=1">This effectiveTime SHALL contain exactly one of @value, @nullFlavor, or low (CONF:4444-30019).</sch:assert>
+        </sch:rule>
+        -->
     <sch:rule id="Medication_Dispensed-participant-participantRole-errors" context="cda:supply[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.45'][@extension='2019-12-01']]/cda:participant/cda:participantRole">
       <sch:assert id="a-4444-29223-error" test="count(cda:id) &gt;= 1">This participantRole SHALL contain at least one [1..*] id (CONF:4444-29223).</sch:assert>
     </sch:rule>
@@ -3807,10 +3807,10 @@ Wed Feb 24 14:11:41 MST 2021
     <!-- 08-14-2019 Changed conformance text for 1198-32427 from STATIC to DYNAMIC -->
     <!-- 08-16-2019 Conformance 1198-32847 should be ignored due to the new conformance text...we do not test for this condition. -->
     <!--
-    <sch:rule id="Family_History_Observation-code-translation-warnings" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.46'][@extension='2015-08-01']]/cda:code/cda:translation">
-      <sch:assert id="a-1198-32847-warning" test="@sdtc:valueSet='2.16.840.1.113883.3.88.12.3221.7.2'">This translation, if present, SHOULD be selected from ValueSet Problem Type urn:oid:2.16.840.1.113883.3.88.12.3221.7.2 DYNAMIC (CONF:1198-32847).</sch:assert>
-    </sch:rule>
-    -->
+        <sch:rule id="Family_History_Observation-code-translation-warnings" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.46'][@extension='2015-08-01']]/cda:code/cda:translation">
+            <sch:assert id="a-1198-32847-warning" test="@sdtc:valueSet='2.16.840.1.113883.3.88.12.3221.7.2'">This translation, if present, SHOULD be selected from ValueSet Problem Type urn:oid:2.16.840.1.113883.3.88.12.3221.7.2 DYNAMIC (CONF:1198-32847).</sch:assert>
+        </sch:rule>
+        -->
     <sch:rule id="Family_History_Observation-warnings" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.46'][@extension='2015-08-01']]">
       <sch:assert id="a-1198-8593-warning" test="count(cda:effectiveTime)=1">SHOULD contain zero or one [0..1] effectiveTime (CONF:1198-8593).</sch:assert>
     </sch:rule>
