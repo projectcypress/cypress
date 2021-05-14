@@ -116,7 +116,7 @@ module Cypress
       if payer_element&.any? && payer_element.first.dataElementCodes &&
          payer_element.first.dataElementCodes.any?
         new_payer = payer_element.first.dataElementCodes.first
-        new_payer['code'] = payer_hash['code']
+        new_payer['code'] = payer_hash['code'].to_s
         new_payer['system'] = payer_hash['codeSystem']
         new_payer['codeSystem'] = payer_hash['codeSystemName']
         new_payer['descriptor'] = payer_hash['name']
