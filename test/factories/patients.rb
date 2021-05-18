@@ -83,6 +83,17 @@ FactoryBot.define do
 
       after(:create) do |patient|
         patient.measure_relevance_hash = {}
+        patient.code_description_hash = { '210:2_16_840_1_113883_6_96' => 'description',
+                                          '60:2_16_840_1_113883_6_12' => 'description',
+                                          '24:2_16_840_1_113883_6_96' => 'description',
+                                          '504:2_16_840_1_113883_6_96' => 'description',
+                                          '720:2_16_840_1_113883_6_96' => 'description',
+                                          '5814:2_16_840_1_113883_6_96' => 'description',
+                                          'F:2_16_840_1_113883_5_1' => 'description',
+                                          '21112-8:2_16_840_1_113883_6_1' => 'description',
+                                          '2186-5:2_16_840_1_113883_6_238' => 'description',
+                                          '1:2_16_840_1_113883_3_221_5' => 'description',
+                                          '1002-5:2_16_840_1_113883_6_238' => 'description' }
         patient.measure_relevance_hash[Measure.find_by(bundle_id: patient.bundle.id, hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE')._id.to_s] = { 'IPP' => true, 'MSRPOPL' => true }
         # patient - create individual_results for patient? or create()?
         IndividualResult.new('measure_id' => Measure.find_by(hqmf_id: 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE', bundle_id: patient.bundle.id)._id,
