@@ -19,7 +19,7 @@
   <br>
   <br>
 <% end %>
-<table class="table table-condensed table-hover">
+<table class="table table-condensed table-hover patient_table">
   <thead>
     <tr>
       <% if vendor %>
@@ -31,6 +31,9 @@
       <%end%>
       <th scope="col">DOB</th>
       <th scope="col">Gender</th>
+      <% if vendor %>
+        <th scope="col">Last Updated</th>
+      <% end%>
       <% if measure && !hide_patient_calculation?%>
         <% population_keys.each do |population| %>
           <th scope="col" class="text-center"><%= population_label(bundle, population) %></th>
@@ -89,4 +92,14 @@
     <%= render 'remove_panel', :name => vendor.name, :type => 'Selected Patients', :message => 'Deletion is permanent and cannot be undone. Be sure you want to do this.', :delete_path => destroy_multiple_vendor_records_path(vendor), :action => 'destroy_multiple' %>
   </div>
   <%= render 'action_modal' %>
+
+  <script>
+    $('.patient_table').DataTable({
+      destroy: true,
+      searching: false,
+      paging: true,
+      stateSave: true, /* preserves order on reload */
+      info: false
+    });
+  </script>
 <% end%>

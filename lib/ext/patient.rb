@@ -4,6 +4,7 @@
 
 module CQM
   class Patient
+    include Mongoid::Timestamps
     field :correlation_id, type: BSON::ObjectId
     field :original_patient_id, type: BSON::ObjectId
     field :original_medical_record_number, type: String
