@@ -98,6 +98,7 @@ class VendorsController < ApplicationController
   def update_preferences
     # save preferences to vendor preferred_code_systems
     @vendor.preferred_code_systems = JSON.parse(params['vendor_preferences'])
+    @vendor.preferred_ccn = params['preferred_ccn'] unless params['preferred_ccn'] == ''
     @vendor.save
     redirect_to vendor_path(@vendor)
   end
