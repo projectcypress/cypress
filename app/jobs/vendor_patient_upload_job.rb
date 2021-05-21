@@ -48,6 +48,8 @@ class VendorPatientUploadJob < ApplicationJob
         failed_files[name] = patient_or_errors
       end
     end
+    # Remove the file that is store when creating the artifact. We also want to remove the folder
+    FileUtils.rm_rf(File.dirname(artifact.file.path))
 
     [patients, failed_files]
   end
