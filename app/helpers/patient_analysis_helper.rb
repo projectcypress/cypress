@@ -1,13 +1,6 @@
 # frozen_string_literal: true
 
 module PatientAnalysisHelper
-  def collate_element_data(data_element, de_types_found, codes_found)
-    de_types_found.add(data_element._type)
-    code_array = data_element.dataElementCodes
-    code_array.concat(collate_attribute_codes(data_element))
-    codes_found.merge(code_array)
-  end
-
   def collate_vs_info(codes_found, value_sets_found, vs_codes_found)
     codes_found.each do |dec|
       # find all valuesets that contain data element code
@@ -20,18 +13,6 @@ module PatientAnalysisHelper
     end
   end
 
-  def collate_attribute_codes(data_element)
-    attribute_codes = []
-    %w[
-      admissionSource anatomicalLocationSite category cause dischargeDisposition frequency
-      medium negationRationale ordinality principalDiagnosis reason recipient relationship
-      route sender setting severity status type
-    ].each do |attribute_name|
-      attribute_codes << data_element[attribute_name] if data_element[attribute_name] && data_element[attribute_name]['code']
-    end
-    attribute_codes.compact
-  end
-
   def collate_patient_data
     measures_found = Set[]
     codes_found = Set[]
@@ -41,9 +22,8 @@ module PatientAnalysisHelper
 
     @patients.each do |p|
       measures_found.merge(p.measure_relevance_hash.keys)
-      p.qdmPatient.dataElements.each do |de|
-        collate_element_data(de, de_types_found, codes_found)
-      end
+      p.qdmPatient.dataElements.each { |de| de_types_found.add(de._type) }
+      codes_found.merge(p.code_description_hash.keys.map { |cdh| { code: cdh.split(':')[0].tr('_', '.'), system: cdh.split(':')[1].tr('_', '.') } })
     end
     collate_vs_info(codes_found, value_sets_found, vs_codes_found)
     [measures_found, de_types_found, value_sets_found, vs_codes_found]
