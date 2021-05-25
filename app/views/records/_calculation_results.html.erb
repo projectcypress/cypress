@@ -18,6 +18,9 @@
     <%end%>
     <td><%= display_time(r.qdmPatient.birthDatetime) %></td>
     <td><%= full_gender_name(r.gender) %></td>
+    <% if @vendor %>
+      <td><%= local_time_ago(r.updated_at) if r.updated_at %></td>
+    <% end %>
     <!-- will show calculation results for product test records -->
     <% if measure && !(product_test && hide_patient_calculation?) %>
       <% result_values[r.id]&.each do |population, value| %>
