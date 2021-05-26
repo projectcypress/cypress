@@ -54,7 +54,8 @@ module CQM
     end
 
     def compare_observations(calculated, issues = [])
-      calculated_er = calculated['episode_results'].values.map(&:observation_values).sort
+      # If there aren't any calculated episode_results, use an empty array for comparison
+      calculated_er = calculated['episode_results'] ? calculated['episode_results'].values.map(&:observation_values).sort : []
       expected_er = episode_results.values.map(&:observation_values).sort
 
       return unless calculated_er != expected_er
