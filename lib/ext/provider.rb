@@ -26,8 +26,7 @@ module CQM
       prov.familyName = NAMES_RANDOM['last'].sample
       prov.npi = NpiGenerator.generate
       prov.tin = rand.to_s[2..10]
-      # rjust pads with 0s to the left of the number, so the CCN is always 6 digits
-      prov.ccn = rand(1..66).to_s.rjust(2, '0') + rand(1..9899).to_s.rjust(4, '0')
+      prov.ccn = options[:preferred_ccn] || prov.ccn = rand(1..66).to_s.rjust(2, '0') + rand(1..9899).to_s.rjust(4, '0')
       prov.specialty = default_specialty(options[:measure_type])
       prov.save!
       prov

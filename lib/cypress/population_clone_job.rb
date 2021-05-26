@@ -192,7 +192,8 @@ module Cypress
     end
 
     def generate_provider
-      @generated_providers << Provider.generate_provider(measure_type: @test.measures.first.reporting_program_type)
+      @generated_providers << Provider.generate_provider(measure_type: @test.measures.first.reporting_program_type,
+                                                         preferred_ccn: @test.product.vendor.preferred_ccn)
     end
 
     def assign_existing_provider(patient, provider)
