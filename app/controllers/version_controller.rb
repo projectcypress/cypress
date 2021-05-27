@@ -6,7 +6,7 @@ class VersionController < ApplicationController
   def index
     @version = { 'version' => Cypress::Application::VERSION }
     respond_to do |format|
-      format.xml { render xml: @version.to_xml(:root => 'version') }
+      format.xml { render xml: @version.to_xml(root: 'version') }
       format.json { render json: @version }
     end
   end
