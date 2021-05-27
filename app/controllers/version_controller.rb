@@ -4,11 +4,10 @@ class VersionController < ApplicationController
   respond_to only: [:index]
 
   def index
-    @version = { cypress_version => Cypress::Application::VERSION }
+    @version = { 'version' => Cypress::Application::VERSION }
     respond_to do |format|
-      format.xml { render xml: @version }
+      format.xml { render xml: @version.to_xml(:root => 'version') }
       format.json { render json: @version }
-      format.all { render plain: @version }
     end
   end
 end
