@@ -4,6 +4,9 @@ CMS Programs:
     - MIPS_INDIV
     - MIPS_VIRTUALGROUP
     - MIPS_APMENTITY
+    - MIPS_APP1_INDIV
+    - MIPS_APP1_GROUP
+    - MIPS_APP1_APMENTITY
     - CPCPLUS
     - PCF
   eh:
@@ -11,7 +14,7 @@ CMS Programs:
     - HQR_IQR
     - HQR_PI_IQR
     - HQR_IQR_VOL
-Program Criterion: 
+Program Criterion:
   CCN:
     name: 'CMS Certification Number'
     description:
@@ -138,9 +141,16 @@ Program Criterion:
   MIPS APM Entity Identifier:
     name: 'MIPS APM Entity Identifier'
     description:
-      ep: 'This is the PCF APM Entity Identifier assigned to the PCF practice site.'
+      ep: 'This is the MIPS APM Entity Identifier assigned to the MIPS practice site.'
     conf:
       ep: '(CONF:CMS_109)'
     programs:
       - MIPS_APMENTITY
-
+  MIPS APP APM Entity Identifier:
+    name: 'MIPS APP APM Entity Identifier'
+    description:
+      ep: 'This is the MIPS APP APM Individual Identifier assigned to the MIPS practice site.'
+    conf:
+      ep: '(CONF:109)'
+    programs:
+      - MIPS_APP1_APMENTITY

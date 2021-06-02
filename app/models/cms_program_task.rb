@@ -41,6 +41,9 @@ class CMSProgramTask < Task
     return mips_indiv_validators if product_test.cms_program == 'MIPS_INDIV'
     return mips_virtual_group_validators if product_test.cms_program == 'MIPS_VIRTUALGROUP'
     return mips_apm_entity_validators if product_test.cms_program == 'MIPS_APMENTITY'
+    return mips_app_indiv_validators if product_test.cms_program == 'MIPS_APP1_INDIV'
+    return mips_app_group_validators if product_test.cms_program == 'MIPS_APP1_GROUP'
+    return mips_app_entity_validators if product_test.cms_program == 'MIPS_APP1_APMENTITY'
 
     []
   end
@@ -95,6 +98,23 @@ class CMSProgramTask < Task
 
   def mips_apm_entity_validators
     # Unlike other MIPS submissions, the Promoting Interoperability should not be present for APMENTITY
+    ep_validators
+  end
+
+  def mips_apm_entity_validators
+    # Unlike other MIPS submissions, the Promoting Interoperability should not be present for APMENTITY
+    ep_validators
+  end
+
+  def mips_app_indiv_validators
+    ep_validators
+  end
+
+  def mips_app_group_validators
+    ep_validators
+  end
+
+  def mips_app_entity_validators
     ep_validators
   end
 
