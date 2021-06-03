@@ -22,7 +22,11 @@ class Artifact
   def correct_file_type
     return unless file_changed?
 
-    content_extension = file.content_type ? MIME_FILE_TYPES[file.content_type] : nil
+    content_extension = if file.content_type == 'invalid/invalid'
+                          file.file.extension == 'xml' ? :xml : nil
+                        else
+                          file.content_type ? MIME_FILE_TYPES[file.content_type] : nil
+                        end
     case content_extension
     when :zip
       errors.add(:file, 'File upload extension should be .zip') unless %w[C1Task C1ChecklistTask C3ChecklistTask C3Cat1Task
