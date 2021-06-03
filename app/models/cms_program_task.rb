@@ -101,11 +101,6 @@ class CMSProgramTask < Task
     ep_validators
   end
 
-  def mips_apm_entity_validators
-    # Unlike other MIPS submissions, the Promoting Interoperability should not be present for APMENTITY
-    ep_validators
-  end
-
   def mips_app_indiv_validators
     ep_validators
   end
