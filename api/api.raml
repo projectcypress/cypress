@@ -282,3 +282,12 @@ baseUriParameters:
           body:
             application/json:
               schema: !include schema/json/errors.json
+/version:
+  description: Cypress Version
+  get:
+    description: Get the version of the Cypress instance
+    responses:
+      200:
+        body:
+          application/json:
+            schema: !include schema/json/version.json
