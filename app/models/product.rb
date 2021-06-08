@@ -195,7 +195,7 @@ class Product
   def add_eh_tests(eh_ids)
     # if no eh_ids remain, remove exiting test
     product_tests.cms_program_tests.where(reporting_program_type: 'eh').destroy if eh_ids.empty?
-    CMS_IG_CONFIG['CMS Programs']['eh'][bundle.major_version].each do |cms_program|
+    CMS_IG_CONFIG['CMS Programs']['eh'][bundle.major_version]&.each do |cms_program|
       product_tests.build({ name: "#{cms_program} Test", cms_program: cms_program, measure_ids: eh_ids,
                             reporting_program_type: 'eh' }, CMSProgramTest)
     end
@@ -204,7 +204,7 @@ class Product
   def add_ep_tests(ep_ids)
     # if no ep_ids remain, remove exiting test
     product_tests.cms_program_tests.where(reporting_program_type: 'ep').destroy if ep_ids.empty?
-    CMS_IG_CONFIG['CMS Programs']['ep'][bundle.major_version].each do |cms_program|
+    CMS_IG_CONFIG['CMS Programs']['ep'][bundle.major_version]&.each do |cms_program|
       product_tests.build({ name: "#{cms_program} Test", cms_program: cms_program, measure_ids: ep_ids,
                             reporting_program_type: 'ep' }, CMSProgramTest)
     end
