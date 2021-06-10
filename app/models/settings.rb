@@ -15,6 +15,8 @@ class Settings
   field :banner, type: Boolean, default: false
   # set to true to enable UMLS confirmation prior to login
   field :umls, type: Boolean, default: false
+  field :api_documentation, type: Boolean, default: false
+  field :api_documentation_path, type: String, default: ''
   field :banner_message, type: String, default: APP_CONSTANTS['default_banner_message']
   field :warning_message, type: String, default: APP_CONSTANTS['default_warning_message']
   # ignore roles completely -- this is essentially the same as everyone in the system being an admin, default true
@@ -69,7 +71,7 @@ class Settings
       banner_message: current.banner_message, warning_message: current.warning_message, mode: current.application_mode,
       banner: current.banner, umls: current.umls, default_url_options: current.fetch_url_settings,
       smtp_settings: current.fetch_smtp_settings, mode_settings: application_mode_settings, roles: %w[User ATL Admin None],
-      http_proxy: current.http_proxy
+      http_proxy: current.http_proxy, api_documentation: current.api_documentation, api_documentation_path: current.api_documentation_path
     }
   end
 
@@ -80,7 +82,7 @@ class Settings
       default_url_options: Rails.application.config.action_mailer.default_url_options,
       smtp_settings: Rails.application.config.action_mailer.smtp_settings, mode_settings: application_mode_settings,
       debug_features: current.enable_debug_features, server_needs_restart: current.server_needs_restart,
-      http_proxy: current.http_proxy
+      http_proxy: current.http_proxy, api_documentation: current.api_documentation, api_documentation_path: current.api_documentation_path
     }
   end
 
