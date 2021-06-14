@@ -220,4 +220,21 @@ class PatientTest < ActiveSupport::TestCase
     assert_nil denormalized_element.relevantPeriod.low
     assert_equal time_value_end, denormalized_element.relevantPeriod.high
   end
+
+  def test_account_for_epoch_time_boundary
+    # Birthdates on 1 January 1970 00:00 UTC will be shifted to 1 January 1970 00:01 UTC to avoid calculation issues
+    record = BundlePatient.new(familyName: 'epoch', givenNames: ['boundary'], bundleId: @bundle.id)
+    epoch_birth_datetime = DateTime.new(1970, 1, 1, 0, 0, 0).utc
+    shifted_birth_datetime = DateTime.new(1970, 1, 1, 0, 0, 1).utc
+    QDM::Patient.create!(cqmPatient: record, birthDatetime: epoch_birth_datetime)
+    assert_equal shifted_birth_datetime, record.qdmPatient.birthDatetime
+  end
+
+  def test_preserve_birth_datetime
+    # Birthdates not on 1 January 1970 00:00 UTC will be preserved
+    record = BundlePatient.new(familyName: 'non epoch', givenNames: ['boundary'], bundleId: @bundle.id)
+    original_birth_datetime = DateTime.new(1970, 2, 1, 0, 0, 0).utc
+    QDM::Patient.create!(cqmPatient: record, birthDatetime: original_birth_datetime)
+    assert_equal original_birth_datetime, record.qdmPatient.birthDatetime
+  end
 end
