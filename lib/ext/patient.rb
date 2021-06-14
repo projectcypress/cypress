@@ -267,6 +267,7 @@ module CQM
 
     # Birthdate times at the epoch time boundary throws off the cql-calculation engine, workaround to add 1 second to the birthtime.
     def account_for_epoch_time_zero
+      return unless qdmPatient.birthDatetime
       return unless qdmPatient.birthDatetime.to_i.zero?
 
       qdmPatient.birthDatetime = qdmPatient.birthDatetime.change(sec: 1)
