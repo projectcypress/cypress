@@ -226,15 +226,19 @@ class PatientTest < ActiveSupport::TestCase
     record = BundlePatient.new(familyName: 'epoch', givenNames: ['boundary'], bundleId: @bundle.id)
     epoch_birth_datetime = DateTime.new(1970, 1, 1, 0, 0, 0).utc
     shifted_birth_datetime = DateTime.new(1970, 1, 1, 0, 0, 1).utc
-    QDM::Patient.create!(cqmPatient: record, birthDatetime: epoch_birth_datetime)
+    patient_characteristic_birthdate = QDM::PatientCharacteristicBirthdate.new(birthDatetime: epoch_birth_datetime)
+    QDM::Patient.create!(cqmPatient: record, birthDatetime: epoch_birth_datetime, dataElements: [patient_characteristic_birthdate])
     assert_equal shifted_birth_datetime, record.qdmPatient.birthDatetime
+    assert_equal shifted_birth_datetime, record.qdmPatient.dataElements.first.birthDatetime
   end
 
   def test_preserve_birth_datetime
     # Birthdates not on 1 January 1970 00:00 UTC will be preserved
     record = BundlePatient.new(familyName: 'non epoch', givenNames: ['boundary'], bundleId: @bundle.id)
     original_birth_datetime = DateTime.new(1970, 2, 1, 0, 0, 0).utc
-    QDM::Patient.create!(cqmPatient: record, birthDatetime: original_birth_datetime)
+    patient_characteristic_birthdate = QDM::PatientCharacteristicBirthdate.new(birthDatetime: original_birth_datetime)
+    QDM::Patient.create!(cqmPatient: record, birthDatetime: original_birth_datetime, dataElements: [patient_characteristic_birthdate])
     assert_equal original_birth_datetime, record.qdmPatient.birthDatetime
+    assert_equal original_birth_datetime, record.qdmPatient.dataElements.first.birthDatetime
   end
 end
