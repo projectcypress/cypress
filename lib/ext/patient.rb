@@ -24,6 +24,8 @@ module CQM
     # every patient actually in the database is of a valid type.
     validates :_type, inclusion: %w[CQM::BundlePatient CQM::VendorPatient CQM::ProductTestPatient CQM::TestExecutionPatient]
 
+    before_save :account_for_epoch_time_zero
+
     after_initialize do
       self[:addresses] ||= [CQM::Address.new(
         use: 'HP',
@@ -261,6 +263,17 @@ module CQM
       Cypress::QRDAPostProcessor.remove_telehealth_encounters(self, codes_modifiers, warnings, ineligible_measures) unless codes_modifiers.empty?
       save
       warnings
+    end
+
+    # Birthdate times at the epoch time boundary throws off the cql-calculation engine, workaround to add 1 second to the birthtime.
+    def account_for_epoch_time_zero
+      return unless qdmPatient.birthDatetime
+      return unless qdmPatient.birthDatetime.to_i.zero?
+
+      qdmPatient.birthDatetime = qdmPatient.birthDatetime.change(sec: 1)
+      return unless qdmPatient.dataElements.where(_type: QDM::PatientCharacteristicBirthdate).first
+
+      qdmPatient.dataElements.where(_type: QDM::PatientCharacteristicBirthdate).first.birthDatetime = qdmPatient.birthDatetime
     end
   end
 
