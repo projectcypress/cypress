@@ -10,6 +10,7 @@ class ProgramCriterion
   field :cms_conf, type: String
   field :entered_value, type: String
   field :criterion_verified, type: Boolean, default: false
+  field :criterion_optional, type: Boolean, default: false
   field :file_name, type: String
 
   embedded_in :cms_program_test

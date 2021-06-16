@@ -33,8 +33,13 @@ class CMSProgramTest < ProductTest
     program_criteria.each do |crit|
       next if crit.criterion_verified
 
-      msg = "#{crit.criterion_name} not complete"
-      execution.execution_errors.build(message: msg, msg_type: :error, validator: 'Validators::ProgramCriteriaValidator')
+      msg_type = crit.criterion_optional ? :warning : :error
+      msg = if msg_type == :warning
+              "Warning - #{crit.criterion_name} not complete"
+            else
+              "#{crit.criterion_name} not complete"
+            end
+      execution.execution_errors.build(message: msg, msg_type: msg_type, validator: 'Validators::ProgramCriteriaValidator')
     end
   end
 end

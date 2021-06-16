@@ -44,6 +44,7 @@ Program Criterion:
       - HQR_IQR_VOL
   HIC:
     name: 'Medicare HIC Number'
+    optional: true
     description:
       eh: 'Medicare HIC Number is not required for HQR but should be submitted if the payer is Medicare and the patient has an HIC number assigned.'
     conf:
@@ -66,6 +67,7 @@ Program Criterion:
       - HQR_IQR_VOL
   MBI:
     name: 'Medicare Beneficiary Identifier'
+    optional: true
     description:
       eh: 'Medicare Beneficiary Identifier (MBI) is not required for HQR but should be submitted if the payer is Medicare and the patient has an MBI number assigned.'
     conf:
