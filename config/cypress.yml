@@ -242,12 +242,20 @@ result_measures:
 # These measures do not 
 telehealth_ineligible_measures:
   # CMS22v9, CMS69v9, CMS142v9, CMS143v9, CMS771v2
-  # CMS75v9, CMS129v9 CMS133v8 are not included beacuse measures do not contain telehealth-eligible codes and do not require an encounter during the measurement period
+  # CMS22v10, CMS69v10, CMS142v10, CMS143v10, CMS646v2, CMS771v3
+  # CMS75v9, CMS129v10 CMS133v9 are not included beacuse measures do not contain telehealth-eligible codes and do not require an encounter during the measurement period
+  # CMS75v10, CMS129v11 CMS133v10 are not included beacuse measures do not contain telehealth-eligible codes and do not require an encounter during the measurement period
  [ '2C928085-7198-38EE-0171-996316C403A1',
    '2C928085-7198-38EE-0171-9995E1F90412',
    '2C928085-7198-38EE-0171-99A391370450',
    '2C928085-7198-38EE-0171-9999E27A042B',
-   '2C928085-7198-38EE-0171-996032910386' ]
+   '2C928085-7198-38EE-0171-996032910386',
+   '2C928084-774E-E0A5-0177-7375E19813DC',
+   '2C928083-786E-690D-0178-7090965F028D',
+   '2C928082-7589-B52E-0175-8F0C726E0306',
+   '2C928082-7589-B52E-0175-8F181BF40315',
+   '2C928084-72BE-B968-0172-BEE96A8A005C',
+   '2C928082-7505-CAF9-0175-3ECD0F720FE3']
 
 # These measures have specific timing constraints
 timing_constraints:
@@ -276,5 +284,17 @@ unit_matches:
   - hqmf_set_id : '1F503318-BB8D-4B91-AF63-223AE0A2328E'
     de_type     : 'QDM::LaboratoryTestPerformed'
     code_list_id: '2.16.840.1.113883.3.117.1.7.1.215'
+    units        :
+      - 'mg/dL'
+    # relevant for CMS816v1+ where BloodGlucoseLab.result > 80 'mg/dL'
+  - hqmf_set_id : '98EE2385-0B90-40F4-859C-14F5C8D49340'
+    de_type     : 'QDM::LaboratoryTestPerformed'
+    code_list_id: '2.16.840.1.113762.1.4.1045.134'
+    units        :
+      - 'mg/dL'
+    # relevant for CMS871v1+ where BloodGlucoseLab.result >= 200 'mg/dL'
+  - hqmf_set_id : 'EF95493C-3F65-4440-9CCB-EAF1B9ED1210'
+    de_type     : 'QDM::LaboratoryTestPerformed'
+    code_list_id: '2.16.840.1.113762.1.4.1045.134'
     units        :
       - 'mg/dL'
