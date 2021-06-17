@@ -13,7 +13,8 @@
       <%= f.check_box :banner, label: "Display banner/warning?", checked: banner %>
       <%= f.check_box :umls, label: "Verify UMLS credentials", checked: umls %>
       <%= f.text_field :http_proxy, label: "HTTP Proxy", value: http_proxy %>
-
+      <%= f.check_box :api_documentation, label: "Display API Documentation?", checked: api_documentation %>
+      <%= f.text_field :api_documentation_path, label: "API Documentation Path", value: api_documentation_path %>
       <fieldset>
         <legend>Email Settings</legend>
         <%= render 'alert', :alert_type => 'warning', :messages => 'The Cypress service must be restarted after configuring email settings.' %>
