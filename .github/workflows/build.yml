@@ -1,0 +1,45 @@
+name: release-build
+
+on:
+  push:
+    branches:
+      - "!*"
+    tags:
+      - "v*"
+
+jobs:
+  audit:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Checkout recipe
+      uses: actions/checkout@v2
+      with: 
+        repository: 'https://github.com/projectcypress/cypress-recipe.git'
+        path: '/cypress-recipe'
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@b12138f02d7d0c4d36f463e0885dc47ec25a52fe
+      with:
+        ruby-version: 2.7.3
+      run: |
+        bundle install
+
+    - name: Provision Cookbook
+      run: |
+        wget https://packages.chef.io/files/stable/chefdk/3.9.0/ubuntu/16.04/chefdk_3.9.0-1_amd64.deb
+        dpkg -i chefdk_3.9.0-1_amd64.deb
+        cd cypress-recipe
+        berks vendor ./contrib/cookbooks/
+    - name: Build AMI
+      uses: hashicorp/packer-github-actions@master
+      with:
+        command: build
+        arguments: "-var-file=aws_env.json -only=cypress.amazonaws cypress.json"
+        target: ./contrib
