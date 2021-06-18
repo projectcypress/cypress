@@ -71,7 +71,7 @@ module Validators
           add_error(msg, file_name: options[:file_name], location: ccde.path) unless encounter_ids.include?(related_to_id_string)
         else
           msg = "Encounter Reference missing for Core Clinical Data Element entry #{ccde_id_string}"
-          add_error(msg, file_name: options[:file_name], location: ccde.path)
+          add_warning(msg, file_name: options[:file_name], location: ccde.path)
         end
       end
     end
