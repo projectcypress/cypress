@@ -1,59 +1,4 @@
 GIT
-  remote: https://github.com/projecttacoma/cqm-models.git
-  revision: 03096dd661c745a33fa37927186eab17fb6e738e
-  branch: rails_6
-  specs:
-    cqm-models (3.1.0)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-parsers.git
-  revision: 03e1f0e80249a98fce7621ba0e54e93a2d5e8b30
-  branch: rails_6
-  specs:
-    cqm-parsers (3.1.1.0)
-      activesupport (~> 6.0)
-      builder (~> 3.1)
-      cqm-models (~> 3.0)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (~> 7.0.5)
-      mongoid-tree (~> 2.1)
-      mustache
-      nokogiri (>= 1.8.5, < 1.12.0)
-      protected_attributes_continued (~> 1.4.0)
-      rubyzip (~> 1.3)
-      typhoeus
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-reports.git
-  revision: 172b0d426473d00a1f7e2c55e5226a2dce0e3b4c
-  branch: rails_6
-  specs:
-    cqm-reports (3.1.3)
-      cqm-models (~> 3.0)
-      cqm-validators (~> 3.0)
-      erubis (~> 2.7)
-      log4r (~> 1.1)
-      memoist (~> 0.9)
-      mongoid-tree (> 2.0)
-      mustache
-      nokogiri (>= 1.8.5, < 1.12.0)
-      uuid (~> 2.3)
-      zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-validators.git
-  revision: dc96a52bc7d5cda6ab8d4bf14100497bac4f766e
-  branch: rails_6
-  specs:
-    cqm-validators (3.1.0)
-      nokogiri (>= 1.8.5, < 1.12.0)
-
-GIT
   remote: https://github.com/turbolinks/turbolinks-classic
   revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
   branch: master
@@ -199,6 +144,37 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.9)
+    cqm-models (3.1.1)
+    cqm-parsers (3.2.0.0)
+      activesupport (~> 6.0)
+      builder (~> 3.1)
+      cqm-models (~> 3.0)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (~> 7.0.5)
+      mongoid-tree (~> 2.1)
+      mustache
+      nokogiri (>= 1.8.5, < 1.12.0)
+      protected_attributes_continued (~> 1.4.0)
+      rubyzip (~> 1.3)
+      typhoeus
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+    cqm-reports (3.1.4)
+      cqm-models (~> 3.0)
+      cqm-validators (~> 3.0)
+      erubis (~> 2.7)
+      log4r (~> 1.1)
+      memoist (~> 0.9)
+      mongoid-tree (> 2.0)
+      mustache
+      nokogiri (>= 1.8.5, < 1.12.0)
+      uuid (~> 2.3)
+      zip-zip (~> 0.3)
+    cqm-validators (3.1.1)
+      nokogiri (>= 1.8.5, < 1.12.0)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -609,10 +585,10 @@ DEPENDENCIES
   carrierwave (~> 2.1.0)
   carrierwave-mongoid
   codecov
-  cqm-models!
-  cqm-parsers!
-  cqm-reports!
-  cqm-validators!
+  cqm-models (~> 3.1.1)
+  cqm-parsers (~> 3.2.0.0)
+  cqm-reports (~> 3.1.4)
+  cqm-validators (~> 3.1.1)
   cucumber-rails
   daemons
   database_cleaner-mongoid
