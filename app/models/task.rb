@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Task
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -26,8 +28,8 @@ class Task
     # for example (Task.c1_task, Task.cat1_filter_task, etc)
     define_singleton_method task_type.underscore do
       find_by(_type: task_type)
-    rescue
-      false
+    rescue StandardError
+      nil
     end
   end
 

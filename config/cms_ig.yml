@@ -1,17 +1,36 @@
 CMS Programs:
   ep:
-    - MIPS_GROUP
-    - MIPS_INDIV
-    - MIPS_VIRTUALGROUP
-    - MIPS_APMENTITY
-    - CPCPLUS
-    - PCF
+    '2020':
+      - MIPS_GROUP
+      - MIPS_INDIV
+      - MIPS_VIRTUALGROUP
+      - MIPS_APMENTITY
+      - MIPS_APP1_INDIV
+      - MIPS_APP1_GROUP
+      - MIPS_APP1_APMENTITY
+      - CPCPLUS
+      - PCF
+    '2021':
+      - MIPS_GROUP
+      - MIPS_INDIV
+      - MIPS_VIRTUALGROUP
+      - MIPS_APMENTITY
+      - MIPS_APP1_INDIV
+      - MIPS_APP1_GROUP
+      - MIPS_APP1_APMENTITY
+      - PCF
   eh:
-    - HQR_PI
-    - HQR_IQR
-    - HQR_PI_IQR
-    - HQR_IQR_VOL
-Program Criterion: 
+    '2020':
+      - HQR_PI
+      - HQR_IQR
+      - HQR_PI_IQR
+      - HQR_IQR_VOL
+    '2021':
+      - HQR_PI
+      - HQR_IQR
+      - HQR_PI_IQR
+      - HQR_IQR_VOL
+Program Criterion:
   CCN:
     name: 'CMS Certification Number'
     description:
@@ -25,6 +44,7 @@ Program Criterion:
       - HQR_IQR_VOL
   HIC:
     name: 'Medicare HIC Number'
+    optional: true
     description:
       eh: 'Medicare HIC Number is not required for HQR but should be submitted if the payer is Medicare and the patient has an HIC number assigned.'
     conf:
@@ -47,6 +67,7 @@ Program Criterion:
       - HQR_IQR_VOL
   MBI:
     name: 'Medicare Beneficiary Identifier'
+    optional: true
     description:
       eh: 'Medicare Beneficiary Identifier (MBI) is not required for HQR but should be submitted if the payer is Medicare and the patient has an MBI number assigned.'
     conf:
@@ -89,7 +110,9 @@ Program Criterion:
       - HQR_PI_IQR
       - HQR_IQR_VOL
       - MIPS_GROUP
+      - MIPS_APP1_GROUP
       - MIPS_INDIV
+      - MIPS_APP1_INDIV
       - CPCPLUS
       - PCF
   Virtual Group Identifier:
@@ -117,6 +140,7 @@ Program Criterion:
       - HQR_PI_IQR
       - HQR_IQR_VOL
       - MIPS_INDIV
+      - MIPS_APP1_INDIV
       - CPCPLUS
       - PCF
   CPCPLUS APM Entity Identifier:
@@ -138,9 +162,9 @@ Program Criterion:
   MIPS APM Entity Identifier:
     name: 'MIPS APM Entity Identifier'
     description:
-      ep: 'This is the PCF APM Entity Identifier assigned to the PCF practice site.'
+      ep: 'This is the MIPS APM Entity Identifier assigned to the MIPS practice site.'
     conf:
       ep: '(CONF:CMS_109)'
     programs:
       - MIPS_APMENTITY
-
+      - MIPS_APP1_APMENTITY

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.measures @measures.map(&:hqmf_id)
 
 # Guarantee that measure tabs will still show up in the result even if it is empty below

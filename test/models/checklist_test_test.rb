@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ChecklistTestTest < ActiveJob::TestCase
@@ -48,7 +50,7 @@ class ChecklistTestTest < ActiveJob::TestCase
   end
 
   def test_status
-    @product.product_tests.each(&:destroy!)
+    @product.product_tests.destroy_all
     user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
 
     checklist_test = create_checklist_test_for_product_with_measure_id(@product, 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE')
@@ -65,7 +67,7 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal 'passing', checklist_test.status
 
     # add a c1 checklist task with test execution
-    @product.update(c3_test: true)
+    @product.c3_test = true
     assert_equal 'incomplete', checklist_test.status
     task = checklist_test.tasks.create!({}, C1ChecklistTask)
     assert_equal 'incomplete', checklist_test.status
@@ -175,7 +177,7 @@ class ChecklistTestTest < ActiveJob::TestCase
     execution.save!
     assert_equal @test.checked_criteria.count, execution.execution_errors.count
 
-    simplify_criteria(@test, true)
+    simplify_criteria(@test, include_attribute_code: true)
 
     execution = task.test_executions.build
     assert_equal 0, execution.execution_errors.count
@@ -209,10 +211,6 @@ class ChecklistTestTest < ActiveJob::TestCase
     # compare each checked criteria mongoid measure ids
     test1.checked_criteria.each_index do |x|
       assert_equal test1.checked_criteria.fetch(x).measure_id, test2.checked_criteria.fetch(x).measure_id, 'random repeatability error: checklist test checked criteria measure id not matched'
-    end
-
-    # compare each checked criteria source data criteria
-    test1.checked_criteria.each_index do |x|
       assert_equal test1.checked_criteria.fetch(x).source_data_criteria, test2.checked_criteria.fetch(x).source_data_criteria, 'random repeatability error: checklist test checked criteria source data not matched'
     end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ProductReportTest < ActionController::TestCase
@@ -10,6 +12,7 @@ class ProductReportTest < ActionController::TestCase
     @product_test = FactoryBot.create(:cv_product_test_static_result)
     @first_product = @product_test.product
     @first_product.c3_test = true
+    @first_product.save
     checklist_test = @first_product.product_tests.checklist_tests.first
     checklist_test.tasks.create({}, C3ChecklistTask)
     checklist_test.save
@@ -192,11 +195,11 @@ class ProductReportTest < ActionController::TestCase
         # add error message
         if random.rand(2).zero?
           build_execution_error(te, sample_error_hash['factory_name'], ste)
-          build_execution_error(te, TEST_EXECUTION_ERROR_HASH[TEST_EXECUTION_ERROR_HASH.keys.sample].sample['factory_name'], ste, false)
+          build_execution_error(te, TEST_EXECUTION_ERROR_HASH[TEST_EXECUTION_ERROR_HASH.keys.sample].sample['factory_name'], ste, include_file: true)
           check_error_collector(te)
         else
           build_execution_error(ste, sample_error_hash['factory_name'], te)
-          build_execution_error(ste, TEST_EXECUTION_ERROR_HASH[TEST_EXECUTION_ERROR_HASH.keys.sample].sample['factory_name'], te, false)
+          build_execution_error(ste, TEST_EXECUTION_ERROR_HASH[TEST_EXECUTION_ERROR_HASH.keys.sample].sample['factory_name'], te, include_file: true)
           check_error_collector(ste)
         end
         te.save
@@ -227,7 +230,7 @@ class ProductReportTest < ActionController::TestCase
     vendor = FactoryBot.create(:vendor)
     bundle = FactoryBot.create(:static_bundle)
 
-    measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE', '40280382-5FA6-FE85-0160-0918E74D2075']
+    measure_ids = %w[BE65090C-EB1F-11E7-8C3F-9A214CF093AE 40280382-5FA6-FE85-0160-0918E74D2075]
     product = vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
                                      bundle_id: bundle.id)
 
@@ -271,7 +274,7 @@ class ProductReportTest < ActionController::TestCase
     assert_equal error_count, test_execution.execution_errors.size
   end
 
-  def build_execution_error(test_execution, factory_name, sibling_execution, include_file = true)
+  def build_execution_error(test_execution, factory_name, sibling_execution, include_file: true)
     sibling_execution.state = :passed
     if include_file
       # A test execution needs an artifact, since we are always using a C2 test execution, create a Cat 3 artifact

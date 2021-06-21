@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FilteringTest < ProductTest
   field :options, type: Hash
   field :incl_addr, type: Boolean
@@ -33,7 +35,7 @@ class FilteringTest < ProductTest
   def task_status(task_type)
     begin
       task = tasks.find_by(_type: task_type)
-    rescue
+    rescue StandardError
       return 'incomplete'
     end
     task.status
@@ -50,7 +52,7 @@ class FilteringTest < ProductTest
     # iterate over the filters and assign random codes
     params = { measures: measures, patients: patients, incl_addr: incl_addr, effective_date: created_at, prng: prng }
     options['filters'].each do |k, _v|
-      # Note: typically just uses criteria from one random patient, not across several patients
+      # NOTE: typically just uses criteria from one random patient, not across several patients
       options['filters'][k] = Cypress::CriteriaPicker.send(k, rand_patient, params)
     end
     save!

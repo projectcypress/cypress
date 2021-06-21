@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class MeasureEvaluationJobTest < ActiveJob::TestCase
@@ -6,33 +8,6 @@ class MeasureEvaluationJobTest < ActiveJob::TestCase
     @bundle = FactoryBot.create(:static_bundle)
     @product = vendor.products.create(name: 'test_product', c2_test: true, randomize_patients: true, bundle_id: @bundle.id,
                                       measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
-  end
-
-  def test_can_use_sync_and_async_results
-    pt = @product.product_tests.build({ name: 'test_for_measure_1a', bundle_id: @bundle.id,
-                                        measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
-    perform_enqueued_jobs do
-      pt.save
-      pt.reload
-      # clear out expected_results created with product test
-      pt.expected_results = nil
-
-      correlation_id = BSON::ObjectId.new.to_s
-      calc_job = Cypress::CqmExecutionCalc.new(pt.patients.map!(&:qdmPatient), pt.measures, correlation_id,
-                                               'effectiveDate': Time.at(pt.measure_period_start).in_time_zone.to_formatted_s(:number))
-      individual_results_from_sync_job = calc_job.execute(false)
-
-      # calculate expected_results using individual results stored in database (don't pass in individual results)
-      MeasureEvaluationJob.perform_now(pt, {})
-      db_expected_results = pt.expected_results
-
-      pt.expected_results = nil
-
-      # calculate expected_results using individual results returned from sync_job (pass in individual results)
-      MeasureEvaluationJob.perform_now(pt, individual_results: individual_results_from_sync_job)
-      sync_job_expected_results = pt.expected_results
-      assert_equal db_expected_results, sync_job_expected_results
-    end
   end
 
   def test_can_queue_product_test_job

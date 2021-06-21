@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Validators
   class ExpectedResultsValidator < QrdaFileValidator
     include ::CqmValidators::ReportedResultExtractor
@@ -12,13 +14,17 @@ module Validators
     def validate(file, options = {})
       @document = get_document(file)
       @file_name = options[:file_name]
-      @expected_results.each_pair do |hqmf_id, measure_expected_result|
-        measure_expected_result.each_pair do |key, expected_result|
-          measure = Measure.where(hqmf_id: hqmf_id).first
-          pop_set_hash = measure.population_set_hash_for_key(key)
-          reported_result, _errors = extract_results_by_ids(measure, pop_set_hash[:population_set_id], @document, pop_set_hash[:stratification_id])
-          @reported_results[key] = reported_result
-          match_calculation_results(expected_result, reported_result, options, measure, pop_set_hash)
+      if @expected_results.nil?
+        add_warning('Expected Results were not calculated for this test.', location: '/')
+      else
+        @expected_results.each_pair do |hqmf_id, measure_expected_result|
+          measure_expected_result.each_pair do |key, expected_result|
+            measure = Measure.where(hqmf_id: hqmf_id).first
+            pop_set_hash = measure.population_set_hash_for_key(key)
+            reported_result, _errors = extract_results_by_ids(measure, pop_set_hash[:population_set_id], @document, pop_set_hash[:stratification_id])
+            @reported_results[key] = reported_result
+            match_calculation_results(expected_result, reported_result, options, measure, pop_set_hash)
+          end
         end
       end
       options[:reported_result_target]&.reported_results = reported_results
@@ -33,6 +39,7 @@ module Validators
 
         stratification_id = population_set.stratifications.where(stratification_id: pop_set_hash[:stratification_id]).first&.hqmf_id
         check_population(expected_result, reported_result, pop_key, pop_set_hash, measure)
+
         # Check supplemental data elements
         ex_sup = (expected_result['supplemental_data'] || {})[pop_key]
         next unless pop_set_hash[:stratification_id].nil? && ex_sup
@@ -44,6 +51,7 @@ module Validators
 
         check_sup_keys(ex_sup, reported_result, keys_and_ids, options)
       end
+      check_observations(expected_result, reported_result, measure.hqmf_id) if expected_result[:observations]
     end
 
     # def check_for_reported_results_population_ids(expected_result, reported_result, measure_id, stratification_id)
@@ -55,6 +63,17 @@ module Validators
     #     add_error(message, location: '/', measure_id: measure_id, stratification: stratification_id, file_name: @file_name)
     #   end
     # end
+
+    def check_observations(expected_result, reported_result, measure_id)
+      expected_result[:observations].each do |population, expected_observation|
+        next if reported_result[:observations][population].to_d == expected_observation['value'].to_d
+
+        err = %(Expected #{population} Observation value #{expected_observation['value']}
+        does not match reported value #{reported_result[:observations][population]})
+        options = { location: '/', measure_id: measure_id, file_name: @file_name }
+        add_error(err, options)
+      end
+    end
 
     def check_population(expected_result, reported_result, pop_key, pop_set_hash, measure)
       # only add the error that they dont match if there was an actual result

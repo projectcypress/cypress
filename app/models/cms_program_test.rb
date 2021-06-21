@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CMSProgramTest < ProductTest
   field :cms_program, type: String
   field :reporting_program_type, type: String
@@ -6,7 +8,8 @@ class CMSProgramTest < ProductTest
 
   # List of cms programs
   validates :cms_program, inclusion: %w[HQR_PI HQR_IQR HQR_PI_IQR HQR_IQR_VOL
-                                        CPCPLUS PCF MIPS_INDIV MIPS_GROUP MIPS_VIRTUALGROUP MIPS_APMENTITY HL7_Cat_I HL7_Cat_III]
+                                        CPCPLUS PCF MIPS_INDIV MIPS_GROUP MIPS_VIRTUALGROUP MIPS_APMENTITY
+                                        MIPS_APP1_INDIV MIPS_APP1_GROUP MIPS_APP1_APMENTITY HL7_Cat_I HL7_Cat_III]
 
   after_create do |product_test|
     create_tasks
@@ -30,8 +33,13 @@ class CMSProgramTest < ProductTest
     program_criteria.each do |crit|
       next if crit.criterion_verified
 
-      msg = "#{crit.criterion_name} not complete"
-      execution.execution_errors.build(message: msg, msg_type: :error, validator: 'Validators::ProgramCriteriaValidator')
+      msg_type = crit.criterion_optional ? :warning : :error
+      msg = if msg_type == :warning
+              "Warning - #{crit.criterion_name} not complete"
+            else
+              "#{crit.criterion_name} not complete"
+            end
+      execution.execution_errors.build(message: msg, msg_type: msg_type, validator: 'Validators::ProgramCriteriaValidator')
     end
   end
 end

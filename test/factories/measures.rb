@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :measure, class: Measure do
     entry = Rails.root.join('test', 'fixtures', 'artifacts', 'cms32v7.json')
@@ -20,6 +22,8 @@ FactoryBot.define do
     source_data_criteria { source_measure['source_data_criteria'] }
     population_criteria { source_measure['population_criteria'] }
 
+    measure_attributes { source_measure['measure_attributes'] }
+
     main_cql_library { source_measure['main_cql_library'] }
 
     trait :diagnosis do
@@ -29,11 +33,8 @@ FactoryBot.define do
         measure.source_data_criteria << diagnosis_sdc
       end
     end
-    trait :no_diagnosis do
-    end
 
     factory  :measure_with_diagnosis, traits: [:diagnosis]
-    factory  :measure_without_diagnosis, traits: [:no_diagnosis]
 
     factory  :static_measure do
       description { 'Static Measure Description' }
@@ -51,6 +52,8 @@ FactoryBot.define do
       source_data_criteria { source_measure['source_data_criteria'] }
       population_criteria { source_measure['population_criteria'] }
 
+      measure_attributes { source_measure['measure_attributes'] }
+
       main_cql_library { source_measure['main_cql_library'] }
 
       after(:build) do |measure|
@@ -66,7 +69,7 @@ FactoryBot.define do
               code_system_def = cql_library['elm']['library']['codeSystems']['def'].find { |code_sys| code_sys['name'] == code['codeSystem']['name'] }
               code_system_name = code_system_def['id']
               code_system_version = code_system_def['version']
-              code_hash = 'drc-' + Digest::SHA2.hexdigest("#{code_system_name} #{code['id']} #{code['name']} #{code_system_version}")
+              code_hash = "drc-#{Digest::SHA2.hexdigest("#{code_system_name} #{code['id']} #{code['name']} #{code_system_version}")}"
               measure.value_sets << ValueSet.where(oid: code_hash).first
             end
           end
@@ -81,6 +84,7 @@ FactoryBot.define do
         eh_clone.reporting_program_type = 'eh'
         eh_clone.description = 'Static EH Measure Description'
         eh_clone.cms_id = 'CMS4321v1'
+        eh_clone.title = 'Static Title'
         eh_clone.save
       end
     end
@@ -101,7 +105,9 @@ FactoryBot.define do
       category { 'none_0' }
 
       source_data_criteria { source_proportion_measure['source_data_criteria'] }
-      population_criteria { source_measure['population_criteria'] }
+      population_criteria { source_proportion_measure['population_criteria'] }
+
+      measure_attributes { source_proportion_measure['measure_attributes'] }
 
       main_cql_library { source_proportion_measure['main_cql_library'] }
 
@@ -120,7 +126,7 @@ FactoryBot.define do
               code_system_def = cql_library['elm']['library']['codeSystems']['def'].find { |code_sys| code_sys['name'] == code['codeSystem']['name'] }
               code_system_name = code_system_def['id']
               code_system_version = code_system_def['version']
-              code_hash = 'drc-' + Digest::SHA2.hexdigest("#{code_system_name} #{code['id']} #{code['name']} #{code_system_version}")
+              code_hash = "drc-#{Digest::SHA2.hexdigest("#{code_system_name} #{code['id']} #{code['name']} #{code_system_version}")}"
               measure.value_sets << ValueSet.where(oid: code_hash).first
             end
           end

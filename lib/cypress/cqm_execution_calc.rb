@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'securerandom'
 
@@ -14,14 +16,13 @@ module Cypress
       @options = options
     end
 
-    def execute(save = true)
-      results = @measures.map do |measure|
-        request_for(measure, save)
+    def execute(save: true)
+      @measures.map do |measure|
+        request_for(measure, save: save)
       end.flatten
-      results
     end
 
-    def request_for(measure, save = true)
+    def request_for(measure, save: true)
       ir_list = []
       @options['requestDocument'] = true
       post_data = { patients: @patients, measure: measure, valueSets: measure.value_sets, options: @options }
@@ -31,7 +32,7 @@ module Cypress
       begin
         response = RestClient::Request.execute(method: :post, url: self.class.create_connection_string, timeout: 120,
                                                payload: post_data, headers: { content_type: 'application/json' })
-      rescue => e
+      rescue StandardError => e
         raise e.to_s || 'Calculation failed without an error message'
       end
       results = JSON.parse(response)

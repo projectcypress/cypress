@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RecordsController < ApplicationController
   include RecordsHelper
   before_action :set_record_source, only: %i[index show by_measure by_filter_task html_filter_patients]
@@ -31,22 +33,22 @@ class RecordsController < ApplicationController
     @measures = (@vendor ? @bundle : @source).measures.where(:_id.in => @results.map(&:measure_id))
     @hqmf_id = params[:hqmf_id]
     @continuous_measures = @measures.where(measure_scoring: 'CONTINUOUS_VARIABLE').sort_by { |m| [m.cms_int] }
+    @ratio_measures = @measures.where(measure_scoring: 'RATIO').sort_by { |m| [m.cms_int] }
     @proportion_measures = @measures.where(measure_scoring: 'PROPORTION').sort_by { |m| [m.cms_int] }
     @result_measures = @measures.where(hqmf_set_id: { '$in': APP_CONSTANTS['result_measures'].map(&:hqmf_set_id) }).sort_by { |m| [m.cms_int] }
     expires_in 1.week, public: true
-    add_breadcrumb 'Patient: ' + @record.first_names + ' ' + @record.familyName, :record_path
+    add_breadcrumb "Patient: #{@record.first_names} #{@record.familyName}", :record_path
   end
 
   def by_measure
-    @patients = @vendor.patients.includes(:calculation_results).where(bundleId: @bundle.id.to_s) if @vendor
-    @patients ||= @source.patients.includes(:calculation_results)
+    @patients = @vendor.patients.where(bundleId: @bundle.id.to_s) if @vendor
+    @patients ||= @source.patients
+    return unless params[:measure_id]
 
-    if params[:measure_id]
-      measures = @vendor ? @bundle.measures : @source.measures
-      @measure = measures.find_by(hqmf_id: params[:measure_id])
-      @population_set_hash = params[:population_set_hash] || @measure.population_sets_and_stratifications_for_measure.first
-      expires_in 1.week, public: true
-    end
+    measures = @vendor ? @bundle.measures : @source.measures
+    @measure = measures.find_by(hqmf_id: params[:measure_id])
+    @pop_set_key = params[:pop_set_key]
+    @population_set_hash = params[:population_set_hash] || @measure.population_sets_and_stratifications_for_measure.first
   end
 
   def by_filter_task
@@ -69,13 +71,13 @@ class RecordsController < ApplicationController
     if BSON::ObjectId.legal?(params[:format])
       bundle = Bundle.find(BSON::ObjectId.from_string(params[:format]))
 
-      if bundle.mpl_status != :ready
-        flash[:info] = 'This bundle is currently preparing for download.'
-        redirect_to :back
-      else
+      if bundle.mpl_status == :ready
         file = File.new(bundle.mpl_path)
         expires_in 1.month, public: true
         send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "bundle_#{bundle.version}_mpl.zip"
+      else
+        flash[:info] = 'This bundle is currently preparing for download.'
+        redirect_to :back
       end
     else
       render body: nil, status: :bad_request
@@ -84,7 +86,7 @@ class RecordsController < ApplicationController
 
   private
 
-  # note: case vendor will also have a bundle id
+  # NOTE: case vendor will also have a bundle id
   def set_record_source
     if params[:vendor_id]
       set_record_source_vendor
@@ -116,7 +118,7 @@ class RecordsController < ApplicationController
 
   def breadcrumbs_for_vendor_path
     add_breadcrumb 'Dashboard', :vendors_path
-    add_breadcrumb 'Vendor: ' + @vendor.name, vendor_path(@vendor)
+    add_breadcrumb "Vendor: #{@vendor.name}", vendor_path(@vendor)
     add_breadcrumb 'Patient List', vendor_records_path(vendor_id: @vendor.id, bundle_id: @bundle&.id)
   end
 
@@ -136,25 +138,35 @@ class RecordsController < ApplicationController
 
   def breadcrumbs_for_test_path
     add_breadcrumb 'Dashboard', :vendors_path
-    add_breadcrumb 'Vendor: ' + @product_test.product.vendor.name, vendor_path(@product_test.product.vendor)
-    add_breadcrumb 'Product: ' + @product_test.product_name, vendor_product_path(@product_test.product.vendor, @product_test.product)
-    add_breadcrumb 'Test: ' + @product_test.name, new_task_test_execution_path(@task.id)
+    add_breadcrumb "Vendor: #{@product_test.product.vendor.name}", vendor_path(@product_test.product.vendor)
+    add_breadcrumb "Product: #{@product_test.product_name}", vendor_product_path(@product_test.product.vendor, @product_test.product)
+    add_breadcrumb "Test: #{@product_test.name}", new_task_test_execution_path(@task.id)
     add_breadcrumb 'Patient List', records_path(task_id: @task.id)
   end
 
+  # include measure subpopulations
   def measures_for_source
     Rails.cache.fetch("#{@source.cache_key}/measure_dropdown") do
-      if @vendor
-        @bundle.measures.order_by(cms_int: 1).map do |m|
-          { label: "#{m.cms_id}: #{m.description}",
-            value: by_measure_vendor_records_path(@vendor, measure_id: m.hqmf_id, bundle_id: @bundle.id) }
+      meas_src = @vendor ? @bundle : @source
+      meas_src.measures.order_by(cms_int: 1).map do |m|
+        m.population_sets_and_stratifications_for_measure.map do |p|
+          pop_set_key = p[:stratification_id] || p[:population_set_id]
+          label_str = m.cms_id
+          if m.population_sets_and_stratifications_for_measure.count > 1
+            # only add population description if there is more than one
+            label_str += " (#{pop_set_key})"
+          end
+          label_str += ": #{m.title}"
+
+          val = if @vendor
+                  by_measure_vendor_records_path(@vendor, measure_id: m.hqmf_id, bundle_id: @bundle.id, pop_set_key: pop_set_key)
+                else
+                  by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id, pop_set_key: pop_set_key)
+                end
+
+          { label: label_str, value: val }
         end
-      else
-        @source.measures.order_by(cms_int: 1).map do |m|
-          { label: "#{m.cms_id}: #{m.description}",
-            value: by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id) }
-        end
-      end.to_json.html_safe
+      end.flatten.to_json.html_safe
     end
   end
 end

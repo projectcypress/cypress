@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BundleDeprecateJob < ApplicationJob
   include Job::Status
   after_enqueue do |job|

@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 require 'test_helper'
 
 class PatientTest < ActiveSupport::TestCase
@@ -24,13 +26,15 @@ class PatientTest < ActiveSupport::TestCase
     assert_equal 5, r.calculation_results.count, 'record should have 5 calculated results. 1 for the proportion measure and 4 for the stratified measure'
   end
 
-  def record_demographics_equal?(r1, r2)
+  def record_demographics_equal?(record1, record2)
+    r1 = record1
+    r2 = record2
     r1.givenNames == r2.givenNames && r1.familyName == r2.familyName && r1.gender == r2.gender &&
       r1.qdmPatient.birthDatetime == r2.qdmPatient.birthDatetime && r1.race['code'] == r2.race['code'] && r1.ethnicity['code'] == r2.ethnicity['code']
   end
 
-  def record_birthyear_equal?(r1, r2)
-    r1.qdmPatient.birthDatetime.year == r2.qdmPatient.birthDatetime.year
+  def record_birthyear_equal?(record1, record2)
+    record1.qdmPatient.birthDatetime.year == record2.qdmPatient.birthDatetime.year
   end
 
   def test_record_duplicate_randomization
@@ -100,8 +104,36 @@ class PatientTest < ActiveSupport::TestCase
     assert birthdate_count < 13
   end
 
-  def test_normalize_relevant_date_time
+  def test_normalize_relevant_date_time2021
+    @bundle.version = '2021.0.0'
+    @bundle.save
+    record = BundlePatient.new(familyName: 'normalize', givenNames: ['datetime'], bundleId: @bundle.id)
+    QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
+    time_value = DateTime.new(2011, 3, 24, 20, 53, 20).utc
+    record.qdmPatient.dataElements << QDM::AssessmentPerformed.new(id: 'assessment', relevantDatetime: time_value)
+    assert_nil record.qdmPatient.dataElements.first.relevantPeriod
+
+    record.normalize_date_times
+    normalized_element = record.qdmPatient.dataElements.first
+    # relevantPeriod should still be nil
+    assert_nil normalized_element.relevantPeriod
+  end
+
+  def test_normalize_relevant_date_time_no_bundle
     record = BundlePatient.new(familyName: 'normalize', givenNames: ['datetime'])
+    QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
+    time_value = DateTime.new(2011, 3, 24, 20, 53, 20).utc
+    record.qdmPatient.dataElements << QDM::AssessmentPerformed.new(id: 'assessment', relevantDatetime: time_value)
+    assert_nil record.qdmPatient.dataElements.first.relevantPeriod
+
+    record.normalize_date_times
+    normalized_element = record.qdmPatient.dataElements.first
+    # relevantPeriod should still be nil
+    assert_nil normalized_element.relevantPeriod
+  end
+
+  def test_normalize_relevant_date_time
+    record = BundlePatient.new(familyName: 'normalize', givenNames: ['datetime'], bundleId: @bundle.id)
     QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     time_value = DateTime.new(2011, 3, 24, 20, 53, 20).utc
     record.qdmPatient.dataElements << QDM::AssessmentPerformed.new(id: 'assessment', relevantDatetime: time_value)
@@ -121,7 +153,7 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   def test_normalize_relevant_period
-    record = BundlePatient.new(familyName: 'normalize', givenNames: ['period'])
+    record = BundlePatient.new(familyName: 'normalize', givenNames: ['period'], bundleId: @bundle.id)
     QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     time_value_start = DateTime.new(2011, 3, 24, 20, 53, 20).utc
     time_value_end = DateTime.new(2011, 3, 25, 20, 53, 20).utc
@@ -144,7 +176,7 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   def test_normalize_relevant_period_low_only
-    record = BundlePatient.new(familyName: 'normalize', givenNames: ['period'])
+    record = BundlePatient.new(familyName: 'normalize', givenNames: ['period'], bundleId: @bundle.id)
     QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     time_value_start = DateTime.new(2011, 3, 24, 20, 53, 20).utc
     time_value_end = nil
@@ -167,7 +199,7 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   def test_normalize_relevant_period_high_only
-    record = BundlePatient.new(familyName: 'normalize', givenNames: ['period'])
+    record = BundlePatient.new(familyName: 'normalize', givenNames: ['period'], bundleId: @bundle.id)
     QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     time_value_start = nil
     time_value_end = DateTime.new(2011, 3, 25, 20, 53, 20).utc
@@ -187,5 +219,26 @@ class PatientTest < ActiveSupport::TestCase
     assert_nil denormalized_element.relevantDatetime
     assert_nil denormalized_element.relevantPeriod.low
     assert_equal time_value_end, denormalized_element.relevantPeriod.high
+  end
+
+  def test_account_for_epoch_time_boundary
+    # Birthdates on 1 January 1970 00:00 UTC will be shifted to 1 January 1970 00:01 UTC to avoid calculation issues
+    record = BundlePatient.new(familyName: 'epoch', givenNames: ['boundary'], bundleId: @bundle.id)
+    epoch_birth_datetime = DateTime.new(1970, 1, 1, 0, 0, 0).utc
+    shifted_birth_datetime = DateTime.new(1970, 1, 1, 0, 0, 1).utc
+    patient_characteristic_birthdate = QDM::PatientCharacteristicBirthdate.new(birthDatetime: epoch_birth_datetime)
+    QDM::Patient.create!(cqmPatient: record, birthDatetime: epoch_birth_datetime, dataElements: [patient_characteristic_birthdate])
+    assert_equal shifted_birth_datetime, record.qdmPatient.birthDatetime
+    assert_equal shifted_birth_datetime, record.qdmPatient.dataElements.first.birthDatetime
+  end
+
+  def test_preserve_birth_datetime
+    # Birthdates not on 1 January 1970 00:00 UTC will be preserved
+    record = BundlePatient.new(familyName: 'non epoch', givenNames: ['boundary'], bundleId: @bundle.id)
+    original_birth_datetime = DateTime.new(1970, 2, 1, 0, 0, 0).utc
+    patient_characteristic_birthdate = QDM::PatientCharacteristicBirthdate.new(birthDatetime: original_birth_datetime)
+    QDM::Patient.create!(cqmPatient: record, birthDatetime: original_birth_datetime, dataElements: [patient_characteristic_birthdate])
+    assert_equal original_birth_datetime, record.qdmPatient.birthDatetime
+    assert_equal original_birth_datetime, record.qdmPatient.dataElements.first.birthDatetime
   end
 end

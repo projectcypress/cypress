@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CMSProgramTask < Task
   include ::Validators
 
@@ -39,6 +41,9 @@ class CMSProgramTask < Task
     return mips_indiv_validators if product_test.cms_program == 'MIPS_INDIV'
     return mips_virtual_group_validators if product_test.cms_program == 'MIPS_VIRTUALGROUP'
     return mips_apm_entity_validators if product_test.cms_program == 'MIPS_APMENTITY'
+    return mips_app_indiv_validators if product_test.cms_program == 'MIPS_APP1_INDIV'
+    return mips_app_group_validators if product_test.cms_program == 'MIPS_APP1_GROUP'
+    return mips_app_entity_validators if product_test.cms_program == 'MIPS_APP1_APMENTITY'
 
     []
   end
@@ -96,9 +101,21 @@ class CMSProgramTask < Task
     ep_validators
   end
 
+  def mips_app_indiv_validators
+    ep_validators
+  end
+
+  def mips_app_group_validators
+    ep_validators
+  end
+
+  def mips_app_entity_validators
+    ep_validators
+  end
+
   # Common validators for EH programs
   def eh_validators
-    [::Validators::CMSQRDA1HQRSchematronValidator.new(product_test.bundle.version, false),
+    [::Validators::CMSQRDA1HQRSchematronValidator.new(product_test.bundle.version, as_warnings: false),
      ::Validators::EncounterValidator.new,
      ::Validators::CoreClinicalDataElementValidator.new(product_test.measures),
      ::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.c3_test, true)]
@@ -106,7 +123,7 @@ class CMSProgramTask < Task
 
   # Common validators for EP programs
   def ep_validators
-    [::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version, false),
+    [::Validators::CMSQRDA3SchematronValidator.new(product_test.bundle.version, as_warnings: false),
      ::Validators::QrdaCat3Validator.new(nil, false, true, false, product_test.bundle),
      Cat3PopulationValidator.new]
   end
@@ -118,9 +135,11 @@ class CMSProgramTask < Task
     program_criteria.each do |criterion_key, criterion_hash|
       description = criterion_hash['description'][product_test.cms_program] || criterion_hash['description'][product_test.reporting_program_type]
       conf = criterion_hash['conf'][product_test.cms_program] || criterion_hash['conf'][product_test.reporting_program_type]
+      is_optional = criterion_hash['optional'] ? true : false
       product_test.program_criteria << ProgramCriterion.new(criterion_key: criterion_key,
                                                             criterion_name: criterion_hash['name'],
                                                             criterion_description: description,
+                                                            criterion_optional: is_optional,
                                                             cms_conf: conf)
     end
   end

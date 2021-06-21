@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   class PatientFilter
     def self.filter(records, filters, options)
@@ -32,13 +34,13 @@ module Cypress
       false
     end
 
-    def self.match_payers(v, patient)
-      patient.payer == v.first
+    def self.match_payers(filter_value, patient)
+      patient.payer == filter_value.first
     end
 
-    def self.check_age(v, patient, params)
-      return true if v.key?('min') && patient.age_at(params[:effective_date]) < v['min']
-      return true if v.key?('max') && patient.age_at(params[:effective_date]) > v['max']
+    def self.check_age(filter_value, patient, params)
+      return true if filter_value.key?('min') && patient.age_at(params[:effective_date]) < filter_value['min']
+      return true if filter_value.key?('max') && patient.age_at(params[:effective_date]) > filter_value['max']
 
       false
     end

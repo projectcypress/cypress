@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Metrics/ClassLength
 class ProductTest
   include Mongoid::Document
@@ -216,6 +218,10 @@ class ProductTest
     tasks.any? && tasks[0].most_recent_execution && tasks[0].most_recent_execution.incomplete?
   end
 
+  def most_recent_task_execution
+    tasks[0].most_recent_execution
+  end
+
   # Are any of the measures in this test a Hybrid measure
   def hybrid_measures?
     !(measures.map(&:hqmf_set_id) & APP_CONSTANTS['result_measures'].map(&:hqmf_set_id)).empty?
@@ -309,7 +315,7 @@ class ProductTest
   # Returns a listing of all ids for patients in the Measure Population
   def patients_in_high_value_populations
     Patient.find(gather_patient_ids).keep_if do |p|
-      p.patient_relevant?(measures.pluck(:_id), %w[NUMER DENEXCEP DENEX])
+      p.patient_relevant?(measures.pluck(:_id), %w[NUMER NUMEX DENEXCEP DENEX])
     end.pluck(:_id)
   end
 
@@ -359,7 +365,7 @@ class ProductTest
     # If there are a lot of patients in the MSRPOPL results above, (usually if there are a lot of MSRPOPLEX values)
     # pull out only those patients with more than one episode in the MSRPOPL
     if msrpopl_ids.count > test_deck_max
-      numer_ids = BundlePatient.where("measure_relevance_hash.#{measures.pluck(:_id).first.to_s}.MSRPOPL": true).pluck(:_id)
+      numer_ids = BundlePatient.where("measure_relevance_hash.#{measures.pluck(:_id).first}.MSRPOPL": true).pluck(:_id)
       numer_ids = numer_ids.sample(test_deck_max)
       msrpopl_ids = numer_ids + msrpopl_ids.sample(test_deck_max - numer_ids.count)
     end

@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module ChecklistTestsHelper
   def disable_qrda_submission?
     # only disable if none of the measures have all good checklist criteria
     @product_test.checked_criteria.group_by(&:measure_id).values.all? { |cc_group| cc_group.any? { |cc| !cc.checklist_complete? } }
   end
 
-  def checklist_test_criteria_attribute(criteria, attribute_index, include_vs = false)
+  def checklist_test_criteria_attribute(criteria, attribute_index, include_vs: false)
     if criteria['dataElementAttributes']&.any? && (attr = criteria['dataElementAttributes'][attribute_index])
       if attr['attribute_valueset'] && include_vs
-        attr['attribute_name'] + ':' + attr['attribute_valueset']
+        "#{attr['attribute_name']}:#{attr['attribute_valueset']}"
       else
         attr['attribute_name']
       end
@@ -19,7 +21,7 @@ module ChecklistTestsHelper
   def available_attributes(criteria)
     criteria['dataElementAttributes'].map do |a|
       composite_name = a['attribute_name']
-      composite_name = composite_name + ':' + a['attribute_valueset'] unless a['attribute_valueset'].nil?
+      composite_name = "#{composite_name}:#{a['attribute_valueset']}" unless a['attribute_valueset'].nil?
       composite_name
     end.sort - ['id']
   end
@@ -36,18 +38,19 @@ module ChecklistTestsHelper
       og_string = dc['description'] if dc == criteria
     end
     dc_hash[og_string] = original_sdc._id.to_s
-    Hash[dc_hash.sort]
+    dc_hash.sort.to_h
   end
 
   # A data criteria cannot be used for subtitution if it is derived (e.g., Occurrence A of), or birthtime
-  def unsubstituable_data_criteria?(cr)
+  def unsubstituable_data_criteria?(data_criteria)
+    cr = data_criteria
     cr['negation'] || cr['definition'] == 'derived' || cr['type'] == 'derived' || (cr['type'] == 'characteristic' && cr['property'] == 'birthtime')
   end
 
   def coded_attribute?(criteria, attribute_index)
-    if criteria['dataElementAttributes']&.any?
-      true if criteria['dataElementAttributes'][attribute_index]['attribute_valueset']
-    end
+    return unless criteria['dataElementAttributes']&.any?
+
+    true if criteria['dataElementAttributes'][attribute_index]['attribute_valueset']
   end
 
   def lookup_valueset_name(oid)

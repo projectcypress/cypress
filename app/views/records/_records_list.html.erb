@@ -1,10 +1,12 @@
 <!-- Only grab measure records and result values once to avoid duplicate queries -->
+<% (pop_set_key = pop_set_key || measure.key_for_population_set(population_set_hash)) if measure %>
 <% if measure && patients.length.positive? %>
-  <% measure_records = records_by_measure(patients, measure, product_test, vendor) %>
+  <% measure_records = records_by_measure(patients, measure, product_test, vendor, pop_set_key) %>
   <% population_keys = measure.population_keys %>
-  <% result_values = get_result_values(patients, [measure], measure.key_for_population_set(population_set_hash), population_keys, 'patient_id') %>
+  <% result_values = get_result_values(patients, [measure], pop_set_key, population_keys, 'patient_id') %>
+  <% observation_values = get_observation_values(patients, [measure], pop_set_key, 'patient_id') %>
 <% end %>
-<h1><%= measure ? measure_display_name(measure, population_set_hash) : 'All' %> Patients</h1>
+<h1><%= measure ? measure_display_name(measure, population_set_hash, pop_set_key) : 'All' %> Patients</h1>
 <% if (measure && measure_records.length.positive?) || (!measure  && patients.length.positive?) %>
 
 <% if @vendor %>
@@ -17,7 +19,7 @@
   <br>
   <br>
 <% end %>
-<table class="table table-condensed table-hover">
+<table class="table table-condensed table-hover patient_table">
   <thead>
     <tr>
       <% if vendor %>
@@ -29,9 +31,16 @@
       <%end%>
       <th scope="col">DOB</th>
       <th scope="col">Gender</th>
+      <% if vendor %>
+        <th scope="col">Last Updated</th>
+      <% end%>
       <% if measure && !hide_patient_calculation?%>
         <% population_keys.each do |population| %>
           <th scope="col" class="text-center"><%= population_label(bundle, population) %></th>
+        <% end %>
+        <!-- If measure calculations include observation_values, include a column to display them. -->
+        <% unless observation_values.values.compact.empty? %>
+          <th scope="col" class="text-center"><%= "OBSERV" %></th>
         <% end %>
       <% end %>
     </tr>
@@ -65,6 +74,7 @@
       :patients => (measure && !product_test) ? measure_records : patients,
       :product_test => product_test,
       :result_values => result_values,
+      :observation_values => observation_values,
       :bundle => bundle,
       :measure => measure,
       :task => task
@@ -82,4 +92,15 @@
     <%= render 'remove_panel', :name => vendor.name, :type => 'Selected Patients', :message => 'Deletion is permanent and cannot be undone. Be sure you want to do this.', :delete_path => destroy_multiple_vendor_records_path(vendor), :action => 'destroy_multiple' %>
   </div>
   <%= render 'action_modal' %>
+
+  <script>
+    $('.patient_table').DataTable({
+      destroy: true,
+      searching: false,
+      paging: true,
+      lengthMenu: [ [ 10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
+      stateSave: true, /* preserves order on reload */
+      info: false
+    });
+  </script>
 <% end%>

@@ -20,7 +20,9 @@
           <% population_keys.each do |population| %>
           <% if population_keys.include? population %>
             <td class="text-center">
-              <%= render 'expected_result_icon', :result => expected_result[population] %>
+              <!-- Find a observation value for the population -->
+              <% observation = expected_result['observations'] ? expected_result['observations'][population] : nil %>
+              <%= render 'expected_result_icon', :result => expected_result[population], :observation => observation %>
             </td>
             <% end %>
           <% end %>

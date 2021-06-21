@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 Faker::Config.locale = 'en-US'
 module Cypress
   # This is a set of helper methods to randomize demographic components of records.  Currently it
   # can randomize name, race, ethnicity, address, and insurance provider.  To randomize all
   # demographics, call Cypress::DemographicsRandomizer.randomize(record)
   class DemographicsRandomizer
-    def self.randomize(patient, prng, patients = [], allow_dups = false)
-      randomize_name(patient, prng, patients, allow_dups)
+    def self.randomize(patient, prng, patients = [], allow_dups: false)
+      randomize_name(patient, prng, patients, allow_dups: allow_dups)
       randomize_race(patient, prng)
       randomize_ethnicity(patient, prng)
       randomize_address(patient)
@@ -13,7 +15,7 @@ module Cypress
     end
 
     # Pass in an array of patients that you would like to maintain uniqueness
-    def self.randomize_name(patient, prng, patients = [], allow_dups = false)
+    def self.randomize_name(patient, prng, patients = [], allow_dups: false)
       used_names = patients.map { |p| "#{p.first_names}-#{p.familyName}" }
       loop_index = 0
       loop do
@@ -72,7 +74,7 @@ module Cypress
         new_ethnicity['code'] = ethnicity_hash['code']
         new_ethnicity['system'] = ethnicity_hash['codeSystem']
         new_ethnicity['codeSystem'] = ethnicity_hash['codeSystemName']
-        new_ethnicity['descriptor'] = ethnicity_hash ['name']
+        new_ethnicity['descriptor'] = ethnicity_hash['name']
         ethnicity_element.first.dataElementCodes << new_ethnicity
         ethnicity_element.first.dataElementCodes.shift # get rid of existing dataElementCode
       else
@@ -114,10 +116,10 @@ module Cypress
       if payer_element&.any? && payer_element.first.dataElementCodes &&
          payer_element.first.dataElementCodes.any?
         new_payer = payer_element.first.dataElementCodes.first
-        new_payer['code'] = payer_hash['code']
+        new_payer['code'] = payer_hash['code'].to_s
         new_payer['system'] = payer_hash['codeSystem']
         new_payer['codeSystem'] = payer_hash['codeSystemName']
-        new_payer['descriptor'] = payer_hash ['name']
+        new_payer['descriptor'] = payer_hash['name']
         payer_element.first.dataElementCodes << new_payer
         payer_element.first.dataElementCodes.shift # get rid of existing dataElementCode
         payer_element.first.relevantPeriod = QDM::Interval.new(get_random_payer_start_date(patient, prng), nil)
@@ -130,10 +132,10 @@ module Cypress
       start_times = patient.qdmPatient.dataElements.map { |de| de.try(:authorDatetime) }.compact
       # Offset is a random date within the same year
       random_offset = prng.rand(365)
-      if !start_times.empty?
-        [start_times.min - random_offset, patient.qdmPatient.birthDatetime].max
-      else
+      if start_times.empty?
         patient.qdmPatient.birthDatetime
+      else
+        [start_times.min - random_offset, patient.qdmPatient.birthDatetime].max
       end
     end
 
@@ -141,9 +143,9 @@ module Cypress
       birth_datetime = patient.birthDatetime
       days_in_month = Time.days_in_month(patient.birthDatetime.month, patient.birthDatetime.year)
       patient.birthDatetime = patient.birthDatetime.change(day: random.rand(days_in_month) + 1) while birth_datetime == patient.birthDatetime
-      if patient.dataElements.where(_type: QDM::PatientCharacteristicBirthdate).first
-        patient.dataElements.where(_type: QDM::PatientCharacteristicBirthdate).first.birthDatetime = patient.birthDatetime
-      end
+      return unless patient.dataElements.where(_type: QDM::PatientCharacteristicBirthdate).first
+
+      patient.dataElements.where(_type: QDM::PatientCharacteristicBirthdate).first.birthDatetime = patient.birthDatetime
     end
 
     def self.sample_payer(patient, prng)
@@ -158,9 +160,15 @@ module Cypress
     # work around for null gender | race | ethnicity
     def self.assign_default_demographics(patient)
       elements = []
-      elements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'codeSystem' => '2.16.840.1.113883.5.1' }]) unless patient&.gender
-      elements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => '2028-9', 'codeSystem' => '2.16.840.1.113883.6.238' }]) unless patient&.race
-      elements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => '2186-5', 'codeSystem' => '2.16.840.1.113883.6.238' }]) unless patient&.ethnicity
+      unless patient&.gender
+        elements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'codeSystem' => '2.16.840.1.113883.5.1' }])
+      end
+      unless patient&.race
+        elements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => '2028-9', 'codeSystem' => '2.16.840.1.113883.6.238' }])
+      end
+      unless patient&.ethnicity
+        elements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => '2186-5', 'codeSystem' => '2.16.840.1.113883.6.238' }])
+      end
       unless patient&.payer
         elements << QDM::PatientCharacteristicPayer.new(dataElementCodes: [{ 'code' => '1', 'codeSystem' => '2.16.840.1.113883.3.221.5' }],
                                                         relevantPeriod: QDM::Interval.new(patient.qdmPatient.birthDatetime, nil))

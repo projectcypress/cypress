@@ -23,12 +23,12 @@ module Validators
     def validate_encounter_time(type, title, encounter, file)
       begin
         val = get_time_value(encounter, type, file)
-      rescue ArgumentError => ae
-        add_error("Encounter #{title} time invalid. #{ae.message}", location: encounter.path, file_name: file)
-        throw ae
+      rescue ArgumentError => e
+        add_error("Encounter #{title} time invalid. #{e.message}", location: encounter.path, file_name: file)
+        throw e
       rescue NoMethodError
         add_error("No encounter #{title} time found.", location: encounter.path, file_name: file) unless encounter.at_xpath('./cda:low/@nullFlavor')
-        throw ae
+        throw e
       end
       val
     end
@@ -52,7 +52,7 @@ module Validators
 
     def get_time_value(time_el, value_el, file)
       timestamp = time_el.at_xpath("./cda:#{value_el}/@value").value
-      if timestamp.length != 19 && timestamp.length != 14
+      unless [12, 14, 19].include? timestamp.length
         case value_el
         when 'low'
           add_error("CMS_0075 - Fails validation check for Encounter Performed Admission Date (effectiveTime/low value)

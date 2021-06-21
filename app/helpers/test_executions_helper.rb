@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 module TestExecutionsHelper
   include TestExecutionsResultsHelper
 
@@ -41,7 +43,7 @@ module TestExecutionsHelper
 
   # returns the number of each type of error
   def get_error_counts(execution)
-    Hash[%w[Errors Warnings].zip(get_error_counts_helper(execution))]
+    %w[Errors Warnings].zip(get_error_counts_helper(execution)).to_h
   end
 
   def get_error_counts_helper(execution)
@@ -113,7 +115,7 @@ module TestExecutionsHelper
 
   def file_name_and_error_result_from_files(files, file_name)
     [files.first[0], files.first[1]]
-  rescue
+  rescue StandardError
     raise Mongoid::Errors::DocumentNotFound.new Cypress::ErrorCollector::FileNotFound, "could not find results for file #{file_name}"
   end
 

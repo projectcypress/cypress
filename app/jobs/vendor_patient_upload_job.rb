@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VendorPatientUploadJob < ApplicationJob
   include Job::Status
   include ::CqmValidators
@@ -27,7 +29,7 @@ class VendorPatientUploadJob < ApplicationJob
       generate_calculations(patients, bundle, vendor_id)
       PatientAnalysisJob.perform_later(bundle.id.to_s, vendor_id)
     end
-
+    File.delete(file)
     raise failed_files.to_s unless failed_files.empty?
   end
 
@@ -46,6 +48,8 @@ class VendorPatientUploadJob < ApplicationJob
         failed_files[name] = patient_or_errors
       end
     end
+    # Remove the file that is store when creating the artifact. We also want to remove the folder
+    FileUtils.rm_rf(File.dirname(artifact.file.path))
 
     [patients, failed_files]
   end
@@ -90,9 +94,9 @@ class VendorPatientUploadJob < ApplicationJob
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, bundle)
       Cypress::QRDAPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
       patient.save
-      return [true, patient]
-    rescue => e
-      return [false, e.to_s]
+      [true, patient]
+    rescue StandardError => e
+      [false, e.to_s]
     end
   end
 

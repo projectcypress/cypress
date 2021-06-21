@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChecklistSourceDataCriteria
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
@@ -85,7 +87,7 @@ class ChecklistSourceDataCriteria
 
     attr = criteria['dataElementAttributes'][attribute_index]
     comp_str = attr['attribute_name']
-    comp_str = comp_str + ':' + attr['attribute_valueset'] if attr['attribute_valueset']
+    comp_str = "#{comp_str}:#{attr['attribute_valueset']}" if attr['attribute_valueset']
     replacement_attribute != comp_str
   end
 
@@ -109,19 +111,19 @@ class ChecklistSourceDataCriteria
 
   def attribute_code_matches_valueset?
     # validate if an attribute_code is required and is correct
-    if attribute_code.present?
-      measure = Measure.find_by(_id: measure_id)
-      valueset = source_data_criteria['dataElementAttributes'][attribute_index]['attribute_valueset'] if source_data_criteria['dataElementAttributes']
-      self.attribute_complete = code_in_valuesets(valueset, attribute_code, measure.bundle_id)
-    end
+    return unless attribute_code.present?
+
+    measure = Measure.find_by(_id: measure_id)
+    valueset = source_data_criteria['dataElementAttributes'][attribute_index]['attribute_valueset'] if source_data_criteria['dataElementAttributes']
+    self.attribute_complete = code_in_valuesets(valueset, attribute_code, measure.bundle_id)
   end
 
   def code_matches_valueset?
     # validate if an code is required and is correct
-    if code
-      valuesets = get_all_valuesets_for_dc(measure_id)
-      self.code_complete = code_in_valuesets(valuesets, code, Measure.find_by(_id: measure_id).bundle_id)
-    end
+    return unless code
+
+    valuesets = get_all_valuesets_for_dc(measure_id)
+    self.code_complete = code_in_valuesets(valuesets, code, Measure.find_by(_id: measure_id).bundle_id)
   end
 
   def printable_name

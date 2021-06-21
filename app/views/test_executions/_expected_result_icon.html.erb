@@ -1,7 +1,9 @@
 <% if result && result.positive? %>
   <span class="sr-only">Pass</span>
   <span class="result-marker">
-    <strong class="result-text-positive-contrast"><span class="sr-only">value of </span><%= result %></strong>
+    <!-- If there is an observed value for the population, include it paranthetically -->
+    <% result_string = observation ? "#{result}  (#{observation['value']})" : result %>
+    <strong class="result-text-positive-contrast"><span class="sr-only">value of </span><%= result_string %></strong>
   </span>
 <% else %>
   <span class="sr-only">Fail</span>

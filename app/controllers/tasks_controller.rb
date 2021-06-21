@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
   include API::Controller
 
@@ -36,6 +38,7 @@ class TasksController < ApplicationController
 
   def good_results
     redirect_back(fallback_location: root_path) && return unless Settings.current.enable_debug_features
+
     task_type = @task._type
     redirect_back(fallback_location: root_path) && return if %w[C3Cat1Task C3Cat3Task].include? task_type
 
@@ -61,7 +64,7 @@ class TasksController < ApplicationController
 
   def task_type(type)
     type.camelize.constantize
-  rescue
+  rescue StandardError
     raise TypeNotFound, "#{type} could not be created"
   end
 end

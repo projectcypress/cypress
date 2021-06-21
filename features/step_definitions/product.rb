@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 include ProductsHelper
 
 # # # # # # # # # # #
@@ -380,11 +382,11 @@ When(/^the user switches to the record sample tab$/) do
 end
 
 When(/^the user switches to the c1 measure test tab$/) do
-  page.find(:xpath, "//a[@href=\"##{html_id_for_tab(@product, 'MeasureTest', true)}\"]").click
+  page.find(:xpath, "//a[@href=\"##{html_id_for_tab(@product, 'MeasureTest', is_qrda_1_measure_test: true)}\"]").click
 end
 
 When(/^the user switches to the c2 measure test tab$/) do
-  page.find(:xpath, "//a[@href=\"##{html_id_for_tab(@product, 'MeasureTest', false)}\"]").click
+  page.find(:xpath, "//a[@href=\"##{html_id_for_tab(@product, 'MeasureTest', is_qrda_1_measure_test: false)}\"]").click
 end
 
 When(/^the user switches to the filtering test tab$/) do
@@ -524,9 +526,9 @@ Then(/^the user should see the the appropriate tabs$/) do
     assert_tab_and_content_exist(title, description, html_id)
   end
   if @product.c2_test
-    title, description, html_id = title_description_and_html_id_for(@product, 'MeasureTest', true)
+    title, description, html_id = title_description_and_html_id_for(@product, 'MeasureTest', is_qrda_1_measure_test: true)
     assert_tab_and_content_exist(title, description, html_id) if @product.c1_test
-    title, description, html_id = title_description_and_html_id_for(@product, 'MeasureTest', false)
+    title, description, html_id = title_description_and_html_id_for(@product, 'MeasureTest', is_qrda_1_measure_test: false)
     assert_tab_and_content_exist(title, description, html_id)
   end
   if @product.c4_test
@@ -550,11 +552,11 @@ Then(/^"(.*)" checkbox should be (\w*)$/) do |element, state|
   case state
   when 'enabled', 'disabled'
     # Convert state from disabled/enabled to true/false
-    state = state.eql?('disabled') ? true : false
+    state = state.eql?('disabled')
     result = checkbox.disabled?
   when 'checked', 'unchecked'
     # Convert state from checked/unchecked to true/false
-    state = state.eql?('checked') ? true : false
+    state = state.eql?('checked')
     result = checkbox.checked?
   end
   assert_equal state, result
@@ -647,30 +649,19 @@ Then(/^the product value for (.*) should be (.*)$/) do |method, value|
 end
 
 def task_status_to_execution_status_message(task_status)
-  case task_status
-  when 'passing'
-    'Passed'
-  when 'failing'
-    'Failed'
-  when 'testing'
-    'In Progress'
-  when 'errored'
-    'Errored'
-  when 'incomplete'
-    'Not Started'
-  end
+  status_description = { 'passing' => 'Passed',
+                         'failing' => 'Failed',
+                         'testing' => 'In Progress',
+                         'errored' => 'Errored',
+                         'incomplete' => 'Not Started' }
+  status_description[task_status]
 end
 
 # task status should be one of 'testing', 'passing', 'failing'
 def task_status_to_task_link_text(task_status)
-  case task_status
-  when 'passing'
-    'view'
-  when 'failing'
-    'retry'
-  when 'testing'
-    'testing...'
-  when 'incomplete'
-    'start'
-  end
+  status_description = { 'passing' => 'view',
+                         'failing' => 'retry',
+                         'testing' => 'testing...',
+                         'incomplete' => 'start' }
+  status_description[task_status]
 end

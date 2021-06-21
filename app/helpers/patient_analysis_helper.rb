@@ -1,11 +1,6 @@
-module PatientAnalysisHelper
-  def collate_element_data(de, de_types_found, codes_found)
-    de_types_found.add(de._type)
-    code_array = de.dataElementCodes
-    code_array.concat(collate_attribute_codes(de))
-    codes_found.merge(code_array)
-  end
+# frozen_string_literal: true
 
+module PatientAnalysisHelper
   def collate_vs_info(codes_found, value_sets_found, vs_codes_found)
     codes_found.each do |dec|
       # find all valuesets that contain data element code
@@ -18,18 +13,6 @@ module PatientAnalysisHelper
     end
   end
 
-  def collate_attribute_codes(de)
-    attribute_codes = []
-    %w[
-      admissionSource anatomicalLocationSite category cause dischargeDisposition frequency
-      medium negationRationale ordinality principalDiagnosis reason recipient relationship
-      route sender setting severity status type
-    ].each do |attribute_name|
-      attribute_codes << de[attribute_name] if de[attribute_name] && de[attribute_name]['code']
-    end
-    attribute_codes.compact
-  end
-
   def collate_patient_data
     measures_found = Set[]
     codes_found = Set[]
@@ -39,9 +22,8 @@ module PatientAnalysisHelper
 
     @patients.each do |p|
       measures_found.merge(p.measure_relevance_hash.keys)
-      p.qdmPatient.dataElements.each do |de|
-        collate_element_data(de, de_types_found, codes_found)
-      end
+      p.qdmPatient.dataElements.each { |de| de_types_found.add(de._type) }
+      codes_found.merge(p.code_description_hash.keys.map { |cdh| { code: cdh.split(':')[0].tr('_', '.'), system: cdh.split(':')[1].tr('_', '.') } })
     end
     collate_vs_info(codes_found, value_sets_found, vs_codes_found)
     [measures_found, de_types_found, value_sets_found, vs_codes_found]
@@ -62,7 +44,7 @@ module PatientAnalysisHelper
         remove_hit_populations(ir, un_hit_populations) unless un_hit_populations[measure].length.zero?
         next if un_hit_clauses[measure].length.zero?
 
-        hit_clauses = ir.clause_results.where(final: 'TRUE').map { |cl| cl.library_name + '_' + cl.localId }
+        hit_clauses = ir.clause_results.where(final: 'TRUE').map { |cl| "#{cl.library_name}_#{cl.localId}" }
         un_hit_clauses[measure] -= hit_clauses
       end
     end
@@ -105,7 +87,7 @@ module PatientAnalysisHelper
         clauses.each do |clause|
           next if ignore_clause_result(clause)
 
-          key = clause.library_name + '_' + clause.localId
+          key = "#{clause.library_name}_#{clause.localId}"
           possible_clauses[measure_id] << key
         end
       end

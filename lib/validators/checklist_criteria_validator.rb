@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # require "cypress/qrda_file_validator"
 
 module Validators
@@ -89,6 +91,21 @@ module Validators
     def confirm_qdm_type_have_contents(attribute, checked_criteria)
       # Return false if no attribute is not passed in
       return false unless attribute
+      return verify_code_attribute(attribute, checked_criteria) if attribute.is_a? QDM::Code
+      return verify_component_attribute(attribute, checked_criteria) if attribute.is_a? QDM::Component
+      return verify_dx_component_attribute(attribute, checked_criteria) if attribute.is_a? QDM::DiagnosisComponent
+      return verify_id_attribute(attribute) if attribute.is_a? QDM::Identifier
+      return verify_interval_attribute(attribute) if attribute.is_a? QDM::Interval
+      return verify_facility_location_attribute(attribute, checked_criteria) if attribute.is_a? QDM::FacilityLocation
+      return verify_quantity_attribute(attribute) if attribute.is_a? QDM::Quantity
+      return verify_entity_attribute(attribute) if attribute.is_a? QDM::Entity
+      return verify_ratio_attribute(attribute) if attribute.is_a? QDM::Ratio
+
+      # If above are all passed, the type might be an Any type.  perform checks using ._type
+      confirm_any_types(attribute, checked_criteria)
+    end
+
+    def confirm_any_types(attribute, checked_criteria)
       return verify_code_attribute(attribute, checked_criteria) if attribute._type == 'QDM::Code'
       return verify_component_attribute(attribute, checked_criteria) if attribute._type == 'QDM::Component'
       return verify_dx_component_attribute(attribute, checked_criteria) if attribute._type == 'QDM::DiagnosisComponent'
@@ -107,10 +124,10 @@ module Validators
 
     def verify_code_attribute(attribute, checked_criteria)
       # If a attribute_code is specified in the checked_criteria (i.e., filled in the Record Sample Form) make sure it matches
-      return attribute[:code] == checked_criteria['attribute_code'] if checked_criteria['attribute_code']
+      return attribute.code == checked_criteria['attribute_code'] if checked_criteria['attribute_code']
 
       # If a attribute_code is not specified in the checked_criteria (i.e., filled in the Record Sample Form) make any code is there
-      !attribute[:code].nil?
+      !attribute.code.nil?
     end
 
     def verify_component_attribute(attribute, checked_criteria)
@@ -125,20 +142,20 @@ module Validators
 
     def verify_id_attribute(attribute)
       # An id attribute should have (at a minimum) a 'value' value
-      !attribute[:value].nil?
+      !attribute.value.nil?
     end
 
     def verify_interval_attribute(attribute)
       # An interval attribute should have (at a minimum) a 'low' value
-      !attribute[:low].nil?
+      !attribute.low.nil?
     end
 
     def verify_facility_location_attribute(attribute, checked_criteria)
       # If a attribute_code is specified in the checked_criteria (i.e., filled in the Record Sample Form) make sure it matches
-      return attribute['code'][:code] == checked_criteria['attribute_code'] if checked_criteria['attribute_code']
+      return attribute.code.code == checked_criteria['attribute_code'] if checked_criteria['attribute_code']
 
       # If a attribute_code is not specified in the checked_criteria (i.e., filled in the Record Sample Form) make any code is there
-      !attribute['code'].nil?
+      !attribute.code.nil?
     end
 
     def verify_entity_attribute(attribute)
@@ -148,12 +165,12 @@ module Validators
 
     def verify_quantity_attribute(attribute)
       # An quantity attribute should have (at a minimum) a 'value' value
-      !attribute[:value].nil?
+      !attribute.value.nil?
     end
 
     def verify_ratio_attribute(attribute)
       # An ratio attribute should have (at a minimum) a 'denominator' value
-      !attribute[:denominator].nil?
+      !attribute.denominator.nil?
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   class DataCriteriaAttributeBuilder
     def build_data_criteria_for_measure(measure)
@@ -36,9 +38,8 @@ module Cypress
           end
         end
         update_measure_data_criteria
-      rescue
-        # This parser can be brittle, not the end of the world to return without parsing attributes
-        return
+      rescue StandardError
+        # Do nothing
       end
     end
 
@@ -179,10 +180,10 @@ module Cypress
         @alias_hash[library_id][expression_id][current_hash['scope']]['name']
       # if scope of current_hash has an valueset associated with it, use that
       elsif !@alias_hash[library_id][expression_id][current_hash['scope']]['codes'].nil?
-        if !@alias_hash[library_id][expression_id][current_hash['scope']]['codes']['name'].nil?
-          @alias_hash[library_id][expression_id][current_hash['scope']]['codes']['name']
-        else
+        if @alias_hash[library_id][expression_id][current_hash['scope']]['codes']['name'].nil?
           @alias_hash[library_id][expression_id][current_hash['scope']]['codes']['operand']['name']
+        else
+          @alias_hash[library_id][expression_id][current_hash['scope']]['codes']['name']
         end
         # if scope of current_hash has an union associated with it, use that
       elsif @alias_hash[library_id][expression_id][current_hash['scope']]['type'] == 'Union'
@@ -363,12 +364,12 @@ module Cypress
 
     def parse_statement_for_aliases(statement, library_id)
       # If statement has a local id create hashes for statement
-      if statement['localId']
-        @alias_hash[library_id][statement['localId']] = {}
-        @alias_expression_hash[library_id][statement['localId']] = {}
-        # find all aliases in a given statment
-        find_alias_values(statement, statement['localId'], library_id)
-      end
+      return unless statement['localId']
+
+      @alias_hash[library_id][statement['localId']] = {}
+      @alias_expression_hash[library_id][statement['localId']] = {}
+      # find all aliases in a given statment
+      find_alias_values(statement, statement['localId'], library_id)
     end
 
     def find_alias_values(statement_hash, expression_id, library_id)

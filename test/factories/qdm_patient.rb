@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :qdm_patient, class: QDM::Patient do
     qdmVersion { '5.4' }

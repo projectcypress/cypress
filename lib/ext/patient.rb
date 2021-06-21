@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 # The Patient model is an extension of app/models/qdm/patient.rb as defined by CQM-Models.
 
 module CQM
   class Patient
+    include Mongoid::Timestamps
     field :correlation_id, type: BSON::ObjectId
     field :original_patient_id, type: BSON::ObjectId
     field :original_medical_record_number, type: String
@@ -20,6 +23,8 @@ module CQM
     # for the purposes of testing but blocks us from saving them to the database to ensure
     # every patient actually in the database is of a valid type.
     validates :_type, inclusion: %w[CQM::BundlePatient CQM::VendorPatient CQM::ProductTestPatient CQM::TestExecutionPatient]
+
+    before_save :account_for_epoch_time_zero
 
     after_initialize do
       self[:addresses] ||= [CQM::Address.new(
@@ -118,9 +123,9 @@ module CQM
 
     def gender
       gender_chars = qdmPatient.get_data_elements('patient_characteristic', 'gender')
-      if gender_chars&.any? && gender_chars.first.dataElementCodes && gender_chars.first.dataElementCodes.any?
-        gender_chars.first.dataElementCodes.first['code']
-      end
+      return unless gender_chars&.any? && gender_chars.first.dataElementCodes && gender_chars.first.dataElementCodes.any?
+
+      gender_chars.first.dataElementCodes.first['code']
     end
 
     def race
@@ -145,6 +150,9 @@ module CQM
     # This is used to normalize for eCQM calculations that may use one or the other
     # The denormalize_as_datetime flag is used by the "denormalize_date_times" to return the record to the original state
     def normalize_date_times
+      # normalization is only necessary for the 2020 bundles
+      return unless bundle&.major_version == '2020'
+
       qdmPatient.dataElements.each do |de|
         next unless de.respond_to?(:relevantDatetime) && de.respond_to?(:relevantPeriod)
 
@@ -162,6 +170,9 @@ module CQM
     # "normalize_date_times" add a flag "denormalize_as_datetime" to indicate if a dataElement originally used relevantDatetime
     # using that flag, return record to the original state
     def denormalize_date_times
+      # normalization is only necessary for the 2020 bundles
+      return unless bundle&.major_version == '2020'
+
       qdmPatient.dataElements.each do |de|
         next unless de.respond_to?(:relevantDatetime) && de.respond_to?(:relevantPeriod)
 
@@ -192,7 +203,8 @@ module CQM
         lt.encounter_id = encounter_id_for_event(encounter_times, lt.resultDatetime)
       end
       qdmPatient.get_data_elements('physical_exam', 'performed').each do |pe|
-        pe.encounter_id = encounter_id_for_event(encounter_times, pe.relevantDatetime)
+        event_time = pe.relevantDatetime || pe.relevantPeriod&.low
+        pe.encounter_id = encounter_id_for_event(encounter_times, event_time)
       end
     end
 
@@ -251,6 +263,17 @@ module CQM
       Cypress::QRDAPostProcessor.remove_telehealth_encounters(self, codes_modifiers, warnings, ineligible_measures) unless codes_modifiers.empty?
       save
       warnings
+    end
+
+    # Birthdate times at the epoch time boundary throws off the cql-calculation engine, workaround to add 1 second to the birthtime.
+    def account_for_epoch_time_zero
+      return unless qdmPatient.birthDatetime
+      return unless qdmPatient.birthDatetime.to_i.zero?
+
+      qdmPatient.birthDatetime = qdmPatient.birthDatetime.change(sec: 1)
+      return unless qdmPatient.dataElements.where(_type: QDM::PatientCharacteristicBirthdate).first
+
+      qdmPatient.dataElements.where(_type: QDM::PatientCharacteristicBirthdate).first.birthDatetime = qdmPatient.birthDatetime
     end
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   class UsersController < AdminController
     def index
@@ -40,10 +42,10 @@ module Admin
 
     def destroy
       @user = User.find(params[:id])
-      if @user.destroy
-        flash[:notice] = 'Successfully deleted User.'
-        redirect_to_admin
-      end
+      return unless @user.destroy
+
+      flash[:notice] = 'Successfully deleted User.'
+      redirect_to_admin
     end
 
     private

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MeasuresController < ApplicationController
   include API::Controller
 

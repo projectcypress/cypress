@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :bundle do
   namespace :eval do
     task setup: :environment
@@ -34,7 +36,7 @@ namespace :bundle do
               calc_diffs = false
               # Set up ecm-execution
               effective_date = Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number)
-              options = { 'effectiveDate': effective_date }
+              options = { effectiveDate: effective_date }
               # create a new patient to calculate with the individual data element code and compare with the existing patient results;
               # any differences in calculation are noted as a crosswalk issue
               cw_patient = patient.clone
@@ -67,9 +69,9 @@ namespace :bundle do
     You must identify two bundle versions:
 
     $ rake bundle:eval:compare_calculations[xxxx.x.x,xxxx.x.x])
-    task :compare_calculations, %i[bundle_version_1 bundle_version_2] => :setup do |_, args|
-      first_bundle = Bundle.where(version: args.bundle_version_1).first
-      second_bundle = Bundle.where(version: args.bundle_version_2).first
+    task :compare_calculations, %i[bundle_version1 bundle_version2] => :setup do |_, args|
+      first_bundle = Bundle.where(version: args.bundle_version1).first
+      second_bundle = Bundle.where(version: args.bundle_version2).first
       CSV.open('tmp/compare_calculations.csv', 'w', col_sep: '|') do |csv|
         # Iterate through all patients in both bundles to catch instances where calculations may be nonexistent on one of the bundles
         first_bundle.patients.each do |first_patient|

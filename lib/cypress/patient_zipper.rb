@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'builder'
 require 'csv'
 require 'open-uri'
@@ -25,9 +27,7 @@ module Cypress
   end
 
   class QRDAExporter
-    attr_accessor :measures
-    attr_accessor :start_time
-    attr_accessor :end_time
+    attr_accessor :measures, :start_time, :end_time
 
     def initialize(measures, start_time, end_time)
       @measures = measures
@@ -46,10 +46,7 @@ module Cypress
                   patient_telecoms: patient.telecoms,
                   submission_program: cat1_submission_program,
                   start_time: start_time, end_time: end_time }
-      case patient.bundle.qrda_version
-      when 'r5_2'
-        Qrda1R5.new(patient, measures, options).render
-      end
+      Qrda1R5.new(patient, measures, options).render
     end
   end
 
@@ -82,7 +79,7 @@ module Cypress
     end
 
     def self.apply_sort_to(patients)
-      patients.sort_by { |p| p.givenNames.join('_') + '_' + p.familyName }
+      patients.sort_by { |p| "#{p.givenNames.join('_')}_#{p.familyName}" }
     end
 
     def self.measure_start_end(patients)

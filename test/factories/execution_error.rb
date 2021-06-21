@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :execution_error, class: ExecutionError do
     test_execution

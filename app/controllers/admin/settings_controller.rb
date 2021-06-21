@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   class SettingsController < AdminController
     def show
@@ -18,20 +20,22 @@ module Admin
     private
 
     def update_application_mode(mode_name, options = {})
-      if mode_name == 'internal'
+      case mode_name
+      when 'internal'
         mode_internal
-      elsif mode_name == 'demo'
+      when 'demo'
         mode_demo
-      elsif mode_name == 'atl'
+      when 'atl'
         mode_atl
-      elsif mode_name == 'custom'
+      when 'custom'
         mode_custom options
       end
     end
 
     def update_settings
       params.permit(:banner, :umls, :http_proxy, :website_domain, :website_port, :banner_message, :warning_message,
-                    :mailer_address, :mailer_port, :mailer_domain, :mailer_user_name, :mailer_password)
+                    :mailer_address, :mailer_port, :mailer_domain, :mailer_user_name, :mailer_password, :api_documentation,
+                    :api_documentation_path)
     end
   end
 end

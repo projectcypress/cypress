@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 class QrdaCat1ValidatorTest < ActiveSupport::TestCase
   include ::Validators
@@ -63,8 +65,8 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
     measure.save
 
     # create gestational age code that can be found in fixture patient file
-    vs = ValueSet.new('oid': 'drc-4c33d7b8f32e35a207115db38533831b6f4ecd2459f3921a33641217cb04b75b', 'bundle_id': @product_test.bundle._id)
-    vs.concepts = [Concept.new('code': '76516-4')]
+    vs = ValueSet.new(oid: 'drc-4c33d7b8f32e35a207115db38533831b6f4ecd2459f3921a33641217cb04b75b', bundle_id: @product_test.bundle._id)
+    vs.concepts = [Concept.new(code: '76516-4')]
     vs.save
 
     @calc_validator_with_c3 = CalculatingSmokingGunValidator.new([measure], @product_test.patients, @product_test.id, measure_ids: ['temp_id'])
@@ -86,8 +88,8 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
     measure.save
 
     # create gestational age code that can be found in fixture patient file
-    vs = ValueSet.new('oid': 'drc-4c33d7b8f32e35a207115db38533831b6f4ecd2459f3921a33641217cb04b75b', 'bundle_id': @product_test.bundle._id)
-    vs.concepts = [Concept.new('code': '76516-4')]
+    vs = ValueSet.new(oid: 'drc-4c33d7b8f32e35a207115db38533831b6f4ecd2459f3921a33641217cb04b75b', bundle_id: @product_test.bundle._id)
+    vs.concepts = [Concept.new(code: '76516-4')]
     vs.save
 
     @calc_validator_with_c3 = CalculatingSmokingGunValidator.new([measure], @product_test.patients, @product_test.id, measure_ids: ['temp_id'])
@@ -109,8 +111,8 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
     measure.save
 
     # create gestational age code that can be found in fixture patient file
-    vs = ValueSet.new('oid': 'drc-4c33d7b8f32e35a207115db38533831b6f4ecd2459f3921a33641217cb04b75b', 'bundle_id': @product_test.bundle._id)
-    vs.concepts = [Concept.new('code': '76516-4')]
+    vs = ValueSet.new(oid: 'drc-4c33d7b8f32e35a207115db38533831b6f4ecd2459f3921a33641217cb04b75b', bundle_id: @product_test.bundle._id)
+    vs.concepts = [Concept.new(code: '76516-4')]
     vs.save
 
     @calc_validator_with_c3 = CalculatingSmokingGunValidator.new([measure], @product_test.patients, @product_test.id, measure_ids: ['temp_id'])
@@ -139,8 +141,8 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
     measure.save
 
     # create gestational age code that can be found in fixture patient file
-    vs = ValueSet.new('oid': 'drc-4c33d7b8f32e35a207115db38533831b6f4ecd2459f3921a33641217cb04b75b', 'bundle_id': @product_test.bundle._id)
-    vs.concepts = [Concept.new('code': '76516-4')]
+    vs = ValueSet.new(oid: 'drc-4c33d7b8f32e35a207115db38533831b6f4ecd2459f3921a33641217cb04b75b', bundle_id: @product_test.bundle._id)
+    vs.concepts = [Concept.new(code: '76516-4')]
     vs.save
 
     @calc_validator_with_c3 = CalculatingSmokingGunValidator.new([measure], @product_test.patients, @product_test.id, measure_ids: ['temp_id'])

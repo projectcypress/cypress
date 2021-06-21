@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :cqm_individual_result, class: CQM::IndividualResult do
     measure_id { Measure.find_by(hqmf_id: '40280382-5FA6-FE85-0160-0918E74D2075')._id }

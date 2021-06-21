@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BundlesController < ApplicationController
   include API::Controller
   respond_to :xml, :json

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 class MultiMeasureTestTest < ActiveJob::TestCase
   def setup
@@ -17,7 +19,7 @@ class MultiMeasureTestTest < ActiveJob::TestCase
   end
 
   def test_multi_measure_test_creation_with_two_ep
-    measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE', '40280382-5FA6-FE85-0160-0918E74D2075']
+    measure_ids = %w[BE65090C-EB1F-11E7-8C3F-9A214CF093AE 40280382-5FA6-FE85-0160-0918E74D2075]
     product = @vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
                                       bundle_id: @bundle.id)
 
@@ -30,10 +32,10 @@ class MultiMeasureTestTest < ActiveJob::TestCase
 
   def test_multi_measure_test_creation_with_two_ep_two_eh
     setup_extra_measures
-    measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE',
-                   '40280382-5FA6-FE85-0160-0918E74D2075',
-                   'AE65090C-EB1F-11E7-8C3F-9A214CF093AE',
-                   '50280382-5FA6-FE85-0160-0918E74D2075']
+    measure_ids = %w[BE65090C-EB1F-11E7-8C3F-9A214CF093AE
+                     40280382-5FA6-FE85-0160-0918E74D2075
+                     AE65090C-EB1F-11E7-8C3F-9A214CF093AE
+                     50280382-5FA6-FE85-0160-0918E74D2075]
     product = @vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
                                       bundle_id: @bundle.id)
 

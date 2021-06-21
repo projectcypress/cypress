@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 class Cat3PopulationValidatorTest < ActiveSupport::TestCase
   include ::Validators

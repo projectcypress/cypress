@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'cqm-parsers'
 
 module Cypress
@@ -16,7 +18,7 @@ module Cypress
     #
     # @param [File] zip The bundle zip file.
 
-    def self.import(zip, tracker, include_highlighting = false)
+    def self.import(zip, tracker, include_highlighting: false)
       bundle = nil
       Zip::ZipFile.open(zip.path) do |zip_file|
         bundle = unpack_bundle(zip_file)
@@ -30,7 +32,7 @@ module Cypress
         unpack_and_store_measures(zip_file, bundle)
         bundle.collect_codes_by_qdm_category
         unpack_and_store_cqm_patients(zip_file, bundle)
-        calculate_results(bundle, tracker, include_highlighting) unless unpack_and_store_calcuations(zip_file, bundle, tracker)
+        calculate_results(bundle, tracker, include_highlighting: include_highlighting) unless unpack_and_store_calcuations(zip_file, bundle, tracker)
       end
 
       bundle
@@ -57,7 +59,7 @@ module Cypress
       end
       unpack_and_store_individual_results(zip, bundle, patient_id_mapping, measure_id_mapping, tracker)
       true
-    rescue
+    rescue StandardError
       false
     end
 
@@ -127,7 +129,7 @@ module Cypress
         FileUtils.rm_f(temp_file_path)
         measure_package_zipped.extract(temp_file_path)
         measure_package = File.new temp_file_path
-        cms_id = measure_package_zipped.name[%r{measures\/(.*?)v}m, 1]
+        cms_id = measure_package_zipped.name[%r{measures/(.*?)v}m, 1]
         measure_details = { 'episode_of_care' => measure_info[cms_id].episode_of_care }
         loader = Measures::CqlLoader.new(measure_package, measure_details)
         # will return an array of CQMMeasures, most of the time there will only be a single measure
@@ -176,13 +178,13 @@ module Cypress
 
     def self.report_progress(label, percent)
       print "\rLoading: #{label} #{percent}% complete"
-      STDOUT.flush
+      $stdout.flush
     end
 
-    def self.calculate_results(bundle, tracker, include_highlighting = false)
+    def self.calculate_results(bundle, tracker, include_highlighting: false)
       patient_ids = bundle.patients.map { |p| p.id.to_s }
       effective_date = Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number)
-      options = { 'effectiveDate': effective_date, 'includeClauseResults': include_highlighting }
+      options = { effectiveDate: effective_date, includeClauseResults: include_highlighting }
       if include_highlighting
         calculate_results_with_highlighting(bundle, patient_ids, tracker, options)
       else

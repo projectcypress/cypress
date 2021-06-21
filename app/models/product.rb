@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Product
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
@@ -135,12 +137,12 @@ class Product
 
   # builds a checklist test if product does not have a checklist test
   def add_checklist_test
-    if product_tests.checklist_tests.empty? && c1_test
-      checklist_test = product_tests.create!({ name: 'c1 visual', measure_ids: measure_ids }, ChecklistTest)
-      checklist_test.create_checked_criteria
-      checklist_test.tasks.create!({}, C1ChecklistTask)
-      checklist_test.tasks.create!({}, C3ChecklistTask) if c3_test
-    end
+    return unless product_tests.checklist_tests.empty? && c1_test
+
+    checklist_test = product_tests.create!({ name: 'c1 visual', measure_ids: measure_ids }, ChecklistTest)
+    checklist_test.create_checked_criteria
+    checklist_test.tasks.create!({}, C1ChecklistTask)
+    checklist_test.tasks.create!({}, C3ChecklistTask) if c3_test
   end
 
   def self.most_recent
@@ -173,10 +175,10 @@ class Product
       product_tests.where(name: 'EH Measures').destroy
       product_tests.build({ name: 'EH Measures', measure_ids: eh_ids, reporting_program_type: 'eh' }, MultiMeasureTest)
     end
-    if build_ep
-      product_tests.where(name: 'EP Measures').destroy
-      product_tests.build({ name: 'EP Measures', measure_ids: ep_ids, reporting_program_type: 'ep' }, MultiMeasureTest)
-    end
+    return unless build_ep
+
+    product_tests.where(name: 'EP Measures').destroy
+    product_tests.build({ name: 'EP Measures', measure_ids: ep_ids, reporting_program_type: 'ep' }, MultiMeasureTest)
   end
 
   # eh_ids: eh measure to include in a multimeasure test
@@ -185,22 +187,26 @@ class Product
   # build_ep: whethter or not you should build a new mulitmeasure test (e.g., a test was updated with new ep measures)
   def add_cms_program_tests(eh_ids, build_eh, ep_ids, build_ep)
     # don't rebuild if eh cms_program_tests already exist
-    if build_eh && product_tests.cms_program_tests.where(reporting_program_type: 'eh').empty?
-      # if no eh_ids remain, remove exiting test
-      product_tests.cms_program_tests.where(reporting_program_type: 'eh').destroy if eh_ids.empty?
-      CMS_IG_CONFIG['CMS Programs']['eh'].each do |cms_program|
-        product_tests.build({ name: "#{cms_program} Test", cms_program: cms_program, measure_ids: eh_ids,
-                              reporting_program_type: 'eh' }, CMSProgramTest)
-      end
+    add_eh_tests(eh_ids) if build_eh && product_tests.cms_program_tests.where(reporting_program_type: 'eh').empty?
+    # don't rebuild if ep cms_program_tests already exist
+    add_ep_tests(ep_ids) if build_ep && product_tests.cms_program_tests.where(reporting_program_type: 'ep').empty?
+  end
+
+  def add_eh_tests(eh_ids)
+    # if no eh_ids remain, remove exiting test
+    product_tests.cms_program_tests.where(reporting_program_type: 'eh').destroy if eh_ids.empty?
+    CMS_IG_CONFIG['CMS Programs']['eh'][bundle.major_version]&.each do |cms_program|
+      product_tests.build({ name: "#{cms_program} Test", cms_program: cms_program, measure_ids: eh_ids,
+                            reporting_program_type: 'eh' }, CMSProgramTest)
     end
-    # don't rebuild if eh cms_program_tests already exist
-    if build_ep && product_tests.cms_program_tests.where(reporting_program_type: 'ep').empty?
-      # if no ep_ids remain, remove exiting test
-      product_tests.cms_program_tests.where(reporting_program_type: 'ep').destroy if ep_ids.empty?
-      CMS_IG_CONFIG['CMS Programs']['ep'].each do |cms_program|
-        product_tests.build({ name: "#{cms_program} Test", cms_program: cms_program, measure_ids: ep_ids,
-                              reporting_program_type: 'ep' }, CMSProgramTest)
-      end
+  end
+
+  def add_ep_tests(ep_ids)
+    # if no ep_ids remain, remove exiting test
+    product_tests.cms_program_tests.where(reporting_program_type: 'ep').destroy if ep_ids.empty?
+    CMS_IG_CONFIG['CMS Programs']['ep'][bundle.major_version]&.each do |cms_program|
+      product_tests.build({ name: "#{cms_program} Test", cms_program: cms_program, measure_ids: ep_ids,
+                            reporting_program_type: 'ep' }, CMSProgramTest)
     end
   end
 
@@ -226,7 +232,7 @@ class Product
     filter_tests = []
     filter_tests.concat [build_filtering_test(measure, criteria[0, 2]), build_filtering_test(measure, criteria[2, 2])]
     filter_tests << build_filtering_test(measure, ['providers'], 'NPI, TIN & Provider Location')
-    filter_tests << build_filtering_test(measure, ['providers'], 'NPI & TIN', false)
+    filter_tests << build_filtering_test(measure, ['providers'], 'NPI & TIN', incl_addr: false)
     criteria = ApplicationController.helpers.measure_has_snomed_dx_criteria?(measure) ? ['problems'] : criteria.values_at(4, (0..3).to_a.sample)
     filter_tests << build_filtering_test(measure, criteria)
     ApplicationController.helpers.generate_filter_patients(filter_tests)
@@ -258,9 +264,9 @@ class Product
     true
   end
 
-  def build_filtering_test(measure, criteria, display_name = '', incl_addr = true)
+  def build_filtering_test(measure, criteria, display_name = '', incl_addr: true)
     # construct options hash from criteria array and create the test
-    options = { 'filters' => Hash[criteria.map { |c| [c, []] }] }
+    options = { 'filters' => criteria.map { |c| [c, []] }.to_h }
     product_tests.create({ name: measure.description, product: self, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,
                            incl_addr: incl_addr, display_name: display_name, options: options }, FilteringTest)
   end

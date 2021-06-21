@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Bundle
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -35,7 +37,7 @@ class Bundle
   def title
     return super unless deprecated?
 
-    self[:title] + ' (Deprecated)'
+    "#{self[:title]} (Deprecated)"
   end
 
   def deprecate
@@ -116,12 +118,12 @@ class Bundle
   end
 
   def update_default
-    unless version == Settings.current.default_bundle
-      Bundle.where(active: true).each { |b| b.update(active: false) }
-      update(active: true)
-      Bundle.find_by(id: id).active = true
-      Settings.current.update(default_bundle: version)
-    end
+    return if version == Settings.current.default_bundle
+
+    Bundle.where(active: true).each { |b| b.update(active: false) }
+    update(active: true)
+    Bundle.find_by(id: id).active = true
+    Settings.current.update(default_bundle: version)
   end
 
   def collect_codes_by_qdm_category
@@ -138,7 +140,7 @@ class Bundle
 
   def self.default
     find_by(active: true)
-  rescue
+  rescue StandardError
     most_recent
   end
 

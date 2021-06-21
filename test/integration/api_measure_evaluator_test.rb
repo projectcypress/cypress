@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'test_helper'
-require 'vcr_setup.rb'
+require 'vcr_setup'
 
 class ApiMeasureEvaluatorTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
@@ -14,8 +16,10 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     # Leverage using functions in the ApiMeasureEvaluator
     perform_filtering_tests
     perform_measure_tests
-    failed_tests = TestExecution.where(state: 'failed')
-    assert failed_tests.empty?, "Test failed for #{failed_tests.first.task.product_test.cms_id} - #{failed_tests.collect { |ft| ft.execution_errors.collect(&:message) }}" unless failed_tests.empty?
+    failed_tests = TestExecution.where(state: { '$in': %w[failed errored] })
+    return if failed_tests.empty?
+
+    assert failed_tests.empty?, "Test failed for #{failed_tests.first.task.product_test.cms_id} - #{failed_tests.collect { |ft| ft.execution_errors.collect(&:message) }}"
   end
 
   # Get bundle from the demo server.  Use VCR if available
@@ -42,12 +46,14 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN]) do
       perform_enqueued_jobs do
         # Import the bundle
-        @bundle = Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new, false)
+        @bundle = Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new, include_highlighting: false)
+        # Pick 1 measure with an observation
+        obs_measures = @bundle.measures.where(measure_scoring: { '$in': %w[RATIO CONTINUOUS_VARIABLE] }).distinct(:hqmf_id).sample(1)
         # Pick 2 random EH measures
         eh_measures = @bundle.measures.where(reporting_program_type: 'eh').distinct(:hqmf_id).sample(2)
         # Pick 8 random EP measures
         ep_measures = @bundle.measures.where(reporting_program_type: 'ep').distinct(:hqmf_id).sample(8)
-        measure_ids = eh_measures + ep_measures
+        measure_ids = eh_measures + ep_measures + obs_measures
         @vendor = Vendor.find_or_create_by(name: 'MeasureEvaluationVendor')
         post :create, params: { vendor_id: @vendor.id, product: { name: 'MeasureEvaluationProduct', bundle_id: @bundle.id.to_s, c1_test: true, c2_test: true, c3_test: false, c4_test: true, duplicate_patients: false, randomize_patients: true, measure_ids: measure_ids } }
       end
@@ -73,8 +79,6 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
       end
       # Using the filter criteria, filter
       filter_and_save_cat_1_zip(filter_test_parameters, ft)
-    end
-    filtering_tests.each do |ft|
       upload_test_artifacts('Cat1FilterTask', 'Cat3FilterTask', ft)
       delete_test_zip_files(ft)
     end
@@ -147,22 +151,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     # We need to normalize_date_times prior to calculating our Cat III
     patients.map(&:normalize_date_times)
 
-    # Use ApiMeasureEvaluator to call cqm-execution-service
-    @apime.do_calculation(product_test, patients, correlation_id)
-
-    # Seed ExpectedResultsCalculator with patients and correlation_id for cat III generation
-    erc = Cypress::ExpectedResultsCalculator.new(patients, correlation_id, product_test.effective_date)
-    results = erc.aggregate_results_for_measures(product_test.measures)
-
-    # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
-    cat3_submission_program = if product_test&.product&.c3_test
-                                product_test&.measures&.first&.reporting_program_type == 'ep' ? 'MIPS_INDIV' : false
-                              else
-                                false
-                              end
-    options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
-                start_time: product_test.start_date, end_time: product_test.end_date }
-    cat_3_xml = Qrda3R21.new(results, product_test.measures, options).render
+    cat_3_xml = calculate_cat3(product_test, patients, correlation_id)
 
     # Loop through all entries in product_test.zip to remove patients that do not meed IPP (i.e., do not have IndividualResult)
     Zip::ZipFile.open("tmp/#{product_test.id}.zip") do |zipfile|
@@ -184,6 +173,29 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     File.write("tmp/#{product_test.id}.xml", cat_3_xml)
   end
 
+  def calculate_cat3(product_test, patients, correlation_id)
+    successful_calculation = false
+    until successful_calculation
+      # Use ApiMeasureEvaluator to call cqm-execution-service
+      @apime.do_calculation(product_test, patients, correlation_id)
+      successful_calculation = IndividualResult.where(correlation_id: correlation_id, IPP: { '$gte' => 1 }).size.positive?
+    end
+
+    # Seed ExpectedResultsCalculator with patients and correlation_id for cat III generation
+    erc = Cypress::ExpectedResultsCalculator.new(patients, correlation_id, product_test.effective_date)
+    results = erc.aggregate_results_for_measures(product_test.measures)
+
+    # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
+    cat3_submission_program = if product_test&.product&.c3_test
+                                product_test&.measures&.first&.reporting_program_type == 'ep' ? 'MIPS_INDIV' : false
+                              else
+                                false
+                              end
+    options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
+                start_time: product_test.start_date, end_time: product_test.end_date }
+    Qrda3R21.new(results, product_test.measures, options).render
+  end
+
   # Import all patients in the zip file, and maintain mapping between filename and id
   def import_cat1_zip(zip, patient_id_file_map)
     Zip::ZipFile.open(zip.path) do |zip_file|
@@ -200,7 +212,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
   def import_cat1_file(doc)
     patient, _warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
     Cypress::QRDAPostProcessor.replace_negated_codes(patient, @bundle)
-    patient.update(_type: CQM::TestExecutionPatient, correlation_id: 'api_eval')
+    patient.update(_type: CQM::TestExecutionPatient, correlation_id: 'api_eval', bundleId: @bundle.id)
     patient.save!
     patient.id
   end

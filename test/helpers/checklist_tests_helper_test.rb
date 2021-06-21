@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ChecklistTestsHelperTest < ActiveSupport::TestCase
@@ -17,7 +19,7 @@ class ChecklistTestsHelperTest < ActiveSupport::TestCase
 
     c1['dataElementAttributes'] = [{ 'attribute_name' => 'Test', 'attribute_valueset' => 'vs' }]
     assert_equal 'Test', checklist_test_criteria_attribute(c1, 0)
-    assert_equal 'Test:vs', checklist_test_criteria_attribute(c1, 0, true)
+    assert_equal 'Test:vs', checklist_test_criteria_attribute(c1, 0, include_vs: true)
     assert_equal '', checklist_test_criteria_attribute({}, 0)
     assert_equal '', checklist_test_criteria_attribute(c1, 1)
   end

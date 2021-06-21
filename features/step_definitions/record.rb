@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 include RecordsHelper
 include ApplicationHelper
 
@@ -84,7 +86,7 @@ And(/^the user should see patient analytics$/) do
 end
 
 And(/^the user searches for a measure$/) do
-  page.fill_in 'search_measures', with: @measure.description
+  page.fill_in 'search_measures', with: @measure.title
 end
 
 And(/^the user selects a measure from the dropdown$/) do
@@ -92,12 +94,13 @@ And(/^the user selects a measure from the dropdown$/) do
   page.execute_script "$('#search_measures').trigger('keydown')"
   assert page.has_selector?('.ui-autocomplete .list-group-item'), 'no dropdown result'
 
-  page.find('.ui-autocomplete .list-group-item').click
+  page.find('.ui-autocomplete .list-group-item', match: :first).click
 end
 
 Then(/^the user should see results for that measure$/) do
-  page.assert_text measure_display_name(@measure, @measure.population_sets_and_stratifications_for_measure.first) + ' Patients'
-  records = records_by_measure(@vendor ? @vendor.patients.where(bundleId: @bundle.id.to_s) : @bundle.patients, @measure, nil, @vendor)
+  page.assert_text "#{measure_display_name(@measure, @measure.population_sets_and_stratifications_for_measure.first)} Patients"
+  patients = @vendor ? @vendor.patients.where(bundleId: @bundle.id.to_s) : @bundle.patients
+  records = records_by_measure(patients, @measure, nil, @vendor, @measure.population_sets_and_stratifications_for_measure.first.population_set_id)
 
   assert page.has_selector?('table tbody tr', count: records.length), 'different number'
   assert page.has_selector?('.result-marker'), 'no result marker'
@@ -153,7 +156,7 @@ Then('a zip file should be downloaded within {int} seconds') do |int|
   Timeout.timeout(int) do
     sleep 0.1 until page.response_headers['Content-Disposition']
   end
-  assert_match(/attachment; filename=\".*\.zip\"/, page.response_headers['Content-Disposition'])
+  assert_match(/attachment; filename=".*\.zip"/, page.response_headers['Content-Disposition'])
 end
 
 Then(/^the user should not see deprecated bundles$/) do

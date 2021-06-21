@@ -1,15 +1,18 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class IndividualResultTest < ActiveSupport::TestCase
   setup do
-    @bundle = FactoryBot.build(:static_bundle)
+    @bundle = FactoryBot.create(:static_bundle)
     @measure = @bundle.measures.first
+    @patient = @bundle.patients.first
   end
 
   def test_no_issues
     options = { population_set: { populations: { 'IPP' => { hqmf_id: 'HHH' } } } }
     calculated = { 'IPP' => 1 }
-    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure)
+    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient)
     _passed, issues = individual_result.compare_results(calculated, options, false)
     assert_empty issues
   end
@@ -17,7 +20,7 @@ class IndividualResultTest < ActiveSupport::TestCase
   def test_issue_for_bad_ipp
     options = { population_set: { populations: { 'IPP' => { hqmf_id: 'HHH' } } } }
     calculated = { 'IPP' => 2 }
-    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure)
+    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient)
     _passed, issues = individual_result.compare_results(calculated, options, false)
     assert issues.include? 'Calculated value (2) for IPP (HHH) does not match expected value (1)'
   end
@@ -35,7 +38,7 @@ class IndividualResultTest < ActiveSupport::TestCase
                                'statement_name' => 'Results' }]
     options = { population_set: { populations: { 'IPP' => { hqmf_id: 'HHH' } } } }
     calculated = { 'IPP' => 1, 'statement_results' => bad_statement_results }
-    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, statement_results: statement_results)
+    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results: statement_results)
     _passed, issues = individual_result.compare_results(calculated, options, false)
     assert issues.include? 'firstHR of 50 /min does not match 60 /min'
   end
@@ -53,7 +56,7 @@ class IndividualResultTest < ActiveSupport::TestCase
                                'statement_name' => 'Results' }]
     options = { population_set: { populations: { 'IPP' => { hqmf_id: 'HHH' } } } }
     calculated = { 'IPP' => 1, 'statement_results' => bad_statement_results }
-    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, statement_results: statement_results)
+    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results: statement_results)
     _passed, issues = individual_result.compare_results(calculated, options, false)
     assert issues.include? 'firstHR not expected'
   end
@@ -71,7 +74,7 @@ class IndividualResultTest < ActiveSupport::TestCase
                                'statement_name' => 'Results' }]
     options = { population_set: { populations: { 'IPP' => { hqmf_id: 'HHH' } } } }
     calculated = { 'IPP' => 1, 'statement_results' => bad_statement_results }
-    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, statement_results: statement_results)
+    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results: statement_results)
     _passed, issues = individual_result.compare_results(calculated, options, false)
     assert issues.include? 'firstHR of 50 /min is missing'
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ProductsHelperTest < ActiveJob::TestCase
@@ -288,7 +290,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_each_tab_c1_only
-    make_product_certify(@product, true, false, false, false)
+    make_product_certify(@product, c1_test: true, c2_test: false, c3_test: false, c4_test: false)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
     assert_equal 1, test_types.count, 'should only have a record sample tab'
@@ -296,7 +298,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_each_tab_c1_c2
-    make_product_certify(@product, true, true, false, false)
+    make_product_certify(@product, c1_test: true, c2_test: true, c3_test: false, c4_test: false)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
     assert_equal 3, test_types.count, 'should have record sample, c1 measure, and c2 measure tabs'
@@ -306,7 +308,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_each_tab_c1_c3_eh
-    make_product_certify(@product, true, false, true, false)
+    make_product_certify(@product, c1_test: true, c2_test: false, c3_test: true, c4_test: false)
     replace_with_eh_measure(@product.product_tests.first.measures.first)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
@@ -315,7 +317,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_each_tab_c1_c4
-    make_product_certify(@product, true, false, false, true)
+    make_product_certify(@product, c1_test: true, c2_test: false, c3_test: false, c4_test: true)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
     assert_equal 2, test_types.count, 'should have record sample tab and filtering test tab'
@@ -324,7 +326,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_each_tab_c1_c3_c4_ep
-    make_product_certify(@product, true, false, true, true)
+    make_product_certify(@product, c1_test: true, c2_test: false, c3_test: true, c4_test: true)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
     assert_equal 2, test_types.count, 'should have record sample tab and filtering test tab'
@@ -333,7 +335,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_each_tab_c1_c2_c3_only_eh
-    make_product_certify(@product, true, true, true, false)
+    make_product_certify(@product, c1_test: true, c2_test: true, c3_test: true, c4_test: false)
     replace_with_eh_measure(@product.product_tests.first.measures.first)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
     assert_equal 3, test_types.count, 'should have record sample, c1 measure, and c2 measure tabs'
@@ -343,7 +345,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_each_tab_c1_c2_c3_only_ep
-    make_product_certify(@product, true, true, true, false)
+    make_product_certify(@product, c1_test: true, c2_test: true, c3_test: true, c4_test: false)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
     assert_equal 3, test_types.count, 'should have record sample, c1 measure, and c2 measure tabs'
     assert_equal 'C1 Sample', titles[0]
@@ -352,7 +354,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_each_tab_c1_c2_c4
-    make_product_certify(@product, true, true, false, true)
+    make_product_certify(@product, c1_test: true, c2_test: true, c3_test: false, c4_test: true)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
     assert_equal 4, test_types.count, 'should have record sample, c1 measure, c2 measure, and c4 filtering tabs'
     assert_equal 'C1 Sample', titles[0]
@@ -362,7 +364,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_each_tab_c1_c2_c3_c4_only_eh
-    make_product_certify(@product, true, true, true, true)
+    make_product_certify(@product, c1_test: true, c2_test: true, c3_test: true, c4_test: true)
     replace_with_eh_measure(@product.product_tests.first.measures.first)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
     assert_equal 4, test_types.count, 'should have record sample, c1 measure, c2 measure, and c4 filtering tabs'
@@ -373,7 +375,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_each_tab_c1_c2_c3_c4_only_ep
-    make_product_certify(@product, true, true, true, true)
+    make_product_certify(@product, c1_test: true, c2_test: true, c3_test: true, c4_test: true)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
     assert_equal 4, test_types.count, 'should have record sample, c1 measure, c2 measure, and c4 filtering tabs'
     assert_equal 'C1 Sample', titles[0]
@@ -383,7 +385,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_each_tab_c2_only
-    make_product_certify(@product, false, true, false, false)
+    make_product_certify(@product, c1_test: false, c2_test: true, c3_test: false, c4_test: false)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
     assert_equal 1, test_types.count, 'should only have a c2 measure tab'
@@ -391,7 +393,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_each_tab_c2_c3
-    make_product_certify(@product, false, true, true, false)
+    make_product_certify(@product, c1_test: false, c2_test: true, c3_test: true, c4_test: false)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
     assert_equal 2, test_types.count, 'should only have c2 measure tab'
     assert_equal 'C3 (QRDA-I)', titles[0]
@@ -399,7 +401,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_each_tab_c2_c4
-    make_product_certify(@product, false, true, false, true)
+    make_product_certify(@product, c1_test: false, c2_test: true, c3_test: false, c4_test: true)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
     assert_equal 2, test_types.count, 'should have c2 measure and c4 filtering tabs'
     assert_equal 'C2 (QRDA-III)', titles[0]
@@ -407,7 +409,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_each_tab_c2_c3_c4
-    make_product_certify(@product, false, true, true, true)
+    make_product_certify(@product, c1_test: false, c2_test: true, c3_test: true, c4_test: true)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
     assert_equal 3, test_types.count, 'should have c2 measure and c4 filtering tabs'
     assert_equal 'C3 (QRDA-I)', titles[0]
@@ -422,25 +424,25 @@ class ProductsHelperTest < ActiveJob::TestCase
     each_tab(product) do |test_type, title|
       test_types << test_type
       titles << title
-      descriptions << descriptions
+      descriptions << 'description'
     end
     [test_types, titles, descriptions]
   end
 
-  def make_product_certify(product, c1 = false, c2 = false, c3 = false, c4 = false)
-    product.c1_test = c1
-    product.c2_test = c2
-    product.c3_test = c3
-    product.c4_test = c4
+  def make_product_certify(product, c1_test: false, c2_test: false, c3_test: false, c4_test: false)
+    product.c1_test = c1_test
+    product.c2_test = c2_test
+    product.c3_test = c3_test
+    product.c4_test = c4_test
     product.save!
-    product.product_tests.checklist_tests.each(&:destroy) unless c1
-    product.product_tests.measure_tests.each(&:destroy) unless c2
-    product.product_tests.filtering_tests.each(&:destroy) unless c4
+    product.product_tests.checklist_tests.each(&:destroy) unless c1_test
+    product.product_tests.measure_tests.each(&:destroy) unless c2_test
+    product.product_tests.filtering_tests.each(&:destroy) unless c4_test
   end
 
   def test_measure_test_tasks
-    assert(measure_test_tasks(@product, true).all? { |task| task.is_a? C1Task })
-    assert(measure_test_tasks(@product, false).all? { |task| task.is_a? C2Task })
+    assert(measure_test_tasks(@product, get_c1_tasks: true).all? { |task| task.is_a? C1Task })
+    assert(measure_test_tasks(@product, get_c1_tasks: false).all? { |task| task.is_a? C2Task })
   end
 
   def replace_with_eh_measure(measure)

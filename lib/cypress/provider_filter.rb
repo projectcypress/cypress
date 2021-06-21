@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Cypress
   class ProviderFilter
     def self.filter(providers, filters, options)

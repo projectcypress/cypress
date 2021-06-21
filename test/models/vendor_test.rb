@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class VendorTest < ActiveSupport::TestCase
-  VENDOR = '4def93dd4f85cf8968000003'.freeze
-  OTHER_VENDOR = '4def93dd4f85cf8968000004'.freeze
+  VENDOR = '4def93dd4f85cf8968000003'
+  OTHER_VENDOR = '4def93dd4f85cf8968000004'
   def setup
     FactoryBot.create(:admin_user)
     FactoryBot.create(:atl_user)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MultiMeasureTest < ProductTest
   field :reporting_program_type, type: String
 

@@ -4,6 +4,7 @@ module Validators
   class Cat3PopulationValidator < QrdaFileValidator
     include Validators::Validator
     include ::CqmValidators::ReportedResultExtractor
+    include QrdaHelper
 
     # These are the demographic codes specified in the CMS IG for Payer, Sex, Race and Ethnicity
     REQUIRED_CODES = { 'PAYER' => %w[A B C D],
@@ -54,15 +55,17 @@ module Validators
         add_error("Denominator value #{denom} is greater than Initial Population value #{ipp} for measure #{measure}",
                   location: '/', file_name: file)
       end
-      if (num + denex + denexcep) > denom
-        add_error("Numerator value #{num} + Denominator Exclusions value #{denex} + Denominator Exceptions value #{denexcep}"\
-        " is greater than Denominator value #{denom} for measure #{measure}", location: '/', file_name: file)
-      end
+      return unless (num + denex + denexcep) > denom
+
+      add_error("Numerator value #{num} + Denominator Exclusions value #{denex} + Denominator Exceptions value #{denexcep}"\
+      " is greater than Denominator value #{denom} for measure #{measure}", location: '/', file_name: file)
     end
 
     def validate_population_ids(doc, options)
-      measure_ids_from_file(doc).each do |measure_id|
-        measure = options['test_execution'].task.bundle.measures.find_by(hqmf_id: measure_id.value.upcase)
+      measure_ids_from_cat_3_file(doc).each do |measure_id|
+        measure = find_measure_to_validate(measure_id.value.upcase, options)
+        next unless measure
+
         measure.population_sets_and_stratifications_for_measure.each do |pop_set_hash|
           results, _errors = extract_results_by_ids(measure, pop_set_hash[:population_set_id], doc, pop_set_hash[:stratification_id])
           measure.population_keys.each do |key|
@@ -75,6 +78,12 @@ module Validators
           end
         end
       end
+    end
+
+    def find_measure_to_validate(measure_id, options)
+      return nil unless options['test_execution'].task.bundle.measures.distinct(:hqmf_id).include? measure_id
+
+      options['test_execution'].task.bundle.measures.find_by(hqmf_id: measure_id)
     end
 
     def validate_demographics(reported_result, pop_key, pop_set_hash, options)
@@ -112,10 +121,10 @@ module Validators
         add_error("Measure Population value #{msrpopl} is greater than Initial Population value #{ipp} for  "\
         "measure #{measure}", '/', location: '/', file_name: file)
       end
-      if observ > msrpopl
-        add_error("Measure observvations value #{observ} cannot be greater than Measure Population value #{msrpopl}"\
-        " for measure #{measure}", '/', location: '/', file_name: file)
-      end
+      return unless observ > msrpopl
+
+      add_error("Measure observvations value #{observ} cannot be greater than Measure Population value #{msrpopl}"\
+      " for measure #{measure}", '/', location: '/', file_name: file)
     end
 
     def measure_entry_selector
@@ -138,15 +147,6 @@ module Validators
     def population_count_selector
       "cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.3']"\
       " and ./cda:code[@code='MSRAGG'] and ./cda:methodCode[@code='COUNT']]/cda:value/@value"
-    end
-
-    def measure_ids_from_file(doc)
-      measure_ids = doc.xpath("//cda:entry/cda:organizer[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.1']]" \
-        "/cda:reference[@typeCode='REFR']/cda:externalDocument[@classCode='DOC']" \
-        "/cda:id[@root='2.16.840.1.113883.4.738']/@extension")
-      return nil unless measure_ids
-
-      measure_ids
     end
   end
 end

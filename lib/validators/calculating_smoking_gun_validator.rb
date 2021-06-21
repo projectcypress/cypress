@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Validators
   class CalculatingSmokingGunValidator < SmokingGunValidator
     include Validators::Validator
@@ -22,8 +24,9 @@ module Validators
       warnings.each { |e| add_warning e.message, file_name: options[:file_name], location: e.location }
 
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, @bundle)
+      patient.bundleId = @bundle.id
       patient
-    rescue
+    rescue StandardError
       add_error('File failed import', file_name: options[:file_name])
       nil
     end
@@ -43,10 +46,9 @@ module Validators
       calc_job = Cypress::CqmExecutionCalc.new([record.qdmPatient],
                                                product_test.measures,
                                                options.test_execution.id.to_s,
-                                               'effectiveDate': Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
-      results = calc_job.execute(false)
-      passed = determine_passed(mrn, results, record, options)
-      passed
+                                               effectiveDate: Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
+      results = calc_job.execute(save: false)
+      determine_passed(mrn, results, record, options)
     end
 
     def determine_passed(mrn, results, record, options)

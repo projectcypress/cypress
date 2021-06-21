@@ -24,6 +24,10 @@
   <% end %>
 
   <%= bootstrap_form_tag url: vendor_update_preferences_path(@vendor), html: {class: "vendor_preferences_form"} do |f| %>
+    <div class="panel-body">
+      <%= f.text_field :preferred_ccn, help: 'Health IT may be tailored for certain facility types (e.g., Critical Access Hospitals 
+).  In these scenarios it is appropriate to use a preferred CMS Certification Number appropriate for the facility.', label: 'Preferred CMS Certification Number', autocomplete: 'off', value: @vendor.preferred_ccn %>
+    </div>
     <div class="panel-footer">
       <%= f.submit "Save", :class => "btn btn-success", :id => "preferences_submit_button" %>
       <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "history.back()" %>

@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
-ruby '2.6.3'
+ruby '2.7.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.2'
+gem 'rails', '~> 6.0.0'
 
 gem 'delayed_job_mongoid', '~> 2.3.0'
-gem 'mongoid', '~> 6.4.2'
+gem 'mongoid', '~> 7.0.5'
 
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson', '4.5.0'
@@ -15,10 +17,10 @@ gem 'bson_ext'
 gem 'mustache'
 gem 'os'
 
-gem 'cqm-models', '~> 3.0.1'
-gem 'cqm-parsers', '~> 3.1.1.0'
-gem 'cqm-reports', '~> 3.1.3'
-gem 'cqm-validators', '~> 3.0.1'
+gem 'cqm-models', '~> 3.1.1'
+gem 'cqm-parsers', '~> 3.2.0.0'
+gem 'cqm-reports', '~> 3.1.4'
+gem 'cqm-validators', '~> 3.1.1'
 
 # Use faker to generate addresses
 gem 'faker', '~> 1.5.0'
@@ -93,7 +95,7 @@ gem 'daemons'
 
 group :development, :test do
   # rubocop 0.67 currently has a bug that is causing it to crash in product.rb and vendor.rb
-  gem 'rubocop', '~>0.66.0'
+  gem 'rubocop'
   gem 'rubocop-rspec'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'axe-core-capybara'
@@ -101,16 +103,15 @@ group :development, :test do
   gem 'byebug'
   gem 'capybara'
   gem 'capybara-accessible'
-  gem 'cucumber', '~> 3.0.2', require: false
   gem 'cucumber-rails', require: false
-  gem 'database_cleaner'
+  gem 'database_cleaner-mongoid'
   gem 'overcommit'
   gem 'poltergeist'
   gem 'pry'
   gem 'pry-nav'
+  gem 'rails_best_practices'
   gem 'rails-controller-testing'
   gem 'rails-perftest'
-  gem 'rails_best_practices'
   gem 'ruby-prof', '~> 0.17.0'
   gem 'scss_lint', require: false
   gem 'selenium-webdriver'
@@ -130,7 +131,7 @@ group :test do
   gem 'codecov', require: false
   gem 'factory_bot_rails'
   gem 'launchy'
-  gem 'minitest', '5.11.3'
+  gem 'minitest'
   gem 'minitest-rails'
   gem 'minitest-reporters'
   gem 'mocha', require: false

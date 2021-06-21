@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PatientArchiveUploader < CarrierWave::Uploader::Base
   storage :file
 

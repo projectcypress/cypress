@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TestExecution
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -10,6 +12,7 @@ class TestExecution
   field :reported_results, type: Hash
   field :qrda_type, type: String
   field :backtrace, type: String
+  field :error_summary, type: String
   # a sibling test execution is a c3 test execution if the current execution is a c1 or c2 execution. vice versa
   #   and nil if c3 execution does not exist
   field :sibling_execution_id, type: String
@@ -29,14 +32,17 @@ class TestExecution
   # I dont think this belongs here and it will need to eventually be moved to a
   # more approperiate location
   def validate_artifact(validators, artifact, options = {})
+    total_files = artifact.count
+    validated_files = 0
+    validation_tracker = tracker
     # TODO: R2P: change R/P model through all validators
     file_count = artifact.count do |name, file|
       doc = build_document(file)
-      merged_options = options.merge(file_name: name)
       validators.each do |validator|
-        validator.validate(doc, merged_options)
+        validator.validate(doc, options.merge!(file_name: name))
         break unless validator.can_continue
       end
+      validation_tracker&.log("#{validated_files += 1} of #{total_files} files validated")
       true
     end
     validators.each do |validator|
@@ -44,8 +50,8 @@ class TestExecution
     end
     conditionally_add_task_specific_errors(file_count)
     execution_errors.only_errors.count.positive? ? fail : pass
-  rescue => e
-    errored(e)
+  rescue StandardError => e
+    errored(e, options)
     logger.error("Encountered an exception in Test Execution #{id}: #{e.message}, backgrace:\n#{e.backtrace}")
   end
 
@@ -84,16 +90,21 @@ class TestExecution
     save
   end
 
-  def errored(e = nil)
+  def errored(error = nil, options = {})
     self.state = :errored
-    self.backtrace = e.message + "\n" + e.backtrace.join("\n")
+    self.backtrace = "#{error.message}\n#{error.backtrace.join("\n")}"
+    self.error_summary = "Errored validating #{options[:file_name]}: #{error.message} on #{error.backtrace.first.remove(Rails.root.to_s)}"
     save
   end
 
   def sibling_execution
     TestExecution.find(sibling_execution_id)
-  rescue
+  rescue StandardError
     nil
+  end
+
+  def tracker
+    Tracker.where('options.test_execution_id' => id).first
   end
 
   def status
@@ -133,10 +144,10 @@ class TestExecution
   end
 
   def errored_or_sibling_errored?
-    errored? || (sibling_execution&.errored?)
+    errored? || sibling_execution&.errored?
   end
 
   def incomplete_or_sibling_incomplete?
-    incomplete? || (sibling_execution&.incomplete?)
+    incomplete? || sibling_execution&.incomplete?
   end
 end

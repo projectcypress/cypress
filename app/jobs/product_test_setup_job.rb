@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class ProductTestSetupJob < ApplicationJob
   queue_as :product_test_setup
   include Job::Status
   def perform(product_test)
     product_test.building
     product_test.generate_patients(@job_id) if product_test.patients.count.zero?
-    results = calculate_product_test(product_test)
-    MeasureEvaluationJob.perform_now(product_test, individual_results: results)
+    calculate_product_test(product_test)
+    MeasureEvaluationJob.perform_now(product_test, {})
     product_test.archive_patients if product_test.patient_archive.path.nil?
     product_test.ready
   rescue StandardError => e
@@ -31,16 +33,15 @@ class ProductTestSetupJob < ApplicationJob
   def do_calculation(product_test, patients, correlation_id)
     effective_date = Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number)
     patient_ids = patients.map { |p| p.id.to_s }
-    options = { 'effectiveDate': effective_date }
-    results = product_test.measures.map do |measure|
+    options = { effectiveDate: effective_date }
+    product_test.measures.map do |measure|
       SingleMeasureCalculationJob.perform_now(patient_ids, measure.id.to_s, correlation_id, options)
     end.flatten
-    results
   end
 
   private
 
   def error_message(error)
-    error.message + ' on ' + error.backtrace.first.remove(Rails.root.to_s)
+    "#{error.message} on #{error.backtrace.first.remove(Rails.root.to_s)}"
   end
 end

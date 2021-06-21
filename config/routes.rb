@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   devise_for :users, controllers: { registrations: 'registrations', sessions: 'sessions' }
   root to: 'home#index'
 
@@ -96,6 +99,11 @@ Rails.application.routes.draw do
       get :download_mpl
     end
   end
+
+  resources :version, only: [:index]
+
+  resources :qrda_uploads, only: [:create], path: '/qrda_validation/:year/:qrda_type/:organization'
+  resources :qrda_uploads, only: [:index], path: '/qrda_validation'
 
   resource :admin, only: [:show], controller: 'admin'
 

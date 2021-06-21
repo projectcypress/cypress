@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Metrics/ModuleLength
 module ProductsHelper
   # used in product create
@@ -31,15 +33,15 @@ module ProductsHelper
 
     case test_status
     when 'passing'
-      return 6
+      6
     when 'failing'
-      return 5
+      5
     when 'errored'
-      return 4
+      4
     when 'incomplete'
-      return 3
+      3
     else
-      return 7
+      7
     end
   end
 
@@ -130,9 +132,9 @@ module ProductsHelper
       next unless should_show_product_tests_tab?(product, test_type)
 
       if test_type == 'MeasureTest'
-        title, description, html_id = title_description_and_html_id_for(product, test_type, true)
+        title, description, html_id = title_description_and_html_id_for(product, test_type, is_qrda_1_measure_test: true)
         yield(test_type, title, description, html_id) if product.c1_test || product.c3_test
-        title, description, html_id = title_description_and_html_id_for(product, test_type, false)
+        title, description, html_id = title_description_and_html_id_for(product, test_type, is_qrda_1_measure_test: false)
         yield(test_type, title, description, html_id) if product.c2_test || product.c3_test
       else
         title, description, html_id = title_description_and_html_id_for(product, test_type)
@@ -141,25 +143,25 @@ module ProductsHelper
     end
   end
 
-  def title_description_and_html_id_for(product, test_type, is_qrda_1_measure_test = true)
-    title = title_for(product, test_type, is_qrda_1_measure_test)
-    description = description_for(product, test_type, is_qrda_1_measure_test)
-    html_id = html_id_for_tab(product, test_type, is_qrda_1_measure_test)
+  def title_description_and_html_id_for(product, test_type, is_qrda_1_measure_test: true)
+    title = title_for(product, test_type, is_qrda_1_measure_test: is_qrda_1_measure_test)
+    description = description_for(product, test_type, is_qrda_1_measure_test: is_qrda_1_measure_test)
+    html_id = html_id_for_tab(product, test_type, is_qrda_1_measure_test: is_qrda_1_measure_test)
     [title, description, html_id]
   end
 
-  def html_id_for_tab(product, test_type, is_qrda_1_measure_test = true)
-    title_for(product, test_type, is_qrda_1_measure_test).tr(' ', '_').tr('(', '_').tr(')', '_').tr('+', '_').underscore
+  def html_id_for_tab(product, test_type, is_qrda_1_measure_test: true)
+    title_for(product, test_type, is_qrda_1_measure_test: is_qrda_1_measure_test).tr(' ', '_').tr('(', '_').tr(')', '_').tr('+', '_').underscore
   end
 
   # input test_type should only be 'ChecklistTest', 'MeasureTest', or 'FilteringTest'
   # input task_type is only used to differentiate between C1 measure tests and C2 measure test tabs
-  def title_for(product, test_type, is_qrda_1_measure_test = true)
+  def title_for(product, test_type, is_qrda_1_measure_test: true)
     case test_type
     when 'ChecklistTest'
       product.c3_test && product.eh_tests? ? 'C1 + C3 Sample' : 'C1 Sample'
     when 'MeasureTest'
-      measure_test_title(product, is_qrda_1_measure_test)
+      measure_test_title(product, is_qrda_1_measure_test: is_qrda_1_measure_test)
     when 'FilteringTest'
       'C4 (QRDA-I and QRDA-III)'
     when 'MultiMeasureTest'
@@ -169,7 +171,7 @@ module ProductsHelper
     end
   end
 
-  def measure_test_title(product, is_qrda_1_measure_test = true)
+  def measure_test_title(product, is_qrda_1_measure_test: true)
     if is_qrda_1_measure_test
       if product.c1_test && product.c3_test && product.eh_tests?
         'C1 + C3 (QRDA-I)'
@@ -187,7 +189,7 @@ module ProductsHelper
     end
   end
 
-  def description_for(product, test_type, is_qrda_1_measure_test = true)
+  def description_for(product, test_type, is_qrda_1_measure_test: true)
     case test_type
     when 'ChecklistTest'
       certifications = product.c3_test && product.eh_tests? ? 'C1 and C3 certifications' : 'C1 certification'
@@ -225,7 +227,7 @@ module ProductsHelper
   end
 
   # returns array of tasks (either all C1Tasks or all C2Tasks)
-  def measure_test_tasks(product, get_c1_tasks = true)
+  def measure_test_tasks(product, get_c1_tasks: true)
     # This function was previously sometimes returning results with a false value in front of them,
     # and it would look something like [false, <Task...>], which was then causing problems because
     # we call .first on the returned data. This was causing intermittent test failures, by rejecting

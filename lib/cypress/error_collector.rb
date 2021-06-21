@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Cypress
   module ErrorCollector
     class FileNotFound < StandardError
     end
 
     # include_locations (default true) to include the xml locations mapping with collected errors
-    def self.collected_errors(execution, include_locations = true)
+    def self.collected_errors(execution, include_locations: true)
       # gonna return all the errors for this execution, structured in a reasonable way.
       collected_errors = { nonfile: get_nonfile_errors(execution), files: {} }
       execution.artifact.file_names.each do |this_name|
@@ -16,7 +18,7 @@ module Cypress
         collected_errors[:files][this_name] = create_file_error_hash(doc, all_errs, related_errs)
       end
       collected_errors
-    rescue => e
+    rescue StandardError => e
       { nonfile: [], files: {}, exception: e }
     end
 
@@ -80,7 +82,7 @@ module Cypress
         elem = doc.at_xpath(clean_location)
         next unless elem
 
-        if elem.class == Nokogiri::XML::Attr
+        if elem.instance_of?(Nokogiri::XML::Attr)
           error_attributes << elem
           elem = elem.element
         end

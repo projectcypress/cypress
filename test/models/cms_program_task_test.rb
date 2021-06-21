@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 class CMSProgramTaskTest < ActiveSupport::TestCase
   include ::Validators
@@ -12,7 +14,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
   def setup_eh
     modify_reporting_program_type('eh')
     perform_enqueued_jobs do
-      measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE', '40280382-5FA6-FE85-0160-0918E74D2075']
+      measure_ids = %w[BE65090C-EB1F-11E7-8C3F-9A214CF093AE 40280382-5FA6-FE85-0160-0918E74D2075]
       @product = @vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
                                          bundle_id: @bundle.id)
 
@@ -25,7 +27,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
   def setup_ep
     modify_reporting_program_type('ep')
     perform_enqueued_jobs do
-      measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE', '40280382-5FA6-FE85-0160-0918E74D2075']
+      measure_ids = %w[BE65090C-EB1F-11E7-8C3F-9A214CF093AE 40280382-5FA6-FE85-0160-0918E74D2075]
       @product = @vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
                                          bundle_id: @bundle.id)
 
@@ -51,13 +53,25 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 54, te.execution_errors.size
+      assert_equal 61, te.execution_errors.size
       assert_equal 2, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
-      assert_equal 45, te.execution_errors.where(validator: 'Validators::CMSQRDA3SchematronValidator').size
+      assert_equal 52, te.execution_errors.where(validator: 'Validators::CMSQRDA3SchematronValidator').size
       assert_equal 4, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size # One for each demographic
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::EHRCertificationIdValidator').size
+    end
+  end
+
+  def test_ep_task_returns_appropriate_error_for_incorrect_measure_id
+    setup_ep
+    task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good_invalid_id.xml'))
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal :failed, te.state
+      assert_equal 1, te.execution_errors.where(message: 'Invalid HQMF ID Found: 40280382-5FA6-FE85-0160-0918E74D2076').size
     end
   end
 
@@ -102,7 +116,8 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
       te.reload
       assert_equal 12, te.execution_errors.size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
-      assert_equal 6, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
+      assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :error).size
+      assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
       assert_equal 5, te.execution_errors.where(validator: 'Validators::CMSQRDA1HQRSchematronValidator').size
     end
   end
@@ -155,6 +170,22 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
       assert_equal 0, ir.size
       assert_equal 1, te.execution_errors.where(message: 'Telehealth encounter 720 with modifier GQ not used in calculation for eCQMs (CMS32v7, CMS134v6) that are not eligible for telehealth.').size
     end
+  end
+
+  def test_calculation_status
+    setup_eh
+    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HL7_Cat_I').first
+    task = pt.tasks.first
+    execution = task.test_executions.build
+    Tracker.create(options: { test_execution_id: execution.id })
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_good_telehealth.xml'))
+    options = { file_name: 'sample_patient_good_telehealth.xml', task: task, test_execution: execution }
+    pcv = ProgramCriteriaValidator.new(pt)
+    pcv.instance_variable_set(:@file, execution.build_document(file))
+    pcv.import_patient(options, @product.product_tests.first.measure_ids)
+    tej = CMSTestExecutionJob.new
+    tej.calculate_patients(execution)
+    assert_equal execution.tracker.log_message[0], '50% of calculations complete'
   end
 
   def test_eh_task_with_errors_quarter_reporting
