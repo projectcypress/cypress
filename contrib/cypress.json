@@ -4,7 +4,7 @@
     "aws_secret_key": "",
     "default_user": "ubuntu",
     "default_pwd": "CypressPwd",
-    "cypress_version": "cypress_5.1.0",
+    "cypress_version": "cypress_6.2.0",
     "cvu_version": "cypress-validation-utility_3.2.2-production-1510258734",
     "chef_version": "13.8.5",
     "vpc_id": "",
@@ -24,6 +24,7 @@
       "ami_virtualization_type": "hvm",
       "ssh_username": "ubuntu",
       "ami_name": "cypress_{{ user `cypress_version` }}",
+      "ami_groups": "all",
       "ami_block_device_mappings": [ {
         "device_name": "/dev/sda1",
         "volume_size": 40,
