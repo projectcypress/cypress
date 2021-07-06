@@ -206,6 +206,7 @@ end
 Then(/^the user should see failed results$/) do
   page.refresh
   assert_text 'Failed'
+  assert_text 'Test Date'
 end
 
 Then(/^the user should see a link to view the the uploaded xml$/) do

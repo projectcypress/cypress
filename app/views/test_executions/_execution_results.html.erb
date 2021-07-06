@@ -45,10 +45,22 @@ end %>
       <% end %>
     <% end %>
   <% else %>
-    <p class="lead row bg-danger execution-status">
-      <%= icon('fas fa-fw text-danger', 'times-circle', :"aria-hidden" => true) %>
-      <%= execution_failure_message(execution) %>
-    </p>
+    <div class="row">
+      <div class="col-sm-7">
+        <p class="lead row bg-danger execution-status">
+          <%= icon('fas fa-fw text-danger', 'times-circle', :"aria-hidden" => true) %>
+          <%= execution_failure_message(execution) %>
+        </p>
+      </div>
+      <div class="col-sm-5">
+        <div class="execution-information bg-info">
+          <ul class="list-unstyled">
+            <li><strong>Test Date:</strong> <%= local_time(execution.updated_at) %></li>
+            <li><strong>Files Uploaded:</strong> <%= execution.artifact['file'] %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   <% end %>
 
   <% collected_errors = Cypress::ErrorCollector.collected_errors(execution) %>
