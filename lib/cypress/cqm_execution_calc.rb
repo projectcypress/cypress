@@ -9,6 +9,8 @@ module Cypress
 
     def initialize(patients, measures, correlation_id, options)
       @patients = patients
+      is_qdm55 = Bundle.only(:version).find(measures.first.bundle_id).major_version.to_i < 2022
+      @connection_string = is_qdm55 ? self.class.create_55_connection_string : self.class.create_56_connection_string
       # This is a key -> value pair of patients mapped in the form "qdm-patient-id" => BSON::ObjectId("cqm-patient-id")
       @cqm_patient_mapping = patients.map { |patient| [patient.id.to_s, patient.cqmPatient] }.to_h
       @measures = measures
@@ -30,7 +32,7 @@ module Cypress
       # oids field. There is a value_set_oids on the measure for this explicit purpose.
       post_data = post_data.to_json(methods: %i[_type])
       begin
-        response = RestClient::Request.execute(method: :post, url: self.class.create_connection_string, timeout: 120,
+        response = RestClient::Request.execute(method: :post, url: @connection_string, timeout: 120,
                                                payload: post_data, headers: { content_type: 'application/json' })
       rescue StandardError => e
         raise e.to_s || 'Calculation failed without an error message'
@@ -48,9 +50,14 @@ module Cypress
       patient_result_hash.values
     end
 
-    def self.create_connection_string
+    def self.create_55_connection_string
       config = Rails.application.config
-      "http://#{config.ces_host}:#{config.ces_port}/calculate"
+      "http://#{config.ces_55_host}:#{config.ces_55_port}/calculate"
+    end
+
+    def self.create_56_connection_string
+      config = Rails.application.config
+      "http://#{config.ces_56_host}:#{config.ces_56_port}/calculate"
     end
 
     private
