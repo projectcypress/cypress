@@ -75,7 +75,11 @@ namespace :cypress do
         # pull out codes by exporting and re-importing
         if p.code_description_hash.empty?
           @options = { start_time: Date.new(2012, 1, 1), end_time: Date.new(2012, 12, 31) }
-          patient_xml = Qrda1R5.new(p, Measure.where(hqmf_id: Measure.first.hqmf_id), @options).render # measure is arbitrary placeholder
+          patient_xml = if p.bundle.major_version.to_i > 2021
+                          Qrda1R5.new(p, Measure.where(hqmf_id: Measure.first.hqmf_id), @options).render
+                        else
+                          Qrda1R52.new(p, Measure.where(hqmf_id: Measure.first.hqmf_id), @options).render
+                        end
           doc = Nokogiri::XML::Document.parse(patient_xml)
           doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
           doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')

@@ -130,7 +130,7 @@ module CQM
                     "#{csr[:name]} of #{csr[:original]['value']} #{csr[:original]['unit']} is missing"
                   else
                     "#{csr[:name]} of #{csr[:original]['value']} #{csr[:original]['unit']} does not match "\
-                    "#{csr[:reported]['value']} #{csr[:reported]['unit']}"
+                      "#{csr[:reported]['value']} #{csr[:reported]['unit']}"
                   end
       end
     end

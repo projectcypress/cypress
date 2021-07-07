@@ -61,6 +61,7 @@ module Validators
         unit_errors.each { |e| add_error e, file_name: options[:file_name] }
       end
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, options.task.bundle)
+      Cypress::QRDAPostProcessor.remove_invalid_qdm_56_data_types(patient) if options.task.bundle.major_version.to_i > 2021
     end
 
     # Check that a patient as a patient_characteristic_payer and atleast 1 other (non-demographic) data criteria

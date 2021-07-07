@@ -170,6 +170,7 @@ module Cypress
         patient.update(_type: CQM::BundlePatient, correlation_id: bundle.id)
         Cypress::QRDAPostProcessor.replace_negated_codes(patient, bundle)
         Cypress::QRDAPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
+        Cypress::QRDAPostProcessor.remove_invalid_qdm_56_data_types(patient) if bundle.major_version.to_i > 2021
         patient.save!
         report_progress('patients', (index * 100 / qrda_files.length)) if (index % 10).zero?
       end

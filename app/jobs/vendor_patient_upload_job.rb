@@ -83,9 +83,8 @@ class VendorPatientUploadJob < ApplicationJob
 
       # shift date
       utc_start = DateTime.parse(doc_start).to_time.utc
-      bundle_utc_start = DateTime.strptime(bundle.measure_period_start.to_s, '%s').utc
       # Compare date alone, without time
-      if utc_start.strftime('%x') != bundle_utc_start.strftime('%x')
+      if utc_start.strftime('%x') != DateTime.strptime(bundle.measure_period_start.to_s, '%s').utc.strftime('%x')
         time_dif = bundle.measure_period_start - utc_start.to_i
         patient.qdmPatient.shift_dates(time_dif)
       end
@@ -93,6 +92,7 @@ class VendorPatientUploadJob < ApplicationJob
       patient.update(_type: CQM::VendorPatient, correlation_id: vendor_id, bundleId: bundle.id)
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, bundle)
       Cypress::QRDAPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
+      Cypress::QRDAPostProcessor.remove_invalid_qdm_56_data_types(patient) if bundle.major_version.to_i > 2021
       patient.save
       [true, patient]
     rescue StandardError => e
