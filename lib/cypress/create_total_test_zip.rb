@@ -41,7 +41,7 @@ module Cypress
         CreateDownloadZip.add_file_to_zip(zip, "filteringtest_#{pt.cms_id}_#{pt.id}.html.zip".tr(' ', '_'),
                                           pt.html_archive.read)
       end
-      CreateDownloadZip.add_file_to_zip(z, 'filtering_criteria.html', filtering_list)
+      CreateDownloadZip.add_file_to_zip(zip, 'filtering_criteria.html', filtering_list)
     end
 
     def self.add_html_files(zip, tests)
