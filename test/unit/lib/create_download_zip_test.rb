@@ -15,6 +15,13 @@ class CreateDownloadZipTest < ActiveSupport::TestCase
       pt.create_tasks
       pt.archive_patients if pt.patient_archive.path.nil?
       pt.save!
+
+      ft = product.product_tests.build({ name: 'ftest', measure_ids: product.measure_ids }, FilteringTest)
+      ft.save
+      ft.generate_patients
+      ft.create_tasks
+      ft.archive_patients if ft.patient_archive.path.nil?
+      ft.save!
       file = Cypress::CreateTotalTestZip.create_total_test_zip(product, nil, nil, 'qrda')
 
       Zip::File.open(file) do |zip_file|
