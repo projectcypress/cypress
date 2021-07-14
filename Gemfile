@@ -60,7 +60,7 @@ gem 'responders'
 # Roar is a framework for parsing and rendering REST documents
 gem 'roar-rails'
 
-gem 'carrierwave', '~> 2.1.0'
+gem 'carrierwave', '~> 2.2.2'
 gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 
 # AJAX file uploads
