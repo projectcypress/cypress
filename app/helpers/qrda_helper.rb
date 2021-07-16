@@ -7,7 +7,7 @@ module QrdaHelper
       "/cda:id[@root='2.16.840.1.113883.4.738']/@extension")
     return nil unless measure_ids
 
-    measure_ids.map(&:value)
+    measure_ids.map { |m_id| m_id.value.upcase }
   end
 
   def measure_ids_from_cat_3_file(doc)
@@ -16,6 +16,7 @@ module QrdaHelper
       "/cda:id[@root='2.16.840.1.113883.4.738']/@extension")
     return nil unless measure_ids
 
+    # This is left as the xpath node so the location can be used in the error message
     measure_ids
   end
 end

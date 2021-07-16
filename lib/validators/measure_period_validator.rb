@@ -142,7 +142,7 @@ module Validators
       # We need to look for measure ids in QRDA I and QRDA III files
       timing_constraint = APP_CONSTANTS['timing_constraints'].detect { |tc| measure_ids_from_cat_1_file(@document).include? tc['hqmf_id'] }
       timing_constraint || APP_CONSTANTS['timing_constraints'].detect do |tc|
-        measure_ids_from_cat_3_file(@document).map(&:value).include? tc['hqmf_id']
+        measure_ids_from_cat_3_file(@document).map { |m_id| m_id.value.upcase }.include? tc['hqmf_id']
       end
     end
 
