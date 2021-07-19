@@ -7,7 +7,7 @@ class DocumentUploader < CarrierWave::Uploader::Base
     "#{APP_CONSTANTS['file_upload_root']}/test_executions/#{model.id}"
   end
 
-  def extension_whitelist
+  def extension_allowlist
     %w[xml zip]
   end
 
