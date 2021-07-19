@@ -179,6 +179,6 @@
       <% sf_title = sf_measures.first.cms_id %>
     <% end %>
     <h4>Patient Data for <%= sf_title %></h4>
-    <%= QdmPatient.new(Cypress::ScoopAndFilter.new(sf_measures).scoop_and_filter(sf_patient), false).render.html_safe %>
+    <%= QdmPatient.new(Cypress::ScoopAndFilter.new(sf_measures, sf_patient.code_description_hash).scoop_and_filter(sf_patient), false).render.html_safe %>
   </div>
 </div>

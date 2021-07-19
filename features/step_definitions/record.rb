@@ -136,7 +136,7 @@ Then(/^the user sees details$/) do
   page.assert_text @patient.gender
   @measures = @bundle.measures.where(:_id.in => @patient.calculation_results.map(&:measure_id))
   sf_patient = @patient.clone
-  Cypress::ScoopAndFilter.new(@measures).scoop_and_filter(sf_patient)
+  Cypress::ScoopAndFilter.new(@measures, sf_patient.code_description_hash).scoop_and_filter(sf_patient)
   sf_patient.qdmPatient.dataElements.each do |data_criteria|
     page.assert_text data_criteria['description']
   end
@@ -192,7 +192,7 @@ Then(/^the user should see vendor patient details$/) do
   assert page.first(:xpath, './/span[@id="ED Visit_24" and @class="clause-true"]'), 'clause should highlighted as true'
   @measures = @bundle.measures.where(:_id.in => @patient.calculation_results.map(&:measure_id))
   sf_patient = @patient.clone
-  Cypress::ScoopAndFilter.new(@measures).scoop_and_filter(sf_patient)
+  Cypress::ScoopAndFilter.new(@measures, sf_patient.code_description_hash).scoop_and_filter(sf_patient)
   sf_patient.qdmPatient.dataElements.each do |data_criteria|
     page.assert_text data_criteria['description']
   end

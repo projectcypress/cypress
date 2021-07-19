@@ -56,7 +56,9 @@ module Cypress
     def self.zip(file, patients, format)
       patients = apply_sort_to patients
       measures, sd, ed = measure_start_end(patients)
-      patient_scoop_and_filter = Cypress::ScoopAndFilter.new(measures)
+      code_description_hash = {}
+      patients.each { |p| code_description_hash.merge!(p.code_description_hash) }
+      patient_scoop_and_filter = Cypress::ScoopAndFilter.new(measures, code_description_hash)
 
       # TODO: R2P: make sure patient exporter works (use correct one)
       formatter = if format.to_sym == :qrda
