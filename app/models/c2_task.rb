@@ -42,7 +42,7 @@ class C2Task < Task
                                 false
                               end
     options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
-                start_time: start_date, end_time: end_date }
+                start_time: start_date, end_time: end_date, ry2022_submission: product_test.bundle.major_version == '2021' }
     Qrda3R21.new(product_test.expected_results, product_test.measures, options).render
   end
 
