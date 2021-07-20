@@ -52,7 +52,6 @@ version_config:
           code: "854901"
           codeSystem: "2.16.840.1.113883.6.88"
       CMSQRDA3SchematronValidator_warnings:
-        - '2022 CMS QRDA III Implementation Guide for Eligible Clinicians and Eligible Professionals is not available'
       CMSQRDA1HQRSchematronValidator_warnings:
 
 # Configuration for values to use when randomizing patients in test decks
@@ -259,9 +258,18 @@ telehealth_ineligible_measures:
 
 # These measures have specific timing constraints
 timing_constraints:
+  # CMS529v1
   - hqmf_id : '2C928085-7198-38EE-0171-9D44015105A3'
     start_time : '20210701'
     end_time : '20220630'
+  # CMS529v2
+  - hqmf_id : '2C928082-74C2-3313-0174-E01E3F200882'
+    start_time : '20220701'
+    end_time : '20230630'
+  # CMS844v2
+  - hqmf_id : '2C928082-74B3-1D8C-0174-BC5D6372017F'
+    start_time : '20220701'
+    end_time : '20230630'
 
 telehealth_modifier_codes:
   [ '95', 'GQ', 'GT' ]

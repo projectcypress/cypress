@@ -7,7 +7,7 @@ class SupplementUploader < CarrierWave::Uploader::Base
     "#{APP_CONSTANTS['file_upload_root']}/products/#{model.id}"
   end
 
-  def extension_whitelist
+  def extension_allowlist
     %w[doc docx xls xlsx ppt pptx jpg jpeg pdf png zip]
   end
 end

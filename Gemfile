@@ -19,7 +19,7 @@ gem 'os'
 
 gem 'cqm-models', '~> 3.1.1'
 gem 'cqm-parsers', '~> 3.2.0.0'
-gem 'cqm-reports', '~> 3.1.4'
+gem 'cqm-reports', '~> 3.1.5'
 gem 'cqm-validators', '~> 3.1.1'
 
 # Use faker to generate addresses
@@ -60,7 +60,7 @@ gem 'responders'
 # Roar is a framework for parsing and rendering REST documents
 gem 'roar-rails'
 
-gem 'carrierwave', '~> 2.1.0'
+gem 'carrierwave', '~> 2.2.2'
 gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 
 # AJAX file uploads
