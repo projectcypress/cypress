@@ -30,7 +30,7 @@ gem 'sass-rails', '~> 5.0.4'
 # Dependencies for CMS Assets Framework
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'font-awesome-sass', '~> 5.0.13'
-gem 'jquery-rails', '~> 4.3.3'
+gem 'jquery-rails', '~> 4.4.0'
 gem 'jquery-ui-rails', '~> 6.0.1'
 
 # Add pagination support
