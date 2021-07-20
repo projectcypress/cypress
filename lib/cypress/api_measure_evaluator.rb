@@ -479,7 +479,7 @@ module Cypress
                                   false
                                 end
       options = { provider: pt.patients.first.providers.first, submission_program: cat3_submission_program,
-                  start_time: pt.start_date, end_time: pt.end_date }
+                  start_time: pt.start_date, end_time: pt.end_date, ry2022_submission: pt.bundle.major_version == '2021' }
       xml = Qrda3R21.new(results, pt.measures, options).render
 
       Patient.find(patient_ids).each(&:destroy)
