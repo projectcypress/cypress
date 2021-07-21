@@ -59,6 +59,17 @@ FactoryBot.define do
         patient.measure_relevance_hash = {}
         patient.measure_relevance_hash[proportion_ir.measure_id.to_s] = { 'IPP' => false }
         patient.measure_relevance_hash[cv_ir.measure_id.to_s] = { 'IPP' => true, 'MSRPOPL' => true }
+        patient.code_description_hash = { '210:2_16_840_1_113883_6_96' => 'Value Set Name 5',
+                                          '60:2_16_840_1_113883_6_12' => 'Value Set Name 3',
+                                          '24:2_16_840_1_113883_6_96' => 'Value Set Name 2',
+                                          '504:2_16_840_1_113883_6_96' => 'Value Set Name 7',
+                                          '720:2_16_840_1_113883_6_96' => 'Value Set Name 8',
+                                          '5814:2_16_840_1_113883_6_96' => 'Value Set Name 17',
+                                          'F:2_16_840_1_113883_5_1' => 'description',
+                                          '21112-8:2_16_840_1_113883_6_1' => 'description',
+                                          '2186-5:2_16_840_1_113883_6_238' => 'description',
+                                          '1:2_16_840_1_113883_3_221_5' => 'description',
+                                          '1002-5:2_16_840_1_113883_6_238' => 'description' }
         patient.providers << provider
         patient.save!
       end
@@ -70,6 +81,17 @@ FactoryBot.define do
       qdmPatient { FactoryBot.build(:qdm_patient) }
 
       after(:create) do |patient|
+        patient.code_description_hash = { '210:2_16_840_1_113883_6_96' => 'Value Set Name 5',
+                                          '60:2_16_840_1_113883_6_12' => 'Value Set Name 3',
+                                          '24:2_16_840_1_113883_6_96' => 'Value Set Name 2',
+                                          '504:2_16_840_1_113883_6_96' => 'Value Set Name 7',
+                                          '720:2_16_840_1_113883_6_96' => 'Value Set Name 8',
+                                          '5814:2_16_840_1_113883_6_96' => 'Value Set Name 17',
+                                          'F:2_16_840_1_113883_5_1' => 'description',
+                                          '21112-8:2_16_840_1_113883_6_1' => 'description',
+                                          '2186-5:2_16_840_1_113883_6_238' => 'description',
+                                          '1:2_16_840_1_113883_3_221_5' => 'description',
+                                          '1002-5:2_16_840_1_113883_6_238' => 'description' }
         provider = create(:default_provider)
         patient.providers << provider
         patient.save!
@@ -83,12 +105,12 @@ FactoryBot.define do
 
       after(:create) do |patient|
         patient.measure_relevance_hash = {}
-        patient.code_description_hash = { '210:2_16_840_1_113883_6_96' => 'description',
-                                          '60:2_16_840_1_113883_6_12' => 'description',
-                                          '24:2_16_840_1_113883_6_96' => 'description',
-                                          '504:2_16_840_1_113883_6_96' => 'description',
-                                          '720:2_16_840_1_113883_6_96' => 'description',
-                                          '5814:2_16_840_1_113883_6_96' => 'description',
+        patient.code_description_hash = { '210:2_16_840_1_113883_6_96' => 'Value Set Name 5',
+                                          '60:2_16_840_1_113883_6_12' => 'Value Set Name 3',
+                                          '24:2_16_840_1_113883_6_96' => 'Value Set Name 2',
+                                          '504:2_16_840_1_113883_6_96' => 'Value Set Name 7',
+                                          '720:2_16_840_1_113883_6_96' => 'Value Set Name 8',
+                                          '5814:2_16_840_1_113883_6_96' => 'Value Set Name 17',
                                           'F:2_16_840_1_113883_5_1' => 'description',
                                           '21112-8:2_16_840_1_113883_6_1' => 'description',
                                           '2186-5:2_16_840_1_113883_6_238' => 'description',

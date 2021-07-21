@@ -58,8 +58,9 @@ class PatientZipperTest < ActiveSupport::TestCase
                                                                           dataElementCodes: [QDM::Code.new('6', '2.16.840.1.113883.6.96')])
     patient.qdmPatient.dataElements.push QDM::PhysicalExamPerformed.new(relevantDatetime: DateTime.new(2011, 3, 24, 20, 53, 20).utc,
                                                                         dataElementCodes: [QDM::Code.new('24', '2.16.840.1.113883.6.96')])
+    patient.code_description_hash["#{faked_inpatient_vs.concepts.first.code}:2_16_840_1_113883_6_96"] = 'faked_inpatient_vs'
+    patient.code_description_hash['6:2_16_840_1_113883_6_96'] = 'Value Set Name 1'
     patient.save
-
     Cypress::PatientZipper.zip(file, [patient], format)
     file.close
 
