@@ -18,7 +18,7 @@
       "secret_key": "{{user `aws_secret_key`}}",
       "region": "us-east-1",
       "source_ami": "ami-07d0cf3af28718ef8",
-      "instance_type": "t2.small",
+      "instance_type": "m3.medium",
       "vpc_id": "{{user `vpc_id`}}",
       "subnet_id": "{{user `subnet_id`}}",
       "ami_virtualization_type": "hvm",
