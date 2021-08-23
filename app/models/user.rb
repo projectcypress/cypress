@@ -19,8 +19,6 @@ class User
   field :unconfirmed_email
   field :encrypted_password, type: String, default: ''
 
-  field :encrypted_umls_password, type: String, default: ''
-
   ## Recoverable
   field :reset_password_token,   type: String
   field :reset_password_sent_at, type: Time
@@ -58,6 +56,8 @@ class User
 
   after_create :associate_points_of_contact
   after_create :assign_default_role
+
+  attr_accessor :encrypted_umls_password
 
   def active_for_authentication?
     super && approved?
