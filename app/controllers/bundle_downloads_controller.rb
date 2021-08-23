@@ -9,7 +9,7 @@ class BundleDownloadsController < ApplicationController
   end
 
   def create
-    api_key = params[:bundle_download][:encrypted_umls_password]
+    api_key = params[:bundle_download][:api_key]
     bundle_year = params[:bundle_download][:bundle_year]
     bundle_file_name = "bundle-#{bundle_year}.zip"
     temp_file = download_bundle(api_key, bundle_file_name)

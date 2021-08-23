@@ -8,6 +8,6 @@
       <% end # bundle loop %>
     <% end # form_group %>
   </fieldset>
-  <%= f.password_field :encrypted_umls_password, label: 'UMLS API Key', autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
+  <%= f.password_field :api_key, label: 'UMLS API Key', autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
   <%= f.submit "Download Bundle" %>
 <% end %>

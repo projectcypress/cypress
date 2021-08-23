@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class BundleDownload
-  include Mongoid::Document
+  include ActiveModel::Model
 
-  field :encrypted_umls_password, type: String, default: ''
-  field :bundle_year, type: String
+  attr_accessor :api_key, :bundle_year
 end
