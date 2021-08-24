@@ -13,8 +13,7 @@ class BundleDownloadsController < ApplicationController
     bundle_year = params[:bundle_download][:bundle_year]
     bundle_file_name = "bundle-#{bundle_year}.zip"
     temp_file = download_bundle(api_key, bundle_file_name)
-    send_file temp_file.path, type: 'application/zip', disposition: 'attachment', filename: bundle_file_name
-    # redirect_to bundle_downloads_path
+    send_file temp_file.path, type: 'application/zip', disposition: 'attachment', filename: bundle_file_name if temp_file
   end
 
   protected
@@ -27,5 +26,9 @@ class BundleDownloadsController < ApplicationController
                                                   raw_response: true,
                                                   headers: { accept: :zip })
     bundle_resource.file
+  rescue StandardError
+    flash[:danger] = 'Could not verify NLM User Account.'
+    redirect_to bundle_downloads_path
+    false
   end
 end
