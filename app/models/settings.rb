@@ -15,7 +15,7 @@ class Settings
   field :banner, type: Boolean, default: false
   # set to true to enable UMLS confirmation prior to login
   field :umls, type: Boolean, default: false
-  field :downloadable_bundles, type: Boolean, default: false
+  field :downloadable_bundles, type: Boolean, default: true
   field :downloadable_bundles_path, type: String, default: 'https://cypressdemo.healthit.gov/measure_bundles/'
   field :api_documentation, type: Boolean, default: false
   field :api_documentation_path, type: String, default: ''
