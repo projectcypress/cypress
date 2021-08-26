@@ -5,15 +5,20 @@ class BundleDownloadsController < ApplicationController
 
   def index
     @bundle_download = BundleDownload.new
-    @bundle_years = APP_CONSTANTS['version_config'].keys.map { |key| key[2, 4] }
+    @bundle_years = available_bundle_years
   end
 
   def create
     api_key = params[:bundle_download][:api_key]
     bundle_year = params[:bundle_download][:bundle_year]
-    bundle_file_name = "bundle-#{bundle_year}.zip"
-    temp_file = download_bundle(api_key, bundle_file_name)
-    send_file temp_file.path, type: 'application/zip', disposition: 'attachment', filename: bundle_file_name if temp_file
+    if available_bundle_years.include? bundle_year
+      bundle_file_name = "bundle-#{bundle_year}.zip"
+      temp_file = download_bundle(api_key, bundle_file_name)
+      send_file temp_file.path, type: 'application/zip', disposition: 'attachment', filename: bundle_file_name if temp_file
+    else
+      flash[:danger] = "Bundle for year #{bundle_year} not found."
+      redirect_to bundle_downloads_path
+    end
   end
 
   protected
@@ -30,5 +35,9 @@ class BundleDownloadsController < ApplicationController
     flash[:danger] = 'Could not verify NLM User Account.'
     redirect_to bundle_downloads_path
     false
+  end
+
+  def available_bundle_years
+    APP_CONSTANTS['version_config'].keys.map { |key| key[2, 4] }
   end
 end
