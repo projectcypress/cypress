@@ -8,6 +8,7 @@ module Cypress
                      measures: 'measures', measures_info: 'measures-info.json',
                      calculations: 'calculations',
                      valuesets: File.join('value-sets', 'value-set-codes.csv'),
+                     valueset_binding: File.join('value-sets', 'bps_cms.csv'),
                      patients: 'patients' }.freeze
     COLLECTION_NAMES = ['bundles', 'records', 'measures', 'individual_results', 'system.js'].freeze
     DEFAULTS = { type: nil,
@@ -18,7 +19,7 @@ module Cypress
     #
     # @param [File] zip The bundle zip file.
 
-    def self.import(zip, tracker, include_highlighting: false)
+    def self.import(zip, tracker, include_highlighting: false, api_key: nil)
       bundle = nil
       Zip::ZipFile.open(zip.path) do |zip_file|
         bundle = unpack_bundle(zip_file)
@@ -28,7 +29,7 @@ module Cypress
         raise bundle.errors.full_messages.join(',') unless bundle.save
 
         puts 'bundle metadata unpacked...'
-        unpack_and_store_valuesets(zip_file, bundle)
+        api_key.nil? ? unpack_and_store_valuesets(zip_file, bundle) : download_and_build_valuesets(zip_file, bundle, api_key)
         unpack_and_store_measures(zip_file, bundle)
         bundle.collect_codes_by_qdm_category
         unpack_and_store_cqm_patients(zip_file, bundle)
@@ -120,6 +121,51 @@ module Cypress
                         concepts: codes, bundle: bundle).save
       puts "\rLoading: Value Sets Complete          "
     end
+
+    # rubocop:disable Metrics/MethodLength
+    def self.download_and_build_valuesets(zip, bundle, api_key)
+      api_key_string = "apikey=#{api_key}"
+      ts_url = 'https://vsac.nlm.nih.gov/vsac/ws/Ticket'
+
+      tgt_req = RestClient::Request.execute(method: :post, url: ts_url, headers: { accept: :json, content_type: :json }, payload: api_key_string)
+      tgt = tgt_req.body
+
+      jdata = { service: 'http://umlsks.nlm.nih.gov' }
+
+      value_sets = {}
+      csv = CSV.parse(zip.read(SOURCE_ROOTS[:valueset_binding]), headers: true, col_sep: ',')
+      csv.each do |row|
+        value_sets[row[0]] = row[1]
+      end
+
+      value_sets.each do |oid, release_name|
+        st_req = RestClient::Request.execute(method: :post, url: "#{ts_url}/#{tgt}", headers: { accept: :json, content_type: :json }, payload: jdata)
+        st = st_req.body
+
+        vs_url = "https://vsac.nlm.nih.gov/vsac/svs/RetrieveMultipleValueSets?id=#{oid}&release=#{release_name}&ticket=#{st}"
+        vs_req = RestClient::Request.execute(method: :get, url: vs_url)
+
+        vs_data = vs_req.body.force_encoding('utf-8')
+        doc = Nokogiri::XML(vs_data)
+        doc.root.add_namespace_definition('vs', 'urn:ihe:iti:svs:2008')
+        vs_element = doc.at_xpath('/vs:RetrieveValueSetResponse/vs:ValueSet|/vs:RetrieveMultipleValueSetsResponse/vs:DescribedValueSet')
+        concepts = vs_element.xpath('//vs:Concept')
+        codes = []
+        concepts.each do |concept|
+          codes << CQM::Concept.new(code: concept['code'],
+                                    code_system_name: concept['codeSystemName'],
+                                    code_system_version: concept['codeSystemVersion'],
+                                    code_system_oid: concept['codeSystem'],
+                                    display_name: concept['displayName'])
+        end
+        CQM::ValueSet.new(oid: vs_element['ID'],
+                          display_name: vs_element['displayName'],
+                          version: release_name,
+                          concepts: codes,
+                          bundle: bundle).save
+      end
+    end
+    # rubocop:enable Metrics/MethodLength
 
     def self.unpack_and_store_measures(zip, bundle)
       measure_info = JSON.parse(zip.read(SOURCE_ROOTS[:measures_info]))

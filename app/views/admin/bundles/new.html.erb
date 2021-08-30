@@ -4,6 +4,7 @@
 <%= bootstrap_form_tag url: admin_bundles_path, html: {id: "add_bundle_form"} do |f| %>
   <div class="panel-body">
     <%= f.file_field :file, label: 'Bundle', accept: 'application/zip' %>
+    <%= f.password_field :api_key, label: 'UMLS API Key', required: true %>
   </div>
 
   <div class="panel-footer">

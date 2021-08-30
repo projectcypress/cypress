@@ -35,7 +35,7 @@ module Admin
         file_name = generate_file_path
         file_path = File.join(APP_CONSTANTS['bundle_file_path'], file_name)
         FileUtils.mv(temp_file_path, file_path)
-        BundleUploadJob.perform_later(file_path, bundle_file.original_filename)
+        BundleUploadJob.perform_later(file_path, bundle_file.original_filename, api_key: params['api_key'])
         redirect_to admin_path(anchor: 'bundles')
       else
         flash[:alert] = 'No bundle file provided.'

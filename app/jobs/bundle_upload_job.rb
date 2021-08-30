@@ -8,7 +8,7 @@ class BundleUploadJob < ApplicationJob
     tracker.options['original_filename'] = job.arguments[1]
     tracker.save
   end
-  def perform(file, original_file_name)
+  def perform(file, original_file_name, api_key: nil)
     tracker.log('Importing')
     raise('Bundle must have extension .zip') unless File.extname(original_file_name) == '.zip'
 
@@ -16,7 +16,7 @@ class BundleUploadJob < ApplicationJob
     already_have_default = Bundle.where(active: true).exists?
 
     importer = Cypress::CqlBundleImporter
-    @bundle = importer.import(bundle_file, tracker)
+    @bundle = importer.import(bundle_file, tracker, api_key: api_key)
 
     if already_have_default
       @bundle.active = false
