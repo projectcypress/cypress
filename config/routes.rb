@@ -102,6 +102,8 @@ Rails.application.routes.draw do
 
   resources :version, only: [:index]
 
+  resources :bundle_downloads, only: %i[index create]
+
   resources :qrda_uploads, only: [:create], path: '/qrda_validation/:year/:qrda_type/:organization'
   resources :qrda_uploads, only: [:index], path: '/qrda_validation'
 

@@ -1,0 +1,13 @@
+<%= bootstrap_form_for(@bundle_download) do |f| %>
+  <fieldset>
+    <legend class="control-label">Available Bundles</legend>
+    <!-- loop through bundles & use radio buttons -->
+    <%= f.form_group :bundle_year, help: "Select the bundle you would like to download." do %>
+      <% @bundle_years.each do |bundle_year| %>
+        <%= f.radio_button :bundle_year, bundle_year, label: "bundle-#{bundle_year}.zip", label_class: "btn btn-checkbox", required: true %>
+      <% end # bundle loop %>
+    <% end # form_group %>
+  </fieldset>
+  <%= f.password_field :api_key, label: 'UMLS API Key', autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
+  <%= f.submit "Download Bundle" %>
+<% end %>

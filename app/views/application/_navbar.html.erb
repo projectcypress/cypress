@@ -17,6 +17,8 @@
                            :master_patient_list
                          elsif current_page?(admin_path) || current_page?(new_admin_bundle_path)
                            :admin
+                         elsif current_page?(bundle_downloads_path)
+                           :bundle_download
                          else
                            :dashboard
                          end
@@ -34,6 +36,14 @@
             Master Patient List
             <% end %>
           </li>
+          <% if Settings.current.downloadable_bundles %>
+          <li <% if curr_page == :bundle_download %>class="active"<% end %>>
+            <%= link_to bundle_downloads_path, class: 'navbar-item'  do %>
+                <%= icon('fas fa-fw', 'file-archive', :"aria-hidden" => true) %>
+                 Download Bundles
+            <% end %>
+          </li>
+          <% end %>
           <% if Settings.current.api_documentation %>
           <li>
           <%= link_to Settings.current.api_documentation_path, class: 'navbar-item', target: '_blank'   do %>

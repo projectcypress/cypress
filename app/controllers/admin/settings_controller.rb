@@ -35,7 +35,7 @@ module Admin
     def update_settings
       params.permit(:banner, :umls, :http_proxy, :website_domain, :website_port, :banner_message, :warning_message,
                     :mailer_address, :mailer_port, :mailer_domain, :mailer_user_name, :mailer_password, :api_documentation,
-                    :api_documentation_path)
+                    :api_documentation_path, :downloadable_bundles, :downloadable_bundles_path)
     end
   end
 end
