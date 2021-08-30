@@ -15,6 +15,18 @@ When(/^the user navigates to the admin page$/) do
   visit '/admin'
 end
 
+When(/^the user navigates to the bundle_downloads page$/) do
+  visit '/bundle_downloads'
+end
+
+When(/^the user selects bundle to download$/) do
+  page.find('#bundle_download_bundle_year_2021').click
+end
+
+And(/^the user clicks download bundle$/) do
+  page.click_button 'Download Bundle'
+end
+
 And(/^the user clicks edit application settings$/) do
   page.click_button 'Edit Application Settings'
 end
