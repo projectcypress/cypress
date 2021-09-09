@@ -7,17 +7,18 @@ module Validators
     include QrdaHelper
 
     # These are the demographic codes specified in the CMS IG for Payer, Sex, Race and Ethnicity
-    REQUIRED_CODES = { 'PAYER' => %w[A B C D],
-                       'SEX' => %w[M F],
-                       'RACE' => %w[2106-3 2076-8 2054-5 2028-9 1002-5 2131-1],
+    REQUIRED_CODES = { 'PAYER' => %w[A B C D], 'SEX' => %w[M F], 'RACE' => %w[2106-3 2076-8 2054-5 2028-9 1002-5 2131-1],
                        'ETHNICITY' => %w[2135-2 2186-5] }.freeze
 
-    def initialize; end
+    def initialize(expected_measures = [])
+      @expected_measures = expected_measures
+    end
 
     def validate(file, options = {})
       document = get_document(file)
       # Set missing codes to false by default
       @missing_codes = { 'PAYER' => false, 'SEX' => false, 'RACE' => false, 'ETHNICITY' => false }
+      validate_reported_measures(@expected_measures, document, options) unless @expected_measures.empty?
       document.xpath(measure_entry_selector).each do |measure|
         pop_counts = {}
         measure_id = measure.at_xpath(measure_id_selector).value
@@ -40,6 +41,14 @@ module Validators
         Rails.logger.error(e)
       end
       validate_population_ids(document, options)
+    end
+
+    def validate_reported_measures(expected_measures, doc, options)
+      missing_ids = expected_measures - measure_ids_from_cat_3_file(doc).map(&:value)
+      missing_ids.each do |missing_measure|
+        msg = "Document does not state it is reporting measure #{Measure.find_by(hqmf_id: missing_measure).cms_id}"
+        add_warning(msg, location: '/', file_name: options[:file_name])
+      end
     end
 
     def validate_populations(measure, pop, options)
@@ -73,6 +82,10 @@ module Validators
             next if results[key]
 
             population = measure.population_sets.select { |pset| pset[:population_set_id] == pop_set_hash[:population_set_id] }.first.populations[key]
+
+            # some populations may not exist for a specific population set (e.g., NUMEX does not exist for CMS156 Population Critria 1 but does for 2)
+            next unless population
+
             add_error("#{key} (#{population['hqmf_id']}) is missing"\
             " for #{measure.cms_id}", location: measure_id.parent.path, file_name: options[:file_name])
           end
