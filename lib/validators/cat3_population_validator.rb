@@ -44,7 +44,7 @@ module Validators
     end
 
     def validate_reported_measures(expected_measures, doc, options)
-      missing_ids = expected_measures - measure_ids_from_cat_3_file(doc).map(&:value)
+      missing_ids = expected_measures - (measure_ids_from_cat_3_file(doc).map { |m_id| m_id.value.upcase })
       missing_ids.each do |missing_measure|
         msg = "Document does not state it is reporting measure #{Measure.find_by(hqmf_id: missing_measure).cms_id}"
         add_warning(msg, location: '/', file_name: options[:file_name])
