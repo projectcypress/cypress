@@ -135,7 +135,7 @@ module Cypress
       # If medicare, start coverage at 65th birthdate
       if is_medicare
         start_time = patient.qdmPatient.birthDatetime
-        start_time.change(year: patient.qdmPatient.birthDatetime.year + 65)
+        start_time.change(year: patient.qdmPatient.birthDatetime.year + 65, day: 1)
       elsif start_times.empty?
         patient.qdmPatient.birthDatetime
       else

@@ -90,6 +90,11 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     # If a patient has a birthdate and an element with an authordate, the payer start time should be between the birthdate and authorDatetime
     assert payer_date_with_author_times > @record.qdmPatient.birthDatetime
     assert payer_date_with_author_times < assessment_performed.authorDatetime
+    # If a patient has medicare, the payer start time should be the month when the patient turns 65
+    payer_date_with_medicare = Cypress::DemographicsRandomizer.get_random_payer_start_date(@record, true, @prng)
+    assert_equal payer_date_with_medicare.year, @record.qdmPatient.birthDatetime.year + 65
+    assert_equal payer_date_with_medicare.month, @record.qdmPatient.birthDatetime.month
+    assert_equal payer_date_with_medicare.day, 1
   end
 
   def test_randomize_name
