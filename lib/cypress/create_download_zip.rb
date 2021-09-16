@@ -101,7 +101,11 @@ module Cypress
           next unless patient
 
           # TODO: R2P: format patients for export
-          add_file_to_zip(z, "sample patient for #{measure_id}.html", formatter.export(patient))
+          sf_patient = patient.clone
+          sf_patient.id = patient.id
+          sf_measures = Measure.where(cms_id: measure_id)
+          Cypress::ScoopAndFilter.new(sf_measures).scoop_and_filter(sf_patient)
+          add_file_to_zip(z, "sample patient for #{measure_id}.html", formatter.export(sf_patient))
         end
       end
       file
