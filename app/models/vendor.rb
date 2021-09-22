@@ -26,7 +26,7 @@ class Vendor
   field :vendor_patient_analysis, type: Hash, default: {}
 
   validates :name, presence: true, uniqueness: { message: 'Vendor name was already taken. Please choose another.' }
-  validates :url, url: { allow_nil: true }
+  validates :url, url: { allow_blank: true }
 
   def self.accessible_by(user)
     # if admin or atl or ignore_roles get them all
