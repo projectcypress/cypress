@@ -102,6 +102,15 @@ class VendorsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'should get error on invalid create vendor with bad url' do
+    vendor_index = 0
+    for_each_logged_in_user([ADMIN, ATL, USER]) do
+      post :create, params: { format: :json, vendor: { name: "test vendor #{vendor_index}", url: 'javascript:alert(document.domain)', poc_attributes: { name: 'test poc' } } }
+      assert_response :unprocessable_entity, 'response should be Unprocessable Entity'
+      assert_has_json_errors JSON.parse(response.body), 'url' => ['is not a valid URL']
+    end
+  end
+
   test 'should get error on invalid create vendor with json request' do
     for_each_logged_in_user([ADMIN, ATL, USER]) do
       post :create, params: { format: :json, vendor: { name: @vendor.name, poc_attributes: { name: 'test poc' } } }
