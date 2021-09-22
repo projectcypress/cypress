@@ -93,6 +93,8 @@ gem 'rest-client', '~>2.0.2'
 
 gem 'daemons'
 
+gem 'validate_url'
+
 group :development, :test do
   # rubocop 0.67 currently has a bug that is causing it to crash in product.rb and vendor.rb
   gem 'rubocop'
