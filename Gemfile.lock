@@ -533,6 +533,9 @@ GEM
       unicorn
     uuid (2.3.9)
       macaddr (~> 1.0)
+    validate_url (1.0.13)
+      activemodel (>= 3.0.0)
+      public_suffix
     vcr (6.0.0)
     virtus (2.0.0)
       axiom-types (~> 0.1)
@@ -636,6 +639,7 @@ DEPENDENCIES
   turbolinks!
   uglifier (>= 1.3.0)
   unicorn-rails
+  validate_url
   vcr
   vmstat
   web-console (~> 3.7.0)
