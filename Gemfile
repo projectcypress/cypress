@@ -19,7 +19,7 @@ gem 'os'
 
 gem 'cqm-models', '~> 3.1.1'
 gem 'cqm-parsers', '~> 3.2.0.1'
-gem 'cqm-reports', '~> 3.1.7'
+gem 'cqm-reports', '~> 3.1.8'
 gem 'cqm-validators', '~> 3.1.2'
 
 # Use faker to generate addresses
