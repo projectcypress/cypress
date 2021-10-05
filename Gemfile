@@ -18,9 +18,9 @@ gem 'mustache'
 gem 'os'
 
 gem 'cqm-models', '~> 3.1.1'
-gem 'cqm-parsers', '~> 3.2.0.0'
-gem 'cqm-reports', '~> 3.1.6'
-gem 'cqm-validators', '~> 3.1.1'
+gem 'cqm-parsers', '~> 3.2.0.1'
+gem 'cqm-reports', '~> 3.1.8'
+gem 'cqm-validators', '~> 3.1.2'
 
 # Use faker to generate addresses
 gem 'faker', '~> 1.5.0'

@@ -8,6 +8,7 @@ module Validators
     include ::CqmValidators
 
     def initialize(checklist_test)
+      @bundle_id = checklist_test.bundle.id
       @criteria_list = checklist_test.checked_criteria
       @criteria_list.each do |criteria|
         # set passing flag to false during each validation
@@ -22,6 +23,8 @@ module Validators
       @file = file
       # parse the cat 1 file into the patient model
       patient, _warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(@file)
+      patient.bundleId = @bundle_id
+
       # iterate through each criteria to see if it is contained in the patient
       @criteria_list.each do |criteria|
         # if a criteria has already passed, no need to check again
