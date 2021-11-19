@@ -21,6 +21,8 @@ class TestExecutionsController < ApplicationController
 
   def create
     authorize! :execute_task, @task.product_test.product.vendor
+    @task.latest_test_execution_id = nil
+    @task.save
     @test_execution = @task.execute(results_params, current_user)
     @has_eh_tests = @task.product_test.product.eh_tests?
     @has_ep_tests = @task.product_test.product.ep_tests?
