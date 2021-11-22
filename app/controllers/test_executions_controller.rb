@@ -21,6 +21,8 @@ class TestExecutionsController < ApplicationController
 
   def create
     authorize! :execute_task, @task.product_test.product.vendor
+    # Setting latest_test_execution_id to nil here will allow for AJAX reload to run
+    # latest_test_execution_id will be reset when @task.execute is run later
     @task.latest_test_execution_id = nil
     @task.save
     @test_execution = @task.execute(results_params, current_user)

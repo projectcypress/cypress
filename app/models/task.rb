@@ -61,6 +61,7 @@ class Task
   # returns the most recent execution for this task
   # if there are none, returns nil
   def most_recent_execution
+    # if latest_test_execution_id is stored, use it.  Else, look it up.
     if latest_test_execution_id
       TestExecution.find(latest_test_execution_id)
     else
