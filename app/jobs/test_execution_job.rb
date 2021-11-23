@@ -10,6 +10,8 @@ class TestExecutionJob < ApplicationJob
   end
   def perform(test_execution, task, options = {})
     test_execution.state = :running
+    task.latest_test_execution_id = test_execution.id.to_s
+    task.save
     test_execution.validate_artifact(task.validators, test_execution.artifact, options.merge('test_execution' => test_execution, 'task' => task))
     test_execution.save
   end
