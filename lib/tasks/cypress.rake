@@ -100,5 +100,15 @@ namespace :cypress do
       end
       print "#{CQM::ProductTestPatient.all.count} patients were updated in #{Time.new.in_time_zone - start} seconds\n"
     end
+
+    task most_recent_executions: :setup do
+      Task.all.each do |task|
+        next if task.latest_test_execution_id
+
+        latest_te_id = task.test_executions.any? ? task.test_executions.order_by(created_at: 'desc').limit(1).first : nil
+        task.latest_test_execution_id = latest_te_id.id.to_s
+        task.save
+      end
+    end
   end
 end

@@ -6,6 +6,7 @@ class Task
   include GlobalID::Identification
   field :options, type: Hash
   field :expected_results, type: Hash
+  field :latest_test_execution_id, type: String
 
   belongs_to :product_test, inverse_of: :tasks, touch: true
   has_many :test_executions, dependent: :destroy
@@ -60,6 +61,11 @@ class Task
   # returns the most recent execution for this task
   # if there are none, returns nil
   def most_recent_execution
-    test_executions.any? ? test_executions.order_by(created_at: 'desc').limit(1).first : nil
+    # if latest_test_execution_id is stored, use it.  Else, look it up.
+    if latest_test_execution_id
+      TestExecution.find(latest_test_execution_id)
+    else
+      test_executions.any? ? test_executions.order_by(created_at: 'desc').limit(1).first : nil
+    end
   end
 end
