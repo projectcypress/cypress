@@ -7,6 +7,48 @@ class PatientTest < ActiveSupport::TestCase
     @bundle = FactoryBot.create(:static_bundle)
   end
 
+  def test_nullify_unnessissary_negations
+    sample_patient = @bundle.patients.first
+    sample_measure = @bundle.measures.first
+    valueset_oids = sample_measure.value_sets.distinct(:oid)
+
+    # before we add any, # of negated elements should be zero
+    assert_equal 0, sample_patient.qdmPatient.dataElements.select { |de| de.dataElementCodes.any? { |dec| dec.system == '1.2.3.4.5.6.7.8.9.10' } }.size
+
+    time_value = DateTime.new(2011, 3, 24, 20, 53, 20).utc
+    de_codes = [{ 'code' => '23', 'system' => '2.16.840.1.113883.6.96' }, { 'code' => '2.16.840.1.113883.3.117.1.7.1.230', 'system' => '1.2.3.4.5.6.7.8.9.10' }]
+    sample_patient.qdmPatient.dataElements << QDM::AssessmentPerformed.new(id: 'assessment', dataElementCodes: de_codes, relevantDatetime: time_value)
+
+    sample_patient.nullify_unnessissary_negations(valueset_oids)
+    negated_elements = sample_patient.qdmPatient.dataElements.select { |de| de.dataElementCodes.any? { |dec| dec.system == '1.2.3.4.5.6.7.8.9.10' } }
+    assert_equal 1, negated_elements.size
+    assert negated_elements.any? { |de| de.dataElementCodes.any? { |dec| dec.system == '2.16.840.1.113883.6.96NA' } }, 'There should be a code with a NA codesystem'
+
+    sample_patient.reestablish_negations
+    assert_not negated_elements.any? { |de| de.dataElementCodes.any? { |dec| dec.system == '2.16.840.1.113883.6.96NA' } }, 'There should not be a code with a NA codesystem'
+  end
+
+  def test_keep_nessissary_negations
+    sample_patient = @bundle.patients.first
+    sample_measure = @bundle.measures.first
+    valueset_oids = sample_measure.value_sets.distinct(:oid)
+
+    # before we add any, # of negated elements should be zero
+    assert_equal 0, sample_patient.qdmPatient.dataElements.select { |de| de.dataElementCodes.any? { |dec| dec.system == '1.2.3.4.5.6.7.8.9.10' } }.size
+
+    time_value = DateTime.new(2011, 3, 24, 20, 53, 20).utc
+    de_codes = [{ 'code' => '23', 'system' => '2.16.840.1.113883.6.96' }, { 'code' => valueset_oids.first, 'system' => '1.2.3.4.5.6.7.8.9.10' }]
+    sample_patient.qdmPatient.dataElements << QDM::AssessmentPerformed.new(id: 'assessment', dataElementCodes: de_codes, relevantDatetime: time_value)
+
+    sample_patient.nullify_unnessissary_negations(valueset_oids)
+    negated_elements = sample_patient.qdmPatient.dataElements.select { |de| de.dataElementCodes.any? { |dec| dec.system == '1.2.3.4.5.6.7.8.9.10' } }
+    assert_equal 1, negated_elements.size
+    assert_not negated_elements.any? { |de| de.dataElementCodes.any? { |dec| dec.system == '2.16.840.1.113883.6.96NA' } }, 'There should not be a code with a NA codesystem'
+
+    sample_patient.reestablish_negations
+    assert_not negated_elements.any? { |de| de.dataElementCodes.any? { |dec| dec.system == '2.16.840.1.113883.6.96NA' } }, 'There should not be a code with a NA codesystem'
+  end
+
   def test_record_knows_bundle
     patient = BundlePatient.new(bundleId: @bundle.id)
     patient.save
