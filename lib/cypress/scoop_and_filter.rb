@@ -43,13 +43,15 @@ module Cypress
     # Multi_vs_negation_elements is an array of cloned elements to add to patient record to capture all of the negated valuesets
     def scoop_and_filter_data_element_codes(data_element, multi_vs_negation_elements, patient)
       # keep if data_element code and codesystem is in one of the relevant_codes
+      # Also keep all negated valuesets, we'll deal with those later
       data_element.dataElementCodes.keep_if do |de_code|
         (@relevant_codes.include?(code: de_code.code, system: de_code.system) || de_code.system == '1.2.3.4.5.6.7.8.9.10')
       end
-      # Do not try to replace with negated valueset if all codes are removed
+      # Return if all codes have been removed
       return if data_element.dataElementCodes.blank?
 
-      add_description_to_data_element(data_element)
+      remove_irrelevant_valuesets_and_add_description_to_data_element(data_element)
+      # Return if all codes and valuesets have been removed
       return if data_element.dataElementCodes.blank?
       return unless data_element.respond_to?('negationRationale') && data_element.negationRationale
 
@@ -68,7 +70,7 @@ module Cypress
       @de_category_statuses_for_measures.include?(category: data_element['qdmCategory'], status: data_element['qdmStatus'])
     end
 
-    def add_description_to_data_element(data_element)
+    def remove_irrelevant_valuesets_and_add_description_to_data_element(data_element)
       de = data_element
       vsets = if de.codes.any? { |code| code.system == '1.2.3.4.5.6.7.8.9.10' }
                 @valuesets.select { |vs| vs.oid == de.codes.select { |code| code.system == '1.2.3.4.5.6.7.8.9.10' }.first.code }
@@ -90,7 +92,9 @@ module Cypress
     # rubocop:disable Metrics/AbcSize
     def replace_negated_code_with_valueset(data_element, multi_vs_negation_elements)
       de = data_element
+      # If the data element already knows the negated valueset, use it
       if de.codes.any? { |code| code.system == '1.2.3.4.5.6.7.8.9.10' }
+        # Remove the 'assumed' code for the valueset.  This assumed code is only used for calculation, not display.
         de.dataElementCodes.keep_if { |code| code.system == '1.2.3.4.5.6.7.8.9.10' }
         return
       end
