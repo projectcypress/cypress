@@ -30,5 +30,5 @@ Scenario: Admin should be able to filter patient data
   Then the user should see text Value Set Name 8
   Then the user should not see text Value Set Name 5
   When the user filters on All Measures
-  Then the user should see text 720
-  Then the user should see text 210
+  Then the user should see text Value Set Name 8
+  Then the user should see text Value Set Name 5
