@@ -265,6 +265,9 @@ module CQM
       warnings
     end
 
+    # This method removes negations that are not for the oids provided
+    # The negations are not acutally removed, the replacement codes are modified so they will not
+    # factor in calcuations
     def nullify_unnessissary_negations(valueset_oids)
       qdmPatient.dataElements.each do |de|
         negated_vs = de.dataElementCodes.select { |dec| dec.system == '1.2.3.4.5.6.7.8.9.10' }
@@ -279,6 +282,7 @@ module CQM
       end
     end
 
+    # Revert the dataElement that had be modified by the nullify_unnessissary_negations method
     def reestablish_negations
       qdmPatient.dataElements.each do |de|
         negated_vs = de.dataElementCodes.select { |dec| dec.system == '1.2.3.4.5.6.7.8.9.10' }
