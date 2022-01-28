@@ -218,3 +218,14 @@
   <%= render partial: 'products/report/failing_measure_tests', locals: { title: 'C4 QRDA Category III Failing Measure Tests', tasks: c4_cat3_failing_tasks, c3: false, c4: true } %>
 </section>
 <% end %>
+
+<% errored_tasks = @product.product_tests.collect { |pt| pt.tasks }.flatten.collect { |task| task if task.errored? }.compact %>
+<% unless errored_tasks.empty? %>
+  <section>
+    <h1>Errored Tests</h1>
+    <% errored_tasks.each do |errored_task| %>
+      <% execution = errored_task.most_recent_execution %>
+      <p><%= "#{errored_task.product_test.cms_id} - #{execution.task._type[0, 2]} Execution:" %>  An internal error occurred (<code><%= execution.error_summary %></code>)</p>
+    <% end %>
+  </section>
+<% end %>
