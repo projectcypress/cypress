@@ -265,6 +265,37 @@ module CQM
       warnings
     end
 
+    # This method removes negations that are not for the oids provided
+    # The negations are not acutally removed, the replacement codes are modified so they will not
+    # factor in calcuations
+    def nullify_unnessissary_negations(valueset_oids)
+      qdmPatient.dataElements.each do |de|
+        negated_vs = de.dataElementCodes.select { |dec| dec.system == '1.2.3.4.5.6.7.8.9.10' }
+        next if negated_vs.blank?
+
+        de.dataElementCodes.each do |dec|
+          break if valueset_oids.include?(negated_vs.first.code)
+          next if dec.system == '1.2.3.4.5.6.7.8.9.10'
+
+          dec.system.concat('NA')
+        end
+      end
+    end
+
+    # Revert the dataElement that had be modified by the nullify_unnessissary_negations method
+    def reestablish_negations
+      qdmPatient.dataElements.each do |de|
+        negated_vs = de.dataElementCodes.select { |dec| dec.system == '1.2.3.4.5.6.7.8.9.10' }
+        next if negated_vs.blank?
+
+        de.dataElementCodes.each do |dec|
+          next if dec.system == '1.2.3.4.5.6.7.8.9.10'
+
+          dec.system.delete_suffix!('NA')
+        end
+      end
+    end
+
     # Birthdate times at the epoch time boundary throws off the cql-calculation engine, workaround to add 1 second to the birthtime.
     def account_for_epoch_time_zero
       return unless qdmPatient.birthDatetime
