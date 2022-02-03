@@ -327,20 +327,14 @@ class ProductTest
   end
 
   def randomize_master_patient_ids(mpl_ids)
-    prng = Random.new(rand_seed.to_i)
     denom_ids = pick_denom_ids
 
     msrpopl_ids = pick_msrpopl_ids
 
     ipp_ids = (mpl_ids - denom_ids - msrpopl_ids)
 
-    # Pick some IDs from the IPP. If we've already got a lot of patients, only pick a couple more, otherwise pick 1/2 or more
-    ipp_ids = if (mpl_ids.count + denom_ids.count + msrpopl_ids.count) > test_deck_max
-                ipp_ids.sample(test_deck_max / 2)
-              else
-                ipp_ids.sample(prng.rand((ipp_ids.count / 2.0).ceil..(ipp_ids.count)))
-              end
-    (ipp_ids + denom_ids + msrpopl_ids).compact
+    # Pick 3 IDs from the IPP.
+    (ipp_ids.sample(3) + denom_ids + msrpopl_ids).compact
   end
 
   def pick_denom_ids
@@ -354,7 +348,7 @@ class ProductTest
     if denom_ids.count > (test_deck_max - 1)
       high_value_ids = patients_in_high_value_populations
       high_value_ids = high_value_ids.sample(test_deck_max - 1)
-      denom_ids = high_value_ids + denom_ids.sample(test_deck_max - high_value_ids.count - 1)
+      denom_ids = high_value_ids + denom_ids.sample(3)
     end
     patients_in_denominator_and_greater.empty? ? [numer_id] : (denom_ids << numer_id).uniq
   end
