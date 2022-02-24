@@ -333,8 +333,9 @@ class ProductTest
 
     ipp_ids = (mpl_ids - denom_ids - msrpopl_ids)
 
-    # Pick 3 IDs from the IPP.
-    (ipp_ids.sample(3) + denom_ids + msrpopl_ids).compact
+    # Pick 3 IDs from the IPP unless test includes hybrid measures.
+    ipp_count = hybrid_measures? ? test_deck_max : 3
+    (ipp_ids.sample(ipp_count) + denom_ids + msrpopl_ids).compact
   end
 
   def pick_denom_ids
