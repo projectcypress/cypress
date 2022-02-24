@@ -234,19 +234,30 @@ module CQM
     # of individal results and flags a patient as relevant if they calculate into the measures population
     def update_measure_relevance_hash(individual_result)
       ir = individual_result
+      measure = CQM::Measure.find(ir.measure_id)
       # Create a new hash for a measure, if one doesn't already exist
-      measure_relevance_hash[ir.measure_id.to_s] = {} unless measure_relevance_hash[ir.measure_id.to_s]
-      # Iterate through each population for a measure
-      CQM::Measure.find(ir.measure_id).population_keys.each do |pop_key|
-        # A patient is only relevant to the MSRPOPL if they are not also into the MSRPOPLEX
-        # MSRPOPL is the only population that has an additional requirement for 'relevance'
-        # Otherwise, if there is a count for the population, the relevance can be set to true
-        if pop_key == 'MSRPOPL'
-          measure_relevance_hash[ir.measure_id.to_s]['MSRPOPL'] = true if (ir['MSRPOPL'].to_i - ir['MSRPOPLEX'].to_i).positive?
-        elsif ir[pop_key].to_i.positive?
-          measure_relevance_hash[ir.measure_id.to_s][pop_key] = true
+      measure_relevance_hash[measure.id.to_s] = {} unless measure_relevance_hash[measure.id.to_s]
+      if APP_CONSTANTS['result_measures'].map(&:hqmf_id).include?(measure.hqmf_id)
+        update_ccde_measure_relevance(measure, individual_result)
+      else
+        # Iterate through each population for a measure
+        measure.population_keys.each do |pop_key|
+          # A patient is only relevant to the MSRPOPL if they are not also into the MSRPOPLEX
+          # MSRPOPL is the only population that has an additional requirement for 'relevance'
+          # Otherwise, if there is a count for the population, the relevance can be set to true
+          if pop_key == 'MSRPOPL'
+            measure_relevance_hash[measure.id.to_s]['MSRPOPL'] = true if (ir['MSRPOPL'].to_i - ir['MSRPOPLEX'].to_i).positive?
+          elsif ir[pop_key].to_i.positive?
+            measure_relevance_hash[measure.id.to_s][pop_key] = true
+          end
         end
       end
+    end
+
+    def update_ccde_measure_relevance(measure, individual_result)
+      statement_name = APP_CONSTANTS['result_measures'].select { |rm| rm['hqmf_id'] == measure.hqmf_id }.first['statement_name']
+      statement_results = individual_result.statement_results.select { |sr| sr['statement_name'] == statement_name }.first['raw']
+      measure_relevance_hash[measure.id.to_s]['IPP'] = true if statement_results.any? { |_key, value| value.first['FirstResult'] }
     end
 
     # Return true if the patient is relevant for one of the population keys in one of the measures passed in
