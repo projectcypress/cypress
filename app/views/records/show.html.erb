@@ -126,9 +126,14 @@
               <div class="collapse-content">
                 <% statement_name = APP_CONSTANTS['result_measures'].select { |rm| rm['hqmf_id'] == m.hqmf_id }.first['statement_name'] %>
                 <% statement_results = ir.statement_results.select { |sr| sr['statement_name'] == statement_name }.first['raw'] %>
-                <% statement_results.each do |key, statement_result| %>
-                  <% next unless statement_result.first['FirstResult'] %>
-                  <p><%= "#{key} (#{statement_result.first['FirstResult']['value']} #{statement_result.first['FirstResult']['unit']})" %></p>
+                <% ir.episode_results.keys.each_with_index do |encounterId, index| %>
+                  <ul>Encounter - <%= index + 1 %>
+                  <% statement_results.each do |key, statement_result| %>
+                    <% encounter_result = statement_result.select { |sr| sr['EncounterId'] == encounterId }.first %>
+                    <% next unless encounter_result['FirstResult'] %>
+                    <ul><%= "#{key} (#{encounter_result['FirstResult']['value']} #{encounter_result['FirstResult']['unit']})" %></ul>
+                  <% end %>
+                  </ul>
                 <% end %>
               </div>
               </td></tr>
