@@ -6,13 +6,13 @@ module Validators
     include QrdaHelper
 
     def initialize(measures)
-      @test_measure_ids = measures.pluck(:hqmf_set_id)
+      @test_measure_ids = measures.pluck(:hqmf_id)
     end
 
     def validate(file, options = {})
-      ccde_measure_set_ids = APP_CONSTANTS['result_measures'].map(&:hqmf_set_id)
-      @ccde_measure_ids = options.task.bundle.measures.where('hqmf_set_id' => { '$in' => ccde_measure_set_ids }).pluck(:hqmf_id)
-      return if (ccde_measure_set_ids & @test_measure_ids).empty?
+      ccde_measure_ids = APP_CONSTANTS['result_measures'].map(&:hqmf_id)
+      @ccde_measure_ids = options.task.bundle.measures.where('hqmf_id' => { '$in' => ccde_measure_ids }).pluck(:hqmf_id)
+      return if (ccde_measure_ids & @test_measure_ids).empty?
 
       doc = get_document(file)
       if options.task._type == 'CMSProgramTask'

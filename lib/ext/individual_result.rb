@@ -32,7 +32,7 @@ module CQM
           comp = false
         end
         APP_CONSTANTS['result_measures'].each do |result_measure|
-          compare_statement_results(calculated, result_measure['statement_name'], issues) if measure.hqmf_set_id == result_measure['hqmf_set_id']
+          compare_statement_results(calculated, result_measure['statement_name'], issues) if measure.hqmf_id == result_measure['hqmf_id']
         end
         compare_observations(calculated, issues) if observed_values
         [previously_passed && comp, issues]

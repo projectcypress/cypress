@@ -124,7 +124,7 @@
               </tr>
               <tr><td><button class="collapsible">View Core Clinical Data Element</button>
               <div class="collapse-content">
-                <% statement_name = APP_CONSTANTS['result_measures'].select { |rm| rm['hqmf_set_id'] == m.hqmf_set_id }.first['statement_name'] %>
+                <% statement_name = APP_CONSTANTS['result_measures'].select { |rm| rm['hqmf_id'] == m.hqmf_id }.first['statement_name'] %>
                 <% statement_results = ir.statement_results.select { |sr| sr['statement_name'] == statement_name }.first['raw'] %>
                 <% statement_results.each do |key, statement_result| %>
                   <% next unless statement_result.first['FirstResult'] %>

@@ -70,7 +70,7 @@ module Cypress
           sf_patient = patient.clone
           sf_patient.id = patient.id
           # CMS529 requires that entries point to the ecounters that they are related to
-          sf_patient.add_encounter_ids_to_events unless (measures.map(&:hqmf_set_id) & APP_CONSTANTS['result_measures'].map(&:hqmf_set_id)).empty?
+          sf_patient.add_encounter_ids_to_events unless (measures.map(&:hqmf_id) & APP_CONSTANTS['result_measures'].map(&:hqmf_id)).empty?
           patient_scoop_and_filter.scoop_and_filter(sf_patient)
           z.put_next_entry("#{next_entry_path(patient, i)}.#{FORMAT_EXTENSIONS[format.to_sym]}")
           z << formatter.export(sf_patient)

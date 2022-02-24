@@ -224,7 +224,7 @@ class ProductTest
 
   # Are any of the measures in this test a Hybrid measure
   def hybrid_measures?
-    !(measures.map(&:hqmf_set_id) & APP_CONSTANTS['result_measures'].map(&:hqmf_set_id)).empty?
+    !(measures.map(&:hqmf_id) & APP_CONSTANTS['result_measures'].map(&:hqmf_id)).empty?
   end
 
   # Are any of the measures in this test EH
