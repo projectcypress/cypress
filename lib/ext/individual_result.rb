@@ -122,15 +122,17 @@ module CQM
         next unless csr[:original] != csr[:reported]
 
         # if the original value is nil, and a value is reported, return error message
-        if csr[:original].nil?
+        if csr[:original].nil? || csr[:original].empty?
           issues << "#{csr[:name]} not expected"
           next
         end
-        issues << if csr[:reported].nil?
-                    "#{csr[:name]} of #{csr[:original]['value']} #{csr[:original]['unit']} is missing"
+        issues << if csr[:reported].nil? || csr[:reported].empty?
+                    original_vals = csr[:original].map { |o| "#{o['value']} #{o['unit']}" }.join(', ')
+                    "#{csr[:name]} of [#{original_vals}] is missing"
                   else
-                    "#{csr[:name]} of #{csr[:original]['value']} #{csr[:original]['unit']} does not match "\
-                    "#{csr[:reported]['value']} #{csr[:reported]['unit']}"
+                    reported_vals = csr[:reported].map { |r| "#{r['value']} #{r['unit']}" }.join(', ')
+                    original_vals = csr[:original].map { |o| "#{o['value']} #{o['unit']}" }.join(', ')
+                    "#{csr[:name]} of [#{original_vals}] does not match [#{reported_vals}]"
                   end
       end
     end
@@ -145,9 +147,10 @@ module CQM
       original_statement_results.each do |result_name, value|
         next if calculated_statement_results[result_name].empty?
 
+        original_values = value.map(&:FirstResult).compact.empty? ? [] : value.map(&:FirstResult).compact&.sort_by! { |fr| fr['value'] }
         statement_result_hash = { name: result_name,
-                                  original: value.first['FirstResult'],
-                                  reported: calculated_statement_results[result_name].first['FirstResult'] }
+                                  original: original_values,
+                                  reported: calculated_statement_results[result_name].map(&:FirstResult).compact&.sort_by! { |fr| fr['value'] } }
         combined_statement_results << statement_result_hash
       end
       combined_statement_results
