@@ -29,8 +29,10 @@ class C3Cat1TaskTest < ActiveSupport::TestCase
 
   def test_should_be_able_to_test_missing_ccde_ids
     measure = @task.measures.first
-    measure.hqmf_set_id = 'FA75DE85-A934-45D7-A2F7-C700A756078B'
+    measure.hqmf_id = '2C928082-74C2-3313-0174-E01E3F200882'
     measure.save
+    @test.measure_ids = ['2C928082-74C2-3313-0174-E01E3F200882']
+    @test.save
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_ccde.zip'))
     c1_task = @test.tasks.create!({}, C1Task)
     perform_enqueued_jobs do
@@ -43,8 +45,10 @@ class C3Cat1TaskTest < ActiveSupport::TestCase
 
   def test_should_be_able_to_test_missing_ccde_ids_with_lowercase_id
     measure = @task.measures.first
-    measure.hqmf_set_id = 'FA75DE85-A934-45D7-A2F7-C700A756078B'
+    measure.hqmf_id = '2C928082-74C2-3313-0174-E01E3F200882'
     measure.save
+    @test.measure_ids = ['2C928082-74C2-3313-0174-E01E3F200882']
+    @test.save
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_ccde_lowercase.zip'))
     c1_task = @test.tasks.create!({}, C1Task)
     perform_enqueued_jobs do
