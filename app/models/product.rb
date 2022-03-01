@@ -20,6 +20,8 @@ class Product
 
   field :cvuplus, type: Boolean, default: false
   field :cures_update, type: Boolean, default: true
+  field :all_ep, type: Boolean, default: false
+  field :all_eh, type: Boolean, default: false
   field :vendor_patients, type: Boolean, default: false
   field :bundle_patients, type: Boolean, default: true
   field :name, type: String
@@ -79,7 +81,7 @@ class Product
 
   def valid_measure_ids?
     if measure_ids.blank?
-      errors.add(:measure_ids, 'must select at least one')
+      errors.add(:measure_ids, 'must select at least one') unless all_ep || all_eh
     else
       mids = measure_ids.uniq
       errors.add(:measure_ids, 'must be valid hqmf ids') unless bundle.measures.where(hqmf_id: { '$in' => mids }).length >= mids.count
@@ -114,7 +116,7 @@ class Product
     old_ids = measure_ids || []
     old_ep_ids = Measure.where('hqmf_id' => { '$in' => old_ids }, 'reporting_program_type' => 'ep').pluck(:hqmf_id)
     old_eh_ids = Measure.where('hqmf_id' => { '$in' => old_ids }, 'reporting_program_type' => 'eh').pluck(:hqmf_id)
-    new_ids = params[:measure_ids] || old_ids
+    new_ids = measure_ids_from_params(params) || old_ids
     new_ep_ids = Measure.where('hqmf_id' => { '$in' => new_ids }, 'reporting_program_type' => 'ep').pluck(:hqmf_id)
     new_eh_ids = Measure.where('hqmf_id' => { '$in' => new_ids }, 'reporting_program_type' => 'eh').pluck(:hqmf_id)
     update(params)
@@ -125,7 +127,7 @@ class Product
 
   def add_measure_tests(params)
     old_ids = measure_ids || []
-    new_ids = params[:measure_ids] || old_ids
+    new_ids = measure_ids_from_params(params) || old_ids
     update(params)
     (new_ids - old_ids).each do |measure_id|
       m = bundle.measures.find_by(hqmf_id: measure_id)
@@ -133,6 +135,17 @@ class Product
     end
     # remove measure and checklist tests if their measure ids have been removed
     ProductTest.destroy_by_ids(product_tests.in(measure_ids: (old_ids - new_ids)).pluck(:id))
+  end
+
+  def measure_ids_from_params(params)
+    m_ids = []
+    m_ids.concat(params[:measure_ids]) if params[:measure_ids]
+    m_ids.concat(Bundle.find(params[:bundle_id]).measures.where(reporting_program_type: 'ep').distinct(:hqmf_id)) if params[:all_ep]
+    m_ids.concat(Bundle.find(params[:bundle_id]).measures.where(reporting_program_type: 'eh').distinct(:hqmf_id)) if params[:all_eh]
+    return nil if m_ids.empty?
+
+    params[:measure_ids] = m_ids
+    params[:measure_ids]
   end
 
   # builds a checklist test if product does not have a checklist test
