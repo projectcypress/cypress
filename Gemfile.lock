@@ -145,7 +145,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.9)
     cqm-models (3.1.1)
-    cqm-parsers (3.2.0.1)
+    cqm-parsers (3.2.0.2)
       activesupport (~> 6.0)
       builder (~> 3.1)
       cqm-models (~> 3.0)
@@ -156,13 +156,13 @@ GEM
       mongoid (~> 7.0.5)
       mongoid-tree (~> 2.1)
       mustache
-      nokogiri (>= 1.8.5, < 1.13.0)
+      nokogiri (>= 1.8.5, < 1.14.0)
       protected_attributes_continued (~> 1.4.0)
       rubyzip (~> 1.3)
       typhoeus
       uuid (~> 2.3.7)
       zip-zip (~> 0.3)
-    cqm-reports (3.1.8)
+    cqm-reports (3.1.9)
       cqm-models (~> 3.0)
       cqm-validators (~> 3.0)
       erubis (~> 2.7)
@@ -170,11 +170,11 @@ GEM
       memoist (~> 0.9)
       mongoid-tree (> 2.0)
       mustache
-      nokogiri (>= 1.8.5, < 1.13.0)
+      nokogiri (>= 1.8.5, < 1.14.0)
       uuid (~> 2.3)
       zip-zip (~> 0.3)
-    cqm-validators (3.1.2)
-      nokogiri (>= 1.8.5, < 1.13.0)
+    cqm-validators (3.1.3)
+      nokogiri (>= 1.8.5, < 1.14.0)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -247,7 +247,7 @@ GEM
     dumb_delegator (1.0.0)
     erubi (1.10.0)
     erubis (2.7.0)
-    ethon (0.14.0)
+    ethon (0.15.0)
       ffi (>= 1.15.0)
     execjs (2.8.1)
     factory_bot (6.2.0)
@@ -318,7 +318,7 @@ GEM
     mime-types-data (3.2021.0225)
     mini_magick (4.11.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.6.1)
+    mini_portile2 (2.8.0)
     minitest (5.15.0)
     minitest-rails (6.0.1)
       minitest (~> 5.10)
@@ -350,8 +350,8 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (7.1.0)
     nio4r (2.5.8)
-    nokogiri (1.12.5)
-      mini_portile2 (~> 2.6.1)
+    nokogiri (1.13.3)
+      mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     os (1.1.1)
@@ -586,9 +586,9 @@ DEPENDENCIES
   carrierwave-mongoid
   codecov
   cqm-models (~> 3.1.1)
-  cqm-parsers (~> 3.2.0.1)
-  cqm-reports (~> 3.1.8)
-  cqm-validators (~> 3.1.2)
+  cqm-parsers (~> 3.2.0.2)
+  cqm-reports (~> 3.1.9)
+  cqm-validators (~> 3.1.3)
   cucumber-rails
   daemons
   database_cleaner-mongoid
