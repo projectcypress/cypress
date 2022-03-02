@@ -140,8 +140,8 @@ class Product
   def measure_ids_from_params(params)
     m_ids = []
     m_ids.concat(params[:measure_ids]) if params[:measure_ids]
-    m_ids.concat(Bundle.find(params[:bundle_id]).measures.where(reporting_program_type: 'ep').distinct(:hqmf_id)) if params[:all_ep].to_boolean
-    m_ids.concat(Bundle.find(params[:bundle_id]).measures.where(reporting_program_type: 'eh').distinct(:hqmf_id)) if params[:all_eh].to_boolean
+    m_ids.concat(Bundle.find(params[:bundle_id]).measures.where(reporting_program_type: 'ep').distinct(:hqmf_id)) if params[:all_ep]&.to_boolean
+    m_ids.concat(Bundle.find(params[:bundle_id]).measures.where(reporting_program_type: 'eh').distinct(:hqmf_id)) if params[:all_eh]&.to_boolean
     return nil if m_ids.empty?
 
     params[:measure_ids] = m_ids
