@@ -65,9 +65,9 @@ class User
 
   def inactive_message
     if approved?
-
       super
-    else :not_approved # Use whatever other message
+    else
+      :not_approved # Use whatever other message
     end
   end
 

@@ -53,6 +53,24 @@ version_config:
           codeSystem: "2.16.840.1.113883.6.88"
       CMSQRDA3SchematronValidator_warnings:
       CMSQRDA1HQRSchematronValidator_warnings:
+  '~>2022.0':
+      start_date_offset: 2
+      modified_population_labels:
+        IPP: 'IPOP'
+      schematron: "2022.0.0"
+      qrda_version: "r5_2"
+      qrda3_version: "r2_1"
+      default_negation_codes:
+        2.16.840.1.113883.3.526.3.1184:
+          code: "854901"
+          codeSystem: "2.16.840.1.113883.6.88"
+        2.16.840.1.113883.3.526.3.1174:
+          code: "854901"
+          codeSystem: "2.16.840.1.113883.6.88"
+      CMSQRDA3SchematronValidator_warnings:
+        - 'not yet'
+      CMSQRDA1HQRSchematronValidator_warnings:
+        - 'not yet'
 
 # Configuration for values to use when randomizing patients in test decks
 # Names and nicknames added in a separate YML file
@@ -238,6 +256,12 @@ result_measures:
   # CMS844v2
   - hqmf_id : '2C928082-74B3-1D8C-0174-BC5D6372017F'
     statement_name : 'Results'
+  # CMS529v3
+  - hqmf_id : '2C928083-7BC5-ED6E-017B-E04D411306A5'
+    statement_name : 'SDE Results'
+  # CMS844v3
+  - hqmf_id : '2C928082-7C31-8117-017C-4C433E440763'
+    statement_name : 'SDE Results'
 
 # These measures do not 
 telehealth_ineligible_measures:

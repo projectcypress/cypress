@@ -67,7 +67,7 @@ module Validators
       return unless (num + denex + denexcep) > denom
 
       add_error("Numerator value #{num} + Denominator Exclusions value #{denex} + Denominator Exceptions value #{denexcep}"\
-      " is greater than Denominator value #{denom} for measure #{measure}", location: '/', file_name: file)
+                " is greater than Denominator value #{denom} for measure #{measure}", location: '/', file_name: file)
     end
 
     def validate_population_ids(doc, options)
@@ -87,7 +87,7 @@ module Validators
             next unless population
 
             add_error("#{key} (#{population['hqmf_id']}) is missing"\
-            " for #{measure.cms_id}", location: measure_id.parent.path, file_name: options[:file_name])
+                      " for #{measure.cms_id}", location: measure_id.parent.path, file_name: options[:file_name])
           end
         end
       end
@@ -119,7 +119,7 @@ module Validators
       return if missing_codes.empty?
 
       msg = "For CMS eligible clinicians and eligible professionals programs, all #{sup_key} codes present in the value set must be reported," \
-      'even if the count is zero. If an eCQM is episode-based, the count will reflect the patient count rather than the episode count.'
+            'even if the count is zero. If an eCQM is episode-based, the count will reflect the patient count rather than the episode count.'
       add_error(msg, file_name: options[:file_name])
       @missing_codes[sup_key] = true
     end
@@ -132,12 +132,12 @@ module Validators
 
       if msrpopl > ipp
         add_error("Measure Population value #{msrpopl} is greater than Initial Population value #{ipp} for  "\
-        "measure #{measure}", '/', location: '/', file_name: file)
+                  "measure #{measure}", '/', location: '/', file_name: file)
       end
       return unless observ > msrpopl
 
       add_error("Measure observvations value #{observ} cannot be greater than Measure Population value #{msrpopl}"\
-      " for measure #{measure}", '/', location: '/', file_name: file)
+                " for measure #{measure}", '/', location: '/', file_name: file)
     end
 
     def measure_entry_selector
@@ -159,7 +159,7 @@ module Validators
 
     def population_count_selector
       "cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.3']"\
-      " and ./cda:code[@code='MSRAGG'] and ./cda:methodCode[@code='COUNT']]/cda:value/@value"
+        " and ./cda:code[@code='MSRAGG'] and ./cda:methodCode[@code='COUNT']]/cda:value/@value"
     end
   end
 end

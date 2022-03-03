@@ -64,7 +64,7 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
   end
 
   def test_validate_good_files
-    validator = CqmValidators::Cat1R52.instance
+    validator = CqmValidators::Cat1R53.instance
     cda_validator = CqmValidators::CDA.instance
 
     TEST_ATTRIBUTES.each do |ta|
@@ -112,7 +112,7 @@ class ChecklistCriteriaValidator < ActiveSupport::TestCase
   end
 
   def test_validate_result_with_string
-    validator = CqmValidators::Cat1R52.instance
+    validator = CqmValidators::Cat1R53.instance
     cda_validator = CqmValidators::CDA.instance
 
     dt = QDM::PatientGeneration.generate_loaded_datatype('QDM::LaboratoryTestPerformed')
