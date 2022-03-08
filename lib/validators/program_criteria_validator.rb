@@ -81,24 +81,36 @@ module Validators
     end
 
     def validate_criteria(checked_criteria)
-      xpath_map = {
-        'Patient Identification Number' => "//cda:recordTarget/cda:patientRole/cda:id[@extension='#{checked_criteria.entered_value}' and ( @root!='2.16.840.1.113883.4.572' and @root!='2.16.840.1.113883.4.927')]",
-        'MBI' => "//cda:recordTarget/cda:patientRole/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.4.927']",
-        'HIC' => "//cda:recordTarget/cda:patientRole/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.4.572']",
-        'CCN' => "//cda:custodian/cda:assignedCustodian/cda:representedCustodianOrganization/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.4.336']",
-        'CMS EHR Certification ID' => "//cda:participant/cda:associatedEntity/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.3.2074.1']",
-        'NPI' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.4.6']",
-        'TIN' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.4.2']",
-        'CPCPLUS APM Entity Identifier' => "//cda:participant/cda:associatedEntity/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.3.249.5.1']",
-        'PCF APM Entity Identifier' => "//cda:participant/cda:associatedEntity/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.3.249.5.3']",
-        'MIPS APM Entity Identifier' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.3.249.5.4']",
-        'Virtual Group Identifier' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{checked_criteria.entered_value}' and @root='2.16.840.1.113883.3.249.5.2']"
-      }
-      results = @file.xpath(xpath_map[checked_criteria[:criterion_key]])
-      return unless results.present?
+      entered_values = checked_criteria.entered_values
+      return unless entered_values&.count&.positive?
+
+      values_found = []
+      entered_values.each do |entered_value|
+        values_found << find_entered_value(entered_value, checked_criteria)
+      end
+
+      return unless values_found.compact.count == entered_values.count
 
       checked_criteria.criterion_verified = true
       checked_criteria.save
+    end
+
+    def find_entered_value(entered_value, checked_criteria)
+      xpath_map = {
+        'Patient Identification Number' => "//cda:recordTarget/cda:patientRole/cda:id[@extension='#{entered_value}' and ( @root!='2.16.840.1.113883.4.572' and @root!='2.16.840.1.113883.4.927')]",
+        'MBI' => "//cda:recordTarget/cda:patientRole/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.4.927']",
+        'HIC' => "//cda:recordTarget/cda:patientRole/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.4.572']",
+        'CCN' => "//cda:custodian/cda:assignedCustodian/cda:representedCustodianOrganization/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.4.336']",
+        'CMS EHR Certification ID' => "//cda:participant/cda:associatedEntity/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.2074.1']",
+        'NPI' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.4.6']",
+        'TIN' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.4.2']",
+        'CPCPLUS APM Entity Identifier' => "//cda:participant/cda:associatedEntity/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.249.5.1']",
+        'PCF APM Entity Identifier' => "//cda:participant/cda:associatedEntity/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.249.5.3']",
+        'MIPS APM Entity Identifier' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.249.5.4']",
+        'Virtual Group Identifier' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.249.5.2']"
+      }
+      results = @file.xpath(xpath_map[checked_criteria[:criterion_key]])
+      results.present? ? results : nil
     end
   end
 end
