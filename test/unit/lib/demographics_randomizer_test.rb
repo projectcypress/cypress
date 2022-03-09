@@ -71,6 +71,23 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     assert_equal('Cannot find payer element', payer_exception.message)
   end
 
+  def test_default_demographics
+    @record = Patient.new(
+      givenNames: @given_names,
+      familyName: @family_name,
+      addresses: [@patient_address],
+      telecoms: [@patient_telecom]
+    )
+    QDM::Patient.create!(cqmPatient: @record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
+    @record.bundleId = @bundle.id
+    Cypress::DemographicsRandomizer.assign_default_demographics(@record)
+    Cypress::DemographicsRandomizer.update_demographic_codes(@record)
+    assert_equal @record.gender, 'M'
+    assert_equal @record.race, '2028-9'
+    assert_equal @record.ethnicity, '2186-5'
+    assert_equal @record.payer, '1'
+  end
+
   def test_random_payer
     @record = Patient.new(
       givenNames: @given_names,
