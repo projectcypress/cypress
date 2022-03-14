@@ -160,7 +160,7 @@ class PatientZipperTest < ActiveSupport::TestCase
     assert_not codefound, 'Without valusets the code should not be replaced'
     assert cloned_import.save
     # Should replace with the default code
-    APP_CONSTANTS['version_config']['~>2020.0.0']['default_negation_codes'][negated_oid] = { 'code' => '123', 'codeSystem' => 'SNOMEDCT' }
+    APP_CONSTANTS['version_config']['~>2020.0']['default_negation_codes'][negated_oid] = { 'code' => '123', 'codeSystem' => 'SNOMEDCT' }
     Cypress::QRDAPostProcessor.replace_negated_codes(cloned_import2, patient.bundle)
     codefound = cloned_import2.qdmPatient.procedures.first.dataElementCodes.any? { |dec| dec[:code] == '123' }
     assert codefound, 'replaced code should equal default code'

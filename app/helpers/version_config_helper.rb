@@ -7,6 +7,10 @@ module VersionConfigHelper
     APP_CONSTANTS['version_config'][version[:key]]
   end
 
+  def supported_bundle_versions
+    APP_CONSTANTS['version_config'].keys.map { |v| v.split('>')[1].split('.')[0] }
+  end
+
   def possible_qrda_uploaders
     uploaders = []
     APP_CONSTANTS['version_config'].each do |_bundle_key, version_config|

@@ -45,7 +45,7 @@ module Admin
         orig_patient_count = Patient.count
         # Default Code Systems will be empty prior to loading bundle
         assert Settings.current.default_code_systems.empty?
-        upload = Rack::Test::UploadedFile.new(Rails.root.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_4.zip'), 'application/zip')
+        upload = Rack::Test::UploadedFile.new(Rails.root.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_5.zip'), 'application/zip')
         perform_enqueued_jobs do
           post :create, params: { file: upload }
         end
@@ -66,7 +66,7 @@ module Admin
         @vendor.preferred_code_systems['encounter'] = ['2.16.840.1.113883.6.12']
         @vendor.save
         assert_equal 1, Settings.current.default_code_systems['encounter'].size
-        upload = Rack::Test::UploadedFile.new(Rails.root.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_4.zip'), 'application/zip')
+        upload = Rack::Test::UploadedFile.new(Rails.root.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_5.zip'), 'application/zip')
         perform_enqueued_jobs do
           post :create, params: { file: upload }
         end
@@ -83,7 +83,7 @@ module Admin
 
     test 'should deny access to import for non admin users ' do
       for_each_logged_in_user([USER, OWNER, VENDOR]) do
-        upload = Rack::Test::UploadedFile.new(Rails.root.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_4.zip'), 'application/zip')
+        upload = Rack::Test::UploadedFile.new(Rails.root.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_5.zip'), 'application/zip')
         post :create, params: { file: upload }
         assert_response 401
       end

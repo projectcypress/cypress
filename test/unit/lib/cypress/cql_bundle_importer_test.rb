@@ -3,12 +3,20 @@
 require 'test_helper'
 
 class CqlBundleImporterTest < ActiveSupport::TestCase
+  test 'should not import old bundle' do
+    bundle_zip = File.new(File.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_4.zip'))
+    err = assert_raises(RuntimeError) do
+      Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new)
+    end
+    assert_equal('Please use bundles for year(s) 2020, 2021.', err.message)
+  end
+
   test 'should successfully import bundle and perform calculations' do
     before_measure_count = Measure.count
     before_value_set_count = ValueSet.count
     before_patient_count = Patient.count
     before_results_count = IndividualResult.count
-    bundle_zip = File.new(File.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_4.zip'))
+    bundle_zip = File.new(File.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_5.zip'))
     Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new)
     assert_equal (before_measure_count + 2), Measure.count
     # 21 valuesets from csv file, 3 direct reference codes
@@ -17,7 +25,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     # only 2 individual results are saved
     assert_equal (before_results_count + 2), IndividualResult.count
     # Assert calculation is correct for a given patient
-    measure_id = Measure.where(cms_id: 'CMS111v8').first.id
+    measure_id = Measure.where(cms_id: 'CMS111v9').first.id
     result = IndividualResult.where(population_set_key: 'PopulationSet_1', measure_id: measure_id).first
     assert_equal 1, result.IPP
     assert_equal 1, result.MSRPOPL
@@ -34,7 +42,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     before_value_set_count = ValueSet.count
     before_patient_count = Patient.count
     before_results_count = IndividualResult.count
-    bundle_zip = File.new(File.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_4.zip'))
+    bundle_zip = File.new(File.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_5.zip'))
     Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new, include_highlighting: true)
     assert_equal (before_measure_count + 2), Measure.count
     # 21 valuesets from csv file, 3 direct reference codes
@@ -43,7 +51,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     # only 2 individual results are saved
     assert_equal (before_results_count + 2), IndividualResult.count
     # Assert calculation is correct for a given patient
-    measure_id = Measure.where(cms_id: 'CMS111v8').first.id
+    measure_id = Measure.where(cms_id: 'CMS111v9').first.id
     result = IndividualResult.where(population_set_key: 'PopulationSet_1', measure_id: measure_id).first
     assert_equal 1, result.IPP
     assert_equal 1, result.MSRPOPL
@@ -57,7 +65,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     before_value_set_count = ValueSet.count
     before_patient_count = Patient.count
     before_results_count = IndividualResult.count
-    bundle_zip = File.new(File.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_4_with_calcs.zip'))
+    bundle_zip = File.new(File.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_5_with_calcs.zip'))
     Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new)
     assert_equal (before_measure_count + 2), Measure.count
     # 21 valuesets from csv file, 3 direct reference codes
@@ -66,7 +74,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     # only 2 individual results are saved
     assert_equal (before_results_count + 2), IndividualResult.count
     # Assert calculation is correct for a given patient
-    measure_id = Measure.where(cms_id: 'CMS111v8').first.id
+    measure_id = Measure.where(cms_id: 'CMS111v9').first.id
     result = IndividualResult.where(population_set_key: 'PopulationSet_1', measure_id: measure_id).first
     assert_equal 1, result.IPP
     assert_equal 1, result.MSRPOPL

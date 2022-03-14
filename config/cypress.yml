@@ -21,7 +21,7 @@ default_warning_message: 'This warning banner provides privacy and security noti
 # In the case of none of them being valid it will default to the first one
 # modified_population_labels are used to indicate when the population code required by the qrda version differs from the population code in QME
 version_config:
-  '~>2020.0.0':
+  '~>2020.0':
       start_date_offset: 2
       modified_population_labels:
         IPP: 'IPOP'
@@ -37,7 +37,7 @@ version_config:
           codeSystem: "2.16.840.1.113883.6.88"
       CMSQRDA3SchematronValidator_warnings:
       CMSQRDA1HQRSchematronValidator_warnings:
-  '~>2021.0.0':
+  '~>2021.0':
       start_date_offset: 2
       modified_population_labels:
         IPP: 'IPOP'
