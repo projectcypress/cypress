@@ -18,6 +18,11 @@ class CMSTestExecutionJob < ApplicationJob
       test_execution.state = :calculating
       test_execution.save
       calculate_patients(test_execution)
+      unless Patient.where(correlation_id: test_execution.id).exists?
+        msg = 'No QRDA files found. Make sure files are not in a nested folder.'
+        test_execution.execution_errors.build(message: msg, msg_type: :warning,
+                                              validator: 'Validators::ProgramCriteriaValidator')
+      end
       validate_measures(test_execution)
       test_execution.state = precalc_state
     end
