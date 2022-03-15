@@ -234,11 +234,11 @@ module CQM
     # of individal results and flags a patient as relevant if they calculate into the measures population
     def update_measure_relevance_hash(individual_result)
       ir = individual_result
-      measure = CQM::Measure.find(ir.measure_id)
+      measure = CQM::Measure.only(:hqmf_id, :population_sets).find(ir.measure_id)
       # Create a new hash for a measure, if one doesn't already exist
       measure_relevance_hash[measure.id.to_s] = {} unless measure_relevance_hash[measure.id.to_s]
       if APP_CONSTANTS['result_measures'].map(&:hqmf_id).include?(measure.hqmf_id)
-        update_ccde_measure_relevance(measure, individual_result)
+        update_ccde_measure_relevance(measure, ir)
       else
         # Iterate through each population for a measure
         measure.population_keys.each do |pop_key|
@@ -251,6 +251,7 @@ module CQM
             measure_relevance_hash[measure.id.to_s][pop_key] = true
           end
         end
+        measure_relevance_hash[measure.id.to_s]['IPPEX'] = true if ir['IPP'].to_i.zero? && measure.individual_result_relevant_to_measure(ir)
       end
     end
 

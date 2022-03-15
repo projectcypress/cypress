@@ -291,6 +291,12 @@ class ProductTest
     end.pluck(:_id)
   end
 
+  def patients_in_ippex
+    Patient.find(gather_patient_ids).keep_if do |p|
+      p.patient_relevant?(measures.pluck(:_id), ['IPPEX'])
+    end.pluck(:_id)
+  end
+
   # Returns a listing of all ids for patients in the Numerator
   def patient_in_numerator
     Patient.find(gather_patient_ids).keep_if do |p|
@@ -333,9 +339,11 @@ class ProductTest
 
     ipp_ids = (mpl_ids - denom_ids - msrpopl_ids)
 
+    ippex_id = patients_in_ippex.sample(1)
+
     # Pick 3 IDs from the IPP unless test includes hybrid measures.
     ipp_count = hybrid_measures? ? test_deck_max : 3
-    (ipp_ids.sample(ipp_count) + denom_ids + msrpopl_ids).compact
+    (ipp_ids.sample(ipp_count) + ippex_id + denom_ids + msrpopl_ids).compact
   end
 
   def pick_denom_ids

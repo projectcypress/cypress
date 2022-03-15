@@ -43,7 +43,7 @@ module Cypress
       results.each do |patient_id, result|
         # Aggregate the results returned from the calculation engine for a specific patient.
         # If saving the individual results, update identifiers (patient id, population_set_key) in the individual result.
-        aggregate_population_results_from_individual_results(result, @cqm_patient_mapping[patient_id], save, ir_list)
+        aggregate_population_results_from_individual_results(result, @cqm_patient_mapping[patient_id], save, ir_list, measure)
         patient_result_hash[patient_id] = result.values
       end
       measure.calculation_results.create(ir_list) if save
@@ -62,18 +62,22 @@ module Cypress
 
     private
 
-    def aggregate_population_results_from_individual_results(individual_results, patient, save, ir_list)
+    def aggregate_population_results_from_individual_results(individual_results, patient, save, ir_list, measure)
       individual_results.each_pair do |population_set_key, individual_result|
         # store the population_set within the indivdual result
         individual_result['population_set_key'] = population_set_key
         # update the patient_id to match the cqm_patient id, not the qdm_patient id
         individual_result['patient_id'] = patient.id.to_s
         # save to database (if in the IPP)
-        ir_list << postprocess_individual_result(individual_result) if save && individual_result.IPP != 0
+        ir_list << postprocess_individual_result(individual_result) if save && patient_relevant_to_ipp(individual_result, measure)
         # update the patients, measure_relevance_hash
-        patient.update_measure_relevance_hash(individual_result) if individual_result.IPP != 0
+        patient.update_measure_relevance_hash(individual_result) if patient_relevant_to_ipp(individual_result, measure)
       end
       patient.save if save
+    end
+
+    def patient_relevant_to_ipp(individual_result, measure)
+      measure.individual_result_relevant_to_measure(individual_result)
     end
 
     # This add/remove information for use in Cypress
