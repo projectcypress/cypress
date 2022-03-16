@@ -123,6 +123,37 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     end
   end
 
+  def test_eh_task_with_multiple_entered_values
+    setup_eh
+    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
+    pc = pt.program_criteria.where(criterion_key: 'NPI').first
+    pc.entered_value = '020700270'
+    pt.save
+    task = pt.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
+    # 1 NPI entered, and 1 NPI in file
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal 0, te.execution_errors.where(message: 'National Provider Identification number not complete').size
+    end
+    pc.entered_value = '020700270,020700271'
+    pt.save
+    # 2 NPI entered, and 1 NPI in file
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal 1, te.execution_errors.where(message: 'National Provider Identification number not complete').size
+    end
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'qrda_test_2_npi.zip'))
+    # 2 NPI entered, and  NPI in file
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal 0, te.execution_errors.where(message: 'National Provider Identification number not complete').size
+    end
+  end
+
   def test_eh_task_with_missing_measure_id
     setup_eh
     pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
