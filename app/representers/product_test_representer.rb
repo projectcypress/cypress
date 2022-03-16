@@ -35,6 +35,18 @@ module ProductTestRepresenter
     property :address, extend: AddressRepresenter, if: ->(_) { self['addresses'] }, getter: ->(_) { self['addresses'].first }
   end
 
+  hash :provider_details, if: ->(_) { is_a?(MeasureTest) },
+                          wrap: :provider, as: :provider,
+                          getter: (lambda do |*|
+                            provider = Provider.find(provider_id)
+                            {
+                              'tin' => provider.tin,
+                              'npi' => provider.npi,
+                              'ccn' => provider.ccn,
+                              'name' => "#{provider.givenNames.join(' ')} #{provider.familyName}"
+                            }
+                          end)
+
   hash :provider_filters, if: ->(_) { is_a?(FilteringTest) && options.filters.key?('providers') && state == :ready }, wrap: :filters,
                           as: :filters, extend: ProviderRepresenter,
                           getter: (lambda do |*|

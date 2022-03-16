@@ -10,6 +10,7 @@ module ProductRepresenter
   property :c2_test
   property :c3_test
   property :c4_test
+  property :cures_update
   property :randomize_patients
   property :duplicate_patients
   collection :measure_ids
