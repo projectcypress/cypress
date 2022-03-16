@@ -35,7 +35,7 @@ class RecordsController < ApplicationController
     @continuous_measures = @measures.where(measure_scoring: 'CONTINUOUS_VARIABLE').sort_by { |m| [m.cms_int] }
     @ratio_measures = @measures.where(measure_scoring: 'RATIO').sort_by { |m| [m.cms_int] }
     @proportion_measures = @measures.where(measure_scoring: 'PROPORTION').sort_by { |m| [m.cms_int] }
-    @result_measures = @measures.where(hqmf_set_id: { '$in': APP_CONSTANTS['result_measures'].map(&:hqmf_set_id) }).sort_by { |m| [m.cms_int] }
+    @result_measures = @measures.where(hqmf_id: { '$in': APP_CONSTANTS['result_measures'].map(&:hqmf_id) }).sort_by { |m| [m.cms_int] }
     expires_in 1.week, public: true
     add_breadcrumb "Patient: #{@record.first_names} #{@record.familyName}", :record_path
   end

@@ -48,7 +48,7 @@ class PatientZipperTest < ActiveSupport::TestCase
 
     # Include the result measure in the bundle
     faked_result_measure = patient.bundle.measures.first
-    faked_result_measure.hqmf_set_id = APP_CONSTANTS['result_measures'].first.hqmf_set_id
+    faked_result_measure.hqmf_id = APP_CONSTANTS['result_measures'].first.hqmf_id
     faked_result_measure.save
 
     # Add Core Clinical Data Elements
