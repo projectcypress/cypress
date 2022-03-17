@@ -51,6 +51,7 @@ class VendorPatientUploadJob < ApplicationJob
     # Remove the file that is store when creating the artifact. We also want to remove the folder
     FileUtils.rm_rf(File.dirname(artifact.file.path))
 
+    failed_files['zip'] = 'No QRDA files found. Make sure files are not in a nested folder.' if patients.empty? && failed_files.empty?
     [patients, failed_files]
   end
 
