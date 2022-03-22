@@ -25,7 +25,7 @@ FactoryBot.define do
       code_system_name = 'SNOMEDCT'
       name = 'Patient deceased during stay (discharge status = dead) (finding)'
       code = '1000'
-      display_name { 'DRC' }
+      display_name { name }
       code_hash = "drc-#{Digest::SHA2.hexdigest("#{code_system_name} #{code} #{name} #{code_system_version}")}"
       oid { code_hash }
       drc_code = [{ 'code' => '1000', 'code_system_oid' => '2.16.840.1.113883.6.96' }]
@@ -37,7 +37,7 @@ FactoryBot.define do
       code_system_name = 'LOINC'
       name = 'Birthdate'
       code = '1001'
-      display_name { 'DRC' }
+      display_name { name }
       code_hash = "drc-#{Digest::SHA2.hexdigest("#{code_system_name} #{code} #{name} #{code_system_version}")}"
       oid { code_hash }
       drc_code = [{ 'code' => '1001', 'code_system_oid' => '2.16.840.1.113883.6.96' }]
@@ -49,7 +49,7 @@ FactoryBot.define do
       code_system_name = 'SNOMEDCT'
       name = 'Dead'
       code = '1002'
-      display_name { 'DRC' }
+      display_name { name }
       code_hash = "drc-#{Digest::SHA2.hexdigest("#{code_system_name} #{code} #{name} #{code_system_version}")}"
       oid { code_hash }
       drc_code = [{ 'code' => '1002', 'code_system_oid' => '2.16.840.1.113883.6.96' }]
@@ -61,7 +61,7 @@ FactoryBot.define do
       code_system_name = 'SNOMEDCT'
       name = 'Discharge to healthcare facility for hospice care (procedure)'
       code = '1003'
-      display_name { 'DRC' }
+      display_name { name }
       code_hash = "drc-#{Digest::SHA2.hexdigest("#{code_system_name} #{code} #{name} #{code_system_version}")}"
       oid { code_hash }
       drc_code = [{ 'code' => '1003', 'code_system_oid' => '2.16.840.1.113883.6.96' }]
@@ -73,7 +73,7 @@ FactoryBot.define do
       code_system_name = 'SNOMEDCT'
       name = 'Discharge to home for hospice care (procedure)'
       code = '1004'
-      display_name { 'DRC' }
+      display_name { name }
       code_hash = "drc-#{Digest::SHA2.hexdigest("#{code_system_name} #{code} #{name} #{code_system_version}")}"
       oid { code_hash }
       drc_code = [{ 'code' => '1004', 'code_system_oid' => '2.16.840.1.113883.6.96' }]

@@ -5,7 +5,7 @@ require 'test_helper'
 class ChecklistSourceDataCriteriaTest < ActiveJob::TestCase
   def setup
     @vendor = FactoryBot.create(:vendor)
-    @bundle = FactoryBot.create(:executable_bundle)
+    @bundle = FactoryBot.create(:static_bundle)
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     @product = @vendor.products.build(name: "my product #{rand}", measure_ids: measure_ids, bundle_id: @bundle._id)
     @product.c1_test = true
@@ -58,11 +58,22 @@ class ChecklistSourceDataCriteriaTest < ActiveJob::TestCase
     assert_equal 0, criteria.index_for_replacement_attribute(criteria.source_data_criteria)
   end
 
+  def test_automated_drc_recording
+    checked_criteria = @test.checked_criteria[0]
+    # Find the underlying Souce Data Criteria and swap the valueset with a direct refrence code
+    sdc = @test.measures.first.source_data_criteria.find(checked_criteria.source_data_criteria['_id'])
+    drc = ValueSet.find_by(display_name: 'Birthdate')
+    sdc.codeListId = drc.oid
+    sdc.save
+
+    assert_nil checked_criteria.code, 'criteria code should start as nil'
+    checked_criteria.save
+    assert_equal checked_criteria.code, drc.concepts.first.code, 'after save, the checked criteria code should match the drc code'
+  end
+
   def test_change_attribute?
     cc = @test.checked_criteria[0]
     cc.replacement_attribute = 'relevantPeriod'
-    # byebug
     assert cc.change_attribute?(cc.source_data_criteria)
-    # cc.source_data_criteria['dataElementAttributes'][cc.attribute_index]['attribute_name']
   end
 end
