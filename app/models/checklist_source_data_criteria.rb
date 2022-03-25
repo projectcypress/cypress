@@ -25,11 +25,26 @@ class ChecklistSourceDataCriteria
   field :attribute_complete, type: Boolean
   field :result_complete, type: Boolean
 
+  before_save :record_direct_reference_code
+
   def validate_criteria
     self.passed_qrda = false
     result_completed?
     attribute_code_matches_valueset?
     code_matches_valueset?
+  end
+
+  # Automatically record inputted value for direct reference code
+  def record_direct_reference_code
+    # Don't do this for negated valuesets
+    return unless negated_valueset == false
+
+    # Only do this when the direct reference code is the only valueset for the data criteria
+    valuesets = get_all_valuesets_for_dc(measure_id)
+    valueset = valuesets.size == 1 ? valuesets.first : nil
+    return unless valueset && valueset[0, 3] == 'drc'
+
+    self.code = CQM::ValueSet.find_by(oid: valueset).concepts.first.code
   end
 
   def change_criteria
