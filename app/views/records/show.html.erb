@@ -126,7 +126,7 @@
               <div class="collapse-content">
                 <% statement_name = APP_CONSTANTS['result_measures'].select { |rm| rm['hqmf_id'] == m.hqmf_id }.first['statement_name'] %>
                 <% statement_results = ir.statement_results.select { |sr| sr['statement_name'] == statement_name }.first['raw'] %>
-                <% ir.episode_results.keys.each_with_index do |encounterId, index| %>
+                <% ir.episode_results&.keys&.each_with_index do |encounterId, index| %>
                   <ul>Encounter - <%= index + 1 %>
                   <% statement_results.each do |key, statement_result| %>
                     <% encounter_result = statement_result.select { |sr| sr['EncounterId'] == encounterId }.first %>
