@@ -124,13 +124,15 @@
               </tr>
               <tr><td><button class="collapsible">View Core Clinical Data Element</button>
               <div class="collapse-content">
-                <% statement_name = APP_CONSTANTS['result_measures'].select { |rm| rm['hqmf_id'] == m.hqmf_id }.first['statement_name'] %>
+                <% result_measure = APP_CONSTANTS['result_measures'].select { |rm| rm['hqmf_id'] == m.hqmf_id }.first %>
+                <% statement_name = result_measure['statement_name'] %>
+                <% encounter_tuple_name = result_measure['encounter_tuple_name'] %>
                 <% statement_results = ir.statement_results.select { |sr| sr['statement_name'] == statement_name }.first['raw'] %>
                 <% ir.episode_results&.keys&.each_with_index do |encounterId, index| %>
                   <ul>Encounter - <%= index + 1 %>
                   <% statement_results.each do |key, statement_result| %>
-                    <% encounter_result = statement_result.select { |sr| sr['EncounterId'] == encounterId }.first %>
-                    <% next unless encounter_result['FirstResult'] %>
+                    <% encounter_result = statement_result.select { |sr| sr[encounter_tuple_name] == encounterId }.first %>
+                    <% next unless encounter_result && encounter_result['FirstResult'] %>
                     <ul><%= "#{key} (#{encounter_result['FirstResult']['value']} #{encounter_result['FirstResult']['unit']})" %></ul>
                   <% end %>
                   </ul>

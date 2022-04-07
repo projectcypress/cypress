@@ -257,7 +257,7 @@ module CQM
     def update_ccde_measure_relevance(measure, individual_result)
       statement_name = APP_CONSTANTS['result_measures'].select { |rm| rm['hqmf_id'] == measure.hqmf_id }.first['statement_name']
       statement_results = individual_result.statement_results.select { |sr| sr['statement_name'] == statement_name }.first['raw']
-      measure_relevance_hash[measure.id.to_s]['IPP'] = true if statement_results.any? { |_key, value| value.first['FirstResult'] }
+      measure_relevance_hash[measure.id.to_s]['IPP'] = true if statement_results.any? { |_key, value| !value.empty? && value.first['FirstResult'] }
     end
 
     # Return true if the patient is relevant for one of the population keys in one of the measures passed in

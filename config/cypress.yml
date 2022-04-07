@@ -232,12 +232,18 @@ zip_file_size_limit: 20_971_520 # bytes (20 MB)
 
 # These eCQMs store a list of "Results" within the statement_results of an Individual Result
 result_measures:
+  # CMS529v1
+  - hqmf_id : '2C928085-7198-38EE-0171-9D44015105A3'
+    statement_name : 'Results'
+    encounter_tuple_name : 'Encounterid'
   # CMS529v2
   - hqmf_id : '2C928082-74C2-3313-0174-E01E3F200882'
     statement_name : 'Results'
+    encounter_tuple_name : 'EncounterId'
   # CMS844v2
   - hqmf_id : '2C928082-74B3-1D8C-0174-BC5D6372017F'
     statement_name : 'Results'
+    encounter_tuple_name : 'EncounterId'
 
 # These measures do not 
 telehealth_ineligible_measures:
