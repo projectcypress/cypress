@@ -13,7 +13,9 @@ module CQM
     def observed_values
       return nil unless episode_results&.values&.any? { |er| er.key?('observation_values') }
 
-      episode_results.values.map(&:observation_values)
+      episode_results.values.map do |er|
+        er[:observation_values] if episode_can_have_observation?(er)
+      end
     end
 
     def compare_results(calculated, options, previously_passed)
@@ -119,10 +121,17 @@ module CQM
     def get_observ_values(episode_results)
       episode_results.collect do |_id, episode_result|
         # Only use observed values when a patient is in the MSRPOPL and not in the MSRPOPLEX
-        next unless (episode_result['MSRPOPL']&.positive? && !episode_result['MSRPOPLEX']&.positive?) || episode_result['MSRPOPL'].nil?
-
-        episode_result['observation_values']
+        episode_result['observation_values'] if episode_can_have_observation?(episode_result)
       end
+    end
+
+    def episode_can_have_observation?(episode_result)
+      # If the episode is in the DENOM and not the DENEXCEP or DENEX
+      return !(episode_result['DENEXCEP']&.positive? || episode_result['DENEX']&.positive?) if episode_result['DENOM']&.positive?
+      # If the episode is in the MSRPOPL and not the MSRPOPLEX
+      return !episode_result['MSRPOPLEX']&.positive? if episode_result['MSRPOPL']&.positive?
+
+      false
     end
 
     def compare_statement_results(calculated, statement_name, issues = [])

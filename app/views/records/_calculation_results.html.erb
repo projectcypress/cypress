@@ -43,7 +43,7 @@
         </td>
       <% end %>
       <% if observation_values[r.id] %>
-        <td class="text-center"><% observation_values[r.id].each do |ov| %><%= ov.join('|') %><br/><% end %></td>
+        <td class="text-center"><% observation_values[r.id].each do |ov| %><%= ov&.join('|') %><br/><% end %></td>
       <% end %>
     <% end %>
   </tr>
