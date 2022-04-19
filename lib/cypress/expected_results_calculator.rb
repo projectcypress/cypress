@@ -89,6 +89,9 @@ module Cypress
 
     # Calculate the aggregate observation totals for the values in an observation_hash
     # these aggregate totals will be added to the appropriate measure/popuation in the @measure_result_hash
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/PerceivedComplexity
     def calculate_observation(observation_hash, measure, population_set_key)
       key = population_set_key
       return unless observation_hash[key]
@@ -99,8 +102,12 @@ module Cypress
         next unless observation_map[:statement_name]
 
         pop_set = measure.population_set_for_key(key).first
+        popset_index = measure.population_sets_and_stratifications_for_measure.find_index do |population_set|
+          pop_set[:population_set_id] == population_set[:population_set_id]
+        end
         # find observation that matches the statement_name
-        observation = pop_set.observations.select { |obs| obs.observation_parameter.statement_name == observation_map[:statement_name] }.first
+
+        observation = pop_set.observations.select { |obs| obs.observation_parameter.statement_name == observation_map[:statement_name] }[popset_index]
         # Guidance for calculations can be found here
         # https://www.hl7.org/documentcenter/public/standards/vocabulary/vocabulary_tables/infrastructure/vocabulary/ObservationMethod.html#_ObservationMethodAggregate
         case observation.aggregation_type
@@ -114,9 +121,15 @@ module Cypress
         when 'SUM'
           @measure_result_hash[measure.hqmf_id][key]['observations'][population] = { value: sum(observation_map[:values].map(&:value)),
                                                                                      method: 'SUM', hqmf_id: observation.hqmf_id }
+        when 'AVERAGE'
+          @measure_result_hash[measure.hqmf_id][key]['observations'][population] = { value: mean(observation_map[:values].map(&:value)),
+                                                                                     method: 'AVERAGE', hqmf_id: observation.hqmf_id }
         end
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def increment_sup_info(patient_sup, pop, single_measure_result_hash)
       # If supplemental_data for a population does not already exist, create a new hash
