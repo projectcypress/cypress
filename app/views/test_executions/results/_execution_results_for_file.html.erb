@@ -23,7 +23,7 @@
 
 <% if (@task.is_a? CMSProgramTask) && @task.product_test.reporting_program_type == 'eh' %>
   <% if display_calculations %>
-    <%= render partial: 'test_executions/results/calculation_results_for_file', locals: { execution: execution, file_name: file_name, continuous_measures: continuous_measures, proportion_measures: proportion_measures, ratio_measures: ratio_measures, patient: patient, export: export } %>
+    <%= render partial: 'test_executions/results/calculation_results_for_file', locals: { execution: execution, file_name: file_name, continuous_measures: continuous_measures, proportion_measures: proportion_measures, ratio_measures: ratio_measures, result_measures: result_measures, patient: patient, export: export } %>
   <% end %>
 <% end %>
 

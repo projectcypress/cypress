@@ -94,6 +94,8 @@ module Cypress
     end
 
     def self.unit_error_message(data_element, expected_unit, valueset)
+      return if data_element.result.is_a? Time
+
       data_element_title = "#{data_element._type} (#{valueset.display_name})"
       # If a unit is not specified in the QRDA, it is imported as an Integer or Float.
       if (data_element.result.is_a? Integer) || (data_element.result.is_a? Float)
