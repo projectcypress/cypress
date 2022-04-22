@@ -232,6 +232,7 @@ module CQM
 
     # A method for storing if a patient is relevant to a specific measure.  This method iterates through a set
     # of individal results and flags a patient as relevant if they calculate into the measures population
+    # rubocop:disable Metrics/PerceivedComplexity
     def update_measure_relevance_hash(individual_result)
       ir = individual_result
       measure = CQM::Measure.only(:hqmf_id, :population_sets).find(ir.measure_id)
@@ -247,6 +248,7 @@ module CQM
           # Otherwise, if there is a count for the population, the relevance can be set to true
           if pop_key == 'MSRPOPL'
             measure_relevance_hash[measure.id.to_s]['MSRPOPL'] = true if (ir['MSRPOPL'].to_i - ir['MSRPOPLEX'].to_i).positive?
+            measure_relevance_hash[measure.id.to_s]['OBSERV'] = true if ir['observation_values'].any?(&:positive?)
           elsif ir[pop_key].to_i.positive?
             measure_relevance_hash[measure.id.to_s][pop_key] = true
           end
@@ -254,6 +256,7 @@ module CQM
         measure_relevance_hash[measure.id.to_s]['IPPEX'] = true if ir['IPP'].to_i.zero? && measure.individual_result_relevant_to_measure(ir)
       end
     end
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def update_ccde_measure_relevance(measure, individual_result)
       statement_name = APP_CONSTANTS['result_measures'].select { |rm| rm['hqmf_id'] == measure.hqmf_id }.first['statement_name']

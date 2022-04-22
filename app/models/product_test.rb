@@ -319,6 +319,13 @@ class ProductTest
   end
 
   # Returns a listing of all ids for patients in the Measure Population
+  def patients_in_measure_population_observation
+    Patient.find(gather_patient_ids).keep_if do |p|
+      p.patient_relevant?(measures.pluck(:_id), ['OBSERV'])
+    end.pluck(:_id)
+  end
+
+  # Returns a listing of all ids for patients in the Measure Population
   def patients_in_high_value_populations
     Patient.find(gather_patient_ids).keep_if do |p|
       p.patient_relevant?(measures.pluck(:_id), %w[NUMER NUMEX DENEXCEP DENEX])
@@ -363,16 +370,13 @@ class ProductTest
   end
 
   def pick_msrpopl_ids
-    msrpopl_ids = patients_in_measure_population_and_greater
+    # Look for patients with observations first
+    observ_ids = patients_in_measure_population_observation.sample(test_deck_max)
+    # If there are patient with observations, limit MSRPOPL to 3
+    msrpopl_count = observ_ids.empty? ? test_deck_max : 3
+    msrpopl_ids = patients_in_measure_population_and_greater.sample(msrpopl_count)
 
-    # If there are a lot of patients in the MSRPOPL results above, (usually if there are a lot of MSRPOPLEX values)
-    # pull out only those patients with more than one episode in the MSRPOPL
-    if msrpopl_ids.count > test_deck_max
-      numer_ids = BundlePatient.where("measure_relevance_hash.#{measures.pluck(:_id).first}.MSRPOPL": true).pluck(:_id)
-      numer_ids = numer_ids.sample(test_deck_max)
-      msrpopl_ids = numer_ids + msrpopl_ids.sample(test_deck_max - numer_ids.count)
-    end
-    msrpopl_ids
+    (observ_ids + msrpopl_ids).compact
   end
 
   def generate_random_seed
