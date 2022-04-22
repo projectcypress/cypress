@@ -9,6 +9,22 @@ class IndividualResultTest < ActiveSupport::TestCase
     @patient = @bundle.patients.first
   end
 
+  def test_individual_result_relevant_to_measure_true_statement_result
+    statement_results = [{ 'final' => 'TRUE',
+                           'statement_name' => 'Previously on ADHD Medication' }]
+    individual_result = CQM::IndividualResult.new(IPP: 0, measure: @measure, patient: @patient, statement_results: statement_results)
+    @measure.hqmf_id = '2C928082-7B1B-AB09-017B-28E8655E02F2'
+    assert @measure.individual_result_relevant_to_measure(individual_result)
+  end
+
+  def test_individual_result_relevant_to_measure_false_statement_result
+    statement_results = [{ 'final' => 'FALSE',
+                           'statement_name' => 'Previously on ADHD Medication' }]
+    individual_result = CQM::IndividualResult.new(IPP: 0, measure: @measure, patient: @patient, statement_results: statement_results)
+    @measure.hqmf_id = '2C928082-7B1B-AB09-017B-28E8655E02F2'
+    assert_not @measure.individual_result_relevant_to_measure(individual_result)
+  end
+
   def test_no_issues
     options = { population_set: { populations: { 'IPP' => { hqmf_id: 'HHH' } } } }
     calculated = { 'IPP' => 1 }

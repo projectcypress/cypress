@@ -15,7 +15,7 @@ class NpiGenerator
       d > 9 ? d - 9 : d
     end
     sum = digits.inject(0) { |a, e| a + e }
-    mod = 10 - sum % 10
+    mod = 10 - (sum % 10)
     mod == 10 ? 0 : mod
   end
 end

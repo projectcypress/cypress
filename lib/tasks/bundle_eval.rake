@@ -72,16 +72,33 @@ namespace :bundle do
     task :compare_calculations, %i[bundle_version1 bundle_version2] => :setup do |_, args|
       first_bundle = Bundle.where(version: args.bundle_version1).first
       second_bundle = Bundle.where(version: args.bundle_version2).first
-      CSV.open('tmp/compare_calculations.csv', 'w', col_sep: '|') do |csv|
+
+      first_bundle_ir = CQM::IndividualResult.where(
+        correlation_id: first_bundle.id.to_s
+      ).only(:IPP, :DENOM, :NUMER, :NUMEX, :DENEX, :DENEXCEP, :MSRPOPL, :OBSERV, :MSRPOPLEX,
+             :measure_id, :patient_id, :file_name, :population_set_key, :correlation_id).to_a
+
+      second_bundle_ir = CQM::IndividualResult.where(
+        correlation_id: second_bundle.id.to_s
+      ).only(:IPP, :DENOM, :NUMER, :NUMEX, :DENEX, :DENEXCEP, :MSRPOPL, :OBSERV, :MSRPOPLEX,
+             :measure_id, :patient_id, :file_name, :population_set_key, :correlation_id).to_a
+
+      second_bundle_measures = second_bundle.measures.only(:id, :cms_id).to_a
+      first_bundle_measures = first_bundle.measures.only(:id, :cms_id).to_a
+
+      first_bundle_ir.each { |fbir| fbir['correlation_id'] = second_bundle_measures.select { |sbm| sbm['cms_id'] == first_bundle_measures.select { |fbm| fbm['id'] == fbir.measure_id }.first.cms_id }.first.id }
+      second_bundle_ir.each { |sbir| sbir['correlation_id'] = first_bundle_measures.select { |fbm| fbm['cms_id'] == second_bundle_measures.select { |sbm| sbm['id'] == sbir.measure_id }.first.cms_id }.first.id }
+
+      CSV.open('tmp/compare_calculations.csv', 'a', col_sep: '|') do |csv|
         # Iterate through all patients in both bundles to catch instances where calculations may be nonexistent on one of the bundles
-        first_bundle.patients.each do |first_patient|
+        first_bundle.patients.each_with_index do |first_patient, index|
+          puts index
           second_patient = second_bundle.patients.where(givenNames: first_patient.givenNames, familyName: first_patient.familyName).first
           # Skip if the same patient can't be found in both bundles
           next unless second_patient
 
-          first_patient.calculation_results.each do |fp_cr|
-            measure_id = second_bundle.measures.where(cms_id: fp_cr.measure.cms_id).first.id
-            sp_cr = second_patient.calculation_results.where(measure_id: measure_id, population_set_key: fp_cr.population_set_key).first
+          first_bundle_ir.select { |ir| ir.patient_id == first_patient.id }.each do |fp_cr|
+            sp_cr = second_bundle_ir.select { |ir| (ir.patient_id == second_patient.id) && (ir.correlation_id == fp_cr['measure_id'].to_s) && (ir.population_set_key == fp_cr.population_set_key) }.first
             # If second patients calculation results are nil, then they must be different
             calc_diffs = sp_cr.nil?
             # Otherwise, you need to go through each result and check
@@ -90,14 +107,14 @@ namespace :bundle do
             csv << [fp_cr.measure.cms_id, first_patient.givenNames[0], first_patient.familyName] if calc_diffs
           end
         end
-        second_bundle.patients.each do |second_patient|
+        second_bundle.patients.each_with_index do |second_patient, index|
+          puts index
           first_patient = first_bundle.patients.where(givenNames: second_patient.givenNames, familyName: second_patient.familyName).first
           # Skip if the same patient can't be found in both bundles
           next unless first_patient
 
-          second_patient.calculation_results.each do |sp_cr|
-            measure_id = first_bundle.measures.where(cms_id: sp_cr.measure.cms_id).first.id
-            fp_cr = first_patient.calculation_results.where(measure_id: measure_id, population_set_key: sp_cr.population_set_key).first
+          second_bundle_ir.select { |ir| ir.patient_id == second_patient.id }.each do |sp_cr|
+            fp_cr = first_bundle_ir.select { |ir| (ir.patient_id == first_patient.id) && (ir.correlation_id == sp_cr['measure_id'].to_s) && (ir.population_set_key == sp_cr.population_set_key) }.first
             # If second patients calculation results are nil, then they must be different
             calc_diffs = sp_cr.nil?
             # Otherwise, you need to go through each result and check
