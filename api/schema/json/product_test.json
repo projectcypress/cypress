@@ -9,6 +9,15 @@
     "measure_id": {"type": "string"},
     "type": {"type": "string"},
     "state": {"type": "string"},
+    "provider" : {
+      "type" : "object",
+      "properties" : {
+        "tin" : {"type": "string"},
+        "npi" : {"type": "string"},
+        "ccn" : {"type": "string"},
+        "name" : {"type": "string"}
+      }
+    },
     "filters" : {
       "type" : "object",
       "properties" : {

@@ -21,7 +21,7 @@ default_warning_message: 'This warning banner provides privacy and security noti
 # In the case of none of them being valid it will default to the first one
 # modified_population_labels are used to indicate when the population code required by the qrda version differs from the population code in QME
 version_config:
-  '~>2020.0.0':
+  '~>2020.0':
       start_date_offset: 2
       modified_population_labels:
         IPP: 'IPOP'
@@ -37,7 +37,7 @@ version_config:
           codeSystem: "2.16.840.1.113883.6.88"
       CMSQRDA3SchematronValidator_warnings:
       CMSQRDA1HQRSchematronValidator_warnings:
-  '~>2021.0.0':
+  '~>2021.0':
       start_date_offset: 2
       modified_population_labels:
         IPP: 'IPOP'
@@ -174,6 +174,7 @@ tests:
         subinstructions:
           - 'The "CMS IG Conformance Statement Reference" can be used to find specific guidance in the CMS Implementation Guide.'
           - 'This information may need to be entered into a patient record, a provider profile or as a system configuration.'
+          - 'Multiple values can be entered as a comma separated list.'
       - instruction: 'Export (at least) one QRDA file that contains the information below and upload to Cypress.'
         subinstructions:
         - 'Cypress will attempt to find the information below in the uploaded QRDA files.'
@@ -231,12 +232,18 @@ zip_file_size_limit: 20_971_520 # bytes (20 MB)
 
 # These eCQMs store a list of "Results" within the statement_results of an Individual Result
 result_measures:
-  # CMS529
-  - hqmf_set_id : 'FA75DE85-A934-45D7-A2F7-C700A756078B'
+  # CMS529v1
+  - hqmf_id : '2C928085-7198-38EE-0171-9D44015105A3'
     statement_name : 'Results'
-  # CMS844
-  - hqmf_set_id : '8C58BA2E-398B-494C-BE49-7CBC64EE4C9A'
+    encounter_tuple_name : 'Encounterid'
+  # CMS529v2
+  - hqmf_id : '2C928082-74C2-3313-0174-E01E3F200882'
     statement_name : 'Results'
+    encounter_tuple_name : 'EncounterId'
+  # CMS844v2
+  - hqmf_id : '2C928082-74B3-1D8C-0174-BC5D6372017F'
+    statement_name : 'Results'
+    encounter_tuple_name : 'EncounterId'
 
 # These measures do not 
 telehealth_ineligible_measures:

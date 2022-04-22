@@ -13,11 +13,13 @@ on:
       - master
       - cypress_v5
       - cypress_v6
+      - cypress_v7
   pull_request:
     branches:
       - master
       - cypress_v5
       - cypress_v6
+      - cypress_v7
 
 jobs:
   audit:

@@ -28,6 +28,15 @@ class CMSProgramTest < ProductTest
     save!
   end
 
+  def expected_measures
+    # If measures are limited by program, expected measures will be a subset of all of the measure ids
+    if CMS_IG_CONFIG['Program Specific Measures'][cms_program]
+      CMS_IG_CONFIG['Program Specific Measures'][cms_program][bundle.major_version] & measure_ids
+    else
+      measure_ids
+    end
+  end
+
   # After a test execution is complete, add error messages for each criterion that is not found
   def build_execution_errors_for_incomplete_cms_criteria(execution)
     program_criteria.each do |crit|

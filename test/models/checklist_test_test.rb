@@ -28,6 +28,19 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal 2, @test.attribute_index(attributes3), 'should return index for dischargeDisposition with a valueset oid'
   end
 
+  def test_multiple_negations_attribute_index
+    attributes1 = { 'dataElementAttributes' => [{ 'attribute_name' => 'relevantPeriod', 'attribute_valueset' => nil },
+                                                { 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.1.2.3' }] }
+    attributes2 = { 'dataElementAttributes' => [{ 'attribute_name' => 'relevantPeriod', 'attribute_valueset' => nil },
+                                                { 'attribute_name' => 'id', 'attribute_valueset' => nil }] }
+    attributes3 = { 'dataElementAttributes' => [{ 'attribute_name' => 'relevantPeriod', 'attribute_valueset' => nil },
+                                                { 'attribute_name' => 'negationRationale', 'attribute_valueset' => '1.1.2.3' },
+                                                { 'attribute_name' => 'dischargeDisposition', 'attribute_valueset' => '1.1.2.3' }] }
+    assert_equal 1, @test.attribute_index(attributes1), 'should return index for negationRationale with a valueset oid'
+    assert_equal 0, @test.attribute_index(attributes2), 'should return index for relevantPeriod'
+    assert_equal 2, @test.attribute_index(attributes3), 'should return index for dischargeDisposition with a valueset oid'
+  end
+
   def test_create_checked_criteria
     @test.create_checked_criteria
     assert @test.checked_criteria.count.positive?, 'should create checked criteria for one measure'

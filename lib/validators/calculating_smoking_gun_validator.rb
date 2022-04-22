@@ -40,9 +40,10 @@ module Validators
       return false unless record
 
       product_test = options['task'].product_test
+      # remove negations that are not for the measures being reported
+      valueset_oids = product_test.measures.only('value_set_ids').map { |mes| mes.value_sets.distinct(:oid) }.flatten
+      record.nullify_unnessissary_negations(valueset_oids)
 
-      # This Logic will need to be updated with CQL calculations
-      # TODO fix effectiveDateEnd and effectiveDate in cqm-execution.  effectiveDate is the end of the measurement period
       calc_job = Cypress::CqmExecutionCalc.new([record.qdmPatient],
                                                product_test.measures,
                                                options.test_execution.id.to_s,

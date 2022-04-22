@@ -234,19 +234,30 @@ module CQM
     # of individal results and flags a patient as relevant if they calculate into the measures population
     def update_measure_relevance_hash(individual_result)
       ir = individual_result
+      measure = CQM::Measure.find(ir.measure_id)
       # Create a new hash for a measure, if one doesn't already exist
-      measure_relevance_hash[ir.measure_id.to_s] = {} unless measure_relevance_hash[ir.measure_id.to_s]
-      # Iterate through each population for a measure
-      CQM::Measure.find(ir.measure_id).population_keys.each do |pop_key|
-        # A patient is only relevant to the MSRPOPL if they are not also into the MSRPOPLEX
-        # MSRPOPL is the only population that has an additional requirement for 'relevance'
-        # Otherwise, if there is a count for the population, the relevance can be set to true
-        if pop_key == 'MSRPOPL'
-          measure_relevance_hash[ir.measure_id.to_s]['MSRPOPL'] = true if (ir['MSRPOPL'].to_i - ir['MSRPOPLEX'].to_i).positive?
-        elsif ir[pop_key].to_i.positive?
-          measure_relevance_hash[ir.measure_id.to_s][pop_key] = true
+      measure_relevance_hash[measure.id.to_s] = {} unless measure_relevance_hash[measure.id.to_s]
+      if APP_CONSTANTS['result_measures'].map(&:hqmf_id).include?(measure.hqmf_id)
+        update_ccde_measure_relevance(measure, individual_result)
+      else
+        # Iterate through each population for a measure
+        measure.population_keys.each do |pop_key|
+          # A patient is only relevant to the MSRPOPL if they are not also into the MSRPOPLEX
+          # MSRPOPL is the only population that has an additional requirement for 'relevance'
+          # Otherwise, if there is a count for the population, the relevance can be set to true
+          if pop_key == 'MSRPOPL'
+            measure_relevance_hash[measure.id.to_s]['MSRPOPL'] = true if (ir['MSRPOPL'].to_i - ir['MSRPOPLEX'].to_i).positive?
+          elsif ir[pop_key].to_i.positive?
+            measure_relevance_hash[measure.id.to_s][pop_key] = true
+          end
         end
       end
+    end
+
+    def update_ccde_measure_relevance(measure, individual_result)
+      statement_name = APP_CONSTANTS['result_measures'].select { |rm| rm['hqmf_id'] == measure.hqmf_id }.first['statement_name']
+      statement_results = individual_result.statement_results.select { |sr| sr['statement_name'] == statement_name }.first['raw']
+      measure_relevance_hash[measure.id.to_s]['IPP'] = true if statement_results.any? { |_key, value| !value.empty? && value.first['FirstResult'] }
     end
 
     # Return true if the patient is relevant for one of the population keys in one of the measures passed in
@@ -263,6 +274,37 @@ module CQM
       Cypress::QRDAPostProcessor.remove_telehealth_encounters(self, codes_modifiers, warnings, ineligible_measures) unless codes_modifiers.empty?
       save
       warnings
+    end
+
+    # This method removes negations that are not for the oids provided
+    # The negations are not acutally removed, the replacement codes are modified so they will not
+    # factor in calcuations
+    def nullify_unnessissary_negations(valueset_oids)
+      qdmPatient.dataElements.each do |de|
+        negated_vs = de.dataElementCodes.select { |dec| dec.system == '1.2.3.4.5.6.7.8.9.10' }
+        next if negated_vs.blank?
+
+        de.dataElementCodes.each do |dec|
+          break if valueset_oids.include?(negated_vs.first.code)
+          next if dec.system == '1.2.3.4.5.6.7.8.9.10'
+
+          dec.system.concat('NA')
+        end
+      end
+    end
+
+    # Revert the dataElement that had be modified by the nullify_unnessissary_negations method
+    def reestablish_negations
+      qdmPatient.dataElements.each do |de|
+        negated_vs = de.dataElementCodes.select { |dec| dec.system == '1.2.3.4.5.6.7.8.9.10' }
+        next if negated_vs.blank?
+
+        de.dataElementCodes.each do |dec|
+          next if dec.system == '1.2.3.4.5.6.7.8.9.10'
+
+          dec.system.delete_suffix!('NA')
+        end
+      end
     end
 
     # Birthdate times at the epoch time boundary throws off the cql-calculation engine, workaround to add 1 second to the birthtime.

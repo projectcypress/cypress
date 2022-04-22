@@ -226,6 +226,31 @@ class ProductReportTest < ActionController::TestCase
     end
   end
 
+  test 'should report errored tests' do
+    testfile = Tempfile.new(['report', '.zip'])
+    # create a test execution to assign the error message to. We're just using C2 test execution or all errors
+    error_summary = 'I am an error'
+    te = @product_test.tasks.c2_task.test_executions.create(state: :errored, user: @user, error_summary: error_summary)
+    ste = @product_test.tasks.c3_cat3_task.test_executions.create(state: :failed, user: @user, sibling_execution_id: te.id.to_s)
+    build_execution_error(te, TEST_EXECUTION_ERROR_HASH[TEST_EXECUTION_ERROR_HASH.keys.sample].sample['factory_name'], ste, include_file: true)
+    te.save
+    ste.save
+    # Use product controller to generate report
+    @controller = ProductsController.new
+    for_each_logged_in_user([ATL]) do
+      get :report, params: { format: :format_does_not_matter, vendor_id: @vendor.id, id: @first_product.id }
+      testfile.write response.body
+    end
+    # Open zipfile to find report
+    Zip::File.open(testfile.path, Zip::File::CREATE) do |zip|
+      report_html = Nokogiri::HTML.parse(zip.read('product_report.html'))
+      # Un-comment line below to print out the report (for easier debugging)
+      # File.write("script/report_#{sample_error_hash['factory_name']}.html", report_html)
+      # search product_report to find 'report_text'.  This will assert that the report included the error message
+      assert report_html.at("code:contains('#{error_summary}')"), 'Report should include errored tests'
+    end
+  end
+
   test 'should generate calculations in a report' do
     vendor = FactoryBot.create(:vendor)
     bundle = FactoryBot.create(:static_bundle)

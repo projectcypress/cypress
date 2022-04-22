@@ -21,7 +21,7 @@ FactoryBot.define do
             'code' => '60'
           }
         ],
-        'description' => 'Procedure, Performed: Pneumococcal Vaccine Administered',
+        'description' => 'Value Set Name 5',
         'hqmfOid' => '2.16.840.1.113883.3.560.1.6',
         'qdmStatus' => 'performed',
         'qdmVersion' => '5.3',
@@ -46,7 +46,7 @@ FactoryBot.define do
         'qrdaOid' => '2.16.840.1.113883.10.20.24.3.135',
         'qdmCategory' => 'condition',
         'qdmVersion' => '5.3',
-        'description' => 'Diagnosis: Allergy to Eggs',
+        'description' => 'Value Set Name 2',
         'prevalencePeriod' => {
           'low' => '2017-09-28T08:00:00+00:00',
           'high' => '2017-09-28T08:00:00+00:00',
@@ -67,7 +67,7 @@ FactoryBot.define do
         'qrdaOid' => '2.16.840.1.113883.10.20.24.3.135',
         'qdmCategory' => 'condition',
         'qdmVersion' => '5.3',
-        'description' => 'Diagnosis: Diabetes',
+        'description' => 'Value Set Name 7',
         'prevalencePeriod' => {
           'low' => '2017-09-28T08:00:00+00:00',
           'high' => '2017-09-28T08:00:00+00:00',
@@ -84,7 +84,7 @@ FactoryBot.define do
             'code' => '720'
           }
         ],
-        'description' => 'Encounter, Performed: Office Visit',
+        'description' => 'Value Set Name 8',
         'hqmfOid' => '2.16.840.1.113883.3.560.1.79',
         'qdmStatus' => 'performed',
         'qdmVersion' => '5.3',
@@ -105,7 +105,7 @@ FactoryBot.define do
             'code' => '5814'
           }
         ],
-        'description' => 'Encounter, Performed: Office Visit',
+        'description' => 'Value Set Name 17',
         'hqmfOid' => '2.16.840.1.113883.3.560.1.79',
         'qdmStatus' => 'performed',
         'qdmVersion' => '5.3',

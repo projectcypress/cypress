@@ -307,6 +307,9 @@
     "c2_test": {"type": "boolean"},
     "c3_test": {"type": "boolean"},
     "c4_test": {"type": "boolean"},
+    "cures_update": {"type": "boolean"},
+    "all_eh": {"type": "boolean"},
+    "all_ep": {"type": "boolean"},
     "randomize_patients": {"type": "boolean"},
     "duplicate_patients": {"type": "boolean"},
     "shift_patients": {"type": "boolean"},
@@ -343,6 +346,9 @@
     "c2_test": {"type": "boolean"},
     "c3_test": {"type": "boolean"},
     "c4_test": {"type": "boolean"},
+    "cures_update": {"type": "boolean"},
+    "all_eh": {"type": "boolean"},
+    "all_ep": {"type": "boolean"},
     "randomize_patients": {"type": "boolean"},
     "duplicate_patients": {"type": "boolean"},
     "shift_patients": {"type": "boolean"},
@@ -401,6 +407,9 @@
     "c2_test": {"type": "boolean"},
     "c3_test": {"type": "boolean"},
     "c4_test": {"type": "boolean"},
+    "cures_update": {"type": "boolean"},
+    "all_eh": {"type": "boolean"},
+    "all_ep": {"type": "boolean"},
     "randomize_patients": {"type": "boolean"},
     "duplicate_patients": {"type": "boolean"},
     "shift_patients": {"type": "boolean"},
@@ -440,6 +449,15 @@
     "measure_id": {"type": "string"},
     "type": {"type": "string"},
     "state": {"type": "string"},
+    "provider" : {
+      "type" : "object",
+      "properties" : {
+        "tin" : {"type": "string"},
+        "npi" : {"type": "string"},
+        "ccn" : {"type": "string"},
+        "name" : {"type": "string"}
+      }
+    },
     "filters" : {
       "type" : "object",
       "properties" : {

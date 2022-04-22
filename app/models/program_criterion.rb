@@ -18,4 +18,10 @@ class ProgramCriterion
   def reset_criterion
     self.criterion_verified = false
   end
+
+  def entered_values
+    return nil unless entered_value
+
+    entered_value.delete(' ').split(',')
+  end
 end
