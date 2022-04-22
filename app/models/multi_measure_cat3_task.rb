@@ -21,6 +21,10 @@ class MultiMeasureCat3Task < Task
     # Set the Submission Program to MIPS_INDIV
     options = { provider: product_test.patients.first.providers.first, submission_program: 'MIPS_INDIV',
                 start_time: start_date, end_time: end_date, ry2022_submission: product_test.bundle.major_version == '2021' }
-    Qrda3R21.new(product_test.expected_results, product_test.measures, options).render
+    if product_test.bundle.major_version.to_i > 2021
+      Qrda3.new(product_test.expected_results, product_test.measures, options).render
+    else
+      Qrda3R21.new(product_test.expected_results, product_test.measures, options).render
+    end
   end
 end

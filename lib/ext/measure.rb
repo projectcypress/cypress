@@ -22,6 +22,16 @@ module CQM
       cms_id[/#{start_marker}(.*?)#{end_marker}/m, 1].to_i
     end
 
+    def individual_result_relevant_to_measure(individual_result)
+      return false unless individual_result.measure_id.to_s == id.to_s
+      return true if individual_result.IPP != 0
+
+      statement_hash = APP_CONSTANTS['ipp_relevant'].detect { |ip| ip.hqmf_id == hqmf_id }
+      return false unless statement_hash
+
+      individual_result&.statement_results&.any? { |sr| statement_hash.statements.include?(sr.statement_name) && sr.final.to_boolean == true }
+    end
+
     # A measure may have 1 or more population sets that may have 1 or more stratifications
     # This method returns an array of hashes with the population_set and stratification_id for every combindation
     def population_sets_and_stratifications_for_measure

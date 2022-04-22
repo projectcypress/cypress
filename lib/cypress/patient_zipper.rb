@@ -35,6 +35,7 @@ module Cypress
       @end_time = end_time
     end
 
+    # rubocop:disable Metrics/PerceivedComplexity
     def export(patient)
       cat1_submission_program = if patient.product_test&.product&.c3_test || patient.product_test&.product&.cvuplus
                                   patient.product_test&.measures&.first&.reporting_program_type == 'eh' ? 'HQR_IQR' : false
@@ -46,8 +47,13 @@ module Cypress
                   patient_telecoms: patient.telecoms,
                   submission_program: cat1_submission_program,
                   start_time: start_time, end_time: end_time }
-      Qrda1R5.new(patient, measures, options).render
+      if patient.bundle.major_version.to_i > 2021
+        Qrda1R5.new(patient, measures, options).render
+      else
+        Qrda1R52.new(patient, measures, options).render
+      end
     end
+    # rubocop:enable Metrics/PerceivedComplexity
   end
 
   class PatientZipper

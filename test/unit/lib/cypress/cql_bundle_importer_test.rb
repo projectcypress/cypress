@@ -8,7 +8,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     err = assert_raises(RuntimeError) do
       Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new)
     end
-    assert_equal('Please use bundles for year(s) 2020, 2021.', err.message)
+    assert_equal('Please use bundles for year(s) 2020, 2021, 2022.', err.message)
   end
 
   test 'should successfully import bundle and perform calculations' do

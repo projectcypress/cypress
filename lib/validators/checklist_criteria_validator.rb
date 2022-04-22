@@ -117,7 +117,7 @@ module Validators
       return verify_facility_location_attribute(attribute, checked_criteria) if attribute._type == 'QDM::FacilityLocation'
       return verify_quantity_attribute(attribute) if attribute._type == 'QDM::Quantity'
 
-      entity_types = ['QDM::Entity', 'QDM::CarePartner', 'QDM::Organization', 'QDM::PatientEntity', 'QDM::Practitioner']
+      entity_types = ['QDM::Entity', 'QDM::Location', 'QDM::CarePartner', 'QDM::Organization', 'QDM::PatientEntity', 'QDM::Practitioner']
       return verify_entity_attribute(attribute) if entity_types.include? attribute._type
       return verify_ratio_attribute(attribute) if attribute._type == 'QDM::Ratio'
 
