@@ -45,6 +45,7 @@ module Cypress
       options = { provider: patient.providers.first,
                   patient_addresses: patient.addresses,
                   patient_telecoms: patient.telecoms,
+                  medicare_beneficiary_identifier: patient.medicare_beneficiary_identifier,
                   submission_program: cat1_submission_program,
                   start_time: start_time, end_time: end_time }
       if patient.bundle.major_version.to_i > 2021
