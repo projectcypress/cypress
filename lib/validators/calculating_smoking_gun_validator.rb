@@ -47,10 +47,12 @@ module Validators
       valueset_oids = product_test.measures.only('value_set_ids').map { |mes| mes.value_sets.distinct(:oid) }.flatten
       record.nullify_unnessissary_negations(valueset_oids)
 
+      cec_options = { effectiveDate: Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number) }
+      cec_options[:effectiveDateEnd] = product_test.end_date.to_formatted_s(:number) if product_test.start_date.month != 1
       calc_job = Cypress::CqmExecutionCalc.new([record.qdmPatient],
                                                product_test.measures,
                                                options.test_execution.id.to_s,
-                                               effectiveDate: Time.at(product_test.measure_period_start).in_time_zone.to_formatted_s(:number))
+                                               cec_options)
       results = calc_job.execute(save: false)
       determine_passed(mrn, results, record, options)
     end

@@ -25,7 +25,7 @@ module Validators
 
     def validate_timing
       timing_constraint = find_timing_constraints
-      if timing_constraint && (@product_test.is_a? CMSProgramTest)
+      if timing_constraint && (@product_test.product.shift_patients || (@product_test.is_a? CMSProgramTest))
         validate_measurement_period(timing_constraint['start_time'], timing_constraint['end_time'])
       elsif (@product_test.is_a? CMSProgramTest) && @product_test.reporting_program_type == 'eh'
         # For EH measures, Reports are for a single quarter

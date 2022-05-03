@@ -37,6 +37,7 @@ module Cypress
       # if Shift patients is selected, move all patient data into the actual reporting period
       if @test.product.shift_patients
         date_shift = @test.bundle.start_date_offset
+        date_shift += 15_638_400 if @test.hybrid_measures?
         patients.each do |patient|
           patient.qdmPatient.shift_dates(date_shift)
         end
