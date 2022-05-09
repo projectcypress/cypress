@@ -46,6 +46,7 @@ module ApplicationHelper
     return unless measure
 
     program = measure.reporting_program_type
+    program = 'ec' if program == 'ep'
     year = Bundle.find(measure.bundle_id).major_version.to_i + 1
     "https://ecqi.healthit.gov/ecqm/#{program}/#{year}/#{padded_cms_id(cms_id)}"
   end
