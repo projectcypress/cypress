@@ -91,6 +91,16 @@ module CQM
         observation_value.each_with_index do |observation, index|
           # lookup the population code (e.g., DENOM is the population code for the statement named 'Denominator')
           obs_pop = measure.population_keys.find { |pop| population_set.populations[pop]['statement_name'] == observation_statements[index] }
+          # The Index of the Population Set ('Population Criteria 1')
+          popset_index = measure.population_sets_and_stratifications_for_measure.find_index do |pop_set|
+            pop_set[:population_set_id] == population_set[:population_set_id]
+          end
+
+          # Skip recording observations that are for a different population set.
+          # This will occur when all of the observation_statements are for the same population (e.g., 'MSRPOPL')
+          # And when the index of the observation does not match the index of the population set
+          next if observation_statements.uniq.size == 1 && index != popset_index
+
           # add the observation to the hash
           observation_hash[key][obs_pop][:values] << { episode_index: episode_index, value: observation }
           observation_hash[key][obs_pop][:statement_name] = observation_statements[index]

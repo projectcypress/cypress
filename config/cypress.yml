@@ -53,6 +53,23 @@ version_config:
           codeSystem: "2.16.840.1.113883.6.88"
       CMSQRDA3SchematronValidator_warnings:
       CMSQRDA1HQRSchematronValidator_warnings:
+  '~>2022.0':
+      start_date_offset: 2
+      modified_population_labels:
+        IPP: 'IPOP'
+      schematron: "2022.0.0"
+      qrda_version: "r5_2"
+      qrda3_version: "r2_1"
+      default_negation_codes:
+        2.16.840.1.113883.3.526.3.1184:
+          code: "854901"
+          codeSystem: "2.16.840.1.113883.6.88"
+        2.16.840.1.113883.3.526.3.1174:
+          code: "854901"
+          codeSystem: "2.16.840.1.113883.6.88"
+      CMSQRDA3SchematronValidator_warnings:
+        - 'not yet'
+      CMSQRDA1HQRSchematronValidator_warnings:
 
 # Configuration for values to use when randomizing patients in test decks
 # Names and nicknames added in a separate YML file
@@ -244,6 +261,31 @@ result_measures:
   - hqmf_id : '2C928082-74B3-1D8C-0174-BC5D6372017F'
     statement_name : 'Results'
     encounter_tuple_name : 'EncounterId'
+  # CMS529v3
+  - hqmf_id : '2C928083-7F47-C81F-017F-69FA7E3E0919'
+    statement_name : 'SDE Results'
+    encounter_tuple_name : 'EncounterId'
+  # CMS844v3
+  - hqmf_id : '2C928083-7F47-C81F-017F-6A10CDBE0958'
+    statement_name : 'SDE Results'
+    encounter_tuple_name : 'EncounterId'
+
+# These eCQMs can have patients that are relevant to IPP even when they don't calculation into the IPP
+ipp_relevant:
+  # CMS136
+  - hqmf_id : '2C928082-7B1B-AB09-017B-28E8655E02F2'
+    statements : [ 'Previously on ADHD Medication',
+                   'Inpatient Stay with Qualifying Diagnosis During Initiation Phase',
+                   'Inpatient Stay with Qualifying Diagnosis During Continuation and Maintenance Phase']
+  # CMS137
+  - hqmf_id : '2C928083-7ACE-2267-017A-F40A7DC90D17'
+    statements : [ 'History of SUD Diagnosis or Treatment']
+  # CMS108
+  - hqmf_id : '2C928083-7F47-C81F-017F-A37D7EB525F1'
+    statements : [ 'Admission without VTE or Obstetrical Conditions']
+  # CMS190
+  - hqmf_id : '2C928083-7F47-C81F-017F-A3CEA9F0260D'
+    statements : [ 'Admission without VTE or Obstetrical Conditions']
 
 # These measures do not 
 telehealth_ineligible_measures:

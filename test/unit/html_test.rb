@@ -38,6 +38,8 @@ class HTMLTest < ActiveSupport::TestCase
       elsif dt[ta[2]].is_a?(Array)
         # components, relatedTo (irrelevant), facilityLocations, diagnoses (all code or nested code)
         dt[ta[2]].each do |attr_elem|
+          next if %w[QDM::Organization QDM::CarePartner QDM::Location QDM::Practitioner QDM::PatientEntity].include?(attr_elem._type)
+
           if attr_elem.code.is_a?(Hash)
             # nested code
             assert html.include?(attr_elem.code.code), "html should include nested code value #{attr_elem.code.code}"

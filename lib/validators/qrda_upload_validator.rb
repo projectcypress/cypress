@@ -21,15 +21,23 @@ module Validators
     end
 
     def qrda_1_validator(bundle_year, organization)
-      return unless [2020, 2021].include? bundle_year
+      return unless [2020, 2021, 2022].include? bundle_year
 
-      organization == 'hl7' ? Cat1R52.instance : ::Validators::CMSQRDA1HQRSchematronValidator.new(bundle_year, as_warnings: false)
+      if organization == 'hl7'
+        bundle_year > 2021 ? Cat1R53.instance : Cat1R52.instance
+      else
+        ::Validators::CMSQRDA1HQRSchematronValidator.new(bundle_year, as_warnings: false)
+      end
     end
 
     def qrda_3_validator(bundle_year, organization)
-      return unless [2020, 2021].include? bundle_year
+      return unless [2020, 2021, 2022].include? bundle_year
 
-      organization == 'hl7' ? Cat3R21.instance : ::Validators::CMSQRDA3SchematronValidator.new(bundle_year, as_warnings: false)
+      if organization == 'hl7'
+        bundle_year > 2021 ? Cat3R1.instance : Cat3R21.instance
+      else
+        ::Validators::CMSQRDA3SchematronValidator.new(bundle_year, as_warnings: false)
+      end
     end
 
     def validate(file, options = {})
