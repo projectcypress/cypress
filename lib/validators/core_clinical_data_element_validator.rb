@@ -17,7 +17,8 @@ module Validators
       doc = get_document(file)
       if options.task._type == 'CMSProgramTask'
         verify_patient_ids(doc, options)
-        verify_ccde_program(doc, options)
+        # This validation is only relevant prior to 2022 bundle
+        verify_ccde_program(doc, options) if options.task.bundle.major_version.to_i < 2022
       end
       verify_only_ccde_measures(doc, options)
       verify_encounters(doc, options)

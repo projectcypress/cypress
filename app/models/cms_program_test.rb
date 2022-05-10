@@ -7,7 +7,7 @@ class CMSProgramTest < ProductTest
   accepts_nested_attributes_for :program_criteria, allow_destroy: true
 
   # List of cms programs
-  validates :cms_program, inclusion: %w[HQR_PI HQR_IQR HQR_PI_IQR HQR_IQR_VOL
+  validates :cms_program, inclusion: %w[HQR_PI HQR_IQR HQR_PI_IQR HQR_IQR_VOL HQR_OQR
                                         CPCPLUS PCF MIPS_INDIV MIPS_GROUP MIPS_VIRTUALGROUP MIPS_APMENTITY
                                         MIPS_APP1_INDIV MIPS_APP1_GROUP MIPS_APP1_APMENTITY HL7_Cat_I HL7_Cat_III]
 
