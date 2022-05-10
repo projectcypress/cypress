@@ -116,11 +116,24 @@ module CQM
       observation_hash
     end
 
+    # Risk_variables statement results can be an array of encounters that include the risk variable or a hash of named values
+    # For example, a raw result for an encounter array will look like
+    # { 'raw' => [{ '_type' => 'QDM::EncounterPerformed',
+    #               'qdmTitle' => 'Encounter, Performed',
+    #               'id' => '627562c2c1c388f89d2ab681' }],
+    #            'statement_name' => 'Risk Variable Asthma' }
+    # a raw result for an encounter with results will look like
+    # { 'raw' => { 'FirstHeartRate' =>
+    #                 [{ 'EncounterId' => '627562f5c1c388f89d2ac2f9',
+    #                    'FirstResult' => { 'value' => 65, 'unit' => '/min' },
+    #                    'Timing' => '2021-06-15T05:00:00.000+00:00' }] },
+    #              'statement_name' => 'Risk Variable Anemia' }]
+    # collect_risk_variables returns a hash of values organized by statement name and encounter id.
     def collect_risk_variables
       risk_variable_hash = {}
       measure.supplemental_data_elements.each do |supplemental_data_element|
         statement_name = supplemental_data_element['statement_name']
-        raw_results = statement_results.select { |sr| sr['statement_name'] == statement_name }.first['raw']
+        raw_results = statement_results.select { |sr| sr['statement_name'] == statement_name }.first&.raw
         risk_variable_values = {}
         case raw_results
         when Array
@@ -219,13 +232,14 @@ module CQM
       combined_statement_results
     end
 
+    # Returns an issue when expected risk variables are missing.  Does not validate the content of the returned risk variables, just existence.
     def compare_risk_variable_results(calculated, issues = [])
       measure.supplemental_data_elements.each do |supplemental_data_element|
         statement_name = supplemental_data_element['statement_name']
-        original_statement_results = statement_results.select { |sr| sr['statement_name'] == statement_name }.first['raw']
-        calculated_statement_results = calculated['statement_results'].select { |sr| sr['statement_name'] == statement_name }.first['raw']
-        next if original_statement_results.empty?
-        next unless calculated_statement_results.empty?
+        original_statement_results = statement_results.select { |sr| sr['statement_name'] == statement_name }.first&.raw
+        calculated_statement_results = calculated['statement_results'].select { |sr| sr['statement_name'] == statement_name }.first&.raw
+        next if original_statement_results.blank?
+        next unless calculated_statement_results.blank?
 
         issues << "#{statement_name} - Not Found in File"
       end

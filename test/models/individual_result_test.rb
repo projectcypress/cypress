@@ -173,4 +173,49 @@ class IndividualResultTest < ActiveSupport::TestCase
     _passed, issues = individual_result.compare_results(calculated, options, false)
     assert issues.include? 'firstHR of [50 /min, 50 /min] does not match [50 /min]'
   end
+
+  def test_issue_for_missing_risk_variable
+    @measure.hqmf_id = '2C928082-7FAC-C041-017F-B75D24BE0605'
+    sde = [{ 'statement_name' => 'Risk Variable Anemia' }]
+    @measure.population_sets.first.supplemental_data_elements = sde
+    @measure.save
+    statement_results = [{ 'raw' =>
+                           [{ '_type' => 'QDM::EncounterPerformed',
+                              'qdmTitle' => 'Encounter, Performed',
+                              'id' => '627562c2c1c388f89d2ab681' }],
+                           'statement_name' => 'Risk Variable Anemia' }]
+    bad_statement_results = [{ 'raw' =>
+                               [{ '_type' => 'QDM::EncounterPerformed',
+                                  'qdmTitle' => 'Encounter, Performed',
+                                  'id' => '627562c2c1c388f89d2ab681' }],
+                               'statement_name' => 'Risk Variable Asthma' }]
+    options = { population_set: { populations: { 'IPP' => { hqmf_id: 'HHH' } } } }
+    calculated = { 'IPP' => 1, 'statement_results' => bad_statement_results }
+    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results: statement_results)
+    _passed, issues = individual_result.compare_results(calculated, options, false)
+    assert issues.include? 'Risk Variable Anemia - Not Found in File'
+  end
+
+  def test_collect_risk_variable_values
+    @measure.hqmf_id = '2C928082-7FAC-C041-017F-B75D24BE0605'
+    sde = [{ 'statement_name' => 'Risk Variable Anemia' }, { 'statement_name' => 'Risk Variable Asthma' }, { 'statement_name' => 'Risk Variable Blank' }]
+    @measure.population_sets.first.supplemental_data_elements = sde
+    @measure.save
+    statement_results = [{ 'raw' =>
+                           [{ '_type' => 'QDM::EncounterPerformed',
+                              'qdmTitle' => 'Encounter, Performed',
+                              'id' => '627562c2c1c388f89d2ab681' }],
+                           'statement_name' => 'Risk Variable Asthma' },
+                         { 'raw' =>
+                           { 'FirstHeartRate' =>
+                             [{ 'EncounterId' => '627562f5c1c388f89d2ac2f9',
+                                'FirstResult' => { 'value' => 65, 'unit' => '/min' },
+                                'Timing' => '2021-06-15T05:00:00.000+00:00' }] },
+                           'statement_name' => 'Risk Variable Anemia' }]
+    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results: statement_results)
+    collected_risk_variables = individual_result.collect_risk_variables
+    assert collected_risk_variables['Risk Variable Asthma'][:values]['627562c2c1c388f89d2ab681']
+    assert collected_risk_variables['Risk Variable Anemia'][:values]['627562f5c1c388f89d2ac2f9']
+    assert collected_risk_variables['Risk Variable Blank'][:values].empty?
+  end
 end
