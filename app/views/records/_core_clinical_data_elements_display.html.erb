@@ -1,0 +1,57 @@
+<tr>
+  <td></td>
+  <% measure.population_keys.each do |population| %>
+  <th scope="col" class="text-center"><%= population_label(bundle, population) %></th>
+  <% end %>
+</tr>
+<% measure.population_sets_and_stratifications_for_measure.each do |population_set_hash| %>
+  <tr>
+    <th class="abbreviated" scope="row">
+      <%= measure_display_name(measure, population_set_hash) %>
+    </th>
+    <% measure.population_keys.each do |population| %>
+      <td class="text-center">
+        <span class="sr-only">Measure <%= measure.description %> population <%= population %> result: </span>
+        <!-- This is the relevant piece of the calculation_result_icon partial ported over to here. Rendering each circle in its own partial is far too slow and causes the application to take up to 8 seconds longer to load on some pages. -->
+        <% value = individual_result[population] %>
+        <% if value && value.positive? %>
+          <span class="sr-only">Pass</span>
+          <span class="fa-stack result-marker">
+            <% if export %>
+              <div class="exportcircle">
+                <% unless value == 1 && measure.calculation_method != 'EPISODE_OF_CARE' %>
+                  <strong class="fa-stack-1x result-text"><span class="sr-only">value of </span><%= value %></strong>
+                <% end %>
+              </div>
+            <% else %>
+              <%= icon('fas fa-stack-2x', 'circle', :"aria-hidden" => true) %>
+              <% unless value == 1 && measure.calculation_method != 'EPISODE_OF_CARE' %>
+                <strong class="fa-stack-1x result-text"><span class="sr-only">value of </span><%= value %></strong>
+              <% end %>
+            <% end %>
+          </span>
+        <% else %>
+          <span class="sr-only">Fail</span>
+          <%= icon('far fa-2x empty-marker', 'circle', :"aria-hidden" => true) %>
+        <% end %>
+      </td>
+      <% end %>
+  </tr>
+  <tr><td><button class="collapsible">View Core Clinical Data Element</button>
+  <div class="<%= "collapse-content" unless export %>">
+    <% result_measure = APP_CONSTANTS['result_measures'].select { |rm| rm['hqmf_id'] == measure.hqmf_id }.first %>
+    <% statement_name = result_measure['statement_name'] %>
+    <% encounter_tuple_name = result_measure['encounter_tuple_name'] %>
+    <% statement_results = individual_result.statement_results.select { |sr| sr['statement_name'] == statement_name }.first['raw'] %>
+    <% individual_result.episode_results&.keys&.each_with_index do |encounterId, index| %>
+      <ul>Encounter - <%= index + 1 %>
+      <% statement_results.each do |key, statement_result| %>
+        <% encounter_result = statement_result.select { |sr| sr[encounter_tuple_name] == encounterId }.first %>
+        <% next unless encounter_result && encounter_result['FirstResult'] %>
+        <ul><%= "#{key} (#{encounter_result['FirstResult']['value']} #{encounter_result['FirstResult']['unit']})" %></ul>
+      <% end %>
+      </ul>
+    <% end %>
+  </div>
+  </td></tr>
+<% end %>

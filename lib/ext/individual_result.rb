@@ -31,11 +31,18 @@ module CQM
           issues << "Calculated value (#{calculated_value}) for #{pop} (#{pop_statement}) does not match expected value (#{original_value})"
           comp = false
         end
-        APP_CONSTANTS['result_measures'].each do |result_measure|
-          compare_statement_results(calculated, result_measure['statement_name'], issues) if measure.hqmf_id == result_measure['hqmf_id']
-        end
+        compare_sde_results(calculated, issues)
         compare_observations(calculated, issues) if observed_values
         [previously_passed && comp, issues]
+      end
+    end
+
+    def compare_sde_results(calculated, issues)
+      APP_CONSTANTS['result_measures'].each do |result_measure|
+        compare_statement_results(calculated, result_measure['statement_name'], issues) if measure.hqmf_id == result_measure['hqmf_id']
+      end
+      APP_CONSTANTS['risk_variable_measures'].each do |risk_variable_measure|
+        compare_risk_variable_results(calculated, issues) if measure.hqmf_id == risk_variable_measure['hqmf_id']
       end
     end
 
@@ -109,6 +116,65 @@ module CQM
       observation_hash
     end
 
+    # Risk_variables statement results can be an array of encounters that include the risk variable or a hash of named values
+    # For example, a raw result for an encounter array will look like
+    # { 'raw' => [{ '_type' => 'QDM::EncounterPerformed',
+    #               'qdmTitle' => 'Encounter, Performed',
+    #               'id' => '627562c2c1c388f89d2ab681' }],
+    #            'statement_name' => 'Risk Variable Asthma' }
+    # a raw result for an encounter with results will look like
+    # { 'raw' => { 'FirstHeartRate' =>
+    #                 [{ 'EncounterId' => '627562f5c1c388f89d2ac2f9',
+    #                    'FirstResult' => { 'value' => 65, 'unit' => '/min' },
+    #                    'Timing' => '2021-06-15T05:00:00.000+00:00' }] },
+    #              'statement_name' => 'Risk Variable Anemia' }]
+    # collect_risk_variables returns a hash of values organized by statement name and encounter id.
+    def collect_risk_variables
+      risk_variable_hash = {}
+      measure.supplemental_data_elements.each do |supplemental_data_element|
+        statement_name = supplemental_data_element['statement_name']
+        raw_results = statement_results.select { |sr| sr['statement_name'] == statement_name }.first&.raw
+        risk_variable_values = {}
+        case raw_results
+        when Array
+          risk_variable_from_array(risk_variable_values, raw_results)
+        when Hash
+          risk_variable_from_hash(risk_variable_values, raw_results)
+        end
+        risk_variable_hash[statement_name] = { values: risk_variable_values }
+      end
+      risk_variable_hash
+    end
+
+    def risk_variable_from_array(risk_variable_values, raw_results)
+      encounter_id = nil
+      raw_results.flatten.each do |rv_value|
+        next unless rv_value
+
+        encounter_id = rv_value['id'] if (rv_value.is_a? Hash) && rv_value['qdmTitle'] == 'Encounter, Performed'
+        risk_variable_values[encounter_id] = if rv_value.is_a? Hash
+                                               rv_value['qdmTitle']
+                                             else
+                                               rv_value
+                                             end
+      end
+    end
+
+    def risk_variable_from_hash(risk_variable_values, raw_results)
+      encounter_value_hash = {}
+      raw_results.each do |key, rv_values|
+        rv_values.each do |rv_value|
+          encounter_value_hash[rv_value['EncounterId']] = {} unless encounter_value_hash[rv_value['EncounterId']]
+          next unless rv_value['FirstResult']
+
+          encounter_value_hash[rv_value['EncounterId']][key] = "#{rv_value['FirstResult']['value']} #{rv_value['FirstResult']['unit']}"
+        end
+      end
+      encounter_value_hash.each do |encounter_key, values|
+        risk_variable_values[encounter_key] = values
+      end
+    end
+
     def setup_observation_hash(observation_hash, key)
       observation_hash[key] = {} unless observation_hash[key]
       measure.population_keys.each do |pop|
@@ -164,6 +230,19 @@ module CQM
         combined_statement_results << statement_result_hash
       end
       combined_statement_results
+    end
+
+    # Returns an issue when expected risk variables are missing.  Does not validate the content of the returned risk variables, just existence.
+    def compare_risk_variable_results(calculated, issues = [])
+      measure.supplemental_data_elements.each do |supplemental_data_element|
+        statement_name = supplemental_data_element['statement_name']
+        original_statement_results = statement_results.select { |sr| sr['statement_name'] == statement_name }.first&.raw
+        calculated_statement_results = calculated['statement_results'].select { |sr| sr['statement_name'] == statement_name }.first&.raw
+        next if original_statement_results.blank?
+        next unless calculated_statement_results.blank?
+
+        issues << "#{statement_name} - Not Found in File"
+      end
     end
   end
 end

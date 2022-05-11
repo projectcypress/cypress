@@ -1,3 +1,4 @@
+  
   <div>
     <h2>Measure Calculations</h2>
     <% {  continuous_measures => RecordsHelper::CV_POPULATION_KEYS,
@@ -66,10 +67,40 @@
                     <td class="text-center"><% observation_values[result_key].each do |ov| %><%= ov.join('|') %><br/><% end %></td>
                   <% end %>
                 </tr>
+
+                <% if APP_CONSTANTS['risk_variable_measures'].map { |rvm| rvm['hqmf_id'] }.include? m.hqmf_id %>
+                  <% @individual_results.select { |ir| ir.measure_id == m.id && ir.patient_id == patient.id }.each_with_index do |ir, index| %>
+                    <% if m.key_for_population_set(population_set_hash) == ir.population_set_key %>
+                      <tr><td colspan="<%= pop_keys.size + 1 %>"><button class="collapsible">View Risk Variables</button>
+                      <div class="<%= "collapse-content" unless export %>">
+                        <%= render partial: 'records/risk_variable_display', :locals => { individual_result: ir } %>
+                      </div>
+                      </td></tr>
+                    <% end %>
+                  <% end %>
+                <% end %>
               <% end %>
             <% end %>
           </tbody>
         </table>
       <% end %>
     <% end %>
+
+
+
+    <% if result_measures %>
+    <table class="table table-condensed">
+      <tbody>
+        <% result_measures.each do |m| %>
+          <% ir = @individual_results.select { |ir| ir.measure_id == m.id && ir.patient_id == patient.id }.first %>
+          <% next unless ir %>
+          <%= render partial: 'records/core_clinical_data_elements_display.html', :locals => { individual_result: ir, measure: m, export: export, bundle: @task.bundle } %>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+
+
+
   </div>

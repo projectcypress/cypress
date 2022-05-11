@@ -270,6 +270,11 @@ result_measures:
     statement_name : 'SDE Results'
     encounter_tuple_name : 'EncounterId'
 
+# These eCQMs store a list of "Risk Variables" within the statement_results of an Individual Result
+risk_variable_measures:
+  # CMS1028v1
+  - hqmf_id : '2C928082-7FAC-C041-017F-B75D24BE0605'
+
 # These eCQMs can have patients that are relevant to IPP even when they don't calculation into the IPP
 ipp_relevant:
   # CMS136
