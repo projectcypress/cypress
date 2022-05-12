@@ -194,11 +194,19 @@ class ProductTest
   end
 
   def start_date
-    Time.at(measure_period_start).in_time_zone
+    if hybrid_measures? && product.shift_patients
+      Date.parse(APP_CONSTANTS['timing_constraints'].detect { |tc| measure_ids.include? tc['hqmf_id'] }.start_time).in_time_zone
+    else
+      Time.at(measure_period_start).in_time_zone
+    end
   end
 
   def end_date
-    Time.at(effective_date).in_time_zone
+    if hybrid_measures? && product.shift_patients
+      Date.parse(APP_CONSTANTS['timing_constraints'].detect { |tc| measure_ids.include? tc['hqmf_id'] }.end_time).in_time_zone
+    else
+      Time.at(effective_date).in_time_zone
+    end
   end
 
   def update_with_checklist_tests(checklist_test_params)

@@ -45,6 +45,7 @@ module Cypress
       options = { provider: patient.providers.first,
                   patient_addresses: patient.addresses,
                   patient_telecoms: patient.telecoms,
+                  medicare_beneficiary_identifier: patient.medicare_beneficiary_identifier,
                   submission_program: cat1_submission_program,
                   start_time: start_time, end_time: end_time }
       if patient.bundle.major_version.to_i > 2021
@@ -100,7 +101,7 @@ module Cypress
                                                        :value_set_ids, :source_data_criteria)
                  end
       start_date = ptest ? ptest.start_date : Time.at(patients.first.bundle.measure_period_start).in_time_zone
-      end_date = ptest ? ptest.end_date : start_date + 1.year
+      end_date = ptest ? ptest.end_date : start_date + 1.year - 1.second
       [measures, start_date, end_date]
     end
 
