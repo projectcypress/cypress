@@ -270,20 +270,25 @@ result_measures:
     statement_name : 'SDE Results'
     encounter_tuple_name : 'EncounterId'
 
+# These eCQMs store a list of "Risk Variables" within the statement_results of an Individual Result
+risk_variable_measures:
+  # CMS1028v1
+  - hqmf_id : '2C928082-7FAC-C041-017F-B75D24BE0605'
+
 # These eCQMs can have patients that are relevant to IPP even when they don't calculation into the IPP
 ipp_relevant:
-  # CMS136
+  # CMS136v11
   - hqmf_id : '2C928082-7B1B-AB09-017B-28E8655E02F2'
     statements : [ 'Previously on ADHD Medication',
                    'Inpatient Stay with Qualifying Diagnosis During Initiation Phase',
                    'Inpatient Stay with Qualifying Diagnosis During Continuation and Maintenance Phase']
-  # CMS137
+  # CMS137v11
   - hqmf_id : '2C928083-7ACE-2267-017A-F40A7DC90D17'
     statements : [ 'History of SUD Diagnosis or Treatment']
-  # CMS108
+  # CMS108v11
   - hqmf_id : '2C928083-7F47-C81F-017F-A37D7EB525F1'
     statements : [ 'Admission without VTE or Obstetrical Conditions']
-  # CMS190
+  # CMS190v11
   - hqmf_id : '2C928083-7F47-C81F-017F-A3CEA9F0260D'
     statements : [ 'Admission without VTE or Obstetrical Conditions']
 
@@ -319,6 +324,14 @@ timing_constraints:
   - hqmf_id : '2C928082-74B3-1D8C-0174-BC5D6372017F'
     start_time : '20220701'
     end_time : '20230630'
+  # CMS529v3
+  - hqmf_id : '2C928083-7F47-C81F-017F-69FA7E3E0919'
+    start_time : '20230701'
+    end_time : '20240630'
+  # CMS844v3
+  - hqmf_id : '2C928083-7F47-C81F-017F-6A10CDBE0958'
+    start_time : '20230701'
+    end_time : '20240630'
 
 telehealth_modifier_codes:
   [ '95', 'GQ', 'GT' ]

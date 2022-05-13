@@ -8,6 +8,7 @@
   <h1><%= info_title_for_product_test(task.product_test) %></h1>
   <% if (task.product_test.is_a? MeasureTest) || (task.product_test.is_a? FilteringTest) %>
     <strong>Measure: </strong><span><%= task.product_test_name %></span><br/>
+    <strong>Measurement Period: </strong><span><%= "#{task.start_date.strftime('%m/%d/%Y')} - #{task.end_date.strftime('%m/%d/%Y')} "%></span><br/>
     <strong>HQMF ID: </strong><span><%= task.measure_ids.join(',') %></span><br/>
     <strong>CMS ID: </strong><span><%= task.product_test_cms_id%></span><span><%= link_to " (eCQM Specification)", ecqi_link(task.product_test_cms_id), :target => "_blank", :id => "ecqm-link" %></span><br/>
   <% end %>

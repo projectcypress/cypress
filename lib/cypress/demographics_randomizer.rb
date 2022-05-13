@@ -123,6 +123,7 @@ module Cypress
         payer_element.first.dataElementCodes << new_payer
         payer_element.first.dataElementCodes.shift # get rid of existing dataElementCode
         payer_element.first.relevantPeriod = QDM::Interval.new(get_random_payer_start_date(patient, new_payer['code'] == '1', prng), nil)
+        patient.medicare_beneficiary_identifier = new_payer['code'] == '1' ? Cypress::MbiGenerator.generate : nil
       else
         raise 'Cannot find payer element'
       end
@@ -178,6 +179,7 @@ module Cypress
         elements << QDM::PatientCharacteristicPayer.new(dataElementCodes: [{ 'code' => '1', 'system' => '2.16.840.1.113883.3.221.5' }],
                                                         relevantPeriod: QDM::Interval.new(patient.qdmPatient.birthDatetime, nil))
       end
+      patient.medicare_beneficiary_identifier = Cypress::MbiGenerator.generate if patient.payer == '1'
       patient.qdmPatient.dataElements.concat(elements)
     end
 

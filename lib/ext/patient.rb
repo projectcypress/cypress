@@ -9,6 +9,7 @@ module CQM
     field :original_patient_id, type: BSON::ObjectId
     field :original_medical_record_number, type: String
     field :medical_record_number, type: String
+    field :medicare_beneficiary_identifier, type: String, default: nil
     field :measure_relevance_hash, type: Hash, default: {}
     field :code_description_hash, type: Hash, default: {} # may contain extra code descriptions for original codes
     field :reported_measure_hqmf_ids, type: Array, default: []
@@ -201,10 +202,12 @@ module CQM
       end
       qdmPatient.get_data_elements('laboratory_test', 'performed').each do |lt|
         lt.encounter_id = encounter_id_for_event(encounter_times, lt.resultDatetime)
+        lt.relatedTo << lt.encounter_id if lt.encounter_id
       end
       qdmPatient.get_data_elements('physical_exam', 'performed').each do |pe|
         event_time = pe.relevantDatetime || pe.relevantPeriod&.low
         pe.encounter_id = encounter_id_for_event(encounter_times, event_time)
+        pe.relatedTo << pe.encounter_id if pe.encounter_id
       end
     end
 

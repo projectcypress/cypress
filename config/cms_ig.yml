@@ -30,6 +30,11 @@ CMS Programs:
       - HQR_IQR
       - HQR_PI_IQR
       - HQR_IQR_VOL
+    '2022':
+      - HQR_PI
+      - HQR_IQR
+      - HQR_PI_IQR
+      - HQR_OQR
 Program Specific Measures:
   PCF:
     # CMS122v9, CMS130v9, CMS165v9
@@ -55,6 +60,7 @@ Program Criterion:
       - HQR_IQR
       - HQR_PI_IQR
       - HQR_IQR_VOL
+      - HQR_OQR
   HIC:
     name: 'Medicare HIC Number'
     optional: true
@@ -67,6 +73,7 @@ Program Criterion:
       - HQR_IQR
       - HQR_PI_IQR
       - HQR_IQR_VOL
+      - HQR_OQR
   Patient Identification Number:
     name: 'Patient Identification Number'
     description:
@@ -78,6 +85,7 @@ Program Criterion:
       - HQR_IQR
       - HQR_PI_IQR
       - HQR_IQR_VOL
+      - HQR_OQR
   MBI:
     name: 'Medicare Beneficiary Identifier'
     optional: true
@@ -90,6 +98,7 @@ Program Criterion:
       - HQR_IQR
       - HQR_PI_IQR
       - HQR_IQR_VOL
+      - HQR_OQR
   CMS EHR Certification ID:
     name: 'CMS EHR Certification ID'
     description:
@@ -104,6 +113,7 @@ Program Criterion:
       - HQR_IQR
       - HQR_PI_IQR
       - HQR_IQR_VOL
+      - HQR_OQR
       - CPCPLUS
       - PCF
   TIN:
@@ -122,6 +132,7 @@ Program Criterion:
       - HQR_IQR
       - HQR_PI_IQR
       - HQR_IQR_VOL
+      - HQR_OQR
       - MIPS_GROUP
       - MIPS_APP1_GROUP
       - MIPS_INDIV
@@ -152,6 +163,7 @@ Program Criterion:
       - HQR_IQR
       - HQR_PI_IQR
       - HQR_IQR_VOL
+      - HQR_OQR
       - MIPS_INDIV
       - MIPS_APP1_INDIV
       - CPCPLUS

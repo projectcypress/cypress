@@ -54,9 +54,9 @@ class PatientZipperTest < ActiveSupport::TestCase
     # Add Core Clinical Data Elements
     patient.qdmPatient.dataElements.push QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2011, 3, 24, 20, 53, 20).utc, DateTime.new(2011, 3, 25, 20, 53, 20).utc),
                                                                      dataElementCodes: [QDM::Code.new(faked_inpatient_vs.concepts.first.code, '2.16.840.1.113883.6.96')])
-    patient.qdmPatient.dataElements.push QDM::LaboratoryTestPerformed.new(resultDatetime: DateTime.new(2011, 3, 24, 20, 53, 20).utc,
+    patient.qdmPatient.dataElements.push QDM::LaboratoryTestPerformed.new(resultDatetime: DateTime.new(2011, 3, 24, 20, 53, 20).utc, relatedTo: [],
                                                                           dataElementCodes: [QDM::Code.new('6', '2.16.840.1.113883.6.96')])
-    patient.qdmPatient.dataElements.push QDM::PhysicalExamPerformed.new(relevantDatetime: DateTime.new(2011, 3, 24, 20, 53, 20).utc,
+    patient.qdmPatient.dataElements.push QDM::PhysicalExamPerformed.new(relevantDatetime: DateTime.new(2011, 3, 24, 20, 53, 20).utc, relatedTo: [],
                                                                         dataElementCodes: [QDM::Code.new('24', '2.16.840.1.113883.6.96')])
     patient.save
 

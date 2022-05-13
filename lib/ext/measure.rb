@@ -32,6 +32,11 @@ module CQM
       individual_result&.statement_results&.any? { |sr| statement_hash.statements.include?(sr.statement_name) && sr.final.to_boolean == true }
     end
 
+    def supplemental_data_elements
+      demo_sde = ['SDE Ethnicity', 'SDE Payer', 'SDE Race', 'SDE Sex']
+      population_sets.map { |ps| ps.supplemental_data_elements.reject { |sde| demo_sde.include? sde['statement_name'] } }.flatten
+    end
+
     # A measure may have 1 or more population sets that may have 1 or more stratifications
     # This method returns an array of hashes with the population_set and stratification_id for every combindation
     def population_sets_and_stratifications_for_measure
