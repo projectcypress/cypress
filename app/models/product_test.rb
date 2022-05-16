@@ -44,8 +44,6 @@ class ProductTest
 
   delegate :cures_update, to: :product
   delegate :name, :version, to: :product, prefix: true
-  delegate :effective_date, to: :product
-  delegate :measure_period_start, to: :product
   delegate :bundle, to: :product
   delegate :slim_test_deck?, to: :product
   delegate :test_deck_max, to: :product
@@ -193,11 +191,19 @@ class ProductTest
     cms_id.nil? ? name : cms_id
   end
 
+  def effective_date
+    end_date.to_i
+  end
+
+  def measure_period_start
+    start_date.to_i
+  end
+
   def start_date
     if hybrid_measures? && product.shift_patients
       Date.parse(APP_CONSTANTS['timing_constraints'].detect { |tc| measure_ids.include? tc['hqmf_id'] }.start_time).in_time_zone
     else
-      Time.at(measure_period_start).in_time_zone
+      Time.at(product.measure_period_start).in_time_zone
     end
   end
 
@@ -205,7 +211,7 @@ class ProductTest
     if hybrid_measures? && product.shift_patients
       Date.parse(APP_CONSTANTS['timing_constraints'].detect { |tc| measure_ids.include? tc['hqmf_id'] }.end_time).in_time_zone
     else
-      Time.at(effective_date).in_time_zone
+      Time.at(product.effective_date).in_time_zone
     end
   end
 
