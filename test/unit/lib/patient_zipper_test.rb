@@ -5,8 +5,11 @@ require 'fileutils'
 
 class PatientZipperTest < ActiveSupport::TestCase
   setup do
-    pt = FactoryBot.create(:product_test_static_result)
-    @static_patient = FactoryBot.create(:static_test_patient, bundleId: pt.bundle.id)
+    pt = FactoryBot.create(:multi_measure_test_static_result)
+    pt.measure_ids = pt.bundle.measures.map(&:hqmf_id)
+    pt.measure_ids << APP_CONSTANTS['result_measures'].first.hqmf_id
+    pt.save
+    @static_patient = FactoryBot.create(:static_test_patient, bundleId: pt.bundle.id, correlation_id: pt.id)
     @static_patient.save
     @patients = Patient.all.to_a.select { |p| p.gender == 'F' }
 
