@@ -331,7 +331,7 @@ module Cypress
         @unions[statement['name']] = []
         @unionlist << statement
       elsif query_source['expression']['type'] && query_source['expression']['type'] == 'Query'
-        @root_data_criteria[statement['name']] = query_source['expression']['source'][0]['expression']['codes']['name']
+        @root_data_criteria[statement['name']] = query_source['expression']['source'][0]['expression']['name']
       elsif query_source['expression']['type'] && query_source['expression']['type'] == 'ExpressionRef'
         @root_data_criteria[statement['name']] = query_source['expression']['name']
       elsif query_source['expression']['type'] && query_source['expression']['type'] == 'Last'
