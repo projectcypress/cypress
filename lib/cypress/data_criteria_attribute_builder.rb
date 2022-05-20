@@ -331,13 +331,18 @@ module Cypress
         @unions[statement['name']] = []
         @unionlist << statement
       elsif query_source['expression']['type'] && query_source['expression']['type'] == 'Query'
-        @root_data_criteria[statement['name']] = query_source['expression']['source'][0]['expression']['name']
+        @root_data_criteria[statement['name']] = codes_or_name(query_source['expression']['source'][0]['expression'])
       elsif query_source['expression']['type'] && query_source['expression']['type'] == 'ExpressionRef'
         @root_data_criteria[statement['name']] = query_source['expression']['name']
       elsif query_source['expression']['type'] && query_source['expression']['type'] == 'Last'
-        @root_data_criteria[statement['name']] = query_source['expression']['source']['source'][0]['expression']['codes']['name']
+        @root_data_criteria[statement['name']] = codes_or_name(query_source['expression']['source']['source'][0]['expression'])
       end
       @expression_hash[library_id][statement['name']] = source_value.uniq
+    end
+
+    def codes_or_name(expression)
+      return expression['codes']['name'] if expression['codes']
+      return expression['name']
     end
 
     def parse_root_data_types_from_union_and_intersetion(statement, library_id)
