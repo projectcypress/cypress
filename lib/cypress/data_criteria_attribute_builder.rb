@@ -342,7 +342,8 @@ module Cypress
 
     def codes_or_name(expression)
       return expression['codes']['name'] if expression['codes']
-      return expression['name']
+
+      expression['name']
     end
 
     def parse_root_data_types_from_union_and_intersetion(statement, library_id)
