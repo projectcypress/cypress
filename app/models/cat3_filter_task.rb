@@ -29,9 +29,9 @@ class Cat3FilterTask < Task
     options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
                 start_time: start_date, end_time: end_date, ry2022_submission: product_test.bundle.major_version == '2021' }
     if product_test.bundle.major_version.to_i > 2021
-      Qrda3.new(product_test.expected_results, product_test.measures, options).render
+      Qrda3.new(product_test.expected_results_with_all_supplemental_codes, product_test.measures, options).render
     else
-      Qrda3R21.new(product_test.expected_results, product_test.measures, options).render
+      Qrda3R21.new(product_test.expected_results_with_all_supplemental_codes, product_test.measures, options).render
     end
   end
   # rubocop:enable Metrics/AbcSize
