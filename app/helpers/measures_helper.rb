@@ -50,8 +50,8 @@ module MeasuresHelper
   end
 
   def type_counts(measures)
-    h = measures.map(&:reporting_program_type).each_with_object(Hash.new(0)) { |type, count| count[type] += 1 } # example {"EH"=> 4,"EP" => 2}
-    h.map { |k, v| "#{v} #{reporting_category_display_name(k)}" }.join(', ') # 4 EH, 2 EP
+    h = measures.map(&:reporting_program_type).each_with_object(Hash.new(0)) { |type, count| count[type] += 1 } # example {"eh"=> 4,"ep" => 2}
+    h.map { |k, v| "#{v} #{reporting_category_display_name(k)}" }.join(', ') # 4 EH, 2 EC
   end
 
   # Format the category (type count) as it is actually shown on the measure tabs
