@@ -34,6 +34,9 @@ module Cypress
       # grab a random number of patients and then randomize the dates between +- 10 days
       randomize_ids(patients, prng) if options['randomization_ids']
 
+      # include patients with virtual visits
+      select_virtual_patients(patients) if options['include_virtual']
+
       # if Shift patients is selected, move all patient data into the actual reporting period
       if @test.product.shift_patients
         date_shift = @test.bundle.start_date_offset
@@ -49,6 +52,12 @@ module Cypress
       provider = @test.provider if @test.instance_of?(MeasureTest)
 
       patients.collect { |patient| clone_and_save_patient(patient, prng, provider, allow_dups: @test.product.allow_duplicate_names) }
+    end
+
+    def select_virtual_patients(patients)
+      @test.bundle.patients.where(familyName: 'Virtual').sample(2).each do |patient|
+        patients << patient
+      end
     end
 
     def find_patients_to_clone
