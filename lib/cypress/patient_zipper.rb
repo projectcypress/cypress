@@ -98,7 +98,7 @@ module Cypress
                    ptest.measures.only(:id, :population_sets, :cms_id, :description, :hqmf_id, :hqmf_set_id, :value_set_ids, :source_data_criteria)
                  else
                    patients.first.bundle.measures.only(:id, :population_sets, :cms_id, :description, :hqmf_id, :hqmf_set_id,
-                                                       :value_set_ids, :source_data_criteria)
+                                                       :value_set_ids, :source_data_criteria).limit(1)
                  end
       start_date = ptest ? ptest.start_date : Time.at(patients.first.bundle.measure_period_start).in_time_zone
       end_date = ptest ? ptest.end_date : start_date + 1.year - 1.second
