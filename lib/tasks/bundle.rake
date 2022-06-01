@@ -39,13 +39,16 @@ namespace :bundle do
     bundle.destroy
   end
 
-  task :test_dcab, [:cms_id] => :setup do |_, args|
-    measure = Measure.where(cms_id: args.cms_id).first
-    measure.source_data_criteria.each do |sdc|
-      sdc.dataElementAttributes = []
+  task :test_dcab, [:bundle_versrion] => :setup do |_, args|
+    bundle = Bundle.find_by(version: args.bundle_versrion)
+    bundle.measures.each do |measure|
+      measure.source_data_criteria.each do |sdc|
+        sdc.dataElementAttributes = []
+      end
+      measure.save
+      dcab = Cypress::DataCriteriaAttributeBuilder.new
+      dcab.build_data_criteria_for_measure(measure)
+      measure.save
     end
-    measure.save
-    dcab = Cypress::DataCriteriaAttributeBuilder.new
-    dcab.build_data_criteria_for_measure(measure)
   end
 end
