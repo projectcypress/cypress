@@ -39,8 +39,11 @@ module Cypress
     # Matches a data criteria coded field value with provided data_criteria_value
     def match_attributes(data_criterias, data_criteria_value, selected_dc, data_criteria_without_att, criteria_types)
       data_criterias.each do |dc_value|
+        valueset_or_drc = data_criteria_value
+        # if a data_criteria_value is a Direct Reference Code, the "attribute_valueset" is actually the direct reference code itself.
+        valueset_or_drc = ValueSet.find_by(oid: valueset_or_drc).concepts.first.code if valueset_or_drc[0, 4] == 'drc-'
         next unless dc_value.dataElementAttributes
-        next if dc_value.dataElementAttributes.map { |av| av.attribute_valueset == data_criteria_value ? true : nil }.compact.empty?
+        next if dc_value.dataElementAttributes.map { |av| av.attribute_valueset == valueset_or_drc ? true : nil }.compact.empty?
         next if criteria_types.include? dc_value._type
 
         selected_dc << dc_value
