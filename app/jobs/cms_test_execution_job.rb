@@ -59,6 +59,9 @@ class CMSTestExecutionJob < ApplicationJob
   end
 
   def address_telehealth_codes_in_patients(patients, ineligible_measures, test_execution)
+    # measures in the 2022 bundle and beyond include logic to exclude telehealth encounters
+    return unless test_execution.task.bundle.major_version.to_i < 2022
+
     patients.each do |patient|
       warnings = patient.remove_telehealth_codes(ineligible_measures)
       warnings.each do |e|

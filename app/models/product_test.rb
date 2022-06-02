@@ -87,6 +87,7 @@ class ProductTest
       # If we're using a "slim test deck", don't pass in any random IDs
       random_ids = slim_test_deck? ? [] : gather_patient_ids
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'randomization_ids' => random_ids,
+                                      'include_virtual' => (measure_ids & APP_CONSTANTS['telehealth_ineligible_measures']),
                                       'randomize_demographics' => true, 'generate_provider' => product.c4_test, 'job_id' => job_id).perform
     else
       Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'disable_randomization' => true).perform
@@ -396,6 +397,32 @@ class ProductTest
   def generate_random_seed
     # create and store a new random seed for debugging repeatability
     self.rand_seed = Random.new_seed.to_s unless rand_seed
+  end
+
+  # Adds 0's for all missing populations (e.g., if DENEX is 0) or missing demographics (e.g., no Payer 349 in the DENEX)
+  def expected_results_with_all_supplemental_codes
+    # Since this is a CMS IG requirement, only do this for CVU+ or C3 tests
+    return expected_results unless product.cvuplus? || product.c3_test?
+
+    required_codes = { 'PAYER' => %w[1 2 6 349], 'SEX' => %w[M F], 'RACE' => %w[2106-3 2076-8 2054-5 2028-9 1002-5 2131-1],
+                       'ETHNICITY' => %w[2135-2 2186-5] }.freeze
+    new_hash = expected_results
+    new_hash.each do |_measure_id, pop_set_hash|
+      pop_set_hash.each do |_pop_set_id, pop_set|
+        sup_data = pop_set['supplemental_data']
+        %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP MSRPOPL MSRPOPLEX].each do |pop_key|
+          next unless pop_set[pop_key]
+
+          sup_data[pop_key] = { 'RACE' => {}, 'ETHNICITY' => {}, 'SEX' => {}, 'PAYER' => {} } unless sup_data[pop_key]
+          required_codes.each do |sup_data_type, codes|
+            codes.each do |code|
+              sup_data[pop_key][sup_data_type][code] = 0 unless sup_data[pop_key][sup_data_type][code]
+            end
+          end
+        end
+      end
+    end
+    new_hash
   end
 end
 # rubocop:enable Metrics/ClassLength
