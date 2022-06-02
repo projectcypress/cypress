@@ -190,8 +190,8 @@ class Product
     end
     return unless build_ep
 
-    product_tests.where(name: 'EP Measures').destroy
-    product_tests.build({ name: 'EP Measures', measure_ids: ep_ids, reporting_program_type: 'ep' }, MultiMeasureTest)
+    product_tests.where(name: 'EC Measures').destroy
+    product_tests.build({ name: 'EC Measures', measure_ids: ep_ids, reporting_program_type: 'ep' }, MultiMeasureTest)
   end
 
   # eh_ids: eh measure to include in a multimeasure test
