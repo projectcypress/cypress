@@ -18,8 +18,7 @@ module Validators
       case options.task._type
       when 'CMSProgramTask'
         verify_patient_ids(doc, options)
-        # This validation is only relevant prior to 2022 bundle
-        verify_ccde_program(doc, options) if options.task.bundle.major_version.to_i < 2022
+        verify_ccde_program(doc, options)
       when 'C3Cat1Task'
         verify_patient_ids(doc, options)
       end
@@ -38,9 +37,11 @@ module Validators
 
     def verify_ccde_program(doc, options)
       prog = doc.at_xpath('//cda:informationRecipient/cda:intendedRecipient/cda:id/@extension')
-      return if prog.value == 'HQR_IQR_VOL'
+      # Prior to 2022 the program was HQR_IQR_VOL, now its HQR_IQR
+      required_program = options.task.bundle.major_version.to_i < 2022 ? 'HQR_IQR_VOL' : 'HQR_IQR'
+      return if prog.value == required_program
 
-      msg = 'CMS_0085 - CMS program name for hybrid measure/CCDE submissions must be HQR_IQR_VOL.'
+      msg = "CMS_0085 - CMS program name for hybrid measure/CCDE submissions must be #{required_program}."
       add_error(msg, file_name: options[:file_name])
     end
 
