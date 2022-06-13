@@ -39,6 +39,13 @@ class ChecklistSourceDataCriteria
     # Don't do this for negated valuesets
     return unless negated_valueset == false
 
+    # Automatically record inputted attribute value for direct reference code
+    if source_data_criteria['dataElementAttributes'] && attribute_index
+      att_vset = source_data_criteria['dataElementAttributes'][attribute_index]['attribute_valueset']
+      # An 'attribute valueset' is a direct reference code if it isn't a valid oid
+      self.attribute_code = att_vset if att_vset && ValueSet.where(oid: att_vset).empty?
+    end
+
     # Only do this when the direct reference code is the only valueset for the data criteria
     valuesets = get_all_valuesets_for_dc(measure_id)
     valueset = valuesets.size == 1 ? valuesets.first : nil
