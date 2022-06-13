@@ -19,7 +19,7 @@ gem 'os'
 
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', branch: 'cypress_qdm_55_56'
 gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'new_qdm55_56'
-gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'more_translation_codes'
+gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'new_qdm55_56'
 gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators', branch: 'master'
 
 # Use faker to generate addresses
