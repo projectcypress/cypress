@@ -26,7 +26,7 @@ module VendorsHelper
   def get_cvu_status_values(product)
     Rails.cache.fetch("#{product.cache_key}/cvu_status_values") do
       h = {}
-      h['EP_Measure'] = ep_status_values(product)
+      h['EC_Measure'] = ep_status_values(product)
       h['EH_Measure'] = eh_status_values(product)
       h['CMS_Program'] = cms_status_values(product)
       h
