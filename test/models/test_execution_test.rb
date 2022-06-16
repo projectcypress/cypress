@@ -87,4 +87,25 @@ class TestExecutionTest < ActiveSupport::TestCase
     c3_execution.update(state: :failed)
     assert_equal false, c1_execution.executions_pending?
   end
+
+  def test_limit_warnings
+    vendor = Vendor.create(name: 'limited_vendor_name')
+    product = vendor.products.create(name: 'limited_product', bundle_id: @bundle.id)
+    ptest = product.product_tests.build(name: 'ptest', measure_ids: ['AE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+    task = ptest.tasks.build
+    te = task.test_executions.build
+
+    # If the root and translation codes are from the same valueset(s), the warning will be removed
+    trans_code_string = '2.16.840.1.113883.6.96:720'
+    root_code_string = '2.16.840.1.113883.6.96:720'
+    te.execution_errors << ExecutionError.new(message: "Translation code #{trans_code_string} may not be used for eCQM calculation by a receiving system. Ensure that the root code #{root_code_string} is from an eCQM valueset.", msg_type: :warning)
+    te.limit_translation_warnings(te.execution_errors.only_warnings)
+    assert_equal 0, te.execution_errors.size
+
+    # If the root and translation codes are not from the same valueset(s), the warning will not be removed
+    root_code_string = '2.16.840.1.113883.6.96:bad_code'
+    te.execution_errors << ExecutionError.new(message: "Translation code #{trans_code_string} may not be used for eCQM calculation by a receiving system. Ensure that the root code #{root_code_string} is from an eCQM valueset.", msg_type: :warning)
+    te.limit_translation_warnings(te.execution_errors.only_warnings)
+    assert_equal 1, te.execution_errors.size
+  end
 end
