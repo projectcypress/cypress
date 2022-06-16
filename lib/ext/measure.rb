@@ -82,5 +82,9 @@ module CQM
     def population_keys
       %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP MSRPOPL MSRPOPLEX].keep_if { |pop| population_sets.any? { |ps| ps.populations[pop]&.hqmf_id } }
     end
+
+    def valueset_oids
+      value_sets.map(&:oid)
+    end
   end
 end

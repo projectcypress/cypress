@@ -56,6 +56,8 @@ class TestExecution
   end
 
   def conditionally_add_task_specific_errors(file_count)
+    # Limit translation warnings when multiple files are being evaluated to avoid information overload.
+    limit_translation_warnings(execution_errors.only_warnings) if file_count > 1
     if (task.is_a?(C1Task) && task.product_test.product.c1_test) && file_count != task.patients.count
       execution_errors.build(message: "#{task.patients.count} files expected but was #{file_count}",
                              msg_type: :error, validator_type: :result_validation, validator: :smoking_gun)
@@ -149,5 +151,37 @@ class TestExecution
 
   def incomplete_or_sibling_incomplete?
     incomplete? || sibling_execution&.incomplete?
+  end
+
+  # If the root and translation codes are from the same valueset(s), the warning will be removed
+  def limit_translation_warnings(warnings)
+    task_oids = task.measures.map(&:valueset_oids).flatten
+    vs_map = {}
+    warnings.each do |warning|
+      message_array = warning.message.split
+      next unless message_array[0] == 'Translation'
+
+      codes = codes_from_message(message_array)
+      # The first code in the message will be the translation code
+      trans_code = codes[0]
+      # The second code in the message will be the root code
+      root_code = codes[1]
+      # Collect all of the valuesets (relevant to the task) the root code is part of
+      vs_map[root_code] = (valuesets_for_code(root_code) & task_oids).sort if vs_map[root_code].nil?
+      # Collect all of the valuesets (relevant to the task) the translation code is part of
+      vs_map[trans_code] = (valuesets_for_code(trans_code) & task_oids).sort if vs_map[trans_code].nil?
+
+      # If the valuesets match, the warning can be removed, there should be not impact to calculations
+      warning.destroy if vs_map[root_code] == vs_map[trans_code]
+    end
+  end
+
+  # Given a split warning message, return code values.  codes always have the following convention code:code_system
+  def codes_from_message(message_array)
+    message_array.collect { |st| st.split(':')[1] if st.include?(':') }.compact
+  end
+
+  def valuesets_for_code(code)
+    task.bundle.value_sets.only(:oid).where('concepts.code': code).map(&:oid)
   end
 end

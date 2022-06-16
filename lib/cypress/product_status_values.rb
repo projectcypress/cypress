@@ -12,8 +12,8 @@ module Cypress
 
     def ep_status_values(product)
       h = {}
-      ep_measure_tests = product.product_tests.only(:tasks, :name).multi_measure_tests.where(name: 'EP Measures')
-      h['EP Measure Test'] = STATUS_NAMES.zip(product_test_statuses(ep_measure_tests, 'MultiMeasureCat3Task')).to_h
+      ep_measure_tests = product.product_tests.only(:tasks, :name).multi_measure_tests.where(name: 'EC Measures')
+      h['EC Measure Test'] = STATUS_NAMES.zip(product_test_statuses(ep_measure_tests, 'MultiMeasureCat3Task')).to_h
       h
     end
 
