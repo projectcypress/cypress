@@ -17,10 +17,10 @@ gem 'bson_ext'
 gem 'mustache'
 gem 'os'
 
-gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', branch: 'cypress_qdm_55_56'
-gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'new_qdm55_56'
-gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'new_qdm55_56'
-gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators', branch: 'master'
+gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', tag: 'cypress_v7.0.0'
+gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', tag: 'cypress_v7.0.0'
+gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', tag: 'cypress_v7.0.0'
+gem 'cqm-validators', '~> 4.0.1'
 
 # Use faker to generate addresses
 gem 'faker', '~> 1.5.0'
