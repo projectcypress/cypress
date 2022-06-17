@@ -20,7 +20,7 @@ gem 'os'
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', tag: 'cypress_v7.0.0'
 gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', tag: 'cypress_v7.0.0'
 gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', tag: 'cypress_v7.0.0'
-gem 'cqm-validators', '~> 4.0.1'
+gem 'cqm-validators', '~> 4.0.2'
 
 # Use faker to generate addresses
 gem 'faker', '~> 1.5.0'
