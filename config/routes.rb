@@ -98,6 +98,9 @@ Rails.application.routes.draw do
     collection do
       get :download_mpl
     end
+    member do
+      get 'highlighted_results/:calculation_result_id', action: 'highlighted_results', as: 'highlighted_results'
+    end
   end
 
   resources :version, only: [:index]

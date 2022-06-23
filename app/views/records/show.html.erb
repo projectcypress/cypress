@@ -67,18 +67,20 @@
                         </tr>
                       <% end %>
                     <% end %>
-                  <% unless @record.calculation_results.first.clause_results.empty? %>
                     <tr><td colspan="<%= pop_keys.size + 1 %>">
                     <% @record.calculation_results.where(measure_id: m.id).each_with_index do |ir, index| %>
                       <% if m.key_for_population_set(population_set_hash) == ir.population_set_key %>
-                        <button class="collapsible">View Logic Highlighting</button>
-                        <div class="collapse-content">
-                          <%= render 'patient_measure_highlighting', :measure => m, :index => index, :individual_result => ir %>
-                        </div>
+                        <% if ir.clause_results.empty? %>
+                          <%= link_to "Get Highlighted Result", highlighted_results_record_path(:id => @record.id, :calculation_result_id => ir.id), method: :get %>
+                        <% else %>
+                          <button class="collapsible">View Logic Highlighting</button>
+                          <div class="collapse-content">
+                            <%= render 'patient_measure_highlighting', :measure => m, :index => index, :individual_result => ir %>
+                          </div>
+                        <% end %>
                       <% end %>
                     <% end %>
                   </td></tr>
-                  <% end %>
 
                   <% if APP_CONSTANTS['risk_variable_measures'].map { |rvm| rvm['hqmf_id'] }.include? m.hqmf_id %>
                     <% @record.calculation_results.where(measure_id: m.id).each_with_index do |ir, index| %>
