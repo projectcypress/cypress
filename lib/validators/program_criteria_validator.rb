@@ -60,8 +60,20 @@ module Validators
         errors.each { |e| add_error e, file_name: options[:file_name] }
         unit_errors.each { |e| add_error e, file_name: options[:file_name] }
       end
+      check_for_elements_after_mp(patient, options)
       Cypress::QRDAPostProcessor.replace_negated_codes(patient, options.task.bundle)
       Cypress::QRDAPostProcessor.remove_invalid_qdm_56_data_types(patient) if options.task.bundle.major_version.to_i > 2021
+    end
+
+    def check_for_elements_after_mp(patient, options)
+      patient.qdmPatient.dataElements.each do |data_element|
+        occurs_after, de_date_time = data_element.occurs_after_date?(options.task.product_test.effective_date)
+        next unless occurs_after
+
+        msg = "#{data_element._type} that occurs after the Performance Period on #{de_date_time.strftime('%m/%d/%Y')} was not used in calculation"
+        add_warning msg, file_name: options[:file_name]
+        data_element.destroy
+      end
     end
 
     # Check that a patient as a patient_characteristic_payer and atleast 1 other (non-demographic) data criteria
