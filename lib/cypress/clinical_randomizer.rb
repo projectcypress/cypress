@@ -52,7 +52,7 @@ module Cypress
     end
 
     def self.de_before_date(data_element, date)
-      data_element_time(data_element) < date
+      data_element.data_element_time < date
     end
 
     def self.split_by_type(patient, effective_date, measure_period_start, random)
@@ -91,17 +91,7 @@ module Cypress
     # sorts by first data element in group
     def self.sort_groups_by_start_time(de_groups)
       # sort by start date (in convert start_date equivalent to authorDatetime)
-      de_groups.sort_by { |de_group| data_element_time(de_group.first) }
-    end
-
-    def self.data_element_time(data_element)
-      return data_element.relevantPeriod.low if data_element['relevantPeriod']&.low
-      return data_element.relevantDatetime if data_element['relevantDatetime']
-      return data_element.prevalencePeriod.low if data_element['prevalencePeriod']&.low
-      return data_element.authorDatetime if data_element['authorDatetime']
-      return data_element.resultDatetime if data_element['resultDatetime']
-      return data_element.sentDatetime if data_element['sentDatetime']
-      return data_element.participationPeriod.low if data_element['participationPeriod']
+      de_groups.sort_by { |de_group| de_group.first.data_element_time }
     end
 
     def self.find_split_date(sorted_de_groups, effective_date, measure_period_start, random)
@@ -117,16 +107,16 @@ module Cypress
     end
 
     def self.find_first_date_after(sorted_de, date)
-      des = sorted_de.detect { |de| (data_element_time(de) > date) }
-      data_element_time(des)
+      des = sorted_de.detect { |de| de.data_element_time > date }
+      des.data_element_time
     end
 
     def self.find_last_date_before(sorted_de, date)
       # pairwise enumeration across data elements
       sorted_de.each_cons(2) do |des|
-        return data_element_time(des[0]) if data_element_time(des[1]) > date
+        return des[0].data_element_time if des[1].data_element_time > date
       end
-      data_element_time(sorted_de.last)
+      sorted_de.last.data_element_time
     end
 
     # find de with relate_to reference and group accordingly
