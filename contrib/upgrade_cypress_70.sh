@@ -26,12 +26,12 @@ apt-get update
 if [ $(dpkg-query -W -f='${Status}' cypress 2>/dev/null | grep -c "ok installed") -eq 1 ];
 then
   printf "${GREEN}---> Attempting to upgrade Cypress...${NC}\n"
-  apt-get -y --allow-change-held-packages install cypress cqm-execution-service
+  apt-get -y --allow-change-held-packages install cypress cqm-execution-service cqm-execution-service-55
   cypress run rake db:migrate
-  systemctl restart cypress cqm-execution-service
+  systemctl restart cypress cqm-execution-service cqm-execution-service-55
   cypress run rake tmp:cache:clear
   cypress run rake db:migrate
-  systemctl restart cypress cqm-execution-service
+  systemctl restart cypress cqm-execution-service cqm-execution-service-55
   cypress run rake tmp:cache:clear
 else
   printf "${RED}---> Cypress not found, continuing...${NC}\n"
