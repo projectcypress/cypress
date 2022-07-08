@@ -167,6 +167,7 @@ module Cypress
         qrda = qrda_file.get_input_stream.read
         doc = Nokogiri::XML::Document.parse(qrda)
         doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+        doc.root.add_namespace_definition('xsi', 'http://www.w3.org/2001/XMLSchema-instance')
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
         patient, _warnings, codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
         Cypress::QRDAPostProcessor.build_code_descriptions(codes, patient, bundle)
