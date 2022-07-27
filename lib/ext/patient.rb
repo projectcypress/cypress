@@ -314,6 +314,39 @@ module CQM
       end
     end
 
+    # options and cms_id comes from the SingleMeasureCalculationJob
+    def check_for_elements_after_mp(options, cms_id)
+      qdmPatient.dataElements.each do |data_element|
+        mp_end = DateTime.parse(options[:effectiveDate]) + 1.year - 1.second
+        occurs_after, de_date_time = data_element.occurs_after_date?(mp_end.to_i)
+        # move on unless date is beyond the measurement period
+        next unless occurs_after
+
+        # Adding NA to the codesystem will effectively remove the element for calcuation, and allows it to be easily rerturned for other calculations
+        data_element.dataElementCodes.each do |dec|
+          dec.system.concat('NA')
+        end
+
+        # If the patient is a TestExecutionPatient (for CMS Program Tests) add a warning message
+        next unless is_a? CQM::TestExecutionPatient
+
+        te = TestExecution.find(correlation_id)
+        msg = "#{data_element._type} that occurs after the Performance Period on #{de_date_time.strftime('%m/%d/%Y')}"\
+              " was not used in calculation for #{cms_id}."
+        te.execution_errors.build(message: msg, msg_type: :warning, file_name: file_name)
+        te.save
+      end
+    end
+
+    def reestablish_elements_after_mp
+      qdmPatient.dataElements.each do |data_element|
+        # Removing NA from the codesystem will allow element to be used for calculation again
+        data_element.dataElementCodes.each do |dec|
+          dec.system.delete_suffix!('NA')
+        end
+      end
+    end
+
     # Birthdate times at the epoch time boundary throws off the cql-calculation engine, workaround to add 1 second to the birthtime.
     def account_for_epoch_time_zero
       return unless qdmPatient.birthDatetime

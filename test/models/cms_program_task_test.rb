@@ -143,13 +143,14 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
   def test_eh_task_with_future_date_warning
     setup_eh
     pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
+    APP_CONSTANTS['measures_without_future_data'] = pt.measure_ids
     task = pt.tasks.first
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_future_encounter.zip'))
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      msg = 'QDM::EncounterPerformed that occurs after the Performance Period on 09/28/2027 was not used in calculation'
-      assert_equal 1, te.execution_errors.where(message: msg).size
+      msg = 'QDM::EncounterPerformed that occurs after the Performance Period on 09/28/2027 was not used in calculation for CMS32v7.'
+      assert te.execution_errors.where(message: msg).size.positive?
     end
   end
 

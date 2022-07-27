@@ -316,6 +316,12 @@ telehealth_ineligible_measures:
    '2C928082-7C03-4632-017C-0ABD21C10652',
    '2C928082-7C03-4632-017C-0ABC66830646']
 
+# These measures should not use information after measurement period
+measures_without_future_data:
+  # CMS69v10, CMS69v11 (https://oncprojectracking.healthit.gov/support/browse/EKI-13)
+  [ '2C928083-786E-690D-0178-7090965F028D',
+    '2C928082-7FAC-C041-017F-B3038B3E0469' ]
+
 # These measures have specific timing constraints
 timing_constraints:
   # CMS529v1
