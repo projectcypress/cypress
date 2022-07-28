@@ -316,9 +316,9 @@ module CQM
 
     # options and cms_id comes from the SingleMeasureCalculationJob
     def check_for_elements_after_mp(options, cms_id)
+      mp_end = (DateTime.parse(options[:effectiveDate]) + 1.year - 1.second).to_i
       qdmPatient.dataElements.each do |data_element|
-        mp_end = DateTime.parse(options[:effectiveDate]) + 1.year - 1.second
-        occurs_after, de_date_time = data_element.occurs_after_date?(mp_end.to_i)
+        occurs_after, de_date_time = data_element.occurs_after_date?(mp_end)
         # move on unless date is beyond the measurement period
         next unless occurs_after
 

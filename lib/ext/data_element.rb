@@ -17,7 +17,7 @@ module QDM
     # rubocop:disable Metrics/PerceivedComplexity
     def data_element_time
       return relevantPeriod.low if respond_to?(:relevantPeriod) && relevantPeriod&.low
-      return relevantDatetime if respond_to?(:relevantPeriod) && relevantDatetime
+      return relevantDatetime if respond_to?(:relevantDatetime) && relevantDatetime
       return prevalencePeriod.low if respond_to?(:prevalencePeriod) && prevalencePeriod&.low
       return authorDatetime if respond_to?(:authorDatetime) && authorDatetime
       return resultDatetime if respond_to?(:resultDatetime) && resultDatetime
