@@ -53,13 +53,13 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 62, te.execution_errors.size
+      assert_equal 63, te.execution_errors.size
       assert_equal 2, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
       assert_equal 52, te.execution_errors.where(validator: 'Validators::CMSQRDA3SchematronValidator').size
       assert_equal 4, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator', msg_type: :error).size # One for each demographic
       assert_equal 1, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS32v7', msg_type: :warning).size
-      assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
+      assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::EHRCertificationIdValidator').size
     end
   end
@@ -83,10 +83,10 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 15, te.execution_errors.size
+      assert_equal 16, te.execution_errors.size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
       assert_equal 13, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size
-      assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
+      assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
     end
   end
 
