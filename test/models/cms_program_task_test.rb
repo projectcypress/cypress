@@ -53,13 +53,13 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 62, te.execution_errors.size
+      assert_equal 63, te.execution_errors.size
       assert_equal 2, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
       assert_equal 52, te.execution_errors.where(validator: 'Validators::CMSQRDA3SchematronValidator').size
       assert_equal 4, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator', msg_type: :error).size # One for each demographic
       assert_equal 1, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS32v7', msg_type: :warning).size
-      assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
+      assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::EHRCertificationIdValidator').size
     end
   end
@@ -83,10 +83,10 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 15, te.execution_errors.size
+      assert_equal 16, te.execution_errors.size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
       assert_equal 13, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size
-      assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
+      assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
     end
   end
 
@@ -137,6 +137,20 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
       assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :error).size
       assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
       assert_equal 5, te.execution_errors.where(validator: 'Validators::CMSQRDA1HQRSchematronValidator').size
+    end
+  end
+
+  def test_eh_task_with_future_date_warning
+    setup_eh
+    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
+    APP_CONSTANTS['measures_without_future_data'] = pt.measure_ids
+    task = pt.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_future_encounter.zip'))
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      msg = 'QDM::EncounterPerformed that occurs after the Performance Period on 09/28/2027 was not used in calculation for CMS32v7.'
+      assert te.execution_errors.where(message: msg).size.positive?
     end
   end
 

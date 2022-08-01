@@ -140,7 +140,7 @@ class CMSProgramTask < Task
     program_criteria.each do |criterion_key, criterion_hash|
       description = criterion_hash['description'][product_test.cms_program] || criterion_hash['description'][product_test.reporting_program_type]
       conf = criterion_hash['conf'][product_test.cms_program] || criterion_hash['conf'][product_test.reporting_program_type]
-      is_optional = criterion_hash['optional'] ? true : false
+      is_optional = criterion_hash['optional']&.include?(product_test.cms_program) ? true : false
       product_test.program_criteria << ProgramCriterion.new(criterion_key: criterion_key,
                                                             criterion_name: criterion_hash['name'],
                                                             criterion_description: description,

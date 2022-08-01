@@ -12,7 +12,7 @@ class VendorPatientUploadJob < ApplicationJob
     tracker.save
   end
 
-  def perform(file, _original_filename, vendor_id, bundle_id)
+  def perform(file, _original_filename, vendor_id, bundle_id, include_highlighting)
     tracker.log('Importing')
 
     vendor_patient_file = File.new(file)
@@ -26,7 +26,7 @@ class VendorPatientUploadJob < ApplicationJob
 
     # do patient calculation against bundle
     unless patients.empty?
-      generate_calculations(patients, bundle, vendor_id)
+      generate_calculations(patients, bundle, vendor_id, include_highlighting)
       PatientAnalysisJob.perform_later(bundle.id.to_s, vendor_id)
     end
     File.delete(file)
@@ -102,15 +102,15 @@ class VendorPatientUploadJob < ApplicationJob
     end
   end
 
-  def generate_calculations(patients, bundle, vendor_id)
+  def generate_calculations(patients, bundle, vendor_id, include_highlighting)
     patient_ids = patients.map { |p| p.id.to_s }
     options = { 'effectiveDate' => Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number),
-                'includeClauseResults' => true }
+                'includeClauseResults' => include_highlighting }
     tracker_index = 0
     # cqm-execution-service (using includeClauseResults) can run out of memory when it is run with a lot of patients.
     # 20 patients was selected after monitoring performance when experimenting with varying counts (from 1 to 100)
     # with all of the measures
-    patients_per_calculation = 20
+    patients_per_calculation = include_highlighting ? 20 : 200
     # Total count is the number of patient slices - (total patients / patients_per_calculation) + 1
     # multiplied by the total number of measures.
     # For example, and upload of 115 patients for 5 measures would be 6 patient slices (101 / 20) + 1 = 6

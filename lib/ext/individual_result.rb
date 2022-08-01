@@ -10,6 +10,29 @@ module CQM
     field :correlation_id, type: String
     field :file_name, type: String
 
+    # Recalculates Individual Result and saves the clause_results
+    def recalculate_with_highlighting
+      # Use the bundle of product test to find measure_period_start
+      measure_period_start = if patient.is_a? CQM::ProductTestPatient
+                               patient.product_test.measure_period_start
+                             else
+                               patient.bundle.measure_period_start
+                             end
+      options = { 'effectiveDate' => Time.at(measure_period_start).in_time_zone.to_formatted_s(:number),
+                  'includeClauseResults' => true }
+      calc_job = Cypress::CqmExecutionCalc.new([patient.qdmPatient],
+                                               [measure],
+                                               correlation_id,
+                                               options)
+      new_results = calc_job.execute(save: false)
+      new_results.each do |new_result|
+        next unless population_set_key == new_result['population_set_key']
+
+        self.clause_results = new_result['clause_results']
+        save
+      end
+    end
+
     def observed_values
       return nil unless episode_results&.values&.any? { |er| er.key?('observation_values') }
 

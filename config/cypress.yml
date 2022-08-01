@@ -68,7 +68,6 @@ version_config:
           code: "854901"
           codeSystem: "2.16.840.1.113883.6.88"
       CMSQRDA3SchematronValidator_warnings:
-        - '2023 CMS QRDA III Implementation Guide for Eligible Clinicians is not available'
       CMSQRDA1HQRSchematronValidator_warnings:
 
 # Configuration for values to use when randomizing patients in test decks
@@ -315,6 +314,12 @@ telehealth_ineligible_measures:
    '2C928082-7C31-8117-017C-DC62175A32D0',
    '2C928082-7C03-4632-017C-0ABD21C10652',
    '2C928082-7C03-4632-017C-0ABC66830646']
+
+# These measures should not use information after measurement period
+measures_without_future_data:
+  # CMS69v10, CMS69v11 (https://oncprojectracking.healthit.gov/support/browse/EKI-13)
+  [ '2C928083-786E-690D-0178-7090965F028D',
+    '2C928082-7FAC-C041-017F-B3038B3E0469' ]
 
 # These measures have specific timing constraints
 timing_constraints:
