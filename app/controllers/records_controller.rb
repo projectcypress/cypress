@@ -84,6 +84,13 @@ class RecordsController < ApplicationController
     end
   end
 
+  # Updates the specified calculation_result with highlighting
+  def highlighted_results
+    ir = IndividualResult.find(params[:calculation_result_id])
+    ir.recalculate_with_highlighting
+    redirect_back(fallback_location: record_path(id: params[:id]))
+  end
+
   private
 
   # NOTE: case vendor will also have a bundle id

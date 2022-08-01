@@ -19,7 +19,8 @@ module Vendors
         file_name = generate_file_path
         file_path = File.join(APP_CONSTANTS['vendor_file_path'], file_name)
         FileUtils.mv(temp_file_path, file_path)
-        VendorPatientUploadJob.perform_later(file_path, params['file'].original_filename, params[:vendor_id], @bundle.id.to_s)
+        include_highlighting = params[:include_highlighting] == '1'
+        VendorPatientUploadJob.perform_later(file_path, params['file'].original_filename, params[:vendor_id], @bundle.id.to_s, include_highlighting)
         redirect_to vendor_records_path(vendor_id: params[:vendor_id], bundle_id: @bundle.id)
       else
         flash[:alert] = 'No vendor patient file provided.'

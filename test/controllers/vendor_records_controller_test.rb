@@ -64,11 +64,29 @@ class VendorsRecordsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'should create vendor patients with default bundle' do
+  test 'should create vendor patients with default bundle and highlighting' do
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       orig_patient_count = Patient.count
 
-      filename = Rails.root.join('test', 'fixtures', 'artifacts', 'good_patient_upload.zip')
+      filename = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip')
+      good_zip = fixture_file_upload(filename, 'application/zip')
+      perform_enqueued_jobs do
+        post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle._id, include_highlighting: '1' }
+        assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle._id }, 'response should redirect to index')
+
+        # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
+        get :index, params: { vendor_id: redirect_to_url.split('/')[-2] }
+        assert_equal orig_patient_count + 1, Patient.count
+      end
+      assert @vendor.patients[-1].calculation_results.first.clause_results.size.positive?
+    end
+  end
+
+  test 'should create vendor patients with default bundle without highlighting' do
+    for_each_logged_in_user([ADMIN, ATL, OWNER]) do
+      orig_patient_count = Patient.count
+
+      filename = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip')
       good_zip = fixture_file_upload(filename, 'application/zip')
       perform_enqueued_jobs do
         post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle._id }
@@ -78,6 +96,7 @@ class VendorsRecordsControllerTest < ActionController::TestCase
         get :index, params: { vendor_id: redirect_to_url.split('/')[-2] }
         assert_equal orig_patient_count + 1, Patient.count
       end
+      assert_empty @vendor.patients[-1].calculation_results.first.clause_results
     end
   end
 
