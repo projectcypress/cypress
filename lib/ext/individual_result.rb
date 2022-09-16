@@ -247,12 +247,18 @@ module CQM
         next if calculated_statement_results[result_name].empty?
 
         original_values = value.map(&:FirstResult).compact.empty? ? [] : value.map(&:FirstResult).compact&.sort_by! { |fr| fr['value'] }
+        calculated_values = calculated_statement_results[result_name].map(&:FirstResult).compact&.sort_by! { |fr| fr['value'] }
         statement_result_hash = { name: result_name,
-                                  original: original_values,
-                                  reported: calculated_statement_results[result_name].map(&:FirstResult).compact&.sort_by! { |fr| fr['value'] } }
+                                  original: values_without_annotations(original_values),
+                                  reported: values_without_annotations(calculated_values) }
         combined_statement_results << statement_result_hash
       end
       combined_statement_results
+    end
+
+    # remove all annotations from values using brackets {}
+    def values_without_annotations(values)
+      values.each { |val| val['unit'] = val['unit']&.gsub(/{.*?}/, '') }
     end
 
     # Returns an issue when expected risk variables are missing.  Does not validate the content of the returned risk variables, just existence.
