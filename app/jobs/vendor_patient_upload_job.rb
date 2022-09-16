@@ -104,8 +104,8 @@ class VendorPatientUploadJob < ApplicationJob
 
   def generate_calculations(patients, bundle, vendor_id, include_highlighting)
     patient_ids = patients.map { |p| p.id.to_s }
-    options = { 'effectiveDate' => Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number),
-                'includeClauseResults' => include_highlighting }
+    options = { effectiveDate: Time.at(bundle.measure_period_start).in_time_zone.to_formatted_s(:number),
+                includeClauseResults: include_highlighting }
     tracker_index = 0
     # cqm-execution-service (using includeClauseResults) can run out of memory when it is run with a lot of patients.
     # 20 patients was selected after monitoring performance when experimenting with varying counts (from 1 to 100)
