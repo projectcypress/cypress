@@ -17,7 +17,7 @@ module Cypress
     def get_non_demographic_category_statuses(measures)
       measures.collect do |measure|
         measure.source_data_criteria.map { |cr| data_element_category_and_status(cr) unless cr.qdmCategory == 'patient_characteristic' }
-      end.flatten.uniq
+      end.flatten.uniq.compact
     end
 
     def scoop_and_filter(patient)
@@ -62,12 +62,14 @@ module Cypress
     end
 
     def data_element_category_and_status(data_element)
-      { category: data_element.qdmCategory, status: data_element['qdmStatus'] }
+      { category: data_element.qdmCategory, status: data_element['qdmStatus'], oid: data_element['codeListId'] }
     end
 
     # returns true if a patients data element is used by a measure
     def data_element_used_by_measure(data_element)
-      @de_category_statuses_for_measures.include?(category: data_element['qdmCategory'], status: data_element['qdmStatus'])
+      !@de_category_statuses_for_measures.index do |dcs|
+        dcs[:category] == data_element['qdmCategory'] && dcs[:status] == data_element['qdmStatus']
+      end.nil?
     end
 
     def remove_irrelevant_valuesets_and_add_description_to_data_element(data_element)
@@ -87,6 +89,10 @@ module Cypress
       de.description = vs.display_name
     end
 
+    def value_set_appropriate_for_data_element(data_element, valueset_oid)
+      @de_category_statuses_for_measures.include?(category: data_element['qdmCategory'], status: data_element['qdmStatus'], oid: valueset_oid)
+    end
+
     # For negated elements, replace codes (that aren't direct reference codes) with valuesets.
     # If a code is in multiple valuesets, create new entries to be added to record
     # rubocop:disable Metrics/AbcSize
@@ -99,6 +105,7 @@ module Cypress
         return
       end
       neg_vs = @valuesets.select { |vs| vs.concepts.any? { |c| c.code == de.codes.first.code && c.code_system_oid == de.codes.first.system } }
+      neg_vs.keep_if { |nvs| value_set_appropriate_for_data_element(de, nvs.oid) }
 
       negated_valueset = neg_vs.first
       neg_vs.drop(1).each do |additional_vs|
