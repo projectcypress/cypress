@@ -112,7 +112,8 @@ module Cypress
         next if additional_vs.oid[0, 3] == 'drc'
 
         de_for_additional_vs = data_element.clone
-        de_for_additional_vs.id = BSON::ObjectId.new.to_s
+        # Create Ids from the source data element and the oid so they remain consistent
+        de_for_additional_vs.id = BSON::ObjectId.from_data("#{data_element.id}#{additional_vs.oid}").to_s
         de_for_additional_vs.dataElementCodes = [{ code: additional_vs.oid, system: '1.2.3.4.5.6.7.8.9.10' }]
         multi_vs_negation_elements << de_for_additional_vs
       end
