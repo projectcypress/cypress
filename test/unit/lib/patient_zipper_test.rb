@@ -122,9 +122,13 @@ class PatientZipperTest < ActiveSupport::TestCase
     patient.save
 
     # Add the negated code to a second valueset
-    vs = patient.bundle.measures.first.value_sets.first
-    vs.concepts.create(code: modified_procedure.codes.first.code, code_system_oid: modified_procedure.codes.first.system)
-    vs.save
+    measure = patient.bundle.measures.find_by(cms_id: 'CMS134v6')
+    valueset_oids = measure.source_data_criteria.map { |sdc| sdc.codeListId if sdc._type == 'QDM::ProcedurePerformed' }.compact
+    valueset_oids[0, 2].each do |valueset_oid|
+      vs = patient.bundle.value_sets.find_by(oid: valueset_oid)
+      vs.concepts.create(code: modified_procedure.codes.first.code, code_system_oid: modified_procedure.codes.first.system)
+      vs.save
+    end
 
     Cypress::PatientZipper.zip(file, [patient], format)
     file.close

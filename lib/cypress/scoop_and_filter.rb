@@ -106,6 +106,7 @@ module Cypress
       end
       neg_vs = @valuesets.select { |vs| vs.concepts.any? { |c| c.code == de.codes.first.code && c.code_system_oid == de.codes.first.system } }
       neg_vs.keep_if { |nvs| value_set_appropriate_for_data_element(de, nvs.oid) }
+      return if neg_vs.blank?
 
       negated_valueset = neg_vs.first
       neg_vs.drop(1).each do |additional_vs|
