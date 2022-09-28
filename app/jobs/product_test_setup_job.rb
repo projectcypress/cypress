@@ -5,8 +5,18 @@ class ProductTestSetupJob < ApplicationJob
   include Job::Status
   def perform(product_test)
     product_test.building
-    product_test.generate_patients(@job_id) if product_test.patients.count.zero?
-    calculate_product_test(product_test)
+    has_ipp = false
+    until has_ipp
+      product_test.reload
+      product_test.generate_patients(@job_id) if product_test.patients.count.zero?
+      results = calculate_product_test(product_test)
+      has_ipp = results.any? { |result| result.IPP.positive? }
+      next if has_ipp
+
+      Patient.delete_all(correlation_id: product_test.id)
+      product_test.rand_seed = Random.new_seed.to_s
+      product_test.save!
+    end
     MeasureEvaluationJob.perform_now(product_test, {})
     product_test.archive_patients if product_test.patient_archive.path.nil?
     product_test.ready
