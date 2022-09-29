@@ -16,7 +16,7 @@
   </p>
 <% else %>
   <p class = 'description' id='execution_upload_label'>
-    <%= "Upload results from the EHR system in the form of a #{get_upload_type(displaying_cat1?(task))} to get test results. This will automatically run a test execution." %>
+    <%= "Upload results from the EHR system in the form of a #{get_upload_type(displaying_cat1?(task), task.bundle)} to get test results. This will automatically run a test execution." %>
   </p>
 <% end %>
 

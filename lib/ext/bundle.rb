@@ -82,6 +82,14 @@ class Bundle
     ApplicationController.helpers.config_for_version(version).qrda3_version
   end
 
+  def qrda_version_display_name
+    ApplicationController.helpers.config_for_version(version).qrda_version_display_name
+  end
+
+  def qrda3_version_display_name
+    ApplicationController.helpers.config_for_version(version).qrda3_version_display_name
+  end
+
   def cms_schematron
     ApplicationController.helpers.config_for_version(version).schematron
   end
