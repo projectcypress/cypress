@@ -5,12 +5,11 @@ class ProductTestSetupJob < ApplicationJob
   include Job::Status
   def perform(product_test)
     product_test.building
-    has_ipp = false
-    until has_ipp
+    # Try to build a test deck.  Retry 5 times if a test deck results in an IPP of 0
+    5.times do
       product_test.generate_patients(@job_id) if product_test.patients.count.zero?
       results = calculate_product_test(product_test)
-      has_ipp = results.any? { |result| result.IPP.positive? }
-      next if has_ipp
+      break if results.any? { |result| result.IPP.positive? }
 
       Patient.delete_all(correlation_id: product_test.id)
       product_test.rand_seed = Random.new_seed.to_s
