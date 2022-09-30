@@ -88,12 +88,12 @@ Then(/^the user should see the CAT 1 test$/) do
   # but rspec overloads assert which causes other issues. May look into later
   # expect(page).to have_content('a zip file of QRDA Category I documents')
   sleep(0.5)
-  assert page.has_content?('a zip file of QRDA Category I documents')
+  assert page.has_content?('a zip file of QRDA Category I')
 end
 
 Then(/^the user should see the CAT 3 test$/) do
   sleep(0.5)
-  assert page.has_content?('a QRDA Category III XML document')
+  assert page.has_content?('a QRDA Category III')
 end
 
 Then(/^the user should not see provider information$/) do
