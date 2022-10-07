@@ -68,6 +68,10 @@ class Bundle
     ApplicationController.helpers.config_for_version(version).default_negation_codes
   end
 
+  def mapped_codes
+    ApplicationController.helpers.config_for_version(version).mapped_codes
+  end
+
   # start data offset is the time in seconds to move data forward the number of year specified in config file
   def start_date_offset
     offset_years = ApplicationController.helpers.config_for_version(version).start_date_offset

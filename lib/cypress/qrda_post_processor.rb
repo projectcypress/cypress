@@ -4,8 +4,15 @@ module Cypress
   module QRDAPostProcessor
     # checks for placeholder negation code_system
     def self.replace_negated_codes(patient, bundle)
+      mapped_codes = bundle.mapped_codes
       patient.qdmPatient.dataElements.each do |de|
         select_negated_code(de, bundle) if de['negationRationale'] && de.codes.find { |c| c.system == '1.2.3.4.5.6.7.8.9.10' }
+        # If a bundle has mapped codes, replaced the mapped code in the QRDA file with the code from the origial eCQM spec
+        next unless mapped_codes
+
+        if de.dataElementCodes.any? { |code| mapped_codes.values.include?(code.code) }
+          de.dataElementCodes.each { |code| code[:code] = mapped_codes.key(code.code) if mapped_codes.values.include?(code.code) }
+        end
       end
     end
 
