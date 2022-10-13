@@ -5,8 +5,17 @@ class ProductTestSetupJob < ApplicationJob
   include Job::Status
   def perform(product_test)
     product_test.building
-    product_test.generate_patients(@job_id) if product_test.patients.count.zero?
-    calculate_product_test(product_test)
+    # Try to build a test deck.  Retry 5 times if a test deck results in an IPP of 0
+    5.times do
+      product_test.generate_patients(@job_id) if product_test.patients.count.zero?
+      results = calculate_product_test(product_test)
+      break if results.any? { |result| result.IPP.positive? }
+
+      Patient.delete_all(correlation_id: product_test.id)
+      product_test.rand_seed = Random.new_seed.to_s
+      product_test.save!
+      product_test.reload
+    end
     MeasureEvaluationJob.perform_now(product_test, {})
     product_test.archive_patients if product_test.patient_archive.path.nil?
     product_test.ready
