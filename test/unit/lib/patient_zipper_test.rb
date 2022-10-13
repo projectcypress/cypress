@@ -89,8 +89,15 @@ class PatientZipperTest < ActiveSupport::TestCase
     patient = @static_patient
     modified_procedure = patient.qdmPatient.procedures.first
     modified_procedure.negationRationale = modified_procedure.codes.first
-    original_code = modified_procedure.codes.first.code
-    patient.save
+
+    # Add the negated code to a valueset
+    measure = patient.bundle.measures.find_by(cms_id: 'CMS134v6')
+    valueset_oids = measure.source_data_criteria.map { |sdc| sdc.codeListId if sdc._type == 'QDM::ProcedurePerformed' }.compact
+    valueset_oids[0, 1].each do |valueset_oid|
+      vs = patient.bundle.value_sets.find_by(oid: valueset_oid)
+      modified_procedure.dataElementCodes.first[:code] = vs.concepts.first.code
+      patient.save
+    end
 
     Cypress::PatientZipper.zip(file, [patient], format)
     file.close
@@ -103,7 +110,7 @@ class PatientZipperTest < ActiveSupport::TestCase
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
         assert_equal 1, doc.xpath('//cda:code[@nullFlavor="NA"]').size, 'There should be 1 negated code in the exported QRDA'
         assert_equal 1, doc.xpath("//cda:patientRole/cda:id[@extension='#{patient.id}']").size, 'The id should match the original patient id'
-        confirm_imported_patient_can_be_saved_after_replaced_codes(doc, patient, original_code)
+        confirm_imported_patient_can_be_saved_after_replaced_codes(doc, patient, modified_procedure.dataElementCodes.first[:code])
         count += 1
       end
     end
@@ -122,9 +129,13 @@ class PatientZipperTest < ActiveSupport::TestCase
     patient.save
 
     # Add the negated code to a second valueset
-    vs = patient.bundle.measures.first.value_sets.first
-    vs.concepts.create(code: modified_procedure.codes.first.code, code_system_oid: modified_procedure.codes.first.system)
-    vs.save
+    measure = patient.bundle.measures.find_by(cms_id: 'CMS134v6')
+    valueset_oids = measure.source_data_criteria.map { |sdc| sdc.codeListId if sdc._type == 'QDM::ProcedurePerformed' }.compact
+    valueset_oids[0, 2].each do |valueset_oid|
+      vs = patient.bundle.value_sets.find_by(oid: valueset_oid)
+      vs.concepts.create(code: modified_procedure.codes.first.code, code_system_oid: modified_procedure.codes.first.system)
+      vs.save
+    end
 
     Cypress::PatientZipper.zip(file, [patient], format)
     file.close
