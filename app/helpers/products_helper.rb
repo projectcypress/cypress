@@ -189,6 +189,17 @@ module ProductsHelper
     end
   end
 
+  def cms_program_test_display_name(program_test)
+    case program_test.cms_program
+    when 'HL7_Cat_I'
+      "HL7 Cat I (#{program_test.bundle.qrda_version_display_name}) Test"
+    when 'HL7_Cat_III'
+      "HL7 Cat III (#{program_test.bundle.qrda3_version_display_name}) Test"
+    else
+      program_test.name
+    end
+  end
+
   def description_for(product, test_type, is_qrda_1_measure_test: true)
     case test_type
     when 'ChecklistTest'

@@ -77,7 +77,7 @@
               <% # A Multi Measure Test only has a single task %>
               <% task = program_test.tasks.first %>
               <tr>
-                <td><%= link_to program_test.name, product_program_test_path(@product, program_test) %></td>
+                <td><%= link_to cms_program_test_display_name(program_test), product_program_test_path(@product, program_test) %></td>
                 <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(task) %>">
                   <%= render 'filtering_test_link', :test => program_test, :task => task, :parent_reloading => true %>
                 </td>

@@ -75,8 +75,12 @@ module TestExecutionsHelper
     msg << " for #{test.cms_id} #{test.name}"
   end
 
-  def get_upload_type(is_displaying_cat1)
-    is_displaying_cat1 ? 'zip file of QRDA Category I documents' : 'QRDA Category III XML document'
+  def get_upload_type(is_displaying_cat1, bundle)
+    if is_displaying_cat1
+      "zip file of QRDA Category I (#{bundle.qrda_version_display_name}) documents"
+    else
+      "QRDA Category III (#{bundle.qrda3_version_display_name}) XML document"
+    end
   end
 
   def execution_failure_message(execution)
