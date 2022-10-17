@@ -155,6 +155,8 @@ module Cypress
 
     def self.sample_payer(patient, prng)
       payer_hash = APP_CONSTANTS['randomization']['payers'].sample(random: prng)
+      # Some measures need Medicare patients, inflate the probability by trying again if one isn't found the first time
+      payer_hash = APP_CONSTANTS['randomization']['payers'].sample(random: prng) unless payer_hash['name'] == 'Medicare'
       while payer_hash['name'] == 'Medicare' &&
             Time.at(patient.qdmPatient.birthDatetime).in_time_zone > Time.at(patient.bundle.effective_date).in_time_zone.years_ago(65)
         payer_hash = APP_CONSTANTS['randomization']['payers'].sample
@@ -187,7 +189,7 @@ module Cypress
       randomization_mapping = { 'race' => 'races', 'gender' => 'genders', 'ethnicity' => 'ethnicities', 'payer' => 'payers' }
       %w[race gender ethnicity payer].each do |characteristic|
         patient.qdmPatient.get_data_elements('patient_characteristic', characteristic).first.dataElementCodes.each do |dec|
-          description = APP_CONSTANTS['randomization'][randomization_mapping[characteristic]].select { |r| r.code == dec.code }&.first&.name
+          description = APP_CONSTANTS['randomization'][randomization_mapping[characteristic]].select { |r| r.code.to_s == dec.code }&.first&.name
           patient.code_description_hash["#{dec.code}:#{dec.system}".tr('.', '_')] = description
         end
       end

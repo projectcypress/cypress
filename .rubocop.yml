@@ -93,6 +93,7 @@ Metrics/ClassLength:
     - 'app/models/settings.rb'
     - 'app/models/test_execution.rb'
     - 'app/controllers/records_controller.rb'
+    - 'lib/ext/bundle.rb'
     - 'lib/ext/individual_result.rb'
     - 'lib/ext/patient.rb'
     - 'lib/cypress/api_measure_evaluator.rb'
@@ -122,6 +123,7 @@ Metrics/ModuleLength:
   Exclude:
     - 'lib/cypress/data_criteria_attribute_builder.rb'
     - 'app/helpers/patient_analysis_helper.rb'
+    - 'app/helpers/test_executions_helper.rb'
 Metrics/ParameterLists:
   Exclude:
     - 'app/helpers/records_helper.rb'
