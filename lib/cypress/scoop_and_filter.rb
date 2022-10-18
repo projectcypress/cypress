@@ -56,6 +56,8 @@ module Cypress
       return unless data_element.respond_to?('negationRationale') && data_element.negationRationale
 
       replace_negated_code_with_valueset(data_element, multi_vs_negation_elements)
+      return if data_element.dataElementCodes.blank?
+
       # add data element valueset and other potentially relevant valueset descriptions
       codes = (multi_vs_negation_elements + [data_element]).map { |de| "#{de.dataElementCodes.first.code}:#{de.dataElementCodes.first.system}" }
       Cypress::QRDAPostProcessor.build_code_descriptions(codes, patient, patient.bundle)
@@ -96,6 +98,7 @@ module Cypress
     # For negated elements, replace codes (that aren't direct reference codes) with valuesets.
     # If a code is in multiple valuesets, create new entries to be added to record
     # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength
     def replace_negated_code_with_valueset(data_element, multi_vs_negation_elements)
       de = data_element
       # If the data element already knows the negated valueset, use it
@@ -106,7 +109,11 @@ module Cypress
       end
       neg_vs = @valuesets.select { |vs| vs.concepts.any? { |c| c.code == de.codes.first.code && c.code_system_oid == de.codes.first.system } }
       neg_vs.keep_if { |nvs| value_set_appropriate_for_data_element(de, nvs.oid) }
-      return if neg_vs.blank?
+
+      if neg_vs.blank?
+        de.dataElementCodes.clear
+        return
+      end
 
       negated_valueset = neg_vs.first
       neg_vs.drop(1).each do |additional_vs|
@@ -125,5 +132,6 @@ module Cypress
       data_element.dataElementCodes = [{ code: negated_valueset.oid, system: '1.2.3.4.5.6.7.8.9.10' }]
     end
     # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength
   end
 end
