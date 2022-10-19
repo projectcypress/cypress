@@ -236,7 +236,7 @@ class ProductsController < ApplicationController
     params[:product][:name]&.strip!
     params.require(:product).permit(:name, :version, :description, :randomize_patients, :duplicate_patients, :shift_patients, :cures_update,
                                     :bundle_id, :measure_selection, :c1_test, :c2_test, :c3_test, :c4_test, :cvuplus, :vendor_patients,
-                                    :all_ep, :all_eh,
+                                    :all_ep, :all_eh, :accept_newer_qrda,
                                     :bundle_patients, :supplemental_test_artifact, :remove_supplemental_test_artifact, measure_ids: [])
   end
 

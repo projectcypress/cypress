@@ -32,7 +32,7 @@ module Validators
       # patient records to match agaist QRDA Cat I documents
 
       @validators.each do |validator|
-        if [CqmValidators::Cat1R52, CqmValidators::Cat1R53].include? validator.class
+        if [CqmValidators::Cat1R52, CqmValidators::Cat1R53].include?(validator.class) && options.task.product_test.product.accept_newer_qrda
           validator = alternative_validator(doc, options.task.bundle, validator)
         end
         as_warning = (['CqmValidators::QrdaQdmTemplateValidator'].include? validator.class.to_s) && !@test_has_c3 ? true : false
@@ -48,16 +48,17 @@ module Validators
 
     def alternative_validator(doc, bundle, original_validator)
       reported_extension = doc.at_xpath('/cda:ClinicalDocument/cda:templateId[@root="2.16.840.1.113883.10.20.24.1.2"]')['extension']
+      expected_format = ApplicationController.helpers.get_upload_type(true, bundle)
       case reported_extension
       when '2019-12-01'
         if bundle.major_version.to_i < 2020
-          add_warning('QRDA version being reported is newer than what is expected for eCQM version',
+          add_warning("Reported QRDA Category I (STU 5.2) files are newer than expected #{expected_format}.",
                       validator: 'Validators::QrdaCat1Validator', validator_type: :xml_validation, file_name: @options[:file_name])
         end
         return Cat1R52.instance if bundle.major_version.to_i < 2022
       when '2021-08-01'
         if bundle.major_version.to_i < 2022
-          add_warning('QRDA version being reported is newer than what is expected for eCQM version',
+          add_warning("Reported QRDA Category I (STU 5.3) files are newer than expected #{expected_format}.",
                       validator: 'Validators::QrdaCat1Validator', validator_type: :xml_validation, file_name: @options[:file_name])
         end
         return Cat1R53.instance

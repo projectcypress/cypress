@@ -135,6 +135,11 @@
               <%= f.check_box :shift_patients, label: 'Shift Records', label_class: "btn btn-checkbox", checked: product.new_record? ? false : product.shift_patients, disabled: !product.new_record? %>
             <% end %>
           </fieldset>
+          <fieldset>
+            <%= f.form_group help: "Selecting Accept Newer QRDA will allow for validating against QRDA Versions newer than the selected Measurement Period." do %>
+              <%= f.check_box :accept_newer_qrda, label: 'Accept Newer QRDA', label_class: "btn btn-checkbox", checked: product.new_record? ? false : product.accept_newer_qrda, disabled: !product.new_record? %>
+            <% end %>
+          </fieldset>
           <% unless bundle&.deprecated %>
             <fieldset id="measures_options">
               <legend class="control-label">Measures Options</legend>

@@ -34,6 +34,7 @@ class Product
   field :randomize_patients, type: Boolean, default: true
   field :duplicate_patients, type: Boolean
   field :shift_patients, type: Boolean, default: false
+  field :accept_newer_qrda, type: Boolean, default: false
   field :allow_duplicate_names, type: Boolean, default: false
   field :measure_selection, type: String
   field :measure_ids, type: Array
