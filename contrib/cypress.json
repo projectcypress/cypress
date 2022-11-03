@@ -4,7 +4,7 @@
     "aws_secret_key": "",
     "default_user": "ubuntu",
     "default_pwd": "CypressPwd",
-    "cypress_version": "cypress_6.2.1",
+    "cypress_version": "cypress_7.0.3",
     "cvu_version": "cypress-validation-utility_3.2.2-production-1510258734",
     "chef_version": "13.8.5",
     "vpc_id": "",
@@ -17,7 +17,7 @@
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
       "region": "us-east-1",
-      "source_ami": "ami-07d0cf3af28718ef8",
+      "source_ami": "ami-0e081ed4ce61c1fb2",
       "instance_type": "t2.small",
       "vpc_id": "{{user `vpc_id`}}",
       "subnet_id": "{{user `subnet_id`}}",
@@ -90,10 +90,9 @@
       "type": "vmware-iso",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
-        "http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/ubuntu-18.04.2-server-amd64.iso"
+        "http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/ubuntu-18.04.6-server-amd64.iso"
       ],
-      "iso_checksum": "57c3a25f2c5fd61596ce39afbff44dd49b0089a2",
-      "iso_checksum_type": "sha1",
+      "iso_checksum": "f5cbb8104348f0097a8e513b10173a07dbc6684595e331cb06f93f385d0aecf6",
       "ssh_username": "{{user `default_user`}}",
       "ssh_password": "{{user `default_pwd`}}",
       "http_directory": "./install_files",
