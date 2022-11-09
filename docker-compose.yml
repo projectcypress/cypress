@@ -33,13 +33,13 @@ services:
     networks:
       - cypress-net
     ports:
-      - "8081:8081"
+      - "8082:8081"
   cqm-execution55-service:
     image: mitrehealthdocker/cqm-execution-service:qdm55
     networks:
       - cypress-net
     ports:
-      - "8082:8082"
+      - "8081:8081"
 networks:
   cypress-net:
 
