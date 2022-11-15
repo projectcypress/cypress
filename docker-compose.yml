@@ -14,6 +14,7 @@ services:
     ports:
       - "3000:3000"
     env_file: .env-prod
+    #.env-prod file required, must have at least the variable SECRET_KEY_BASE=<128_character_randomly_generated_alphanumeric_string>
     restart: unless-stopped
     networks:
       - cypress-net
@@ -33,7 +34,7 @@ services:
     networks:
       - cypress-net
     ports:
-      - "8082:8081"
+      - "8082:8082"
   cqm-execution55-service:
     image: mitrehealthdocker/cqm-execution-service:qdm55
     networks:
