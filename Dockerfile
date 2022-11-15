@@ -1,5 +1,9 @@
-# Pinned to the latest ruby 2.7.3 version of the Passenger base Docker image
+# Pinned to the latest ruby 2.7.3 version of the Passenger base Docker image 
 FROM phusion/passenger-ruby27:1.0.15
+
+RUN mv /etc/apt/sources.list.d /etc/apt/sources.list.d.bak
+RUN apt update && apt install -y ca-certificates
+RUN mv /etc/apt/sources.list.d.bak /etc/apt/sources.list.d
 
 RUN apt-get update \
     && apt-get upgrade -y -o Dpkg::Options::="--force-confold" \
