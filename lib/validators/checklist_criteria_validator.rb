@@ -86,6 +86,7 @@ module Validators
     end
 
     def extract_attribute_from_data_element(data_element, attribute_name)
+      attribute_name = 'clazz' if attribute_name == 'class'
       attribute = data_element[attribute_name]
       attribute ||= data_element.send(attribute_name)
       attribute
