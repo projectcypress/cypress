@@ -331,8 +331,8 @@ module CQM
         next unless is_a? CQM::TestExecutionPatient
 
         te = TestExecution.find(correlation_id)
-        msg = "#{data_element._type} that occurs after the Performance Period on #{de_date_time.strftime('%m/%d/%Y')}"\
-              " was not used in calculation for #{cms_id}."
+        msg = "#{data_element._type} that occurs after the Performance Period on #{de_date_time.strftime('%m/%d/%Y')} " \
+              "was not used in calculation for #{cms_id}."
         te.execution_errors.build(message: msg, msg_type: :warning, file_name: file_name)
         te.save
       end

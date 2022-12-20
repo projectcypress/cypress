@@ -7,8 +7,6 @@ module Validators
   class EHRCertificationIdValidator < QrdaFileValidator
     include Validators::Validator
 
-    def initialize; end
-
     def validate(file, options = {})
       @document = get_document(file)
       # Look for Promoting Interoperability Section (V2) identifier

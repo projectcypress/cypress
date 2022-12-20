@@ -30,8 +30,8 @@ class QrdaUploadTask < Task
 
     if file_count > APP_CONSTANTS['zip_file_count_limit'] || artifact.file.size > APP_CONSTANTS['zip_file_size_limit']
       # limits exceeded
-      msg = "File has size of #{number_to_human_size(artifact.file.size)} and file count of #{file_count} which "\
-            "exceeds upload limits of #{number_to_human_size(APP_CONSTANTS['zip_file_size_limit'])} "\
+      msg = "File has size of #{number_to_human_size(artifact.file.size)} and file count of #{file_count} which " \
+            "exceeds upload limits of #{number_to_human_size(APP_CONSTANTS['zip_file_size_limit'])} " \
             "and #{APP_CONSTANTS['zip_file_count_limit']} files."
       test_execution.execution_errors.build(message: msg, msg_type: :error)
       return false

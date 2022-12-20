@@ -65,12 +65,12 @@ module RecordsHelper
       :patient_id.in => records.pluck(:id),
       :measure_id.in => measures.pluck(:id),
       :population_set_key => pop_set_key
-    ).only(:IPP, :DENOM, :NUMER, :NUMEX, :DENEX, :DENEXCEP, :MSRPOPL, :OBSERV, :MSRPOPLEX, :patient_id, :measure_id).collect do |elem|
+    ).only(:IPP, :DENOM, :NUMER, :NUMEX, :DENEX, :DENEXCEP, :MSRPOPL, :OBSERV, :MSRPOPLEX, :patient_id, :measure_id).to_h do |elem|
       [
         elem[key],
-        pop_keys.collect { |pop_key| [pop_key, elem[pop_key].to_i] }.to_h
+        pop_keys.to_h { |pop_key| [pop_key, elem[pop_key].to_i] }
       ]
-    end.to_h
+    end
   end
 
   # This method returns a hash of the form
@@ -119,12 +119,12 @@ module RecordsHelper
   # We currently use 'patient_id' and 'measure_id' as keys and then do lookups for the values
   # in the hash when generating miscellaneous views around the Master Patient List
   def get_result_values_for_patient(individual_results, patient_id, pop_keys, key)
-    individual_results.select { |ir| ir.patient_id == patient_id }.collect do |elem|
+    individual_results.select { |ir| ir.patient_id == patient_id }.to_h do |elem|
       [
         "#{elem[key]}|#{elem['population_set_key']}",
-        pop_keys.collect { |pop_key| [pop_key, elem[pop_key].to_i] }.to_h
+        pop_keys.to_h { |pop_key| [pop_key, elem[pop_key].to_i] }
       ]
-    end.to_h
+    end
   end
 
   # This method returns a hash of the form
@@ -179,9 +179,7 @@ module RecordsHelper
     formatter = Cypress::HTMLExporter.new(mes, sd, ed)
     patients.each do |r|
       filename = "#{r.first_names}_#{r.familyName}.html".delete("'").tr(' ', '_')
-      File.open(File.join(path, filename), 'w') do |f|
-        f.write(formatter.export(r))
-      end
+      File.write(File.join(path, filename), formatter.export(r))
     end
     zfg = ZipFileGenerator.new(path, Rails.root.join(temp_path, name))
     zfg.write

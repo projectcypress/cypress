@@ -27,8 +27,8 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     VCR.use_cassette('bundle_download') do
       bundle_resource = RestClient::Request.execute(method: :get,
                                                     url: 'https://cypress.healthit.gov/measure_bundles/fixture-bundle-2020.zip',
-                                                    user: ENV['VSAC_USERNAME'],
-                                                    password: ENV['VSAC_PASSWORD'],
+                                                    user: ENV.fetch('VSAC_USERNAME', nil),
+                                                    password: ENV.fetch('VSAC_PASSWORD', nil),
                                                     raw_response: true,
                                                     headers: { accept: :zip })
 
@@ -65,9 +65,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
   def perform_filtering_tests
     filtering_tests = @product.product_tests.filtering_tests
     # Save the Filter Test Deck, each filter test uses the same unfiltered test deck
-    File.open('tmp/filter_patients.zip', 'wb') do |output|
-      output.write(filtering_tests.first.patient_archive.read)
-    end
+    File.binwrite('tmp/filter_patients.zip', filtering_tests.first.patient_archive.read)
     filtering_tests.each do |ft|
       # Since were are leveraging the ApiMeasureEvaluator, it uses JSON returned from the API to find filter criteria, stored as filter_test_parameters
       filter_test_parameters = {}
@@ -114,9 +112,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
         patient.save
       end
       # save test deck for measure test
-      File.open("tmp/#{mt.id}.zip", 'wb') do |output|
-        output.write(mt.tasks.c1_task.good_results)
-      end
+      File.binwrite("tmp/#{mt.id}.zip", mt.tasks.c1_task.good_results)
       upload_test_artifacts('C1Task', 'C2Task', mt)
       delete_test_zip_files(mt)
     end

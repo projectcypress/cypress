@@ -11,7 +11,7 @@ require File.expand_path('../config/environment', __dir__)
 require 'minitest/spec'
 require 'minitest/autorun'
 require 'minitest/reporters'
-require 'mocha/setup'
+require 'mocha/minitest'
 
 Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new]
 # comment the previous line and uncomment the next one for test-by-test details

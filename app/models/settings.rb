@@ -45,7 +45,7 @@ class Settings
   field :server_needs_restart, type: Boolean, default: false
 
   field :http_proxy, type: String, default: (ENV['http_proxy'] || '')
-  field :website_domain, type: String, default: (Rails.env.production? ? ENV['WEBSITE_DOMAIN'] : 'localhost')
+  field :website_domain, type: String, default: (Rails.env.production? ? ENV.fetch('WEBSITE_DOMAIN', nil) : 'localhost')
   field :website_port, type: Integer, default: (Rails.env.production? ? (ENV['WEBSITE_PORT'] || 80) : 3000)
   field :mailer_address, type: String, default: (ENV['MAILER_ADDRESS'] || '')
   field :mailer_port, type: Integer, default: (ENV['MAILER_PORT'] || '')

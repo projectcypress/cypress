@@ -82,8 +82,14 @@ module API
 
     def serialize_json_errors(errors)
       json = {}
-      json[:errors] = errors.to_h.map { |field, messages| { field: field, messages: [messages].flatten } }
+      json[:errors] = errors.map { |error| { field: error.attribute, messages: [error_message(error)].flatten } }
       json
+    end
+
+    def error_message(error)
+      return error.type unless error&.options&.[](:message)
+
+      error.options[:message]
     end
 
     def serialize_xml_errors(errors)

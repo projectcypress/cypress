@@ -80,8 +80,8 @@ class ApplicationController < ActionController::Base
   end
 
   def check_bundle_deprecated
-    deprecation_msg = 'The bundle this product is using has been deprecated. '\
-                      'You will still be able to run test executions however '\
+    deprecation_msg = 'The bundle this product is using has been deprecated. ' \
+                      'You will still be able to run test executions however ' \
                       'no new products will be able to be created using this bundle.'
     current_product = @product || @task&.product_test&.product || @product_test&.product
     return unless current_product&.bundle&.deprecated?
@@ -109,28 +109,28 @@ class ApplicationController < ActionController::Base
   end
 
   def set_vendor
-    @vendor = params[:vendor_id] ? Vendor.find(params[:vendor_id]) : Vendor.find(params[:id])
+    @vendor = Vendor.find(params[:vendor_id] || params[:id])
     @title = @vendor.name
   end
 
   def set_product
     product_finder = @vendor ? @vendor.products : Product
-    @product = params[:product_id] ? product_finder.find(params[:product_id]) : product_finder.find(params[:id])
+    @product = product_finder.find(params[:product_id] || params[:id])
     @title = @product.name
   end
 
   def set_product_test
-    @product_test = params[:product_test_id] ? ProductTest.find(params[:product_test_id]) : ProductTest.find(params[:id])
+    @product_test = ProductTest.find(params[:product_test_id] || params[:id])
     @title = "#{@product_test.product_name} C1 Record Sample" if @product_test.is_a?(ChecklistTest)
   end
 
   def set_task
-    @task = params[:task_id] ? Task.find(params[:task_id]) : Task.find(params[:id])
+    @task = Task.find(params[:task_id] || params[:id])
     @title = "#{@task.product_test.product_name} #{@task.product_test_cms_id} #{@task._type.titleize}"
   end
 
   def set_test_execution
-    @test_execution = params[:test_execution_id] ? TestExecution.find(params[:test_execution_id]) : TestExecution.find(params[:id])
+    @test_execution = TestExecution.find(params[:test_execution_id] || params[:id])
   end
 
   def flash_comment(name, notice_type, verb)

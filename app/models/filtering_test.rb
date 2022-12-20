@@ -61,7 +61,7 @@ class FilteringTest < ProductTest
   def name_slug
     return options['filters'].keys.join('_') if display_name == ''
 
-    display_name.gsub(/[^0-9A-Za-z.\-]+/, '_').downcase
+    display_name.gsub(/[^0-9A-Za-z.-]+/, '_').downcase
   end
 
   def filtered_patients

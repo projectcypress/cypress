@@ -45,7 +45,7 @@ class Bundle
     results.destroy
     # destroy results of vendor patients created for bundle
     Patient.where(_type: 'CQM::VendorPatient', bundleId: id.to_s).each { |pt| pt.calculation_results.destroy }
-    FileUtils.rm(mpl_path) if File.exist?(mpl_path)
+    FileUtils.rm_f(mpl_path)
     update(deprecated: true, active: false)
   end
 
@@ -55,7 +55,7 @@ class Bundle
     # destroy vendor patients created for bundle
     Patient.where(_type: 'CQM::VendorPatient', bundleId: id.to_s).destroy_all
     Product.where(bundle_id: id).destroy_all
-    FileUtils.rm(mpl_path) if File.exist?(mpl_path)
+    FileUtils.rm_f(mpl_path)
     delete
   end
 

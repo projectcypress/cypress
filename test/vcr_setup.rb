@@ -19,7 +19,7 @@ VCR.configure do |c|
   ENV['VSAC_PASSWORD'] = 'vcrpass' unless ENV['VSAC_PASSWORD']
 
   # Ensure plain text passwords do not show up during logging
-  c.filter_sensitive_data('<VSAC_USERNAME>') { ENV['VSAC_USERNAME'] }
-  c.filter_sensitive_data('<VSAC_PASSWORD>') { URI.encode_www_form_component(ENV['VSAC_PASSWORD']) }
+  c.filter_sensitive_data('<VSAC_USERNAME>') { ENV.fetch('VSAC_USERNAME', nil) }
+  c.filter_sensitive_data('<VSAC_PASSWORD>') { URI.encode_www_form_component(ENV.fetch('VSAC_PASSWORD', nil)) }
   c.default_cassette_options = { record: :once }
 end

@@ -90,7 +90,7 @@ module CQM
 
       return unless calculated_er != expected_er
 
-      issues << "Calculated observations (#{calculated_er}) do not match "\
+      issues << "Calculated observations (#{calculated_er}) do not match " \
                 "expected observations (#{expected_er})"
     end
 

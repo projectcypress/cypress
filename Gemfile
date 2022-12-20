@@ -2,28 +2,27 @@
 
 source 'https://rubygems.org'
 
-ruby '2.7.3'
+ruby '3.0.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.4'
+gem 'rails', '~> 7.0.0'
 
 gem 'delayed_job_mongoid', '~> 2.3.0'
-gem 'mongoid', '~> 7.0.5'
+gem 'mongoid', '~> 7.5.0'
 
 # gem 'mongoid', '~> 4.0.2'
-gem 'bson', '4.5.0'
-gem 'bson_ext'
+gem 'bson'
 
 gem 'mustache'
 gem 'os'
 
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', tag: 'cypress_v7.0.0'
-gem 'cqm-parsers', '~> 4.1.0'
+gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'rails7'
 gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', tag: 'cypress_v7.0.4'
 gem 'cqm-validators', '~> 4.0.3'
 
-# Use faker to generate addresses
-gem 'faker', '~> 1.5.0'
+# # Use faker to generate addresses
+gem 'faker', '> 1.5.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'
@@ -58,6 +57,7 @@ gem 'jbuilder', '~> 2.8.0'
 # A set of responders modules to dry up your Rails 4.2+ app.
 gem 'responders'
 # Roar is a framework for parsing and rendering REST documents
+gem 'representable', '~> 3.0.0'
 gem 'roar-rails'
 
 gem 'carrierwave', '~> 2.2.2'

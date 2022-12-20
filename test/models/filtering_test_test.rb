@@ -19,7 +19,7 @@ class FilteringTestTest < ActiveJob::TestCase
 
   def test_pick_filter_criteria
     criteria = %w[races ethnicities genders payers providers problems age]
-    options = { 'filters' => criteria.map { |c| [c, []] }.to_h }
+    options = { 'filters' => criteria.to_h { |c| [c, []] } }
     ft = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
     ft.save!

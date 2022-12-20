@@ -41,7 +41,8 @@ class Product
 
   delegate :effective_date, to: :bundle
 
-  validates :name, presence: true, uniqueness: { scope: :vendor, message: 'Product name was already taken. Please choose another.' }
+  validates :name, presence: { allow_blank: false, message: "can't be blank" },
+                   uniqueness: { scope: :vendor, message: 'Product name was already taken. Please choose another.' }
 
   validate :meets_required_certification_types?
   validate :valid_measure_ids?
@@ -243,7 +244,7 @@ class Product
     # TODO: R2P: check new criteria names
     criteria = %w[races ethnicities genders payers age].shuffle
     filter_tests = []
-    filter_tests.concat [build_filtering_test(measure, criteria[0, 2]), build_filtering_test(measure, criteria[2, 2])]
+    filter_tests.push(build_filtering_test(measure, criteria[0, 2]), build_filtering_test(measure, criteria[2, 2]))
     filter_tests << build_filtering_test(measure, ['providers'], 'NPI, TIN & Provider Location')
     filter_tests << build_filtering_test(measure, ['providers'], 'NPI & TIN', incl_addr: false)
     criteria = ApplicationController.helpers.measure_has_snomed_dx_criteria?(measure) ? ['problems'] : criteria.values_at(4, (0..3).to_a.sample)
@@ -279,7 +280,7 @@ class Product
 
   def build_filtering_test(measure, criteria, display_name = '', incl_addr: true)
     # construct options hash from criteria array and create the test
-    options = { 'filters' => criteria.map { |c| [c, []] }.to_h }
+    options = { 'filters' => criteria.to_h { |c| [c, []] } }
     product_tests.create({ name: measure.description, product: self, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,
                            incl_addr: incl_addr, display_name: display_name, options: options }, FilteringTest)
   end

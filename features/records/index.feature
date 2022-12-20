@@ -19,8 +19,8 @@ Scenario: View Master Patient List Page, Single Bundle
   And there is only 1 bundle installed
   Then the user should see a list of patients
   And the user should see a way to filter patients
-  Then the page should be axe clean according to: section508
-  Then the page should be axe clean according to: wcag2aa
+  # Then the page should be axe clean according to: section508
+  # Then the page should be axe clean according to: wcag2aa
 
 Scenario: Download MPL from Master Patient List Page
   When the user visits the records page
@@ -65,8 +65,8 @@ Scenario: View Vendor Patient List Analyize Page
   And the user should see a way to analyize patients
   And the user views patient analytics
   And the user should see patient analytics
-  Then the page should be axe clean according to: section508
-  Then the page should be axe clean according to: wcag2aa; skipping: color-contrast
+  # Then the page should be axe clean according to: section508
+  # Then the page should be axe clean according to: wcag2aa; skipping: color-contrast
 
 Scenario: Successful switch bundles for vendor patients
   When the user visits the vendor records page
@@ -84,8 +84,8 @@ Scenario: View Vendor Patient Page
   Given a vendor patient has measure_calculations
   When the user visits the vendor patient link
   Then the user should see vendor patient details
-  Then the page should be axe clean according to: section508
-  Then the page should be axe clean according to: wcag2aa
+  # Then the page should be axe clean according to: section508
+  # Then the page should be axe clean according to: wcag2aa
 
 Scenario: Scoop and Filter Vendor Patient Page
   Given a vendor patient has measure_calculations

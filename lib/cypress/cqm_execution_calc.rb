@@ -12,7 +12,7 @@ module Cypress
       is_qdm55 = Bundle.only(:version).find(measures.first.bundle_id).major_version.to_i < 2022
       @connection_string = is_qdm55 ? self.class.create_55_connection_string : self.class.create_56_connection_string
       # This is a key -> value pair of patients mapped in the form "qdm-patient-id" => BSON::ObjectId("cqm-patient-id")
-      @cqm_patient_mapping = patients.map { |patient| [patient.id.to_s, patient.cqmPatient] }.to_h
+      @cqm_patient_mapping = patients.to_h { |patient| [patient.id.to_s, patient.cqmPatient] }
       @measures = measures
       @correlation_id = correlation_id
       @options = options

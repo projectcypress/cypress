@@ -56,17 +56,17 @@ module ProductTestRepresenter
                           end)
 
   hash :problem_filters,
-       getter: ->(_) { options.filters.map { |filter_type, filter_val| [filter_type.to_s.singularize, filter_val['oid'].first] }.to_h },
+       getter: ->(_) { options.filters.to_h { |filter_type, filter_val| [filter_type.to_s.singularize, filter_val['oid'].first] } },
        if: ->(_) { _type == 'FilteringTest' && options.filters.key?('problems') && state == :ready },
        wrap: :filters, as: :filters
 
   hash :other_filters, if: ->(_) { _type == 'FilteringTest' && !options.filters['providers'] && !options.filters['problems'] && state == :ready },
                        wrap: :filters, as: :filters,
                        getter: (lambda do |*|
-                         options.filters.map do |filter_type, filter_val|
+                         options.filters.to_h do |filter_type, filter_val|
                            val = filter_type.to_s == 'age' ? filter_val.first : filter_val.first.to_s
                            [filter_type.to_s.singularize, val]
-                         end.to_h
+                         end
                        end)
 
   self.links = {

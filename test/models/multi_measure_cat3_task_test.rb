@@ -34,6 +34,6 @@ class MultiMeasureCat3TaskTest < ActiveSupport::TestCase
   end
 
   def pop_sum_err_regex
-    /\AReported \w+ [a-zA-Z\d\-]{36} value \d+ does not match sum \d+ of supplemental key \w+ values\z/
+    /\AReported \w+ [a-zA-Z\d-]{36} value \d+ does not match sum \d+ of supplemental key \w+ values\z/
   end
 end
