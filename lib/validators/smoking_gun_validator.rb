@@ -61,7 +61,24 @@ module Validators
       doc_name = build_doc_name(doc)
       aug_rec = options['task'].augmented_patients.detect { |r| doc_name == to_doc_name(r[:first][1], r[:last][1]) }
       mrn = @names[doc_name] || aug_rec&.original_patient_id
-      [mrn || nil, doc_name, aug_rec]
+      [mrn || nil, doc_name, aug_rec, parse_telecoms(doc)]
+    end
+
+    def parse_telecoms(doc)
+      telecoms = { email_list: [], phone_list: [] }
+      telecom_elements = doc.xpath('.//cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:telecom')
+      telecom_elements.each do |telecom_element|
+        # removes all white space
+        uri = URI(telecom_element['value'].delete(" \t\r\n"))
+        case uri.scheme
+        when 'tel'
+          # only keep special characters
+          telecoms[:phone_list] << TelephoneNumber.parse(uri, :us).e164_number
+        when 'mailto'
+          telecoms[:email_list] << uri.to.downcase
+        end
+      end
+      telecoms
     end
 
     def validate_name(doc_name, options)

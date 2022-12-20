@@ -45,6 +45,7 @@ module Cypress
       options = { provider: patient.providers.first,
                   patient_addresses: patient.addresses,
                   patient_telecoms: patient.telecoms,
+                  patient_email: patient.email,
                   medicare_beneficiary_identifier: patient.medicare_beneficiary_identifier,
                   submission_program: cat1_submission_program,
                   start_time:, end_time: }

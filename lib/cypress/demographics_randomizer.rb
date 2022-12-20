@@ -26,6 +26,7 @@ module Cypress
         # This is extremely unlikely, but provide an out of 100 tries does not create a unique name
         break if loop_index == 100
       end
+      patient.email = create_email(patient, true)
     end
 
     def self.assign_random_name(patient, prng)
@@ -105,9 +106,17 @@ module Cypress
     def self.create_telecom
       telecom = CQM::Telecom.new(
         use: 'HP',
-        value: Faker::PhoneNumber.cell_phone
+        value: Faker::PhoneNumber.cell_phone.gsub(/\s+/, '')
       )
       [telecom]
+    end
+
+    def self.create_email(patient, randomize)
+      # When randomize is false, the email will always be {FirstName}{LastName}1@example.com
+      # When randomize is true, the email will always be {FirstInitial}{LastName}{xxxxx}@example.com
+      user_number = randomize ? rand(10_000) : 1
+      user_first = randomize ? patient.first_names[0] : patient.first_names.delete(" \t\r\n")
+      patient.email = "#{user_first}#{patient.familyName.delete(" \t\r\n")}#{user_number}@example.com".downcase
     end
 
     def self.randomize_payer(patient, prng)
@@ -165,7 +174,7 @@ module Cypress
     end
 
     # work around for null gender | race | ethnicity
-    def self.assign_default_demographics(patient)
+    def self.assign_default_demographics(patient, randomize: false)
       elements = []
       unless patient&.gender
         elements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M',
@@ -182,6 +191,7 @@ module Cypress
                                                         relevantPeriod: QDM::Interval.new(patient.qdmPatient.birthDatetime, nil))
       end
       patient.medicare_beneficiary_identifier = Cypress::MbiGenerator.generate if patient.payer == '1'
+      patient.email = create_email(patient, randomize)
       patient.qdmPatient.dataElements.concat(elements)
     end
 

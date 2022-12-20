@@ -17,8 +17,8 @@ gem 'mustache'
 gem 'os'
 
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', tag: 'cypress_v7.0.0'
-gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'rails7'
-gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', tag: 'cypress_v7.0.4'
+gem 'cqm-parsers', '~> 4.1.0.1'
+gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', tag: 'cypress_v7.0.5'
 gem 'cqm-validators', '~> 4.0.3'
 
 # # Use faker to generate addresses
@@ -96,6 +96,8 @@ gem 'typhoeus'
 gem 'daemons'
 
 gem 'validate_url'
+
+gem 'telephone_number'
 
 group :development, :test do
   # rubocop 0.67 currently has a bug that is causing it to crash in product.rb and vendor.rb

@@ -98,7 +98,7 @@ module Cypress
       unnumerify cloned_patient if patient.givenNames.map { |n| n =~ /\d/ }.any? || patient.familyName =~ /\d/
       cloned_patient.medical_record_number = next_medical_record_number unless options['disable_randomization']
       @test.reload
-      DemographicsRandomizer.assign_default_demographics(cloned_patient)
+      DemographicsRandomizer.assign_default_demographics(cloned_patient, randomize: options['randomize_demographics'])
       DemographicsRandomizer.randomize(cloned_patient, prng, @test.patients, allow_dups:) if options['randomize_demographics']
       # work around to replace 'Other' race codes in Cypress bundle. Pass in static seed for consistent results.
       DemographicsRandomizer.randomize_race(cloned_patient, Random.new(0)) if cloned_patient.race == '2131-1'

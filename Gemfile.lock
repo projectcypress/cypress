@@ -6,31 +6,9 @@ GIT
     cqm-models (4.0.2)
 
 GIT
-  remote: https://github.com/projecttacoma/cqm-parsers
-  revision: d720415aa5e926bd1a94782be1912affd41a1483
-  branch: rails7
-  specs:
-    cqm-parsers (4.1.0.0)
-      activesupport (> 5.0)
-      builder (~> 3.1)
-      cqm-models (> 3.0.0)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (> 6.0.5)
-      mongoid-tree (~> 2.1.0)
-      mustache
-      nokogiri (>= 1.8.5, < 1.14.0)
-      rubyzip (~> 1.3)
-      typhoeus
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
   remote: https://github.com/projecttacoma/cqm-reports
-  revision: a60234c4854247e892a1b7ceafbc0bfa9810aaf4
-  tag: cypress_v7.0.4
+  revision: b1ab6d800beeead6fdcedc0f29be08af5a76f188
+  tag: cypress_v7.0.5
   specs:
     cqm-reports (4.0.0)
       cqm-models (> 3.0)
@@ -196,7 +174,23 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.10)
+    concurrent-ruby (1.2.2)
+    cqm-parsers (4.1.0.1)
+      activesupport (> 5.0)
+      builder (~> 3.1)
+      cqm-models (> 3.0.0)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (> 6.0.5, < 8.0.0)
+      mongoid-tree (~> 2.1.0)
+      mustache
+      nokogiri (>= 1.8.5, < 1.14.0)
+      rubyzip (~> 1.3)
+      typhoeus
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
     cqm-validators (4.0.3)
       nokogiri (>= 1.8.5, < 1.14.0)
     crack (0.4.5)
@@ -537,6 +531,7 @@ GEM
     sys-uname (1.2.2)
       ffi (~> 1.1)
     systemu (2.6.5)
+    telephone_number (1.4.19)
     test_xml (0.1.8)
       diffy (~> 3.0)
       nokogiri (>= 1.3.2)
@@ -546,7 +541,7 @@ GEM
     timeout (0.3.1)
     typhoeus (1.4.0)
       ethon (>= 0.9.0)
-    tzinfo (2.0.5)
+    tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
     uglifier (4.2.0)
@@ -614,7 +609,7 @@ DEPENDENCIES
   carrierwave-mongoid
   codecov
   cqm-models!
-  cqm-parsers!
+  cqm-parsers (~> 4.1.0.1)
   cqm-reports!
   cqm-validators (~> 4.0.3)
   cucumber-rails
@@ -666,6 +661,7 @@ DEPENDENCIES
   scss_lint
   selenium-webdriver
   simplecov
+  telephone_number
   turbolinks!
   typhoeus
   uglifier (>= 1.3.0)
