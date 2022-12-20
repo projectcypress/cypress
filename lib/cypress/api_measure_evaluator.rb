@@ -221,7 +221,7 @@ module Cypress
     end
 
     def filter_out_patients(doc, product_test)
-      filters = product_test.filters
+      filters = product_test['filters']
       creation_time = product_test.created_at
       return filter_providers(doc, filters) if filters.key?('provider')
       return filter_problems(doc, filters) if filters.key?('problem')

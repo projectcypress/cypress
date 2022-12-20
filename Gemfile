@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '2.7.3'
+ruby '3.0.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.4'
@@ -11,8 +11,7 @@ gem 'delayed_job_mongoid', '~> 2.3.0'
 gem 'mongoid', '~> 7.0.5'
 
 # gem 'mongoid', '~> 4.0.2'
-gem 'bson', '4.5.0'
-gem 'bson_ext'
+gem 'bson'
 
 gem 'mustache'
 gem 'os'
