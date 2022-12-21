@@ -5,10 +5,10 @@ source 'https://rubygems.org'
 ruby '3.0.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.4'
+gem 'rails', '~> 6.1.1'
 
 gem 'delayed_job_mongoid', '~> 2.3.0'
-gem 'mongoid', '~> 7.0.5'
+gem 'mongoid', '~> 7.5.0'
 
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson'
@@ -17,12 +17,12 @@ gem 'mustache'
 gem 'os'
 
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', tag: 'cypress_v7.0.0'
-gem 'cqm-parsers', '~> 4.1.0'
+gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'rails7'
 gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', tag: 'cypress_v7.0.4'
 gem 'cqm-validators', '~> 4.0.3'
 
-# Use faker to generate addresses
-gem 'faker', '~> 1.5.0'
+# # Use faker to generate addresses
+gem 'faker', '> 1.5.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'
@@ -58,6 +58,7 @@ gem 'jbuilder', '~> 2.8.0'
 gem 'responders'
 # Roar is a framework for parsing and rendering REST documents
 gem 'roar-rails'
+gem 'representable', '~> 3.0.0'
 
 gem 'carrierwave', '~> 2.2.2'
 gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'

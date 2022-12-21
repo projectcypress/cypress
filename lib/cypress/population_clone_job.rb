@@ -89,6 +89,7 @@ module Cypress
       # If we need to clone a patient for any other reason then we will need to paramaterize
       # the type coming into this class.
       cloned_patient = ProductTestPatient.new(patient.attributes.except('_id', '_type', 'providers'))
+      cloned_patient.qdmPatient = patient.qdmPatient.clone
       cloned_patient.attributes = {
         original_medical_record_number: patient.medical_record_number,
         original_patient_id: patient.id,

@@ -96,7 +96,7 @@ module Cypress
         street: ["#{Faker::Address.street_address} #{Faker::Address.street_suffix}"],
         city: Faker::Address.city,
         state: state,
-        zip: Faker::Address.zip(state),
+        zip: Faker::Address.zip_code(state_abbreviation: state),
         country: 'US'
       )
       [address]
