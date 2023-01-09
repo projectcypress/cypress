@@ -9,7 +9,7 @@ class CMSProgramTest < ProductTest
   # List of cms programs
   validates :cms_program, inclusion: %w[HQR_PI HQR_IQR HQR_PI_IQR HQR_IQR_VOL HQR_OQR
                                         CPCPLUS PCF MIPS_INDIV MIPS_GROUP MIPS_VIRTUALGROUP MIPS_APMENTITY
-                                        MIPS_APP1_INDIV MIPS_APP1_GROUP MIPS_APP1_APMENTITY HL7_Cat_I HL7_Cat_III]
+                                        MIPS_APP1_INDIV MIPS_APP1_GROUP MIPS_SUBGROUP MIPS_APP1_APMENTITY HL7_Cat_I HL7_Cat_III]
 
   after_create do |product_test|
     create_tasks

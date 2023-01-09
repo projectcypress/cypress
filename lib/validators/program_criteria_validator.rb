@@ -108,6 +108,7 @@ module Validators
         'CPCPLUS APM Entity Identifier' => "//cda:participant/cda:associatedEntity/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.249.5.1']",
         'PCF APM Entity Identifier' => "//cda:participant/cda:associatedEntity/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.249.5.3']",
         'MIPS APM Entity Identifier' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.249.5.4']",
+        'MIPS Subgroup Identifier' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.249.5.5']",
         'Virtual Group Identifier' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.249.5.2']"
       }
       results = @file.xpath(xpath_map[checked_criteria[:criterion_key]])
