@@ -253,7 +253,7 @@ When(/^the user removes the product$/) do
   steps %( When the user views the edit page of the product )
   page.click_button 'Delete Product'
   # TODO: not sure why this sleep is needed
-  sleep(1)
+  sleep(0.1)
   page.fill_in 'delete name', with: @product.name
   page.click_button 'Continue', visible: true
 end
@@ -262,7 +262,7 @@ When(/^the user removes the product from the vendor page$/) do
   steps %( When the user views the edit page of the product )
   page.click_button 'Delete Product'
   # TODO: not sure why this sleep is needed
-  sleep(1)
+  sleep(0.1)
   page.fill_in 'delete name', with: @product.name
   page.find('div.modal-footer').find('button', text: 'Continue').click
 end
