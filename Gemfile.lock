@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-reports
-  revision: 6a1e8c4aff8864c946d46b4fe199aafcfd5ea408
+  revision: 8d44c024904a29dcbc7c1c1e61cad1acb88513c9
   branch: repeat_number
   specs:
     cqm-reports (4.0.0)
@@ -24,10 +24,10 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-validators
-  revision: 7796da1e7a3a1854d9d9b877624a050656c28640
-  branch: errata_12_2022
+  revision: ba2a80653d23cb9db83cdf826156ac839780cda4
+  branch: increment_version
   specs:
-    cqm-validators (4.0.2)
+    cqm-validators (4.0.3)
       nokogiri (>= 1.8.5, < 1.14.0)
 
 GIT
@@ -331,8 +331,8 @@ GEM
     mime-types-data (3.2022.0105)
     mini_magick (4.11.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.0)
-    minitest (5.16.3)
+    mini_portile2 (2.8.1)
+    minitest (5.17.0)
     minitest-rails (6.0.1)
       minitest (~> 5.10)
       railties (~> 6.0.0)
@@ -385,7 +385,7 @@ GEM
     pry-nav (0.3.0)
       pry (>= 0.9.10, < 0.13.0)
     public_suffix (5.0.1)
-    racc (1.6.1)
+    racc (1.6.2)
     rack (2.2.4)
     rack-test (2.0.2)
       rack (>= 1.3)

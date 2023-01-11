@@ -22,7 +22,7 @@ gem 'cqm-parsers', '~> 4.1.0'
 # gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', tag: 'cypress_v7.0.3'
 gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'repeat_number'
 # gem 'cqm-validators', '~> 4.0.2'
-gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators', branch: 'errata_12_2022'
+gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators', branch: 'increment_version'
 
 # Use faker to generate addresses
 gem 'faker', '~> 1.5.0'
