@@ -7,8 +7,8 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-reports
-  revision: 8d44c024904a29dcbc7c1c1e61cad1acb88513c9
-  branch: repeat_number
+  revision: a60234c4854247e892a1b7ceafbc0bfa9810aaf4
+  tag: cypress_v7.0.4
   specs:
     cqm-reports (4.0.0)
       cqm-models (> 3.0)
@@ -21,14 +21,6 @@ GIT
       nokogiri (>= 1.8.5, < 1.14.0)
       uuid (~> 2.3)
       zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-validators
-  revision: ba2a80653d23cb9db83cdf826156ac839780cda4
-  branch: increment_version
-  specs:
-    cqm-validators (4.0.3)
-      nokogiri (>= 1.8.5, < 1.14.0)
 
 GIT
   remote: https://github.com/turbolinks/turbolinks-classic
@@ -193,6 +185,8 @@ GEM
       typhoeus
       uuid (~> 2.3.7)
       zip-zip (~> 0.3)
+    cqm-validators (4.0.3)
+      nokogiri (>= 1.8.5, < 1.14.0)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -595,7 +589,7 @@ DEPENDENCIES
   cqm-models!
   cqm-parsers (~> 4.1.0)
   cqm-reports!
-  cqm-validators!
+  cqm-validators (~> 4.0.3)
   cucumber-rails
   daemons
   database_cleaner-mongoid
