@@ -27,6 +27,7 @@ CMS Programs:
       - MIPS_APP1_INDIV
       - MIPS_APP1_GROUP
       - MIPS_APP1_APMENTITY
+      - MIPS_SUBGROUP
       - PCF
   eh:
     '2020':
@@ -238,3 +239,11 @@ Program Criterion:
     programs:
       - MIPS_APMENTITY
       - MIPS_APP1_APMENTITY
+  MIPS Subgroup Identifier:
+    name: 'MIPS Subgroup Identifier'
+    description:
+      ep: 'This is the Subgroup Identifier.'
+    conf:
+      ep: '(CONF:CMS_117)'
+    programs:
+      - MIPS_SUBGROUP

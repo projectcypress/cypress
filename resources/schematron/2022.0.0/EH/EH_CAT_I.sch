@@ -255,7 +255,7 @@ Version 1.0
     NOTE: Schematrons may be updated after initial publication to address stakeholder or policy requirements. 
     Be sure to revisit the eCQI Resource Center (https://ecqi.healthit.gov/) for updated resources prior to use. 
 
-Wed Mar 02 11:43:26 MST 2022
+Fri May 13 10:22:51 MDT 2022
 -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:svs="urn:ihe:iti:svs:2008" xmlns:voc="http://www.lantanagroup.com/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sch:ns prefix="voc" uri="http://www.lantanagroup.com/voc" />
@@ -3042,7 +3042,8 @@ Wed Mar 02 11:43:26 MST 2022
       <sch:assert id="a-4444-30013-error" test="count(cda:author[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.119']])=0">SHALL NOT contain [0..0] Author Participation (identifier: urn:oid:2.16.840.1.113883.10.20.22.4.119) (CONF:4444-30013).</sch:assert>
     </sch:rule>
     <sch:rule id="Result-effectiveTime-errors" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.87'][@extension='2019-12-01']]/cda:effectiveTime">
-      <sch:assert id="a-4444-30014-error" test="@value">The effectiveTime, if present, SHALL contain exactly one [1..1] @value (CONF:4444-30014).</sch:assert>
+      <!-- 05-09-2022 Enforce @value or @nullFlavor presence for effective time. -->
+      <sch:assert id="a-4444-30041-error" test="count(@value | @nullFlavor)=1">This effectiveTime SHALL contain either a @value or a @nullFlavor (CONF:4444-30041)</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="Service-Delivery-Location-pattern-errors">

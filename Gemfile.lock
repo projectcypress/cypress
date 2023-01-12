@@ -7,8 +7,8 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-reports
-  revision: 9481b51b11fde5a8ee8c9d1f21cff8a1b5335a24
-  tag: cypress_v7.0.3
+  revision: a60234c4854247e892a1b7ceafbc0bfa9810aaf4
+  tag: cypress_v7.0.4
   specs:
     cqm-reports (4.0.0)
       cqm-models (> 3.0)
@@ -185,7 +185,7 @@ GEM
       typhoeus
       uuid (~> 2.3.7)
       zip-zip (~> 0.3)
-    cqm-validators (4.0.2)
+    cqm-validators (4.0.3)
       nokogiri (>= 1.8.5, < 1.14.0)
     crack (0.4.5)
       rexml
@@ -325,8 +325,8 @@ GEM
     mime-types-data (3.2022.0105)
     mini_magick (4.11.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.0)
-    minitest (5.16.3)
+    mini_portile2 (2.8.1)
+    minitest (5.17.0)
     minitest-rails (6.0.1)
       minitest (~> 5.10)
       railties (~> 6.0.0)
@@ -379,7 +379,7 @@ GEM
     pry-nav (0.3.0)
       pry (>= 0.9.10, < 0.13.0)
     public_suffix (5.0.1)
-    racc (1.6.1)
+    racc (1.6.2)
     rack (2.2.4)
     rack-test (2.0.2)
       rack (>= 1.3)
@@ -589,7 +589,7 @@ DEPENDENCIES
   cqm-models!
   cqm-parsers (~> 4.1.0)
   cqm-reports!
-  cqm-validators (~> 4.0.2)
+  cqm-validators (~> 4.0.3)
   cucumber-rails
   daemons
   database_cleaner-mongoid

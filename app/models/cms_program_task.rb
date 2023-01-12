@@ -44,6 +44,7 @@ class CMSProgramTask < Task
     return mips_apm_entity_validators if product_test.cms_program == 'MIPS_APMENTITY'
     return mips_app_indiv_validators if product_test.cms_program == 'MIPS_APP1_INDIV'
     return mips_app_group_validators if product_test.cms_program == 'MIPS_APP1_GROUP'
+    return mips_subgroup_validators if product_test.cms_program == 'MIPS_SUBGROUP'
     return mips_app_entity_validators if product_test.cms_program == 'MIPS_APP1_APMENTITY'
 
     []
@@ -115,6 +116,10 @@ class CMSProgramTask < Task
   end
 
   def mips_app_entity_validators
+    ep_validators
+  end
+
+  def mips_subgroup_validators
     ep_validators
   end
 
