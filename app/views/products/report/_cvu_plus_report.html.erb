@@ -55,7 +55,7 @@
       </tr>
     </thead>
     <tbody>
-      <% %w[HQR_PI HQR_IQR HQR_PI_IQR HQR_IQR_VOL HQR_OQR MIPS_GROUP MIPS_INDIV MIPS_VIRTUALGROUP MIPS_APMENTITY MIPS_APP1_INDIV MIPS_APP1_GROUP MIPS_APP1_APMENTITY CPCPLUS PCF].each do |test| %>
+      <% %w[HQR_PI HQR_IQR HQR_PI_IQR HQR_IQR_VOL HQR_OQR MIPS_GROUP MIPS_INDIV MIPS_VIRTUALGROUP MIPS_APMENTITY MIPS_APP1_INDIV MIPS_APP1_GROUP MIPS_SUBGROUP MIPS_APP1_APMENTITY CPCPLUS PCF].each do |test| %>
           <tr>
               <% ptest = @product.product_tests.cms_program_tests.where(cms_program: test ) %>
               <% next if ptest.empty? %>
