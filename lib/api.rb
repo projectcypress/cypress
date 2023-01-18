@@ -69,14 +69,14 @@ module API
       end
     end
 
-    def respond_with_errors(obj, &block)
+    def respond_with_errors(obj, &)
       case request.format.symbol
       when :json
         render json: serialize_json_errors(obj.errors), status: :unprocessable_entity
       when :xml
         render xml: serialize_xml_errors(obj.errors), status: :unprocessable_entity
       else
-        respond_with(obj, &block)
+        respond_with(obj, &)
       end
     end
 

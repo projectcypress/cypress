@@ -16,11 +16,11 @@ require 'action_view/railtie'
 # require "action_cable/engine"
 require 'rails/test_unit/railtie'
 
-CAT1_CONFIG = YAML.safe_load(File.read(File.expand_path('cat1checklist.yml', __dir__)), [], [], true)
-CMS_IG_CONFIG = YAML.safe_load(File.read(File.expand_path('cms_ig.yml', __dir__)), [], [], true)
-APP_CONSTANTS = YAML.safe_load(ERB.new(File.read(File.expand_path('cypress.yml', __dir__))).result, [], [], true)
-NAMES_RANDOM = YAML.safe_load(File.read(File.expand_path('names.yml', __dir__)), [], [], true)
-TEST_ATTRIBUTES = YAML.safe_load(File.read(File.expand_path('testing_attributes.yml', __dir__)), [], [], true)
+CAT1_CONFIG = YAML.safe_load(File.read(File.expand_path('cat1checklist.yml', __dir__)), aliases: true)
+CMS_IG_CONFIG = YAML.safe_load(File.read(File.expand_path('cms_ig.yml', __dir__)), aliases: true)
+APP_CONSTANTS = YAML.safe_load(File.read(File.expand_path('cypress.yml', __dir__)), aliases: true)
+NAMES_RANDOM = YAML.safe_load(File.read(File.expand_path('names.yml', __dir__)), aliases: true)
+TEST_ATTRIBUTES = YAML.safe_load(File.read(File.expand_path('testing_attributes.yml', __dir__)), aliases: true)
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

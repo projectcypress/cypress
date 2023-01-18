@@ -55,7 +55,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
         ep_measures = @bundle.measures.where(reporting_program_type: 'ep').distinct(:hqmf_id).sample(8)
         measure_ids = eh_measures + ep_measures + obs_measures
         @vendor = Vendor.find_or_create_by(name: 'MeasureEvaluationVendor')
-        post :create, params: { vendor_id: @vendor.id, product: { name: 'MeasureEvaluationProduct', bundle_id: @bundle.id.to_s, c1_test: true, c2_test: true, c3_test: false, c4_test: true, duplicate_patients: false, randomize_patients: true, measure_ids: measure_ids } }
+        post :create, params: { vendor_id: @vendor.id, product: { name: 'MeasureEvaluationProduct', bundle_id: @bundle.id.to_s, c1_test: true, c2_test: true, c3_test: false, c4_test: true, duplicate_patients: false, randomize_patients: true, measure_ids: } }
       end
     end
     @product = Product.where(name: 'MeasureEvaluationProduct').first
@@ -174,7 +174,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     until successful_calculation
       # Use ApiMeasureEvaluator to call cqm-execution-service
       @apime.do_calculation(product_test, patients, correlation_id)
-      successful_calculation = IndividualResult.where(correlation_id: correlation_id, IPP: { '$gte' => 1 }).size.positive?
+      successful_calculation = IndividualResult.where(correlation_id:, IPP: { '$gte' => 1 }).size.positive?
     end
 
     # Seed ExpectedResultsCalculator with patients and correlation_id for cat III generation

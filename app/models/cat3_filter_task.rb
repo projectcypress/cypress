@@ -11,7 +11,7 @@ class Cat3FilterTask < Task
   end
 
   def execute(file, user)
-    te = test_executions.new(expected_results: product_test.expected_results, artifact: Artifact.new(file: file), user_id: user)
+    te = test_executions.new(expected_results: product_test.expected_results, artifact: Artifact.new(file:), user_id: user)
     te.save!
     TestExecutionJob.perform_later(te, self)
     te.save

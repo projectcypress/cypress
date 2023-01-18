@@ -55,7 +55,7 @@ module Cypress
       product = Product.find_or_create_by(name: 'MeasureEvaluationProduct', vendor_id: vendor.id, c1_test: true, c2_test: true, c3_test: true,
                                           randomize_patients: true, measure_ids: [opts[:measure].hqmf_id])
 
-      MeasureTest.find_or_create_by(name: opts[:measure].name, bundle: bundle.id, product: product,
+      MeasureTest.find_or_create_by(name: opts[:measure].name, bundle: bundle.id, product:,
                                     measure_ids: [opts[:measure].hqmf_id],
                                     description: opts[:measure].description,
                                     cms_id: opts[:measure].cms_id)
@@ -69,7 +69,7 @@ module Cypress
       continuing = true
       while continuing
         sleep(2)
-        continuing = ProductTest.where(state: 'pending', product: product).by_updated_at.count.positive?
+        continuing = ProductTest.where(state: 'pending', product:).by_updated_at.count.positive?
       end
       @logger.info 'done'
     end

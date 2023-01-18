@@ -32,7 +32,7 @@ module Cypress
         unpack_and_store_measures(zip_file, bundle)
         bundle.collect_codes_by_qdm_category
         unpack_and_store_cqm_patients(zip_file, bundle)
-        calculate_results(bundle, tracker, include_highlighting: include_highlighting) unless unpack_and_store_calcuations(zip_file, bundle, tracker)
+        calculate_results(bundle, tracker, include_highlighting:) unless unpack_and_store_calcuations(zip_file, bundle, tracker)
       end
 
       bundle
@@ -112,7 +112,7 @@ module Cypress
         previous_row = row if previous_row.nil?
         if row['OID'] != previous_row['OID']
           CQM::ValueSet.new(oid: previous_row['OID'], display_name: previous_row['ValueSetName'], version: previous_row['ExpansionVersion'],
-                            concepts: codes, bundle: bundle).save
+                            concepts: codes, bundle:).save
           previous_row = row
           codes = []
         end
@@ -121,7 +121,7 @@ module Cypress
                                   display_name: row['Descriptor'].encode('utf-8', invalid: :replace, undef: :replace))
       end
       CQM::ValueSet.new(oid: current_row['OID'], display_name: current_row['ValueSetName'], version: current_row['ExpansionVersion'],
-                        concepts: codes, bundle: bundle).save
+                        concepts: codes, bundle:).save
       puts "\rLoading: Value Sets Complete          "
     end
 

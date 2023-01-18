@@ -144,7 +144,7 @@ module Admin
         orig_results_count = CQM::IndividualResult.count
         id = @static_bundle.id
         perform_enqueued_jobs do
-          delete :destroy, params: { id: id }
+          delete :destroy, params: { id: }
         end
         assert_equal 0, Bundle.where(_id: id).count, 'Should have deleted bundle'
         assert_equal orig_bundle_count - 1, Bundle.count, 'Should have deleted Bundle'
@@ -158,7 +158,7 @@ module Admin
     test 'should not allow non admins to remove bundle' do
       for_each_logged_in_user([USER, OWNER, VENDOR]) do
         id = Bundle.default._id
-        delete :destroy, params: { id: id }
+        delete :destroy, params: { id: }
         assert_response 401
       end
     end
@@ -174,7 +174,7 @@ module Admin
         orig_results_count = CQM::IndividualResult.count
         id = @static_bundle.id
         perform_enqueued_jobs do
-          post :deprecate, params: { id: id }
+          post :deprecate, params: { id: }
         end
         patient.reload
         assert_not_equal orig_vendor_patient_calculation, patient.calculation_results.size
@@ -189,7 +189,7 @@ module Admin
     test 'should not allow non admins to deprecate bundle' do
       for_each_logged_in_user([USER, OWNER, VENDOR]) do
         id = Bundle.default._id
-        delete :deprecate, params: { id: id }
+        delete :deprecate, params: { id: }
         assert_response 401
       end
     end

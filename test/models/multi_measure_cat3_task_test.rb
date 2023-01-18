@@ -15,7 +15,7 @@ class MultiMeasureCat3TaskTest < ActiveSupport::TestCase
       @product = @vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
                                          bundle_id: @bundle.id)
 
-      params = { measure_ids: measure_ids, 'cvuplus' => 'true' }
+      params = { measure_ids:, 'cvuplus' => 'true' }
       @product.update_with_tests(params)
       @product.save
     end

@@ -38,7 +38,7 @@ class ChecklistTestsController < ProductTestsController
     checklist_test = @product.product_tests.checklist_tests.first
     zip = Cypress::CreateDownloadZip.create_c1_criteria_zip(checklist_test, criteria_list).read
     filename = "#{@product.name}_#{@product.id}_c1_checklist_criteria.zip".tr(' ', '_')
-    send_data zip, type: 'application/zip', disposition: 'attachment', filename: filename
+    send_data zip, type: 'application/zip', disposition: 'attachment', filename:
   end
 
   private

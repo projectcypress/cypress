@@ -129,7 +129,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     effective_date = Time.local(birthdate.year + age, birthdate.month, birthdate.day, 0, 0, 0).in_time_zone
 
     filters = { 'age' => { 'min' => age } }
-    filtered_records = Cypress::PatientFilter.filter(@all_patients, filters, effective_date: effective_date).to_a
+    filtered_records = Cypress::PatientFilter.filter(@all_patients, filters, effective_date:).to_a
 
     assert filtered_records.include? patient
 
@@ -138,7 +138,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     effective_date = Time.local(birthdate.year + age, birthdate.month, birthdate.day, 0, 0, 0).in_time_zone
 
     filters = { 'age' => { 'max' => age } }
-    filtered_records = Cypress::PatientFilter.filter(@all_patients, filters, effective_date: effective_date).to_a
+    filtered_records = Cypress::PatientFilter.filter(@all_patients, filters, effective_date:).to_a
 
     assert filtered_records.include? patient
   end
@@ -152,7 +152,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     effective_date = Time.local(birthdate.year + age, birthdate.month, birthdate.day, 0, 0, 0).in_time_zone
 
     filters = { 'age' => { 'min' => age + 1 } }
-    filtered_records = Cypress::PatientFilter.filter(@all_patients, filters, effective_date: effective_date).to_a
+    filtered_records = Cypress::PatientFilter.filter(@all_patients, filters, effective_date:).to_a
 
     assert_not filtered_records.include?(patient)
 
@@ -161,7 +161,7 @@ class RecordFilterTest < ActiveSupport::TestCase
     effective_date = Time.local(birthdate.year + age, birthdate.month, birthdate.day, 0, 0, 0).in_time_zone
 
     filters = { 'age' => { 'max' => age - 1 } }
-    filtered_records = Cypress::PatientFilter.filter(@all_patients, filters, effective_date: effective_date).to_a
+    filtered_records = Cypress::PatientFilter.filter(@all_patients, filters, effective_date:).to_a
 
     assert_not filtered_records.include?(patient)
   end

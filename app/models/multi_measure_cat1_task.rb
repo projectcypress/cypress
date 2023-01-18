@@ -11,7 +11,7 @@ class MultiMeasureCat1Task < Task
   end
 
   def execute(file, user)
-    te = test_executions.new(expected_results: expected_results, artifact: Artifact.new(file: file), user_id: user)
+    te = test_executions.new(expected_results:, artifact: Artifact.new(file:), user_id: user)
     te.save!
     TestExecutionJob.perform_later(te, self, validate_reporting: true)
     te.save

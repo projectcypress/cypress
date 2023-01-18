@@ -87,8 +87,8 @@ module CQM
     def duplicate_randomization(augmented_patients, random: Random.new)
       patient = clone
       changed = { original_patient_id: id, first: [first_names, first_names], last: [familyName, familyName] }
-      patient, changed = randomize_patient_name_or_birth(patient, changed, augmented_patients, random: random)
-      randomize_demographics(patient, changed, random: random)
+      patient, changed = randomize_patient_name_or_birth(patient, changed, augmented_patients, random:)
+      randomize_demographics(patient, changed, random:)
     end
 
     #
@@ -102,13 +102,13 @@ module CQM
     def randomize_patient_name_or_birth(patient, changed, augmented_patients, random: Random.new)
       case random.rand(21) # random chooses which part of the patient is modified. Limit birthdate to ~1/20
       when 0..9 # first name
-        patient = Cypress::NameRandomizer.randomize_patient_name_first(patient, augmented_patients, random: random)
+        patient = Cypress::NameRandomizer.randomize_patient_name_first(patient, augmented_patients, random:)
         changed[:first] = [first_names, patient.first_names]
       when 10..19 # last name
-        patient = Cypress::NameRandomizer.randomize_patient_name_last(patient, augmented_patients, random: random)
+        patient = Cypress::NameRandomizer.randomize_patient_name_last(patient, augmented_patients, random:)
         changed[:last] = [familyName, patient.familyName]
       when 20 # birthdate
-        Cypress::DemographicsRandomizer.randomize_birthdate(patient.qdmPatient, random: random)
+        Cypress::DemographicsRandomizer.randomize_birthdate(patient.qdmPatient, random:)
         changed[:birthdate] = [qdmPatient.birthDatetime, patient.qdmPatient.birthDatetime]
       end
       [patient, changed]
@@ -192,7 +192,9 @@ module CQM
       encounter_times = {}
       qdmPatient.get_data_elements('encounter', 'performed').each do |ep|
         # Only use inpatient encounter
-        next if (ep.dataElementCodes.map(&:code) & bundle.value_sets.where(oid: '2.16.840.1.113883.3.666.5.307').first.concepts.map(&:code)).empty?
+        unless ep.dataElementCodes.map(&:code).intersect?(bundle.value_sets.where(oid: '2.16.840.1.113883.3.666.5.307').first.concepts.map(&:code))
+          next
+        end
 
         rel_time = ep.relevantPeriod
         # 1 day before and 1 day after
@@ -333,7 +335,7 @@ module CQM
         te = TestExecution.find(correlation_id)
         msg = "#{data_element._type} that occurs after the Performance Period on #{de_date_time.strftime('%m/%d/%Y')} " \
               "was not used in calculation for #{cms_id}."
-        te.execution_errors.build(message: msg, msg_type: :warning, file_name: file_name)
+        te.execution_errors.build(message: msg, msg_type: :warning, file_name:)
         te.save
       end
     end

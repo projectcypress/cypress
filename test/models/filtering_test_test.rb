@@ -12,7 +12,7 @@ class FilteringTestTest < ActiveJob::TestCase
     options = { 'filters' => {} }
     ft = @product.product_tests.build({ name: 'test_for_measure_1a',
                                         measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                        options: options }, FilteringTest)
+                                        options: }, FilteringTest)
 
     assert ft.valid?
   end
@@ -20,7 +20,7 @@ class FilteringTestTest < ActiveJob::TestCase
   def test_pick_filter_criteria
     criteria = %w[races ethnicities genders payers providers problems age]
     options = { 'filters' => criteria.to_h { |c| [c, []] } }
-    ft = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options: options,
+    ft = FilteringTest.new(name: 'test_for_measure_1a', product: @product, incl_addr: true, options:,
                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
     ft.save!
     ft.generate_patients
@@ -100,10 +100,10 @@ class FilteringTestTest < ActiveJob::TestCase
     options = { 'filters' => {} }
     test1 = @product.product_tests.build({ name: 'test_for_measure_1a',
                                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                           options: options }, FilteringTest)
+                                           options: }, FilteringTest)
     test2 = @product.product_tests.build({ name: 'test_for_measure_1a',
                                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                                           options: options }, FilteringTest)
+                                           options: }, FilteringTest)
     test1.save!
     test2.save!
 

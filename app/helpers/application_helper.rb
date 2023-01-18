@@ -42,7 +42,7 @@ module ApplicationHelper
   end
 
   def ecqi_link(cms_id)
-    measure = Measure.where(cms_id: cms_id).first
+    measure = Measure.where(cms_id:).first
     return unless measure
 
     program = measure.reporting_program_type

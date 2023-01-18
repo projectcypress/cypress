@@ -134,7 +134,7 @@ class Bundle
 
     Bundle.where(active: true).each { |b| b.update(active: false) }
     update(active: true)
-    Bundle.find_by(id: id).active = true
+    Bundle.find_by(id:).active = true
     Settings.current.update(default_bundle: version)
   end
 

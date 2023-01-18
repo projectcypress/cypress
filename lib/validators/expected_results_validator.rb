@@ -19,7 +19,7 @@ module Validators
       else
         @expected_results.each_pair do |hqmf_id, measure_expected_result|
           measure_expected_result.each_pair do |key, expected_result|
-            measure = Measure.where(hqmf_id: hqmf_id).first
+            measure = Measure.where(hqmf_id:).first
             pop_set_hash = measure.population_set_hash_for_key(key)
             reported_result, _errors = extract_results_by_ids(measure, pop_set_hash[:population_set_id], @document, pop_set_hash[:stratification_id])
             @reported_results[key] = reported_result
@@ -45,9 +45,9 @@ module Validators
         next unless pop_set_hash[:stratification_id].nil? && ex_sup
 
         keys_and_ids = { measure_id: measure.hqmf_id,
-                         pop_key: pop_key,
+                         pop_key:,
                          pop_id: population_set.populations[pop_key].hqmf_id,
-                         stratification_id: stratification_id }
+                         stratification_id: }
 
         check_sup_keys(ex_sup, reported_result, keys_and_ids, options)
       end
@@ -70,7 +70,7 @@ module Validators
 
         err = %(Expected #{population} Observation value #{expected_observation['value']}
         does not match reported value #{reported_result[:observations][population]})
-        options = { location: '/', measure_id: measure_id, file_name: @file_name }
+        options = { location: '/', measure_id:, file_name: @file_name }
         add_error(err, options)
       end
     end
@@ -93,15 +93,15 @@ module Validators
       message = 'Could not find value'
       message += " for stratification #{stratification_id} " if pop_set_hash[:stratification_id]
       message += " for Population #{pop_key}"
-      add_error(message, location: '/', measure_id: measure_id, population_id: population_id, stratification: stratification_id)
+      add_error(message, location: '/', measure_id:, population_id:, stratification: stratification_id)
     end
 
     def generate_does_not_match_population_error_message(measure_id, population_id, pop_key, stratification_id, expected_result, reported_result)
       err = %(Expected #{pop_key} value #{expected_result[pop_key]}
       does not match reported value #{reported_result[pop_key]})
-      error_details = { type: 'population', population_id: population_id, stratification: stratification_id,
+      error_details = { type: 'population', population_id:, stratification: stratification_id,
                         expected_value: expected_result[pop_key], reported_value: reported_result[pop_key] }
-      options = { location: '/', measure_id: measure_id, error_details: error_details, file_name: @file_name }
+      options = { location: '/', measure_id:, error_details:, file_name: @file_name }
       add_error(err, options)
     end
 

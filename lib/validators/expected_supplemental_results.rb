@@ -21,7 +21,7 @@ module Validators
 sum #{sup_sum} of supplemental key #{keys_and_ids[:sup_key]} values)
       error_details = { type: 'population_sum', population_id: keys_and_ids[:pop_id],
                         stratification: keys_and_ids[:stratification_id], expected_value: pop_sum, reported_value: sup_sum }
-      options = { location: '/', measure_id: keys_and_ids[:measure_id], error_details: error_details, file_name: @file_name }
+      options = { location: '/', measure_id: keys_and_ids[:measure_id], error_details:, file_name: @file_name }
       add_error(err, options)
     end
 
@@ -72,8 +72,8 @@ sum #{sup_sum} of supplemental key #{keys_and_ids[:sup_key]} values)
 
     def add_sup_data_error(keys_and_ids, code, expect_val, report_val)
       error_details = { type: 'supplemental_data', population_key: keys_and_ids.pop_key, data_type: keys_and_ids.sup_key,
-                        population_id: keys_and_ids.pop_id, code: code, expected_value: expect_val, reported_value: report_val }
-      options = { location: '/', measure_id: keys_and_ids.measure_id, error_details: error_details, file_name: @file_name }
+                        population_id: keys_and_ids.pop_id, code:, expected_value: expect_val, reported_value: report_val }
+      options = { location: '/', measure_id: keys_and_ids.measure_id, error_details:, file_name: @file_name }
       add_error('supplemental data error', options)
     end
   end

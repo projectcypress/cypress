@@ -15,7 +15,7 @@ class QrdaUploadTask < Task
   end
 
   def execute(file, user)
-    te = test_executions.new(artifact: Artifact.new(file: file), user_id: user)
+    te = test_executions.new(artifact: Artifact.new(file:), user_id: user)
     te.validate_artifact(validators, te.artifact) if check_file_size(te)
     te
   end

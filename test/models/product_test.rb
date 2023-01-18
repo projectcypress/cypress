@@ -153,7 +153,7 @@ class ProducTest < ActiveSupport::TestCase
     product = @vendor.products.new
     product.name = 'test name'
     product.bundle = @bundle
-    params = { vendor: @vendor, name: "my product #{rand}", c2_test: '1', measure_ids: measure_ids, bundle_id: @bundle.id }
+    params = { vendor: @vendor, name: "my product #{rand}", c2_test: '1', measure_ids:, bundle_id: @bundle.id }
     # This fails because there is no provider when update is called through this function
     # TODO: either provide provider, or generate in the called method
     product.update_with_tests(params)

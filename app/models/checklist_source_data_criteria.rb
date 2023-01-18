@@ -66,8 +66,8 @@ class ChecklistSourceDataCriteria
                             else
                               checklist_test.attribute_index(new_source_data_criteria)
                             end
-      checklist_test.checked_criteria.create(measure_id: measure_id, source_data_criteria: new_source_data_criteria,
-                                             negated_valueset: false, replacement_data_criteria: replacement_data_criteria,
+      checklist_test.checked_criteria.create(measure_id:, source_data_criteria: new_source_data_criteria,
+                                             negated_valueset: false, replacement_data_criteria:,
                                              attribute_index: new_attribute_index)
       delete
     elsif change_attribute?(source_data_criteria)
@@ -195,6 +195,6 @@ class ChecklistSourceDataCriteria
     # if valueset is a "direct reference code" check to see if input_code matches ones of the "valuesets"
     return true if valuesets.include? input_code
 
-    !ValueSet.where('concepts.code' => input_code, bundle_id: bundle_id).in(oid: valuesets).empty?
+    !ValueSet.where('concepts.code' => input_code, bundle_id:).in(oid: valuesets).empty?
   end
 end

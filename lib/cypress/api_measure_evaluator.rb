@@ -337,10 +337,10 @@ module Cypress
 
     def create_new_product(bundle_id, vendor_link, product_name, measure_list, skip_c1_test)
       c1_test = skip_c1_test ? '0' : '1'
-      jdata = { product: { bundle_id: bundle_id,
+      jdata = { product: { bundle_id:,
                            name: product_name,
                            measure_ids: measure_list,
-                           c1_test: c1_test,
+                           c1_test:,
                            c2_test: '1',
                            c3_test: '1',
                            c4_test: '1',

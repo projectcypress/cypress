@@ -18,7 +18,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
       @product = @vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
                                          bundle_id: @bundle.id)
 
-      params = { measure_ids: measure_ids, 'cvuplus' => 'true' }
+      params = { measure_ids:, 'cvuplus' => 'true' }
       @product.update_with_tests(params)
       @product.save
     end
@@ -31,7 +31,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
       @product = @vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
                                          bundle_id: @bundle.id)
 
-      params = { measure_ids: measure_ids, 'cvuplus' => 'true' }
+      params = { measure_ids:, 'cvuplus' => 'true' }
       @product.update_with_tests(params)
       @product.save
     end
@@ -242,7 +242,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     execution = task.test_executions.build
     Tracker.create(options: { test_execution_id: execution.id })
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_good_telehealth.xml'))
-    options = { file_name: 'sample_patient_good_telehealth.xml', task: task, test_execution: execution }
+    options = { file_name: 'sample_patient_good_telehealth.xml', task:, test_execution: execution }
     pcv = ProgramCriteriaValidator.new(pt)
     pcv.instance_variable_set(:@file, execution.build_document(file))
     pcv.import_patient(options, @product.product_tests.first.measure_ids)

@@ -20,14 +20,14 @@ module Cypress
 
     def execute(save: true)
       @measures.map do |measure|
-        request_for(measure, save: save)
+        request_for(measure, save:)
       end.flatten
     end
 
     def request_for(measure, save: true)
       ir_list = []
       @options['requestDocument'] = true
-      post_data = { patients: @patients, measure: measure, valueSets: measure.value_sets, options: @options }
+      post_data = { patients: @patients, measure:, valueSets: measure.value_sets, options: @options }
       # cqm-execution-service expects a field called value_set_oids which is really just our
       # oids field. There is a value_set_oids on the measure for this explicit purpose.
       post_data = post_data.to_json(methods: %i[_type])

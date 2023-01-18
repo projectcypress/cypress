@@ -153,7 +153,7 @@ class Product
   def add_checklist_test
     return unless product_tests.checklist_tests.empty? && c1_test
 
-    checklist_test = product_tests.create!({ name: 'c1 visual', measure_ids: measure_ids }, ChecklistTest)
+    checklist_test = product_tests.create!({ name: 'c1 visual', measure_ids: }, ChecklistTest)
     checklist_test.create_checked_criteria
     checklist_test.tasks.create!({}, C1ChecklistTask)
     checklist_test.tasks.create!({}, C3ChecklistTask) if c3_test
@@ -210,7 +210,7 @@ class Product
     # if no eh_ids remain, remove exiting test
     product_tests.cms_program_tests.where(reporting_program_type: 'eh').destroy if eh_ids.empty?
     CMS_IG_CONFIG['CMS Programs']['eh'][bundle.major_version]&.each do |cms_program|
-      product_tests.build({ name: "#{cms_program} Test", cms_program: cms_program, measure_ids: eh_ids,
+      product_tests.build({ name: "#{cms_program} Test", cms_program:, measure_ids: eh_ids,
                             reporting_program_type: 'eh' }, CMSProgramTest)
     end
   end
@@ -219,7 +219,7 @@ class Product
     # if no ep_ids remain, remove exiting test
     product_tests.cms_program_tests.where(reporting_program_type: 'ep').destroy if ep_ids.empty?
     CMS_IG_CONFIG['CMS Programs']['ep'][bundle.major_version]&.each do |cms_program|
-      product_tests.build({ name: "#{cms_program} Test", cms_program: cms_program, measure_ids: ep_ids,
+      product_tests.build({ name: "#{cms_program} Test", cms_program:, measure_ids: ep_ids,
                             reporting_program_type: 'ep' }, CMSProgramTest)
     end
   end
@@ -229,9 +229,9 @@ class Product
     return unless product_tests.cms_program_tests.where(cms_program: 'HL7_Cat_I').empty?
 
     # The 'reporting_program_type' is used to restrict the upload type.  Use EH for Cat I, and EP for Cat III
-    product_tests.build({ name: 'HL7 Cat I Test', cms_program: 'HL7_Cat_I', measure_ids: measure_ids,
+    product_tests.build({ name: 'HL7 Cat I Test', cms_program: 'HL7_Cat_I', measure_ids:,
                           reporting_program_type: 'eh' }, CMSProgramTest)
-    product_tests.build({ name: 'HL7 Cat III Test', cms_program: 'HL7_Cat_III', measure_ids: measure_ids,
+    product_tests.build({ name: 'HL7 Cat III Test', cms_program: 'HL7_Cat_III', measure_ids:,
                           reporting_program_type: 'ep' }, CMSProgramTest)
   end
 
@@ -282,6 +282,6 @@ class Product
     # construct options hash from criteria array and create the test
     options = { 'filters' => criteria.to_h { |c| [c, []] } }
     product_tests.create({ name: measure.description, product: self, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,
-                           incl_addr: incl_addr, display_name: display_name, options: options }, FilteringTest)
+                           incl_addr:, display_name:, options: }, FilteringTest)
   end
 end

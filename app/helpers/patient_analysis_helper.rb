@@ -79,7 +79,7 @@ module PatientAnalysisHelper
       ps_set_hashes = measure.population_sets_and_stratifications_for_measure
       ps_set_hashes.each do |ps_set_hash|
         ir_for_population_set_key = IndividualResult.where(correlation_id: @patients.first.correlation_id.to_s,
-                                                           measure_id: measure_id,
+                                                           measure_id:,
                                                            population_set_key: measure.key_for_population_set(ps_set_hash))
         next if ir_for_population_set_key.empty?
 

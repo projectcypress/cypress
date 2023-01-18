@@ -12,7 +12,7 @@ module Validators
     def validate(file, options = {})
       ccde_measure_ids = APP_CONSTANTS['result_measures'].map(&:hqmf_id)
       @ccde_measure_ids = options.task.bundle.measures.where('hqmf_id' => { '$in' => ccde_measure_ids }).pluck(:hqmf_id)
-      return if (ccde_measure_ids & @test_measure_ids).empty?
+      return unless ccde_measure_ids.intersect?(@test_measure_ids)
 
       doc = get_document(file)
       case options.task._type

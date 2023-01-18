@@ -23,7 +23,7 @@ class MultiMeasureTestTest < ActiveJob::TestCase
     product = @vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
                                       bundle_id: @bundle.id)
 
-    params = { measure_ids: measure_ids, 'cvuplus' => 'true' }
+    params = { measure_ids:, 'cvuplus' => 'true' }
     product.update_with_tests(params)
     assert_equal true, product.save, 'should save with two measure ids'
     assert_equal 1, product.product_tests.multi_measure_tests.size, 'should have with one product test'
@@ -39,7 +39,7 @@ class MultiMeasureTestTest < ActiveJob::TestCase
     product = @vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
                                       bundle_id: @bundle.id)
 
-    params = { measure_ids: measure_ids, 'cvuplus' => 'true' }
+    params = { measure_ids:, 'cvuplus' => 'true' }
     product.update_with_tests(params)
     assert_equal 2, product.product_tests.multi_measure_tests.size, 'should have with two product test'
     ep_measure_test = product.product_tests.where(name: 'EC Measures').first

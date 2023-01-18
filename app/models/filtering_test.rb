@@ -50,7 +50,7 @@ class FilteringTest < ProductTest
     measure_object_ids = measures.pluck(:_id)
     rand_patient = patients.select { |p| p.patient_relevant?(measure_object_ids, ['IPP']) }.sample
     # iterate over the filters and assign random codes
-    params = { measures: measures, patients: patients, incl_addr: incl_addr, effective_date: created_at, prng: prng }
+    params = { measures:, patients:, incl_addr:, effective_date: created_at, prng: }
     options['filters'].each do |k, _v|
       # NOTE: typically just uses criteria from one random patient, not across several patients
       options['filters'][k] = Cypress::CriteriaPicker.send(k, rand_patient, params)

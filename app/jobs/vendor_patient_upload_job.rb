@@ -34,7 +34,7 @@ class VendorPatientUploadJob < ApplicationJob
   end
 
   def parse_patients(file, vendor_id, bundle)
-    artifact = Artifact.new(file: file)
+    artifact = Artifact.new(file:)
     failed_files = {} # hash (filename -> error array)
     patients = []
     validator = CDA.instance

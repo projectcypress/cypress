@@ -193,7 +193,7 @@ class ActiveSupport::TestCase
       user.save
     end
 
-    def for_each_logged_in_user(user_ids, &_block)
+    def for_each_logged_in_user(user_ids, &)
       User.find([user_ids]).each do |user|
         # this needs to be here to deal with the controller caching the CanCan ability
         # for the first user it sees during a test.  This is only a prblem during testing
