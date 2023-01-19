@@ -75,12 +75,11 @@ Scenario: Filtering properly hides irrelevant measures and tabs when one bundle 
   And the user types "CMS0v1" into the measure filter box
   Then "CMS0v1" is active on the screen
 
-# TODO: Fix Me
-# Scenario: Filtering properly hides irrelevant measures and tabs
-#  When the user navigates to the create product page
-#  And the user chooses the custom measure option
-#  And the user types "CMS3v1" into the measure filter box
-#  Then "CMS3v1" is active on the screen
+Scenario: Filtering properly hides irrelevant measures and tabs
+  When the user navigates to the create product page
+  And the user chooses the custom measure option
+  And the user types "CMS3v1" into the measure filter box
+  Then "CMS3v1" is active on the screen
 
 Scenario: Options are appropriately enabled
   When the user navigates to the create product page

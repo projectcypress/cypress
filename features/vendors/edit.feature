@@ -10,10 +10,9 @@ Scenario: Successful Edit Vendor
 Scenario: Successful Remove Vendor
   When the user removes the vendor
 
-#  TODO: Why do you fail
-#Scenario: Successful Cancel Remove Vendor
-#  When the user cancels removing a vendor
-#  Then the user should still see the vendor
+Scenario: Successful Cancel Remove Vendor
+  When the user cancels removing a vendor
+  Then the user should still see the vendor
 
 Scenario: Can View Vendor Information
   When the user views the vendor information

@@ -16,8 +16,8 @@ Scenario: Successfully Upload QRDA III for a Program Test and Views Results
   And the user fills out the program test with good data
   And the user uploads a Cat III file and waits for results
 #  TODO: Why do you fail for undefined method `escape' for URI:Module
-#  And the user should be able to click view results
-#  Then the user should see errors and warnings
+  And the user should be able to click view results
+  Then the user should see errors and warnings
 
 Scenario: Successfully Upload QRDA III for a Program Test and Views Product
   When the user creates a cvu plus product
@@ -33,6 +33,6 @@ Scenario: Successfully Upload QRDA I for a Program Test and Views Results
   And the user fills out the program test with good data
   And the user uploads a Cat I file and waits for results
 #  TODO: Why do you fail for undefined method `escape' for URI:Module
-#  And the user should be able to click view results
-#  Then the user should see errors and warnings
-#  Then the user should see measure calculations
+  And the user should be able to click view results
+  Then the user should see errors and warnings
+  Then the user should see measure calculations

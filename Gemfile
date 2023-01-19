@@ -53,10 +53,11 @@ gem 'local_time', '~> 2.0.0'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks', git: 'https://github.com/turbolinks/turbolinks-classic', branch: 'master'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.8.0'
+gem 'jbuilder', '~> 2.11.0'
 # A set of responders modules to dry up your Rails 4.2+ app.
 gem 'responders'
 # Roar is a framework for parsing and rendering REST documents
+gem 'multi_json'
 gem 'representable', '~> 3.0.0'
 gem 'roar-rails'
 
@@ -123,7 +124,7 @@ end
 group :development do
   gem 'listen'
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 3.7.0'
+  gem 'web-console', '~> 4.2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 end
 
