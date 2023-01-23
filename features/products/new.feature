@@ -49,8 +49,10 @@ Scenario: Measure Group Unchecked After Deselecting Measure In Group
   When the user fills out all product information but measures
   And the user selects a group of measures but deselects one
   Then the group of measures should no longer be selected
-  # Then the page should be axe clean according to: section508
-  # Then the page should be axe clean according to: wcag2aa
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default
 
 Scenario: Filtering does not clear selected measures
   When the user navigates to the create product page

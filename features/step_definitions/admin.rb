@@ -39,6 +39,14 @@ And(/^the user clicks import bundle$/) do
   page.click_button '+ Import Bundle'
 end
 
+And(/^the driver is setup for accessability testing$/) do
+  setup_accessabilty
+end
+
+And(/^the driver is returned to the default$/) do
+  default_drivers
+end
+
 # # # # # # # #
 #   T H E N   #
 # # # # # # # #
