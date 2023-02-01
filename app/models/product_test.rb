@@ -119,11 +119,11 @@ class ProductTest
     # Don't randomize clinical_data for hybrid measures
     pat_arr, dups = randomize_clinical_data(pat_arr, dups, random) unless hybrid_measures?
     # choose up to 3 duplicate patients
-    dups.sample(random.rand(1..3), random: random).each do |pat|
+    dups.sample(random.rand(1..3), random:).each do |pat|
       prng_repeat = Random.new(rand_seed.to_i)
       dup_pat, pat_augments, old_pat = pat.duplicate_randomization(augmented_patients, random: prng_repeat)
       # only add if augmented patient validates
-      if car.validate_calculated_results(dup_pat, effective_date: effective_date, orig_product_patient: old_pat)
+      if car.validate_calculated_results(dup_pat, effective_date:, orig_product_patient: old_pat)
         augmented_patients << pat_augments
         pat_arr << dup_pat
       else
@@ -141,12 +141,12 @@ class ProductTest
     # TODO: check... why not randomize if there is one duplicate?
     return [pat_arr, dups] if dups.count < 1
 
-    clinical_pat = dups.sample(random: random)
+    clinical_pat = dups.sample(random:)
     dups.delete(clinical_pat)
     pat_arr.delete(clinical_pat)
     # Re-add clinically randomized patients (patient split in two across date or data element type)
     # use end and start dates for correct comparison format
-    [pat_arr.concat(Cypress::ClinicalRandomizer.randomize(clinical_pat, end_date, start_date, random: random)), dups]
+    [pat_arr.concat(Cypress::ClinicalRandomizer.randomize(clinical_pat, end_date, start_date, random:)), dups]
   end
 
   def calculate
@@ -239,7 +239,7 @@ class ProductTest
 
   # Are any of the measures in this test a Hybrid measure
   def hybrid_measures?
-    !(measures.map(&:hqmf_id) & APP_CONSTANTS['result_measures'].map(&:hqmf_id)).empty?
+    !!measures.map(&:hqmf_id).intersect?(APP_CONSTANTS['result_measures'].map(&:hqmf_id))
   end
 
   # Are any of the measures in this test EH

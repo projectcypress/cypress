@@ -26,7 +26,7 @@ class C2Task < Task
   end
 
   def execute(file, user)
-    te = test_executions.new(expected_results: expected_results, artifact: Artifact.new(file: file), user_id: user)
+    te = test_executions.new(expected_results:, artifact: Artifact.new(file:), user_id: user)
     te.save!
     TestExecutionJob.perform_later(te, self)
     te.sibling_execution_id = product_test.tasks.c3_cat3_task.execute(file, user, te.id).id if product_test.c3_cat3_task?

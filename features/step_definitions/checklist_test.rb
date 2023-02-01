@@ -12,9 +12,9 @@ And(/^the user has created a vendor with a product selecting C1 testing with one
   measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
   @vendor = FactoryBot.create(:vendor)
   @bundle_id = Bundle.default._id
-  @product = Product.new(vendor: @vendor, name: 'Product 1', c1_test: true, measure_ids: measure_ids, bundle_id: @bundle_id)
-  @product.product_tests.build({ name: 'test_for_measure_1a', measure_ids: measure_ids }, MeasureTest)
-  checklist_test = @product.product_tests.build({ name: 'record sample test', measure_ids: measure_ids }, ChecklistTest)
+  @product = Product.new(vendor: @vendor, name: 'Product 1', c1_test: true, measure_ids:, bundle_id: @bundle_id)
+  @product.product_tests.build({ name: 'test_for_measure_1a', measure_ids: }, MeasureTest)
+  checklist_test = @product.product_tests.build({ name: 'record sample test', measure_ids: }, ChecklistTest)
   @product.save!
   checklist_test.tasks.create!({}, C1ChecklistTask)
 end
@@ -49,11 +49,11 @@ end
 When(/^the user creates a product that certifies (.*) and visits the record sample page$/) do |certification_types|
   measure_ids = ['AE65090C-EB1F-11E7-8C3F-9A214CF093AE']
   certification_types = certification_types.split(', ')
-  @product = @vendor.products.build(name: "my product #{rand}", measure_ids: measure_ids, bundle_id: @bundle_id)
+  @product = @vendor.products.build(name: "my product #{rand}", measure_ids:, bundle_id: @bundle_id)
   @product.c1_test = true if certification_types.include? 'c1'
   @product.c3_test = true if certification_types.include? 'c3'
   @product.save!
-  test = @product.product_tests.create!({ name: "my checklist test #{rand}", measure_ids: measure_ids }, ChecklistTest)
+  test = @product.product_tests.create!({ name: "my checklist test #{rand}", measure_ids: }, ChecklistTest)
   test.create_checked_criteria
   test.tasks.create!({}, C1ChecklistTask) if @product.c1_test
   test.tasks.create!({}, C3ChecklistTask) if @product.c3_test

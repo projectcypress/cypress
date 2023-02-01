@@ -11,8 +11,6 @@ module Validators
     # All Procedure end times
     PROCEDURE_SELECTOR = "//cda:procedure[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.64']]/cda:effectiveTime/cda:high/@value"
 
-    def initialize; end
-
     def validate(file, options = {})
       @document = get_document(file)
       @options = options

@@ -29,7 +29,7 @@ module Cypress
       h['Checklist'] = STATUS_NAMES.zip(checklist_status_vals(product.product_tests.checklist_tests.first, 'C1')).to_h
       if h['Checklist']['total'].zero?
         default_number = CAT1_CONFIG['number_of_checklist_measures']
-        h['Checklist']['not_started'] = product.measure_ids.size < default_number ? product.measure_ids.size : default_number
+        h['Checklist']['not_started'] = [product.measure_ids.size, default_number].min
       end
       h['QRDA Category I'] = STATUS_NAMES.zip(product_test_statuses(product.product_tests.only(:tasks).measure_tests, 'C1Task')).to_h
       h
@@ -46,7 +46,7 @@ module Cypress
       h['Checklist'] = STATUS_NAMES.zip(checklist_status_vals(product.product_tests.checklist_tests.first, 'C3')).to_h
       if h['Checklist']['total'].zero?
         default_number = CAT1_CONFIG['number_of_checklist_measures']
-        h['Checklist']['not_started'] = product.measure_ids.size < default_number ? product.measure_ids.size : default_number
+        h['Checklist']['not_started'] = [product.measure_ids.size, default_number].min
         h['Checklist']['not_started'] = 0 unless product.eh_tests?
       end
       cat1_status_values = product_test_statuses(product.product_tests.only(:tasks, :measure_ids).measure_tests.filter(&:eh_measures?), 'C3Cat1Task')

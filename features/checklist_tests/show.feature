@@ -22,8 +22,10 @@ Scenario: Fill Out Checklist Correctly
   And the user fills out the record sample with good data
   Then the user should see checkmarks next to each complete data criteria
   And the user should be able to upload a Cat I file
+  And the driver is setup for accessability testing
   Then the page should be axe clean according to: section508
   Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default
 
 Scenario: Successful Upload Cat I file After Completing Checklist
   When the user creates a product that certifies c1 and visits the record sample page

@@ -27,8 +27,8 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     VCR.use_cassette('bundle_download') do
       bundle_resource = RestClient::Request.execute(method: :get,
                                                     url: 'https://cypress.healthit.gov/measure_bundles/fixture-bundle-2020.zip',
-                                                    user: ENV['VSAC_USERNAME'],
-                                                    password: ENV['VSAC_PASSWORD'],
+                                                    user: ENV.fetch('VSAC_USERNAME', nil),
+                                                    password: ENV.fetch('VSAC_PASSWORD', nil),
                                                     raw_response: true,
                                                     headers: { accept: :zip })
 
@@ -55,7 +55,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
         ep_measures = @bundle.measures.where(reporting_program_type: 'ep').distinct(:hqmf_id).sample(8)
         measure_ids = eh_measures + ep_measures + obs_measures
         @vendor = Vendor.find_or_create_by(name: 'MeasureEvaluationVendor')
-        post :create, params: { vendor_id: @vendor.id, product: { name: 'MeasureEvaluationProduct', bundle_id: @bundle.id.to_s, c1_test: true, c2_test: true, c3_test: false, c4_test: true, duplicate_patients: false, randomize_patients: true, measure_ids: measure_ids } }
+        post :create, params: { vendor_id: @vendor.id, product: { name: 'MeasureEvaluationProduct', bundle_id: @bundle.id.to_s, c1_test: true, c2_test: true, c3_test: false, c4_test: true, duplicate_patients: false, randomize_patients: true, measure_ids: } }
       end
     end
     @product = Product.where(name: 'MeasureEvaluationProduct').first
@@ -65,9 +65,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
   def perform_filtering_tests
     filtering_tests = @product.product_tests.filtering_tests
     # Save the Filter Test Deck, each filter test uses the same unfiltered test deck
-    File.open('tmp/filter_patients.zip', 'wb') do |output|
-      output.write(filtering_tests.first.patient_archive.read)
-    end
+    File.binwrite('tmp/filter_patients.zip', filtering_tests.first.patient_archive.read)
     filtering_tests.each do |ft|
       # Since were are leveraging the ApiMeasureEvaluator, it uses JSON returned from the API to find filter criteria, stored as filter_test_parameters
       filter_test_parameters = {}
@@ -114,9 +112,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
         patient.save
       end
       # save test deck for measure test
-      File.open("tmp/#{mt.id}.zip", 'wb') do |output|
-        output.write(mt.tasks.c1_task.good_results)
-      end
+      File.binwrite("tmp/#{mt.id}.zip", mt.tasks.c1_task.good_results)
       upload_test_artifacts('C1Task', 'C2Task', mt)
       delete_test_zip_files(mt)
     end
@@ -178,7 +174,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
     until successful_calculation
       # Use ApiMeasureEvaluator to call cqm-execution-service
       @apime.do_calculation(product_test, patients, correlation_id)
-      successful_calculation = IndividualResult.where(correlation_id: correlation_id, IPP: { '$gte' => 1 }).size.positive?
+      successful_calculation = IndividualResult.where(correlation_id:, IPP: { '$gte' => 1 }).size.positive?
     end
 
     # Seed ExpectedResultsCalculator with patients and correlation_id for cat III generation

@@ -221,13 +221,13 @@ module Cypress
     end
 
     def filter_out_patients(doc, product_test)
-      filters = product_test.filters
+      filters = product_test['filters']
       creation_time = product_test.created_at
       return filter_providers(doc, filters) if filters.key?('provider')
       return filter_problems(doc, filters) if filters.key?('problem')
 
       # Normalize payer to a string value.  Parsing from JSON directly may have the parameter as an integer
-      filters = filters.map { |k, v| [k, k == 'payer' ? v.to_s : v] }.to_h if filters.key?('payer')
+      filters = filters.to_h { |k, v| [k, k == 'payer' ? v.to_s : v] } if filters.key?('payer')
       filter_demographics(doc, filters, creation_time)
     end
 
@@ -337,10 +337,10 @@ module Cypress
 
     def create_new_product(bundle_id, vendor_link, product_name, measure_list, skip_c1_test)
       c1_test = skip_c1_test ? '0' : '1'
-      jdata = { product: { bundle_id: bundle_id,
+      jdata = { product: { bundle_id:,
                            name: product_name,
                            measure_ids: measure_list,
-                           c1_test: c1_test,
+                           c1_test:,
                            c2_test: '1',
                            c3_test: '1',
                            c4_test: '1',
@@ -398,9 +398,7 @@ module Cypress
         if response.empty?
           false
         else
-          File.open("tmp/#{file_name}.zip", 'wb') do |output|
-            output.write(response)
-          end
+          File.binwrite("tmp/#{file_name}.zip", response)
           true
         end
       rescue StandardError

@@ -190,9 +190,9 @@ class ProductsControllerTest < ActionController::TestCase
 
   # helper for checklist test tests
   def create_product_with_checklist_test(measure_ids)
-    pt = Product.new(vendor: @vendor, name: "p_#{rand}", c1_test: true, measure_ids: measure_ids,
+    pt = Product.new(vendor: @vendor, name: "p_#{rand}", c1_test: true, measure_ids:,
                      bundle_id: @bundle_id)
-    pt.product_tests.build({ name: 'my_measure_test', measure_ids: measure_ids }, MeasureTest)
+    pt.product_tests.build({ name: 'my_measure_test', measure_ids: }, MeasureTest)
     pt.save!
     pt.add_checklist_test
     pt

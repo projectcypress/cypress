@@ -230,7 +230,7 @@ class ProductReportTest < ActionController::TestCase
     testfile = Tempfile.new(['report', '.zip'])
     # create a test execution to assign the error message to. We're just using C2 test execution or all errors
     error_summary = 'I am an error'
-    te = @product_test.tasks.c2_task.test_executions.create(state: :errored, user: @user, error_summary: error_summary)
+    te = @product_test.tasks.c2_task.test_executions.create(state: :errored, user: @user, error_summary:)
     ste = @product_test.tasks.c3_cat3_task.test_executions.create(state: :failed, user: @user, sibling_execution_id: te.id.to_s)
     build_execution_error(te, TEST_EXECUTION_ERROR_HASH[TEST_EXECUTION_ERROR_HASH.keys.sample].sample['factory_name'], ste, include_file: true)
     te.save
@@ -259,7 +259,7 @@ class ProductReportTest < ActionController::TestCase
     product = vendor.products.create(name: "my product #{rand}", cvuplus: true, randomize_patients: true, duplicate_patients: true,
                                      bundle_id: bundle.id)
 
-    params = { measure_ids: measure_ids }
+    params = { measure_ids: }
     perform_enqueued_jobs do
       product.update_with_tests(params)
       product.save
@@ -305,11 +305,11 @@ class ProductReportTest < ActionController::TestCase
       # A test execution needs an artifact, since we are always using a C2 test execution, create a Cat 3 artifact
       file_name = 'cat_III/ep_test_qrda_cat3_good.xml'
       file = File.new(Rails.root.join('test', 'fixtures', 'qrda', file_name))
-      Artifact.create!(test_execution: test_execution, file: file)
-      Artifact.create!(test_execution: sibling_execution, file: file)
-      FactoryBot.create(factory_name, test_execution: test_execution, file_name: file_name.split('/')[1])
+      Artifact.create!(test_execution:, file:)
+      Artifact.create!(test_execution: sibling_execution, file:)
+      FactoryBot.create(factory_name, test_execution:, file_name: file_name.split('/')[1])
     else
-      FactoryBot.create(factory_name, test_execution: test_execution)
+      FactoryBot.create(factory_name, test_execution:)
     end
   end
 end

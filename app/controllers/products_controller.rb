@@ -85,9 +85,9 @@ class ProductsController < ApplicationController
   def report
     report_content = render_to_string layout: 'report'
     file = if @product.cvuplus
-             Cypress::CreateDownloadZip.create_combined_report_zip(@product, report_content: report_content, report_hash: program_report_files)
+             Cypress::CreateDownloadZip.create_combined_report_zip(@product, report_content:, report_hash: program_report_files)
            else
-             Cypress::CreateDownloadZip.create_combined_report_zip(@product, report_content: report_content)
+             Cypress::CreateDownloadZip.create_combined_report_zip(@product, report_content:)
            end
     send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "#{@product.name}_#{@product.id}_report.zip".tr(' ', '_')
   end
@@ -149,15 +149,15 @@ class ProductsController < ApplicationController
           html = if error_result
                    render_to_string partial: 'test_executions/results/execution_results_for_file', locals: {
                      execution: most_recent_execution,
-                     file_name: file_name,
-                     error_result: error_result,
+                     file_name:,
+                     error_result:,
                      is_passing: most_recent_execution.status_with_sibling == 'passing',
                      on_execution_show_page: true,
-                     continuous_measures: continuous_measures,
-                     proportion_measures: proportion_measures,
-                     ratio_measures: ratio_measures,
-                     result_measures: result_measures,
-                     patient: patient,
+                     continuous_measures:,
+                     proportion_measures:,
+                     ratio_measures:,
+                     result_measures:,
+                     patient:,
                      export: true,
                      display_calculations: true
                    }
@@ -165,15 +165,15 @@ class ProductsController < ApplicationController
                  else
                    render_to_string partial: 'test_executions/results/calculation_results_for_file', locals: {
                      execution: most_recent_execution,
-                     file_name: file_name,
-                     error_result: error_result,
+                     file_name:,
+                     error_result:,
                      is_passing: most_recent_execution.status_with_sibling == 'passing',
                      on_execution_show_page: true,
-                     continuous_measures: continuous_measures,
-                     proportion_measures: proportion_measures,
-                     ratio_measures: ratio_measures,
-                     result_measures: result_measures,
-                     patient: patient,
+                     continuous_measures:,
+                     proportion_measures:,
+                     ratio_measures:,
+                     result_measures:,
+                     patient:,
                      export: true,
                      display_calculations: true
                    }
@@ -199,8 +199,8 @@ class ProductsController < ApplicationController
   def patients
     crit_exists = !@product.product_tests.checklist_tests.empty?
     filt_exists = !@product.product_tests.filtering_tests.empty?
-    criteria_list = crit_exists ? render_to_string(file: 'checklist_tests/print_criteria.html.erb', layout: 'report') : nil
-    filtering_list = filt_exists ? render_to_string(file: 'checklist_tests/print_filtering.html.erb', layout: 'report') : nil
+    criteria_list = crit_exists ? render_to_string(template: 'checklist_tests/print_criteria', layout: 'report') : nil
+    filtering_list = filt_exists ? render_to_string(template: 'checklist_tests/print_filtering', layout: 'report') : nil
     file = Cypress::CreateTotalTestZip.create_total_test_zip(@product, criteria_list, filtering_list, 'qrda')
     send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "#{@product.name}_#{@product.id}.zip".tr(' ', '_')
   end

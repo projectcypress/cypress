@@ -32,8 +32,8 @@ class VendorTest < ActiveSupport::TestCase
 
   def test_vendor_same_name_cannot_be_saved
     name = 'I have the same name!'
-    v1 = Vendor.new(name: name)
-    v2 = Vendor.new(name: name)
+    v1 = Vendor.new(name:)
+    v2 = Vendor.new(name:)
     v1.save!
     assert_raises Mongoid::Errors::Validations do
       v2.save!

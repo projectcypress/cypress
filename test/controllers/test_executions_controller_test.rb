@@ -246,9 +246,9 @@ class TestExecutionsControllerTest < ActionController::TestCase
   def create_execution_with_task_type(task_type)
     c1, c2, c4 = c1_c2_c4_from_task_type(task_type)
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
-    product = @vendor.products.create!(name: "my product #{rand}", bundle_id: @bundle_id, measure_ids: measure_ids,
+    product = @vendor.products.create!(name: "my product #{rand}", bundle_id: @bundle_id, measure_ids:,
                                        c1_test: c1, c2_test: c2, c4_test: c4)
-    test = product.product_tests.create!({ name: "my measure test #{rand}", measure_ids: measure_ids }, MeasureTest)
+    test = product.product_tests.create!({ name: "my measure test #{rand}", measure_ids: }, MeasureTest)
     task = create_task_from_task_type(test, task_type)
     execution = task.test_executions.build
     @vendor_user.test_executions << execution
@@ -260,7 +260,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
       file_name = 'cat_III/ep_test_qrda_cat3_good.xml'
     end
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', file_name))
-    Artifact.create!(test_execution: execution, file: file)
+    Artifact.create!(test_execution: execution, file:)
     unzipped_file_name = execution.artifact.file_names.first
     execution.execution_errors.create!(message: "my error message #{rand}", msg_type: :my_msg_type, file_name: unzipped_file_name)
     [execution, unzipped_file_name]

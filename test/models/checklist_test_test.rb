@@ -84,11 +84,11 @@ class ChecklistTestTest < ActiveJob::TestCase
     assert_equal 'incomplete', checklist_test.status
     task = checklist_test.tasks.create!({}, C1ChecklistTask)
     assert_equal 'incomplete', checklist_test.status
-    task.test_executions.create(state: :pending, user: user)
+    task.test_executions.create(state: :pending, user:)
     assert_equal 'incomplete', checklist_test.status
-    task.test_executions.create(state: :passed, user: user)
+    task.test_executions.create(state: :passed, user:)
     assert_equal 'passing', checklist_test.status
-    task.test_executions.create(state: :failed, user: user)
+    task.test_executions.create(state: :failed, user:)
     assert_equal 'failing', checklist_test.status
   end
 
@@ -132,7 +132,7 @@ class ChecklistTestTest < ActiveJob::TestCase
     task = @test.tasks.create!({}, C1ChecklistTask)
     assert_equal 'incomplete', @test.measure_status(measure_id)
     user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
-    task.test_executions.create(state: :failed, user: user)
+    task.test_executions.create(state: :failed, user:)
     assert_equal 'failed', @test.measure_status(measure_id)
     @test.checked_criteria.each do |criteria|
       criteria.code_complete = true

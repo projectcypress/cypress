@@ -41,7 +41,8 @@ class Product
 
   delegate :effective_date, to: :bundle
 
-  validates :name, presence: true, uniqueness: { scope: :vendor, message: 'Product name was already taken. Please choose another.' }
+  validates :name, presence: { allow_blank: false, message: "can't be blank" },
+                   uniqueness: { scope: :vendor, message: 'Product name was already taken. Please choose another.' }
 
   validate :meets_required_certification_types?
   validate :valid_measure_ids?
@@ -152,7 +153,7 @@ class Product
   def add_checklist_test
     return unless product_tests.checklist_tests.empty? && c1_test
 
-    checklist_test = product_tests.create!({ name: 'c1 visual', measure_ids: measure_ids }, ChecklistTest)
+    checklist_test = product_tests.create!({ name: 'c1 visual', measure_ids: }, ChecklistTest)
     checklist_test.create_checked_criteria
     checklist_test.tasks.create!({}, C1ChecklistTask)
     checklist_test.tasks.create!({}, C3ChecklistTask) if c3_test
@@ -209,7 +210,7 @@ class Product
     # if no eh_ids remain, remove exiting test
     product_tests.cms_program_tests.where(reporting_program_type: 'eh').destroy if eh_ids.empty?
     CMS_IG_CONFIG['CMS Programs']['eh'][bundle.major_version]&.each do |cms_program|
-      product_tests.build({ name: "#{cms_program} Test", cms_program: cms_program, measure_ids: eh_ids,
+      product_tests.build({ name: "#{cms_program} Test", cms_program:, measure_ids: eh_ids,
                             reporting_program_type: 'eh' }, CMSProgramTest)
     end
   end
@@ -218,7 +219,7 @@ class Product
     # if no ep_ids remain, remove exiting test
     product_tests.cms_program_tests.where(reporting_program_type: 'ep').destroy if ep_ids.empty?
     CMS_IG_CONFIG['CMS Programs']['ep'][bundle.major_version]&.each do |cms_program|
-      product_tests.build({ name: "#{cms_program} Test", cms_program: cms_program, measure_ids: ep_ids,
+      product_tests.build({ name: "#{cms_program} Test", cms_program:, measure_ids: ep_ids,
                             reporting_program_type: 'ep' }, CMSProgramTest)
     end
   end
@@ -228,9 +229,9 @@ class Product
     return unless product_tests.cms_program_tests.where(cms_program: 'HL7_Cat_I').empty?
 
     # The 'reporting_program_type' is used to restrict the upload type.  Use EH for Cat I, and EP for Cat III
-    product_tests.build({ name: 'HL7 Cat I Test', cms_program: 'HL7_Cat_I', measure_ids: measure_ids,
+    product_tests.build({ name: 'HL7 Cat I Test', cms_program: 'HL7_Cat_I', measure_ids:,
                           reporting_program_type: 'eh' }, CMSProgramTest)
-    product_tests.build({ name: 'HL7 Cat III Test', cms_program: 'HL7_Cat_III', measure_ids: measure_ids,
+    product_tests.build({ name: 'HL7 Cat III Test', cms_program: 'HL7_Cat_III', measure_ids:,
                           reporting_program_type: 'ep' }, CMSProgramTest)
   end
 
@@ -243,7 +244,7 @@ class Product
     # TODO: R2P: check new criteria names
     criteria = %w[races ethnicities genders payers age].shuffle
     filter_tests = []
-    filter_tests.concat [build_filtering_test(measure, criteria[0, 2]), build_filtering_test(measure, criteria[2, 2])]
+    filter_tests.push(build_filtering_test(measure, criteria[0, 2]), build_filtering_test(measure, criteria[2, 2]))
     filter_tests << build_filtering_test(measure, ['providers'], 'NPI, TIN & Provider Location')
     filter_tests << build_filtering_test(measure, ['providers'], 'NPI & TIN', incl_addr: false)
     criteria = ApplicationController.helpers.measure_has_snomed_dx_criteria?(measure) ? ['problems'] : criteria.values_at(4, (0..3).to_a.sample)
@@ -279,8 +280,8 @@ class Product
 
   def build_filtering_test(measure, criteria, display_name = '', incl_addr: true)
     # construct options hash from criteria array and create the test
-    options = { 'filters' => criteria.map { |c| [c, []] }.to_h }
+    options = { 'filters' => criteria.to_h { |c| [c, []] } }
     product_tests.create({ name: measure.description, product: self, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,
-                           incl_addr: incl_addr, display_name: display_name, options: options }, FilteringTest)
+                           incl_addr:, display_name:, options: }, FilteringTest)
   end
 end

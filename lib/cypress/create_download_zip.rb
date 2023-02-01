@@ -22,9 +22,7 @@ module Cypress
         FileUtils.mkdir_p(File.join(path, "#{format}_records/"))
         patients.each do |r|
           filename = "#{format}_records/#{r.first_names}_#{r.familyName}.#{extensions[format.to_sym]}".delete("'").tr(' ', '_')
-          File.open(File.join(path, filename), 'w') do |f|
-            f.write(formatter.export(r))
-          end
+          File.write(File.join(path, filename), formatter.export(r))
         end
       end
     end

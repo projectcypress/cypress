@@ -4,8 +4,6 @@ module Validators
   class EncounterValidator < QrdaFileValidator
     include Validators::Validator
 
-    def initialize; end
-
     def validate(file, options = {})
       doc = get_document(file)
       encounter_times = doc.xpath("//cda:encounter[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.23']/cda:effectiveTime")

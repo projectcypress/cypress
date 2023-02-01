@@ -26,7 +26,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     assert_equal (before_results_count + 2), IndividualResult.count
     # Assert calculation is correct for a given patient
     measure_id = Measure.where(cms_id: 'CMS111v9').first.id
-    result = IndividualResult.where(population_set_key: 'PopulationSet_1', measure_id: measure_id).first
+    result = IndividualResult.where(population_set_key: 'PopulationSet_1', measure_id:).first
     assert_equal 1, result.IPP
     assert_equal 1, result.MSRPOPL
     assert_equal [5], result.episode_results[result.episode_results.keys[0]]['observation_values']
@@ -52,7 +52,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     assert_equal (before_results_count + 2), IndividualResult.count
     # Assert calculation is correct for a given patient
     measure_id = Measure.where(cms_id: 'CMS111v9').first.id
-    result = IndividualResult.where(population_set_key: 'PopulationSet_1', measure_id: measure_id).first
+    result = IndividualResult.where(population_set_key: 'PopulationSet_1', measure_id:).first
     assert_equal 1, result.IPP
     assert_equal 1, result.MSRPOPL
     assert_equal [5], result.episode_results[result.episode_results.keys[0]]['observation_values']
@@ -75,7 +75,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     assert_equal (before_results_count + 2), IndividualResult.count
     # Assert calculation is correct for a given patient
     measure_id = Measure.where(cms_id: 'CMS111v9').first.id
-    result = IndividualResult.where(population_set_key: 'PopulationSet_1', measure_id: measure_id).first
+    result = IndividualResult.where(population_set_key: 'PopulationSet_1', measure_id:).first
     assert_equal 1, result.IPP
     assert_equal 1, result.MSRPOPL
     assert_equal [5], result.episode_results[result.episode_results.keys[0]]['observation_values']

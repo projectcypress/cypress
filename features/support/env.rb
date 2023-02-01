@@ -16,23 +16,27 @@ require 'capybara/accessible'
 
 require 'axe-cucumber-steps'
 
+def default_drivers
+  if ENV['IN_BROWSER']
+    # On demand: non-headless tests via Selenium/WebDriver
+    # To run the scenarios in browser (default: Firefox), use the following command line:
+    # IN_BROWSER=true bundle exec cucumber
+    # or (to have a pause of 1 second between each step):
+    # IN_BROWSER=true PAUSE=1 bundle exec cucumber
+    Capybara.default_driver = :selenium_chrome
+    AfterStep do
+      sleep(ENV['PAUSE'].to_i || 0)
+    end
+  else
+    Capybara.default_driver    = :poltergeist
+    Capybara.javascript_driver = :poltergeist
+  end
+end
+
 Mongoid.logger.level = Logger::INFO
 Mongo::Logger.logger.level = Logger::INFO
 
-if ENV['IN_BROWSER']
-  # On demand: non-headless tests via Selenium/WebDriver
-  # To run the scenarios in browser (default: Firefox), use the following command line:
-  # IN_BROWSER=true bundle exec cucumber
-  # or (to have a pause of 1 second between each step):
-  # IN_BROWSER=true PAUSE=1 bundle exec cucumber
-  Capybara.default_driver = :selenium
-  AfterStep do
-    sleep(ENV['PAUSE'].to_i || 0)
-  end
-else
-  Capybara.default_driver    = :poltergeist
-  Capybara.javascript_driver = :poltergeist
-end
+default_drivers
 
 Capybara.server = :webrick
 Capybara.default_max_wait_time = 15
@@ -104,6 +108,10 @@ def wait_for_all_delayed_jobs_to_run
   Delayed::Job.each do |delayed_job|
     Delayed::Worker.new.run(delayed_job)
   end
+end
+
+def setup_accessabilty
+  Capybara.default_driver = :selenium_chrome_headless
 end
 
 Before do

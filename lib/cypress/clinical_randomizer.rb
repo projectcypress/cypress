@@ -61,7 +61,7 @@ module Cypress
       de_groups = find_related_to_de(non_pc_de)
 
       # Collect unique data element categories from each related group
-      de_categories = de_groups.map(&:first).collect(&:qdmCategory).uniq.shuffle(random: random)
+      de_categories = de_groups.map(&:first).collect(&:qdmCategory).uniq.shuffle(random:)
 
       # If there's only 1 data element category, split by date instead
       return split_by_date(patient, effective_date, measure_period_start, random) if de_categories.count < 2

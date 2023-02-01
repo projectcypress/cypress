@@ -12,20 +12,20 @@ And(/^the user has created a vendor with a product selecting C4 testing$/) do
   measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
   bundle_id = Bundle.default._id
   @vendor = Vendor.create!(name: 'test_vendor_name')
-  @product = @vendor.products.create!(name: 'test_product_name', c1_test: true, c4_test: true, measure_ids: measure_ids, bundle_id: bundle_id)
+  @product = @vendor.products.create!(name: 'test_product_name', c1_test: true, c4_test: true, measure_ids:, bundle_id:)
   product_params = { name: 'params',
                      version: '',
                      description: '',
                      randomize_patients: '1',
                      duplicate_patients: '1',
                      shift_patients: '0',
-                     bundle_id: bundle_id,
+                     bundle_id:,
                      measure_selection: 'custom',
                      c1_test: '1',
                      c2_test: '0',
                      c3_test: '0',
                      c4_test: '1',
-                     measure_ids: measure_ids }
+                     measure_ids: }
   @product.update_with_tests(product_params)
   wait_for_all_delayed_jobs_to_run
   @f_test1 = @product.product_tests.filtering_tests[0]

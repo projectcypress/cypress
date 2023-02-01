@@ -9,7 +9,7 @@ module Cypress
         # Each time, start with original name
         new_given_name = original_given_name.clone
         # Try to create a new random name
-        new_given_name = random_given_name(patient, new_given_name, random: random)
+        new_given_name = random_given_name(patient, new_given_name, random:)
         # Verify that the new random name, does not conflict with an existing Augmented Patient
         patient.givenNames = new_given_name if name_unique?(new_given_name, patient.familyName, patients, augmented_patients)
         # Break when a new unique name is found
@@ -24,12 +24,12 @@ module Cypress
       when 0 then [updated_name[0][0]] # replace with only first initial
       when 1
         rand_idx = random.rand(updated_name.count)
-        updated_name[rand_idx] = replace_random_char(updated_name[rand_idx].clone, random: random) # insert incorrect letter
+        updated_name[rand_idx] = replace_random_char(updated_name[rand_idx].clone, random:) # insert incorrect letter
         updated_name
       when 2 # nickname
         updated_name.each_index do |idx|
           nicknames = NAMES_RANDOM['nicknames'][patient.gender][updated_name[idx]]
-          updated_name[idx] = nickname(nicknames, updated_name[idx], random: random)
+          updated_name[idx] = nickname(nicknames, updated_name[idx], random:)
         end
         updated_name
       end
@@ -44,7 +44,7 @@ module Cypress
         # Try to create a new random name
         case random.rand(2)
         when 0 then new_family_name = patient.familyName[0] # replace with initial
-        when 1 then new_family_name = replace_random_char(new_family_name, random: random) # insert incorrect letter
+        when 1 then new_family_name = replace_random_char(new_family_name, random:) # insert incorrect letter
         end
         # Verify that the new random name, does not conflict with an existing Augmented Patient
         patient.familyName = new_family_name if name_unique?(patient.givenNames, new_family_name, patients, augmented_patients)
@@ -56,7 +56,7 @@ module Cypress
 
     def self.replace_random_char(name, random: Random.new)
       lowercases = ('a'..'z').to_a
-      lsamples = lowercases.sample(2, random: random)
+      lsamples = lowercases.sample(2, random:)
       name_pos = random.rand(name.length - 1) + 1
       name[name_pos] = name[name_pos] == lsamples[0] ? lsamples[1] : lsamples[0]
       name
@@ -66,7 +66,7 @@ module Cypress
       # if no nicknames, use first initial
       return given_name[0] if nicknames.blank?
 
-      nicknames.sample(random: random)
+      nicknames.sample(random:)
     end
 
     def self.name_unique?(new_given_names, new_family_name, patients, augmented_patients)

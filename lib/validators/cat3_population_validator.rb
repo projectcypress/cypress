@@ -66,8 +66,8 @@ module Validators
       end
       return unless (num + denex + denexcep) > denom
 
-      add_error("Numerator value #{num} + Denominator Exclusions value #{denex} + Denominator Exceptions value #{denexcep}"\
-                " is greater than Denominator value #{denom} for measure #{measure}", location: '/', file_name: file)
+      add_error("Numerator value #{num} + Denominator Exclusions value #{denex} + Denominator Exceptions value #{denexcep} " \
+                "is greater than Denominator value #{denom} for measure #{measure}", location: '/', file_name: file)
     end
 
     def validate_population_ids(doc, options)
@@ -86,8 +86,8 @@ module Validators
             # some populations may not exist for a specific population set (e.g., NUMEX does not exist for CMS156 Population Critria 1 but does for 2)
             next unless population
 
-            add_error("#{key} (#{population['hqmf_id']}) is missing"\
-                      " for #{measure.cms_id}", location: measure_id.parent.path, file_name: options[:file_name])
+            add_error("#{key} (#{population['hqmf_id']}) is missing " \
+                      "for #{measure.cms_id}", location: measure_id.parent.path, file_name: options[:file_name])
           end
         end
       end
@@ -131,13 +131,13 @@ module Validators
       observ = pop['OBSERV'] || 0
 
       if msrpopl > ipp
-        add_error("Measure Population value #{msrpopl} is greater than Initial Population value #{ipp} for  "\
+        add_error("Measure Population value #{msrpopl} is greater than Initial Population value #{ipp} for  " \
                   "measure #{measure}", '/', location: '/', file_name: file)
       end
       return unless observ > msrpopl
 
-      add_error("Measure observvations value #{observ} cannot be greater than Measure Population value #{msrpopl}"\
-                " for measure #{measure}", '/', location: '/', file_name: file)
+      add_error("Measure observvations value #{observ} cannot be greater than Measure Population value #{msrpopl} " \
+                "for measure #{measure}", '/', location: '/', file_name: file)
     end
 
     def measure_entry_selector
@@ -158,8 +158,8 @@ module Validators
     end
 
     def population_count_selector
-      "cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.3']"\
-        " and ./cda:code[@code='MSRAGG'] and ./cda:methodCode[@code='COUNT']]/cda:value/@value"
+      "cda:entryRelationship/cda:observation[./cda:templateId[@root='2.16.840.1.113883.10.20.27.3.3'] " \
+        "and ./cda:code[@code='MSRAGG'] and ./cda:methodCode[@code='COUNT']]/cda:value/@value"
     end
   end
 end

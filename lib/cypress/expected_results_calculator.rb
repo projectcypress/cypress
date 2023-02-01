@@ -91,7 +91,6 @@ module Cypress
     # these aggregate totals will be added to the appropriate measure/popuation in the @measure_result_hash
     # rubocop:disable Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/MethodLength
-    # rubocop:disable Metrics/PerceivedComplexity
     def calculate_observation(observation_hash, measure, population_set_key)
       key = population_set_key
       return unless observation_hash[key]
@@ -115,7 +114,7 @@ module Cypress
           @measure_result_hash[measure.hqmf_id][key]['observations'][population] = { value: count(observation_map[:values].map(&:value)),
                                                                                      method: 'COUNT', hqmf_id: observation.hqmf_id }
         when 'MEDIAN'
-          median_value = median(observation_map[:values].map(&:value).reject(&:nil?))
+          median_value = median(observation_map[:values].map(&:value).compact)
           @measure_result_hash[measure.hqmf_id][key]['observations'][population] = { method: 'MEDIAN', hqmf_id: observation.hqmf_id,
                                                                                      value: median_value }
         when 'SUM'
@@ -127,10 +126,9 @@ module Cypress
         end
       end
     end
+
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/MethodLength
-    # rubocop:enable Metrics/PerceivedComplexity
-
     def increment_sup_info(patient_sup, pop, single_measure_result_hash)
       # If supplemental_data for a population does not already exist, create a new hash
       unless single_measure_result_hash['supplemental_data'][pop]

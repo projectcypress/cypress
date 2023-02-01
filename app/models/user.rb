@@ -3,8 +3,9 @@
 class User
   include Mongoid::Document
   rolify
+
   # Include default devise modules. Others available are:
-  # :confirmable and :omniauthable
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
          :validatable, :timeoutable, :lockable, :invitable,

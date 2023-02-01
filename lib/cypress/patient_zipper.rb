@@ -47,7 +47,7 @@ module Cypress
                   patient_telecoms: patient.telecoms,
                   medicare_beneficiary_identifier: patient.medicare_beneficiary_identifier,
                   submission_program: cat1_submission_program,
-                  start_time: start_time, end_time: end_time }
+                  start_time:, end_time: }
       if patient.bundle.major_version.to_i > 2021
         Qrda1R5.new(patient, measures, options).render
       else
@@ -77,7 +77,7 @@ module Cypress
           sf_patient = patient.clone
           sf_patient.id = patient.id
           # CMS529 requires that entries point to the ecounters that they are related to
-          sf_patient.add_encounter_ids_to_events unless (measures.map(&:hqmf_id) & APP_CONSTANTS['result_measures'].map(&:hqmf_id)).empty?
+          sf_patient.add_encounter_ids_to_events if measures.map(&:hqmf_id).intersect?(APP_CONSTANTS['result_measures'].map(&:hqmf_id))
           patient_scoop_and_filter.scoop_and_filter(sf_patient)
           z.put_next_entry("#{next_entry_path(patient, i)}.#{FORMAT_EXTENSIONS[format.to_sym]}")
           z << formatter.export(sf_patient)

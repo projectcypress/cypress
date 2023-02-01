@@ -89,6 +89,7 @@ module Cypress
       # If we need to clone a patient for any other reason then we will need to paramaterize
       # the type coming into this class.
       cloned_patient = ProductTestPatient.new(patient.attributes.except('_id', '_type', 'providers'))
+      cloned_patient.qdmPatient = patient.qdmPatient.clone
       cloned_patient.attributes = {
         original_medical_record_number: patient.medical_record_number,
         original_patient_id: patient.id,
@@ -98,7 +99,7 @@ module Cypress
       cloned_patient.medical_record_number = next_medical_record_number unless options['disable_randomization']
       @test.reload
       DemographicsRandomizer.assign_default_demographics(cloned_patient)
-      DemographicsRandomizer.randomize(cloned_patient, prng, @test.patients, allow_dups: allow_dups) if options['randomize_demographics']
+      DemographicsRandomizer.randomize(cloned_patient, prng, @test.patients, allow_dups:) if options['randomize_demographics']
       # work around to replace 'Other' race codes in Cypress bundle. Pass in static seed for consistent results.
       DemographicsRandomizer.randomize_race(cloned_patient, Random.new(0)) if cloned_patient.race == '2131-1'
       DemographicsRandomizer.update_demographic_codes(cloned_patient)
@@ -131,7 +132,7 @@ module Cypress
           # if the vendor has a preference, loop through in order
           vendor_preference.each do |vp|
             # find data element codes that match the preference
-            pc = entry.dataElementCodes.map { |dec| dec if dec['system'] == vp }.compact
+            pc = entry.dataElementCodes.select { |dec| dec['system'] == vp }
             # if none found, look for the next one
             next if pc.blank?
 
