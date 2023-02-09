@@ -23,6 +23,6 @@ class MeasuresController < ApplicationController
       Measure.any_of({ title: /#{@filter}/i }, cms_id: /#{@filter}/i).selector
     ).only(:hqmf_id, :category, :reporting_program_type)
     @measures_categories = @measures.group_by(&:category)
-    render partial: 'products/measure_selection.json'
+    render partial: 'products/measure_selection', formats: :json, handlers: :jbuilder
   end
 end

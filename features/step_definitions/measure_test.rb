@@ -21,10 +21,10 @@ When(/^the user creates a product with records with tasks (.*)$/) do |tasks|
   measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
   bundle_id = Bundle.default._id
   tasks = tasks.split(', ')
-  @product = Product.new(vendor: @vendor, name: 'Product 1', measure_ids: measure_ids, c1_test: tasks.include?('c1'),
-                         c2_test: tasks.include?('c2'), c3_test: tasks.include?('c3'), c4_test: tasks.include?('c4'), bundle_id: bundle_id)
+  @product = Product.new(vendor: @vendor, name: 'Product 1', measure_ids:, c1_test: tasks.include?('c1'),
+                         c2_test: tasks.include?('c2'), c3_test: tasks.include?('c3'), c4_test: tasks.include?('c4'), bundle_id:)
   @product.save!
-  @product_test = @product.product_tests.create!({ name: @measure.description, measure_ids: measure_ids, cms_id: @measure.cms_id }, MeasureTest)
+  @product_test = @product.product_tests.create!({ name: @measure.description, measure_ids:, cms_id: @measure.cms_id }, MeasureTest)
 
   @product_test.generate_patients
   MeasureEvaluationJob.perform_now(@product_test, {})
@@ -35,9 +35,9 @@ When(/^the user creates a product with tasks (.*)$/) do |tasks|
   measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
   bundle_id = Bundle.default._id
   tasks = tasks.split(', ')
-  @product = Product.create(vendor: @vendor, name: 'Product 1', measure_ids: measure_ids, c1_test: tasks.include?('c1'),
-                            c2_test: tasks.include?('c2'), c3_test: tasks.include?('c3'), c4_test: tasks.include?('c4'), bundle_id: bundle_id)
-  @product_test = @product.product_tests.create!({ name: @measure.description, measure_ids: measure_ids, cms_id: @measure.cms_id }, MeasureTest)
+  @product = Product.create(vendor: @vendor, name: 'Product 1', measure_ids:, c1_test: tasks.include?('c1'),
+                            c2_test: tasks.include?('c2'), c3_test: tasks.include?('c3'), c4_test: tasks.include?('c4'), bundle_id:)
+  @product_test = @product.product_tests.create!({ name: @measure.description, measure_ids:, cms_id: @measure.cms_id }, MeasureTest)
 
   provider = @product_test.provider
   ProductTestPatient.create!(providers: [provider], correlation_id: @product_test.id.to_s)

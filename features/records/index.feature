@@ -19,8 +19,10 @@ Scenario: View Master Patient List Page, Single Bundle
   And there is only 1 bundle installed
   Then the user should see a list of patients
   And the user should see a way to filter patients
+  And the driver is setup for accessability testing
   Then the page should be axe clean according to: section508
   Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default
 
 Scenario: Download MPL from Master Patient List Page
   When the user visits the records page
@@ -65,8 +67,10 @@ Scenario: View Vendor Patient List Analyize Page
   And the user should see a way to analyize patients
   And the user views patient analytics
   And the user should see patient analytics
+  And the driver is setup for accessability testing
   Then the page should be axe clean according to: section508
   Then the page should be axe clean according to: wcag2aa; skipping: color-contrast
+  And the driver is returned to the default
 
 Scenario: Successful switch bundles for vendor patients
   When the user visits the vendor records page
@@ -84,8 +88,10 @@ Scenario: View Vendor Patient Page
   Given a vendor patient has measure_calculations
   When the user visits the vendor patient link
   Then the user should see vendor patient details
+  And the driver is setup for accessability testing
   Then the page should be axe clean according to: section508
   Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default
 
 Scenario: Scoop and Filter Vendor Patient Page
   Given a vendor patient has measure_calculations

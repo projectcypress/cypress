@@ -144,8 +144,8 @@ class HTMLTest < ActiveSupport::TestCase
     VCR.use_cassette('mini_bundle_download') do
       bundle_resource = RestClient::Request.execute(method: :get,
                                                     url: 'https://cypress.healthit.gov/measure_bundles/mini-fixture-bundle-2020.0.3.zip',
-                                                    user: ENV['VSAC_USERNAME'],
-                                                    password: ENV['VSAC_PASSWORD'],
+                                                    user: ENV.fetch('VSAC_USERNAME', nil),
+                                                    password: ENV.fetch('VSAC_PASSWORD', nil),
                                                     raw_response: true,
                                                     headers: { accept: :zip })
 

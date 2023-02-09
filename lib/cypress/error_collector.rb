@@ -59,10 +59,10 @@ module Cypress
 
       error_map, error_attributes = match_xml_locations_to_error_ids(doc, file_errors)
       {
-        doc: doc,
+        doc:,
         execution_errors: file_errors,
-        error_map: error_map,
-        error_attributes: error_attributes
+        error_map:,
+        error_attributes:
       }
     end
 

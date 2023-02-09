@@ -54,21 +54,21 @@ module ChecklistTestsHelper
   end
 
   def lookup_valueset_name(oid)
-    vs = ValueSet.where(oid: oid)
+    vs = ValueSet.where(oid:)
     return oid unless vs&.first
 
     vs.first.display_name
   end
 
   def lookup_valueset_long_name(oid)
-    vs = ValueSet.where(oid: oid)
+    vs = ValueSet.where(oid:)
     return oid unless vs&.first
 
     [vs.first.display_name, oid]
   end
 
   def lookup_codevalues(oid, bundle = nil)
-    filter = { oid: oid }
+    filter = { oid: }
     filter.store(:bundle_id, bundle) unless bundle.nil?
     vs = ValueSet.where(filter)
 

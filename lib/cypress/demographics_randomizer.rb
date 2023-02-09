@@ -7,7 +7,7 @@ module Cypress
   # demographics, call Cypress::DemographicsRandomizer.randomize(record)
   class DemographicsRandomizer
     def self.randomize(patient, prng, patients = [], allow_dups: false)
-      randomize_name(patient, prng, patients, allow_dups: allow_dups)
+      randomize_name(patient, prng, patients, allow_dups:)
       randomize_race(patient, prng)
       randomize_ethnicity(patient, prng)
       randomize_address(patient)
@@ -95,8 +95,8 @@ module Cypress
         use: 'HP',
         street: ["#{Faker::Address.street_address} #{Faker::Address.street_suffix}"],
         city: Faker::Address.city,
-        state: state,
-        zip: Faker::Address.zip(state),
+        state:,
+        zip: Faker::Address.zip_code(state_abbreviation: state),
         country: 'US'
       )
       [address]

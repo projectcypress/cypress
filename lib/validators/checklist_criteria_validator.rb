@@ -67,7 +67,7 @@ module Validators
 
     # if the oid is for a direct reference code, return the code.  if the oid is for a valueset, return the oid
     def drc_or_valueset_oid(oid)
-      oid[0, 3] == 'drc' ? ValueSet.where(oid: oid).first.concepts.first.code : oid
+      oid[0, 3] == 'drc' ? ValueSet.where(oid:).first.concepts.first.code : oid
     end
 
     # This method will return true if the specified attribute has a stored value

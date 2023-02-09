@@ -27,7 +27,7 @@ module Job
 
     class_methods do
       def tracker_for_job(job_id)
-        Tracker.where(job_id: job_id, job_class: to_s)
+        Tracker.where(job_id:, job_class: to_s)
       end
 
       def trackers

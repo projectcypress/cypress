@@ -75,7 +75,7 @@ class TestExecutionsController < ApplicationController
     add_breadcrumb "File Results: #{route_file_name(params[:file_name])}"
     @file_name, @error_result = file_name_and_error_result_from_execution(@test_execution)
     @patient = Patient.where(correlation_id: @test_execution.id, file_name: @file_name).first
-    @individual_results = @patient.nil? ? nil : @patient.calculation_results
+    @individual_results = @patient&.calculation_results
   end
 
   private

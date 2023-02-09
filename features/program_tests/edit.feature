@@ -15,6 +15,7 @@ Scenario: Successfully Upload QRDA III for a Program Test and Views Results
   And the user views CPCPLUS program task
   And the user fills out the program test with good data
   And the user uploads a Cat III file and waits for results
+#  TODO: Why do you fail for undefined method `escape' for URI:Module
   And the user should be able to click view results
   Then the user should see errors and warnings
 
@@ -31,6 +32,7 @@ Scenario: Successfully Upload QRDA I for a Program Test and Views Results
   And the user views HQR_PI program task
   And the user fills out the program test with good data
   And the user uploads a Cat I file and waits for results
+#  TODO: Why do you fail for undefined method `escape' for URI:Module
   And the user should be able to click view results
   Then the user should see errors and warnings
   Then the user should see measure calculations

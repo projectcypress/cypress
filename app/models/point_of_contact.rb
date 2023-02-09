@@ -20,7 +20,7 @@ class PointOfContact
   before_destroy :remove_vendor_role
 
   def user
-    User.find_by(email: email) if email
+    User.find_by(email:) if email
   rescue StandardError
     # do nothing
   end

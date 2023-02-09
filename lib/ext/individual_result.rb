@@ -90,7 +90,7 @@ module CQM
 
       return unless calculated_er != expected_er
 
-      issues << "Calculated observations (#{calculated_er}) do not match "\
+      issues << "Calculated observations (#{calculated_er}) do not match " \
                 "expected observations (#{expected_er})"
     end
 
@@ -132,7 +132,7 @@ module CQM
           next if observation_statements.uniq.size == 1 && index != popset_index
 
           # add the observation to the hash
-          observation_hash[key][obs_pop][:values] << { episode_index: episode_index, value: observation }
+          observation_hash[key][obs_pop][:values] << { episode_index:, value: observation }
           observation_hash[key][obs_pop][:statement_name] = observation_statements[index]
         end
       end

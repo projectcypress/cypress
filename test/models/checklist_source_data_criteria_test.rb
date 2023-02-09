@@ -7,10 +7,10 @@ class ChecklistSourceDataCriteriaTest < ActiveJob::TestCase
     @vendor = FactoryBot.create(:vendor)
     @bundle = FactoryBot.create(:static_bundle)
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
-    @product = @vendor.products.build(name: "my product #{rand}", measure_ids: measure_ids, bundle_id: @bundle._id)
+    @product = @vendor.products.build(name: "my product #{rand}", measure_ids:, bundle_id: @bundle._id)
     @product.c1_test = true
     @product.save!
-    @test = @product.product_tests.create!({ name: "my checklist test #{rand}", measure_ids: measure_ids }, ChecklistTest)
+    @test = @product.product_tests.create!({ name: "my checklist test #{rand}", measure_ids: }, ChecklistTest)
     @test.create_checked_criteria
     @test.tasks.create!({}, C1ChecklistTask)
   end

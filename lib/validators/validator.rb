@@ -15,7 +15,7 @@ module Validators
     end
 
     def add_issue(msg, msg_type, options = {})
-      attributes = { message: msg, msg_type: msg_type, validator: self.class.to_s, validator_type: self.class.validator_type }.merge(options)
+      attributes = { message: msg, msg_type:, validator: self.class.to_s, validator_type: self.class.validator_type }.merge(options)
       @errors ||= []
       @errors << ::ExecutionError.new(attributes)
     end

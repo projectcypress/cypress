@@ -144,14 +144,14 @@ module ProductsHelper
   end
 
   def title_description_and_html_id_for(product, test_type, is_qrda_1_measure_test: true)
-    title = title_for(product, test_type, is_qrda_1_measure_test: is_qrda_1_measure_test)
-    description = description_for(product, test_type, is_qrda_1_measure_test: is_qrda_1_measure_test)
-    html_id = html_id_for_tab(product, test_type, is_qrda_1_measure_test: is_qrda_1_measure_test)
+    title = title_for(product, test_type, is_qrda_1_measure_test:)
+    description = description_for(product, test_type, is_qrda_1_measure_test:)
+    html_id = html_id_for_tab(product, test_type, is_qrda_1_measure_test:)
     [title, description, html_id]
   end
 
   def html_id_for_tab(product, test_type, is_qrda_1_measure_test: true)
-    title_for(product, test_type, is_qrda_1_measure_test: is_qrda_1_measure_test).tr(' ', '_').tr('(', '_').tr(')', '_').tr('+', '_').underscore
+    title_for(product, test_type, is_qrda_1_measure_test:).tr(' ', '_').tr('(', '_').tr(')', '_').tr('+', '_').underscore
   end
 
   # input test_type should only be 'ChecklistTest', 'MeasureTest', or 'FilteringTest'
@@ -161,7 +161,7 @@ module ProductsHelper
     when 'ChecklistTest'
       product.c3_test && product.eh_tests? ? 'C1 + C3 Sample' : 'C1 Sample'
     when 'MeasureTest'
-      measure_test_title(product, is_qrda_1_measure_test: is_qrda_1_measure_test)
+      measure_test_title(product, is_qrda_1_measure_test:)
     when 'FilteringTest'
       'C4 (QRDA-I and QRDA-III)'
     when 'MultiMeasureTest'

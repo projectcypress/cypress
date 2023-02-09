@@ -48,7 +48,7 @@ class CMSProgramTest < ProductTest
             else
               "#{crit.criterion_name} not complete"
             end
-      execution.execution_errors.build(message: msg, msg_type: msg_type, validator: 'Validators::ProgramCriteriaValidator')
+      execution.execution_errors.build(message: msg, msg_type:, validator: 'Validators::ProgramCriteriaValidator')
     end
   end
 end

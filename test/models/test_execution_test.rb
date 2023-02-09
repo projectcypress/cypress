@@ -49,8 +49,8 @@ class TestExecutionTest < ActiveSupport::TestCase
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     vendor = Vendor.new(name: "my vendor #{rand}")
     vendor.save!
-    product = vendor.products.create!(name: "my product #{rand}", measure_ids: measure_ids, bundle_id: @bundle.id, c1_test: true)
-    test = product.product_tests.create!({ name: "my checklist test #{rand}", measure_ids: measure_ids }, ChecklistTest)
+    product = vendor.products.create!(name: "my product #{rand}", measure_ids:, bundle_id: @bundle.id, c1_test: true)
+    test = product.product_tests.create!({ name: "my checklist test #{rand}", measure_ids: }, ChecklistTest)
     test.create_checked_criteria
     task = test.tasks.create!({}, C1ChecklistTask)
     execution = task.test_executions.build
@@ -59,7 +59,7 @@ class TestExecutionTest < ActiveSupport::TestCase
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'c1_checklist_incorrect_codes.zip'))
     execution.artifact = Artifact.new(file: zip)
 
-    execution.validate_artifact(task.validators, execution.artifact, task: task)
+    execution.validate_artifact(task.validators, execution.artifact, task:)
     num_failed_criteria = test.checked_criteria.reject(&:passed_qrda).count
     assert_equal num_failed_criteria, execution.execution_errors.select { |err| err.validator == 'qrda_cat1' }.count
     assert_equal execution.tracker.log_message[0], '1 of 1 files validated'
@@ -69,18 +69,18 @@ class TestExecutionTest < ActiveSupport::TestCase
     user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     vendor = Vendor.create!(name: "my vendor #{rand}")
-    product = vendor.products.create!(name: "my product #{rand}", measure_ids: measure_ids, bundle_id: @bundle.id, c1_test: true,
+    product = vendor.products.create!(name: "my product #{rand}", measure_ids:, bundle_id: @bundle.id, c1_test: true,
                                       c3_test: true)
-    test = product.product_tests.create({ name: "measure test for measure #{measure_ids.first}", measure_ids: measure_ids }, MeasureTest)
+    test = product.product_tests.create({ name: "measure test for measure #{measure_ids.first}", measure_ids: }, MeasureTest)
     c1_task = test.tasks.create({}, C1Task)
     c3_task = test.tasks.create({}, C3Cat1Task)
-    c1_execution = c1_task.test_executions.create(state: :pending, user: user)
+    c1_execution = c1_task.test_executions.create(state: :pending, user:)
     assert_equal true, c1_execution.executions_pending?
 
     c1_execution.update(state: :passed)
     assert_equal false, c1_execution.executions_pending?
 
-    c3_execution = c3_task.test_executions.create(state: :pending, sibling_execution_id: c1_execution.id, user: user)
+    c3_execution = c3_task.test_executions.create(state: :pending, sibling_execution_id: c1_execution.id, user:)
     c1_execution.sibling_execution_id = c3_execution.id
     assert_equal true, c1_execution.executions_pending?
 

@@ -75,7 +75,7 @@ class ProductsHelperTest < ActiveJob::TestCase
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     vendor = @product.vendor
     vendor.products.each(&:destroy)
-    product = vendor.products.create!(name: "my product test #{rand}", c1_test: true, measure_ids: measure_ids, bundle_id: @bundle.id)
+    product = vendor.products.create!(name: "my product test #{rand}", c1_test: true, measure_ids:, bundle_id: @bundle.id)
     product.measure_ids.each do |measure_id|
       product.product_tests.build({ name: "my measure test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
       product.save!
@@ -110,7 +110,7 @@ class ProductsHelperTest < ActiveJob::TestCase
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     vendor = @product.vendor
     vendor.products.each(&:destroy)
-    product = vendor.products.create!(name: "my product test #{rand}", c1_test: true, measure_ids: measure_ids, bundle_id: @bundle.id)
+    product = vendor.products.create!(name: "my product test #{rand}", c1_test: true, measure_ids:, bundle_id: @bundle.id)
 
     # no message since c3_test is not true
     assert_equal '', perform_c3_certification_during_measure_test_message(product, 'MeasureTest')
@@ -141,26 +141,26 @@ class ProductsHelperTest < ActiveJob::TestCase
     product = Product.new
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     # product test not ready
-    pt = ProductTest.new(state: :not_ready, name: 'my product test name 1', measure_ids: measure_ids, product: product)
+    pt = ProductTest.new(state: :not_ready, name: 'my product test name 1', measure_ids:, product:)
     task = pt.tasks.build
     pt.save!
     task.save!
     assert_equal true, should_reload_product_test_link?(tasks_status([task]), pt)
 
     # product test is ready, task is pending
-    pt = ProductTest.new(state: :ready, name: 'my product test name 2', measure_ids: measure_ids, product: product)
+    pt = ProductTest.new(state: :ready, name: 'my product test name 2', measure_ids:, product:)
     tasks = build_tasks_with_test_execution_states([:pending], pt)
     pt.save!
     assert_equal true, should_reload_product_test_link?(tasks_status(tasks), pt)
 
     # product test is ready, task is completed execution and is in a passing state
-    pt = ProductTest.new(state: :ready, name: 'my product test name 3', measure_ids: measure_ids, product: product)
+    pt = ProductTest.new(state: :ready, name: 'my product test name 3', measure_ids:, product:)
     tasks = build_tasks_with_test_execution_states([:passed], pt)
     pt.save!
     assert_equal false, should_reload_product_test_link?(tasks_status(tasks), pt)
 
     # product test is ready, one task not pending while other task is pending
-    pt = ProductTest.new(state: :ready, name: 'my product test name 4', measure_ids: measure_ids, product: product)
+    pt = ProductTest.new(state: :ready, name: 'my product test name 4', measure_ids:, product:)
     tasks = build_tasks_with_test_execution_states(%i[passed pending], pt)
     pt.save!
     assert_equal true, should_reload_product_test_link?(tasks_status(tasks), pt)
@@ -169,8 +169,8 @@ class ProductsHelperTest < ActiveJob::TestCase
   def setup_product_test_and_task_for_should_reload_measure_test_row_test
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     vendor = Vendor.create!(name: "my vendor #{rand}")
-    product = vendor.products.create!(name: "my product #{rand}", measure_ids: measure_ids, bundle_id: @bundle.id, c1_test: true)
-    product_test = product.product_tests.create!(state: :pending, name: "my product test #{rand}", measure_ids: measure_ids)
+    product = vendor.products.create!(name: "my product #{rand}", measure_ids:, bundle_id: @bundle.id, c1_test: true)
+    product_test = product.product_tests.create!(state: :pending, name: "my product test #{rand}", measure_ids:)
     task = product_test.tasks.create!
     [product_test, task]
   end
@@ -254,13 +254,13 @@ class ProductsHelperTest < ActiveJob::TestCase
       product = Product.new
       measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
       # product test is ready, task is pending
-      product_test = ProductTest.new(state: :ready, name: 'my product test name 2', measure_ids: measure_ids, product: product)
+      product_test = ProductTest.new(state: :ready, name: 'my product test name 2', measure_ids:, product:)
     end
     states.each do |state|
       task = Task.new
       task.product_test = product_test
       task.save!
-      task.test_executions.create!(state: state, user: @user)
+      task.test_executions.create!(state:, user: @user)
       tasks << task
     end
     tasks
@@ -269,9 +269,9 @@ class ProductsHelperTest < ActiveJob::TestCase
   def test_with_c3_task
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     product = Product.new(vendor: @vendor.id, name: 'my product', c1_test: true, c2_test: true, bundle_id: @bundle.id,
-                          measure_ids: measure_ids)
+                          measure_ids:)
     product.save!
-    pt = ProductTest.new(name: 'my product test name 1', measure_ids: measure_ids, product: product)
+    pt = ProductTest.new(name: 'my product test name 1', measure_ids:, product:)
     pt.save!
     c1_task = pt.tasks.build({}, C1Task)
     c2_task = pt.tasks.build({}, C2Task)

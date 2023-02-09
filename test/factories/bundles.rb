@@ -30,13 +30,13 @@ FactoryBot.define do
 
         # Include 40 valuesets
         40.times do |count|
-          create(:value_set, seq_id: count, bundle: bundle)
+          create(:value_set, seq_id: count, bundle:)
         end
-        create(:value_set_payer, bundle: bundle)
-        create(:direct_reference_code_birth_date, bundle: bundle)
-        create(:direct_reference_code_dead, bundle: bundle)
-        create(:direct_reference_code_discharge_hospice, bundle: bundle)
-        create(:direct_reference_code_discharge_home_hospice, bundle: bundle)
+        create(:value_set_payer, bundle:)
+        create(:direct_reference_code_birth_date, bundle:)
+        create(:direct_reference_code_dead, bundle:)
+        create(:direct_reference_code_discharge_hospice, bundle:)
+        create(:direct_reference_code_discharge_home_hospice, bundle:)
 
         # Always include a complete measure (BE65090C-EB1F-11E7-8C3F-9A214CF093AE)
         create(:static_measure, bundle_id: bundle._id)
@@ -87,9 +87,9 @@ FactoryBot.define do
 
         # Include 40 valuesets
         40.times do |count|
-          create(:value_set, seq_id: count, bundle: bundle)
+          create(:value_set, seq_id: count, bundle:)
         end
-        create(:value_set_payer, bundle: bundle)
+        create(:value_set_payer, bundle:)
 
         # Always include a complete measure (BE65090C-EB1F-11E7-8C3F-9A214CF093AE)
         create(:static_measure, bundle_id: bundle._id)

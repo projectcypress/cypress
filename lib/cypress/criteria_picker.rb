@@ -47,14 +47,14 @@ module Cypress
       { oid: [problem_oid] }
     end
 
-    def self.lookup_problem(measures, records, prng)
+    def self.lookup_problem(measures, records, _prng)
       measure = measures.first
       code_list_id = fallback_id = ''
       # determine which data criteira are diagnoses, and make sure we choose one that one of our records has
       # if we can't find one that matches a record, just use any diagnosis (fallback)
 
       # randomize before iterating
-      measure.source_data_criteria.shuffle(random: prng).each do |criteria|
+      measure.source_data_criteria.shuffle.each do |criteria|
         # find diagnosis criteria in measure
         next unless criteria._type.eql? 'QDM::Diagnosis'
 

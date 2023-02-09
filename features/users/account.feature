@@ -8,6 +8,7 @@ Scenario: User wants to edit account information
   Then the user should see an edit account page
 
 Scenario: Successful Logout
+#  TODO: Why do you fail for undefined method `escape' for URI:Module
   When the user logs out
   Then the user should be signed out
 

@@ -12,7 +12,7 @@ class IndividualResultTest < ActiveSupport::TestCase
   def test_individual_result_relevant_to_measure_true_statement_result
     statement_results = [{ 'final' => 'TRUE',
                            'statement_name' => 'Previously on ADHD Medication' }]
-    individual_result = CQM::IndividualResult.new(IPP: 0, measure: @measure, patient: @patient, statement_results: statement_results)
+    individual_result = CQM::IndividualResult.new(IPP: 0, measure: @measure, patient: @patient, statement_results:)
     @measure.hqmf_id = '2C928082-7B1B-AB09-017B-28E8655E02F2'
     assert @measure.individual_result_relevant_to_measure(individual_result)
   end
@@ -20,7 +20,7 @@ class IndividualResultTest < ActiveSupport::TestCase
   def test_individual_result_relevant_to_measure_false_statement_result
     statement_results = [{ 'final' => 'FALSE',
                            'statement_name' => 'Previously on ADHD Medication' }]
-    individual_result = CQM::IndividualResult.new(IPP: 0, measure: @measure, patient: @patient, statement_results: statement_results)
+    individual_result = CQM::IndividualResult.new(IPP: 0, measure: @measure, patient: @patient, statement_results:)
     @measure.hqmf_id = '2C928082-7B1B-AB09-017B-28E8655E02F2'
     assert_not @measure.individual_result_relevant_to_measure(individual_result)
   end
@@ -54,7 +54,7 @@ class IndividualResultTest < ActiveSupport::TestCase
                                'statement_name' => 'Results' }]
     options = { population_set: { populations: { 'IPP' => { hqmf_id: 'HHH' } } } }
     calculated = { 'IPP' => 1, 'statement_results' => bad_statement_results }
-    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results: statement_results)
+    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results:)
     _passed, issues = individual_result.compare_results(calculated, options, false)
     assert issues.include? 'firstHR of [50 /min] does not match [60 /min]'
   end
@@ -72,7 +72,7 @@ class IndividualResultTest < ActiveSupport::TestCase
                                'statement_name' => 'Results' }]
     options = { population_set: { populations: { 'IPP' => { hqmf_id: 'HHH' } } } }
     calculated = { 'IPP' => 1, 'statement_results' => bad_statement_results }
-    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results: statement_results)
+    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results:)
     _passed, issues = individual_result.compare_results(calculated, options, false)
     assert issues.include? 'firstHR not expected'
   end
@@ -90,7 +90,7 @@ class IndividualResultTest < ActiveSupport::TestCase
                                'statement_name' => 'Results' }]
     options = { population_set: { populations: { 'IPP' => { hqmf_id: 'HHH' } } } }
     calculated = { 'IPP' => 1, 'statement_results' => bad_statement_results }
-    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results: statement_results)
+    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results:)
     _passed, issues = individual_result.compare_results(calculated, options, false)
     assert issues.include? 'firstHR of [50 /min] is missing'
   end
@@ -110,7 +110,7 @@ class IndividualResultTest < ActiveSupport::TestCase
                                'statement_name' => 'Results' }]
     options = { population_set: { populations: { 'IPP' => { hqmf_id: 'HHH' } } } }
     calculated = { 'IPP' => 1, 'statement_results' => bad_statement_results }
-    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results: statement_results)
+    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results:)
     _passed, issues = individual_result.compare_results(calculated, options, false)
     assert issues.empty?
   end
@@ -130,7 +130,7 @@ class IndividualResultTest < ActiveSupport::TestCase
                                'statement_name' => 'Results' }]
     options = { population_set: { populations: { 'IPP' => { hqmf_id: 'HHH' } } } }
     calculated = { 'IPP' => 1, 'statement_results' => bad_statement_results }
-    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results: statement_results)
+    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results:)
     _passed, issues = individual_result.compare_results(calculated, options, false)
     assert issues.empty?
   end
@@ -150,7 +150,7 @@ class IndividualResultTest < ActiveSupport::TestCase
                                'statement_name' => 'Results' }]
     options = { population_set: { populations: { 'IPP' => { hqmf_id: 'HHH' } } } }
     calculated = { 'IPP' => 1, 'statement_results' => bad_statement_results }
-    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results: statement_results)
+    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results:)
     _passed, issues = individual_result.compare_results(calculated, options, false)
     assert issues.include? 'firstHR of [50 /min, 50 /min] does not match [40 /min, 50 /min]'
   end
@@ -169,7 +169,7 @@ class IndividualResultTest < ActiveSupport::TestCase
                                'statement_name' => 'Results' }]
     options = { population_set: { populations: { 'IPP' => { hqmf_id: 'HHH' } } } }
     calculated = { 'IPP' => 1, 'statement_results' => bad_statement_results }
-    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results: statement_results)
+    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results:)
     _passed, issues = individual_result.compare_results(calculated, options, false)
     assert issues.include? 'firstHR of [50 /min, 50 /min] does not match [50 /min]'
   end
@@ -191,7 +191,7 @@ class IndividualResultTest < ActiveSupport::TestCase
                                'statement_name' => 'Risk Variable Asthma' }]
     options = { population_set: { populations: { 'IPP' => { hqmf_id: 'HHH' } } } }
     calculated = { 'IPP' => 1, 'statement_results' => bad_statement_results }
-    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results: statement_results)
+    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results:)
     _passed, issues = individual_result.compare_results(calculated, options, false)
     assert issues.include? 'Risk Variable Anemia - Not Found in File'
   end
@@ -212,7 +212,7 @@ class IndividualResultTest < ActiveSupport::TestCase
                                 'FirstResult' => { 'value' => 65, 'unit' => '/min' },
                                 'Timing' => '2021-06-15T05:00:00.000+00:00' }] },
                            'statement_name' => 'Risk Variable Anemia' }]
-    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results: statement_results)
+    individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results:)
     collected_risk_variables = individual_result.collect_risk_variables
     assert collected_risk_variables['Risk Variable Asthma'][:values]['627562c2c1c388f89d2ab681']
     assert collected_risk_variables['Risk Variable Anemia'][:values]['627562f5c1c388f89d2ac2f9']

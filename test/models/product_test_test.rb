@@ -53,7 +53,7 @@ class ProductTestTest < ActiveJob::TestCase
     # setup product
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     @product.update(c1_test: true, c2_test: true, c3_test: true, c4_test: true, randomize_patients: true,
-                    duplicate_patients: true, allow_duplicate_names: true, measure_ids: measure_ids)
+                    duplicate_patients: true, allow_duplicate_names: true, measure_ids:)
 
     test1 = {}
     test2 = {}
@@ -77,11 +77,11 @@ class ProductTestTest < ActiveJob::TestCase
     # setup product
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     @product.update(c1_test: true, c2_test: true, c3_test: true, c4_test: true, randomize_patients: true,
-                    duplicate_patients: true, allow_duplicate_names: true, measure_ids: measure_ids)
+                    duplicate_patients: true, allow_duplicate_names: true, measure_ids:)
     vendor2 = FactoryBot.create(:vendor)
     vendor2.preferred_ccn = '123456'
     product2 = vendor2.products.create(name: 'test_product', c2_test: true, randomize_patients: true,
-                                       bundle_id: @bundle.id, measure_ids: measure_ids)
+                                       bundle_id: @bundle.id, measure_ids:)
 
     test1 = {}
     test2 = {}
@@ -157,7 +157,7 @@ class ProductTestTest < ActiveJob::TestCase
   def create_test_executions_with_state(product_test, state)
     user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     product_test.tasks.each do |task|
-      task.test_executions.create(state: state, user: user)
+      task.test_executions.create(state:, user:)
     end
   end
 end

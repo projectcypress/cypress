@@ -166,9 +166,9 @@ class RecordsController < ApplicationController
           label_str += ": #{m.title}"
 
           val = if @vendor
-                  by_measure_vendor_records_path(@vendor, measure_id: m.hqmf_id, bundle_id: @bundle.id, pop_set_key: pop_set_key)
+                  by_measure_vendor_records_path(@vendor, measure_id: m.hqmf_id, bundle_id: @bundle.id, pop_set_key:)
                 else
-                  by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id, pop_set_key: pop_set_key)
+                  by_measure_bundle_records_path(@bundle, measure_id: m.hqmf_id, pop_set_key:)
                 end
 
           { label: label_str, value: val }

@@ -25,8 +25,9 @@ class Vendor
   field :favorite_user_ids, type: Array, default: []
   field :vendor_patient_analysis, type: Hash, default: {}
 
-  validates :name, presence: true, uniqueness: { message: 'Vendor name was already taken. Please choose another.' }
-  validates :url, url: { allow_blank: true }
+  validates :name, presence: { allow_blank: false, message: "can't be blank" },
+                   uniqueness: { message: 'Vendor name was already taken. Please choose another.' }
+  validates :url, url: { allow_blank: true, message: 'is not a valid URL' }
 
   def self.accessible_by(user)
     # if admin or atl or ignore_roles get them all
