@@ -35,9 +35,10 @@ module Validators
     # rubocop:enable Metrics/AbcSize
 
     def validate_calculated_results(doc, options)
-      mrn, = get_record_identifiers(doc, options)
+      mrn, _doc_name, _aug_rec, telecoms = get_record_identifiers(doc, options)
       return false unless mrn
 
+      validate_telecoms(mrn, telecoms, options)
       record = parse_record(doc, options)
       record.normalize_date_times
       return false unless record
@@ -56,6 +57,20 @@ module Validators
                                                cec_options)
       results = calc_job.execute(save: false)
       determine_passed(mrn, results, record, options)
+    end
+
+    def validate_telecoms(mrn, telecoms, options)
+      original_patient = Patient.find(mrn)
+      original_patient.telecoms.each do |telecom|
+        expected_phone = TelephoneNumber.parse(telecom.value, :us).e164_number
+        next if telecoms[:phone_list].any? { |tel| tel == expected_phone }
+
+        add_error("Phone number #{telecom.value} could not be found in file.", file_name: options[:file_name])
+      end
+      return unless original_patient.email
+      return if telecoms[:email_list].include? original_patient.email
+
+      add_error("Email #{original_patient.email} could not be found in file.", file_name: options[:file_name])
     end
 
     def determine_passed(mrn, results, record, options)

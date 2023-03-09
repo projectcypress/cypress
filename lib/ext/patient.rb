@@ -10,6 +10,7 @@ module CQM
     field :original_medical_record_number, type: String
     field :medical_record_number, type: String
     field :medicare_beneficiary_identifier, type: String, default: nil
+    field :email, type: String, default: nil
     field :measure_relevance_hash, type: Hash, default: {}
     field :code_description_hash, type: Hash, default: {} # may contain extra code descriptions for original codes
     field :reported_measure_hqmf_ids, type: Array, default: []

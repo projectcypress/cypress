@@ -12,6 +12,7 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     @original_gender_code = 'M'
     @original_payer_code = '1'
     @original_ethnicity_code = 'NA'
+    @original_email = 'xzygadoo1@example.com'
     @race = QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => @original_race_code, 'codeSystem' => 'NA' }])
     @ethnicity = QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => @original_ethnicity_code, 'codeSystem' => 'NA' }])
     @gender = QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => @original_gender_code, 'codeSystem' => 'NA' }])
@@ -36,7 +37,8 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
       givenNames: @given_names,
       familyName: @family_name,
       addresses: [@patient_address],
-      telecoms: [@patient_telecom]
+      telecoms: [@patient_telecom],
+      email: [@original_email]
     )
     QDM::Patient.create!(cqmPatient: @record, dataElements: [@race, @gender, @ethnicity, @payer], birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     @record.bundleId = @bundle.id
@@ -82,6 +84,7 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     @record.bundleId = @bundle.id
     Cypress::DemographicsRandomizer.assign_default_demographics(@record)
     Cypress::DemographicsRandomizer.update_demographic_codes(@record)
+    assert @record.email
     assert_equal @record.gender, 'M'
     assert_equal @record.race, '2028-9'
     assert_equal @record.ethnicity, '2186-5'
@@ -118,6 +121,7 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     Cypress::DemographicsRandomizer.randomize_name(@record, @prng)
     assert_not_equal @given_names, @record.givenNames
     assert_not_equal @family_name, @record.familyName
+    assert_not_equal @original_email, @record.email
     assert_equal @original_race_code, @record.qdmPatient.get_data_elements('patient_characteristic', 'race').first.dataElementCodes.first['code']
     assert_equal @original_ethnicity_code, @record.qdmPatient.get_data_elements('patient_characteristic', 'ethnicity').first.dataElementCodes.first['code']
     assert_equal [@patient_address], @record.addresses
