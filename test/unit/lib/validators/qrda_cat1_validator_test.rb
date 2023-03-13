@@ -157,4 +157,65 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
       assert e.msg_type == :warning
     end
   end
+
+  def test_telecom_errors
+    @product_test = FactoryBot.create(:product_test_static_result)
+    @calc_validator_with_c3 = CalculatingSmokingGunValidator.new(@product_test.measures, @product_test.patients, @product_test.id)
+    sample_patient = TestExecutionPatient.new
+    sample_patient.telecoms.first.value = '210-229-4032'
+    sample_patient.email = 'test@example.com'
+    sample_patient.save
+    options = { file_name: 'filename' }
+
+    telecoms = { email_list: ['test@example.com'], phone_list: [TelephoneNumber.parse('1-210-229-4032', :us).e164_number] }
+    @calc_validator_with_c3.validate_telecoms(sample_patient.id, telecoms, options)
+
+    errors = @calc_validator_with_c3.errors
+    assert_empty errors
+
+    telecoms = { email_list: ['test@example.com'], phone_list: [TelephoneNumber.parse('210-229-4032', :us).e164_number] }
+    @calc_validator_with_c3.validate_telecoms(sample_patient.id, telecoms, options)
+
+    errors = @calc_validator_with_c3.errors
+    assert_empty errors
+
+    telecoms = { email_list: ['test@example.com'], phone_list: [TelephoneNumber.parse('10-229-4032', :us).e164_number] }
+    @calc_validator_with_c3.validate_telecoms(sample_patient.id, telecoms, options)
+
+    errors = @calc_validator_with_c3.errors
+    assert_not_empty errors
+    assert errors.map(&:message).include?('Phone number 210-229-4032 could not be found in file.')
+  end
+
+  def test_email_errors
+    @product_test = FactoryBot.create(:product_test_static_result)
+    @calc_validator_with_c3 = CalculatingSmokingGunValidator.new(@product_test.measures, @product_test.patients, @product_test.id)
+    sample_patient = TestExecutionPatient.new
+    sample_patient.telecoms.first.value = '210-229-4032'
+    sample_patient.email = 'test@example.com'
+    sample_patient.save
+    options = { file_name: 'filename' }
+
+    telecoms = { email_list: ['test1@example.com'], phone_list: [TelephoneNumber.parse('210-229-4032', :us).e164_number] }
+    @calc_validator_with_c3.validate_telecoms(sample_patient.id, telecoms, options)
+
+    errors = @calc_validator_with_c3.errors
+    assert_not_empty errors
+    assert errors.map(&:message).include?('Email test@example.com could not be found in file.')
+  end
+
+  def test_no_original_email
+    @product_test = FactoryBot.create(:product_test_static_result)
+    @calc_validator_with_c3 = CalculatingSmokingGunValidator.new(@product_test.measures, @product_test.patients, @product_test.id)
+    sample_patient = TestExecutionPatient.new
+    sample_patient.telecoms.first.value = '210-229-4032'
+    sample_patient.save
+    options = { file_name: 'filename' }
+
+    telecoms = { email_list: ['test1@example.com'], phone_list: [TelephoneNumber.parse('210-229-4032', :us).e164_number] }
+    @calc_validator_with_c3.validate_telecoms(sample_patient.id, telecoms, options)
+
+    errors = @calc_validator_with_c3.errors
+    assert_empty errors
+  end
 end
