@@ -17,9 +17,9 @@ gem 'mustache'
 gem 'os'
 
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', tag: 'cypress_v7.0.0'
-gem 'cqm-parsers', '~> 4.1.0.1'
-gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', tag: 'cypress_v7.0.5'
-gem 'cqm-validators', '~> 4.0.3'
+gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'nokogiri_14'
+gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'nokogiri_14'
+gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators', branch: 'nokogiri_14'
 
 # # Use faker to generate addresses
 gem 'faker', '> 1.5.0'
