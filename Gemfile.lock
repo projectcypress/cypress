@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-reports
-  revision: b1ab6d800beeead6fdcedc0f29be08af5a76f188
+  revision: b0deed0f400ddc876c070e34ee19d292631c2b7f
   tag: cypress_v7.0.5
   specs:
     cqm-reports (4.0.0)
@@ -18,7 +18,7 @@ GIT
       memoist (~> 0.9)
       mongoid-tree (> 2.0)
       mustache
-      nokogiri (>= 1.8.5, < 1.14.0)
+      nokogiri (>= 1.8.5, < 1.15.0)
       uuid (~> 2.3)
       zip-zip (~> 0.3)
 
@@ -175,7 +175,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.2.2)
-    cqm-parsers (4.1.0.1)
+    cqm-parsers (4.1.0.2)
       activesupport (> 5.0)
       builder (~> 3.1)
       cqm-models (> 3.0.0)
@@ -186,13 +186,13 @@ GEM
       mongoid (> 6.0.5, < 8.0.0)
       mongoid-tree (~> 2.1.0)
       mustache
-      nokogiri (>= 1.8.5, < 1.14.0)
+      nokogiri (>= 1.8.5, < 1.15.0)
       rubyzip (~> 1.3)
       typhoeus
       uuid (~> 2.3.7)
       zip-zip (~> 0.3)
-    cqm-validators (4.0.3)
-      nokogiri (>= 1.8.5, < 1.14.0)
+    cqm-validators (4.0.4)
+      nokogiri (>= 1.8.5, < 1.15.0)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -378,7 +378,7 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (8.15.0)
     nio4r (2.5.8)
-    nokogiri (1.13.10)
+    nokogiri (1.14.2)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     orm_adapter (0.5.0)
@@ -609,9 +609,9 @@ DEPENDENCIES
   carrierwave-mongoid
   codecov
   cqm-models!
-  cqm-parsers (~> 4.1.0.1)
+  cqm-parsers (~> 4.1.0.2)
   cqm-reports!
-  cqm-validators (~> 4.0.3)
+  cqm-validators (~> 4.0.4)
   cucumber-rails
   daemons
   database_cleaner-mongoid
