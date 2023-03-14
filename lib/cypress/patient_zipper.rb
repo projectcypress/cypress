@@ -37,17 +37,17 @@ module Cypress
 
     # rubocop:disable Metrics/PerceivedComplexity
     def export(patient)
-      cat1_submission_program = if patient.product_test&.product&.c3_test || patient.product_test&.product&.cvuplus
-                                  patient.product_test&.measures&.first&.reporting_program_type == 'eh' ? 'HQR_IQR' : false
-                                else
-                                  false
-                                end
+      cat1_program = if (patient.product_test&.product&.c3_test || patient.product_test&.product&.cvuplus) && patient.product_test&.eh_measures?
+                       patient.product_test&.submission_program
+                     else
+                       false
+                     end
       options = { provider: patient.providers.first,
                   patient_addresses: patient.addresses,
                   patient_telecoms: patient.telecoms,
                   patient_email: patient.email,
                   medicare_beneficiary_identifier: patient.medicare_beneficiary_identifier,
-                  submission_program: cat1_submission_program,
+                  submission_program: cat1_program,
                   start_time:, end_time: }
       if patient.bundle.major_version.to_i > 2021
         Qrda1R5.new(patient, measures, options).render
