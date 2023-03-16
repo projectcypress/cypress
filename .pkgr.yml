@@ -1,11 +1,10 @@
 build_dependencies:
   - mongodb-server
 dependencies:
-  - mongodb-org-server (= 4.4.14)
+  - mongodb-org-server (= 4.4.18)
   - libcurl4
 before:
   - mkdir -p /tmp/db
   - /usr/bin/mongod --dbpath /tmp/db --fork --syslog
 targets:
   ubuntu-18.04:
-  ubuntu-22.04:
