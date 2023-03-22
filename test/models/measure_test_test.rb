@@ -120,6 +120,7 @@ class MeasureTestTest < ActiveJob::TestCase
     @product.c3_test = true
     pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
     pt.create_tasks
+    assert_equal pt.submission_program, 'MIPS_INDIV', 'product test should be for the MIPS_INDIV program'
     assert pt.tasks.c2_task, 'product test should have a c2_task'
     assert pt.tasks.c3_cat3_task, 'product test should have a c3_cat3_task'
   end
@@ -128,8 +129,22 @@ class MeasureTestTest < ActiveJob::TestCase
     @product.c3_test = true
     pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['AE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
     pt.create_tasks
+    assert_equal pt.submission_program, 'HQR_IQR', 'product test should be for the HQR_IQR program'
     assert pt.tasks.c1_task, 'product test should have a c1_task'
     assert pt.tasks.c3_cat1_task, 'product test should have a c3_cat1_task'
+  end
+
+  def test_create_task_for_oqr_measure
+    @product.c3_test = true
+    pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['AE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+    pt.create_tasks
+    assert_equal pt.submission_program, 'HQR_IQR', 'product test should be for the HQR_IQR program'
+    original_oqr_measures = APP_CONSTANTS['oqr_measures']
+    # modify the config file to include 'AE65090C-EB1F-11E7-8C3F-9A214CF093AE' as the OQR measure
+    APP_CONSTANTS['oqr_measures'] = ['AE65090C-EB1F-11E7-8C3F-9A214CF093AE']
+    assert_equal pt.submission_program, 'HQR_OQR', 'product test should be for the HQR_IQR program'
+    # set the config file back
+    APP_CONSTANTS['oqr_measures'] = original_oqr_measures
   end
 
   def test_create_task_c1_and_c2
