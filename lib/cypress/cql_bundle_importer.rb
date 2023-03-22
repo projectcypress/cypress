@@ -50,9 +50,11 @@ module Cypress
       patient_id_csv = CSV.parse(zip.read(File.join(SOURCE_ROOTS[:calculations], 'patient-id-mapping.csv')), headers: false)
       measure_id_csv = CSV.parse(zip.read(File.join(SOURCE_ROOTS[:calculations], 'measure-id-mapping.csv')), headers: false)
       patient_id_csv.each do |row|
-        patient_id_mapping[row[0]] = { givenNames: row[1],
+        # TODO: This removes BOM from the CSV.  We shouldn't have to do this.
+        patient_id_mapping[row[0]] = { givenNames: row[1].bytes.pack('c*').force_encoding('UTF-8'),
                                        familyName: row[2],
-                                       new_id: bundle.patients.where(givenNames: [row[1]], familyName: row[2]).first.id }
+                                       new_id: bundle.patients.where(givenNames: [row[1].bytes.pack('c*').force_encoding('UTF-8')],
+                                                                     familyName: row[2]).first.id }
       end
       measure_id_csv.each do |row|
         measure_id_mapping[row[0]] = { cms_id: row[1], new_id: bundle.measures.where(cms_id: row[1]).first.id }

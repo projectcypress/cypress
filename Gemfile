@@ -18,7 +18,7 @@ gem 'os'
 
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', tag: 'cypress_v7.0.0'
 gem 'cqm-parsers', '~> 4.1.0.2'
-gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', tag: 'cypress_v7.0.5'
+gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', tag: 'cypress_v7.0.5.1'
 gem 'cqm-validators', '~> 4.0.4'
 
 # # Use faker to generate addresses
@@ -142,6 +142,7 @@ group :test do
   gem 'minitest-reporters'
   gem 'mocha', require: false
   gem 'simplecov', require: false
+  gem 'simplecov-cobertura'
   gem 'vcr'
   gem 'webmock'
 end

@@ -61,7 +61,7 @@ jobs:
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
-        nvm install 10.12
+        nvm install 16.19
         nvm use stable
         bundle install
     - name: Run overcommit
@@ -89,13 +89,13 @@ jobs:
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
-        nvm install 10.12
+        nvm install 16.19
         nvm use stable
         bundle install
-        git clone -b cypress_v6 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service
+        git clone -b cypress_v6 https://github.com/projectcypress/cqm-execution-service.git /tmp/cqm-execution-service
         yarn --cwd /tmp/cqm-execution-service install --only=production
         yarn --cwd /tmp/cqm-execution-service start &
-        git clone -b cypress_qdm_5_6 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
+        git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
         yarn --cwd /tmp/cqm-execution-service-56 install --only=production
         yarn --cwd /tmp/cqm-execution-service-56 start &
         wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.18.tgz -O /tmp/mongodb.tgz
@@ -106,6 +106,12 @@ jobs:
     - name: Run cucumber
       run: |
         bundle exec cucumber features/admin/ features/checklist_tests/ features/filtering_tests/ features/measure_tests/ features/multi_measure_tests/;
+    - name: Upload code coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-cucumber-1
+
   cucumber-2:
     strategy:
       fail-fast: false
@@ -124,13 +130,13 @@ jobs:
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
-        nvm install 10.12
+        nvm install 16.19
         nvm use stable
         bundle install
-        git clone -b cypress_v6 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service
+        git clone -b cypress_v6 https://github.com/projectcypress/cqm-execution-service.git /tmp/cqm-execution-service
         yarn --cwd /tmp/cqm-execution-service install --only=production
         yarn --cwd /tmp/cqm-execution-service start &
-        git clone -b cypress_qdm_5_6 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
+        git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
         yarn --cwd /tmp/cqm-execution-service-56 install --only=production
         yarn --cwd /tmp/cqm-execution-service-56 start &
         wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.18.tgz -O /tmp/mongodb.tgz
@@ -141,6 +147,12 @@ jobs:
     - name: Run cucumber
       run: |
         bundle exec cucumber features/products/ features/program_tests/ features/records/ features/users/ features/vendors/;
+    - name: Upload code coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-cucumber-2
+
   unit-test:
     strategy:
       fail-fast: false
@@ -159,13 +171,13 @@ jobs:
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
-        nvm install 10.12
+        nvm install 16.19
         nvm use stable
         bundle install
-        git clone -b cypress_v6 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service
+        git clone -b cypress_v6 https://github.com/projectcypress/cqm-execution-service.git /tmp/cqm-execution-service
         yarn --cwd /tmp/cqm-execution-service install --only=production
         yarn --cwd /tmp/cqm-execution-service start &
-        git clone -b cypress_qdm_5_6 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
+        git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
         yarn --cwd /tmp/cqm-execution-service-56 install --only=production
         yarn --cwd /tmp/cqm-execution-service-56 start &
         wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.18.tgz -O /tmp/mongodb.tgz
@@ -177,7 +189,13 @@ jobs:
       run: |
         RUBYOPT="-W0"
         bundle exec rake test:units;
-  controller-test:
+    - name: Upload code coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-unit
+
+  controllers-jobs-helpers-test:
     strategy:
       fail-fast: false
 
@@ -195,13 +213,13 @@ jobs:
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
-        nvm install 10.12
+        nvm install 16.19
         nvm use stable
         bundle install
-        git clone -b cypress_v6 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service
+        git clone -b cypress_v6 https://github.com/projectcypress/cqm-execution-service.git /tmp/cqm-execution-service
         yarn --cwd /tmp/cqm-execution-service install --only=production
         yarn --cwd /tmp/cqm-execution-service start &
-        git clone -b cypress_qdm_5_6 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
+        git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
         yarn --cwd /tmp/cqm-execution-service-56 install --only=production
         yarn --cwd /tmp/cqm-execution-service-56 start &
         wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.18.tgz -O /tmp/mongodb.tgz
@@ -209,10 +227,34 @@ jobs:
         mkdir /tmp/data
         ${PWD}/mongodb-linux-x86_64-4.0.18/bin/mongod --setParameter cursorTimeoutMillis=3600000 --setParameter maxBSONDepth=500 --dbpath /tmp/data --bind_ip 127.0.0.1 &> /dev/null &
         cp ./.travis/mongoid.yml ./config/mongoid.yml
-    - name: Run Rake test
+    - name: Run Rake test:jobs
       run: |
         RUBYOPT="-W0"
-        bundle exec rake test:controllers test:helpers test:jobs;
+        bundle exec rake test:jobs;
+    - name: Upload code jobs coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-job
+    - name: Run Rake test:helpers
+      run: |
+        RUBYOPT="-W0"
+        bundle exec rake test:helpers;
+    - name: Upload code helpers coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-helper
+    - name: Run Rake test:controllers
+      run: |
+        RUBYOPT="-W0"
+        bundle exec rake test:controllers;
+    - name: Upload controllers code coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-controller
+
   integration-test:
     strategy:
       fail-fast: false
@@ -231,13 +273,13 @@ jobs:
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
-        nvm install 10.12
+        nvm install 16.19
         nvm use stable
         bundle install
-        git clone -b cypress_v6 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service
+        git clone -b cypress_v6 https://github.com/projectcypress/cqm-execution-service.git /tmp/cqm-execution-service
         yarn --cwd /tmp/cqm-execution-service install --only=production
         yarn --cwd /tmp/cqm-execution-service start &
-        git clone -b cypress_qdm_5_6 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
+        git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
         yarn --cwd /tmp/cqm-execution-service-56 install --only=production
         yarn --cwd /tmp/cqm-execution-service-56 start &
         wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.18.tgz -O /tmp/mongodb.tgz
@@ -249,3 +291,8 @@ jobs:
       run: |
         RUBYOPT="-W0"
         bundle exec rake test:integration;
+    - name: Upload code coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-integration
