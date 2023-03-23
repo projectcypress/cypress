@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-EH CMS 2023 QRDA Category I
-Version 1.0 
+CMS 2023 QRDA Category I Hospital Quality Reporting
+Version 1.2 
 
     THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
     THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -10,6 +10,7 @@ Version 1.0
     GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
     THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
     ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    ___________________________________________________________________________________________________________________________________________________________________    
     
     IMPLEMENTATION GUIDE CONFORMANCE STATEMENTS and SCHEMATRON ASSERTIONS:
     
@@ -80,12 +81,24 @@ Version 1.0
            For the above example, the Schematron will have 1 assertion for C.3.i.  C is a MAY "such that" compound conformance statement and the Schematron does not implement any MAY conformances.
            However, C.3.i is not a "such that" sub-clause. It merits its own Schematron assertion because if an id/source exists (along with
            id/@root and id/@extension), then it SHALL contain a @value.
-           
+    ___________________________________________________________________________________________________________________________________________________________________    
+
+    REPORTING PERIOD: 2023
+
+    Changes made for the 2023 CMS QRDA Category I Schematron version 1.2:
     
-    REPORTING PERIOD: 2024
-    Version 1.0
+        Document-level template:
+        - QRDA Category III Report CMS V8 2.16.840.1.113883.10.20.24.1.3:2022-02-01
+            Relaxed constraints for recordTarget patientRole mailto: and tel: telecom elements from SHALL 1..1 to SHOULD 0..*
     
+    Changes made for the 2023 CMS QRDA Category I Schematron version 1.1  (Errata for v1.0):
     
+        Document-level template:
+        - QRDA Category III Report CMS V8 2.16.840.1.113883.10.20.24.1.3:2022-02-01
+            Additions for enforcing telecom requirements for recordTarget patient role.
+     
+        This schematron incorporates errata changes from the HL7 QRDA I STU 5.3 Errara release (December, 2022)
+        
     The following IG templates are implemented in this schematron:
     
     CMS-specific QRDA I 2023 templates:
@@ -255,7 +268,7 @@ Version 1.0
     NOTE: Schematrons may be updated after initial publication to address stakeholder or policy requirements. 
     Be sure to revisit the eCQI Resource Center (https://ecqi.healthit.gov/) for updated resources prior to use. 
 
-Fri May 13 10:22:51 MDT 2022
+Tue Mar 21 16:59:03 MDT 2023
 -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:svs="urn:ihe:iti:svs:2008" xmlns:voc="http://www.lantanagroup.com/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sch:ns prefix="voc" uri="http://www.lantanagroup.com/voc" />
@@ -1192,6 +1205,9 @@ Fri May 13 10:22:51 MDT 2022
     <sch:rule id="Encounter-Activity-code-originalText-reference-value-errors" context="cda:encounter[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.49'][@extension='2015-08-01']]/cda:code/cda:originalText/cda:reference">
       <sch:assert id="a-1198-15972-error" test="starts-with(@value,'#')">This reference/@value SHALL begin with a '#' and SHALL point to its corresponding narrative (using the approach defined in CDA Release 2, section 4.3.5.1) (CONF:1198-15972).</sch:assert>
     </sch:rule>
+    <sch:rule id="Encounter-Activity-code-translation-errors" context="cda:encounter[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.49'][@extension='2015-08-01']]/cda:code/cda:translation">
+      <sch:assert id="a-1198-32972-error" test="@code">This translation, if present, SHALL contain exactly one [1..1] @code, which SHALL be selected from ValueSet Encounter Planned urn:oid:2.16.840.1.113883.11.20.9.52 DYNAMIC (CONF:1198-32972).</sch:assert>
+    </sch:rule>
     <sch:rule id="Encounter-Activity-performer-errors" context="cda:encounter[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.49'][@extension='2015-08-01']]/cda:performer">
       <sch:assert id="a-1198-8726-error" test="count(cda:assignedEntity)=1">The performer, if present, SHALL contain exactly one [1..1] assignedEntity (CONF:1198-8726).</sch:assert>
     </sch:rule>
@@ -1206,7 +1222,7 @@ Fri May 13 10:22:51 MDT 2022
       <sch:assert id="a-4509-14889-error" test="@classCode='ACT'">SHALL contain exactly one [1..1] @classCode="ACT" (CodeSystem: HL7ActClass urn:oid:2.16.840.1.113883.5.6 STATIC) (CONF:4509-14889).</sch:assert>
       <sch:assert id="a-4509-14890-error" test="@moodCode='EVN'">SHALL contain exactly one [1..1] @moodCode="EVN" (CodeSystem: HL7ActMood urn:oid:2.16.840.1.113883.5.1001 STATIC) (CONF:4509-14890).</sch:assert>
       <sch:assert id="a-4509-14895-error" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.24.3.171'][@extension='2021-08-01'])=1">SHALL contain exactly one [1..1] templateId (CONF:4509-14895) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.24.3.171" (CONF:4509-14896). SHALL contain exactly one [1..1] @extension="2021-08-01" (CONF:4509-32542).</sch:assert>
-      <sch:assert id="a-4509-19182error" test="count(cda:code)=1">SHALL contain exactly one [1..1] code, which SHOULD be selected from ValueSet ActEncounterCode urn:oid:2.16.840.1.113883.1.11.13955 DYNAMIC (CONF:4509-19182).</sch:assert>
+      <sch:assert id="a-4509-19182-error" test="count(cda:code)=1">SHALL contain exactly one [1..1] code, which SHOULD be selected from ValueSet ActEncounterCode urn:oid:2.16.840.1.113883.1.11.13955 DYNAMIC (CONF:4509-19182).</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="Encounter-Diagnosis-QDM-pattern-errors">
@@ -1522,7 +1538,8 @@ Fri May 13 10:22:51 MDT 2022
     <sch:rule id="Goal_Observation-errors" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.121']]">
       <sch:assert id="a-1098-30418-error" test="@classCode='OBS'">SHALL contain exactly one [1..1] @classCode="OBS" Observation (CodeSystem: HL7ActClass urn:oid:2.16.840.1.113883.5.6) (CONF:1098-30418).</sch:assert>
       <sch:assert id="a-1098-30419-error" test="@moodCode='GOL'">SHALL contain exactly one [1..1] @moodCode="GOL" Goal (CodeSystem: ActMood urn:oid:2.16.840.1.113883.5.1001) (CONF:1098-30419).</sch:assert>
-      <sch:assert id="a-1098-8583-error" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.22.4.121'][not(@extension)]) = 1">SHALL contain exactly one [1..1] templateId (CONF:1098-8583) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.22.4.121" (CONF:1098-10512).</sch:assert>
+      <!-- 01-25-2023 Corrected assertion text to include 'NOT' clause for 1098-8583 -->
+      <sch:assert id="a-1098-8583-error" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.22.4.121'][not(@extension)]) = 1">SHALL contain exactly one [1..1] templateId (CONF:1098-8583) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.22.4.121" (CONF:1098-10512). SHALL NOT contain [0..0] @extension (CONF:1098-32953).</sch:assert>
       <sch:assert id="a-1098-32332-error" test="count(cda:id) &gt; 0">SHALL contain at least one [1..*] id (CONF:1098-32332).</sch:assert>
       <sch:assert id="a-1098-30784-error" test="count(cda:code) = 1">SHALL contain exactly one [1..1] code, which SHOULD be selected from CodeSystem LOINC (urn:oid:2.16.840.1.113883.6.1) (CONF:1098-30784).</sch:assert>
       <sch:assert id="a-1098-32333-error" test="count(cda:statusCode) = 1">SHALL contain exactly one [1..1] statusCode (CONF:1098-32333).</sch:assert>
@@ -1980,6 +1997,10 @@ Fri May 13 10:22:51 MDT 2022
     <sch:rule id="Medication_Dispensed-entryRelationship-substanceAdministration-consumable-manufacturedProduct-manufacturedMaterial-errors" context="cda:supply[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.45'][@extension='2021-08-01']]/cda:entryRelationship[@typeCode='REFR']/cda:substanceAdministration/cda:consumable/cda:manufacturedProduct/cda:manufacturedMaterial">
       <sch:assert id="a-4509-28232-error" test="@nullFlavor='NA'">This manufacturedMaterial SHALL contain exactly one [1..1] @nullFlavor="NA" (CodeSystem: HL7NullFlavor urn:oid:2.16.840.1.113883.5.1008) (CONF:4509-28232).</sch:assert>
     </sch:rule>
+    <sch:rule id="Medication_Dispensed-entryRelationship-Medication-Supply-Request-errors" context="cda:supply[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.45'][@extension='2021-08-01']]/cda:entryRelationship[@typeCode='COMP']/cda:supply[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.99'][@extension='2019-12-01']]">
+      <!-- 10-07-2022 Added per errata updates -->
+      <sch:assert id="a-4509-32561-error" test="count(cda:quantity)=1">If Medication Supply Request is present, it SHALL contain exactly one [1..1] supply/quantity (CONF:4509-32561).</sch:assert>
+    </sch:rule>
   </sch:pattern>
   <sch:pattern id="Medication_Free_Text_Sig-pattern-errors">
     <sch:rule id="Medication_Free_Text_Sig-errors" context="cda:substanceAdministration[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.147']]">
@@ -2041,6 +2062,10 @@ Fri May 13 10:22:51 MDT 2022
     </sch:rule>
     <sch:rule id="Medication_Order-participant-participantRole-errors" context="cda:substanceAdministration[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.47'][@extension='2021-08-01']]/cda:participant[@typeCode='LOC']/cda:participantRole">
       <sch:assert id="a-4509-29233-error" test="count(cda:code)=1">This participantRole SHALL contain exactly one [1..1] code (CONF:4509-29233).</sch:assert>
+    </sch:rule>
+    <sch:rule id="Medication_Order-Medication-Supply-Request-errors" context="cda:substanceAdministration[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.47'][@extension='2021-08-01']]/cda:entryRelationship[@typeCode='COMP']/cda:supply[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.99'][@extension='2019-12-01']]">
+      <!-- 09-28-2022 Added per errata updates -->
+      <sch:assert id="a-4509-32560-error" test="count(cda:quantity)=1">If Medication Supply Request is present, it SHALL contain exactly one [1..1] supply/quantity (CONF:4509-32560).</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="Medication_Supply_Order-pattern-extension-check">
@@ -2609,8 +2634,9 @@ Fri May 13 10:22:51 MDT 2022
       <sch:assert id="a-1098-8255-error" test="count(cda:telecom)&gt;=1">This assignedEntity SHALL contain at least one [1..*] telecom (CONF:1098-8255).</sch:assert>
     </sch:rule>
     <sch:rule id="Procedure-Activity-Observation-performer-assignedEntity-representedOrganization-errors" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.13'][@extension='2014-06-09']]/cda:performer/cda:assignedEntity/cda:representedOrganization">
-      <sch:assert id="a-1098-8259-error" test="count(cda:addr)&gt;=1">The representedOrganization, if present, SHALL contain exactly one [1..1] addr (CONF:1098-8259).</sch:assert>
-      <sch:assert id="a-1098-8260-error" test="count(cda:telecom)&gt;=1">The representedOrganization, if present, SHALL contain exactly one [1..1] telecom (CONF:1098-8260).</sch:assert>
+      <!-- 01-25-2023 Corrected assertion text for 8259 and 8260 -->
+      <sch:assert id="a-1098-8259-error" test="count(cda:addr)&gt;=1">The representedOrganization, if present, SHALL contain at least one [1..*] addr (CONF:1098-8259).</sch:assert>
+      <sch:assert id="a-1098-8260-error" test="count(cda:telecom)&gt;=1">The representedOrganization, if present, SHALL contain at least one [1..*] telecom (CONF:1098-8260).</sch:assert>
     </sch:rule>
     <sch:rule id="Procedure-Activity-Observation-entryRelationship-encounter-errors" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.13'][@extension='2014-06-09']]/cda:entryRelationship[@typeCode='COMP'][@inversionInd='true']/cda:encounter">
       <sch:assert id="a-1098-8268-error" test="@classCode='ENC'">This encounter SHALL contain exactly one [1..1] @classCode="ENC" Encounter (CodeSystem: HL7ActClass urn:oid:2.16.840.1.113883.5.6 STATIC) (CONF:1098-8268).</sch:assert>
@@ -2652,8 +2678,9 @@ Fri May 13 10:22:51 MDT 2022
       <sch:assert id="a-1098-7773-error" test="count(cda:id)=1">This encounter SHALL contain exactly one [1..1] id (CONF:1098-7773).</sch:assert>
     </sch:rule>
     <sch:rule id="Procedure-Activity-Procedure-entryRelationship-encounter-errors" context="cda:procedure[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.14'][@extension='2014-06-09']]/cda:entryRelationship[@typeCode='COMP'][@inversionInd='true']/cda:encounter">
-      <sch:assert id="a-1098-7737-error" test="count(cda:telecom)=1">The representedOrganization, if present, SHALL contain exactly one [1..1] telecom (CONF:1098-7737).</sch:assert>
-      <sch:assert id="a-1098-7736-error" test="count(cda:addr)=1">The representedOrganization, if present, SHALL contain exactly one [1..1] addr (CONF:1098-7736).</sch:assert>
+      <!-- 01-25-2023 Corrected assertion test and text for 7737 and 7736. (Relaxed constraint to 'at least one' from 'exactly one' -->
+      <sch:assert id="a-1098-7737-error" test="count(cda:telecom)&gt;=1">The representedOrganization, if present, SHALL contain at least one [1..*] telecom (CONF:1098-7737)</sch:assert>
+      <sch:assert id="a-1098-7736-error" test="count(cda:addr)&gt;=1">The representedOrganization, if present, SHALL contain at least one [1..*] addr (CONF:1098-7736).</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="Procedure-Order-pattern-extension-check">
@@ -2844,7 +2871,7 @@ Fri May 13 10:22:51 MDT 2022
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="QRDA_Category_I-pattern-extension-check">
-    <sch:rule id="QRDA_Category_I-extensionerrors" context="cda:ClinicalDocument/cda:templateId[@root='2.16.840.1.113883.10.20.24.1.1']">
+    <sch:rule id="QRDA_Category_I-extension-errors" context="cda:ClinicalDocument/cda:templateId[@root='2.16.840.1.113883.10.20.24.1.1']">
       <sch:assert id="a-3343-12910-extension-error" test="@extension='2017-08-01'">SHALL contain exactly one [1..1] templateId (CONF:3343-12910) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.24.1.1" (CONF:3343-14613). SHALL contain exactly one [1..1] @extension="2017-08-01" (CONF:3343-27005)</sch:assert>
     </sch:rule>
   </sch:pattern>
@@ -3561,6 +3588,12 @@ Fri May 13 10:22:51 MDT 2022
     </sch:rule>
     <sch:rule id="QRDA_Category_I_Report_CMS-recordTarget-patientRole-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.24.1.3'][@extension='2022-02-01']]/cda:recordTarget/cda:patientRole">
       <sch:assert id="a-CMS_0009-error" test="count(cda:id[@root!='2.16.840.1.113883.4.572'][@root!='2.16.840.1.113883.4.927'][@extension] )=1">This patientRole SHALL contain exactly one [1..1] id (CONF:CMS_0009) such that it SHALL contain exactly one [1..1] @root (CONF:CMS_0053). SHALL contain exactly one [1..1] @extension (CONF:CMS_0103).</sch:assert>
+      <!-- Error assertions for telecom (1198-5280_C01) containing tel: (a-CMS_0133-error) and mailto: ("a-CMS_0130-error) relaxed from "shall" to "should" for v1.2 01-06-2023 -->
+      <!-- 
+                <sch:assert id="a-1198-5280_C01-error" test="count(cda:telecom)&gt;=2">This patientRole SHALL contain [2..*] telecom (CONF:1198-5280_C01).</sch:assert>   
+                <sch:assert id="a-CMS_0130-error" test="count(cda:telecom[starts-with(@value,'mailto:')] ) = 1">This patientRole SHALL contain exactly one [1..1] telecom (CONF:CMS_0130) such that it SHALL contain exactly one [1..1] @value (CONF:CMS_0131). This value SHALL begin with "mailto:" which is the email address of the patient (CONF:CMS_0132).</sch:assert>   
+                <sch:assert id="a-CMS_0133-error" test="count(cda:telecom[starts-with(@value,'tel:')] )= 1">This patientRole SHALL contain exactly one [1..1] telecom (CONF:CMS_0133) such that it SHALL contain exactly one [1..1] @value (CONF:CMS_0134). This value SHALL begin with "tel:" which is the telephone of the patient (CONF:CMS_0135).</sch:assert>
+            -->
     </sch:rule>
     <sch:rule id="QRDA_Category_I_Report_CMS-recordTarget-patientRole-patient-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.24.1.3'][@extension='2022-02-01']]/cda:recordTarget/cda:patientRole/cda:patient">
       <sch:assert id="a-1198-5284_C01-error" test="count(cda:name)=1">This patient SHALL contain exactly one [1..1] US Realm Person Name (PN.US.FIELDED) (identifier: urn:oid:2.16.840.1.113883.10.20.22.5.1.1) (CONF:1198-5284_C01).</sch:assert>
@@ -3679,8 +3712,8 @@ Fri May 13 10:22:51 MDT 2022
       <sch:assert id="a-1198-15971-warning" test="@value">The reference, if present, SHOULD contain zero or one [0..1] @value (CONF:1198-15971).</sch:assert>
     </sch:rule>
     <sch:rule id="Encounter-Activity-dischargeDispositionCode-warnings" context="cda:encounter[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.49'][@extension='2015-08-01']]/sdtc:dischargeDispositionCode">
-      <sch:assert id="a-1198-32177-warning" test="count(@code)=1">This sdtc:dischargeDispositionCode SHOULD contain exactly [1..1] @code(CONF:1198-32177).</sch:assert>
-      <sch:assert id="a-1198-32377-warning" test="count(@codeSystem)=1">This sdtc:dischargeDispositionCode SHOULD contain exactly [1..1] @codeSystem (CONF:1198-32377).</sch:assert>
+      <sch:assert id="a-1198-32981-warning" test="count(@code)=1">The sdtc:dischargeDispositionCode, if present, SHOULD contain zero or one [0..1] @code, which SHOULD be selected from ValueSet NUBC UB-04 FL17 Patient Status urn:oid:2.16.840.1.113883.3.88.12.80.33 (CONF:1198-32981).</sch:assert>
+      <!-- <sch:assert id="a-1198-32377-warning" test="count(@codeSystem)=1">This sdtc:dischargeDispositionCode SHOULD contain exactly [1..1] @codeSystem (CONF:1198-32377). </sch:assert> -->
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="External-Document-Reference-pattern-warnings">
@@ -3739,11 +3772,11 @@ Fri May 13 10:22:51 MDT 2022
       <sch:assert id="a-1198-31510-warning" test="count(cda:entryRelationship[@typeCode='COMP'][@inversionInd='true'][count(cda:act[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.118']])=1]) &gt; 0">SHOULD contain zero or more [0..*] entryRelationship (CONF:1198-31510) such that it SHALL contain exactly one [1..1] @typeCode="COMP" Component (CodeSystem: HL7ActRelationshipType urn:oid:2.16.840.1.113883.5.1002) (CONF:1198-31511). SHALL contain exactly one [1..1] @inversionInd="true" (CONF:1198-31512). SHALL contain exactly one [1..1] Substance Administered Act (identifier: urn:oid:2.16.840.1.113883.10.20.22.4.118) (CONF:1198-31514).</sch:assert>
     </sch:rule>
     <sch:rule id="Immunization_activity-doseQuantity-warnings" context="cda:substanceAdministration[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.52'][@extension='2015-08-01']]/cda:doseQuantity">
-      <sch:assert id="a-1198-8842-warning" test="@unit">The doseQuantity, if present, SHOULD contain zero or one [0..1] @unit, which SHALL be selected from ValueSet UnitsOfMeasureCaseSensitive urn:oid:2.16.840.1.113883.1.11.12839 DYNAMIC (CONF:1198-8842).</sch:assert>
+      <sch:assert id="a-1198-8842-warning" test="@unit">The doseQuantity, if present, SHOULD contain zero or one [0..1] @unit, which SHOULD be selected from ValueSet UnitsOfMeasureCaseSensitive urn:oid:2.16.840.1.113883.1.11.12839 DYNAMIC (CONF:1198-8842).</sch:assert>
     </sch:rule>
     <!-- 08-15-2019 Added 1198-32960 warning -->
     <sch:rule id="Immunization_activity-routeCode-warnings" context="cda:substanceAdministration[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.52'][@extension='2015-08-01']]/cda:routeCode">
-      <sch:assert id="a-1198-32960-warning" test="count(cda:translation) &gt; 0">The routeCode, if present, SHOULD contain zero or more [0..*] translation, which SHALL be selected from ValueSet Medication Route urn:oid:2.16.840.1.113762.1.4.1099.12 DYNAMIC (CONF:1198-32960).</sch:assert>
+      <sch:assert id="a-1198-32960-warning" test="count(cda:translation) &gt; 0">The routeCode, if present, SHOULD contain zero or more [0..*] translation (CONF:1198-32960) , which SHALL be selected from ValueSet Medication Route urn:oid:2.16.840.1.113762.1.4.1099.12 DYNAMIC (CONF:1198-32970).</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="Immunization_medication_information-pattern-warnings">
@@ -4135,8 +4168,18 @@ Fri May 13 10:22:51 MDT 2022
   </sch:pattern>
   <sch:pattern id="QRDA_Category_I_Report_CMS-pattern-warnings">
     <sch:rule id="QRDA_Category_I_Report_CMS-recordTarget-patientRole-warnings" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.24.1.3'][@extension='2022-02-01']]/cda:recordTarget/cda:patientRole">
+      <!-- For debugging... -->
+      <!--
+            <sch:let name="mailCnt" value="count(cda:telecom[starts-with(@value,'mailto:')] )" />
+            <sch:let name="teleCnt" value="count(cda:telecom[starts-with(@value,'tel:')] )" />
+            <sch:report id="mailCnt-report" test="1 = 1">count(cda:telecom[starts-with(@value,'mailto:')] ) = <sch:value-of select="$mailCnt"/></sch:report>
+            <sch:report id="teleCnt-report" test="1 = 1">count(cda:telecom[starts-with(@value,'tel:')] ) = <sch:value-of select="$teleCnt"/></sch:report>
+            -->
       <sch:assert id="a-4509-16857_C01-warning" test="count(cda:id[@root='2.16.840.1.113883.4.572']) = 1">This patientRole SHOULD contain zero or one [0..1] id (CONF:4509-16857_C01) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.4.572" Medicare HIC number (CONF:4509-16858).</sch:assert>
       <sch:assert id="a-4509-28697_C01-warning" test="count(cda:id[@root='2.16.840.1.113883.4.927']) = 1">This patientRole SHOULD contain zero or one [0..1] id (CONF:4509-28697_C01) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.4.927" Medicare Beneficiary Identifier (MBI) (CONF:4509-28698).</sch:assert>
+      <!-- Assertions for mailto: (CMS_0130) and tel: (CMS_0133) relaxed from SHALL to SHOULD, and removed constraint of using valueset Telecom Use [US Realm Header) (CMS_0136 and CMS_0137) for v1.2 03-13-2023 -->
+      <sch:assert id="a-CMS_0130-warning" test="count(cda:telecom[@use and starts-with(@value,'mailto:')] ) &gt;= 1">This patientRole SHOULD contain zero or more [0..*] telecom (CONF:CMS_0130) such that it SHALL contain exactly one [1..1] @value (CONF:CMS_0131). This value SHALL begin with "mailto:" which is the email address of the patient (CONF:CMS_0132).</sch:assert>
+      <sch:assert id="a-CMS_0133-warning" test="count(cda:telecom[@use and starts-with(@value,'tel:')] ) &gt;= 1">This patientRole SHOULD contain zero or more [0..*] telecom (CONF:CMS_0133) such that it SHALL contain exactly one [1..1] @value (CONF:CMS_0134). This value SHALL begin with "tel:" which is the telephone of the patient (CONF:CMS_0135).</sch:assert>
     </sch:rule>
     <sch:rule id="QRDA_Category_I_Report_CMS-documentationOf-serviceEvent-performer-assignedEntity-warnings" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.24.1.3'][@extension='2022-02-01']]/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity">
       <sch:assert id="a-4509-16587_C01-warning" test="count(cda:id[@root='2.16.840.1.113883.4.6']) = 1">This assignedEntity SHOULD contain zero or one [0..1] id (CONF:4509-16587_C01) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.4.6" National Provider ID (CONF:4509-28497).</sch:assert>
