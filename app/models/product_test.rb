@@ -252,6 +252,16 @@ class ProductTest
     measures.pluck(:reporting_program_type).include?('ep')
   end
 
+  def submission_program
+    if eh_measures?
+      return APP_CONSTANTS['oqr_measures'].intersection(measure_ids).blank? ? 'HQR_IQR' : 'HQR_OQR'
+    elsif ep_measures?
+      return 'MIPS_INDIV'
+    end
+
+    false
+  end
+
   # A measure test has a C1 Task if the product has C1 criteria, or C3 criteria with EH measures
   def c1_task?
     product.c1_test || (product.c3_test && eh_measures?)

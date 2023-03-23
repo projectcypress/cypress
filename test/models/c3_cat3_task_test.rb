@@ -17,6 +17,22 @@ class C3Cat3TaskTest < ActiveSupport::TestCase
     assert(@task.validators.any? { |v| v.is_a?(MeasurePeriodValidator) })
   end
 
+  def test_task_good_results_should_pass
+    c2_task = @test.tasks.create({ expected_results: @test.expected_results }, C2Task)
+    xml = Tempfile.new(['good_results_debug_file', '.xml'])
+    xml.write c2_task.good_results
+    perform_enqueued_jobs do
+      doc = File.open(xml) { |f| Nokogiri::XML(f) }
+      doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+      doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+      # There should be an intendedRecipient of "MIPS_INDIV"
+      assert_equal 1, doc.xpath('//cda:informationRecipient/cda:intendedRecipient/cda:id[@extension="MIPS_INDIV"]').size
+      te = c2_task.execute(xml, @user)
+      te.reload
+      assert_empty te.execution_errors, 'test execution with known good results should not have any errors'
+    end
+  end
+
   def test_should_cause_error_when_performance_rate_is_incorrect_with_c3
     xml = create_rack_test_file('test/fixtures/qrda/cat_III/ep_test_qrda_cat3_bad_performance_rate.xml', 'text/xml')
     perform_enqueued_jobs do
