@@ -39,8 +39,8 @@ FactoryBot.define do
                                                                     'ETHNICITY' => { '2186-5' => 1 },
                                                                     'SEX' => { 'F' => 1 },
                                                                     'PAYER' => { '1' => 1 } },
-                                                       'NUMER' => {},
-                                                       'DENEX' => {} } } } }
+                                                       'NUMER' => { 'RACE' => {}, 'ETHNICITY' => {}, 'SEX' => {}, 'PAYER' => {} },
+                                                       'DENEX' => { 'RACE' => {}, 'ETHNICITY' => {}, 'SEX' => {}, 'PAYER' => {} } } } } }
       expected_results { expected_result }
       measure_ids { ['40280382-5FA6-FE85-0160-0918E74D2075'] }
       association :provider, factory: :default_provider
