@@ -74,6 +74,11 @@ class C2TaskTest < ActiveSupport::TestCase
     xml = Tempfile.new(['good_results_debug_file', '.xml'])
     xml.write task.good_results
     perform_enqueued_jobs do
+      doc = File.open(xml) { |f| Nokogiri::XML(f) }
+      doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+      doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+      # There should not be an intendedRecipient of "MIPS_INDIV"
+      assert_equal 0, doc.xpath('//cda:informationRecipient/cda:intendedRecipient/cda:id[@extension="MIPS_INDIV"]').size
       te = task.execute(xml, @user)
       te.reload
       assert_empty te.execution_errors, 'test execution with known good results should not have any errors'

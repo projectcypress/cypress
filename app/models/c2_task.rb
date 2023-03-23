@@ -37,8 +37,8 @@ class C2Task < Task
   # rubocop:disable Metrics/AbcSize
   def good_results
     # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
-    cat3_submission_program = if product_test&.product&.c3_test
-                                product_test&.measures&.first&.reporting_program_type == 'ep' ? 'MIPS_INDIV' : false
+    cat3_submission_program = if product_test&.product&.c3_test && product_test&.ep_measures?
+                                product_test&.submission_program
                               else
                                 false
                               end
