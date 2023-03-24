@@ -172,12 +172,12 @@ module Cypress
         doc.root.add_namespace_definition('xsi', 'http://www.w3.org/2001/XMLSchema-instance')
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
         patient, _warnings, codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
-        Cypress::QRDAPostProcessor.build_code_descriptions(codes, patient, bundle)
+        Cypress::QrdaPostProcessor.build_code_descriptions(codes, patient, bundle)
         patient['bundleId'] = bundle.id
         patient.update(_type: CQM::BundlePatient, correlation_id: bundle.id)
-        Cypress::QRDAPostProcessor.replace_negated_codes(patient, bundle)
-        Cypress::QRDAPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
-        Cypress::QRDAPostProcessor.remove_invalid_qdm_56_data_types(patient) if bundle.major_version.to_i > 2021
+        Cypress::QrdaPostProcessor.replace_negated_codes(patient, bundle)
+        Cypress::QrdaPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
+        Cypress::QrdaPostProcessor.remove_invalid_qdm_56_data_types(patient) if bundle.major_version.to_i > 2021
         patient.save!
         report_progress('patients', (index * 100 / qrda_files.length)) if (index % 10).zero?
       end

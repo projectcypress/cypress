@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class QRDAPostProcessorTest < ActiveSupport::TestCase
+class QrdaPostProcessorTest < ActiveSupport::TestCase
   def setup
     @bundle = FactoryBot.create(:executable_bundle)
     @patient = BundlePatient.new(givenNames: ['Patient'], familyName: 'Test', bundleId: @bundle.id)
@@ -17,7 +17,7 @@ class QRDAPostProcessorTest < ActiveSupport::TestCase
     @patient.qdmPatient.dataElements.push QDM::MedicationAdministered.new(dataElementCodes: medication_codes)
     assert_equal 1, @patient.qdmPatient.substances.size
     assert_equal 1, @patient.qdmPatient.medications.size
-    Cypress::QRDAPostProcessor.remove_unmatched_data_type_code_combinations(@patient, @bundle)
+    Cypress::QrdaPostProcessor.remove_unmatched_data_type_code_combinations(@patient, @bundle)
     # Since both medication and substance code match the codes available for their QDM type, no data elements are removed
     assert_equal 1, @patient.qdmPatient.substances.size
     assert_equal 1, @patient.qdmPatient.medications.size
@@ -34,7 +34,7 @@ class QRDAPostProcessorTest < ActiveSupport::TestCase
     @patient.qdmPatient.dataElements.push QDM::MedicationAdministered.new(dataElementCodes: medication_codes)
     assert_equal 2, @patient.qdmPatient.substances.size
     assert_equal 2, @patient.qdmPatient.medications.size
-    Cypress::QRDAPostProcessor.remove_unmatched_data_type_code_combinations(@patient, @bundle)
+    Cypress::QrdaPostProcessor.remove_unmatched_data_type_code_combinations(@patient, @bundle)
     # The medication element using the substance_codes and the substance elment using the medication code will be removed
     assert_equal 1, @patient.qdmPatient.substances.size
     assert_equal '1', @patient.qdmPatient.substances.first.dataElementCodes.first.code
@@ -53,7 +53,7 @@ class QRDAPostProcessorTest < ActiveSupport::TestCase
     @patient.qdmPatient.dataElements.push QDM::MedicationAdministered.new(dataElementCodes: medication_codes)
     assert_equal 2, @patient.qdmPatient.substances.size
     assert_equal 2, @patient.qdmPatient.medications.size
-    Cypress::QRDAPostProcessor.remove_unmatched_data_type_code_combinations(@patient, @bundle)
+    Cypress::QrdaPostProcessor.remove_unmatched_data_type_code_combinations(@patient, @bundle)
     # since categorized_codes is empty, no elements will be removed
     assert_equal 2, @patient.qdmPatient.substances.size
     assert_equal 2, @patient.qdmPatient.medications.size

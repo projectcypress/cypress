@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-class CMSProgramTaskTest < ActiveSupport::TestCase
+class CmsProgramTaskTest < ActiveSupport::TestCase
   include ::Validators
   include ActiveJob::TestHelper
 
@@ -60,7 +60,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
       assert_equal 4, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator', msg_type: :error).size # One for each demographic
       assert_equal 1, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS32v7', msg_type: :warning).size
       assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
-      assert_equal 1, te.execution_errors.where(validator: 'Validators::EHRCertificationIdValidator').size
+      assert_equal 1, te.execution_errors.where(validator: 'Validators::EhrCertificationIdValidator').size
     end
   end
 
@@ -246,7 +246,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     pcv = ProgramCriteriaValidator.new(pt)
     pcv.instance_variable_set(:@file, execution.build_document(file))
     pcv.import_patient(options, @product.product_tests.first.measure_ids)
-    tej = CMSTestExecutionJob.new
+    tej = CmsTestExecutionJob.new
     tej.calculate_patients(execution)
     assert_equal execution.tracker.log_message[0], '50% of calculations complete'
   end

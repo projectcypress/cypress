@@ -79,7 +79,7 @@ end %>
     </ul>
   <% end %>
 
-  <% if collected_errors.files.values.any? { |err| err.count.positive? } || (@task.is_a? CMSProgramTask) %>
+  <% if collected_errors.files.values.any? { |err| err.count.positive? } || (@task.is_a? CmsProgramTask) %>
     <h2><%= "Errors and " unless passing %>Warnings</h2>
     <div id="xml-tabs" class="hidden file-error-tabs short-tabs">
       <ul>
@@ -113,7 +113,7 @@ end %>
           </li>
           <% files_with_errors << file_name %>
         <% end %>
-        <% if @task.is_a? CMSProgramTask
+        <% if @task.is_a? CmsProgramTask
           non_errored_files = file_name_id_hash.keys - files_with_errors
           non_errored_files.each do |file_name| %>
           <li>
@@ -126,7 +126,7 @@ end %>
         
       </ul>
 
-      <% if (@task.is_a? CMSProgramTask) && @task.product_test.reporting_program_type == 'eh'
+      <% if (@task.is_a? CmsProgramTask) && @task.product_test.reporting_program_type == 'eh'
         continuous_measures = @task.measures.where(measure_scoring: 'CONTINUOUS_VARIABLE').only(:id, :population_sets, :hqmf_id, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }
         proportion_measures = @task.measures.where(measure_scoring: 'PROPORTION').only(:id, :population_sets, :hqmf_id, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }
         ratio_measures = @task.measures.where(measure_scoring: 'RATIO').only(:id, :population_sets, :hqmf_id, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }

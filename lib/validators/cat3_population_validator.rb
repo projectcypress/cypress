@@ -100,7 +100,7 @@ module Validators
     end
 
     def validate_demographics(reported_result, pop_key, pop_set_hash, options)
-      return unless %w[CMSProgramTask C3Cat3Task MultiMeasureCat3Task].include? options['test_execution'].task._type
+      return unless %w[CmsProgramTask C3Cat3Task MultiMeasureCat3Task].include? options['test_execution'].task._type
       #  Skip demographic validators if population is missing
       # Skip if there is a stratification_id.  Stratifications do not report demographics
       return if reported_result[pop_key].nil? || pop_set_hash[:stratification_id]

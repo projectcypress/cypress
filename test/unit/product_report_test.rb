@@ -50,19 +50,19 @@ class ProductReportTest < ActionController::TestCase
         'report_text' => 'CMS159v8 - patient_characteristic, expired not complete'
       }
     ],
-    'CMSProgramTest' => [
+    'CmsProgramTest' => [
       {
         'factory_name' => :cms_program_test_build_execution_errors_for_incomplete_cms_criteria,
         'report_text' => 'Tax Identification Number not complete'
       }
     ],
-    'CMSSchematronValidator' => [
+    'CmsSchematronValidator' => [
       {
         'factory_name' => :cms_schematron_validator_validate,
         'report_text' => 'CONF:CMS_3'
       }
     ],
-    'EHRCertificationIdValidator' => [
+    'EhrCertificationIdValidator' => [
       {
         'factory_name' => :ehr_certification_id_validator_validate,
         'report_text' => 'CMS EHR Certification ID'
