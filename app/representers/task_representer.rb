@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module TaskRepresenter
-  include API::Representer
+  include Api::Representer
 
   property :type, getter: ->(_args) { _type.delete('Task') }
 

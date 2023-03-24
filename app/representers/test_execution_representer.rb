@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module TestExecutionRepresenter
-  include API::Representer
+  include Api::Representer
 
   property :state
   property :execution_errors

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class QrdaUploadsController < ApplicationController
-  include API::Controller
+  include Api::Controller
   include VersionConfigHelper
 
   respond_to :xml, :json

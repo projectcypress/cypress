@@ -3,7 +3,7 @@
 require 'api'
 
 class VendorsController < ApplicationController
-  include API::Controller
+  include Api::Controller
   before_action :set_vendor, only: %i[show update destroy edit favorite preferences update_preferences]
   before_action :authorize_vendor, only: %i[show update destroy edit favorite preferences update_preferences]
 
