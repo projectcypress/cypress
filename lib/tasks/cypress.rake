@@ -86,7 +86,7 @@ namespace :cypress do
           _patient, _warnings, codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
 
           # build code descriptions for original patient
-          Cypress::QRDAPostProcessor.build_code_descriptions(codes, p, p.bundle)
+          Cypress::QrdaPostProcessor.build_code_descriptions(codes, p, p.bundle)
 
           p.save
         end

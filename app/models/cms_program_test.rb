@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CMSProgramTest < ProductTest
+class CmsProgramTest < ProductTest
   field :cms_program, type: String
   field :reporting_program_type, type: String
   embeds_many :program_criteria, class_name: 'ProgramCriterion'
@@ -18,7 +18,7 @@ class CMSProgramTest < ProductTest
   end
 
   def create_tasks
-    CMSProgramTask.new(product_test: self).save!
+    CmsProgramTask.new(product_test: self).save!
   end
 
   def update_with_program_tests(program_test_params)

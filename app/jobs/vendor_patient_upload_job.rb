@@ -81,7 +81,7 @@ class VendorPatientUploadJob < ApplicationJob
       patient, _warnings, codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
 
       # use all patient codes to build description map
-      Cypress::QRDAPostProcessor.build_code_descriptions(codes, patient, bundle)
+      Cypress::QrdaPostProcessor.build_code_descriptions(codes, patient, bundle)
 
       # shift date
       utc_start = DateTime.parse(doc_start).to_time.utc
@@ -92,9 +92,9 @@ class VendorPatientUploadJob < ApplicationJob
       end
 
       patient.update(_type: CQM::VendorPatient, correlation_id: vendor_id, bundleId: bundle.id)
-      Cypress::QRDAPostProcessor.replace_negated_codes(patient, bundle)
-      Cypress::QRDAPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
-      Cypress::QRDAPostProcessor.remove_invalid_qdm_56_data_types(patient) if bundle.major_version.to_i > 2021
+      Cypress::QrdaPostProcessor.replace_negated_codes(patient, bundle)
+      Cypress::QrdaPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
+      Cypress::QrdaPostProcessor.remove_invalid_qdm_56_data_types(patient) if bundle.major_version.to_i > 2021
       patient.save
       [true, patient]
     rescue StandardError => e

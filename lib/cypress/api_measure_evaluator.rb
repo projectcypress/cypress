@@ -513,8 +513,8 @@ module Cypress
     def import_cat1_file(doc, patient_ids, bundle_id)
       patient, _warnings, _codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
       bundle = Bundle.find(bundle_id)
-      Cypress::QRDAPostProcessor.replace_negated_codes(patient, bundle)
-      Cypress::QRDAPostProcessor.remove_invalid_qdm_56_data_types(patient) if bundle.major_version.to_i > 2021
+      Cypress::QrdaPostProcessor.replace_negated_codes(patient, bundle)
+      Cypress::QrdaPostProcessor.remove_invalid_qdm_56_data_types(patient) if bundle.major_version.to_i > 2021
       patient.update(_type: CQM::TestExecutionPatient, correlation_id: 'api_eval', bundleId: bundle_id)
       patient.normalize_date_times
       patient.save!

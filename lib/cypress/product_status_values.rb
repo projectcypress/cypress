@@ -6,7 +6,7 @@ module Cypress
 
     def cms_status_values(product)
       h = {}
-      h['CMS Program Tests'] = STATUS_NAMES.zip(product_test_statuses(product.product_tests.cms_program_tests, 'CMSProgramTask')).to_h
+      h['CMS Program Tests'] = STATUS_NAMES.zip(product_test_statuses(product.product_tests.cms_program_tests, 'CmsProgramTask')).to_h
       h
     end
 

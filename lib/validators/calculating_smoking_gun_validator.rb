@@ -14,8 +14,8 @@ module Validators
 
       # check for single code negation errors
       product_test = ProductTest.find(@test_id)
-      errors = Cypress::QRDAPostProcessor.issues_for_negated_single_codes(patient, @bundle, product_test.measures)
-      unit_errors = Cypress::QRDAPostProcessor.issues_for_mismatched_units(patient, @bundle, product_test.measures)
+      errors = Cypress::QrdaPostProcessor.issues_for_negated_single_codes(patient, @bundle, product_test.measures)
+      unit_errors = Cypress::QrdaPostProcessor.issues_for_mismatched_units(patient, @bundle, product_test.measures)
       if product_test.product.c3_test
         errors.each { |e| add_error e, file_name: options[:file_name] }
       else
@@ -24,8 +24,8 @@ module Validators
       unit_errors.each { |e| add_warning e, file_name: options[:file_name], cms: true }
       warnings.each { |e| add_warning e.message, file_name: options[:file_name], location: e.location }
 
-      Cypress::QRDAPostProcessor.replace_negated_codes(patient, @bundle)
-      Cypress::QRDAPostProcessor.remove_invalid_qdm_56_data_types(patient) if @bundle.major_version.to_i > 2021
+      Cypress::QrdaPostProcessor.replace_negated_codes(patient, @bundle)
+      Cypress::QrdaPostProcessor.remove_invalid_qdm_56_data_types(patient) if @bundle.major_version.to_i > 2021
       patient.bundleId = @bundle.id
       patient
     rescue StandardError

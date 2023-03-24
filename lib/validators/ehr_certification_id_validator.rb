@@ -4,7 +4,7 @@
 # (Promoting Interoperability Section (V2) identifier: urn:hl7ii:2.16.840.1.113883.10.20.27.2.5:2017-06-01)
 # is present in a QRDA III document.
 module Validators
-  class EHRCertificationIdValidator < QrdaFileValidator
+  class EhrCertificationIdValidator < QrdaFileValidator
     include Validators::Validator
 
     def validate(file, options = {})

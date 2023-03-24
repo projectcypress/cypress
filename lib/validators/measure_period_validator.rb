@@ -17,15 +17,15 @@ module Validators
       @product_test = @options['test_execution'].task.product_test
       @doc_start_time = measure_period_start(@document)
       @doc_end_time = measure_period_end(@document)
-      validate_encounter_during_reporting_period if (@product_test.is_a? CMSProgramTest) && @product_test.reporting_program_type == 'eh'
+      validate_encounter_during_reporting_period if (@product_test.is_a? CmsProgramTest) && @product_test.reporting_program_type == 'eh'
       validate_timing
     end
 
     def validate_timing
       timing_constraint = find_timing_constraints
-      if timing_constraint && (@product_test.product.shift_patients || (@product_test.is_a? CMSProgramTest))
+      if timing_constraint && (@product_test.product.shift_patients || (@product_test.is_a? CmsProgramTest))
         validate_measurement_period(timing_constraint['start_time'], timing_constraint['end_time'])
-      elsif (@product_test.is_a? CMSProgramTest) && @product_test.reporting_program_type == 'eh'
+      elsif (@product_test.is_a? CmsProgramTest) && @product_test.reporting_program_type == 'eh'
         # For EH measures, Reports are for a single quarter
         validate_quarters_measurement_period
       else

@@ -16,7 +16,7 @@ module Validators
 
       doc = get_document(file)
       case options.task._type
-      when 'CMSProgramTask'
+      when 'CmsProgramTask'
         verify_patient_ids(doc, options)
         verify_ccde_program(doc, options)
       when 'C3Cat1Task'

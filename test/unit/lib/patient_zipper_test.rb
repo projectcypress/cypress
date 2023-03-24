@@ -163,19 +163,19 @@ class PatientZipperTest < ActiveSupport::TestCase
     codefound = imported_patient.qdmPatient.procedures.first.dataElementCodes.any? { |dec| dec[:code] == original_code }
     assert_equal false, codefound, 'code should not be found prior to replace_negated_codes'
     # Should replace with a code from the valueset
-    Cypress::QRDAPostProcessor.replace_negated_codes(imported_patient, patient.bundle)
+    Cypress::QrdaPostProcessor.replace_negated_codes(imported_patient, patient.bundle)
     codefound = imported_patient.qdmPatient.procedures.first.dataElementCodes.any? { |dec| dec[:code] == original_code }
     assert codefound, 'replaced code should equal original code'
     assert imported_patient.save
     # Should not replace a code when valuesets do not exist
     ValueSet.destroy_all
-    Cypress::QRDAPostProcessor.replace_negated_codes(cloned_import, patient.bundle)
+    Cypress::QrdaPostProcessor.replace_negated_codes(cloned_import, patient.bundle)
     codefound = cloned_import.qdmPatient.procedures.first.dataElementCodes.any? { |dec| dec[:code] == original_code }
     assert_not codefound, 'Without valusets the code should not be replaced'
     assert cloned_import.save
     # Should replace with the default code
     APP_CONSTANTS['version_config']['~>2020.0']['default_negation_codes'][negated_oid] = { 'code' => '123', 'codeSystem' => 'SNOMEDCT' }
-    Cypress::QRDAPostProcessor.replace_negated_codes(cloned_import2, patient.bundle)
+    Cypress::QrdaPostProcessor.replace_negated_codes(cloned_import2, patient.bundle)
     codefound = cloned_import2.qdmPatient.procedures.first.dataElementCodes.any? { |dec| dec[:code] == '123' }
     assert codefound, 'replaced code should equal default code'
     assert cloned_import2.save

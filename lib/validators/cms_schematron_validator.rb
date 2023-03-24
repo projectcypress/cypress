@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Validators
-  class CMSSchematronValidator < QrdaFileValidator
+  class CmsSchematronValidator < QrdaFileValidator
     include Validators::Validator
     include ::CqmValidators
     def initialize(schematron_file, name, as_warnings, bundle_version = Settings.current.default_bundle)
@@ -34,21 +34,21 @@ module Validators
     end
   end
 
-  class CMSQRDA3SchematronValidator < CMSSchematronValidator
+  class CMSQRDA3SchematronValidator < CmsSchematronValidator
     def initialize(bundle_version = Settings.current.default_bundle, as_warnings: false)
       super(Rails.root.join('resources', 'schematron', schematron_folder_for_bundle_version(bundle_version), 'EP', 'EP_CAT_III.sch').to_s,
             self.class.to_s, as_warnings, bundle_version)
     end
   end
 
-  class CMSQRDA1HQRSchematronValidator < CMSSchematronValidator
+  class CMSQRDA1HQRSchematronValidator < CmsSchematronValidator
     def initialize(bundle_version = Settings.current.default_bundle, as_warnings: false)
       super(Rails.root.join('resources', 'schematron', schematron_folder_for_bundle_version(bundle_version), 'EH', 'EH_CAT_I.sch').to_s,
             self.class.to_s, as_warnings, bundle_version)
     end
   end
 
-  class CMSQRDA1PQRSSchematronValidator < CMSSchematronValidator
+  class CMSQRDA1PQRSSchematronValidator < CmsSchematronValidator
     def initialize(bundle_version = Settings.current.default_bundle, as_warnings: false)
       super(Rails.root.join('resources', 'schematron', schematron_folder_for_bundle_version(bundle_version), 'EP', 'EP_CAT_I.sch').to_s,
             self.class.to_s, as_warnings, bundle_version)

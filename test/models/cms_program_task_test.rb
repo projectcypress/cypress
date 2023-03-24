@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-class CMSProgramTaskTest < ActiveSupport::TestCase
+class CmsProgramTaskTest < ActiveSupport::TestCase
   include ::Validators
   include ActiveJob::TestHelper
 
@@ -60,7 +60,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
       assert_equal 4, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator', msg_type: :error).size # One for each demographic
       assert_equal 1, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS32v7', msg_type: :warning).size
       assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
-      assert_equal 1, te.execution_errors.where(validator: 'Validators::EHRCertificationIdValidator').size
+      assert_equal 1, te.execution_errors.where(validator: 'Validators::EhrCertificationIdValidator').size
     end
   end
 

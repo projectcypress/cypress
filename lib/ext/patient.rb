@@ -281,7 +281,7 @@ module CQM
 
     def remove_telehealth_codes(ineligible_measures)
       warnings = []
-      Cypress::QRDAPostProcessor.remove_telehealth_encounters(self, codes_modifiers, warnings, ineligible_measures) unless codes_modifiers.empty?
+      Cypress::QrdaPostProcessor.remove_telehealth_encounters(self, codes_modifiers, warnings, ineligible_measures) unless codes_modifiers.empty?
       save
       warnings
     end
