@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CmsProgramTask < Task
+class CMSProgramTask < Task
   include ::Validators
 
   after_create :initialize_program_specific_fields
@@ -12,7 +12,7 @@ class CmsProgramTask < Task
                    MeasurePeriodValidator.new]
     # Each program may have program specific validations add them
     @validators.concat program_specific_validators
-    # If the CmsProgramTask is for HL7 validation, only include QRDA validation
+    # If the CMSProgramTask is for HL7 validation, only include QRDA validation
     @validators = hl7_validators if %w[HL7_Cat_I HL7_Cat_III].include? product_test.cms_program
     @validators
   end
@@ -159,7 +159,7 @@ class CmsProgramTask < Task
     te.user = user
     te.artifact = Artifact.new(file:)
     te.save!
-    CmsTestExecutionJob.perform_later(te, self)
+    CMSTestExecutionJob.perform_later(te, self)
     te.save
     te
   end
