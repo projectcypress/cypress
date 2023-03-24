@@ -159,7 +159,7 @@ class CMSProgramTask < Task
     te.user = user
     te.artifact = Artifact.new(file:)
     te.save!
-    CMSTestExecutionJob.perform_later(te, self)
+    CmsTestExecutionJob.perform_later(te, self)
     te.save
     te
   end
