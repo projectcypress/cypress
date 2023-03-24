@@ -39,7 +39,7 @@ module Cypress
 
           folder_name = "#{m._type.underscore.dasherize}s/#{m.cms_id}#{filter_folder}"
 
-          add_file_to_zip(z, "#{folder_name}/records/#{m.cms_id}_#{m.id}.qrda.zip", m.patient_archive.read) unless m.is_a?(CmsProgramTest)
+          add_file_to_zip(z, "#{folder_name}/records/#{m.cms_id}_#{m.id}.qrda.zip", m.patient_archive.read) unless m.is_a?(CMSProgramTest)
           add_execution_data(z, m, options, folder_name)
         end
       end
@@ -51,7 +51,7 @@ module Cypress
         most_recent_execution = task.most_recent_execution
         next unless most_recent_execution
 
-        if product_test.is_a?(CmsProgramTest)
+        if product_test.is_a?(CMSProgramTest)
           # append test type
           folder_name = "#{folder_name}#{product_test.cms_program.underscore.dasherize}"
           options[:report_hash][product_test.name].each do |file_name, text|

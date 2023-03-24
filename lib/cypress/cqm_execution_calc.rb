@@ -4,7 +4,7 @@ require 'json'
 require 'securerandom'
 
 module Cypress
-  class CqmExecutionCalc
+  class CQMExecutionCalc
     attr_accessor :patients, :measures, :options
 
     def initialize(patients, measures, correlation_id, options)

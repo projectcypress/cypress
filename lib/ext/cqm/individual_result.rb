@@ -20,7 +20,7 @@ module CQM
                              end
       options = { 'effectiveDate' => Time.at(measure_period_start).in_time_zone.to_formatted_s(:number),
                   'includeClauseResults' => true }
-      calc_job = Cypress::CqmExecutionCalc.new([patient.qdmPatient],
+      calc_job = Cypress::CQMExecutionCalc.new([patient.qdmPatient],
                                                [measure],
                                                correlation_id,
                                                options)

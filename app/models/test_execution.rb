@@ -64,7 +64,7 @@ class TestExecution
                              msg_type: :error, validator_type: :result_validation, validator: :smoking_gun)
     end
     task.product_test.build_execution_errors_for_incomplete_checked_criteria(self) if task.is_a?(C1ChecklistTask)
-    task.product_test.build_execution_errors_for_incomplete_cms_criteria(self) if task.is_a?(CmsProgramTask)
+    task.product_test.build_execution_errors_for_incomplete_cms_criteria(self) if task.is_a?(CMSProgramTask)
   end
 
   def passing?

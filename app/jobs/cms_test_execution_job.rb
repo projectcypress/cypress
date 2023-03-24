@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CmsTestExecutionJob < ApplicationJob
+class CMSTestExecutionJob < ApplicationJob
   include Job::Status
   queue_as :default
 

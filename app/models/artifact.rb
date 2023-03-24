@@ -30,10 +30,10 @@ class Artifact
     case content_extension
     when :zip
       errors.add(:file, 'File upload extension should be .zip') unless %w[C1Task C1ChecklistTask C3ChecklistTask C3Cat1Task
-                                                                          CmsProgramTask Cat1FilterTask MultiMeasureCat1Task
+                                                                          CMSProgramTask Cat1FilterTask MultiMeasureCat1Task
                                                                           QrdaUploadTask].include?(test_execution.task._type)
     when :xml
-      errors.add(:file, 'File upload extension should be .xml') unless %w[C2Task C3Cat3Task Cat3FilterTask CmsProgramTask
+      errors.add(:file, 'File upload extension should be .xml') unless %w[C2Task C3Cat3Task Cat3FilterTask CMSProgramTask
                                                                           MultiMeasureCat3Task QrdaUploadTask].include?(test_execution.task._type)
     else
       errors.add(:file, 'File upload extension should be .zip or .xml')
