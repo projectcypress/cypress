@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-class CmsProgramTaskTest < ActiveSupport::TestCase
+class CMSProgramTaskTest < ActiveSupport::TestCase
   include ::Validators
   include ActiveJob::TestHelper
 
@@ -246,7 +246,7 @@ class CmsProgramTaskTest < ActiveSupport::TestCase
     pcv = ProgramCriteriaValidator.new(pt)
     pcv.instance_variable_set(:@file, execution.build_document(file))
     pcv.import_patient(options, @product.product_tests.first.measure_ids)
-    tej = CmsTestExecutionJob.new
+    tej = CMSTestExecutionJob.new
     tej.calculate_patients(execution)
     assert_equal execution.tracker.log_message[0], '50% of calculations complete'
   end

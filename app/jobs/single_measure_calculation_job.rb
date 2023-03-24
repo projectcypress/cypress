@@ -14,7 +14,7 @@ class SingleMeasureCalculationJob < ApplicationJob
       patient.check_for_elements_after_mp(options, measure.cms_id) if APP_CONSTANTS['measures_without_future_data'].include? measure.hqmf_id
       patient.qdmPatient
     end
-    calc_job = Cypress::CqmExecutionCalc.new(qdm_patients,
+    calc_job = Cypress::CQMExecutionCalc.new(qdm_patients,
                                              [measure],
                                              correlation_id,
                                              options)

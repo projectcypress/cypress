@@ -8,7 +8,7 @@ class MeasureEvaluationJob < ApplicationJob
   # Measure Test or Task
   #
   # @param [Object] test_or_task The ProductTest or Task being evalutated
-  # @param [Hash] options :individual_results are the raw results from CqmExecutionCalc
+  # @param [Hash] options :individual_results are the raw results from CQMExecutionCalc
   # @return none
   def perform(test_or_task, options)
     # Measure Evaluation Job can be run for a test (Measure Test), or a task (Filter Tasks)

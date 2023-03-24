@@ -9,7 +9,7 @@ module ProductsHelper
       product.product_tests.measure_tests.any?
     when 'MultiMeasureTest'
       product.product_tests.multi_measure_tests.any?
-    when 'CmsProgramTest'
+    when 'CMSProgramTest'
       product.product_tests.cms_program_tests.any?
     when 'FilteringTest'
       product.product_tests.filtering_tests.any?
@@ -128,7 +128,7 @@ module ProductsHelper
   # yields test_type, title, and description for each tab that should be displayed on product show page
   #   also yeilds html_id which should be used as the html id of the <div> tag that holds the content for each tab
   def each_tab(product)
-    %w[ChecklistTest MeasureTest FilteringTest MultiMeasureTest CmsProgramTest].each do |test_type|
+    %w[ChecklistTest MeasureTest FilteringTest MultiMeasureTest CMSProgramTest].each do |test_type|
       next unless should_show_product_tests_tab?(product, test_type)
 
       if test_type == 'MeasureTest'
@@ -166,8 +166,8 @@ module ProductsHelper
       'C4 (QRDA-I and QRDA-III)'
     when 'MultiMeasureTest'
       'MultiMeasureTest'
-    when 'CmsProgramTest'
-      'CmsProgramTest'
+    when 'CMSProgramTest'
+      'CMSProgramTest'
     end
   end
 

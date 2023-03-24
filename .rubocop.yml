@@ -40,7 +40,7 @@ Lint/EmptyBlock:
     - 'features/step_definitions/admin.rb'
 Lint/MissingSuper:
   Exclude:
-    - 'lib/cypress/highlighting/highlighting.rb'
+    - 'lib/highlighting/highlighting.rb'
     - 'lib/validators/cat3_population_validator.rb'
     - 'lib/validators/checklist_criteria_validator.rb'
     - 'lib/validators/cms_schematron_validator.rb'
@@ -71,8 +71,8 @@ Metrics/AbcSize:
     - 'lib/cypress/expected_results_calculator.rb'
     - 'lib/cypress/population_clone_job.rb'
     - 'lib/cypress/product_status_values.rb'
-    - 'lib/ext/individual_result.rb'
-    - 'lib/ext/patient.rb'
+    - 'lib/ext/cqm/individual_result.rb'
+    - 'lib/ext/cqm/patient.rb'
     - 'test/**/*.rb'
     - 'lib/validators/program_criteria_validator.rb'
 Metrics/BlockLength:
@@ -95,8 +95,8 @@ Metrics/ClassLength:
     - 'app/models/test_execution.rb'
     - 'app/controllers/records_controller.rb'
     - 'lib/ext/bundle.rb'
-    - 'lib/ext/individual_result.rb'
-    - 'lib/ext/patient.rb'
+    - 'lib/ext/cqm/individual_result.rb'
+    - 'lib/ext/cqm/patient.rb'
     - 'lib/cypress/api_measure_evaluator.rb'
     - 'lib/cypress/clinical_randomizer.rb'
     - 'lib/cypress/cql_bundle_importer.rb'
