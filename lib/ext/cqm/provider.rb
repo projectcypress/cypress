@@ -35,7 +35,7 @@ module CQM
       prov.save!
       ccn = options[:preferred_ccn] || prov.ccn = rand(1..66).to_s.rjust(2, '0') + rand(1..9899).to_s.rjust(4, '0')
       # TODO: This seems wrong
-      prov.ids.build(namingSystem: '2.16.840.1.113883.4.6', value: NpiGenerator.generate)
+      prov.ids.build(namingSystem: '2.16.840.1.113883.4.6', value: Cypress::NpiGenerator.generate)
       prov.ids.build(namingSystem: '2.16.840.1.113883.4.2', value: rand.to_s[2..10])
       prov.ids.build(namingSystem: '2.16.840.1.113883.4.336', value: ccn)
       prov.save!

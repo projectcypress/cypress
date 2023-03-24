@@ -51,7 +51,7 @@ module Validators
       cec_options = { effectiveDate: product_test.start_date.to_formatted_s(:number) }
       # If the product_test start_date is january 1st, you don't need to pass in the effectiveDateEnd, the calculation engine will take care of it
       cec_options[:effectiveDateEnd] = product_test.end_date.to_formatted_s(:number) if product_test.start_date.yday != 1
-      calc_job = Cypress::CqmExecutionCalc.new([record.qdmPatient],
+      calc_job = Cypress::CQMExecutionCalc.new([record.qdmPatient],
                                                product_test.measures,
                                                options.test_execution.id.to_s,
                                                cec_options)
