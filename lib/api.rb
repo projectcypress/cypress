@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module API
+module Api
   module Controller
     def self.included(target)
       name = target.controller_name

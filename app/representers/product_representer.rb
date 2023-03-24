@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ProductRepresenter
-  include API::Representer
+  include Api::Representer
 
   property :name
   property :version

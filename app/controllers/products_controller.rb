@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ProductsController < ApplicationController
-  include API::Controller
+  include Api::Controller
   before_action :set_vendor, only: %i[index new create report patients favorite]
   before_action :set_product, except: %i[index new create]
   before_action :set_measures, only: %i[new edit update report]

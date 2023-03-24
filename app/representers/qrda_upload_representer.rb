@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module QrdaUploadRepresenter
-  include API::Representer
+  include Api::Representer
   property :validator
   property :path
   property :execution_errors

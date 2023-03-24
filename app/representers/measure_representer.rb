@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module MeasureRepresenter
-  include API::Representer
+  include Api::Representer
 
   property :hqmf_id
   property :cms_id

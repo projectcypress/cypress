@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ProductTestsController < ApplicationController
-  include API::Controller
+  include Api::Controller
 
   before_action :set_product, except: %i[show patients measure html_patients update]
   before_action :set_product_test, only: %i[show update destroy patients measure html_patients]
