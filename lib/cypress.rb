@@ -60,7 +60,7 @@ require_relative 'validators/qrda_cat1_validator'
 require_relative 'validators/qrda_cat3_validator'
 require_relative 'validators/qrda_upload_validator'
 
-require_relative 'cypress/highlighting'
+require_relative 'highlighting/highlighting'
 
 require_relative 'cypress/api_measure_evaluator'
 require_relative 'cypress/clinical_randomizer'
