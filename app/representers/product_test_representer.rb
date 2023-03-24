@@ -2,7 +2,7 @@
 
 require 'representable/xml'
 module ProductTestRepresenter
-  include API::Representer
+  include Api::Representer
 
   property :name
   property :cms_id

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  include API::Controller
+  include Api::Controller
 
   before_action :set_task, only: %i[edit update destroy show good_results]
   before_action :set_product_test, only: %i[index new]

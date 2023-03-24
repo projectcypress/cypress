@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module VendorRepresenter
-  include API::Representer
+  include Api::Representer
 
   property :vendor_id
   property :name

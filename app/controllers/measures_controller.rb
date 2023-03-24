@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MeasuresController < ApplicationController
-  include API::Controller
+  include Api::Controller
 
   def index
     @measures = Bundle.find(params[:bundle_id]).measures
