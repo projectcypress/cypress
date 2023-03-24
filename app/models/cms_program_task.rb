@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CMSProgramTask < Task
+class CmsProgramTask < Task
   include ::Validators
 
   after_create :initialize_program_specific_fields
@@ -12,7 +12,7 @@ class CMSProgramTask < Task
                    MeasurePeriodValidator.new]
     # Each program may have program specific validations add them
     @validators.concat program_specific_validators
-    # If the CMSProgramTask is for HL7 validation, only include QRDA validation
+    # If the CmsProgramTask is for HL7 validation, only include QRDA validation
     @validators = hl7_validators if %w[HL7_Cat_I HL7_Cat_III].include? product_test.cms_program
     @validators
   end
@@ -89,17 +89,17 @@ class CMSProgramTask < Task
 
   def mips_group_validators
     # For MIPS submissions, CMS EHR Certification ID is only required if Promoting Interoperability is included
-    [EHRCertificationIdValidator.new].concat ep_validators
+    [EhrCertificationIdValidator.new].concat ep_validators
   end
 
   def mips_indiv_validators
     # For MIPS submissions, CMS EHR Certification ID is only required if Promoting Interoperability is included
-    [EHRCertificationIdValidator.new].concat ep_validators
+    [EhrCertificationIdValidator.new].concat ep_validators
   end
 
   def mips_virtual_group_validators
     # For MIPS submissions, CMS EHR Certification ID is only required if Promoting Interoperability is included
-    [EHRCertificationIdValidator.new].concat ep_validators
+    [EhrCertificationIdValidator.new].concat ep_validators
   end
 
   def mips_apm_entity_validators
@@ -159,7 +159,7 @@ class CMSProgramTask < Task
     te.user = user
     te.artifact = Artifact.new(file:)
     te.save!
-    CMSTestExecutionJob.perform_later(te, self)
+    CmsTestExecutionJob.perform_later(te, self)
     te.save
     te
   end

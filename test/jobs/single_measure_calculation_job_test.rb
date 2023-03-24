@@ -36,7 +36,7 @@ class SingleMeasureCalculationJobTest < ActiveJob::TestCase
       SingleMeasureCalculationJob.perform_now([@patient.id.to_s], measure.id.to_s, 'what', options)
       # Calculation will fail when a patient has a DeviceApplied (since it isn't in QDM 5.6)
       assert @patient.calculation_results.empty?
-      Cypress::QRDAPostProcessor.remove_invalid_qdm_56_data_types(@patient) if @bundle.major_version.to_i > 2021
+      Cypress::QrdaPostProcessor.remove_invalid_qdm_56_data_types(@patient) if @bundle.major_version.to_i > 2021
       @patient.save
       # Calculation will now pass since the DeviceApplied has been removed
       SingleMeasureCalculationJob.perform_now([@patient.id.to_s], measure.id.to_s, 'what', options)

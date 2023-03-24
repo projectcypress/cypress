@@ -211,7 +211,7 @@ class Product
     product_tests.cms_program_tests.where(reporting_program_type: 'eh').destroy if eh_ids.empty?
     CMS_IG_CONFIG['CMS Programs']['eh'][bundle.major_version]&.each do |cms_program|
       product_tests.build({ name: "#{cms_program} Test", cms_program:, measure_ids: eh_ids,
-                            reporting_program_type: 'eh' }, CMSProgramTest)
+                            reporting_program_type: 'eh' }, CmsProgramTest)
     end
   end
 
@@ -220,7 +220,7 @@ class Product
     product_tests.cms_program_tests.where(reporting_program_type: 'ep').destroy if ep_ids.empty?
     CMS_IG_CONFIG['CMS Programs']['ep'][bundle.major_version]&.each do |cms_program|
       product_tests.build({ name: "#{cms_program} Test", cms_program:, measure_ids: ep_ids,
-                            reporting_program_type: 'ep' }, CMSProgramTest)
+                            reporting_program_type: 'ep' }, CmsProgramTest)
     end
   end
 
@@ -230,9 +230,9 @@ class Product
 
     # The 'reporting_program_type' is used to restrict the upload type.  Use EH for Cat I, and EP for Cat III
     product_tests.build({ name: 'HL7 Cat I Test', cms_program: 'HL7_Cat_I', measure_ids:,
-                          reporting_program_type: 'eh' }, CMSProgramTest)
+                          reporting_program_type: 'eh' }, CmsProgramTest)
     product_tests.build({ name: 'HL7 Cat III Test', cms_program: 'HL7_Cat_III', measure_ids:,
-                          reporting_program_type: 'ep' }, CMSProgramTest)
+                          reporting_program_type: 'ep' }, CmsProgramTest)
   end
 
   def add_filtering_tests

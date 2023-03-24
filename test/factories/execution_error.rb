@@ -94,7 +94,7 @@ FactoryBot.define do
 
     factory :ehr_certification_id_validator do
       msg_type { 'error' }
-      validator { 'Validators::EHRCertificationIdValidator' }
+      validator { 'Validators::EhrCertificationIdValidator' }
       validation_type { 'result_validation' }
       cms { false }
 

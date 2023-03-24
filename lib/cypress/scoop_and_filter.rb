@@ -60,7 +60,7 @@ module Cypress
 
       # add data element valueset and other potentially relevant valueset descriptions
       codes = (multi_vs_negation_elements + [data_element]).map { |de| "#{de.dataElementCodes.first.code}:#{de.dataElementCodes.first.system}" }
-      Cypress::QRDAPostProcessor.build_code_descriptions(codes, patient, patient.bundle)
+      Cypress::QrdaPostProcessor.build_code_descriptions(codes, patient, patient.bundle)
     end
 
     def data_element_category_and_status(data_element)

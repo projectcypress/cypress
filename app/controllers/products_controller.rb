@@ -111,7 +111,7 @@ class ProductsController < ApplicationController
     </head>"
 
     @product.product_tests.each do |pt|
-      next unless pt.is_a?(CMSProgramTest)
+      next unless pt.is_a?(CmsProgramTest)
 
       report_hash[pt.name] = {}
       pt.tasks.each do |t|

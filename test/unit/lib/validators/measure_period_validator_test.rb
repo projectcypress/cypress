@@ -19,7 +19,7 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
     APP_CONSTANTS['timing_constraints'].first['start_time'] = '20170101'
     APP_CONSTANTS['timing_constraints'].first['end_time'] = '20171231'
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_good.xml')).read
-    pt = CMSProgramTest.new(name: 'CMS Program Test', cms_program: 'HQR_PI', measure_ids: [measure_id],
+    pt = CmsProgramTest.new(name: 'CMS Program Test', cms_program: 'HQR_PI', measure_ids: [measure_id],
                             reporting_program_type: 'eh', product: @product)
     pt.create_tasks
     te = pt.tasks.first.test_executions.build
@@ -35,7 +35,7 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
     APP_CONSTANTS['timing_constraints'].first['start_time'] = '20170102'
     APP_CONSTANTS['timing_constraints'].first['end_time'] = '20171231'
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_good.xml')).read
-    pt = CMSProgramTest.new(name: 'CMS Program Test', cms_program: 'HQR_PI', measure_ids: [measure_id],
+    pt = CmsProgramTest.new(name: 'CMS Program Test', cms_program: 'HQR_PI', measure_ids: [measure_id],
                             reporting_program_type: 'eh', product: @product)
     pt.create_tasks
     te = pt.tasks.first.test_executions.build
@@ -51,7 +51,7 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
     APP_CONSTANTS['timing_constraints'].first['start_time'] = '20170102'
     APP_CONSTANTS['timing_constraints'].first['end_time'] = '20171231'
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_missing_measure.xml')).read
-    pt = CMSProgramTest.new(name: 'CMS Program Test', cms_program: 'MIPS_APMENTITY', measure_ids: [measure_id],
+    pt = CmsProgramTest.new(name: 'CMS Program Test', cms_program: 'MIPS_APMENTITY', measure_ids: [measure_id],
                             reporting_program_type: 'ep', product: @product)
     pt.create_tasks
     te = pt.tasks.first.test_executions.build
@@ -67,7 +67,7 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
     APP_CONSTANTS['timing_constraints'].first['start_time'] = '20170101'
     APP_CONSTANTS['timing_constraints'].first['end_time'] = '20171230'
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_good.xml')).read
-    pt = CMSProgramTest.new(name: 'CMS Program Test', cms_program: 'HQR_PI', measure_ids: [measure_id],
+    pt = CmsProgramTest.new(name: 'CMS Program Test', cms_program: 'HQR_PI', measure_ids: [measure_id],
                             reporting_program_type: 'eh', product: @product)
     pt.create_tasks
     te = pt.tasks.first.test_executions.build

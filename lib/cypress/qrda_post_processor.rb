@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Cypress
-  module QRDAPostProcessor
+  module QrdaPostProcessor
     # checks for placeholder negation code_system
     def self.replace_negated_codes(patient, bundle)
       mapped_codes = bundle.mapped_codes

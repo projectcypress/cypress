@@ -103,10 +103,10 @@ class HTMLTest < ActiveSupport::TestCase
 
     # import and build code descriptions
     patient, _warnings, codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
-    Cypress::QRDAPostProcessor.build_code_descriptions(codes, patient, @bundle)
+    Cypress::QrdaPostProcessor.build_code_descriptions(codes, patient, @bundle)
     patient['bundleId'] = @bundle.id
     patient.update(_type: CQM::BundlePatient, correlation_id: @bundle.id)
-    Cypress::QRDAPostProcessor.replace_negated_codes(patient, @bundle)
+    Cypress::QrdaPostProcessor.replace_negated_codes(patient, @bundle)
     patient.save!
     saved_patient = Patient.find(patient.id)
 

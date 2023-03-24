@@ -14,7 +14,7 @@ class ProductTest
   scope :checklist_tests, -> { where(_type: 'ChecklistTest') }
   scope :filtering_tests, -> { where(_type: 'FilteringTest') }
   scope :multi_measure_tests, -> { where(_type: 'MultiMeasureTest') }
-  scope :cms_program_tests, -> { where(_type: 'CMSProgramTest') }
+  scope :cms_program_tests, -> { where(_type: 'CmsProgramTest') }
 
   belongs_to :product, index: true, touch: true
   has_many :tasks, dependent: :destroy, inverse_of: :product_test

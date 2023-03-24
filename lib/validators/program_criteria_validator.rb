@@ -55,13 +55,13 @@ module Validators
       unless options.task.product_test.cms_program == 'HL7_Cat_I'
         patient_has_pcp_and_other_element(patient, options)
         # check for single code negation errors
-        errors = Cypress::QRDAPostProcessor.issues_for_negated_single_codes(patient, options.task.bundle, options.task.product_test.measures)
-        unit_errors = Cypress::QRDAPostProcessor.issues_for_mismatched_units(patient, options.task.bundle, options.task.product_test.measures)
+        errors = Cypress::QrdaPostProcessor.issues_for_negated_single_codes(patient, options.task.bundle, options.task.product_test.measures)
+        unit_errors = Cypress::QrdaPostProcessor.issues_for_mismatched_units(patient, options.task.bundle, options.task.product_test.measures)
         errors.each { |e| add_error e, file_name: options[:file_name] }
         unit_errors.each { |e| add_error e, file_name: options[:file_name] }
       end
-      Cypress::QRDAPostProcessor.replace_negated_codes(patient, options.task.bundle)
-      Cypress::QRDAPostProcessor.remove_invalid_qdm_56_data_types(patient) if options.task.bundle.major_version.to_i > 2021
+      Cypress::QrdaPostProcessor.replace_negated_codes(patient, options.task.bundle)
+      Cypress::QrdaPostProcessor.remove_invalid_qdm_56_data_types(patient) if options.task.bundle.major_version.to_i > 2021
     end
 
     # Check that a patient as a patient_characteristic_payer and atleast 1 other (non-demographic) data criteria
