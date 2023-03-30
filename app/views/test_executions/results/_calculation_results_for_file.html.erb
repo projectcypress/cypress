@@ -94,7 +94,7 @@
         <% result_measures.each do |m| %>
           <% ir = @individual_results.select { |ir| ir.measure_id == m.id && ir.patient_id == patient.id }.first %>
           <% next unless ir %>
-          <%= render partial: 'records/core_clinical_data_elements_display.html', :locals => { individual_result: ir, measure: m, export: export, bundle: @task.bundle } %>
+          <%= render partial: 'records/core_clinical_data_elements_display', :locals => { individual_result: ir, measure: m, export: export, bundle: @task.bundle } %>
         <% end %>
       </tbody>
     </table>
