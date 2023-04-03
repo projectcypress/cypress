@@ -68,6 +68,8 @@ module Validators
       telecoms = { email_list: [], phone_list: [] }
       telecom_elements = doc.xpath('.//cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:telecom')
       telecom_elements.each do |telecom_element|
+        next unless telecom_element['value']
+
         # removes all white space
         uri = URI(telecom_element['value'].delete(" \t\r\n"))
         case uri.scheme
