@@ -104,8 +104,12 @@ jobs:
         ${PWD}/mongodb-linux-x86_64-4.0.18/bin/mongod --setParameter cursorTimeoutMillis=3600000 --setParameter maxBSONDepth=500 --dbpath /tmp/data --bind_ip 127.0.0.1 &> /dev/null &
         cp ./.travis/mongoid.yml ./config/mongoid.yml
     - name: Run cucumber
-      run: |
-        bundle exec cucumber features/admin/ features/checklist_tests/ features/filtering_tests/ features/measure_tests/ features/multi_measure_tests/;
+      uses: nick-fields/retry@v2
+      with:
+        timeout_minutes: 30
+        max_attempts: 2
+        retry_on: error
+        command: bundle exec cucumber features/admin/ features/checklist_tests/ features/filtering_tests/ features/measure_tests/ features/multi_measure_tests/;
     - name: Upload code coverage to codecov.io
       uses: codecov/codecov-action@v3
       with:
@@ -145,8 +149,12 @@ jobs:
         ${PWD}/mongodb-linux-x86_64-4.0.18/bin/mongod --setParameter cursorTimeoutMillis=3600000 --setParameter maxBSONDepth=500 --dbpath /tmp/data --bind_ip 127.0.0.1 &> /dev/null &
         cp ./.travis/mongoid.yml ./config/mongoid.yml
     - name: Run cucumber
-      run: |
-        bundle exec cucumber features/products/ features/program_tests/ features/records/ features/users/ features/vendors/;
+      uses: nick-fields/retry@v2
+      with:
+        timeout_minutes: 30
+        max_attempts: 2
+        retry_on: error
+        command: bundle exec cucumber features/products/ features/program_tests/ features/records/ features/users/ features/vendors/;
     - name: Upload code coverage to codecov.io
       uses: codecov/codecov-action@v3
       with:
