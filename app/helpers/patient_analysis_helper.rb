@@ -79,7 +79,7 @@ module PatientAnalysisHelper
       ps_set_hashes = measure.population_sets_and_stratifications_for_measure
       ps_set_hashes.each do |ps_set_hash|
         ir_for_population_set_key = IndividualResult.where(correlation_id: @patients.first.correlation_id.to_s,
-                                                           measure_id:,
+                                                           measure_id:, :clause_results.exists => true,
                                                            population_set_key: measure.key_for_population_set(ps_set_hash))
         next if ir_for_population_set_key.empty?
 
@@ -99,6 +99,8 @@ module PatientAnalysisHelper
   def collate_coverage_summaries(measures, possible_clauses, un_hit_clauses, possible_populations_count, un_hit_populations)
     clause_coverage_summaries = {}
     measures.each do |measure_id|
+      next unless possible_clauses[measure_id].size.positive?
+
       hit_clauses = possible_clauses[measure_id].size - un_hit_clauses[measure_id].size
       percent_covered = hit_clauses.fdiv(possible_clauses[measure_id].size)
       clause_coverage_summaries[Measure.find(measure_id).cms_id] = percent_covered
@@ -180,9 +182,11 @@ module PatientAnalysisHelper
     clause_coverage_summary, population_coverage_summary = generate_coverage_summary(measures)
     analysis['coverage_per_measure'] = clause_coverage_summary
     coverage_min_info = clause_coverage_summary.min_by { |_k, v| v }
-    analysis['minimum_coverage_measure'] = coverage_min_info[0]
-    analysis['minimum_coverage_percentage'] = coverage_min_info[1]
-    analysis['average_coverage'] = clause_coverage_summary.values.inject { |a, b| a + b } / clause_coverage_summary.length
+    if coverage_min_info
+      analysis['minimum_coverage_measure'] = coverage_min_info[0]
+      analysis['minimum_coverage_percentage'] = coverage_min_info[1]
+      analysis['average_coverage'] = clause_coverage_summary.values.inject { |a, b| a + b } / clause_coverage_summary.length
+    end
     analysis['population_coverage'] = population_coverage_summary['total_population_coverage']
     analysis['unhit_populations_by_measure'] = population_coverage_summary['unhit_populations_by_measure']
     analysis
