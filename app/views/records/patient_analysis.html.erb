@@ -88,6 +88,9 @@
   </tr>
   <% if @analysis['average_coverage'] %>
   <tr>
+    <th colspan="2">Logic Coverge (Coverage % only includes patients with logic highlighting)</th>
+  </tr>
+  <tr>
   <td> Logic Coverage
     <%= render 'info_popup', :id => 'logic-clauses-covered', :message => 'Percentage of clauses in the logic hit by patients in the test deck. Click the button to see coverage per measure' %>
   </td>
