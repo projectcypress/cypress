@@ -187,7 +187,7 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
     assert errors.map(&:message).include?('Phone number 210-229-4032 could not be found in file.')
   end
 
-  def test_email_errors
+  def test_email_warning
     @product_test = FactoryBot.create(:product_test_static_result)
     @calc_validator_with_c3 = CalculatingSmokingGunValidator.new(@product_test.measures, @product_test.patients, @product_test.id)
     sample_patient = TestExecutionPatient.new
@@ -196,12 +196,56 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
     sample_patient.save
     options = { file_name: 'filename' }
 
+    # Phone number is correct, Email is incorrect
     telecoms = { email_list: ['test1@example.com'], phone_list: [TelephoneNumber.parse('210-229-4032', :us).e164_number] }
     @calc_validator_with_c3.validate_telecoms(sample_patient.id, telecoms, options)
 
     errors = @calc_validator_with_c3.errors
     assert_not_empty errors
     assert errors.map(&:message).include?('Email test@example.com could not be found in file.')
+    # since phone is found, only warnings
+    assert_not(errors.any? { |err| err.msg_type == :error })
+  end
+
+  def test_phone_warning
+    @product_test = FactoryBot.create(:product_test_static_result)
+    @calc_validator_with_c3 = CalculatingSmokingGunValidator.new(@product_test.measures, @product_test.patients, @product_test.id)
+    sample_patient = TestExecutionPatient.new
+    sample_patient.telecoms.first.value = '210-229-4032'
+    sample_patient.email = 'test@example.com'
+    sample_patient.save
+    options = { file_name: 'filename' }
+
+    # Phone number is incorrect, Email is correct
+    telecoms = { email_list: ['test@example.com'], phone_list: [TelephoneNumber.parse('210-229-4031', :us).e164_number] }
+    @calc_validator_with_c3.validate_telecoms(sample_patient.id, telecoms, options)
+
+    errors = @calc_validator_with_c3.errors
+    assert_not_empty errors
+    assert errors.map(&:message).include?('Phone number 210-229-4032 could not be found in file.')
+    # since email is found, only warnings
+    assert_not(errors.any? { |err| err.msg_type == :error })
+  end
+
+  def test_email_phone_error_both_missing
+    @product_test = FactoryBot.create(:product_test_static_result)
+    @calc_validator_with_c3 = CalculatingSmokingGunValidator.new(@product_test.measures, @product_test.patients, @product_test.id)
+    sample_patient = TestExecutionPatient.new
+    sample_patient.telecoms.first.value = '210-229-4032'
+    sample_patient.email = 'test@example.com'
+    sample_patient.save
+    options = { file_name: 'filename' }
+
+    # Phone number is incorrect, Email is incorrect
+    telecoms = { email_list: ['test1@example.com'], phone_list: [TelephoneNumber.parse('210-229-4031', :us).e164_number] }
+    @calc_validator_with_c3.validate_telecoms(sample_patient.id, telecoms, options)
+
+    errors = @calc_validator_with_c3.errors
+    assert_not_empty errors
+    assert errors.map(&:message).include?('Email test@example.com could not be found in file.')
+    assert errors.map(&:message).include?('Phone number 210-229-4032 could not be found in file.')
+    # since neither is found, only errors
+    assert_not(errors.any? { |err| err.msg_type == :warning })
   end
 
   def test_no_original_email
