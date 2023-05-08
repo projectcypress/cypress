@@ -191,7 +191,7 @@ module Cypress
                                                         relevantPeriod: QDM::Interval.new(patient.qdmPatient.birthDatetime, nil))
       end
       patient.medicare_beneficiary_identifier = Cypress::MbiGenerator.generate if patient.payer == '1'
-      patient.email = create_email(patient, randomize)
+      patient.email = create_email(patient, randomize) unless patient.email
       patient.qdmPatient.dataElements.concat(elements)
     end
 

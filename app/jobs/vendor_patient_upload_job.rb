@@ -4,6 +4,7 @@ class VendorPatientUploadJob < ApplicationJob
   include Job::Status
   include ::CqmValidators
   include ::Validators
+  include QrdaHelper
 
   after_enqueue do |job|
     tracker = job.tracker
@@ -69,6 +70,8 @@ class VendorPatientUploadJob < ApplicationJob
     time_shifted_patient(doc, vendor_id, bundle)
   end
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
   def time_shifted_patient(doc, vendor_id, bundle)
     # check for start date
     year_validator = MeasurePeriodValidator.new
@@ -94,6 +97,7 @@ class VendorPatientUploadJob < ApplicationJob
       patient.update(_type: CQM::VendorPatient, correlation_id: vendor_id, bundleId: bundle.id)
       Cypress::QrdaPostProcessor.replace_negated_codes(patient, bundle)
       Cypress::QrdaPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
+      Cypress::QrdaPostProcessor.add_parsed_telecoms(patient, parse_telecoms(doc))
       Cypress::QrdaPostProcessor.remove_invalid_qdm_56_data_types(patient) if bundle.major_version.to_i > 2021
       patient.save
       [true, patient]
@@ -101,6 +105,8 @@ class VendorPatientUploadJob < ApplicationJob
       [false, e.to_s]
     end
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
   def generate_calculations(patients, bundle, vendor_id, include_highlighting)
     patient_ids = patients.map { |p| p.id.to_s }
