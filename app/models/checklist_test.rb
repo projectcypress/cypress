@@ -82,10 +82,6 @@ class ChecklistTest < ProductTest
         codeless_indices << index
       else
         # A coded attribute needs to have the valueset specified
-        # skip a negated attribute if one has already been chosen
-        next if @negation_already_selected && attribute['attribute_name'] == 'negationRationale'
-
-        @negation_already_selected = true if attribute['attribute_name'] == 'negationRationale'
         code_indices << index
       end
     end
@@ -111,8 +107,6 @@ class ChecklistTest < ProductTest
       next if (checklist_measures.include? measure.hqmf_id) || (checklist_measures.size > max_num_checklist_measures - 1)
 
       checklist_measures << measure.hqmf_id
-      # set negation_already_selected to false before going through criteria for this measure
-      @negation_already_selected = false
       measure_criteria_map[measure].each do |criteria|
         att_index = attribute_index(criteria)
         # slice source_data_criteria to remove fields unrelated to the checklist test
