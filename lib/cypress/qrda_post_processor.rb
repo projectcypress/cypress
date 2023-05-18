@@ -152,5 +152,15 @@ module Cypress
       de_to_delete = patient.qdmPatient.dataElements.map { |de| de if de.qdmTitle == 'Device, Applied' }
       de_to_delete.compact.each(&:destroy)
     end
+
+    def self.add_parsed_telecoms(patient, telecoms)
+      telecoms[:email_list].each do |email|
+        patient.email = email
+      end
+      telecoms[:phone_list].each do |phone|
+        patient.telecoms.destroy_all
+        patient.telecoms.build(use: 'HP', value: phone)
+      end
+    end
   end
 end
