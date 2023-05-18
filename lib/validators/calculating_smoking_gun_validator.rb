@@ -60,17 +60,25 @@ module Validators
     end
 
     def validate_telecoms(mrn, telecoms, options)
+      error_type = :error
+      missing_telecom_messages = []
       original_patient = Patient.find(mrn)
       original_patient.telecoms.each do |telecom|
         expected_phone = TelephoneNumber.parse(telecom.value, :us).e164_number
-        next if telecoms[:phone_list].any? { |tel| tel == expected_phone }
-
-        add_error("Phone number #{telecom.value} could not be found in file.", file_name: options[:file_name])
+        if telecoms[:phone_list].any? { |tel| tel == expected_phone }
+          error_type = :warning
+        else
+          missing_telecom_messages << "Phone number #{telecom.value} could not be found in file."
+        end
       end
-      return unless original_patient.email
-      return if telecoms[:email_list].include? original_patient.email
-
-      add_error("Email #{original_patient.email} could not be found in file.", file_name: options[:file_name])
+      if original_patient.email
+        if telecoms[:email_list].include? original_patient.email
+          error_type = :warning
+        else
+          missing_telecom_messages << "Email #{original_patient.email} could not be found in file."
+        end
+      end
+      missing_telecom_messages.each { |message| add_issue(message, error_type, file_name: options[:file_name]) }
     end
 
     def determine_passed(mrn, results, record, options)
