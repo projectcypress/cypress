@@ -48,6 +48,8 @@ module CQM
         %w[IPP DENOM NUMER DENEX DENEXCEP MSRPOPL MSRPOPLEXCEP].each do |pop|
           original_value, calculated_value, pop = extract_calcuated_and_original_results(calculated, pop)
           next unless original_value != calculated_value
+          # CQL requires a minimum of 8 decimal values.  Cap our check there.
+          next unless original_value.round(8) != calculated_value.round(8)
 
           pop_statement = options[:population_set].populations[pop].hqmf_id
           pop_statement << " Stratification #{options[:stratification_id]}" if options[:stratification_id]
