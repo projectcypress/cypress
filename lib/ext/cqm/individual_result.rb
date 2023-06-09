@@ -175,6 +175,9 @@ module CQM
         next unless rv_value
 
         encounter_id = rv_value['id'] if (rv_value.is_a? Hash) && rv_value['qdmTitle'] == 'Encounter, Performed'
+        # TODO: better support for CMS832
+        next unless encounter_id
+
         risk_variable_values[encounter_id] = if rv_value.is_a? Hash
                                                rv_value['qdmTitle']
                                              else
