@@ -17,6 +17,9 @@ RUN mkdir /home/app/cypress
 
 WORKDIR /home/app/cypress
 
+RUN bash -lc 'rvm install ruby-3.2.2'
+RUN bash -lc 'rvm --default use ruby-3.2.2'
+
 ADD Gemfile /home/app/cypress/Gemfile
 ADD Gemfile.lock /home/app/cypress/Gemfile.lock
 
