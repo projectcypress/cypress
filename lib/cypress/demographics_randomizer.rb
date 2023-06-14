@@ -106,9 +106,17 @@ module Cypress
     def self.create_telecom
       telecom = CQM::Telecom.new(
         use: 'HP',
-        value: Faker::PhoneNumber.cell_phone.gsub(/\s+/, '')
+        value: us_number.gsub(/\s+/, '')
       )
       [telecom]
+    end
+
+    # A method that makes sure we provide a phone number using a valid US area code
+    def self.us_number
+      loop do
+        phone_number = Faker::PhoneNumber.cell_phone
+        return phone_number if TelephoneNumber.parse(phone_number, :us).valid?
+      end
     end
 
     def self.create_email(patient, randomize)
