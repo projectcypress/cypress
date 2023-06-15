@@ -12,9 +12,11 @@ namespace :bundle do
     task :code_crosswalk, [:bundle_version] => :setup do |_, args|
       bundle = Bundle.where(version: args.bundle_version).first
       CSV.open('tmp/code_crosswalk.csv', 'w', col_sep: '|') do |csv|
-        bundle.measures.each do |measure|
+        bundle.measures.each_with_index do |measure, m_index|
+          puts m_index
           valuesets = measure.value_sets
-          bundle.patients.each do |patient|
+          bundle.patients.each_with_index do |patient, p_index|
+            puts p_index
             patient.qdmPatient.dataElements.each_with_index do |data_element, de_index|
               cross_walks = false
               codes = {}
@@ -23,7 +25,7 @@ namespace :bundle do
                 scooped_vs = valuesets.map { |vs| vs.oid if vs.concepts.any? { |vsc| do_codes_match?(dec, vsc) } }.compact
                 next if scooped_vs.blank?
 
-                code_hash = { code_system: dec['codeSystemOid'], valuesets: scooped_vs }
+                code_hash = { code_system: dec['system'], valuesets: scooped_vs }
                 codes[dec['code']] = code_hash
                 next unless codes.size.positive?
 
@@ -47,7 +49,7 @@ namespace :bundle do
                 # If a calculation difference already exists, no need to find more
                 next if calc_diffs
 
-                cw_patient.qdmPatient.dataElements[de_index].dataElementCodes = [{ 'code' => code, 'codeSystemOid' => value[:code_system] }]
+                cw_patient.qdmPatient.dataElements[de_index].dataElementCodes = [{ 'code' => code, 'system' => value[:code_system] }]
                 cw_patient.save
                 new_results = SingleMeasureCalculationJob.perform_now([cw_patient.id.to_s], measure.id.to_s, bundle.id.to_s, options)
                 # Set to true if difference is found
@@ -197,12 +199,12 @@ namespace :bundle do
     end
 
     def do_codes_match?(data_element_code, valueset_code)
-      valueset_code['code'] == data_element_code['code'] && valueset_code['code_system_oid'] == data_element_code['codeSystemOid']
+      valueset_code['code'] == data_element_code['code'] && valueset_code['code_system_oid'] == data_element_code['system']
     end
 
     def are_results_different?(original_results, new_results)
       original_results.each do |original_result|
-        new_result = new_results.find(population_set_key: original_result.population_set_key).first
+        new_result = new_results.select { |nr| nr['population_set_key'] == original_result.population_set_key }.first
         return true if result_different?(original_result, new_result)
       end
       false

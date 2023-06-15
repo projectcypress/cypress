@@ -14,7 +14,11 @@
             <% end %>
           <% end %>
         <% else %>
-          <ul><%= "Encounter #{encounter_ids.index(encounter_id) + 1}"%> <%= " - #{values}" if values != 'Encounter, Performed' %></ul>
+          <% if encounter_id == "Other" %>
+            <ul><%= values%></ul>
+          <% else %>
+            <ul><%= "Encounter #{encounter_ids.index(encounter_id) + 1}"%> <%= " - #{values}" if values != 'Encounter, Performed' %></ul>
+          <% end %>
         <% end %>
     <% end %>
   </ul>
