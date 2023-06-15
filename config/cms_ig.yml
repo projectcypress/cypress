@@ -29,6 +29,16 @@ CMS Programs:
       - MIPS_APP1_APMENTITY
       - MIPS_SUBGROUP
       - PCF
+    '2023':
+      - MIPS_GROUP
+      - MIPS_INDIV
+      - MIPS_VIRTUALGROUP
+      - MIPS_APMENTITY
+      - MIPS_APP1_INDIV
+      - MIPS_APP1_GROUP
+      - MIPS_APP1_APMENTITY
+      - MIPS_SUBGROUP
+      - PCF
   eh:
     '2020':
       - HQR_PI
@@ -41,6 +51,11 @@ CMS Programs:
       - HQR_PI_IQR
       - HQR_IQR_VOL
     '2022':
+      - HQR_PI
+      - HQR_IQR
+      - HQR_PI_IQR
+      - HQR_OQR
+    '2023':
       - HQR_PI
       - HQR_IQR
       - HQR_PI_IQR
@@ -62,6 +77,11 @@ Program Specific Measures:
       [ '2C928085-7B2A-EB52-017B-56761E0218D0',
         '2C928083-7ACE-2267-017B-11FBB9C913C4',
         '2C928082-7A14-D92C-017A-67B6F9971EA8']
+    # CMS122v12, CMS130v12, CMS165v12
+    '2023':
+      [ '2C928084-83D3-1B44-0183-EB75DC8A03DB',
+        '2C928084-82EA-D7C5-0183-6BF2944520DC',
+        '2C928085-806C-39A2-0180-7092FA9B0145']
 Program Criterion:
   CCN:
     name: 'CMS Certification Number'
