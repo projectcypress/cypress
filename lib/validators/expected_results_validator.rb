@@ -67,6 +67,8 @@ module Validators
     def check_observations(expected_result, reported_result, measure_id)
       expected_result[:observations].each do |population, expected_observation|
         next if reported_result[:observations][population].to_d == expected_observation['value'].to_d
+        # CQL requires a minimum of 8 decimal values.  Cap our check there.
+        next if reported_result[:observations][population].to_d.round(8) == expected_observation['value'].to_d.round(8)
 
         err = %(Expected #{population} Observation value #{expected_observation['value']}
         does not match reported value #{reported_result[:observations][population]})
