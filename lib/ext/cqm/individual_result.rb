@@ -91,6 +91,8 @@ module CQM
       expected_er = episode_results.values.map(&:observation_values).sort
 
       return unless calculated_er != expected_er
+      # CQL requires a minimum of 8 decimal values.  Cap our check there.
+      return unless calculated_er.round(8) != expected_er.round(8)
 
       issues << "Calculated observations (#{calculated_er}) do not match " \
                 "expected observations (#{expected_er})"
@@ -177,11 +179,16 @@ module CQM
         next unless rv_value
 
         encounter_id = rv_value['id'] if (rv_value.is_a? Hash) && rv_value['qdmTitle'] == 'Encounter, Performed'
-        risk_variable_values[encounter_id] = if rv_value.is_a? Hash
-                                               rv_value['qdmTitle']
-                                             else
-                                               rv_value
-                                             end
+        # TODO: better support for CMS832
+        if encounter_id.nil?
+          risk_variable_values['Other'] = raw_results
+        else
+          risk_variable_values[encounter_id] = if rv_value.is_a? Hash
+                                                 rv_value['qdmTitle']
+                                               else
+                                                 rv_value
+                                               end
+        end
       end
     end
 

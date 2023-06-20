@@ -189,6 +189,8 @@ module CQM
 
     # when laboratory_tests and physical_exams are reported for CMS529, they need to reference the
     # encounter they are related to.  The time range can include 24 hours before and after the encounter occurs.
+    # rubocop:disable Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/CyclomaticComplexity
     def add_encounter_ids_to_events
       encounter_times = {}
       qdmPatient.get_data_elements('encounter', 'performed').each do |ep|
@@ -204,7 +206,8 @@ module CQM
         encounter_times[ep.id] = rel_time
       end
       qdmPatient.get_data_elements('laboratory_test', 'performed').each do |lt|
-        lt.encounter_id = encounter_id_for_event(encounter_times, lt.resultDatetime)
+        event_time = lt.resultDatetime || lt.relevantDatetime || lt.relevantPeriod&.low
+        lt.encounter_id = encounter_id_for_event(encounter_times, event_time)
         lt.relatedTo << lt.encounter_id if lt.encounter_id
       end
       qdmPatient.get_data_elements('physical_exam', 'performed').each do |pe|
@@ -213,6 +216,8 @@ module CQM
         pe.relatedTo << pe.encounter_id if pe.encounter_id
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def encounter_id_for_event(encounter_time_hash, event_time)
       encounter_time_hash.each do |e_id, range|
