@@ -25,7 +25,7 @@ ADD Gemfile.lock /home/app/cypress/Gemfile.lock
 
 RUN chown -R app:app .
 
-RUN su app -c 'bundle install --without development test'
+RUN su app -c 'bundle install'
 
 ADD . /home/app/cypress
 
