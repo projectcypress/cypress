@@ -128,7 +128,8 @@ class CMSProgramTask < Task
     [::Validators::CMSQRDA1HQRSchematronValidator.new(product_test.bundle.version, as_warnings: false),
      ::Validators::EncounterValidator.new,
      ::Validators::CoreClinicalDataElementValidator.new(product_test.measures),
-     ::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.c3_test, true)]
+     ::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.c3_test, true),
+     EhrCertificationIdValidator.new]
   end
 
   # Common validators for EP programs
