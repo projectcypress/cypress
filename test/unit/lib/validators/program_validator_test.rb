@@ -15,7 +15,7 @@ class ProgramValidatorTest < ActiveSupport::TestCase
     @validator.validate(@document)
 
     assert_equal 1, @validator.errors.count, "Expected 1 error, got #{@validator.errors}"
-    msg = "Expected to find program 'HQR_PI' but no program code was found."
+    msg = "Expected to find program(s) 'HQR_PI' but no program code was found."
     assert_equal msg, @validator.errors[0].message
   end
 
@@ -26,7 +26,7 @@ class ProgramValidatorTest < ActiveSupport::TestCase
     @validator.validate(@document)
 
     assert_equal 1, @validator.errors.count, "Expected 1 error, got #{@validator.errors}"
-    msg = "CMS Program code 'bobs_house' does not match the expected code for program HQR_PI."
+    msg = "CMS Program code 'bobs_house' does not match the expected code for program(s) HQR_PI."
     assert_equal msg, @validator.errors[0].message
   end
 
