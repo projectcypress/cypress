@@ -27,9 +27,6 @@ module Validators
     end
 
     def verify_patient_ids(doc, options)
-      # As of 2022 this is no longer required
-      return unless options.task.bundle.major_version.to_i < 2022
-
       reported_id = doc.at_xpath('//cda:recordTarget/cda:patientRole/cda:id[@root="2.16.840.1.113883.4.927"]')
       reported_id ||= doc.at_xpath('//cda:recordTarget/cda:patientRole/cda:id[@root="2.16.840.1.113883.4.572"]')
       return if reported_id
