@@ -8,7 +8,7 @@ class CMSProgramTask < Task
   def validators
     # Valiators that are common across all tests
     @validators = [ProgramCriteriaValidator.new(product_test),
-                   ProgramValidator.new(product_test.cms_program),
+                   ProgramValidator.new([product_test.cms_program]),
                    MeasurePeriodValidator.new]
     # Each program may have program specific validations add them
     @validators.concat program_specific_validators
