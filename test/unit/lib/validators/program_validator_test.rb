@@ -5,7 +5,7 @@ class ProgramValidatorTest < ActiveSupport::TestCase
   include ::Validators
 
   def setup
-    @validator = Validators::ProgramValidator.new('HQR_PI')
+    @validator = Validators::ProgramValidator.new(['HQR_PI'])
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_good.xml')).read
     @document = get_document(file)
   end
