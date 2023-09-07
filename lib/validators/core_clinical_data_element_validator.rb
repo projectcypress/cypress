@@ -15,12 +15,7 @@ module Validators
       return unless ccde_measure_ids.intersect?(@test_measure_ids)
 
       doc = get_document(file)
-      case options.task._type
-      when 'CMSProgramTask'
-        verify_patient_ids(doc, options)
-      when 'C3Cat1Task'
-        verify_patient_ids(doc, options)
-      end
+      verify_patient_ids(doc, options) if %w[CMSProgramTask C3Cat1Task].include?(options.task._type)
       verify_encounters(doc, options)
     end
 
