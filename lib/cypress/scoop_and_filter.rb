@@ -120,8 +120,15 @@ module Cypress
         next if additional_vs.oid[0, 3] == 'drc'
 
         de_for_additional_vs = data_element.clone
-        # Create Ids from the source data element and the oid so they remain consistent
-        de_for_additional_vs.id = BSON::ObjectId.from_data("#{data_element.id}#{additional_vs.oid}").to_s
+        # Create Ids from the source data element and the valueset so they remain consistent
+        id_string = BSON::ObjectId.from_data("#{data_element.id}#{additional_vs.id}").to_s
+        # When using BSON::ObjectId.from_data with the two ids, the untrimmed ids are 96 characters. 2 examples below
+        # 363464653166616166396130313063376433386365313337363464653166616166396130313063376433386365313338
+        # 363464653166623566396130313063376433386365313339363464653166623566396130313063376433386365313361
+        # Selective slicing to 36 characters still results in unique ids like,
+        # 653166616163653133376661616365313338
+        # 653166623563653133396662356365313361
+        de_for_additional_vs.id = id_string[6, 10] + id_string[38, 10] + id_string[58, 6] + id_string[86, 10]
         de_for_additional_vs.dataElementCodes = [{ code: additional_vs.oid, system: '1.2.3.4.5.6.7.8.9.10' }]
         multi_vs_negation_elements << de_for_additional_vs
       end

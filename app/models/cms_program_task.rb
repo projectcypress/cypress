@@ -8,7 +8,7 @@ class CMSProgramTask < Task
   def validators
     # Valiators that are common across all tests
     @validators = [ProgramCriteriaValidator.new(product_test),
-                   ProgramValidator.new(product_test.cms_program),
+                   ProgramValidator.new([product_test.cms_program]),
                    MeasurePeriodValidator.new]
     # Each program may have program specific validations add them
     @validators.concat program_specific_validators
@@ -128,7 +128,8 @@ class CMSProgramTask < Task
     [::Validators::CMSQRDA1HQRSchematronValidator.new(product_test.bundle.version, as_warnings: false),
      ::Validators::EncounterValidator.new,
      ::Validators::CoreClinicalDataElementValidator.new(product_test.measures),
-     ::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.c3_test, true)]
+     ::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.c3_test, true),
+     EhrCertificationIdValidator.new]
   end
 
   # Common validators for EP programs

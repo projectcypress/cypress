@@ -9,14 +9,26 @@ module Validators
 
     def validate(file, options = {})
       @document = get_document(file)
+
+      # Otherwise, look for the certification ID
+      cert_id = @document.at_xpath("//cda:participant/cda:associatedEntity/cda:id[@root = '2.16.840.1.113883.3.2074.1']")
+      if cert_id
+        ex = cert_id['extension']
+        if ex.length != 15
+          msg = 'CMS EHR Certification ID must be 15 alpha numeric characters in length.'
+          add_error(msg, file_name: options[:file_name])
+        end
+        if ex[2, 3] != '15C'
+          msg = 'The EHR system needs to be certified to 2015 Edition Cures Update for CY2024/PY2026. The CMS EHR Certification ID ' \
+                'must contain “15C” in the third, fourth, and fifth places. '
+          add_error(msg, file_name: options[:file_name])
+        end
+      end
+
       # Look for Promoting Interoperability Section (V2) identifier
       has_pi = @document.at_xpath("//cda:component/cda:section[cda:templateId/@root = '2.16.840.1.113883.10.20.27.2.5']")
       # If Promoting Interoperability Section is not there, return
-      return unless has_pi
-
-      # Otherwise, look for the certification ID
-      cert_id = @document.at_xpath("//cda:participant/cda:associatedEntity[cda:id/@root = '2.16.840.1.113883.3.2074.1']")
-      return if cert_id
+      return unless has_pi && !cert_id
 
       # If certification isn't in document, return an error
       msg = 'CMS EHR Certification ID is required if Promoting Interoperability performance category (Promoting Interoperability Section (V2) ' \

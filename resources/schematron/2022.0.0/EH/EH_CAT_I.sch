@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 CMS 2023 QRDA Category I Hospital Quality Reporting
-Version 1.2 
+Version 1.3 
 
     THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
     THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -85,6 +85,11 @@ Version 1.2
 
     REPORTING PERIOD: 2023
 
+    Changes made for the 2023 CMS QRDA Category I Schematron version 1.3:
+    
+       This version incorporates a correction to the HL7 template -
+           Encounter Performed V6 -   Correction of extension for '2.16.840.1.113883.10.20.24.3.166 to 2019-12-01
+            
     Changes made for the 2023 CMS QRDA Category I Schematron version 1.2:
     
         Document-level template:
@@ -106,7 +111,7 @@ Version 1.2
         Document templates
             QRDA Category I Report CMS V8     2.16.840.1.113883.10.20.24.1.3:2022-02-01
         
-            Section templates
+        Section templates
             Patient Data Section QDM V8 CMS   2.16.840.1.113883.10.20.24.2.1.1:2022-02-01
             Reporting Parameters Section CMS  2.16.840.1.113883.10.20.17.2.1.1:2016-03-01
         
@@ -268,7 +273,7 @@ Version 1.2
     NOTE: Schematrons may be updated after initial publication to address stakeholder or policy requirements. 
     Be sure to revisit the eCQI Resource Center (https://ecqi.healthit.gov/) for updated resources prior to use. 
 
-Tue Mar 21 16:59:03 MDT 2023
+Fri Jun 30 12:49:23 MDT 2023
 -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:svs="urn:ihe:iti:svs:2008" xmlns:voc="http://www.lantanagroup.com/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sch:ns prefix="voc" uri="http://www.lantanagroup.com/voc" />
@@ -1305,7 +1310,8 @@ Tue Mar 21 16:59:03 MDT 2023
       <sch:assert id="a-4509-11874-error" test="count(cda:statusCode)=1">SHALL contain exactly one [1..1] statusCode (CONF:4509-11874).</sch:assert>
       <sch:assert id="a-4509-11876-error" test="count(cda:effectiveTime)=1">SHALL contain exactly one [1..1] effectiveTime (CONF:4509-11876).</sch:assert>
       <sch:assert id="a-4509-30051-error" test="count(cda:entryRelationship[cda:act[cda:templateId[@root='2.16.840.1.113883.10.20.22.4.80'][@extension='2015-08-01']]])=0">SHALL NOT contain [0..0] entryRelationship (CONF:4509-30051) such that it SHALL contain exactly one [1..1] Encounter Diagnosis (V3) (identifier: urn:hl7ii:2.16.840.1.113883.10.20.22.4.80:2015-08-01) (CONF:4509-30052).</sch:assert>
-      <sch:assert id="a-4509-32546-error" test="count(cda:entryRelationship[cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.168'][@extension='2021-08-01']][cda:entryRelationship[cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.166'][@extension='2021-08-01']]/cda:value[@xsi:type='INT'][@value=1]]]]) &lt;= 1">If entryRelationship to Encounter Diagnosis QDM (V2) is present, SHALL contain at most one Encounter Diagnosis QDM V2 of rank 1, as principal diagnosis. (CONF:4509-32546)</sch:assert>
+      <!-- 06-30-2023 Corrected extension for 2.16.840.1.113883.10.20.24.3.166 to 2019-12-01 -->
+      <sch:assert id="a-4509-32546-error" test="count(cda:entryRelationship[cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.168'][@extension='2021-08-01']][cda:entryRelationship[cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.166'][@extension='2019-12-01']]/cda:value[@xsi:type='INT'][@value=1]]]]) &lt;= 1">If entryRelationship to Encounter Diagnosis QDM (V2) is present, SHALL contain at most one Encounter Diagnosis QDM V2 of rank 1, as principal diagnosis. (CONF:4509-32546)</sch:assert>
     </sch:rule>
     <sch:rule id="Encounter-Performed-id-errors" context="cda:encounter[cda:templateId[@root='2.16.840.1.113883.10.20.24.3.23'][@extension='2021-08-01']]/cda:id">
       <sch:assert id="a-4509-29418-error" test="@root">Such ids SHALL contain exactly one [1..1] @root (CONF:4509-29418).</sch:assert>

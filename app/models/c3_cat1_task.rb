@@ -10,7 +10,18 @@ class C3Cat1Task < Task
                    ::Validators::CoreClinicalDataElementValidator.new(product_test.measures),
                    ::Validators::QrdaCat1Validator.new(product_test.bundle, true, true, product_test.c1_test, product_test.measures)]
     @validators << cms_cat1_schematron_validator if product_test.bundle.cms_schematron
+    @validators << cms_program_validator
     @validators
+  end
+
+  def cms_program_validator
+    if !APP_CONSTANTS['oqr_measures'].intersection(measure_ids).blank?
+      ::Validators::ProgramValidator.new(['HQR_OQR'])
+    elsif product_test.hybrid_measures?
+      ::Validators::ProgramValidator.new(['HQR_IQR'])
+    else
+      ::Validators::ProgramValidator.new(%w[HQR_IQR HQR_IQR_PI HQR_PI])
+    end
   end
 
   def cms_cat1_schematron_validator

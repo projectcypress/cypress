@@ -141,7 +141,11 @@ module Validators
 
     def verify_dx_component_attribute(attribute, checked_criteria)
       # A component has nested attributes, check those
-      attribute_has_data(attribute.code, checked_criteria)
+      # Check the dx code first
+      return true if attribute_has_data(attribute.code, checked_criteria)
+
+      # Check the dx presentOnAdmissionIndicator
+      attribute_has_data(attribute.presentOnAdmissionIndicator, checked_criteria)
     end
 
     def verify_id_attribute(attribute)

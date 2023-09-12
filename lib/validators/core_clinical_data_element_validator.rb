@@ -15,44 +15,16 @@ module Validators
       return unless ccde_measure_ids.intersect?(@test_measure_ids)
 
       doc = get_document(file)
-      case options.task._type
-      when 'CMSProgramTask'
-        verify_patient_ids(doc, options)
-        verify_ccde_program(doc, options)
-      when 'C3Cat1Task'
-        verify_patient_ids(doc, options)
-      end
-      verify_only_ccde_measures(doc, options)
+      verify_patient_ids(doc, options) if %w[CMSProgramTask C3Cat1Task].include?(options.task._type)
       verify_encounters(doc, options)
     end
 
     def verify_patient_ids(doc, options)
-      # As of 2022 this is no longer required
-      return unless options.task.bundle.major_version.to_i < 2022
-
       reported_id = doc.at_xpath('//cda:recordTarget/cda:patientRole/cda:id[@root="2.16.840.1.113883.4.927"]')
       reported_id ||= doc.at_xpath('//cda:recordTarget/cda:patientRole/cda:id[@root="2.16.840.1.113883.4.572"]')
       return if reported_id
 
       msg = 'CMS_0084 - QRDA files for hybrid measure/CCDE submissions must contain a HICN or MBI.'
-      add_error(msg, file_name: options[:file_name])
-    end
-
-    def verify_ccde_program(doc, options)
-      prog = doc.at_xpath('//cda:informationRecipient/cda:intendedRecipient/cda:id/@extension')
-      # Prior to 2022 the program was HQR_IQR_VOL, now its HQR_IQR
-      required_program = options.task.bundle.major_version.to_i < 2022 ? 'HQR_IQR_VOL' : 'HQR_IQR'
-      return if prog.value == required_program
-
-      msg = "CMS_0085 - CMS program name for hybrid measure/CCDE submissions must be #{required_program}."
-      add_error(msg, file_name: options[:file_name])
-    end
-
-    def verify_only_ccde_measures(doc, options)
-      reported_measure_ids = measure_ids_from_cat_1_file(doc)
-      return if (reported_measure_ids - @ccde_measure_ids).empty?
-
-      msg = 'CMS_0086 - Files containing hybrid measure/CCDE submissions and eCQM cannot be submitted within the same batch'
       add_error(msg, file_name: options[:file_name])
     end
 
