@@ -20,7 +20,7 @@ class C3Cat1Task < Task
     elsif product_test.hybrid_measures?
       ::Validators::ProgramValidator.new(['HQR_IQR'])
     else
-      ::Validators::ProgramValidator.new(%w[HQR_IQR HQR_IQR_PI HQR_PI])
+      ::Validators::ProgramValidator.new(%w[HQR_IQR HQR_PI_IQR HQR_PI])
     end
   end
 
