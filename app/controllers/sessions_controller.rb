@@ -19,7 +19,8 @@ class SessionsController < Devise::SessionsController
   protected
 
   def valid_nlm_user?
-    validate_nlm_user('https://utslogin.nlm.nih.gov/cas/v1/api-key',
+    # Try to grab a simple valueset to see if credentials are valid
+    validate_nlm_user('https://vsac.nlm.nih.gov/vsac/svs/RetrieveValueSet?id=2.16.840.1.113762.1.4.1',
                       Settings.current.http_proxy,
                       params[:user][:umls_password])
   end
@@ -27,9 +28,11 @@ class SessionsController < Devise::SessionsController
   def validate_nlm_user(nlm_url, proxy, apikey)
     RestClient.proxy = proxy
     begin
-      nlm_result = RestClient.post(nlm_url, apikey:)
-      doc = Nokogiri::HTML(nlm_result.body)
-      doc.search('title').text == '201 Created'
+      nlm_result = RestClient::Request.execute(method: :get,
+                                               url: nlm_url,
+                                               user: '',
+                                               password: apikey)
+      nlm_result.code == 200
     rescue StandardError
       false
     end
