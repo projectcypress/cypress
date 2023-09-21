@@ -91,8 +91,6 @@ module CQM
       expected_er = episode_results.values.map(&:observation_values).sort
 
       return unless calculated_er != expected_er
-      # CQL requires a minimum of 8 decimal values.  Cap our check there.
-      return unless calculated_er.round(8) != expected_er.round(8)
 
       issues << "Calculated observations (#{calculated_er}) do not match " \
                 "expected observations (#{expected_er})"
