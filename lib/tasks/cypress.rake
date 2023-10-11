@@ -11,7 +11,6 @@ namespace :cypress do
       before = Vendor.all.count
       Vendor.destroy_all
       diff = before - Vendor.all.count
-      Record.destroy_all(test_id: { '$ne' => nil })
       Artifact.destroy_all
       puts "removed #{diff} Vendors"
     end
