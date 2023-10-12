@@ -429,6 +429,14 @@ timing_constraints:
 telehealth_modifier_codes:
   [ '95', 'GQ', 'GT' ]
 
+overidden_category:
+  # CMS844v4
+  - hqmf_id : '2C928084-83D3-1B44-0184-3A4838E816AC'
+    category : 'Eligible Hospital / Critical Access Hospital eCQMs - Hybrid'
+  # CMS529v4
+  - hqmf_id : '2C928084-83D3-1B44-0184-3A586CB316B5'
+    category : 'Eligible Hospital / Critical Access Hospital eCQMs - Hybrid'
+
 unit_matches:
   # relevant for CMS9v8+ GestationalAge.result >= 37 weeks, drc "Gestational age--at birth"
   - hqmf_set_id : '7D374C6A-3821-4333-A1BC-4531005D77B8'
