@@ -91,9 +91,9 @@ module Validators
 
     def build_doc_name(doc)
       # find the mrn for the document
-      first = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:given/text()')
-      last = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:family/text()')
-      "#{first.to_s.strip} #{last.to_s.strip}".upcase
+      first = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:given')
+      last = doc.at_xpath('/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:family')
+      "#{first.text.strip} #{last.text.strip}".upcase
     end
 
     def build_document(document)
