@@ -480,3 +480,17 @@ unit_matches:
     code_list_id: '2.16.840.1.113762.1.4.1248.34'
     units        :
       - 'mg/dL'
+
+eki_tickets:
+  2C928082-86DB-6718-0186-E6D223320335:
+    - ticket_id: 'EKI-21'
+      population: 'OBSERV'
+      threshold: 100
+      threshold_type: 'greater' 
+      message: 'For CMS986v2, the measure observation logic in MO2, MO3, and MO4 is missing the requirement that the valid encounter contains a "Malnutrition Risk Screening At Risk Result" or an ordered "Hospital Dietitian Referral". This may result in erroneously high-performance scores not aligned with measure intent or a true measurement of performance. More information can be found here: https://oncprojectracking.healthit.gov/support/browse/EKI-21'
+  2C928082-7CE1-6F5F-017C-E64331EC0288:
+    - ticket_id: 'EKI-20'
+      population: 'DENEX'
+      threshold: 1
+      threshold_type: 'greater'
+      message: 'For CMS506v5, Denominator exclusion logic can be interpreted and implemented two different ways which might result in inaccurate measure performance rates. More information can be found here: https://oncprojectracking.healthit.gov/support/browse/EKI-20'
