@@ -37,8 +37,6 @@ class CMSTestExecutionJob < ApplicationJob
                                    measure_id: Measure.find_by(hqmf_id:).id.to_s)
       irs.each do |ir|
         eki_tickets.each do |eki_ticket|
-          # next if eki_ticket.population == 'OBSERV' && !ir.observation_values.any? { |ov| ov > eki_ticket.threshold }
-          # next if eki_ticket.population != 'OBSERV' && ir[eki_ticket.population] < eki_ticket.threshold
           next if within_threshold?(eki_ticket, ir)
 
           file_name = ir.patient.file_name
@@ -55,13 +53,17 @@ class CMSTestExecutionJob < ApplicationJob
   def within_threshold?(eki_ticket, individual_result)
     if eki_ticket.population == 'OBSERV'
       if eki_ticket.threshold_type == 'greater'
+        # This returns true if no observations are greater than the threshold
         individual_result.observation_values.none? { |ov| ov > eki_ticket.threshold }
       else
+        # This returns true if no observations are less than the threshold
         individual_result.observation_values.none? { |ov| ov < eki_ticket.threshold }
       end
     elsif eki_ticket.threshold_type == 'greater'
+      # This returns true if the population value is less than or equal to the threshold
       individual_result[eki_ticket.population] <= eki_ticket.threshold
     else
+      # This returns true if the population value is greater than or equal to the threshold
       individual_result[eki_ticket.population] >= eki_ticket.threshold
     end
   end
