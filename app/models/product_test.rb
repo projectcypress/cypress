@@ -79,6 +79,10 @@ class ProductTest
     # long after the parent data was destroyed.
     Artifact.where(:test_execution_id.in => test_execution_ids).destroy
     CQM::IndividualResult.where(:patient_id.in => patient_ids).delete
+    test_execution_ids.each do |test_execution_id|
+      CQM::IndividualResult.where(correlation_id: test_execution_id).delete
+      CQM::TestExecutionPatient.where(correlation_id: test_execution_id).delete
+    end
     ProductTest.in(id: product_test_ids).delete
   end
 
