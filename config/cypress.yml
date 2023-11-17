@@ -99,6 +99,25 @@ version_config:
           codeSystem: "2.16.840.1.113883.6.88"
       CMSQRDA3SchematronValidator_warnings:
       CMSQRDA1HQRSchematronValidator_warnings:
+  '~>2024.0':
+      start_date_offset: 2
+      modified_population_labels:
+        IPP: 'IPOP'
+      schematron: "2023.0.0"
+      qrda_version: "r5_3"
+      qrda_version_display_name: "STU 5.3"
+      qrda3_version: "r2_1"
+      qrda3_version_display_name: "R1"
+      mapped_codes:
+      default_negation_codes:
+        2.16.840.1.113883.3.526.3.1184:
+          code: "854901"
+          codeSystem: "2.16.840.1.113883.6.88"
+        2.16.840.1.113883.3.526.3.1174:
+          code: "854901"
+          codeSystem: "2.16.840.1.113883.6.88"
+      CMSQRDA3SchematronValidator_warnings:
+      CMSQRDA1HQRSchematronValidator_warnings:
 
 # Configuration for values to use when randomizing patients in test decks
 # Names and nicknames added in a separate YML file
