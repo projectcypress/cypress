@@ -271,42 +271,42 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
   def test_eki_tickets_greater_than_observation_threshold
     eki_ticket = { ticket_id: 'EKI-21', population: 'OBSERV', threshold: 100, threshold_type: 'greater', message: 'For CMS986v2...' }
     individual_result = IndividualResult.new(observation_values: [100])
-    assert within_threshold = CMSTestExecutionJob.new().within_threshold?(eki_ticket, individual_result)
+    assert CMSTestExecutionJob.new.within_threshold?(eki_ticket, individual_result)
 
     individual_result = IndividualResult.new(observation_values: [101])
-    assert_not within_threshold = CMSTestExecutionJob.new().within_threshold?(eki_ticket, individual_result)
+    assert_not CMSTestExecutionJob.new.within_threshold?(eki_ticket, individual_result)
   end
 
   def test_eki_tickets_less_than_observation_threshold
     eki_ticket = { ticket_id: 'EKI-21', population: 'OBSERV', threshold: 100, threshold_type: 'less', message: 'For CMS986v2...' }
     individual_result = IndividualResult.new(observation_values: [99])
-    assert_not within_threshold = CMSTestExecutionJob.new().within_threshold?(eki_ticket, individual_result)
+    assert_not CMSTestExecutionJob.new.within_threshold?(eki_ticket, individual_result)
 
     individual_result = IndividualResult.new(observation_values: [100])
-    assert within_threshold = CMSTestExecutionJob.new().within_threshold?(eki_ticket, individual_result)
+    assert CMSTestExecutionJob.new.within_threshold?(eki_ticket, individual_result)
 
     individual_result = IndividualResult.new(observation_values: [101])
-    assert within_threshold = CMSTestExecutionJob.new().within_threshold?(eki_ticket, individual_result)
+    assert CMSTestExecutionJob.new.within_threshold?(eki_ticket, individual_result)
   end
 
-  def test_eki_tickets_greater_than_observation_threshold
+  def test_eki_tickets_greater_than_population_threshold
     eki_ticket = { ticket_id: 'EKI-21', population: 'IPP', threshold: 1, threshold_type: 'greater', message: 'For CMS986v2...' }
     individual_result = IndividualResult.new(IPP: 1)
-    assert within_threshold = CMSTestExecutionJob.new().within_threshold?(eki_ticket, individual_result)
+    assert CMSTestExecutionJob.new.within_threshold?(eki_ticket, individual_result)
 
     individual_result = IndividualResult.new(IPP: 2)
-    assert_not within_threshold = CMSTestExecutionJob.new().within_threshold?(eki_ticket, individual_result)
+    assert_not CMSTestExecutionJob.new.within_threshold?(eki_ticket, individual_result)
   end
 
-  def test_eki_tickets_less_than_observation_threshold
+  def test_eki_tickets_less_than_population_threshold
     eki_ticket = { ticket_id: 'EKI-21', population: 'IPP', threshold: 1, threshold_type: 'less', message: 'For CMS986v2...' }
     individual_result = IndividualResult.new(IPP: 0)
-    assert_not within_threshold = CMSTestExecutionJob.new().within_threshold?(eki_ticket, individual_result)
+    assert_not CMSTestExecutionJob.new.within_threshold?(eki_ticket, individual_result)
 
     individual_result = IndividualResult.new(IPP: 1)
-    assert within_threshold = CMSTestExecutionJob.new().within_threshold?(eki_ticket, individual_result)
+    assert CMSTestExecutionJob.new.within_threshold?(eki_ticket, individual_result)
 
     individual_result = IndividualResult.new(IPP: 2)
-    assert within_threshold = CMSTestExecutionJob.new().within_threshold?(eki_ticket, individual_result)
+    assert CMSTestExecutionJob.new.within_threshold?(eki_ticket, individual_result)
   end
 end

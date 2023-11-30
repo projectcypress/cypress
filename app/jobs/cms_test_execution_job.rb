@@ -33,6 +33,8 @@ class CMSTestExecutionJob < ApplicationJob
   def eki_check(test_execution)
     already_printed = []
     APP_CONSTANTS['eki_tickets'].each do |hqmf_id, eki_tickets|
+      next unless test_execution.task.product_test.measure_ids.include?(hqmf_id)
+
       irs = IndividualResult.where(correlation_id: test_execution.id.to_s,
                                    measure_id: Measure.find_by(hqmf_id:).id.to_s)
       irs.each do |ir|
