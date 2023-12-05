@@ -23,11 +23,11 @@ module Validators
 
     def validate_timing
       timing_constraint = find_timing_constraints
-      if timing_constraint && (@product_test.product.shift_patients || (@product_test.is_a? CMSProgramTest))
-        validate_measurement_period(timing_constraint['start_time'], timing_constraint['end_time'])
-      elsif (@product_test.is_a? CMSProgramTest) && @product_test.reporting_program_type == 'eh'
+      if (@product_test.is_a? CMSProgramTest) && @product_test.reporting_program_type == 'eh'
         # For EH measures, Reports are for a single quarter
-        validate_quarters_measurement_period
+        validate_quarters_measurement_period(timing_constraint)
+      elsif timing_constraint && @product_test.product.shift_patients
+        validate_measurement_period(timing_constraint['start_time'], timing_constraint['end_time'])
       else
         # Otherwise, measurement period should be for the correct year.
         validate_measurement_period
@@ -68,15 +68,21 @@ module Validators
       end
     end
 
-    def validate_quarters_measurement_period
+    def validate_quarters_measurement_period(timing_constraint)
       measure_year = Time.at(@product_test.measure_period_start).utc.strftime('%Y')
-      quarters = [%w[0101 0331], %w[0401 0630], %w[0701 0930], %w[1001 1231]]
+      # If there are timing_constraint, use the values in the configuration files, otherwise use default quarters
+      quarters = if timing_constraint
+                   timing_constraint['quarters']
+                 else
+                   [%w[0101 0331], %w[0401 0630], %w[0701 0930], %w[1001 1231]]
+                 end
 
       matches_quarter = false
 
       quarters.each do |quarter|
-        measure_start = measure_year + quarter[0]
-        measure_end = measure_year + quarter[1]
+        # When using default quarters, the measure year needs to be added
+        measure_start = timing_constraint ? quarter[0] : measure_year + quarter[0]
+        measure_end = timing_constraint ? quarter[1] : measure_year + quarter[1]
 
         # Set matches_quarter to true when a correctly reported quarter is found
         if @doc_start_time.value.to_s.start_with?(measure_start) && @doc_end_time.value.to_s.start_with?(measure_end)
