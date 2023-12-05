@@ -9,11 +9,13 @@ function escapeCSS(str) {
 
 function CheckMany(group) {
   if (group == 'all') {
-    $('.measure-group .measure-checkbox:not(:checked)').prop('checked', true).change();
+    $('.measure-group .measure-checkbox:not(:checked)').prop('checked', true).change()
+      .filter('[data-category=Retired]').prop('checked', false).change();
   } else {
     $('.measure-group .measure-checkbox')
       .filter(':not([data-measure-type='+group+'])').prop('checked', false).change().end()
-      .filter('[data-measure-type='+group+']').prop('checked', true).change();
+      .filter('[data-measure-type='+group+']').prop('checked', true).change()
+      .filter('[data-category=Retired]').prop('checked', false).change();
   }
 }
 
