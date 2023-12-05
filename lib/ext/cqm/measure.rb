@@ -22,6 +22,11 @@ module CQM
       cms_id[/#{start_marker}(.*?)#{end_marker}/m, 1].to_i
     end
 
+    def category
+      overidden_category = APP_CONSTANTS['overidden_category'].detect { |oc| oc.hqmf_id == hqmf_id }
+      overidden_category ? overidden_category.category : self['category']
+    end
+
     def individual_result_relevant_to_measure(individual_result)
       return false unless individual_result.measure_id.to_s == id.to_s
       return true if individual_result.IPP != 0

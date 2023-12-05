@@ -23,10 +23,51 @@ class CMSTestExecutionJob < ApplicationJob
         test_execution.execution_errors.build(message: msg, msg_type: :warning,
                                               validator: 'Validators::ProgramCriteriaValidator')
       end
+      eki_check(test_execution) unless test_execution.task.measure_ids.intersection(APP_CONSTANTS['eki_tickets'].keys).empty?
       validate_measures(test_execution)
       test_execution.state = precalc_state
     end
     test_execution.save
+  end
+
+  def eki_check(test_execution)
+    already_printed = []
+    APP_CONSTANTS['eki_tickets'].each do |hqmf_id, eki_tickets|
+      next unless test_execution.task.product_test.measure_ids.include?(hqmf_id)
+
+      irs = IndividualResult.where(correlation_id: test_execution.id.to_s,
+                                   measure_id: Measure.find_by(hqmf_id:).id.to_s)
+      irs.each do |ir|
+        eki_tickets.each do |eki_ticket|
+          next if within_threshold?(eki_ticket, ir)
+
+          file_name = ir.patient.file_name
+          next if already_printed.include? file_name
+
+          already_printed << file_name
+          test_execution.execution_errors.build(message: eki_ticket.message, msg_type: :warning,
+                                                validator: 'Validators::ProgramCriteriaValidator', file_name:)
+        end
+      end
+    end
+  end
+
+  def within_threshold?(eki_ticket, individual_result)
+    if eki_ticket.population == 'OBSERV'
+      if eki_ticket.threshold_type == 'greater'
+        # This returns true if no observations are greater than the threshold
+        individual_result.observation_values.none? { |ov| ov > eki_ticket.threshold }
+      else
+        # This returns true if no observations are less than the threshold
+        individual_result.observation_values.none? { |ov| ov < eki_ticket.threshold }
+      end
+    elsif eki_ticket.threshold_type == 'greater'
+      # This returns true if the population value is less than or equal to the threshold
+      individual_result[eki_ticket.population] <= eki_ticket.threshold
+    else
+      # This returns true if the population value is greater than or equal to the threshold
+      individual_result[eki_ticket.population] >= eki_ticket.threshold
+    end
   end
 
   def calculate_patients(test_execution)

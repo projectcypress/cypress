@@ -351,7 +351,7 @@ ipp_relevant:
     statements : [ 'Admission without VTE or Obstetrical Conditions']
   # CMS819v2
   - hqmf_id : '2C928084-808A-9589-0180-8B94695C0128'
-    statements : [ 'Qualifying Encounter']
+    statements : [ 'Opioid Administration']
   # CMS832v1
   - hqmf_id : '2C928083-8651-08A3-0186-C7D18A711CB2'
     statements : [ 'Inpatient Encounter with Creatinine']
@@ -400,34 +400,59 @@ timing_constraints:
   - hqmf_id : '2C928085-7198-38EE-0171-9D44015105A3'
     start_time : '20210701'
     end_time : '20220630'
+    quarters : [['20210701', '20210930'],['20211001', '20211231'], ['20220101', '20220331'],['20220401', '20220630']]
   # CMS529v2
   - hqmf_id : '2C928082-74C2-3313-0174-E01E3F200882'
     start_time : '20220701'
     end_time : '20230630'
+    quarters : [['20220701', '20220930'],['20221001', '20221231'], ['20230101', '20230331'],['20230401', '20230630']]
   # CMS844v2
   - hqmf_id : '2C928082-74B3-1D8C-0174-BC5D6372017F'
     start_time : '20220701'
     end_time : '20230630'
+    quarters : [['20220701', '20220930'],['20221001', '20221231'], ['20230101', '20230331'],['20230401', '20230630']]
   # CMS529v3
   - hqmf_id : '2C928083-7F47-C81F-017F-69FA7E3E0919'
     start_time : '20230701'
     end_time : '20240630'
+    quarters : [['20230701', '20230930'],['20231001', '20231231'], ['20240101', '20240331'],['20240401', '20240630']]
   # CMS844v3
   - hqmf_id : '2C928083-7F47-C81F-017F-6A10CDBE0958'
     start_time : '20230701'
     end_time : '20240630'
+    quarters : [['20230701', '20230930'],['20231001', '20231231'], ['20240101', '20240331'],['20240401', '20240630']]
   # 2023 Bundle
   # CMS529v4
   - hqmf_id : '2C928084-83D3-1B44-0184-3A586CB316B5'
     start_time : '20240701'
     end_time : '20250630'
+    quarters : [['20240701', '20240930'],['20241001', '20241231'], ['20250101', '20250331'],['20250401', '20250630']]
   # CMS844v4
   - hqmf_id : '2C928084-83D3-1B44-0184-3A4838E816AC'
     start_time : '20240701'
     end_time : '20250630'
+    quarters : [['20240701', '20240930'],['20241001', '20241231'], ['20250101', '20250331'],['20250401', '20250630']]
 
 telehealth_modifier_codes:
   [ '95', 'GQ', 'GT' ]
+
+overidden_category:
+  # CMS844v4
+  - hqmf_id : '2C928084-83D3-1B44-0184-3A4838E816AC'
+    category : 'Eligible Hospital / Critical Access Hospital eCQMs - Hybrid'
+  # CMS529v4
+  - hqmf_id : '2C928084-83D3-1B44-0184-3A586CB316B5'
+    category : 'Eligible Hospital / Critical Access Hospital eCQMs - Hybrid'
+  # CMS127v12
+  - hqmf_id : '2C928082-82CB-A3F5-0182-EA153AF903AC'
+    category : 'Retired'
+  # CMS147v13
+  - hqmf_id : '2C928084-8211-3ECE-0182-C706CBC12FAB'
+    category : 'Retired'
+  # CMS161v12
+  - hqmf_id : '2C928084-82EA-D7C5-0182-FED24F5E08CF'
+    category : 'Retired'
+
 
 unit_matches:
   # relevant for CMS9v8+ GestationalAge.result >= 37 weeks, drc "Gestational age--at birth"
@@ -480,3 +505,17 @@ unit_matches:
     code_list_id: '2.16.840.1.113762.1.4.1248.34'
     units        :
       - 'mg/dL'
+
+eki_tickets:
+  2C928082-86DB-6718-0186-E6D223320335:
+    - ticket_id: 'EKI-21'
+      population: 'OBSERV'
+      threshold: 100
+      threshold_type: 'greater' 
+      message: 'For CMS986v2, the measure observation logic in MO2, MO3, and MO4 is missing the requirement that the valid encounter contains a "Malnutrition Risk Screening At Risk Result" or an ordered "Hospital Dietitian Referral". This may result in erroneously high-performance scores not aligned with measure intent or a true measurement of performance. More information can be found here: https://oncprojectracking.healthit.gov/support/browse/EKI-21'
+  2C928082-7CE1-6F5F-017C-E64331EC0288:
+    - ticket_id: 'EKI-20'
+      population: 'DENEX'
+      threshold: 1
+      threshold_type: 'greater'
+      message: 'For CMS506v5, Denominator exclusion logic can be interpreted and implemented two different ways which might result in inaccurate measure performance rates. More information can be found here: https://oncprojectracking.healthit.gov/support/browse/EKI-20'
