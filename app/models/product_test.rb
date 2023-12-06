@@ -226,8 +226,8 @@ class ProductTest
 
   def additional_shift
     shifted_start = Date.parse(APP_CONSTANTS['timing_constraints'].detect { |tc| measure_ids.include? tc['hqmf_id'] }.start_time).in_time_zone
-    bundle_start = Time.at(product.measure_period_start).in_time_zone
-    shifted_start - bundle_start
+    product_start = Time.at(product.measure_period_start).in_time_zone
+    shifted_start - product_start
   end
 
   def update_with_checklist_tests(checklist_test_params)
