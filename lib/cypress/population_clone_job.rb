@@ -41,7 +41,7 @@ module Cypress
       if @test.product.shift_patients
         date_shift = @test.bundle.start_date_offset
         # for hybrid_measures, shift an additional 6 months to account for July-June Measurement Period
-        date_shift += 15_638_400 if @test.hybrid_measures?
+        date_shift += @test.additional_shift if @test.timing_constraint?
         patients.each do |patient|
           patient.qdmPatient.shift_dates(date_shift)
         end

@@ -432,6 +432,10 @@ timing_constraints:
     start_time : '20240701'
     end_time : '20250630'
     quarters : [['20240701', '20240930'],['20241001', '20241231'], ['20250101', '20250331'],['20250401', '20250630']]
+  # CMS1056v1
+  - hqmf_id : '2C928082-86DB-6718-0186-E05C1EB0010E'
+    start_time : '20250101'
+    end_time : '20251231'
 
 telehealth_modifier_codes:
   [ '95', 'GQ', 'GT' ]
@@ -452,6 +456,15 @@ overidden_category:
   # CMS161v12
   - hqmf_id : '2C928084-82EA-D7C5-0182-FED24F5E08CF'
     category : 'Retired'
+  # CMS314v1
+  - hqmf_id : '2C928082-86DB-6718-0187-03D1ACEE0811'
+    category : 'Eligible Clinician eCQMs'
+  # CMS1188v1
+  - hqmf_id : '2C928082-86DB-6718-0186-E6F01B5C037F'
+    category : 'Eligible Clinician eCQMs'
+  # CMS1056v1
+  - hqmf_id : '2C928082-86DB-6718-0186-E05C1EB0010E'
+    category : 'Eligible Clinician eCQMs (2025 Performance Period)'
 
 
 unit_matches:
