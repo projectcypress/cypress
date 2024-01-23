@@ -7,8 +7,8 @@ ruby '3.2.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 7.0.0'
 
-gem 'delayed_job_mongoid', '~> 2.3.0'
-gem 'mongoid', '~> 7.5.0'
+gem 'delayed_job_mongoid', '~> 3.0.0'
+gem 'mongoid', '~> 8.1.0'
 
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson'
@@ -17,7 +17,7 @@ gem 'mustache'
 gem 'os'
 
 gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', tag: 'cypress_v7.0.0'
-gem 'cqm-parsers', '~> 4.1.0.2'
+gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', tag: 'mongoid8'
 gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', tag: 'cypress_v7.2.0'
 gem 'cqm-validators', '~> 4.0.4'
 
