@@ -17,6 +17,7 @@ class MeasureTestTest < ActiveJob::TestCase
   # end
 
   def test_single_measure
+    @vendor.products.destroy_all
     product = @vendor.products.create(name: 'test_product', c1_test: true, randomize_patients: true, duplicate_patients: true,
                                       bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
     pt = product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
@@ -35,6 +36,7 @@ class MeasureTestTest < ActiveJob::TestCase
 
   def test_create_task_c1
     perform_enqueued_jobs do
+      @vendor.products.destroy_all
       product = @vendor.products.create(name: 'test_product_c1', c1_test: true, randomize_patients: true, duplicate_patients: true,
                                         bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
       pt = product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
@@ -59,6 +61,7 @@ class MeasureTestTest < ActiveJob::TestCase
 
   def test_create_without_randomized_records
     perform_enqueued_jobs do
+      @vendor.products.destroy_all
       product = @vendor.products.create(name: 'test_product_no_random', c2_test: true, randomize_patients: false,
                                         bundle_id: @bundle.id, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
       assert_enqueued_jobs 0
@@ -82,6 +85,7 @@ class MeasureTestTest < ActiveJob::TestCase
   end
 
   def test_create_with_slim_records
+    @vendor.products.destroy_all
     perform_enqueued_jobs do
       patient_to_copy = @bundle.patients.first
       # Add a bunch of patients to the bundle to exaggerate the number of patients
@@ -190,6 +194,7 @@ class MeasureTestTest < ActiveJob::TestCase
     @product.c1_test = true
     @product.c2_test = true
     @product.c3_test = true
+    @product.save
     pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
     pt.create_tasks
     pt.save
@@ -212,7 +217,8 @@ class MeasureTestTest < ActiveJob::TestCase
     @product.c1_test = true
     @product.c2_test = true
     @product.c3_test = true
-    pt = @product.product_tests.build({ name: 'mtest', measure_ids: ['AE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
+    @product.save
+    pt = @product.product_tests.create({ name: 'mtest', measure_ids: ['AE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
     pt.create_tasks
     assert pt.tasks.c1_task, 'product test should have a c1_task'
     assert pt.tasks.c2_task, 'product test should have a c2_task'

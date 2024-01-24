@@ -32,6 +32,7 @@ class C3Cat1TaskTest < ActiveSupport::TestCase
     measure.hqmf_id = '2C928082-74C2-3313-0174-E01E3F200882'
     measure.save
     @test.measure_ids = ['2C928082-74C2-3313-0174-E01E3F200882']
+    @test.product.measure_ids = ['2C928082-74C2-3313-0174-E01E3F200882']
     @test.save
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_ccde.zip'))
     c1_task = @test.tasks.create!({}, C1Task)
@@ -48,6 +49,7 @@ class C3Cat1TaskTest < ActiveSupport::TestCase
     measure.hqmf_id = '2C928082-74C2-3313-0174-E01E3F200882'
     measure.save
     @test.measure_ids = ['2C928082-74C2-3313-0174-E01E3F200882']
+    @test.product.measure_ids = ['2C928082-74C2-3313-0174-E01E3F200882']
     @test.save
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_ccde_lowercase.zip'))
     c1_task = @test.tasks.create!({}, C1Task)

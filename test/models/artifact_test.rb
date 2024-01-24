@@ -2,6 +2,15 @@
 
 require 'test_helper'
 class ArtifactTest < ActiveSupport::TestCase
+  def setup
+    @user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+    @test = FactoryBot.create(:cv_product_test_static_result)
+    @test.product.c1_test = true
+    @test.product.c2_test = true
+    @c1_task = @test.tasks.create({}, C1Task)
+    @c2_task = @test.tasks.create({}, C2Task)
+  end
+
   def test_should_be_able_to_tell_if_a_file_is_an_archive
     filename = Rails.root.join('test', 'fixtures', 'artifacts', 'qrda.zip')
     artifact = Artifact.new(file: File.new(filename))
@@ -84,46 +93,58 @@ class ArtifactTest < ActiveSupport::TestCase
     assert data.index(%!{ "_id" : ObjectId( "507885343054cf8d83000002" )!).zero?, 'should be able to read file from archive'
   end
 
-  def test_c1_task_should_accept_zip_files_not_xml_files
-    task = C1Task.new
-    zip_execution = task.test_executions.build
-    xml_execution = task.test_executions.build
+  def test_c1_task_should_not_accept_xml_files
+    task = @c1_task
+
     root = Rails.root.join('test', 'fixtures', 'artifacts')
     FileUtils.mkdir_p(root)
 
-    zip_filename = "#{root}/good_file_extension.zip"
     xml_filename = "#{root}/good_file_extension.xml"
-    FileUtils.touch(zip_filename)
     FileUtils.touch(xml_filename)
-    zip_artifact = Artifact.new(file: File.new(zip_filename))
     xml_artifact = Artifact.new(file: File.new(xml_filename))
     xml_artifact.file.file.content_type = 'text/xml'
-    zip_artifact.test_execution = zip_execution
-    xml_artifact.test_execution = xml_execution
-
-    assert zip_artifact.save, 'C1 execution artifact should save with .zip extension'
-    assert_not xml_artifact.save, 'C1 execution artifact should not save with .xml extension'
+    xml_execution = task.test_executions.new(user: @user, artifact: xml_artifact)
+    assert_equal false, xml_execution.save, 'C1 execution artifact should not save with .xml extension'
   end
 
-  def test_c2_task_should_accept_xml_files_not_zip_files
-    task = C2Task.new
-    zip_execution = task.test_executions.build
-    xml_execution = task.test_executions.build
+  def test_c1_task_should_accept_zip_files
+    task = @c1_task
+
     root = Rails.root.join('test', 'fixtures', 'artifacts')
     FileUtils.mkdir_p(root)
 
     zip_filename = "#{root}/good_file_extension.zip"
-    xml_filename = "#{root}/good_file_extension.xml"
     FileUtils.touch(zip_filename)
-    FileUtils.touch(xml_filename)
     zip_artifact = Artifact.new(file: File.new(zip_filename))
+    zip_execution = task.test_executions.new(user: @user, artifact: zip_artifact)
+    assert zip_execution.save, 'C1 execution artifact should save with .zip extension'
+  end
+
+  def test_c2_task_should_accept_xml_file
+    task = @c2_task
+
+    root = Rails.root.join('test', 'fixtures', 'artifacts')
+    FileUtils.mkdir_p(root)
+
+    xml_filename = "#{root}/good_file_extension.xml"
+    FileUtils.touch(xml_filename)
     xml_artifact = Artifact.new(file: File.new(xml_filename))
     xml_artifact.file.file.content_type = 'text/xml'
-    zip_artifact.test_execution = zip_execution
-    xml_artifact.test_execution = xml_execution
+    xml_execution = task.test_executions.new(user: @user, artifact: xml_artifact)
+    assert xml_execution.save, 'C2 execution artifact should save with .xml extension'
+  end
 
-    assert_not zip_artifact.save, 'C2 execution artifact should not save with .zip extension'
-    assert xml_artifact.save, 'C2 execution artifact should save with .xml extension'
+  def test_c2_task_should_not__accept_zip_file
+    task = @c2_task
+
+    root = Rails.root.join('test', 'fixtures', 'artifacts')
+    FileUtils.mkdir_p(root)
+
+    zip_filename = "#{root}/good_file_extension.zip"
+    FileUtils.touch(zip_filename)
+    zip_artifact = Artifact.new(file: File.new(zip_filename))
+    zip_execution = task.test_executions.new(user: @user, artifact: zip_artifact)
+    assert_equal false, zip_execution.save, 'C2 execution artifact should not save with .zip extension'
   end
 
   def test_should_not_except_non_xml_or_zip_files
