@@ -25,7 +25,7 @@ class TestExecution
   before_save :verify_artifact
 
   def verify_artifact
-    artifact.save
+    artifact.save if artifact
   end
 
   def build_document(file)
