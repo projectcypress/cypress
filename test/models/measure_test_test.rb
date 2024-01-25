@@ -236,6 +236,7 @@ class MeasureTestTest < ActiveJob::TestCase
 
   # Provider generation is now a before_validation hook on the MeasureTest model
   def test_generate_provider
+    @product.c1_test = true
     test = @product.product_tests.build({ name: "my measure test #{rand}", measure_ids: @product.measure_ids }, MeasureTest)
     test.save!
     assert_not_equal nil, test.reload.provider
