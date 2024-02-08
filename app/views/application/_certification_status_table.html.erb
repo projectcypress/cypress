@@ -25,7 +25,7 @@
             <%= link_to product.name, vendor_product_path(product.vendor_id, product) %>
           </th>
         <% else %>
-          <th class="status-heading" rowspan="2"><%= @product.cures_update ? '2015 Edition Cures Update' : '2015 Edition' %></th>
+          <th class="status-heading" rowspan="2"><span class="sr-only">Status</span></th>
         <% end %>
         <th scope="col" colspan="2" class="c1-heading">C1</th>
         <th scope="col" class="c2-heading">C2</th>
