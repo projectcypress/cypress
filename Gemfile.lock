@@ -1,14 +1,14 @@
 GIT
   remote: https://github.com/projecttacoma/cqm-models
-  revision: 2c76e5f30e77fb71c7f55a260db64b7c1ace5e0b
-  tag: cypress_v7.0.0
+  revision: 27575d388eec04910470c05405ea2629b184f0ec
+  branch: rails_7_mongoid_8_dsc
   specs:
-    cqm-models (4.0.2)
+    cqm-models (4.2.0)
 
 GIT
   remote: https://github.com/projecttacoma/cqm-parsers
-  revision: 390463979688e906b88c044f934bc0a3b7789688
-  tag: mongoid8
+  revision: 2c4642e363417ec1995ced80aa1cdaf19f982b47
+  branch: mongoid8
   specs:
     cqm-parsers (4.1.0.2)
       activesupport (> 5.0)
@@ -21,7 +21,7 @@ GIT
       mongoid (> 6.0.5, < 9.0.0)
       mongoid-tree (~> 2.2.0)
       mustache
-      nokogiri (>= 1.8.5, < 1.15.0)
+      nokogiri (>= 1.16.2)
       rubyzip (~> 1.3)
       typhoeus
       uuid (~> 2.3.7)
@@ -29,20 +29,28 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-reports
-  revision: 395796f43d1b162cfac6d4568c2b85680ecb3995
-  tag: cypress_v7.2.0
+  revision: f7f1bc7cf97033e4302a60a44ef1101cffa4b613
+  branch: cat3_updates
   specs:
-    cqm-reports (4.0.0)
-      cqm-models (> 3.0)
-      cqm-validators (> 3.0)
+    cqm-reports (4.1.0)
+      cqm-models (~> 4.0)
+      cqm-validators (~> 4.0)
       erubis (~> 2.7)
       log4r (~> 1.1)
       memoist (~> 0.9)
       mongoid-tree (> 2.0)
       mustache
-      nokogiri (>= 1.8.5, < 1.15.0)
+      nokogiri (>= 1.16.2)
       uuid (~> 2.3)
       zip-zip (~> 0.3)
+
+GIT
+  remote: https://github.com/projecttacoma/cqm-validators
+  revision: 30d691521cb162230e6ea9ca3ac614aded38a87c
+  branch: update_nokogiri
+  specs:
+    cqm-validators (4.0.4)
+      nokogiri (>= 1.16.2)
 
 GIT
   remote: https://github.com/turbolinks/turbolinks-classic
@@ -197,8 +205,6 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.2.3)
-    cqm-validators (4.0.4)
-      nokogiri (>= 1.8.5, < 1.15.0)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -340,7 +346,7 @@ GEM
     mime-types-data (3.2023.1205)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.4)
+    mini_portile2 (2.8.5)
     minitest (5.21.2)
     minitest-rails (7.0.0)
       minitest (~> 5.10)
@@ -381,8 +387,8 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (8.15.0)
     nio4r (2.5.9)
-    nokogiri (1.14.5)
-      mini_portile2 (~> 2.8.0)
+    nokogiri (1.16.2)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     os (1.1.4)
@@ -403,7 +409,7 @@ GEM
     pry-nav (1.0.0)
       pry (>= 0.9.10, < 0.15)
     public_suffix (5.0.4)
-    racc (1.7.1)
+    racc (1.7.3)
     rack (2.2.8)
     rack-test (2.1.0)
       rack (>= 1.3)
@@ -619,7 +625,7 @@ DEPENDENCIES
   cqm-models!
   cqm-parsers!
   cqm-reports!
-  cqm-validators (~> 4.0.4)
+  cqm-validators!
   cucumber-rails
   daemons
   database_cleaner-mongoid
