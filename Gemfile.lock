@@ -29,8 +29,8 @@ GIT
 
 GIT
   remote: https://github.com/projecttacoma/cqm-reports
-  revision: f7f1bc7cf97033e4302a60a44ef1101cffa4b613
-  branch: cat3_updates
+  revision: 983af8a2b099071eee6b0db40568afba74d975c4
+  branch: master
   specs:
     cqm-reports (4.1.0)
       cqm-models (~> 4.0)
@@ -43,14 +43,6 @@ GIT
       nokogiri (>= 1.16.2)
       uuid (~> 2.3)
       zip-zip (~> 0.3)
-
-GIT
-  remote: https://github.com/projecttacoma/cqm-validators
-  revision: 30d691521cb162230e6ea9ca3ac614aded38a87c
-  branch: update_nokogiri
-  specs:
-    cqm-validators (4.0.4)
-      nokogiri (>= 1.16.2)
 
 GIT
   remote: https://github.com/turbolinks/turbolinks-classic
@@ -205,6 +197,8 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.2.3)
+    cqm-validators (4.0.5)
+      nokogiri (>= 1.16.2)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -625,7 +619,7 @@ DEPENDENCIES
   cqm-models!
   cqm-parsers!
   cqm-reports!
-  cqm-validators!
+  cqm-validators (~> 4.0.5)
   cucumber-rails
   daemons
   database_cleaner-mongoid
