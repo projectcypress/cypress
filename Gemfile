@@ -30,7 +30,8 @@ gem 'sass-rails', '~> 5.0.4'
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'font-awesome-sass', '~> 5.0.13'
 gem 'jquery-rails', '~> 4.4.0'
-gem 'jquery-ui-rails', '~> 6.0.1'
+# TODO: remove or use gem
+gem 'jquery-ui-rails', git: 'https://github.com/jquery-ui-rails/jquery-ui-rails', tag: 'v7.0.0'
 
 # Add pagination support
 gem 'kaminari-mongoid'
