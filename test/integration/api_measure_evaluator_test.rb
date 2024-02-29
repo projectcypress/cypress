@@ -189,11 +189,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
                               end
     options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
                 start_time: product_test.start_date, end_time: product_test.end_date, ry2022_submission: product_test.bundle.major_version == '2021' }
-    if product_test.bundle.major_version.to_i > 2021
-      Qrda3.new(results, product_test.measures, options).render
-    else
-      Qrda3R21.new(results, product_test.measures, options).render
-    end
+    Qrda3.new(results, product_test.measures, options).render
   end
 
   # Import all patients in the zip file, and maintain mapping between filename and id

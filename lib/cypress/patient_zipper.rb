@@ -49,11 +49,7 @@ module Cypress
                   medicare_beneficiary_identifier: patient.medicare_beneficiary_identifier,
                   submission_program: cat1_program,
                   start_time:, end_time: }
-      if patient.bundle.major_version.to_i > 2021
-        Qrda1R5.new(patient, measures, options).render
-      else
-        Qrda1R52.new(patient, measures, options).render
-      end
+      Qrda1R5.new(patient, measures, options).render
     end
     # rubocop:enable Metrics/PerceivedComplexity
   end

@@ -31,15 +31,9 @@ module Validators
       add_cqm_validation_error_as_execution_error(Cat3Measure.instance.validate(@doc, file_name: @options[:file_name]),
                                                   'CqmValidators::Cat3Measure',
                                                   :xml_validation)
-      if @bundle.major_version.to_i > 2021
-        add_cqm_validation_error_as_execution_error(Cat3R1.instance.validate(@doc, file_name: @options[:file_name]),
-                                                    'CqmValidators::Cat3R1',
-                                                    :xml_validation)
-      else
-        add_cqm_validation_error_as_execution_error(Cat3R21.instance.validate(@doc, file_name: @options[:file_name]),
-                                                    'CqmValidators::Cat3R21',
-                                                    :xml_validation)
-      end
+      add_cqm_validation_error_as_execution_error(Cat3R1.instance.validate(@doc, file_name: @options[:file_name]),
+                                                  'CqmValidators::Cat3R1',
+                                                  :xml_validation)
       add_cqm_validation_error_as_execution_error(CDA.instance.validate(@doc, file_name: @options[:file_name]),
                                                   'CqmValidators::CDA',
                                                   :xml_validation)
