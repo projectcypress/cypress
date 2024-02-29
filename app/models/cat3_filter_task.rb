@@ -18,7 +18,6 @@ class Cat3FilterTask < Task
     te
   end
 
-  # rubocop:disable Metrics/AbcSize
   def good_results
     # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
     cat3_submission_program = if product_test&.product&.c3_test
@@ -30,5 +29,4 @@ class Cat3FilterTask < Task
                 start_time: start_date, end_time: end_date, ry2022_submission: product_test.bundle.major_version == '2021' }
     Qrda3.new(product_test.expected_results_with_all_supplemental_codes, product_test.measures, options).render
   end
-  # rubocop:enable Metrics/AbcSize
 end

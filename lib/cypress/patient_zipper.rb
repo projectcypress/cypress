@@ -35,7 +35,6 @@ module Cypress
       @end_time = end_time
     end
 
-    # rubocop:disable Metrics/PerceivedComplexity
     def export(patient)
       cat1_program = if (patient.product_test&.product&.c3_test || patient.product_test&.product&.cvuplus) && patient.product_test&.eh_measures?
                        patient.product_test&.submission_program
@@ -51,7 +50,6 @@ module Cypress
                   start_time:, end_time: }
       Qrda1R5.new(patient, measures, options).render
     end
-    # rubocop:enable Metrics/PerceivedComplexity
   end
 
   class PatientZipper

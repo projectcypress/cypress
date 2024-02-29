@@ -13,7 +13,6 @@ module Validators
       @expected_results = expected_results
     end
 
-    # rubocop:disable Metrics/MethodLength
     def validate(file, options = {})
       @doc = get_document(file)
       @options = options
@@ -38,6 +37,5 @@ module Validators
                                                   'CqmValidators::CDA',
                                                   :xml_validation)
     end
-    # rubocop:enable Metrics/MethodLength
   end
 end

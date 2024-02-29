@@ -457,7 +457,6 @@ module Cypress
       JSON.parse(unparsed_string)
     end
 
-    # rubocop:disable Metrics/AbcSize
     def calcuate_cat3(product_test_id, bundle_id)
       pt = ProductTest.find(product_test_id)
       patient_ids = []
@@ -485,7 +484,6 @@ module Cypress
 
       File.write("tmp/#{product_test_id}.xml", xml)
     end
-    # rubocop:enable Metrics/AbcSize
 
     def do_calculation(product_test, patients, correlation_id)
       measures = product_test.measures
