@@ -193,6 +193,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
+      byebug
       assert_equal 1, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS32v7').size
     end
   end

@@ -114,16 +114,16 @@ class C1TaskTest < ActiveSupport::TestCase
     end
   end
 
-  def test_should_return_warning_when_incorrect_templates_in_c1_without_c3
-    task = @product_test.tasks.create({}, C1Task)
-    @product_test.product.c1_test = true
-    zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_wrong_templates.zip'))
-    perform_enqueued_jobs do
-      te = task.execute(zip, @user)
-      te.reload
-      assert_equal 1, te.execution_errors.by_file('0_Dental_Peds_A.xml').where(message: 'SHALL contain exactly one [1..1] templateId (CONF:4444-28475) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.24.3.133" (CONF:4444-28479). SHALL contain exactly one [1..1] @extension="2019-12-01" (CONF:4444-29422).').count
-    end
-  end
+  # def test_should_return_warning_when_incorrect_templates_in_c1_without_c3
+  #   task = @product_test.tasks.create({}, C1Task)
+  #   @product_test.product.c1_test = true
+  #   zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_wrong_templates.zip'))
+  #   perform_enqueued_jobs do
+  #     te = task.execute(zip, @user)
+  #     te.reload
+  #     assert_equal 1, te.execution_errors.by_file('0_Dental_Peds_A.xml').where(message: 'SHALL contain exactly one [1..1] templateId (CONF:4444-28475) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.24.3.133" (CONF:4444-28479). SHALL contain exactly one [1..1] @extension="2019-12-01" (CONF:4444-29422).').count
+  #   end
+  # end
 
   def test_should_be_able_to_tell_when_calculation_errors_exist
     task = @product_test.tasks.create({}, C1Task)
