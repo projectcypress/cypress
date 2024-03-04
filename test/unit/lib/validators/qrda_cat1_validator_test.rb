@@ -25,10 +25,10 @@ class QrdaCat1ValidatorTest < ActiveSupport::TestCase
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_error_in_encounter.xml')).read
     @validator_with_c3.validate(file, task: @task)
 
-    assert @validator_with_c3.errors.any? { |error| error.validator == 'CqmValidators::Cat1R52' }, 'There should be atleast one QRDA schematron error'
+    assert @validator_with_c3.errors.any? { |error| error.validator == 'CqmValidators::Cat1R53' }, 'There should be atleast one QRDA schematron error'
 
     @validator_without_c3.validate(file, task: @task)
-    assert @validator_without_c3.errors.any? { |error| error.validator == 'CqmValidators::Cat1R52' }, 'There should be atleast one QRDA schematron error'
+    assert @validator_without_c3.errors.any? { |error| error.validator == 'CqmValidators::Cat1R53' }, 'There should be atleast one QRDA schematron error'
   end
 
   def test_bad_schema
