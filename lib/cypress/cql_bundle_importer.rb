@@ -104,28 +104,37 @@ module Cypress
       Bundle.new(JSON.parse(zip.read(SOURCE_ROOTS[:bundle]), max_nesting: 100).except('measures', 'patients'))
     end
 
+    # rubocop:disable Metrics/MethodLength
     def self.unpack_and_store_valuesets(zip, bundle)
       current_row = nil
       previous_row = nil
       codes = []
+      concept_hash = {}
       csv = CSV.parse(zip.read(SOURCE_ROOTS[:valuesets]), headers: true, col_sep: '|')
       csv.each do |row|
         current_row = row
         previous_row = row if previous_row.nil?
         if row['OID'] != previous_row['OID']
-          CQM::ValueSet.new(oid: previous_row['OID'], display_name: previous_row['ValueSetName'], version: previous_row['ExpansionVersion'],
-                            concepts: codes, bundle:).save
+          vs = CQM::ValueSet.new(oid: previous_row['OID'], display_name: previous_row['ValueSetName'], version: previous_row['ExpansionVersion'],
+                                 bundle:)
+          concept_hash[previous_row['OID']] = { codes:, vs: }
           previous_row = row
           codes = []
         end
-        codes << CQM::Concept.new(code: row['Code'], code_system_oid: row['CodeSystemOID'], code_system_name: row['CodeSystemName'],
-                                  code_system_version: row['CodeSystemVersion'],
-                                  display_name: row['Descriptor'].encode('utf-8', invalid: :replace, undef: :replace))
+        codes << { code: row['Code'], code_system_oid: row['CodeSystemOID'], code_system_name: row['CodeSystemName'],
+                   code_system_version: row['CodeSystemVersion'],
+                   display_name: row['Descriptor'].encode('utf-8', invalid: :replace, undef: :replace) }
       end
-      CQM::ValueSet.new(oid: current_row['OID'], display_name: current_row['ValueSetName'], version: current_row['ExpansionVersion'],
-                        concepts: codes, bundle:).save
+      vs = CQM::ValueSet.new(oid: current_row['OID'], display_name: current_row['ValueSetName'], version: current_row['ExpansionVersion'],
+                             bundle:)
+      concept_hash[current_row['OID']] = { codes:, vs: }
+      concept_hash.sort_by { |_k, v| v[:codes].size }.each do |_key, hash_value|
+        vs.concepts = hash_value[:codes]
+        vs.save
+      end
       puts "\rLoading: Value Sets Complete          "
     end
+    # rubocop:enable Metrics/MethodLength
 
     def self.unpack_and_store_measures(zip, bundle)
       measure_info = JSON.parse(zip.read(SOURCE_ROOTS[:measures_info]))
