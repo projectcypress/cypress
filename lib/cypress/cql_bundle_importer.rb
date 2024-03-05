@@ -129,8 +129,8 @@ module Cypress
                              bundle:)
       concept_hash[current_row['OID']] = { codes:, vs: }
       concept_hash.sort_by { |_k, v| v[:codes].size }.each do |_key, hash_value|
-        vs.concepts = hash_value[:codes]
-        vs.save
+        hash_value[:vs].concepts = hash_value[:codes]
+        hash_value[:vs].save
       end
       puts "\rLoading: Value Sets Complete          "
     end
