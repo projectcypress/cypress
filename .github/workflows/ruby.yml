@@ -92,9 +92,6 @@ jobs:
         nvm install 16.19
         nvm use stable
         bundle install
-        git clone -b cypress_v6 https://github.com/projectcypress/cqm-execution-service.git /tmp/cqm-execution-service
-        yarn --cwd /tmp/cqm-execution-service install --only=production
-        yarn --cwd /tmp/cqm-execution-service start &
         git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
         yarn --cwd /tmp/cqm-execution-service-56 install --only=production
         yarn --cwd /tmp/cqm-execution-service-56 start &
@@ -137,9 +134,6 @@ jobs:
         nvm install 16.19
         nvm use stable
         bundle install
-        git clone -b cypress_v6 https://github.com/projectcypress/cqm-execution-service.git /tmp/cqm-execution-service
-        yarn --cwd /tmp/cqm-execution-service install --only=production
-        yarn --cwd /tmp/cqm-execution-service start &
         git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
         yarn --cwd /tmp/cqm-execution-service-56 install --only=production
         yarn --cwd /tmp/cqm-execution-service-56 start &
@@ -182,9 +176,6 @@ jobs:
         nvm install 16.19
         nvm use stable
         bundle install
-        git clone -b cypress_v6 https://github.com/projectcypress/cqm-execution-service.git /tmp/cqm-execution-service
-        yarn --cwd /tmp/cqm-execution-service install --only=production
-        yarn --cwd /tmp/cqm-execution-service start &
         git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
         yarn --cwd /tmp/cqm-execution-service-56 install --only=production
         yarn --cwd /tmp/cqm-execution-service-56 start &
@@ -224,9 +215,6 @@ jobs:
         nvm install 16.19
         nvm use stable
         bundle install
-        git clone -b cypress_v6 https://github.com/projectcypress/cqm-execution-service.git /tmp/cqm-execution-service
-        yarn --cwd /tmp/cqm-execution-service install --only=production
-        yarn --cwd /tmp/cqm-execution-service start &
         git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
         yarn --cwd /tmp/cqm-execution-service-56 install --only=production
         yarn --cwd /tmp/cqm-execution-service-56 start &
@@ -284,9 +272,6 @@ jobs:
         nvm install 16.19
         nvm use stable
         bundle install
-        git clone -b cypress_v6 https://github.com/projectcypress/cqm-execution-service.git /tmp/cqm-execution-service
-        yarn --cwd /tmp/cqm-execution-service install --only=production
-        yarn --cwd /tmp/cqm-execution-service start &
         git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
         yarn --cwd /tmp/cqm-execution-service-56 install --only=production
         yarn --cwd /tmp/cqm-execution-service-56 start &
