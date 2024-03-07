@@ -77,6 +77,12 @@ jobs:
 
     runs-on: ubuntu-20.04
 
+    services:
+      mongodb:
+        image: mongo:7.0.6
+        ports:
+          - 27017:27017
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
@@ -95,11 +101,6 @@ jobs:
         git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
         yarn --cwd /tmp/cqm-execution-service-56 install --only=production
         yarn --cwd /tmp/cqm-execution-service-56 start &
-        wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.18.tgz -O /tmp/mongodb.tgz
-        tar -xvf /tmp/mongodb.tgz
-        mkdir /tmp/data
-        ${PWD}/mongodb-linux-x86_64-4.0.18/bin/mongod --setParameter cursorTimeoutMillis=3600000 --setParameter maxBSONDepth=500 --dbpath /tmp/data --bind_ip 127.0.0.1 &> /dev/null &
-        cp ./.travis/mongoid.yml ./config/mongoid.yml
     - name: Run cucumber
       uses: nick-fields/retry@v2
       with:
@@ -119,6 +120,12 @@ jobs:
 
     runs-on: ubuntu-20.04
 
+    services:
+      mongodb:
+        image: mongo:7.0.6
+        ports:
+          - 27017:27017
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
@@ -137,11 +144,6 @@ jobs:
         git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
         yarn --cwd /tmp/cqm-execution-service-56 install --only=production
         yarn --cwd /tmp/cqm-execution-service-56 start &
-        wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.18.tgz -O /tmp/mongodb.tgz
-        tar -xvf /tmp/mongodb.tgz
-        mkdir /tmp/data
-        ${PWD}/mongodb-linux-x86_64-4.0.18/bin/mongod --setParameter cursorTimeoutMillis=3600000 --setParameter maxBSONDepth=500 --dbpath /tmp/data --bind_ip 127.0.0.1 &> /dev/null &
-        cp ./.travis/mongoid.yml ./config/mongoid.yml
     - name: Run cucumber
       uses: nick-fields/retry@v2
       with:
@@ -161,6 +163,12 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      mongodb:
+        image: mongo:7.0.6
+        ports:
+          - 27017:27017
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
@@ -179,11 +187,6 @@ jobs:
         git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
         yarn --cwd /tmp/cqm-execution-service-56 install --only=production
         yarn --cwd /tmp/cqm-execution-service-56 start &
-        wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.18.tgz -O /tmp/mongodb.tgz
-        tar -xvf /tmp/mongodb.tgz
-        mkdir /tmp/data
-        ${PWD}/mongodb-linux-x86_64-4.0.18/bin/mongod --setParameter cursorTimeoutMillis=3600000 --setParameter maxBSONDepth=500 --dbpath /tmp/data --bind_ip 127.0.0.1 &> /dev/null &
-        cp ./.travis/mongoid.yml ./config/mongoid.yml
     - name: Run Rake test
       run: |
         RUBYOPT="-W0"
@@ -200,6 +203,12 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      mongodb:
+        image: mongo:7.0.6
+        ports:
+          - 27017:27017
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
@@ -218,11 +227,6 @@ jobs:
         git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
         yarn --cwd /tmp/cqm-execution-service-56 install --only=production
         yarn --cwd /tmp/cqm-execution-service-56 start &
-        wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.18.tgz -O /tmp/mongodb.tgz
-        tar -xvf /tmp/mongodb.tgz
-        mkdir /tmp/data
-        ${PWD}/mongodb-linux-x86_64-4.0.18/bin/mongod --setParameter cursorTimeoutMillis=3600000 --setParameter maxBSONDepth=500 --dbpath /tmp/data --bind_ip 127.0.0.1 &> /dev/null &
-        cp ./.travis/mongoid.yml ./config/mongoid.yml
     - name: Run Rake test:jobs
       run: |
         RUBYOPT="-W0"
@@ -257,6 +261,12 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      mongodb:
+        image: mongo:7.0.6
+        ports:
+          - 27017:27017
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
@@ -275,11 +285,6 @@ jobs:
         git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
         yarn --cwd /tmp/cqm-execution-service-56 install --only=production
         yarn --cwd /tmp/cqm-execution-service-56 start &
-        wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.18.tgz -O /tmp/mongodb.tgz
-        tar -xvf /tmp/mongodb.tgz
-        mkdir /tmp/data
-        ${PWD}/mongodb-linux-x86_64-4.0.18/bin/mongod --setParameter cursorTimeoutMillis=3600000 --setParameter maxBSONDepth=500 --dbpath /tmp/data --bind_ip 127.0.0.1 &> /dev/null &
-        cp ./.travis/mongoid.yml ./config/mongoid.yml
     - name: Run Rake test
       run: |
         RUBYOPT="-W0"
