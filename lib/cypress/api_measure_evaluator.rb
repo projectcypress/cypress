@@ -457,7 +457,6 @@ module Cypress
       JSON.parse(unparsed_string)
     end
 
-    # rubocop:disable Metrics/AbcSize
     def calcuate_cat3(product_test_id, bundle_id)
       pt = ProductTest.find(product_test_id)
       patient_ids = []
@@ -479,13 +478,12 @@ module Cypress
                                 end
       options = { provider: pt.patients.first.providers.first, submission_program: cat3_submission_program,
                   start_time: pt.start_date, end_time: pt.end_date, ry2022_submission: pt.bundle.major_version == '2021' }
-      xml = pt.bundle.major_version.to_i > 2021 ? Qrda3.new(results, pt.measures, options).render : Qrda3R21.new(results, pt.measures, options).render
+      xml = Qrda3.new(results, pt.measures, options).render
 
       Patient.find(patient_ids).each(&:destroy)
 
       File.write("tmp/#{product_test_id}.xml", xml)
     end
-    # rubocop:enable Metrics/AbcSize
 
     def do_calculation(product_test, patients, correlation_id)
       measures = product_test.measures

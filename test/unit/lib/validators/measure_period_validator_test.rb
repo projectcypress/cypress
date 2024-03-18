@@ -7,10 +7,11 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
   def setup
     @validator = MeasurePeriodValidator.new
     @vendor_user = FactoryBot.create(:vendor_user)
+    @vendor = FactoryBot.create(:vendor)
     @bundle = FactoryBot.create(:static_bundle)
     @test_execution = FactoryBot.build(:test_execution)
     @vendor_user.test_executions << @test_execution
-    @product = Product.new(name: 'CMS Product', shift_patients: false, bundle: @bundle)
+    @product = @vendor.products.create(name: 'CMS Product', shift_patients: false, bundle: @bundle)
     @original_timing_constraints_id = APP_CONSTANTS['timing_constraints'].first['hqmf_id']
   end
 
@@ -23,6 +24,8 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_good.xml')).read
     pt = CMSProgramTest.new(name: 'CMS Program Test', cms_program: 'HQR_PI', measure_ids: [measure_id],
                             reporting_program_type: 'eh', product: @product)
+    @product.measure_ids = [measure_id]
+    @product.cvuplus = true
     pt.create_tasks
     te = pt.tasks.first.test_executions.build
     @validator.validate(file, 'test_execution' => te)
@@ -40,6 +43,8 @@ class MeasurePeriodValidatorTest < ActiveSupport::TestCase
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_good_quarter.xml')).read
     pt = CMSProgramTest.new(name: 'CMS Program Test', cms_program: 'HQR_PI', measure_ids: [measure_id],
                             reporting_program_type: 'eh', product: @product)
+    @product.measure_ids = [measure_id]
+    @product.cvuplus = true
     pt.create_tasks
     te = pt.tasks.first.test_executions.build
     @validator.validate(file, 'test_execution' => te)

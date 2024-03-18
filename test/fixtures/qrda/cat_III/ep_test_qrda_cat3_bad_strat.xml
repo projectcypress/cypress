@@ -5,9 +5,9 @@
 <realmCode code="US"/>
 <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
 <!-- US Realm Header Template Id -->
-<templateId root="2.16.840.1.113883.10.20.27.1.1" extension="2017-06-01"/>
+<templateId root="2.16.840.1.113883.10.20.27.1.1" extension="2020-12-01"/>
 <!-- QRDA Category III Report - CMS (V4) -->
-<templateId root="2.16.840.1.113883.10.20.27.1.2" extension="2019-05-01"/>
+<templateId root="2.16.840.1.113883.10.20.27.1.2" extension="2022-12-01"/>
 <!-- This is the globally unique identifier for this QRDA document -->
 <id root="3ad64560-f9b6-0137-04c7-2cde48001122"/>
 <!-- QRDA III document type code -->
@@ -154,9 +154,9 @@
           <templateId root="2.16.840.1.113883.10.20.24.2.2"/>
           <!-- In this case the query is using an eMeasure -->
           <!-- QRDA Category III Measure Section template -->
-          <templateId extension="2017-06-01" root="2.16.840.1.113883.10.20.27.2.1"/>
+          <templateId extension="2020-12-01" root="2.16.840.1.113883.10.20.27.2.1"/>
           <!-- QRDA Category III Measure Section - CMS (V4) -->
-          <templateId extension="2019-05-01" root="2.16.840.1.113883.10.20.27.2.3"/>
+          <templateId extension="2022-05-01" root="2.16.840.1.113883.10.20.27.2.3"/>
           <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
           <title>Measure Section</title>
           <text>
@@ -187,8 +187,8 @@
               <!-- Implied template Measure Reference templateId -->
               <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
               <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
-              <templateId extension="2016-09-01" root="2.16.840.1.113883.10.20.27.3.1"/>
-              <templateId extension="2019-05-01" root="2.16.840.1.113883.10.20.27.3.17"/>
+              <templateId extension="2020-12-01" root="2.16.840.1.113883.10.20.27.3.1"/>
+              <templateId extension="2022-05-01" root="2.16.840.1.113883.10.20.27.3.17"/>
               <id extension="3ad8c3a0-f9b6-0137-04c7-2cde48001122" root="1.3.6.1.4.1.115"/>
               <statusCode code="completed"/>
               <!-- Containing isBranch external references -->
@@ -558,8 +558,8 @@
               <!-- Implied template Measure Reference templateId -->
               <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
               <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
-              <templateId extension="2016-09-01" root="2.16.840.1.113883.10.20.27.3.1"/>
-              <templateId extension="2019-05-01" root="2.16.840.1.113883.10.20.27.3.17"/>
+              <templateId extension="2020-12-01" root="2.16.840.1.113883.10.20.27.3.1"/>
+              <templateId extension="2022-05-01" root="2.16.840.1.113883.10.20.27.3.17"/>
               <id extension="3ada85f0-f9b6-0137-04c7-2cde48001122" root="1.3.6.1.4.1.115"/>
               <statusCode code="completed"/>
               <!-- Containing isBranch external references -->
@@ -682,7 +682,7 @@
           <entry>
             <act classCode="ACT" moodCode="EVN">
               <!-- This is the templateId for Reporting Parameteres Act -->
-              <templateId root="2.16.840.1.113883.10.20.17.3.8"/>
+              <templateId root="2.16.840.1.113883.10.20.17.3.8" extension="2020-12-01"/>
               <id extension="3ada8fa0-f9b6-0137-04c7-2cde48001122" root="1.3.6.1.4.1.115"/>
               <code code="252116004" codeSystem="2.16.840.1.113883.6.96" displayName="Observation Parameters"/>
               <effectiveTime>

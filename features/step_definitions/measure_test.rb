@@ -210,7 +210,7 @@ Then(/^the user should see failed results$/) do
 end
 
 Then(/^the user should see a link to view the the uploaded xml$/) do
-  page.find(:xpath, "//input[@value='View Uploaded XML with Errors']")
+  page.find(:xpath, "//button[text()='View Uploaded XML with Errors']")
 end
 
 Then(/^the user should see the uploaded xml$/) do

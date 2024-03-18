@@ -18,9 +18,15 @@ class TestExecution
   field :sibling_execution_id, type: String
 
   embeds_many :execution_errors
-  has_one :artifact, autosave: true, dependent: :destroy
+  has_one :artifact, dependent: :destroy
   belongs_to :user
   belongs_to :task, touch: true
+
+  before_save :verify_artifact
+
+  def verify_artifact
+    artifact&.save
+  end
 
   def build_document(file)
     doc = Nokogiri::XML(file)

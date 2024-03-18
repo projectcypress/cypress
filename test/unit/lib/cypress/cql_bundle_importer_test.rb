@@ -8,7 +8,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     err = assert_raises(RuntimeError) do
       Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new)
     end
-    assert_equal('Please use bundles for year(s) 2020, 2021, 2022, 2023.', err.message)
+    assert_equal('Please use bundles for year(s) 2022, 2023, 2024.', err.message)
   end
 
   test 'should successfully import bundle and perform calculations' do
@@ -16,7 +16,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     before_value_set_count = ValueSet.count
     before_patient_count = Patient.count
     before_results_count = IndividualResult.count
-    bundle_zip = File.new(File.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_5.zip'))
+    bundle_zip = File.new(File.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_6.zip'))
     Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new)
     assert_equal (before_measure_count + 2), Measure.count
     # 21 valuesets from csv file, 3 direct reference codes
@@ -42,7 +42,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     before_value_set_count = ValueSet.count
     before_patient_count = Patient.count
     before_results_count = IndividualResult.count
-    bundle_zip = File.new(File.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_5.zip'))
+    bundle_zip = File.new(File.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_6.zip'))
     Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new, include_highlighting: true)
     assert_equal (before_measure_count + 2), Measure.count
     # 21 valuesets from csv file, 3 direct reference codes
@@ -65,7 +65,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     before_value_set_count = ValueSet.count
     before_patient_count = Patient.count
     before_results_count = IndividualResult.count
-    bundle_zip = File.new(File.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_5_with_calcs.zip'))
+    bundle_zip = File.new(File.join('test', 'fixtures', 'bundles', 'minimal_bundle_qdm_5_6_with_calcs.zip'))
     Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new)
     assert_equal (before_measure_count + 2), Measure.count
     # 21 valuesets from csv file, 3 direct reference codes

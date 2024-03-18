@@ -24,9 +24,9 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
 
   # Get bundle from the demo server.  Use VCR if available
   def retrieve_bundle
-    VCR.use_cassette('bundle_download') do
+    VCR.use_cassette('bundle_download_2023') do
       bundle_resource = RestClient::Request.execute(method: :get,
-                                                    url: 'https://cypress.healthit.gov/measure_bundles/fixture-bundle-2020.zip',
+                                                    url: 'https://cypress.healthit.gov/measure_bundles/bundle-2023.zip',
                                                     user: ENV.fetch('VSAC_USERNAME', nil),
                                                     password: ENV.fetch('VSAC_PASSWORD', nil),
                                                     raw_response: true,
@@ -189,11 +189,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
                               end
     options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
                 start_time: product_test.start_date, end_time: product_test.end_date, ry2022_submission: product_test.bundle.major_version == '2021' }
-    if product_test.bundle.major_version.to_i > 2021
-      Qrda3.new(results, product_test.measures, options).render
-    else
-      Qrda3R21.new(results, product_test.measures, options).render
-    end
+    Qrda3.new(results, product_test.measures, options).render
   end
 
   # Import all patients in the zip file, and maintain mapping between filename and id
