@@ -75,6 +75,8 @@ class ChecklistTest < ProductTest
     code_indices = []
     codeless_indices = []
     attributes.each_with_index do |attribute, index|
+      next unless ApplicationController.helpers.available_attribute?(measure_ids, criteria, attribute)
+
       if attribute['attribute_valueset'].nil?
         next if attribute.attribute_name == 'id'
 

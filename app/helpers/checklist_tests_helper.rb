@@ -18,12 +18,22 @@ module ChecklistTestsHelper
     end
   end
 
-  def available_attributes(criteria)
+  def available_attributes(criteria, hqmf_id)
     criteria['dataElementAttributes'].map do |a|
+      next unless available_attribute?([hqmf_id], criteria, a)
+
       composite_name = a['attribute_name']
       composite_name = "#{composite_name}:#{a['attribute_valueset']}" unless a['attribute_valueset'].nil?
       composite_name
-    end.sort - ['id']
+    end.compact.sort - ['id']
+  end
+
+  def available_attribute?(measure_hqmf_ids, criteria, attribute)
+    measure_hqmf_ids.each do |measure_hqmf_id|
+      problematic_criteria = APP_CONSTANTS['problematic_record_sample_criteria'][measure_hqmf_id]
+      return false if problematic_criteria.include?("#{criteria._type}|#{attribute.attribute_name}|#{attribute.attribute_valueset}")
+    end
+    true
   end
 
   def available_data_criteria(measure, criteria, original_sdc)
