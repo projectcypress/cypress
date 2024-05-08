@@ -33,7 +33,7 @@ module ChecklistTestsHelper
       next unless APP_CONSTANTS['problematic_record_sample_criteria'][measure_hqmf_id]
 
       problematic_criteria = APP_CONSTANTS['problematic_record_sample_criteria'][measure_hqmf_id]
-      return false if problematic_criteria.include?("#{criteria._type}|#{attribute.attribute_name}|#{attribute.attribute_valueset}")
+      return false if problematic_criteria.include?("#{criteria._type}|#{attribute['attribute_name']}|#{attribute['attribute_valueset']}")
     end
     true
   end

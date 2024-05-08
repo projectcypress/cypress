@@ -32,4 +32,17 @@ class ChecklistTestsHelperTest < ActiveSupport::TestCase
     c1['dataElementAttributes'][0]['attribute_valueset'] = 'vs'
     assert_equal ['Test:vs'], available_attributes(c1, measure.hqmf_id)
   end
+
+  def test_removal_of_problematic_attributes
+    measure = FactoryBot.create(:measure)
+    c1 = { '_type' => 'QDM::AllergyIntolerance' }
+    c1['dataElementAttributes'] = [{ 'attribute_name' => 'type', 'attribute_valueset' => '2.16.840.1.113762.1.4.1170.6' }, { 'attribute_name' => 'Test' }]
+    # Attribute will be removed with matching type, attrbute, valueset and measure
+    assert_equal ['Test'], available_attributes(c1, '8A6D040F-8B1E-D837-018B-8C58F1D61E33')
+    # Attribute will not be removed without with matching measure
+    assert_equal ['Test', 'type:2.16.840.1.113762.1.4.1170.6'], available_attributes(c1, '8A6D040F-8B1E-D837-018B-8C58F1D61E34')
+    c1['_type'] = 'QDM::AdverseEvent'
+    # Attribute will not be removed without with matching type
+    assert_equal ['Test', 'type:2.16.840.1.113762.1.4.1170.6'], available_attributes(c1, '8A6D040F-8B1E-D837-018B-8C58F1D61E33')
+  end
 end
