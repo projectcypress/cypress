@@ -25,10 +25,11 @@ class ChecklistTestsHelperTest < ActiveSupport::TestCase
   end
 
   def test_available_attributes
+    measure = FactoryBot.create(:measure)
     c1 = {}
     c1['dataElementAttributes'] = [{ 'attribute_name' => 'Test' }, { 'attribute_name' => 'id' }]
-    assert_equal ['Test'], available_attributes(c1)
+    assert_equal ['Test'], available_attributes(c1, measure.hqmf_id)
     c1['dataElementAttributes'][0]['attribute_valueset'] = 'vs'
-    assert_equal ['Test:vs'], available_attributes(c1)
+    assert_equal ['Test:vs'], available_attributes(c1, measure.hqmf_id)
   end
 end
