@@ -68,7 +68,7 @@ jobs:
       run: |
         git config --global user.email "travis@travis.ci"
         git config --global user.name "Travis CI"
-        sudo npm install -g eslint
+        sudo npm install -g eslint@8.57.0
         bundle exec overcommit --sign
         bundle exec overcommit --run
   cucumber-1:
