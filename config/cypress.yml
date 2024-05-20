@@ -498,6 +498,17 @@ unit_matches:
     units        :
       - 'mg/dL'
 
+problematic_record_sample_criteria:
+  # CMS996v3 (2022 AU)
+  2C928083-7F47-C81F-017F-79354C281550:
+    ['QDM::AllergyIntolerance|type|2.16.840.1.113762.1.4.1170.6']
+  # CMS996v4 (2023 AU)
+  2C928084-83D3-1B44-0184-77AC447D2178:
+    ['QDM::AllergyIntolerance|type|2.16.840.1.113762.1.4.1170.6']
+  # CMS996v5 (2024 AU)
+  8A6D040F-8B1E-D837-018B-8C58F1D61E33:
+    ['QDM::AllergyIntolerance|type|2.16.840.1.113762.1.4.1170.6']
+
 eki_tickets:
   2C928082-86DB-6718-0186-E6D223320335:
     - ticket_id: 'EKI-21'

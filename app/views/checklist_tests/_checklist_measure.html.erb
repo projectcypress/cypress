@@ -138,7 +138,7 @@
                           </td>
                           <td/>
                           <td class='show-me' style='display: none;'>
-                            <%= criteria_field.select :replacement_attribute, available_attributes(criteria), {:selected => selected_attribute}, {class: 'show-me attribute-selector'} %>
+                            <%= criteria_field.select :replacement_attribute, available_attributes(criteria, measure.hqmf_id), {:selected => selected_attribute}, {class: 'show-me attribute-selector'} %>
                           <td>
                         <% elsif criteria['value'] && criteria['value'].type != 'CD' || criteria['dataElementAttributes'].any? %>
                           <td class='hide-me'>
@@ -153,7 +153,7 @@
                           </td>
                           <td/>
                           <td class='show-me' style='display: none;'>
-                            <%= criteria_field.select :replacement_attribute, available_attributes(criteria), {:selected => selected_attribute}, {class: 'show-me attribute-selector'} %>
+                            <%= criteria_field.select :replacement_attribute, available_attributes(criteria, measure.hqmf_id), {:selected => selected_attribute}, {class: 'show-me attribute-selector'} %>
                           <td>
                         <% end %>
                       </tr>
