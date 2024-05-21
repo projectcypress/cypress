@@ -63,7 +63,7 @@ version_config:
       start_date_offset: 2
       modified_population_labels:
         IPP: 'IPOP'
-      schematron: "2023.0.0"
+      schematron: "2024.0.0"
       qrda_version: "r5_3"
       qrda_version_display_name: "STU 5.3"
       qrda3_version: "r2_1"
@@ -77,6 +77,7 @@ version_config:
           code: "854901"
           codeSystem: "2.16.840.1.113883.6.88"
       CMSQRDA3SchematronValidator_warnings:
+        - '2025 CMS QRDA III Implementation Guide for Eligible Clinicians is not available'
       CMSQRDA1HQRSchematronValidator_warnings:
 
 # Configuration for values to use when randomizing patients in test decks
@@ -368,10 +369,13 @@ measures_without_future_data:
     '2C928082-82CB-A3F5-0182-CC6968E30090' ]
 
 # CMS996v3, CMS996v4, CMS1206v1
+# 2024 AU - CMS996v5, CMS1206v2
 oqr_measures:
   [ '2C928083-7F47-C81F-017F-79354C281550',
     '2C928084-83D3-1B44-0184-77AC447D2178',
-    '2C928082-86DB-6718-0186-E05BA2AB0106' ]
+    '2C928082-86DB-6718-0186-E05BA2AB0106',
+    '8A6D040F-8B1E-D837-018B-8C58F1D61E33',
+    '8A6D044D-8DB3-0572-018D-D65FA5DC0737' ]
 
 # These measures have specific timing constraints
 timing_constraints:
@@ -415,6 +419,15 @@ timing_constraints:
   - hqmf_id : '2C928082-86DB-6718-0186-E05C1EB0010E'
     start_time : '20250101'
     end_time : '20251231'
+  # 2024 Bundle
+  # CMS1017v1
+  - hqmf_id : '8A6D0454-8DF0-2D9F-018E-2E7228A61B05'
+    start_time : '20260101'
+    end_time : '20261231'
+  # CMS1218v1
+  - hqmf_id : '2C928083-8733-4E1B-0187-51A1B1C20477'
+    start_time : '20260101'
+    end_time : '20261231'
 
 telehealth_modifier_codes:
   [ '95', 'GQ', 'GT' ]
@@ -466,18 +479,6 @@ unit_matches:
     code_list_id: '2.16.840.1.113883.3.117.1.7.1.215'
     units        :
       - 'mg/dL'
-    # relevant for CMS816v1+ where BloodGlucoseLab.result > 80 'mg/dL'
-  - hqmf_set_id : '98EE2385-0B90-40F4-859C-14F5C8D49340'
-    de_type     : 'QDM::LaboratoryTestPerformed'
-    code_list_id: '2.16.840.1.113762.1.4.1045.134'
-    units        :
-      - 'mg/dL'
-    # relevant for CMS871v1+ where BloodGlucoseLab.result >= 200 'mg/dL'
-  - hqmf_set_id : 'EF95493C-3F65-4440-9CCB-EAF1B9ED1210'
-    de_type     : 'QDM::LaboratoryTestPerformed'
-    code_list_id: '2.16.840.1.113762.1.4.1045.134'
-    units        :
-      - 'mg/dL'
   # 2023 Bundle
   # relevant for CMS832v1+ Creatinine Mass Per Volume
   - hqmf_set_id : '2C928083-8651-08A3-0186-C7D18A711CB2'
@@ -486,17 +487,55 @@ unit_matches:
     units        :
       - 'mg/dL'
   # relevant for CMS871v3+ where BloodGlucoseLab.result >= 200 'mg/dL'
-  - hqmf_set_id : '2C928082-7FAC-C041-0180-1F512619243F'
+  - hqmf_set_id : 'EF95493C-3F65-4440-9CCB-EAF1B9ED1210'
     de_type     : 'QDM::LaboratoryTestPerformed'
     code_list_id: '2.16.840.1.113762.1.4.1248.34'
     units        :
       - 'mg/dL'
   # relevant for CMS816v3+ where BloodGlucoseLab.result >= 200 'mg/dL'
-  - hqmf_set_id : '2C928084-82EA-D7C5-0183-3DA9C0411763'
+  - hqmf_set_id : '98EE2385-0B90-40F4-859C-14F5C8D49340'
     de_type     : 'QDM::LaboratoryTestPerformed'
     code_list_id: '2.16.840.1.113762.1.4.1248.34'
     units        :
       - 'mg/dL'
+  # relevant for CMS334"
+  - hqmf_set_id : 'FC52D0DE-B53D-4CCF-816E-1E527748D2D9'
+    de_type     : 'QDM::AssessmentPerformed'
+    code_list_id: '2.16.840.1.113762.1.4.1045.26'
+    units       :
+      - 'weeks'
+      - 'wk'
+  # relevant for CMS1028"
+  - hqmf_set_id : '44EB11CF-56D6-4DC2-B986-C58C72474B16'
+    de_type     : 'QDM::AssessmentPerformed'
+    code_list_id: '2.16.840.1.113762.1.4.1045.26'
+    units       :
+      - 'weeks'
+      - 'wk'
+  # relevant for CMS1074"
+  - hqmf_set_id : '208FAA56-5CE9-4181-84D9-F100A5693062'
+    de_type     : 'QDM::DiagnosticStudyPerformed'
+    code_list_id: 'drc-e0fb9eb2b088309f5c19037a2617487dbd875bd083d23abcbe69d0065be8c3d4' # Calculated CT size-adjusted dose 96913-9
+    units       :
+      - 'mGy.cm'
+  # relevant for CMS1074"
+  - hqmf_set_id : '208FAA56-5CE9-4181-84D9-F100A5693062'
+    de_type     : 'QDM::DiagnosticStudyPerformed'
+    code_list_id: 'drc-43dc68c66029a04799fd98e0f96ecbd4d456c31508bf0ab09bf1506e2560a06b' # Calculated CT global noise 96912-1
+    units       :
+      - "[hnsf\'U]"
+  # relevant for CMS1206"
+  - hqmf_set_id : '4270512C-5B41-4F79-BEDF-09E1521EE3BC'
+    de_type     : 'QDM::DiagnosticStudyPerformed'
+    code_list_id: 'drc-e0fb9eb2b088309f5c19037a2617487dbd875bd083d23abcbe69d0065be8c3d4' # Calculated CT size-adjusted dose 96913-9
+    units       :
+      - 'mGy.cm'
+  # relevant for CMS1206"
+  - hqmf_set_id : '4270512C-5B41-4F79-BEDF-09E1521EE3BC'
+    de_type     : 'QDM::DiagnosticStudyPerformed'
+    code_list_id: 'drc-43dc68c66029a04799fd98e0f96ecbd4d456c31508bf0ab09bf1506e2560a06b' # Calculated CT global noise 96912-1
+    units       :
+      - "[hnsf\'U]"
 
 problematic_record_sample_criteria:
   # CMS996v3 (2022 AU)
