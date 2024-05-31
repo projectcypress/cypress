@@ -7,28 +7,6 @@ GIT
       railties (>= 3.2.16)
 
 GIT
-  remote: https://github.com/projecttacoma/cqm-parsers
-  revision: 9079115ab6702ded3adc5c209b28918917e55e84
-  branch: master
-  specs:
-    cqm-parsers (4.1.0.2)
-      activesupport (> 5.0)
-      builder (~> 3.1)
-      cqm-models (> 3.0.0)
-      erubis (~> 2.7.0)
-      highline (~> 1.7.0)
-      log4r (~> 1.1.10)
-      memoist (~> 0.9.1)
-      mongoid (> 6.0.5, < 9.0.0)
-      mongoid-tree (~> 2.2.0)
-      mustache
-      nokogiri (>= 1.16.2)
-      rubyzip (~> 1.3)
-      typhoeus
-      uuid (~> 2.3.7)
-      zip-zip (~> 0.3)
-
-GIT
   remote: https://github.com/turbolinks/turbolinks-classic
   revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
   branch: master
@@ -182,6 +160,22 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.2.3)
     cqm-models (4.2.0)
+    cqm-parsers (4.1.1.0)
+      activesupport (> 5.0)
+      builder (~> 3.1)
+      cqm-models (> 3.0.0)
+      erubis (~> 2.7.0)
+      highline (~> 1.7.0)
+      log4r (~> 1.1.10)
+      memoist (~> 0.9.1)
+      mongoid (> 6.0.5, < 9.0.0)
+      mongoid-tree (~> 2.2.0)
+      mustache
+      nokogiri (>= 1.16.2)
+      rubyzip (~> 1.3)
+      typhoeus
+      uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
     cqm-reports (4.1.1)
       cqm-models (~> 4.0)
       cqm-validators (~> 4.0)
@@ -613,7 +607,7 @@ DEPENDENCIES
   carrierwave-mongoid
   codecov
   cqm-models (~> 4.2.0)
-  cqm-parsers!
+  cqm-parsers (~> 4.1.1.0)
   cqm-reports (~> 4.1.0)
   cqm-validators (~> 4.0.5)
   cucumber-rails
