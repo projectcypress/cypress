@@ -88,8 +88,9 @@ Version 1.1
     Changes made for the 2023 CMS QRDA Category III Schematron version 1.1:
     
          Document-level template:
-               - QRDA Category III Report CMS V8 additions for MIPS MVP and Subgroup reporting
-                     (Note: V8 in v1.1 supplants V7 from v1.0)
+               - QRDA Category III Report CMS V8 (Note: V8 in v1.1 supplants V7 from v1.0)
+                     - 12-07-2022 Additions for MIPS MVP and Subgroup reporting
+                     - 01-10-2023 Fixed a misplaced parenthesis in the assertion test for a-4526-18177_C01-error
                
          voc.xml
                - The companion vocabulary file for this schematron is updated to include the MIPS_SUBGROUP CMS program name.
@@ -147,7 +148,7 @@ Version 1.1
      NOTE: Schematrons may be updated after initial publication to address stakeholder or policy requirements. 
      Be sure to revisit the eCQI Resource Center (https://ecqi.healthit.gov/) for updated resources prior to use. 
 
-Fri Dec 09 11:36:27 MST 2022
+Tue Jan 10 16:38:59 MST 2023
 -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:svs="urn:ihe:iti:svs:2008" xmlns:voc="http://www.lantanagroup.com/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sch:ns prefix="voc" uri="http://www.lantanagroup.com/voc" />
@@ -521,6 +522,7 @@ Fri Dec 09 11:36:27 MST 2022
     <!-- Schematron variable 'intendedRecipient-DocOf' is set at the beginning of this pattern -->
     <sch:rule id="QRDA_Category_III_CMS-documentationOf-serviceEvent-performer-assignedEntity-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2022-12-01']]/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity">
       <!-- There are some specific rules about how non-NPI ids should be formatted, depending on reporting type. -->
+      <!-- 01-10-2023 Fixed a misplaced parenthesis in the assertion test for a-4526-18177_C01-error -->
       <sch:assert id="a-4526-18177_C01-error" test="count(cda:id[@root='2.16.840.1.113883.4.6'])=1">This assignedEntity SHALL contain exactly one [1..1] id (CONF:4526-18177_C01) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.4.6" National Provider ID  (CONF:4526-18178_C01).</sch:assert>
       <sch:assert id="a-4526-18177_C01-MIPSAPMENTITY-NPI-format-error" test="$intendedRecipient-DocOf != 'MIPS_APMENTITY' or ($intendedRecipient-DocOf='MIPS_APMENTITY' and count(cda:id[@root='2.16.840.1.113883.4.6'][@nullFlavor='NA'][not(@extension)])=1)">For MIPS  APM Entity reporting, id/@root=' 2.16.840.1.113883.4.6' is coupled with @nullFlavor="NA", and @extension shall be omitted.(CONF:4526-18177_C01).</sch:assert>
       <sch:assert id="a-4526-18177_C01-MIPSGROUP-NPI-format-error" test="$intendedRecipient-DocOf != 'MIPS_GROUP' or ($intendedRecipient-DocOf='MIPS_GROUP' and count(cda:id[@root='2.16.840.1.113883.4.6'][@nullFlavor='NA'][not(@extension)])=1)">For MIPS  group reporting, id/@root=' 2.16.840.1.113883.4.6' is coupled with @nullFlavor="NA", and @extension shall be omitted.(CONF:4526-18177_C01).</sch:assert>

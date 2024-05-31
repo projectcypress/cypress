@@ -17,7 +17,7 @@ gem 'mustache'
 gem 'os'
 
 gem 'cqm-models', '~> 4.2.0'
-gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'mongoid8'
+gem 'cqm-parsers', '~> 4.1.1.0'
 gem 'cqm-reports', '~> 4.1.0'
 gem 'cqm-validators', '~> 4.0.5'
 
