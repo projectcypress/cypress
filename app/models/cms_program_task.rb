@@ -35,9 +35,13 @@ class CMSProgramTask < Task
     []
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def ep_program_specific_validators
     return cpcplus_validators if product_test.cms_program == 'CPCPLUS'
     return pcf_validators if product_test.cms_program == 'PCF'
+    return mcp_validators if product_test.cms_program == 'MCP_STANDARD'
+    return mcp_validators if product_test.cms_program == 'MCP_FQHC'
     return mips_group_validators if product_test.cms_program == 'MIPS_GROUP'
     return mips_indiv_validators if product_test.cms_program == 'MIPS_INDIV'
     return mips_virtual_group_validators if product_test.cms_program == 'MIPS_VIRTUALGROUP'
@@ -49,6 +53,8 @@ class CMSProgramTask < Task
 
     []
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
 
   def hl7_validators
     if product_test.reporting_program_type == 'eh'
@@ -84,6 +90,10 @@ class CMSProgramTask < Task
   end
 
   def pcf_validators
+    ep_validators
+  end
+
+  def mcp_validators
     ep_validators
   end
 

@@ -39,6 +39,18 @@ CMS Programs:
       - MIPS_APP1_APMENTITY
       - MIPS_SUBGROUP
       - PCF
+    '2024':
+      - MIPS_GROUP
+      - MIPS_INDIV
+      - MIPS_VIRTUALGROUP
+      - MIPS_APMENTITY
+      - MIPS_APP1_INDIV
+      - MIPS_APP1_GROUP
+      - MIPS_APP1_APMENTITY
+      - MIPS_SUBGROUP
+      - PCF
+      - MCP_STANDARD
+      - MCP_FQHC
   eh:
     '2020':
       - HQR_PI
@@ -187,6 +199,8 @@ Program Criterion:
       - MIPS_APP1_INDIV
       - MIPS_APP1_GROUP
       - MIPS_APP1_APMENTITY
+      - MCP_STANDARD
+      - MCP_FQHC
   TIN:
     name: 'Tax Identification Number'
     description:
@@ -210,6 +224,8 @@ Program Criterion:
       - MIPS_APP1_INDIV
       - CPCPLUS
       - PCF
+      - MCP_STANDARD
+      - MCP_FQHC
   Virtual Group Identifier:
     name: 'Virtual Group Identifier'
     description:
@@ -239,6 +255,7 @@ Program Criterion:
       - MIPS_APP1_INDIV
       - CPCPLUS
       - PCF
+      - MCP_STANDARD
   CPCPLUS APM Entity Identifier:
     name: 'CPCPLUS APM Entity Identifier'
     description:
@@ -255,6 +272,15 @@ Program Criterion:
       ep: '(CONF:CMS_101)'
     programs:
       - PCF
+  MCP APM Entity Identifier:
+    name: 'MCP APM Entity Identifier'
+    description:
+      ep: 'This is the MCP Participant Identifier.'
+    conf:
+      ep: '(CONF:CMS_101)'
+    programs:
+      - MCP_STANDARD
+      - MCP_FQHC
   MIPS APM Entity Identifier:
     name: 'MIPS APM Entity Identifier'
     description:
