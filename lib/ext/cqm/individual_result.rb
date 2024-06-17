@@ -272,6 +272,8 @@ module CQM
       hash1.values.compact.size == hash2.values.compact.size
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
     # Returns an issue when expected risk variables are missing.  Does not validate the content of the returned risk variables, just existence.
     def compare_risk_variable_results(calculated, issues = [])
       measure.supplemental_data_elements.each do |supplemental_data_element|
@@ -301,5 +303,7 @@ module CQM
         issues << "#{statement_name} - Not Found in File" unless statements_match
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
   end
 end
