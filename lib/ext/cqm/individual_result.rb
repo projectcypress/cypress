@@ -268,16 +268,37 @@ module CQM
       values.each { |val| val['unit'] = val['unit']&.gsub(/{.*?}/, '') }
     end
 
+    def hash_values_match?(hash1, hash2)
+      hash1.values.compact.size == hash2.values.compact.size
+    end
+
     # Returns an issue when expected risk variables are missing.  Does not validate the content of the returned risk variables, just existence.
     def compare_risk_variable_results(calculated, issues = [])
       measure.supplemental_data_elements.each do |supplemental_data_element|
         statement_name = supplemental_data_element['statement_name']
         original_statement_results = statement_results.select { |sr| sr['statement_name'] == statement_name }.first&.raw
         calculated_statement_results = calculated['statement_results'].select { |sr| sr['statement_name'] == statement_name }.first&.raw
-        next if original_statement_results.blank?
-        next unless calculated_statement_results.blank?
 
-        issues << "#{statement_name} - Not Found in File"
+        statements_match = true
+        case original_statement_results
+        when Array
+          # Are the result arrays the same length
+          statements_match = original_statement_results&.size == calculated_statement_results&.size
+          original_statement_results.each_with_index do |original_statement_result, index|
+            # Skip check if an unmatched results is already found
+            next unless statements_match
+            # If the statement isn't a hash, move on
+            next unless original_statement_result.is_a? Hash
+
+            # check if the hash's contain the same number of result values
+            statements_match = hash_values_match?(original_statement_result, calculated_statement_results[index])
+          end
+        when Hash
+          # check if the hash's contain the same number of result values
+          statements_match = hash_values_match?(original_statement_results, calculated_statement_results)
+        end
+
+        issues << "#{statement_name} - Not Found in File" unless statements_match
       end
     end
   end
