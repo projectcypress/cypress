@@ -198,9 +198,10 @@ class TestExecutionHelper < ActiveSupport::TestCase
   end
 
   def test_padding_cms_id
-    assert_equal 'CMS002v5', padded_cms_id('CMS2v5')
-    assert_equal 'CMS020v5', padded_cms_id('CMS20v5')
-    assert_equal 'CMS200v5', padded_cms_id('CMS200v5')
+    assert_equal 'CMS0002v5', padded_cms_id('CMS2v5')
+    assert_equal 'CMS0020v5', padded_cms_id('CMS20v5')
+    assert_equal 'CMS0200v5', padded_cms_id('CMS200v5')
+    assert_equal 'CMS2000v5', padded_cms_id('CMS2000v5')
   end
 
   def test_ecqi_link

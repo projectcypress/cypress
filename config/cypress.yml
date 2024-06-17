@@ -288,6 +288,15 @@ result_measures:
   - hqmf_id : '2C928084-83D3-1B44-0184-3A4838E816AC'
     statement_name : 'SDE Results'
     encounter_tuple_name : 'EncounterId'
+  # 2023 Bundle
+  # CMS529v5
+  - hqmf_id : '8A6D0454-8DF0-2D9F-018E-68A1046135DE'
+    statement_name : 'SDE Results'
+    encounter_tuple_name : 'EncounterId'
+  # CMS844v5
+  - hqmf_id : '8A6D0454-8DF0-2D9F-018E-689F88C035CC'
+    statement_name : 'SDE Results'
+    encounter_tuple_name : 'EncounterId'
 
 # These eCQMs store a list of "Risk Variables" within the statement_results of an Individual Result
 risk_variable_measures:
@@ -298,6 +307,15 @@ risk_variable_measures:
   - hqmf_id : '2C928084-82EA-D7C5-0183-3DCF0A3E17B3'
   # CMS832v1
   - hqmf_id : '2C928083-8651-08A3-0186-C7D18A711CB2'
+  # 2024 Bundle
+  # CMS1028v3
+  - hqmf_id : '2C928083-8907-CE68-0189-0D9577E7030D'
+  # CMS832v2
+  - hqmf_id : '8A6D0438-8F1B-5DF7-018F-315079780388'
+  # CMS1017v1
+  - hqmf_id : '8A6D0454-8DF0-2D9F-018E-2E7228A61B05'
+  # CMS1218v1
+  - hqmf_id : '2C928083-8733-4E1B-0187-51A1B1C20477'
 
 # These eCQMs can have patients that are relevant to IPP even when they don't calculation into the IPP
 ipp_relevant:
@@ -420,6 +438,16 @@ timing_constraints:
     start_time : '20250101'
     end_time : '20251231'
   # 2024 Bundle
+  # CMS529v5
+  - hqmf_id : '8A6D0454-8DF0-2D9F-018E-68A1046135DE'
+    start_time : '20250701'
+    end_time : '20260630'
+    quarters : [['20250701', '20250930'],['20251001', '20251231'], ['20260101', '20260331'],['20260401', '20260630']]
+  # CMS844v5
+  - hqmf_id : '8A6D0454-8DF0-2D9F-018E-689F88C035CC'
+    start_time : '20250701'
+    end_time : '20260630'
+    quarters : [['20250701', '20250930'],['20251001', '20251231'], ['20260101', '20260331'],['20260401', '20260630']]
   # CMS1017v1
   - hqmf_id : '8A6D0454-8DF0-2D9F-018E-2E7228A61B05'
     start_time : '20260101'
