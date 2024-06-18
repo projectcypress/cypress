@@ -164,7 +164,7 @@ class VendorCachingTest < CachingTest
   end
 
   def test_adding_test_execution_updates_vendor_cache_key
-    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+    user = User.find_by(email: 'vendor@test.com')
     vendor_old_cache_key = Vendor.all.first.cache_key.to_s
     task2 = C2Task.new
     task2.product_test = @product_test
@@ -187,7 +187,7 @@ class VendorCachingTest < CachingTest
   end
 
   def test_adding_passing_then_failing_execution_changes_vendor_status
-    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
+    user = User.find_by(email: 'vendor@test.com')
     test_execution = TestExecution.all.first
     test_execution.update(state: :passed)
     user.test_executions << test_execution

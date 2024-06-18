@@ -698,14 +698,16 @@
   <system valueSetOid="2.16.840.1.113883.3.249.14.101" valueSetName="QRDA III CMS Program Name">
     <!-- CPC+ retired for 2022 reporting -->
     <!-- <code value="CPCPLUS" displayName="CPC" codeSystemName="CMS Program" codeSystem="2.16.840.1.113883.3.249.7" /> -->
+    <!-- MIPS_SUBGROUP added for v1.1 2023 CMS QRDA III - December 2022 -->
+    <code value="PCF" displayName="PCF" codeSystemName="CMS Program" codeSystem="2.16.840.1.113883.3.249.7" />
     <code value="MIPS_INDIV" displayName="MIPS Individual" codeSystemName="CMS Program" codeSystem="2.16.840.1.113883.3.249.7" />
     <code value="MIPS_GROUP" displayName="MIPS Group" codeSystemName="CMS Program" codeSystem="2.16.840.1.113883.3.249.7" />
-    <code value="PCF" displayName="PCF" codeSystemName="CMS Program" codeSystem="2.16.840.1.113883.3.249.7" />
-    <code value="MIPS_APMENTITY" displayName="MIPS APM Entity" codeSystemName="CMS Program" codeSystem="2.16.840.1.113883.3.249.7" />
     <code value="MIPS_VIRTUALGROUP" displayName="MIPS Virtual Group" codeSystemName="CMS Program" codeSystem="2.16.840.1.113883.3.249.7" />
+    <code value="MIPS_APMENTITY" displayName="MIPS APM Entity" codeSystemName="CMS Program" codeSystem="2.16.840.1.113883.3.249.7" />
     <code value="MIPS_APP1_INDIV" displayName="MIPS APP Individual Reporting" codeSystemName="CMS Program" codeSystem="2.16.840.1.113883.3.249.7" />
     <code value="MIPS_APP1_GROUP" displayName="MIPS APP Group Reporting" codeSystemName="CMS Program" codeSystem="2.16.840.1.113883.3.249.7" />
     <code value="MIPS_APP1_APMENTITY" displayName="MIPS APP APM Entity Reporting" codeSystemName="CMS Program" codeSystem="2.16.840.1.113883.3.249.7" />
+    <code value="MIPS_SUBGROUP" displayName="MIPS Subgroup Reporting" codeSystemName="CMS Program" codeSystem="2.16.840.1.113883.3.249.7" />
   </system>
   <system valueSetOid="2.16.840.1.114222.4.11.836" valueSetName="Race">
     <code value="1002-5" displayName="American Indian or Alaska Native" codeSystemName="Race &amp; Ethnicity - CDC" codeSystem="2.16.840.1.113883.6.238" />

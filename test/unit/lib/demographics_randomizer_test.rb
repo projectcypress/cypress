@@ -38,7 +38,8 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
       familyName: @family_name,
       addresses: [@patient_address],
       telecoms: [@patient_telecom],
-      email: [@original_email]
+      email: [@original_email],
+      _type: CQM::BundlePatient
     )
     QDM::Patient.create!(cqmPatient: @record, dataElements: [@race, @gender, @ethnicity, @payer], birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     @record.bundleId = @bundle.id
@@ -50,7 +51,8 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
       givenNames: @given_names,
       familyName: @family_name,
       addresses: [@patient_address],
-      telecoms: [@patient_telecom]
+      telecoms: [@patient_telecom],
+      _type: CQM::BundlePatient
     )
     QDM::Patient.create!(cqmPatient: @record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     @record.bundleId = @bundle.id
@@ -78,7 +80,8 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
       givenNames: @given_names,
       familyName: @family_name,
       addresses: [@patient_address],
-      telecoms: [@patient_telecom]
+      telecoms: [@patient_telecom],
+      _type: CQM::BundlePatient
     )
     QDM::Patient.create!(cqmPatient: @record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     @record.bundleId = @bundle.id
@@ -96,7 +99,8 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
       givenNames: @given_names,
       familyName: @family_name,
       addresses: [@patient_address],
-      telecoms: [@patient_telecom]
+      telecoms: [@patient_telecom],
+      _type: CQM::BundlePatient
     )
     QDM::Patient.create!(cqmPatient: @record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     @record.bundleId = @bundle.id

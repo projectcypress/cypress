@@ -7,8 +7,8 @@ ruby '3.2.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 7.0.0'
 
-gem 'delayed_job_mongoid', '~> 2.3.0'
-gem 'mongoid', '~> 7.5.0'
+gem 'delayed_job_mongoid', '~> 3.0.0'
+gem 'mongoid', '~> 8.1.0'
 
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson'
@@ -16,10 +16,10 @@ gem 'bson'
 gem 'mustache'
 gem 'os'
 
-gem 'cqm-models', git: 'https://github.com/projecttacoma/cqm-models', tag: 'cypress_v7.0.0'
-gem 'cqm-parsers', '~> 4.1.0.2'
-gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', tag: 'cypress_v7.2.0'
-gem 'cqm-validators', '~> 4.0.4'
+gem 'cqm-models', '~> 4.2.0'
+gem 'cqm-parsers', '~> 4.1.1.0'
+gem 'cqm-reports', '~> 4.1.0'
+gem 'cqm-validators', '~> 4.0.5'
 
 # # Use faker to generate addresses
 gem 'faker', '> 1.5.0'
@@ -30,7 +30,8 @@ gem 'sass-rails', '~> 5.0.4'
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'font-awesome-sass', '~> 5.0.13'
 gem 'jquery-rails', '~> 4.4.0'
-gem 'jquery-ui-rails', '~> 6.0.1'
+# TODO: remove or use gem
+gem 'jquery-ui-rails', git: 'https://github.com/jquery-ui-rails/jquery-ui-rails', tag: 'v7.0.0'
 
 # Add pagination support
 gem 'kaminari-mongoid'

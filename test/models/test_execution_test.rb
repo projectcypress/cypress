@@ -5,8 +5,8 @@ class TestExecutionTest < ActiveSupport::TestCase
   def setup
     @bundle = FactoryBot.create(:static_bundle)
     vendor = Vendor.create(name: 'test_vendor_name')
-    product = vendor.products.create(name: 'test_product', bundle_id: @bundle.id)
-    @ptest = product.product_tests.build(name: 'ptest', measure_ids: ['1a'])
+    product = vendor.products.create(name: 'test_product', c1_test: true, bundle_id: @bundle.id, measure_ids: ['AE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+    @ptest = product.product_tests.build(name: 'ptest', measure_ids: ['AE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
     @task = @ptest.tasks.build
   end
 

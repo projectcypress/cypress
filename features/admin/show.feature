@@ -39,8 +39,8 @@ Scenario: User is not an admin
 
 Scenario: User can view bundles to download
   And the user navigates to the bundle_downloads page
-  Then the user should see text bundle-2020
-  Then the user should see text bundle-2021
+  Then the user should see text bundle-2022
+  Then the user should see text bundle-2023
 
 # Why are you crashing the demoserver
 # Scenario: User can not download bundle without NLM account

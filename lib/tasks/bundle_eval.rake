@@ -155,15 +155,15 @@ namespace :bundle do
           end
           bp.qdmPatient.get_data_elements('encounter', 'performed').each do |encounter|
             # There is only 1 principalDiagnosis, if it isn't snomed, move on.
-            if encounter.principalDiagnosis&.codeSystemOid == '2.16.840.1.113883.6.96'
-              ValueSet.where('concepts.code' => encounter.principalDiagnosis.code).each do |vs|
-                en_encounter_dx_vs_list << vs.oid
-              end
-            end
+            # if encounter.principalDiagnosis&.codeSystemOid == '2.16.840.1.113883.6.96'
+            #   ValueSet.where('concepts.code' => encounter.principalDiagnosis.code).each do |vs|
+            #     en_encounter_dx_vs_list << vs.oid
+            #   end
+            # end
             # Iterate through each encounter diagnosis
             encounter.diagnoses&.each do |encounter_diagnosis|
               # check if snomed
-              next unless encounter_diagnosis.codeSystemOid == '2.16.840.1.113883.6.96'
+              next unless encounter_diagnosis['system'] == '2.16.840.1.113883.6.96'
 
               ValueSet.where('concepts.code' => encounter_diagnosis.code).each do |vs|
                 en_encounter_dx_vs_list << vs.oid

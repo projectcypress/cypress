@@ -141,9 +141,9 @@ class HTMLTest < ActiveSupport::TestCase
 
   # Get bundle from the demo server.  Use VCR if available
   def retrieve_mini_bundle
-    VCR.use_cassette('mini_bundle_download') do
+    VCR.use_cassette('bundle_download_2023') do
       bundle_resource = RestClient::Request.execute(method: :get,
-                                                    url: 'https://cypress.healthit.gov/measure_bundles/mini-fixture-bundle-2020.0.3.zip',
+                                                    url: 'https://cypress.healthit.gov/measure_bundles/bundle-2023.zip',
                                                     user: ENV.fetch('VSAC_USERNAME', nil),
                                                     password: ENV.fetch('VSAC_PASSWORD', nil),
                                                     raw_response: true,

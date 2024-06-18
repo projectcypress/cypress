@@ -138,7 +138,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   end
 
   def test_should_reload_product_test_link
-    product = Product.new
+    product = @product
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     # product test not ready
     pt = ProductTest.new(state: :not_ready, name: 'my product test name 1', measure_ids:, product:)
@@ -251,7 +251,7 @@ class ProductsHelperTest < ActiveJob::TestCase
   def build_tasks_with_test_execution_states(states, product_test = nil)
     tasks = []
     if product_test.nil?
-      product = Product.new
+      product = @product
       measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
       # product test is ready, task is pending
       product_test = ProductTest.new(state: :ready, name: 'my product test name 2', measure_ids:, product:)

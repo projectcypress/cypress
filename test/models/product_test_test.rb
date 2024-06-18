@@ -4,9 +4,10 @@ require 'test_helper'
 
 class ProductTestTest < ActiveJob::TestCase
   def setup
+    @vendor_user = FactoryBot.create(:vendor_user)
     @vendor = FactoryBot.create(:vendor)
     @bundle = FactoryBot.create(:static_bundle)
-    @product = @vendor.products.create(name: 'test_product', c2_test: true, randomize_patients: true, bundle_id: @bundle.id)
+    @product = @vendor.products.create(name: 'test_product', c2_test: true, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], randomize_patients: true, bundle_id: @bundle.id)
   end
 
   def test_create
@@ -25,7 +26,6 @@ class ProductTestTest < ActiveJob::TestCase
   end
 
   def test_status_passing
-    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
     vendor = Vendor.create!(name: 'my vendor')
     product = vendor.products.build(name: 'my product', bundle_id: @bundle.id, c1_test: true, c2_test: true,
@@ -38,13 +38,13 @@ class ProductTestTest < ActiveJob::TestCase
 
     # measure test should be incomplete if at least one test execution is incomplete
     te = measure_test.tasks[0].test_executions.build(state: :incomplete)
-    user.test_executions << te
+    @vendor_user.test_executions << te
     te.save!
     assert_equal 'incomplete', measure_test.status
 
     # measure test should be failing if at least one test execution is failing
     te = measure_test.tasks[1].test_executions.build(state: :failed)
-    user.test_executions << te
+    @vendor_user.test_executions << te
     te.save!
     assert_equal 'failing', measure_test.status
   end
@@ -155,9 +155,8 @@ class ProductTestTest < ActiveJob::TestCase
   end
 
   def create_test_executions_with_state(product_test, state)
-    user = User.create(email: 'vendor@test.com', password: 'TestTest!', password_confirmation: 'TestTest!', terms_and_conditions: '1')
     product_test.tasks.each do |task|
-      task.test_executions.create(state:, user:)
+      task.test_executions.create(state:, user: @vendor_user)
     end
   end
 end

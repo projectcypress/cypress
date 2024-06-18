@@ -21,46 +21,6 @@ default_warning_message: 'This warning banner provides privacy and security noti
 # In the case of none of them being valid it will default to the first one
 # modified_population_labels are used to indicate when the population code required by the qrda version differs from the population code in QME
 version_config:
-  '~>2020.0':
-      start_date_offset: 2
-      modified_population_labels:
-        IPP: 'IPOP'
-      schematron: "2020.0.0"
-      qrda_version: "r5_2"
-      qrda_version_display_name: "STU 5.2"
-      qrda3_version: "r2_1"
-      qrda3_version_display_name: "STU 2.1"
-      mapped_codes:
-      default_negation_codes:
-        2.16.840.1.113883.3.526.3.1184:
-          code: "854901"
-          codeSystem: "2.16.840.1.113883.6.88"
-        2.16.840.1.113883.3.526.3.1174:
-          code: "854901"
-          codeSystem: "2.16.840.1.113883.6.88"
-      CMSQRDA3SchematronValidator_warnings:
-      CMSQRDA1HQRSchematronValidator_warnings:
-  '~>2021.0':
-      start_date_offset: 2
-      modified_population_labels:
-        IPP: 'IPOP'
-      schematron: "2021.0.0"
-      qrda_version: "r5_2"
-      qrda_version_display_name: "STU 5.2"
-      qrda3_version: "r2_1"
-      qrda3_version_display_name: "STU 2.1"
-      # mapped_codes pattern {Code in eCQM spec}:{Alternative code that maps to code in spec}
-      mapped_codes:
-        "258232002": "254292007"
-      default_negation_codes:
-        2.16.840.1.113883.3.526.3.1184:
-          code: "854901"
-          codeSystem: "2.16.840.1.113883.6.88"
-        2.16.840.1.113883.3.526.3.1174:
-          code: "854901"
-          codeSystem: "2.16.840.1.113883.6.88"
-      CMSQRDA3SchematronValidator_warnings:
-      CMSQRDA1HQRSchematronValidator_warnings:
   '~>2022.0':
       start_date_offset: 2
       modified_population_labels:
@@ -98,6 +58,26 @@ version_config:
           code: "854901"
           codeSystem: "2.16.840.1.113883.6.88"
       CMSQRDA3SchematronValidator_warnings:
+      CMSQRDA1HQRSchematronValidator_warnings:
+  '~>2024.0':
+      start_date_offset: 2
+      modified_population_labels:
+        IPP: 'IPOP'
+      schematron: "2024.0.0"
+      qrda_version: "r5_3"
+      qrda_version_display_name: "STU 5.3"
+      qrda3_version: "r2_1"
+      qrda3_version_display_name: "R1"
+      mapped_codes:
+      default_negation_codes:
+        2.16.840.1.113883.3.526.3.1184:
+          code: "854901"
+          codeSystem: "2.16.840.1.113883.6.88"
+        2.16.840.1.113883.3.526.3.1174:
+          code: "854901"
+          codeSystem: "2.16.840.1.113883.6.88"
+      CMSQRDA3SchematronValidator_warnings:
+        - '2025 CMS QRDA III Implementation Guide for Eligible Clinicians is not available'
       CMSQRDA1HQRSchematronValidator_warnings:
 
 # Configuration for values to use when randomizing patients in test decks
@@ -308,6 +288,15 @@ result_measures:
   - hqmf_id : '2C928084-83D3-1B44-0184-3A4838E816AC'
     statement_name : 'SDE Results'
     encounter_tuple_name : 'EncounterId'
+  # 2023 Bundle
+  # CMS529v5
+  - hqmf_id : '8A6D0454-8DF0-2D9F-018E-68A1046135DE'
+    statement_name : 'SDE Results'
+    encounter_tuple_name : 'EncounterId'
+  # CMS844v5
+  - hqmf_id : '8A6D0454-8DF0-2D9F-018E-689F88C035CC'
+    statement_name : 'SDE Results'
+    encounter_tuple_name : 'EncounterId'
 
 # These eCQMs store a list of "Risk Variables" within the statement_results of an Individual Result
 risk_variable_measures:
@@ -318,6 +307,15 @@ risk_variable_measures:
   - hqmf_id : '2C928084-82EA-D7C5-0183-3DCF0A3E17B3'
   # CMS832v1
   - hqmf_id : '2C928083-8651-08A3-0186-C7D18A711CB2'
+  # 2024 Bundle
+  # CMS1028v3
+  - hqmf_id : '2C928083-8907-CE68-0189-0D9577E7030D'
+  # CMS832v2
+  - hqmf_id : '8A6D0438-8F1B-5DF7-018F-315079780388'
+  # CMS1017v1
+  - hqmf_id : '8A6D0454-8DF0-2D9F-018E-2E7228A61B05'
+  # CMS1218v1
+  - hqmf_id : '2C928083-8733-4E1B-0187-51A1B1C20477'
 
 # These eCQMs can have patients that are relevant to IPP even when they don't calculation into the IPP
 ipp_relevant:
@@ -389,10 +387,13 @@ measures_without_future_data:
     '2C928082-82CB-A3F5-0182-CC6968E30090' ]
 
 # CMS996v3, CMS996v4, CMS1206v1
+# 2024 AU - CMS996v5, CMS1206v2
 oqr_measures:
   [ '2C928083-7F47-C81F-017F-79354C281550',
     '2C928084-83D3-1B44-0184-77AC447D2178',
-    '2C928082-86DB-6718-0186-E05BA2AB0106' ]
+    '2C928082-86DB-6718-0186-E05BA2AB0106',
+    '8A6D040F-8B1E-D837-018B-8C58F1D61E33',
+    '8A6D044D-8DB3-0572-018D-D65FA5DC0737' ]
 
 # These measures have specific timing constraints
 timing_constraints:
@@ -436,6 +437,25 @@ timing_constraints:
   - hqmf_id : '2C928082-86DB-6718-0186-E05C1EB0010E'
     start_time : '20250101'
     end_time : '20251231'
+  # 2024 Bundle
+  # CMS529v5
+  - hqmf_id : '8A6D0454-8DF0-2D9F-018E-68A1046135DE'
+    start_time : '20250701'
+    end_time : '20260630'
+    quarters : [['20250701', '20250930'],['20251001', '20251231'], ['20260101', '20260331'],['20260401', '20260630']]
+  # CMS844v5
+  - hqmf_id : '8A6D0454-8DF0-2D9F-018E-689F88C035CC'
+    start_time : '20250701'
+    end_time : '20260630'
+    quarters : [['20250701', '20250930'],['20251001', '20251231'], ['20260101', '20260331'],['20260401', '20260630']]
+  # CMS1017v1
+  - hqmf_id : '8A6D0454-8DF0-2D9F-018E-2E7228A61B05'
+    start_time : '20260101'
+    end_time : '20261231'
+  # CMS1218v1
+  - hqmf_id : '2C928083-8733-4E1B-0187-51A1B1C20477'
+    start_time : '20260101'
+    end_time : '20261231'
 
 telehealth_modifier_codes:
   [ '95', 'GQ', 'GT' ]
@@ -487,18 +507,6 @@ unit_matches:
     code_list_id: '2.16.840.1.113883.3.117.1.7.1.215'
     units        :
       - 'mg/dL'
-    # relevant for CMS816v1+ where BloodGlucoseLab.result > 80 'mg/dL'
-  - hqmf_set_id : '98EE2385-0B90-40F4-859C-14F5C8D49340'
-    de_type     : 'QDM::LaboratoryTestPerformed'
-    code_list_id: '2.16.840.1.113762.1.4.1045.134'
-    units        :
-      - 'mg/dL'
-    # relevant for CMS871v1+ where BloodGlucoseLab.result >= 200 'mg/dL'
-  - hqmf_set_id : 'EF95493C-3F65-4440-9CCB-EAF1B9ED1210'
-    de_type     : 'QDM::LaboratoryTestPerformed'
-    code_list_id: '2.16.840.1.113762.1.4.1045.134'
-    units        :
-      - 'mg/dL'
   # 2023 Bundle
   # relevant for CMS832v1+ Creatinine Mass Per Volume
   - hqmf_set_id : '2C928083-8651-08A3-0186-C7D18A711CB2'
@@ -507,17 +515,42 @@ unit_matches:
     units        :
       - 'mg/dL'
   # relevant for CMS871v3+ where BloodGlucoseLab.result >= 200 'mg/dL'
-  - hqmf_set_id : '2C928082-7FAC-C041-0180-1F512619243F'
+  - hqmf_set_id : 'EF95493C-3F65-4440-9CCB-EAF1B9ED1210'
     de_type     : 'QDM::LaboratoryTestPerformed'
     code_list_id: '2.16.840.1.113762.1.4.1248.34'
     units        :
       - 'mg/dL'
   # relevant for CMS816v3+ where BloodGlucoseLab.result >= 200 'mg/dL'
-  - hqmf_set_id : '2C928084-82EA-D7C5-0183-3DA9C0411763'
+  - hqmf_set_id : '98EE2385-0B90-40F4-859C-14F5C8D49340'
     de_type     : 'QDM::LaboratoryTestPerformed'
     code_list_id: '2.16.840.1.113762.1.4.1248.34'
     units        :
       - 'mg/dL'
+  # relevant for CMS334"
+  - hqmf_set_id : 'FC52D0DE-B53D-4CCF-816E-1E527748D2D9'
+    de_type     : 'QDM::AssessmentPerformed'
+    code_list_id: '2.16.840.1.113762.1.4.1045.26'
+    units       :
+      - 'weeks'
+      - 'wk'
+  # relevant for CMS1028"
+  - hqmf_set_id : '44EB11CF-56D6-4DC2-B986-C58C72474B16'
+    de_type     : 'QDM::AssessmentPerformed'
+    code_list_id: '2.16.840.1.113762.1.4.1045.26'
+    units       :
+      - 'weeks'
+      - 'wk'
+
+problematic_record_sample_criteria:
+  # CMS996v3 (2022 AU)
+  2C928083-7F47-C81F-017F-79354C281550:
+    ['QDM::AllergyIntolerance|type|2.16.840.1.113762.1.4.1170.6']
+  # CMS996v4 (2023 AU)
+  2C928084-83D3-1B44-0184-77AC447D2178:
+    ['QDM::AllergyIntolerance|type|2.16.840.1.113762.1.4.1170.6']
+  # CMS996v5 (2024 AU)
+  8A6D040F-8B1E-D837-018B-8C58F1D61E33:
+    ['QDM::AllergyIntolerance|type|2.16.840.1.113762.1.4.1170.6']
 
 eki_tickets:
   2C928082-86DB-6718-0186-E6D223320335:

@@ -41,7 +41,7 @@ class QrdaUploadsControllerTest < ActionController::TestCase
 
       possible_qrda_uploaders.each do |qrda_uploader|
         path_values = qrda_uploader['path'].split('/')
-        filename = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_wrong_templates.zip')
+        filename = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_bad_schema.zip')
         zip_with_errors = fixture_file_upload(filename, 'application/zip')
         post :create, params: { format: :json, file: zip_with_errors, year: path_values[2], qrda_type: path_values[3], organization: path_values[4] }
         assert_response 201, 'response should be Created on test_execution creation'
@@ -55,7 +55,7 @@ class QrdaUploadsControllerTest < ActionController::TestCase
 
   test 'should return a 404 for a validation that does not exist' do
     for_each_logged_in_user([USER]) do
-      filename = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_wrong_templates.zip')
+      filename = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_bad_schema.zip')
       zip_with_errors = fixture_file_upload(filename, 'application/zip')
       post :create, params: { format: :json, file: zip_with_errors, year: '2222', qrda_type: 'qrdaI', organization: 'cms' }
       assert_response 404, 'Not Found for validator that does not exist'
@@ -86,7 +86,7 @@ class QrdaUploadsControllerTest < ActionController::TestCase
 
       possible_qrda_uploaders.each do |qrda_uploader|
         path_values = qrda_uploader['path'].split('/')
-        filename = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_wrong_templates.zip')
+        filename = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'sample_patient_bad_schema.zip')
         zip_with_errors = fixture_file_upload(filename, 'application/zip')
         post :create, params: { format: :xml, file: zip_with_errors, year: path_values[2], qrda_type: path_values[3], organization: path_values[4] }
         assert_response 201, 'response should be Created on test_execution creation'

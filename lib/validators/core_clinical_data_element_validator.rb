@@ -16,18 +16,26 @@ module Validators
 
       doc = get_document(file)
       verify_patient_ids(doc, options) if %w[CMSProgramTask C3Cat1Task].include?(options.task._type)
-      verify_encounters(doc, options)
+      # TODO: This can be removed, inFulfillmentOf1 references no longer required in Hybrid measures
+      # verify_encounters(doc, options)
     end
 
     def verify_patient_ids(doc, options)
       reported_id = doc.at_xpath('//cda:recordTarget/cda:patientRole/cda:id[@root="2.16.840.1.113883.4.927"]')
-      reported_id ||= doc.at_xpath('//cda:recordTarget/cda:patientRole/cda:id[@root="2.16.840.1.113883.4.572"]')
       return if reported_id
 
-      msg = 'CMS_0084 - QRDA files for hybrid measure/CCDE submissions must contain a HICN or MBI.'
+      if options.task.bundle.major_version.to_i > 2023
+        msg = 'CMS_0084 - QRDA files for hybrid measure/CCDE submissions must contain a MBI.'
+      else
+        reported_id ||= doc.at_xpath('//cda:recordTarget/cda:patientRole/cda:id[@root="2.16.840.1.113883.4.572"]')
+        return if reported_id
+
+        msg = 'CMS_0084 - QRDA files for hybrid measure/CCDE submissions must contain a HICN or MBI.'
+      end
       add_error(msg, file_name: options[:file_name])
     end
 
+    # TODO: This can be removed, not longer in use
     def verify_encounters(doc, options)
       encounter_ids = encounter_ids_in_doc(doc)
       # Get Entries related to Core Clinical Data Element (Laboraty Test, Performed (V5) and Physical Exam, Performed (V5)

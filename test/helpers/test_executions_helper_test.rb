@@ -77,8 +77,8 @@ class TestExecutionHelper < ActiveSupport::TestCase
   end
 
   def test_get_upload_type
-    assert_equal 'zip file of QRDA Category I (STU 5.2) documents', get_upload_type(true, @bundle)
-    assert_equal 'QRDA Category III (STU 2.1) XML document', get_upload_type(false, @bundle)
+    assert_equal 'zip file of QRDA Category I (STU 5.3) documents', get_upload_type(true, @bundle)
+    assert_equal 'QRDA Category III (R1) XML document', get_upload_type(false, @bundle)
   end
 
   def test_get_error_counts_no_execution
@@ -198,9 +198,10 @@ class TestExecutionHelper < ActiveSupport::TestCase
   end
 
   def test_padding_cms_id
-    assert_equal 'CMS002v5', padded_cms_id('CMS2v5')
-    assert_equal 'CMS020v5', padded_cms_id('CMS20v5')
-    assert_equal 'CMS200v5', padded_cms_id('CMS200v5')
+    assert_equal 'CMS0002v5', padded_cms_id('CMS2v5')
+    assert_equal 'CMS0020v5', padded_cms_id('CMS20v5')
+    assert_equal 'CMS0200v5', padded_cms_id('CMS200v5')
+    assert_equal 'CMS2000v5', padded_cms_id('CMS2000v5')
   end
 
   def test_ecqi_link

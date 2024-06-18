@@ -77,7 +77,7 @@ class ProducTest < ActiveSupport::TestCase
     pt = Product.new(vendor: @vendor, c1_test: true, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: @bundle.id)
     pt.product_tests.build(name: 'test_product_test_name',
                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                           bundle_id: @bundle.id).save!
+                           bundle_id: @bundle.id)
     assert_equal false, pt.valid?, 'record should not be valid'
     saved = pt.save
     assert_equal false, saved, 'Should not be able to save without a name'
@@ -87,7 +87,7 @@ class ProducTest < ActiveSupport::TestCase
     pt = Product.new(name: 'test_product', c1_test: true, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: @bundle.id)
     pt.product_tests.build(name: 'test_product_test_name',
                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                           bundle_id: @bundle.id).save!
+                           bundle_id: @bundle.id)
     assert_equal false, pt.valid?, 'record should not be valid'
     saved = pt.save
     assert_equal false, saved, 'Should not be able to save without a vendor'
@@ -97,7 +97,7 @@ class ProducTest < ActiveSupport::TestCase
     pt = Product.new(vendor: @vendor, name: 'test_product', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: @bundle.id)
     pt.product_tests.build(name: 'test_product_test_name',
                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                           bundle_id: @bundle.id).save!
+                           bundle_id: @bundle.id)
     assert_equal false, pt.valid?, 'record should not be valid'
     saved = pt.save
     assert_equal false, saved, 'Should not be able to save without at least one certification type'
@@ -107,7 +107,7 @@ class ProducTest < ActiveSupport::TestCase
     pt = Product.new(vendor: @vendor, name: 'test_product', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'], bundle_id: @bundle.id)
     pt.product_tests.build(name: 'test_product_test_name',
                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
-                           bundle_id: @bundle.id).save!
+                           bundle_id: @bundle.id)
     assert_equal false, pt.valid?, 'record should not be valid'
     saved = pt.save
     assert_equal false, saved, 'Should not be able to save without C1, C2, C3, or C4'

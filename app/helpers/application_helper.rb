@@ -47,13 +47,17 @@ module ApplicationHelper
 
     program = measure.reporting_program_type
     program = 'ec' if program == 'ep'
+    program = 'oqr' unless APP_CONSTANTS['oqr_measures'].intersection([measure.hqmf_id]).blank?
     year = Bundle.find(measure.bundle_id).major_version.to_i + 1
+    if APP_CONSTANTS['timing_constraints'].any? { |tc| measure.hqmf_id == tc['hqmf_id'] }
+      year = Date.parse(APP_CONSTANTS['timing_constraints'].detect { |tc| measure.hqmf_id == tc['hqmf_id'] }.start_time).in_time_zone.year
+    end
     "https://ecqi.healthit.gov/ecqm/#{program}/#{year}/#{padded_cms_id(cms_id)}"
   end
 
   # This will always return a three digit cms identifier, e.g., CMS9v3 => CMS009v3
   def padded_cms_id(cms_id)
-    cms_id.sub(/(?<=cms)(\d{1,3})/i) { Regexp.last_match(1).rjust(3, '0') }
+    cms_id.sub(/(?<=cms)(\d{1,4})/i) { Regexp.last_match(1).rjust(4, '0') }
   end
 
   def cvu_status_row(hash, status)

@@ -9,8 +9,7 @@ module Cypress
 
     def initialize(patients, measures, correlation_id, options)
       @patients = patients
-      is_qdm55 = Bundle.only(:version).find(measures.first.bundle_id).major_version.to_i < 2022
-      @connection_string = is_qdm55 ? self.class.create_55_connection_string : self.class.create_56_connection_string
+      @connection_string = self.class.create_56_connection_string
       # This is a key -> value pair of patients mapped in the form "qdm-patient-id" => BSON::ObjectId("cqm-patient-id")
       @cqm_patient_mapping = patients.to_h { |patient| [patient.id.to_s, patient.cqmPatient] }
       @measures = measures
@@ -48,11 +47,6 @@ module Cypress
       end
       measure.calculation_results.create(ir_list) if save
       patient_result_hash.values
-    end
-
-    def self.create_55_connection_string
-      config = Rails.application.config
-      "http://#{config.ces_55_host}:#{config.ces_55_port}/calculate"
     end
 
     def self.create_56_connection_string

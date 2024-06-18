@@ -8,7 +8,7 @@
   <realmCode code="US"/>
   <typeId extension="POCD_HD000040" root="2.16.840.1.113883.1.3"/>
   <!-- QRDA Category III template ID (this template ID differs from QRDA III comment only template ID). -->
-  <templateId extension="2017-06-01" root="2.16.840.1.113883.10.20.27.1.1"/>
+  <templateId root="2.16.840.1.113883.10.20.27.1.1" extension="2020-12-01"/>
   <id extension="CypressExtension" root="c8b86f50-6c13-0136-96fe-6a00008fee70"/>
   <!-- SHALL QRDA III document type code -->
   <code code="55184-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Quality Reporting Document Architecture Calculated Summary Report"/>
@@ -141,7 +141,7 @@ QRDA Category III Reporting Parameters
           <entry typeCode="DRIV">
             <act classCode="ACT" moodCode="EVN">
               <!-- This is the templateId for Reporting Parameters Act -->
-              <templateId root="2.16.840.1.113883.10.20.17.3.8"/>
+              <templateId root="2.16.840.1.113883.10.20.17.3.8" extension="2020-12-01"/>
               <id extension="F609ADD3CD46E8D34505077D8A053792"/>
               <code code="252116004" codeSystem="2.16.840.1.113883.6.96" displayName="Observation Parameters"/>
               <effectiveTime>
@@ -163,7 +163,7 @@ Measure Section
           <templateId root="2.16.840.1.113883.10.20.24.2.2"/>
           <!-- In this case the query is using an eMeasure -->
           <!-- QRDA Category III Measure Section template -->
-          <templateId extension="2017-06-01" root="2.16.840.1.113883.10.20.27.2.1"/>
+          <templateId extension="2020-12-01" root="2.16.840.1.113883.10.20.27.2.1"/>
           <code code="55186-1" codeSystem="2.16.840.1.113883.6.1"/>
           <title>Measure Section</title>
           <text/>
@@ -172,7 +172,7 @@ Measure Section
               <!-- Implied template Measure Reference templateId -->
               <templateId root="2.16.840.1.113883.10.20.24.3.98"/>
               <!-- SHALL 1..* (one for each referenced measure) Measure Reference and Results template -->
-              <templateId extension="2016-09-01" root="2.16.840.1.113883.10.20.27.3.1"/>
+              <templateId extension="2020-12-01" root="2.16.840.1.113883.10.20.27.3.1"/>
               <id extension="40280382-5FA6-FE85-0160-0918E74D2075"/>
               <statusCode code="completed"/>
               <reference typeCode="REFR">
@@ -190,7 +190,7 @@ Measure Section
               </reference>
               <component>
                 <observation classCode="OBS" moodCode="EVN">
-                  <templateId extension="2016-09-01" root="2.16.840.1.113883.10.20.27.3.14"/>
+                  <templateId extension="2020-12-01" root="2.16.840.1.113883.10.20.27.3.14"/>
                   <templateId extension="2016-09-01" root="2.16.840.1.113883.10.20.27.3.30"/>
                   <code code="72510-1" codeSystem="2.16.840.1.113883.6.1" codeSystemName="2.16.840.1.113883.6.1" displayName="Performance Rate"/>
                   <statusCode code="completed"/>
@@ -468,7 +468,7 @@ Measure Section
           <entry>
             <act classCode="ACT" moodCode="EVN">
               <!-- This is the templateId for Reporting Parameters Act -->
-              <templateId root="2.16.840.1.113883.10.20.17.3.8"/>
+              <templateId root="2.16.840.1.113883.10.20.17.3.8" extension="2020-12-01"/>
               <id extension="F609ADD3CD46E8D34505077D8A053792"/>
               <code code="252116004" codeSystem="2.16.840.1.113883.6.96" displayName="Observation Parameters"/>
               <effectiveTime>
