@@ -269,7 +269,11 @@ module CQM
     end
 
     def hash_values_match?(hash1, hash2)
-      hash1.values.compact.size == hash2.values.compact.size
+      # Match is false if hash2 is nil
+      return false if hash1 && hash2.nil?
+
+      # If hash2 has more values than hash1, more details are being provided, which is ok
+      hash1.values.compact.size <= hash2.values.compact.size
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity
