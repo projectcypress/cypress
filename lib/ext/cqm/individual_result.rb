@@ -193,6 +193,9 @@ module CQM
     def risk_variable_from_hash(risk_variable_values, raw_results)
       encounter_value_hash = {}
       raw_results.each do |key, rv_values|
+        # TODO:  Need a better way to deal with the different way risk variables are reported in the eCQMs
+        next unless rv_values.is_a?(Array)
+
         rv_values.each do |rv_value|
           encounter_value_hash[rv_value['EncounterId']] = {} unless encounter_value_hash[rv_value['EncounterId']]
           next unless rv_value['FirstResult']
