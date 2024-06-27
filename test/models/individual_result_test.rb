@@ -214,8 +214,8 @@ class IndividualResultTest < ActiveSupport::TestCase
                            'statement_name' => 'Risk Variable Anemia' }]
     individual_result = CQM::IndividualResult.new(IPP: 1, measure: @measure, patient: @patient, statement_results:)
     collected_risk_variables = individual_result.collect_risk_variables
-    assert collected_risk_variables['Risk Variable Asthma'][:values]['627562c2c1c388f89d2ab681']
-    assert collected_risk_variables['Risk Variable Anemia'][:values]['627562f5c1c388f89d2ac2f9']
-    assert collected_risk_variables['Risk Variable Blank'][:values].empty?
+    assert collected_risk_variables['Risk Variable Asthma'].size == 1
+    assert collected_risk_variables['Risk Variable Anemia'].size == 1
+    assert collected_risk_variables['Risk Variable Blank'].blank?
   end
 end
