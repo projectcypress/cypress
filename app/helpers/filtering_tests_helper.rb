@@ -53,26 +53,4 @@ module FilteringTestsHelper
 
     arr
   end
-
-  def generate_filter_patients(filter_tests)
-    return unless filter_tests
-
-    test = filter_tests.pop
-    test.generate_patients
-    test.save
-    test.queued
-    ProductTestSetupJob.perform_later(test)
-    patients = test.patients
-    filter_tests.each do |ft|
-      patients.collect do |p|
-        p2 = p.clone
-        p2.correlation_id = ft.id
-        p2.save
-        p2
-      end
-      ft.save
-      ft.queued
-      ProductTestSetupJob.perform_later(ft)
-    end
-  end
 end
