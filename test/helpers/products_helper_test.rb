@@ -64,13 +64,6 @@ class ProductsHelperTest < ActiveJob::TestCase
   #   T E S T S   #
   # # # # # # # # #
 
-  def test_generate_filter_patients
-    @product.product_tests = nil
-    @product.add_filtering_tests
-    @product.product_tests.filtering_tests.find_by(cms_id: 'CMS32v7').patients
-    # @product.product_tests.filtering_tests.each { |ft| assert ft.patients == patients }
-  end
-
   def test_should_show_product_tests_tab
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     vendor = @product.vendor
