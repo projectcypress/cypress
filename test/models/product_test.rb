@@ -166,7 +166,9 @@ class ProducTest < ActiveSupport::TestCase
     pt = Product.new(vendor: @vendor, name: 'test_product', c2_test: true, c4_test: true, measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
                      bundle_id: @bundle.id)
     pt.save!
-    pt.add_filtering_tests
+    perform_enqueued_jobs do
+      FilterTestSetupJob.perform_now(pt.id.to_s)
+    end
     assert_equal 5, pt.product_tests.filtering_tests.count
   end
 
@@ -181,7 +183,9 @@ class ProducTest < ActiveSupport::TestCase
     pt = Product.new(vendor: @vendor, name: 'test_product', c2_test: true, c4_test: true, measure_ids: ['40280382-5FA6-FE85-0160-0918E74D2075'],
                      bundle_id: @bundle.id)
     pt.save!
-    pt.add_filtering_tests
+    perform_enqueued_jobs do
+      FilterTestSetupJob.perform_now(pt.id.to_s)
+    end
     filter_criteria = pt.product_tests.filtering_tests.collect(&:options).collect(&:filters).collect(&:keys).flatten
     # The set of filter_criteria should not include a problem filter
     assert_equal false, filter_criteria.include?('problems')

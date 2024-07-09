@@ -6,13 +6,13 @@ module ProductsHelper
   def should_show_product_tests_tab?(product, test_type)
     case test_type
     when 'MeasureTest'
-      product.product_tests.measure_tests.any?
+      product.c1_test || product.c2_test
     when 'MultiMeasureTest'
       product.product_tests.multi_measure_tests.any?
     when 'CMSProgramTest'
       product.product_tests.cms_program_tests.any?
     when 'FilteringTest'
-      product.product_tests.filtering_tests.any?
+      product.c4_test
     when 'ChecklistTest'
       product.c1_test # should not check for existance of checklist test since there a user can delete checklist tests
     else
