@@ -28,6 +28,7 @@ And(/^the user has created a vendor with a product selecting C4 testing$/) do
                      measure_ids: }
   @product.update_with_tests(product_params)
   wait_for_all_delayed_jobs_to_run
+  wait_for_all_delayed_jobs_to_run
   @f_test1 = @product.product_tests.filtering_tests[0]
   @f_test2 = @product.product_tests.filtering_tests[1]
 end
