@@ -5,8 +5,9 @@
 # must specify local variable "product"
 #
 %>
-<% num_measure_tests = product.product_tests.measure_tests.count + product.product_tests.multi_measure_tests.count %>
-<% num_measure_tests_ready = product.product_tests.measure_tests.where(state: :ready).count + product.product_tests.multi_measure_tests.where(state: :ready).count %>
+<% total_filtering_tests = product.c4_test? ? 5 : 0 %>
+<% num_measure_tests = product.product_tests.measure_tests.count + total_filtering_tests + product.product_tests.multi_measure_tests.count %>
+<% num_measure_tests_ready = product.product_tests.measure_tests.where(state: :ready).count + product.product_tests.filtering_tests.where(state: :ready).count + product.product_tests.multi_measure_tests.where(state: :ready).count %>
 <% if num_measure_tests_ready == num_measure_tests %>
   <p>This download contains a folder for each measure selected for this product. Inside these folders are XML documents for each patient associated with that measure.</p>
   <%= form_for product, url: patients_vendor_product_path(product.vendor_id, product), :html => { :method => 'GET' } do |f| %>
@@ -18,7 +19,7 @@
   One or more of the product tests did not build correctly.
 <% else %>
   <p>Patient records are being built for each measure.</p>
-  <p><%= icon('fas fa-fw fa-spin', 'sync-alt', :"aria-hidden" => true) %><%= " #{num_measure_tests_ready} of #{num_measure_tests} measures ready" %></p>
+  <p><%= icon('fas fa-fw fa-spin', 'sync-alt', :"aria-hidden" => true) %><%= " #{num_measure_tests_ready} of #{num_measure_tests} tests ready" %></p>
   <script>
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'bulk_download' }});
   </script>
