@@ -188,7 +188,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
                                 false
                               end
     options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
-                start_time: product_test.start_date, end_time: product_test.end_date, ry2022_submission: product_test.bundle.major_version == '2021' }
+                start_time: product_test.start_date, end_time: product_test.end_date, ry2025_submission: product_test.bundle.major_version == '2024' }
     Qrda3.new(results, product_test.measures, options).render
   end
 
