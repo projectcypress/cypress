@@ -132,7 +132,7 @@ When(/^the user visits a record$/) do
 end
 
 Then(/^the user sees details$/) do
-  page.assert_text "Cypress Certification Patient Test Record: #{@patient.first_names} #{@patient.familyName}"
+  page.assert_text "Patient Test Record: #{@patient.first_names} #{@patient.familyName}"
   page.assert_text @patient.gender
   @measures = @bundle.measures.where(:_id.in => @patient.calculation_results.map(&:measure_id))
   sf_patient = @patient.clone
@@ -185,7 +185,7 @@ When(/^the user visits the vendor patient link$/) do
 end
 
 Then(/^the user should see vendor patient details$/) do
-  page.assert_text "Cypress Certification Patient Test Record: #{@patient.first_names} #{@patient.familyName}"
+  page.assert_text "Patient Test Record: #{@patient.first_names} #{@patient.familyName}"
   page.assert_text @patient.gender
   page.assert_text 'View Logic Highlighting'
   page.first('button', text: 'View Logic Highlighting').click
