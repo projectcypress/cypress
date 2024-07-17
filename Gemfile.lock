@@ -7,15 +7,9 @@ GIT
       railties (>= 3.2.16)
 
 GIT
-  remote: https://github.com/turbolinks/turbolinks-classic
-  revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
-  branch: master
-  specs:
-    turbolinks (3.0.0)
-      coffee-rails
-
-PATH
-  remote: ../cqm-reports
+  remote: https://github.com/projecttacoma/cqm-reports
+  revision: 5b9fdfdcc1bd971394296b78928dd94a7f782161
+  branch: 2025_CatIII
   specs:
     cqm-reports (4.1.1)
       cqm-models (~> 4.0)
@@ -28,6 +22,14 @@ PATH
       nokogiri (>= 1.16.2)
       uuid (~> 2.3)
       zip-zip (~> 0.3)
+
+GIT
+  remote: https://github.com/turbolinks/turbolinks-classic
+  revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
+  branch: master
+  specs:
+    turbolinks (3.0.0)
+      coffee-rails
 
 GEM
   remote: https://rubygems.org/
