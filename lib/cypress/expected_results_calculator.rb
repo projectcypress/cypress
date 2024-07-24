@@ -118,10 +118,10 @@ module Cypress
           @measure_result_hash[measure.hqmf_id][key]['observations'][population] = { method: 'MEDIAN', hqmf_id: observation.hqmf_id,
                                                                                      value: median_value }
         when 'SUM'
-          @measure_result_hash[measure.hqmf_id][key]['observations'][population] = { value: sum(observation_map[:values].map(&:value)),
+          @measure_result_hash[measure.hqmf_id][key]['observations'][population] = { value: sum(observation_map[:values].map(&:value).compact),
                                                                                      method: 'SUM', hqmf_id: observation.hqmf_id }
         when 'AVERAGE'
-          @measure_result_hash[measure.hqmf_id][key]['observations'][population] = { value: mean(observation_map[:values].map(&:value)),
+          @measure_result_hash[measure.hqmf_id][key]['observations'][population] = { value: mean(observation_map[:values].map(&:value).compact),
                                                                                      method: 'AVERAGE', hqmf_id: observation.hqmf_id }
         end
       end
