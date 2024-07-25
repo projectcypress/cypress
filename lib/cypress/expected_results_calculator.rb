@@ -111,17 +111,17 @@ module Cypress
         # https://www.hl7.org/documentcenter/public/standards/vocabulary/vocabulary_tables/infrastructure/vocabulary/ObservationMethod.html#_ObservationMethodAggregate
         case observation.aggregation_type
         when 'COUNT'
-          @measure_result_hash[measure.hqmf_id][key]['observations'][population] = { value: count(observation_map[:values].map(&:value)),
+          @measure_result_hash[measure.hqmf_id][key]['observations'][population] = { value: count(observation_map[:values].map(&:value).compact),
                                                                                      method: 'COUNT', hqmf_id: observation.hqmf_id }
         when 'MEDIAN'
           median_value = median(observation_map[:values].map(&:value).compact)
           @measure_result_hash[measure.hqmf_id][key]['observations'][population] = { method: 'MEDIAN', hqmf_id: observation.hqmf_id,
                                                                                      value: median_value }
         when 'SUM'
-          @measure_result_hash[measure.hqmf_id][key]['observations'][population] = { value: sum(observation_map[:values].map(&:value)),
+          @measure_result_hash[measure.hqmf_id][key]['observations'][population] = { value: sum(observation_map[:values].map(&:value).compact),
                                                                                      method: 'SUM', hqmf_id: observation.hqmf_id }
         when 'AVERAGE'
-          @measure_result_hash[measure.hqmf_id][key]['observations'][population] = { value: mean(observation_map[:values].map(&:value)),
+          @measure_result_hash[measure.hqmf_id][key]['observations'][population] = { value: mean(observation_map[:values].map(&:value).compact),
                                                                                      method: 'AVERAGE', hqmf_id: observation.hqmf_id }
         end
       end
