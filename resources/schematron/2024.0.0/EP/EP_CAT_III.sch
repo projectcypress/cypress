@@ -32,10 +32,10 @@ Version 1.0
         
         Each type of conformance statement has three possible flavors:
         
-        - 	Simple statements are simply the conformance statement with no further qualifications.
+        -   Simple statements are simply the conformance statement with no further qualifications.
             For example: "SHALL contain exactly one [1..1] id."
         
-        - 	Compound statements have additional requirements, represented by one or more "such that" conformance sub-clauses presented beneath the main conformance statement. 
+        -   Compound statements have additional requirements, represented by one or more "such that" conformance sub-clauses presented beneath the main conformance statement. 
             These are also referred to as "such that" statements.
             For example: "SHALL contain exactly one[1..] id such that 
                              1) SHALL contain exactly one [1..1] root, 
@@ -46,7 +46,7 @@ Version 1.0
             Schematron assertion also includes testing for the "sub-sub-clauses".
             In the cases where one or more of a compound conformance sub-clauses have simple conformance statements under them, those are enforced as separate Schematron assertions.
         
-        - 	Guidance conformance statements are those that represent conformance requirements that cannot or need not be implemented in Schematron assertions. 
+        -   Guidance conformance statements are those that represent conformance requirements that cannot or need not be implemented in Schematron assertions. 
             For example: "If patient name was not provided at time of admission, then a value of UNK SHALL be used."
             Guidance conformance statements of any type (SHALL, SHOULD, MAY) are not enforced in the Schematron.
         
@@ -59,7 +59,7 @@ Version 1.0
                     a) SHALL contain exactly one [1..1] @value
         
         For the above example, the Schematron will have 4 assertions: One for A and one each for A.1, A.2 and A.2.i 
-        (where A.2.i is a compound conformance that includes the "such that" A.2.i.a sub-clause in its test.)	
+        (where A.2.i is a compound conformance that includes the "such that" A.2.i.a sub-clause in its test.)   
         
         
         B) SHALL contain exactly one [1..1] id such that
@@ -145,7 +145,7 @@ Version 1.0
      NOTE: Schematrons may be updated after initial publication to address stakeholder or policy requirements. 
      Be sure to revisit the eCQI Resource Center (https://ecqi.healthit.gov/) for updated resources prior to use. 
 
-Thu Jun 06 12:03:42 MDT 2024
+Fri Jul 19 11:23:34 MDT 2024
 -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:svs="urn:ihe:iti:svs:2008" xmlns:voc="http://www.lantanagroup.com/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sch:ns prefix="voc" uri="http://www.lantanagroup.com/voc" />
@@ -378,19 +378,19 @@ Thu Jun 06 12:03:42 MDT 2024
     <!-- Removed the following 3 empty rules 04-29-2019 -->
     <!-- Following conformance numbers in the commented out rules below exist in base HL7 IG already -->
     <!-- 
-		<sch:rule id="Performance_Rate_for_Proportion_Measure_CMS-externalObservation-errors" context="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.27.3.25'][@extension = '2018-05-01']]/cda:reference/cda:externalObservation"> 
-			<sch:assert id="a-4526-19654-error" test="@classCode">This externalObservation SHALL contain exactly one [1..1] @classCode (CodeSystem: HL7ActClass urn:oid:2.16.840.1.113883.5.6) (CONF:4526-19654).</sch:assert>
-			<sch:assert id="a-4526-19655-error" test="count(cda:id)=1">This externalObservation SHALL contain exactly one [1..1] id (CONF:4526-19655).</sch:assert>
-			<sch:assert id="a-4526-19657-error" test="count(cda:code)=1">This externalObservation SHALL contain exactly one [1..1] code (CONF:4526-19657).</sch:assert>
-		</sch:rule>
-		<sch:rule id="Performance_Rate_for_Proportion_Measure_CMS-id-errors" context="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.27.3.25'][@extension = '2018-05-01']]/cda:reference/cda:externalObservation/cda:id">
-			<sch:assert id="a-4526-19656-error" test="@root">This id SHALL contain exactly one [1..1] @root (CONF:4526-19656).</sch:assert>
-		</sch:rule>
-		<sch:rule id="Performance_Rate_for_Proportion_Measure_CMS-externalObservation-code-errors" context="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.27.3.25'][@extension = '2018-05-01']]/cda:reference/cda:externalObservation/cda:code">
-			<sch:assert id="a-4526-19658-error" test="@code='NUMER'">This code SHALL contain exactly one [1..1] @code="NUMER" Numerator (CONF:4526-19658).</sch:assert>
-			<sch:assert id="a-4526-21180-error" test="@codeSystem='2.16.840.1.113883.5.4'">This code SHALL contain exactly one [1..1] @codeSystem="2.16.840.1.113883.5.4" (CodeSystem: ActCode urn:oid:2.16.840.1.113883.5.4) (CONF:4526-21180).</sch:assert>
-		</sch:rule>
-		-->
+        <sch:rule id="Performance_Rate_for_Proportion_Measure_CMS-externalObservation-errors" context="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.27.3.25'][@extension = '2018-05-01']]/cda:reference/cda:externalObservation"> 
+            <sch:assert id="a-4526-19654-error" test="@classCode">This externalObservation SHALL contain exactly one [1..1] @classCode (CodeSystem: HL7ActClass urn:oid:2.16.840.1.113883.5.6) (CONF:4526-19654).</sch:assert>
+            <sch:assert id="a-4526-19655-error" test="count(cda:id)=1">This externalObservation SHALL contain exactly one [1..1] id (CONF:4526-19655).</sch:assert>
+            <sch:assert id="a-4526-19657-error" test="count(cda:code)=1">This externalObservation SHALL contain exactly one [1..1] code (CONF:4526-19657).</sch:assert>
+        </sch:rule>
+        <sch:rule id="Performance_Rate_for_Proportion_Measure_CMS-id-errors" context="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.27.3.25'][@extension = '2018-05-01']]/cda:reference/cda:externalObservation/cda:id">
+            <sch:assert id="a-4526-19656-error" test="@root">This id SHALL contain exactly one [1..1] @root (CONF:4526-19656).</sch:assert>
+        </sch:rule>
+        <sch:rule id="Performance_Rate_for_Proportion_Measure_CMS-externalObservation-code-errors" context="cda:observation[cda:templateId[@root = '2.16.840.1.113883.10.20.27.3.25'][@extension = '2018-05-01']]/cda:reference/cda:externalObservation/cda:code">
+            <sch:assert id="a-4526-19658-error" test="@code='NUMER'">This code SHALL contain exactly one [1..1] @code="NUMER" Numerator (CONF:4526-19658).</sch:assert>
+            <sch:assert id="a-4526-21180-error" test="@codeSystem='2.16.840.1.113883.5.4'">This code SHALL contain exactly one [1..1] @codeSystem="2.16.840.1.113883.5.4" (CodeSystem: ActCode urn:oid:2.16.840.1.113883.5.4) (CONF:4526-21180).</sch:assert>
+        </sch:rule>
+        -->
   </sch:pattern>
   <sch:pattern id="QRDA_Category_III_Measure_Section-template-pattern-errors">
     <sch:rule id="QRDA_Category_III_Measure-template-errors" context="cda:section[cda:templateId[@root='2.16.840.1.113883.10.20.27.2.1'][@extension='2017-06-01']]">
@@ -456,7 +456,7 @@ Thu Jun 06 12:03:42 MDT 2024
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="QRDA_Category_III_CMS-particpiant-pattern-errors">
-    <!-- Participant as Location PFC Practice Site (typeCode = LOC)-->
+    <!-- Participant as Location PCF Practice Site (typeCode = LOC)-->
     <sch:rule id="QRDA_Category_III_CMS-participant-LOC-associatedEntity-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:participant[@typeCode='LOC']/cda:associatedEntity">
       <sch:assert id="a-CMS_18-error" test="@classCode='SDLOC'">This associatedEntity SHALL contain exactly one [1..1] @classCode="SDLOC" Service Delivery Location (CONF:CMS_18).</sch:assert>
       <sch:assert id="a-CMS_101-error" test="count(cda:id[@root='2.16.840.1.113883.3.249.5.3'][@extension])=1">This associatedEntity SHALL contain exactly one [1..1] id (CONF:CMS_101) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.3.249.5.3" PCF Practice Site (CONF:CMS_102). SHALL contain exactly one [1..1] @extension (CONF:CMS_103).</sch:assert>
@@ -867,14 +867,14 @@ Thu Jun 06 12:03:42 MDT 2024
   </sch:pattern>
   <sch:pattern id="Postal_Code_Supplemental_Data_Element_V2-pattern-extension-check">
     <sch:rule id="Postal_Code_Supplemental_Data_Element_V2-extension-check" context="cda:observation/cda:templateId[@root='2.16.840.1.113883.10.20.27.3.10']">
-      <sch:assert id="a-3259-18211-extension-error" test="@extension='2016-09-01'">SHALL contain exactly one [1..1] templateId (CONF:3259-18211) such that it	SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.27.3.10" (CONF:3259-18212).	SHALL contain exactly one [1..1] @extension="2016-09-01" (CONF:3259-21446).</sch:assert>
+      <sch:assert id="a-3259-18211-extension-error" test="@extension='2016-09-01'">SHALL contain exactly one [1..1] templateId (CONF:3259-18211) such that it   SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.27.3.10" (CONF:3259-18212). SHALL contain exactly one [1..1] @extension="2016-09-01" (CONF:3259-21446).</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="Postal_Code_Supplemental_Data_Element_V2-pattern-errors">
     <sch:rule id="Postal_Code_Supplemental_Data_Element_V2-errors" context="cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.10'][@extension='2016-09-01']]">
       <sch:assert id="a-3259-18209-error" test="@classCode='OBS'">SHALL contain exactly one [1..1] @classCode="OBS" (CodeSystem: HL7ActClass urn:oid:2.16.840.1.113883.5.6 STATIC) (CONF:3259-18209).</sch:assert>
       <sch:assert id="a-3259-18210-error" test="@moodCode='EVN'">SHALL contain exactly one [1..1] @moodCode="EVN" (CodeSystem: ActMood urn:oid:2.16.840.1.113883.5.1001 STATIC) (CONF:3259-18210).</sch:assert>
-      <sch:assert id="a-3259-18211-error" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.27.3.10'][@extension='2016-09-01'])=1">SHALL contain exactly one [1..1] templateId (CONF:3259-18211) such that it	SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.27.3.10" (CONF:3259-18212).	SHALL contain exactly one [1..1] @extension="2016-09-01" (CONF:3259-21446).</sch:assert>
+      <sch:assert id="a-3259-18211-error" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.27.3.10'][@extension='2016-09-01'])=1">SHALL contain exactly one [1..1] templateId (CONF:3259-18211) such that it   SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.27.3.10" (CONF:3259-18212). SHALL contain exactly one [1..1] @extension="2016-09-01" (CONF:3259-21446).</sch:assert>
       <sch:assert id="a-3259-18213-error" test="count(cda:code)=1">SHALL contain exactly one [1..1] code (CONF:3259-18213).</sch:assert>
       <sch:assert id="a-3259-18100-error" test="count(cda:statusCode)=1">SHALL contain exactly one [1..1] statusCode (CONF:3259-18100).</sch:assert>
       <sch:assert id="a-3259-18215-error" test="count(cda:value[@xsi:type='ST'])=1">SHALL contain exactly one [1..1] value with @xsi:type="ST" (CONF:3259-18215).</sch:assert>
