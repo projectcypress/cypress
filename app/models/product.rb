@@ -104,8 +104,8 @@ class Product
   def update_with_certification_tests(params)
     add_measure_tests(params)
     save!
-    add_filtering_tests if c4_test
     add_checklist_test if c1_test
+    FilterTestSetupJob.perform_later(id.to_s) if c4_test
   end
 
   def update_with_cvu_plus_tests(params)
@@ -235,23 +235,6 @@ class Product
                           reporting_program_type: 'ep' }, CMSProgramTest)
   end
 
-  def add_filtering_tests
-    measure = ApplicationController.helpers.pick_measure_for_filtering_test(measure_ids, bundle)
-    reload_relations
-
-    return if product_tests.filtering_tests.any?
-
-    # TODO: R2P: check new criteria names
-    criteria = %w[races ethnicities genders payers age].shuffle
-    filter_tests = []
-    filter_tests.push(build_filtering_test(measure, criteria[0, 2]), build_filtering_test(measure, criteria[2, 2]))
-    filter_tests << build_filtering_test(measure, ['providers'], 'NPI, TIN & Provider Location')
-    filter_tests << build_filtering_test(measure, ['providers'], 'NPI & TIN', incl_addr: false)
-    criteria = ApplicationController.helpers.measure_has_snomed_dx_criteria?(measure) ? ['problems'] : criteria.values_at(4, (0..3).to_a.sample)
-    filter_tests << build_filtering_test(measure, criteria)
-    ApplicationController.helpers.generate_filter_patients(filter_tests)
-  end
-
   def ep_tests?
     product_tests.any?(&:ep_measures?)
   end
@@ -276,12 +259,5 @@ class Product
     self.duplicate_patients = c2_test if duplicate_patients.nil?
 
     true
-  end
-
-  def build_filtering_test(measure, criteria, display_name = '', incl_addr: true)
-    # construct options hash from criteria array and create the test
-    options = { 'filters' => criteria.to_h { |c| [c, []] } }
-    product_tests.create({ name: measure.description, product: self, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,
-                           incl_addr:, display_name:, options: }, FilteringTest)
   end
 end

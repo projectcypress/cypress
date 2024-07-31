@@ -33,15 +33,17 @@ module Validators
 
     def compare_results(results, record, options)
       passed = true
+      sde_passed = true
       @measures.each do |measure|
         # compare results to patient as it was initially calculated for product test (use original product patient id before cloning)
         orig_results = CQM::IndividualResult.where(patient_id: options[:orig_product_patient].id, measure_id: measure.id)
         orig_results.each do |orig_result|
           new_result = results.select do |arr|
-            arr.measure_id == measure.id.to_s &&
-              arr.patient_id == record.id.to_s &&
-              arr.population_set_key == orig_result['population_set_key']
+            arr.measure_id == measure.id.to_s && arr.patient_id == record.id.to_s && arr.population_set_key == orig_result['population_set_key']
           end.first
+          issue_list = []
+          orig_result.compare_sde_results(new_result, issue_list)
+          sde_passed = issue_list.blank?
           measure.population_keys.each do |pop_id|
             if orig_result[pop_id] != new_result[pop_id]
               passed = false
@@ -50,7 +52,7 @@ module Validators
           end
         end
       end
-      passed
+      passed && sde_passed
     end
   end
 end

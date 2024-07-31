@@ -84,13 +84,14 @@ module Cypress
     end
 
     def run_vendor_tests(vendor_link, measures, product_name, skip_c1_test, bundle_id)
-      setup_vendor_test(vendor_link, measures, product_name, skip_c1_test, bundle_id)
+      product_tests_link = setup_vendor_test(vendor_link, measures, product_name, skip_c1_test, bundle_id)
       download_patient_test_data
       @patient_links_task_hash.each do |patient_links|
         calcuate_cat3(patient_links[0].split('/')[2], bundle_id)
         upload_test_execution(extract_test_execution_link(patient_links[1], 'C1'), patient_links[0].split('/')[2], true) unless skip_c1_test
         upload_test_execution(extract_test_execution_link(patient_links[1], 'C2'), patient_links[0].split('/')[2], false, skip_c1_test)
       end
+      populate_filter_patient_download_hashes(product_tests_link)
       download_filter_data
       calculate_filtered_cat3(bundle_id)
       upload_c4_test_executions
@@ -118,11 +119,12 @@ module Cypress
       product_tests = parsed_api_object(call_get_product_tests(product_tests_link))
 
       product_tests.each do |product_test|
-        populate_patient_download_hashes(product_test)
+        populate_measure_patient_download_hashes(product_test)
       end
+      product_tests_link
     end
 
-    def populate_patient_download_hashes(product_test)
+    def populate_measure_patient_download_hashes(product_test)
       # get link for product test tasks
       case product_test.type
       when 'measure'
@@ -135,16 +137,25 @@ module Cypress
         @patient_links_task_hash[patient_download_link] = parsed_api_object(product_test_tasks)
         # hash of patient list with product tests - this is used to see if the patiets are ready
         @patient_link_product_test_hash[patient_download_link] = extract_link(product_test, 'self')
-      when 'filter'
-        product_test_tasks_link = extract_link(product_test, 'tasks')
-        # get product tasks objects
-        product_test_tasks = parsed_api_object(call_get_product_test_tasks(product_test_tasks_link))
-        product_test_tasks.each do |product_test_task|
-          task_link = extract_link(product_test_task, 'self')
-          if product_test_task.type == 'Ct1Filter'
-            @cat1_filter_hash[extract_link(product_test, 'self')] = task_link
-          else
-            @cat3_filter_hash[extract_link(product_test, 'self')] = task_link
+      end
+    end
+
+    def populate_filter_patient_download_hashes(product_tests_link)
+      product_tests = parsed_api_object(call_get_product_tests(product_tests_link))
+      product_tests.each do |product_test|
+        # get link for product test tasks
+        case product_test.type
+        when 'filter'
+          product_test_tasks_link = extract_link(product_test, 'tasks')
+          # get product tasks objects
+          product_test_tasks = parsed_api_object(call_get_product_test_tasks(product_test_tasks_link))
+          product_test_tasks.each do |product_test_task|
+            task_link = extract_link(product_test_task, 'self')
+            if product_test_task.type == 'Ct1Filter'
+              @cat1_filter_hash[extract_link(product_test, 'self')] = task_link
+            else
+              @cat3_filter_hash[extract_link(product_test, 'self')] = task_link
+            end
           end
         end
       end
@@ -477,7 +488,7 @@ module Cypress
                                   false
                                 end
       options = { provider: pt.patients.first.providers.first, submission_program: cat3_submission_program,
-                  start_time: pt.start_date, end_time: pt.end_date, ry2022_submission: pt.bundle.major_version == '2021' }
+                  start_time: pt.start_date, end_time: pt.end_date, ry2025_submission: pt.bundle.major_version == '2024' }
       xml = Qrda3.new(results, pt.measures, options).render
 
       Patient.find(patient_ids).each(&:destroy)

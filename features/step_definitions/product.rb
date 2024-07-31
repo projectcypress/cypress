@@ -313,7 +313,8 @@ And(/^filtering tests are added to product$/) do
   product = @product
   product.c4_test = true
   product.save!
-  product.add_filtering_tests
+  FilterTestSetupJob.perform_later(product.id.to_s)
+  wait_for_all_delayed_jobs_to_run
 end
 
 # product test number the number of product test (1 indexed) for upload in order of most recently created

@@ -64,36 +64,20 @@ class ProductsHelperTest < ActiveJob::TestCase
   #   T E S T S   #
   # # # # # # # # #
 
-  def test_generate_filter_patients
-    @product.product_tests = nil
-    @product.add_filtering_tests
-    @product.product_tests.filtering_tests.find_by(cms_id: 'CMS32v7').patients
-    # @product.product_tests.filtering_tests.each { |ft| assert ft.patients == patients }
-  end
-
   def test_should_show_product_tests_tab
     measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
     vendor = @product.vendor
     vendor.products.each(&:destroy)
-    product = vendor.products.create!(name: "my product test #{rand}", c1_test: true, measure_ids:, bundle_id: @bundle.id)
-    product.measure_ids.each do |measure_id|
-      product.product_tests.build({ name: "my measure test for measure id #{measure_id}", measure_ids: [measure_id] }, MeasureTest)
-      product.save!
-      product.product_tests.create!({ name: "my filtering test for measure id #{measure_id}", measure_ids: [measure_id] }, FilteringTest)
-    end
+    product = vendor.products.create!(name: "my product test #{rand}", c1_test: true, c2_test: true, c4_test: true, measure_ids:, bundle_id: @bundle.id)
 
     # should show measure tests
     assert_equal true, should_show_product_tests_tab?(product, 'MeasureTest')
-
-    # should not show measure tests
-    product.product_tests.measure_tests.each(&:destroy)
-    assert_equal false, should_show_product_tests_tab?(product, 'MeasureTest')
 
     # should show filtering tests
     assert_equal true, should_show_product_tests_tab?(product, 'FilteringTest')
 
     # should not show filtering tests
-    product.product_tests.filtering_tests.each(&:destroy)
+    product.c4_test = false
     assert_equal false, should_show_product_tests_tab?(product, 'FilteringTest')
 
     # should show checklist test tab
@@ -102,8 +86,11 @@ class ProductsHelperTest < ActiveJob::TestCase
     # should not show checklist test tab
     product.c1_test = false
     product.c2_test = true
-    product.save!
     assert_equal false, should_show_product_tests_tab?(product, 'ChecklistTest')
+
+    # should not show measure tests
+    product.c2_test = false
+    assert_equal false, should_show_product_tests_tab?(product, 'MeasureTest')
   end
 
   def test_perform_c3_certification_during_measure_test_message
@@ -293,8 +280,9 @@ class ProductsHelperTest < ActiveJob::TestCase
     make_product_certify(@product, c1_test: true, c2_test: false, c3_test: false, c4_test: false)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
-    assert_equal 1, test_types.count, 'should only have a record sample tab'
+    assert_equal 2, test_types.count, 'should only have a record sample tab'
     assert_equal 'C1 Sample', titles[0]
+    assert_equal 'C1 (QRDA-I)', titles[1]
   end
 
   def test_each_tab_c1_c2
@@ -312,26 +300,31 @@ class ProductsHelperTest < ActiveJob::TestCase
     replace_with_eh_measure(@product.product_tests.first.measures.first)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
-    assert_equal 1, test_types.count, 'should only have record sample tab'
+    assert_equal 3, test_types.count, 'should only have record sample tab'
     assert_equal 'C1 + C3 Sample', titles[0]
+    assert_equal 'C1 + C3 (QRDA-I)', titles[1]
+    assert_equal 'C3 (QRDA-III)', titles[2]
   end
 
   def test_each_tab_c1_c4
     make_product_certify(@product, c1_test: true, c2_test: false, c3_test: false, c4_test: true)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
-    assert_equal 2, test_types.count, 'should have record sample tab and filtering test tab'
+    assert_equal 3, test_types.count, 'should have record sample tab and filtering test tab'
     assert_equal 'C1 Sample', titles[0]
-    assert_equal 'C4 (QRDA-I and QRDA-III)', titles[1]
+    assert_equal 'C1 (QRDA-I)', titles[1]
+    assert_equal 'C4 (QRDA-I and QRDA-III)', titles[2]
   end
 
   def test_each_tab_c1_c3_c4_ep
     make_product_certify(@product, c1_test: true, c2_test: false, c3_test: true, c4_test: true)
     test_types, titles = get_test_types_titles_and_descriptions(@product)
 
-    assert_equal 2, test_types.count, 'should have record sample tab and filtering test tab'
+    assert_equal 4, test_types.count, 'should have record sample tab and filtering test tab'
     assert_equal 'C1 Sample', titles[0]
-    assert_equal 'C4 (QRDA-I and QRDA-III)', titles[1]
+    assert_equal 'C1 (QRDA-I)', titles[1]
+    assert_equal 'C3 (QRDA-III)', titles[2]
+    assert_equal 'C4 (QRDA-I and QRDA-III)', titles[3]
   end
 
   def test_each_tab_c1_c2_c3_only_eh
