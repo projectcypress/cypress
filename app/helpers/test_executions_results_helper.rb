@@ -24,7 +24,7 @@ module TestExecutionsResultsHelper
   #   E r r o r   T a b l e s   #
   # # # # # # # # # # # # # # # #
 
-  def error_table_heading(population_errors, stratification_errors, supp_data_errors)
+  def error_table_heading(population_errors, stratification_errors, supp_data_errors, task)
     if population_errors.present?
       %(#{population_errors.first.message}. The following errors were also identified for this population.)
     elsif supp_data_errors.present?
@@ -33,7 +33,7 @@ module TestExecutionsResultsHelper
     elsif stratification_errors.present?
       population_id = stratification_errors.first.error_details['population_id']
       %(The following errors were identified for
-      #{@task.product_test.measures.first.population_criteria.select { |_key, pc| pc['hqmf_id'] == population_id }.keys.first}
+      #{task.product_test.measures.first.population_criteria.select { |_key, pc| pc['hqmf_id'] == population_id }.keys.first}
       #{stratification_errors.first.error_details['population_id']}.)
     end
   end
