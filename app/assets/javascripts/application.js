@@ -9,14 +9,6 @@
 //= require dataTables/jquery.dataTables
 //= require jquery-ui/widgets/autocomplete
 //= require jquery-ui/widgets/tabs
-//= require bootstrap/transition
-//= require bootstrap/modal
-//= require bootstrap/alert
-//= require bootstrap/tab
-//= require bootstrap/tooltip
-//= require bootstrap/popover
-//= require bootstrap/collapse
-//= require bootstrap/dropdown
 //= require jquery-ui/widgets/accordion
 //= require jquery-ui/widgets/button
 //= require jquery-ui/widgets/dialog
@@ -32,6 +24,8 @@
 //= require jasny-bootstrap.min
 //= require local-time
 //= require_tree .
+//= require popper
+//= require bootstrap
 
 // will cover turbolinks changes (ajax already covered by rails ujs)
 // this is necessary for CSRF tokens in changed form elements
