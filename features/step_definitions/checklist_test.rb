@@ -131,6 +131,7 @@ When(/^the user uploads a Cat I file that produces a qrda error on (.*) task's e
 end
 
 def upload_and_submit(file_path)
+  find('span', class: 'btn-file').click
   page.attach_file('results', file_path, visible: false)
   page.find('#submit-upload').click
 end
@@ -178,7 +179,7 @@ Then(/^the user should see they are (.*) the checklist test$/) do |status|
 end
 
 Then(/^the user should not be able to upload a Cat I file$/) do
-  assert page.find('span.input-group-addon.disabled')
+  assert page.find('span.input-group-addon.info-disabled')
 end
 
 Then(/^the user should see checkmarks next to each complete data criteria$/) do

@@ -45,21 +45,21 @@
         <% unless execution.nil? %>
           <% case status_with_sibling %>
           <% when 'passing' %>
-            <%= icon('fas fa-fw text-success', 'check', :"aria-hidden" => true) %>
-            <strong class = 'text-success'>Passing</strong>
+            <%= icon('fas fa-fw text-success-emphasis', 'check', :"aria-hidden" => true) %>
+            <strong class = 'text-success-emphasis'>Passing</strong>
           <% when 'failing' %>
-            <%= icon('fas fa-fw text-danger', 'times', :"aria-hidden" => true) %>
-            <strong class = 'text-danger'>Failing</strong>
+            <%= icon('fas fa-fw text-danger-emphasis', 'times', :"aria-hidden" => true) %>
+            <strong class = 'text-danger-emphasis'>Failing</strong>
           <% when 'errored' %>
-            <%= icon('fas fa-fw text-warning', 'exclamation', :"aria-hidden" => true) %>
-            <strong class = 'text-warning'>Errored</strong>
+            <%= icon('fas fa-fw text-warning-emphasis', 'exclamation', :"aria-hidden" => true) %>
+            <strong class = 'text-warning-emphasis'>Errored</strong>
           <% else %>
-            <%= icon('far fa-fw text-info', 'circle', :"aria-hidden" => true) %>
-            <strong class = 'text-info'>In Progress</strong>
+            <%= icon('far fa-fw text-info-emphasis', 'circle', :"aria-hidden" => true) %>
+            <strong class = 'text-info-emphasis'>In Progress</strong>
           <% end %>
         <% else %>
-          <%= icon('far fa-fw text-info', 'circle', :"aria-hidden" => true) %>
-          <span class = 'text-info'>Not Started</span>
+          <%= icon('far fa-fw text-info-emphasis', 'circle', :"aria-hidden" => true) %>
+          <span class = 'text-info-emphasis'>Not Started</span>
         <% end %>
       </td>
     </tr>

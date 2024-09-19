@@ -1,9 +1,9 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h1 class='panel-title'>Edit User</h1>
+<div class="card card-default">
+  <div class="card-header">
+    <h1 class='card-title lead'>Edit User</h1>
   </div>
   <%= bootstrap_form_for(@user, as: @user, url: admin_user_path(@user), html: { method: :put, 'data-parsley-validate': '' }) do |f| %>
-  <div class="panel-body">
+  <div class="card-body">
     <div class="col-md-6">
       <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true,
       'data-parsley-required': '',
@@ -49,7 +49,7 @@
     </div>
 
   </div>
-  <div class="panel-footer">
+  <div class="card-footer">
    <button class="btn btn-default" >Edit User</button> <a class="btn btn-default"  href="<%= admin_path + '#user_management' %>"> Cancel</a>
   </div>
   <% end %>
