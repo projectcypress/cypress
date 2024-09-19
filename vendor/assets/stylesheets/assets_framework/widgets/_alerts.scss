@@ -1,44 +1,44 @@
 .alert {
     position: relative;
     &.alert-warning {
-        background: $alert-warning-bg;
-        border: 1px solid $alert-warning-border;
-        color: $alert-warning-text;
+        background: $warning-bg-subtle;
+        border: 1px solid $warning-border-subtle;
+        color: $warning-text-emphasis;
     }
     &.alert-info {
-        background: $alert-info-bg;
-        border: 1px solid $alert-info-border;
-        color: $alert-info-text;
+        background: $info-bg-subtle;
+        border: 1px solid $info-border-subtle;
+        color: $info-text-emphasis;
         .close, .example, .example2 {
             &:focus {
-                outline: 2px solid $gray;
+                outline: 2px solid $gray-500;
             }
         }
     }
     &.alert-success {
-        background: $alert-success-bg;
-        border: 1px solid $alert-success-border;
-        color: $alert-success-text;
+        background: $success-bg-subtle;
+        border: 1px solid $success-border-subtle;
+        color: $success-text-emphasis;
     }
     &.alert-danger {
-        background: $alert-danger-bg;
-        border: 1px solid $alert-danger-border;
-        color: $alert-danger-text;
+        background: $danger-bg-subtle;
+        border: 1px solid $danger-border-subtle;
+        color: $danger-text-emphasis;
     }
     .example, .example2 {
         background: none;
         border: 0 none;
-        color: $gray;
+        color: $gray-500;
         @include font-size-REM(24);
         padding: 0;
         position: absolute;
         right: 3%;
         top: 10px;
         &:focus {
-            outline: 2px solid $brand-white;
+            outline: 2px solid $white;
         }
         &.white {
-            color: $brand-white;
+            color: $white;
         }
         &.close {
             opacity: 1;
@@ -50,7 +50,7 @@
         }
     }
     .iconSpan {
-        border-right: 1px solid $gray-medium-light;
+        border-right: 1px solid $gray-400;
         display: table-cell;
         padding: 15px 20px;
         vertical-align: middle;

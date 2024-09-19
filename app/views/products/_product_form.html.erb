@@ -1,8 +1,8 @@
-<div class="panel panel-default">
-  <div class="panel-heading"><h1 class='panel-title'><%= submit_text %><%= product.name ? ": "+ product.name : "" %></h1></div>
+<div class="card card-default">
+  <div class="card-header"><h1 class='card-title lead'><%= submit_text %><%= product.name ? ": "+ product.name : "" %></h1></div>
 
   <%= bootstrap_nested_form_for [product.vendor, product], html: { "data-parsley-validate": '','data-parsley-excluded': "input.disabled" } do |f| %>
-    <div class="panel-body">
+    <div class="card-body">
       <div class="row">
         <div class="col-md-6">
           <%= f.text_field :name, autocomplete: 'off', data: { 'parsley-required': '', 'parsley-trigger': 'blur', 'parsley-error-message': "Name can't be blank." } %>
@@ -47,17 +47,24 @@
               <% supplement_file_errors = product.errors[:supplemental_test_artifact].empty? %>
               <%= f.form_group class: supplement_file_errors ? '' : 'has-error', help: "Upload an additional file which will be available for download to anyone viewing this product. Allowed filetypes are #{product.supplemental_test_artifact.extension_allowlist.join(', ')}." do %>
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                  <div class="form-control" data-trigger="fileinput">
-                    <%= icon('fas fileinput-exists', 'file', :"aria-hidden" => true) %>
-                    <span class="fileinput-filename"></span>
+                  <div class="row g-0">
+                    <div class="col-sm-8">
+                      <div class="form-control" data-trigger="fileinput">
+                        <%= icon('fas fileinput-exists', 'file', :"aria-hidden" => true) %>
+                        <span class="fileinput-filename"></span>
+                        <span class="hidden-spacer">i</span>
+                      </div>
+                    </div>
+                    <div class="col-sm">
+                      <span class="input-group-addon btn btn-info btn-file active">
+                        <span class="fileinput-new" data-trigger="fileinput"><%= icon('fas', 'mouse-pointer', :"aria-hidden" => true) %> Select file</span>
+                        <span class="fileinput-exists" data-trigger="fileinput"><%= icon('fas', 'sync-alt', :"aria-hidden" => true) %> Change</span>
+                        <span style="display:none;">
+                          <%= f.file_field :supplemental_test_artifact, class: 'upload-results hidden', :aria => { label: 'supplemental_test_artifact_label' } %>
+                        </span>
+                      </span>
+                    </div>
                   </div>
-                    <span class="input-group-addon btn btn-info btn-file active">
-                    <span class="fileinput-new" data-trigger="fileinput"><%= icon('fas', 'mouse-pointer', :"aria-hidden" => true) %> Select file</span>
-                    <span class="fileinput-exists" data-trigger="fileinput"><%= icon('fas', 'sync-alt', :"aria-hidden" => true) %> Change</span>
-                    <span style="display:none;">
-                      <%= f.file_field :supplemental_test_artifact, class: 'upload-results hidden', :aria => { label: 'supplemental_test_artifact_label' } %>
-                    </span>
-                  </span>
                 </div>
                 <% unless supplement_file_errors %>
                   <span class='help-block'>
@@ -76,7 +83,7 @@
               <legend class="control-label">Records Options</legend>
               <%= f.form_group help: "Recommended for most robust testing." do %>
                 <%= f.check_box :randomize_patients, label: 'Randomize Records', label_class: "btn btn-checkbox", checked: product.new_record? ? true : product.randomize_patients, disabled: !product.new_record? %>
-                <%= f.check_box :duplicate_patients, label: 'Duplicate Records', label_class: "btn btn-checkbox", checked: product.duplicate_patients, disabled: true %>
+                <%= f.check_box :duplicate_patients, label: 'Duplicate Records', label_class: "btn btn-checkbox btn-light", checked: product.duplicate_patients, disabled: true %>
               <% end %>
             </fieldset>
           <%end%>
@@ -149,9 +156,9 @@
       </div>
     </div>
 
-    <div class="panel-footer">
-      <%= f.submit submit_text, class: "btn btn-success" %>
-      <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "history.back()" %>
+    <div class="card-footer">
+      <%= f.submit submit_text, class: "btn btn-primary" %>
+      <%= submit_tag "Cancel", :class => "btn btn-outline-secondary", :type => "button", :onclick => "history.back()" %>
     </div>
   <% end %>
 </div>

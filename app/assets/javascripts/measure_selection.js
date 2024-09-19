@@ -268,7 +268,7 @@ ready_run_once = function() {
   });
 
   // Enable changing measures
-  $('#measures_options').find('button.confirm').on('click', function (event) {
+  $('#measures_options').find('button').on('click', function (event) {
     event.preventDefault();
     $('.measure-group [type="checkbox"]').attr('disabled', false);
     $('input[name="product[measure_selection]"]').attr('disabled', false);

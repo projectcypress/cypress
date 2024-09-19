@@ -1,0 +1,25 @@
+<% encounter_ids = individual_result.episode_results&.keys %>
+<% individual_result.collect_risk_variables.each do |key, rv_value| %>
+  <% next if rv_value[:values].empty? %>
+  <ul><%= key %>
+    <% rv_value[:values].each do |encounter_id, values| %>
+        <% if values.is_a? Hash %>
+          <% if values.values.compact.empty? %>
+            <ul>No Values Reported</ul>
+          <% else %>
+            <ul><%= "Encounter #{encounter_ids.index(encounter_id) + 1}" %></ul>
+            <% values.each do |key, value| %>
+              <% next unless value %>
+              <ul><%= "#{key} - #{value}"%></ul>
+            <% end %>
+          <% end %>
+        <% else %>
+          <% if encounter_id == "Other" %>
+            <ul><%= values%></ul>
+          <% else %>
+            <ul><%= "Encounter #{encounter_ids.index(encounter_id) + 1}"%> <%= " - #{values}" if values != 'Encounter, Performed' %></ul>
+          <% end %>
+        <% end %>
+    <% end %>
+  </ul>
+<% end %>

@@ -72,15 +72,15 @@ And(/^the product has an (.*) measure$/) do |reporting_program|
 end
 
 And(/^the user switches to c2 certification$/) do
-  find(:xpath, "//a[@href='/tasks/#{@product_test.tasks.c2_task.id}/test_executions/new']").trigger('click')
+  find(:xpath, "//a[@href='/tasks/#{@product_test.tasks.c2_task.id}/test_executions/new']").click
 end
 
 And(/^the user switches to c2 and c3 certification$/) do
-  find(:xpath, "//a[@href='/tasks/#{@product_test.tasks.c2_task.id}/test_executions/new']").trigger('click')
+  find(:xpath, "//a[@href='/tasks/#{@product_test.tasks.c2_task.id}/test_executions/new']").click
 end
 
 And(/^the user switches to c1 and c3 certification$/) do
-  find(:xpath, "//a[@href='/tasks/#{@product_test.tasks.c1_task.id}/test_executions/new']").trigger('click')
+  find(:xpath, "//a[@href='/tasks/#{@product_test.tasks.c1_task.id}/test_executions/new']").click
 end
 
 And(/^the product test state is set to ready$/) do
@@ -105,12 +105,14 @@ end
 
 And(/^the user uploads a CAT 1 zip file$/) do
   zip_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip')
+  find('span', class: 'btn-file').click
   page.attach_file('results', zip_path, visible: false)
   page.find('#submit-upload').click
 end
 
 And(/^the user uploads a CAT 3 XML file$/) do
   xml_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')
+  find('span', class: 'btn-file').click
   page.attach_file('results', xml_path, visible: false)
   page.find('#submit-upload').click
   wait_for_all_delayed_jobs_to_run
@@ -118,6 +120,7 @@ end
 
 And(/^the user uploads a CAT 3 XML file with errors$/) do
   xml_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_bad_strat.xml')
+  find('span', class: 'btn-file').click
   page.attach_file('results', xml_path, visible: false)
   page.find('#submit-upload').click
   wait_for_all_delayed_jobs_to_run
@@ -125,6 +128,7 @@ end
 
 And(/^the user uploads an invalid file$/) do
   invalid_file_path = Rails.root.join('app', 'assets', 'images', 'icon.svg')
+  find('span', class: 'btn-file').click
   page.attach_file('results', invalid_file_path, visible: false)
   page.find('#submit-upload').click
 end
@@ -172,7 +176,7 @@ Then(/^the user should only see the c2 execution page$/) do
 end
 
 Then(/^the user should see the c2 execution page$/) do
-  find('#task_status_display').assert_text 'C1'
+  find('#task_status_display').assert_text 'C2'
   find(:xpath, "//a[@href='/tasks/#{@product_test.tasks.c1_task.id}/test_executions/new']").assert_text 'C1'
 end
 

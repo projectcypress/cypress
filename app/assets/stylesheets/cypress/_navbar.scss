@@ -1,10 +1,11 @@
 .navbar-toggle {
-  color: $navbar-inverse-link-color;
+  color: $navbar-light-color;
   margin: 0;
 }
 
 .navbar {
-  @include box-shadow(0 1px 1px $dropdown-border);
+  @include box-shadow(0 1px 1px $dropdown-border-width);
+  margin-bottom: 1em;
 }
 
 .demo {
@@ -23,10 +24,10 @@
 }
 
 .navbar-header {
-  line-height: $navbar-height + $navbar-padding-vertical * 2;
+  line-height: $navbar-brand-height + $navbar-toggler-padding-y * 2;
 
   a {
-    color: $navbar-inverse-link-color;
+    color: $navbar-light-color;
     font-size: 2em;
     margin-left: .5em;
 
@@ -36,8 +37,12 @@
   }
 }
 
+.nav-link.active {
+  background: $secondary
+}
+
 .navbar-nav li .navbar-item {
-  height: $navbar-height + $navbar-padding-vertical * 4;
+  height: $navbar-brand-height + $navbar-toggler-padding-y * 4;
   display: table-cell;
   vertical-align: middle;
 }
@@ -58,11 +63,11 @@
 }
 
 .breadcrumb > li {
-  @include box-shadow(0 1px 1px $dropdown-border);
+  @include box-shadow(0 1px 1px $dropdown-border-width);
   display: table-cell;
   padding: 8px 10px;
-  background-color: $navbar-inverse-bg;
-  color: $navbar-inverse-link-color;
+  background-color: $primary;
+  color: $white;
   max-width: 24em;
   white-space: nowrap;
   overflow: hidden;
@@ -70,29 +75,17 @@
 
   a {
     padding: 6px 0;
-    color: $navbar-inverse-link-color;
-  }
-
-  + li::before {
-    content: $fa-var-caret-right;
-    font-family: FontAwesome;
-    padding: 0 8px 0 0;
-    margin-left: -10px;
-    color: $navbar-inverse-bg;
+    color: $white;
   }
 
   &:hover {
-    background-color: $navbar-inverse-link-active-bg;
-
-    + li::before {
-      color: $navbar-inverse-link-active-color;
-    }
+    background-color: $secondary;
 
     > a:hover { text-decoration: none; }
   }
 
   &.active {
-    background-color: $navbar-inverse-link-active-bg;
-    color: $navbar-inverse-link-active-color;
+    background-color: $secondary;
+    color: $white;
   }
 }
