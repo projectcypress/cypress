@@ -7,8 +7,8 @@ $background-color: rgba(#000, .00);
   // for the buttons with dark backgrounds, add a shadow to text
   @if $name != 'danger' {
     @if $name != 'default' {
-      text-shadow: 1px 1px 2px transparentize($darker-border-color, .5),
-                  -1px -1px 2px transparentize($darker-border-color, .5);
+      //text-shadow: 1px 1px 2px transparentize($darker-border-color, .5),
+      //            -1px -1px 2px transparentize($darker-border-color, .5);
     }
   }
 
@@ -18,36 +18,28 @@ $background-color: rgba(#000, .00);
     @keyframes pulsate-#{$name} {
       50% { background-color: $border-color; }
     }
-
-    @include animation-name(pulsate-#{$name});
-    @include animation-duration(2s);
-    @include animation-delay(100);
-    @include animation-timing-function(linear);
-    @include animation-iteration-count(infinite);
-    color: $btn-default-bg;
+    color: $btn-color;
     background-color: $darker-border-color;
     border-color: $darker-border-color;
   }
 }
 
+$btn-icon-outline: desaturate(lighten(saturate($primary, 80%), 20%), 40%);
+
 .btn {
-  @include transition-property(color, background-color);
-  @include transition-duration(.3s);
   font-family: 'Ubuntu';
   letter-spacing: .05em;
-  box-shadow: 0 1px 1px $navbar-shadow;
+  box-shadow: 0 1px 1px $box-shadow;
 
-  &.btn-primary { @include darker-hover($btn-primary-border, 'primary'); }
-  &.btn-success { @include darker-hover($btn-success-border, 'success'); }
-  &.btn-info { @include darker-hover($btn-info-border, 'info'); }
-  &.btn-warning { @include darker-hover($btn-warning-border, 'warning'); }
-  &.btn-danger { @include darker-hover($btn-danger-border, 'danger'); }
-  &.btn-default { @include darker-hover($btn-default-border, 'default'); }
+  &.btn-primary { @include darker-hover($primary-border-subtle, 'primary'); }
+  &.btn-success { @include darker-hover($success-border-subtle, 'success'); }
+  &.btn-info { @include darker-hover($info-border-subtle, 'info'); }
+  &.btn-warning { @include darker-hover($warning-border-subtle, 'warning'); }
+  &.btn-danger { @include darker-hover($danger-border-subtle, 'danger'); }
+  &.btn-default { @include darker-hover($primary-border-subtle, 'default'); }
 
   &.btn-pop {
-    color: $btn-pop-color;
-    background: $btn-pop-bg;
-    border-color: $btn-pop-border;
+    color: $btn-icon-outline;
     box-shadow: none;
     padding: 0;
     font-size: large;
@@ -70,6 +62,21 @@ $background-color: rgba(#000, .00);
 .download-btn {
   padding: 6px 12px;
   display: inline-block;
+}
+
+.btn-info {
+  color: $white;
+}
+
+$info-disabled-background-color: rgba($info, .10);
+
+.info-disabled {
+  background-color: $info-disabled-background-color;
+  color: $black;
+}
+
+.btn-success {
+  color: $white;
 }
 
 .modal-btn {

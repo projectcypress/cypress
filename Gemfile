@@ -27,9 +27,12 @@ gem 'faker', '> 1.5.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.4'
 # Dependencies for CMS Assets Framework
-gem 'bootstrap-sass', '~> 3.4.1'
+# gem 'bootstrap-sass', '~> 3.4.1'
+gem 'bootstrap', '~> 5.3.3'
+gem 'dartsass-sprockets'
+
 gem 'font-awesome-sass', '~> 5.0.13'
-gem 'jquery-rails', '~> 4.4.0'
+gem 'jquery-rails'
 # TODO: remove or use gem
 gem 'jquery-ui-rails', git: 'https://github.com/jquery-ui-rails/jquery-ui-rails', tag: 'v7.0.0'
 
@@ -41,7 +44,7 @@ gem 'uglifier', '>= 1.3.0'
 # Bake the best breadcrumbs
 gem 'breadcrumbs_on_rails'
 # Help our forms
-gem 'bootstrap_form', '~> 2.7.0'
+gem 'bootstrap_form', '~> 2.7'
 gem 'jasny-bootstrap-rails'
 gem 'nested_form'
 

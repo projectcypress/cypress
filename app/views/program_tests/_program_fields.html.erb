@@ -7,14 +7,14 @@
 
 <%= bootstrap_nested_form_for([@product, @product_test], :url => { :controller => 'program_tests', :action => 'update' }) do |f| %>
 
-  <div class = 'panel-group'>
-    <div class = 'panel panel-default'>
-      <div class = 'panel-heading'>
-        <h1 class='panel-title'>
+  <div class = 'card-group'>
+    <div class = 'card card-default'>
+      <div class = 'card-header'>
+        <h1 class='card-title lead'>
           
         </h1>
       </div>
-      <div class = 'panel-body'>
+      <div class = 'card-body'>
         <div class = 'checklist-panel'>
           <table class = 'table table-condensed'>
             <thead>
@@ -50,11 +50,11 @@
             </tbody>
           </table>
         </div>
-      <div class = 'panel-body'>
+      <div class = 'card-body'>
         <span class = 'small-indent'>* Optional</span>
       </div>
-      <div class = 'panel-footer'>
-        <%= f.submit 'Save', class: 'btn btn-default' %>
+      <div class = 'card-footer'>
+        <%= f.submit 'Save', class: 'btn btn-outline-secondary' %>
         <span class = 'small-indent'></span>
       </div>
       </div>
