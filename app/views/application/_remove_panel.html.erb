@@ -14,12 +14,12 @@
 
 %>
 
-<div class = 'panel panel-danger'>
-  <div class = 'panel-heading'>
-    <h1 class='panel-title'><%= "Delete #{type}".titleize %></h1>
+<div class = 'card card-danger'>
+  <div class = 'card-heading'>
+    <h1 class='card-title'><%= "Delete #{type}".titleize %></h1>
   </div>
   <% action ||= 'delete' %>
-  <div class = 'panel-body'>
+  <div class = 'card-body'>
     <p><%= message %></p>
     <%= render 'action_button',
                     :button_text => "Delete #{type}".titleize,

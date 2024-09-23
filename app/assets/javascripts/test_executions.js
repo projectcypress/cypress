@@ -60,7 +60,7 @@ var initializeTestExecutionResults = function() {
   });
 
   // enable each error popover
-  $('.error-popup-btn').popover();
+  //$('.error-popup-btn').popover();
 
   /* change 'view' and 'hide' text for popover buttons */
   $('.error-popup-btn').on('show.bs.popover', function () {

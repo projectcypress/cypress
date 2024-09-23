@@ -3,40 +3,40 @@
 
 <%= render 'application/certification_bar', :product => product, :active_certs => [true, false, product.c3_test && @product_test.eh_measures?, false] %>
 
-<div class="panel-actions pull-right">
+<div class="card-actions pull-right">
   <%= button_to print_criteria_product_checklist_test_path(@product, @product_test), :method => :get, :class => "btn btn-default" do %>
     <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download Criteria List
   <% end %>
 </div>
 <h1>Record Sample</h1>
 <div class = 'test-steps'>
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <h1 class="panel-title test-step"> 1 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> Record Sample Instructions</h1>
+  <div class="card card-info">
+    <div class="card-heading">
+      <h1 class="card-title test-step"> 1 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> Record Sample Instructions</h1>
     </div>
     <%= render 'checklist_instructions', :instructions => APP_CONSTANTS['tests']['ChecklistTest']['instructions'] %>
   </div>
 </div>
 <div class = 'test-steps'>
-  <div class="panel panel-info">
-    <div class="panel-heading disable">
-      <h1 class="panel-title test-step disable">
+  <div class="card card-info">
+    <div class="card-heading disable">
+      <h1 class="card-title test-step disable">
         2 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> <%= 'Upload Files' %>
       </h1>
     </div>
-    <div class="panel-body">
+    <div class="card-body">
       <%= render 'test_executions/execution_upload', :disable => disable_qrda_submission?, :product_test => @product_test, :task => @product_test.tasks.c1_checklist_task %>
     </div>
   </div>
 </div>
 <div class = 'test-steps'>
-  <div class = 'panel panel-info'>
-    <div class = 'panel-heading'>
-      <h1 class = 'panel-title test-step'>
+  <div class = 'card card-info'>
+    <div class = 'card-heading'>
+      <h1 class = 'card-title test-step'>
         3 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> View Results
       </h1>
     </div>
-    <div class = 'panel-body'>
+    <div class = 'card-body'>
       <div id = 'display_checklist_execution_results'>
         <%= render 'checklist_execution_results', :task => @product_test.tasks.c1_checklist_task %>
       </div>

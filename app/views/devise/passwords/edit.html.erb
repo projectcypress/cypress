@@ -1,11 +1,11 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h1 class='panel-title'>Change your password</h1>
+<div class="card card-default">
+  <div class="card-heading">
+    <h1 class='card-title'>Change your password</h1>
   </div>
 
 <%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, "data-parsley-validate": '' }) do |f| %>
   <%= f.hidden_field :reset_password_token %>
-  <div class="panel-body">
+  <div class="card-body">
     <%= f.password_field :password, autofocus: true, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
     <%= f.password_field :password_confirmation, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off',
       help: '8 characters minimum and include at least 3 of the following: lowercase letters, uppercase letters, digits, and special characters.',
@@ -16,7 +16,7 @@
       'data-parsley-trigger': 'change' %>
   </div>
 
-  <div class="panel-footer">
+  <div class="card-footer">
     <%= f.primary "Change my password" %>
   </div>
 <% end %>

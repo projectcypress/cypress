@@ -7,9 +7,9 @@
 
 %>
 
-<div class="panel panel-primary">
-  <div class="panel-body">
-    <div class="panel-actions pull-right">
+<div class="card card-primary">
+  <div class="card-body">
+    <div class="card-actions pull-right">
       <%= button_to edit_vendor_product_path(product.vendor_id, product), :method => :get, :class => "btn btn-default" do %>
         <%= icon('fas fa-fw', 'wrench', :"aria-hidden" => true) %> Edit Product
       <% end %>

@@ -12,22 +12,22 @@
   }
 
   .result-marker {
-    .fa-circle { color: $brand-primary; }
-    .fa-circle-thin { color: $state-success-text; }
+    .fa-circle { color: $primary; }
+    .fa-circle-thin { color: $success-text-emphasis; }
 
     .result-text {
-      color: $navbar-inverse-link-color;
+      color: $navbar-light-color;
       font-weight: normal;
     }
 
     .result-text-positive-contrast {
-      color: $state-success-text;
+      color: $success-text-emphasis;
       font-weight: normal;
     }
   }
 
   .empty-marker {
-    color: $state-warning-border;
+    color: $warning-border-subtle;
   }
 }
 

@@ -11,7 +11,7 @@
 <% end %>
 <%= render partial: 'application/certification_bar', locals: { product: @product_test.product, active_certs: current_certifications(@task._type, @product_test.c3_test, @product_test.eh_measures?, @product_test.ep_measures?) } %>
 <% unless @task.is_a?(C1ChecklistTask) || @task.is_a?(C3ChecklistTask) %>
-  <div class="panel clearfix">
+  <div class="card clearfix">
     <%= button_to new_task_test_execution_path(iterate_task(@task, 'prev').id), :method => :get, :class => "btn btn-default pull-left" do %>
       <%= icon('fas fa-fw', 'step-backward', :"aria-hidden" => true) %> Previous Test: <%= iterate_task(@task, 'prev').product_test.button_short_name %>
     <% end %>
@@ -54,13 +54,13 @@
   <% end %>
 
   <% steps.each_with_index do |step, index| %>
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h1 class="panel-title test-step">
+    <div class="card card-info">
+      <div class="card-heading">
+        <h1 class="card-title test-step">
           <%= index + 1 %> <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> <%= step.title %>
         </h1>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <%= render step.partial, :disable => step.disable, :disable_msg => step.disable_msg, :product_test => @product_test, :task => @task %>
       </div>
     </div>
@@ -70,9 +70,9 @@
 <%= render 'expected_results', :task => @task if should_display_expected_results(@task) %>
 
 <% if @task.most_recent_execution %>
-  <div class = 'panel panel-<%= execution_status_class(@test_execution) %>' id = 'results_panel'>
-    <div class = 'panel-heading'>
-      <h1 class='panel-title'>
+  <div class = 'card card-<%= execution_status_class(@test_execution) %>' id = 'results_panel'>
+    <div class = 'card-heading'>
+      <h1 class='card-title'>
         Results
         <div class = 'pull-right'>
           <select id="select_execution" aria-label="View test execution">
@@ -85,7 +85,7 @@
         </div>
       </h1>
     </div>
-    <div class = 'panel-body' id = 'display_execution_results' >
+    <div class = 'card-body' id = 'display_execution_results' >
       <%= render 'execution_results', :execution => @test_execution %>
     </div>
   </div>

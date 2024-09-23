@@ -1,7 +1,7 @@
 <% vendor_statuses = vendor_statuses(vendor) %>
 <tr id="vendor-status-<%=vendor.id%>">
   <td>
-    <%= button_to vendor_favorite_path(vendor), remote: true, :class => "btn btn-link btn-pop" do %>
+    <%= button_to vendor_favorite_path(vendor), remote: true, :class => "btn btn-link" do %>
       <% if (vendor.favorite_user_ids.include? current_user.id)  %>
         <%= icon('fas fa-fw', 'star', :"aria-hidden" => true) %>
         <span class="sr-only">vendor favorited</span>

@@ -10,15 +10,15 @@
 <% c3 = task.product_test.product.c3_test %>
 <% execution = task.most_recent_execution %>
 
-<% panel_class = current_task ? 'panel-primary' : 'panel-inactive' %>
+<% panel_class = current_task ? 'card-primary' : 'card-inactive' %>
 <% task_status = task.product_test.is_a?(MeasureTest) ? task.status_with_sibling : task.status %>
 
-<div class = 'col-sm-4'>
-  <div class = 'panel <%= panel_class %> task-panel'>
-    <div class = 'panel-heading'>
-      <h1 class = 'panel-title text-center'><%= task_type_to_title(task._type) %></h1>
+<div>
+  <div class = 'card <%= panel_class %> task-card'>
+    <div class = 'card-heading'>
+      <h1 class = 'card-title text-center'><%= task_type_to_title(task._type) %></h1>
     </div>
-    <div class = 'panel-body'>
+    <div class = 'card-body'>
       <dl class = 'dl-horizontal'>
       <% get_error_counts(execution).each do |error_name, num_errors| %>
         <dt><%= error_name %></dt>

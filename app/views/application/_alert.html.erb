@@ -18,27 +18,27 @@
 
 <!-- Alerts are either dismissable or confirmable. NOT BOTH -->
 <% if confirmation %>
-  <div class="clearfix alert alert-<%= alert_type %>" role="alert" aria-live="polite">
-    <div class="iconSpan pull-left">
+  <div class="clearfix alert alert-<%= alert_type %> fade show" role="alert" aria-live="polite">
+    <div class="iconSpan float-sm-start">
       <%= icon('fas fa-fw fa-2x', alert_icon) %>
 
     </div>
-    <div class="alertContent">
+    <div class="alertContent float-sm-start">
       <% [*messages].each do |msg| %>
         <p><%= msg %></p>
       <% end %>
-      <button type="button" class="btn btn-<%= alert_type %> btn-sm pull-right confirm" data-dismiss="alert"><%= confirmation %></button>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"><%= confirmation %></button>
     </div>
   </div>
 
 <% else %>
-  <div class="clearfix alert alert-<%= alert_type %> alert-dismissible" role="alert" aria-live="polite">
-    <button type="button" class="close fas fa-fw fa-times" data-dismiss="alert" aria-label="Close"><span class="sr-only">Close alert</span></button>
+  <div class="clearfix alert alert-<%= alert_type %> alert-dismissible fade show" role="alert" aria-live="polite">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><span class="sr-only">Close alert</span></button>
 
-    <div class="iconSpan pull-left">
+    <div class="iconSpan float-sm-start">
       <%= icon('fas fa-fw fa-2x', alert_icon) %>
     </div>
-    <div class="alertContent">
+    <div class="alertContent float-sm-start">
       <% [*messages].each do |msg| %>
         <p><%= msg %></p>
       <% end %>

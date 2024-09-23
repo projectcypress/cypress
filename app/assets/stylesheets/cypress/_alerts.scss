@@ -3,10 +3,10 @@
 }
 
 .alert {
-  &.alert-success { @include alert-border($state-success-text); }
-  &.alert-info { @include alert-border($state-info-text); }
-  &.alert-warning { @include alert-border($state-warning-text); }
-  &.alert-danger { @include alert-border($state-danger-text); }
+  &.alert-success { @include alert-border($success-text-emphasis); }
+  &.alert-info { @include alert-border($info-text-emphasis); }
+  &.alert-warning { @include alert-border($warning-text-emphasis); }
+  &.alert-danger { @include alert-border($danger-text-emphasis); }
 
   .fa-times { font-size: 1.4em; }
 
@@ -16,7 +16,7 @@
   }
 
   .alertContent {
-    border-left: 1px solid $gray-light;
+    border-left: 1px solid $black;
     vertical-align: middle;
 
     p {

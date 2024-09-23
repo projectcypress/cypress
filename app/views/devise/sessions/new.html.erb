@@ -5,13 +5,13 @@
     <!-- <p>Powered by Super Duper Testing Labs</p> -->
   </div>
   <div class="sign-in-panel-container">
-    <div class="panel panel-default <%= Settings.current.umls ? 'sign-in-panel-wide' : 'sign-in-panel' %>">
-      <div class="panel-heading">
-        <h1 class="panel-title">Sign In</h1>
+    <div class="card card-default <%= Settings.current.umls ? 'sign-in-panel-wide' : 'sign-in-panel' %>">
+      <div class="card-heading">
+        <h1 class="card-title">Sign In</h1>
       </div>
 
       <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="panel-body">
+        <div class="card-body">
           <% if Settings.current.umls %>
             <div class="row">
               <div class="col-md-6">
@@ -39,7 +39,7 @@
           <% end %>
         </div>
 
-        <div class="panel-footer">
+        <div class="card-footer">
           <%= f.primary "Sign in" %>
         </div>
       <% end %>
@@ -50,11 +50,11 @@
   </div>
 </div>
 <div class="splash-info-panels-container">
-  <div class="panel panel-default splash-info-panel">
-    <div class="panel-heading">
-      <h1 class="panel-title">What is Cypress?</h1>
+  <div class="card card-default splash-info-panel">
+    <div class="card-heading">
+      <h1 class="card-title">What is Cypress?</h1>
     </div>
-      <div class="panel-body">
+      <div class="card-body">
         <p>
           Cypress is the open source, rigorous and repeatable testing tool of Electronic Health Records (EHRs) and EHR modules in calculating eCQMs used by CMS’s Promoting Interoperability programs.
           It is available for use or adoption by the health IT community including EHR vendors and Authorized Testing Labs.
@@ -67,11 +67,11 @@
         </p>
       </div>
   </div>
-  <div class="panel panel-default splash-info-panel">
-    <div class="panel-heading">
-      <h1 class="panel-title">CQM Certification</h1>
+  <div class="card card-default splash-info-panel">
+    <div class="card-heading">
+      <h1 class="card-title">CQM Certification</h1>
     </div>
-      <div class="panel-body">
+      <div class="card-body">
         <p>Cypress tests four different certification criteria:</p>
         <ul>
           <li>Record and Export - Record clinical data and export it in a format usable by other EHRs</li>
@@ -84,13 +84,13 @@
         </p>
       </div>
   </div>
-  <div class="panel panel-default splash-info-panel">
-    <div class="panel-heading">
-      <h1 class="panel-title">
+  <div class="card card-default splash-info-panel">
+    <div class="card-heading">
+      <h1 class="card-title">
         Using Cypress
       </h1>
     </div>
-      <div class="panel-body">
+      <div class="card-body">
         <p>
           The Cypress software includes a standard test data of synthetic patient records that exercises all of the CQMs, for Eligible Clinicians (EC) and Eligible Hospitals (EH).
         </p>

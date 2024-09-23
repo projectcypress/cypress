@@ -1,18 +1,18 @@
-.panel-title {
+.card-title {
   letter-spacing: .04em;
 }
 
-// Panels inside of panels should not take full width
-.panel-body .panel {
-  margin: $panel-body-padding;
+// cards inside of cards should not take full width
+.card-body .card {
+  margin: $card-spacer-y;
 }
 
 // Add spacing between a button and adjacent inline text
-.panel-footer .btn + span {
-  margin-left: $padding-xs-horizontal;
+.card-footer .btn + span {
+  margin-left: $border-radius-sm;
 }
 
-.panel.summary h1 {
+.card.summary h1 {
   margin-top: .25em;
 }
 
@@ -20,8 +20,8 @@
   margin-top: 1em;
   display: flex;
 
-  .panel {
-    flex: 1; // all panels get equal width
+  .card {
+    flex: 1; // all cards get equal width
   }
 
   .filters-list {
@@ -33,10 +33,6 @@
         margin-top: 1em;
       }
     }
-  }
-
-  @media (max-width: $screen-md-min) {
-    display: block;
   }
 }
 
@@ -68,22 +64,9 @@
     @include animation-delay(100);
     @include animation-timing-function(linear);
     @include animation-iteration-count(infinite);
-    color: $panel-inactive-heading-bg;
-    background-color: $panel-inactive-text;
-    border-color: $panel-inactive-border;
+    color: $card-inactive-heading-bg;
+    background-color: $card-inactive-text;
+    border-color: $card-inactive-border;
   }
 }
 
-.panel-inactive .panel-heading {
-  @include transition-property(color, background-color);
-  @include transition-duration(.3s);
-  @include darker-hover($btn-default-border, 'default');
-  font-family: inherit;
-  letter-spacing: .05em;
-  box-shadow: none;
-
-  color: $panel-inactive-text;
-  background: $panel-inactive-heading-bg;
-  border: 1px solid $panel-inactive-border;
-  font-size: large;
-}

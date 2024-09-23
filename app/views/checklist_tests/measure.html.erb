@@ -8,9 +8,9 @@
 <% end %>
 
 <div class = 'test-steps'>
-  <div class="panel panel-info">
-    <div class="panel-heading">
-      <h1 class="panel-title test-step">1<%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %>Checklist Instructions</h1>
+  <div class="card card-info">
+    <div class="card-heading">
+      <h1 class="card-title test-step">1<%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %>Checklist Instructions</h1>
     </div>
     <%= render 'checklist_instructions', :instructions => APP_CONSTANTS['tests']['ChecklistTest']['instructions'] %>
   </div>

@@ -1,6 +1,6 @@
 .product-report {
   dl {
-    background-color: $gray-lighter;
+    background-color: $gray-200;
     padding: 1em;
   }
 
@@ -19,7 +19,7 @@
     tr { page-break-inside: avoid;}
 
     // overrides bootstrap's forced transparent backgrounds
-    dl { background-color: $gray-lighter !important; }
+    dl { background-color: $gray-200 !important; }
   }
 
   @page { margin: 2cm 1.4cm; }

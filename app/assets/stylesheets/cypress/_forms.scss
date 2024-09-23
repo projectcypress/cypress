@@ -23,7 +23,7 @@
 }
 
 .panel-title select {
-  color: $text-color;
+  color: $gray-800;
 }
 
 // special btn-checkbox class for checkboxes and radio buttons
@@ -37,7 +37,7 @@
 
   &:hover,
   &:focus {
-    color: $text-color;
+    color: $gray-800;
     background-color: $input-bg;
   }
 }
@@ -50,7 +50,7 @@ legend.control-label {
 }
 
 .ui-autocomplete {
-  @include box-shadow(0 1px 1px $dropdown-border);
+  @include box-shadow(0 1px 1px $dropdown-border-color);
 
   .ui-menu-item {
     &.ui-state-focus {
