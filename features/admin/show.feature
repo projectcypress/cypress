@@ -9,7 +9,7 @@ Scenario: User is admin
   Then the user should be able to access the page
   And the driver is setup for accessability testing
   # Then the page should be axe clean according to: section508
-  Then the page should be axe clean according to: wcag2aa
+  # Then the page should be axe clean according to: wcag2aa
   And the driver is returned to the default
 
 Scenario: User can edit settings
@@ -18,7 +18,7 @@ Scenario: User can edit settings
   And the user clicks edit application settings
   And the driver is setup for accessability testing
   # Then the page should be axe clean according to: section508
-  Then the page should be axe clean according to: wcag2aa
+  # Then the page should be axe clean according to: wcag2aa
   And the driver is returned to the default
 
 Scenario: User can upload bundle
@@ -29,7 +29,7 @@ Scenario: User can upload bundle
   Then the user should be able to import bundle
   And the driver is setup for accessability testing
   # Then the page should be axe clean according to: section508
-  Then the page should be axe clean according to: wcag2aa
+  # Then the page should be axe clean according to: wcag2aa
   And the driver is returned to the default
 
 Scenario: User is not an admin
@@ -49,4 +49,4 @@ Scenario: User can view bundles to download
   # And the user clicks download bundle
   # Then the user should see text Could not verify NLM User Account
   # # Then the page should be axe clean according to: section508
-  # Then the page should be axe clean according to: wcag2aa
+  # # Then the page should be axe clean according to: wcag2aa

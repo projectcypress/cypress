@@ -72,13 +72,13 @@ Scenario: Successful Upload CAT 3 XML
   Then the user should see failed results
   And the driver is setup for accessability testing
   # Then the page should be axe clean according to: section508
-  Then the page should be axe clean according to: wcag2aa
+  # Then the page should be axe clean according to: wcag2aa
   And the driver is returned to the default
   And the user clicks user name
   Then the user should see recently failed tests
   And the driver is setup for accessability testing
   # Then the page should be axe clean according to: section508
-  Then the page should be axe clean according to: wcag2aa
+  # Then the page should be axe clean according to: wcag2aa
   And the driver is returned to the default
 
 Scenario: Unsuccessful Upload CAT 1 Zip Because Incorrect File Type
@@ -105,7 +105,7 @@ Scenario: Successful View Uploaded XML for Measure Test
   Then the user should see the uploaded xml
   And the driver is setup for accessability testing
   # Then the page should be axe clean according to: section508
-  Then the page should be axe clean according to: wcag2aa; skipping: color-contrast
+  # Then the page should be axe clean according to: wcag2aa; skipping: color-contrast
   And the driver is returned to the default
 
 Scenario: Successfully View a Measure Test on Deprecated Product

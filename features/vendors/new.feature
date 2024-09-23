@@ -9,7 +9,7 @@ Scenario: Successful Create Vendor
   Then the user should see the vendor name
   And the driver is setup for accessability testing
   # Then the page should be axe clean according to: section508
-  # Then the page should be axe clean according to: wcag2aa
+  # # Then the page should be axe clean according to: wcag2aa
   And the driver is returned to the default
 
 Scenario: Unsuccessful Create Vendor Because No Name

@@ -25,7 +25,7 @@
 //= require local-time
 //= require_tree .
 //= require popper
-//= require bootstrap
+//= require bootstrap-sprockets
 
 // will cover turbolinks changes (ajax already covered by rails ujs)
 // this is necessary for CSRF tokens in changed form elements

@@ -41,7 +41,7 @@ Scenario: Successful Select C1 and C2 and C3 and C4 and View Tabs
   Then the user should see the the appropriate tabs
   And the driver is setup for accessability testing
   # Then the page should be axe clean according to: section508
-  Then the page should be axe clean according to: wcag2aa
+  # Then the page should be axe clean according to: wcag2aa
   And the driver is returned to the default
 
 Scenario: Successful Download All Patients

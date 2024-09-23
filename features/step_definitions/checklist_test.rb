@@ -131,6 +131,7 @@ When(/^the user uploads a Cat I file that produces a qrda error on (.*) task's e
 end
 
 def upload_and_submit(file_path)
+  find('span', class: 'btn-file').click
   page.attach_file('results', file_path, visible: false)
   page.find('#submit-upload').click
 end

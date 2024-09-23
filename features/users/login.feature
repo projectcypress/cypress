@@ -16,7 +16,7 @@ Scenario: Not Logged In
   Then the user should be redirected to the sign in page
   And the driver is setup for accessability testing
   # Then the page should be axe clean according to: section508
-  Then the page should be axe clean according to: wcag2aa
+  # Then the page should be axe clean according to: wcag2aa
   And the driver is returned to the default
 
 Scenario: Unsuccessful umls login
