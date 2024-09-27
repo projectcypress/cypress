@@ -37,9 +37,7 @@ $background-color: rgba(#000, .00);
   &.btn-default { @include darker-hover($primary-border-subtle, 'default'); }
 
   &.btn-pop {
-    color: $btn-color;
-    background: $btn-color;
-    border-color: $btn-color;
+    color: desaturate(lighten(saturate($primary, 80%), 20%), 40%);
     box-shadow: none;
     padding: 0;
     font-size: large;
