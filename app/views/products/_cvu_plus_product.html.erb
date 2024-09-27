@@ -6,8 +6,8 @@
   <div class = 'col-md-4'>
     <% unless @product.product_tests.empty? %>
       <div class = 'card card-default'>
-        <div class = 'card-heading'>
-          <h1 class='card-title'>Download Full Test Deck</h1>
+        <div class = 'card-header'>
+          <h1 class='card-title lead'>Download Full Test Deck</h1>
         </div>
         <div class = 'card-body' id = 'display_bulk_download'>
           <%= render 'bulk_download', :product => @product %>

@@ -5,7 +5,7 @@
 %>
 
 <div class="card card-default">
-  <div class="card-heading"><h1 class='card-title'>Edit Settings</h1></div>
+  <div class="card-header"><h1 class='card-title lead'>Edit Settings</h1></div>
   <%= bootstrap_form_tag url: admin_settings_path, method: :put do |f| %>
     <div class="card-body">
       <%= f.text_area :banner_message, label: "Banner", value: banner_message %>

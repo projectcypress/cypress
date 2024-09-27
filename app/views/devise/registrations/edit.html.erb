@@ -20,8 +20,8 @@
   </div>
 
 <div class="card card-default">
-  <div class="card-heading">
-    <h1 class='card-title'>Edit <%= resource_name.to_s.humanize %></h1>
+  <div class="card-header">
+    <h1 class='card-title lead'>Edit <%= resource_name.to_s.humanize %></h1>
   </div>
   <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <div class="card-body">

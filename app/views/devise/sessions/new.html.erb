@@ -6,8 +6,8 @@
   </div>
   <div class="sign-in-panel-container">
     <div class="card card-default <%= Settings.current.umls ? 'sign-in-panel-wide' : 'sign-in-panel' %>">
-      <div class="card-heading">
-        <h1 class="card-title">Sign In</h1>
+      <div class="card-header">
+        <h1 class="card-title lead">Sign In</h1>
       </div>
 
       <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -51,8 +51,8 @@
 </div>
 <div class="splash-info-panels-container">
   <div class="card card-default splash-info-panel">
-    <div class="card-heading">
-      <h1 class="card-title">What is Cypress?</h1>
+    <div class="card-header">
+      <h1 class="card-title lead">What is Cypress?</h1>
     </div>
       <div class="card-body">
         <p>
@@ -68,8 +68,8 @@
       </div>
   </div>
   <div class="card card-default splash-info-panel">
-    <div class="card-heading">
-      <h1 class="card-title">CQM Certification</h1>
+    <div class="card-header">
+      <h1 class="card-title lead">CQM Certification</h1>
     </div>
       <div class="card-body">
         <p>Cypress tests four different certification criteria:</p>
@@ -85,8 +85,8 @@
       </div>
   </div>
   <div class="card card-default splash-info-panel">
-    <div class="card-heading">
-      <h1 class="card-title">
+    <div class="card-header">
+      <h1 class="card-title lead">
         Using Cypress
       </h1>
     </div>

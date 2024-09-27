@@ -55,8 +55,8 @@
 
   <% steps.each_with_index do |step, index| %>
     <div class="card card-info">
-      <div class="card-heading">
-        <h1 class="card-title test-step">
+      <div class="card-header">
+        <h1 class="card-title lead test-step">
           <%= index + 1 %> <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> <%= step.title %>
         </h1>
       </div>
@@ -71,8 +71,8 @@
 
 <% if @task.most_recent_execution %>
   <div class = 'card card-<%= execution_status_class(@test_execution) %>' id = 'results_panel'>
-    <div class = 'card-heading'>
-      <h1 class='card-title'>
+    <div class = 'card-header'>
+      <h1 class='card-title lead'>
         Results
         <div class = 'pull-right'>
           <select id="select_execution" aria-label="View test execution">

@@ -11,16 +11,16 @@
 <h1>Record Sample</h1>
 <div class = 'test-steps'>
   <div class="card card-info">
-    <div class="card-heading">
-      <h1 class="card-title test-step"> 1 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> Record Sample Instructions</h1>
+    <div class="card-header">
+      <h1 class="card-title lead test-step"> 1 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> Record Sample Instructions</h1>
     </div>
     <%= render 'checklist_instructions', :instructions => APP_CONSTANTS['tests']['ChecklistTest']['instructions'] %>
   </div>
 </div>
 <div class = 'test-steps'>
   <div class="card card-info">
-    <div class="card-heading disable">
-      <h1 class="card-title test-step disable">
+    <div class="card-header disable">
+      <h1 class="card-title lead test-step disable">
         2 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> <%= 'Upload Files' %>
       </h1>
     </div>
@@ -31,8 +31,8 @@
 </div>
 <div class = 'test-steps'>
   <div class = 'card card-info'>
-    <div class = 'card-heading'>
-      <h1 class = 'card-title test-step'>
+    <div class = 'card-header'>
+      <h1 class = 'card-title lead test-step'>
         3 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> View Results
       </h1>
     </div>

@@ -1,5 +1,5 @@
 <div class="card card-default">
-<div class="card-heading"><h1 class='card-title'><%= submit_text %><%= vendor.name ? ": "+ vendor.name : "" %></h1></div>
+<div class="card-header"><h1 class='card-title lead'><%= submit_text %><%= vendor.name ? ": "+ vendor.name : "" %></h1></div>
 
 <%= bootstrap_nested_form_for vendor, html: {id: "add_vendor_form", "data-parsley-validate": ''} do |f| %>
   <div class="card-body">

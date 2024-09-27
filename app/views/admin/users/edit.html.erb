@@ -1,6 +1,6 @@
 <div class="card card-default">
-  <div class="card-heading">
-    <h1 class='card-title'>Edit User</h1>
+  <div class="card-header">
+    <h1 class='card-title lead'>Edit User</h1>
   </div>
   <%= bootstrap_form_for(@user, as: @user, url: admin_user_path(@user), html: { method: :put, 'data-parsley-validate': '' }) do |f| %>
   <div class="card-body">
