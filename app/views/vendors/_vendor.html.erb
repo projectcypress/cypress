@@ -11,7 +11,7 @@
       <% end %>
     <% end %>
   </td>
-  <th scope="row"><div class = "abbreviated"><%= link_to vendor.name, vendor_path(vendor) %></div></th>
+  <th scope="row"><div class = "abbreviated"><%= link_to vendor.name, vendor_path(vendor), class: 'link-primary link-underline link-underline-opacity-0 link-underline-opacity-75-hover' %></div></th>
   <td>
     <% if vendor_statuses['total'].zero? %>
       <%= button_to new_vendor_product_path(vendor), :method => :get, :class => "btn btn-primary btn-sm" do %>
