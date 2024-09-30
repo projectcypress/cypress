@@ -29,22 +29,22 @@
   <% case status %>
   <% when 'passing' %>
     <%= icon('fas fa-fw text-success', 'check-circle', :"aria-hidden" => true) %>
-    <%= link_to 'view', new_task_test_execution_path(task), :class => "label label-success" %>
+    <%= link_to 'view', new_task_test_execution_path(task), :class => "label btn btn-success" %>
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
   <% when 'failing'%>
     <%= icon('fas fa-fw text-danger', 'play-circle', :"aria-hidden" => true) %>
-    <%= link_to 'retry', new_task_test_execution_path(task), :class => "label label-danger" %>
+    <%= link_to 'retry', new_task_test_execution_path(task), :class => "label btn btn-danger" %>
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
   <% when 'errored'%>
     <%= icon('fas fa-fw text-warning', 'exclamation-circle', :"aria-hidden" => true) %>
-    <%= link_to 'retry', new_task_test_execution_path(task), :class => "label label-warning" %>
+    <%= link_to 'retry', new_task_test_execution_path(task), :class => "label btn btn-warning" %>
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
   <% when 'pending'%>
     <%= icon('fas fa-fw fa-spin text-testing', 'gavel', :"aria-hidden" => true) %>
-    <%= link_to 'testing...', new_task_test_execution_path(task), :class => 'label label-default' %>
+    <%= link_to 'testing...', new_task_test_execution_path(task), :class => 'label btn btn-primary' %>
   <% else %>
     <%= icon('fas fa-fw text-info', 'play-circle', :"aria-hidden" => true) %>
-    <%= link_to 'start', new_task_test_execution_path(task), :class => "label label-info" %>
+    <%= link_to 'start', new_task_test_execution_path(task), :class => "label btn btn-info" %>
     <%= render partial: '/products/product_test_upload', locals: { task: task } %>
   <% end %>
 <% end %>

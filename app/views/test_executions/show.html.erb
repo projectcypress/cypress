@@ -11,11 +11,11 @@
 <% end %>
 <%= render partial: 'application/certification_bar', locals: { product: @product_test.product, active_certs: current_certifications(@task._type, @product_test.c3_test, @product_test.eh_measures?, @product_test.ep_measures?) } %>
 <% unless @task.is_a?(C1ChecklistTask) || @task.is_a?(C3ChecklistTask) %>
-  <div class="card clearfix">
-    <%= button_to new_task_test_execution_path(iterate_task(@task, 'prev').id), :method => :get, :class => "btn btn-default pull-left" do %>
+  <div class="clearfix">
+    <%= button_to new_task_test_execution_path(iterate_task(@task, 'prev').id), :method => :get, :class => "btn btn-default float-start" do %>
       <%= icon('fas fa-fw', 'step-backward', :"aria-hidden" => true) %> Previous Test: <%= iterate_task(@task, 'prev').product_test.button_short_name %>
     <% end %>
-    <%= button_to new_task_test_execution_path(iterate_task(@task, 'next').id), :method => :get, :class => "btn btn-default pull-right" do %>
+    <%= button_to new_task_test_execution_path(iterate_task(@task, 'next').id), :method => :get, :class => "btn btn-default float-end" do %>
       Next Test: <%= iterate_task(@task, 'next').product_test.button_short_name %> <%= icon('fas fa-fw', 'step-forward', :"aria-hidden" => true) %>
     <% end %>
   </div>
