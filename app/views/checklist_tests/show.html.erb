@@ -3,7 +3,7 @@
 
 <%= render 'application/certification_bar', :product => product, :active_certs => [true, false, product.c3_test && @product_test.eh_measures?, false] %>
 
-<div class="card-actions pull-right">
+<div class="card-actions float-end">
   <%= button_to print_criteria_product_checklist_test_path(@product, @product_test), :method => :get, :class => "btn btn-default" do %>
     <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download Criteria List
   <% end %>

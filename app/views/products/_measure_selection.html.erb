@@ -3,7 +3,7 @@
 <div class="card card-primary select-measures hidden">
   <div class="card-header clearfix">
     <h1 id="select_custom_measures" class='card-title lead measures-title-panel'>Select Custom Measures <span class='selected-number'>(0)</span><span class='sr-only'>selected</span>
-      <button type="button" class="btn btn-default btn-sm pull-right clear-measures-btn">Clear all</button>
+      <button type="button" class="btn btn-default btn-sm float-end clear-measures-btn">Clear all</button>
     </h1>
   </div>
   <div class="card-body">
@@ -20,7 +20,7 @@
               <li>
                 <a href="#<%= get_div_name(category) %>">
                   <%= formatted_type_counts(category, measures) %>
-                  <span class="selected-number pull-right"></span>
+                  <span class="selected-number float-end"></span>
                 </a>
               </li>
             <% end %>

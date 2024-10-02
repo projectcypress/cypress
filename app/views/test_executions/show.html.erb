@@ -74,7 +74,7 @@
     <div class = 'card-header'>
       <h1 class='card-title lead'>
         Results
-        <div class = 'pull-right'>
+        <div class = 'float-end'>
           <select id="select_execution" aria-label="View test execution">
             <% total_test_executions = @task.test_executions.size %>
             <% @task.test_executions.sort_by { |obj| obj.created_at }.reverse.each_with_index do |execution, i| %>
