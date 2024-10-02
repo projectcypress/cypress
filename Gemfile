@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '3.2.2'
+ruby '3.3.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 7.0.0'
@@ -119,7 +119,6 @@ group :development, :test do
   gem 'rails_best_practices'
   gem 'rails-controller-testing'
   gem 'rails-perftest'
-  gem 'ruby-prof', '~> 0.17.0'
   gem 'scss_lint', require: false
   gem 'selenium-webdriver'
 end
