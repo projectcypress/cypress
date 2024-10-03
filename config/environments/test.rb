@@ -8,9 +8,7 @@ require 'active_support/core_ext/integer/time'
 # and recreated between test runs. Don't rely on the data there!
 
 Rails.application.configure do
-  if !ENV['CUCUMBER']
-    config.active_job.queue_adapter = :test
-  end
+  config.active_job.queue_adapter = :test unless ENV['CUCUMBER']
 
   # Configure 'rails notes' to inspect Cucumber files
   config.annotations.register_directories('features')
