@@ -29,6 +29,7 @@ else
 end
 
 ENV['IGNORE_ROLES'] ||= 'false'
+ENV['CUCUMBER'] = "true"
 
 require 'cucumber/rails'
 require 'capybara/cucumber'
