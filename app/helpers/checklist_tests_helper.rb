@@ -60,7 +60,7 @@ module ChecklistTestsHelper
   end
 
   def coded_attribute?(criteria, attribute_index)
-    return unless criteria['dataElementAttributes']&.any?
+    return false unless criteria['dataElementAttributes']&.any?
 
     true if criteria['dataElementAttributes'][attribute_index]['attribute_valueset']
   end

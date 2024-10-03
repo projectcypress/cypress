@@ -27,7 +27,7 @@ class ProductsHelperTest < ActiveJob::TestCase
     measures.each do |measure|
       # chose criteria randomly
       criterias = measure['source_data_criteria'].sort_by { rand }[0..4]
-      criterias.each do |criteria_key, _criteria_value|
+      criterias.each_key do |criteria_key|
         checked_criterias.push(measure_id: measure.id.to_s, source_data_criteria: criteria_key, attribute_index: 0, completed: false)
       end
     end

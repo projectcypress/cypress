@@ -28,7 +28,7 @@ class Settings
   # the default role to assign to a user upon at creation -- this should be either admin, atl, user or empty string
   # a user without a role will not be able to create or view any vendors.  You may want to set this to ''
   # when an admin is required to approve new users and have the admin set the role there, default :user
-  field :default_role, type: Symbol, default: (ENV['DEFAULT_ROLE'] || :user)
+  field :default_role, type: Symbol, default: ENV['DEFAULT_ROLE'] || :user
   field :auto_approve, type: Boolean, default: (ENV['AUTO_APPROVE'].nil? ? true : ENV['AUTO_APPROVE'].to_boolean)
   # sets whether or not Users are automatically linked to a Vendor based off the vendors points of contacts. Setting to true will
   # auto associate a User to a vendor when a user is created and a vendor point of contanct contains the same email address as the
@@ -44,14 +44,14 @@ class Settings
   field :file_upload_root, type: String, default: 'data/upload/'
   field :server_needs_restart, type: Boolean, default: false
 
-  field :http_proxy, type: String, default: (ENV['http_proxy'] || '')
+  field :http_proxy, type: String, default: ENV['http_proxy'] || ''
   field :website_domain, type: String, default: (Rails.env.production? ? ENV.fetch('WEBSITE_DOMAIN', nil) : 'localhost')
   field :website_port, type: Integer, default: (Rails.env.production? ? (ENV['WEBSITE_PORT'] || 80) : 3000)
-  field :mailer_address, type: String, default: (ENV['MAILER_ADDRESS'] || '')
-  field :mailer_port, type: Integer, default: (ENV['MAILER_PORT'] || '')
-  field :mailer_domain, type: String, default: (ENV['MAILER_DOMAIN'] || '')
-  field :mailer_user_name, type: String, default: (ENV['MAILER_USER_NAME'] || '')
-  field :mailer_password, type: String, default: (ENV['MAILER_PASSWORD'] || '')
+  field :mailer_address, type: String, default: ENV['MAILER_ADDRESS'] || ''
+  field :mailer_port, type: Integer, default: ENV['MAILER_PORT'] || ''
+  field :mailer_domain, type: String, default: ENV['MAILER_DOMAIN'] || ''
+  field :mailer_user_name, type: String, default: ENV['MAILER_USER_NAME'] || ''
+  field :mailer_password, type: String, default: ENV['MAILER_PASSWORD'] || ''
   field :mailer_authentication, type: Symbol, default: 'plain'
   field :default_code_systems, type: Hash, default: {}
 
