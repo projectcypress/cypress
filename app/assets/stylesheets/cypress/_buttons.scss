@@ -24,6 +24,8 @@ $background-color: rgba(#000, .00);
   }
 }
 
+$btn-icon-outline: desaturate(lighten(saturate($primary, 80%), 20%), 40%);
+
 .btn {
   font-family: 'Ubuntu';
   letter-spacing: .05em;
@@ -37,7 +39,7 @@ $background-color: rgba(#000, .00);
   &.btn-default { @include darker-hover($primary-border-subtle, 'default'); }
 
   &.btn-pop {
-    color: desaturate(lighten(saturate($primary, 80%), 20%), 40%);
+    color: $btn-icon-outline;
     box-shadow: none;
     padding: 0;
     font-size: large;
