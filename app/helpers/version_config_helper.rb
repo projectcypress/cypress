@@ -13,7 +13,7 @@ module VersionConfigHelper
 
   def possible_qrda_uploaders
     uploaders = []
-    APP_CONSTANTS['version_config'].each do |_bundle_key, version_config|
+    APP_CONSTANTS['version_config'].each_value do |version_config|
       reporting_year = version_config['schematron'][0, 4].to_i + 1
       uploaders << QrdaUpload.new(validator: "HL7 QRDA Category I validator for #{reporting_year} (#{version_config['qrda_version']})",
                                   path: "/qrda_validation/#{reporting_year}/qrdaI/hl7")

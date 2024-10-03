@@ -7,7 +7,7 @@ module Validators
     self.validator_type = :result_validation
 
     def get_document(doc)
-      doc = doc.is_a?(String) ? Nokogiri::XML(doc) : doc
+      doc = Nokogiri::XML(doc) if doc.is_a?(String)
       raise ArgumentError, 'Argument was not an XML document' unless doc.root
 
       doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')

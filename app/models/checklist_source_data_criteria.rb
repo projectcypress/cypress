@@ -133,7 +133,7 @@ class ChecklistSourceDataCriteria
 
   def attribute_code_matches_valueset?
     # validate if an attribute_code is required and is correct
-    return unless attribute_code.present?
+    return false unless attribute_code.present?
 
     measure = Measure.find_by(_id: measure_id)
     valueset = source_data_criteria['dataElementAttributes'][attribute_index]['attribute_valueset'] if source_data_criteria['dataElementAttributes']
@@ -142,7 +142,7 @@ class ChecklistSourceDataCriteria
 
   def code_matches_valueset?
     # validate if an code is required and is correct
-    return unless code
+    return false unless code
 
     valuesets = get_all_valuesets_for_dc(measure_id)
     self.code_complete = code_in_valuesets(valuesets, code, Measure.find_by(_id: measure_id).bundle_id)

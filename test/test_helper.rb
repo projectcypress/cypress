@@ -122,11 +122,9 @@ class ActiveSupport::TestCase
   end
 
   def map_array(arr)
-    ret = []
-    arr.each do |v|
-      ret << value_or_bson(v)
+    arr.map do |v|
+      value_or_bson(v)
     end
-    ret
   end
 
   def map_bson_ids(json)
