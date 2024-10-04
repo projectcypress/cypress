@@ -29,7 +29,7 @@
 ).  In these scenarios it is appropriate to use a preferred CMS Certification Number appropriate for the facility.', label: 'Preferred CMS Certification Number', autocomplete: 'off', value: @vendor.preferred_ccn %>
     </div>
     <div class="card-footer">
-      <%= f.submit "Save", :class => "btn btn-success", :id => "preferences_submit_button" %>
+      <%= f.submit "Save", :class => "btn btn-primary", :id => "preferences_submit_button" %>
       <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "history.back()" %>
     </div>
   <% end %>
