@@ -37,15 +37,15 @@
       </div>
       <div class="col-sm">
         <% if disable %>
-          <span class="input-group-addon btn btn-info btn-file disabled">
+          <span class="input-group-addon btn btn-secondary btn-file disabled">
         <% else %>
-          <span class="input-group-addon btn btn-info btn-file active">
+          <span class="input-group-addon btn btn-secondary btn-file active">
         <% end %>
           <span class="fileinput-new" data-trigger="fileinput"><%= icon('fas', 'mouse-pointer', :"aria-hidden" => true) %> Select file</span>
           <span class="fileinput-exists" data-trigger="fileinput"><%= icon('fas', 'sync-alt', :"aria-hidden" => true) %> Change</span>
           <%= file_field_tag :results, class: 'upload-results hidden', :disabled => disable, accept: accept_type, :aria => { label: 'execution_upload_label', hidden: true } %>
         </span>
-        <a id = 'submit-upload' class="input-group-addon fileinput-exists btn btn-success"><%= icon('fas', 'upload', :"aria-hidden" => true) %> Upload</a>
+        <a id = 'submit-upload' class="input-group-addon fileinput-exists btn btn-primary"><%= icon('fas', 'upload', :"aria-hidden" => true) %> Upload</a>
       </div>
     </div>
   </div>
