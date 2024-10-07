@@ -227,19 +227,19 @@ class VendorsHelperTest < ActiveJob::TestCase
     assert_equal 'table-success', status_to_css_classes('passing')['cell']
     assert_equal 'check', status_to_css_classes('passing')['icon']
     assert_equal 'fas', status_to_css_classes('passing')['type']
-    assert_equal 'text-success', status_to_css_classes('passing')['text']
+    assert_equal 'text-success-emphasis', status_to_css_classes('passing')['text']
     assert_equal 'table-danger', status_to_css_classes('failing')['cell']
     assert_equal 'times', status_to_css_classes('failing')['icon']
     assert_equal 'fas', status_to_css_classes('failing')['type']
-    assert_equal 'text-danger', status_to_css_classes('failing')['text']
+    assert_equal 'text-danger-emphasis', status_to_css_classes('failing')['text']
     assert_equal 'table-info', status_to_css_classes('not_started')['cell']
     assert_equal 'circle', status_to_css_classes('not_started')['icon']
     assert_equal 'far', status_to_css_classes('not_started')['type']
-    assert_equal 'text-info', status_to_css_classes('not_started')['text']
+    assert_equal 'text-info-emphasis', status_to_css_classes('not_started')['text']
     assert_equal 'exclamation', status_to_css_classes('errored')['icon']
     assert_equal 'fas', status_to_css_classes('errored')['type']
     assert_equal 'table-warning', status_to_css_classes('errored')['cell']
-    assert_equal 'text-warning', status_to_css_classes('errored')['text']
+    assert_equal 'text-warning-emphasis', status_to_css_classes('errored')['text']
   end
 
   def test_checklist_status_vals_not_started
