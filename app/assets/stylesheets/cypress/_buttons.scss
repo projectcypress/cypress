@@ -7,8 +7,8 @@ $background-color: rgba(#000, .00);
   // for the buttons with dark backgrounds, add a shadow to text
   @if $name != 'danger' {
     @if $name != 'default' {
-      text-shadow: 1px 1px 2px transparentize($darker-border-color, .5),
-                  -1px -1px 2px transparentize($darker-border-color, .5);
+      //text-shadow: 1px 1px 2px transparentize($darker-border-color, .5),
+      //            -1px -1px 2px transparentize($darker-border-color, .5);
     }
   }
 
@@ -66,6 +66,11 @@ $btn-icon-outline: desaturate(lighten(saturate($primary, 80%), 20%), 40%);
 
 .btn-info {
   color: $white;
+}
+
+.primary-disabled {
+  background-color: rgba($primary, .10);
+  color: $black;
 }
 
 .btn-success {

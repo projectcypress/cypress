@@ -179,7 +179,7 @@ Then(/^the user should see they are (.*) the checklist test$/) do |status|
 end
 
 Then(/^the user should not be able to upload a Cat I file$/) do
-  assert page.find('span.input-group-addon.disabled')
+  assert page.find('span.input-group-addon.primary-disabled')
 end
 
 Then(/^the user should see checkmarks next to each complete data criteria$/) do
