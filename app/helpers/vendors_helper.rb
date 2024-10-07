@@ -38,13 +38,13 @@ module VendorsHelper
   def status_to_css_classes(status)
     case status
     when 'passing'
-      { 'cell' => 'table-success', 'icon' => 'check', 'type' => 'fas', 'text' => 'text-success' }
+      { 'cell' => 'table-success', 'icon' => 'check', 'type' => 'fas', 'text' => 'text-success-emphasis' }
     when 'failing'
-      { 'cell' => 'table-danger', 'icon' => 'times', 'type' => 'fas', 'text' => 'text-danger' }
+      { 'cell' => 'table-danger', 'icon' => 'times', 'type' => 'fas', 'text' => 'text-danger-emphasis' }
     when 'errored'
-      { 'cell' => 'table-warning', 'icon' => 'exclamation', 'type' => 'fas', 'text' => 'text-warning' }
+      { 'cell' => 'table-warning', 'icon' => 'exclamation', 'type' => 'fas', 'text' => 'text-warning-emphasis' }
     else
-      { 'cell' => 'table-info', 'icon' => 'circle', 'type' => 'far', 'text' => 'text-info' }
+      { 'cell' => 'table-info', 'icon' => 'circle', 'type' => 'far', 'text' => 'text-info-emphasis' }
     end
   end
 
