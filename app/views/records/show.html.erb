@@ -116,26 +116,27 @@
 
   <div class="col-md-6" style="overflow-y: scroll; height:100vh;">
 
-    <div class="btn-group" align="right">
-      <button type="button" class="btn btn-default dropdown-toggle" data-bs-toggle="dropdown"> Select Measure(s) <span class="caret"></span>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Select Measure(s)
       </button>
       <ul class="dropdown-menu">
       <li>
       <% if @vendor %>
-        <%= link_to "All Measures", vendor_record_path(:vendor_id => @vendor.id, :id => @record.id, :bundle_id => @bundle.id), method: :get %>
+        <%= link_to "All Measures", vendor_record_path(:vendor_id => @vendor.id, :id => @record.id, :bundle_id => @bundle.id), method: :get, class: 'dropdown-item' %>
       <% elsif @product_test %>
-       <%= link_to "All Measures", record_path(:task_id => @product_test.tasks.first.id, :id => @record.id), method: :get %>
+       <%= link_to "All Measures", record_path(:task_id => @product_test.tasks.first.id, :id => @record.id), method: :get, class: 'dropdown-item' %>
        <% else %>
-        <%= link_to "All Measures", bundle_record_path(:bundle_id => @bundle.id, :id => @record.id), method: :get %>
+        <%= link_to "All Measures", bundle_record_path(:bundle_id => @bundle.id, :id => @record.id), method: :get, class: 'dropdown-item' %>
       <% end %></li>
       <% @measures.each do |measure| %>
         <li>
           <% if @vendor %>
-            <%= link_to "#{measure.cms_id}", vendor_record_path(:vendor_id => @vendor.id, :id => @record.id, :bundle_id => @bundle.id, :hqmf_id => measure.hqmf_id), method: :get %>
+            <%= link_to "#{measure.cms_id}", vendor_record_path(:vendor_id => @vendor.id, :id => @record.id, :bundle_id => @bundle.id, :hqmf_id => measure.hqmf_id), method: :get, class: 'dropdown-item' %>
           <% elsif @product_test %>
-           <%= link_to "#{measure.cms_id}", record_path(:task_id => @product_test.tasks.first.id, :id => @record.id, :hqmf_id => measure.hqmf_id), method: :get %>
+           <%= link_to "#{measure.cms_id}", record_path(:task_id => @product_test.tasks.first.id, :id => @record.id, :hqmf_id => measure.hqmf_id), method: :get, class: 'dropdown-item' %>
            <% else %>
-            <%= link_to "#{measure.cms_id}", bundle_record_path(:bundle_id => @bundle.id, :id => @record.id, :hqmf_id => measure.hqmf_id), method: :get %>
+            <%= link_to "#{measure.cms_id}", bundle_record_path(:bundle_id => @bundle.id, :id => @record.id, :hqmf_id => measure.hqmf_id), method: :get, class: 'dropdown-item' %>
           <% end %>
         </li>
       <% end %>
