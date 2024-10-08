@@ -1,12 +1,13 @@
-@mixin alert-border($color) {
+@mixin alert-border($color, $bg) {
   border-left: 5px solid $color;
+  background-color: rgba($bg, .2);
 }
 
 .alert {
-  &.alert-success { @include alert-border($success-text-emphasis); }
-  &.alert-info { @include alert-border($info-text-emphasis); }
-  &.alert-warning { @include alert-border($warning-text-emphasis); }
-  &.alert-danger { @include alert-border($danger-text-emphasis); }
+  &.alert-success { @include alert-border($success-text-emphasis, $success); }
+  &.alert-info { @include alert-border($info-text-emphasis, $info); }
+  &.alert-warning { @include alert-border($warning-text-emphasis, $warning); }
+  &.alert-danger { @include alert-border($danger-text-emphasis, $danger); }
 
   .fa-times { font-size: 1.4em; }
 
@@ -21,6 +22,10 @@
 
     p {
       padding: 0 2em;
+
+      a {
+        color: $black;
+      }
     }
   }
 }
@@ -28,7 +33,7 @@
 // add margin for the alerts shown at the top of the page
 .container > .alert,
 .breadcrumb-responsive + .alert {
-  margin: -.5em 1em 2em;
+  margin: .0em 1em .5em;
 }
 // or for alerts shown after a .control-label
 .control-label + .alert {
