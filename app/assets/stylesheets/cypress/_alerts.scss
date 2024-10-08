@@ -1,6 +1,7 @@
 @mixin alert-border($color, $bg) {
+  $faded-background-color: rgba($bg, .2);
   border-left: 5px solid $color;
-  background-color: rgba($bg, .2);
+  background-color: $faded-background-color;
 }
 
 .alert {
