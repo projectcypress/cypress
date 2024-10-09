@@ -5,6 +5,7 @@
 
 .navbar {
   @include box-shadow(0 1px 1px $dropdown-border-width);
+  margin-bottom: 1em;
 }
 
 .demo {
@@ -65,8 +66,8 @@
   @include box-shadow(0 1px 1px $dropdown-border-width);
   display: table-cell;
   padding: 8px 10px;
-  background-color: $navbar-dark-color;
-  color: $navbar-light-color;
+  background-color: $primary;
+  color: $white;
   max-width: 24em;
   white-space: nowrap;
   overflow: hidden;
@@ -74,29 +75,17 @@
 
   a {
     padding: 6px 0;
-    color: $navbar-light-color;
-  }
-
-  + li::before {
-    content: $fa-var-caret-right;
-    font-family: FontAwesome;
-    padding: 0 8px 0 0;
-    margin-left: -10px;
-    color: $navbar-dark-color;
+    color: $white;
   }
 
   &:hover {
-    background-color: $navbar-dark-hover-color;
-
-    + li::before {
-      color: $navbar-dark-color;
-    }
+    background-color: $secondary;
 
     > a:hover { text-decoration: none; }
   }
 
   &.active {
-    background-color: $navbar-dark-active-color;
-    color: $navbar-dark-color;
+    background-color: $secondary;
+    color: $white;
   }
 }

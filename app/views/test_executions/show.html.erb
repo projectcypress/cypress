@@ -70,8 +70,8 @@
 <%= render 'expected_results', :task => @task if should_display_expected_results(@task) %>
 
 <% if @task.most_recent_execution %>
-  <div class = 'card card-<%= execution_status_class(@test_execution) %>' id = 'results_panel'>
-    <div class = 'card-header'>
+  <div class = 'card border-<%= execution_status_class(@test_execution) %>' id = 'results_panel'>
+    <div class = 'card-header text-bg-<%= execution_status_class(@test_execution) %>'>
       <h1 class='card-title lead'>
         Results
         <div class = 'float-end'>

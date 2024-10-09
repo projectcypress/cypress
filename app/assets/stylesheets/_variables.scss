@@ -300,7 +300,7 @@ $cyans: (
 // scss-docs-start theme-color-variables
 $primary:       #527E73 !default;
 $secondary:     #2b4941 !default;
-$success:       #269E00 !default;
+$success:       #206909 !default;
 $info:          #0a3c4b !default;
 $warning:       #933700 !default;
 $danger:        #8A0018 !default;
@@ -1637,9 +1637,9 @@ $breadcrumb-padding-x:              0 !default;
 $breadcrumb-item-padding-x:         .5rem !default;
 $breadcrumb-margin-bottom:          1rem !default;
 $breadcrumb-bg:                     null !default;
-$breadcrumb-divider-color:          var(--#{$prefix}secondary-color) !default;
+$breadcrumb-divider-color:          $white !default;
 $breadcrumb-active-color:           var(--#{$prefix}secondary-color) !default;
-$breadcrumb-divider:                quote("/") !default;
+$breadcrumb-divider:                quote(">") !default;
 $breadcrumb-divider-flipped:        $breadcrumb-divider !default;
 $breadcrumb-border-radius:          null !default;
 // scss-docs-end breadcrumb-variables
