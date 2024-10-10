@@ -1,5 +1,5 @@
 <% if @task && @product_test %>
-  <div class="pull-right button-row">
+  <div class="float-end button-row">
     <% if (@measure && @measure.population_sets_and_stratifications_for_measure.size > 1) || (@product_test && @product_test.measure_ids.size > 1) %>
       <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Measures and Sub Measures<span class="caret"></span>
@@ -23,7 +23,7 @@
 <% else %>
   <%# add patients option #%>
   <% if @vendor %>
-    <%= button_to "+ Import Patients", new_vendor_record_path(@vendor.id), :method => :get, :params => {default: @bundle}, :class => "btn btn-primary pull-right", :disabled => @bundle.nil? %>
+    <%= button_to "+ Import Patients", new_vendor_record_path(@vendor.id), :method => :get, :params => {default: @bundle}, :class => "btn btn-primary float-end", :disabled => @bundle.nil? %>
     <h1><%= @vendor.name %> Patient List</h1>
     <div class="vendor-upload-jobs">
       <%= render 'vendor_upload_jobs', :vendor => @vendor %>

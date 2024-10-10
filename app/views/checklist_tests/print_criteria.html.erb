@@ -7,15 +7,15 @@
 <% if checklist_test.measures %>
   <%= bootstrap_nested_form_for([@product, checklist_test], :url => { :controller => 'checklist_tests', :action => 'update' }) do |f| %>
     <% checklist_test.measures.each do |measure| %>
-      <div class = 'panel-group' id = '<%= measure.cms_id %>'>
-        <div class = 'panel panel-default'>
-          <div class = 'panel-heading'>
-            <h1 class='panel-title'>
+      <div class = 'card-group' id = '<%= measure.cms_id %>'>
+        <div class = 'card card-default'>
+          <div class = 'card-header'>
+            <h1 class='card-title lead'>
               <%= "#{measure.cms_id} #{measure.description}" %>
             </h1>
           </div>
-          <div class = 'panel checklist-panel'>
-            <div class = 'panel-body'>
+          <div class = 'card checklist-panel'>
+            <div class = 'card-body'>
               <table class = 'table table-sm'>
                 <thead>
                   <tr>
