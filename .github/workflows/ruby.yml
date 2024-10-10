@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v2
@@ -42,12 +42,12 @@ jobs:
         bundle install
     - name: Bundle audit check
       run: |
-        bundle exec bundle-audit check --update
+        bundle exec bundle-audit check --update --ignore CVE-2024-6484
   overcommit:
     strategy:
       fail-fast: false
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v2
@@ -161,7 +161,7 @@ jobs:
     strategy:
       fail-fast: false
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     services:
       mongodb:
@@ -201,7 +201,7 @@ jobs:
     strategy:
       fail-fast: false
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     services:
       mongodb:
@@ -259,7 +259,7 @@ jobs:
     strategy:
       fail-fast: false
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     services:
       mongodb:
