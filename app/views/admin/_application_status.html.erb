@@ -10,7 +10,7 @@
   <b><%= "Past #{key.to_s}".humanize %></b>
   <% percentage = (avg_load > cpu_count) ? 100 : (avg_load / cpu_count * 100).round %>
   <div class="progress">
-    <div class="progress-bar progress-bar-striped <%= 'progress-bar-danger' if percentage.eql? 100 %> active" role="progressbar"
+    <div class="progress-bar progress-bar-striped <%= 'progress-bar bg-danger' if percentage.eql? 100 %> active" role="progressbar"
     aria-valuenow="<%= percentage %>" aria-valuemin="0" aria-valuemax="100" style="width:<%= percentage %>%">
       <%= avg_load.round(2) %>
     </div>
@@ -22,15 +22,15 @@
   <% memory_usage = system_usage_stats.memory %>
   <% total_memory = memory_usage.wired + memory_usage.active + memory_usage.inactive + memory_usage.free %>
   <% wired_percentage_used = (memory_usage.wired / total_memory.to_f) * 100 %>
-  <div class="progress-bar progress-bar-striped progress-bar-danger active" role="progressbar" style="width:<%= wired_percentage_used %>%">
+  <div class="progress-bar progress-bar-striped progress-bar bg-danger active" role="progressbar" style="width:<%= wired_percentage_used %>%">
     Wired
   </div>
   <% active_percentage_used = (memory_usage.active / total_memory.to_f) * 100 %>
-  <div class="progress-bar progress-bar-striped progress-bar-warning active" role="progressbar" style="width:<%= active_percentage_used %>%">
+  <div class="progress-bar progress-bar-striped progress-bar bg-warning active" role="progressbar" style="width:<%= active_percentage_used %>%">
     Active
   </div>
   <% inactive_percentage_used = (memory_usage.inactive / total_memory.to_f) * 100 %>
-  <div class="progress-bar progress-bar-striped progress-bar-info active" role="progressbar" style="width:<%= inactive_percentage_used %>%">
+  <div class="progress-bar progress-bar-striped progress-bar bg-info active" role="progressbar" style="width:<%= inactive_percentage_used %>%">
     Inactive
   </div>
 </div>
