@@ -37,13 +37,13 @@
           <td class="no-wrap">
             <% case product_test.measure_status(measure.id) %>
             <% when 'passed' %>
-              <strong class = 'text-success'>Passing</strong>
+              <strong class = 'text-success-emphasis'>Passing</strong>
             <% when 'failed' %>
-              <strong class = 'text-danger'>Failing</strong>
+              <strong class = 'text-danger-emphasis'>Failing</strong>
             <% when 'incomplete' %>
-              <strong class = 'text-info'>Incomplete</strong>
+              <strong class = 'text-info-emphasis'>Incomplete</strong>
             <% when 'not_started' %>
-              <strong class = 'text-info'>Not Started</strong>
+              <strong class = 'text-info-emphasis'>Not Started</strong>
             <% end %>
           </td>
         </tr>

@@ -8,17 +8,17 @@
   color: $headings-color;
   border: 0;
   width: 100%;
-  box-shadow: $navbar-shadow;
+  box-shadow: $input-box-shadow;
 }
 
 .set-menu {
-  background-color: $panel-inner-border;
-  border-bottom-color: $gray-lighter;
-  box-shadow: $navbar-shadow;
+  background-color: $card-border-color;
+  border-bottom-color: $gray-200;
+  box-shadow: $input-box-shadow;
 
   &:hover {
     color: $headings-color;
-    background-color: $gray-lighter;
+    background-color: $gray-200;
     border: 0;
   }
 }
@@ -33,7 +33,7 @@
   @extend .list-group-item;
   font-weight: bold;
   padding: 2px 8px;
-  background-color: $gray-lighter;
+  background-color: $gray-200;
 }
 
 .value-set-item-oid {

@@ -11,6 +11,10 @@ Scenario: Edit Record Sample Test
   And the user picks Patient Characteristic Ethnicity: Ethnicity as a replacement for the first data criteria
   And the user saves the record sample test
   Then the QDM::PatientCharacteristicEthnicity data criteria should exist
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Edit Record Sample Test Attribute
   When the user creates a product that certifies c1, c3 and visits the record sample page
@@ -19,3 +23,7 @@ Scenario: Edit Record Sample Test Attribute
   And the user picks relevantPeriod as a replacement for the first attribute
   And the user saves the record sample test
   Then the relevantPeriod attribute should exist
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  

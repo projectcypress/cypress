@@ -1,25 +1,25 @@
 .status-passing {
-  color: $state-success-text;
-  background: $state-success-bg;
-  border: 1px solid darken($state-success-bg, 20%);
+  color: $success-text-emphasis;
+  background: $success-bg-subtle;
+  border: 1px solid darken($success-bg-subtle, 20%);
 }
 
 .status-failing {
-  color: $state-danger-text;
-  background: $state-danger-bg;
-  border: 1px solid darken($state-danger-bg, 20%);
+  color: $danger-text-emphasis;
+  background: $danger-bg-subtle;
+  border: 1px solid darken($danger-bg-subtle, 20%);
 }
 
 .status-errored {
-  color: $state-warning-text;
-  background: $state-warning-bg;
-  border: 1px solid darken($state-warning-bg, 20%);
+  color: $warning-text-emphasis;
+  background: $warning-bg-subtle;
+  border: 1px solid darken($warning-bg-subtle, 20%);
 }
 
 .status-not-started {
-  color: $state-info-text;
-  background: $state-info-bg;
-  border: 1px solid darken($state-info-bg, 20%);
+  color: $info-text-emphasis;
+  background: $info-bg-subtle;
+  border: 1px solid darken($info-bg-subtle, 20%);
 }
 
 .scroll-link-wrapper {
@@ -64,7 +64,7 @@
   -ms-flex-flow: row wrap;
 
   .fa-li {
-    color: $gray-light;
+    color: $gray-500;
   }
 
   > li {
