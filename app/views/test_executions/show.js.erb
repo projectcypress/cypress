@@ -12,7 +12,7 @@
     $('#task_status_display').html("<%= escape_javascript render 'task_status', :task => @task, :current_task => true %>");
 
     <%# update panel color %>
-    $("#results_panel").removeClass("panel-info").addClass("panel-<%= execution_status_class(@test_execution) %>");
+    $("#results_panel").removeClass("card-info").addClass("card-<%= execution_status_class(@test_execution) %>");
     $("#view_execution").removeClass("btn-info").addClass("btn-<%= execution_status_class(@test_execution) %>");
 
     <%# run some more scripts to properly initialize the

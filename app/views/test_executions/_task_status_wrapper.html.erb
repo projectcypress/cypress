@@ -12,9 +12,9 @@
 %>
 
 <% if current_task %>
-  <div id = 'task_status_display'>
+  <div id = 'task_status_display' class = 'col-sm-4'>
 <% else %>
-  <a class = 'task-switch-link' href = '<%= new_task_test_execution_path(task) %>'>
+  <a class = 'task-switch-link col-sm-4' href = '<%= new_task_test_execution_path(task) %>'>
 <% end %>
 
 <%= render 'task_status', :task => task, :current_task => current_task %>

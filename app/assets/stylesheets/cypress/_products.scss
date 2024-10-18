@@ -24,7 +24,7 @@
   margin: 0 0 4em;
 
   > thead > tr:nth-child(1) > th:not(.product-name):not(.status-heading) {
-    border: 1px $gray-light solid;
+    border: 1px $gray-800 solid;
     text-align: center;
   }
 
@@ -34,18 +34,18 @@
 
   > thead > tr:nth-child(2) > th,
   > thead > tr:nth-child(2) > td {
-    border-bottom: 2px $gray-darker solid;
+    border-bottom: 2px $gray-800 solid;
     font-size: smaller;
     text-align: center;
   }
 
   > tbody > tr > td {
-    border-top-color: $gray-lighter;
+    border-top-color: $gray-300;
   }
 
   .product-name {
-    background: darken($brand-primary, 5%);
-    color: $brand-white;
+    background: darken($primary, 5%);
+    color: $white;
     font-size: 1.5em;
     font-weight: 500;
     max-width: 12em;
@@ -54,10 +54,10 @@
     overflow-x: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    border-bottom: 2px $gray-darker solid;
+    border-bottom: 2px $gray-800 solid;
 
     a {
-      color: $brand-white;
+      color: $white;
     }
   }
 
@@ -79,7 +79,7 @@
   > tbody > tr > td:nth-child(5),
   > thead > tr:nth-child(2) > th:nth-child(7),
   > tbody > tr > td:nth-child(8) {
-    border-left: 1px $gray-darker solid;
+    border-left: 1px $gray-800 solid;
   }
 
   > thead > tr:nth-child(2) > th:nth-child(2),
@@ -90,11 +90,11 @@
   > tbody > tr > td:nth-child(7),
   > thead > tr:nth-child(2) > th:nth-child(8),
   > tbody > tr > td:nth-child(9) {
-    border-right: 1px $gray-darker solid;
+    border-right: 1px $gray-800 solid;
   }
 
   > tbody > tr:nth-last-child(2) > td {
-    border-bottom: 1px $gray-darker solid;
+    border-bottom: 1px $gray-800 solid;
   }
 
   // reduces the visual appearance of certain parts of the table
