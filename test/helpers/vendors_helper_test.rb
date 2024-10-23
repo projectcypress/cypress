@@ -33,8 +33,8 @@ class VendorsHelperTest < ActiveJob::TestCase
     measures.each do |measure|
       # chose criteria randomly
       criterias = measure['source_data_criteria'].sort_by { rand }[0..4]
-      criterias.each do |criteria_key, _criteria_value|
-        checked_criterias.push(measure_id: measure.id.to_s, source_data_criteria: criteria_key, attribute_index: 0, completed: false)
+      criterias.each do |criteria|
+        checked_criterias.push(measure_id: measure.id.to_s, source_data_criteria: criteria, attribute_index: 0, completed: false)
       end
     end
     checklist_test.checked_criteria = checked_criterias
