@@ -115,7 +115,7 @@ class ChecklistSourceDataCriteria
 
   def checklist_complete?
     if code.blank? && attribute_code.blank? && recorded_result.blank?
-      nil
+      false
     elsif negated_valueset
       attribute_complete != false
     else

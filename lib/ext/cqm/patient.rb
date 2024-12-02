@@ -74,10 +74,9 @@ module CQM
     def lookup_provider(include_address = nil)
       # find with provider id hash i.e. "$oid"->value
       provider = providers.first
-      addresses = []
-      provider.addresses.each do |address|
-        addresses << { 'street' => address.street, 'city' => address.city, 'state' => address.state, 'zip' => address.zip,
-                       'country' => address.country }
+      addresses = provider.addresses.map do |address|
+        { 'street' => address.street, 'city' => address.city, 'state' => address.state, 'zip' => address.zip,
+          'country' => address.country }
       end
 
       return { 'npis' => [provider.npi], 'tins' => [provider.tin], 'addresses' => addresses } if include_address
@@ -117,33 +116,30 @@ module CQM
 
     def payer
       payer_element = qdmPatient.get_data_elements('patient_characteristic', 'payer')
-      if payer_element&.any? && payer_element.first.dataElementCodes &&
-         payer_element.first.dataElementCodes.any?
-        payer_element.first.dataElementCodes.first['code']
-      end
+      return unless payer_element&.any? && payer_element.first.dataElementCodes&.any?
+
+      payer_element.first.dataElementCodes.first['code']
     end
 
     def gender
       gender_chars = qdmPatient.get_data_elements('patient_characteristic', 'gender')
-      return unless gender_chars&.any? && gender_chars.first.dataElementCodes && gender_chars.first.dataElementCodes.any?
+      return unless gender_chars&.any? && gender_chars.first.dataElementCodes&.any?
 
       gender_chars.first.dataElementCodes.first['code']
     end
 
     def race
       race_element = qdmPatient.get_data_elements('patient_characteristic', 'race')
-      if race_element&.any? && race_element.first.dataElementCodes &&
-         race_element.first.dataElementCodes.any?
-        race_element.first.dataElementCodes.first['code']
-      end
+      return unless race_element&.any? && race_element.first.dataElementCodes&.any?
+
+      race_element.first.dataElementCodes.first['code']
     end
 
     def ethnicity
       ethnicity_element = qdmPatient.get_data_elements('patient_characteristic', 'ethnicity')
-      if ethnicity_element&.any? && ethnicity_element.first.dataElementCodes &&
-         ethnicity_element.first.dataElementCodes.any?
-        ethnicity_element.first.dataElementCodes.first['code']
-      end
+      return unless ethnicity_element&.any? && ethnicity_element.first.dataElementCodes&.any?
+
+      ethnicity_element.first.dataElementCodes.first['code']
     end
 
     # Iterates through each data element to add

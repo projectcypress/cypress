@@ -482,7 +482,7 @@ module Cypress
 
       # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
       cat3_submission_program = if pt&.product&.c3_test
-                                  pt&.measures&.first&.reporting_program_type == 'ep' ? 'MIPS_INDIV' : false
+                                  pt.measures&.first&.reporting_program_type == 'ep' ? 'MIPS_INDIV' : false
                                 else
                                   false
                                 end

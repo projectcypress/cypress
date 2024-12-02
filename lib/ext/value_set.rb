@@ -12,4 +12,8 @@ class ValueSet
   def snomed_codes?
     concepts.any? { |concept| concept.code_system_oid == '2.16.840.1.113883.6.96' }
   end
+
+  def first_code
+    concepts.first.code
+  end
 end
