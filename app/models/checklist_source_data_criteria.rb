@@ -113,9 +113,9 @@ class ChecklistSourceDataCriteria
     replacement_attribute != comp_str
   end
 
-  def checklist_complete?
+  def checklist_complete
     if code.blank? && attribute_code.blank? && recorded_result.blank?
-      false
+      nil
     elsif negated_valueset
       attribute_complete != false
     else
@@ -124,7 +124,7 @@ class ChecklistSourceDataCriteria
   end
 
   def complete?
-    checklist_complete? && passed_qrda
+    checklist_complete && passed_qrda
   end
 
   def result_completed?
