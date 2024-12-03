@@ -66,12 +66,10 @@ module Validators
 
     # Return a list of encounter ids found in document
     def encounter_ids_in_doc(doc)
-      encounter_ids = []
       encounter_ids_xpath = %(//cda:encounter[./cda:templateId[@root='2.16.840.1.113883.10.20.24.3.23']]/cda:id)
-      doc.xpath(encounter_ids_xpath).each do |encounter_id|
-        encounter_ids << "#{encounter_id['root']}(root), #{encounter_id['extension']}(extension)"
+      doc.xpath(encounter_ids_xpath).map do |encounter_id|
+        "#{encounter_id['root']}(root), #{encounter_id['extension']}(extension)"
       end
-      encounter_ids
     end
   end
 end

@@ -91,8 +91,7 @@ module Cypress
     end
 
     def product_test_statuses(tests, task_type)
-      tasks = []
-      tests.each { |test| tasks << test.tasks.where(_type: task_type) }
+      tasks = tests.map { |test| test.tasks.where(_type: task_type) }
       tasks.empty? ? [0, 0, 0, 0, 0] : tasks_values(tasks)
     end
 

@@ -114,7 +114,7 @@ module Validators
 
       # for each supplemental data item (RACE, ETHNICITY, PAYER, SEX)
       sup_keys.each do |sup_key|
-        expect_sup_val = (ex_sup[sup_key] || {}).reject { |k, v| (k.blank? || v.blank? || v == 'UNK') }
+        expect_sup_val = (ex_sup[sup_key] || {}).reject { |k, v| k.blank? || v.blank? || v == 'UNK' }
         report_sup_val = reported_sup.nil? ? nil : reported_sup[sup_key]
         # keys_and_ids used to hold information that is displayed with an execution error. the variable also rhymes
         keys_and_ids[:sup_key] = sup_key

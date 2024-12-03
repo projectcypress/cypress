@@ -3,7 +3,7 @@
 module ChecklistTestsHelper
   def disable_qrda_submission?
     # only disable if none of the measures have all good checklist criteria
-    @product_test.checked_criteria.group_by(&:measure_id).values.all? { |cc_group| cc_group.any? { |cc| !cc.checklist_complete? } }
+    @product_test.checked_criteria.group_by(&:measure_id).values.all? { |cc_group| cc_group.any? { |cc| !cc.checklist_complete } }
   end
 
   def checklist_test_criteria_attribute(criteria, attribute_index, include_vs: false)
@@ -60,7 +60,7 @@ module ChecklistTestsHelper
   end
 
   def coded_attribute?(criteria, attribute_index)
-    return unless criteria['dataElementAttributes']&.any?
+    return false unless criteria['dataElementAttributes']&.any?
 
     true if criteria['dataElementAttributes'][attribute_index]['attribute_valueset']
   end

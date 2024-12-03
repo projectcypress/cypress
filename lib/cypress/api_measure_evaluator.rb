@@ -63,12 +63,11 @@ module Cypress
       # getting measures from bundles is a little convoluted
       bundles = parsed_api_object(call_get_bundles)
       bundles.each do |bundle|
-        measures_list = []
         measures_link = extract_link(bundle, 'measures')
         bundle_id = measures_link.split('/')[2]
         measures = parsed_api_object(call_get_measures(measures_link))
-        measures.each do |measure|
-          measures_list << measure['hqmf_id']
+        measures_list = measures.map do |measure|
+          measure['hqmf_id']
         end
 
         # create vendor
@@ -281,7 +280,7 @@ module Cypress
         oids = ValueSet.where('concepts.code' => problem.value).distinct(:oid)
         problem_array += oids
       end
-      return true if problem_array.include? filters['problem']
+      true if problem_array.include? filters['problem']
     end
 
     def filter_demographics(doc, filters, creation_time)
@@ -303,7 +302,7 @@ module Cypress
       counter += 1 if filters.value?(doc.at_xpath(ethnic_xpath).value)
       counter += 1 if filters.value?(payer_value)
       filters['age'] = age_filter_holder if age_filter_holder
-      return true if counter == 2
+      true if counter == 2
     end
 
     def compare_age(doc, age_filter, creation_time)
@@ -483,7 +482,7 @@ module Cypress
 
       # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
       cat3_submission_program = if pt&.product&.c3_test
-                                  pt&.measures&.first&.reporting_program_type == 'ep' ? 'MIPS_INDIV' : false
+                                  pt.measures&.first&.reporting_program_type == 'ep' ? 'MIPS_INDIV' : false
                                 else
                                   false
                                 end

@@ -117,7 +117,7 @@ class FilteringTestTest < ActiveJob::TestCase
     test1.create_tasks
     test2.create_tasks
 
-    test1.options['filters'].each do |k, _v|
+    test1.options['filters'].each_key do |k|
       assert_equal test1.options['filters'][k], test2.options['filters'][k], 'random repeatability error: filtering test filters do not match'
     end
   end

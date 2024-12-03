@@ -28,9 +28,8 @@ module Cypress
     end
 
     def self.create_cda_ident_query(id_list, oid)
-      identifiers = []
-      id_list.each do |id|
-        identifiers << { 'ids' => { '$elemMatch' => { 'namingSystem' => oid, 'value' => id } } }
+      identifiers = id_list.map do |id|
+        { 'ids' => { '$elemMatch' => { 'namingSystem' => oid, 'value' => id } } }
       end
       { '$or' => identifiers }
     end

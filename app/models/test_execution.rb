@@ -86,7 +86,7 @@ class TestExecution
   end
 
   def incomplete?
-    (!passing? && !failing? && !errored?)
+    !passing? && !failing? && !errored?
   end
 
   def pass

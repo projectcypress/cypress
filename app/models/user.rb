@@ -16,7 +16,7 @@ class User
   field  :confirmed_at, type: Time, default: proc { Settings.current.auto_confirm ? Time.now.in_time_zone : nil }
   field  :confirmation_sent_at, type: Time
   ## Database authenticatable
-  field :email,              type: String, default: ''
+  field :email, type: String, default: ''
   field :unconfirmed_email
   field :encrypted_password, type: String, default: ''
 
@@ -106,8 +106,8 @@ class User
     add_role dr if dr.present?
   end
 
-  def user_role?(*args)
-    has_role?(*args) || Settings.current.ignore_roles
+  def user_role?(*)
+    has_role?(*) || Settings.current.ignore_roles
   end
 
   def assign_roles_and_email(params)

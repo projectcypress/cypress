@@ -37,50 +37,41 @@ module Cypress
     def self.randomize_gender(patient, prng)
       rand_gender = %w[M F].sample(random: prng)
       gender_chars = patient.qdmPatient.get_data_elements('patient_characteristic', 'gender')
-      if gender_chars&.any? && gender_chars.first.dataElementCodes &&
-         gender_chars.first.dataElementCodes.any?
-        new_gender = gender_chars.first.dataElementCodes.first
-        new_gender['code'] = rand_gender
-        new_gender['descriptor'] = rand_gender
-        gender_chars.first.dataElementCodes << new_gender
-        gender_chars.first.dataElementCodes.shift
-      else
-        raise 'Cannot find gender element'
-      end
+      raise 'Cannot find gender element' unless gender_chars&.any? && gender_chars.first.dataElementCodes&.any?
+
+      new_gender = gender_chars.first.dataElementCodes.first
+      new_gender['code'] = rand_gender
+      new_gender['descriptor'] = rand_gender
+      gender_chars.first.dataElementCodes << new_gender
+      gender_chars.first.dataElementCodes.shift
     end
 
     def self.randomize_race(patient, prng)
       race_element = patient.qdmPatient.get_data_elements('patient_characteristic', 'race')
       race_hash = APP_CONSTANTS['randomization']['races'].sample(random: prng)
-      if race_element&.any? && race_element.first.dataElementCodes &&
-         race_element.first.dataElementCodes.any?
-        new_race = race_element.first.dataElementCodes.first
-        new_race['code'] = race_hash['code']
-        new_race['system'] = race_hash['codeSystem']
-        new_race['codeSystem'] = race_hash['codeSystemName']
-        new_race['descriptor'] = race_hash['name']
-        race_element.first.dataElementCodes << new_race
-        race_element.first.dataElementCodes.shift # get rid of existing dataElementCode
-      else
-        raise 'Cannot find race element'
-      end
+      raise 'Cannot find race element' unless race_element&.any? && race_element.first.dataElementCodes&.any?
+
+      new_race = race_element.first.dataElementCodes.first
+      new_race['code'] = race_hash['code']
+      new_race['system'] = race_hash['codeSystem']
+      new_race['codeSystem'] = race_hash['codeSystemName']
+      new_race['descriptor'] = race_hash['name']
+      race_element.first.dataElementCodes << new_race
+      race_element.first.dataElementCodes.shift # get rid of existing dataElementCode
     end
 
     def self.randomize_ethnicity(patient, prng)
       ethnicity_element = patient.qdmPatient.get_data_elements('patient_characteristic', 'ethnicity')
       ethnicity_hash = APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng)
-      if ethnicity_element&.any? && ethnicity_element.first.dataElementCodes &&
-         ethnicity_element.first.dataElementCodes.any?
-        new_ethnicity = ethnicity_element.first.dataElementCodes.first
-        new_ethnicity['code'] = ethnicity_hash['code']
-        new_ethnicity['system'] = ethnicity_hash['codeSystem']
-        new_ethnicity['codeSystem'] = ethnicity_hash['codeSystemName']
-        new_ethnicity['descriptor'] = ethnicity_hash['name']
-        ethnicity_element.first.dataElementCodes << new_ethnicity
-        ethnicity_element.first.dataElementCodes.shift # get rid of existing dataElementCode
-      else
-        raise 'Cannot find ethnicity element'
-      end
+      raise 'Cannot find ethnicity element' unless ethnicity_element&.any? && ethnicity_element.first.dataElementCodes&.any?
+
+      new_ethnicity = ethnicity_element.first.dataElementCodes.first
+      new_ethnicity['code'] = ethnicity_hash['code']
+      new_ethnicity['system'] = ethnicity_hash['codeSystem']
+      new_ethnicity['codeSystem'] = ethnicity_hash['codeSystemName']
+      new_ethnicity['descriptor'] = ethnicity_hash['name']
+      ethnicity_element.first.dataElementCodes << new_ethnicity
+      ethnicity_element.first.dataElementCodes.shift # get rid of existing dataElementCode
     end
 
     def self.randomize_address(patient)
@@ -130,20 +121,17 @@ module Cypress
     def self.randomize_payer(patient, prng)
       payer_element = patient.qdmPatient.get_data_elements('patient_characteristic', 'payer')
       payer_hash = sample_payer(patient, prng)
-      if payer_element&.any? && payer_element.first.dataElementCodes &&
-         payer_element.first.dataElementCodes.any?
-        new_payer = payer_element.first.dataElementCodes.first
-        new_payer['code'] = payer_hash['code'].to_s
-        new_payer['system'] = payer_hash['codeSystem']
-        new_payer['codeSystem'] = payer_hash['codeSystemName']
-        new_payer['descriptor'] = payer_hash['name']
-        payer_element.first.dataElementCodes << new_payer
-        payer_element.first.dataElementCodes.shift # get rid of existing dataElementCode
-        payer_element.first.relevantPeriod = QDM::Interval.new(get_random_payer_start_date(patient, new_payer['code'] == '1', prng), nil)
-        patient.medicare_beneficiary_identifier = new_payer['code'] == '1' ? Cypress::MbiGenerator.generate : nil
-      else
-        raise 'Cannot find payer element'
-      end
+      raise 'Cannot find payer element' unless payer_element&.any? && payer_element.first.dataElementCodes&.any?
+
+      new_payer = payer_element.first.dataElementCodes.first
+      new_payer['code'] = payer_hash['code'].to_s
+      new_payer['system'] = payer_hash['codeSystem']
+      new_payer['codeSystem'] = payer_hash['codeSystemName']
+      new_payer['descriptor'] = payer_hash['name']
+      payer_element.first.dataElementCodes << new_payer
+      payer_element.first.dataElementCodes.shift # get rid of existing dataElementCode
+      payer_element.first.relevantPeriod = QDM::Interval.new(get_random_payer_start_date(patient, new_payer['code'] == '1', prng), nil)
+      patient.medicare_beneficiary_identifier = new_payer['code'] == '1' ? Cypress::MbiGenerator.generate : nil
     end
 
     def self.get_random_payer_start_date(patient, is_medicare, prng)

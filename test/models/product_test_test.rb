@@ -121,7 +121,7 @@ class ProductTestTest < ActiveJob::TestCase
 
   def compare_results(test1, test2)
     # compare expected results
-    test1.expected_results.each do |k, _v|
+    test1.expected_results.each_key do |k|
       assert_equal test1.expected_results[k]['IPP'], test2.expected_results[k]['IPP'], 'random repeatability error: IPP results different'
       assert_equal test1.expected_results[k]['DENOM'], test2.expected_results[k]['DENOM'], 'random repeatability error: DENOM results different'
       assert_equal test1.expected_results[k]['NUMER'], test2.expected_results[k]['NUMER'], 'random repeatability error: NUMER results different'

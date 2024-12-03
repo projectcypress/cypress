@@ -85,9 +85,8 @@ module Validators
       entered_values = checked_criteria.entered_values
       return unless entered_values&.count&.positive?
 
-      values_found = []
-      entered_values.each do |entered_value|
-        values_found << find_entered_value(entered_value, checked_criteria)
+      values_found = entered_values.map do |entered_value|
+        find_entered_value(entered_value, checked_criteria)
       end
 
       return unless values_found.compact.count == entered_values.count
