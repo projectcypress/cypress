@@ -49,13 +49,13 @@
                 <% Bundle.available.all.each do |bundle| %>
 
                   <% if @vendor %>
-                    <div style="display: inline-block">
+                    <div style="display: inline">
                       <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox vendor-checkbox",
                                          checked: bundle == @bundle %>
                     </div>
                     <%# create qrda download package of vendor patients #%>
                   <% else %>
-                    <div style="display: inline-block">
+                    <div style="display: inline">
                       <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox bundle-checkbox",
                                          checked: bundle == @bundle %>
                     </div>
