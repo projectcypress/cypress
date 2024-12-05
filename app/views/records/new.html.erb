@@ -8,7 +8,7 @@
     <legend class="control-label">Annual Update Bundle</legend>
     <%= f.form_group help: "Select the annual update bundle with which the uploaded patients should be associated" do %>
       <% Bundle.available.each do |bundle| %>
-        <div style="display: inline-block">
+        <div style="display: inline">
 
           <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox",
                              checked: bundle == default_selection %>
