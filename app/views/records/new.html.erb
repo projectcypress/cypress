@@ -1,14 +1,14 @@
-<div class="panel panel-default">
-<div class="panel-heading"><h1>Import Patients</h1></div>
+<div class="card card-default">
+<div class="card-header"><h1>Import Patients</h1></div>
 
 <%= bootstrap_form_tag url: vendor_records_path(@vendor), html: {id: "add_vendor_patients_form"} do |f| %>
-  <div class="panel-body">
+  <div class="card-body">
     <%# select default as bundle selected from previous page (unless deprecated) or Bundle active default#%>
     <% default_selection = @default.deprecated ? Bundle.default : @default %>
     <legend class="control-label">Annual Update Bundle</legend>
     <%= f.form_group help: "Select the annual update bundle with which the uploaded patients should be associated" do %>
       <% Bundle.available.each do |bundle| %>
-        <div style="display: inline-block">
+        <div style="display: inline">
 
           <%= f.radio_button :bundle_id, bundle.id, label: bundle.title, label_class: "btn btn-checkbox",
                              checked: bundle == default_selection %>
@@ -18,11 +18,11 @@
     <%= f.form_group help: "Including logic highlighting provides a detailed view of measure calculation but impacts the calculation speed" do %>
       <%= f.check_box :include_highlighting, label: 'Include Highlighting?', label_class: "btn btn-checkbox", checked: false %>
     <% end %>
-    <%= f.file_field :file, label: 'Add Patients', accept: 'application/zip' %>
+    <%= f.file_field :file, label: 'Add Patients', accept: 'application/zip', label_class: "form-label" %>
 
   </div>
 
-  <div class="panel-footer">
+  <div class="card-footer">
     <%= hidden_field_tag 'vendor_id', @vendor.id  %>
     <%= f.submit 'Import Patients', :class => "btn btn-success", :id => "submit_button", data: { disable_with: "Please wait..." } %>
     <%= submit_tag "Cancel", :class => "btn btn-default", :type => "button", :onclick => "history.back()" %>

@@ -1,6 +1,6 @@
 $gray: #999;
 $white: #fff;
-$table-row-odd-bg: lighten($brand-primary, 50%);
+$table-row-odd-bg: lighten($primary, 50%);
 
 .description-heading {
   font-size: 1.25em;
@@ -36,6 +36,11 @@ $table-row-odd-bg: lighten($brand-primary, 50%);
 .div-table-cell {
   display: table-row;
   padding: 3px 10px;
+}
+
+.panel-heading {
+  background-color: $primary;
+  color: $white;
 }
 
 .div-table-head {

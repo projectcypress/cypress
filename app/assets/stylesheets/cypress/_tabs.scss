@@ -1,14 +1,15 @@
 // overwrite the styles for jQuery-UI tabs with
 // reasonable styles for both vertical and horizontal tabs
+$tab-font-color: #212121;
 
 .ui-tabs-nav.ui-widget-header {
   background: $body-bg;
   border-radius: 0;
 
   .ui-state-default {
-    background: $gray-lighter;
-    border-color: $gray-lighter;
-    color: $text-color;
+    background: $gray-200;
+    border-color: $gray-200;
+    color: $text-muted;
     white-space: normal;
 
     .ui-tabs-anchor {
@@ -18,7 +19,7 @@
 
   .ui-tabs-active.ui-state-active {
     background: $body-bg;
-    border-color: $gray-light;
+    border-color: $gray-300;
 
     .ui-tabs-anchor {
       font-weight: bold;
@@ -49,7 +50,7 @@
 .ui-tabs:not(.ui-tabs-vertical) {
 
   > .ui-tabs-nav {
-    border-bottom: 1px solid $gray-light;
+    border-bottom: 1px solid $gray-200;
     padding-left: 0;
 
     li {
@@ -136,7 +137,7 @@
 
 .file-error-tabs {
   > .ui-tabs-nav {
-    border-right: 2px solid $gray-light;
+    border-right: 2px solid $gray-300;
 
     li {
       border: 0;
@@ -168,8 +169,8 @@
     }
 
     .ui-tabs-active.ui-state-active {
-      background: $gray-lighter;
-      border-color: $gray-lighter;
+      background: $gray-200;
+      border-color: $gray-200;
       margin: 0;
 
       &::after {
@@ -177,7 +178,7 @@
         position: absolute;
         top: .25em;
         right: -12px;
-        border-color: transparent $gray-light transparent transparent;
+        border-color: transparent $gray-300 transparent transparent;
         border-style: solid;
         border-width: 13px;
       }
