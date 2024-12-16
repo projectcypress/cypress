@@ -6,7 +6,7 @@
 # frozen_string_literal: true
 
 require 'simplecov'
-require 'phantomjs'
+# require 'phantomjs'
 SimpleCov.start 'rails'
 
 module SimpleCov
@@ -39,9 +39,9 @@ require 'capybara/accessible'
 
 require 'axe-cucumber-steps'
 
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, phantomjs: Phantomjs.path)
-end
+# Capybara.register_driver :poltergeist do |app|
+#   Capybara::Poltergeist::Driver.new(app, phantomjs: Phantomjs.path)
+# end
 
 def default_drivers
   if ENV['IN_BROWSER']
@@ -144,6 +144,7 @@ Capybara.asset_host = 'http://localhost:3000'
 # # # # # # # # # # #
 
 def wait_for_all_delayed_jobs_to_run
+  sleep(1)
   Delayed::Job.each do |delayed_job|
     Delayed::Worker.new.run(delayed_job)
   end

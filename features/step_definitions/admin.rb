@@ -40,11 +40,11 @@ And(/^the user clicks import bundle$/) do
 end
 
 And(/^the driver is setup for accessability testing$/) do
-  # setup_accessabilty
+  setup_accessabilty
 end
 
 And(/^the driver is returned to the default$/) do
-  # default_drivers
+  default_drivers
 end
 
 # # # # # # # #
