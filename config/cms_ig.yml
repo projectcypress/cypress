@@ -51,6 +51,9 @@ CMS Programs:
       - PCF
       - MCP_STANDARD
       - MCP_FQHC
+      - APP_PLUS_INDIV
+      - APP_PLUS_GROUP
+      - APP_PLUS_APMENTITY
   eh:
     '2020':
       - HQR_PI
@@ -226,6 +229,8 @@ Program Criterion:
       - PCF
       - MCP_STANDARD
       - MCP_FQHC
+      - APP_PLUS_INDIV
+      - APP_PLUS_GROUP
   Virtual Group Identifier:
     name: 'Virtual Group Identifier'
     description:
@@ -256,6 +261,7 @@ Program Criterion:
       - CPCPLUS
       - PCF
       - MCP_STANDARD
+      - APP_PLUS_INDIV
   CPCPLUS APM Entity Identifier:
     name: 'CPCPLUS APM Entity Identifier'
     description:
@@ -277,7 +283,7 @@ Program Criterion:
     description:
       ep: 'This is the MCP Participant Identifier.'
     conf:
-      ep: '(CONF:CMS_101)'
+      ep: '(CONF:CMS_109)'
     programs:
       - MCP_STANDARD
       - MCP_FQHC
@@ -290,6 +296,7 @@ Program Criterion:
     programs:
       - MIPS_APMENTITY
       - MIPS_APP1_APMENTITY
+      - APP_PLUS_APMENTITY
   MIPS Subgroup Identifier:
     name: 'MIPS Subgroup Identifier'
     description:
