@@ -24,6 +24,26 @@ namespace :cypress do
     end
 
     task all: %i[environment database temp_files]
+
+    task :test_execution, [:date] => :setup do |_, args|
+      delete_before_date = args.date
+      tasks = Task.where(_type: 'CMSProgramTask')
+      task_ids = tasks.pluck(:_id)
+      test_executions = TestExecution.where(:task_id.in => task_ids, :created_at.lte => delete_before_date)
+      test_execution_ids = test_executions.pluck(:_id)
+      patients = TestExecutionPatient.where(:correlation_id.in => test_execution_ids)
+      patient_ids = patients.pluck(:_id)
+
+      patients.delete
+      test_executions.delete
+
+      Artifact.where(:test_execution_id.in => test_execution_ids).destroy
+      CQM::IndividualResult.where(:patient_id.in => patient_ids).delete
+      test_execution_ids.each do |test_execution_id|
+        CQM::IndividualResult.where(correlation_id: test_execution_id).delete
+        CQM::TestExecutionPatient.where(correlation_id: test_execution_id).delete
+      end
+    end
   end
   # Usage: bundle exec rake cypress:recalculate:product_tests[5ed687f566105e4e3b9737a0]
   namespace :recalculate do
