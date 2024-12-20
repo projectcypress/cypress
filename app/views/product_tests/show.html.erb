@@ -24,13 +24,13 @@
       <% end %>
     </dl>
 
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h1 class="panel-title test-step">
+    <div class="card card-info">
+      <div class="card-header">
+        <h1 class="card-title lead test-step">
           1 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> Download Test Deck
         </h1>
       </div>
-      <div class="panel-body">
+      <div class="card-body">
         <%= form_for @product_test, url: { action: 'patients' }, :html => { :method => 'GET' } do |f| %>
           <%= button_tag(type: 'submit', class: 'btn btn-info btn-block') do %>
             <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download CAT 1 (.zip)
@@ -42,7 +42,7 @@
 
   <div class = 'col-sm-6'>
     <h1 class = 'pull-left'>Current Test Status</h1>
-    <button class = 'btn btn-primary pull-right'>
+    <button class = 'btn btn-primary float-end'>
       <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download Full Report
     </button>
     <table class = 'table table-condensed'>
@@ -91,13 +91,13 @@
 
   <% if c1 %>
     <div id = 'cat1'>
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <h1 class="panel-title">
+      <div class="card card-info">
+        <div class="card-header">
+          <h1 class="card-title lead">
             2 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> <%= "Upload for #{tab_label_1}" %>
           </h1>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <p class = 'description'>
             <%= "Upload your CAT 1 zip file to get test results for #{tab_label_1} certifications. This will automatically run a test execution." %>
           </p>
@@ -114,13 +114,13 @@
 
   <% if c2 %>
     <div id = 'cat3'>
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <h1 class="panel-title">
+      <div class="card card-info">
+        <div class="card-header">
+          <h1 class="card-title lead">
             2 <%= icon('fas fa-fw', 'bolt', :"aria-hidden" => true) %> <%= "Upload for #{tab_label_2}" %>
           </h1>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <p class = 'description'>
             <%= "Upload your CAT 3 XML file to get test results for #{tab_label_2} certifications. This will automatically run a test execution." %>
           </p>
