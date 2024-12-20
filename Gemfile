@@ -18,7 +18,7 @@ gem 'os'
 
 gem 'cqm-models', '~> 4.2.0'
 gem 'cqm-parsers', '~> 4.1.1.0'
-gem 'cqm-reports', '~> 4.1.2'
+gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: '2025_IG_update'
 gem 'cqm-validators', '~> 4.0.5'
 
 # # Use faker to generate addresses
