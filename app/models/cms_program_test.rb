@@ -45,6 +45,9 @@ class CMSProgramTest < ProductTest
       next if crit.criterion_verified
 
       msg_type = crit.criterion_optional ? :warning : :error
+      # Only include warnings if the test includes an entered value
+      next if msg_type == :warning && (crit.entered_value.nil? || crit.entered_value.empty?)
+
       msg = if msg_type == :warning
               "Warning - #{crit.criterion_name} not complete"
             else
