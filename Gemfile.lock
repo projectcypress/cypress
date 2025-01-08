@@ -7,23 +7,6 @@ GIT
       railties (>= 3.2.16)
 
 GIT
-  remote: https://github.com/projecttacoma/cqm-reports
-  revision: 80c24a2e653b47a211257cfb257d0ed49e3678b4
-  branch: 2025_IG_update
-  specs:
-    cqm-reports (4.1.2)
-      cqm-models (~> 4.0)
-      cqm-validators (~> 4.0)
-      erubis (~> 2.7)
-      log4r (~> 1.1)
-      memoist (~> 0.9)
-      mongoid-tree (> 2.0)
-      mustache
-      nokogiri (>= 1.16.2)
-      uuid (~> 2.3)
-      zip-zip (~> 0.3)
-
-GIT
   remote: https://github.com/turbolinks/turbolinks-classic
   revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
   branch: master
@@ -206,6 +189,17 @@ GEM
       rubyzip (~> 1.3)
       typhoeus
       uuid (~> 2.3.7)
+      zip-zip (~> 0.3)
+    cqm-reports (4.1.3)
+      cqm-models (~> 4.0)
+      cqm-validators (~> 4.0)
+      erubis (~> 2.7)
+      log4r (~> 1.1)
+      memoist (~> 0.9)
+      mongoid-tree (> 2.0)
+      mustache
+      nokogiri (>= 1.16.2)
+      uuid (~> 2.3)
       zip-zip (~> 0.3)
     cqm-validators (4.0.5)
       nokogiri (>= 1.16.2)
@@ -683,7 +677,7 @@ DEPENDENCIES
   codecov
   cqm-models (~> 4.2.0)
   cqm-parsers (~> 4.1.1.0)
-  cqm-reports!
+  cqm-reports (~> 4.1.3)
   cqm-validators (~> 4.0.5)
   cucumber-rails
   daemons
