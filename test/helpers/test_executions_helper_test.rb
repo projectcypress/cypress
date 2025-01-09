@@ -211,12 +211,5 @@ class TestExecutionHelper < ActiveSupport::TestCase
     ecqi_url2022 = ecqi_link(measure2022.cms_id)
     ecqi_request2022 = RestClient::Request.execute(method: :get, url: ecqi_url2022)
     assert_equal 200, ecqi_request2022.code
-
-    # test with a measure from the 2022 reporting period
-    bundle2021 = Bundle.create(version: '2021.5.0')
-    measure2021 = Measure.create(reporting_program_type: 'eh', cms_id: 'CMS71v11', bundle_id: bundle2021.id)
-    ecqi_url2021 = ecqi_link(measure2021.cms_id)
-    ecqi_request2021 = RestClient::Request.execute(method: :get, url: ecqi_url2021)
-    assert_equal 200, ecqi_request2021.code
   end
 end

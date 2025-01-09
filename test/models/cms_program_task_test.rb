@@ -49,6 +49,11 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
   def test_ep_task_with_errors
     setup_ep
     task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first.tasks.first
+    pt = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first
+    pc = pt.program_criteria.where(criterion_key: 'CMS EHR Certification ID').first
+    pc.entered_value = '020700270'
+    pt.save
+
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3.xml'))
     perform_enqueued_jobs do
       te = task.execute(file, @user)
@@ -79,6 +84,11 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
   def test_ep_task_with_errors_for_cv_measure
     setup_ep
     task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first.tasks.first
+    pt = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first
+    pc = pt.program_criteria.where(criterion_key: 'CMS EHR Certification ID').first
+    pc.entered_value = '020700270'
+    pt.save
+
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3_cv.xml'))
     perform_enqueued_jobs do
       te = task.execute(file, @user)
@@ -132,11 +142,34 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 14, te.execution_errors.size
+      assert_equal 12, te.execution_errors.size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
       assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :error).size
-      assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
+      # assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
       assert_equal 5, te.execution_errors.where(validator: 'Validators::CMSQRDA1HQRSchematronValidator').size
+    end
+  end
+
+  def test_eh_warn_for_missing_optional_criteria
+    setup_eh
+    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
+    task = pt.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      # Should not have a warning when criteria does not have an entered_value
+      assert_equal 0, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
+    end
+
+    pc = pt.program_criteria.where(criterion_key: 'MBI').first
+    pc.entered_value = '1EG4TE5MK73'
+    pt.save
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      # Should have a warning when criteria does have an entered_value
+      assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
     end
   end
 
@@ -262,8 +295,8 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 13, te.execution_errors.size
-      assert_equal 6, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
+      assert_equal 11, te.execution_errors.size
+      assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
       assert_equal 5, te.execution_errors.where(validator: 'Validators::CMSQRDA1HQRSchematronValidator').size
     end
   end

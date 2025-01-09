@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 CMS 2025 QRDA Category III
-Version 1.0 
+Version 1.1 
 
     THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
     THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -82,8 +82,25 @@ Version 1.0
         id/@root and id/@extension), then it SHALL contain a @value.
  
  
+    Changes made for the 2025 CMA QRDA Category III Schematron version 1.1:
  
-                
+        QRDA Category III Report CMS V9
+            informationRecipient
+                  Added assertions to implement conformance for the added program names (see voc.xml):  CMS_141, CMS_142
+            participant
+                  Added assertions to implement conformance if participant type = IND:  CMS_128, CMS_129, CMS_130, CMS_143
+            documentationOf
+                  Adjusted existing assignedEntity and intendedRecipient conformance statements to include APP_PLUS and SSP_PI program names 
+             
+        voc.xml
+            Added program names:
+                APP_PLUS_INDIV
+                APP_PLUS_GROUP
+                APP_PLUS_APMENTITY
+                SSP_PI_INDIV
+                SSP_PI_GROUP
+                SSP_PI_APMENTITY
+            
     Changes made for the 2025 CMS QRDA Category III Schematron version 1.0:
     
         QRDA Category III Report CMS V9
@@ -145,7 +162,7 @@ Version 1.0
      NOTE: Schematrons may be updated after initial publication to address stakeholder or policy requirements. 
      Be sure to revisit the eCQI Resource Center (https://ecqi.healthit.gov/) for updated resources prior to use. 
 
-Fri Jul 19 11:23:34 MDT 2024
+Tue Dec 17 11:14:48 MST 2024
 -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns="urn:hl7-org:v3" xmlns:cda="urn:hl7-org:v3" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:svs="urn:ihe:iti:svs:2008" xmlns:voc="http://www.lantanagroup.com/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <sch:ns prefix="voc" uri="http://www.lantanagroup.com/voc" />
@@ -406,26 +423,26 @@ Fri Jul 19 11:23:34 MDT 2024
   <sch:pattern id="QRDA_Category_III-template-pattern-errors">
     <sch:rule id="QRDA_Category_III_Report-template-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.1'][@extension='2020-12-01']]">
       <!-- Implied QRDA Cat III Report V9 -->
-      <sch:assert id="a-CMS_1-error" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01'])=1">SHALL contain exactly one [1..1] templateId (CONF:CMS_1) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.27.1.2" (CONF:CMS_2).SHALL contain exactly one [1..1] @extension="2024-07-01" (CONF:CMS_3).</sch:assert>
+      <sch:assert id="a-CMS_1-error" test="count(cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01'])=1">SHALL contain exactly one [1..1] templateId (CONF:CMS_1) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.10.20.27.1.2" (CONF:CMS_2).SHALL contain exactly one [1..1] @extension="2024-12-01" (CONF:CMS_3).</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="QRDA_Category_III_CMS-main-pattern-errors">
-    <sch:rule id="QRDA_Category_III_CMS-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]">
+    <sch:rule id="QRDA_Category_III_CMS-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]">
       <sch:assert id="a-5562-17238_C01-error" test="count(cda:confidentialityCode)=1">SHALL contain exactly one [1..1] confidentialityCode (CONF:5562-17238_C01).</sch:assert>
       <sch:assert id="a-5562-17239-error" test="count(cda:languageCode)=1">SHALL contain exactly one [1..1] languageCode (CONF:5562-17239).</sch:assert>
       <sch:assert id="a-CMS_7-error" test="count(cda:informationRecipient)=1">SHALL contain exactly one [1..1] informationRecipient (CONF:CMS_7).</sch:assert>
       <sch:assert id="a-5562-18170_C01-error" test="count(cda:documentationOf)=1">SHALL contain exactly one [1..1] documentationOf (CONF:5562-18170_C01).</sch:assert>
       <sch:assert id="a-5562-17217-error" test="count(cda:component)=1">SHALL contain exactly one [1..1] component (CONF:5562-17217).</sch:assert>
     </sch:rule>
-    <sch:rule id="QRDA_Category_III_CMS-confidentialityCode-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:confidentialityCode">
+    <sch:rule id="QRDA_Category_III_CMS-confidentialityCode-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:confidentialityCode">
       <sch:assert id="a-CMS_4-error" test="@code='N'">This confidentialityCode SHALL contain exactly one [1..1] @code="N" Normal (CodeSystem: HL7Confidentiality urn:oid:2.16.840.1.113883.5.25) (CONF:CMS_4).</sch:assert>
     </sch:rule>
-    <sch:rule id="QRDA_Category_III_CMS-languageCode-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:languageCode">
+    <sch:rule id="QRDA_Category_III_CMS-languageCode-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:languageCode">
       <sch:assert id="a-5562-19669_C01-error" test="@code='en'">This languageCode SHALL contain exactly one [1..1] @code="en" English (CodeSystem: Language urn:oid:2.16.840.1.113883.6.121) (CONF:5562-19669_C01).</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="QRDA_Category_III_CMS-informationRecipient-pattern-errors">
-    <sch:rule id="QRDA_Category_III_CMS-informationRecipient-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:informationRecipient">
+    <sch:rule id="QRDA_Category_III_CMS-informationRecipient-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:informationRecipient">
       <!-- Set variable  $intendedRecipient-info = the intended recipient type (MIPS,  PCF...) -->
       <sch:let name="intendedRecipient-info" value="/cda:ClinicalDocument/cda:informationRecipient/cda:intendedRecipient/cda:id/@extension" />
       <!-- For debugging.. -->
@@ -439,57 +456,69 @@ Fri Jul 19 11:23:34 MDT 2024
       <sch:assert id="a-CMS_97-error" test="($intendedRecipient-info='PCF' and count(../cda:component/cda:structuredBody/cda:component/cda:section/cda:entry/cda:organizer/cda:component/cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.25'][@extension='2022-05-01']]) &gt; 0) or $intendedRecipient-info!='PCF'">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="PCF", then Performance Rate for Proportion Measure – CMS (V4) SHALL be present (CONF:CMS_97).</sch:assert>
       <sch:assert id="a-CMS_98-error" test="($intendedRecipient-info='PCF' and count(../cda:participant[@typeCode='DEV']/cda:associatedEntity/cda:id[@root='2.16.840.1.113883.3.2074.1'][@extension]) &gt; 0) or $intendedRecipient-info!='PCF'">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="PCF", then CMS EHR Certification ID SHALL be present (CONF:CMS_98).</sch:assert>
       <!-- CMS-113 removed for 2025: If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="PCF", then Promoting Interoperability Section (V3) SHALL NOT be present -->
-      <!-- New conformance statements for 2025... -->
+      <!-- New conformance statements for 2025 v1.0... -->
       <sch:assert id="a-CMS_131-error" test="$intendedRecipient-info != 'MCP_STANDARD' or ($intendedRecipient-info='MCP_STANDARD' and count(../cda:component/cda:structuredBody/cda:component/cda:section/cda:templateId[@root='2.16.840.1.113883.10.20.27.2.3'][@extension='2022-05-01']) &gt; 0) or $intendedRecipient-info!='MCP_STANDARD'">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MCP_STANDARD", then QRDA Category III Measure Section – CMS (V5) SHALL be present (CONF:CMS_131).</sch:assert>
       <sch:assert id="a-CMS_132-error" test="$intendedRecipient-info != 'MCP_STANDARD' or ($intendedRecipient-info='MCP_STANDARD' and count(../cda:component/cda:structuredBody/cda:component/cda:section/cda:entry/cda:organizer/cda:component/cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.25'][@extension='2022-05-01']]) &gt; 0) or $intendedRecipient-info!='MCP_STANDARD'">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MCP_STANDARD", then Performance Rate for Proportion Measure – CMS (V4) SHALL be present (CONF:CMS_132).</sch:assert>
       <sch:assert id="a-CMS_133-error" test="$intendedRecipient-info != 'MCP_STANDARD' or ($intendedRecipient-info='MCP_STANDARD' and count(../cda:participant[@typeCode='DEV']/cda:associatedEntity/cda:id[@root='2.16.840.1.113883.3.2074.1'][@extension]) &gt; 0) or $intendedRecipient-info!='MCP_STANDARD'">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MCP_STANDARD", then CMS EHR Certification ID SHALL be present (CONF:CMS_133).</sch:assert>
       <sch:assert id="a-CMS_135-error" test="$intendedRecipient-info != 'MCP_FQHC' or ($intendedRecipient-info='MCP_FQHC' and count(../cda:component/cda:structuredBody/cda:component/cda:section/cda:templateId[@root='2.16.840.1.113883.10.20.27.2.3'][@extension='2022-05-01']) &gt; 0) or $intendedRecipient-info!='MCP_FQHC'">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MCP_FQHC", then QRDA Category III Measure Section – CMS (V5) SHALL be present (CONF:CMS_135).</sch:assert>
       <sch:assert id="a-CMS_136-error" test="$intendedRecipient-info != 'MCP_FQHC' or ($intendedRecipient-info='MCP_FQHC' and count(../cda:component/cda:structuredBody/cda:component/cda:section/cda:entry/cda:organizer/cda:component/cda:observation[cda:templateId[@root='2.16.840.1.113883.10.20.27.3.25'][@extension='2022-05-01']]) &gt; 0) or $intendedRecipient-info!='MCP_FQHC'">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MCP_FQHC", then Performance Rate for Proportion Measure – CMS (V4) SHALL be present (CONF:CMS_136).</sch:assert>
       <sch:assert id="a-CMS_137-error" test="$intendedRecipient-info != 'MCP_FQHC' or ($intendedRecipient-info='MCP_FQHC' and count(../cda:participant[@typeCode='DEV']/cda:associatedEntity/cda:id[@root='2.16.840.1.113883.3.2074.1'][@extension]) &gt; 0) or $intendedRecipient-info!='MCP_FQHC'">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MCP_FQHC", then CMS EHR Certification ID SHALL be present (CONF:CMS_137).</sch:assert>
+      <!-- New conformance statements for 2025 v1.1... -->
+      <sch:assert id="a-CMS_141-error" test="not(contains('SSP_PI_INDIV SSP_PI_GROUP SSP_PI_APMENTITY', $intendedRecipient-info)) or (contains('SSP_PI_INDIV SSP_PI_GROUP SSP_PI_APMENTITY', $intendedRecipient-info) and count(../cda:component/cda:structuredBody/cda:component/cda:section/cda:templateId[@root='2.16.840.1.113883.10.20.27.2.5'][@extension='2020-12-01']) &gt; 0)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="SSP_PI_INDIV" or "SSP_PI_GROPU" or "SSP_PI_APMENTITY", then Promoting Interoperability Measure Section (V3) SHALL be present (CONF:CMS_141).</sch:assert>
+      <sch:assert id="a-CMS_142-error" test="not(contains('SSP_PI_INDIV SSP_PI_GROUP SSP_PI_APMENTITY', $intendedRecipient-info)) or (contains('SSP_PI_INDIV SSP_PI_GROUP SSP_PI_APMENTITY', $intendedRecipient-info) and count(../cda:component/cda:structuredBody/cda:component/cda:section/cda:templateId[@root='2.16.840.1.113883.10.20.27.2.3'][@extension='2022-05-01']) = 0 and count(../cda:component/cda:structuredBody/cda:component/cda:section/cda:templateId[@root='2.16.840.1.113883.10.20.27.2.4'][@extension='2020-12-01']) = 0)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="SSP_PI_INDIV" or "SSP_PI_GROPU" or "SSP_PI_APMENTITY", then QRDA Category III Measure Section – CMS (V5) and Improvement Activity Section (V3) SHALL NOT be present (CONF:CMS_142).(CONF:CMS_142).</sch:assert>
     </sch:rule>
-    <sch:rule id="QRDA_Category_III_CMS-informationRecipient-intendedRecipient-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:informationRecipient/cda:intendedRecipient">
+    <sch:rule id="QRDA_Category_III_CMS-informationRecipient-intendedRecipient-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:informationRecipient/cda:intendedRecipient">
       <sch:assert id="a-CMS_9-error" test="count(cda:id)=1">This intendedRecipient SHALL contain exactly one [1..1] id (CONF:CMS_9).</sch:assert>
     </sch:rule>
-    <sch:rule id="QRDA_Category_III_CMS-informationRecipient-intendedRecipient-id-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:informationRecipient/cda:intendedRecipient/cda:id">
+    <sch:rule id="QRDA_Category_III_CMS-informationRecipient-intendedRecipient-id-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:informationRecipient/cda:intendedRecipient/cda:id">
       <sch:assert id="a-CMS_10-error" test="@root='2.16.840.1.113883.3.249.7'">This id SHALL contain exactly one [1..1] @root="2.16.840.1.113883.3.249.7" CMS Program (CONF:CMS_10).</sch:assert>
-      <sch:assert id="a-CMS_11-error" test="@extension=document('voc.xml')/voc:systems/voc:system[@valueSetOid='2.16.840.1.113883.3.249.14.101']/voc:code/@value">This id SHALL contain exactly one [1..1] @extension, which SHALL be selected from ValueSet QRDA III CMS Program Name urn:oid:2.16.840.1.113883.3.249.14.101 STATIC 2024-07-01 (CONF:CMS_11).</sch:assert>
+      <sch:assert id="a-CMS_11-error" test="@extension=document('voc.xml')/voc:systems/voc:system[@valueSetOid='2.16.840.1.113883.3.249.14.101']/voc:code/@value">This id SHALL contain exactly one [1..1] @extension, which SHALL be selected from ValueSet QRDA III CMS Program Name urn:oid:2.16.840.1.113883.3.249.14.101 STATIC 2024-12-01 (CONF:CMS_11).</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="QRDA_Category_III_CMS-particpiant-pattern-errors">
     <!-- Participant as Location PCF Practice Site (typeCode = LOC)-->
-    <sch:rule id="QRDA_Category_III_CMS-participant-LOC-associatedEntity-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:participant[@typeCode='LOC']/cda:associatedEntity">
+    <sch:rule id="QRDA_Category_III_CMS-participant-LOC-associatedEntity-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:participant[@typeCode='LOC']/cda:associatedEntity">
       <sch:assert id="a-CMS_18-error" test="@classCode='SDLOC'">This associatedEntity SHALL contain exactly one [1..1] @classCode="SDLOC" Service Delivery Location (CONF:CMS_18).</sch:assert>
       <sch:assert id="a-CMS_101-error" test="count(cda:id[@root='2.16.840.1.113883.3.249.5.3'][@extension])=1">This associatedEntity SHALL contain exactly one [1..1] id (CONF:CMS_101) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.3.249.5.3" PCF Practice Site (CONF:CMS_102). SHALL contain exactly one [1..1] @extension (CONF:CMS_103).</sch:assert>
       <sch:assert id="a-CMS_22-error" test="count(cda:code)=1">This associatedEntity SHALL contain exactly one [1..1] code (CONF:CMS_22).</sch:assert>
       <sch:assert id="a-CMS_25-error" test="count(cda:addr)=1">This associatedEntity SHALL contain exactly one [1..1] addr (CONF:CMS_25).</sch:assert>
     </sch:rule>
-    <sch:rule id="QRDA_Category_III_CMS-participant-LOC-associatedEntity-code-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:participant[@typeCode='LOC']/cda:associatedEntity/cda:code">
+    <sch:rule id="QRDA_Category_III_CMS-participant-LOC-associatedEntity-code-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:participant[@typeCode='LOC']/cda:associatedEntity/cda:code">
       <sch:assert id="a-CMS_23-error" test="@code='394730007'">This code SHALL contain exactly one [1..1] @code="394730007" Healthcare Related Organization (CONF:CMS_23).</sch:assert>
       <sch:assert id="a-CMS_24-error" test="count(@codeSystem)=1">This code SHALL contain exactly one [1..1] @codeSystem (CodeSystem: SNOMED CT urn:oid:2.16.840.1.113883.6.96) (CONF:CMS_24).</sch:assert>
     </sch:rule>
     <!-- Particpant as device CMS EHR Certification ID (typeCode = DEV) -->
-    <sch:rule id="QRDA_Category_III_CMS-participant-DEV-associatedEntity-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:participant[@typeCode='DEV']/cda:associatedEntity">
+    <sch:rule id="QRDA_Category_III_CMS-participant-DEV-associatedEntity-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:participant[@typeCode='DEV']/cda:associatedEntity">
       <sch:assert id="a-CMS_88-error" test="@classCode='RGPR'">This associatedEntity SHALL contain exactly one [1..1] @classCode="RGPR" regulated product (CONF: CMS_88).</sch:assert>
       <sch:assert id="a-CMS_89-error" test="count(cda:id)=1">This associatedEntity SHALL contain exactly one [1..1] id (CONF: CMS_89).</sch:assert>
     </sch:rule>
-    <sch:rule id="QRDA_Category_III_CMS-participant-DEV-associatedEntity-id-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:participant[@typeCode='DEV']/cda:associatedEntity/cda:id">
+    <sch:rule id="QRDA_Category_III_CMS-participant-DEV-associatedEntity-id-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:participant[@typeCode='DEV']/cda:associatedEntity/cda:id">
       <sch:assert id="a-CMS_90-error" test="@root='2.16.840.1.113883.3.2074.1'">This id SHALL contain exactly one [1..1] @root="2.16.840.1.113883.3.2074.1" CMS EHR Certification ID (CONF: CMS_90).</sch:assert>
       <sch:assert id="a-CMS_91-error" test="@extension">This id SHALL contain exactly one [1..1] @extension (CONF: CMS_91). Note: The value of @extension is the CMS EHR Certification ID, which must be 15 alpha numeric characters in length.</sch:assert>
     </sch:rule>
     <!-- Participant is MVP (typeCode = TRC) added for v1.1 -->
-    <sch:rule id="QRDA_Category_III_CMS-participant-TRC-associatedEntity-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:participant[@typeCode='TRC']/cda:associatedEntity">
+    <sch:rule id="QRDA_Category_III_CMS-participant-TRC-associatedEntity-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:participant[@typeCode='TRC']/cda:associatedEntity">
       <sch:assert id="a-CMS_121-error" test="@classCode='PROG'">This associatedEntity SHALL contain exactly one [1..1] @classCode="PROG" program eligible (CodeSystem: HL7RoleClass urn:oid:2.16.840.1.113883.5.110) (CONF:CMS_121).</sch:assert>
       <sch:assert id="a-CMS_122-error" test="count(cda:id)=1">This associatedEntity SHALL contain exactly one [1..1] id (CONF:CMS_122).</sch:assert>
     </sch:rule>
-    <sch:rule id="QRDA_Category_III_CMS-participant-TRC-associatedEntity-id-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:participant[@typeCode='TRC']/cda:associatedEntity/cda:id">
+    <sch:rule id="QRDA_Category_III_CMS-participant-TRC-associatedEntity-id-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:participant[@typeCode='TRC']/cda:associatedEntity/cda:id">
       <sch:assert id="a-CMS_123-error" test="@root='2.16.840.1.113883.3.249.5.6'">This id SHALL contain exactly one [1..1] @root="2.16.840.1.113883.3.249.5.6" MIPS Value Pathway (CONF:CMS_123).</sch:assert>
       <sch:assert id="a-CMS_124-error" test="@extension">This id SHALL contain exactly one [1..1] @extension (CONF:CMS_124).</sch:assert>
+    </sch:rule>
+    <!-- Particpant (typeCode = IND)  added for 2025 v1.1-->
+    <sch:rule id="QRDA_Category_III_CMS-participant-IND-associatedEntity-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:participant[@typeCode='IND']/cda:associatedEntity">
+      <sch:assert id="a-CMS_128-error" test="@classCode='PROG'">i.  This associatedEntity SHALL contain exactly one [1..1] @classCode="PROG" program eligible (CodeSystem: HL7RoleClass urn:oid:2.16.840.1.113883.5.110) (CONF:CMS_128).</sch:assert>
+      <sch:assert id="a-CMS_129-error" test="count(cda:id)=1">This associatedEntity SHALL contain exactly one [1..1] id (CONF: CMS_129).</sch:assert>
+    </sch:rule>
+    <sch:rule id="QRDA_Category_III_CMS-participant-IND-associatedEntity-id-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:participant[@typeCode='IND']/cda:associatedEntity/cda:id">
+      <sch:assert id="a-CMS_130-error" test="@root='2.16.840.1.113883.3.249.5.7'">This id SHALL contain exactly one [1..1] @root="2.16.840.1.113883.3.249.5.7" program participation identifier (CONF:CMS_130).</sch:assert>
+      <sch:assert id="a-CMS_143-error" test="@extension='SSP_PI'">This id SHALL contain exactly one [1..1] @extension = "SSP_PI"(CONF:CMS_143).</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="QRDA_Category_III_CMS-documentationOf-pattern-errors">
     <!-- Set variable  $intendedRecipient-DocOf = the intended recipient type CMS Program Name (MIPS_INDIV,  PCF, etc...) -->
     <sch:let name="intendedRecipient-DocOf" value="/cda:ClinicalDocument/cda:informationRecipient/cda:intendedRecipient/cda:id/@extension" />
-    <sch:rule id="QRDA_Category_III_CMS-documentationOf-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:documentationOf">
+    <sch:rule id="QRDA_Category_III_CMS-documentationOf-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:documentationOf">
       <!-- For debugging.. -->
       <!--
             <sch:report id="r-RCP" test="1 = 1">intendedRecipient = <sch:value-of select="$intendedRecipient-DocOf"/></sch:report>
@@ -500,7 +529,7 @@ Fri Jul 19 11:23:34 MDT 2024
     <!-- Documentation of Service Event rules  -->
     <!-- Schematron variable 'intendedRecipient-DocOf' is set at the beginning of this pattern -->
     <!-- Service event will have one performer in MIPS reporting, and one or more performers in PCF reporting... -->
-    <sch:rule id="QRDA_Category_III_CMS-documentationOf-serviceEvent-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:documentationOf/cda:serviceEvent">
+    <sch:rule id="QRDA_Category_III_CMS-documentationOf-serviceEvent-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:documentationOf/cda:serviceEvent">
       <sch:let name="APMnoNPICount" value="count(cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id[@root='2.16.840.1.113883.3.249.5.4'][@extension]) =1 and count(../cda:id[@root='2.16.840.1.113883.4.6'][@nullFlavor])=1])" />
       <sch:let name="TINnoNPICount" value="count(cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id[@root='2.16.840.1.113883.4.2'][@extension])       =1 and count(../cda:id[@root='2.16.840.1.113883.4.6'][@nullFlavor])=1])" />
       <sch:let name="TINandNPICount" value="count(cda:performer/cda:assignedEntity/cda:representedOrganization[count(cda:id[@root='2.16.840.1.113883.4.2'][@extension])       =1 and count(../cda:id[@root='2.16.840.1.113883.4.6'][@extension])=1])" />
@@ -533,12 +562,12 @@ Fri Jul 19 11:23:34 MDT 2024
       <sch:assert id="a-CMS_138-error" test="$intendedRecipient-DocOf != 'MCP_STANDARD' or ($intendedRecipient-DocOf = 'MCP_STANDARD' and $PerformerCount &gt;= 2 and $APMnoNPICount = 1 and $APMnoNPICount + $TINandNPICount = $PerformerCount )">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MCP_STANDARD", then this serviceEvent SHALL contain at least two [2..*] performer such that it, one performer SHALL be the APM Entity identifier and NPI SHALL be a @nullFlavor, at least one additional performer and each additional performer contains one TIN and one NPI (CONF:CMS_138).</sch:assert>
       <sch:assert id="a-CMS_139-error" test="$intendedRecipient-DocOf != 'MCP_FQHC'     or ($intendedRecipient-DocOf = 'MCP_FQHC'     and $PerformerCount = 2     and $APMnoNPICount &gt;= 1 and $TINnoNPICount &gt;= 1)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MCP_FQHC", then this serviceEvent SHALL contain exactly two [2..2] performer such that it, one performer SHALL be the APM Entity identifier and NPI SHALL be a @nullFlavor, and exactly one additional performer contains one TIN and NPI SHALL be a @nullFlavor (CONF:CMS_139)</sch:assert>
     </sch:rule>
-    <sch:rule id="QRDA_Category_III_CMS-documentationOf-serviceEvent-performer-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:documentationOf/cda:serviceEvent/cda:performer">
+    <sch:rule id="QRDA_Category_III_CMS-documentationOf-serviceEvent-performer-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:documentationOf/cda:serviceEvent/cda:performer">
       <sch:assert id="a-5562-18176-error" test="count(cda:assignedEntity)=1">Such performers SHALL contain exactly one [1..1] assignedEntity (CONF:5562-18176).</sch:assert>
     </sch:rule>
     <!-- ServiceEvent Performer has an assigned entity, with rules about what IDs are allowed depending on the reporting type: MIPS, etc. -->
     <!-- Schematron variable 'intendedRecipient-DocOf' is set at the beginning of this pattern -->
-    <sch:rule id="QRDA_Category_III_CMS-documentationOf-serviceEvent-performer-assignedEntity-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity">
+    <sch:rule id="QRDA_Category_III_CMS-documentationOf-serviceEvent-performer-assignedEntity-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity">
       <!-- There are some specific rules about how non-NPI ids should be formatted, depending on reporting type. -->
       <sch:assert id="a-5562-18177_C01-error" test="count(cda:id[@root='2.16.840.1.113883.4.6'])=1">This assignedEntity SHALL contain exactly one [1..1] id (CONF:5562-18177_C01) such that it SHALL contain exactly one [1..1] @root="2.16.840.1.113883.4.6" National Provider ID  (CONF:5562-18178_C01).</sch:assert>
       <sch:assert id="a-5562-18177_C01-MIPSAPMENTITY-NPI-format-error" test="$intendedRecipient-DocOf != 'MIPS_APMENTITY' or ($intendedRecipient-DocOf='MIPS_APMENTITY' and count(cda:id[@root='2.16.840.1.113883.4.6'][@nullFlavor='NA'][not(@extension)])=1)">For MIPS  APM Entity reporting, id/@root=' 2.16.840.1.113883.4.6' is coupled with @nullFlavor="NA", and @extension shall be omitted.(CONF:5562-18177_C01).</sch:assert>
@@ -546,7 +575,7 @@ Fri Jul 19 11:23:34 MDT 2024
       <sch:assert id="a-5562-18177_C01-MIPSIVIRTUALGROUP-NPI-format-error" test="$intendedRecipient-DocOf != 'MIPS_VIRTUALGROUP' or ($intendedRecipient-DocOf='MIPS_VIRTUALGROUP' and count(cda:id[@root='2.16.840.1.113883.4.6'][@nullFlavor='NA'][not(@extension)])=1)">For MIPS  virtual group reporting, id/@root=' 2.16.840.1.113883.4.6' is coupled with @nullFlavor="NA", and @extension shall be omitted.(CONF:5562-18177_C01).</sch:assert>
       <sch:assert id="a-5562-18180-error" test="count(cda:representedOrganization)=1">This assignedEntity SHALL contain exactly one [1..1] representedOrganization (CONF:5562-18180).</sch:assert>
     </sch:rule>
-    <sch:rule id="QRDA_Category_III_CMS-documentationOf-serviceEvent-performer-assignedEntity-reprresentedOrganization-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization">
+    <sch:rule id="QRDA_Category_III_CMS-documentationOf-serviceEvent-performer-assignedEntity-reprresentedOrganization-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization">
       <sch:let name="NPI-Count" value="count(../cda:id[@root='2.16.840.1.113883.4.6'][@extension])" />
       <sch:let name="TIN-Count" value="count(cda:id[@root='2.16.840.1.113883.4.2'][@extension])" />
       <sch:let name="VIRTUAL-GROUP-ID-Count" value="count(cda:id[@root='2.16.840.1.113883.3.249.5.2'][@extension])" />
@@ -568,32 +597,23 @@ Fri Jul 19 11:23:34 MDT 2024
       <sch:assert id="a-5562-18177_C01-MIPSAPPGROUP-assignedEntity-error" test="$intendedRecipient-DocOf != 'MIPS_APP1_GROUP' or ($intendedRecipient-DocOf='MIPS_APP1_GROUP' and $TIN-Count=1 and $NPI-Count=0)">For APP group reporting: performer contains one TIN. No NPI is allowed. (CONF:5562-18177_C01)</sch:assert>
       <sch:assert id="a-5562-18177_C01-MIPSAPPAPMENTITY-assignedEntity-error" test="$intendedRecipient-DocOf != 'MIPS_APP1_APMENTITY' or ($intendedRecipient-DocOf='MIPS_APP1_APMENTITY'  and $NPI-Count = 0 and $APMENTITY-ID-Count =1)">For MIPS APP APM Entity reporting: performer contains one APM Entity Identifier. NPI and TIN are not allowed. (CONF:5562-18177_C01)</sch:assert>
       <sch:assert id="a-5562-18178_C01-MIPSAPPINDIV-assignedEntity-error" test="$intendedRecipient-DocOf != 'MIPS_APP1_INDIV' or ($intendedRecipient-DocOf='MIPS_APP1_INDIV' and $TIN-Count = 1  and $NPI-Count = 1)">For APP individual reporting: performer contains one TIN and one NPI. (CONF:5562-18178_C01)</sch:assert>
-      <sch:assert id="a-CMS_82-error" test="($intendedRecipient-DocOf != 'MIPS_GROUP' and $intendedRecipient-DocOf != 'MIPS_APP1_GROUP')  or (($intendedRecipient-DocOf='MIPS_GROUP' or $intendedRecipient-DocOf='MIPS_APP1_GROUP') and $TIN-Count=1)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MIPS_GROUP" or “MIPS_APP1_GROUP, then this representedOrganization SHALL contain one [1..1] id such that it, SHALL be the group's TIN (CONF:CMS_82).</sch:assert>
+      <sch:assert id="a-CMS_82-error" test="not(contains('MIPS_GROUP MIPS_APP1_GROUP APP_PLUS_GROUP SSP_PI_GROUP', $intendedRecipient-DocOf)) or (contains('MIPS_GROUP MIPS_APP1_GROUP APP_PLUS_GROUP SSP_PI_GROUP', $intendedRecipient-DocOf) and $TIN-Count=1)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MIPS_GROUP" or “MIPS_APP1_GROUP" or "APP_PLUS_GROUP" or "SSP_PI_GROUP", then this representedOrganization SHALL contain one [1..1] id such that it, SHALL be the group's TIN (CONF:CMS_82).</sch:assert>
       <sch:assert id="a-CMS_83-error" test="($intendedRecipient-DocOf != 'MIPS_VIRTUALGROUP')  or (($intendedRecipient-DocOf='MIPS_VIRTUALGROUP') and $VIRTUAL-GROUP-ID-Count=1)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MIPS_VIRTUALGROUP", then this representedOrganization SHALL contain one [1..1] id such that it, SHALL be the virtual group's Virtual Group Identifier (CONF:CMS_83).</sch:assert>
       <!-- CMS_109 APM Entity Identifier rules -->
-      <!--
-            <sch:assert id="a-CMS_109-error" test="($intendedRecipient-DocOf != 'MIPS_APMENTITY' and $intendedRecipient-DocOf != 'MIPS_APP1_APMENTITY')  or (($intendedRecipient-DocOf='MIPS_APMENTITY' or $intendedRecipient-DocOf='MIPS_APP1_APMENTITY') and $APMENTITY-ID-Count=1)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MIPS_APMENTITY" or "MIPS_APP1_APMENTITY", then this representedOrganization SHALL contain one [1..1] id such that it, SHALL be the APM Entity’s APM Entity identifier (CONF:CMS_109).</sch:assert>
-            -->
-      <sch:assert id="a-CMS_109-MIPS-APM-error" test="($intendedRecipient-DocOf != 'MIPS_APMENTITY')  or ($intendedRecipient-DocOf='MIPS_APMENTITY'  and $APMENTITY-ID-Count=1)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MIPS_APMENTITY" or "MIPS_APP1_APMENTITY" or "MCP_STANDARD" or "MCP_FQHC", then this representedOrganization SHALL contain one [1..1] id such that it, SHALL be the APM Entity’s APM Entity identifier (CONF:CMS_109).</sch:assert>
-      <sch:assert id="a-CMS_109-MIPS-APP1-error" test="($intendedRecipient-DocOf != 'MIPS_APP1_APMENTITY')  or ($intendedRecipient-DocOf='MIPS_APP1_APMENTITY' and $APMENTITY-ID-Count=1)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MIPS_APMENTITY" or "MIPS_APP1_APMENTITY" or "MCP_STANDARD" or "MCP_FQHC", then this representedOrganization SHALL contain one [1..1] id such that it, SHALL be the APM Entity’s APM Entity identifier (CONF:CMS_109).</sch:assert>
+      <sch:assert id="a-CMS_109-MIPS-APM-error" test="not(contains('MIPS_APMENTITY MIPS_APP1_APMENTITY APP_PLUS_APMENTITY SSP_PI_APMENTITY', $intendedRecipient-DocOf))   or (contains('MIPS_APMENTITY MIPS_APP1_APMENTITY APP_PLUS_APMENTITY SSP_PI_APMENTITY', $intendedRecipient-DocOf)  and $APMENTITY-ID-Count=1)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MIPS_APMENTITY" or "MIPS_APP1_APMENTITY" or "APP_PLUS_APMENTITY" or "SSP_PI_APMENTITY", then this representedOrganization SHALL contain one [1..1] id such that it, SHALL be the APM Entity’s APM Entity identifier (CONF:CMS_109).</sch:assert>
       <!-- CMS_112 TIN rules -->
-      <!-- 
-                <sch:assert id="a-CMS_112-error" test="($intendedRecipient-DocOf != 'MIPS_INDIV' and $intendedRecipient-DocOf != 'MIPS_APP1_INDIV' and $intendedRecipient-DocOf != 'PCF')  or (($intendedRecipient-DocOf='MIPS_INDIV' or $intendedRecipient-DocOf='MIPS_APP1_INDIV' or $intendedRecipient-DocOf='PCF') and $TIN-Count=1)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MIPS_INDIV" or "MIPS_APP1_INDIV" or "PCF", then this representedOrganization SHALL contain one [1..1] id such that it, SHALL be the practitioner’s TIN (CONF:CMS_112). </sch:assert>
-            -->
-      <sch:assert id="a-CMS_112-MIPS-IND-error" test="$intendedRecipient-DocOf != 'MIPS_INDIV'  or ($intendedRecipient-DocOf='MIPS_INDIV' and $TIN-Count=1)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MIPS_INDIV" or "MIPS_APP1_INDIV" or "PCF" or "MCP_STANDARD" or "MCP_FQHC", then this representedOrganization SHALL contain one [1..1] id such that it, SHALL be the practitioner’s TIN (CONF:CMS_112).</sch:assert>
-      <sch:assert id="a-CMS_112-MIPS-APP1-error" test="$intendedRecipient-DocOf != 'MIPS_APP1_INDIV'  or ($intendedRecipient-DocOf='MIPS_APP1_INDIV' and $TIN-Count=1)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MIPS_INDIV" or "MIPS_APP1_INDIV" or "PCF" or "MCP_STANDARD" or "MCP_FQHC", then this representedOrganization SHALL contain one [1..1] id such that it, SHALL be the practitioner’s TIN (CONF:CMS_112).</sch:assert>
-      <sch:assert id="a-CMS_112-PCF-error" test="$intendedRecipient-DocOf != 'PCF' or ($intendedRecipient-DocOf='PCF' and $TIN-Count=1)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MIPS_INDIV" or "MIPS_APP1_INDIV" or "PCF" or "MCP_STANDARD" or "MCP_FQHC", then this representedOrganization SHALL contain one [1..1] id such that it, SHALL be the practitioner’s TIN (CONF:CMS_112).</sch:assert>
+      <sch:assert id="a-CMS_112-MIPS-IND-error" test="not(contains('MIPS_INDIV MIPS_APP1_INDIV APP_PLUS_INDIV SSP_PI_INDIV PCF', $intendedRecipient-DocOf))  or (contains('MIPS_INDIV MIPS_APP1_INDIV APP_PLUS_INDIV SSP_PI_INDIV PCF', $intendedRecipient-DocOf) and $TIN-Count=1)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MIPS_INDIV" or "MIPS_APP1_INDIV" or "PCF" or "APP_PLUS_INDIV" or "SSP_PI_INDIV", then this representedOrganization SHALL contain one [1..1] id such that it, SHALL be the practitioner’s TIN (CONF:CMS_112).</sch:assert>
       <sch:assert id="a-CMS_114-error" test="($intendedRecipient-DocOf != 'MIPS_SUBGROUP' )  or (($intendedRecipient-DocOf='MIPS_SUBGROUP') and $SUBGROUP-ID-Count=1)">If ClinicalDocument/informationRecipient/intendedRecipient/id/@extension="MIPS_SUBGROUP", then this representedOrganization SHALL contain one [1..1] id such that it, SHALL be the subgroup's Subgroup Identifier(CONF:CMS_114).</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern id="QRDA_Category_III_CMS-component-pattern-errors">
-    <sch:rule id="QRDA_Category_III_CMS-component-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:component">
+    <sch:rule id="QRDA_Category_III_CMS-component-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:component">
       <sch:assert id="a-5562-17235-error" test="count(cda:structuredBody)=1">This component SHALL contain exactly one [1..1] structuredBody (CONF:5562-17235).</sch:assert>
     </sch:rule>
-    <sch:rule id="QRDA_Category_III_CMS-component-structuredBody-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:component/cda:structuredBody">
+    <sch:rule id="QRDA_Category_III_CMS-component-structuredBody-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:component/cda:structuredBody">
       <sch:assert id="a-5562-21394_C01-error" test="count(cda:component[count(cda:section[cda:templateId[@root='2.16.840.1.113883.10.20.27.2.3'][@extension='2022-05-01']])=1])=1 or count(cda:component[count(cda:section[cda:templateId[@root='2.16.840.1.113883.10.20.27.2.4'][@extension='2020-12-01']])=1])=1 or count(cda:component[count(cda:section[cda:templateId[@root='2.16.840.1.113883.10.20.27.2.5'][@extension='2020-12-01']])=1])=1">This structuredBody SHALL contain at least a QRDA Category III Measure Section - CMS (V5), or an Improvement Activity Section (V3), or a Promoting Interoperability Section (V3) (CONF:5562-21394_C01).</sch:assert>
     </sch:rule>
-    <sch:rule id="QRDA_Category_III_CMS-component-structuredBody-CertID-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-07-01']]/cda:component/cda:structuredBody/cda:component/cda:section/cda:templateId[@root='2.16.840.1.113883.10.20.27.2.3']">
+    <sch:rule id="QRDA_Category_III_CMS-component-structuredBody-CertID-errors" context="cda:ClinicalDocument[cda:templateId[@root='2.16.840.1.113883.10.20.27.1.2'][@extension='2024-12-01']]/cda:component/cda:structuredBody/cda:component/cda:section/cda:templateId[@root='2.16.840.1.113883.10.20.27.2.3']">
       <sch:assert id="a-CMS_140-error" test="count(../../../../../cda:participant/cda:associatedEntity/cda:id[@root='2.16.840.1.113883.3.2074.1'][@extension])=1 ">If ClinicalDocument/component/structuredBody/component/section/templateId/@root="2.16.840.1.113883.10.20.27.2.3" is present, then this ClinicalDocument SHALL contain one participant such that it, SHALL be the CMS EHR Certification ID (CONF:CMS_140) (CONF:CMS_140).</sch:assert>
     </sch:rule>
   </sch:pattern>
