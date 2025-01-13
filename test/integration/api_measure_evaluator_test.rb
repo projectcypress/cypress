@@ -183,7 +183,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
 
     # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
     cat3_submission_program = if product_test&.product&.c3_test
-                                product_test&.measures&.first&.reporting_program_type == 'ep' ? 'MIPS_INDIV' : false
+                                product_test.measures&.first&.reporting_program_type == 'ep' ? 'MIPS_INDIV' : false
                               else
                                 false
                               end

@@ -97,7 +97,7 @@ module Cypress
       raise unsupported_2022_bundles_err if bundle.version == '2022.0.1'
 
       same_year_err = "A non-deprecated bundle with year #{bundle.version[0..3]} already exists in the database. Please deprecate previous bundles."
-      raise same_year_err unless bundle_versions.select { |vers, _id| vers[0..3] == bundle.version[0..3] }.empty?
+      raise same_year_err unless bundle_versions.none? { |vers, _id| vers[0..3] == bundle.version[0..3] }
     end
 
     def self.unpack_bundle(zip)

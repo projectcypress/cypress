@@ -2,10 +2,10 @@
 
 source 'https://rubygems.org'
 
-ruby '3.2.2'
+ruby '3.3.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.0.0'
+gem 'rails', '~> 7.2.0'
 
 gem 'delayed_job_mongoid', '~> 3.0.0'
 gem 'mongoid', '~> 8.1.0'
@@ -18,7 +18,7 @@ gem 'os'
 
 gem 'cqm-models', '~> 4.2.0'
 gem 'cqm-parsers', '~> 4.1.1.0'
-gem 'cqm-reports', '~> 4.1.2'
+gem 'cqm-reports', '~> 4.1.3'
 gem 'cqm-validators', '~> 4.0.5'
 
 # # Use faker to generate addresses
@@ -119,7 +119,6 @@ group :development, :test do
   gem 'rails_best_practices'
   gem 'rails-controller-testing'
   gem 'rails-perftest'
-  gem 'ruby-prof', '~> 0.17.0'
   gem 'scss_lint', require: false
   gem 'selenium-webdriver'
 end

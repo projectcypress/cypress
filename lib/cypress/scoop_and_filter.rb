@@ -45,7 +45,7 @@ module Cypress
       # keep if data_element code and codesystem is in one of the relevant_codes
       # Also keep all negated valuesets, we'll deal with those later
       data_element.dataElementCodes.keep_if do |de_code|
-        (@relevant_codes.include?(code: de_code.code, system: de_code.system) || de_code.system == '1.2.3.4.5.6.7.8.9.10')
+        @relevant_codes.include?(code: de_code.code, system: de_code.system) || de_code.system == '1.2.3.4.5.6.7.8.9.10'
       end
       # Return if all codes have been removed
       return if data_element.dataElementCodes.blank?

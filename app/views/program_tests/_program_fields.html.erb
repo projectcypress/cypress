@@ -40,7 +40,7 @@
                           <%= icon('fas fa-fw text-info invisible', 'play-circle', :"aria-hidden" => true) %>
                         </td>
                       <% end %>
-                      <td><%= criteria_field.object.criterion_name %></td>
+                      <td><%= criteria_field.object.criterion_name %><%= criteria_field.object.criterion_optional ? "*" : "" %></td>
                       <td><%= criteria_field.object.criterion_description %></td>
                       <td><%= criteria_field.object.cms_conf %></td>
                       <td><%= criteria_field.text_field :entered_value, hide_label: true, class: 'hide-me' %></td>
@@ -50,6 +50,9 @@
             </tbody>
           </table>
         </div>
+      <div class = 'panel-body'>
+        <span class = 'small-indent'>* Optional</span>
+      </div>
       <div class = 'panel-footer'>
         <%= f.submit 'Save', class: 'btn btn-default' %>
         <span class = 'small-indent'></span>

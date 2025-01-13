@@ -51,6 +51,9 @@ CMS Programs:
       - PCF
       - MCP_STANDARD
       - MCP_FQHC
+      - APP_PLUS_INDIV
+      - APP_PLUS_GROUP
+      - APP_PLUS_APMENTITY
   eh:
     '2020':
       - HQR_PI
@@ -226,6 +229,8 @@ Program Criterion:
       - PCF
       - MCP_STANDARD
       - MCP_FQHC
+      - APP_PLUS_INDIV
+      - APP_PLUS_GROUP
   Virtual Group Identifier:
     name: 'Virtual Group Identifier'
     description:
@@ -256,6 +261,7 @@ Program Criterion:
       - CPCPLUS
       - PCF
       - MCP_STANDARD
+      - APP_PLUS_INDIV
   CPCPLUS APM Entity Identifier:
     name: 'CPCPLUS APM Entity Identifier'
     description:
@@ -277,7 +283,7 @@ Program Criterion:
     description:
       ep: 'This is the MCP Participant Identifier.'
     conf:
-      ep: '(CONF:CMS_101)'
+      ep: '(CONF:CMS_109)'
     programs:
       - MCP_STANDARD
       - MCP_FQHC
@@ -290,6 +296,7 @@ Program Criterion:
     programs:
       - MIPS_APMENTITY
       - MIPS_APP1_APMENTITY
+      - APP_PLUS_APMENTITY
   MIPS Subgroup Identifier:
     name: 'MIPS Subgroup Identifier'
     description:
@@ -298,3 +305,40 @@ Program Criterion:
       ep: '(CONF:CMS_117)'
     programs:
       - MIPS_SUBGROUP
+  MVP Code:
+    name: 'MIPS Value Pathway'
+    description:
+      ep: 'Each MIPS individual, group, subgroup, or APM Entity can select one MVP to report.'
+    conf:
+      ep: '(CONF:CMS_118)'
+    programs:
+      - MIPS_GROUP
+      - MIPS_INDIV
+      - MIPS_APMENTITY
+      - MIPS_SUBGROUP
+    optional:
+      - MIPS_GROUP
+      - MIPS_INDIV
+      - MIPS_APMENTITY
+      - MIPS_SUBGROUP
+  SSP PI Reporting:
+    name: 'SSP PI reporting Identifier'
+    description:
+      ep: 'Use value SSP_PI to indicate that the Promoting Interoperability data included in the file will be used for the SSP PI reporting
+requirement.'
+    conf:
+      ep: '(CONF:CMS_125)'
+    programs:
+      - MIPS_INDIV
+      - MIPS_GROUP
+      - MIPS_APMENTITY
+      - MIPS_APP1_INDIV
+      - MIPS_APP1_GROUP
+      - MIPS_APP1_APMENTITY
+    optional:
+      - MIPS_INDIV
+      - MIPS_GROUP
+      - MIPS_APMENTITY
+      - MIPS_APP1_INDIV
+      - MIPS_APP1_GROUP
+      - MIPS_APP1_APMENTITY

@@ -244,7 +244,7 @@ class ProductTest
   end
 
   def most_recent_task_execution_incomplete?
-    tasks.any? && tasks[0].most_recent_execution && tasks[0].most_recent_execution.incomplete?
+    tasks.any? && tasks[0].most_recent_execution&.incomplete?
   end
 
   def most_recent_task_execution
@@ -431,8 +431,8 @@ class ProductTest
     required_codes = { 'PAYER' => %w[1 2 6 349], 'SEX' => %w[M F], 'RACE' => %w[2106-3 2076-8 2054-5 2028-9 1002-5 2131-1],
                        'ETHNICITY' => %w[2135-2 2186-5] }.freeze
     new_hash = expected_results
-    new_hash.each do |_measure_id, pop_set_hash|
-      pop_set_hash.each do |_pop_set_id, pop_set|
+    new_hash.each_value do |pop_set_hash|
+      pop_set_hash.each_value do |pop_set|
         sup_data = pop_set['supplemental_data']
         %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP MSRPOPL MSRPOPLEX].each do |pop_key|
           next unless pop_set[pop_key]

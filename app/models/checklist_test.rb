@@ -88,7 +88,8 @@ class ChecklistTest < ProductTest
       end
     end
     return code_indices.sample unless code_indices.empty?
-    return codeless_indices.sample unless codeless_indices.empty?
+
+    codeless_indices.sample unless codeless_indices.empty?
   end
 
   def create_checked_criteria

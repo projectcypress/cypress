@@ -15,7 +15,7 @@
       <tr>
         <th colspan = '5' scope = 'col' class = 'col-sm-2'>
           <% if pop_error_value %>
-            <%= error_table_heading(population_errors, stratification_errors, supp_data_errors) %>
+            <%= error_table_heading(population_errors, stratification_errors, supp_data_errors, task) %>
           <% end %>
           <ul>
             <% pop_sum_errors.each do |err| %>

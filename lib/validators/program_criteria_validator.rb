@@ -85,9 +85,8 @@ module Validators
       entered_values = checked_criteria.entered_values
       return unless entered_values&.count&.positive?
 
-      values_found = []
-      entered_values.each do |entered_value|
-        values_found << find_entered_value(entered_value, checked_criteria)
+      values_found = entered_values.map do |entered_value|
+        find_entered_value(entered_value, checked_criteria)
       end
 
       return unless values_found.compact.count == entered_values.count
@@ -107,6 +106,8 @@ module Validators
         'TIN' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.4.2']",
         'CPCPLUS APM Entity Identifier' => "//cda:participant/cda:associatedEntity/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.249.5.1']",
         'PCF APM Entity Identifier' => "//cda:participant/cda:associatedEntity/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.249.5.3']",
+        'MVP Code' => "//cda:participant[@typeCode='TRC']/cda:associatedEntity[@classCode='PROG']/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.249.5.6']",
+        'SSP PI Reporting' => "//cda:participant[@typeCode='IND']/cda:associatedEntity[@classCode='PROG']/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.249.5.7']",
         'MIPS APM Entity Identifier' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.249.5.4']",
         'MCP APM Entity Identifier' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.249.5.4']",
         'MIPS Subgroup Identifier' => "//cda:documentationOf/cda:serviceEvent/cda:performer/cda:assignedEntity/cda:representedOrganization/cda:id[@extension='#{entered_value}' and @root='2.16.840.1.113883.3.249.5.5']",
