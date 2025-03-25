@@ -423,6 +423,7 @@ class ProductTest
     self.rand_seed = Random.new_seed.to_s unless rand_seed
   end
 
+  # rubocop:disable Metrics/MethodLength
   # Adds 0's for all missing populations (e.g., if DENEX is 0) or missing demographics (e.g., no Payer 349 in the DENEX)
   def expected_results_with_all_supplemental_codes
     # Since this is a CMS IG requirement, only do this for CVU+ or C3 tests
@@ -441,7 +442,9 @@ class ProductTest
           sup_data[pop_key] = { 'RACE' => {}, 'ETHNICITY' => {}, 'SEX' => {}, 'PAYER' => {} } unless sup_data[pop_key]
           required_codes.each do |sup_data_type, codes|
             codes.each do |code|
-              sup_data[pop_key][sup_data_type][code] = 0 unless (sup_data[pop_key][sup_data_type][code] || sup_data[pop_key][sup_data_type][equivalent_codes[code]])
+              unless sup_data[pop_key][sup_data_type][code] || sup_data[pop_key][sup_data_type][equivalent_codes[code]]
+                sup_data[pop_key][sup_data_type][code] = 0
+              end
             end
           end
         end
@@ -449,5 +452,6 @@ class ProductTest
     end
     new_hash
   end
+  # rubocop:enable Metrics/MethodLength
 end
 # rubocop:enable Metrics/ClassLength
