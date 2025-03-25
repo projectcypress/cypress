@@ -428,8 +428,9 @@ class ProductTest
     # Since this is a CMS IG requirement, only do this for CVU+ or C3 tests
     return expected_results unless product.cvuplus? || product.c3_test?
 
-    required_codes = { 'PAYER' => %w[1 2 6 349], 'SEX' => %w[M F], 'RACE' => %w[2106-3 2076-8 2054-5 2028-9 1002-5 2131-1],
+    required_codes = { 'PAYER' => %w[1 2 6 9 349], 'SEX' => %w[M F], 'RACE' => %w[2106-3 2076-8 2054-5 2028-9 1002-5 2131-1],
                        'ETHNICITY' => %w[2135-2 2186-5] }.freeze
+    equivalent_codes = { '9' => '349', '349' => '9' }
     new_hash = expected_results
     new_hash.each_value do |pop_set_hash|
       pop_set_hash.each_value do |pop_set|
@@ -440,7 +441,7 @@ class ProductTest
           sup_data[pop_key] = { 'RACE' => {}, 'ETHNICITY' => {}, 'SEX' => {}, 'PAYER' => {} } unless sup_data[pop_key]
           required_codes.each do |sup_data_type, codes|
             codes.each do |code|
-              sup_data[pop_key][sup_data_type][code] = 0 unless sup_data[pop_key][sup_data_type][code]
+              sup_data[pop_key][sup_data_type][code] = 0 unless (sup_data[pop_key][sup_data_type][code] || sup_data[pop_key][sup_data_type][equivalent_codes[code]])
             end
           end
         end
