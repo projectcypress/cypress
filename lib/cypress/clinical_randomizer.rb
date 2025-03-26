@@ -137,7 +137,7 @@ module Cypress
     end
 
     def self.group_reference(related, grouped_de, data_elements, added)
-      match_idx = data_elements.index { |x| x.id == related }
+      match_idx = data_elements.index { |x| x.id.to_s == related }
 
       # if can't find reference
       return unless match_idx
