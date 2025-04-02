@@ -93,7 +93,7 @@
                             <%= icon('fas fa-fw text-danger', 'times', :"aria-hidden" => true) %>
                             <% end %>
                             <% if criteria_field.object.negated_valueset %>
-                           <%= criteria_field.select :selected_negated_valueset, valuessets.collect{ |vs| ["#{lookup_valueset_name(vs)} - #{vs}", vs] }, class: 'hide-me' %>
+                           <%= criteria_field.select :selected_negated_valueset, valuessets.collect{ |vs| ["#{lookup_valueset_name(vs)} - #{valueset_oid_or_code(vs)}", vs] }, class: 'hide-me' %>
                             <% else %>
                               <%= criteria_field.text_field :code, hide_label: false, class: 'hide-me' %>
                             <% end %>
