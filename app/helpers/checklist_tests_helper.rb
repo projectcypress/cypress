@@ -72,6 +72,15 @@ module ChecklistTestsHelper
     vs.first.display_name
   end
 
+  def valueset_oid_or_code(oid)
+    return oid unless direct_reference_code?(oid)
+
+    vs = ValueSet.where(oid:)
+    return oid unless vs&.first
+
+    vs.first.concepts.first.code
+  end
+
   def lookup_valueset_long_name(oid)
     vs = ValueSet.where(oid:)
     return oid unless vs&.first
