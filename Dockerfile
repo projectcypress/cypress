@@ -1,5 +1,5 @@
-# Pinned to the latest ruby 3.2 version of the Passenger base Docker image 
-FROM phusion/passenger-ruby32:2.5.0
+# Pinned to the latest ruby 3.3 version of the Passenger base Docker image 
+FROM phusion/passenger-ruby33:latest
 
 RUN mv /etc/apt/sources.list.d /etc/apt/sources.list.d.bak
 RUN apt update && apt install -y ca-certificates
@@ -17,8 +17,8 @@ RUN mkdir /home/app/cypress
 
 WORKDIR /home/app/cypress
 
-RUN bash -lc 'rvm install ruby-3.2.2'
-RUN bash -lc 'rvm --default use ruby-3.2.2'
+RUN bash -lc 'rvm install ruby-3.3.5'
+RUN bash -lc 'rvm --default use ruby-3.3.5'
 
 ADD Gemfile /home/app/cypress/Gemfile
 ADD Gemfile.lock /home/app/cypress/Gemfile.lock
