@@ -128,18 +128,28 @@ randomization:
       codeSystem     : 2.16.840.1.113883.3.221.5
       codeSystemName : SOP
       codeCMS        : A
+      useInExport    : true
     - type           : MC
       code           : 2
       name           : Medicaid
       codeSystem     : 2.16.840.1.113883.3.221.5
       codeSystemName : SOP
       codeCMS        : B
+      useInExport    : true
     - type           : OT
       code           : 349
       name           : Other
       codeSystem     : 2.16.840.1.113883.3.221.5
       codeSystemName : SOP
       codeCMS        : D
+      useInExport    : false
+    - type           : OT
+      code           : 9
+      name           : MISCELLANEOUS/OTHER
+      codeSystem     : 2.16.840.1.113883.3.221.5
+      codeSystemName : SOP
+      codeCMS        : D
+      useInExport    : true
 references:
   bundles:
     current:

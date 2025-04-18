@@ -53,21 +53,23 @@ sum #{sup_sum} of supplemental key #{keys_and_ids[:sup_key]} values)
       return if report_sup_val.nil?
 
       report_sup_val.each_pair do |code, report_val|
-        code = get_untranslated_code(code, keys_and_ids[:sup_key])
-        next unless report_val.positive? && expect_sup_val[code].nil? &&
-                    !CalculatingAugmentedResults.augmented_sup_val_expected?(options['task'], keys_and_ids, code,
-                                                                             expect: expect_sup_val[code],
-                                                                             report: report_val)
-
-        add_sup_data_error(keys_and_ids, code, 0, report_val)
+        codes = get_untranslated_code(code, keys_and_ids[:sup_key])
+        found_match = codes.empty?
+        codes.each do |c|
+          found_match = true unless report_val.positive? && expect_sup_val[c].nil? &&
+                                    !CalculatingAugmentedResults.augmented_sup_val_expected?(options['task'], keys_and_ids, c,
+                                                                                             expect: expect_sup_val[c],
+                                                                                             report: report_val)
+        end
+        add_sup_data_error(keys_and_ids, code, 0, report_val) unless found_match
       end
     end
 
     def get_untranslated_code(code, sup_key)
-      return code if sup_key != 'PAYER'
+      return [code] if sup_key != 'PAYER'
 
-      payer = APP_CONSTANTS['randomization']['payers'].find { |p| p['codeCMS'].to_s == code }
-      payer ? payer['code'].to_s : code
+      payers = APP_CONSTANTS['randomization']['payers'].select { |p| p['codeCMS'].to_s == code }
+      payers ? payers.map { |payer| payer['code'].to_s } : [code]
     end
 
     def add_sup_data_error(keys_and_ids, code, expect_val, report_val)
