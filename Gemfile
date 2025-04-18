@@ -14,7 +14,7 @@ gem 'mongoid', '~> 8.1.0'
 gem 'bson'
 
 gem 'mustache'
-##gem 'os'
+## gem 'os'
 
 gem 'cqm-models', '~> 4.2.0'
 gem 'cqm-parsers', '~> 4.1.1.0'
@@ -95,9 +95,9 @@ gem 'rolify'
 # gem 'capistrano-rails', group: :development
 
 gem 'rest-client', '~>2.0.2'
-##gem 'typhoeus'
+## gem 'typhoeus'
 
-##gem 'daemons'
+## gem 'daemons'
 
 gem 'validate_url'
 
