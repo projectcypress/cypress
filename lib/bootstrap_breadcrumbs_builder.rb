@@ -26,13 +26,13 @@ class BootstrapBreadcrumbsBuilder < BreadcrumbsOnRails::Breadcrumbs::Builder
   end
 
   def render_regular_element(element)
-    @context.content_tag :li do
+    @context.content_tag :li, class: 'breadcrumb-item' do
       @context.link_to(compute_name(element), compute_path(element), element.options)
     end
   end
 
   def render_active_element(element)
-    @context.content_tag :li, class: 'active' do
+    @context.content_tag :li, class: 'breadcrumb-item active' do
       compute_name(element)
     end
   end

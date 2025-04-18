@@ -62,7 +62,7 @@ end
 #   A N D   #
 
 And(/^the user views the CAT 3 test from the CAT 1 page$/) do
-  find(:xpath, "//a[@href='/tasks/#{@f_test1.cat3_task.id}/test_executions/new']").trigger('click')
+  find(:xpath, "//a[@href='/tasks/#{@f_test1.cat3_task.id}/test_executions/new']").click
 end
 
 And(/^the user has viewed the CAT 1 test for the first filter task$/) do
@@ -73,7 +73,7 @@ And(/^the user has viewed the CAT 1 test for the first filter task$/) do
 end
 
 And(/^the user views the Expected Result Patient List page$/) do
-  find('a', text: 'View Expected Result').trigger('click')
+  find('a', text: 'View Expected Result').click
 end
 
 # 'And the user uploads a CAT 1 zip file' included in step_definitions/measure_test.rb
@@ -119,7 +119,7 @@ Then(/^the user should see a Total row$/) do
 end
 
 And(/^the user selects download html patients$/) do
-  find('button', text: 'Download HTML Patients').trigger('click')
+  find('button', text: 'Download HTML Patients').click
 end
 
 # 'Then the user should see a list of patients' included in step_definitions/record.rb

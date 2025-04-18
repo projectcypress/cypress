@@ -1,5 +1,5 @@
 <h1>Installed Bundles</h1>
-<%= button_to "+ Import Bundle", new_admin_bundle_path, :method => :get, :class => "btn btn-primary pull-right" %>
+<%= button_to "+ Import Bundle", new_admin_bundle_path, :method => :get, :class => "btn btn-primary float-end" %>
 
 <table class="table table-hover">
   <thead>
@@ -18,10 +18,10 @@
           <td class="text-center">
 
             <% unless bundle.deprecated? %>
-              <%= button_to "Set Default", set_default_admin_bundle_path(bundle), :method => :post, :class => "btn btn-xs btn-default" unless bundle.active %>
+              <%= button_to "Set Default", set_default_admin_bundle_path(bundle), :method => :post, :class => "btn btn-sm btn-default" unless bundle.active %>
               <%= render 'action_button',
                               :button_text => 'Deprecate',
-                              :button_classes => 'btn btn-xs btn-danger',
+                              :button_classes => 'btn btn-sm btn-danger',
                               :button_action => 'post',
                               :object => bundle,
                               :object_name => bundle.title,
@@ -33,7 +33,7 @@
             <% end %>
             <%= render 'action_button',
                             :button_text => 'Remove',
-                            :button_classes => 'btn btn-xs btn-danger',
+                            :button_classes => 'btn btn-sm btn-danger',
                             :button_action => 'delete',
                             :object => bundle,
                             :object_name => bundle.title,

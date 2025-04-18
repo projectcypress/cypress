@@ -21,7 +21,7 @@
 <% else %>
   <% if result %>
     <% if result.type == 'CD' && result['code_list_id'] %>
-    <div type="button" class="value-set-group set-menu" data-toggle="modal" data-target="<%= "#lookupModal-result#{index}" %>">
+    <div type="button" class="value-set-group set-menu" data-bs-toggle="modal" data-bs-target="<%= "#lookupModal-result#{index}" %>">
       <ul class="value-set-list">
        <li class="value-set-item-header"><%= "#{lookup_valueset_name(result.code_list_id)}" %></li>
        <li class="value-set-item-oid"><%= result.code_list_id %></li>
@@ -33,7 +33,7 @@
     <% end %>
   <% else %>
       <% if attribute['attribute_valueset'] %>
-        <div type="button" class="value-set-group set-menu" data-toggle="modal" data-target="<%= "#lookupModal-fieldvalues#{index}" %>">
+        <div type="button" class="value-set-group set-menu" data-bs-toggle="modal" data-bs-target="<%= "#lookupModal-fieldvalues#{index}" %>">
          <ul class="value-set-list">
           <li class="value-set-item-header"><%= "#{lookup_valueset_name(attribute['attribute_valueset'])}" %></li>
           <li class="value-set-item-oid"><%= "#{attribute['attribute_valueset']}" %></li>

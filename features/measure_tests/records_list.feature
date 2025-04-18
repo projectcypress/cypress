@@ -11,3 +11,7 @@ Scenario: Admin should be able to view calculation results
   And the user views task c1
   And the user views the task records
   Then the user should see calculation results
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
