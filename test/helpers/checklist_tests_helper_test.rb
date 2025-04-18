@@ -24,6 +24,18 @@ class ChecklistTestsHelperTest < ActiveSupport::TestCase
     assert_equal '', checklist_test_criteria_attribute(c1, 1)
   end
 
+  def test_valueset_oid_or_code
+    sb = FactoryBot.create(:static_bundle)
+    drc = sb.value_sets.detect { |value_set| value_set.oid[0, 3] == 'drc' }
+    drc_code = drc.concepts.first.code
+    # If the valueset is a direct reference code, the the method returns the code value
+    assert_equal valueset_oid_or_code(drc.oid), drc_code
+
+    # If the valueset is a valueset, the the method returns the oid
+    vs = sb.value_sets.detect { |value_set| value_set.oid[0, 3] != 'drc' }
+    assert_equal valueset_oid_or_code(vs.oid), vs.oid
+  end
+
   def test_available_attributes
     c1 = {}
     c1['dataElementAttributes'] = [{ 'attribute_name' => 'Test' }, { 'attribute_name' => 'id' }]

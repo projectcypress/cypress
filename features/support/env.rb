@@ -6,6 +6,7 @@
 # frozen_string_literal: true
 
 require 'simplecov'
+require 'phantomjs'
 SimpleCov.start 'rails'
 
 module SimpleCov
@@ -37,6 +38,10 @@ require 'capybara/poltergeist'
 require 'capybara/accessible'
 
 require 'axe-cucumber-steps'
+
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, phantomjs: Phantomjs.path)
+end
 
 def default_drivers
   if ENV['IN_BROWSER']

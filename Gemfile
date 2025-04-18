@@ -113,6 +113,7 @@ group :development, :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner-mongoid'
   gem 'overcommit'
+  gem 'phantomjs', require: 'phantomjs/poltergeist'
   gem 'poltergeist'
   gem 'pry'
   gem 'pry-nav'
