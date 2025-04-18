@@ -39,9 +39,9 @@ require 'capybara/accessible'
 
 require 'axe-cucumber-steps'
 
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, phantomjs: Phantomjs.path)
-end
+# Capybara.register_driver :poltergeist do |app|
+#   Capybara::Poltergeist::Driver.new(app, phantomjs: Phantomjs.path)
+# end
 
 def default_drivers
   if ENV['IN_BROWSER']
