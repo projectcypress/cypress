@@ -6,7 +6,7 @@
 # frozen_string_literal: true
 
 require 'simplecov'
-require 'phantomjs'
+# require 'phantomjs'
 SimpleCov.start 'rails'
 
 module SimpleCov
