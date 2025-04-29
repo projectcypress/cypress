@@ -1,7 +1,7 @@
 .splash-panel {
-  height: 381px;
   background: image-url('cypress_bg_cropped.png');
-  background-size: auto 381px;
+  background-size: auto 310px;
+  background-repeat: repeat-x;
 }
 
 .splash-title-container {
@@ -9,7 +9,7 @@
   margin-left: 50px;
   margin-top: 35px;
   width: 45%;
-  color: $brand-secondary;
+  color: $secondary;
   text-align: left;
 
   h1 {
@@ -30,14 +30,6 @@
     font-size: 10px;
     font-weight: 100;
   }
-}
-
-.sign-in-panel-container {
-  display: inline;
-  float: right;
-  position: absolute;
-  margin-top: 10px;
-  right: 4%;
 }
 
 .sign-in-panel {
@@ -72,17 +64,10 @@
 }
 
 .sign-in-panel-container-moved {
-  float: none;
-  margin: auto;
-  margin-bottom: 5px;
-  display: block;
-  left: 0;
-  position: relative;
-  width: 300px;
 
   .sign-in-panel-footer {
     a {
-      color: $brand-primary;
+      color: $primary;
     }
   }
 }
@@ -92,6 +77,6 @@
   text-align: left;
 
   a {
-    color: $brand-white;
+    color: $white;
   }
 }

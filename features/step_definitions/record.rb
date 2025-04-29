@@ -204,7 +204,7 @@ end
 When(/^the user filters on (.*)$/) do |cms_id|
   page.has_content?('button')
   page.first('button', text: 'Select Measure(s)').click
-  find(:xpath, "//a[text() = '#{cms_id}']").trigger('click')
+  find(:xpath, "//a[text() = '#{cms_id}']").click
 end
 
 Then(/^the user should see text (.*)$/) do |data_criteria|

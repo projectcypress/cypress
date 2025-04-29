@@ -7,34 +7,66 @@ Background:
 Scenario: Successful Select C1 and View Tabs
   When a user creates a product with c1 certifications and visits that product page
   Then the user should see the the appropriate tabs
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Successful Select C2 and View Tabs
   When a user creates a product with c2 certifications and visits that product page
   Then the user should see the the appropriate tabs
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Successful Select C1 and C3 and View Tabs
   When a user creates a product with c1, c3 certifications and visits that product page
   Then the user should see the the appropriate tabs
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Successful Select C1 and C4 and View Tabs
   When a user creates a product with c1, c4 certifications and visits that product page
   Then the user should see the the appropriate tabs
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Successful Select C2 and C3 and View Tabs
   When a user creates a product with c2, c3 certifications and visits that product page
   Then the user should see the the appropriate tabs
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Successful Select C2 and C4 and View Tabs
   When a user creates a product with c2, c4 certifications and visits that product page
   Then the user should see the the appropriate tabs
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Successful Select C1 and C2 and C3 and View Tabs
   When a user creates a product with c1, c2, c3 certifications and visits that product page
   Then the user should see the the appropriate tabs
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Successful Select C1 and C2 and C4 and View Tabs
   When a user creates a product with c1, c2, c4 certifications and visits that product page
   Then the user should see the the appropriate tabs
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Successful Select C1 and C2 and C3 and C4 and View Tabs
   When a user creates a product with c1, c2, c3, c4 certifications and visits that product page
@@ -49,18 +81,30 @@ Scenario: Successful Download All Patients
   And all product tests have a state of ready
   And the user visits the product page
   Then the user should be able to download all patients
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Cannot View Download All Patients
   When a user creates a product with c2 certifications and visits that product page
   And all product tests do not have a state of ready
   And the user visits the product page
   Then the user should not be able to download all patients
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Can Download Report
   When a user creates a product with c2 certifications and visits that product page
   And all product tests have a state of ready
   And the user visits the product page
   Then the user should be able to download the report
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Cannot Download Report when not an ATL
   Given the user is signed in as a non admin
@@ -70,11 +114,19 @@ Scenario: Cannot Download Report when not an ATL
   And all product tests have a state of ready
   And the user visits the product page
   Then the user should not be able to download the report
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Cannot Download a Supplemental Test Artifact when not uploaded
   When a user creates a product with c2 certifications and visits that product page
   And all product tests have a state of ready
   Then the user should not be able to download the supplemental test artifact
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Can Multi Upload Cat I
   When a user creates a product with c1, c2 certifications and visits that product page
@@ -84,6 +136,10 @@ Scenario: Can Multi Upload Cat I
   And the user switches to the c1 measure test tab
   And the user uploads a cat I document to product test 1
   Then the user should see a cat I test testing for product test 1
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Can Multi Upload Cat III
   When a user creates a product with c2 certifications and visits that product page
@@ -91,6 +147,10 @@ Scenario: Can Multi Upload Cat III
   And the user visits the product page
   And the user uploads a cat III document to product test 1
   Then the user should see a cat III test testing for product test 1
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Can Multi Upload To Filtering Test
   When a user creates a product with c1, c4 certifications and visits that product page
@@ -103,6 +163,10 @@ Scenario: Can Multi Upload To Filtering Test
   And the user uploads a cat I document to filtering test 1
   Then the user should see a cat I test testing for filtering test 1
   And the user should see a cat III test testing for filtering test 1
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Can Multi Upload to the Same Task on a Measure Test Multiple Times
   When a user creates a product with c1 certifications and visits that product page
@@ -117,6 +181,10 @@ Scenario: Can Multi Upload to the Same Task on a Measure Test Multiple Times
   Then the user should see a cat I test passing for product test 1
   When the user uploads a cat I document to product test 1
   Then the user should see a cat I test testing for product test 1
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Can Multi Upload to the Same Task on a Measure Test Multiple Times with page reload before test completion
   When a user creates a product with c1 certifications and visits that product page
@@ -134,6 +202,10 @@ Scenario: Can Multi Upload to the Same Task on a Measure Test Multiple Times wit
   Then the user should see a cat I test passing for product test 1
   When the user uploads a cat I document to product test 1
   Then the user should see a cat I test testing for product test 1
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Can Multi Upload to the Same Task on a Filtering Test Multiple Times
   When a user creates a product with c1, c4 certifications and visits that product page
@@ -148,4 +220,8 @@ Scenario: Can Multi Upload to the Same Task on a Filtering Test Multiple Times
   Then the user should see a cat III test passing for filtering test 1
   When the user uploads a cat III document to filtering test 1
   Then the user should see a cat III test testing for filtering test 1
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 

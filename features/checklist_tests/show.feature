@@ -10,12 +10,20 @@ Scenario: Successful Revisit Checklist Test
   And the user views that product
   And the user views the record sample tab
   Then the user should see a button to revisit the checklist test
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Fill Out Checklist Incorrectly Produces Errors
   When the user creates a product that certifies c1 and visits the record sample page
   And the user fills out the record sample with bad data
   Then the user should see they are incomplete the checklist test
   And the user should not be able to upload a Cat I file
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Fill Out Checklist Correctly
   When the user creates a product that certifies c1 and visits the record sample page
@@ -34,6 +42,10 @@ Scenario: Successful Upload Cat I file After Completing Checklist
   Then the user should see they are passing the checklist test
   And the user should see upload results for c1 certifications
   And the user should see passing for upload results
+  # And the driver is setup for accessability testing
+  # Then the page should be axe clean according to: section508
+  # Then the page should be axe clean according to: wcag2aa
+  # And the driver is returned to the default  
 
 Scenario: Successful Upload Bad Cat I file After Completing Checklist Produces Errors
   When the user creates a product that certifies c1 and visits the record sample page
@@ -42,6 +54,10 @@ Scenario: Successful Upload Bad Cat I file After Completing Checklist Produces E
   Then the user should see they are failing the checklist test
   And the user should see upload results for c1 certifications
   And the user should see failing for upload results
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Upload Cat I with QRDA Errors but Valid Source Data Criteria
   When the user creates a product that certifies c1 and visits the record sample page
@@ -50,6 +66,10 @@ Scenario: Upload Cat I with QRDA Errors but Valid Source Data Criteria
   Then the user should see they are passing the checklist test
   And the user should see upload results for c1 certifications
   And the user should see failing for upload results
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Successful Upload Cat I file After Completing Checklist for Product with C1 and C3 Selected
   When the user creates a product that certifies c1, c3 and visits the record sample page
@@ -58,6 +78,10 @@ Scenario: Successful Upload Cat I file After Completing Checklist for Product wi
   Then the user should see they are passing the checklist test
   And the user should see upload results for c1, c3 certifications
   And the user should see passing for upload results
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Successful Upload Bad Cat I file After Completing Checklist Produces Errors for Product with C1 and C3 Selected
   When the user creates a product that certifies c1, c3 and visits the record sample page
@@ -66,6 +90,10 @@ Scenario: Successful Upload Bad Cat I file After Completing Checklist Produces E
   Then the user should see they are failing the checklist test
   And the user should see upload results for c1, c3 certifications
   And the user should see failing for upload results
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Upload Cat I with QRDA Error on C1 Checklist Task Execution but Valid Source Data Criteria for Product with C1 and C3 Selected
   When the user creates a product that certifies c1, c3 and visits the record sample page
@@ -74,6 +102,10 @@ Scenario: Upload Cat I with QRDA Error on C1 Checklist Task Execution but Valid 
   Then the user should see they are passing the checklist test
   And the user should see upload results for c1, c3 certifications
   And the user should see failing for upload results
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Upload Cat I with QRDA Error on C3 Checklist Task Execution but Valid Source Data Criteria for Product with C1 and C3 Selected
   When the user creates a product that certifies c1, c3 and visits the record sample page
@@ -82,9 +114,17 @@ Scenario: Upload Cat I with QRDA Error on C3 Checklist Task Execution but Valid 
   Then the user should see they are passing the checklist test
   And the user should see upload results for c1, c3 certifications
   And the user should see failing for upload results
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  
 
 Scenario: Viewing an Individual Measure for Checklist Test
   When the user creates a product that certifies c1, c3 and visits the record sample page
   And the user fills out the record sample with good data
   And the user visits the individual measure checklist page for measure 1
   Then the user should see the individual measure checklist page for measure 1
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default  

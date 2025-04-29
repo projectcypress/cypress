@@ -22,7 +22,7 @@
                 <% end %>
               <% end %>
             </span>
-            <%= link_to product.name, vendor_product_path(product.vendor_id, product) %>
+            <%= link_to product.name, vendor_product_path(product.vendor_id, product), class: 'link-light link-underline link-underline-opacity-0 link-underline-opacity-75-hover' %>
           </th>
         <% else %>
           <th class="status-heading" rowspan="2"><span class="sr-only">Status</span></th>

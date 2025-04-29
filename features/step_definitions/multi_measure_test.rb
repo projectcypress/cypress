@@ -40,7 +40,7 @@ And(/^the user views multi measure cat3 task$/) do
 end
 
 And(/^the user views a task record$/) do
-  find(:xpath, "//a[@href='/records/#{@product_test.patients.first.id}?task_id=#{@product_test.tasks.first.id}']").trigger('click')
+  find(:xpath, "//a[@href='/records/#{@product_test.patients.first.id}?task_id=#{@product_test.tasks.first.id}']").click
 end
 
 # # # # # # # #
@@ -58,7 +58,7 @@ Then(/^the user should see the list of measures$/) do
   page.click_button('Measures and Sub Measures')
   @product_test.measures.each do |measure|
     measure.population_sets_and_stratifications_for_measure.each do |population_set_hash|
-      page.assert_text(measure_display_name(measure, population_set_hash))
+      page.assert_text(:all, measure_display_name(measure, population_set_hash))
     end
   end
 end
@@ -67,7 +67,7 @@ Then(/^the user should see the list expected results$/) do
   page.assert_text('Expected Aggregate Results')
   @product_test.measures.each do |measure|
     measure.population_sets_and_stratifications_for_measure.each do |population_set_hash|
-      page.assert_text(measure_display_name(measure, population_set_hash))
+      page.assert_text(:all, measure_display_name(measure, population_set_hash))
     end
   end
 end
