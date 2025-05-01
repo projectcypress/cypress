@@ -9,7 +9,7 @@
   <dl class="filters-list">
     <dt><%= display_filter_title(filter_name, task) %></dt>
     <dd>
-      <% filter_values = display_filter_val(filter_name, val) %>
+      <% filter_values = display_filter_val(filter_name, task.bundle.randomization, val) %>
       <% filter_values.each do |filter_val| %>
         <% if filter_val.is_a?(Hash) %>
           <% filter_val.each_pair do |value_key, value_val| %>

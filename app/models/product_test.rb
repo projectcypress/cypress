@@ -429,9 +429,9 @@ class ProductTest
     # Since this is a CMS IG requirement, only do this for CVU+ or C3 tests
     return expected_results unless product.cvuplus? || product.c3_test?
 
-    required_codes = { 'PAYER' => %w[1 2 6 9 349], 'SEX' => %w[M F], 'RACE' => %w[2106-3 2076-8 2054-5 2028-9 1002-5 2131-1],
+    required_codes = { 'PAYER' => %w[1 2 6 9 349], 'SEX' => %w[M 248153007 F 248152002], 'RACE' => %w[2106-3 2076-8 2054-5 2028-9 1002-5 2131-1],
                        'ETHNICITY' => %w[2135-2 2186-5] }.freeze
-    equivalent_codes = { '9' => '349', '349' => '9' }
+    equivalent_codes = { '9' => '349', '349' => '9', 'M' => '248153007', '248153007' => 'M', 'F' => '248152002', '248152002' => 'F' }
     new_hash = expected_results
     new_hash.each_value do |pop_set_hash|
       pop_set_hash.each_value do |pop_set|

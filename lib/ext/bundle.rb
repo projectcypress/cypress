@@ -64,6 +64,10 @@ class Bundle
     super
   end
 
+  def randomization
+    ApplicationController.helpers.config_for_version(version).randomization
+  end
+
   def default_negation_codes
     ApplicationController.helpers.config_for_version(version).default_negation_codes
   end

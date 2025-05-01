@@ -87,14 +87,14 @@ class PatientTest < ActiveSupport::TestCase
 
       r1 = Patient.new(familyName: 'Robert', givenNames: ['Johnson'])
       r1.qdmPatient.birthDatetime = DateTime.new(1985, 2, 18).utc
-      r1.qdmPatient.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['races'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
-      r1.qdmPatient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
+      r1.qdmPatient.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => @bundle.randomization['races'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
+      r1.qdmPatient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => @bundle.randomization['ethnicities'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
       r1.qdmPatient.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'code_system' => 'AdministrativeGender' }])
 
       r2 = Patient.new(familyName: 'Robert', givenNames: ['Johnson'])
       r2.qdmPatient.birthDatetime = DateTime.new(1985, 2, 18).utc
-      r2.qdmPatient.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['races'].sample(random: prng2)['code'], 'code_system' => 'cdcrec' }])
-      r2.qdmPatient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng2)['code'], 'code_system' => 'cdcrec' }])
+      r2.qdmPatient.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => @bundle.randomization['races'].sample(random: prng2)['code'], 'code_system' => 'cdcrec' }])
+      r2.qdmPatient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => @bundle.randomization['ethnicities'].sample(random: prng2)['code'], 'code_system' => 'cdcrec' }])
       r2.qdmPatient.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'code_system' => 'AdministrativeGender' }])
 
       assert(record_demographics_equal?(r1, r2), 'The two records should be equal')
@@ -116,8 +116,8 @@ class PatientTest < ActiveSupport::TestCase
 
       r1 = Patient.new(familyName: 'Robert', givenNames: ['Johnson'])
       r1.qdmPatient.birthDatetime = DateTime.new(1985, 2, 18).utc
-      r1.qdmPatient.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['races'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
-      r1.qdmPatient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
+      r1.qdmPatient.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => @bundle.randomization['races'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
+      r1.qdmPatient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => @bundle.randomization['ethnicities'].sample(random: prng1)['code'], 'code_system' => 'cdcrec' }])
       r1.qdmPatient.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'code_system' => 'AdministrativeGender' }])
 
       clone_patient = r1.clone
@@ -150,19 +150,6 @@ class PatientTest < ActiveSupport::TestCase
     @bundle.version = '2021.0.0'
     @bundle.save
     record = BundlePatient.new(familyName: 'normalize', givenNames: ['datetime'], bundleId: @bundle.id)
-    QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
-    time_value = DateTime.new(2011, 3, 24, 20, 53, 20).utc
-    record.qdmPatient.dataElements << QDM::AssessmentPerformed.new(id: 'assessment', relevantDatetime: time_value)
-    assert_nil record.qdmPatient.dataElements.first.relevantPeriod
-
-    record.normalize_date_times
-    normalized_element = record.qdmPatient.dataElements.first
-    # relevantPeriod should still be nil
-    assert_nil normalized_element.relevantPeriod
-  end
-
-  def test_normalize_relevant_date_time_no_bundle
-    record = BundlePatient.new(familyName: 'normalize', givenNames: ['datetime'])
     QDM::Patient.create!(cqmPatient: record, birthDatetime: DateTime.new(1981, 6, 8, 4, 0, 0).utc)
     time_value = DateTime.new(2011, 3, 24, 20, 53, 20).utc
     record.qdmPatient.dataElements << QDM::AssessmentPerformed.new(id: 'assessment', relevantDatetime: time_value)

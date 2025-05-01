@@ -59,6 +59,8 @@ module CQM
         TestExecution.find(correlation_id).task.bundle
       elsif self['_type'] == 'CQM::ProductTestPatient'
         ProductTest.find(correlation_id).bundle
+      else
+        Bundle.find_by(version: Settings.current.default_bundle)
       end
     end
 
