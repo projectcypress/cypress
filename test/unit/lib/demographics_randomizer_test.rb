@@ -88,7 +88,7 @@ class DemographicsRandomizerTest < ActiveSupport::TestCase
     Cypress::DemographicsRandomizer.assign_default_demographics(@record)
     Cypress::DemographicsRandomizer.update_demographic_codes(@record)
     assert @record.email
-    assert_equal @record.gender, 'M'
+    assert_equal @record.gender, 'F'
     assert_equal @record.race, '2028-9'
     assert_equal @record.ethnicity, '2186-5'
     assert_equal @record.payer, '1'

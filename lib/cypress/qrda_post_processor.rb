@@ -162,5 +162,16 @@ module Cypress
         patient.telecoms.build(use: 'HP', value: phone)
       end
     end
+
+    def self.add_snomed_gender(patient)
+      gender_in_qrda = patient.qdmPatient.get_data_elements('patient_characteristic', 'gender').first.dataElementCodes.first[:code]
+      return unless %w[M F].include?(gender_in_qrda)
+
+      snomed_gender = gender_in_qrda == 'F' ? '248152002' : '248153007'
+      pcs = QDM::PatientCharacteristicSex.new
+      gender_code = QDM::Code.new(snomed_gender, '2.16.840.1.113883.6.96')
+      pcs.dataElementCodes = [gender_code]
+      patient.qdmPatient.dataElements << pcs
+    end
   end
 end

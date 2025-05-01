@@ -26,6 +26,7 @@ module Validators
 
       Cypress::QrdaPostProcessor.replace_negated_codes(patient, @bundle)
       Cypress::QrdaPostProcessor.remove_invalid_qdm_56_data_types(patient) if @bundle.major_version.to_i > 2021
+      Cypress::QrdaPostProcessor.add_snomed_gender(patient) unless product_test.eh_measures?
       patient.bundleId = @bundle.id
       patient
     rescue StandardError

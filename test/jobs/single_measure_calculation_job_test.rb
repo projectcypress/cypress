@@ -7,8 +7,8 @@ class SingleMeasureCalculationJobTest < ActiveJob::TestCase
     @bundle = FactoryBot.create(:executable_bundle)
     @patient = BundlePatient.create(givenNames: ['Patient'], familyName: 'Test', bundleId: @bundle.id)
     @patient.qdmPatient.birthDatetime = DateTime.new(1985, 2, 18).utc
-    @patient.qdmPatient.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['races'].sample['code'], 'system' => '2.16.840.1.113883.6.238' }])
-    @patient.qdmPatient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => APP_CONSTANTS['randomization']['ethnicities'].sample['code'], 'system' => '2.16.840.1.113883.6.238' }])
+    @patient.qdmPatient.dataElements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => @bundle.randomization['races'].sample['code'], 'system' => '2.16.840.1.113883.6.238' }])
+    @patient.qdmPatient.dataElements << QDM::PatientCharacteristicEthnicity.new(dataElementCodes: [{ 'code' => @bundle.randomization['ethnicities'].sample['code'], 'system' => '2.16.840.1.113883.6.238' }])
     @patient.qdmPatient.dataElements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M', 'system' => '2.16.840.1.113883.5.1' }])
     @patient.qdmPatient.dataElements << QDM::EncounterPerformed.new(relevantPeriod: QDM::Interval.new(DateTime.new(2017, 9, 28, 8, 0, 0).utc, DateTime.new(2017, 9, 28, 8, 30, 0).utc),
                                                                     dataElementCodes: [{ 'code' => '720', 'system' => '2.16.840.1.113883.6.96' }])

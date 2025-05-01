@@ -22,6 +22,75 @@ default_warning_message: 'This warning banner provides privacy and security noti
 # modified_population_labels are used to indicate when the population code required by the qrda version differs from the population code in QME
 version_config:
   '~>2022.0':
+      randomization:
+        races:
+          - code           : 1002-5
+            name           : American Indian or Alaska Native
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2028-9
+            name           : Asian
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2054-5
+            name           : Black or African American
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2076-8
+            name           : Native Hawaiian or Other Pacific Islander
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2106-3
+            name           : White
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+        ethnicities:
+          - code           : 2135-2
+            name           : Hispanic or Latino
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2186-5
+            name           : Not Hispanic or Latino
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+        genders:
+          - code           : F
+            name           : Female
+            codeSystem     : 2.16.840.1.113883.5.1
+            codeSystemName : HL7 AdministrativeGender
+          - code           : M
+            name           : Male
+            codeSystem     : 2.16.840.1.113883.5.1
+            codeSystemName : HL7 AdministrativeGender
+        payers:
+          - type           : MA
+            code           : 1
+            name           : Medicare
+            codeSystem     : 2.16.840.1.113883.3.221.5
+            codeSystemName : SOP
+            codeCMS        : A
+            useInExport    : true
+          - type           : MC
+            code           : 2
+            name           : Medicaid
+            codeSystem     : 2.16.840.1.113883.3.221.5
+            codeSystemName : SOP
+            codeCMS        : B
+            useInExport    : true
+          - type           : OT
+            code           : 349
+            name           : Other
+            codeSystem     : 2.16.840.1.113883.3.221.5
+            codeSystemName : SOP
+            codeCMS        : D
+            useInExport    : false
+          - type           : OT
+            code           : 9
+            name           : MISCELLANEOUS/OTHER
+            codeSystem     : 2.16.840.1.113883.3.221.5
+            codeSystemName : SOP
+            codeCMS        : D
+            useInExport    : true
       start_date_offset: 2
       modified_population_labels:
         IPP: 'IPOP'
@@ -41,6 +110,75 @@ version_config:
       CMSQRDA3SchematronValidator_warnings:
       CMSQRDA1HQRSchematronValidator_warnings:
   '~>2023.0':
+      randomization:
+        races:
+          - code           : 1002-5
+            name           : American Indian or Alaska Native
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2028-9
+            name           : Asian
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2054-5
+            name           : Black or African American
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2076-8
+            name           : Native Hawaiian or Other Pacific Islander
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2106-3
+            name           : White
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+        ethnicities:
+          - code           : 2135-2
+            name           : Hispanic or Latino
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2186-5
+            name           : Not Hispanic or Latino
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+        genders:
+          - code           : F
+            name           : Female
+            codeSystem     : 2.16.840.1.113883.5.1
+            codeSystemName : HL7 AdministrativeGender
+          - code           : M
+            name           : Male
+            codeSystem     : 2.16.840.1.113883.5.1
+            codeSystemName : HL7 AdministrativeGender
+        payers:
+          - type           : MA
+            code           : 1
+            name           : Medicare
+            codeSystem     : 2.16.840.1.113883.3.221.5
+            codeSystemName : SOP
+            codeCMS        : A
+            useInExport    : true
+          - type           : MC
+            code           : 2
+            name           : Medicaid
+            codeSystem     : 2.16.840.1.113883.3.221.5
+            codeSystemName : SOP
+            codeCMS        : B
+            useInExport    : true
+          - type           : OT
+            code           : 349
+            name           : Other
+            codeSystem     : 2.16.840.1.113883.3.221.5
+            codeSystemName : SOP
+            codeCMS        : D
+            useInExport    : false
+          - type           : OT
+            code           : 9
+            name           : MISCELLANEOUS/OTHER
+            codeSystem     : 2.16.840.1.113883.3.221.5
+            codeSystemName : SOP
+            codeCMS        : D
+            useInExport    : true
       start_date_offset: 2
       modified_population_labels:
         IPP: 'IPOP'
@@ -60,6 +198,75 @@ version_config:
       CMSQRDA3SchematronValidator_warnings:
       CMSQRDA1HQRSchematronValidator_warnings:
   '~>2024.0':
+      randomization:
+        races:
+          - code           : 1002-5
+            name           : American Indian or Alaska Native
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2028-9
+            name           : Asian
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2054-5
+            name           : Black or African American
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2076-8
+            name           : Native Hawaiian or Other Pacific Islander
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2106-3
+            name           : White
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+        ethnicities:
+          - code           : 2135-2
+            name           : Hispanic or Latino
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2186-5
+            name           : Not Hispanic or Latino
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+        genders:
+          - code           : F
+            name           : Female
+            codeSystem     : 2.16.840.1.113883.5.1
+            codeSystemName : HL7 AdministrativeGender
+          - code           : M
+            name           : Male
+            codeSystem     : 2.16.840.1.113883.5.1
+            codeSystemName : HL7 AdministrativeGender
+        payers:
+          - type           : MA
+            code           : 1
+            name           : Medicare
+            codeSystem     : 2.16.840.1.113883.3.221.5
+            codeSystemName : SOP
+            codeCMS        : A
+            useInExport    : true
+          - type           : MC
+            code           : 2
+            name           : Medicaid
+            codeSystem     : 2.16.840.1.113883.3.221.5
+            codeSystemName : SOP
+            codeCMS        : B
+            useInExport    : true
+          - type           : OT
+            code           : 349
+            name           : Other
+            codeSystem     : 2.16.840.1.113883.3.221.5
+            codeSystemName : SOP
+            codeCMS        : D
+            useInExport    : false
+          - type           : OT
+            code           : 9
+            name           : MISCELLANEOUS/OTHER
+            codeSystem     : 2.16.840.1.113883.3.221.5
+            codeSystemName : SOP
+            codeCMS        : D
+            useInExport    : true
       start_date_offset: 2
       modified_population_labels:
         IPP: 'IPOP'
@@ -79,6 +286,75 @@ version_config:
       CMSQRDA3SchematronValidator_warnings:
       CMSQRDA1HQRSchematronValidator_warnings:
   '~>2025.0':
+      randomization:
+        races:
+          - code           : 1002-5
+            name           : American Indian or Alaska Native
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2028-9
+            name           : Asian
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2054-5
+            name           : Black or African American
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2076-8
+            name           : Native Hawaiian or Other Pacific Islander
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2106-3
+            name           : White
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+        ethnicities:
+          - code           : 2135-2
+            name           : Hispanic or Latino
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+          - code           : 2186-5
+            name           : Not Hispanic or Latino
+            codeSystem     : 2.16.840.1.113883.6.238
+            codeSystemName : CDC Race
+        genders:
+          - code           : 248152002
+            name           : Female
+            codeSystem     : 2.16.840.1.113883.6.96
+            codeSystemName : SNOMEDCT
+          - code           : 248153007
+            name           : Male
+            codeSystem     : 2.16.840.1.113883.6.96
+            codeSystemName : SNOMEDCT
+        payers:
+          - type           : MA
+            code           : 1
+            name           : Medicare
+            codeSystem     : 2.16.840.1.113883.3.221.5
+            codeSystemName : SOP
+            codeCMS        : A
+            useInExport    : true
+          - type           : MC
+            code           : 2
+            name           : Medicaid
+            codeSystem     : 2.16.840.1.113883.3.221.5
+            codeSystemName : SOP
+            codeCMS        : B
+            useInExport    : true
+          - type           : OT
+            code           : 349
+            name           : Other
+            codeSystem     : 2.16.840.1.113883.3.221.5
+            codeSystemName : SOP
+            codeCMS        : D
+            useInExport    : false
+          - type           : OT
+            code           : 9
+            name           : MISCELLANEOUS/OTHER
+            codeSystem     : 2.16.840.1.113883.3.221.5
+            codeSystemName : SOP
+            codeCMS        : D
+            useInExport    : true
       start_date_offset: 2
       modified_population_labels:
         IPP: 'IPOP'
@@ -102,75 +378,6 @@ version_config:
 
 # Configuration for values to use when randomizing patients in test decks
 # Names and nicknames added in a separate YML file
-randomization:
-  races:
-    - code           : 1002-5
-      name           : American Indian or Alaska Native
-      codeSystem     : 2.16.840.1.113883.6.238
-      codeSystemName : CDC Race
-    - code           : 2028-9
-      name           : Asian
-      codeSystem     : 2.16.840.1.113883.6.238
-      codeSystemName : CDC Race
-    - code           : 2054-5
-      name           : Black or African American
-      codeSystem     : 2.16.840.1.113883.6.238
-      codeSystemName : CDC Race
-    - code           : 2076-8
-      name           : Native Hawaiian or Other Pacific Islander
-      codeSystem     : 2.16.840.1.113883.6.238
-      codeSystemName : CDC Race
-    - code           : 2106-3
-      name           : White
-      codeSystem     : 2.16.840.1.113883.6.238
-      codeSystemName : CDC Race
-  ethnicities:
-    - code           : 2135-2
-      name           : Hispanic or Latino
-      codeSystem     : 2.16.840.1.113883.6.238
-      codeSystemName : CDC Race
-    - code           : 2186-5
-      name           : Not Hispanic or Latino
-      codeSystem     : 2.16.840.1.113883.6.238
-      codeSystemName : CDC Race
-  genders:
-    - code           : F
-      name           : Female
-      codeSystem     : 2.16.840.1.113883.5.1
-      codeSystemName : HL7 AdministrativeGender
-    - code           : M
-      name           : Male
-      codeSystem     : 2.16.840.1.113883.5.1
-      codeSystemName : HL7 AdministrativeGender
-  payers:
-    - type           : MA
-      code           : 1
-      name           : Medicare
-      codeSystem     : 2.16.840.1.113883.3.221.5
-      codeSystemName : SOP
-      codeCMS        : A
-      useInExport    : true
-    - type           : MC
-      code           : 2
-      name           : Medicaid
-      codeSystem     : 2.16.840.1.113883.3.221.5
-      codeSystemName : SOP
-      codeCMS        : B
-      useInExport    : true
-    - type           : OT
-      code           : 349
-      name           : Other
-      codeSystem     : 2.16.840.1.113883.3.221.5
-      codeSystemName : SOP
-      codeCMS        : D
-      useInExport    : false
-    - type           : OT
-      code           : 9
-      name           : MISCELLANEOUS/OTHER
-      codeSystem     : 2.16.840.1.113883.3.221.5
-      codeSystemName : SOP
-      codeCMS        : D
-      useInExport    : true
 references:
   bundles:
     current:

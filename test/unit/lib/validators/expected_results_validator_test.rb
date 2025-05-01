@@ -6,7 +6,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
 
   def setup
     @product_test = FactoryBot.create(:product_test_static_result)
-    @validator = ExpectedResultsValidator.new(@product_test.expected_results)
+    @validator = ExpectedResultsValidator.new(@product_test.expected_results, @product_test.bundle.randomization)
     @vendor_user = FactoryBot.create(:vendor_user)
     # For this test, any measure will work
     @measure = Measure.first
@@ -42,7 +42,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
   def test_validate_file_with_incorrect_population_count
     modified_expected_results = @product_test.expected_results
     modified_expected_results['40280382-5FA6-FE85-0160-0918E74D2075']['PopulationCriteria1']['IPP'] = 0
-    validator = ExpectedResultsValidator.new(modified_expected_results)
+    validator = ExpectedResultsValidator.new(modified_expected_results, @product_test.bundle.randomization)
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')).read
 
     validator.validate(file, 'task' => @task)

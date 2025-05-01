@@ -7,7 +7,7 @@ class Cat3FilterTask < Task
                                                        product_test.c3_test,
                                                        product_test.c2_test,
                                                        product_test.bundle),
-                   ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
+                   ::Validators::ExpectedResultsValidator.new(product_test.expected_results, product_test.bundle.randomization)]
   end
 
   def execute(file, user)
