@@ -16,7 +16,7 @@
   <script>
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'checklist_status_display' }});
   </script>
-  <p class="lead row bg-info execution-status"><%= icon('fas fa-fw fa-spin text-info', 'sync-alt', :"aria-hidden" => true) %> In Progress (<%= msg %>)</p>
+  <p class="lead bg-info execution-status  bg-opacity-25"><%= icon('fas fa-fw fa-spin text-info', 'sync-alt', :"aria-hidden" => true) %> In Progress (<%= msg %>)</p>
 <% end %>
 
 <% if product_test.is_a? ChecklistTest %>
