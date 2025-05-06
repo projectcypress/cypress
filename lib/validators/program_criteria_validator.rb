@@ -62,6 +62,7 @@ module Validators
       end
       Cypress::QrdaPostProcessor.replace_negated_codes(patient, options.task.bundle)
       Cypress::QrdaPostProcessor.remove_invalid_qdm_56_data_types(patient) if options.task.bundle.major_version.to_i > 2021
+      Cypress::QrdaPostProcessor.add_snomed_gender(patient) if options.task.product_test.cms_program == 'HL7_Cat_I'
     end
 
     # Check that a patient as a patient_characteristic_payer and atleast 1 other (non-demographic) data criteria
