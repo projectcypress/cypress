@@ -2,14 +2,14 @@
 
 var ready;
 function changePanel(){
-  var checked = $('.delete_vendor_patients_form input:checkbox:checked');
+  var checked = $('input:checked');
   if (checked.length > 0){
     // Make remove panel visable
-    $('.checkbox-danger-panel').show();
+    $('.checkbox-danger-panel').toggleClass('d-none');
   }
   else{
     // Make remove panel invisible
-    $('.checkbox-danger-panel').hide();
+    $('.checkbox-danger-panel').toggleClass('d-none');
   }
 }
 ready = function() {
