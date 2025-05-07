@@ -95,6 +95,7 @@ class VendorPatientUploadJob < ApplicationJob
       end
 
       patient.update(_type: CQM::VendorPatient, correlation_id: vendor_id, bundleId: bundle.id)
+      Cypress::QrdaPostProcessor.add_display_name(codes, patient, bundle)
       Cypress::QrdaPostProcessor.replace_negated_codes(patient, bundle)
       Cypress::QrdaPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
       Cypress::QrdaPostProcessor.add_parsed_telecoms(patient, parse_telecoms(doc))
