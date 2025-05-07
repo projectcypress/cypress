@@ -2,6 +2,18 @@
 
 module Cypress
   module QrdaPostProcessor
+    def self.add_display_name(codes, patient, bundle)
+      patient.qdmPatient.dataElements.each do |de|
+        next unless de['negationRationale']
+
+        build_code_descriptions(codes, patient, bundle) if patient.code_description_hash.empty?
+        code_lookup = "#{de.negationRationale.code}:#{de.negationRationale.system.tr('.', '_')}"
+        replacement_negation_rationale = de.negationRationale
+        replacement_negation_rationale.display = patient.code_description_hash[code_lookup]
+        de.negationRationale = replacement_negation_rationale
+      end
+    end
+
     # checks for placeholder negation code_system
     def self.replace_negated_codes(patient, bundle)
       mapped_codes = bundle.mapped_codes

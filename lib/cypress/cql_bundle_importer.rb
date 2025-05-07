@@ -184,6 +184,7 @@ module Cypress
         Cypress::QrdaPostProcessor.build_code_descriptions(codes, patient, bundle)
         patient['bundleId'] = bundle.id
         patient.update(_type: CQM::BundlePatient, correlation_id: bundle.id)
+        Cypress::QrdaPostProcessor.add_display_name(codes, patient, bundle)
         Cypress::QrdaPostProcessor.replace_negated_codes(patient, bundle)
         Cypress::QrdaPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
         Cypress::QrdaPostProcessor.remove_invalid_qdm_56_data_types(patient) if bundle.major_version.to_i > 2021

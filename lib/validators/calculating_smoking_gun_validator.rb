@@ -10,7 +10,7 @@ module Validators
 
     # rubocop:disable Metrics/AbcSize
     def parse_record(doc, options)
-      patient, warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+      patient, warnings, codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
 
       # check for single code negation errors
       product_test = ProductTest.find(@test_id)
@@ -24,6 +24,7 @@ module Validators
       unit_errors.each { |e| add_warning e, file_name: options[:file_name], cms: true }
       warnings.each { |e| add_warning e.message, file_name: options[:file_name], location: e.location }
 
+      Cypress::QrdaPostProcessor.add_display_name(codes, patient, @bundle)
       Cypress::QrdaPostProcessor.replace_negated_codes(patient, @bundle)
       Cypress::QrdaPostProcessor.remove_invalid_qdm_56_data_types(patient) if @bundle.major_version.to_i > 2021
       Cypress::QrdaPostProcessor.add_snomed_gender(patient) unless product_test.eh_measures?
