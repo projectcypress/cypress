@@ -34,7 +34,6 @@ module Validators
       add_error('File failed import', file_name: options[:file_name])
       nil
     end
-    # rubocop:enable Metrics/AbcSize
 
     def validate_calculated_results(doc, options)
       mrn, _doc_name, _aug_rec, telecoms = get_record_identifiers(doc, options)
@@ -42,7 +41,7 @@ module Validators
 
       validate_telecoms(mrn, telecoms, options)
       record = parse_record(doc, options)
-      record.normalize_date_times
+      record.normalize_date_times(@measures.first.cms_id)
       return false unless record
 
       product_test = options['task'].product_test
@@ -60,6 +59,7 @@ module Validators
       results = calc_job.execute(save: false)
       determine_passed(mrn, results, record, options)
     end
+    # rubocop:enable Metrics/AbcSize
 
     def validate_telecoms(mrn, telecoms, options)
       error_type = :error
