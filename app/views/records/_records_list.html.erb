@@ -90,7 +90,7 @@
 
 <% if vendor %>
   <%# Making the checkbox-danger-panel its own class so its behavior doesn't affect any other danger panels%>
-  <div class = 'checkbox-danger-panel' hidden>
+  <div class = 'checkbox-danger-panel d-none'>
     <%= render 'remove_panel', :name => vendor.name, :type => 'Selected Patients', :message => 'Deletion is permanent and cannot be undone. Be sure you want to do this.', :delete_path => destroy_multiple_vendor_records_path(vendor), :action => 'destroy_multiple' %>
   </div>
   <%= render 'action_modal' %>
