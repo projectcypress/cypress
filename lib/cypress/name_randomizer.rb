@@ -28,7 +28,8 @@ module Cypress
         updated_name
       when 2 # nickname
         updated_name.each_index do |idx|
-          nicknames = NAMES_RANDOM['nicknames'][patient.gender][updated_name[idx]]
+          gender_code = %w[M 248153007].include?(patient.gender) ? 'M' : 'F'
+          nicknames = NAMES_RANDOM['nicknames'][gender_code][updated_name[idx]]
           updated_name[idx] = nickname(nicknames, updated_name[idx], random:)
         end
         updated_name
