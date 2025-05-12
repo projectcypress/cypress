@@ -47,7 +47,8 @@ module ApplicationHelper
 
     program = measure.reporting_program_type
     program = 'ec' if program == 'ep'
-    program = 'oqr' unless APP_CONSTANTS['oqr_measures'].intersection([measure.hqmf_id]).blank?
+    program = 'hosp-inpt' if program == 'eh'
+    program = 'hosp-outpt' unless APP_CONSTANTS['oqr_measures'].intersection([measure.hqmf_id]).blank?
     year = Bundle.find(measure.bundle_id).major_version.to_i + 1
     if APP_CONSTANTS['timing_constraints'].any? { |tc| measure.hqmf_id == tc['hqmf_id'] }
       year = Date.parse(APP_CONSTANTS['timing_constraints'].detect { |tc| measure.hqmf_id == tc['hqmf_id'] }.start_time).in_time_zone.year
