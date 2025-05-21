@@ -10,15 +10,15 @@ RUN apt-get update \
     && apt-get install -y nodejs tzdata \
     && rm -rf /var/lib/apt/lists/*
 
-ENV RAILS_ENV production
-ENV RAILS_SERVE_STATIC_FILES 1
+ENV RAILS_ENV=production
+ENV RAILS_SERVE_STATIC_FILES=1
 
 RUN mkdir /home/app/cypress
 
 WORKDIR /home/app/cypress
 
-RUN bash -lc 'rvm install ruby-3.2.2'
-RUN bash -lc 'rvm --default use ruby-3.2.2'
+RUN bash -lc 'rvm install ruby-3.3.5'
+RUN bash -lc 'rvm --default use ruby-3.3.5'
 
 ADD Gemfile /home/app/cypress/Gemfile
 ADD Gemfile.lock /home/app/cypress/Gemfile.lock
@@ -58,5 +58,12 @@ RUN if [ $WORKER_COUNT -gt 1 ]; then \
         cp -R /etc/service/cypress_delayed_job_1 /etc/service/cypress_delayed_job_$i; \
       done; \
     fi
+  
+# add nginx init script
+ADD ./docker/nginx/nginx-init.sh /etc/my_init.d/nginx-init.sh
 
-EXPOSE 3000
+# start nginx
+RUN rm -f /etc/service/nginx/down
+
+EXPOSE 80
+EXPOSE 443

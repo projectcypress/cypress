@@ -1,48 +1,41 @@
-version: "3"
-
 services:
   cypress:
+    image: cypress-app:latest
     build:
       context: .
     volumes:
       - cypress-vol:/home/app/cypress/public/data
+      - ./docker:/docker
     environment:
       - MONGO_PORT_27017_TCP_ADDR=mongodb
       - MONGO_PORT_27017_TCP_PORT=27017
       - CQM_EXECUTION_SERVICE_HOST=cqm-execution-service
-      - CQM_EXECUTION55_SERVICE_HOST=cqm-execution55-service
+      # You muse set SECRET_KEY_BASE=<128_character_randomly_generated_alphanumeric_string>
+      # The following SECRET_KEY_BASE is provided as an example
+      # For production deployment, generate new secret key with `openssl rand -hex 64`
+      - SECRET_KEY_BASE=insecure_5131595823afbc3e6af90151ea8991fb3fc7d66e2a352f7664e6ef83bf572cfce8669ce542793b1597f3266706e4bc1ae3dee7f9b5023496ac21990
+      # For production deployment, set USE_SLL=true . Ensure ssl certs are placed in ./docker/nginx/ssl-certs 
+      # directory, replacing cert.txt and key.txt with your own ssl certificate files, keeping the same file name
+      - USE_SSL=true
     ports:
-      - "3000:3000"
-    env_file: .env-prod
-    #.env-prod file required, must have at least the variable SECRET_KEY_BASE=<128_character_randomly_generated_alphanumeric_string>
+      - "80:80"
+      - "443:443"
     restart: unless-stopped
-    networks:
-      - cypress-net
   mongodb:
-    image: mongo:6.0.6
+    # old image used mongo 6. new deployments seem to work with latest mongo version 
+    # TODO: check if issues with migrating existing data stored in old mongo version during upgrade 
+    # image: mongo:6.0.6
+    image: mongo:8.0.9
     volumes:
-      - /data/db
+      - mongo-data:/data/db
       - ./mongo:/etc/mongo
     command: --config=/etc/mongo/docker_mongod.conf
     restart: unless-stopped
-    networks:
-      - cypress-net
-    ports:
-      - "27017:27017"
   cqm-execution-service:
-    image: mitrehealthdocker/cqm-execution-service:cypress_v7
-    networks:
-      - cypress-net
+    # image: mitrehealthdocker/cqm-execution-service:cypress_v7
+    image: cypress-execution-service:latest
     ports:
       - "8082:8082"
-  cqm-execution55-service:
-    image: mitrehealthdocker/cqm-execution-service:qdm55
-    networks:
-      - cypress-net
-    ports:
-      - "8081:8081"
-networks:
-  cypress-net:
-
 volumes:
   cypress-vol:
+  mongo-data:
