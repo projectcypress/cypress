@@ -38,6 +38,7 @@ services:
   cqm-execution-service:
     # image: mitrehealthdocker/cqm-execution-service:cypress_v7
     image: cypress-execution-service:latest
+    # TODO: is it necessary to expose these ports? or can requests directly to service be routed through nginx in cypress service
     ports:
       - "8082:8082"
 volumes:
