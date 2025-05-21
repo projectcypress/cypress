@@ -13,6 +13,16 @@ Please choose your install instructions based on the certification rule you will
 If you wish to use the 2015 ONC Edition with the eCQMs updated for calendar year 2023 and 2024 reporting, use [Cypress 7](https://github.com/projectcypress/cypress/wiki/Cypress-7-Install-Instructions)
 
 
+Docker deployment
+-------
+
+Using docker is the fastest way to stand up Cypress for deployment and development.
+
+Spin up app with `docker compose up -d --build`
+
+comment/uncomment `- RAILS_ENV=development` in docker-compose.yml to switch between development and production environments. Development environment enables hot-reloading of code changes.
+
+
 Reporting Issues
 ================
 To report issues with alpha/beta releases, please submit tickets to [GitHub](https://github.com/projectcypress/cypress/issues)
