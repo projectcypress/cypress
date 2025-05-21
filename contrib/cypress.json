@@ -237,6 +237,21 @@
     ]
   },
   {
+    "type": "file",
+    "source": "mitre-ca-bundle.crt",
+    "destination": "/tmp/mitre-ca-bundle.crt",
+    "only": ["cypress.vmware"]
+  },
+  {
+    "type": "shell",
+    "execute_command": "echo '{{user `default_pwd`}}' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
+    "inline": [
+      "cp /tmp/mitre-ca-bundle.crt /usr/local/share/ca-certificates/",
+      "update-ca-certificates"
+    ],
+    "only": ["cypress.vmware"]
+  },
+  {
     "type": "shell",
     "inline": ["echo '{{user `default_pwd`}}' | sudo -S sed -i 's/^%sudo\\s\\+ALL=(ALL:ALL)\\s\\+ALL/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/' /etc/sudoers"],
     "only": ["cypress.vmware", "cypress.cvu.vmware", "cvu.vmware"]
@@ -254,6 +269,9 @@
   },
   {
     "type": "chef-solo",
+    "execute_command": "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+                        {{ if .Sudo }}sudo -E{{ end }} \
+                        chef-solo --config {{ .ConfigPath }} --json-attributes {{ .JsonPath }}",
     "cookbook_paths": ["cookbooks"],
     "install_command": "set -x; curl -L https://www.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v {{ user `chef_version` }}",
     "run_list": [ "recipe[apt]", "recipe[cypress::install_cypress]" ],
@@ -266,6 +284,9 @@
   },
   {
     "type": "chef-solo",
+    "execute_command": "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+                        {{ if .Sudo }}sudo -E{{ end }} \
+                        chef-solo --config {{ .ConfigPath }} --json-attributes {{ .JsonPath }}",
     "cookbook_paths": ["cookbooks"],
     "install_command": "set -x; curl -L https://www.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v {{ user `chef_version` }}",
     "run_list": [ "recipe[apt]", "recipe[cypress::install_cvu]" ],
@@ -278,6 +299,9 @@
   },
   {
     "type": "chef-solo",
+    "execute_command": "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+                        {{ if .Sudo }}sudo -E{{ end }} \
+                        chef-solo --config {{ .ConfigPath }} --json-attributes {{ .JsonPath }}",
     "cookbook_paths": ["cookbooks"],
     "install_command": "set -x; curl -L https://www.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v {{ user `chef_version` }}",
     "run_list": [ "recipe[apt]", "recipe[cypress::default]" ],
@@ -292,6 +316,16 @@
     "type": "shell",
     "inline": ["sudo -S sed -i 's/^%sudo\\s\\+ALL=(ALL:ALL)\\s\\+NOPASSWD:ALL/%sudo ALL=(ALL:ALL) ALL/' /etc/sudoers"],
     "only": ["cypress.vmware", "cypress.cvu.vmware", "cvu.vmware"]
+  },
+  {
+    "type": "shell",
+    "execute_command": "echo '{{user `default_pwd`}}' | sudo -S bash '{{ .Path }}'",
+    "inline": [
+      "rm -f /usr/local/share/ca-certificates/mitre-ca-bundle.crt",
+      "rm -f /tmp/mitre-ca-bundle.crt",
+      "update-ca-certificates --fresh"
+    ],
+    "only": ["cypress.vmware"]
   },
   {
     "type": "shell",

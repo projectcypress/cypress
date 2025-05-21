@@ -1,6 +1,8 @@
 # Pinned to the latest ruby 3.2 version of the Passenger base Docker image 
 FROM phusion/passenger-ruby32:2.5.0
 
+RUN curl -ksSL https://gitlab.mitre.org/mitre-scripts/mitre-pki/raw/master/os_scripts/install_certs.sh | sh
+
 RUN mv /etc/apt/sources.list.d /etc/apt/sources.list.d.bak
 RUN apt update && apt install -y ca-certificates
 RUN mv /etc/apt/sources.list.d.bak /etc/apt/sources.list.d
