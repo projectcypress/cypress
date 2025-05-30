@@ -8,9 +8,8 @@ Cypress is the rigorous and repeatable testing tool of Electronic Health Records
 
 Installing
 -------
-Please choose your install instructions based on the certification rule you will certify under:
 
-If you wish to use the 2015 ONC Edition with the eCQMs updated for calendar year 2023 and 2024 reporting, use [Cypress 7](https://github.com/projectcypress/cypress/wiki/Cypress-7-Install-Instructions)
+For the 2015 ONC Edition with the eCQMs updated for calendar year 2023 and 2024 reporting, use [Cypress 7](https://github.com/projectcypress/cypress/wiki/Cypress-7-Install-Instructions)
 
 
 Reporting Issues
