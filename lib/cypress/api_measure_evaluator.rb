@@ -277,7 +277,7 @@ module Cypress
         /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@code)
       problems = doc.xpath(problems_xpath)
       problems.each do |problem|
-        oids = ValueSet.where('concepts.code' => problem.value).distinct(:oid)
+        oids = ValueSet.where('concepts.code' => problem.value, 'concepts.code_system_oid' => '2.16.840.1.113883.6.96').distinct(:oid)
         problem_array += oids
       end
       true if problem_array.include? filters['problem']
@@ -288,6 +288,7 @@ module Cypress
       age_filter_holder = nil
       race_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:raceCode/@code'
       gender_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:administrativeGenderCode/@code'
+      snomed_gender_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:administrativeGenderCode/cda:translation/@code'
       ethnic_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:ethnicGroupCode/@code'
       payer_xpath = %(/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/
         cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.55']/cda:value/@code)
@@ -298,7 +299,8 @@ module Cypress
         filters.delete('age')
       end
       counter += 1 if filters.value?(doc.at_xpath(race_xpath).value)
-      counter += 1 if filters.value?(doc.at_xpath(gender_xpath).value)
+      counter += 1 if filters.value?(doc.at_xpath(gender_xpath)&.value)
+      counter += 1 if filters.value?(doc.at_xpath(snomed_gender_xpath)&.value)
       counter += 1 if filters.value?(doc.at_xpath(ethnic_xpath).value)
       counter += 1 if filters.value?(payer_value)
       filters['age'] = age_filter_holder if age_filter_holder
@@ -519,8 +521,9 @@ module Cypress
     end
 
     def import_cat1_file(doc, patient_ids, bundle_id)
-      patient, _warnings, _codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+      patient, _warnings, codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
       bundle = Bundle.find(bundle_id)
+      Cypress::QrdaPostProcessor.add_display_name(codes, patient, bundle)
       Cypress::QrdaPostProcessor.replace_negated_codes(patient, bundle)
       Cypress::QrdaPostProcessor.remove_invalid_qdm_56_data_types(patient) if bundle.major_version.to_i > 2021
       patient.update(_type: CQM::TestExecutionPatient, correlation_id: 'api_eval', bundleId: bundle_id)
