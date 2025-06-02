@@ -283,6 +283,9 @@ module Cypress
       true if problem_array.include? filters['problem']
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/PerceivedComplexity
     def filter_demographics(doc, filters, creation_time)
       counter = 0
       age_filter_holder = nil
@@ -306,6 +309,9 @@ module Cypress
       filters['age'] = age_filter_holder if age_filter_holder
       true if counter == 2
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def compare_age(doc, age_filter, creation_time)
       age_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:birthTime/@value'
