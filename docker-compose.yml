@@ -1,5 +1,6 @@
 services:
   cypress:
+    # image: mitrehealthdocker/cypress:cypress_v7
     image: cypress-app:latest
     build:
       context: .
@@ -12,7 +13,7 @@ services:
       - MONGO_PORT_27017_TCP_ADDR=mongodb
       - MONGO_PORT_27017_TCP_PORT=27017
       - CQM_EXECUTION_SERVICE_HOST=cqm-execution-service
-      # You muse set SECRET_KEY_BASE=<128_character_randomly_generated_alphanumeric_string>
+      # You must set SECRET_KEY_BASE=<128_character_randomly_generated_alphanumeric_string>
       # The following SECRET_KEY_BASE is provided as an example
       # For production deployment, generate new secret key with `openssl rand -hex 64`
       - SECRET_KEY_BASE=insecure_5131595823afbc3e6af90151ea8991fb3fc7d66e2a352f7664e6ef83bf572cfce8669ce542793b1597f3266706e4bc1ae3dee7f9b5023496ac21990
@@ -36,11 +37,11 @@ services:
     command: --config=/etc/mongo/docker_mongod.conf
     restart: unless-stopped
   cqm-execution-service:
-    # image: mitrehealthdocker/cqm-execution-service:cypress_v7
-    image: cypress-execution-service:latest
+    image: mitrehealthdocker/cqm-execution-service:cypress_v7
+    # image: cypress-execution-service:latest
     # TODO: is it necessary to expose these ports? or can requests directly to service be routed through nginx in cypress service
-    ports:
-      - "8082:8082"
+    # ports:
+    #   - "8082:8081"
 volumes:
   cypress-vol:
   mongo-data:
