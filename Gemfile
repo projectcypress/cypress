@@ -18,8 +18,8 @@ gem 'mustache'
 
 gem 'cqm-models', '~> 4.2.0'
 gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'master'
-gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'new_gender_codes'
-gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators', branch: 'new_gender_codes'
+gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'master'
+gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators', branch: 'master'
 
 # # Use faker to generate addresses
 gem 'faker', '> 1.5.0'
