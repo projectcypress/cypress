@@ -607,7 +607,29 @@ ipp_relevant:
   # CMS832v1
   - hqmf_id : '2C928083-8651-08A3-0186-C7D18A711CB2'
     statements : [ 'Inpatient Encounter with Creatinine']
-
+  # 2025 Bundle
+  # CMS136v15
+  - hqmf_id : '511A583C-A282-448D-9415-2A4C6EE166B6'
+    statements : [ 'Inpatient Stay with Qualifying Diagnosis During Initiation Phase',
+                   'Inpatient Stay with Qualifying Diagnosis During Continuation and Maintenance Phase']
+  # CMS137v14
+  - hqmf_id : '61D66457-70B7-4162-8AD0-07148F505A5E'
+    statements : [ 'History of SUD Diagnosis or Treatment']
+  # CMS108v14
+  - hqmf_id : '31F02A2D-AED4-4F19-AC57-6FEC60DB6232'
+    statements : [ 'Admission without VTE or Obstetrical Conditions']
+  # CMS190v14
+  - hqmf_id : 'E0E4534B-2F7E-4B1D-8431-8FDA6932166F'
+    statements : [ 'Admission without VTE or Obstetrical Conditions']
+  # CMS819v4
+  - hqmf_id : '7B4A6B88-B107-43C9-B0EC-7C6D8DC394D9'
+    statements : [ 'Opioid Administration']
+  # CMS832v3
+  - hqmf_id : '4A957BC1-5637-413F-A06E-65D69AC77BBB'
+    statements : [ 'Inpatient Encounter with Creatinine']
+  # CMS1206v3
+  - hqmf_id : 'AE5FE43D-8A38-4309-B098-231246CF5373'
+    statements : [ 'Qualified Scan']
 
 # These measures do not 
 telehealth_ineligible_measures:
@@ -821,6 +843,13 @@ unit_matches:
     units       :
       - 'weeks'
       - 'wk'
+  # relevant for CMS1218"
+  - hqmf_set_id : '010FA13E-A59F-4AB7-8B96-E8DF0494B611'
+    de_type     : 'QDM::LaboratoryTestPerformed'
+    code_list_id: '2.16.840.1.113762.1.4.1248.95'
+    units       :
+      - 'mm[Hg]'
+  
 
 problematic_record_sample_criteria:
   # CMS996v3 (2022 AU)
