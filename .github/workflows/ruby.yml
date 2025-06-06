@@ -61,7 +61,7 @@ jobs:
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
-        nvm install 20.14
+        nvm install 22.16
         nvm use stable
         bundle install
     - name: Run overcommit
@@ -95,7 +95,7 @@ jobs:
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
-        nvm install 20.14
+        nvm install 22.16
         nvm use stable
         bundle install
         git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
@@ -138,7 +138,7 @@ jobs:
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
-        nvm install 20.14
+        nvm install 22.16
         nvm use stable
         bundle install
         git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
@@ -181,7 +181,7 @@ jobs:
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
-        nvm install 20.14
+        nvm install 22.16
         nvm use stable
         bundle install
         git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
@@ -221,7 +221,7 @@ jobs:
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
-        nvm install 20.14
+        nvm install 22.16
         nvm use stable
         bundle install
         git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
@@ -279,7 +279,7 @@ jobs:
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
-        nvm install 20.14
+        nvm install 22.16
         nvm use stable
         bundle install
         git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
