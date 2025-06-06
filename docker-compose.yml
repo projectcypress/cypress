@@ -1,14 +1,13 @@
 services:
   cypress:
-    # image: mitrehealthdocker/cypress:cypress_v7
-    image: cypress-app:latest
+    image: cypress:latest
     build:
       context: .
     volumes:
       - cypress-vol:/home/app/cypress/public/data
       - ./docker:/docker
       # bind ./app folder to enable reloading app code changes
-      - ./app:/home/app/cypress/app
+      # - ./app:/home/app/cypress/app
     environment:
       - MONGO_PORT_27017_TCP_ADDR=mongodb
       - MONGO_PORT_27017_TCP_PORT=27017
@@ -27,9 +26,6 @@ services:
       - "443:443"
     restart: unless-stopped
   mongodb:
-    # old image used mongo 6. new deployments seem to work with latest mongo version 
-    # TODO: check if issues with migrating existing data stored in old mongo version during upgrade 
-    # image: mongo:6.0.6
     image: mongo:8.0.9
     volumes:
       - mongo-data:/data/db
@@ -38,10 +34,7 @@ services:
     restart: unless-stopped
   cqm-execution-service:
     image: mitrehealthdocker/cqm-execution-service:cypress_v7
-    # image: cypress-execution-service:latest
-    # TODO: is it necessary to expose these ports? or can requests directly to service be routed through nginx in cypress service
-    # ports:
-    #   - "8082:8081"
+    restart: unless-stopped
 volumes:
   cypress-vol:
   mongo-data:
