@@ -277,17 +277,21 @@ module Cypress
         /cda:value[cda:translation/@codeSystem='2.16.840.1.113883.6.96']/@code)
       problems = doc.xpath(problems_xpath)
       problems.each do |problem|
-        oids = ValueSet.where('concepts.code' => problem.value).distinct(:oid)
+        oids = ValueSet.where('concepts.code' => problem.value, 'concepts.code_system_oid' => '2.16.840.1.113883.6.96').distinct(:oid)
         problem_array += oids
       end
       true if problem_array.include? filters['problem']
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/PerceivedComplexity
     def filter_demographics(doc, filters, creation_time)
       counter = 0
       age_filter_holder = nil
       race_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:raceCode/@code'
       gender_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:administrativeGenderCode/@code'
+      snomed_gender_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:administrativeGenderCode/cda:translation/@code'
       ethnic_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:ethnicGroupCode/@code'
       payer_xpath = %(/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component/cda:section/
         cda:entry/cda:observation[cda:templateId/@root = '2.16.840.1.113883.10.20.24.3.55']/cda:value/@code)
@@ -298,12 +302,16 @@ module Cypress
         filters.delete('age')
       end
       counter += 1 if filters.value?(doc.at_xpath(race_xpath).value)
-      counter += 1 if filters.value?(doc.at_xpath(gender_xpath).value)
+      counter += 1 if filters.value?(doc.at_xpath(gender_xpath)&.value)
+      counter += 1 if filters.value?(doc.at_xpath(snomed_gender_xpath)&.value)
       counter += 1 if filters.value?(doc.at_xpath(ethnic_xpath).value)
       counter += 1 if filters.value?(payer_value)
       filters['age'] = age_filter_holder if age_filter_holder
       true if counter == 2
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def compare_age(doc, age_filter, creation_time)
       age_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:birthTime/@value'
@@ -467,6 +475,7 @@ module Cypress
       JSON.parse(unparsed_string)
     end
 
+    # rubocop:disable Metrics/AbcSize
     def calcuate_cat3(product_test_id, bundle_id)
       pt = ProductTest.find(product_test_id)
       patient_ids = []
@@ -487,13 +496,15 @@ module Cypress
                                   false
                                 end
       options = { provider: pt.patients.first.providers.first, submission_program: cat3_submission_program,
-                  start_time: pt.start_date, end_time: pt.end_date, ry2025_submission: pt.bundle.major_version == '2024' }
+                  start_time: pt.start_date, end_time: pt.end_date, ry2025_submission: pt.bundle.major_version == '2024',
+                  ry2026_submission: pt.bundle.major_version == '2025' }
       xml = Qrda3.new(results, pt.measures, options).render
 
       Patient.find(patient_ids).each(&:destroy)
 
       File.write("tmp/#{product_test_id}.xml", xml)
     end
+    # rubocop:enable Metrics/AbcSize
 
     def do_calculation(product_test, patients, correlation_id)
       measures = product_test.measures
@@ -519,8 +530,9 @@ module Cypress
     end
 
     def import_cat1_file(doc, patient_ids, bundle_id)
-      patient, _warnings, _codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+      patient, _warnings, codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
       bundle = Bundle.find(bundle_id)
+      Cypress::QrdaPostProcessor.add_display_name(codes, patient, bundle)
       Cypress::QrdaPostProcessor.replace_negated_codes(patient, bundle)
       Cypress::QrdaPostProcessor.remove_invalid_qdm_56_data_types(patient) if bundle.major_version.to_i > 2021
       patient.update(_type: CQM::TestExecutionPatient, correlation_id: 'api_eval', bundleId: bundle_id)
