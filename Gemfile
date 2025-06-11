@@ -17,9 +17,9 @@ gem 'mustache'
 ## gem 'os'
 
 gem 'cqm-models', '~> 4.2.0'
-gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'master'
-gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'master'
-gem 'cqm-validators', git: 'https://github.com/projecttacoma/cqm-validators', branch: 'master'
+gem 'cqm-parsers', '~> 4.1.1.1'
+gem 'cqm-reports', '~> 4.1.4'
+gem 'cqm-validators', '~> 4.0.6'
 
 # # Use faker to generate addresses
 gem 'faker', '> 1.5.0'
