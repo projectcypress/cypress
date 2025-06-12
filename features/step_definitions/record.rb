@@ -212,5 +212,5 @@ Then(/^the user should see text (.*)$/) do |data_criteria|
 end
 
 Then(/^the user should not see text (.*)$/) do |data_criteria|
-  page.assert_no_text data_criteria
+  page.assert_no_text(:visible, data_criteria, wait: 5)
 end
