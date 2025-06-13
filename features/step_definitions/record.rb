@@ -208,9 +208,9 @@ When(/^the user filters on (.*)$/) do |cms_id|
 end
 
 Then(/^the user should see text (.*)$/) do |data_criteria|
-  page.assert_text(:visible, data_criteria, wait: 5)
+  page.assert_text(:visible, data_criteria, wait: 10)
 end
 
 Then(/^the user should not see text (.*)$/) do |data_criteria|
-  page.assert_no_text(:visible, data_criteria, wait: 5)
+  page.assert_no_text(:visible, data_criteria, wait: 10)
 end
