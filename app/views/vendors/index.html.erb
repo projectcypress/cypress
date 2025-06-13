@@ -6,9 +6,11 @@
     <% end %>
   </p>
 <% else %>
-  <%= button_to new_vendor_path, :method => :get, :class => "btn btn-primary pull-right" do %>
-    <%= icon('fas fa-fw', 'plus', :"aria-hidden" => true) %> Add Vendor
-  <% end %>
+  <div class="hstack">
+    <%= button_to new_vendor_path, :method => :get, :form_class => "ms-auto", :class => "btn btn-primary" do %>
+      <%= icon('fas fa-fw', 'plus', :"aria-hidden" => true) %> Add Vendor
+    <% end %>
+  </div>
 
   <% @favorites = @vendors.select{ |v| v.favorite_user_ids.include? current_user.id} %>
   <% unless @favorites.empty? %>

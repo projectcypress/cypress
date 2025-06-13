@@ -12,14 +12,14 @@
   <div id='modify_record'><button class='btn btn-default' type='button' id="modifyrecord">Edit Test</button></div>
 <% end %>
 <% measures.sort_by(&:cms_int).each do |measure, measure_index| %>
-  <div class = 'panel-group' id = '<%= measure.cms_id %>' disabled = true>
-    <div class = 'panel panel-default'>
-      <div class = 'panel-heading'>
-        <h1 class='panel-title'>
+  <div class = 'card-group' id = '<%= measure.cms_id %>' disabled = true>
+    <div class = 'card card-default'>
+      <div class = 'card-header'>
+        <h1 class='card-title lead'>
           <%= "#{measure.cms_id} #{measure.description}" %>
         </h1>
       </div>
-      <div class = 'panel-body'>
+      <div class = 'card-body'>
         <div class = 'checklist-panel'>
           <table class = 'table table-condensed'>
             <thead>
@@ -69,7 +69,7 @@
                             <% if criteria_field.object.negated_valueset %>
                                <%= 'Negate entire Valueset' %>
                             <% else %>
-                              <div type = "button" class ="value-set-group set-menu" data-toggle="modal" data-target="<%= "#lookupModal#{criteria_field.index}" %>">
+                              <div type = "button" class ="value-set-group set-menu" data-bs-toggle="modal" data-bs-target="<%= "#lookupModal#{criteria_field.index}" %>">
                                 <ul class="value-set-list">
                                   <% valuessets.each do |vs| %>
                                   <li class="value-set-item-header"><%= "#{lookup_valueset_name(vs)}" %></li>
@@ -93,7 +93,7 @@
                             <%= icon('fas fa-fw text-danger', 'times', :"aria-hidden" => true) %>
                             <% end %>
                             <% if criteria_field.object.negated_valueset %>
-                           <%= criteria_field.select :selected_negated_valueset, valuessets.collect{ |vs| ["#{lookup_valueset_name(vs)} - #{vs}", vs] }, class: 'hide-me' %>
+                           <%= criteria_field.select :selected_negated_valueset, valuessets.collect{ |vs| ["#{lookup_valueset_name(vs)} - #{valueset_oid_or_code(vs)}", vs] }, class: 'hide-me' %>
                             <% else %>
                               <%= criteria_field.text_field :code, hide_label: false, class: 'hide-me' %>
                             <% end %>
@@ -165,12 +165,12 @@
           </table>
         </div>
         <% if product_test.status != 'passing' %>
-          <div class = 'panel-footer'>
-            <%= f.submit 'Save', class: 'btn btn-default' %>
+          <div class = 'card-footer'>
+            <%= f.submit 'Save', class: 'btn btn-outline-info' %>
             <span class = 'small-indent'></span>
           </div>
         <% else %>
-          <div class = 'panel-footer'>
+          <div class = 'card-footer'>
             <%= f.submit 'Save', class: 'btn btn-danger', disabled: true %>
             <span class = 'small-indent'></span>
           </div>
@@ -197,7 +197,7 @@
   $('.criteria-selector').change(function() {
     // find attribute in next table row
     var attributeSelector = $(this).closest('tr').next('tr').find('.attribute-selector');
-    var measure = $(this).closest('.panel-group').attr('id')
+    var measure = $(this).closest('.card-group').attr('id')
     var criteria = $(this).children("option:selected").text();
     attributeSelector.empty(); // remove old options
 

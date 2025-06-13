@@ -5,11 +5,11 @@
 
   <div class = 'col-md-4'>
     <% unless @product.product_tests.empty? %>
-      <div class = 'panel panel-default'>
-        <div class = 'panel-heading'>
-          <h1 class='panel-title'>Download Full Test Deck</h1>
+      <div class = 'card card-default'>
+        <div class = 'card-header'>
+          <h1 class='card-title lead'>Download Full Test Deck</h1>
         </div>
-        <div class = 'panel-body' id = 'display_bulk_download'>
+        <div class = 'card-body' id = 'display_bulk_download'>
           <%= render 'bulk_download', :product => @product %>
         </div>
       </div>

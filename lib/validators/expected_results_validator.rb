@@ -6,9 +6,10 @@ module Validators
     include Validators::Validator
     attr_accessor :reported_results
 
-    def initialize(expected_results)
+    def initialize(expected_results, randomization)
       @expected_results = expected_results
       @reported_results = {}
+      @randomization = randomization
     end
 
     def validate(file, options = {})
@@ -119,8 +120,8 @@ module Validators
         # keys_and_ids used to hold information that is displayed with an execution error. the variable also rhymes
         keys_and_ids[:sup_key] = sup_key
         esr.check_supplemental_data_matches_pop_sums(report_sup_val, keys_and_ids, expect_sup_val)
-        esr.check_supplemental_data_expected_not_reported(expect_sup_val, report_sup_val, keys_and_ids, options)
-        esr.check_supplemental_data_reported_not_expected(expect_sup_val, report_sup_val, keys_and_ids, options)
+        esr.check_supplemental_data_expected_not_reported(expect_sup_val, report_sup_val, keys_and_ids, @randomization, options)
+        esr.check_supplemental_data_reported_not_expected(expect_sup_val, report_sup_val, keys_and_ids, @randomization, options)
       end
       @errors.nil? ? (@errors = esr.errors) : @errors.concat(esr.errors || [])
     end

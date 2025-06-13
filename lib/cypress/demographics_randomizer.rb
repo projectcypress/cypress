@@ -30,12 +30,13 @@ module Cypress
     end
 
     def self.assign_random_name(patient, prng)
-      patient.givenNames.each_with_index { |_name, i| patient.givenNames[i] = NAMES_RANDOM['first'][patient.gender].sample(random: prng) }
+      gender_code = %w[M 248153007].include?(patient.gender) ? 'M' : 'F'
+      patient.givenNames.each_with_index { |_name, i| patient.givenNames[i] = NAMES_RANDOM['first'][gender_code].sample(random: prng) }
       patient.familyName = NAMES_RANDOM['last'].sample(random: prng)
     end
 
     def self.randomize_gender(patient, prng)
-      rand_gender = %w[M F].sample(random: prng)
+      rand_gender = patient.bundle.randomization['genders'].sample(random: prng)
       gender_chars = patient.qdmPatient.get_data_elements('patient_characteristic', 'gender')
       raise 'Cannot find gender element' unless gender_chars&.any? && gender_chars.first.dataElementCodes&.any?
 
@@ -48,7 +49,7 @@ module Cypress
 
     def self.randomize_race(patient, prng)
       race_element = patient.qdmPatient.get_data_elements('patient_characteristic', 'race')
-      race_hash = APP_CONSTANTS['randomization']['races'].sample(random: prng)
+      race_hash = patient.bundle.randomization['races'].sample(random: prng)
       raise 'Cannot find race element' unless race_element&.any? && race_element.first.dataElementCodes&.any?
 
       new_race = race_element.first.dataElementCodes.first
@@ -62,7 +63,7 @@ module Cypress
 
     def self.randomize_ethnicity(patient, prng)
       ethnicity_element = patient.qdmPatient.get_data_elements('patient_characteristic', 'ethnicity')
-      ethnicity_hash = APP_CONSTANTS['randomization']['ethnicities'].sample(random: prng)
+      ethnicity_hash = patient.bundle.randomization['ethnicities'].sample(random: prng)
       raise 'Cannot find ethnicity element' unless ethnicity_element&.any? && ethnicity_element.first.dataElementCodes&.any?
 
       new_ethnicity = ethnicity_element.first.dataElementCodes.first
@@ -159,12 +160,13 @@ module Cypress
     end
 
     def self.sample_payer(patient, prng)
-      payer_hash = APP_CONSTANTS['randomization']['payers'].sample(random: prng)
+      exportable_payer = patient.bundle.randomization['payers'].select { |payer| payer['useInExport'] == true }
+      payer_hash = exportable_payer.sample(random: prng)
       # Some measures need Medicare patients, inflate the probability by trying again if one isn't found the first time
-      payer_hash = APP_CONSTANTS['randomization']['payers'].sample(random: prng) unless payer_hash['name'] == 'Medicare'
+      payer_hash = exportable_payer.sample(random: prng) unless payer_hash['name'] == 'Medicare'
       while payer_hash['name'] == 'Medicare' &&
             Time.at(patient.qdmPatient.birthDatetime).in_time_zone > Time.at(patient.bundle.effective_date).in_time_zone.years_ago(65)
-        payer_hash = APP_CONSTANTS['randomization']['payers'].sample
+        payer_hash = exportable_payer.sample
       end
       payer_hash
     end
@@ -173,8 +175,9 @@ module Cypress
     def self.assign_default_demographics(patient, randomize: false)
       elements = []
       unless patient&.gender
-        elements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => 'M',
-                                                                           'system' => '2.16.840.1.113883.5.1' }])
+        default_gender = patient.bundle.randomization['genders'].first
+        elements << QDM::PatientCharacteristicSex.new(dataElementCodes: [{ 'code' => default_gender.code,
+                                                                           'system' => default_gender.codeSystem }])
       end
       unless patient&.race
         elements << QDM::PatientCharacteristicRace.new(dataElementCodes: [{ 'code' => '2028-9', 'system' => '2.16.840.1.113883.6.238' }])
@@ -195,7 +198,7 @@ module Cypress
       randomization_mapping = { 'race' => 'races', 'gender' => 'genders', 'ethnicity' => 'ethnicities', 'payer' => 'payers' }
       %w[race gender ethnicity payer].each do |characteristic|
         patient.qdmPatient.get_data_elements('patient_characteristic', characteristic).first.dataElementCodes.each do |dec|
-          description = APP_CONSTANTS['randomization'][randomization_mapping[characteristic]].select { |r| r.code.to_s == dec.code }&.first&.name
+          description = patient.bundle.randomization[randomization_mapping[characteristic]].select { |r| r.code.to_s == dec.code }&.first&.name
           patient.code_description_hash["#{dec.code}:#{dec.system}".tr('.', '_')] = description
         end
       end

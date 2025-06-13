@@ -16,9 +16,9 @@ module RecordsHelper
 
   def full_gender_name(gender)
     case gender
-    when 'M'
+    when 'M', '248153007'
       'Male'
-    when 'F'
+    when 'F', '248152002'
       'Female'
     else
       ''

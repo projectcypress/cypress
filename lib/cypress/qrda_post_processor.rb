@@ -2,6 +2,18 @@
 
 module Cypress
   module QrdaPostProcessor
+    def self.add_display_name(codes, patient, bundle)
+      patient.qdmPatient.dataElements.each do |de|
+        next unless de['negationRationale']
+
+        build_code_descriptions(codes, patient, bundle) if patient.code_description_hash.empty?
+        code_lookup = "#{de.negationRationale.code}:#{de.negationRationale.system.tr('.', '_')}"
+        replacement_negation_rationale = de.negationRationale
+        replacement_negation_rationale.display = patient.code_description_hash[code_lookup]
+        de.negationRationale = replacement_negation_rationale
+      end
+    end
+
     # checks for placeholder negation code_system
     def self.replace_negated_codes(patient, bundle)
       mapped_codes = bundle.mapped_codes
@@ -161,6 +173,17 @@ module Cypress
         patient.telecoms.destroy_all
         patient.telecoms.build(use: 'HP', value: phone)
       end
+    end
+
+    def self.add_snomed_gender(patient)
+      gender_in_qrda = patient.qdmPatient.get_data_elements('patient_characteristic', 'gender').first.dataElementCodes.first[:code]
+      return unless %w[M F].include?(gender_in_qrda)
+
+      snomed_gender = gender_in_qrda == 'F' ? '248152002' : '248153007'
+      pcs = QDM::PatientCharacteristicSex.new
+      gender_code = QDM::Code.new(snomed_gender, '2.16.840.1.113883.6.96')
+      pcs.dataElementCodes = [gender_code]
+      patient.qdmPatient.dataElements << pcs
     end
   end
 end

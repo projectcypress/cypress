@@ -68,7 +68,7 @@
           <tr>
             <td>
               <% test.options.filters.each do |key, val| %>
-                <strong><%= "#{key.titleize}: " %></strong><%= display_filter_val(key, val) %><br/>
+                <strong><%= "#{key.titleize}: " %></strong><%= display_filter_val(key, @product.bundle.randomization, val) %><br/>
               <% end %>
             </td>
             <td class = 'text-center'><%= render partial: 'products/report/status_icon', locals: { passing: test.task_status('Cat1FilterTask') == 'passing' } %></td>

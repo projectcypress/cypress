@@ -6,6 +6,7 @@
 # frozen_string_literal: true
 
 require 'simplecov'
+# require 'phantomjs'
 SimpleCov.start 'rails'
 
 module SimpleCov
@@ -38,6 +39,10 @@ require 'capybara/accessible'
 
 require 'axe-cucumber-steps'
 
+# Capybara.register_driver :poltergeist do |app|
+#   Capybara::Poltergeist::Driver.new(app, phantomjs: Phantomjs.path)
+# end
+
 def default_drivers
   if ENV['IN_BROWSER']
     # On demand: non-headless tests via Selenium/WebDriver
@@ -49,9 +54,21 @@ def default_drivers
     AfterStep do
       sleep(ENV['PAUSE'].to_i || 0)
     end
+  elsif ENV['CI'] == 'true'
+    Capybara.register_driver :headless_chrome do |app|
+      options = Selenium::WebDriver::Chrome::Options.new
+      options.add_argument '--headless=new'
+      options.add_argument '--no-sandbox'
+      options.add_argument '--disable-dev-shm-usage'
+
+      Capybara::Selenium::Driver.new app, browser: :chrome, options:
+    end
+
+    Capybara.default_driver    = :headless_chrome
+    Capybara.javascript_driver = :headless_chrome
   else
-    Capybara.default_driver    = :poltergeist
-    Capybara.javascript_driver = :poltergeist
+    Capybara.default_driver    = :selenium_headless
+    Capybara.javascript_driver = :selenium_headless
   end
 end
 
@@ -127,6 +144,7 @@ Capybara.asset_host = 'http://localhost:3000'
 # # # # # # # # # # #
 
 def wait_for_all_delayed_jobs_to_run
+  sleep(1)
   Delayed::Job.each do |delayed_job|
     Delayed::Worker.new.run(delayed_job)
   end

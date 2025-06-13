@@ -1,16 +1,16 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h1 class='panel-title'>Resend confirmation instructions</h1>
+<div class="card card-default">
+  <div class="card-header">
+    <h1 class='card-title lead'>Resend confirmation instructions</h1>
   </div>
 
 <%= bootstrap_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
 
-  <div class="panel-body">
+  <div class="card-body">
     <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true,
       value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
   </div>
 
-  <div class="panel-footer">
+  <div class="card-footer">
     <%= f.primary "Resend confirmation instructions" %>
   </div>
 <% end %>

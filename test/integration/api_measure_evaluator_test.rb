@@ -188,7 +188,8 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
                                 false
                               end
     options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
-                start_time: product_test.start_date, end_time: product_test.end_date, ry2025_submission: product_test.bundle.major_version == '2024' }
+                start_time: product_test.start_date, end_time: product_test.end_date, ry2025_submission: product_test.bundle.major_version == '2024',
+                ry2026_submission: product_test.bundle.major_version == '2025' }
     Qrda3.new(results, product_test.measures, options).render
   end
 
@@ -206,7 +207,8 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
 
   # Import and save Cat I file
   def import_cat1_file(doc)
-    patient, _warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+    patient, _warnings, codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+    Cypress::QrdaPostProcessor.add_display_name(codes, patient, @bundle)
     Cypress::QrdaPostProcessor.replace_negated_codes(patient, @bundle)
     patient.update(_type: CQM::TestExecutionPatient, correlation_id: 'api_eval', bundleId: @bundle.id)
     patient.save!

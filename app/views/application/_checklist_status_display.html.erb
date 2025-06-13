@@ -16,7 +16,7 @@
   <script>
     $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'checklist_status_display' }});
   </script>
-  <p class="lead row bg-info execution-status"><%= icon('fas fa-fw fa-spin text-info', 'sync-alt', :"aria-hidden" => true) %> In Progress (<%= msg %>)</p>
+  <p class="lead bg-info execution-status  bg-opacity-25"><%= icon('fas fa-fw fa-spin text-info', 'sync-alt', :"aria-hidden" => true) %> In Progress (<%= msg %>)</p>
 <% end %>
 
 <% if product_test.is_a? ChecklistTest %>
@@ -37,13 +37,13 @@
           <td class="no-wrap">
             <% case product_test.measure_status(measure.id) %>
             <% when 'passed' %>
-              <strong class = 'text-success'>Passing</strong>
+              <strong class = 'text-success-emphasis'>Passing</strong>
             <% when 'failed' %>
-              <strong class = 'text-danger'>Failing</strong>
+              <strong class = 'text-danger-emphasis'>Failing</strong>
             <% when 'incomplete' %>
-              <strong class = 'text-info'>Incomplete</strong>
+              <strong class = 'text-info-emphasis'>Incomplete</strong>
             <% when 'not_started' %>
-              <strong class = 'text-info'>Not Started</strong>
+              <strong class = 'text-info-emphasis'>Not Started</strong>
             <% end %>
           </td>
         </tr>

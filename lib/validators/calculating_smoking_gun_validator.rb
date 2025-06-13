@@ -10,7 +10,7 @@ module Validators
 
     # rubocop:disable Metrics/AbcSize
     def parse_record(doc, options)
-      patient, warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+      patient, warnings, codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
 
       # check for single code negation errors
       product_test = ProductTest.find(@test_id)
@@ -24,15 +24,16 @@ module Validators
       unit_errors.each { |e| add_warning e, file_name: options[:file_name], cms: true }
       warnings.each { |e| add_warning e.message, file_name: options[:file_name], location: e.location }
 
+      Cypress::QrdaPostProcessor.add_display_name(codes, patient, @bundle)
       Cypress::QrdaPostProcessor.replace_negated_codes(patient, @bundle)
       Cypress::QrdaPostProcessor.remove_invalid_qdm_56_data_types(patient) if @bundle.major_version.to_i > 2021
+      Cypress::QrdaPostProcessor.add_snomed_gender(patient) unless product_test.eh_measures?
       patient.bundleId = @bundle.id
       patient
     rescue StandardError
       add_error('File failed import', file_name: options[:file_name])
       nil
     end
-    # rubocop:enable Metrics/AbcSize
 
     def validate_calculated_results(doc, options)
       mrn, _doc_name, _aug_rec, telecoms = get_record_identifiers(doc, options)
@@ -40,7 +41,7 @@ module Validators
 
       validate_telecoms(mrn, telecoms, options)
       record = parse_record(doc, options)
-      record.normalize_date_times
+      record.normalize_date_times(@measures.first.cms_id)
       return false unless record
 
       product_test = options['task'].product_test
@@ -58,6 +59,7 @@ module Validators
       results = calc_job.execute(save: false)
       determine_passed(mrn, results, record, options)
     end
+    # rubocop:enable Metrics/AbcSize
 
     def validate_telecoms(mrn, telecoms, options)
       error_type = :error

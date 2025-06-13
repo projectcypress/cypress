@@ -3,7 +3,7 @@
 module FilteringTestsHelper
   include ChecklistTestsHelper
 
-  def display_filter_val(filter_name, vals)
+  def display_filter_val(filter_name, randomization, vals)
     return [] if vals == [] # ie, the filter values haven't been chosen yet
     return providers_val(vals) if filter_name == 'providers'
     return problems_val(vals) if filter_name == 'problems'
@@ -13,7 +13,7 @@ module FilteringTestsHelper
     vals.each do |val|
       case filter_name
       when 'races', 'ethnicities'
-        key_name = APP_CONSTANTS['randomization'][filter_name].find { |x| x.code == val }.name
+        key_name = randomization[filter_name].find { |x| x.code == val }.name
         arr << "#{key_name} (code: #{val})"
       when 'genders', 'payers'
         arr << val

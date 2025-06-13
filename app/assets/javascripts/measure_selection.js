@@ -21,15 +21,15 @@ function CheckMany(group) {
 
 function ToggleCustomSelection(task) {
   var shouldHideView = function() {
-    if (task == 'close' && !$('.select-measures').hasClass('hidden')) {
+    if (task == 'close' && !$('.select-measures').hasClass('d-none')) {
       return true;
-    } else if (task == 'open' && $('.select-measures').hasClass('hidden')) {
+    } else if (task == 'open' && $('.select-measures').hasClass('d-none')) {
       return false;
     }
   }
 
   if (typeof shouldHideView() !== "undefined") {
-    $('.select-measures').toggleClass('hidden', shouldHideView());
+    $('.select-measures').toggleClass('d-none', shouldHideView());
   }
 }
 
@@ -268,7 +268,7 @@ ready_run_once = function() {
   });
 
   // Enable changing measures
-  $('#measures_options').find('button.confirm').on('click', function (event) {
+  $('#measures_options').find('button').on('click', function (event) {
     event.preventDefault();
     $('.measure-group [type="checkbox"]').attr('disabled', false);
     $('input[name="product[measure_selection]"]').attr('disabled', false);

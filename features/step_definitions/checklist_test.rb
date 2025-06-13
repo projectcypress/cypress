@@ -124,13 +124,14 @@ end
 # input should be either 'c1' or 'c3'
 When(/^the user uploads a Cat I file that produces a qrda error on (.*) task's execution and waits for results$/) do |certification_type|
   upload_and_submit(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'c1_checklist_correct_codes_bad_form.zip'))
+  wait_for_all_delayed_jobs_to_run
   execution = @test.tasks.c1_checklist_task.most_recent_execution if certification_type == 'c1'
   execution = @test.tasks.c3_checklist_task.most_recent_execution if certification_type == 'c3'
   execution.execution_errors.create!(message: "my execution error #{rand}", msg_type: 'error')
-  wait_for_all_delayed_jobs_to_run
 end
 
 def upload_and_submit(file_path)
+  find('span', class: 'btn-file').click
   page.attach_file('results', file_path, visible: false)
   page.find('#submit-upload').click
 end
@@ -178,7 +179,7 @@ Then(/^the user should see they are (.*) the checklist test$/) do |status|
 end
 
 Then(/^the user should not be able to upload a Cat I file$/) do
-  assert page.find('span.input-group-addon.disabled')
+  assert page.find('span.input-group-addon.info-disabled')
 end
 
 Then(/^the user should see checkmarks next to each complete data criteria$/) do

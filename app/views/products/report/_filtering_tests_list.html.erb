@@ -16,7 +16,7 @@
     <li>
       <% task.product_test.options.filters.each_with_index do |(key, val), index| %>
         <%= ' , ' unless index.zero? %>
-        <strong><%= "#{key.titleize}: " %></strong><%= display_filter_val(key, val) %>
+        <strong><%= "#{key.titleize}: " %></strong><%= display_filter_val(key, task.bundle.randomization, val) %>
       <% end %>
     </li>
   <% end %>

@@ -14,11 +14,11 @@
    ratio_measures = @task.measures.where(measure_scoring: 'RATIO').only(:id, :population_sets, :hqmf_id, :cms_id, :description, :calculation_method).sort_by { |m| [m.cms_int] }
    result_measures = @task.measures.where(hqmf_id: { '$in': APP_CONSTANTS['result_measures'].map(&:hqmf_id) }).sort_by { |m| [m.cms_int] }%>
 
-<div class = 'panel panel-default' id = 'results_panel'>
-  <div class = 'panel-heading'>
-    <h1 class='panel-title'>Results</h1>
+<div class = 'card panel-default' id = 'results_panel'>
+  <div class = 'card-header'>
+    <h1 class='card-title lead'>Results</h1>
   </div>
-  <div class = 'panel-body' id = 'display_execution_results' >
+  <div class = 'card-body' id = 'display_execution_results' >
     <%= render partial: 'test_executions/results/execution_results_for_file', locals: { execution: @test_execution, file_name: @file_name, error_result: @error_result, is_passing: is_passing, on_execution_show_page: false, continuous_measures: continuous_measures, proportion_measures: proportion_measures, ratio_measures: ratio_measures, result_measures: result_measures, patient: @patient, export: false, display_calculations: true } %>
   </div>
 </div>

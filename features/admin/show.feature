@@ -36,11 +36,19 @@ Scenario: User is not an admin
   When the user is not an admin
   And the user navigates to the admin page
   Then the user should not be able to access the page
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default
 
 Scenario: User can view bundles to download
   And the user navigates to the bundle_downloads page
   Then the user should see text bundle-2022
   Then the user should see text bundle-2023
+  And the driver is setup for accessability testing
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa
+  And the driver is returned to the default
 
 # Why are you crashing the demoserver
 # Scenario: User can not download bundle without NLM account
@@ -48,5 +56,5 @@ Scenario: User can view bundles to download
   # Then the user selects bundle to download
   # And the user clicks download bundle
   # Then the user should see text Could not verify NLM User Account
-  # Then the page should be axe clean according to: section508
-  # Then the page should be axe clean according to: wcag2aa
+  Then the page should be axe clean according to: section508
+  Then the page should be axe clean according to: wcag2aa

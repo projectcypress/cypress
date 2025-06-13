@@ -1,60 +1,62 @@
-<div class="splash-panel">
-  <div class="splash-title-container">
+<div class="row splash-panel">
+  <div class="col splash-title-container">
     <h1>cypress</h1>
     <h2>Rigorous &amp; repeatable testing of Electronic Health Records</h2>
     <!-- <p>Powered by Super Duper Testing Labs</p> -->
   </div>
-  <div class="sign-in-panel-container">
-    <div class="panel panel-default <%= Settings.current.umls ? 'sign-in-panel-wide' : 'sign-in-panel' %>">
-      <div class="panel-heading">
-        <h1 class="panel-title">Sign In</h1>
+  <div class="sign-in-panel-container col">
+    <div class="float-end">
+      <div class="card card-default <%= Settings.current.umls ? 'sign-in-panel-wide' : 'sign-in-panel' %>">
+        <div class="card-header">
+          <h1 class="card-title lead">Sign In</h1>
+        </div>
+
+        <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="card-body">
+            <% if Settings.current.umls %>
+              <div class="row">
+                <div class="col-md-6">
+                  <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true %>
+                  <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
+                </div>
+                <div class="col-md-6">
+                <%= f.password_field :umls_password, label: 'UMLS API Key', autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <% if devise_mapping.rememberable? -%>
+                    <%= f.check_box :remember_me %>
+                  <% end -%>
+                </div>
+              </div>
+            <% else %>
+              <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true %>
+              <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
+
+              <% if devise_mapping.rememberable? -%>
+                <%= f.check_box :remember_me %>
+              <% end -%>
+            <% end %>
+          </div>
+
+          <div class="card-footer">
+            <%= f.primary "Sign in" %>
+          </div>
+        <% end %>
       </div>
-
-      <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="panel-body">
-          <% if Settings.current.umls %>
-            <div class="row">
-              <div class="col-md-6">
-                <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true %>
-                <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
-              </div>
-              <div class="col-md-6">
-              <%= f.password_field :umls_password, label: 'UMLS API Key', autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <% if devise_mapping.rememberable? -%>
-                  <%= f.check_box :remember_me %>
-                <% end -%>
-              </div>
-            </div>
-          <% else %>
-            <%= f.email_field :email, autocapitalize: 'off', autocorrect: 'off', autofocus: true %>
-            <%= f.password_field :password, autocomplete: "off", autocapitalize: 'off', autocorrect: 'off' %>
-
-            <% if devise_mapping.rememberable? -%>
-              <%= f.check_box :remember_me %>
-            <% end -%>
-          <% end %>
-        </div>
-
-        <div class="panel-footer">
-          <%= f.primary "Sign in" %>
-        </div>
-      <% end %>
-    </div>
-    <div class="sign-in-panel-footer">
-      <%= render "devise/shared/links" %>
+      <div class="sign-in-panel-footer">
+        <%= render "devise/shared/links" %>
+      </div>
     </div>
   </div>
 </div>
 <div class="splash-info-panels-container">
-  <div class="panel panel-default splash-info-panel">
-    <div class="panel-heading">
-      <h1 class="panel-title">What is Cypress?</h1>
+  <div class="card card-default splash-info-panel">
+    <div class="card-header">
+      <h1 class="card-title lead">What is Cypress?</h1>
     </div>
-      <div class="panel-body">
+      <div class="card-body">
         <p>
           Cypress is the open source, rigorous and repeatable testing tool of Electronic Health Records (EHRs) and EHR modules in calculating eCQMs used by CMS’s Promoting Interoperability programs.
           It is available for use or adoption by the health IT community including EHR vendors and Authorized Testing Labs.
@@ -67,11 +69,11 @@
         </p>
       </div>
   </div>
-  <div class="panel panel-default splash-info-panel">
-    <div class="panel-heading">
-      <h1 class="panel-title">CQM Certification</h1>
+  <div class="card card-default splash-info-panel">
+    <div class="card-header">
+      <h1 class="card-title lead">CQM Certification</h1>
     </div>
-      <div class="panel-body">
+      <div class="card-body">
         <p>Cypress tests four different certification criteria:</p>
         <ul>
           <li>Record and Export - Record clinical data and export it in a format usable by other EHRs</li>
@@ -84,13 +86,13 @@
         </p>
       </div>
   </div>
-  <div class="panel panel-default splash-info-panel">
-    <div class="panel-heading">
-      <h1 class="panel-title">
+  <div class="card card-default splash-info-panel">
+    <div class="card-header">
+      <h1 class="card-title lead">
         Using Cypress
       </h1>
     </div>
-      <div class="panel-body">
+      <div class="card-body">
         <p>
           The Cypress software includes a standard test data of synthetic patient records that exercises all of the CQMs, for Eligible Clinicians (EC) and Eligible Hospitals (EH).
         </p>

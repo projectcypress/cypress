@@ -17,7 +17,7 @@ class C2Task < Task
                                                          product_test.c3_test,
                                                          true,
                                                          product_test.bundle),
-                     ::Validators::ExpectedResultsValidator.new(product_test.expected_results)]
+                     ::Validators::ExpectedResultsValidator.new(product_test.expected_results, product_test.bundle.randomization)]
                   else
                     # A C2 task is created whenever C3 is selected.  If C2 isn't also selected, this task doesn't perform any validations
                     []
@@ -42,7 +42,8 @@ class C2Task < Task
                                 false
                               end
     options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
-                start_time: start_date, end_time: end_date, ry2025_submission: product_test.bundle.major_version == '2024' }
+                start_time: start_date, end_time: end_date, ry2025_submission: product_test.bundle.major_version == '2024',
+                ry2026_submission: product_test.bundle.major_version == '2025' }
     Qrda3.new(product_test.expected_results_with_all_supplemental_codes, product_test.measures, options).render
   end
 

@@ -40,17 +40,17 @@ module Validators
     end
 
     def import_patient(options, measure_ids)
-      patient, warnings, _codes, codes_modifiers = QRDA::Cat1::PatientImporter.instance.parse_cat1(@file)
+      patient, warnings, codes, codes_modifiers = QRDA::Cat1::PatientImporter.instance.parse_cat1(@file)
       persisible_codes_modifiers = {}
       codes_modifiers.each { |key, cm| persisible_codes_modifiers[key.to_s] = cm }
       patient.update(_type: CQM::TestExecutionPatient, correlation_id: options.test_execution.id.to_s, codes_modifiers: persisible_codes_modifiers,
                      reported_measure_hqmf_ids: measure_ids, file_name: options[:file_name])
-      post_processsor_check(patient, options)
+      post_processsor_check(patient, codes, options)
       patient.save!
       warnings.each { |e| add_warning e.message, file_name: options[:file_name], location: e.location }
     end
 
-    def post_processsor_check(patient, options)
+    def post_processsor_check(patient, codes, options)
       # Do not perform these validations if only running against the HL7 schematron
       unless options.task.product_test.cms_program == 'HL7_Cat_I'
         patient_has_pcp_and_other_element(patient, options)
@@ -60,8 +60,10 @@ module Validators
         errors.each { |e| add_error e, file_name: options[:file_name] }
         unit_errors.each { |e| add_error e, file_name: options[:file_name] }
       end
+      Cypress::QrdaPostProcessor.add_display_name(codes, patient, options.task.bundle)
       Cypress::QrdaPostProcessor.replace_negated_codes(patient, options.task.bundle)
       Cypress::QrdaPostProcessor.remove_invalid_qdm_56_data_types(patient) if options.task.bundle.major_version.to_i > 2021
+      Cypress::QrdaPostProcessor.add_snomed_gender(patient) if options.task.product_test.cms_program == 'HL7_Cat_I'
     end
 
     # Check that a patient as a patient_characteristic_payer and atleast 1 other (non-demographic) data criteria

@@ -144,7 +144,7 @@ module Cypress
         FileUtils.rm_f(temp_file_path)
         measure_package_zipped.extract(temp_file_path)
         measure_package = File.new temp_file_path
-        cms_id = measure_package_zipped.name[%r{measures/(.*?)v}m, 1]
+        cms_id = measure_package_zipped.name.gsub('-', '')[%r{measures/(.*?)v}m, 1]
         measure_details = { 'episode_of_care' => measure_info[cms_id].episode_of_care }
         loader = Measures::CqlLoader.new(measure_package, measure_details)
         # will return an array of CQMMeasures, most of the time there will only be a single measure
@@ -184,6 +184,7 @@ module Cypress
         Cypress::QrdaPostProcessor.build_code_descriptions(codes, patient, bundle)
         patient['bundleId'] = bundle.id
         patient.update(_type: CQM::BundlePatient, correlation_id: bundle.id)
+        Cypress::QrdaPostProcessor.add_display_name(codes, patient, bundle)
         Cypress::QrdaPostProcessor.replace_negated_codes(patient, bundle)
         Cypress::QrdaPostProcessor.remove_unmatched_data_type_code_combinations(patient, bundle)
         Cypress::QrdaPostProcessor.remove_invalid_qdm_56_data_types(patient) if bundle.major_version.to_i > 2021
