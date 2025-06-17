@@ -6,7 +6,7 @@ module ProductsHelper
   def should_show_product_tests_tab?(product, test_type)
     case test_type
     when 'MeasureTest'
-      product.c1_test || product.c2_test
+      product.c1_test || product.c2_test || product.c3_test
     when 'MultiMeasureTest'
       product.product_tests.multi_measure_tests.any?
     when 'CMSProgramTest'
