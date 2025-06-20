@@ -1,13 +1,25 @@
 services:
+  nginx:
+    image: nginx:1.28-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      # For production deployment, set USE_SSL=true . Ensure ssl certs are placed in ./docker/nginx/ssl-certs 
+      # directory, replacing cert.txt and key.txt with your own ssl certificate files, keeping the same file name
+      - USE_SSL=true
+    volumes:
+      - ./docker/nginx:/docker/nginx:ro
+      - ./docker/nginx/nginx-init.sh:/docker-entrypoint.d/nginx-init.sh:ro
   cypress:
-    image: cypress:latest
+    image: cypress:beta-ruby-slim
     build:
       context: .
     volumes:
-      - cypress-vol:/home/app/cypress/public/data
-      - ./docker:/docker
+      - cypress-vol:/app/public/data
+      - ./docker/config:/docker/config
       # bind ./app folder to enable reloading app code changes
-      # - ./app:/home/app/cypress/app
+      # - ./app:/app/app
     environment:
       - MONGO_PORT_27017_TCP_ADDR=mongodb
       - MONGO_PORT_27017_TCP_PORT=27017
@@ -16,14 +28,8 @@ services:
       # The following SECRET_KEY_BASE is provided as an example
       # For production deployment, generate new secret key with `openssl rand -hex 64`
       - SECRET_KEY_BASE=insecure_5131595823afbc3e6af90151ea8991fb3fc7d66e2a352f7664e6ef83bf572cfce8669ce542793b1597f3266706e4bc1ae3dee7f9b5023496ac21990
-      # For production deployment, set USE_SSL=true . Ensure ssl certs are placed in ./docker/nginx/ssl-certs 
-      # directory, replacing cert.txt and key.txt with your own ssl certificate files, keeping the same file name
-      - USE_SSL=true
       # uncomment RAILS_ENV=development to enable hot reloading of app code changes
       # - RAILS_ENV=development
-    ports:
-      - "80:80"
-      - "443:443"
     restart: unless-stopped
   mongodb:
     image: mongo:8.0.9

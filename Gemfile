@@ -155,3 +155,8 @@ group :production do
   gem 'newrelic_rpm'
   gem 'unicorn-rails'
 end
+
+group :docker do
+  gem 'puma', '~> 6.6'
+end
+
