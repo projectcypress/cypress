@@ -28,7 +28,7 @@ WORKDIR $APP_HOME
 
 # Ruby deps first (enables layer caching)
 COPY Gemfile Gemfile.lock ./
-RUN bundle config set --local frozen false \
+RUN bundle config set --local frozen true \
  && bundle config set --local without 'development test production' \
  && bundle install --jobs 4 --retry 3
 
