@@ -1,46 +1,45 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
-USE_SSL=${USE_SSL:-false}
-SSL_CERT_PATH=/docker/nginx/ssl-certs/cert.txt
-SSL_KEY_PATH=/docker/nginx/ssl-certs/key.txt
+# --------------------------------------------------
+# Configuration
+# --------------------------------------------------
+USE_SSL="${USE_SSL:-false}"
 
-# Optional: print variables for debugging
-echo "[Entrypoint] USE_SSL=${USE_SSL}"
+HOST_TEMPLATE_DIR="/docker/nginx/templates"
+NGX_TEMPLATE_DIR="/etc/nginx/templates"
+DEST_TEMPLATE="/etc/nginx/conf.d/default.conf"
 
-# 1. Check if SSL is enabled
-if [ "$USE_SSL" != "true" ]; then
-  echo "[Entrypoint] USE_SSL is not set to 'true'. Skipping SSL config."
-  # copy the non-ssl config template to default nginx configuration
-  cp /docker/nginx/templates/nginx.conf.template /etc/nginx/sites-enabled/default
-  exit 0
+SSL_TEMPLATE="$HOST_TEMPLATE_DIR/nginx.ssl.conf.template"
+NON_SSL_TEMPLATE="$HOST_TEMPLATE_DIR/nginx.conf.template"
+
+echo "[Entrypoint] USE_SSL=$USE_SSL"
+
+# --------------------------------------------------
+# Select template
+# --------------------------------------------------
+if [ "$USE_SSL" = "true" ]; then
+  SELECTED="$SSL_TEMPLATE"
+  echo "[Entrypoint] → Using SSL template"
+else
+  SELECTED="$NON_SSL_TEMPLATE"
+  echo "[Entrypoint] → Using non-SSL template"
 fi
 
-echo "[Entrypoint] SSL is enabled. Validating certificate paths..."
-
-# 2. Check if SSL_CERT_PATH and SSL_KEY_PATH are set
-if [ -z "$SSL_CERT_PATH" ]; then
-  echo "ERROR: SSL_CERT_PATH is not set"
+# Sanity check
+if [ ! -f "$SELECTED" ]; then
+  echo "ERROR: Selected template not found: $SELECTED"
   exit 1
 fi
 
-if [ -z "$SSL_KEY_PATH" ]; then
-  echo "ERROR: SSL_KEY_PATH is not set"
-  exit 1
-fi
+# --------------------------------------------------
+# Install ONLY the chosen template for envsubst
+# --------------------------------------------------
+mkdir -p "$NGX_TEMPLATE_DIR"
+cp "$SELECTED" "$DEST_TEMPLATE"
 
-# 3. Check if the files actually exist
-if [ ! -f "$SSL_CERT_PATH" ]; then
-  echo "ERROR: SSL certificate file not found at $SSL_CERT_PATH"
-  exit 1
-fi
+# # Remove any other *.template that might already be there
+# find "$NGX_TEMPLATE_DIR" -type f -name '*.template' ! -name 'default.conf.template' -delete
 
-if [ ! -f "$SSL_KEY_PATH" ]; then
-  echo "ERROR: SSL key file not found at $SSL_KEY_PATH"
-  exit 1
-fi
-
-echo "[Entrypoint] SSL cert and key found."
-
-# copy the ssl config template to default nginx configuration
-cp /docker/nginx/templates/nginx.ssl.conf.template /etc/nginx/sites-enabled/default
+echo "[Entrypoint] Installed template → $DEST_TEMPLATE"
+# Let the main entry-point continue (envsubst will process default.conf.template)

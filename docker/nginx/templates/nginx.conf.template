@@ -1,18 +1,12 @@
 upstream primary {
-    server localhost:3000;
+    server cypress:3000;
 }
 
 server {
     listen 80;
     server_name _;
 
-    # (Optional) serve static files directly from Rails' public folder
-    root /home/app/cypress/public;
-
-    # try static first, then proxy to the app
-    try_files $uri/index.html $uri @app;
-
-    location @app {
+    location / {
         proxy_pass          http://primary;
         proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header    Host            $http_host;
