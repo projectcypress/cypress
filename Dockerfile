@@ -1,62 +1,65 @@
-# Pinned to the latest ruby 3.2 version of the Passenger base Docker image 
-FROM phusion/passenger-ruby32:2.5.0
+############################################
+#  🏗  Stage 1 – build gems + assets
+############################################
+FROM ruby:3.3.5-slim AS builder
 
-RUN mv /etc/apt/sources.list.d /etc/apt/sources.list.d.bak
-RUN apt update && apt install -y ca-certificates
-RUN mv /etc/apt/sources.list.d.bak /etc/apt/sources.list.d
+# Essential OS packages (compile + JS pipeline)
+# RUN apt-get update
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    curl \
+    build-essential libpq-dev git \
+    nodejs npm tzdata
 
-RUN apt-get update \
-    && apt-get upgrade -y -o Dpkg::Options::="--force-confold" \
-    && apt-get install -y nodejs tzdata \
-    && rm -rf /var/lib/apt/lists/*
+# App directory & non-root user
+ENV APP_HOME=/app
+RUN groupadd -g 1001 app && useradd -u 1001 -g app -m -d $APP_HOME app
+WORKDIR $APP_HOME
 
-ENV RAILS_ENV production
-ENV RAILS_SERVE_STATIC_FILES 1
+# Ruby deps first (enables layer caching)
+COPY Gemfile Gemfile.lock ./
+RUN bundle config set --local frozen true \
+ && bundle config set --local without 'development test production' \
+ && bundle install --jobs 4 --retry 3
 
-RUN mkdir /home/app/cypress
+COPY . .
 
-WORKDIR /home/app/cypress
-
-RUN bash -lc 'rvm install ruby-3.2.2'
-RUN bash -lc 'rvm --default use ruby-3.2.2'
-
-ADD Gemfile /home/app/cypress/Gemfile
-ADD Gemfile.lock /home/app/cypress/Gemfile.lock
-
-RUN chown -R app:app .
-
-RUN su app -c 'bundle install'
-
-ADD . /home/app/cypress
-
-# If the tmp directory doesn't exist then the app will not be able to run.
-# By creating it here it will get chowned correctly by the next declaration.
-RUN mkdir -p tmp public/data
-
-# DISABLE_DB disables an initializer that requires the DB to run, so we can precompile in the Docker build phase
-# SECRET_KEY_BASE sets a dummy secret key, so that the precompiler (which doesn't need the secret key for anything) can run
+COPY docker_entrypoint.sh /usr/local/bin/docker_entrypoint.sh
+RUN chmod +x /usr/local/bin/docker_entrypoint.sh
 RUN RAILS_ENV=production DISABLE_DB=true SECRET_KEY_BASE=precompile_only bundle exec rake assets:precompile
 
-# This line is a duplicate however it is done to significantly speed up testing. With this line twice
-# we are able to do the bundle install earlier on which means it is cached more often.
-RUN chown -R app:app .
-RUN chmod -R 0755 .
+################################################
+#  🏃‍♂️  Stage 2 – runtime only (tiny image)
+################################################
+FROM ruby:3.3.5-slim
 
-RUN mkdir /etc/service/unicorn
-ADD docker_unicorn_start.sh /etc/service/unicorn/run
-RUN chmod 755 /etc/service/unicorn/run
+# ➜ install only the shared lib, not the dev headers
+RUN --mount=type=cache,target=/var/cache/apt \
+    apt-get update -qq && \
+    apt-get install -y --no-install-recommends \
+    libcurl4 \
+    # updates necessary to address cves
+    openssl libssl3 libc6 libc-bin \ 
+    tzdata
+    # nodejs
 
-RUN mkdir /etc/service/cypress_delayed_job_1
-ADD docker_delayed_job.sh /etc/service/cypress_delayed_job_1/run
-RUN chmod 755 /etc/service/cypress_delayed_job_1/run
+# Copy the built app & cached gems from the builder
+ENV APP_HOME=/app
+RUN groupadd -g 1001 app && useradd -u 1001 -g app -m -d $APP_HOME app
+WORKDIR $APP_HOME
+COPY --from=builder --chown=app:app ${APP_HOME} ${APP_HOME}
+COPY --from=builder --chown=app:app /usr/local/bin/docker_entrypoint.sh /usr/local/bin/docker_entrypoint.sh
+COPY --from=builder /usr/local/bundle /usr/local/bundle
+RUN mkdir -p /app/tmp/bundles && chown -R app:app /app
 
-# Setup other workers based on first worker. This makes it where tweaking the number of workers
-# just requires changing this WORKER_COUNT. Unfortunately does not allow tweaking after build is completed.
-ARG WORKER_COUNT=4
-RUN if [ $WORKER_COUNT -gt 1 ]; then \
-      for i in $(seq 2 1 $WORKER_COUNT); do \
-        cp -R /etc/service/cypress_delayed_job_1 /etc/service/cypress_delayed_job_$i; \
-      done; \
-    fi
+# Environment hints for Rails & Bundler
+ENV RAILS_ENV=production \
+    RAILS_SERVE_STATIC_FILES=true \
+    BUNDLE_WITHOUT='development test production'
 
+# Run as non-root
+USER app
+
+# Puma listens on 0.0.0.0:3000
 EXPOSE 3000
+CMD ["/usr/local/bin/docker_entrypoint.sh"]
