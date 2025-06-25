@@ -12,9 +12,11 @@ services:
       - ./docker/nginx:/docker/nginx:ro
       - ./docker/nginx/nginx-init.sh:/docker-entrypoint.d/nginx-init.sh:ro
   cypress:
-    image: cypress:beta-ruby-slim
-    build:
-      context: .
+    image: mitrehealthdocker/cypress:cypress_v7
+    platform: linux/amd64
+    # Uncomment build section below to build a new image from source
+    # build:
+    #   context: .
     volumes:
       - cypress-vol:/app/public/data
       - ./docker/config:/docker/config
@@ -40,6 +42,7 @@ services:
     restart: unless-stopped
   cqm-execution-service:
     image: mitrehealthdocker/cqm-execution-service:cypress_v7
+    platform: linux/amd64
     restart: unless-stopped
 volumes:
   cypress-vol:
