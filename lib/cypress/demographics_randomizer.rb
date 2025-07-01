@@ -41,8 +41,8 @@ module Cypress
       raise 'Cannot find gender element' unless gender_chars&.any? && gender_chars.first.dataElementCodes&.any?
 
       new_gender = gender_chars.first.dataElementCodes.first
-      new_gender['code'] = rand_gender
-      new_gender['descriptor'] = rand_gender
+      new_gender['code'] = rand_gender['code']
+      new_gender['descriptor'] = rand_gender['name']
       gender_chars.first.dataElementCodes << new_gender
       gender_chars.first.dataElementCodes.shift
     end
