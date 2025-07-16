@@ -24,7 +24,7 @@ class EhrCertificationIdValidatorTest < ActiveSupport::TestCase
 
     assert_equal 1, @validator.errors.count, "Expected 1 error, got #{@validator.errors}"
     execution_error = @validator.errors.first
-    assert_equal :warning, execution_error.msg_type, "Expected error to be of type :warning for wrong pattern"
+    assert_equal :warning, execution_error.msg_type, 'Expected error to be of type :warning for wrong pattern'
   end
 
   def test_document_with_cms_id_wrong_length
@@ -34,6 +34,6 @@ class EhrCertificationIdValidatorTest < ActiveSupport::TestCase
 
     assert_equal 1, @validator.errors.count, "Expected 1 error, got #{@validator.errors}"
     execution_error = @validator.errors.first
-    assert_equal :error, execution_error.msg_type, "Expected error to be of type :error for wrong length"
+    assert_equal :error, execution_error.msg_type, 'Expected error to be of type :error for wrong length'
   end
 end
