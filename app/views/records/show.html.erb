@@ -1,7 +1,7 @@
 <div class="row">
 <!-- Show measure calculation unless the list is for a product test, Cypress is in ATL Mode and the current user is not an ATL or admin -->
 <% unless @product_test && hide_patient_calculation? %>
-  <div class="col-md-6" style="overflow-y: scroll; height:100vh;">
+  <div class="col-md-6" style="overflow-y: scroll; height:85vh;">
     <h2>Measure Information</h2>
     <% {
           @continuous_measures => RecordsHelper::CV_POPULATION_KEYS,
@@ -34,10 +34,11 @@
                       <!-- Observations are dealt with separately since there can be more than one per measure. -->
                       <% next if population == 'OBSERV' %>
                       <td class="text-center">
-                        <span class="sr-only">Measure <%= m.description %> population <%= population %> result: </span>
+                        <!-- add style="height: 0px;" to screenreader tags below, to fix strange overscroll behavior in UI. Screenreader still works. -->
+                        <span class="sr-only" style="height: 0px;">Measure <%= m.description %> population <%= population %> result: </span>
                         <!-- This is the relevant piece of the calculation_result_icon partial ported over to here. Rendering each circle in its own partial is far too slow and causes the application to take up to 8 seconds longer to load on some pages. -->
                         <% if value && value.positive? %>
-                          <span class="sr-only">Pass</span>
+                          <span class="sr-only" style="height: 0px;">Pass</span>
                           <span class="fa-stack result-marker">
                             <%= icon('fas fa-stack-2x', 'circle', :"aria-hidden" => true) %>
                             <% unless value == 1 && m.calculation_method != 'EPISODE_OF_CARE' %>
@@ -45,7 +46,7 @@
                             <% end %>
                           </span>
                         <% else %>
-                          <span class="sr-only">Fail</span>
+                          <span class="sr-only" style="height: 0px;">Fail</span>
                           <%= icon('far fa-2x empty-marker', 'circle', :"aria-hidden" => true) %>
                         <% end %>
                       </td>
@@ -114,7 +115,7 @@
   </div>
 <% end %>
 
-  <div class="col-md-6" style="overflow-y: scroll; height:100vh;">
+  <div class="col-md-6" style="overflow-y: scroll; height:85vh;">
 
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
