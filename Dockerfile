@@ -89,6 +89,16 @@ RUN apt-get update && \
     build-essential libpq-dev git \
     nodejs npm tzdata
 
+# Create the folder where you will store the MITRE SSL certificates
+RUN mkdir -p /usr/local/share/ca-certificates
+# Download the SSL certificates
+RUN curl -L -o /usr/local/share/ca-certificates/MITRE-BA-NPE-CA-3-1.crt "http://pki.mitre.org/MITRE%20BA%20NPE%20CA-3(1).crt"
+RUN curl -L -o /usr/local/share/ca-certificates/MITRE-BA-ROOT.crt "http://pki.mitre.org/MITRE%20BA%20ROOT.crt"
+RUN curl -L -o /usr/local/share/ca-certificates/MITRE-NPE-CA1.crt "http://pki.mitre.org/MITRE-NPE-CA1.crt"
+RUN curl -L -o /usr/local/share/ca-certificates/ZScaler_Root.crt "http://pki.mitre.org/ZScaler_Root.crt"
+# Rebuild the system-wide SSL certificates bundle
+RUN /usr/sbin/update-ca-certificates
+
 # Copy only Gemfiles to install dependencies early
 WORKDIR /app
 COPY Gemfile Gemfile.lock ./
