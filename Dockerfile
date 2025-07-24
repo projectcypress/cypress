@@ -1,7 +1,7 @@
 ############################################
 #  🏗  Stage 1 – build gems + assets
 ############################################
-FROM ruby:3.3.5-slim AS builder
+FROM ruby:3.3.8-slim AS builder
 
 # Essential OS packages (compile + JS pipeline)
 # RUN apt-get update
@@ -31,7 +31,7 @@ RUN RAILS_ENV=production DISABLE_DB=true SECRET_KEY_BASE=precompile_only bundle 
 ################################################
 #  🏃‍♂️  Stage 2 – production image
 ################################################
-FROM ruby:3.3.5-slim AS prod
+FROM ruby:3.3.8-slim AS prod
 
 # ➜ install only the shared lib, not the dev headers
 RUN --mount=type=cache,target=/var/cache/apt \
@@ -67,7 +67,7 @@ CMD ["/usr/local/bin/docker_entrypoint.sh"]
 ############################################
 #  🏗  Stage 3 – development environment
 ############################################
-FROM ruby:3.3.5-slim AS dev
+FROM ruby:3.3.8-slim AS dev
 
 # Essential OS packages (compile + JS pipeline)
 RUN apt-get update && \
