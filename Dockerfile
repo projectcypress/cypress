@@ -1,7 +1,7 @@
 ############################################
 #  🏗  Stage 1 – build gems + assets
 ############################################
-FROM ruby:3.3.5-slim AS builder
+FROM ruby:3.3.8-slim AS builder
 
 # Essential OS packages (compile + JS pipeline)
 # RUN apt-get update
@@ -39,9 +39,9 @@ RUN chmod +x /usr/local/bin/docker_entrypoint.sh
 RUN RAILS_ENV=production DISABLE_DB=true SECRET_KEY_BASE=precompile_only bundle exec rake assets:precompile
 
 ################################################
-#  🏃‍♂️  Stage 2 – runtime only (tiny image)
+#  🏃‍♂️  Stage 2 – production image
 ################################################
-FROM ruby:3.3.5-slim
+FROM ruby:3.3.8-slim AS prod
 
 # ➜ install only the shared lib, not the dev headers
 RUN --mount=type=cache,target=/var/cache/apt \
@@ -76,3 +76,40 @@ USER app
 # Puma listens on 0.0.0.0:3000
 EXPOSE 3000
 CMD ["/usr/local/bin/docker_entrypoint.sh"]
+
+############################################
+#  🏗  Stage 3 – development environment
+############################################
+FROM ruby:3.3.8-slim AS dev
+
+# Essential OS packages (compile + JS pipeline)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    curl \
+    build-essential libpq-dev git \
+    nodejs npm tzdata
+
+# Copy only Gemfiles to install dependencies early
+WORKDIR /app
+COPY Gemfile Gemfile.lock ./
+RUN bundle install --jobs 4 --retry 3
+
+# Environment setup for development
+ENV RAILS_ENV=development \
+    BUNDLE_WITHOUT='test' \
+    PORT=3000
+
+# App working directory
+WORKDIR /app
+
+# Mount source files for hot reloading
+COPY . .
+
+# Install foreman for managing processes
+RUN gem install foreman
+
+# Expose port for development
+EXPOSE 3000
+
+# Command to start the application with foreman
+CMD ["foreman", "start"]

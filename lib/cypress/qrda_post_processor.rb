@@ -176,7 +176,10 @@ module Cypress
     end
 
     def self.add_snomed_gender(patient)
-      gender_in_qrda = patient.qdmPatient.get_data_elements('patient_characteristic', 'gender').first.dataElementCodes.first[:code]
+      gender_elements = patient.qdmPatient.get_data_elements('patient_characteristic', 'gender')
+      return if gender_elements.empty?
+
+      gender_in_qrda = gender_elements.first.dataElementCodes.first[:code]
       return unless %w[M F].include?(gender_in_qrda)
 
       snomed_gender = gender_in_qrda == 'F' ? '248152002' : '248153007'

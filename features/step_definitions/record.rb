@@ -142,7 +142,7 @@ Then(/^the user sees details$/) do
   end
   page.assert_text @patient.id.to_s
   @measures.each do |m|
-    page.assert_text m.description
+    page.assert_text(:all, m.description)
   end
 end
 
