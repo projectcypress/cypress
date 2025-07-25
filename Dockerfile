@@ -9,7 +9,8 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     curl \
     build-essential libpq-dev git \
-    nodejs npm tzdata
+    nodejs npm tzdata \
+    libyaml-dev pkg-config
 
 # App directory & non-root user
 ENV APP_HOME=/app
@@ -40,7 +41,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
     libcurl4 \
     # updates necessary to address cves
     openssl libssl3 libc6 libc-bin \ 
-    tzdata
+    tzdata procps
     # nodejs
 
 # Copy the built app & cached gems from the builder
@@ -74,7 +75,8 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     curl \
     build-essential libpq-dev git \
-    nodejs npm tzdata
+    nodejs npm tzdata \
+    libyaml-dev pkg-config procps
 
 # Copy only Gemfiles to install dependencies early
 WORKDIR /app
