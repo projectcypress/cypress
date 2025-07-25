@@ -79,14 +79,12 @@
         <li class="nav-item">
           <% li_class = current_page?(new_user_session_path) ? 'nav-link active' : 'nav-link' %>
           <%= link_to new_user_session_path, class: "#{li_class}" do %>
-          <%= icon('fas fa-fw', 'users', :"aria-hidden" => true) %>
           Sign In
           <% end %>
         </li>
         <li class="nav-item">
           <% li_class = current_page?(new_user_registration_path) ? 'nav-link active' : 'nav-link' %>
           <%= link_to new_user_registration_path, class: "#{li_class}" do %>
-          <%= icon('fas fa-fw', 'users', :"aria-hidden" => true) %>
           Sign Up
           <% end %>
         </li>
