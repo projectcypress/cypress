@@ -9,7 +9,8 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     curl \
     build-essential libpq-dev git \
-    nodejs npm tzdata
+    nodejs npm tzdata \
+    libyaml-dev pkg-config
 
 # Create the folder where you will store the MITRE SSL certificates
 RUN mkdir -p /usr/local/share/ca-certificates
@@ -50,7 +51,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
     libcurl4 \
     # updates necessary to address cves
     openssl libssl3 libc6 libc-bin \ 
-    tzdata
+    tzdata procps
     # nodejs
 
 # Copy the built app & cached gems from the builder
@@ -87,7 +88,8 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     curl \
     build-essential libpq-dev git \
-    nodejs npm tzdata
+    nodejs npm tzdata \
+    libyaml-dev pkg-config procps
 
 # Create the folder where you will store the MITRE SSL certificates
 RUN mkdir -p /usr/local/share/ca-certificates
