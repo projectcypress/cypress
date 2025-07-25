@@ -23,7 +23,7 @@
         <li class="nav-item">
           <% li_class = curr_page == :dashboard ? 'nav-link active' : 'nav-link' %>
           <%= link_to root_path, class: "#{li_class}" do %>
-          <%= icon('fas fa-fw', 'users', :"aria-hidden" => true) %>
+          <%= icon('fas fa-fw', 'th-list', :"aria-hidden" => true) %>
           Dashboard
           <% end %>
         </li>
@@ -38,7 +38,7 @@
         <li class="nav-item">
           <% li_class = curr_page == :bundle_download ? 'nav-link active' : 'nav-link' %>
           <%= link_to bundle_downloads_path, class: "#{li_class}" do %>
-          <%= icon('fas fa-fw', 'users', :"aria-hidden" => true) %>
+          <%= icon('fas fa-fw', 'file-archive', :"aria-hidden" => true) %>
           Download Bundles
           <% end %>
         </li>
@@ -47,7 +47,7 @@
         <li class="nav-item">
         <% li_class = 'nav-link' %>
           <%= link_to Settings.current.api_documentation_path, class: "#{li_class}" do %>
-          <%= icon('fas fa-fw', 'users', :"aria-hidden" => true) %>
+          <%= icon('fas fa-fw', 'code', :"aria-hidden" => true) %>
           API
           <% end %>
         </li>
@@ -55,7 +55,7 @@
         <li class="nav-item">
           <% li_class = curr_page == :account ? 'nav-link active' : 'nav-link' %>
           <%= link_to edit_user_registration_path, class: "#{li_class}" do %>
-          <%= icon('fas fa-fw', 'users', :"aria-hidden" => true) %>
+          <%= icon('fas fa-fw', 'user', :"aria-hidden" => true) %>
           <%= current_user.email.truncate(20) %>
           <% end %>
         </li>
@@ -63,7 +63,7 @@
         <li class="nav-item">
           <% li_class = curr_page == :admin ? 'nav-link active' : 'nav-link' %>
           <%= link_to admin_path, class: "#{li_class}" do %>
-          <%= icon('fas fa-fw', 'users', :"aria-hidden" => true) %>
+          <%= icon('fas fa-fw', 'cog', :"aria-hidden" => true) %>
           Admin
           <% end %>
         </li>
@@ -71,7 +71,7 @@
         <li class="nav-item">
           <% li_class = 'nav-link' %>
           <%= link_to destroy_user_session_path, class: "#{li_class}" do %>
-          <%= icon('fas fa-fw', 'users', :"aria-hidden" => true) %>
+          <%= icon('fas fa-fw', 'sign-out-alt', :"aria-hidden" => true) %>
           Log Out
           <% end %>
         </li>
@@ -79,14 +79,12 @@
         <li class="nav-item">
           <% li_class = current_page?(new_user_session_path) ? 'nav-link active' : 'nav-link' %>
           <%= link_to new_user_session_path, class: "#{li_class}" do %>
-          <%= icon('fas fa-fw', 'users', :"aria-hidden" => true) %>
           Sign In
           <% end %>
         </li>
         <li class="nav-item">
           <% li_class = current_page?(new_user_registration_path) ? 'nav-link active' : 'nav-link' %>
           <%= link_to new_user_registration_path, class: "#{li_class}" do %>
-          <%= icon('fas fa-fw', 'users', :"aria-hidden" => true) %>
           Sign Up
           <% end %>
         </li>
