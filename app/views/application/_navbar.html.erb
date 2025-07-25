@@ -45,7 +45,7 @@
         <% end %>
         <% if Settings.current.api_documentation %>
         <li class="nav-item">
-          <% li_class = curr_page == :bundle_download ? 'nav-link active' : 'nav-link' %>
+        <% li_class = 'nav-link' %>
           <%= link_to Settings.current.api_documentation_path, class: "#{li_class}" do %>
           <%= icon('fas fa-fw', 'users', :"aria-hidden" => true) %>
           API

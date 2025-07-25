@@ -21,7 +21,7 @@ Using docker is the fastest way to stand up Cypress for deployment and developme
 
 2. Spin up app with `docker compose up -d --build`
 
-*NOTE: comment/uncomment `- RAILS_ENV=development` in docker-compose.yml to switch between development and production environments. Development environment enables hot-reloading of code changes.*
+*NOTE: To spin up Cypress development environment, with hot-reloading enabled for code changes, run `docker compose -f docker-compose.dev.yml up -d`*
 
 Reporting Issues
 ================

@@ -142,7 +142,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 12, te.execution_errors.size
+      assert_equal 11, te.execution_errors.size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
       assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :error).size
       # assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
@@ -295,7 +295,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 11, te.execution_errors.size
+      assert_equal 10, te.execution_errors.size
       assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
       assert_equal 5, te.execution_errors.where(validator: 'Validators::CMSQRDA1HQRSchematronValidator').size
     end

@@ -5,46 +5,37 @@ services:
       - "80:80"
       - "443:443"
     environment:
-      # For production deployment, set USE_SSL=true . Ensure ssl certs are placed in ./docker/nginx/ssl-certs 
-      # directory, replacing cert.txt and key.txt with your own ssl certificate files, keeping the same file name
       - USE_SSL=true
     volumes:
       - ./docker/nginx:/docker/nginx:ro
       - ./docker/nginx/nginx-init.sh:/docker-entrypoint.d/nginx-init.sh:ro
   cypress:
-    image: mitrehealthdocker/cypress:cypress_v7
+    image: cypress:dev
     platform: linux/amd64
-    # Uncomment build section below to build a new image from source
-    # build:
-    #   context: .
-    #   target: prod
+    build:
+      context: .
+      target: dev
     volumes:
       - cypress-vol:/app/public/data
       - ./docker/config:/docker/config
-      # bind ./app folder to enable reloading app code changes
-      # - ./app:/app/app
+      - ./app:/app/app:ro
+      - ./config:/app/config:ro
+      - ./lib:/app/lib:ro  
     environment:
       - MONGO_PORT_27017_TCP_ADDR=mongodb
       - MONGO_PORT_27017_TCP_PORT=27017
       - CQM_EXECUTION_SERVICE_HOST=cqm-execution-service
-      # You must set SECRET_KEY_BASE=<128_character_randomly_generated_alphanumeric_string>
-      # The following SECRET_KEY_BASE is provided as an example
-      # For production deployment, generate new secret key with `openssl rand -hex 64`
       - SECRET_KEY_BASE=insecure_5131595823afbc3e6af90151ea8991fb3fc7d66e2a352f7664e6ef83bf572cfce8669ce542793b1597f3266706e4bc1ae3dee7f9b5023496ac21990
-      # uncomment RAILS_ENV=development to enable hot reloading of app code changes
-      # - RAILS_ENV=development
-    restart: unless-stopped
+      - RAILS_ENV=development
   mongodb:
     image: mongo:8.0.9
     volumes:
       - mongo-data:/data/db
       - ./mongo:/etc/mongo
     command: --config=/etc/mongo/docker_mongod.conf
-    restart: unless-stopped
   cqm-execution-service:
     image: mitrehealthdocker/cqm-execution-service:cypress_v7
     platform: linux/amd64
-    restart: unless-stopped
 volumes:
   cypress-vol:
   mongo-data:

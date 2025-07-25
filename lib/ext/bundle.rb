@@ -106,6 +106,10 @@ class Bundle
     ApplicationController.helpers.config_for_version(version).modified_population_labels
   end
 
+  def cms_certification_id_format
+    ApplicationController.helpers.config_for_version(version).cms_certification_id_format
+  end
+
   def mpl_path
     Rails.root.join('tmp', 'cache', "bundle_#{id}_mpl.zip")
   end

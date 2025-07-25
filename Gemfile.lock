@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/jquery-ui-rails/jquery-ui-rails
-  revision: 413265e81f790f795239e07e7e25e01429b2f18d
-  tag: v7.0.0
-  specs:
-    jquery-ui-rails (7.0.0)
-      railties (>= 3.2.16)
-
-GIT
   remote: https://github.com/turbolinks/turbolinks-classic
   revision: 80216ce9d89920bf073709405e3fce6d0a3ccd9a
   branch: master
@@ -110,10 +102,10 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
-    base64 (0.2.0)
+    base64 (0.3.0)
     bcrypt (3.1.20)
-    benchmark (0.4.0)
-    bigdecimal (3.1.8)
+    benchmark (0.4.1)
+    bigdecimal (3.2.2)
     bindex (0.8.1)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
@@ -171,8 +163,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.3.4)
-    connection_pool (2.4.1)
+    concurrent-ruby (1.3.5)
+    connection_pool (2.5.3)
     cqm-models (4.2.0)
     cqm-parsers (4.1.1.1)
       activesupport (> 5.0)
@@ -269,9 +261,10 @@ GEM
     diffy (3.4.3)
     docile (1.4.1)
     domain_name (0.6.20240107)
-    drb (2.2.1)
+    drb (2.2.3)
     dumb_delegator (1.0.0)
-    erubi (1.13.0)
+    erb (5.0.2)
+    erubi (1.13.1)
     erubis (2.7.0)
     ethon (0.16.0)
       ffi (>= 1.15.0)
@@ -319,15 +312,16 @@ GEM
     highline (1.7.10)
     http-cookie (1.0.7)
       domain_name (~> 0.5)
-    i18n (1.14.6)
+    i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
     image_processing (1.13.0)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
     iniparse (1.5.0)
-    io-console (0.8.0)
-    irb (1.14.1)
+    io-console (0.8.1)
+    irb (1.15.2)
+      pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jasny-bootstrap-rails (3.1.3)
@@ -344,6 +338,8 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (8.0.0)
+      railties (>= 3.2.16)
     json (2.9.0)
     kaminari-core (1.2.2)
     kaminari-mongoid (1.0.2)
@@ -359,8 +355,8 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.10)
     local_time (2.0.1)
     log4r (1.1.10)
-    logger (1.6.2)
-    loofah (2.23.1)
+    logger (1.7.0)
+    loofah (2.24.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     macaddr (1.7.2)
@@ -380,8 +376,8 @@ GEM
     mime-types-data (3.2024.1203)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.8)
-    minitest (5.25.4)
+    mini_portile2 (2.8.9)
+    minitest (5.25.5)
     minitest-rails (7.1.1)
       minitest (~> 5.20)
       railties (>= 7.1.0, < 8.0.0)
@@ -421,24 +417,24 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (9.16.1)
     nio4r (2.7.4)
-    nokogiri (1.18.8)
+    nokogiri (1.18.9)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.18.8-aarch64-linux-gnu)
+    nokogiri (1.18.9-aarch64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.8-aarch64-linux-musl)
+    nokogiri (1.18.9-aarch64-linux-musl)
       racc (~> 1.4)
-    nokogiri (1.18.8-arm-linux-gnu)
+    nokogiri (1.18.9-arm-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.8-arm-linux-musl)
+    nokogiri (1.18.9-arm-linux-musl)
       racc (~> 1.4)
-    nokogiri (1.18.8-arm64-darwin)
+    nokogiri (1.18.9-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.8-x86_64-darwin)
+    nokogiri (1.18.9-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.8-x86_64-linux-gnu)
+    nokogiri (1.18.9-x86_64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.8-x86_64-linux-musl)
+    nokogiri (1.18.9-x86_64-linux-musl)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     ostruct (0.6.1)
@@ -455,22 +451,25 @@ GEM
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
     popper_js (2.11.8)
+    pp (0.6.2)
+      prettyprint
+    prettyprint (0.2.0)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
     pry-nav (1.0.0)
       pry (>= 0.9.10, < 0.15)
-    psych (5.2.1)
+    psych (5.2.6)
       date
       stringio
     public_suffix (6.0.1)
     puma (6.6.0)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (2.2.14)
+    rack (2.2.17)
     rack-session (1.0.2)
       rack (< 3)
-    rack-test (2.1.0)
+    rack-test (2.2.0)
       rack (>= 1.3)
     rackup (1.0.1)
       rack (< 3)
@@ -493,11 +492,11 @@ GEM
       actionpack (>= 5.0.1.rc1)
       actionview (>= 5.0.1.rc1)
       activesupport (>= 5.0.1.rc1)
-    rails-dom-testing (2.2.0)
+    rails-dom-testing (2.3.0)
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.6.1)
+    rails-html-sanitizer (1.6.2)
       loofah (~> 2.21)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
     rails-perftest (0.0.7)
@@ -519,14 +518,15 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     raindrops (0.20.1)
-    rake (13.2.1)
+    rake (13.3.0)
     rb-fsevent (0.11.2)
     rb-inotify (0.11.1)
       ffi (~> 1.0)
-    rdoc (6.8.1)
+    rdoc (6.14.2)
+      erb
       psych (>= 4.0.0)
     regexp_parser (2.9.3)
-    reline (0.5.12)
+    reline (0.6.2)
       io-console (~> 0.5)
     remotipart (1.4.4)
     representable (3.0.4)
@@ -609,7 +609,7 @@ GEM
       sass-embedded (~> 1.80)
     scss_lint (0.60.0)
       sass (~> 3.5, >= 3.5.5)
-    securerandom (0.4.0)
+    securerandom (0.4.1)
     selenium-webdriver (4.27.0)
       base64 (~> 0.2)
       logger (~> 1.4)
@@ -635,7 +635,7 @@ GEM
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
     ssrf_filter (1.2.0)
-    stringio (3.1.2)
+    stringio (3.1.7)
     sys-uname (1.3.1)
       ffi (~> 1.1)
     systemu (2.6.5)
@@ -643,7 +643,7 @@ GEM
     test_xml (0.1.8)
       diffy (~> 3.0)
       nokogiri (>= 1.3.2)
-    thor (1.3.2)
+    thor (1.4.0)
     thread_safe (0.3.6)
     tilt (2.4.0)
     timeout (0.4.3)
@@ -694,7 +694,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.7.1)
+    zeitwerk (2.7.3)
     zip-zip (0.3)
       rubyzip (>= 1.0.0)
 
@@ -749,7 +749,7 @@ DEPENDENCIES
   jbuilder (~> 2.11.0)
   jquery-datatables-rails
   jquery-rails
-  jquery-ui-rails!
+  jquery-ui-rails (~> 8.0.0)
   kaminari-mongoid
   launchy
   listen
@@ -796,7 +796,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 3.3.5p100
+   ruby 3.3.8p144
 
 BUNDLED WITH
-   2.5.16
+   2.7.0

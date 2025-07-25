@@ -9,19 +9,17 @@ module Validators
 
     def validate(file, options = {})
       @document = get_document(file)
+      cert_id_format = options.task.bundle.cms_certification_id_format
 
       # Otherwise, look for the certification ID
       cert_id = @document.at_xpath("//cda:participant/cda:associatedEntity/cda:id[@root = '2.16.840.1.113883.3.2074.1']")
       if cert_id
         ex = cert_id['extension']
-        if ex.length != 15
+        if ex.nil? || ex.length != 15
           msg = 'CMS EHR Certification ID must be 15 alpha numeric characters in length.'
           add_error(msg, file_name: options[:file_name])
-        end
-        if ex[2, 3] != '15C'
-          msg = 'The EHR system needs to be certified to 2015 Edition Cures Update for CY2024/PY2026. The CMS EHR Certification ID ' \
-                'must contain “15C” in the third, fourth, and fifth places. '
-          add_error(msg, file_name: options[:file_name])
+        elsif ex[cert_id_format.start_index, cert_id_format.pattern.length] != cert_id_format.pattern
+          add_warning(cert_id_format.msg, file_name: options[:file_name])
         end
       end
 

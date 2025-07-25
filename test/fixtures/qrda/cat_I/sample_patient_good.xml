@@ -119,6 +119,13 @@
       </representedOrganization>
     </assignedEntity>
   </legalAuthenticator>
+  <participant typeCode="DEV">
+    <associatedEntity classCode="RGPR">
+      <!-- CMS EHR Certification Number (formerly known as Office of the 
+        National Coordinator Certification Number) -->
+      <id extension="0015CLK7B8X0AVX" root="2.16.840.1.113883.3.2074.1"/>
+    </associatedEntity>
+  </participant>
   <!-- TODO: This is where the provider information will go.
        It is currently hard coded, but should be replaced with the providers
        and the time over which they are performing. -->

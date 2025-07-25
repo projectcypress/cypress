@@ -1,14 +1,15 @@
 .splash-panel {
   background: image-url('cypress_bg_cropped.png');
-  background-size: auto 310px;
-  background-repeat: repeat-x;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center bottom;
 }
 
 .splash-title-container {
   display: inline-block;
-  margin-left: 50px;
-  margin-top: 35px;
-  width: 45%;
+  margin-left: 30px;
+  margin-top: 0px;
+  width: 100%;
   color: $secondary;
   text-align: left;
 
@@ -21,7 +22,7 @@
 
   h2 {
     font-size: 20px;
-    margin-top: 20px;
+    margin-top: 3px;
     margin-bottom: 5px;
     font-weight: 700;
   }
@@ -35,7 +36,9 @@
 .sign-in-panel {
   text-align: left;
   width: 300px;
-  margin-bottom: 0;
+  margin-top: 20px;
+  margin-right: 10px;
+  margin-bottom: 15px;
 }
 
 .sign-in-panel-wide {
@@ -65,16 +68,17 @@
 
 .sign-in-panel-container-moved {
 
-  .sign-in-panel-footer {
-    a {
-      color: $primary;
-    }
-  }
+  // .sign-in-panel-footer {
+  //   a {
+  //     color: $primary;
+  //   }
+  // }
 }
 
 .sign-in-panel-footer {
   margin-left: 0;
   text-align: left;
+  margin-bottom: 15px;
 
   a {
     color: $white;

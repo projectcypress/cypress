@@ -100,6 +100,10 @@ version_config:
       qrda3_version: "r2_1"
       qrda3_version_display_name: "R1"
       mapped_codes:
+      cms_certification_id_format:
+        pattern: '15C'
+        start_index: 2
+        msg: 'The EHR system needs to be certified to 2015 Edition Cures Update for CY2023/PY2025. The CMS EHR Certification ID must contain “15C” in the third, fourth, and fifth places.'
       default_negation_codes:
         2.16.840.1.113883.3.526.3.1184:
           code: "854901"
@@ -188,6 +192,10 @@ version_config:
       qrda3_version: "r2_1"
       qrda3_version_display_name: "R1"
       mapped_codes:
+      cms_certification_id_format:
+        pattern: '15C'
+        start_index: 2
+        msg: 'The EHR system needs to be certified to 2015 Edition Cures Update for CY2024/PY2026. The CMS EHR Certification ID must contain “15C” in the third, fourth, and fifth places.'
       default_negation_codes:
         2.16.840.1.113883.3.526.3.1184:
           code: "854901"
@@ -275,6 +283,10 @@ version_config:
       qrda_version_display_name: "STU 5.3"
       qrda3_version: "r2_1"
       qrda3_version_display_name: "R1"
+      cms_certification_id_format:
+        pattern: '2025C'
+        start_index: 0
+        msg: 'The EHR system needs to be certified to the ONC Certification Criteria for Health IT. The CMS EHR Certification ID must start with “2025C”.'
       mapped_codes:
       default_negation_codes:
         2.16.840.1.113883.3.526.3.1184:
@@ -318,11 +330,11 @@ version_config:
             codeSystem     : 2.16.840.1.113883.6.238
             codeSystemName : CDC Race
         genders:
-          - code           : 248152002
+          - code           : '248152002'
             name           : Female
             codeSystem     : 2.16.840.1.113883.6.96
             codeSystemName : SNOMEDCT
-          - code           : 248153007
+          - code           : '248153007'
             name           : Male
             codeSystem     : 2.16.840.1.113883.6.96
             codeSystemName : SNOMEDCT
@@ -363,6 +375,10 @@ version_config:
       qrda_version_display_name: "STU 5.3"
       qrda3_version: "r2_1"
       qrda3_version_display_name: "R1"
+      cms_certification_id_format:
+        pattern: '2026C'
+        start_index: 0
+        msg: 'The EHR system needs to be certified to the ONC Certification Criteria for Health IT. The CMS EHR Certification ID must start with “2026C”.'
       mapped_codes:
       default_negation_codes:
         2.16.840.1.113883.3.526.3.1184:
@@ -372,7 +388,6 @@ version_config:
           code: "854901"
           codeSystem: "2.16.840.1.113883.6.88"
       CMSQRDA3SchematronValidator_warnings:
-        - '2026 CMS QRDA III Implementation Guide for Eligible Clinicians and Eligible Professionals is not available'
       CMSQRDA1HQRSchematronValidator_warnings:
 
 # Configuration for values to use when randomizing patients in test decks

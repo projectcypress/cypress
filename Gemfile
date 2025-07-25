@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '3.3.5'
+ruby '3.3.8'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 7.2.0'
@@ -34,7 +34,7 @@ gem 'dartsass-sprockets'
 gem 'font-awesome-sass', '~> 5.0.13'
 gem 'jquery-rails'
 # TODO: remove or use gem
-gem 'jquery-ui-rails', git: 'https://github.com/jquery-ui-rails/jquery-ui-rails', tag: 'v7.0.0'
+gem 'jquery-ui-rails', '~> 8.0.0'
 
 # Add pagination support
 gem 'kaminari-mongoid'
