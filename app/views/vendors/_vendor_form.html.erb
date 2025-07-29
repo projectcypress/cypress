@@ -1,7 +1,7 @@
 <div class="card card-default">
 <div class="card-header"><h1 class='card-title lead'><%= submit_text %><%= vendor.name ? ": "+ vendor.name : "" %></h1></div>
 
-<%= bootstrap_nested_form_for vendor, html: {id: "add_vendor_form", "data-parsley-validate": ''} do |f| %>
+<%= bootstrap_form_for vendor, html: {id: "add_vendor_form", "data-parsley-validate": ''} do |f| %>
   <div class="card-body">
     <%= f.text_field :name, label: 'Vendor Name', autocomplete: 'off', required: '', 'data-parsley-required': '', 'data-parsley-trigger': 'change'%>
     <%= f.text_field :vendor_id, label: 'Vendor ID' %>
@@ -12,11 +12,11 @@
 
     <div id="pocs">
       <%= f.fields_for :points_of_contact do |poc_field| %>
-        <%= render 'poc_fields', f: poc_field %>
+        <%= render 'poc_fields', poc_field: poc_field %>
       <% end %>
     </div>
 
-    <button type="button" id="add-poc">Add Point of Contact</button>
+    <button type="button" class="btn btn-default" id="add-poc">Add Point of Contact</button>
   </div>
 
   <div class="card-footer">
@@ -27,10 +27,22 @@
 
 </div>
 <template id="new-poc-template">
-  <div class="nested-fields">
-    <input type="text" name="points_of_contact_attributes[name]" />
-    <input type="text" name="points_of_contact_attributes[email]" />
-    <input type="hidden" name="points_of_contact_attributes[_destroy]" value="false" />
-    <button type="button" class="remove-poc">Remove</button>
+  <div class="row nested-fields">
+    <div class="form-group col-sm-3">
+      <label class="label-block">POC Name</label><input type="text" class="form-control" name="vendor[points_of_contact_attributes][new_record][name]" />
+    </div>
+    <div class="form-group col-sm-3">
+      <label class="label-block">Email</label><input type="text" class="form-control" name="vendor[points_of_contact_attributes][new_record][email]" />
+    </div>
+    <div class="form-group col-sm-3">
+      <label class="label-block">Telephone</label><input type="text" class="form-control" name="vendor[points_of_contact_attributes][new_record][phone]" />
+    </div>
+    <div class="form-group col-sm-2">
+      <label class="label-block">Type of Contact</label><input type="text" class="form-control" name="vendor[points_of_contact_attributes][new_record][contact_type]" />
+    </div>
+    <div class="d-grid gap-2 col-3 d-md-block">
+      <input type="hidden" name="vendor[points_of_contact_attributes][new_record][_destroy]" value="false" />
+      <button type="button" class="btn btn-danger remove-poc">Remove</button>
+    </div>
   </div>
 </template>
