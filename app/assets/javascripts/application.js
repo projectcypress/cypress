@@ -20,7 +20,6 @@
 //= require jquery-ui/widgets/datepicker
 //= require assets_framework/assets.core
 //= require assets_framework/breadcrumb
-//= require jquery_nested_form
 //= require jasny-bootstrap.min
 //= require local-time
 //= require_tree .
