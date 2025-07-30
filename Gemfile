@@ -46,7 +46,6 @@ gem 'breadcrumbs_on_rails'
 # Help our forms
 gem 'bootstrap_form', '~> 2.7'
 gem 'jasny-bootstrap-rails'
-gem 'nested_form'
 
 gem 'jquery-datatables-rails'
 gem 'local_time', '~> 2.0.0'
