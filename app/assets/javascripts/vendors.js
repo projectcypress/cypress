@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var addCommentButton = document.getElementById("add-poc");
   var uniqueIndex = new Date().getTime();
 
-  addCommentButton.addEventListener("click", () => {
+  addCommentButton.addEventListener("click", function() {
     // Get the template for a new comment
     var newCommentTemplate = document.querySelector("#new-poc-template").innerHTML;
 
