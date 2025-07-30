@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function() {
   const commentsContainer = document.getElementById("pocs");
   const addCommentButton = document.getElementById("add-poc");
 
