@@ -51,7 +51,7 @@ function UpdateGroupSelections(event) {
       } else { return '' }
     });
 
-  $('.select-measures .panel-title .selected-number')
+  $('.select-measures .card-title .selected-number')
     .html(function() {
       if ($('.measure-group .measure-checkbox:checked').length > 0) {
         return $('.measure-group .measure-checkbox:checked').length + '<i aria-hidden="true" class="fas fa-fw fa-check"></i>'
