@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
     uniqueIndex++;
   });
 
-  commentsContainer.addEventListener("click", (event) => {
+  commentsContainer.addEventListener("click", function(event) {
     if (event.target.classList.contains("remove-poc")) {
       var nestedFields = event.target.closest(".nested-fields");
       nestedFields.querySelector('input[name*="_destroy"]').value = "1";
