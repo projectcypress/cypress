@@ -133,7 +133,7 @@ function UpdateMeasureSet(bundle_id) {
 // Allows the enabling or disabling of a checkbox by passing true or false
 // as the second parameter. True means disabled and false means enabled.
 function setCheckboxDisabled(element, state) {
-  var children = $(element).closest('div.checkbox').find('*').addBack();
+  var children = $(element).closest('input.form-check-input').find('*').addBack();
   if (state) {
     $(children).addClass('disabled');
     $(children).prop('disabled', true);
@@ -146,7 +146,7 @@ function setCheckboxDisabled(element, state) {
 }
 
 function setCheckboxDisabledNoUncheck(element, state) {
-  var children = $(element).closest('div.checkbox').find('*').addBack();
+  var children = $(element).closest('input.form-check-input').find('*').addBack();
   if (state) {
     $(children).addClass('disabled');
     $(children).prop('disabled', true);
@@ -253,7 +253,7 @@ ready_run_once = function() {
   });
 
   // Checking a radio button indicating measure selection
-  $('.btn-checkbox input[name="product[measure_selection]"]').on('change', function() {
+  $('.form-check input[name="product[measure_selection]"]').on('change', function() {
     if ($(this).attr('disabled') != true) {
       var selection = $(this).val();
 
@@ -284,7 +284,7 @@ ready_run_once = function() {
 
 
   // Changing the bundle
-  $('.btn-checkbox input[name="product[bundle_id]"]').on('change', function() {
+  $('.form-check input[name="product[bundle_id]"]').on('change', function() {
     if ($(this).attr('disabled') != true) {
       var selection = $(this).val();
       UpdateMeasureSet(selection);
@@ -292,25 +292,25 @@ ready_run_once = function() {
   });
 
   // Check Duplicate Records on C2 Test check
-  $('.btn-checkbox input[name="product[c2_test]"]').on('change', function() {
+  $('.form-check input[name="product[c2_test]"]').on('change', function() {
     if ($(this).attr('disabled') != true) {
       var c2_checked = $(this).prop('checked');
       setCheckboxDisabled('#product_duplicate_patients', !c2_checked);
-      $('.btn-checkbox input[name="product[duplicate_patients]"]').prop('checked', c2_checked);
+      $('.from-check input[name="product[duplicate_patients]"]').prop('checked', c2_checked);
     }
   });
 
   // Check Duplicate Records on CVU+ check
-  $('.btn-checkbox input[name="product[cvuplus]"]').on('change', function() {
+  $('.form-check input[name="product[cvuplus]"]').on('change', function() {
     if ($(this).attr('disabled') != true) {
       var cvu_plus = $(this).val();
       var c2_checked = $('input[name="product[c2_test]"]')[1].checked
       setCheckboxDisabled('#product_duplicate_patients', (cvu_plus == 'false' && !c2_checked));
-      $('.btn-checkbox input[name="product[duplicate_patients]"]').prop('checked', cvu_plus == 'true' || c2_checked);
+      $('.form-check input[name="product[duplicate_patients]"]').prop('checked', cvu_plus == 'true' || c2_checked);
     }
   });
 
-  $('.btn-checkbox input[name="product[cvuplus]"]').on('change', function() {
+  $('.form-check input[name="product[cvuplus]"]').on('change', function() {
     var cvuplus_checked = ($(this).val() == 'true');
     if ($(this).attr('disabled') != 'disabled') {
       setCheckboxDisabledNoUncheck('#product_vendor_patients', !cvuplus_checked);

@@ -16,11 +16,11 @@ ready = function() {
   // when the user selects a different bundle
   // just take them to the new page
   // use Turbolinks so it doesn't full refresh
-  $(document).on('change', 'label.bundle-checkbox input[name="bundle_id"]', function() {
+  $(document).on('change', 'input[name="bundle_id"]', function() {
     var bundle_id = $(this).val();
     Turbolinks.visit("/bundles/"+bundle_id+"/records");
   });
-  $(document).on('change', 'label.vendor-checkbox input[name="bundle_id"]', function() {
+  $(document).on('change', 'input[name="bundle_id"]', function() {
     var bundle_id = $(this).val();
     Turbolinks.visit("?bundle_id="+bundle_id);
   });
