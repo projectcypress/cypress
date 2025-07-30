@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
   var commentsContainer = document.getElementById("pocs");
   var addCommentButton = document.getElementById("add-poc");
-
-  let uniqueIndex = new Date().getTime();
+  var uniqueIndex = new Date().getTime();
 
   addCommentButton.addEventListener("click", () => {
     // Get the template for a new comment
