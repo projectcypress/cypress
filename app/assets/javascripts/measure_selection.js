@@ -296,7 +296,7 @@ ready_run_once = function() {
     if ($(this).attr('disabled') != true) {
       var c2_checked = $(this).prop('checked');
       setCheckboxDisabled('#product_duplicate_patients', !c2_checked);
-      $('.from-check input[name="product[duplicate_patients]"]').prop('checked', c2_checked);
+      $('.form-check-input#product_duplicate_patients').prop('checked', c2_checked);
     }
   });
 
@@ -306,7 +306,7 @@ ready_run_once = function() {
       var cvu_plus = $(this).val();
       var c2_checked = $('input[name="product[c2_test]"]')[1].checked
       setCheckboxDisabled('#product_duplicate_patients', (cvu_plus == 'false' && !c2_checked));
-      $('.form-check input[name="product[duplicate_patients]"]').prop('checked', cvu_plus == 'true' || c2_checked);
+      $('.form-check-input#product_duplicate_patients').prop('checked', cvu_plus == 'true' || c2_checked);
     }
   });
 
