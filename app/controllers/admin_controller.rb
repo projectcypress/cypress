@@ -45,7 +45,8 @@ class AdminController < ApplicationController
 
   def mode_custom(settings)
     Settings.current.update(auto_approve: settings['auto_approve'] == 'enable',
-                            ignore_roles: settings['ignore_roles'] == 'enable',
+                            # Interpret 'disable' option as ignoring roles (i.e., not enforcing them)
+                            ignore_roles: settings['ignore_roles'] == 'disable',
                             default_role: settings['default_role'] == 'None' ? '' : settings['default_role'].underscore.to_sym,
                             enable_debug_features: settings['debug_features'] == 'enable')
   end
