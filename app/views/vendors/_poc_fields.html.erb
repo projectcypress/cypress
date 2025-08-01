@@ -1,0 +1,10 @@
+<div class="row nested-fields">
+  <%= poc_field.text_field :name, wrapper: { class: 'col-sm-3'}, label_class: 'label-block', label: 'POC Name', 'data-parsley-required': '' %>
+  <%= poc_field.email_field :email, autocorrect: 'off', autocapitalize: 'off', wrapper: { class: 'col-sm-3'}, label_class: 'label-block', label: 'Email'%>
+  <%= poc_field.phone_field :phone, wrapper: { class: 'col-sm-3' }, label_class: 'label-block', label: 'Telephone', 'data-parsley-phonenumber': '' %>
+  <%= poc_field.text_field :contact_type, wrapper: { class: 'col-sm-2' }, label_class: 'label-block', label: 'Type of Contact' %>
+  <%= poc_field.hidden_field :_destroy %>
+  <div class="d-grid gap-2 col-3 d-md-block">
+    <button type="button" class="btn btn-danger remove-poc">Remove</button>
+  </div>
+</div>

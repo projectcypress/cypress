@@ -112,7 +112,9 @@ GEM
     bootstrap (5.3.3)
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 2.11.8, < 3)
-    bootstrap_form (2.7.0)
+    bootstrap_form (5.4.0)
+      actionpack (>= 6.1)
+      activemodel (>= 6.1)
     breadcrumbs_on_rails (4.1.0)
       railties (>= 5.0)
     bson (5.0.2)
@@ -404,7 +406,6 @@ GEM
     multi_json (1.15.0)
     multi_test (1.1.0)
     mustache (1.1.1)
-    nested_form (0.3.2)
     net-imap (0.5.7)
       date
       net-protocol
@@ -721,7 +722,7 @@ DEPENDENCIES
   axe-core-cucumber
   bootsnap
   bootstrap (~> 5.3.3)
-  bootstrap_form (~> 2.7)
+  bootstrap_form (~> 5.4)
   breadcrumbs_on_rails
   bson
   bundler-audit
@@ -761,7 +762,6 @@ DEPENDENCIES
   mongoid (~> 8.1.0)
   multi_json
   mustache
-  nested_form
   newrelic_rpm
   overcommit
   poltergeist

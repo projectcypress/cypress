@@ -36,6 +36,7 @@ class ProductsController < ApplicationController
   def create
     @product = @vendor.products.new
     @product.update_with_tests(product_params)
+    @product.bundle_patients = true unless @product.cvuplus
     @product.save!
     flash_comment(@product.name, 'success', 'created')
     respond_with(@product) do |f|

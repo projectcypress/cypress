@@ -554,7 +554,7 @@ Then(/^"(.*)" input should be (\w*)$/) do |element, state|
 end
 
 Then(/^"(.*)" checkbox should be (\w*)$/) do |element, state|
-  checkbox = page.find('label', text: element).find('input')
+  checkbox = page.find('input', id: element)
   case state
   when 'enabled', 'disabled'
     # Convert state from disabled/enabled to true/false
