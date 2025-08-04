@@ -12,8 +12,8 @@
           <fieldset id="cvu_plus">
             <legend class="control-label">Product Types</legend>
             <%= f.form_group  do %>
-              <%= f.radio_button :cvuplus, "false", label: 'Certification Product', label_class: "btn btn-checkbox", checked: !product.cvuplus, disabled: !product.new_record? %>
-              <%= f.radio_button :cvuplus, "true", label: 'CVU+ Product', label_class: "btn btn-checkbox", checked: product.cvuplus, disabled: !product.new_record? %>
+              <%= f.radio_button :cvuplus, "false", label: 'Certification Product', label_class: "btn btn-checkbox text-start", checked: !product.cvuplus, disabled: !product.new_record? %>
+              <%= f.radio_button :cvuplus, "true", label: 'CVU+ Product', label_class: "btn btn-checkbox text-start", checked: product.cvuplus, disabled: !product.new_record? %>
             <% end %>
           </fieldset>
 
@@ -25,7 +25,7 @@
               <%= f.form_group help: "Select the certification type Cypress should use to certify this product" do %>
                 <% APP_CONSTANTS['certifications'].each do |c, certification| %>
                   <% if c == 'C1' || c == 'C2' || c == 'C3' || c == 'C4'%>
-                    <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: !product.new_record?, data: {
+                    <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox text-start", disabled: !product.new_record?, data: {
                       'parsley-required': 'true',
                       'parsley-trigger': 'change',
                       'parsley-class-handler': "#certification_options",
@@ -34,7 +34,7 @@
                       'parsley-multiple': 'mandatory_certifications',
                       'parsley-errors-container': "#certifications_errors_container" } %>
                   <% else %>
-                    <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox", disabled: !product.new_record? %>
+                    <%= f.check_box c.downcase + '_test', label: certification["title"], label_class: "btn btn-checkbox text-start", disabled: !product.new_record? %>
                   <% end %>
                 <% end %>
               <% end %>
@@ -82,7 +82,7 @@
             <fieldset>
               <legend class="control-label">Records Options</legend>
               <%= f.form_group help: "Recommended for most robust testing." do %>
-                <%= f.check_box :randomize_patients, label: 'Randomize Records', label_class: "btn btn-checkbox", checked: product.new_record? ? true : product.randomize_patients, disabled: !product.new_record? %>
+                <%= f.check_box :randomize_patients, label: 'Randomize Records', label_class: "btn btn-checkbox text-start", checked: product.new_record? ? true : product.randomize_patients, disabled: !product.new_record? %>
                 <%= f.check_box :duplicate_patients, label: 'Duplicate Records', label_class: "btn btn-checkbox btn-light", checked: product.duplicate_patients, disabled: true %>
               <% end %>
             </fieldset>
@@ -94,7 +94,7 @@
               <!-- loop through bundles & use radio buttons -->
               <%= f.form_group :bundle_id, help: "Select the measure versions Cypress should use to certify this product." do %>
                 <% Bundle.available.all.each do |bundle_current| %>
-                  <%= f.radio_button :bundle_id, bundle_current.id, label: "#{bundle_current.title} #{bundle_current.version}", label_class: "btn btn-checkbox",
+                  <%= f.radio_button :bundle_id, bundle_current.id, label: "#{bundle_current.title} #{bundle_current.version}", label_class: "btn btn-checkbox text-start",
                                      checked: bundle_current == bundle, disabled: !product.new_record? %>
 
                 <% end # bundle loop %>
@@ -104,7 +104,7 @@
           <fieldset id="bundle_options" class="hidden">
             <div id="cvuplus_patient_selection">
               <%= f.form_group help: "Choose patient sets to include in product" do %>
-                <%= f.check_box :bundle_patients, label: 'Include bundle patients', label_class: "btn btn-checkbox", checked: product.bundle_patients, disabled: !product.new_record?, data: {
+                <%= f.check_box :bundle_patients, label: 'Include bundle patients', label_class: "btn btn-checkbox text-start", checked: product.bundle_patients, disabled: !product.new_record?, data: {
                 'parsley-required': '',
                 'parsley-trigger': 'change',
                 'parsley-mincheck': '1',
@@ -113,7 +113,7 @@
                 'parsley-error-message': 'Must select patients.',
                 'parsley-errors-container': "#cvuplus_patient_selection" } %>
                 <% if @vendor ? @vendor.patients : true %>
-                  <%= f.check_box :vendor_patients, label: 'Include vendor patients', label_class: "btn btn-checkbox", checked: product.vendor_patients, disabled: !product.new_record?, data: {
+                  <%= f.check_box :vendor_patients, label: 'Include vendor patients', label_class: "btn btn-checkbox text-start", checked: product.vendor_patients, disabled: !product.new_record?, data: {
                   'parsley-multiple': 'mandatory_patients'}  %>
                 <% end %>
               <% end %>
@@ -121,7 +121,7 @@
           </fieldset>
           <fieldset>
             <%= f.form_group help: "Selecting Shift Records will move patient data forward into the appropriate reporting period. Otherwise patient data will remain in a previously completed calendar year." do %>
-              <%= f.check_box :shift_patients, label: 'Shift Records', label_class: "btn btn-checkbox", checked: product.new_record? ? false : product.shift_patients, disabled: !product.new_record? %>
+              <%= f.check_box :shift_patients, label: 'Shift Records', label_class: "btn btn-checkbox text-start", checked: product.new_record? ? false : product.shift_patients, disabled: !product.new_record? %>
             <% end %>
           </fieldset>
           <% unless bundle&.deprecated %>
@@ -136,15 +136,15 @@
               <% end %>
               <div id="simple_measures_errors_container"></div>
               <%= f.form_group :measure_selection, help: "Indicate the clinical quality measures Cypress should use to certify this product. Testing will be performed on a measure-by-measure basis. Click 'Custom' to specify individual measures." do %>
-                <%= f.radio_button :measure_selection, "eh", label: "Eligible Hospital eCQMs (Including Program Candidate/Pre-Rulemaking)", label_class: "btn btn-checkbox", disabled: !product.new_record?, data: {
+                <%= f.radio_button :measure_selection, "eh", label: "Eligible Hospital eCQMs (Including Program Candidate/Pre-Rulemaking)", label_class: "btn btn-checkbox text-start", disabled: !product.new_record?, data: {
                   'parsley-required': '',
                   'parsley-trigger': 'blur change focusout',
                   'parsley-class-handler': "#measures_options",
                   'parsley-error-message': 'Must select measures.',
                   'parsley-errors-container': "#simple_measures_errors_container" } %>
-                <%= f.radio_button :measure_selection, "ep", label: "Eligible Clinician eCQMs (Including Program Candidate/Pre-Rulemaking)", label_class: "btn btn-checkbox", disabled: !product.new_record? %>
-                <%= f.radio_button :measure_selection, "all", label: "All eCQMs (Excluding Retired)", label_class: "btn btn-checkbox", disabled: !product.new_record? %>
-                <%= f.radio_button :measure_selection, "custom", label: "Custom...", label_class: "btn btn-checkbox", disabled: !product.new_record? %>
+                <%= f.radio_button :measure_selection, "ep", label: "Eligible Clinician eCQMs (Including Program Candidate/Pre-Rulemaking)", label_class: "btn btn-checkbox text-start", disabled: !product.new_record? %>
+                <%= f.radio_button :measure_selection, "all", label: "All eCQMs (Excluding Retired)", label_class: "btn btn-checkbox text-start", disabled: !product.new_record? %>
+                <%= f.radio_button :measure_selection, "custom", label: "Custom...", label_class: "btn btn-checkbox text-start", disabled: !product.new_record? %>
               <% end %>
             </fieldset>
           <% end %>
