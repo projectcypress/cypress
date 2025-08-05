@@ -33,7 +33,7 @@ class HTMLTest < ActiveSupport::TestCase
 
       if dt[ta[2]].respond_to?(:strftime)
         # timey object
-        formatted_date = dt[ta[2]].strftime('%FT%T')
+        formatted_date = dt[ta[2]].strftime('%B %e, %Y %l:%M%P')
         assert html.include?(formatted_date), "html should include date/time value #{formatted_date}"
       elsif dt[ta[2]].is_a?(Array)
         # components, relatedTo (irrelevant), facilityLocations, diagnoses (all code or nested code)
@@ -52,7 +52,7 @@ class HTMLTest < ActiveSupport::TestCase
         assert html.include?(dt[ta[2]].to_s), "html should include text value #{dt[ta[2]]}"
       elsif dt[ta[2]].respond_to?(:low)
         # interval (may or may not include high)
-        formatted_date = dt[ta[2]].low.strftime('%FT%T')
+        formatted_date = dt[ta[2]].low.strftime('%B %e, %Y %l:%M%P')
         assert html.include?(formatted_date), "html should include low value #{formatted_date}"
       elsif dt[ta[2]].respond_to?(:code)
         verify_code_in_html(dt[ta[2]], html)
