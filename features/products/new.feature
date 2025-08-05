@@ -171,9 +171,8 @@ Scenario: Checking CVU+ Product updates Bundle Options
 Scenario: Checking Certification Product updates Bundle Options
   When the user navigates to the create product page
   And the user chooses the "Certification" Product Type
-  # TODO: Fix check here
-  # Then "product_bundle_patients" input should be invisible
-  # Then "Include vendor patients" input should be disabled
+  Then "bundle_options" fieldset should be invisible
+  Then "Include vendor patients" input should be disabled
   And the driver is setup for accessability testing
   Then the page should be axe clean according to: section508
   Then the page should be axe clean according to: wcag2aa

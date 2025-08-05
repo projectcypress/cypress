@@ -543,14 +543,14 @@ Then(/^the user should see the the appropriate tabs$/) do
   end
 end
 
-Then(/^"(.*)" input should be (\w*)$/) do |element, state|
-  input = page.find('label', text: element, visible: false)
-  case state
-  when 'invisible'
-    assert input
-  when 'disabled'
-    assert input.disabled?
-  end
+Then(/^"(.*)" input should be disabled/) do |element|
+  label = page.find('label', text: element, visible: false)
+  assert label.sibling(:field, type: 'checkbox', visible: false, disabled: true)
+end
+
+Then(/^"(.*)" fieldset should be invisible/) do |element|
+  input = page.find('fieldset', id: element, visible: false)
+  assert input
 end
 
 Then(/^"(.*)" checkbox should be (\w*)$/) do |element, state|
