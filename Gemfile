@@ -44,9 +44,8 @@ gem 'uglifier', '>= 1.3.0'
 # Bake the best breadcrumbs
 gem 'breadcrumbs_on_rails'
 # Help our forms
-gem 'bootstrap_form', '~> 2.7'
+gem 'bootstrap_form', '~> 5.4'
 gem 'jasny-bootstrap-rails'
-gem 'nested_form'
 
 gem 'jquery-datatables-rails'
 gem 'local_time', '~> 2.0.0'
