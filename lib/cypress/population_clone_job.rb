@@ -78,7 +78,7 @@ module Cypress
       random_patients.each do |patient|
         seconds_in_day = 86_400 # 60 secs per min * 60 min per hour * 24 hours
         plus_minus = prng.rand(2).zero? ? 1 : -1 # use this to make move dates forward or backwards
-        date_shift = prng.rand(10) * seconds_in_day * plus_minus
+        date_shift = prng.rand(1..10) * seconds_in_day * plus_minus
         patient.qdmPatient.shift_dates(date_shift)
         patients << patient
       end
