@@ -26,6 +26,12 @@ FactoryBot.define do
 
     main_cql_library { source_measure['main_cql_library'] }
 
+    after(:build) do |measure|
+      source_measure['population_sets'].each do |population_set|
+        measure.population_sets << CQM::PopulationSet.new(population_set)
+      end
+    end
+
     trait :diagnosis do
       after(:build) do |measure|
         diagnosis_sdc = QDM::Diagnosis.new(description: 'Diagnosis, Active => Pregnancy',
