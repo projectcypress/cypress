@@ -46,6 +46,8 @@ FactoryBot.define do
         # Always include 2 random measures with a diagnosis
         2.times do |count|
           diag_measure = build(:measure_with_diagnosis, bundle_id: bundle._id, seq_id: count)
+          next if Measure.where(_id: diag_measure.hqmf_id).exists?
+
           diag_measure['id'] = diag_measure.hqmf_id
           diag_measure.save
         end
@@ -53,6 +55,8 @@ FactoryBot.define do
         # Include 6 random measures
         6.times do |count|
           random_measure = build(:measure, bundle_id: bundle._id, seq_id: count + 2)
+          next if Measure.where(_id: random_measure.hqmf_id).exists?
+
           random_measure['id'] = random_measure.hqmf_id
           random_measure.save
         end
