@@ -137,6 +137,7 @@ FactoryBot.define do
             end
           end
         end
+        measure.population_sets.clear
         source_proportion_measure['population_sets'].each do |population_set|
           measure.population_sets << CQM::PopulationSet.new(population_set)
         end
