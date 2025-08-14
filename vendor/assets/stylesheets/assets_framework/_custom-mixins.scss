@@ -44,7 +44,7 @@
 }
 
 //font and line short cuts
-@function no-unit($number) {
+@function no-math.unit($number) {
     @return $number / ($number * 0 + 1);
 }
 
@@ -56,9 +56,9 @@ $browser-context: 14;
 }
 
 @mixin font-size-REM($sizeValue: 1.6) {
-    font-size: no-unit($sizeValue) + px;
-    font-size: em(no-unit($sizeValue));
-    font-size: no-unit($sizeValue / 10) + rem;
+    font-size: no-math.unit($sizeValue) + px;
+    font-size: em(no-math.unit($sizeValue));
+    font-size: no-math.unit($math.div(sizeValue, 10)) + rem;
 }
 
 %clearfix {

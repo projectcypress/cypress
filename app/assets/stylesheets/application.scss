@@ -17,9 +17,11 @@
  *= require dataTables/jquery.dataTables
 */
 
-@import 'globals';
-@import './assets_framework/custom-mixins';
-@import './assets_framework/breadcrumb';
-@import './assets_framework/widgets/_alerts';
-@import './parsley';
-@import './cypress/**/*';
+@use 'sass:color';
+@use 'sass:math';
+@use 'globals';
+@use 'assets_framework/custom-mixins' as mixins;
+@use 'assets_framework/breadcrumb';
+@use 'assets_framework/widgets/alerts';
+@use 'parsley';
+@use 'cypress';
