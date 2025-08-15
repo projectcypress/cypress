@@ -102,6 +102,8 @@ gem 'validate_url'
 
 gem 'telephone_number'
 
+gem 'csv', '~> 3.3', '>= 3.3.5'
+
 group :development, :test do
   # rubocop 0.67 currently has a bug that is causing it to crash in product.rb and vendor.rb
   gem 'rubocop'
