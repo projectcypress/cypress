@@ -18,7 +18,7 @@ gem 'mustache'
 
 gem 'cqm-models', '~> 4.2.0'
 gem 'cqm-parsers', '~> 4.1.1.1'
-gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'fix/human-friendly-datetimes'
+gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'master'
 gem 'cqm-validators', '~> 4.0.6'
 
 # # Use faker to generate addresses
