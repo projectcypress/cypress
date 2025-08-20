@@ -24,6 +24,8 @@ gem 'cqm-validators', '~> 4.0.6'
 # # Use faker to generate addresses
 gem 'faker', '> 1.5.0'
 
+gem 'csv', '~> 3.3', '>= 3.3.5'
+
 # Use SCSS for stylesheets
 # Dependencies for CMS Assets Framework
 gem 'bootstrap', '~> 5.3.5'
