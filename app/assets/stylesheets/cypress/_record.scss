@@ -1,6 +1,9 @@
+@use "bootstrap" as *;
+@use "sass:color";
+
 $gray: #999;
 $white: #fff;
-$table-row-odd-bg: lighten($primary, 50%);
+$table-row-odd-bg: color.adjust($primary, $lightness: 50%);
 
 .description-heading {
   font-size: 1.25em;

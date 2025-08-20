@@ -1,3 +1,6 @@
+@use "bootstrap" as *;
+@use "sass:color";
+
 .card-title {
   letter-spacing: .04em;
 }
@@ -46,8 +49,8 @@
 }
 
 @mixin darker-hover($border-color, $name) {
-  $darker-border-color: darken($border-color, 15%);
-  border-color: darken($border-color, 5%);
+  $darker-border-color: color.adjust($border-color, $lightness: -15%);
+  border-color: color.adjust($border-color, $lightness: -5%);
 
   // for the buttons with dark backgrounds, add a shadow to text
   @if $name != 'danger' {
@@ -74,4 +77,3 @@
     border-color: $card-inactive-border;
   }
 }
-

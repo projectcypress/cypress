@@ -1,8 +1,11 @@
+@use "bootstrap" as *;
+@use "sass:color";
+
 $background-color: rgba(#000, .00);
 
 @mixin darker-hover($border-color, $name) {
-  $darker-border-color: darken($border-color, 15%);
-  border-color: darken($border-color, 5%);
+  $darker-border-color: color.adjust($border-color, $lightness: -15%);
+  border-color: color.adjust($border-color, $lightness: -5%);
 
   // for the buttons with dark backgrounds, add a shadow to text
   @if $name != 'danger' {
@@ -14,17 +17,25 @@ $background-color: rgba(#000, .00);
 
   &:hover,
   &:focus {
+    // apply button hover styles
+    color: $btn-color;
+    background-color: $darker-border-color;
+    border-color: $darker-border-color;
+
     // create namespaced animation for the background-color
     @keyframes pulsate-#{$name} {
       50% { background-color: $border-color; }
     }
-    color: $btn-color;
-    background-color: $darker-border-color;
-    border-color: $darker-border-color;
   }
 }
 
-$btn-icon-outline: desaturate(lighten(saturate($primary, 80%), 20%), 40%);
+$btn-icon-outline: color.adjust(
+  color.adjust(
+    color.adjust($primary, $saturation: 80%),
+    $lightness: 20%
+  ),
+  $saturation: -40%
+);
 
 .btn {
   font-family: 'Ubuntu';

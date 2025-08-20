@@ -1,10 +1,13 @@
+@use "bootstrap" as *;
+
 .navbar-toggle {
   color: $navbar-light-color;
   margin: 0;
 }
 
 .navbar {
-  @include box-shadow(0 1px 1px $dropdown-border-width);
+  // @include box-shadow(0 1px 1px $dropdown-border-width);
+  // box-shadow: 0 1px 1px $dropdown-border-width;
   margin-bottom: 1em;
 }
 
@@ -63,7 +66,8 @@
 }
 
 .breadcrumb > li {
-  @include box-shadow(0 1px 1px $dropdown-border-width);
+  // @include box-shadow(0 1px 1px $dropdown-border-width);
+  // box-shadow: 0 1px 1px $dropdown-border-width;
   display: table-cell;
   padding: 8px 10px;
   background-color: $primary;

@@ -25,13 +25,11 @@ gem 'cqm-validators', '~> 4.0.6'
 gem 'faker', '> 1.5.0'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0.4'
 # Dependencies for CMS Assets Framework
-# gem 'bootstrap-sass', '~> 3.4.1'
-gem 'bootstrap', '~> 5.3.3'
-gem 'dartsass-sprockets'
+gem 'bootstrap', '~> 5.3.5'
+gem 'dartsass-sprockets', '~> 3.2', '>= 3.2.1'
 
-gem 'font-awesome-sass', '~> 5.0.13'
+gem 'font-awesome-sass', '~> 6.7', '>= 6.7.2'
 gem 'jquery-rails'
 # TODO: remove or use gem
 gem 'jquery-ui-rails', '~> 8.0.0'
