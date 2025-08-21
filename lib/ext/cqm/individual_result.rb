@@ -10,6 +10,10 @@ module CQM
     field :correlation_id, type: String
     field :file_name, type: String
 
+    def relevant?
+      true if (!self['IPP'].nil? && self['IPP'].positive?) || (!self['MSRPOPL'].nil? && self['MSRPOPL'].positive?)
+    end
+
     # Recalculates Individual Result and saves the clause_results
     def recalculate_with_highlighting
       # Use the bundle of product test to find measure_period_start

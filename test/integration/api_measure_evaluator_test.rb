@@ -155,7 +155,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
         doc = Nokogiri::XML(zipfile.read(entry))
         doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
-        next unless CQM::IndividualResult.where(patient_id: patient_id_file_map[entry.name]).size.positive?
+        next unless CQM::IndividualResult.where(patient_id: patient_id_file_map[entry.name]).map(&:relevant?).include? true
 
         Zip::ZipFile.open("tmp/#{product_test.id}_only_ipp.zip", Zip::File::CREATE) do |z|
           z.get_output_stream(entry) { |f| f.puts zipfile.read(entry) }

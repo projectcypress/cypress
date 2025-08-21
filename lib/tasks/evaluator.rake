@@ -36,6 +36,14 @@ namespace :evaluator do
     mev.evaluate_all_cat1
   end
 
+  task :api_evaluate_random, %i[cypress_host hqmf_path use_js_ecqm] => :setup do |_, args|
+    options = args.to_hash
+    options[:randomization] = true
+    api_ev = Cypress::ApiMeasureEvaluator.new(ENV.fetch('USERNAME', nil), ENV.fetch('PASSWORD', nil), options)
+    api_ev.cleanup
+    api_ev.run_measure_eval(true, false)
+  end
+
   task :api_evaluate_c1_c2, %i[cypress_host hqmf_path use_js_ecqm] => :setup do |_, args|
     api_ev = Cypress::ApiMeasureEvaluator.new(ENV.fetch('USERNAME', nil), ENV.fetch('PASSWORD', nil), args.to_hash)
     api_ev.cleanup
