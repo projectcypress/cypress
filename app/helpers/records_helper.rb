@@ -12,7 +12,7 @@ module RecordsHelper
   SUBFIELDS = %w[title scalar value unit units description period dispenseDate quantityDispensed time].freeze
   CV_POPULATION_KEYS = %w[IPP MSRPOPL MSRPOPLEX OBSERV].freeze
   PROPORTION_POPULATION_KEYS = %w[IPP DENOM NUMER NUMEX DENEX DENEXCEP].freeze
-  RATIO_POPULATION_KEYS = %w[IPP DENOM NUMER NUMEX DENEX OBSERV].freeze
+  RATIO_POPULATION_KEYS = %w[IPP DENOM DENEX NUMER NUMEX OBSERV].freeze
 
   def full_gender_name(gender)
     case gender
