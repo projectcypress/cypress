@@ -8,7 +8,7 @@ ruby '3.3.8'
 gem 'rails', '~> 7.2.0'
 
 gem 'delayed_job_mongoid', '~> 3.0.0'
-gem 'mongoid', '~> 8.1.0'
+gem 'mongoid', '~> 9.0.0'
 
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson'
@@ -17,7 +17,7 @@ gem 'mustache'
 ## gem 'os'
 
 gem 'cqm-models', '~> 4.2.0'
-gem 'cqm-parsers', '~> 4.1.1.1'
+gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'master'
 gem 'cqm-reports', git: 'https://github.com/projecttacoma/cqm-reports', branch: 'master'
 gem 'cqm-validators', '~> 4.0.6'
 

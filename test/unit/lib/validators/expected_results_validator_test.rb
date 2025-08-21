@@ -105,6 +105,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     @patient2.save!
     @patient3.correlation_id = @task.product_test.id
     @patient3.save!
+    @task.product_test.save!
     @validator.validate(file, 'task' => @task)
     errors = @validator.errors
 
@@ -120,6 +121,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     @patient2.save!
     @patient3.correlation_id = @task.product_test.id
     @patient3.save!
+    @task.product_test.save!
     @validator.validate(file, 'task' => @task)
     errors = @validator.errors
 
@@ -132,7 +134,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
                       reported_value: 2 }
 
     # The should be error messages when reported value is outside of the expected range.  In this example, the range is 2-3.
-    assert_equal 1, (errors.count { |e| e.validator_type == :result_validation && e.error_details == error_details })
+    assert_equal 1, (errors.count { |e| e.validator_type == :result_validation && e.error_details.sort.to_json == error_details.sort.to_json })
   end
 
   def test_validate_extra_data
