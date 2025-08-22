@@ -71,7 +71,7 @@ class VendorsRecordsControllerTest < ActionController::TestCase
       filename = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip')
       good_zip = fixture_file_upload(filename, 'application/zip')
       perform_enqueued_jobs do
-        post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle._id, include_highlighting: '1' }
+        post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle._id, include_highlighting: '1' }, as: :multipart
         assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle._id }, 'response should redirect to index')
 
         # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
@@ -89,7 +89,7 @@ class VendorsRecordsControllerTest < ActionController::TestCase
       filename = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip')
       good_zip = fixture_file_upload(filename, 'application/zip')
       perform_enqueued_jobs do
-        post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle._id }
+        post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle._id }, as: :multipart
         assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle._id }, 'response should redirect to index')
 
         # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
@@ -107,7 +107,7 @@ class VendorsRecordsControllerTest < ActionController::TestCase
       filename = Rails.root.join('test', 'fixtures', 'artifacts', 'good_patient_upload.zip')
       good_zip = fixture_file_upload(filename, 'application/zip')
       perform_enqueued_jobs do
-        post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle2.id }
+        post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle2.id }, as: :multipart
         assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle2.id }, 'response should redirect to index')
 
         # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
@@ -126,7 +126,7 @@ class VendorsRecordsControllerTest < ActionController::TestCase
       filename = Rails.root.join('test', 'fixtures', 'artifacts', 'good_patient_shift.zip')
       good_zip = fixture_file_upload(filename, 'application/zip')
       perform_enqueued_jobs do
-        post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle._id }
+        post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle._id }, as: :multipart
         assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle._id }, 'response should redirect to index')
 
         # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
@@ -180,7 +180,7 @@ class VendorsRecordsControllerTest < ActionController::TestCase
       filename = Rails.root.join('test', 'fixtures', 'artifacts', 'half_fail_patient_upload.zip')
       half_fail_file = fixture_file_upload(filename, 'application/zip')
       perform_enqueued_jobs do
-        post :create, params: { file: half_fail_file, vendor_id: @vendor.id, bundle_id: @bundle._id }
+        post :create, params: { file: half_fail_file, vendor_id: @vendor.id, bundle_id: @bundle._id }, as: :multipart
         assert_redirected_to vendor_records_path(vendor_id: @vendor.id, bundle_id: @bundle._id), 'response should redirect to index'
         # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
         get :index, params: { vendor_id: redirect_to_url.split('/')[-2], bundle_id: @bundle._id }
@@ -199,7 +199,7 @@ class VendorsRecordsControllerTest < ActionController::TestCase
       filename = Rails.root.join('test', 'fixtures', 'artifacts', 'full_fail_patient_upload.zip')
       half_fail_file = fixture_file_upload(filename, 'application/zip')
       perform_enqueued_jobs do
-        post :create, params: { file: half_fail_file, vendor_id: @vendor.id, bundle_id: @bundle._id }
+        post :create, params: { file: half_fail_file, vendor_id: @vendor.id, bundle_id: @bundle._id }, as: :multipart
         assert_redirected_to vendor_records_path(vendor_id: @vendor.id, bundle_id: @bundle._id), 'response should redirect to index'
         # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
         get :index, params: { vendor_id: redirect_to_url.split('/')[-2], bundle_id: @bundle._id }
