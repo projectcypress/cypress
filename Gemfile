@@ -124,6 +124,7 @@ group :development, :test do
   gem 'rails-perftest'
   gem 'scss_lint', require: false
   gem 'selenium-webdriver'
+  gem 'webrick'
 end
 
 group :development do
