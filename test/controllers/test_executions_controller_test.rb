@@ -442,7 +442,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     @first_c2_task.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       perform_enqueued_jobs do
-        post :create, params: { task_id: @first_c2_task.id, results: zip_upload }
+        post :create, params: { format: :json, task_id: @first_c2_task.id, results: zip_upload }
         # post :create, params: { format: :json, task_id: @first_c2_task.id, results: zip_upload }, as: :multipart
         get :show, params: { format: :json, task_id: @first_c2_task.id, id: @first_c2_task.most_recent_execution.id }
         assert_response 200, 'response should be OK on test_execution show'
@@ -506,7 +506,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
                                                                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
         @first_c2_task.save!
         MeasureEvaluationJob.perform_now(@first_c2_task.product_test, {})
-        post :create, params: { task_id: @first_c2_task.id, results: xml_upload }
+        post :create, params: { format: :xml, task_id: @first_c2_task.id, results: xml_upload }
         # post :create, params: { format: :xml, task_id: @first_c2_task.id, results: xml_upload }, as: :multipart
         get :show, params: { format: :xml, task_id: @first_c2_task.id, id: @first_c2_task.most_recent_execution.id }
         assert_response 200, 'response should be OK on test_execution show'
