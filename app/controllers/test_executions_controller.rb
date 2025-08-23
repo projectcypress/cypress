@@ -5,9 +5,6 @@ class TestExecutionsController < ApplicationController
   include TestExecutionsHelper
   include Cypress::ErrorCollector
 
-  # Catch empty multipart uploads and render invalid-upload error
-  rescue_from ActionController::BadRequest, with: :handle_bad_request
-
   before_action :set_test_execution, only: %i[show destroy file_result]
   before_action :set_task, only: %i[index new create]
   before_action :set_task_from_test_execution, only: %i[show file_result]
@@ -82,15 +79,6 @@ class TestExecutionsController < ApplicationController
   end
 
   private
-
-  # Handle BadRequest caused by empty multipart content
-  def handle_bad_request(exception)
-    if exception.cause.is_a?(Rack::Multipart::EmptyContentError)
-      rescue_create
-    else
-      raise exception
-    end
-  end
 
   def rescue_create
     alert = 'Invalid file upload. Please make sure you upload an XML or zip file.'
