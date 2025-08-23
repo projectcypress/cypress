@@ -3,8 +3,8 @@
 require 'test_helper'
 require 'api_test'
 
-class TestExecutionsControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
+class TestExecutionsControllerTest < ActionController::TestCase
+  include Devise::Test::ControllerHelpers
   include ActiveJob::TestHelper
   include ApiTest
   include TestExecutionsHelper
@@ -62,8 +62,9 @@ class TestExecutionsControllerTest < ActionDispatch::IntegrationTest
     # do this for admin,atl,user:owner and vendor -- need negative tests for non
     # access users
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get task_test_execution_path(task, te)
+      get :show, params: { id: te.id, task_id: task.id }
       assert_response :success
+      assert_not_nil assigns(:test_execution)
     end
   end
 
@@ -79,7 +80,7 @@ class TestExecutionsControllerTest < ActionDispatch::IntegrationTest
     # do this for admin,atl,user:owner and vendor -- need negative tests for non
     # access users
     for_each_logged_in_user([OTHER_VENDOR]) do
-      get task_test_execution_path(task, te)
+      get :show, params: { id: te.id, task_id: task.id }
       assert_response 401
     end
   end
@@ -94,7 +95,7 @@ class TestExecutionsControllerTest < ActionDispatch::IntegrationTest
       te, _file_name = create_execution_with_task_type(@first_c2_task._type)
       @user.test_executions << te
       te.save!
-      delete test_execution_path(te)
+      delete :destroy, params: { id: te.id }
       assert_response 204, 'response should be No Content on test_execution destroy'
       assert_nil TestExecution.where(_id: te.id).first, 'Should have deleted test execution'
     end
@@ -107,7 +108,7 @@ class TestExecutionsControllerTest < ActionDispatch::IntegrationTest
     for_each_logged_in_user([VENDOR, OTHER_VENDOR]) do
       te = @first_c2_task.test_executions.build
       @user.test_executions << te
-      delete test_execution_path(te)
+      delete :destroy, params: { id: te.id }
       assert_response 401
     end
   end
@@ -116,7 +117,7 @@ class TestExecutionsControllerTest < ActionDispatch::IntegrationTest
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       @first_c2_task.test_executions.destroy
       @first_c2_task.test_executions.create
-      delete test_execution_path('bad_id')
+      delete :destroy, params: { task_id: @first_c2_task.id, id: 'bad_id' }
       assert_response 404, 'response should be Not Found if no test_execution'
       assert_equal 'Not Found', response.message
     end
@@ -126,7 +127,7 @@ class TestExecutionsControllerTest < ActionDispatch::IntegrationTest
     for_each_logged_in_user([ADMIN, ATL, OWNER]) do
       te = @first_c2_task.test_executions.build
       @user.test_executions << te
-      delete test_execution_path(te)
+      delete :destroy, params: { task_id: 'bad_id', id: te.id }
       assert_response 204, 'response should be No Content on test_execution destroy'
       assert_nil TestExecution.where(_id: te.id).first, 'Should have deleted test execution'
     end
@@ -147,7 +148,7 @@ class TestExecutionsControllerTest < ActionDispatch::IntegrationTest
     i = 0
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       i += 1
-      post task_test_executions_path(@first_c2_task), params: { results: upload }
+      post :create, params: { task_id: @first_c2_task.id, results: upload }
       assert_response 302
       @first_c2_task.reload
       assert_equal @first_c2_task.test_executions.count, orig_count + i, "Should have added #{i} new TestExecution"
@@ -155,14 +156,14 @@ class TestExecutionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   # need negative tests for user that does not have owner or vendor access
-test 'should be able to restrict access to create unauthorized users ' do
+  test 'should be able to restrict access to create unauthorized users ' do
     C1Task.any_instance.stubs(:validators).returns([])
     C1Task.any_instance.stubs(:patients).returns([])
 
     zipfile = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml'))
     upload = Rack::Test::UploadedFile.new(zipfile, 'text/xml')
     for_each_logged_in_user([OTHER_VENDOR]) do
-      post task_test_executions_path(@first_c2_task), params: { results: upload }
+      post :create, params: { task_id: @first_c2_task.id, results: upload }
       assert_response 401
     end
   end
@@ -175,7 +176,7 @@ test 'should be able to restrict access to create unauthorized users ' do
     old_count = task.test_executions.count
     file = File.new(Rails.root.join('app', 'assets', 'images', 'icon.svg'))
     upload = Rack::Test::UploadedFile.new(file, 'image/svg')
-    post task_test_executions_path(task), params: { results: upload }
+    post :create, params: { task_id: task.id, results: upload }
 
     assert_equal old_count, task.test_executions.count
   end
@@ -191,7 +192,7 @@ test 'should be able to restrict access to create unauthorized users ' do
     file = File.new(Rails.root.join('app', 'assets', 'images', 'icon.svg'))
     upload = Rack::Test::UploadedFile.new(file, 'image/svg')
 
-    post task_test_executions_path(task), params: { results: upload }
+    post :create, params: { task_id: task.id, results: upload }
 
     assert_equal old_count, task.test_executions.count
   end
@@ -202,7 +203,7 @@ test 'should be able to restrict access to create unauthorized users ' do
     %w[C1Task C2Task Cat1FilterTask Cat3FilterTask C1ChecklistTask].each do |task_type|
       execution, file_name = create_execution_with_task_type(task_type)
       for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-        get file_result_test_execution_path(execution, route_file_name(file_name))
+        get :file_result, params: { id: execution.id, file_name: route_file_name(file_name) }
         assert_response 200, "should be able to find file with file name \"#{file_name}\""
       end
     end
@@ -212,7 +213,7 @@ test 'should be able to restrict access to create unauthorized users ' do
     %w[C1Task C2Task Cat1FilterTask Cat3FilterTask C1ChecklistTask].each do |task_type|
       execution, file_name = create_execution_with_task_type(task_type)
       for_each_logged_in_user([OTHER_VENDOR]) do
-        get file_result_test_execution_path(execution, route_file_name(file_name))
+        get :file_result, params: { id: execution.id, file_name: route_file_name(file_name) }
         assert_response 401, "other vendor should not be authorized to view file: \"#{file_name}\""
       end
     end
@@ -223,7 +224,7 @@ test 'should be able to restrict access to create unauthorized users ' do
       _execution, file_name = create_execution_with_task_type(task_type)
       for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
         bad_execution_id = "bad id #{rand}"
-        get file_result_test_execution_path(bad_execution_id, route_file_name(file_name))
+        get :file_result, params: { id: bad_execution_id, file_name: route_file_name(file_name) }
         assert_response 404, "should not be able to find file with bad execution id \"#{bad_execution_id}\""
         assert_equal 'Not Found', response.message
       end
@@ -235,7 +236,7 @@ test 'should be able to restrict access to create unauthorized users ' do
       execution, _file_name = create_execution_with_task_type(task_type)
       for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
         bad_file_name = "bad file name #{rand}"
-        get file_result_test_execution_path(execution, route_file_name(bad_file_name))
+        get :file_result, params: { id: execution.id, file_name: route_file_name(bad_file_name) }
         assert_response 404, "should not be able to find file with bad file name \"#{bad_file_name}\""
         assert_equal 'Not Found', response.message
       end
@@ -301,14 +302,10 @@ test 'should be able to restrict access to create unauthorized users ' do
   test 'should create test_execution with json request with c4 cat 1 task' do
     setup_c4
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post task_test_executions_path(@task_cat1),
-           params: { results: zip_upload },
-           as: :multipart,
-           headers: { 'Accept' => 'application/json' }
+      post :create, params: { format: :json, task_id: @task_cat1.id, results: zip_upload }
       assert_response 201, 'response should be Created on test_execution creation'
-      body = response.parsed_body
-      assert_not_nil body
-      assert_equal 'pending', body['state']
+      assert_not_nil JSON.parse(response.body)
+      assert_equal 'pending', JSON.parse(response.body)['state']
       assert response.location.end_with?(test_execution_path(@task_cat1.most_recent_execution)),
              'response location should be test_execution show'
     end
@@ -317,14 +314,10 @@ test 'should be able to restrict access to create unauthorized users ' do
   test 'should create test_execution with json request with c4 cat 3 task' do
     setup_c4
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post task_test_executions_path(@task_cat3),
-           params: { results: xml_upload },
-           as: :multipart,
-           headers: { 'Accept' => 'application/json' }
+      post :create, params: { format: :json, task_id: @task_cat3.id, results: xml_upload }
       assert_response 201, 'response should be Created on test_execution creation'
-      body = response.parsed_body
-      assert_not_nil body
-      assert_equal 'pending', body['state']
+      assert_not_nil JSON.parse(response.body)
+      assert_equal 'pending', JSON.parse(response.body)['state']
       assert response.location.end_with?(test_execution_path(@task_cat3.most_recent_execution)),
              'response location should be test_execution show'
     end
@@ -335,14 +328,10 @@ test 'should be able to restrict access to create unauthorized users ' do
   test 'should create test_execution with xml request with c4 cat 1 task' do
     setup_c4
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post task_test_executions_path(@task_cat1),
-           params: { results: zip_upload },
-           as: :xml,
-           headers: { 'Accept' => 'application/xml' }
+      post :create, params: { format: :xml, task_id: @task_cat1.id, results: zip_upload }
       assert_response 201, 'response should be Created on test_execution creation'
-      xml = Hash.from_trusted_xml(response.body)
-      assert_not_nil xml
-      assert_equal 'pending', xml['test_execution']['state']
+      assert_not_nil Hash.from_trusted_xml(response.body)
+      assert_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
       assert response.location.end_with?(test_execution_path(@task_cat1.most_recent_execution)),
              'response location should be test_execution show'
     end
@@ -351,14 +340,10 @@ test 'should be able to restrict access to create unauthorized users ' do
   test 'should create test_execution with xml request with c4 cat 3 task' do
     setup_c4
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post task_test_executions_path(@task_cat3),
-           params: { results: xml_upload },
-           as: :xml,
-           headers: { 'Accept' => 'application/xml' }
+      post :create, params: { format: :xml, task_id: @task_cat3.id, results: xml_upload }
       assert_response 201, 'response should be Created on test_execution creation'
-      xml = Hash.from_trusted_xml(response.body)
-      assert_not_nil xml
-      assert_equal 'pending', xml['test_execution']['state']
+      assert_not_nil Hash.from_trusted_xml(response.body)
+      assert_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
       assert response.location.end_with?(test_execution_path(@task_cat3.most_recent_execution)),
              'response location should be test_execution show'
     end
@@ -430,8 +415,8 @@ test 'should be able to restrict access to create unauthorized users ' do
     @vendor_user.test_executions << @first_c2_task.test_executions
     execution.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      get test_execution_path(execution), as: :json
-      response_body = response.parsed_body
+      get :show, params: { format: :json, id: execution.id }
+      response_body = JSON.parse(response.body)
       assert_response 200, 'response should be OK if no task_id'
       assert_has_test_execution_attributes response_body
     end
@@ -440,14 +425,10 @@ test 'should be able to restrict access to create unauthorized users ' do
   test 'should create test_execution with json request' do
     make_first_task_type('C1Task')
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post task_test_executions_path(@first_c2_task),
-           params: { results: zip_upload },
-           as: :multipart,
-           headers: { 'Accept' => 'application/json' }
+      post :create, params: { format: :json, task_id: @first_c2_task.id, results: zip_upload }
       assert_response 201, 'response should be Created on test_execution creation'
-      body = response.parsed_body
-      assert_not_nil body
-      assert_equal 'pending', body['state']
+      assert_not_nil JSON.parse(response.body)
+      assert_equal 'pending', JSON.parse(response.body)['state']
       assert response.location.end_with?(test_execution_path(@first_c2_task.most_recent_execution)),
              'response location should be test_execution show'
     end
@@ -462,7 +443,6 @@ test 'should be able to restrict access to create unauthorized users ' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       perform_enqueued_jobs do
         post :create, params: { format: :json, task_id: @first_c2_task.id, results: zip_upload }
-        # post :create, params: { format: :json, task_id: @first_c2_task.id, results: zip_upload }, as: :multipart
         get :show, params: { format: :json, task_id: @first_c2_task.id, id: @first_c2_task.most_recent_execution.id }
         assert_response 200, 'response should be OK on test_execution show'
         assert_not_equal 'pending', JSON.parse(response.body)['state']
@@ -526,7 +506,6 @@ test 'should be able to restrict access to create unauthorized users ' do
         @first_c2_task.save!
         MeasureEvaluationJob.perform_now(@first_c2_task.product_test, {})
         post :create, params: { format: :xml, task_id: @first_c2_task.id, results: xml_upload }
-        # post :create, params: { format: :xml, task_id: @first_c2_task.id, results: xml_upload }, as: :multipart
         get :show, params: { format: :xml, task_id: @first_c2_task.id, id: @first_c2_task.most_recent_execution.id }
         assert_response 200, 'response should be OK on test_execution show'
         assert_not_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
