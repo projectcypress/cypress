@@ -19,6 +19,34 @@ else
   SimpleCov.formatter = SimpleCov::Formatter::QualityFormatter
 end
 
+# Make vendor-role helper methods available in integration tests
+module IntegrationTestHelpers
+  # Assigns a vendor role to a user for a given vendor
+  def add_user_to_vendor(user, vendor)
+    test_params = {
+      user: { email: user.email },
+      role: 'vendor',
+      assignments: {
+        '1001' => { vendor_id: vendor.id.to_s, role: 'vendor' }
+      }
+    }
+    user.assign_roles_and_email(test_params)
+    user.save
+  end
+
+  # Iterates over given user IDs, signing in/out around each block
+  def for_each_logged_in_user(user_ids)
+    User.find(Array(user_ids)).each do |user|
+      sign_in user
+      yield
+      sign_out user
+    end
+  end
+end
+
+# Include our helpers into integration test class
+ActionDispatch::IntegrationTest.include IntegrationTestHelpers
+
 # Mongo::Logger.logger.level = Logger::WARN
 ENV['RAILS_ENV'] ||= 'test'
 ENV['IGNORE_ROLES'] ||= 'false'

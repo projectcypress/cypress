@@ -175,7 +175,7 @@ test 'should be able to restrict access to create unauthorized users ' do
     old_count = task.test_executions.count
     file = File.new(Rails.root.join('app', 'assets', 'images', 'icon.svg'))
     upload = Rack::Test::UploadedFile.new(file, 'image/svg')
-    post :create, params: { task_id: task.id, results: upload }
+    post task_test_executions_path(task), params: { results: upload }
 
     assert_equal old_count, task.test_executions.count
   end
@@ -191,7 +191,7 @@ test 'should be able to restrict access to create unauthorized users ' do
     file = File.new(Rails.root.join('app', 'assets', 'images', 'icon.svg'))
     upload = Rack::Test::UploadedFile.new(file, 'image/svg')
 
-    post :create, params: { task_id: task.id, results: upload }
+    post task_test_executions_path(task), params: { results: upload }
 
     assert_equal old_count, task.test_executions.count
   end
