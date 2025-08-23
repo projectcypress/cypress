@@ -216,7 +216,15 @@ class ActiveSupport::TestCase
         # During test a new controller is created per test, as this method makes multiple calls
         # with different logged in users we need to ensure that each has a fresh controller to
         # execute against to prevent CanCan Ability caching
+        # Fresh controller + request/response per iteration
         @controller = @controller.class.new
+        @request    = ActionController::TestRequest.create(@controller.class)
+        @response   = ActionDispatch::TestResponse.new
+
+        # Clear sticky headers that can break multipart
+        @request.set_header('CONTENT_TYPE',   nil)
+        @request.set_header('CONTENT_LENGTH', nil)
+        @request.set_header('HTTP_ACCEPT',    nil)
         @user = user
         sign_in user
         yield
