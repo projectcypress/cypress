@@ -47,6 +47,19 @@ end
 # Include our helpers into integration test class
 ActionDispatch::IntegrationTest.include IntegrationTestHelpers
 
+# Copy role and user ID constants into integration test context
+class ActionDispatch::IntegrationTest
+  ADMIN = '4def93dd4f85cf8968000010'
+  ATL = '4def93dd4f85cf8968000001'
+  OWNER = '4def93dd4f85cf8968000002'
+  USER = '4def93dd4f85cf8968000002'
+  VENDOR = '4def93dd4f85cf8968000003'
+  OTHER_VENDOR = '4def93dd4f85cf8968000004'
+
+  EHR1 = '4f57a8791d41c851eb000002'
+  EHR2 = '4f636aba1d41c851eb00048c'
+end
+
 # Mongo::Logger.logger.level = Logger::WARN
 ENV['RAILS_ENV'] ||= 'test'
 ENV['IGNORE_ROLES'] ||= 'false'
