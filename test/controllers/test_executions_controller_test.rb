@@ -442,12 +442,9 @@ class TestExecutionsControllerTest < ActionController::TestCase
     @first_c2_task.save!
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       perform_enqueued_jobs do
-        post :create,
-             params: { task_id: @first_c2_task.id,
-                       results: zip_upload },
-             as: :multipart,
-             format: :json
-        # post :create, params: { format: :json, task_id: @first_c2_task.id, results: zip_upload }, as: :multipart
+        post :create, params: { format: :json, task_id: @first_c2_task.id, results: zip_upload }
+      end
+      perform_enqueued_jobs do
         get :show, params: { format: :json, task_id: @first_c2_task.id, id: @first_c2_task.most_recent_execution.id }
         assert_response 200, 'response should be OK on test_execution show'
         assert_not_equal 'pending', JSON.parse(response.body)['state']
