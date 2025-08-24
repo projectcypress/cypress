@@ -1,25 +1,28 @@
+@use "bootstrap" as *;
+@use "sass:color";
+
 .status-passing {
   color: $success-text-emphasis;
   background: $success-bg-subtle;
-  border: 1px solid darken($success-bg-subtle, 20%);
+  border: 1px solid color.adjust($success-bg-subtle, $lightness: -20%);
 }
 
 .status-failing {
   color: $danger-text-emphasis;
   background: $danger-bg-subtle;
-  border: 1px solid darken($danger-bg-subtle, 20%);
+  border: 1px solid color.adjust($danger-bg-subtle, $lightness: -20%);
 }
 
 .status-errored {
   color: $warning-text-emphasis;
   background: $warning-bg-subtle;
-  border: 1px solid darken($warning-bg-subtle, 20%);
+  border: 1px solid color.adjust($warning-bg-subtle, $lightness: -20%);
 }
 
 .status-not-started {
   color: $info-text-emphasis;
   background: $info-bg-subtle;
-  border: 1px solid darken($info-bg-subtle, 20%);
+  border: 1px solid color.adjust($info-bg-subtle, $lightness: -20%);
 }
 
 .scroll-link-wrapper {

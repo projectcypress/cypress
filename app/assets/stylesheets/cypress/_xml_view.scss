@@ -1,9 +1,11 @@
+@use "bootstrap" as *;
+@use "sass:color";
 
-$xml-orange:            lighten($warning, 10%) !default;
-$xml-light-orange:      lighten($xml-orange, 15%) !default;
-$xml-dark-orange:       darken($xml-orange, 10%) !default;
-$xml-red:               lighten($danger, 15%) !default;
-$xml-light-red:         lighten($xml-red, 15%) !default;
+$xml-orange:            color.adjust($warning, $lightness: 10%) !default;
+$xml-light-orange:      color.adjust($xml-orange, $lightness: 15%) !default;
+$xml-dark-orange:       color.adjust($xml-orange, $lightness: -10%) !default;
+$xml-red:               color.adjust($danger, $lightness: 15%) !default;
+$xml-light-red:         color.adjust($xml-red, $lightness: 15%) !default;
 $xml-green:             $success !default;
 $xml-gray:              $gray-500 !default;
 

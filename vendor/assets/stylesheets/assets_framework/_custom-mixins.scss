@@ -45,20 +45,20 @@
 
 //font and line short cuts
 @function no-unit($number) {
-    @return $number / ($number * 0 + 1);
+    @return calc($number / (calc($number * 0 + 1)));
 }
 
 //to add in IE8 resizing text support
 $browser-context: 14;
 
 @function em($pixels, $context: $browser-context) {
-    @return #{$pixels / $context}em;
+    @return calc($pixels / $context)em;
 }
 
 @mixin font-size-REM($sizeValue: 1.6) {
     font-size: no-unit($sizeValue) + px;
     font-size: em(no-unit($sizeValue));
-    font-size: no-unit($sizeValue / 10) + rem;
+    font-size: no-unit(calc($sizeValue / 10)) + rem;
 }
 
 %clearfix {

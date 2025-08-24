@@ -1,3 +1,19 @@
+@use "bootstrap" as *;
+@use "sass:color";
+
+// Mixins
+@mixin hidden-cell() {
+  // we want visually reduce the appearance, but it's ok to reveal to screen readers
+  color: $gray-600;
+  border: 0;
+}
+
+@mixin hidden-header-cell() {
+  color: $gray-600;
+  border-bottom: 0;
+}
+
+
 .inline-block {
   display: inline-block;
 }
@@ -44,7 +60,7 @@
   }
 
   .product-name {
-    background: darken($primary, 5%);
+    background: color.adjust($primary, $lightness: -5%);
     color: $white;
     font-size: 1.5em;
     font-weight: 500;

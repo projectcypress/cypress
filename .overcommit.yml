@@ -27,7 +27,8 @@ PreCommit:
     enabled: true
     exclude: ['vendor/assets/javascripts/**/*', 'test/fixtures/**/*']
   ScssLint:
-    enabled: true
+    # disable scss_lint check, incompatible with upgraded sass dependencies
+    enabled: false
     exclude: ['vendor/assets/stylesheets/**/*']
   HardTabs:
     enabled: true

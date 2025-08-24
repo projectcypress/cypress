@@ -7,4 +7,4 @@ for i in 1 2 3 4; do
 done
 
 # Start Puma in the foreground
-exec bundle exec puma -C /docker/config/puma.rb
+exec bundle exec puma -C /app/config/puma.rb
