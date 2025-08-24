@@ -125,7 +125,8 @@ group :development, :test do
   gem 'rails_best_practices'
   gem 'rails-controller-testing'
   gem 'rails-perftest'
-  gem 'scss_lint', require: false
+  # remove scss_lint, incompatible with sass dependency upgrades
+  # gem 'scss_lint', require: false
   gem 'selenium-webdriver'
   gem 'webrick'
 end
