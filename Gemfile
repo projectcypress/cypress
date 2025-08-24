@@ -27,9 +27,11 @@ gem 'faker', '> 1.5.0'
 gem 'csv', '~> 3.3', '>= 3.3.5'
 
 # Use SCSS for stylesheets
+gem 'sass-rails', '~> 5.0.4'
 # Dependencies for CMS Assets Framework
 gem 'bootstrap', '~> 5.3.5'
-gem 'dartsass-sprockets', '~> 3.2', '>= 3.2.1'
+# gem 'dartsass-sprockets', '~> 3.2', '>= 3.2.1'
+gem 'dartsass-sprockets', '~> 3.1.0'
 
 gem 'font-awesome-sass', '~> 6.7', '>= 6.7.2'
 gem 'puma', '~> 6.6'
