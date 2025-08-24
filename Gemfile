@@ -32,6 +32,7 @@ gem 'bootstrap', '~> 5.3.5'
 gem 'dartsass-sprockets', '~> 3.2', '>= 3.2.1'
 
 gem 'font-awesome-sass', '~> 6.7', '>= 6.7.2'
+gem 'puma', '~> 6.6'
 gem 'jquery-rails'
 # TODO: remove or use gem
 gem 'jquery-ui-rails', '~> 8.0.0'
@@ -153,9 +154,4 @@ end
 
 group :production do
   gem 'newrelic_rpm'
-  gem 'unicorn-rails'
-end
-
-group :docker do
-  gem 'puma', '~> 6.6'
 end
