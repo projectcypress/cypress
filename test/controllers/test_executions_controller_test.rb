@@ -489,7 +489,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
 
   test 'should create test_execution with xml request' do
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
-      post :create, params: { format: :xml, task_id: @first_c2_task.id, results: xml_upload }
+      # Send raw XML as request body, bypass multipart parser
+      xml = xml_upload
+      @request.headers['CONTENT_TYPE'] = 'application/xml'
+      post :create, params: { format: :xml, task_id: @first_c2_task.id }, body: xml
       assert_response 201, 'response should be Created on test_execution creation'
       assert_not_nil Hash.from_trusted_xml(response.body)
       assert_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
@@ -505,7 +508,10 @@ class TestExecutionsControllerTest < ActionController::TestCase
                                                                            measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'] }, MeasureTest)
         @first_c2_task.save!
         MeasureEvaluationJob.perform_now(@first_c2_task.product_test, {})
-        post :create, params: { format: :xml, task_id: @first_c2_task.id, results: xml_upload }
+        # Send raw XML as request body, bypass multipart parser
+        xml = xml_upload
+        @request.headers['CONTENT_TYPE'] = 'application/xml'
+        post :create, params: { format: :xml, task_id: @first_c2_task.id }, body: xml
         get :show, params: { format: :xml, task_id: @first_c2_task.id, id: @first_c2_task.most_recent_execution.id }
         assert_response 200, 'response should be OK on test_execution show'
         assert_not_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']
@@ -573,9 +579,9 @@ class TestExecutionsControllerTest < ActionController::TestCase
     Rack::Test::UploadedFile.new(zipfile, 'application/zip')
   end
 
+  # Return raw XML string for requests to avoid multipart parsing errors
   def xml_upload
-    xmlfile = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')
-    Rack::Test::UploadedFile.new(xmlfile, 'application/xml')
+    Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml').read
   end
 
   def accepted_execution_show_attributes

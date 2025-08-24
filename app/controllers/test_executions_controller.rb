@@ -122,6 +122,9 @@ class TestExecutionsController < ApplicationController
       params[:results]
     elsif params[:test_execution]
       params[:test_execution][:results]
+    elsif request.format.xml? && request.raw_post.present?
+      # For XML API clients, use raw request body as results
+      request.raw_post
     end
   end
 end
