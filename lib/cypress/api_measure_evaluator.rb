@@ -461,6 +461,10 @@ module Cypress
           elsif patient_telecoms[telecom][:all_demo] == patient_string
             other_patient, _warnings, _codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
             non_pc_de = other_patient.qdmPatient.dataElements.reject { |de| de.qdmCategory == 'patient_characteristic' }
+            other_patient_codes = non_pc_de.map(&:dataElementCodes).flatten.map(&:code).sort
+            og_patient_codes = patient_telecoms[telecom][:record].qdmPatient.dataElements.map(&:dataElementCodes).flatten.map(&:code).sort
+            next if other_patient_codes == og_patient_codes
+
             patient_telecoms[telecom][:record].qdmPatient.dataElements << non_pc_de
           end
         end
