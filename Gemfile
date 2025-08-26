@@ -106,8 +106,8 @@ gem 'validate_url'
 gem 'telephone_number'
 
 group :development, :test do
-  # rubocop 0.67 currently has a bug that is causing it to crash in product.rb and vendor.rb
-  gem 'rubocop'
+  # pin rubocop to version 1.69.1, to avoid new errors in overcommit from later verisons
+  gem "rubocop", "1.69.1"
   gem 'rubocop-rspec'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'axe-core-capybara'
