@@ -427,6 +427,10 @@ module Cypress
       end
     end
 
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/PerceivedComplexity
     def detypo_zip(file_name)
       # Loop through all entries in product_test.zip to remove patients that are duplicate
       patient_telecoms = {}
@@ -478,7 +482,12 @@ module Cypress
         end
       end
     end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/PerceivedComplexity
 
+    # rubocop:disable Metrics/MethodLength
     def upload_test_execution(task_execution_path, product_test_id, is_cat1, skip_c1_test = nil)
       resource = RestClient::Resource.new("#{@cypress_host}#{task_execution_path}", user: @username,
                                                                                     password: @password,
@@ -506,6 +515,7 @@ module Cypress
         File.delete("tmp/#{product_test_id}.zip") if skip_c1_test
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     def verify_population_ids(product_test_id)
       doc = Nokogiri::XML(File.new("tmp/#{product_test_id}.xml"))
@@ -544,6 +554,9 @@ module Cypress
     end
 
     # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/PerceivedComplexity
     def calcuate_cat3(product_test_id, bundle_id)
       pt = ProductTest.find(product_test_id)
       patient_ids = []
@@ -597,6 +610,9 @@ module Cypress
       File.write("tmp/#{product_test_id}.xml", xml)
     end
     # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def do_calculation(product_test, patients, correlation_id)
       measures = product_test.measures
