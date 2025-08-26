@@ -34,7 +34,6 @@ gem 'dartsass-sprockets', '~> 3.2', '>= 3.2.1'
 gem 'rack', '>= 2.2.4', '< 3.0'
 
 gem 'font-awesome-sass', '~> 6.7', '>= 6.7.2'
-gem 'puma', '~> 6.6'
 gem 'jquery-rails'
 # TODO: remove or use gem
 gem 'jquery-ui-rails', '~> 8.0.0'
@@ -90,8 +89,8 @@ gem 'devise'
 gem 'devise_invitable'
 gem 'rolify'
 
-# Use Unicorn as the app server
-# gem 'unicorn'
+# Use Puma as the app server
+gem 'puma', '~> 6.6'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
