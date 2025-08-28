@@ -110,6 +110,7 @@ module Validators
     end
 
     def confirm_any_types(attribute, checked_criteria)
+      attribute = ActiveSupport::HashWithIndifferentAccess.new(attribute)
       return verify_code_attribute(attribute, checked_criteria) if attribute._type == 'QDM::Code'
       return verify_component_attribute(attribute, checked_criteria) if attribute._type == 'QDM::Component'
       return verify_dx_component_attribute(attribute, checked_criteria) if attribute._type == 'QDM::DiagnosisComponent'
