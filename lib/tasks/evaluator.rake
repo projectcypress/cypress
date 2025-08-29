@@ -51,13 +51,17 @@ namespace :evaluator do
   end
 
   task :api_evaluate_c4, %i[cypress_host hqmf_path use_js_ecqm] => :setup do |_, args|
-    api_ev = Cypress::ApiMeasureEvaluator.new(ENV.fetch('USERNAME', nil), ENV.fetch('PASSWORD', nil), args.to_hash)
+    options = args.to_hash
+    options[:randomization] = true
+    api_ev = Cypress::ApiMeasureEvaluator.new(ENV.fetch('USERNAME', nil), ENV.fetch('PASSWORD', nil), options)
     api_ev.cleanup
     api_ev.run_measure_eval(false, true)
   end
 
   task :api_evaluate_all, %i[cypress_host hqmf_path use_js_ecqm] => :setup do |_, args|
-    api_ev = Cypress::ApiMeasureEvaluator.new(ENV.fetch('USERNAME', nil), ENV.fetch('PASSWORD', nil), args.to_hash)
+    options = args.to_hash
+    options[:randomization] = true
+    api_ev = Cypress::ApiMeasureEvaluator.new(ENV.fetch('USERNAME', nil), ENV.fetch('PASSWORD', nil), options)
     api_ev.cleanup
     api_ev.run_measure_eval(true, true)
   end

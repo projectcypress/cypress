@@ -362,7 +362,7 @@ module Cypress
                            measure_ids: measure_list,
                            c1_test:,
                            c2_test: '1',
-                           c3_test: @randomization ? '0' : '1',
+                           c3_test: '1',
                            c4_test: '1',
                            duplicate_patients: @randomization ? '1' : '0',
                            randomize_patients: @randomization ? '1' : '0' } }
@@ -456,28 +456,47 @@ module Cypress
           snomed_gender = doc.at_xpath(snomed_xpath)&.value
           ethnic_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:ethnicGroupCode/@code'
           ethnic = doc.at_xpath(ethnic_xpath).value
+          mbi = doc.at_xpath('//cda:recordTarget/cda:patientRole/cda:id[@root="2.16.840.1.113883.4.927"]/@extension')&.value
 
           patient_string = "#{firstname}_#{lastname}_#{birth}_#{race}_#{gender}_#{snomed_gender}_#{ethnic}"
           if patient_telecoms[telecom].nil?
             patient, _warnings, _codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
             phone_number = CQM::Telecom.new(use: 'HP', value: telecom)
-            patient_telecoms[telecom] = { all_demo: patient_string, record: patient, file_name: entry.name, phone_number: }
+            patient_telecoms[telecom] = { all_demo: patient_string, record: patient, file_name: entry.name, phone_number:, mbi: }
+          # If a patient has all of these fields matching, determine if the two files should be merged
           elsif patient_telecoms[telecom][:all_demo] == patient_string
             other_patient, _warnings, _codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
-            non_pc_de = other_patient.qdmPatient.dataElements.reject { |de| de.qdmCategory == 'patient_characteristic' }
-            other_patient_codes = non_pc_de.map(&:dataElementCodes).flatten.map(&:code).sort
-            og_patient_codes = patient_telecoms[telecom][:record].qdmPatient.dataElements.map(&:dataElementCodes).flatten.map(&:code).sort
-            next if other_patient_codes == og_patient_codes
+            # Non-Patient Charateristic Data Elements for the 'duplicate' patient record
+            other_non_pc_de = other_patient.qdmPatient.dataElements.reject { |de| de.qdmCategory == 'patient_characteristic' }
+            # Array of the Codes in the data elements
+            other_patient_codes = other_non_pc_de.map(&:dataElementCodes).flatten.map(&:code).sort
+            # Array of the Dates in the data elements
+            other_patient_data_element_times = other_non_pc_de.map(&:data_element_time).sort
+            # Non-Patient Charateristic Data Elements for the original patient record
+            og_non_pd_de = patient_telecoms[telecom][:record].qdmPatient.dataElements.reject { |de| de.qdmCategory == 'patient_characteristic' }
+            # Array of the Codes in the data elements
+            og_patient_codes = og_non_pd_de.map(&:dataElementCodes).flatten.map(&:code).sort
+            # Array of the Dates in the data elements
+            og_patient_data_element_times = og_non_pd_de.map(&:data_element_time).sort
+            # If the two QRDA files have matching codes and date times, they are carbon copy duplicates, don't merge data
+            next if (other_patient_codes == og_patient_codes) && (other_patient_data_element_times == og_patient_data_element_times)
 
-            patient_telecoms[telecom][:record].qdmPatient.dataElements << non_pc_de
+            patient_telecoms[telecom][:record].qdmPatient.dataElements << other_non_pc_de
           end
         end
       end
+      pt = ProductTest.find(file_name)
+      patient_scoop_and_filter = Cypress::ScoopAndFilter.new(pt.measures)
       Zip::ZipOutputStream.open("tmp/#{file_name}_dedupe.zip") do |z|
         patient_telecoms.each_value do |entry_hash|
-          pt = ProductTest.find(file_name)
-          options = { start_time: pt.start_date, end_time: pt.end_date, patient_telecoms: [entry_hash[:phone_number]] }
+          options = { ry2026_submission: pt.bundle.major_version == '2025', submission_program: pt.submission_program,
+                      start_time: pt.start_date, end_time: pt.end_date, patient_telecoms: [entry_hash[:phone_number]],
+                      medicare_beneficiary_identifier: entry_hash[:mbi] }
           z.put_next_entry(entry_hash[:file_name])
+          # Since we are round tripping, we need to do some of the QRDA post processing and scoop and filter to get consistent files.
+          Cypress::QrdaPostProcessor.replace_negated_codes(entry_hash[:record], pt.bundle)
+          Cypress::QrdaPostProcessor.remove_unmatched_data_type_code_combinations(entry_hash[:record], pt.bundle)
+          patient_scoop_and_filter.scoop_and_filter(entry_hash[:record])
           z << Qrda1R5.new(entry_hash[:record], pt.measures, options).render
         end
       end
@@ -579,6 +598,8 @@ module Cypress
 
       erc = Cypress::ExpectedResultsCalculator.new(patients, correlation_id, pt.effective_date)
       results = erc.aggregate_results_for_measures(pt.measures)
+      cloned_pt = pt.clone
+      cloned_pt.expected_results = results
 
       # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
       cat3_submission_program = if pt&.product&.c3_test
@@ -589,7 +610,8 @@ module Cypress
       options = { provider: pt.patients.first.providers.first, submission_program: cat3_submission_program,
                   start_time: pt.start_date, end_time: pt.end_date, ry2025_submission: pt.bundle.major_version == '2024',
                   ry2026_submission: pt.bundle.major_version == '2025' }
-      xml = Qrda3.new(results, pt.measures, options).render
+      # To pass C3 tests, all populations and supplemental codes need to be reported
+      xml = Qrda3.new(cloned_pt.send(:expected_results_with_all_supplemental_codes), pt.measures, options).render
 
       # Loop through all entries in product_test.zip to remove patients that do not meed IPP (i.e., do not have IndividualResult)
       Zip::ZipFile.open("tmp/#{patient_zip_file_name}.zip") do |zipfile|
