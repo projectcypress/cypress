@@ -432,7 +432,7 @@ class ProductTest
     # Since this is a CMS IG requirement, only do this for CVU+ or C3 tests
     return expected_results unless product.cvuplus? || product.c3_test?
 
-    gender_codes = bundle.randomization['genders'].map(&:code)
+    gender_codes = bundle.randomization['genders']&.map(&:code)
     required_codes = { 'PAYER' => %w[1 2 6 9 349], 'SEX' => gender_codes, 'RACE' => %w[2106-3 2076-8 2054-5 2028-9 1002-5 2131-1],
                        'ETHNICITY' => %w[2135-2 2186-5] }.freeze
     equivalent_codes = { '9' => '349', '349' => '9', 'M' => '248153007', '248153007' => 'M', 'F' => '248152002', '248152002' => 'F' }
