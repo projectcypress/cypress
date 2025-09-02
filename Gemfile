@@ -24,14 +24,16 @@ gem 'cqm-validators', '~> 4.0.6'
 # # Use faker to generate addresses
 gem 'faker', '> 1.5.0'
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0.4'
-# Dependencies for CMS Assets Framework
-# gem 'bootstrap-sass', '~> 3.4.1'
-gem 'bootstrap', '~> 5.3.3'
-gem 'dartsass-sprockets'
+gem 'csv', '~> 3.3', '>= 3.3.5'
 
-gem 'font-awesome-sass', '~> 5.0.13'
+# Dependencies for CMS Assets Framework
+gem 'bootstrap', '~> 5.3.5'
+gem 'dartsass-sprockets', '~> 3.2', '>= 3.2.1'
+
+# pin rack to major version 2, otherwise some tests will fail with Rack::Multipart::EmptyContentError
+gem 'rack', '>= 2.2.4', '< 3.0'
+
+gem 'font-awesome-sass', '~> 6.7', '>= 6.7.2'
 gem 'jquery-rails'
 # TODO: remove or use gem
 gem 'jquery-ui-rails', '~> 8.0.0'
@@ -87,8 +89,8 @@ gem 'devise'
 gem 'devise_invitable'
 gem 'rolify'
 
-# Use Unicorn as the app server
-# gem 'unicorn'
+# Use Puma as the app server
+gem 'puma', '~> 6.6'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -103,8 +105,10 @@ gem 'validate_url'
 gem 'telephone_number'
 
 group :development, :test do
-  # rubocop 0.67 currently has a bug that is causing it to crash in product.rb and vendor.rb
-  gem 'rubocop'
+  # pin rubocop to version 1.69.1, to avoid new errors in overcommit from later verisons
+  gem 'rubocop', '1.69.1'
+  # pin rexml to version 3.4.1, which started throwing errors in tests in version 3.4.2, released 8/26/25
+  gem 'rexml', '3.4.1'
   gem 'rubocop-rspec'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'axe-core-capybara'
@@ -122,8 +126,10 @@ group :development, :test do
   gem 'rails_best_practices'
   gem 'rails-controller-testing'
   gem 'rails-perftest'
-  gem 'scss_lint', require: false
+  # remove scss_lint, incompatible with sass dependency upgrades
+  # gem 'scss_lint', require: false
   gem 'selenium-webdriver'
+  gem 'webrick'
 end
 
 group :development do
@@ -152,9 +158,4 @@ end
 
 group :production do
   gem 'newrelic_rpm'
-  gem 'unicorn-rails'
-end
-
-group :docker do
-  gem 'puma', '~> 6.6'
 end

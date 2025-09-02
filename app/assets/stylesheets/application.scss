@@ -17,9 +17,35 @@
  *= require dataTables/jquery.dataTables
 */
 
-@import 'globals';
-@import './assets_framework/custom-mixins';
-@import './assets_framework/breadcrumb';
-@import './assets_framework/widgets/_alerts';
-@import './parsley';
-@import './cypress/**/*';
+@use "variables" as *;
+@use "globals" as *;
+@use 'bootstrap' as *;
+@use 'font-awesome' as *;
+@use "./assets_framework/custom-mixins" as *;
+@use "./assets_framework/breadcrumb" as *;
+@use "./assets_framework/widgets/_alerts" as *;
+@use "./parsley" as *;
+
+// @use './cypress/**/*';
+@use "./cypress/alerts" as cypress_alerts;
+@use "./cypress/analysis" as *;
+@use "./cypress/buttons" as *;
+@use "./cypress/cards" as *;
+@use "./cypress/fonts" as *;
+@use "./cypress/forms" as *;
+@use "./cypress/markup" as *;
+@use "./cypress/measure_tests" as *;
+@use "./cypress/modal" as *;
+@use "./cypress/navbar" as *;
+@use "./cypress/print_report" as *;
+@use "./cypress/products" as *;
+@use "./cypress/record" as *;
+@use "./cypress/sessions" as *;
+@use "./cypress/tables" as *;
+@use "./cypress/tabs" as *;
+@use "./cypress/test_executions" as *;
+@use "./cypress/text" as *;
+@use "./cypress/toggle" as *;
+@use "./cypress/valuesets" as *;
+@use "./cypress/vendor" as *;
+@use "./cypress/xml_view" as *;
