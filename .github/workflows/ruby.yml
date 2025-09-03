@@ -157,6 +157,46 @@ jobs:
         directory: coverage
         name: codecov-cucumber-2
 
+  highlight-test:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-22.04
+
+    services:
+      mongodb:
+        image: mongo:7.0.6
+        ports:
+          - 27017:27017
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
+    # change this to (see https://github.com/ruby/setup-ruby#versioning):
+      uses: ruby/setup-ruby@v1
+      # uses: ruby/setup-ruby@b12138f02d7d0c4d36f463e0885dc47ec25a52fe
+      with:
+        ruby-version: 3.3.8
+    - name: Install dependencies
+      run: |
+        . $HOME/.nvm/nvm.sh
+        nvm install 22.16
+        nvm use stable
+        bundle install
+        git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
+        yarn --cwd /tmp/cqm-execution-service-56 install --only=production
+        yarn --cwd /tmp/cqm-execution-service-56 start &
+    - name: Run Rake test
+      run: |
+        RUBYOPT="-W0"
+        bundle exec rake test TEST=test/unit/lib/cypress/highlighting_test.rb
+    - name: Upload code coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-unit
+
   unit-test:
     strategy:
       fail-fast: false
