@@ -1,21 +1,7 @@
-@import 'bootstrap';
-@import 'font-awesome-sprockets';
-@import 'font-awesome';
+@use 'variables' as *;
 
 // Turbolinks progress bar
 #cypress::before {
   background-color: $secondary;
   height: 6px;
-}
-
-// Mixins
-@mixin hidden-cell() {
-  // we want visually reduce the appearance, but it's ok to reveal to screen readers
-  color: $gray-600;
-  border: 0;
-}
-
-@mixin hidden-header-cell() {
-  color: $gray-600;
-  border-bottom: 0;
 }
