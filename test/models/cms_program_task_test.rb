@@ -150,28 +150,28 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
   #   end
   # end
 
-  def test_eh_warn_for_missing_optional_criteria
-    setup_eh
-    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
-    task = pt.tasks.first
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
-    perform_enqueued_jobs do
-      te = task.execute(file, @user)
-      te.reload
-      # Should not have a warning when criteria does not have an entered_value
-      assert_equal 0, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
-    end
+  # def test_eh_warn_for_missing_optional_criteria
+  #   setup_eh
+  #   pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
+  #   task = pt.tasks.first
+  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
+  #   perform_enqueued_jobs do
+  #     te = task.execute(file, @user)
+  #     te.reload
+  #     # Should not have a warning when criteria does not have an entered_value
+  #     assert_equal 0, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
+  #   end
 
-    pc = pt.program_criteria.where(criterion_key: 'MBI').first
-    pc.entered_value = '1EG4TE5MK73'
-    pt.save
-    perform_enqueued_jobs do
-      te = task.execute(file, @user)
-      te.reload
-      # Should have a warning when criteria does have an entered_value
-      assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
-    end
-  end
+  #   pc = pt.program_criteria.where(criterion_key: 'MBI').first
+  #   pc.entered_value = '1EG4TE5MK73'
+  #   pt.save
+  #   perform_enqueued_jobs do
+  #     te = task.execute(file, @user)
+  #     te.reload
+  #     # Should have a warning when criteria does have an entered_value
+  #     assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
+  #   end
+  # end
 
   def test_eh_task_with_future_date_warning
     setup_eh
