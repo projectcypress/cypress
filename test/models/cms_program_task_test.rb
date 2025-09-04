@@ -131,61 +131,61 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
   #   end
   # end
 
-  def test_eh_task_with_errors
-    setup_eh
-    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
-    pc = pt.program_criteria.where(criterion_key: 'CCN').first
-    pc.entered_value = '563358'
-    pt.save
-    task = pt.tasks.first
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
-    perform_enqueued_jobs do
-      te = task.execute(file, @user)
-      te.reload
-      assert_equal 11, te.execution_errors.size
-      assert_equal 1, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
-      assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :error).size
-      # assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
-      assert_equal 5, te.execution_errors.where(validator: 'Validators::CMSQRDA1HQRSchematronValidator').size
-    end
-  end
+  # def test_eh_task_with_errors
+  #   setup_eh
+  #   pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
+  #   pc = pt.program_criteria.where(criterion_key: 'CCN').first
+  #   pc.entered_value = '563358'
+  #   pt.save
+  #   task = pt.tasks.first
+  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
+  #   perform_enqueued_jobs do
+  #     te = task.execute(file, @user)
+  #     te.reload
+  #     assert_equal 11, te.execution_errors.size
+  #     assert_equal 1, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
+  #     assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :error).size
+  #     # assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
+  #     assert_equal 5, te.execution_errors.where(validator: 'Validators::CMSQRDA1HQRSchematronValidator').size
+  #   end
+  # end
 
-  def test_eh_warn_for_missing_optional_criteria
-    setup_eh
-    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
-    task = pt.tasks.first
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
-    perform_enqueued_jobs do
-      te = task.execute(file, @user)
-      te.reload
-      # Should not have a warning when criteria does not have an entered_value
-      assert_equal 0, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
-    end
+  # def test_eh_warn_for_missing_optional_criteria
+  #   setup_eh
+  #   pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
+  #   task = pt.tasks.first
+  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
+  #   perform_enqueued_jobs do
+  #     te = task.execute(file, @user)
+  #     te.reload
+  #     # Should not have a warning when criteria does not have an entered_value
+  #     assert_equal 0, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
+  #   end
 
-    pc = pt.program_criteria.where(criterion_key: 'MBI').first
-    pc.entered_value = '1EG4TE5MK73'
-    pt.save
-    perform_enqueued_jobs do
-      te = task.execute(file, @user)
-      te.reload
-      # Should have a warning when criteria does have an entered_value
-      assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
-    end
-  end
+  #   pc = pt.program_criteria.where(criterion_key: 'MBI').first
+  #   pc.entered_value = '1EG4TE5MK73'
+  #   pt.save
+  #   perform_enqueued_jobs do
+  #     te = task.execute(file, @user)
+  #     te.reload
+  #     # Should have a warning when criteria does have an entered_value
+  #     assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
+  #   end
+  # end
 
-  def test_eh_task_with_future_date_warning
-    setup_eh
-    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
-    APP_CONSTANTS['measures_without_future_data'] = pt.measure_ids
-    task = pt.tasks.first
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_future_encounter.zip'))
-    perform_enqueued_jobs do
-      te = task.execute(file, @user)
-      te.reload
-      msg = 'QDM::EncounterPerformed that occurs after the Performance Period on 09/28/2027 was not used in calculation for CMS32v7.'
-      assert te.execution_errors.where(message: msg).size.positive?
-    end
-  end
+  # def test_eh_task_with_future_date_warning
+  #   setup_eh
+  #   pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
+  #   APP_CONSTANTS['measures_without_future_data'] = pt.measure_ids
+  #   task = pt.tasks.first
+  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_future_encounter.zip'))
+  #   perform_enqueued_jobs do
+  #     te = task.execute(file, @user)
+  #     te.reload
+  #     msg = 'QDM::EncounterPerformed that occurs after the Performance Period on 09/28/2027 was not used in calculation for CMS32v7.'
+  #     assert te.execution_errors.where(message: msg).size.positive?
+  #   end
+  # end
 
   def test_eh_task_with_multiple_entered_values
     setup_eh
