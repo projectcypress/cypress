@@ -69,166 +69,166 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     end
   end
 
-  # def test_ep_task_returns_appropriate_error_for_incorrect_measure_id
-  #   setup_ep
-  #   task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first.tasks.first
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good_invalid_id.xml'))
-  #   perform_enqueued_jobs do
-  #     te = task.execute(file, @user)
-  #     te.reload
-  #     assert_equal :failed, te.state
-  #     assert_equal 1, te.execution_errors.where(message: 'Invalid HQMF ID Found: 40280382-5FA6-FE85-0160-0918E74D2076').size
-  #   end
-  # end
+  def test_ep_task_returns_appropriate_error_for_incorrect_measure_id
+    setup_ep
+    task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good_invalid_id.xml'))
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal :failed, te.state
+      assert_equal 1, te.execution_errors.where(message: 'Invalid HQMF ID Found: 40280382-5FA6-FE85-0160-0918E74D2076').size
+    end
+  end
 
-  # def test_ep_task_with_errors_for_cv_measure
-  #   setup_ep
-  #   task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first.tasks.first
-  #   pt = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first
-  #   pc = pt.program_criteria.where(criterion_key: 'CMS EHR Certification ID').first
-  #   pc.entered_value = '020700270'
-  #   pt.save
+  def test_ep_task_with_errors_for_cv_measure
+    setup_ep
+    task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first.tasks.first
+    pt = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first
+    pc = pt.program_criteria.where(criterion_key: 'CMS EHR Certification ID').first
+    pc.entered_value = '020700270'
+    pt.save
 
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3_cv.xml'))
-  #   perform_enqueued_jobs do
-  #     te = task.execute(file, @user)
-  #     te.reload
-  #     assert_equal 17, te.execution_errors.size
-  #     assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
-  #     assert_equal 13, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size
-  #     assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
-  #   end
-  # end
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3_cv.xml'))
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal 17, te.execution_errors.size
+      assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
+      assert_equal 13, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size
+      assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
+    end
+  end
 
-  # def test_pcf_task_with_errors_for_cv_measure
-  #   setup_ep
-  #   task = @product.product_tests.cms_program_tests.where(cms_program: 'PCF').first.tasks.first
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3_cv.xml'))
-  #   perform_enqueued_jobs do
-  #     te = task.execute(file, @user)
-  #     te.reload
-  #     assert_equal 17, te.execution_errors.size
-  #     assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
-  #     assert_equal 12, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size
-  #     assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
-  #   end
-  # end
+  def test_pcf_task_with_errors_for_cv_measure
+    setup_ep
+    task = @product.product_tests.cms_program_tests.where(cms_program: 'PCF').first.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3_cv.xml'))
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal 17, te.execution_errors.size
+      assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
+      assert_equal 12, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size
+      assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
+    end
+  end
 
-  # def test_should_not_warn_for_missing_non_pcf_measure
-  #   setup_ep
-  #   task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_INDIV').first.tasks.first
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3_cv.xml'))
-  #   perform_enqueued_jobs do
-  #     te = task.execute(file, @user)
-  #     te.reload
-  #     assert_equal 1, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS134v6').size
-  #   end
-  #   task = @product.product_tests.cms_program_tests.where(cms_program: 'PCF').first.tasks.first
-  #   perform_enqueued_jobs do
-  #     te = task.execute(file, @user)
-  #     te.reload
-  #     assert_equal 0, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS134v6').size
-  #   end
-  # end
+  def test_should_not_warn_for_missing_non_pcf_measure
+    setup_ep
+    task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_INDIV').first.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3_cv.xml'))
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal 1, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS134v6').size
+    end
+    task = @product.product_tests.cms_program_tests.where(cms_program: 'PCF').first.tasks.first
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal 0, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS134v6').size
+    end
+  end
 
-  # def test_eh_task_with_errors
-  #   setup_eh
-  #   pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
-  #   pc = pt.program_criteria.where(criterion_key: 'CCN').first
-  #   pc.entered_value = '563358'
-  #   pt.save
-  #   task = pt.tasks.first
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
-  #   perform_enqueued_jobs do
-  #     te = task.execute(file, @user)
-  #     te.reload
-  #     assert_equal 11, te.execution_errors.size
-  #     assert_equal 1, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
-  #     assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :error).size
-  #     # assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
-  #     assert_equal 5, te.execution_errors.where(validator: 'Validators::CMSQRDA1HQRSchematronValidator').size
-  #   end
-  # end
+  def test_eh_task_with_errors
+    setup_eh
+    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
+    pc = pt.program_criteria.where(criterion_key: 'CCN').first
+    pc.entered_value = '563358'
+    pt.save
+    task = pt.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal 11, te.execution_errors.size
+      assert_equal 1, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
+      assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :error).size
+      # assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
+      assert_equal 5, te.execution_errors.where(validator: 'Validators::CMSQRDA1HQRSchematronValidator').size
+    end
+  end
 
-  # def test_eh_warn_for_missing_optional_criteria
-  #   setup_eh
-  #   pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
-  #   task = pt.tasks.first
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
-  #   perform_enqueued_jobs do
-  #     te = task.execute(file, @user)
-  #     te.reload
-  #     # Should not have a warning when criteria does not have an entered_value
-  #     assert_equal 0, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
-  #   end
+  def test_eh_warn_for_missing_optional_criteria
+    setup_eh
+    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
+    task = pt.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      # Should not have a warning when criteria does not have an entered_value
+      assert_equal 0, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
+    end
 
-  #   pc = pt.program_criteria.where(criterion_key: 'MBI').first
-  #   pc.entered_value = '1EG4TE5MK73'
-  #   pt.save
-  #   perform_enqueued_jobs do
-  #     te = task.execute(file, @user)
-  #     te.reload
-  #     # Should have a warning when criteria does have an entered_value
-  #     assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
-  #   end
-  # end
+    pc = pt.program_criteria.where(criterion_key: 'MBI').first
+    pc.entered_value = '1EG4TE5MK73'
+    pt.save
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      # Should have a warning when criteria does have an entered_value
+      assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
+    end
+  end
 
-  # def test_eh_task_with_future_date_warning
-  #   setup_eh
-  #   pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
-  #   APP_CONSTANTS['measures_without_future_data'] = pt.measure_ids
-  #   task = pt.tasks.first
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_future_encounter.zip'))
-  #   perform_enqueued_jobs do
-  #     te = task.execute(file, @user)
-  #     te.reload
-  #     msg = 'QDM::EncounterPerformed that occurs after the Performance Period on 09/28/2027 was not used in calculation for CMS32v7.'
-  #     assert te.execution_errors.where(message: msg).size.positive?
-  #   end
-  # end
+  def test_eh_task_with_future_date_warning
+    setup_eh
+    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
+    APP_CONSTANTS['measures_without_future_data'] = pt.measure_ids
+    task = pt.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_future_encounter.zip'))
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      msg = 'QDM::EncounterPerformed that occurs after the Performance Period on 09/28/2027 was not used in calculation for CMS32v7.'
+      assert te.execution_errors.where(message: msg).size.positive?
+    end
+  end
 
-  # def test_eh_task_with_multiple_entered_values
-  #   setup_eh
-  #   pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
-  #   pc = pt.program_criteria.where(criterion_key: 'NPI').first
-  #   pc.entered_value = '020700270'
-  #   pt.save
-  #   task = pt.tasks.first
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
-  #   # 1 NPI entered, and 1 NPI in file
-  #   perform_enqueued_jobs do
-  #     te = task.execute(file, @user)
-  #     te.reload
-  #     assert_equal 0, te.execution_errors.where(message: 'National Provider Identification number not complete').size
-  #   end
-  #   pc.entered_value = '020700270,020700271'
-  #   pt.save
-  #   # 2 NPI entered, and 1 NPI in file
-  #   perform_enqueued_jobs do
-  #     te = task.execute(file, @user)
-  #     te.reload
-  #     assert_equal 1, te.execution_errors.where(message: 'National Provider Identification number not complete').size
-  #   end
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'qrda_test_2_npi.zip'))
-  #   # 2 NPI entered, and  NPI in file
-  #   perform_enqueued_jobs do
-  #     te = task.execute(file, @user)
-  #     te.reload
-  #     assert_equal 0, te.execution_errors.where(message: 'National Provider Identification number not complete').size
-  #   end
-  # end
+  def test_eh_task_with_multiple_entered_values
+    setup_eh
+    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
+    pc = pt.program_criteria.where(criterion_key: 'NPI').first
+    pc.entered_value = '020700270'
+    pt.save
+    task = pt.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip'))
+    # 1 NPI entered, and 1 NPI in file
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal 0, te.execution_errors.where(message: 'National Provider Identification number not complete').size
+    end
+    pc.entered_value = '020700270,020700271'
+    pt.save
+    # 2 NPI entered, and 1 NPI in file
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal 1, te.execution_errors.where(message: 'National Provider Identification number not complete').size
+    end
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'qrda_test_2_npi.zip'))
+    # 2 NPI entered, and  NPI in file
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal 0, te.execution_errors.where(message: 'National Provider Identification number not complete').size
+    end
+  end
 
-  # def test_eh_task_with_missing_measure_id
-  #   setup_eh
-  #   pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
-  #   task = pt.tasks.first
-  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_wrong_ecqm.zip'))
-  #   perform_enqueued_jobs do
-  #     te = task.execute(file, @user)
-  #     te.reload
-  #     assert_equal 1, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS32v7').size
-  #   end
-  # end
+  def test_eh_task_with_missing_measure_id
+    setup_eh
+    pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
+    task = pt.tasks.first
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_wrong_ecqm.zip'))
+    perform_enqueued_jobs do
+      te = task.execute(file, @user)
+      te.reload
+      assert_equal 1, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS32v7').size
+    end
+  end
 
   # def test_qrda1_task_with_errors
   #   setup_eh
