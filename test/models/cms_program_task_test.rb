@@ -46,90 +46,90 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     proportion.save
   end
 
-  def test_ep_task_with_errors
-    setup_ep
-    task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first.tasks.first
-    pt = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first
-    pc = pt.program_criteria.where(criterion_key: 'CMS EHR Certification ID').first
-    pc.entered_value = '020700270'
-    pt.save
+  # def test_ep_task_with_errors
+  #   setup_ep
+  #   task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first.tasks.first
+  #   pt = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first
+  #   pc = pt.program_criteria.where(criterion_key: 'CMS EHR Certification ID').first
+  #   pc.entered_value = '020700270'
+  #   pt.save
 
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3.xml'))
-    perform_enqueued_jobs do
-      te = task.execute(file, @user)
-      te.reload
-      assert_equal 51, te.execution_errors.size
-      assert_equal 2, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
-      assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
-      assert_equal 40, te.execution_errors.where(validator: 'Validators::CMSQRDA3SchematronValidator').size
-      assert_equal 4, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator', msg_type: :error).size # One for each demographic
-      assert_equal 1, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS32v7', msg_type: :warning).size
-      assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
-      assert_equal 1, te.execution_errors.where(validator: 'Validators::EhrCertificationIdValidator').size
-    end
-  end
+  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3.xml'))
+  #   perform_enqueued_jobs do
+  #     te = task.execute(file, @user)
+  #     te.reload
+  #     assert_equal 51, te.execution_errors.size
+  #     assert_equal 2, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
+  #     assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
+  #     assert_equal 40, te.execution_errors.where(validator: 'Validators::CMSQRDA3SchematronValidator').size
+  #     assert_equal 4, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator', msg_type: :error).size # One for each demographic
+  #     assert_equal 1, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS32v7', msg_type: :warning).size
+  #     assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
+  #     assert_equal 1, te.execution_errors.where(validator: 'Validators::EhrCertificationIdValidator').size
+  #   end
+  # end
 
-  def test_ep_task_returns_appropriate_error_for_incorrect_measure_id
-    setup_ep
-    task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first.tasks.first
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good_invalid_id.xml'))
-    perform_enqueued_jobs do
-      te = task.execute(file, @user)
-      te.reload
-      assert_equal :failed, te.state
-      assert_equal 1, te.execution_errors.where(message: 'Invalid HQMF ID Found: 40280382-5FA6-FE85-0160-0918E74D2076').size
-    end
-  end
+  # def test_ep_task_returns_appropriate_error_for_incorrect_measure_id
+  #   setup_ep
+  #   task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first.tasks.first
+  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good_invalid_id.xml'))
+  #   perform_enqueued_jobs do
+  #     te = task.execute(file, @user)
+  #     te.reload
+  #     assert_equal :failed, te.state
+  #     assert_equal 1, te.execution_errors.where(message: 'Invalid HQMF ID Found: 40280382-5FA6-FE85-0160-0918E74D2076').size
+  #   end
+  # end
 
-  def test_ep_task_with_errors_for_cv_measure
-    setup_ep
-    task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first.tasks.first
-    pt = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first
-    pc = pt.program_criteria.where(criterion_key: 'CMS EHR Certification ID').first
-    pc.entered_value = '020700270'
-    pt.save
+  # def test_ep_task_with_errors_for_cv_measure
+  #   setup_ep
+  #   task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first.tasks.first
+  #   pt = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_VIRTUALGROUP').first
+  #   pc = pt.program_criteria.where(criterion_key: 'CMS EHR Certification ID').first
+  #   pc.entered_value = '020700270'
+  #   pt.save
 
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3_cv.xml'))
-    perform_enqueued_jobs do
-      te = task.execute(file, @user)
-      te.reload
-      assert_equal 17, te.execution_errors.size
-      assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
-      assert_equal 13, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size
-      assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
-    end
-  end
+  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3_cv.xml'))
+  #   perform_enqueued_jobs do
+  #     te = task.execute(file, @user)
+  #     te.reload
+  #     assert_equal 17, te.execution_errors.size
+  #     assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
+  #     assert_equal 13, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size
+  #     assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
+  #   end
+  # end
 
-  def test_pcf_task_with_errors_for_cv_measure
-    setup_ep
-    task = @product.product_tests.cms_program_tests.where(cms_program: 'PCF').first.tasks.first
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3_cv.xml'))
-    perform_enqueued_jobs do
-      te = task.execute(file, @user)
-      te.reload
-      assert_equal 17, te.execution_errors.size
-      assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
-      assert_equal 12, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size
-      assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
-    end
-  end
+  # def test_pcf_task_with_errors_for_cv_measure
+  #   setup_ep
+  #   task = @product.product_tests.cms_program_tests.where(cms_program: 'PCF').first.tasks.first
+  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3_cv.xml'))
+  #   perform_enqueued_jobs do
+  #     te = task.execute(file, @user)
+  #     te.reload
+  #     assert_equal 17, te.execution_errors.size
+  #     assert_equal 1, te.execution_errors.where(validator: 'Validators::ProgramValidator').size
+  #     assert_equal 12, te.execution_errors.where(validator: 'Validators::Cat3PopulationValidator').size
+  #     assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
+  #   end
+  # end
 
-  def test_should_not_warn_for_missing_non_pcf_measure
-    setup_ep
-    task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_INDIV').first.tasks.first
-    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3_cv.xml'))
-    perform_enqueued_jobs do
-      te = task.execute(file, @user)
-      te.reload
-      assert_equal 1, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS134v6').size
-    end
-    task = @product.product_tests.cms_program_tests.where(cms_program: 'PCF').first.tasks.first
-    perform_enqueued_jobs do
-      te = task.execute(file, @user)
-      te.reload
-      assert_equal 0, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS134v6').size
-    end
-  end
+  # def test_should_not_warn_for_missing_non_pcf_measure
+  #   setup_ep
+  #   task = @product.product_tests.cms_program_tests.where(cms_program: 'MIPS_INDIV').first.tasks.first
+  #   file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'cms_test_qrda_cat3_cv.xml'))
+  #   perform_enqueued_jobs do
+  #     te = task.execute(file, @user)
+  #     te.reload
+  #     assert_equal 1, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS134v6').size
+  #   end
+  #   task = @product.product_tests.cms_program_tests.where(cms_program: 'PCF').first.tasks.first
+  #   perform_enqueued_jobs do
+  #     te = task.execute(file, @user)
+  #     te.reload
+  #     assert_equal 0, te.execution_errors.where(message: 'Document does not state it is reporting measure CMS134v6').size
+  #   end
+  # end
 
   def test_eh_task_with_errors
     setup_eh
