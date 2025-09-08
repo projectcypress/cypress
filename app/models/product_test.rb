@@ -423,13 +423,17 @@ class ProductTest
     self.rand_seed = Random.new_seed.to_s unless rand_seed
   end
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/PerceivedComplexity
   # Adds 0's for all missing populations (e.g., if DENEX is 0) or missing demographics (e.g., no Payer 349 in the DENEX)
   def expected_results_with_all_supplemental_codes
     # Since this is a CMS IG requirement, only do this for CVU+ or C3 tests
     return expected_results unless product.cvuplus? || product.c3_test?
 
-    required_codes = { 'PAYER' => %w[1 2 6 9 349], 'SEX' => %w[M 248153007 F 248152002], 'RACE' => %w[2106-3 2076-8 2054-5 2028-9 1002-5 2131-1],
+    gender_codes = bundle.randomization['genders']&.map(&:code)
+    required_codes = { 'PAYER' => %w[1 2 6 9 349], 'SEX' => gender_codes, 'RACE' => %w[2106-3 2076-8 2054-5 2028-9 1002-5 2131-1],
                        'ETHNICITY' => %w[2135-2 2186-5] }.freeze
     equivalent_codes = { '9' => '349', '349' => '9', 'M' => '248153007', '248153007' => 'M', 'F' => '248152002', '248152002' => 'F' }
     new_hash = expected_results
@@ -452,6 +456,9 @@ class ProductTest
     end
     new_hash
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/PerceivedComplexity
 end
 # rubocop:enable Metrics/ClassLength
