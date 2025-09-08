@@ -175,6 +175,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
 
   def test_eh_task_with_future_date_warning
     setup_eh
+    original_measure_ids = APP_CONSTANTS['measures_without_future_data']
     pt = @product.product_tests.cms_program_tests.where(cms_program: 'HQR_PI').first
     APP_CONSTANTS['measures_without_future_data'] = pt.measure_ids
     task = pt.tasks.first
@@ -185,6 +186,8 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
       msg = 'QDM::EncounterPerformed that occurs after the Performance Period on 09/28/2027 was not used in calculation for CMS32v7.'
       assert te.execution_errors.where(message: msg).size.positive?
     end
+    # Reset IDs when done
+    APP_CONSTANTS['measures_without_future_data'] = original_measure_ids
   end
 
   def test_eh_task_with_multiple_entered_values
