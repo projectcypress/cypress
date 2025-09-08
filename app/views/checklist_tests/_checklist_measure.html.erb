@@ -11,6 +11,45 @@
 <% if !hide_patient_calculation? %>
   <div id='modify_record'><button class='btn btn-default' type='button' id="modifyrecord">Edit Test</button></div>
 <% end %>
+<% unless @product_test.program_criteria.blank? %>
+  <div class = 'card-body'>
+  <div class = 'checklist-panel'>
+    <table class = 'table table-condensed'>
+      <thead>
+        <tr>
+          <th class = 'col-sm-1 hide-me' scope = 'col'>Validated in QRDA</th>
+          <th class = 'col-sm-1' scope = 'col'>Data Criteria</th>
+          <th class = 'col-sm-2' scope = 'col'>Description</th>
+          <th class = 'col-sm-1' scope = 'col'>CMS IG Conformance Statement Reference</th>
+          <th class = 'col-sm-2 hide-me' scope = 'col'>Recorded Value in Health IT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @product_test.program_criteria&.each.with_index do |program_criteria,index| %>
+          <%= f.fields_for :program_criteria, program_criteria do |criteria_field| %>
+              <tr>
+                <% if criteria_field.object.criterion_verified %>
+                  <td class='data-criteria hide-me'>
+                    <span class="sr-only">Passes QRDA</span>
+                    <%= icon('fas fa-fw text-success', 'check', :"aria-hidden" => true) %> (<%= criteria_field.object.file_name %>)
+                  </td>
+                <% else %>
+                  <td class='data-criteria hide-me'>
+                    <%= icon('fas fa-fw text-info invisible', 'play-circle', :"aria-hidden" => true) %>
+                  </td>
+                <% end %>
+                <td><%= criteria_field.object.criterion_name %><%= criteria_field.object.criterion_optional ? "*" : "" %></td>
+                <td><%= criteria_field.object.criterion_description %></td>
+                <td><%= criteria_field.object.cms_conf %></td>
+                <td><%= criteria_field.text_field :entered_value, hide_label: true, class: 'hide-me' %></td>
+              </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  </div>
+<% end %>
 <% measures.sort_by(&:cms_int).each do |measure, measure_index| %>
   <div class = 'card-group' id = '<%= measure.cms_id %>' disabled = true>
     <div class = 'card card-default'>

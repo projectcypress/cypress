@@ -3,11 +3,21 @@
 class ChecklistTest < ProductTest
   include Cypress::DataCriteriaSelector
 
+  embeds_many :program_criteria, class_name: 'ProgramCriterion'
   embeds_many :checked_criteria, class_name: 'ChecklistSourceDataCriteria'
   accepts_nested_attributes_for :checked_criteria, allow_destroy: true
 
   after_create do |checklist_test|
     ChecklistTestSetupJob.perform_later(checklist_test)
+    aco_measure_ids = Measure.where(hqmf_set_id: { '$in': APP_CONSTANTS['aco_measures_hqmf_set_ids'] }).distinct(:hqmf_id)
+    unless (aco_measure_ids & measure_ids).blank?
+      self.program_criteria << ProgramCriterion.new(criterion_key: 'TIN',
+                                                    criterion_name: 'TIN',
+                                                    criterion_description: 'TIN',
+                                                    criterion_optional: false,
+                                                    cms_conf: 'TIN')
+      save
+    end
   end
 
   def status
