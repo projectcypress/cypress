@@ -12,7 +12,6 @@ class ProductsController < ApplicationController
 
   respond_to :html, except: [:index]
   respond_to :json, :xml, except: %i[new edit update]
-  respond_to :js, only: [:favorite]
 
   def index
     @products = @vendor.products.sort_by { |a| a.favorite_user_ids.include? current_user.id ? 0 : 1 }
@@ -210,7 +209,12 @@ class ProductsController < ApplicationController
     deleted_value = @product.favorite_user_ids.delete(current_user.id)
     @product.favorite_user_ids.push(current_user.id) if deleted_value.nil?
     @product.save!
-    respond_with(@product)
+
+    respond_to do |format|
+      format.js   # looks for app/views/products/favorite.js.erb
+      format.html { redirect_to vendor_product_path(@product.vendor_id, @product) }
+      format.json { render json: @product }
+    end
   end
 
   private
