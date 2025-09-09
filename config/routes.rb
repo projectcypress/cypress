@@ -56,11 +56,11 @@ Rails.application.routes.draw do
       get :patients
       get :html_patients
     end
-    resources :tasks, only: %i[index show]
-    resources :records, only: %i[index show] do
-      collection do
-        get :by_filter_task
-        get :html_filter_patients
+    resources :records, only: %i[index show]
+    resources :tasks, only: %i[index show] do
+      member do
+        get :by_filter_task,       to: 'records#by_filter_task'
+        get :html_filter_patients, to: 'records#html_filter_patients'
       end
     end
   end
