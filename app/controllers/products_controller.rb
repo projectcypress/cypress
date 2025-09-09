@@ -211,7 +211,7 @@ class ProductsController < ApplicationController
     @product.save!
 
     respond_to do |format|
-      format.js   # looks for app/views/products/favorite.js.erb
+      format.js # looks for app/views/products/favorite.js.erb
       format.html { redirect_to vendor_product_path(@product.vendor_id, @product) }
       format.json { render json: @product }
     end
