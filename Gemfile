@@ -58,7 +58,7 @@ gem 'local_time', '~> 2.0.0'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks', git: 'https://github.com/turbolinks/turbolinks-classic', branch: 'master'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.11.0'
+gem 'jbuilder', '~> 2.14', '>= 2.14.1'
 # A set of responders modules to dry up your Rails 4.2+ app.
 gem 'responders'
 # Roar is a framework for parsing and rendering REST documents
