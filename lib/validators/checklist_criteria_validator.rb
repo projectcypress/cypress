@@ -9,6 +9,12 @@ module Validators
 
     def initialize(checklist_test)
       @bundle_id = checklist_test.bundle.id
+      @program_criteria_list = checklist_test.program_criteria
+      @program_criteria_list.each do |program_criteria|
+        # set passing flag to false during each validation
+        program_criteria.criterion_verified = false
+        program_criteria.save!
+      end
       @criteria_list = checklist_test.checked_criteria
       @criteria_list.each do |criteria|
         # set passing flag to false during each validation
@@ -16,6 +22,7 @@ module Validators
         criteria.save!
       end
       @qrda_version = checklist_test.bundle.qrda_version
+      @pc_validator = Validators::ProgramCriteriaValidator.new(checklist_test)
     end
 
     # Validates a QRDA Cat I file.  This routine will validate the file against the checklist criteria
@@ -24,6 +31,10 @@ module Validators
       # parse the cat 1 file into the patient model
       patient, _warnings = QRDA::Cat1::PatientImporter.instance.parse_cat1(@file)
       patient.bundleId = @bundle_id
+
+      @program_criteria_list.each do |criteria|
+        @pc_validator.validate_criteria(criteria,file)
+      end
 
       # iterate through each criteria to see if it is contained in the patient
       @criteria_list.each do |criteria|

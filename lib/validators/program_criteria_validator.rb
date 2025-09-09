@@ -83,7 +83,8 @@ module Validators
       add_issue msg, :error, location: '/', validator_type: :xml_validation, file_name: options[:file_name]
     end
 
-    def validate_criteria(checked_criteria)
+    def validate_criteria(checked_criteria, file = nil)
+      @file ||= file
       entered_values = checked_criteria.entered_values
       return unless entered_values&.count&.positive?
 

@@ -67,6 +67,7 @@ class ChecklistTestsController < ProductTestsController
                                                                  negated_valueset
                                                                  selected_negated_valueset
                                                                  replacement_data_criteria
-                                                                 replacement_attribute])
+                                                                 replacement_attribute],
+                                 program_criteria_attributes: %i[id entered_value])
   end
 end
