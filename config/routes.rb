@@ -57,7 +57,7 @@ Rails.application.routes.draw do
       get :html_patients
     end
     resources :records, only: %i[index show]
-    resources :tasks, only: %i[index show] do
+    resources :tasks, only: %i[index show], param: :task_id do
       member do
         get :by_filter_task,       to: 'records#by_filter_task'
         get :html_filter_patients, to: 'records#html_filter_patients'
