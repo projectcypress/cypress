@@ -107,7 +107,7 @@ jobs:
         timeout_minutes: 30
         max_attempts: 2
         retry_on: error
-        command: RUBYOPT="-W:no-deprecated -W:no-experimental" bundle exec cucumber features/admin/ features/checklist_tests/ features/filtering_tests/ features/measure_tests/ features/multi_measure_tests/;
+        command: bundle exec cucumber features/admin/ features/checklist_tests/ features/filtering_tests/ features/measure_tests/ features/multi_measure_tests/;
     - name: Upload code coverage to codecov.io
       uses: codecov/codecov-action@v3
       with:
