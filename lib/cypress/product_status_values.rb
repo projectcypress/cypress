@@ -91,7 +91,7 @@ module Cypress
     end
 
     def product_test_statuses(tests, task_type)
-      tasks = tests.map { |test| test.tasks.where(_type: task_type) }
+      tasks = tests.map { |test| test.tasks.only(:status, :updated_at, :latest_test_execution_id).where(_type: task_type).to_a }
       tasks.empty? ? [0, 0, 0, 0, 0] : tasks_values(tasks)
     end
 
