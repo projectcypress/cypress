@@ -9,11 +9,11 @@ Rails.application.routes.draw do
   get '500', to: 'application#server_error'
 
   resources :vendors do
-    post :favorite
+    post :favorite, on: :member
     get :preferences
     post :update_preferences
-    resources :products, only: %i[show index new create edit update destroy favorite] do
-      post :favorite
+    resources :products, only: %i[show index new create edit update destroy] do
+      post :favorite, on: :member
       member do
         get :patients
         get :report
@@ -31,8 +31,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :products, only: %i[show edit update destroy favorite] do
-    post :favorite
+  resources :products, only: %i[show edit update destroy] do
+    post :favorite, on: :member
     resources :product_tests, only: %i[index show]
     resources :program_tests, only: %i[index show update]
     resources :checklist_tests, only: %i[create show update destroy] do
@@ -56,13 +56,11 @@ Rails.application.routes.draw do
       get :patients
       get :html_patients
     end
-    resources :tasks, only: %i[index show]
-    resources :records, only: %i[index show] do
-      collection do
-        resources :tasks, controller: :records, only: %i[by_filter_task html_filter_patients] do
-          get :by_filter_task
-          get :html_filter_patients
-        end
+    resources :records, only: %i[index show]
+    resources :tasks, only: %i[index show], param: :task_id do
+      member do
+        get :by_filter_task,       to: 'records#by_filter_task'
+        get :html_filter_patients, to: 'records#html_filter_patients'
       end
     end
   end
