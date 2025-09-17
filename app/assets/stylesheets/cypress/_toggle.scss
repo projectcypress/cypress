@@ -1,8 +1,11 @@
+@use "sass:math";
+@use "bootstrap" as *;
+
 $color-checkbox-success:#4cd964;
 $color-checkbox-default:#8E8E93;
 $transition: .3s cubic-bezier(.95, .05, .795, .035);
 $width: 4em;
-$height: $width / 2;
+$height: math.div($width, 2);
 $background-color: rgba(#000, .06);
 $after-background-color: #fff;
 $box-shadow: rgba(#000, .4);
@@ -22,7 +25,7 @@ $box-shadow: rgba(#000, .4);
     &::after {
       transition: $transition;
       content: '';
-      width: $width / 2;
+      width: math.div($width, 2);
       height: $height;
       display: block;
       background-color: $after-background-color;
@@ -43,7 +46,7 @@ $box-shadow: rgba(#000, .4);
       background-color: $color-checkbox-success;
 
       &::after {
-        left: $width / 2;
+        left: math.div($width, 2);
       }
     }
 }

@@ -10,4 +10,5 @@ module BSON
   end
 end
 
+Mongoid.load!('./config/mongoid.yml') # Example for a specific environment
 Mongoid::Tasks::Database.create_indexes if (Rails.env.production? || Rails.env.development?) && !ENV['DISABLE_DB']

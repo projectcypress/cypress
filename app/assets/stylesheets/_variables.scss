@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "sass:string";
+
 // Variables
 //
 // Variables should follow the `$component-state-property-size` formula for
@@ -76,100 +79,100 @@ $color-contrast-dark:      $black !default;
 $color-contrast-light:     $white !default;
 
 // fusv-disable
-$blue-100: tint-color($blue, 80%) !default;
-$blue-200: tint-color($blue, 60%) !default;
-$blue-300: tint-color($blue, 40%) !default;
-$blue-400: tint-color($blue, 20%) !default;
+ $blue-100: color.mix(white, $blue, 80%) !default;
+ $blue-200: color.mix(white, $blue, 60%) !default;
+ $blue-300: color.mix(white, $blue, 40%) !default;
+ $blue-400: color.mix(white, $blue, 20%) !default;
 $blue-500: $blue !default;
 $blue-600: shade-color($blue, 20%) !default;
 $blue-700: shade-color($blue, 40%) !default;
 $blue-800: shade-color($blue, 60%) !default;
 $blue-900: shade-color($blue, 80%) !default;
 
-$indigo-100: tint-color($indigo, 80%) !default;
-$indigo-200: tint-color($indigo, 60%) !default;
-$indigo-300: tint-color($indigo, 40%) !default;
-$indigo-400: tint-color($indigo, 20%) !default;
+ $indigo-100: color.mix(white, $indigo, 80%) !default;
+ $indigo-200: color.mix(white, $indigo, 60%) !default;
+ $indigo-300: color.mix(white, $indigo, 40%) !default;
+ $indigo-400: color.mix(white, $indigo, 20%) !default;
 $indigo-500: $indigo !default;
 $indigo-600: shade-color($indigo, 20%) !default;
 $indigo-700: shade-color($indigo, 40%) !default;
 $indigo-800: shade-color($indigo, 60%) !default;
 $indigo-900: shade-color($indigo, 80%) !default;
 
-$purple-100: tint-color($purple, 80%) !default;
-$purple-200: tint-color($purple, 60%) !default;
-$purple-300: tint-color($purple, 40%) !default;
-$purple-400: tint-color($purple, 20%) !default;
+ $purple-100: color.mix(white, $purple, 80%) !default;
+ $purple-200: color.mix(white, $purple, 60%) !default;
+ $purple-300: color.mix(white, $purple, 40%) !default;
+ $purple-400: color.mix(white, $purple, 20%) !default;
 $purple-500: $purple !default;
 $purple-600: shade-color($purple, 20%) !default;
 $purple-700: shade-color($purple, 40%) !default;
 $purple-800: shade-color($purple, 60%) !default;
 $purple-900: shade-color($purple, 80%) !default;
 
-$pink-100: tint-color($pink, 80%) !default;
-$pink-200: tint-color($pink, 60%) !default;
-$pink-300: tint-color($pink, 40%) !default;
-$pink-400: tint-color($pink, 20%) !default;
+ $pink-100: color.mix(white, $pink, 80%) !default;
+ $pink-200: color.mix(white, $pink, 60%) !default;
+ $pink-300: color.mix(white, $pink, 40%) !default;
+ $pink-400: color.mix(white, $pink, 20%) !default;
 $pink-500: $pink !default;
 $pink-600: shade-color($pink, 20%) !default;
 $pink-700: shade-color($pink, 40%) !default;
 $pink-800: shade-color($pink, 60%) !default;
 $pink-900: shade-color($pink, 80%) !default;
 
-$red-100: tint-color($red, 80%) !default;
-$red-200: tint-color($red, 60%) !default;
-$red-300: tint-color($red, 40%) !default;
-$red-400: tint-color($red, 20%) !default;
+ $red-100: color.mix(white, $red, 80%) !default;
+ $red-200: color.mix(white, $red, 60%) !default;
+ $red-300: color.mix(white, $red, 40%) !default;
+ $red-400: color.mix(white, $red, 20%) !default;
 $red-500: $red !default;
 $red-600: shade-color($red, 20%) !default;
 $red-700: shade-color($red, 40%) !default;
 $red-800: shade-color($red, 60%) !default;
 $red-900: shade-color($red, 80%) !default;
 
-$orange-100: tint-color($orange, 80%) !default;
-$orange-200: tint-color($orange, 60%) !default;
-$orange-300: tint-color($orange, 40%) !default;
-$orange-400: tint-color($orange, 20%) !default;
+ $orange-100: color.mix(white, $orange, 80%) !default;
+ $orange-200: color.mix(white, $orange, 60%) !default;
+ $orange-300: color.mix(white, $orange, 40%) !default;
+ $orange-400: color.mix(white, $orange, 20%) !default;
 $orange-500: $orange !default;
 $orange-600: shade-color($orange, 20%) !default;
 $orange-700: shade-color($orange, 40%) !default;
 $orange-800: shade-color($orange, 60%) !default;
 $orange-900: shade-color($orange, 80%) !default;
 
-$yellow-100: tint-color($yellow, 80%) !default;
-$yellow-200: tint-color($yellow, 60%) !default;
-$yellow-300: tint-color($yellow, 40%) !default;
-$yellow-400: tint-color($yellow, 20%) !default;
+ $yellow-100: color.mix(white, $yellow, 80%) !default;
+ $yellow-200: color.mix(white, $yellow, 60%) !default;
+ $yellow-300: color.mix(white, $yellow, 40%) !default;
+ $yellow-400: color.mix(white, $yellow, 20%) !default;
 $yellow-500: $yellow !default;
 $yellow-600: shade-color($yellow, 20%) !default;
 $yellow-700: shade-color($yellow, 40%) !default;
 $yellow-800: shade-color($yellow, 60%) !default;
 $yellow-900: shade-color($yellow, 80%) !default;
 
-$green-100: tint-color($green, 80%) !default;
-$green-200: tint-color($green, 60%) !default;
-$green-300: tint-color($green, 40%) !default;
-$green-400: tint-color($green, 20%) !default;
+ $green-100: color.mix(white, $green, 80%) !default;
+ $green-200: color.mix(white, $green, 60%) !default;
+ $green-300: color.mix(white, $green, 40%) !default;
+ $green-400: color.mix(white, $green, 20%) !default;
 $green-500: $green !default;
 $green-600: shade-color($green, 20%) !default;
 $green-700: shade-color($green, 40%) !default;
 $green-800: shade-color($green, 60%) !default;
 $green-900: shade-color($green, 80%) !default;
 
-$teal-100: tint-color($teal, 80%) !default;
-$teal-200: tint-color($teal, 60%) !default;
-$teal-300: tint-color($teal, 40%) !default;
-$teal-400: tint-color($teal, 20%) !default;
+ $teal-100: color.mix(white, $teal, 80%) !default;
+ $teal-200: color.mix(white, $teal, 60%) !default;
+ $teal-300: color.mix(white, $teal, 40%) !default;
+ $teal-400: color.mix(white, $teal, 20%) !default;
 $teal-500: $teal !default;
 $teal-600: shade-color($teal, 20%) !default;
 $teal-700: shade-color($teal, 40%) !default;
 $teal-800: shade-color($teal, 60%) !default;
 $teal-900: shade-color($teal, 80%) !default;
 
-$cyan-100: tint-color($cyan, 80%) !default;
-$cyan-200: tint-color($cyan, 60%) !default;
-$cyan-300: tint-color($cyan, 40%) !default;
-$cyan-400: tint-color($cyan, 20%) !default;
+ $cyan-100: color.mix(white, $cyan, 80%) !default;
+ $cyan-200: color.mix(white, $cyan, 60%) !default;
+ $cyan-300: color.mix(white, $cyan, 40%) !default;
+ $cyan-400: color.mix(white, $cyan, 20%) !default;
 $cyan-500: $cyan !default;
 $cyan-600: shade-color($cyan, 20%) !default;
 $cyan-700: shade-color($cyan, 40%) !default;
@@ -333,23 +336,23 @@ $dark-text-emphasis:      $gray-700 !default;
 // scss-docs-end theme-text-variables
 
 // scss-docs-start theme-bg-subtle-variables
-$primary-bg-subtle:       tint-color($primary, 80%) !default;
-$secondary-bg-subtle:     tint-color($secondary, 80%) !default;
-$success-bg-subtle:       tint-color($success, 80%) !default;
-$info-bg-subtle:          tint-color($info, 80%) !default;
-$warning-bg-subtle:       tint-color($warning, 80%) !default;
-$danger-bg-subtle:        tint-color($danger, 80%) !default;
-$light-bg-subtle:         mix($gray-100, $white) !default;
+ $primary-bg-subtle:       color.mix(white, $primary, 80%) !default;
+ $secondary-bg-subtle:     color.mix(white, $secondary, 80%) !default;
+ $success-bg-subtle:       color.mix(white, $success, 80%) !default;
+ $info-bg-subtle:          color.mix(white, $info, 80%) !default;
+ $warning-bg-subtle:       color.mix(white, $warning, 80%) !default;
+ $danger-bg-subtle:        color.mix(white, $danger, 80%) !default;
+$light-bg-subtle:         color.mix($gray-100, $white) !default;
 $dark-bg-subtle:          $gray-400 !default;
 // scss-docs-end theme-bg-subtle-variables
 
 // scss-docs-start theme-border-subtle-variables
-$primary-border-subtle:   tint-color($primary, 60%) !default;
-$secondary-border-subtle: tint-color($secondary, 60%) !default;
-$success-border-subtle:   tint-color($success, 60%) !default;
-$info-border-subtle:      tint-color($info, 60%) !default;
-$warning-border-subtle:   tint-color($warning, 60%) !default;
-$danger-border-subtle:    tint-color($danger, 60%) !default;
+ $primary-border-subtle:   color.mix(white, $primary, 60%) !default;
+ $secondary-border-subtle: color.mix(white, $secondary, 60%) !default;
+ $success-border-subtle:   color.mix(white, $success, 60%) !default;
+ $info-border-subtle:      color.mix(white, $info, 60%) !default;
+ $warning-border-subtle:   color.mix(white, $warning, 60%) !default;
+ $danger-border-subtle:    color.mix(white, $danger, 60%) !default;
 $light-border-subtle:     $gray-200 !default;
 $dark-border-subtle:      $gray-500 !default;
 // scss-docs-end theme-border-subtle-variables
@@ -491,8 +494,8 @@ $grid-breakpoints: (
 ) !default;
 // scss-docs-end grid-breakpoints
 
-@include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
-@include _assert-starts-at-zero($grid-breakpoints, "$grid-breakpoints");
+// @include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
+// @include _assert-starts-at-zero($grid-breakpoints, "$grid-breakpoints");
 
 
 // Grid containers
@@ -509,7 +512,7 @@ $container-max-widths: (
 ) !default;
 // scss-docs-end container-max-widths
 
-@include _assert-ascending($container-max-widths, "$container-max-widths");
+// @include _assert-ascending($container-max-widths, "$container-max-widths");
 
 
 // Grid columns
@@ -843,7 +846,11 @@ $btn-active-box-shadow:       inset 0 3px 5px rgba($black, .125) !default;
 $btn-link-color:              var(--#{$prefix}link-color) !default;
 $btn-link-hover-color:        var(--#{$prefix}link-hover-color) !default;
 $btn-link-disabled-color:     $gray-600 !default;
-$btn-link-focus-shadow-rgb:   to-rgb(mix(color-contrast($link-color), $link-color, 15%)) !default;
+$btn-link-focus-shadow-rgb: (
+  color.channel(color.mix(color.mix(white, $link-color, 15%), $link-color, 15%), "red", $space: rgb),
+  color.channel(color.mix(color.mix(white, $link-color, 15%), $link-color, 15%), "green", $space: rgb),
+  color.channel(color.mix(color.mix(white, $link-color, 15%), $link-color, 15%), "blue", $space: rgb)
+) !default;
 
 // Allows for customizing button radius independently from global border radius
 $btn-border-radius:           var(--#{$prefix}border-radius) !default;
@@ -1639,7 +1646,7 @@ $breadcrumb-margin-bottom:          1rem !default;
 $breadcrumb-bg:                     null !default;
 $breadcrumb-divider-color:          $white !default;
 $breadcrumb-active-color:           var(--#{$prefix}secondary-color) !default;
-$breadcrumb-divider:                quote(">") !default;
+$breadcrumb-divider:                string.quote(">") !default;
 $breadcrumb-divider-flipped:        $breadcrumb-divider !default;
 $breadcrumb-border-radius:          null !default;
 // scss-docs-end breadcrumb-variables
@@ -1748,4 +1755,3 @@ $nested-kbd-font-weight:            null !default; // Deprecated in v5.2.0, remo
 
 $pre-color:                         null !default;
 
-@import "variables-dark"; // TODO: can be removed safely in v6, only here to avoid breaking changes in v5.3

@@ -1,3 +1,5 @@
+@use "bootstrap" as *;
+
 @mixin alert-border($color, $bg) {
   $faded-background-color: rgba($bg, .2);
   border-left: 5px solid $color;
