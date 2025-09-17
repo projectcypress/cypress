@@ -72,6 +72,11 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
       # As the Admin user, use the ProductTestsController to find the filter criteria for the filtering test
       for_each_logged_in_user([ADMIN]) do
         @controller = ProductTestsController.new
+        # after upgrading to rails 8, tests were failing because of Rack errors. It was related to the header from the first request
+        # causing issues in the second "get" request. resetting the request headers fixed the error.
+        @request.set_header('CONTENT_TYPE', nil)
+        @request.set_header('HTTP_CONTENT_TYPE', nil)
+        @request.set_header('CONTENT_LENGTH', nil)
         get :show, params: { format: :json, product_id: ft.product.id, id: ft.id }
         filter_test_parameters = JSON.parse(response.body)
       end
