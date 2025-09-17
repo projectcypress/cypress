@@ -95,7 +95,7 @@ gem 'puma', '~> 6.6'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'rest-client', '~>2.0.2'
+gem 'rest-client', '~>2.1'
 ## gem 'typhoeus'
 
 ## gem 'daemons'

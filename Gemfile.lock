@@ -323,6 +323,7 @@ GEM
       rake (>= 13)
     hashdiff (1.2.0)
     highline (1.7.10)
+    http-accept (1.7.0)
     http-cookie (1.0.8)
       domain_name (~> 0.5)
     i18n (1.14.7)
@@ -386,7 +387,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2025.0826)
+    mime-types-data (3.2025.0916)
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
@@ -546,7 +547,8 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rest-client (2.0.2)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
@@ -766,7 +768,7 @@ DEPENDENCIES
   remotipart (~> 1.2)
   representable (~> 3.0.0)
   responders
-  rest-client (~> 2.0.2)
+  rest-client (~> 2.1)
   rexml (= 3.4.1)
   roar-rails
   rolify
