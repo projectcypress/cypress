@@ -50,7 +50,7 @@ gem 'bootstrap_form', '~> 5.4'
 gem 'jasny-bootstrap-rails'
 
 gem 'jquery-datatables-rails'
-gem 'local_time', '~> 2.0.0'
+gem 'local_time', '~> 2.1.0'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
