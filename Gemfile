@@ -50,7 +50,7 @@ gem 'bootstrap_form', '~> 5.4'
 gem 'jasny-bootstrap-rails'
 
 gem 'jquery-datatables-rails'
-gem 'local_time', '~> 2.0.0'
+gem 'local_time', '~> 2.1.0'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -66,7 +66,7 @@ gem 'multi_json'
 gem 'representable', '~> 3.0.0'
 gem 'roar-rails'
 
-gem 'carrierwave', '~> 2.2.5'
+gem 'carrierwave', '~> 2.2'
 gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 
 # AJAX file uploads
@@ -95,7 +95,7 @@ gem 'puma', '~> 6.6'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'rest-client', '~>2.0.2'
+gem 'rest-client', '~>2.1'
 ## gem 'typhoeus'
 
 ## gem 'daemons'
