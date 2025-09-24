@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 ruby '3.4.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.2.0'
+gem 'rails', '~> 8.0', '>= 8.0.2.1'
 
 gem 'delayed_job_mongoid', '~> 3.0.0'
 gem 'mongoid', '~> 9.0.0'
