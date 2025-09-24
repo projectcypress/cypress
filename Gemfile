@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '3.3.8'
+ruby '3.4.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 7.2.0'
@@ -108,7 +108,7 @@ group :development, :test do
   # pin rubocop to version 1.69.1, to avoid new errors in overcommit from later verisons
   gem 'rubocop', '1.69.1'
   # pin rexml to version 3.4.1, which started throwing errors in tests in version 3.4.2, released 8/26/25
-  gem 'rexml', '3.4.2'
+  gem 'rexml', '3.4.1'
   gem 'rubocop-rspec'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'axe-core-capybara'

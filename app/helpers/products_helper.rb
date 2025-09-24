@@ -118,9 +118,9 @@ module ProductsHelper
 
     case task
     when C1Task
-      return [task, task.product_test.tasks.c3_cat1_task].compact
+      return [task, task.product_test.tasks.c3_cat1_task] if task.product_test.c3_cat1_task?
     when C2Task
-      return [task, task.product_test.tasks.c3_cat3_task].compact
+      return [task, task.product_test.tasks.c3_cat3_task] if task.product_test.c3_cat3_task?
     end
     [task]
   end
