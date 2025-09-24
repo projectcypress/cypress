@@ -30,9 +30,6 @@ gem 'csv', '~> 3.3', '>= 3.3.5'
 gem 'bootstrap', '~> 5.3.5'
 gem 'dartsass-sprockets', '~> 3.2', '>= 3.2.1'
 
-# pin rack to major version 2, otherwise some tests will fail with Rack::Multipart::EmptyContentError
-gem 'rack', '>= 2.2.4', '< 3.0'
-
 gem 'font-awesome-sass', '~> 6.7', '>= 6.7.2'
 gem 'jquery-rails'
 # TODO: remove or use gem
