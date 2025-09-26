@@ -28,6 +28,7 @@ then
   printf "${GREEN}---> Attempting to upgrade Cypress...${NC}\n"
   apt-get -y --allow-change-held-packages install cypress cqm-execution-service
   cypress run rake db:migrate
+  cypress config:set RAILS_ENV=production
   systemctl restart cypress cqm-execution-service
   cypress run rake tmp:cache:clear
   cypress run rake db:migrate
