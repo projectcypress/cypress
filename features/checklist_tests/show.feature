@@ -42,10 +42,9 @@ Scenario: Successful Upload Cat I file After Completing Checklist
   Then the user should see they are passing the checklist test
   And the user should see upload results for c1 certifications
   And the user should see passing for upload results
-  # And the driver is setup for accessability testing
-  # Then the page should be axe clean according to: section508
-  # Then the page should be axe clean according to: wcag2aa
-  # And the driver is returned to the default  
+  Then the save button should be disabled
+  And the user clicks let me save
+  Then the save button should be enabled
 
 Scenario: Successful Upload Bad Cat I file After Completing Checklist Produces Errors
   When the user creates a product that certifies c1 and visits the record sample page
