@@ -20,7 +20,7 @@ var ready_run_once;
 ready_run_once = function() {
 
   // Enable changing measures
-  $('#save_options').find('button.confirm').on('click', function (event) {
+  $('#save_options').find('button').on('click', function (event) {
     event.preventDefault();
     $('.btn-danger').attr('disabled', false);
   });
