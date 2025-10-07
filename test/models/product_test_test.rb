@@ -97,6 +97,30 @@ class ProductTestTest < ActiveJob::TestCase
     assert_not_equal test1.provider.ccn, test2.provider.ccn
   end
 
+  def test_preferred_tin
+    # setup product
+    measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
+    @product.update(c1_test: true, c2_test: true, c3_test: true, c4_test: true, randomize_patients: true,
+                    duplicate_patients: true, allow_duplicate_names: true, measure_ids:)
+    vendor2 = FactoryBot.create(:vendor)
+    vendor2.preferred_tin = '123456789'
+    product2 = vendor2.products.create(name: 'test_product', c2_test: true, randomize_patients: true,
+                                       bundle_id: @bundle.id, measure_ids:)
+
+    test1 = {}
+    test2 = {}
+    perform_enqueued_jobs do
+      # create tests with same seed
+      seed = Random.new_seed
+      test1 = @product.product_tests.create({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                              bundle_id: @bundle.id, rand_seed: seed }, MeasureTest)
+      test2 = product2.product_tests.create({ name: 'mtest', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                              bundle_id: @bundle.id, rand_seed: seed }, MeasureTest)
+    end
+    assert_equal '123456789', test2.provider.tin
+    assert_not_equal test1.provider.tin, test2.provider.tin
+  end
+
   # # # # # # # # # # # # # # # # # # # #
   #   H E L P E R   F U N C T I O N S   #
   # # # # # # # # # # # # # # # # # # # #
