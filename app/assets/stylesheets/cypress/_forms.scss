@@ -17,6 +17,23 @@
   }
 }
 
+.form-check {
+  margin-bottom: 10px !important;
+}
+
+.form-check .form-check-input {
+  border-color: #9d9d9d !important;
+}
+
+.control-label {
+  margin-bottom: 6px !important;
+}
+
+.form-check .form-check-label {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
 // need to overwrite .input-group-addon colors when buttons are involved
 @each $state in primary, success, danger, warning, info, default {
   .input-group-addon.btn-#{$state} {
