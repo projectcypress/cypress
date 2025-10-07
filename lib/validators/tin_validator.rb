@@ -19,11 +19,11 @@ module Validators
         unless reported_tin == expected_tin
           msg = "Reported TIN #{reported_tin} does not match Expected TIN #{expected_tin}.  " \
                 'You can configure expected TIN using Vendor Preferences.'
-          add_error(msg, file_name: options[:file_name])
+          add_warning(msg, file_name: options[:file_name])
         end
       else
-        msg = 'TIN needs to be reported for these measures to support ACO reporting.'
-        add_error(msg, file_name: options[:file_name])
+        msg = 'TIN should be reported for these measures to support ACO reporting.'
+        add_warning(msg, file_name: options[:file_name])
       end
     end
   end
