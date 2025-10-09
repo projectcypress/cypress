@@ -30,7 +30,8 @@ class MeasureTest < ProductTest
     return unless provider.nil?
 
     self.provider = Provider.generate_provider(measure_type: measures.first.reporting_program_type,
-                                               preferred_ccn: product.vendor.preferred_ccn)
+                                               preferred_ccn: product.vendor.preferred_ccn,
+                                               preferred_tin: product.vendor.preferred_tin)
   end
 
   # passing only if both c1 and c3_cat1 tasks pass

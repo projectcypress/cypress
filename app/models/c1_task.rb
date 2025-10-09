@@ -12,6 +12,7 @@ class C1Task < Task
   def validators
     @validators = if product_test.c1_test
                     [::Validators::CalculatingSmokingGunValidator.new(product_test.measures, product_test.patients, product_test.id),
+                     ::Validators::TinValidator.new,
                      ::Validators::QrdaCat1Validator.new(product_test.bundle, false, product_test.c3_test, true, product_test.measures)]
                   else
                     # A C1 task is created whenever C3 is selected.  If C1 isn't also selected, this task doesn't perform any validations
