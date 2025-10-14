@@ -20,7 +20,7 @@ services:
     #   target: prod
     volumes:
       - cypress-vol:/app/public/data
-      - ./docker/config:/docker/config
+      - ./config/puma.rb:/docker/config/puma.rb
       # bind ./app folder to enable reloading app code changes
       # - ./app:/app/app
     environment:
