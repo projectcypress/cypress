@@ -27,6 +27,7 @@
     <div class="card-body">
       <%= f.text_field :preferred_ccn, help: 'Health IT may be tailored for certain facility types (e.g., Critical Access Hospitals 
 ).  In these scenarios it is appropriate to use a preferred CMS Certification Number appropriate for the facility.', label: 'Preferred CMS Certification Number', autocomplete: 'off', value: @vendor.preferred_ccn %>
+      <%= f.text_field :preferred_tin, help: 'Health IT may be tailored for certain provider.  It is appropriate to use a preferred TIN for the provider.', label: 'Preferred TIN', autocomplete: 'off', value: @vendor.preferred_tin %>
     </div>
     <div class="card-footer">
       <%= f.submit "Save", :class => "btn btn-primary", :id => "preferences_submit_button" %>
