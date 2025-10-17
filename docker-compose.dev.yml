@@ -10,8 +10,7 @@ services:
       - ./docker/nginx:/docker/nginx:ro
       - ./docker/nginx/nginx-init.sh:/docker-entrypoint.d/nginx-init.sh:ro
   cypress:
-    image: cypress:dev
-    platform: linux/amd64
+    platform: linux/arm64
     build:
       context: .
       target: dev
@@ -20,7 +19,7 @@ services:
       - ./docker/config:/docker/config
       - ./app:/app/app:ro
       - ./config:/app/config:ro
-      - ./lib:/app/lib:ro  
+      - ./lib:/app/lib:ro
     environment:
       - MONGO_PORT_27017_TCP_ADDR=mongodb
       - MONGO_PORT_27017_TCP_PORT=27017
@@ -34,8 +33,9 @@ services:
       - ./mongo:/etc/mongo
     command: --config=/etc/mongo/docker_mongod.conf
   cqm-execution-service:
-    image: mitrehealthdocker/cqm-execution-service:cypress_v7
-    platform: linux/amd64
+    build:
+      context: ./../cqm-execution-service
+    platform: linux/arm64
 volumes:
   cypress-vol:
   mongo-data:
