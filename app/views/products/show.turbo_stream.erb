@@ -1,0 +1,52 @@
+<% if params[:partial] == 'bulk_download' %>
+  <% if (@product.product_tests.measure_tests.where(:state.nin => [:ready]).count.positive?) || (@product.c4_test && @product.product_tests.filtering_tests.empty? ) || (@product.c4_test && @product.product_tests.filtering_tests.length.positive? &&  @product.product_tests.filtering_tests.where(:state.nin => [:ready]).count.positive? ) %>
+    <%= turbo_stream.replace "display_bulk_download" do %>
+      <%= render "/products/bulk_download", product: @product %>
+    <% end %>
+  <% else %>
+    <%= turbo_stream.replace "display_bulk_download" do %>
+      <%= render "/products/bulk_download", product: @product %>
+      <%= turbo_stream.remove "bulk_download_poller" %>
+    <% end %>
+  <% end %>
+
+<% elsif params[:partial] == 'filtering_test_status_display_body' %>
+  <% tests = @product.product_tests.filtering_tests %>
+  <% if should_reload_product_test_status_display?(tests) %>
+    <%= turbo_stream.replace "display_filtering_test_status_display_body" do %>
+      <%= render "/products/filtering_test_status_display_body", product: @product, html_id: params[:html_id] %>
+    <% end %>
+  <% else %>
+    <%= turbo_stream.replace "display_filtering_test_status_display_body" do %>
+      <%= render "/products/filtering_test_status_display_body", product: @product, html_id: params[:html_id] %>
+    <% end %>
+    <%= turbo_stream.remove "#{params[:html_id]}filtering_tests_table_poller" %>
+  <% end %>
+<% elsif params[:partial] == 'measure_tests_table_row' %>
+  <% task = Task.find(params[:task_id]) %>
+  <% has_eh_tests = @product.eh_tests? %>
+  <% has_ep_tests = @product.ep_tests? %>
+
+  <%
+    row_reload =
+      if defined?(should_reload_measure_test_row?)
+        should_reload_measure_test_row?(task)
+      else
+        task.state.to_sym != :ready
+      end
+  %>
+
+  <%= turbo_stream.replace measure_tests_table_row_wrapper_id(task) do %>
+    <%= render "/products/measure_tests_table_row",
+      task: task,
+      has_eh_tests: has_eh_tests,
+      has_ep_tests: has_ep_tests,
+      html_id: params[:html_id],
+      include_c1: params[:get_c1_tasks],
+      product_url: request.path %>
+  <% end %>
+
+  <% unless row_reload %>
+    <%= turbo_stream.remove "#{measure_tests_table_row_wrapper_id(task)}_poller" %>
+  <% end %>
+<% end %>
