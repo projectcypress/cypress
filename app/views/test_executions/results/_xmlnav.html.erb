@@ -1,19 +1,19 @@
-<div class="xml-nav text-center">
+<div class="xml-nav text-center bg-body" data-fixed-header-target="header">
   <div class="btn-group" role="toolbar" aria-label="File error navigation">
     <div class="btn-group" role="group">
-      <button type="button" class="btn btn-link nav-link nav-first">
+      <button type="button" class="btn btn-link nav-link nav-first" href="#" data-navigator-target="first" data-action="click->navigator#first">
         <%= icon('fas fa-fw', 'fast-backward', :"aria-hidden" => true) %> First
       </button>
 
-      <button type="button" class="btn btn-link nav-link nav-prev">
+      <button type="button" class="btn btn-link nav-link nav-prev" href="#" data-navigator-target="prev"  data-action="click->navigator#prev">
         <%= icon('fas fa-fw', 'step-backward', :"aria-hidden" => true) %> Prev
       </button>
 
-      <button type="button" class="btn btn-link nav-link nav-next">
+      <button type="button" class="btn btn-link nav-link nav-next" href="#" data-navigator-target="next"  data-action="click->navigator#next">
         Next <%= icon('fas fa-fw', 'step-forward', :"aria-hidden" => true) %>
       </button>
 
-      <button type="button" class="btn btn-link nav-link nav-last">
+      <button type="button" class="btn btn-link nav-link nav-last" href="#" data-navigator-target="last"  data-action="click->navigator#last">
         Last <%= icon('fas fa-fw', 'fast-forward', :"aria-hidden" => true) %>
       </button>
     </div>

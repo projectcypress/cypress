@@ -1,5 +1,6 @@
+<div id="display_bundle_list" >
 <h1>Installed Bundles</h1>
-<%= button_to "+ Import Bundle", new_admin_bundle_path, :method => :get, :class => "btn btn-primary float-end" %>
+<%= button_to "+ Import Bundle", new_admin_bundle_path, :method => :get, :class => "btn btn-primary float-end", data: { turbo: false } %>
 
 <table class="table table-hover">
   <thead>
@@ -18,7 +19,7 @@
           <td class="text-center">
 
             <% unless bundle.deprecated? %>
-              <%= button_to "Set Default", set_default_admin_bundle_path(bundle), :method => :post, :class => "btn btn-sm btn-default" unless bundle.active %>
+              <%= button_to "Set Default", set_default_admin_bundle_path(bundle), :method => :post, :class => "btn btn-sm btn-default", :data => { turbo: false } unless bundle.active %>
               <%= render 'action_button',
                               :button_text => 'Deprecate',
                               :button_classes => 'btn btn-sm btn-danger',
@@ -79,9 +80,5 @@
       <% end %>
     </tbody>
   </table>
-  <% if BundleUploadJob.trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
-    <script>
-      $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'bundle_list' }});
-    </script>
-  <% end %>
 <% end %>
+</div>

@@ -1,0 +1,23 @@
+<% if params[:partial] == 'mpl_download' %>
+  <% # Can't pass this as bundle_id since bundle_id refers to the active bundle in this context %>
+  <% if @mpl_bundle.mpl_status == :ready %>
+    <%= turbo_stream.replace "mpl-download#{@mpl_bundle.id}" do %>
+      <%= render "/records/mpl_download", :bundle => @mpl_bundle %>
+    <% end %>
+    <%= turbo_stream.remove "mpl_poller" %>
+  <% else %>
+    <%= turbo_stream.replace "mpl-download#{@mpl_bundle.id}" do %>
+      <%= render "/records/mpl_download", :bundle => @mpl_bundle %>
+    <% end %>
+  <% end %>
+<% end %>
+<% if params[:partial] == 'vendor_upload_jobs' %>
+  <% trackers = VendorPatientUploadJob.trackers.where('options.vendor_id': @vendor.id.to_s) %>
+  <% if trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
+    <%= turbo_stream.replace "vendor-upload-jobs" do %>
+      <%= render "/records/vendor_upload_jobs", :vendor => @vendor %>
+    <% end %>
+  <% else %>
+    <%= turbo_stream.remove "vendor_upload_jobs_poller" %>
+  <% end %>
+<% end %>

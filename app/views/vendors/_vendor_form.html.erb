@@ -1,7 +1,8 @@
+<div data-controller="pocs">
 <div class="card card-default">
 <div class="card-header"><h1 class='card-title lead'><%= submit_text %><%= vendor.name ? ": "+ vendor.name : "" %></h1></div>
 
-<%= bootstrap_form_for vendor, html: {id: "add_vendor_form", "data-parsley-validate": ''} do |f| %>
+<%= bootstrap_form_for vendor, html: {id: "add_vendor_form", "data-controller":"parsley", "data-parsley-validate": ''}, data: { turbo: false } do |f| %>
   <div class="card-body">
     <%= f.text_field :name, label: 'Vendor Name', autocomplete: 'off', required: '', 'data-parsley-required': '', 'data-parsley-trigger': 'change'%>
     <%= f.text_field :vendor_id, label: 'Vendor ID' %>
@@ -10,13 +11,13 @@
     <%= f.text_field :state %>
     <%= f.text_field :zip, 'data-parsley-type': "digits", 'data-parsley-length': "[5, 5]", 'data-parsley-length-message': "This value should be a 5 digit US zip code.", 'data-parsley-trigger': 'blur' %>
 
-    <div id="pocs">
-      <%= f.fields_for :points_of_contact do |poc_field| %>
-        <%= render 'poc_fields', poc_field: poc_field %>
-      <% end %>
-    </div>
+      <div id="pocs" data-pocs-target="container">
+        <%= f.fields_for :points_of_contact do |poc_field| %>
+          <%= render 'poc_fields', poc_field: poc_field %>
+        <% end %>
+      </div>
+      <button type="button" class="btn btn-default" id="add-poc" data-action="pocs#add">Add Point of Contact</button>
 
-    <button type="button" class="btn btn-default" id="add-poc">Add Point of Contact</button>
   </div>
 
   <div class="card-footer">
@@ -26,23 +27,24 @@
 <% end %>
 
 </div>
-<template id="new-poc-template">
+<template id="new-poc-template" data-pocs-target="template">
   <div class="row nested-fields">
     <div class="form-group col-sm-3">
       <label class="label-block">POC Name</label><input type="text" class="form-control" name="vendor[points_of_contact_attributes][new_record][name]" />
     </div>
     <div class="form-group col-sm-3">
-      <label class="label-block">Email</label><input type="text" class="form-control" name="vendor[points_of_contact_attributes][new_record][email]" />
+      <label class="label-block">Email</label><input type="email" class="form-control" name="vendor[points_of_contact_attributes][new_record][email]" />
     </div>
     <div class="form-group col-sm-3">
-      <label class="label-block">Telephone</label><input type="text" class="form-control" name="vendor[points_of_contact_attributes][new_record][phone]" />
+      <label class="label-block">Telephone</label><input data-parsley-phonenumber type="tel" class="form-control" name="vendor[points_of_contact_attributes][new_record][phone]" />
     </div>
     <div class="form-group col-sm-2">
       <label class="label-block">Type of Contact</label><input type="text" class="form-control" name="vendor[points_of_contact_attributes][new_record][contact_type]" />
     </div>
     <div class="d-grid gap-2 col-3 d-md-block">
       <input type="hidden" name="vendor[points_of_contact_attributes][new_record][_destroy]" value="false" />
-      <button type="button" class="btn btn-danger remove-poc">Remove</button>
+      <button type="button" class="btn btn-danger remove-poc" data-action="pocs#remove">Remove</button>
     </div>
   </div>
 </template>
+</div>

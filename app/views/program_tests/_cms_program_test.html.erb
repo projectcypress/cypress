@@ -8,6 +8,12 @@
   </div>
 </div>
 <%= render 'upload_panel', :product_test => product_test, :panel_index => "2" %>
-<div id = 'display_program_fields'>
-  <%= render 'program_fields', :product => product_test.product, :product_test => product_test, :task => product_test.tasks.first %>
-</div>
+<%= render 'program_fields', :product => product_test.product, :product_test => product_test, :task => product_test.tasks.first %>
+<% if product_test.tasks.first.most_recent_execution && product_test.tasks.first.most_recent_execution.incomplete? %>
+  <div id="<%= "program_fields_poller" %>"
+          data-controller="turbo-stream-poller"
+          data-turbo-temporary
+          data-turbo-stream-poller-url-value="<%= request.path %>"
+          data-turbo-stream-poller-params-value="<%= { partial: "program_fields", task: product_test.tasks.first.id.to_s }.to_json %>"
+          data-turbo-stream-poller-interval-value="2000"></div>
+<% end %>

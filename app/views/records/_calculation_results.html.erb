@@ -4,7 +4,7 @@
       <td><%= link_to full_name(r), record_path(:id => r.id, :task_id => task.id) %></td>
     <% elsif @vendor %>
         <td>
-          <%= bootstrap_form_tag url: vendor_records_path(@vendor), html: {class: "delete_vendor_patients_form"} do |f| %>
+          <%= bootstrap_form_tag url: vendor_records_path(@vendor), html: {class: "delete_vendor_patients_form"}, data: { turbo: false } do |f| %>
              <%= f.check_box r.id, hide_label: true, label: "", title: "delete_patient", label_class: "btn btn-checkbox text-start"%>
           <% end %>
         </td>
