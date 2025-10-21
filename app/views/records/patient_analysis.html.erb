@@ -1,4 +1,13 @@
-<%= render 'patient_analysis_tracker', :vendor => @vendor, :bundle => @bundle %>
+<% trackers = PatientAnalysisJob.trackers.where('options.vendor_id': @vendor.id.to_s, 'options.bundle_id': @bundle.id.to_s,) %>
+<% if trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
+  <%= render 'patient_analysis_tracker', :vendor => @vendor, :bundle => @bundle %>
+  <div id="<%= "patient_analysis_tracker_poller" %>"
+        data-controller="turbo-stream-poller"
+        data-turbo-stream-poller-url-value="<%= request.path %>"
+        data-turbo-stream-poller-params-value="<%= { partial: "patient_analysis_tracker", vendor: @vendor, bundle: @bundle }.to_json %>"
+        data-turbo-stream-poller-interval-value="2000"></div>
+<% end %>
+
 
 <% if @analysis %>
 <div>

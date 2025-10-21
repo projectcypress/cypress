@@ -7,10 +7,26 @@
 #   measure      (Measure)       should be a measure that belongs to the checklist test
 
 %>
-<%= bootstrap_form_for([measures, product, product_test], :url => { :controller => 'checklist_tests', :action => 'update' }) do |f| %>
+<%= bootstrap_form_for([measures, product, product_test], :url => { :controller => 'checklist_tests', :action => 'update' }, data: { turbo: false }) do |f| %>
 <% if !hide_patient_calculation? %>
   <div id='modify_record'><button class='btn btn-default' type='button' id="modifyrecord">Edit Test</button></div>
 <% end %>
+
+<%
+  attr_hash = {}
+  measures.each do |m|
+    attr_hash[m.cms_id] = {}
+    m.source_data_criteria.each do |dc|
+      attr_hash[m.cms_id][dc.description] = dc.dataElementAttributes.map(&:attribute_name)
+    end
+  end
+%>
+
+<div
+  data-controller="checklist-criteria"
+  data-checklist-criteria-attr-hash-value="<%= attr_hash.to_json %>"
+>
+
 <% measures.sort_by(&:cms_int).each do |measure, measure_index| %>
   <div class = 'card-group' id = '<%= measure.cms_id %>' disabled = true>
     <div class = 'card card-default'>
@@ -57,7 +73,7 @@
                           <td/>
                           <td/>
                           <td rowspan="2" class='show-me' style='display: none;'>
-                            <%= criteria_field.select :replacement_data_criteria, available_data_criteria(measure, criteria, criteria_field.object.source_data_criteria), {:selected => criteria_field.object.source_data_criteria}, {class: 'show-me criteria-selector'} %>
+                            <%= criteria_field.select :replacement_data_criteria, available_data_criteria(measure, criteria, criteria_field.object.source_data_criteria), {:selected => criteria_field.object.source_data_criteria}, {class: 'show-me criteria-selector', data: { action: "change->checklist-criteria#criteriaChanged" }} %>
                           <td>
                         </tr>
                       <% else %>
@@ -114,7 +130,7 @@
                             <td/>
                           <% end %>
                           <td class='show-me' style='display: none;'>
-                            <%= criteria_field.select :replacement_data_criteria, available_data_criteria(measure, criteria, criteria_field.object.source_data_criteria), {:selected => criteria_field.object.source_data_criteria._id.to_s}, {class: 'show-me criteria-selector'} %>
+                            <%= criteria_field.select :replacement_data_criteria, available_data_criteria(measure, criteria, criteria_field.object.source_data_criteria), {:selected => criteria_field.object.source_data_criteria._id.to_s}, {class: 'show-me criteria-selector', data: { action: "change->checklist-criteria#criteriaChanged" }} %>
                           <td>
                         </tr>
                       <% end %>
@@ -179,32 +195,5 @@
     </div>
   </div>
 <% end %>
+</div>
 <% end %>
-
-<script type="text/javascript">
-  //create object mapping criteria ids to available attributes at load time
-  var attr_hash = {};
-  <% measures.each do |measure| %>
-    attr_hash['<%= measure.cms_id %>'] = {};
-    <% measure.source_data_criteria.each do |dc| %>
-      attr_hash['<%= measure.cms_id %>']['<%= dc.description %>'] = []
-      <% dc.dataElementAttributes.each do |attr| %>
-         attr_hash['<%= measure.cms_id %>']['<%= dc.description %>'].push('<%= attr.attribute_name %>');
-      <% end %>
-    <% end %>
-  <% end %>
-
-  $('.criteria-selector').change(function() {
-    // find attribute in next table row
-    var attributeSelector = $(this).closest('tr').next('tr').find('.attribute-selector');
-    var measure = $(this).closest('.card-group').attr('id')
-    var criteria = $(this).children("option:selected").text();
-    attributeSelector.empty(); // remove old options
-
-    attr_hash[measure][criteria].forEach(function (attribute, index) {
-      var option = $('<option></option>').attr("value", attribute).text(attribute);
-      attributeSelector.append(option);
-    });
-  });
-
-</script>

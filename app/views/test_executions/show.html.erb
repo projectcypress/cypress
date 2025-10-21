@@ -29,12 +29,12 @@
 <div class = 'test-steps'>
   <% if viewing_measure_test %>
     <% steps = [
-      { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },
+      { title: 'Download Test Deck', partial: 'execution_download_wrapper', disable: false, disable_msg: '' },
       { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test_state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
    <% elsif @task.product_test.is_a? MultiMeasureTest %>
     <% steps = [
-      { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },
+      { title: 'Download Test Deck', partial: 'execution_download_wrapper', disable: false, disable_msg: '' },
       { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test_state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
   <% elsif @task.product_test.is_a? CMSProgramTest %>
@@ -43,7 +43,7 @@
       ] %>
   <% elsif @task.product_test.is_a? FilteringTest %>
     <% steps = [
-      { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },
+      { title: 'Download Test Deck', partial: 'execution_download_wrapper', disable: false, disable_msg: '' },
       { title: 'Filter Patients', partial: 'filter_instructions', disable: false, disable_msg: '' },
       { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test_state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
@@ -85,8 +85,14 @@
         </div>
       </h1>
     </div>
-    <div class = 'card-body' id = 'display_execution_results' >
-      <%= render 'execution_results', :execution => @test_execution %>
-    </div>
+    <div data-controller="cypress" data-action="cypress:init@document->cypress#init"></div>
+    <%= render 'execution_results', :execution => @test_execution %>
+    <% if @test_execution.status_with_sibling == 'incomplete' %>
+      <div id="<%= "execution_results_poller" %>"
+        data-controller="turbo-stream-poller"
+        data-turbo-stream-poller-url-value="<%= request.path %>"
+        data-turbo-stream-poller-params-value="<%= { partial: "execution_results", execution: @test_execution }.to_json %>"
+        data-turbo-stream-poller-interval-value="2000"></div>
+    <% end %>
   </div>
 <% end %>

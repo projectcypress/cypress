@@ -23,14 +23,19 @@
   </div>
 
   <div id="bundles">
-    <div id="display_bundle_list" >
-      <%= render "bundle_list", :bundles => @bundles %>
-    </div>
+    
+    <%= render "bundle_list", :bundles => @bundles %>
+    <% if BundleUploadJob.trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
+      <div id="bundle_list_poller"
+       data-controller="turbo-stream-poller"
+       data-turbo-stream-poller-url-value="<%= url_for(action: :show, format: :turbo_stream, partial: "bundle_list") %>"
+       data-turbo-stream-poller-interval-value="2000"></div>
+    <% end %>
     <%= render 'action_modal' %>
   </div>
 
   <div id="application_status" >
-    <%= render 'application_status', :system_usage_stats => @system_usage_stats %>
+    <%= render 'application_status_wrapper', :system_usage_stats => @system_usage_stats %>
   </div>
 
 </div>

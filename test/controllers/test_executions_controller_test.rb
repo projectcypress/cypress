@@ -149,7 +149,7 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       i += 1
       post :create, params: { task_id: @first_c2_task.id, results: upload }
-      assert_response 302
+      assert_response 303
       @first_c2_task.reload
       assert_equal @first_c2_task.test_executions.count, orig_count + i, "Should have added #{i} new TestExecution"
     end

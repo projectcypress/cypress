@@ -1,3 +1,4 @@
+<div id="application_status_inner" >
 <div>
   <%= button_to admin_download_logs_path, :method => :get, :class => "btn btn-default" do %>
     <%= icon('fas', 'download', :"aria-hidden" => true) %> Download Application Logs
@@ -46,7 +47,4 @@
     </div>
   </div>
 <% end %>
-
-<script>
-  $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'application_status' }});
-</script>
+</div>
