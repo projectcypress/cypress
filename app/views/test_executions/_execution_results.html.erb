@@ -23,9 +23,7 @@ end %>
   <p class="lead bg-info execution-status  bg-opacity-25"><%= icon('fas fa-fw fa-spin text-info', 'sync-alt', :"aria-hidden" => true) %> In Progress (<%= msg %>)</p>
   <p>You do not need to reload your browser. Results will automatically display when the tests are done running.</p>
   <% # ajax contacts test_execution's show controller action with format: 'js'. controller then directs to show.js.erb which will wait, then re-render %>
-  <script>
-    $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'execution_results' }});
-  </script>
+  <div data-controller="execution-results" data-url="<%= request.path %>"></div>
 
 <% else %>
   <% if passing = execution.status_with_sibling == 'passing'%>
