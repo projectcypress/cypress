@@ -8,4 +8,4 @@ pin "bootstrap", to: 'extensions/bootstrap.bundle.js', preload: true # @5.3.8
 pin "cypress", to: "extensions/cypress.js"
 pin "datatables", to: "extensions/datatables.min.js"
 pin "assets.core", to: "extensions/assets_framework/assets.core.js"
-pin "jquery-ui" # @1.14.1
+pin "jquery-ui/widgets/tabs", to: "extensions/jquery-ui.js" # @1.14.1
