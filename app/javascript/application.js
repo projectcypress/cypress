@@ -37,11 +37,25 @@
 
 
 import $ from "jquery2";
+//import jquery from "jquery2";
 import * as cypress from "cypress";
 import Turbolinks from "turbolinks";
 import * as bootstrap from 'bootstrap';
 import "datatables"
-import "jquery-ui/widgets/tabs"
+// import "jquery-ui/widgets/autocomplete"
+import "jquery-ui"
+// import "jquery-ui/widgets/accordion"
+// import "jquery-ui/widgets/button"
+// import "jquery-ui/widgets/dialog"
+// import "jquery-ui/widgets/menu"
+// import "jquery-ui/widgets/progressbar"
+// import "jquery-ui/widgets/slider"
+// import "jquery-ui/widgets/spinner"
+// import "jquery-ui/widgets/tooltip"
+// import "jquery-ui/widgets/datepicker"
+
+//window.$ = jquery;
+//window.jQuery = jquery;
 
 $(document).on('page:load page:partial-load page:restore turbolinks:load', function () {
   $.rails.refreshCSRFTokens();

@@ -8,4 +8,14 @@ pin "bootstrap", to: 'extensions/bootstrap.bundle.js', preload: true # @5.3.8
 pin "cypress", to: "extensions/cypress.js"
 pin "datatables", to: "extensions/datatables.min.js"
 pin "assets.core", to: "extensions/assets_framework/assets.core.js"
-pin "jquery-ui/widgets/tabs", to: "extensions/jquery-ui.js" # @1.14.1
+# pin "jquery-ui/widgets/autocomplete", to: "extensions/jquery-ui.js" # @1.14.1
+pin "jquery-ui", to: "extensions/jquery-ui.js" # @1.14.1
+# pin "jquery-ui/widgets/accordion", to: "extensions/jquery-ui.js" # @1.14.1
+# pin "jquery-ui/widgets/button", to: "extensions/jquery-ui.js" # @1.14.1
+# pin "jquery-ui/widgets/dialog", to: "extensions/jquery-ui.js" # @1.14.1
+# pin "jquery-ui/widgets/menu", to: "extensions/jquery-ui.js" # @1.14.1
+# pin "jquery-ui/widgets/progressbar", to: "extensions/jquery-ui.js" # @1.14.1
+# pin "jquery-ui/widgets/slider", to: "extensions/jquery-ui.js" # @1.14.1
+# pin "jquery-ui/widgets/spinner", to: "extensions/jquery-ui.js" # @1.14.1
+# pin "jquery-ui/widgets/tooltip", to: "extensions/jquery-ui.js" # @1.14.1
+# pin "jquery-ui/widgets/datepicker", to: "extensions/jquery-ui.js" # @1.14.1
