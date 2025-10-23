@@ -42,6 +42,7 @@ import Turbolinks from "turbolinks";
 import * as bootstrap from 'bootstrap';
 import "jquery-ui";
 import "datatables"
+import "assets.core"
 
 $(document).on('page:load page:partial-load page:restore turbolinks:load', function () {
   $.rails.refreshCSRFTokens();
