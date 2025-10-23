@@ -39,7 +39,7 @@
 import $ from "jquery2";
 import * as cypress from "cypress";
 import Turbolinks from "turbolinks";
-import Alert from "bootstrap";
+import * as bootstrap from 'bootstrap';
 
 $(document).on('page:load page:partial-load page:restore turbolinks:load', function () {
   $.rails.refreshCSRFTokens();
