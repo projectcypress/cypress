@@ -34,14 +34,20 @@
 // will cover turbolinks changes (ajax already covered by rails ujs)
 // this is necessary for CSRF tokens in changed form elements
 // any statically changed form elements will require a separate token refresh call
+
+
 import $ from "jquery2";
+import * as cypress from "cypress";
 import Turbolinks from "turbolinks";
-import breadcrumb from "breadcrumb";
+import Alert from "bootstrap";
+
 $(document).on('page:load page:partial-load page:restore turbolinks:load', function () {
   $.rails.refreshCSRFTokens();
 });
 
 $(function() {
+  cypress.initializeJqueryCvuRadio();
+
   $('.breadcrumb').breadcrumb();
 
   $(document).on('ajaxComplete',function(e){
