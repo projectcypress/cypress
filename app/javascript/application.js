@@ -40,6 +40,8 @@ import $ from "jquery2";
 import * as cypress from "cypress";
 import Turbolinks from "turbolinks";
 import * as bootstrap from 'bootstrap';
+import "jquery-ui";
+import "datatables"
 
 $(document).on('page:load page:partial-load page:restore turbolinks:load', function () {
   $.rails.refreshCSRFTokens();
@@ -47,6 +49,8 @@ $(document).on('page:load page:partial-load page:restore turbolinks:load', funct
 
 $(function() {
   cypress.initializeJqueryCvuRadio();
+  cypress.initializeProductTable();
+  cypress.reticulateSplines();
 
   $('.breadcrumb').breadcrumb();
 

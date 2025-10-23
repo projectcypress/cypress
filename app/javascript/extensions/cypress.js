@@ -23,6 +23,9 @@ function setElementHidden(element, state) {
   }
 }
 
+// Product Form
+// $(document).ready(ready_run_once);
+// $(document).on('page:load', ready_run_once);
 export function initializeJqueryCvuRadio() { 
   $('.form-check input[name="product[cvuplus]"]').on('change', function() {
     var cvuplus_checked = ($(this).val() == 'true');
@@ -39,3 +42,55 @@ export function initializeJqueryCvuRadio() {
     setElementHidden('#certification_edition', cvuplus_checked);
   });
 }
+
+
+// $(document).ready(ready);
+// $(document).on('page:load', ready);
+export function initializeProductTable() { 
+  // Also see measure_selection.js
+
+  $('.product-test-tabs').tabs();
+  $('.product-test-tabs > ul > li').removeClass("ui-corner-top");
+
+  $('.user_tests_table').DataTable({
+    searching: false,
+    paging: false,
+    stateSave: true, /* preserves order on reload */
+    info: false,
+    order: [[4, 'desc']]
+  });
+
+ $('.vendor-table').DataTable({
+    searching: false,
+    paging: false,
+    stateSave: true, /* preserves order on reload */
+    info: false
+  });
+
+  $('.vendor-table-favorite').DataTable({
+    searching: false,
+    paging: false,
+    stateSave: true, /* preserves order on reload */
+    info: false
+  });
+
+
+  $('#filtering_test_status_display').DataTable({
+    searching: false,
+    paging: false,
+    stateSave: true, /* preserves order on reload */
+    info: false
+  });
+
+  /* submit upload when file is attached */
+  $(document).on('change', '.multi-upload-field', function(ev) {
+    $(this).parent().siblings('.multi-upload-submit').click();
+  });
+};
+
+// $(document).on('page:change', reticulateSplines);
+export function reticulateSplines() { 
+    if ($('#display_bulk_download').length && $('#display_bulk_download').find('p:first').text().indexOf('being built') > -1) {
+        $.ajax({url: window.location.pathname, type: "GET", dataType: 'script', data: { partial: 'bulk_download' }});
+    }
+};
