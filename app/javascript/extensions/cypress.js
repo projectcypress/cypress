@@ -1,6 +1,3 @@
-import $ from "jquery2";
-import "jquery-ui"
-import "datatables"
 
 function setCheckboxDisabledNoUncheck(element, state) {
   var children = $(element).closest('input.form-check-input').find('*').addBack();
