@@ -33,7 +33,7 @@ class TinValidatorTest < ActiveSupport::TestCase
     @validator.validate(document, @options)
 
     assert_equal 1, @validator.errors.count, "Expected 1 error, got #{@validator.errors}"
-    assert @validator.errors.map(&:message).include?('TIN should be reported for this measure to support ACO reporting.')
+    assert @validator.errors.map(&:message).include?("The Provider's TIN should be reported for this measure to support ACO reporting.")
   end
 
   def test_no_warnings_when_not_aco_measure
