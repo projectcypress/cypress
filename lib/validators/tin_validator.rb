@@ -22,7 +22,7 @@ module Validators
           add_warning(msg, file_name: options[:file_name])
         end
       else
-        msg = 'TIN should be reported for these measures to support ACO reporting.'
+        msg = 'TIN should be reported for this measure to support ACO reporting.'
         add_warning(msg, file_name: options[:file_name])
       end
     end
