@@ -21,6 +21,7 @@ class Vendor
   field :zip, type: String
   field :preferred_code_systems, type: Hash, default: {}
   field :preferred_ccn, type: String
+  field :preferred_tin, type: String
   field :favorite_user_ids, type: Array, default: []
   field :vendor_patient_analysis, type: Hash, default: {}
 

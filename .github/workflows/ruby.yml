@@ -274,14 +274,29 @@ jobs:
       run: |
         RUBYOPT="-W0"
         bin/rails test test/unit/lib/*.rb;
+    - name: Upload code coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-unit-2-lib
     - name: Run Rake test units lib cypress
       run: |
         RUBYOPT="-W0"
         bin/rails test test/unit/lib/cypress/*.rb;
+    - name: Upload code coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-unit-2-lib-cypress
     - name: Run Rake test units lib validators
       run: |
         RUBYOPT="-W0"
         bin/rails test test/unit/lib/validators/*.rb;
+    - name: Upload code coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-unit-2-validators
     - name: Run Rake test models
       run: |
         RUBYOPT="-W0"
@@ -290,7 +305,7 @@ jobs:
       uses: codecov/codecov-action@v3
       with:
         directory: coverage
-        name: codecov-unit-2
+        name: codecov-unit-2-models
 
   controllers-jobs-helpers-test:
     strategy:
