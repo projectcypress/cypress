@@ -1,4 +1,8 @@
 
+function escapeCSS(str) {
+  return str.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, "\\$&");
+}
+
 function setCheckboxDisabledNoUncheck(element, state) {
   var children = $(element).closest('input.form-check-input').find('*').addBack();
   if (state) {
@@ -21,6 +25,228 @@ function setElementHidden(element, state) {
     $(element).prop('hidden', false);
   }
 }
+
+// Allows the enabling or disabling of a checkbox by passing true or false
+// as the second parameter. True means disabled and false means enabled.
+function setCheckboxDisabled(element, state) {
+  var children = $(element).closest('input.form-check-input').find('*').addBack();
+  if (state) {
+    $(children).addClass('disabled');
+    $(children).prop('disabled', true);
+    $(element).prop('checked', false);
+  }
+  else {
+    $(children).removeClass('disabled');
+    $(children).prop('disabled', false);
+  }
+}
+
+// This function is called whenever a successful measure filter ajax request is made.
+// It hides the measures that do not match the search parameters.
+function filterVisibleMeasures(searchbox, returned_measures) {
+  // Collect up all measure checkboxes and their accompanying description
+  var measures = $('.measure-group .checkbox')
+
+  // If the searchbox is empty, show everything. This fixes the "select all"
+  // option from being permantently hidden
+  if(searchbox.val() == "") {
+    $.each(measures, function() {
+      $(this).show()
+    });
+  } else {
+    // If the searchbox is not empty then filter measures based on the returned results
+    $.each(measures, function() {
+      if($.inArray(this.id, returned_measures) >= 0) {
+        $(this).show()
+      } else {
+        $(this).hide()
+      }
+    });
+  }
+}
+
+// This function is called whenever a successful measure filter ajax request is made.
+// It hides the measure tabs that do not match the search parameters.
+function filterVisibleMeasureTabs(searchbox, measure_tabs_response) {
+
+  // Collect up all measure tabs
+  var measure_tabs = $("[role='tablist'] [role='tab']")
+
+  // Iterate over all measure tabs and remove ones that were not included in filtered measure
+  // tabs in the measure_tabs_response variable.
+  $.each(measure_tabs, function() {
+    var current_tab_name = $(this).attr('aria-controls')
+
+    if(current_tab_name in measure_tabs_response) {
+      $(this).show()
+      // Save the children of the element before changing the contents
+      var $cache = $(this).contents('a').children();
+      $(this).contents('a').text(measure_tabs_response[current_tab_name]).append($cache)
+    } else {
+      $(this).hide()
+    }
+  });
+
+  // If the current ui tab is not visible then grab the first one that is and activate it
+  if(!($("[role='tablist'] [role='tab'].ui-tabs-active").is(':visible'))) {
+    measure_tabs.find(':visible:first').first().click()
+  }
+}
+
+function CheckMany(group) {
+  if (group == 'all') {
+    $('.measure-group .measure-checkbox:not(:checked)').prop('checked', true).change()
+      .filter('[data-category=Retired]').prop('checked', false).change();
+  } else {
+    $('.measure-group .measure-checkbox')
+      .filter(':not([data-measure-type='+group+'])').prop('checked', false).change().end()
+      .filter('[data-measure-type='+group+']').prop('checked', true).change()
+      .filter('[data-category=Retired]').prop('checked', false).change();
+  }
+}
+
+function ToggleCustomSelection(task) {
+  var shouldHideView = function() {
+    if (task == 'close' && !$('.select-measures').hasClass('d-none')) {
+      return true;
+    } else if (task == 'open' && $('.select-measures').hasClass('d-none')) {
+      return false;
+    }
+  }
+
+  if (typeof shouldHideView() !== "undefined") {
+    $('.select-measures').toggleClass('d-none', shouldHideView());
+  }
+}
+
+function UpdateGroupSelections(event) {
+  var measure_category = escapeCSS($(event.currentTarget).attr('data-category'));
+  var $groupChecks = $('.measure-group .measure-checkbox[data-category='+ measure_category +']');
+
+  var groupIsSelected = !$groupChecks.filter(':not(:checked)').length; // true if none are unchecked
+
+  $('.measure-group-all[id='+ measure_category +']').prop('checked', groupIsSelected);
+
+  // update the selected counts in the tabs
+  var number_checked = $groupChecks.filter(':checked').length;
+
+  $('#measure_tabs .ui-tabs-nav').find('[href*='+ measure_category +'] .selected-number')
+    .html(function() {
+      if (number_checked > 0) {
+        return number_checked + '<i aria-hidden="true" class="fas fa-fw fa-check"></i>'
+      } else { return '' }
+    });
+
+  $('.select-measures .card-title .selected-number')
+    .html(function() {
+      if ($('.measure-group .measure-checkbox:checked').length > 0) {
+        return $('.measure-group .measure-checkbox:checked').length + '<i aria-hidden="true" class="fas fa-fw fa-check"></i>'
+      } else { return '(0)' }
+    });
+
+}
+
+function UpdateMeasureSet(bundle_id) {
+
+  $("#measure_selection_section").empty();
+      // get the measures for this type of test
+      $.ajax({
+          url: "/bundles/" + bundle_id + "/measures/grouped",
+          type: "GET",
+          dataType: "html",
+          success: function(data, textStatus, xhr) {
+            $("#measure_selection_section").html(data);
+            ready_run_on_refresh_bundle();
+          },
+          error: function(xhr, textStatus, err) {
+            alert("Sorry, we can't currently produce measures for that bundle. " + err);
+          }
+      });
+}
+
+function HookupProductSearch() {
+  // Get all bundles listed on the page
+  var bundles = $('input[name="product[bundle_id]"]')
+  // Fetch the currently selected bundle from the list on the top of the page.
+  // If there are multiple bundles then grab only the one that is checked.
+  var bundle_id = bundles.filter(':checked').val() || bundles.val()
+  // Remove or urlencode any special characters from the search query
+  var current_search = encodeURIComponent($('#product_search_measures').val().replace(/[!'()*]/g, ""))
+  // Searchbox is #product_search_measures which is currently the parent.
+  var searchbox = $(this)
+
+  var ajaxReq, timer
+  clearTimeout(timer)
+  if (ajaxReq) ajaxReq.abort();
+
+  timer = setTimeout(function(){
+    ajaxReq = $.ajax({
+      url: "/bundles/" + bundle_id + "/measures/filtered/" + current_search,
+      type: "GET",
+      dataType: "json",
+      success: function(data, textStatus, xhr) {
+        ajaxReq = null
+        filterVisibleMeasures(searchbox, data.measures)
+        filterVisibleMeasureTabs(searchbox, data.measure_tabs)
+      }
+    });
+  }, 200);
+}
+
+function lookupLabelFunction(index) {
+// Declare variables
+  var input, checkbox;
+  input = document.getElementById("code"+index);
+  if(input !== null){
+    checkbox = document.getElementById("product_test_checked_criteria_attributes_"+index+"_negated_valueset");
+    if(checkbox.checked == true){
+      $("div#code"+index).hide()
+      $("div#vs"+index).show()
+    } else {
+      $("div#vs"+index).hide()
+      $("div#code"+index).show()
+    }
+  }
+}
+
+// these pieces need to run every time the bundle is changed
+// (they act on the measures which have been reloaded by ajax,
+//  not the controls which are fixed)
+var ready_run_on_refresh_bundle;
+ready_run_on_refresh_bundle = function() {
+
+  // Checking a group of measures
+  $('.measure-group-all').on('change', function () {
+    $(this).closest('.measure-group').find('.measure-checkbox[data-category='+ escapeCSS($(this).attr('id')) +']')
+      .prop('checked', this.checked).change().trigger('groupclick');
+  });
+
+  // Checking an individual measure
+  $('.measure-checkbox').on('change', this, UpdateGroupSelections);
+
+  ///////////////////////
+  // Do things on load //
+  ///////////////////////
+
+  // Instantiate tabs
+  $('#measure_tabs').tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
+  $('#measure_tabs > ul > li').removeClass("ui-corner-top");
+
+  // Trigger change events for already-checked inputs
+  $('.measure-group .measure-checkbox:checked').trigger('change');
+  $('input[name="product[measure_selection]"]:checked').trigger('change');
+  $('input[name="product[cvuplus]"]:checked').trigger('change')
+
+  // Disable enter key from submitting the add or edit product form when in the measure search box
+  $('#product_search_measures').keypress(function(event) {
+    if (event.keyCode == 13) {
+      return false;
+    }
+  });
+
+  // Filter the available measures when a user types in the measure filter box
+  $('#product_search_measures').on('keyup', HookupProductSearch);
+};
 
 // Product Form
 // $(document).ready(ready_run_once);
@@ -93,3 +319,243 @@ export function reticulateSplines() {
         $.ajax({url: window.location.pathname, type: "GET", dataType: 'script', data: { partial: 'bulk_download' }});
     }
 };
+
+export function initializeMeasureSelection() {
+  ////////////////////////////
+  // Set up event listeners //
+  ////////////////////////////
+  // make sure front-end form validations happen when needed
+  //$('form[data-parsley-validate]').find('input[type="checkbox"], input[type="radio"]').on('click groupclick', function() {
+    //$(this).parsley().validate(); // force re-validation
+    // sometimes when a field is found to be invalid, it doesn't
+    // trigger further validations on its own. so we do this manually.
+    // set on click and custom groupclick event to avoid triggering this
+    // every time inputs are changed programmatically
+  //});
+
+  // Checking a radio button indicating measure selection
+  $('.form-check input[name="product[measure_selection]"]').on('change', function() {
+    if ($(this).attr('disabled') != true) {
+      var selection = $(this).val();
+
+      if (selection == 'custom') {
+        ToggleCustomSelection('open');
+      }
+      else {
+        ToggleCustomSelection('close');
+        CheckMany(selection);
+      }
+    }
+  });
+
+  // Enable changing measures
+  $('#measures_options').find('button').on('click', function (event) {
+    event.preventDefault();
+    $('.measure-group [type="checkbox"]').attr('disabled', false);
+    $('input[name="product[measure_selection]"]').attr('disabled', false);
+    $('input[name="product[measure_selection]"]').closest('.radio').removeClass('disabled');
+    $(event.currentTarget).closest('alert').find('.close').click();
+  });
+
+  $(document).on('click', '.clear-measures-btn', function(event) {
+    $('.measure-group .measure-checkbox').prop('checked', false).change();
+    this.blur();
+    // $('clear-measures-btn').setAttribute("aria-pressed", false);
+  });
+
+
+  // Changing the bundle
+  $('.form-check input[name="product[bundle_id]"]').on('change', function() {
+    if ($(this).attr('disabled') != true) {
+      var selection = $(this).val();
+      UpdateMeasureSet(selection);
+    }
+  });
+
+  // Check Duplicate Records on C2 Test check
+  $('.form-check input[name="product[c2_test]"]').on('change', function() {
+    if ($(this).attr('disabled') != true) {
+      var c2_checked = $(this).prop('checked');
+      setCheckboxDisabled('#product_duplicate_patients', !c2_checked);
+      $('.form-check-input#product_duplicate_patients').prop('checked', c2_checked);
+    }
+  });
+
+  // Check Duplicate Records on CVU+ check
+  $('.form-check input[name="product[cvuplus]"]').on('change', function() {
+    if ($(this).attr('disabled') != true) {
+      var cvu_plus = $(this).val();
+      var c2_checked = $('input[name="product[c2_test]"]')[1].checked
+      setCheckboxDisabled('#product_duplicate_patients', (cvu_plus == 'false' && !c2_checked));
+      $('.form-check-input#product_duplicate_patients').prop('checked', cvu_plus == 'true' || c2_checked);
+    }
+  });
+
+  // run this piece once too
+  ready_run_on_refresh_bundle();
+}
+
+export function initializeActionModal() {
+  /* edit text in modal with text from specific object form */
+  $(document).on('show.bs.modal', '#action_modal', function(e) {
+    $(this).find('.modal-content .modal-title').text($(e.relatedTarget).attr('data-title'));
+    $(this).find('.modal-body p.warning_message').text($(e.relatedTarget).attr('data-message'));
+    $(this).find('.modal-body span.object_type').text($(e.relatedTarget).attr('data-object-type'));
+    $(this).find('.modal-body strong.object_name').text($(e.relatedTarget).attr('data-object-name'));
+    $(this).find('.modal-body span.object_action').text($(e.relatedTarget).attr('data-object-action'));
+    $(this).find('.modal-body input.confirm_object_name').attr('placeholder', $(e.relatedTarget).attr('data-object-type'));
+
+    /* set data-form for modal to correct form */
+    $('#modal_confirm_remove').data('form', $(e.relatedTarget).closest('form'));
+  });
+
+  /* enable the remove button if the input field matches the object name */
+  $(document).on('keyup', '#action_modal input.confirm_object_name', function(e) {
+    if ($(this).parent().siblings('p').children('strong.object_name').text() == $(this).val()) {
+      $('#modal_confirm_remove').attr('disabled', false);
+
+      if(e.keyCode == 13)
+      {
+         // simulate clicking the button if they press enter
+         $('#modal_confirm_remove').click();
+      }
+
+    } else {
+      $('#modal_confirm_remove').attr('disabled', true);
+    }
+  });
+
+  $(document).on('hidden.bs.modal', '#action_modal', function () {
+    $(this).find('input.confirm_object_name').val('');
+    $('#modal_confirm_remove').attr('disabled', true);
+  })
+
+  /* submit deletion of specific object */
+  $(document).on('click', '#modal_confirm_remove', function() {
+    // all checked checkbox type inputs within a delete_vendor_patient_form class
+    // collect ids
+    var checked = $('.delete_vendor_patients_form input:checkbox:checked')
+    if(checked.length>0){
+      var ids = $.map(checked, function(val, i){
+        return $(val).attr('id');
+      });
+      var input = $("<input>")
+                 .attr("type", "hidden")
+                 .attr("name", "patient_ids").val(ids);
+      $(this).data('form').append(input);
+    }
+    $(this).data('form').submit();
+  });
+}
+
+export function initializeAdmin() {
+  var assignmentIndex = 1000;
+  var  addAssignment = function(e){
+    assignmentIndex++;
+    e.preventDefault();
+    var vendor = $("#vendor_select")[0].selectedOptions[0]
+    var role =$("#role_select")[0].selectedOptions[0]
+    //does the assignment already exist"
+    //should this be done for a user that has a role other then user (atl,admin this means nothing as they alreay have those permissions)
+    if( $("input[value='"+vendor.value+"'][name*='[vendor_id]']").length  == 0){
+      var tr = $("<tr>")
+      tr.append($("<td>"+role.text + "</td>"))
+      tr.append($("<td>"+vendor.text + "</td>"))
+      var buttonTd = $("<td>");
+      tr.append(buttonTd);
+      buttonTd.append($("<input type='hidden' name='assignments["+assignmentIndex+"][vendor_id]' value='"+vendor.value+"'/>"))
+      buttonTd.append($("<input type='hidden' name='assignments["+assignmentIndex+"][role]' value='"+role.value+"'/>"))
+      buttonTd.append($("<button onclick='$(this).parent().parent().remove()' > Remove </button>"))
+      $('#assignments').append(tr);
+    }
+  }
+  $("#addAssignment").click(addAssignment)
+
+  $('.settings-tabs').tabs()
+  $('.settings-tabs > ul > li').removeClass("ui-corner-top");
+
+  var $customModeButtons = $("input[name='mode']");
+
+  $customModeButtons.on('change', function() {
+    if ($customModeButtons.filter(':checked').val() == "custom") {
+      $('#settings-custom').show();
+    } else {
+      $('#settings-custom').hide();
+    }
+  });
+
+  $customModeButtons.trigger('change');
+
+  $('.activity-paginate').click(function (event) {
+    Turbolinks.ProgressBar.start();
+    Turbolinks.ProgressBar.advanceTo(25);
+  });
+}
+
+export function updateBundleStatus() {
+  function elementContainsText(selector, text) {
+      return $(selector).text().indexOf(text) > -1;
+  }
+
+  if (elementContainsText('.tracker-status', 'queued') || elementContainsText('.tracker-status', 'working')) {
+    $.ajax({url: window.location.pathname, type: "GET", dataType: 'script', data: { partial: 'bundle_list'}});
+  }
+}
+
+export function initializeChecklistTest() {
+  // Enable changing measures
+  $('#save_options').find('button').on('click', function (event) {
+    event.preventDefault();
+    $('.btn-danger').attr('disabled', false);
+  });
+
+  // For each criteria, lookup if its a negated code or vs, to set toggle lable
+  var li = document.getElementsByClassName("data-criteria");
+  for (var i = 0; i < li.length; i++) {
+    lookupLabelFunction(i)
+  }
+  $(document).on('click', '#modify_record', function(event) {
+    event.preventDefault();
+    $('.hide-me').hide();
+    $('.show-me').show();
+  });
+
+  $(document).on('click', 'button.modal-btn', function(event) {
+    event.preventDefault();
+    var currentTarget = event.currentTarget;
+    var index_value = $(currentTarget).data("index-value");
+    var attribute_value = $(currentTarget).data("attribute-value");
+    var code_string = $(currentTarget).data("code-string");
+    var input_box_type
+    if (attribute_value == false){
+      input_box_type = "code";
+      document.getElementById("product_test_checked_criteria_attributes_" + index_value + "_" + input_box_type).value = code_string;
+      $('#lookupModal' + index_value).modal('hide');
+    }
+    if (attribute_value == true){
+      input_box_type ="attribute_code";
+      document.getElementById("product_test_checked_criteria_attributes_" + index_value + "_" + input_box_type).value = code_string;
+      $('#lookupModal-negation' + index_value).modal('hide') && $('#lookupModal-fieldvalues' + index_value).modal('hide') && $('#lookupModal-result' + index_value).modal('hide');
+    }
+  });
+}
+
+export function lookupFunction(index,is_att) {
+  // Declare variables
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("lookupFilter"+index+is_att);
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("lookup_codes"+index+is_att);
+  li = ul.getElementsByTagName('li');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName("i")[0];
+      if(a.innerHTML.toUpperCase().indexOf(filter) > -1){
+          li[i].style.display = "";
+      } else {
+          li[i].style.display = "none";
+      }
+  }
+}
+

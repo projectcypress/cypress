@@ -38,6 +38,7 @@
 
 import $ from "jquery2";
 //import jquery from "jquery2";
+//import "parsley";
 import * as cypress from "cypress";
 import Turbolinks from "turbolinks";
 import * as bootstrap from 'bootstrap';
@@ -61,12 +62,18 @@ $(document).on('page:load page:partial-load page:restore turbolinks:load', funct
   $.rails.refreshCSRFTokens();
 });
 
+$(document).on('page:change', cypress.updateBundleStatus());
+
 $(function() {
   cypress.initializeJqueryCvuRadio();
   cypress.initializeProductTable();
   cypress.reticulateSplines();
+  cypress.initializeMeasureSelection();
+  cypress.initializeActionModal();
+  cypress.initializeAdmin();
+  cypress.initializeChecklistTest();
 
-  $('.breadcrumb').breadcrumb();
+  //$('.breadcrumb').breadcrumb();
 
   $(document).on('ajaxComplete',function(e){
     if(e.delegateTarget.activeElement.tagName.toLowerCase() == 'button') {
@@ -78,5 +85,31 @@ $(function() {
     window.setTimeout(function(){
       $(e.delegateTarget.activeElement).blur();
     }, 1500);
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  var commentsContainer = document.getElementById("pocs");
+  var addCommentButton = document.getElementById("add-poc");
+  var uniqueIndex = new Date().getTime();
+
+  addCommentButton.addEventListener("click", function() {
+    // Get the template for a new comment
+    var newCommentTemplate = document.querySelector("#new-poc-template").innerHTML;
+
+    var newFieldHtml = newCommentTemplate.replace(/new_record/g, uniqueIndex);
+
+    // Insert the new comment fields into the container
+    commentsContainer.insertAdjacentHTML("beforeend", newFieldHtml);
+
+    uniqueIndex++;
+  });
+
+  commentsContainer.addEventListener("click", function(event) {
+    if (event.target.classList.contains("remove-poc")) {
+      var nestedFields = event.target.closest(".nested-fields");
+      nestedFields.querySelector('input[name*="_destroy"]').value = "1";
+      nestedFields.style.display = "none";
+    }
   });
 });

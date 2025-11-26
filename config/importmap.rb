@@ -10,6 +10,7 @@ pin "datatables", to: "extensions/datatables.min.js"
 pin "assets.core", to: "extensions/assets_framework/assets.core.js"
 # pin "jquery-ui/widgets/autocomplete", to: "extensions/jquery-ui.js" # @1.14.1
 pin "jquery-ui", to: "extensions/jquery-ui.js" # @1.14.1
+pin "parsley", to: "extensions/parsley/parsley.js"
 # pin "jquery-ui/widgets/accordion", to: "extensions/jquery-ui.js" # @1.14.1
 # pin "jquery-ui/widgets/button", to: "extensions/jquery-ui.js" # @1.14.1
 # pin "jquery-ui/widgets/dialog", to: "extensions/jquery-ui.js" # @1.14.1
