@@ -74,6 +74,12 @@ class VendorsRecordsControllerTest < ActionController::TestCase
         post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle._id, include_highlighting: '1' }
         assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle._id }, 'response should redirect to index')
 
+        # after upgrading to rails 8, tests were failing because of Rack errors. It was related to the header from the first request
+        # causing issues in the second "get" request. resetting the request headers fixed the error.
+        @request.set_header('CONTENT_TYPE', nil)
+        @request.set_header('HTTP_CONTENT_TYPE', nil)
+        @request.set_header('CONTENT_LENGTH', nil)
+
         # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
         get :index, params: { vendor_id: redirect_to_url.split('/')[-2] }
         assert_equal orig_patient_count + 1, Patient.count
@@ -91,6 +97,12 @@ class VendorsRecordsControllerTest < ActionController::TestCase
       perform_enqueued_jobs do
         post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle._id }
         assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle._id }, 'response should redirect to index')
+
+        # after upgrading to rails 8, tests were failing because of Rack errors. It was related to the header from the first request
+        # causing issues in the second "get" request. resetting the request headers fixed the error.
+        @request.set_header('CONTENT_TYPE', nil)
+        @request.set_header('HTTP_CONTENT_TYPE', nil)
+        @request.set_header('CONTENT_LENGTH', nil)
 
         # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
         get :index, params: { vendor_id: redirect_to_url.split('/')[-2] }
@@ -110,6 +122,12 @@ class VendorsRecordsControllerTest < ActionController::TestCase
         post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle2.id }
         assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle2.id }, 'response should redirect to index')
 
+        # after upgrading to rails 8, tests were failing because of Rack errors. It was related to the header from the first request
+        # causing issues in the second "get" request. resetting the request headers fixed the error.
+        @request.set_header('CONTENT_TYPE', nil)
+        @request.set_header('HTTP_CONTENT_TYPE', nil)
+        @request.set_header('CONTENT_LENGTH', nil)
+
         # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
         get :index, params: { vendor_id: redirect_to_url.split('/')[-2], bundle_id: @bundle2.id }
         @vendor.reload
@@ -128,6 +146,12 @@ class VendorsRecordsControllerTest < ActionController::TestCase
       perform_enqueued_jobs do
         post :create, params: { file: good_zip, vendor_id: @vendor.id, bundle_id: @bundle._id }
         assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle._id }, 'response should redirect to index')
+
+        # after upgrading to rails 8, tests were failing because of Rack errors. It was related to the header from the first request
+        # causing issues in the second "get" request. resetting the request headers fixed the error.
+        @request.set_header('CONTENT_TYPE', nil)
+        @request.set_header('HTTP_CONTENT_TYPE', nil)
+        @request.set_header('CONTENT_LENGTH', nil)
 
         # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
         get :index, params: { vendor_id: redirect_to_url.split('/')[-2] }
@@ -182,6 +206,13 @@ class VendorsRecordsControllerTest < ActionController::TestCase
       perform_enqueued_jobs do
         post :create, params: { file: half_fail_file, vendor_id: @vendor.id, bundle_id: @bundle._id }
         assert_redirected_to vendor_records_path(vendor_id: @vendor.id, bundle_id: @bundle._id), 'response should redirect to index'
+
+        # after upgrading to rails 8, tests were failing because of Rack errors. It was related to the header from the first request
+        # causing issues in the second "get" request. resetting the request headers fixed the error.
+        @request.set_header('CONTENT_TYPE', nil)
+        @request.set_header('HTTP_CONTENT_TYPE', nil)
+        @request.set_header('CONTENT_LENGTH', nil)
+
         # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
         get :index, params: { vendor_id: redirect_to_url.split('/')[-2], bundle_id: @bundle._id }
 
@@ -201,6 +232,13 @@ class VendorsRecordsControllerTest < ActionController::TestCase
       perform_enqueued_jobs do
         post :create, params: { file: half_fail_file, vendor_id: @vendor.id, bundle_id: @bundle._id }
         assert_redirected_to vendor_records_path(vendor_id: @vendor.id, bundle_id: @bundle._id), 'response should redirect to index'
+
+        # after upgrading to rails 8, tests were failing because of Rack errors. It was related to the header from the first request
+        # causing issues in the second "get" request. resetting the request headers fixed the error.
+        @request.set_header('CONTENT_TYPE', nil)
+        @request.set_header('HTTP_CONTENT_TYPE', nil)
+        @request.set_header('CONTENT_LENGTH', nil)
+
         # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
         get :index, params: { vendor_id: redirect_to_url.split('/')[-2], bundle_id: @bundle._id }
 

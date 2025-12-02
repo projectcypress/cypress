@@ -1,3 +1,5 @@
+@use "bootstrap" as *;
+
 .form-group {
   .control-label .radio,
   .control-label .checkbox {
@@ -13,6 +15,23 @@
   .label-block {
     display: block;
   }
+}
+
+.form-check {
+  margin-bottom: 10px !important;
+}
+
+.form-check .form-check-input {
+  border-color: #9d9d9d !important;
+}
+
+.control-label {
+  margin-bottom: 6px !important;
+}
+
+.form-check .form-check-label {
+  margin: 0px !important;
+  padding: 0px !important;
 }
 
 // need to overwrite .input-group-addon colors when buttons are involved
@@ -50,7 +69,8 @@ legend.control-label {
 }
 
 .ui-autocomplete {
-  @include box-shadow(0 1px 1px $dropdown-border-color);
+  // @include box-shadow(0 1px 1px $dropdown-border-color);
+  // box-shadow: 0 1px 1px $dropdown-border-color;
 
   .ui-menu-item {
     &.ui-state-focus {

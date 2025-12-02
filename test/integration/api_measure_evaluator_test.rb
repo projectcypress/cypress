@@ -72,6 +72,11 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
       # As the Admin user, use the ProductTestsController to find the filter criteria for the filtering test
       for_each_logged_in_user([ADMIN]) do
         @controller = ProductTestsController.new
+        # after upgrading to rails 8, tests were failing because of Rack errors. It was related to the header from the first request
+        # causing issues in the second "get" request. resetting the request headers fixed the error.
+        @request.set_header('CONTENT_TYPE', nil)
+        @request.set_header('HTTP_CONTENT_TYPE', nil)
+        @request.set_header('CONTENT_LENGTH', nil)
         get :show, params: { format: :json, product_id: ft.product.id, id: ft.id }
         filter_test_parameters = JSON.parse(response.body)
       end
@@ -155,7 +160,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
         doc = Nokogiri::XML(zipfile.read(entry))
         doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
-        next unless CQM::IndividualResult.where(patient_id: patient_id_file_map[entry.name]).size.positive?
+        next unless CQM::IndividualResult.where(patient_id: patient_id_file_map[entry.name]).map(&:relevant?).include? true
 
         Zip::ZipFile.open("tmp/#{product_test.id}_only_ipp.zip", Zip::File::CREATE) do |z|
           z.get_output_stream(entry) { |f| f.puts zipfile.read(entry) }

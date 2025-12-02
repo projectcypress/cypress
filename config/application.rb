@@ -15,6 +15,7 @@ require 'action_mailer/railtie'
 require 'action_view/railtie'
 # require "action_cable/engine"
 require 'rails/test_unit/railtie'
+require 'rolify/railtie'
 
 CAT1_CONFIG = YAML.safe_load_file(File.expand_path('cat1checklist.yml', __dir__), aliases: true)
 CMS_IG_CONFIG = YAML.safe_load_file(File.expand_path('cms_ig.yml', __dir__), aliases: true)

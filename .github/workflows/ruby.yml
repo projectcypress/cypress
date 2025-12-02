@@ -36,7 +36,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       # uses: ruby/setup-ruby@b12138f02d7d0c4d36f463e0885dc47ec25a52fe
       with:
-        ruby-version: 3.3.8
+        ruby-version: 3.4.5
     - name: Install dependencies
       run: |
         bundle install
@@ -57,7 +57,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       # uses: ruby/setup-ruby@b12138f02d7d0c4d36f463e0885dc47ec25a52fe
       with:
-        ruby-version: 3.3.8
+        ruby-version: 3.4.5
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
@@ -91,7 +91,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       # uses: ruby/setup-ruby@b12138f02d7d0c4d36f463e0885dc47ec25a52fe
       with:
-        ruby-version: 3.3.8
+        ruby-version: 3.4.5
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
@@ -134,7 +134,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       # uses: ruby/setup-ruby@b12138f02d7d0c4d36f463e0885dc47ec25a52fe
       with:
-        ruby-version: 3.3.8
+        ruby-version: 3.4.5
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
@@ -150,14 +150,14 @@ jobs:
         timeout_minutes: 30
         max_attempts: 2
         retry_on: error
-        command: bundle exec cucumber features/products/ features/program_tests/ features/records/ features/users/ features/vendors/;
+        command: bundle exec cucumber features/products/ features/program_tests/ features/users/ features/vendors/;
     - name: Upload code coverage to codecov.io
       uses: codecov/codecov-action@v3
       with:
         directory: coverage
         name: codecov-cucumber-2
 
-  unit-test:
+  cucumber-3:
     strategy:
       fail-fast: false
 
@@ -177,7 +177,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       # uses: ruby/setup-ruby@b12138f02d7d0c4d36f463e0885dc47ec25a52fe
       with:
-        ruby-version: 3.3.8
+        ruby-version: 3.4.5
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
@@ -187,15 +187,125 @@ jobs:
         git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
         yarn --cwd /tmp/cqm-execution-service-56 install --only=production
         yarn --cwd /tmp/cqm-execution-service-56 start &
-    - name: Run Rake test
-      run: |
-        RUBYOPT="-W0"
-        bundle exec rake test:units;
+    - name: Run cucumber
+      uses: nick-fields/retry@v2
+      with:
+        timeout_minutes: 30
+        max_attempts: 2
+        retry_on: error
+        command: bundle exec cucumber features/records/;
     - name: Upload code coverage to codecov.io
       uses: codecov/codecov-action@v3
       with:
         directory: coverage
-        name: codecov-unit
+        name: codecov-cucumber-3
+
+  unit-test-1:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-22.04
+
+    services:
+      mongodb:
+        image: mongo:7.0.6
+        ports:
+          - 27017:27017
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
+    # change this to (see https://github.com/ruby/setup-ruby#versioning):
+      uses: ruby/setup-ruby@v1
+      # uses: ruby/setup-ruby@b12138f02d7d0c4d36f463e0885dc47ec25a52fe
+      with:
+        ruby-version: 3.4.5
+    - name: Install dependencies
+      run: |
+        . $HOME/.nvm/nvm.sh
+        nvm install 22.16
+        nvm use stable
+        bundle install
+        git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
+        yarn --cwd /tmp/cqm-execution-service-56 install --only=production
+        yarn --cwd /tmp/cqm-execution-service-56 start &
+    - name: Run Rake test units
+      run: |
+        RUBYOPT="-W0"
+        bin/rails test test/unit/*.rb;
+    - name: Upload code coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-unit-1
+
+  unit-test-2:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-22.04
+
+    services:
+      mongodb:
+        image: mongo:7.0.6
+        ports:
+          - 27017:27017
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
+    # change this to (see https://github.com/ruby/setup-ruby#versioning):
+      uses: ruby/setup-ruby@v1
+      # uses: ruby/setup-ruby@b12138f02d7d0c4d36f463e0885dc47ec25a52fe
+      with:
+        ruby-version: 3.4.5
+    - name: Install dependencies
+      run: |
+        . $HOME/.nvm/nvm.sh
+        nvm install 22.16
+        nvm use stable
+        bundle install
+        git clone -b cypress_v7 https://github.com/projecttacoma/cqm-execution-service.git /tmp/cqm-execution-service-56
+        yarn --cwd /tmp/cqm-execution-service-56 install --only=production
+        yarn --cwd /tmp/cqm-execution-service-56 start &
+    - name: Run Rake test units lib
+      run: |
+        RUBYOPT="-W0"
+        bin/rails test test/unit/lib/*.rb;
+    - name: Upload code coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-unit-2-lib
+    - name: Run Rake test units lib cypress
+      run: |
+        RUBYOPT="-W0"
+        bin/rails test test/unit/lib/cypress/*.rb;
+    - name: Upload code coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-unit-2-lib-cypress
+    - name: Run Rake test units lib validators
+      run: |
+        RUBYOPT="-W0"
+        bin/rails test test/unit/lib/validators/*.rb;
+    - name: Upload code coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-unit-2-validators
+    - name: Run Rake test models
+      run: |
+        RUBYOPT="-W0"
+        bin/rails test test/models;
+    - name: Upload code coverage to codecov.io
+      uses: codecov/codecov-action@v3
+      with:
+        directory: coverage
+        name: codecov-unit-2-models
 
   controllers-jobs-helpers-test:
     strategy:
@@ -217,7 +327,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       # uses: ruby/setup-ruby@b12138f02d7d0c4d36f463e0885dc47ec25a52fe
       with:
-        ruby-version: 3.3.8
+        ruby-version: 3.4.5
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh
@@ -275,7 +385,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       # uses: ruby/setup-ruby@b12138f02d7d0c4d36f463e0885dc47ec25a52fe
       with:
-        ruby-version: 3.3.8
+        ruby-version: 3.4.5
     - name: Install dependencies
       run: |
         . $HOME/.nvm/nvm.sh

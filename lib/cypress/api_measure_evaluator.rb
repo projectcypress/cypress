@@ -13,6 +13,7 @@ module Cypress
       @cat3_filter_hash = {}
       @cat1_filter_hash = {}
       @filter_patient_link = nil
+      @randomization = @options[:randomization] || false
       @hqmf_path = @options[:hqmf_path]
       @cypress_host = @options[:cypress_host] || 'http://localhost:3000'
       @username = username
@@ -105,6 +106,7 @@ module Cypress
         upload_test_execution("/tasks/#{task.split('/')[4]}/test_executions", product_test.split('/')[4], false)
       end
       File.delete('tmp/filter_patients.zip')
+      FileUtils.rm_f('tmp/filter_patients_dedupe.zip')
     end
 
     def setup_vendor_test(vendor_link, measures, product_name, skip_c1_test, bundle_id)
@@ -362,8 +364,8 @@ module Cypress
                            c2_test: '1',
                            c3_test: '1',
                            c4_test: '1',
-                           duplicate_patients: '0',
-                           randomize_patients: '0' } }
+                           duplicate_patients: @randomization ? '1' : '0',
+                           randomize_patients: @randomization ? '1' : '0' } }
       RestClient::Request.execute(method: :post,
                                   timeout: 90_000_000,
                                   url: "#{vendor_link}/products",
@@ -417,6 +419,7 @@ module Cypress
           false
         else
           File.binwrite("tmp/#{file_name}.zip", response)
+          detypo_zip(file_name) if @randomization
           true
         end
       rescue StandardError
@@ -424,13 +427,106 @@ module Cypress
       end
     end
 
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/PerceivedComplexity
+    def detypo_zip(file_name)
+      # Loop through all entries in product_test.zip to remove patients that are duplicate
+      patient_telecoms = {}
+      Zip::ZipFile.open("tmp/#{file_name}.zip") do |zipfile|
+        zipfile.entries.each do |entry|
+          doc = Nokogiri::XML(zipfile.read(entry))
+          doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+          doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+
+          telecom_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:telecom/@value'
+          telecom = doc.at_xpath(telecom_xpath).value
+          firstname_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:given'
+          firstname = doc.at_xpath(firstname_xpath).text
+          lastname_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:name/cda:family'
+          lastname = doc.at_xpath(lastname_xpath).text
+          birth_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:birthTime/@value'
+          birth = doc.at_xpath(birth_xpath).value
+          race_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:raceCode/@code'
+          race = doc.at_xpath(race_xpath).value
+          gender_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:administrativeGenderCode/@code'
+          gender = doc.at_xpath(gender_xpath)&.value
+          snomed_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:administrativeGenderCode/cda:translation/@code'
+          snomed_gender = doc.at_xpath(snomed_xpath)&.value
+          ethnic_xpath = '/cda:ClinicalDocument/cda:recordTarget/cda:patientRole/cda:patient/cda:ethnicGroupCode/@code'
+          ethnic = doc.at_xpath(ethnic_xpath).value
+          mbi = doc.at_xpath('//cda:recordTarget/cda:patientRole/cda:id[@root="2.16.840.1.113883.4.927"]/@extension')&.value
+
+          patient_string = "#{firstname}_#{lastname}_#{birth}_#{race}_#{gender}_#{snomed_gender}_#{ethnic}"
+          if patient_telecoms[telecom].nil?
+            patient, _warnings, _codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+            phone_number = CQM::Telecom.new(use: 'HP', value: telecom)
+            patient_telecoms[telecom] = { all_demo: patient_string, record: patient, file_name: entry.name, phone_number:, mbi: }
+          # If a patient has all of these fields matching, determine if the two files should be merged
+          elsif patient_telecoms[telecom][:all_demo] == patient_string
+            other_patient, _warnings, _codes = QRDA::Cat1::PatientImporter.instance.parse_cat1(doc)
+            # Non-Patient Charateristic Data Elements for the 'duplicate' patient record
+            other_non_pc_de = other_patient.qdmPatient.dataElements.reject { |de| de.qdmCategory == 'patient_characteristic' }
+            # Array of the Codes in the data elements
+            other_patient_codes = other_non_pc_de.map(&:dataElementCodes).flatten.map(&:code).sort
+            # Array of the Dates in the data elements
+            other_patient_data_element_times = other_non_pc_de.map(&:data_element_time).sort
+            # Non-Patient Charateristic Data Elements for the original patient record
+            og_non_pd_de = patient_telecoms[telecom][:record].qdmPatient.dataElements.reject { |de| de.qdmCategory == 'patient_characteristic' }
+            # Array of the Codes in the data elements
+            og_patient_codes = og_non_pd_de.map(&:dataElementCodes).flatten.map(&:code).sort
+            # Array of the Dates in the data elements
+            og_patient_data_element_times = og_non_pd_de.map(&:data_element_time).sort
+            # If the two QRDA files have matching codes and date times, they are carbon copy duplicates, don't merge data
+            next if (other_patient_codes == og_patient_codes) && (other_patient_data_element_times == og_patient_data_element_times)
+
+            patient_telecoms[telecom][:record].qdmPatient.dataElements << other_non_pc_de
+          end
+        end
+      end
+      pt = ProductTest.find(file_name)
+      patient_scoop_and_filter = Cypress::ScoopAndFilter.new(pt.measures)
+      Zip::ZipOutputStream.open("tmp/#{file_name}_dedupe.zip") do |z|
+        patient_telecoms.each_value do |entry_hash|
+          options = { ry2026_submission: pt.bundle.major_version == '2025', submission_program: pt.submission_program,
+                      start_time: pt.start_date, end_time: pt.end_date, patient_telecoms: [entry_hash[:phone_number]],
+                      medicare_beneficiary_identifier: entry_hash[:mbi] }
+          z.put_next_entry(entry_hash[:file_name])
+          # Since we are round tripping, we need to do some of the QRDA post processing and scoop and filter to get consistent files.
+          Cypress::QrdaPostProcessor.replace_negated_codes(entry_hash[:record], pt.bundle)
+          Cypress::QrdaPostProcessor.remove_unmatched_data_type_code_combinations(entry_hash[:record], pt.bundle)
+          patient_scoop_and_filter.scoop_and_filter(entry_hash[:record])
+          z << Qrda1R5.new(entry_hash[:record], pt.measures, options).render
+        end
+      end
+    end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/PerceivedComplexity
+
+    # rubocop:disable Metrics/MethodLength
     def upload_test_execution(task_execution_path, product_test_id, is_cat1, skip_c1_test = nil)
       resource = RestClient::Resource.new("#{@cypress_host}#{task_execution_path}", user: @username,
                                                                                     password: @password,
                                                                                     headers: { accept: :json })
       if is_cat1
-        resource.post(results: File.new("tmp/#{product_test_id}.zip"))
+        pt = ProductTest.find(product_test_id)
+        patient_zip_file_name = if @randomization
+                                  if pt.is_a? FilteringTest
+                                    "#{product_test_id}_only_ipp"
+                                  else
+                                    "#{product_test_id}_dedupe_only_ipp"
+                                  end
+                                else
+                                  product_test_id
+                                end
+        resource.post(results: File.new("tmp/#{patient_zip_file_name}.zip"))
         File.delete("tmp/#{product_test_id}.zip")
+        FileUtils.rm_f("tmp/#{product_test_id}_dedupe.zip")
+        FileUtils.rm_f("tmp/#{product_test_id}_dedupe_only_ipp.zip")
+        FileUtils.rm_f("tmp/#{product_test_id}_only_ipp.zip")
       else
         resource.post(results: File.new("tmp/#{product_test_id}.xml"))
         verify_population_ids(product_test_id) if @hqmf_path
@@ -438,6 +534,7 @@ module Cypress
         File.delete("tmp/#{product_test_id}.zip") if skip_c1_test
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     def verify_population_ids(product_test_id)
       doc = Nokogiri::XML(File.new("tmp/#{product_test_id}.xml"))
@@ -476,18 +573,33 @@ module Cypress
     end
 
     # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/PerceivedComplexity
     def calcuate_cat3(product_test_id, bundle_id)
       pt = ProductTest.find(product_test_id)
       patient_ids = []
+      patient_id_file_map = {}
 
       correlation_id = "#{product_test_id}_u"
 
-      import_cat1_zip(File.new("tmp/#{product_test_id}.zip"), patient_ids, bundle_id)
+      patient_zip_file_name = if @randomization
+                                if pt.is_a? FilteringTest
+                                  product_test_id
+                                else
+                                  "#{product_test_id}_dedupe"
+                                end
+                              else
+                                product_test_id
+                              end
+      import_cat1_zip(File.new("tmp/#{patient_zip_file_name}.zip"), patient_ids, bundle_id, patient_id_file_map)
       patients = Patient.find(patient_ids)
       do_calculation(pt, patients, correlation_id)
 
       erc = Cypress::ExpectedResultsCalculator.new(patients, correlation_id, pt.effective_date)
       results = erc.aggregate_results_for_measures(pt.measures)
+      cloned_pt = pt.clone
+      cloned_pt.expected_results = results
 
       # Set the Submission Program to MIPS_INDIV if there is a C3 test and the test is for an ep measure.
       cat3_submission_program = if pt&.product&.c3_test
@@ -498,13 +610,31 @@ module Cypress
       options = { provider: pt.patients.first.providers.first, submission_program: cat3_submission_program,
                   start_time: pt.start_date, end_time: pt.end_date, ry2025_submission: pt.bundle.major_version == '2024',
                   ry2026_submission: pt.bundle.major_version == '2025' }
-      xml = Qrda3.new(results, pt.measures, options).render
+      # To pass C3 tests, all populations and supplemental codes need to be reported
+      xml = Qrda3.new(cloned_pt.send(:expected_results_with_all_supplemental_codes), pt.measures, options).render
+
+      # Loop through all entries in product_test.zip to remove patients that do not meed IPP (i.e., do not have IndividualResult)
+      Zip::ZipFile.open("tmp/#{patient_zip_file_name}.zip") do |zipfile|
+        zipfile.entries.each do |entry|
+          doc = Nokogiri::XML(zipfile.read(entry))
+          doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+          doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+          next unless CQM::IndividualResult.where(patient_id: patient_id_file_map[entry.name]).map(&:relevant?).include? true
+
+          Zip::ZipFile.open("tmp/#{patient_zip_file_name}_only_ipp.zip", Zip::File::CREATE) do |z|
+            z.get_output_stream(entry) { |f| f.puts zipfile.read(entry) }
+          end
+        end
+      end
 
       Patient.find(patient_ids).each(&:destroy)
 
       File.write("tmp/#{product_test_id}.xml", xml)
     end
     # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def do_calculation(product_test, patients, correlation_id)
       measures = product_test.measures
@@ -513,11 +643,12 @@ module Cypress
       calc_job.execute
     end
 
-    def import_cat1_zip(zip, patient_ids, bundle_id)
+    def import_cat1_zip(zip, patient_ids, bundle_id, patient_id_file_map)
       Zip::ZipFile.open(zip.path) do |zip_file|
         zip_file.entries.each do |entry|
           doc = build_document(zip_file.read(entry))
-          import_cat1_file(doc, patient_ids, bundle_id)
+          patient_id = import_cat1_file(doc, patient_ids, bundle_id)
+          patient_id_file_map[entry.name] = patient_id
         end
       end
     end
@@ -539,6 +670,7 @@ module Cypress
       patient.normalize_date_times
       patient.save!
       patient_ids << patient.id
+      patient.id
     end
   end
 end

@@ -443,6 +443,11 @@ class TestExecutionsControllerTest < ActionController::TestCase
     for_each_logged_in_user([ADMIN, ATL, OWNER, VENDOR]) do
       perform_enqueued_jobs do
         post :create, params: { format: :json, task_id: @first_c2_task.id, results: zip_upload }
+        # after upgrading to rails 8, tests were failing because of Rack errors. It was related to the header from the first request
+        # causing issues in the second "get" request. resetting the request headers fixed the error.
+        @request.set_header('CONTENT_TYPE', nil)
+        @request.set_header('HTTP_CONTENT_TYPE', nil)
+        @request.set_header('CONTENT_LENGTH', nil)
         get :show, params: { format: :json, task_id: @first_c2_task.id, id: @first_c2_task.most_recent_execution.id }
         assert_response 200, 'response should be OK on test_execution show'
         assert_not_equal 'pending', JSON.parse(response.body)['state']
@@ -506,6 +511,11 @@ class TestExecutionsControllerTest < ActionController::TestCase
         @first_c2_task.save!
         MeasureEvaluationJob.perform_now(@first_c2_task.product_test, {})
         post :create, params: { format: :xml, task_id: @first_c2_task.id, results: xml_upload }
+        # after upgrading to rails 8, tests were failing because of Rack errors. It was related to the header from the first request
+        # causing issues in the second "get" request. resetting the request headers fixed the error.
+        @request.set_header('CONTENT_TYPE', nil)
+        @request.set_header('HTTP_CONTENT_TYPE', nil)
+        @request.set_header('CONTENT_LENGTH', nil)
         get :show, params: { format: :xml, task_id: @first_c2_task.id, id: @first_c2_task.most_recent_execution.id }
         assert_response 200, 'response should be OK on test_execution show'
         assert_not_equal 'pending', Hash.from_trusted_xml(response.body)['test_execution']['state']

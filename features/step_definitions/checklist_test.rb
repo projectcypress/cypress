@@ -41,6 +41,11 @@ And(/^the user saves the record sample test$/) do
   page.find("input[value='Save']").click
 end
 
+And(/^the user clicks let me save$/) do
+  visit current_path
+  page.click_button('Yes, let me save this checklist')
+end
+
 # # # # # # # #
 #   W H E N   #
 # # # # # # # #
@@ -191,6 +196,17 @@ end
 
 Then(/^the user should be able to upload a Cat I file$/) do
   assert page.find('span.input-group-addon.active')
+end
+
+Then(/^the save button should be (\w*)$/) do |state|
+  case state
+  when 'enabled'
+    button = page.find("input[type = submit][value = 'Save']")
+    assert !button.disabled?
+  when 'disabled'
+    button = page.find("input[type = submit][value = 'Save'][disabled = 'disabled']", wait: 10)
+    assert button.disabled?
+  end
 end
 
 Then(/^the user should see upload results for (.*) certifications$/) do |certification_types|

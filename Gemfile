@@ -2,13 +2,13 @@
 
 source 'https://rubygems.org'
 
-ruby '3.3.8'
+ruby '3.4.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.2.0'
+gem 'rails', '~> 8.0', '>= 8.0.2.1'
 
 gem 'delayed_job_mongoid', '~> 3.0.0'
-gem 'mongoid', '~> 8.1.0'
+gem 'mongoid', '~> 9.0.0'
 
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson'
@@ -17,21 +17,20 @@ gem 'mustache'
 ## gem 'os'
 
 gem 'cqm-models', '~> 4.2.0'
-gem 'cqm-parsers', '~> 4.1.1.1'
-gem 'cqm-reports', '~> 4.1.4'
+gem 'cqm-parsers', '~> 4.1.1.2'
+gem 'cqm-reports', '~> 4.1.5'
 gem 'cqm-validators', '~> 4.0.6'
 
 # # Use faker to generate addresses
 gem 'faker', '> 1.5.0'
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0.4'
-# Dependencies for CMS Assets Framework
-# gem 'bootstrap-sass', '~> 3.4.1'
-gem 'bootstrap', '~> 5.3.3'
-gem 'dartsass-sprockets'
+gem 'csv', '~> 3.3', '>= 3.3.5'
 
-gem 'font-awesome-sass', '~> 5.0.13'
+# Dependencies for CMS Assets Framework
+gem 'bootstrap', '~> 5.3.5'
+gem 'dartsass-sprockets', '~> 3.2', '>= 3.2.1'
+
+gem 'font-awesome-sass', '~> 6.7', '>= 6.7.2'
 gem 'jquery-rails'
 # TODO: remove or use gem
 gem 'jquery-ui-rails', '~> 8.0.0'
@@ -44,9 +43,8 @@ gem 'uglifier', '>= 1.3.0'
 # Bake the best breadcrumbs
 gem 'breadcrumbs_on_rails'
 # Help our forms
-gem 'bootstrap_form', '~> 2.7'
+gem 'bootstrap_form', '~> 5.4'
 gem 'jasny-bootstrap-rails'
-gem 'nested_form'
 
 gem 'jquery-datatables-rails'
 gem 'local_time', '~> 2.0.0'
@@ -57,7 +55,7 @@ gem 'local_time', '~> 2.0.0'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks', git: 'https://github.com/turbolinks/turbolinks-classic', branch: 'master'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.11.0'
+gem 'jbuilder', '~> 2.14', '>= 2.14.1'
 # A set of responders modules to dry up your Rails 4.2+ app.
 gem 'responders'
 # Roar is a framework for parsing and rendering REST documents
@@ -88,8 +86,8 @@ gem 'devise'
 gem 'devise_invitable'
 gem 'rolify'
 
-# Use Unicorn as the app server
-# gem 'unicorn'
+# Use Puma as the app server
+gem 'puma', '~> 6.6'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -104,8 +102,8 @@ gem 'validate_url'
 gem 'telephone_number'
 
 group :development, :test do
-  # rubocop 0.67 currently has a bug that is causing it to crash in product.rb and vendor.rb
-  gem 'rubocop'
+  # pin rubocop to version 1.69.1, to avoid new errors in overcommit from later verisons
+  gem 'rubocop', '1.69.1'
   gem 'rubocop-rspec'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'axe-core-capybara'
@@ -123,8 +121,10 @@ group :development, :test do
   gem 'rails_best_practices'
   gem 'rails-controller-testing'
   gem 'rails-perftest'
-  gem 'scss_lint', require: false
+  # remove scss_lint, incompatible with sass dependency upgrades
+  # gem 'scss_lint', require: false
   gem 'selenium-webdriver'
+  gem 'webrick'
 end
 
 group :development do
@@ -153,9 +153,4 @@ end
 
 group :production do
   gem 'newrelic_rpm'
-  gem 'unicorn-rails'
-end
-
-group :docker do
-  gem 'puma', '~> 6.6'
 end

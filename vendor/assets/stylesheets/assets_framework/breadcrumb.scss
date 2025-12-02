@@ -1,3 +1,6 @@
+@use "sass:color";
+@use 'variables' as *;
+
 .breadcrumb > .active > a {
     color: $breadcrumb-active-color;
     text-decoration: none;

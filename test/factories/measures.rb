@@ -26,6 +26,29 @@ FactoryBot.define do
 
     main_cql_library { source_measure['main_cql_library'] }
 
+    after(:build) do |measure|
+      source_measure['population_sets'].each do |population_set|
+        measure.population_sets << CQM::PopulationSet.new(population_set)
+      end
+      source_measure['cql_libraries'].each do |cql_library|
+        measure.cql_libraries << CQM::CQLLibrary.new(cql_library)
+        cql_library['elm']['library']['valueSets'].each_pair do |_key, valuesets|
+          valuesets.each do |valueset|
+            measure.value_sets << ValueSet.where(oid: valueset['id']).first
+          end
+        end
+        cql_library['elm']['library']['codes'].each_pair do |_key, codes|
+          codes.each do |code|
+            code_system_def = cql_library['elm']['library']['codeSystems']['def'].find { |code_sys| code_sys['name'] == code['codeSystem']['name'] }
+            code_system_name = code_system_def['id']
+            code_system_version = code_system_def['version']
+            code_hash = "drc-#{Digest::SHA2.hexdigest("#{code_system_name} #{code['id']} #{code['name']} #{code_system_version}")}"
+            measure.value_sets << ValueSet.where(oid: code_hash).first
+          end
+        end
+      end
+    end
+
     trait :diagnosis do
       after(:build) do |measure|
         diagnosis_sdc = QDM::Diagnosis.new(description: 'Diagnosis, Active => Pregnancy',
@@ -57,6 +80,7 @@ FactoryBot.define do
       main_cql_library { source_measure['main_cql_library'] }
 
       after(:build) do |measure|
+        measure.value_sets.clear
         source_measure['cql_libraries'].each do |cql_library|
           measure.cql_libraries << CQM::CQLLibrary.new(cql_library)
           cql_library['elm']['library']['valueSets'].each_pair do |_key, valuesets|
@@ -74,6 +98,7 @@ FactoryBot.define do
             end
           end
         end
+        measure.population_sets.clear
         source_measure['population_sets'].each do |population_set|
           measure.population_sets << CQM::PopulationSet.new(population_set)
         end
@@ -112,6 +137,7 @@ FactoryBot.define do
       main_cql_library { source_proportion_measure['main_cql_library'] }
 
       after(:build) do |measure|
+        measure.value_sets.clear
         source_proportion_measure['cql_libraries'].each do |cql_library|
           measure.cql_libraries << CQM::CQLLibrary.new(cql_library)
           cql_library['elm']['library']['valueSets'].each_pair do |_key, valuesets|
@@ -131,6 +157,7 @@ FactoryBot.define do
             end
           end
         end
+        measure.population_sets.clear
         source_proportion_measure['population_sets'].each do |population_set|
           measure.population_sets << CQM::PopulationSet.new(population_set)
         end

@@ -12,7 +12,7 @@ services:
       - ./docker/nginx:/docker/nginx:ro
       - ./docker/nginx/nginx-init.sh:/docker-entrypoint.d/nginx-init.sh:ro
   cypress:
-    image: mitrehealthdocker/cypress:cypress_v7
+    image: mitrehealthdocker/cypress:latest
     platform: linux/amd64
     # Uncomment build section below to build a new image from source
     # build:
@@ -20,7 +20,7 @@ services:
     #   target: prod
     volumes:
       - cypress-vol:/app/public/data
-      - ./docker/config:/docker/config
+      - ./config/puma.rb:/docker/config/puma.rb
       # bind ./app folder to enable reloading app code changes
       # - ./app:/app/app
     environment:
@@ -42,7 +42,7 @@ services:
     command: --config=/etc/mongo/docker_mongod.conf
     restart: unless-stopped
   cqm-execution-service:
-    image: mitrehealthdocker/cqm-execution-service:cypress_v7
+    image: mitrehealthdocker/cqm-execution-service:latest
     platform: linux/amd64
     restart: unless-stopped
 volumes:

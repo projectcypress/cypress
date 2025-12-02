@@ -646,6 +646,12 @@ ipp_relevant:
   - hqmf_id : 'AE5FE43D-8A38-4309-B098-231246CF5373'
     statements : [ 'Qualified Scan']
 
+# CMS2, CMS122, CMS165
+aco_measures_hqmf_set_ids:
+  [ 'F2986519-5A4E-4149-A8F2-AF0A1DC7F6BC',
+    'ABDC37CC-BAC6-4156-9B91-D1BE2C8B7268',
+    '9A031E24-3D9B-11E1-8634-00237D5BF174']
+
 # These measures do not 
 telehealth_ineligible_measures:
   # CMS22v9, CMS69v9, CMS142v9, CMS143v9, CMS771v2
@@ -803,6 +809,12 @@ overidden_category:
   # CMS1218v1
   - hqmf_id : '2C928083-8733-4E1B-0187-51A1B1C20477'
     category : '2026 Reporting Period Eligible Hospital / Critical Access Hospital eCQMs'
+  # CMS1154v1
+  - hqmf_id : '570F2DA4-29D5-4B36-98FD-F843E7165CB8'
+    category : '2026 Performance Period Eligible Clinician eCQMs'
+  # CMS1173v1
+  - hqmf_id : '70D4B6A1-005C-4D11-834A-E68FB823264E'
+    category : '2026 Performance Period Eligible Clinician eCQMs'
 
 
 unit_matches:
@@ -827,7 +839,7 @@ unit_matches:
       - 'mg/dL'
   # 2023 Bundle
   # relevant for CMS832v1+ Creatinine Mass Per Volume
-  - hqmf_set_id : '2C928083-8651-08A3-0186-C7D18A711CB2'
+  - hqmf_set_id : '23EA3B65-BC71-42A6-870E-7A959BE80C3F'
     de_type     : 'QDM::LaboratoryTestPerformed'
     code_list_id: '2.16.840.1.113762.1.4.1248.21'
     units        :
