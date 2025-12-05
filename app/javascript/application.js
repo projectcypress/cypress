@@ -79,6 +79,8 @@ $(document).on('page:load page:partial-load page:restore turbolinks:load', funct
 $(document).on('page:load', cypress.initializeInfiniteScroll());
 $(document).on('page:change', cypress.updateBundleStatus());
 
+$(document).on('page:load page:restore page:partial-load', cypress.initializeRecord());
+
 $(function() {
   cypress.initializeJqueryCvuRadio();
   cypress.initializeProductTable();
@@ -87,6 +89,7 @@ $(function() {
   cypress.initializeActionModal();
   cypress.initializeAdmin();
   cypress.initializeChecklistTest();
+  cypress.initializeMeasureTest();
   cypress.initializeCollapsible();
 
   //$('.breadcrumb').breadcrumb();
