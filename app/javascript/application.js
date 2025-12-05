@@ -58,10 +58,25 @@ import "jquery-ui"
 //window.$ = jquery;
 //window.jQuery = jquery;
 
+function popup(id) {
+  var popup_element = document.getElementById(id);
+  if(popup_element !== null){
+    popup_element.classList.toggle("show");
+  }
+}
+
+document.querySelectorAll('.popup').forEach((button) => {
+  button.addEventListener('click', (event) => {
+    const buttonId = event.currentTarget.id; // Get the ID of the clicked button
+    popup('popuptext-'+buttonId);
+  });
+});
+
 $(document).on('page:load page:partial-load page:restore turbolinks:load', function () {
   $.rails.refreshCSRFTokens();
 });
 
+$(document).on('page:load', cypress.initializeInfiniteScroll());
 $(document).on('page:change', cypress.updateBundleStatus());
 
 $(function() {
@@ -72,6 +87,7 @@ $(function() {
   cypress.initializeActionModal();
   cypress.initializeAdmin();
   cypress.initializeChecklistTest();
+  cypress.initializeCollapsible();
 
   //$('.breadcrumb').breadcrumb();
 

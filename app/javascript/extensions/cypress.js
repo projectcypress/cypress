@@ -1,3 +1,40 @@
+var approachingBottomOfPage, loadNextPageAt, nextPage, nextPageFnRunning, viewMore, checkAndLoad;
+
+nextPageFnRunning = false;
+loadNextPageAt = 3000;
+
+approachingBottomOfPage = function() {
+  return $(window).scrollTop() > $(document).height() - $(window).height() - loadNextPageAt;
+};
+
+nextPage = function() {
+  var loadingMore, url;
+  viewMore = $('#view-more');
+  loadingMore = $('#loading-more');
+  url = viewMore.find('a').attr('href');
+  if (nextPageFnRunning || !url) {
+    return;
+  }
+  viewMore.hide();
+  loadingMore.show();
+  nextPageFnRunning = true;
+  return $.ajax({
+    url: url,
+    method: 'GET',
+    dataType: 'script'
+  }).always(function() {
+    nextPageFnRunning = false;
+    viewMore.show();
+    return loadingMore.hide();
+  });
+};
+
+// Checks to see if we are close to the bottom of the page and if we are load more measures
+checkAndLoad = function() {
+  if (approachingBottomOfPage()) {
+    return nextPage();
+  }
+};
 
 function escapeCSS(str) {
   return str.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, "\\$&");
@@ -557,5 +594,35 @@ export function lookupFunction(index,is_att) {
           li[i].style.display = "none";
       }
   }
+}
+
+export function initializeCollapsible() {
+  var collapse_ready;
+  collapse_ready = function() {
+    $(document).on('click', '.collapsible', function(e) {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  };
+  $(document).ready(collapse_ready);
+}
+
+
+export function initializeInfiniteScroll() {
+  viewMore = $('#view-more');
+
+  // Call checkAndLoad now and when the page scrolls
+  checkAndLoad();
+  $(window).on('scroll', checkAndLoad);
+
+  viewMore.find('a').unbind('click').click(function(e) {
+    nextPage();
+    return e.preventDefault();
+  });
 }
 
