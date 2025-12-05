@@ -145,28 +145,6 @@ function setCheckboxDisabled(element, state) {
   }
 }
 
-function setCheckboxDisabledNoUncheck(element, state) {
-  var children = $(element).closest('input.form-check-input').find('*').addBack();
-  if (state) {
-    $(children).addClass('disabled');
-    $(children).prop('disabled', true);
-  }
-  else {
-    $(children).removeClass('disabled');
-    $(children).prop('disabled', false);
-  }
-}
-
-function setElementHidden(element, state) {
-  if (state) {
-    $(element).addClass('hidden');
-    $(element).prop('hidden', true);
-  }
-  else {
-    $(element).removeClass('hidden');
-    $(element).prop('hidden', false);
-  }
-}
 
 function HookupProductSearch() {
   // Get all bundles listed on the page
@@ -308,21 +286,6 @@ ready_run_once = function() {
       setCheckboxDisabled('#product_duplicate_patients', (cvu_plus == 'false' && !c2_checked));
       $('.form-check-input#product_duplicate_patients').prop('checked', cvu_plus == 'true' || c2_checked);
     }
-  });
-
-  $('.form-check input[name="product[cvuplus]"]').on('change', function() {
-    var cvuplus_checked = ($(this).val() == 'true');
-    if ($(this).attr('disabled') != 'disabled') {
-      setCheckboxDisabledNoUncheck('#product_vendor_patients', !cvuplus_checked);
-      setCheckboxDisabledNoUncheck('#product_bundle_patients', !cvuplus_checked);
-      setCheckboxDisabledNoUncheck('#product_c1_test', cvuplus_checked);
-      setCheckboxDisabledNoUncheck('#product_c2_test', cvuplus_checked);
-      setCheckboxDisabledNoUncheck('#product_c3_test', cvuplus_checked);
-      setCheckboxDisabledNoUncheck('#product_c4_test', cvuplus_checked);
-    }
-      setElementHidden('#bundle_options', !cvuplus_checked);
-      setElementHidden('#certification_options', cvuplus_checked);
-      setElementHidden('#certification_edition', cvuplus_checked);
   });
 
   // run this piece once too
