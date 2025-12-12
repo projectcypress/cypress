@@ -97,7 +97,7 @@ class ProductsController < ApplicationController
     report_hash = {}
     header = "<head>
       <style type=\"text/css\">
-        #{Rails.application.assets_manifest.find_sources('application.css').first.to_s.html_safe}
+        #{ApplicationController.helpers.inline_stylesheet("application")}
         .exportcircle {
           width: 32px;
           height: 32px;
@@ -210,7 +210,7 @@ class ProductsController < ApplicationController
     deleted_value = @product.favorite_user_ids.delete(current_user.id)
     @product.favorite_user_ids.push(current_user.id) if deleted_value.nil?
     @product.save!
-    respond_with(@product)
+    respond_with(@product, location: vendor_products_path)
   end
 
   private
