@@ -84,7 +84,8 @@ class VendorsController < ApplicationController
     deleted_value = @vendor.favorite_user_ids.delete(user_id)
     @vendor.favorite_user_ids.push(user_id) if deleted_value.nil?
     @vendor.save!
-    respond_with(@vendor)
+    @vendors = Vendor.accessible_by(current_user).order(updated_at: :desc)
+    respond_with(@vendor, location: vendors_path)
   end
 
   def preferences

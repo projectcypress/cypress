@@ -1,26 +1,10 @@
-/*
- *= require jquery-ui/core
- *= require jquery-ui/accordion
- *= require jquery-ui/autocomplete
- *= require jquery-ui/button
- *= require jquery-ui/datepicker
- *= require jquery-ui/dialog
- *= require jquery-ui/menu
- *= require jquery-ui/progressbar
- *= require jquery-ui/selectmenu
- *= require jquery-ui/slider
- *= require jquery-ui/spinner
- *= require jquery-ui/tabs
- *= require jquery-ui/tooltip
- *= require rails_bootstrap_forms
- *= require jasny-bootstrap.min
- *= require dataTables/jquery.dataTables
-*/
-
 @use "variables" as *;
 @use "globals" as *;
 @use 'bootstrap' as *;
-@use 'font-awesome' as *;
+@use 'font-awesome-propshaft' as *;
+@use "./datatables" as *;
+@use "./jquery-ui" as *;
+@use "./jasny-bootstrap.min" as *;
 @use "./assets_framework/custom-mixins" as *;
 @use "./assets_framework/breadcrumb" as *;
 @use "./assets_framework/widgets/_alerts" as *;

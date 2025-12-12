@@ -72,7 +72,7 @@
                     <% @record.calculation_results.where(measure_id: m.id).each_with_index do |ir, index| %>
                       <% if m.key_for_population_set(population_set_hash) == ir.population_set_key %>
                         <% if ir.clause_results.empty? %>
-                          <%= link_to "Get Highlighted Result", highlighted_results_record_path(:id => @record.id, :calculation_result_id => ir.id), method: :get %>
+                          <%= link_to "Get Highlighted Result", highlighted_results_record_path(:id => @record.id, :calculation_result_id => ir.id), method: :get, data: { turbo: false } %>
                         <% else %>
                           <button class="collapsible">View Logic Highlighting</button>
                           <div class="collapse-content">

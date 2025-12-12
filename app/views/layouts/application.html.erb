@@ -10,11 +10,17 @@
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag :application, "data-turbo-track": "reload" %>
+  <%= javascript_include_tag :application, 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+    <%= javascript_importmap_tags %>
 </head>
-<body style="overscroll-behavior: none;" <%= yield(:body_attributes) %>>
+<body style="overscroll-behavior: none;" <%= yield(:body_attributes) %> data-controller="cypress" data-action="
+    turbo:load@document->cypress#connect
+    turbo:frame-load@document->cypress#connect
+    turbo:before-cache@document->cypress#teardown
+    cypress:init@document->cypress#connect
+  ">
   <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
 
   <% if Settings.current.banner %>

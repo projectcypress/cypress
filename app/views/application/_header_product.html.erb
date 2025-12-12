@@ -16,7 +16,7 @@
             <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download Supplemental Test Artifact
           <% end %>
         <% end %>
-        <%= button_to report_vendor_product_path(product.vendor_id, product), :method => :get, :class => "btn btn-default float-end" do %>
+        <%= button_to report_vendor_product_path(product.vendor_id, product), :method => :get, :class => "btn btn-default float-end", data: { turbo: false } do %>
          <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download Report
         <% end %>
       <% end %>
