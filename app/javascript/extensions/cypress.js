@@ -724,13 +724,13 @@ export function initializeRecord() {
   $(document).on('change', 'input[name="bundle_id"]', function() {
     var bundle_id = $(this).val();
     if ($(this).next('.bundle-checkbox').length > 0) {
-      Turbolinks.visit("/bundles/"+bundle_id+"/records");
+      Turbo.visit("/bundles/"+bundle_id+"/records");
     }
   });
   $(document).on('change', 'input[name="bundle_id"]', function() {
     var bundle_id = $(this).val();
     if ($(this).next('.vendor-checkbox').length > 0) {
-      Turbolinks.visit("?bundle_id="+bundle_id);
+      Turbo.visit("?bundle_id="+bundle_id);
     }
   });
 
