@@ -133,7 +133,7 @@ function UpdateMeasureSet(bundle_id) {
 // Allows the enabling or disabling of a checkbox by passing true or false
 // as the second parameter. True means disabled and false means enabled.
 function setCheckboxDisabled(element, state) {
-  var children = $(element).closest('input.form-check-input').find('*').addBack();
+  var children = $(element).closest('div.form-check').find('*').addBack();
   if (state) {
     $(children).addClass('disabled');
     $(children).prop('disabled', true);
