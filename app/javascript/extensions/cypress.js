@@ -133,7 +133,7 @@ function escapeCSS(str) {
 }
 
 function setCheckboxDisabledNoUncheck(element, state) {
-  var children = $(element).closest('input.form-check-input').find('*').addBack();
+  var children = $(element).closest('div.form-check').find('*').addBack();
   if (state) {
     $(children).addClass('disabled');
     $(children).prop('disabled', true);
