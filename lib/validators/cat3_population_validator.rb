@@ -6,10 +6,6 @@ module Validators
     include ::CqmValidators::ReportedResultExtractor
     include QrdaHelper
 
-    # These are the demographic codes specified in the CMS IG for Payer, Sex, Race and Ethnicity
-    REQUIRED_CODES = { 'PAYER' => %w[A B C D], 'SEX' => %w[M F], 'RACE' => %w[2106-3 2076-8 2054-5 2028-9 1002-5 2131-1],
-                       'ETHNICITY' => %w[2135-2 2186-5] }.freeze
-
     def initialize(expected_measures = [])
       @expected_measures = expected_measures
     end
@@ -113,9 +109,13 @@ module Validators
 
     # Verifiy that all demographic codes for a sup_key (e.g., RACE) are present for a pop_key (e.g., DENOM) in a reported result
     def verify_all_codes_reported(reported_result, pop_key, sup_key, options)
+      gender_codes = options['test_execution'].task.bundle.randomization['genders']&.map(&:code)
+      required_codes = { 'PAYER' => %w[A B C D], 'SEX' => gender_codes, 'RACE' => %w[2106-3 2076-8 2054-5 2028-9 1002-5 2131-1],
+                         'ETHNICITY' => %w[2135-2 2186-5] }.freeze
+
       reported_codes = reported_result[:supplemental_data][pop_key][sup_key]
-      required_codes = REQUIRED_CODES[sup_key]
-      missing_codes = required_codes - reported_codes.keys
+      required_codes_for_key = required_codes[sup_key]
+      missing_codes = required_codes_for_key - reported_codes.keys
       return if missing_codes.empty?
 
       msg = "For CMS eligible clinicians and eligible professionals programs, all #{sup_key} codes present in the value set must be reported," \
