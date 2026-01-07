@@ -105,6 +105,9 @@ module Cypress
       DemographicsRandomizer.randomize_race(cloned_patient, Random.new(0)) if cloned_patient.race == '2131-1'
       DemographicsRandomizer.update_demographic_codes(cloned_patient)
       randomize_entry_ids(cloned_patient) unless options['disable_randomization']
+
+      shift_measure_ids = Measure.where(hqmf_set_id: { '$in': APP_CONSTANTS['shift_encounter_ends_measure_ids'] }).distinct(:hqmf_id)
+      shift_encounter_ends(cloned_patient) if options['randomize_demographics'] && shift_measure_ids.include?(@test.measure_ids.first)
       # if the test is a multi measure test, restrict to a single code
       restrict_entry_codes(cloned_patient) if @test.is_a? MultiMeasureTest
       provider ? assign_existing_provider(cloned_patient, provider) : assign_provider(cloned_patient)
@@ -116,6 +119,17 @@ module Cypress
       [%w[0 ZERO], %w[1 ONE], %w[2 TWO], %w[3 THREE], %w[4 FOUR], %w[5 FIVE], %w[6 SIX], %w[7 SEVEN], %w[8 EIGHT], %w[9 NINE]].each do |replacement|
         patient.givenNames.map { |n| n.gsub!(replacement[0], replacement[1]) }
         patient.familyName.gsub!(replacement[0], replacement[1])
+      end
+    end
+
+    def shift_encounter_ends(cloned_patient)
+      cloned_patient.qdmPatient.get_data_elements('encounter', 'performed').each do |encounter|
+        encounter_length = (encounter.relevantPeriod.high - encounter.relevantPeriod.low) / (60 * 60)
+        encounter_mod = encounter_length.modulo(24)
+        next if (encounter_length < 23) || (encounter_mod < 23 && encounter_mod > 1)
+
+        shifted_rp = QDM::Interval.new(encounter.relevantPeriod.low, encounter.relevantPeriod.high + (60 * 60 * 22))
+        encounter.relevantPeriod = shifted_rp
       end
     end
 
