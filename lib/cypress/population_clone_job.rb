@@ -84,6 +84,7 @@ module Cypress
       end
     end
 
+    # rubocop:disable Metrics/MethodLength
     # if provider argument is nil, this function will assign a new provider based on the @option['providers'] and @option['generate_provider'] options
     def clone_and_save_patient(patient, prng, provider = nil, allow_dups: false)
       # This operates on the assumption that we are always cloning a patient for a product test.
@@ -106,6 +107,7 @@ module Cypress
       DemographicsRandomizer.update_demographic_codes(cloned_patient)
       randomize_entry_ids(cloned_patient) unless options['disable_randomization']
 
+      # Some measures report the length of stay.  There is an edge case around day light savings when the length can change due to timezone.
       shift_measure_ids = Measure.where(hqmf_set_id: { '$in': APP_CONSTANTS['shift_encounter_ends_measure_ids'] }).distinct(:hqmf_id)
       shift_encounter_ends(cloned_patient) if options['randomize_demographics'] && shift_measure_ids.include?(@test.measure_ids.first)
       # if the test is a multi measure test, restrict to a single code
@@ -114,6 +116,7 @@ module Cypress
       cloned_patient.save!
       cloned_patient
     end
+    # rubocop:enable Metrics/MethodLength
 
     def unnumerify(patient)
       [%w[0 ZERO], %w[1 ONE], %w[2 TWO], %w[3 THREE], %w[4 FOUR], %w[5 FIVE], %w[6 SIX], %w[7 SEVEN], %w[8 EIGHT], %w[9 NINE]].each do |replacement|
@@ -124,11 +127,15 @@ module Cypress
 
     def shift_encounter_ends(cloned_patient)
       cloned_patient.qdmPatient.get_data_elements('encounter', 'performed').each do |encounter|
-        encounter_length = (encounter.relevantPeriod.high - encounter.relevantPeriod.low) / (60 * 60)
+        encounter_length = (encounter.relevantPeriod.high.to_f - encounter.relevantPeriod.low.to_f) / (60 * 60)
         encounter_mod = encounter_length.modulo(24)
+        # Skip if encounter is less than 1 day or if the encounter end hour of day is not within an hour of the start hour of day
         next if (encounter_length < 23) || (encounter_mod < 23 && encounter_mod > 1)
 
-        shifted_rp = QDM::Interval.new(encounter.relevantPeriod.low, encounter.relevantPeriod.high + (60 * 60 * 22))
+        # Shift towards the middle of the day.  26 hours will shift a morning time 2 hours later. 22 will shift an afternoon time earlier.
+        hour_shift = encounter.relevantPeriod.high.hour < 12 ? 26 : 22
+
+        shifted_rp = QDM::Interval.new(encounter.relevantPeriod.low, encounter.relevantPeriod.high.to_time + (60 * 60 * hour_shift))
         encounter.relevantPeriod = shifted_rp
       end
     end
