@@ -81,4 +81,11 @@ Rails.application.configure do
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
+
+  if ENV['RAILS_ALLOWED_HOSTS'].present?
+    allowed_hosts = ENV.fetch('RAILS_ALLOWED_HOSTS', '')
+    allowed_hosts.split(',').map(&:strip).reject(&:empty?).each do |host|
+      config.hosts << host
+    end
+  end
 end
