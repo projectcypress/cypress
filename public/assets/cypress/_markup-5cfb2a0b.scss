@@ -1,0 +1,42 @@
+@use "bootstrap" as *;
+
+.cql-logic {
+
+  .cql-statement-group {
+    font-weight: bold;
+    font-size: large;
+  }
+
+  .cql-statement-name {
+    font-weight: bold;
+  }
+
+  .clause-true {
+    background-color: $success-bg-subtle;
+    color: $success-text-emphasis;
+    border-bottom-color: $success-text-emphasis;
+    border-bottom-style: solid;
+  }
+
+  .clause-false {
+    background-color: $danger-bg-subtle;
+    color: $danger-text-emphasis;
+    border-bottom-color: $danger-text-emphasis;
+    border-bottom-style: double;
+  }
+
+  .cql-statement {
+    white-space: pre-wrap;
+    padding-bottom: 8px;
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+
+    span {
+      border-bottom-width: 4px;
+      line-height: 1.8;
+    }
+    
+  }
+}
