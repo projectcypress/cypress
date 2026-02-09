@@ -1,0 +1,51 @@
+@use "bootstrap" as *;
+
+.table {
+  .abbreviated {
+    max-width: 16em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &:hover {
+      white-space: normal;
+      overflow: hidden;
+    }
+  }
+
+  .result-marker {
+    .fa-circle { color: $primary; }
+    .fa-circle-thin { color: $success-text-emphasis; }
+
+    .result-text {
+      color: $white;
+      font-weight: normal;
+    }
+
+    .result-text-positive-contrast {
+      color: $success-text-emphasis;
+      font-weight: normal;
+    }
+  }
+
+  .empty-marker {
+    color: $warning-border-subtle;
+  }
+}
+
+.table-info {
+  --bs-table-bg: #e0eff4;
+}
+
+.table > thead > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > th,
+.table > tbody > tr > td,
+.table > tfoot > tr > th,
+.table > tfoot > tr > td {
+  vertical-align: middle;
+}
+
+.dataTable thead th {
+  padding-right: 1.5em; // make sure the sorting icon is visible
+}

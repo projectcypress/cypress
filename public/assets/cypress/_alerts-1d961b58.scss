@@ -1,0 +1,44 @@
+@use "bootstrap" as *;
+
+@mixin alert-border($color, $bg) {
+  $faded-background-color: rgba($bg, .2);
+  border-left: 5px solid $color;
+  background-color: $faded-background-color;
+}
+
+.alert {
+  &.alert-success { @include alert-border($success-text-emphasis, $success); }
+  &.alert-info { @include alert-border($info-text-emphasis, $info); }
+  &.alert-warning { @include alert-border($warning-text-emphasis, $warning); }
+  &.alert-danger { @include alert-border($danger-text-emphasis, $danger); }
+
+  .fa-times { font-size: 1.4em; }
+
+  .iconSpan {
+    border-right: 0;
+    padding: 0 1em 0 0;
+  }
+
+  .alertContent {
+    border-left: 1px solid $black;
+    vertical-align: middle;
+
+    p {
+      padding: 0 0.5em;
+
+      a {
+        color: $black;
+      }
+    }
+  }
+}
+
+// add margin for the alerts shown at the top of the page
+.container > .alert,
+.breadcrumb-responsive + .alert {
+  margin: .0em 1em .5em;
+}
+// or for alerts shown after a .control-label
+.control-label + .alert {
+  margin: 1em auto;
+}
