@@ -1,0 +1,91 @@
+.custom-dropdown {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    padding: 4px;
+    width: 100%;
+    height: 41px;
+    border: 1px solid #6b6b6b;
+    border-radius: 4px;
+    color: #535353;
+    text-indent: 0.01px;
+    text-overflow: "";
+    white-space: nowrap;
+    background: url("../vendor/globalassets/images/icn_select_arrow_1.png"), -webkit-linear-gradient(to top, rgba(0, 0, 0, 0.15), rgba(255, 255, 255, 0.15));
+    background: url("../vendor/globalassets/images/icn_select_arrow_1.png"), -moz-linear-gradient(to top, rgba(0, 0, 0, 0.15), rgba(255, 255, 255, 0.15));
+    background: url("../vendor/globalassets/images/icn_select_arrow_1.png"), linear-gradient(to top, rgba(0, 0, 0, 0.15), rgba(255, 255, 255, 0.15));
+    /* IE6-9 */
+    line-height: 28px;
+    cursor: pointer;
+    position: inherit;
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+    *height: 26px;
+    *line-height: 26px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -webkit-padding-end: 70px;
+    -moz-padding-end: 70px;
+    -ms-appearance: none;
+    -ms-padding-end: 70px;
+    box-shadow: none;
+    margin-bottom: 10px;
+}
+
+select.custom-dropdown::-ms-expand {
+    display: none;
+}
+
+.ie9.custom-dropdown, .lt-ie9.custom-dropdown {
+    background-image: none;
+}
+
+.custom-dropdown.empty {
+    color: #9d9d9d;
+    font-style: italic;
+}
+
+.custom-dropdown[disabled="disabled"], .custom-dropdown.disabled, .custom-dropdown[disabled] {
+    background-color: #fff;
+    cursor: default;
+    opacity: 0.7;
+}
+
+.custom-dropdown.select-state {
+    position: absolute;
+    right: 0;
+    width: 40%;
+    top: 6px;
+}
+
+@-moz-document url-prefix() {
+    .custom-style {
+        box-sizing: border-box;
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+        height: 41px;
+        border: 1px solid #6b6b6b;
+    }
+    .custom-dropdown {
+        background-position: 90% 50%;
+        border: none;
+        width: 108%;
+    }
+}
+
+
+.ui-helper-highcontrast .custom-dropdown {
+    width: 100% !important;
+}
+
+.ui-helper-highcontrast .custom-style:focus {
+    outline: 4px dotted transparent;
+    outline-offset: -2px;
+}
+
+.ui-helper-nocustomfonts .custom-dropdown {
+    width: 100% !important;
+}

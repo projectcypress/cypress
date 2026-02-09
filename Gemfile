@@ -7,7 +7,7 @@ ruby '3.4.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 8.0', '>= 8.0.2.1'
 
-gem "propshaft"
+gem 'propshaft'
 
 gem 'delayed_job_mongoid', '~> 3.0.0'
 gem 'mongoid', '~> 9.0.0'
@@ -30,9 +30,8 @@ gem 'csv', '~> 3.3', '>= 3.3.5'
 
 # Dependencies for CMS Assets Framework
 gem 'bootstrap', '~> 5.3.5'
-# gem 'dartsass-sprockets', '~> 3.2', '>= 3.2.1'
 
-gem "font-awesome-propshaft"
+gem 'font-awesome-propshaft'
 gem 'font-awesome-sass', '~> 6.7', '>= 6.7.2'
 gem 'jquery-rails'
 # TODO: remove or use gem
@@ -55,8 +54,8 @@ gem 'local_time', '~> 2.0.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-gem 'turbo-rails'
 gem 'stimulus-rails'
+gem 'turbo-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.14', '>= 2.14.1'
 # A set of responders modules to dry up your Rails 4.2+ app.
@@ -158,6 +157,6 @@ group :production do
   gem 'newrelic_rpm'
 end
 
-gem "importmap-rails", "~> 2.2"
+gem 'importmap-rails', '~> 2.2'
 
-gem "dartsass-rails", "~> 0.5.1"
+gem 'dartsass-rails', '~> 0.5.1'
