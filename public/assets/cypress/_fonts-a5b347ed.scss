@@ -1,0 +1,41 @@
+@use "bootstrap" as *;
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-display: fallback;
+  src: asset-url('Ubuntu-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NotoSans';
+  font-display: fallback;
+  src: asset-url('NotoSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NotoSans';
+  font-display: fallback;
+  src: asset-url('NotoSans-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'NotoSans';
+  font-display: fallback;
+  src: asset-url('NotoSans-Italic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'NotoSans';
+  font-display: auto;
+  src: asset-url('NotoSans-Regular.ttf') format('truetype');
+  font-weight: fallback;
+  font-style: normal;
+}

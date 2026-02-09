@@ -1,0 +1,7 @@
+@use 'variables' as *;
+
+// Turbolinks progress bar
+#cypress::before {
+  background-color: $secondary;
+  height: 6px;
+}

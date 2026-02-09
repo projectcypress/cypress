@@ -1,0 +1,47 @@
+.btn {
+    font-family: 'OpenSansSemibold';
+    @include font-size-REM(17);
+    padding: 4px 20px;
+    &:focus {
+        outline: 2px solid $outline-blue;
+        outline-offset: 2px;
+    }
+    &.app_button {
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    &.btn-success {
+        background: $green-darker;
+        @include background($green-lighter, $green-darker);
+        border-color: $green-darker;
+        border-radius: 3px;
+        &.btn-lg {
+            @include font-size-REM(19);
+        }
+        &:focus, &:hover {
+            background: $green-lighter;
+        }
+        &:visited {
+            color: $brand-white;
+        }
+    }
+    &.triggerAlert {
+        margin-bottom: 10px;
+    }
+    &.disabled, &[disabled] {
+        color: $gray-darkest;
+        cursor: default;
+        background-color: $gray-lighter;
+        background-image: none;
+    }
+    &.disabled {
+        border: 1px solid #dcdcdc;
+        font-family: 'OpenSansBold';
+    }
+    &.mainButton {
+        border-radius: 0 0 5px 5px;
+        font-family: 'OpenSansSemibold';
+        @include font-size-REM(20);
+        margin-right: 30px;
+        padding: 9px 20px 5px;
+    }
+}
