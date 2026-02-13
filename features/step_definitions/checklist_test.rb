@@ -180,7 +180,6 @@ Then(/^the user should be able to generate another checklist test$/) do
 end
 
 Then(/^the user should see they are (.*) the checklist test$/) do |status|
-  byebug
   assert page.find('#display_checklist_status').assert_text status.capitalize
 end
 
@@ -223,7 +222,6 @@ Then(/^the user should see upload results for (.*) certifications$/) do |certifi
 end
 
 Then(/^the user should see (.*) for upload results$/) do |status|
-  byebug
   assert page.find('#display_checklist_execution_results').assert_text task_status_to_execution_status_message(status)
 end
 
