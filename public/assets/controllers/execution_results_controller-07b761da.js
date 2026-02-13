@@ -8,7 +8,7 @@ export default class extends Controller {
       url: this.url(),
       type: "GET",
       dataType: "script", // if you really need .js.erb responses
-      data: { partial: "execution_results" }, // tried , turbo: false (but didn't work? Maybe?)
+      data: { partial: "execution_results" },
       complete() {
         document.dispatchEvent(new CustomEvent("cypress:init"));
       },

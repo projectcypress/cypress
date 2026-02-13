@@ -1,8 +1,6 @@
 
 <% if product_test.tasks.first.most_recent_execution && product_test.tasks.first.most_recent_execution.incomplete? %>
-  <script>
-    $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'checklist_measures' }});
-  </script>
+  <div data-controller="checklist-measures" data-url="<%= request.path %>"></div>
 <% end %>
 
 <div id='save_options'>
