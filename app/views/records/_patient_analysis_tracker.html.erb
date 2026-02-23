@@ -28,15 +28,6 @@
     </tbody>
   </table>
   <% if trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
-    <script>
-      $(document).ready(function() {
-        $.ajax({
-          url: "<%= request.env['PATH_INFO'] %>",
-          type: "GET",
-          dataType: 'script',
-          data: { partial: 'patient_analysis_jobs' }
-        });
-      });
-    </script>
+    <div data-controller="program-analysis-jobs" data-url="<%= request.path %>"></div>
   <% end %>
 <% end %>

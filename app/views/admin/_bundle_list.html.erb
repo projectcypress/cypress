@@ -80,8 +80,6 @@
     </tbody>
   </table>
   <% if BundleUploadJob.trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
-    <script>
-      $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'bundle_list' }});
-    </script>
+    <div data-controller="bundle-list" data-url="<%= request.path %>"></div>
   <% end %>
 <% end %>

@@ -31,7 +31,7 @@
       <% # Record Sample Tab %>
       <% if test_type == 'ChecklistTest' %>
         <% checklist_test = @product.product_tests.checklist_tests.first %>
-        <%= button_to 'View Record Sample', product_checklist_test_path(@product, checklist_test), class: 'btn btn-primary', method: :get %><p></p>
+        <%= button_to 'View Record Sample', product_checklist_test_path(@product, checklist_test), class: 'btn btn-primary', method: :get, data: { turbo: false } %><p></p>
         <div id = 'display_checklist_execution_results'>
           <%= render 'checklist_execution_results', :task => @product.product_tests.checklist_tests.first.tasks.c1_checklist_task %>
         </div>

@@ -43,17 +43,4 @@
   </tbody>
 
 </table>
-<script>
-  $('.user_table').DataTable({
-    destroy: true,
-    searching: false,
-    paging: true,
-    lengthMenu: [ [ 10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
-    stateSave: true, /* preserves order on reload */
-    info: false,
-    columnDefs: [
-      { orderable: true, className: 'reorder', targets: [0, 1, 2] },
-      { orderable: false, targets: '_all' }
-    ]
-  });
-</script>
+<table class="measure_tests_table" data-controller="datatable">
