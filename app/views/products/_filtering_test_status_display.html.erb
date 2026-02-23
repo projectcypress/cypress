@@ -36,9 +36,5 @@
 </table>
 
 <% if should_reload_product_test_status_display?(tests) %>
-  <script>
-    $(document).ready(function() {
-      $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'filtering_test_status_display', html_id: "<%= html_id %>" }});
-    });
-  </script>
+  <div data-controller="filtering-test-status-display" data-url="<%= request.path %>" data-html="<%= html_id %>"></div>
 <% end %>

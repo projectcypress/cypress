@@ -44,9 +44,5 @@
 
 <% # Only reload if the measure_tests_table isn't reloading for us. (This currently only happens in create.js.erb) %>
 <% if measure_test_running_for_row?(task) && !parent_reloading %>
-  <script>
-    $(document).ready(function() {
-      $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'measure_tests_table_row', task_id: "<%= task.id.to_s %>", has_eh_tests: "<%= has_eh_tests%>", has_ep_tests: "<%= has_ep_tests%>" }});
-    });
-  </script>
+  <div data-controller="measure-tests-table-row" data-url="<%= request.path %>" data-task="<%= task.id.to_s %>" data-has-eh-tests="<%= has_eh_tests %>" data-has-ep-tests="<%= has_ep_tests %>"></div>
 <% end %>

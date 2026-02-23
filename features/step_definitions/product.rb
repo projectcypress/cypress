@@ -50,6 +50,7 @@ end
 
 # certs argument stands for certifications and should be a comma separated list of some of these values: c1, c2, c3, c4
 When(/^a user creates a product with (.*) certifications( and a supplemental artifact)? and visits that product page$/) do |certs, sta|
+  byebug
   steps %( When the user navigates to the create product page for vendor #{@vendor.name} )
   product_name = "mp #{rand}"
   file_path = Rails.root.join('app', 'assets', 'images', 'cypress_bg_cropped.png')
@@ -527,6 +528,7 @@ end
 # V V V product tests tabs V V V #
 
 Then(/^the user should see the the appropriate tabs$/) do
+  byebug
   if @product.c1_test
     title, description, html_id = title_description_and_html_id_for(@product, 'ChecklistTest')
     assert_tab_and_content_exist(title, description, html_id)

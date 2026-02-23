@@ -15,6 +15,7 @@ end
 #  T H E N #
 
 Then(/^the user should see calculation results$/) do
+  byebug
   page.assert_text('Template Name')
   page.assert_text('IPOP')
   page.assert_selector('span.result-marker')

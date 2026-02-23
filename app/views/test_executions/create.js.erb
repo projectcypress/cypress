@@ -7,9 +7,9 @@
 <% request.env['PATH_INFO'] = vendor_product_path(@product.vendor_id, @product) %>
 
 <% is_measure_test_execution = @curr_task.product_test.is_a? MeasureTest %>
-
 <% if is_measure_test_execution %>
-  $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'measure_tests_table_row', task_id: "<%= params[:task_id] %>", has_eh_tests: "<%= @has_eh_tests%>", has_ep_tests: "<%= @has_ep_tests%>" }});
+  <div data-controller="measure-tests-table-row" data-url="<%= request.path %>" data-task="<%= task.id.to_s %>" data-has-eh-tests="<%= has_eh_tests %>" data-has-ep-tests="<%= has_ep_tests %>"></div>
 <% else # is filtering test execution %>
-  $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'filtering_test_link', task_id: "<%= params[:task_id] %>", has_eh_tests: "<%= @has_eh_tests%>", has_ep_tests: "<%= @has_ep_tests%>" }});
+  <%# $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'filtering_test_link', task_id: "<%= params[:task_id] %>", has_eh_tests: "<%= @has_eh_tests%>", has_ep_tests: "<%= @has_ep_tests%>" }}); %>
+  <div data-controller="filtering-test-link" data-url="<%= request.path %>" data-task="<%= task.id.to_s %>"></div>
 <% end %>

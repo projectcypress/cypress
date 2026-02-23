@@ -48,5 +48,5 @@
 <% end %>
 
 <script>
-  $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'application_status' }});
+  <div data-controller="application-status" data-url="<%= request.path %>"></div>
 </script>

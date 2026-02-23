@@ -199,6 +199,7 @@ Then(/^the user should be able to upload a Cat I file$/) do
 end
 
 Then(/^the save button should be (\w*)$/) do |state|
+  byebug
   case state
   when 'enabled'
     button = page.find("input[type = submit][value = 'Save']")

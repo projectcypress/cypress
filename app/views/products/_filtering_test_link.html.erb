@@ -50,9 +50,5 @@
 <% end %>
 
 <% if should_reload && !parent_reloading %>
-  <script>
-  $(document).ready(function() {
-    $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'filtering_test_link', task_id: "<%= task.id.to_s %>" }});
-  });
-  </script>
+  <div data-controller="filtering-test-link" data-url="<%= request.path %>" data-task="<%= task.id.to_s %>"></div>
 <% end %>

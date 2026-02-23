@@ -1,11 +1,9 @@
 
 <% if product_test.tasks.first.most_recent_execution && product_test.tasks.first.most_recent_execution.incomplete? %>
-  <script>
-    $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'program_fields', task_id: "<%= task.id.to_s %>" }});
-  </script>
+  <div data-controller="program-fields" data-url="<%= request.path %>" data-task="<%= task.id.to_s %>"></div>
 <% end %>
 
-<%= bootstrap_form_for([@product, @product_test], :url => { :controller => 'program_tests', :action => 'update' }) do |f| %>
+<%= bootstrap_form_for([@product, @product_test], :url => { :controller => 'program_tests', :action => 'update' }, data: { turbo: false }) do |f| %>
 
   <div class = 'card-group'>
     <div class = 'card card-default'>
