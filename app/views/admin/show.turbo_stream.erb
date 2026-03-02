@@ -1,0 +1,22 @@
+<% if params[:partial] == 'bundle_list' %>
+  <% if BundleUploadJob.trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
+    <%# setTimeout(function(){
+      $('#display_bundle_list').html("<%= escape_javascript render '/admin/bundle_list', :bundles => @bundles %>");
+    <%# }, 2000); %> 
+    <%= turbo_stream.replace "display_bundle_list" do %>
+      <%= render "/admin/bundle_list", bundles: @bundles %>
+    <% end %>
+  <% else %>
+    <%# $('#display_bundle_list').html("<%= escape_javascript render '/admin/bundle_list', :bundles => @bundles %>"); %>
+    <%= turbo_stream.replace "display_bundle_list" do %>
+      <%= render "/admin/bundle_list", bundles: @bundles %>
+    <% end %>
+  <% end %>
+<% elsif params[:partial] == 'application_status' %>
+  <%# setTimeout(function(){
+    $('#application_status').html("<%= escape_javascript render '/admin/application_status', :system_usage_stats => @system_usage_stats %>");
+  <%# }, 10000); %> 
+  <%= turbo_stream.replace "application_status" do %>
+    <%= render "/admin/application_status", bundles: @bundles %>
+  <% end %>
+<% end %>

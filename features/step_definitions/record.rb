@@ -90,6 +90,7 @@ And(/^the user searches for a measure$/) do
 end
 
 And(/^the user selects a measure from the dropdown$/) do
+  byebug
   page.execute_script "$('#search_measures').trigger('focus')"
   page.execute_script "$('#search_measures').trigger('keydown')"
   assert page.has_selector?('.ui-autocomplete .list-group-item'), 'no dropdown result'

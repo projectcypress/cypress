@@ -19,7 +19,7 @@
       <td><%= role.name if role %></td>
       <td>
         <% unless user.id == current_user.id %>
-          <a href="<%= toggle_approved_admin_user_path(user) %>" data-turbolinks-action="replace"><%= user.approved %></a></td>
+          <a href="<%= toggle_approved_admin_user_path(user) %>" data-turbo-action="replace"><%= user.approved %></a></td>
         <% else %>
           <%= user.approved %>
         <%end%>
@@ -43,4 +43,4 @@
   </tbody>
 
 </table>
-<table class="measure_tests_table" data-controller="datatable">
+<table class="user_table" data-controller="datatable"></table>

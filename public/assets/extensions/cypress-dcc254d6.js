@@ -48,10 +48,12 @@ var initializeTestExecutionResults = function () {
         return "[href='" + $(el).attr("href") + "']";
       });
 
-      var navigation = $(this).find(".xml-nav").navigator({
-        targets: targets.join(),
-        action: show_error_popup_and_jump,
-      });
+      var navigation = $(this)
+        .find(".xml-nav")
+        .navigator({
+          targets: targets.join(),
+          action: show_error_popup_and_jump,
+        });
 
       $error_links.on("click", function (event) {
         var href = $(this).attr("href");
