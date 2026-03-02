@@ -43,7 +43,7 @@ import * as cypress from "cypress";
 // import Turbolinks from "turbolinks";
 import * as bootstrap from "bootstrap";
 import "datatables";
-// import "jquery-ui/widgets/autocomplete";
+import "jquery-ui/widgets/autocomplete";
 import "jquery-ui";
 import "jasny-bootstrap";
 import "@hotwired/turbo-rails";

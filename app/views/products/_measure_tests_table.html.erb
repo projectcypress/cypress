@@ -39,7 +39,17 @@
     </tbody>
   </table>
 
-  <table class="measure_tests_table" data-controller="datatable">
+  <%# <script>
+    $('.measure_tests_table').DataTable({
+      destroy: true,
+      searching: false,
+      paging: false,
+      stateSave: true, /* preserves order on reload */
+      info: false
+    });
+  </script> %>
+
+  <table class="measure_tests_table" data-controller="datatable"></table>
 
   <% if should_reload_measure_test_table?(tasks) %>
     <div data-controller="measure-tests-table" data-url="<%= request.path %>" data-include-c1="<%= get_c1_tasks %>" data-html="<%= html_id %>"></div>

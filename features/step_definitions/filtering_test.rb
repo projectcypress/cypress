@@ -62,7 +62,6 @@ end
 #   A N D   #
 
 And(/^the user views the CAT 3 test from the CAT 1 page$/) do
-  byebug
   find(:xpath, "//a[@href='/tasks/#{@f_test1.cat3_task.id}/test_executions/new']").click
 end
 

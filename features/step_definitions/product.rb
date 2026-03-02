@@ -528,7 +528,6 @@ end
 # V V V product tests tabs V V V #
 
 Then(/^the user should see the the appropriate tabs$/) do
-  byebug
   if @product.c1_test
     title, description, html_id = title_description_and_html_id_for(@product, 'ChecklistTest')
     assert_tab_and_content_exist(title, description, html_id)
@@ -617,6 +616,7 @@ Then(/^the user should not be able to download the (.*)$/) do |download_btn_name
 end
 
 Then(/^the user should see a cat I test (.*) for product test (.*)$/) do |task_status, product_test_number|
+  byebug
   html_id_for_measure_test_table_row = "##{measure_tests_table_row_wrapper_id(nth_measure_test(product_test_number).tasks.c1_task)}"
   measure_table_row_element = page.find(html_id_for_measure_test_table_row, visible: false)
   using_wait_time 35 do # This can take significantly longer than other tests due to the 10 second ajax wait for some requests

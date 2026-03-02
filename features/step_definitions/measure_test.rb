@@ -59,7 +59,6 @@ end
 
 # only include one task_name for task_names
 And(/^the user views task (.*)$/) do |task_names|
-  byebug
   task = task_names.include?('c1') ? @product_test.tasks.c1_task : @product_test.tasks.c2_task
   visit new_task_test_execution_path(task)
 end
