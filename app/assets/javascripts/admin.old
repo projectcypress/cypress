@@ -1,0 +1,59 @@
+/*eslint max-statements: ["error", 15]*/
+/*global Turbolinks */
+/*eslint no-undef: "error"*/
+var assignmentsReady = function(){
+  var assignmentIndex = 1000;
+  var  addAssignment = function(e){
+    assignmentIndex++;
+    e.preventDefault();
+    var vendor = $("#vendor_select")[0].selectedOptions[0]
+    var role =$("#role_select")[0].selectedOptions[0]
+    //does the assignment already exist"
+    //should this be done for a user that has a role other then user (atl,admin this means nothing as they alreay have those permissions)
+    if( $("input[value='"+vendor.value+"'][name*='[vendor_id]']").length  == 0){
+      var tr = $("<tr>")
+      tr.append($("<td>"+role.text + "</td>"))
+      tr.append($("<td>"+vendor.text + "</td>"))
+      var buttonTd = $("<td>");
+      tr.append(buttonTd);
+      buttonTd.append($("<input type='hidden' name='assignments["+assignmentIndex+"][vendor_id]' value='"+vendor.value+"'/>"))
+      buttonTd.append($("<input type='hidden' name='assignments["+assignmentIndex+"][role]' value='"+role.value+"'/>"))
+      buttonTd.append($("<button onclick='$(this).parent().parent().remove()' > Remove </button>"))
+      $('#assignments').append(tr);
+    }
+  }
+  $("#addAssignment").click(addAssignment)
+
+}
+
+$(document).ready(assignmentsReady);
+$(document).on('page:load', assignmentsReady);
+
+// Place all the behaviors and hooks related to the matching controller here.
+// All this logic will automatically be available in application.js.
+
+var ready;
+ready = function() {
+  $('.settings-tabs').tabs()
+  $('.settings-tabs > ul > li').removeClass("ui-corner-top");
+
+  var $customModeButtons = $("input[name='mode']");
+
+  $customModeButtons.on('change', function() {
+    if ($customModeButtons.filter(':checked').val() == "custom") {
+      $('#settings-custom').show();
+    } else {
+      $('#settings-custom').hide();
+    }
+  });
+
+  $customModeButtons.trigger('change');
+
+  $('.activity-paginate').click(function (event) {
+    Turbolinks.ProgressBar.start();
+    Turbolinks.ProgressBar.advanceTo(25);
+  });
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

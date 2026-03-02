@@ -13,9 +13,7 @@
 <% if product_test.most_recent_task_execution_incomplete? %>
   <% tracker = product_test.most_recent_task_execution.tracker %>
   <% msg = tracker ? tracker.log_message.last : 'complete' %>
-  <script>
-    $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'checklist_status_display' }});
-  </script>
+  <div data-controller="checklist-status-display" data-url="<%= request.path %>"></div>
   <p class="lead bg-info execution-status  bg-opacity-25"><%= icon('fas fa-fw fa-spin text-info', 'sync-alt', :"aria-hidden" => true) %> In Progress (<%= msg %>)</p>
 <% end %>
 

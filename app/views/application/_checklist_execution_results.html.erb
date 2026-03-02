@@ -67,7 +67,5 @@
 </table>
 
 <% if !execution.nil? && status_with_sibling == 'incomplete' %>
-  <script>
-    $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'checklist_execution_results', task_id: "<%= task.id.to_s %>" }});
-  </script>
+  <div data-controller="checklist-execution-results" data-url="<%= request.path %>" data-task="<%= task.id.to_s %>"></div>
 <% end %>

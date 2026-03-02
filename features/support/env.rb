@@ -51,9 +51,6 @@ def default_drivers
     # or (to have a pause of 1 second between each step):
     # IN_BROWSER=true PAUSE=1 bundle exec cucumber
     Capybara.default_driver = :selenium_chrome
-    AfterStep do
-      sleep(ENV['PAUSE'].to_i || 0)
-    end
   elsif ENV['CI'] == 'true'
     Capybara.register_driver :headless_chrome do |app|
       options = Selenium::WebDriver::Chrome::Options.new

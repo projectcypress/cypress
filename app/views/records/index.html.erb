@@ -15,7 +15,7 @@
       </div>
     <% end %>
   </div>
-  <%= button_to html_patients_product_test_path(@product_test), :method => :get, :class => "btn btn-default" do %>
+  <%= button_to html_patients_product_test_path(@product_test), :method => :get, :class => "btn btn-default", data: { turbo: false } do %>
     <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download HTML Patients
   <% end %>
   <h1>Patient List</h1>
@@ -34,9 +34,31 @@
   <div class="row">
     <div class="col-md-5 col-sm-6">
       <h1>Filter Patients</h1>
-      <div class="form-group">
+      <div
+        class="form-group"
+        data-controller="measure-search"
+        data-measure-search-source-value="<%= json_escape(@measure_dropdown.to_json) %>"
+        data-measure-search-all-records-html-value="<%= json_escape(
+          render(
+            'records_list',
+            patients: @patients,
+            measure: @measure,
+            population_set_hash: @population_set_hash,
+            product_test: @product_test,
+            bundle: @bundle,
+            task: @task,
+            vendor: @vendor
+          )
+        ) %>"
+      >
         <label for="search_measures">Type to search by measure</label>
-        <input id="search_measures" type="search" class="form-control" placeholder="Type the name or CMS ID of a measure"/>
+        <input
+          id="search_measures"
+          type="search"
+          class="form-control"
+          placeholder="Type the name or CMS ID of a measure"
+          data-measure-search-target="input"
+        />
       </div>
     </div>
     <% if !@task && !@product_test %>
@@ -44,7 +66,7 @@
         <h1>Annual Update Bundle</h1>
         <div>
             <%# loop through bundles & use radio buttons #%>
-            <%= bootstrap_form_tag do |f| %>
+            <%= bootstrap_form_tag data: { turbo: false } do |f| %>
               <%= f.form_group :bundle_id do %>
                 <% Bundle.available.all.each do |bundle| %>
 
@@ -82,42 +104,3 @@
   </div>
 <% end %><%# cache records #%>
 
-<% if !@task || !@product_test %>
-<script type="text/javascript">
-  // initialize jQueryUI Autocomplete for searching measures
-  $('#search_measures').autocomplete({
-    delay: 500,
-    source: <%= @measure_dropdown %>, // autocomplete suggestions
-    select: function(event, data) {  // fired on item select
-      // gets records by measure via AJAX and rerender the records list.
-      // data.item.value provides the URL for the selected measure
-      $.get(data.item.value);
-      // autocomplete's default action is to populate the input with the selected value
-      // prevent the user from seeing an ugly URL in their search box here
-      event.preventDefault();
-    },
-    focus: function(event, data) { event.preventDefault(); } // fired on item focus
-  });
-
-  // add and remove some classes from the generated autocomplete widget
-  $('#search_measures').data('ui-autocomplete')._renderItem = function(ul, item) {
-    return $('<li class="list-group-item">').append(item.label).appendTo(ul);
-  }
-  $('#search_measures').data('ui-autocomplete')._renderMenu = function(ul, items) {
-    var that = this;
-    $.each(items, function(index, item) {
-      that._renderItemData(ul, item);
-    });
-    $(ul).removeClass('ui-widget ui-widget-content').addClass('list-group');
-  }
-
-  // rerender the records list to show records from all measures if no value searched
-  $('#search_measures').on('keyup', function() {
-    if (!$(this).val()) {
-      $("#records_list").html("<%= escape_javascript(render 'records_list', :patients => @patients, :measure => @measure, :population_set_hash => @population_set_hash, :product_test => @product_test, :bundle => @bundle, :task => @task, :vendor => @vendor ) %>");
-      // any statically changed form elements require a separate token refresh call
-      $.rails.refreshCSRFTokens();
-    }
-  })
-</script>
-<% end %>

@@ -19,7 +19,7 @@
       <td><%= role.name if role %></td>
       <td>
         <% unless user.id == current_user.id %>
-          <a href="<%= toggle_approved_admin_user_path(user) %>" data-turbolinks-action="replace"><%= user.approved %></a></td>
+          <a href="<%= toggle_approved_admin_user_path(user) %>" data-turbo-action="replace"><%= user.approved %></a></td>
         <% else %>
           <%= user.approved %>
         <%end%>
@@ -43,17 +43,4 @@
   </tbody>
 
 </table>
-<script>
-  $('.user_table').DataTable({
-    destroy: true,
-    searching: false,
-    paging: true,
-    lengthMenu: [ [ 10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
-    stateSave: true, /* preserves order on reload */
-    info: false,
-    columnDefs: [
-      { orderable: true, className: 'reorder', targets: [0, 1, 2] },
-      { orderable: false, targets: '_all' }
-    ]
-  });
-</script>
+<table class="user_table" data-controller="datatable"></table>
