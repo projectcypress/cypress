@@ -1,6 +1,4 @@
 import { Controller } from "@hotwired/stimulus";
-import $ from "jquery2";
-import "jquery-ui";
 
 // Connects data-controller="measure-search"
 export default class extends Controller {
@@ -23,41 +21,23 @@ export default class extends Controller {
   }
 
   initializeAutocomplete() {
-    const $input = $(this.inputTarget);
-
+    const $ = window.jQuery;
     let source = [];
     try {
       source = JSON.parse(this.sourceValue || "[]");
     } catch (e) {
       console.error("Bad source JSON", this.sourceValue, e);
     }
-
-    $(document).ready(function () {
-      $input.autocomplete({
-        delay: 500,
-        source: this.sourceValue,
-        select: (event, data) => {
-          $.get(data.item.value);
-          event.preventDefault();
-        },
-        focus: (event) => event.preventDefault,
-      });
+    var availableTags = [{"label":"CMS349v7: HIV Screening","value":"/bundles/66797c1bdfe4bd02748db95e/records/by_measure?measure_id=2C928083-8907-CE68-0189-0DA36CC00327\u0026pop_set_key=PopulationSet_1"}];
+    $( "#search_measures" ).autocomplete({
+      delay: 500,
+      source: source,
+      select: (event, data) => {
+        $.get(data.item.value);
+        event.preventDefault();
+      },
+      focus: (event) => event.preventDefault
     });
-
-    const ac = $input.data("ui-autocomplete");
-    if (!ac) return;
-
-    ac._renderItem = function (ul, item) {
-      return $('<li class="list-group-item">').append(item.label).appendTo(ul);
-    };
-
-    ac._renderMenu = function (ul, items) {
-      const that = this;
-      $.each(items, function (_index, item) {
-        this._renderItemData(ul, item);
-      });
-      $(ul).removeClass("ui-widget ui-widget-content").addClass("list-group");
-    };
   }
 
   bindKeyup() {

@@ -37,7 +37,7 @@
       <div
         class="form-group"
         data-controller="measure-search"
-        data-measure-search-source-value="<%= json_escape(@measure_dropdown.to_json) %>"
+        data-measure-search-source-value="<%= ERB::Util.json_escape(@measure_dropdown) %>"
         data-measure-search-all-records-html-value="<%= json_escape(
           render(
             'records_list',
