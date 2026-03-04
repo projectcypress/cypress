@@ -37,20 +37,7 @@
       <div
         class="form-group"
         data-controller="measure-search"
-        data-measure-search-source-value="<%= ERB::Util.json_escape(@measure_dropdown) %>"
-        data-measure-search-all-records-html-value="<%= json_escape(
-          render(
-            'records_list',
-            patients: @patients,
-            measure: @measure,
-            population_set_hash: @population_set_hash,
-            product_test: @product_test,
-            bundle: @bundle,
-            task: @task,
-            vendor: @vendor
-          )
-        ) %>"
-      >
+        data-measure-search-source-value="<%= ERB::Util.json_escape(@measure_dropdown) %>">
         <label for="search_measures">Type to search by measure</label>
         <input
           id="search_measures"
@@ -59,6 +46,18 @@
           placeholder="Type the name or CMS ID of a measure"
           data-measure-search-target="input"
         />
+        <template data-measure-search-target="allRecordsTemplate">
+          <%= render(
+            "records_list",
+            patients: @patients,
+            measure: @measure,
+            population_set_hash: @population_set_hash,
+            product_test: @product_test,
+            bundle: @bundle,
+            task: @task,
+            vendor: @vendor
+          ) %>
+        </template>
       </div>
     </div>
     <% if !@task && !@product_test %>
