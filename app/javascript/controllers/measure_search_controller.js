@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 // Connects data-controller="measure-search"
 export default class extends Controller {
-  static targets = ["input"];
+  static targets = ["input", "allRecordsTemplate"];
   static values = {
     // JSON array for jQueryUI autocomplete source
     source: String,
@@ -43,9 +43,7 @@ export default class extends Controller {
   bindKeyup() {
     $(this.inputTarget).on("keyup.measureSearch", () => {
       if (!$(this.inputTarget).val()) {
-        $("#records_list").html(this.allRecordsHtmlValue);
-
-        if ($.rails?.refreshCSRFTokens) $.rails.refreshCSRFTokens();
+        $("#records_list").html(this.allRecordsTemplateTarget.innerHTML);
       }
     });
   }
