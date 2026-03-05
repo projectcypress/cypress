@@ -205,11 +205,11 @@ class TestExecutionHelper < ActiveSupport::TestCase
   end
 
   def test_ecqi_link
-    # test with a measure from the 2023 reporting period
-    bundle2022 = Bundle.create(version: '2022.5.0')
-    measure2022 = Measure.create(reporting_program_type: 'ep', cms_id: 'CMS161v11', bundle_id: bundle2022.id)
-    ecqi_url2022 = ecqi_link(measure2022.cms_id)
-    ecqi_request2022 = RestClient::Request.execute(method: :get, url: ecqi_url2022)
-    assert_equal 200, ecqi_request2022.code
+    # test with a measure from the 2025 reporting period
+    bundle2024 = Bundle.create(version: '2024.5.0')
+    measure2024 = Measure.create(reporting_program_type: 'ep', cms_id: 'CMS128v13', bundle_id: bundle2024.id)
+    ecqi_url2024 = ecqi_link(measure2024.cms_id)
+    ecqi_request2024 = RestClient::Request.execute(method: :get, url: ecqi_url2024)
+    assert_equal 200, ecqi_request2024.code
   end
 end
