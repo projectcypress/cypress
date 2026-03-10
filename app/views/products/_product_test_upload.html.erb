@@ -6,16 +6,37 @@
 #   label_class [optional]
 
 %>
+<% frame_id = "product_#{html_id}_upload_frame" %>
 
 <% label_class ||= 'btn btn-outline-info' %>
-
 <% accept_type = displaying_cat1?(task) ? 'application/zip' : 'text/xml' %>
-<% unique_id = task.id # value unique to this form %>
 
-<%= form_for(TestExecution.new, html: { method: :post, multipart: true, id: "multi-upload-form-#{unique_id}", class: 'inline' }, :authenticity_token => true, remote: true, url: task_test_executions_path(task)) do |f| %>
-  <%= f.label :results, 'upload', class: "inline label #{label_class} pointer-on-hover btn-sm", for: "multi-upload-field-#{unique_id}" do %>
-     upload<%= f.file_field :results, class: 'd-none multi-upload-field', accept: accept_type, id: "multi-upload-field-#{unique_id}" %>
+  <%= form_with(
+        model: TestExecution.new,
+        url: task_test_executions_path(task),
+        method: :post,
+        multipart: true,
+        html: { id: "multi-upload-form-#{task.id}", class: "inline" },
+        data: { turbo_frame: frame_id }
+      ) do |f| %>
+
+    <%= f.hidden_field :product_url, value: product_url %>
+    <%= f.hidden_field :html_id, value: html_id %>
+    <%= f.hidden_field :include_c1, value: include_c1 %>
+
+    <%= f.label :results, "upload",
+                class: "inline label #{label_class} pointer-on-hover btn-sm",
+                for: "multi-upload-field-#{task.id}" do %>
+
+      upload
+      <%= f.file_field :results,
+            class: "d-none multi-upload-field",
+            accept: accept_type,
+            id: "multi-upload-field-#{task.id}" %>
+    <% end %>
+
+    <%= f.submit "my submit button",
+          class: "d-none multi-upload-submit",
+          id: "multi-upload-submit-#{task.id}" %>
   <% end %>
-  <%= f.submit 'my submit button', class: 'd-none multi-upload-submit', id: "multi-upload-submit-#{unique_id}" %>
-<% end %>
 

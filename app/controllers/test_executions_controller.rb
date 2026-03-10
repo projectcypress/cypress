@@ -21,21 +21,30 @@ class TestExecutionsController < ApplicationController
 
   def create
     authorize! :execute_task, @task.product_test.product.vendor
-    # Setting latest_test_execution_id to nil here will allow for AJAX reload to run
-    # latest_test_execution_id will be reset when @task.execute is run later
+
     @task.latest_test_execution_id = nil
     @task.save
     @test_execution = @task.execute(results_params, current_user)
-    @has_eh_tests = @task.product_test.product.eh_tests?
-    @has_ep_tests = @task.product_test.product.ep_tests?
-    @curr_task = Task.find(params[:task_id])
-    respond_with(@test_execution) do |f|
-      if @task.is_a? C1ChecklistTask
-        f.html { redirect_to product_checklist_test_path(@task.product_test.product, @task.product_test) }
-      elsif @task.is_a? CMSProgramTask
-        f.html { redirect_to product_program_test_path(@task.product_test.product, @task.product_test) }
-      else
-        f.html { redirect_to task_test_execution_path(task_id: @task.id, id: @test_execution.id) }
+
+    frame_id = "product_#{params['test_execution']['html_id']}_upload_frame"
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          frame_id,
+          partial: "products/measure_tests_table_controller", # <- your partial path
+          locals: { product_url: params['test_execution']['product_url'], task: @task, product: @task.product_test.product, html_id: params['test_execution']['html_id'], include_c1: params['test_execution']['include_c1'], reload: true }
+        )
+      end
+
+      format.html do
+        if @task.is_a? C1ChecklistTask
+          redirect_to product_checklist_test_path(@task.product_test.product, @task.product_test), status: :see_other
+        elsif @task.is_a? CMSProgramTask
+          redirect_to product_program_test_path(@task.product_test.product, @task.product_test), status: :see_other
+        else
+          redirect_to task_test_execution_path(task_id: @task.id, id: @test_execution.id), status: :see_other
+        end
       end
     end
   rescue Mongoid::Errors::Validations
