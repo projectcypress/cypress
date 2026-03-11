@@ -17,27 +17,29 @@
   <% first_results_col_label = tasks.first.is_a?(C1Task) ? 'C1 Results' : 'C2 Results' %>
   <% include_c3 = include_c3_column(tasks.first, has_eh_tests, has_ep_tests) %>
 
-  <table class = 'table table-hover measure_tests_table'>
-    <thead>
-      <th scope = 'col' class = 'col-sm-1 no-wrap pointer-on-hover'>CMS ID</th>
-      <th scope = 'col' class = 'col-sm-4 pointer-on-hover'>Measure Name</th>
-      <% if include_first_task(product, tasks.first._type) %>
-        <th scope = 'col' class = 'col-sm-2 no-wrap pointer-on-hover'><%= first_results_col_label %></th>
-      <% end %>
-      <% if include_c3 %>
-        <th scope = 'col' class = 'col-sm-2 no-wrap pointer-on-hover'>C3 Results</th>
-      <% end %>
-      <th scope = 'col' class = 'col-sm-1'>Quick Upload</th>
-      <th scope = 'col' class = 'col-sm-1'>Last Updated</th>
-    </thead>
-    <tbody>
-      <% tasks.sort_by { |t| cms_int(t.product_test.cms_id) }.each do |task| %>
-        <tr id = '<%= measure_tests_table_row_wrapper_id(task) %>'>
-          <%= render 'measure_tests_table_row', :task => task, :parent_reloading => true, :has_eh_tests => has_eh_tests, :has_ep_tests => has_ep_tests %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <%= render 'products/measure_tests_table_controller', :product_url => request.path, :include_c1 => get_c1_tasks, :html_id => html_id, :reload => should_reload_measure_test_table?(tasks) %>
+  
+    <table class = 'table table-hover measure_tests_table'>
+      <thead>
+        <th scope = 'col' class = 'col-sm-1 no-wrap pointer-on-hover'>CMS ID</th>
+        <th scope = 'col' class = 'col-sm-4 pointer-on-hover'>Measure Name</th>
+        <% if include_first_task(product, tasks.first._type) %>
+          <th scope = 'col' class = 'col-sm-2 no-wrap pointer-on-hover'><%= first_results_col_label %></th>
+        <% end %>
+        <% if include_c3 %>
+          <th scope = 'col' class = 'col-sm-2 no-wrap pointer-on-hover'>C3 Results</th>
+        <% end %>
+        <th scope = 'col' class = 'col-sm-1'>Quick Upload</th>
+        <th scope = 'col' class = 'col-sm-1'>Last Updated</th>
+      </thead>
+      <tbody>
+        <% tasks.sort_by { |t| cms_int(t.product_test.cms_id) }.each do |task| %>
+          <tr id = '<%= measure_tests_table_row_wrapper_id(task) %>'>
+            <%= render 'products/measure_tests_table_row', :task => task, :parent_reloading => true, :has_eh_tests => has_eh_tests, :has_ep_tests => has_ep_tests, html_id: html_id, include_c1: get_c1_tasks, product_url: request.path %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
   <%# <script>
     $('.measure_tests_table').DataTable({
@@ -49,9 +51,9 @@
     });
   </script> %>
 
-  <table class="measure_tests_table" data-controller="datatable"></table>
+  <!--table class="measure_tests_table" data-controller="datatable"></table-->
 
-  <% if should_reload_measure_test_table?(tasks) %>
-    <div data-controller="measure-tests-table" data-url="<%= request.path %>" data-include-c1="<%= get_c1_tasks %>" data-html="<%= html_id %>"></div>
-  <% end %>
+  <%# if should_reload_measure_test_table?(tasks) %>
+    <!--div data-controller="measure-tests-table" data-url="<%= request.path %>" data-include-c1="<%= get_c1_tasks %>" data-html="<%= html_id %>"></div-->
+  <%# end %>
 <% end %>
