@@ -6,6 +6,8 @@
 #   label_class [optional]
 
 %>
+<% include_c1 = local_assigns.fetch(:include_c1, false) %>
+
 <% frame_id = "product_#{html_id}_upload_frame" %>
 
 <% label_class ||= 'btn btn-outline-info' %>

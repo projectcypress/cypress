@@ -30,12 +30,21 @@ class TestExecutionsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
-          frame_id,
-          partial: 'products/measure_tests_table_controller', # <- your partial path
-          locals: { product_url: params['test_execution']['product_url'], task: @task, product: @task.product_test.product,
-                    html_id: params['test_execution']['html_id'], include_c1: params['test_execution']['include_c1'], reload: true }
-        )
+        if @task.is_a?(Cat1FilterTask) || @task.is_a?(Cat3FilterTask)
+          render turbo_stream: turbo_stream.replace(
+            frame_id,
+            partial: 'products/filtering_test_status_display_controller', # <- your partial path
+            locals: { product_url: params['test_execution']['product_url'], task: @task, product: @task.product_test.product,
+                      html_id: params['test_execution']['html_id'], reload: true }
+          )
+        else
+          render turbo_stream: turbo_stream.replace(
+            frame_id,
+            partial: 'products/measure_tests_table_controller', # <- your partial path
+            locals: { product_url: params['test_execution']['product_url'], task: @task, product: @task.product_test.product,
+                      html_id: params['test_execution']['html_id'], include_c1: params['test_execution']['include_c1'], reload: true }
+          )
+        end
       end
 
       format.html do

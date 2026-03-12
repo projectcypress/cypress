@@ -11,6 +11,7 @@ export default class extends Controller {
         dataType: "script", // if you really need .js.erb responses
         data: {
           partial: "filtering_test_link",
+          html_id: this.html(),
           task_id: this.task(),
         },
         complete() {
@@ -23,6 +24,10 @@ export default class extends Controller {
   url() {
     // Prefer reading from a data-url attribute to avoid embedding Ruby in JS
     return this.element.dataset.url;
+  }
+
+  html() {
+    return this.element.dataset.html;
   }
 
   task() {
