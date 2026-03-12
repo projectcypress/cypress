@@ -36,7 +36,6 @@ And(/^the user clicks bundles$/) do
 end
 
 And(/^the user clicks import bundle$/) do
-  byebug
   page.click_button '+ Import Bundle'
 end
 

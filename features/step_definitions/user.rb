@@ -28,7 +28,6 @@ When(/^I fill in the form with correct information$/) do
 end
 
 Then(/^I should have a new account$/) do
-  byebug
   assert_not_nil User.find_by(email: @email)
   assert_equal vendors_path, page.current_path
 end
@@ -120,7 +119,6 @@ Then(/^the user should be on the page with (.+) on it$/) do |page_text|
 end
 
 Then(/^the user should see an log in error message$/) do
-  byebug
   page.assert_text 'Invalid Email or password.'
 end
 
