@@ -5,6 +5,7 @@
 %>
 <% tests = product.product_tests.filtering_tests %>
 
+<%= render 'products/filtering_test_status_display_controller', :product_url => request.path, :html_id => html_id, :reload => should_reload_product_test_status_display?(tests) %>
 <table class = 'table' id = 'filtering_test_status_display'>
   <thead>
     <th class="no-wrap" scope="col">Filtering Criteria</th>
@@ -23,10 +24,10 @@
           <% end %>
         </td>
         <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(test.cat1_task) %>">
-          <%= render 'filtering_test_link', :test => test, :task => test.cat1_task, :parent_reloading => true %>
+          <%= render 'filtering_test_link', :test => test, :task => test.cat1_task, :parent_reloading => true, :html_id => html_id %>
         </td>
         <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(test.cat3_task) %>">
-          <%= render 'filtering_test_link', :test => test, :task => test.cat3_task, :parent_reloading => true %>
+          <%= render 'filtering_test_link', :test => test, :task => test.cat3_task, :parent_reloading => true, :html_id => html_id %>
         </td>
         <td class="no-wrap"><%= icon('far fa-fw', 'clock', :"aria-hidden" => true) %>
           <%= local_time_ago(test.updated_at) %></td>
@@ -34,7 +35,3 @@
     <% end %>
   </tbody>
 </table>
-
-<% if should_reload_product_test_status_display?(tests) %>
-  <div data-controller="filtering-test-status-display" data-url="<%= request.path %>" data-html="<%= html_id %>"></div>
-<% end %>
