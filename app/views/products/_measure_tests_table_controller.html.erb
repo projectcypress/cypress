@@ -1,0 +1,9 @@
+
+
+<% frame_id = "product_#{html_id}_upload_frame" %>
+
+<%= turbo_frame_tag frame_id, data: { action: "turbo:frame-load->measure-tests-table#refresh" } do %>
+
+<div data-controller="measure-tests-table" data-url="<%= product_url %>" data-include-c1="<%= include_c1 %>" data-html="<%= html_id %>" data-reload="<%= reload %>"></div>
+
+<% end %>
