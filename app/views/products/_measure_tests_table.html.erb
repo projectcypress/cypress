@@ -35,7 +35,7 @@
       <tbody>
         <% tasks.sort_by { |t| cms_int(t.product_test.cms_id) }.each do |task| %>
           <tr id = '<%= measure_tests_table_row_wrapper_id(task) %>'>
-            <%= render 'products/measure_tests_table_row', :task => task, :parent_reloading => true, :has_eh_tests => has_eh_tests, :has_ep_tests => has_ep_tests, html_id: html_id, product_url: request.path %>
+            <%= render 'products/measure_tests_table_row', :task => task, :parent_reloading => true, :has_eh_tests => has_eh_tests, :has_ep_tests => has_ep_tests, html_id: html_id, include_c1: get_c1_tasks, product_url: request.path %>
           </tr>
         <% end %>
       </tbody>

@@ -26,6 +26,6 @@
     <span class = 'label label-default'>testing...</span>
   <% else %>
     <%= icon('fas fa-fw invisible', 'gavel', :"aria-hidden" => true) %>
-    <%= render partial: '/products/product_test_upload', locals: { task: task, label_class: 'btn btn-outline-info', html_id: html_id, product_url: product_url } %>
+    <%= render partial: '/products/product_test_upload', locals: { task: task, label_class: 'btn btn-outline-info', html_id: html_id, include_c1: include_c1, product_url: product_url } %>
   <% end %>
 <% end %>
