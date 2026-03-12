@@ -4,19 +4,21 @@ import $ from "jquery2";
 // Connects to data-controller="measure-tests-table"
 export default class extends Controller {
   connect() {
-    $.ajax({
-      url: this.url(),
-      type: "GET",
-      dataType: "script", // if you really need .js.erb responses
-      data: {
-        partial: "measure_tests_table",
-        should_include_c1: this.includeC1(),
-        html_id: this.html(),
-      },
-      complete() {
-        document.dispatchEvent(new CustomEvent("cypress:init"));
-      },
-    });
+    if (this.should_reload_measure_table()) {
+      $.ajax({
+        url: this.url(),
+        type: "GET",
+        dataType: "script", // if you really need .js.erb responses
+        data: {
+          partial: "measure_tests_table",
+          should_include_c1: this.includeC1(),
+          html_id: this.html(),
+        },
+        complete() {
+          document.dispatchEvent(new CustomEvent("cypress:init"));
+        },
+      });
+    }
   }
 
   url() {
@@ -30,5 +32,9 @@ export default class extends Controller {
 
   html() {
     return this.element.dataset.html;
+  }
+
+  should_reload_measure_table() {
+    return this.element.dataset.reload === "true";
   }
 }

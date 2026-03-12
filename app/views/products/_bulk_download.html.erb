@@ -20,5 +20,5 @@
 <% else %>
   <p>Patient records are being built for each measure.</p>
   <p><%= icon('fas fa-fw fa-spin', 'sync-alt', :"aria-hidden" => true) %><%= " #{num_measure_tests_ready} of #{num_measure_tests} tests ready" %></p>
-  <div data-controller="bulk_download" data-url="<%= request.path %>"></div>
+  <div data-controller="bulk-download" data-url="<%= request.path %>"></div>
 <% end %>

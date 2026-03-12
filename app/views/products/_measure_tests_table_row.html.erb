@@ -36,13 +36,12 @@
   </td>
 <% end %>
 <td id = "<%= id_for_html_wrapper_of_task(task) %>" class="no-wrap" data-order="<%= set_sorting(test, task.status) %>">
-  <%= render partial: '/products/measure_test_link', locals: { test: test, task: task } %>
+  <%= render partial: '/products/measure_test_link', locals: { test: test, task: task, html_id: html_id, product_url: product_url } %>
 </td>
 <td class="no-wrap" data-order="<%= task.updated_at %>">
   <%= icon('far fa-fw', 'clock', :"aria-hidden" => true) %><%= local_time_ago(task.updated_at) %>
 </td>
 
 <% # Only reload if the measure_tests_table isn't reloading for us. (This currently only happens in create.js.erb) %>
-<% if measure_test_running_for_row?(task) && !parent_reloading %>
-  <div data-controller="measure-tests-table-row" data-url="<%= request.path %>" data-task="<%= task.id.to_s %>" data-has-eh-tests="<%= has_eh_tests %>" data-has-ep-tests="<%= has_ep_tests %>"></div>
-<% end %>
+
+<%= render 'products/measure_tests_table_row_controller', :product_url => request.path, :task_id => task.id.to_s, :has_eh_tests => has_eh_tests, :has_ep_tests => has_ep_tests, :reload => measure_test_running_for_row?(task) && !parent_reloading %>
