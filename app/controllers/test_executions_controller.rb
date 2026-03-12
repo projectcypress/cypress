@@ -26,10 +26,9 @@ class TestExecutionsController < ApplicationController
     @task.save
     @test_execution = @task.execute(results_params, current_user)
 
-    frame_id = "product_#{params['test_execution']['html_id']}_upload_frame"
-
     respond_to do |format|
       format.turbo_stream do
+        frame_id = "product_#{params['test_execution']['html_id']}_upload_frame"
         if @task.is_a?(Cat1FilterTask) || @task.is_a?(Cat3FilterTask)
           render turbo_stream: turbo_stream.replace(
             frame_id,
