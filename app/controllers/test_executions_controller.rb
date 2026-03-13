@@ -19,6 +19,7 @@ class TestExecutionsController < ApplicationController
     respond_with(@test_executions.to_a)
   end
 
+  # rubocop:disable Metrics/MethodLength
   def create
     authorize! :execute_task, @task.product_test.product.vendor
 
@@ -59,6 +60,7 @@ class TestExecutionsController < ApplicationController
   rescue Mongoid::Errors::Validations
     rescue_create
   end
+  # rubocop:enable Metrics/MethodLength
 
   def new
     authorize! :execute_task, @product_test.product.vendor
