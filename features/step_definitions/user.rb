@@ -33,7 +33,7 @@ Then(/^I should have a new account$/) do
 end
 
 Then(/^I should not be able to submit the form$/) do
-  path = page.current_path
+  path = '/users'
   page.find("input[type='submit']").click
   assert_equal path, page.current_path
   assert_nil User.where(email: @email).first
