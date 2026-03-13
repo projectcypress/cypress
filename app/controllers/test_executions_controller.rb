@@ -56,6 +56,14 @@ class TestExecutionsController < ApplicationController
           redirect_to task_test_execution_path(task_id: @task.id, id: @test_execution.id), status: :see_other
         end
       end
+
+      format.xml do
+        respond_with(@test_execution)
+      end
+
+      format.json do
+        respond_with(@test_execution)
+      end
     end
   rescue Mongoid::Errors::Validations
     rescue_create
