@@ -14,6 +14,8 @@ export default class extends Controller {
           task_id: this.task(),
           has_eh_tests: this.ehTests(),
           has_ep_tests: this.epTests(),
+          should_include_c1: this.includeC1(),
+          html_id: this.html(),
         },
         complete() {
           document.dispatchEvent(new CustomEvent("cypress:init"));
@@ -41,5 +43,13 @@ export default class extends Controller {
 
   should_reload_measure_table_row() {
     return this.element.dataset.reload === "true";
+  }
+
+  includeC1() {
+    return this.element.dataset.includeC1;
+  }
+
+  html() {
+    return this.element.dataset.html;
   }
 }

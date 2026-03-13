@@ -69,9 +69,9 @@ module ProductsHelper
   def measure_test_running_for_row?(task)
     return true unless %i[ready errored].include? task.product_test_state
     return true if task.most_recent_execution && task.most_recent_execution.status_with_sibling == 'incomplete'
-    # Check if the task has been refreshed within the past 30 seconds. If it has then keep refreshing until
+    # Check if the task has been refreshed within the past 10 seconds. If it has then keep refreshing until
     # the database has a chance to settle.
-    return true if task.most_recent_execution && (Time.now.utc - task.most_recent_execution.last_updated_with_sibling) < 30
+    return true if task.most_recent_execution && (Time.now.utc - task.most_recent_execution.last_updated_with_sibling) < 10
 
     false
   end

@@ -19,6 +19,7 @@ class TestExecutionsController < ApplicationController
     respond_with(@test_executions.to_a)
   end
 
+  # rubocop:disable Metrics/MethodLength
   def create
     authorize! :execute_task, @task.product_test.product.vendor
 
@@ -26,10 +27,9 @@ class TestExecutionsController < ApplicationController
     @task.save
     @test_execution = @task.execute(results_params, current_user)
 
-    frame_id = "product_#{params['test_execution']['html_id']}_upload_frame"
-
     respond_to do |format|
       format.turbo_stream do
+        frame_id = "product_#{params['test_execution']['html_id']}_upload_frame"
         if @task.is_a?(Cat1FilterTask) || @task.is_a?(Cat3FilterTask)
           render turbo_stream: turbo_stream.replace(
             frame_id,
@@ -56,10 +56,19 @@ class TestExecutionsController < ApplicationController
           redirect_to task_test_execution_path(task_id: @task.id, id: @test_execution.id), status: :see_other
         end
       end
+
+      format.xml do
+        respond_with(@test_execution)
+      end
+
+      format.json do
+        respond_with(@test_execution)
+      end
     end
   rescue Mongoid::Errors::Validations
     rescue_create
   end
+  # rubocop:enable Metrics/MethodLength
 
   def new
     authorize! :execute_task, @product_test.product.vendor

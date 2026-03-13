@@ -44,4 +44,4 @@
 
 <% # Only reload if the measure_tests_table isn't reloading for us. (This currently only happens in create.js.erb) %>
 
-<%= render 'products/measure_tests_table_row_controller', :product_url => request.path, :task_id => task.id.to_s, :has_eh_tests => has_eh_tests, :has_ep_tests => has_ep_tests, :reload => measure_test_running_for_row?(task) && !parent_reloading %>
+<%= render 'products/measure_tests_table_row_controller', :product_url => request.path, :task_id => task.id.to_s, :has_eh_tests => has_eh_tests, :has_ep_tests => has_ep_tests, :reload => (measure_test_running_for_row?(task) && !parent_reloading), :html_id => html_id, include_c1: include_c1 %>

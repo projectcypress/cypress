@@ -25,7 +25,7 @@ When(/^the user submits the settings form$/) do
 end
 
 Then(/^the application settings in the database should be:$/) do |table|
-  find_button("Edit Application Settings", wait: 2)
+  find_button('Edit Application Settings', wait: 2)
   table.rows_hash.each do |key, expected|
     actual = case key
              when 'auto_approve'   then Settings.current.auto_approve

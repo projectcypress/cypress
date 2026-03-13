@@ -97,7 +97,7 @@ class ProductsController < ApplicationController
     report_hash = {}
     header = "<head>
       <style type=\"text/css\">
-        #{ApplicationController.helpers.inline_stylesheet("application")}
+        #{ApplicationController.helpers.inline_stylesheet('application')}
         .exportcircle {
           width: 32px;
           height: 32px;
