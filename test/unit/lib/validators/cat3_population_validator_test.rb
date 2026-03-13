@@ -33,6 +33,18 @@ class Cat3PopulationValidatorTest < ActiveSupport::TestCase
     assert_empty @validator.errors, "Expected no errors for good Cat 3 document, found #{@validator.errors}"
   end
 
+  def test_good_document_diff_year
+    @task._type = 'C3Cat3Task'
+    @validator.validate(@document, 'test_execution' => @test_execution)
+
+    assert_empty @validator.errors, "Expected no errors for good Cat 3 document, found #{@validator.errors}"
+
+    @test_execution.task.bundle.version = '2025.0.0'
+    @validator.validate(@document, 'test_execution' => @test_execution)
+
+    assert_equal 1, @validator.errors.count, "Expected 1 error for good Cat 3 document validated for the wrong year, found #{@validator.errors}"
+  end
+
   def test_no_exception_thrown_on_bad_document
     @document.xpath('/cda:ClinicalDocument/cda:component/cda:structuredBody/cda:component').each(&:remove)
 
