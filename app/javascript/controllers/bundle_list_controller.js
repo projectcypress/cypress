@@ -1,22 +1,44 @@
 import { Controller } from "@hotwired/stimulus";
-import $ from "jquery2";
+import "@hotwired/turbo-rails"
 
 // Connects data-controller="bundle-list"
 export default class extends Controller {
   connect() {
-    $.ajax({
-      url: this.url(),
-      type: "GET",
-      dataType: "script", // if you really need .js.erb responses
-      data: { partial: "bundle_list" },
-      complete() {
-        document.dispatchEvent(new CustomEvent("cypress:init"));
-      },
-    });
+    this.tick = this.tick.bind(this)
+
+    // run immediately, then every 2s
+    this.tick()
+    this.timer = setInterval(this.tick, this.interval())
+  }
+
+  disconnect() {
+    if (this.timer) clearInterval(this.timer)
+  }
+
+  async tick() {
+    const response = await fetch(this.url(), {
+      headers: { Accept: "text/vnd.turbo-stream.html" }
+    })
+
+    if (!response.ok) return
+
+    const streamHtml = await response.text()
+    
+    if (window.Turbo?.renderStreamMessage) {
+      window.Turbo.renderStreamMessage(streamHtml)
+    } else {
+      window.Turbo.session.renderStreamMessage(streamHtml)
+    }
+
+    // keep your existing hook if you need it
+    document.dispatchEvent(new CustomEvent("cypress:init"))
   }
 
   url() {
-    // prefer reading from a data-url attribute to avoid embedding Ruby in JS
-    return this.element.dataset.url;
+    return this.element.dataset.url
+  }
+
+  interval() {
+    return Number(this.element.dataset.interval || 2000)
   }
 }
