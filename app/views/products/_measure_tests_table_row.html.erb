@@ -3,11 +3,7 @@
 # local variables
 #
 #   task       (Task)
-#   parent_reloading is a boolean stating whether or not the measure_tests_table is already reloading via ajax, in order to make
-#   sure we don't reload at the same time and double up on requests.
 %>
-
-<% parent_reloading = false unless (defined? parent_reloading) %>
 
 <% test = task.product_test %>
 <% include_c3 = include_c3_column(task, has_eh_tests, has_ep_tests) %>
@@ -41,7 +37,3 @@
 <td class="no-wrap" data-order="<%= task.updated_at %>">
   <%= icon('far fa-fw', 'clock', :"aria-hidden" => true) %><%= local_time_ago(task.updated_at) %>
 </td>
-
-<% # Only reload if the measure_tests_table isn't reloading for us. (This currently only happens in create.js.erb) %>
-
-<%= render 'products/measure_tests_table_row_controller', :product_url => request.path, :task_id => task.id.to_s, :has_eh_tests => has_eh_tests, :has_ep_tests => has_ep_tests, :reload => (measure_test_running_for_row?(task) && !parent_reloading), :html_id => html_id, include_c1: include_c1 %>

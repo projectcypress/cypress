@@ -41,10 +41,12 @@
 
       <% # Measure Test Tabs (both C1 or C2 tabs) %>
       <% if test_type == 'MeasureTest' %>
-        <div id="display_measure_tests_table">
-          <%= render 'measure_tests_table', :product => @product, :get_c1_tasks => (title.include?('C1') || title.include?('C3') && !title.include?('QRDA-III')),
-            :html_id => html_id  %>
-        </div>
+        <% get_c1_tasks = (title.include?('C1') || title.include?('C3') && !title.include?('QRDA-III')) %>
+        <% tasks = measure_test_tasks(product, get_c1_tasks: get_c1_tasks) %>
+        <% reload = should_reload_measure_test_table?(tasks) %>
+
+        <%= render 'measure_tests_table', :product => @product, :get_c1_tasks => get_c1_tasks, :html_id => html_id %>
+        <%= render 'products/measure_tests_table_controller', :product_url => request.path, :get_c1_tasks => get_c1_tasks, :html_id => html_id, :reload => reload %>
       <% end %>
 
       <% # Filtering Test Tab %>

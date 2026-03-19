@@ -1,0 +1,25 @@
+<% if params[:partial] == 'bulk_download' %>
+  <% if @product.product_tests.measure_tests.where(:state.nin => [:ready]).count.positive? %>
+    <%= turbo_stream.replace "display_bundle_list" do %>
+      <%= render "/bulk_download" %>
+    <% end %>
+  <% else %>
+    <% # don't wait. just load the bulk download %>
+    <%= turbo_stream.replace "display_bundle_list" do %>
+      <%= render "/bulk_download" %>
+    <% end %>
+  <% end %>
+<% elsif params[:partial] == 'filtering_test_status_display' %>
+  <%= turbo_stream.replace "filtering_test_status_display" do %>
+    <%= render "/filtering_test_status_display" %>
+  <% end %>
+<% elsif params[:partial] == 'measure_tests_table' %>
+  <% tasks = measure_test_tasks(@product, get_c1_tasks: params[:get_c1_tasks]) %>
+  <% reload = should_reload_measure_test_table?(tasks) %>
+  <%= turbo_stream.replace "display_measure_tests_table_#{params[:html_id]}" do %>
+    <%= render "/products/measure_tests_table", :product => @product, :get_c1_tasks => params[:get_c1_tasks], :html_id => params[:html_id] %>
+  <% end %>
+  <% if !reload %>
+    <%= turbo_stream.remove "#{params[:html_id]}measure_tests_table_poller" %>
+  <% end %>
+<% end %>

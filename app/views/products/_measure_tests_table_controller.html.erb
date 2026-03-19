@@ -1,9 +1,12 @@
 
 
 <% frame_id = "product_#{html_id}_upload_frame" %>
-
 <%= turbo_frame_tag frame_id, data: { action: "turbo:frame-load->measure-tests-table#refresh" } do %>
-
-<div data-controller="measure-tests-table" data-url="<%= product_url %>" data-include-c1="<%= include_c1 %>" data-html="<%= html_id %>" data-reload="<%= reload %>"></div>
-
+  <% if reload %>
+    <div id="<%= "#{html_id}measure_tests_table_poller" %>"
+      data-controller="turbo-stream-poller"
+      data-turbo-stream-poller-url-value="<%= product_url %>"
+      data-turbo-stream-poller-params-value="<%= { partial: "measure_tests_table", html_id: html_id, get_c1_tasks: get_c1_tasks, reload: reload }.to_json %>"
+      data-turbo-stream-poller-interval-value="10000"></div>
+  <% end %>
 <% end %>

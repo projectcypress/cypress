@@ -42,7 +42,7 @@ class TestExecutionsController < ApplicationController
             frame_id,
             partial: 'products/measure_tests_table_controller', # <- your partial path
             locals: { product_url: params['test_execution']['product_url'], task: @task, product: @task.product_test.product,
-                      html_id: params['test_execution']['html_id'], include_c1: params['test_execution']['include_c1'], reload: true }
+                      html_id: params['test_execution']['html_id'], get_c1_tasks: params['test_execution']['include_c1'], reload: true }
           )
         end
       end
