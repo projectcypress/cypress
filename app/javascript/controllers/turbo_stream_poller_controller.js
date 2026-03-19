@@ -5,7 +5,8 @@ export default class extends Controller {
   static values = {
     url: String,
     interval: { type: Number, default: 2000 },
-    immediate: { type: Boolean, default: true }
+    immediate: { type: Boolean, default: true },
+    params: Object
   }
 
   connect() {
@@ -25,7 +26,7 @@ export default class extends Controller {
     this.inFlight = true
 
     try {
-      const response = await fetch(this.urlValue, {
+      const response = await fetch(this.buildUrl(), {
         headers: { Accept: "text/vnd.turbo-stream.html" }
       })
       if (!response.ok) return
@@ -41,5 +42,24 @@ export default class extends Controller {
     } finally {
       this.inFlight = false
     }
+  }
+
+  buildUrl() {
+    const url = new URL(this.urlValue, window.location.origin)
+
+    if (this.hasParamsValue && this.paramsValue) {
+      Object.entries(this.paramsValue).forEach(([key, value]) => {
+        if (value === null || value === undefined) return
+
+        if (Array.isArray(value)) {
+          url.searchParams.delete(key)
+          value.forEach(v => url.searchParams.append(key, String(v)))
+        } else {
+          url.searchParams.set(key, String(value))
+        }
+      })
+    }
+
+    return url.toString()
   }
 }

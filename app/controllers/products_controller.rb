@@ -25,7 +25,16 @@ class ProductsController < ApplicationController
     @task = Task.find(params[:task_id]) if params[:task_id]
     @has_eh_tests = @product.eh_tests?
     @has_ep_tests = @product.ep_tests?
-    respond_with(@product, &:js)
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+      format.xml do
+        respond_with(@product)
+      end
+      format.json do
+        respond_with(@product)
+      end
+    end
   end
 
   def new
