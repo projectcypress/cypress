@@ -87,7 +87,15 @@
                                          checked: bundle == @bundle %>
                     </div>
                     <div class="radio download-btn" id='<%= bundle.id %>'>
+                      <% current_mpl_status = bundle.mpl_prepare %>
                       <%= render "mpl_download", :bundle => bundle %>
+                      <% unless current_mpl_status == :ready %>
+                        <div id="<%= "mpl_poller" %>"
+                          data-controller="turbo-stream-poller"
+                          data-turbo-stream-poller-url-value="<%= request.path %>"
+                          data-turbo-stream-poller-params-value="<%= { partial: "mpl_download", mpl_bundle_id: bundle.id.to_s }.to_json %>"
+                          data-turbo-stream-poller-interval-value="2000"></div>
+                      <% end %>
                     </div>
                   <% end  %>
                 <% end %><%# bundle loop #%>
