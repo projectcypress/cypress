@@ -1,0 +1,22 @@
+
+<% if params[:partial] == 'execution_results' %>
+  <% if @test_execution.incomplete_or_sibling_incomplete? %>
+    <%= turbo_stream.replace "display_execution_results" do %>
+      <%= render "/test_executions/execution_results", :execution => @test_execution %>
+    <% end %>
+  <% else %>
+    <%= turbo_stream.replace "display_execution_results" do %>
+      <%= render "/test_executions/execution_results", :execution => @test_execution %>
+    <% end %>
+    <%= turbo_stream.remove "execution_results_poller" %>
+  <% end %>
+
+<% elsif params[:partial] == 'execution_download' %>
+  <% unless @product_test.state == :ready %>
+    setTimeout(function(){
+      $('#display_execution_download').html("<%= escape_javascript render 'execution_download', :product_test => @product_test %>");
+    }, 2000);
+  <% else %>
+    $('#display_execution_download').html("<%= escape_javascript render 'execution_download', :product_test => @product_test %>");
+  <% end %>
+<% end %>

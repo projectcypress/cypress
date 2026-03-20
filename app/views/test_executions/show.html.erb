@@ -85,8 +85,13 @@
         </div>
       </h1>
     </div>
-    <div class = 'card-body' id = 'display_execution_results' >
-      <%= render 'execution_results', :execution => @test_execution %>
-    </div>
+    <%= render 'execution_results', :execution => @test_execution %>
+    <% if @test_execution.status_with_sibling == 'incomplete' %>
+      <div id="<%= "execution_results_poller" %>"
+        data-controller="turbo-stream-poller"
+        data-turbo-stream-poller-url-value="<%= request.path %>"
+        data-turbo-stream-poller-params-value="<%= { partial: "execution_results", execution: @test_execution }.to_json %>"
+        data-turbo-stream-poller-interval-value="2000"></div>
+    <% end %>
   </div>
 <% end %>
