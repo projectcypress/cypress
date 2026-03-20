@@ -1,0 +1,5 @@
+<%= render 'application_status', :system_usage_stats => @system_usage_stats %>
+<div id="application_status_poller"
+   data-controller="turbo-stream-poller"
+   data-turbo-stream-poller-url-value="<%= url_for(action: :show, format: :turbo_stream, partial: "application_status") %>"
+   data-turbo-stream-poller-interval-value="10000"></div>
