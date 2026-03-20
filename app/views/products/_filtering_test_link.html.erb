@@ -48,7 +48,3 @@
     <%= render partial: '/products/product_test_upload', locals: { task: task, label_class: 'btn btn-outline-info', html_id: html_id } %>
   <% end %>
 <% end %>
-
-<% if should_reload && !parent_reloading %>
-  <div data-controller="filtering-test-link" data-url="<%= request.path %>" data-html="<%= html_id %>" data-task="<%= task.id.to_s %>"></div>
-<% end %>
