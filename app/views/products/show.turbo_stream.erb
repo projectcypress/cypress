@@ -1,12 +1,13 @@
 <% if params[:partial] == 'bulk_download' %>
   <% if @product.product_tests.measure_tests.where(:state.nin => [:ready]).count.positive? %>
-    <%= turbo_stream.replace "display_bundle_list" do %>
-      <%= render "/bulk_download" %>
+    <%= turbo_stream.replace "display_bulk_download" do %>
+      <%= render "/products/bulk_download", :product => @product %>
     <% end %>
   <% else %>
     <% # don't wait. just load the bulk download %>
-    <%= turbo_stream.replace "display_bundle_list" do %>
-      <%= render "/bulk_download" %>
+    <%= turbo_stream.replace "display_bulk_download" do %>
+      <%= render "/products/bulk_download", :product => @product %>
+      <%= turbo_stream.remove "bulk_download_poller" %>
     <% end %>
   <% end %>
 <% elsif params[:partial] == 'filtering_test_status_display' %>

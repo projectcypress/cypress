@@ -9,9 +9,7 @@
         <div class = 'card-header'>
           <h1 class='card-title lead'>Download Full Test Deck</h1>
         </div>
-        <div class = 'card-body' id = 'display_bulk_download'>
-          <%= render 'bulk_download', :product => @product %>
-        </div>
+        <%= render 'bulk_download_wrapper', :product => @product %>
       </div>
     <% end %>
   </div>

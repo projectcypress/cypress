@@ -5,6 +5,7 @@
 # must specify local variable "product"
 #
 %>
+<div class = 'card-body' id = 'display_bulk_download'>
 <% total_filtering_tests = product.c4_test? ? 5 : 0 %>
 <% num_measure_tests = product.product_tests.measure_tests.count + total_filtering_tests + product.product_tests.multi_measure_tests.count %>
 <% num_measure_tests_ready = product.product_tests.measure_tests.where(state: :ready).count + product.product_tests.filtering_tests.where(state: :ready).count + product.product_tests.multi_measure_tests.where(state: :ready).count %>
@@ -20,5 +21,5 @@
 <% else %>
   <p>Patient records are being built for each measure.</p>
   <p><%= icon('fas fa-fw fa-spin', 'sync-alt', :"aria-hidden" => true) %><%= " #{num_measure_tests_ready} of #{num_measure_tests} tests ready" %></p>
-  <div data-controller="bulk-download" data-url="<%= request.path %>"></div>
 <% end %>
+</div>
