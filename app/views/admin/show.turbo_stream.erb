@@ -10,7 +10,7 @@
     <% end %>
   <% end %>
 <% elsif params[:partial] == 'application_status' %>
-  <%= turbo_stream.replace "application_status" do %>
-    <%= render "/admin/application_status", bundles: @bundles %>
+  <%= turbo_stream.replace "application_status_inner" do %>
+    <%= render "/admin/application_status", system_usage_stats: @system_usage_stats %>
   <% end %>
 <% end %>
