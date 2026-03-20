@@ -25,9 +25,15 @@
   <% if @vendor %>
     <%= button_to "+ Import Patients", new_vendor_record_path(@vendor.id), :method => :get, :params => {default: @bundle}, :class => "btn btn-primary float-end", :disabled => @bundle.nil? %>
     <h1><%= @vendor.name %> Patient List</h1>
-    <div class="vendor-upload-jobs">
       <%= render 'vendor_upload_jobs', :vendor => @vendor %>
-    </div>
+      <% trackers = VendorPatientUploadJob.trackers.where('options.vendor_id': @vendor.id.to_s) %>
+      <% if trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
+        <div id="<%= "vendor_upload_jobs_poller" %>"
+          data-controller="turbo-stream-poller"
+          data-turbo-stream-poller-url-value="<%= request.path %>"
+          data-turbo-stream-poller-params-value="<%= { partial: "vendor_upload_jobs" }.to_json %>"
+          data-turbo-stream-poller-interval-value="2000"></div>
+      <% end %>
   <% else %>
     <h1>Master Patient List</h1>
   <% end %>
