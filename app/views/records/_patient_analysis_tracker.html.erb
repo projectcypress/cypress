@@ -1,6 +1,6 @@
+<div id="patient-analysis-tracker">
 <% trackers = PatientAnalysisJob.trackers.where('options.vendor_id': @vendor.id.to_s, 'options.bundle_id': @bundle.id.to_s,) %>
 <% if trackers.count.positive?  %>
-  <p>
   <h1>Current Patient Analysis</h1>
   <table class="table table-hover">
     <thead>
@@ -27,7 +27,5 @@
       <% end %>
     </tbody>
   </table>
-  <% if trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
-    <div data-controller="program-analysis-jobs" data-url="<%= request.path %>"></div>
-  <% end %>
 <% end %>
+</div>
