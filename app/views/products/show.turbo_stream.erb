@@ -10,8 +10,12 @@
     <% end %>
   <% end %>
 <% elsif params[:partial] == 'filtering_test_status_display' %>
+  <% tests = @product.product_tests.filtering_tests %>
   <%= turbo_stream.replace "filtering_test_status_display" do %>
-    <%= render "/filtering_test_status_display" %>
+    <%= render "/products/filtering_test_status_display", :product => @product, :html_id => params[:html_id] %>
+  <% end %>
+  <% if !should_reload_product_test_status_display?(tests) %>
+    <%= turbo_stream.remove "#{params[:html_id]}filtering_tests_table_poller" %>
   <% end %>
 <% elsif params[:partial] == 'measure_tests_table' %>
   <% tasks = measure_test_tasks(@product, get_c1_tasks: params[:get_c1_tasks]) %>
