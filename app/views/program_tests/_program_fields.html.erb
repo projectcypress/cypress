@@ -1,8 +1,4 @@
-
-<% if product_test.tasks.first.most_recent_execution && product_test.tasks.first.most_recent_execution.incomplete? %>
-  <div data-controller="program-fields" data-url="<%= request.path %>" data-task="<%= task.id.to_s %>"></div>
-<% end %>
-
+<div id = 'display_program_fields'>
 <%= bootstrap_form_for([@product, @product_test], :url => { :controller => 'program_tests', :action => 'update' }, data: { turbo: false }) do |f| %>
 
   <div class = 'card-group'>
@@ -58,6 +54,5 @@
       </div>
     </div>
   </div>
-
-
 <% end %>
+</div>
