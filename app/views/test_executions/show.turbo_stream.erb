@@ -9,6 +9,11 @@
       <%= render "/test_executions/execution_results", :execution => @test_execution %>
     <% end %>
     <%= turbo_stream.remove "execution_results_poller" %>
+    <%= turbo_stream.append "display_execution_results" do %>
+      <script>
+        document.dispatchEvent(new CustomEvent("cypress:init"))
+      </script>
+    <% end %>
   <% end %>
 
 <% elsif params[:partial] == 'execution_download' %>
