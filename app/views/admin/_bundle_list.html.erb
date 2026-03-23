@@ -19,7 +19,7 @@
           <td class="text-center">
 
             <% unless bundle.deprecated? %>
-              <%= button_to "Set Default", set_default_admin_bundle_path(bundle), :method => :post, :class => "btn btn-sm btn-default" unless bundle.active %>
+              <%= button_to "Set Default", set_default_admin_bundle_path(bundle), :method => :post, :class => "btn btn-sm btn-default", :data => { turbo: false } unless bundle.active %>
               <%= render 'action_button',
                               :button_text => 'Deprecate',
                               :button_classes => 'btn btn-sm btn-danger',
