@@ -48,6 +48,7 @@ import "jquery-ui";
 import "jasny-bootstrap";
 import "@hotwired/turbo-rails";
 import "controllers";
+import "dragon-drop/dragon-drop";
 // import "jquery-ui/widgets/accordion"
 // import "jquery-ui/widgets/button"
 // import "jquery-ui/widgets/dialog"
