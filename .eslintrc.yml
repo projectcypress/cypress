@@ -1,6 +1,10 @@
 env:
   browser: true
   jquery: true
+  es2021: true
+parserOptions:
+  browser: true
+  jquery: true
 extends: 'eslint:recommended'
 rules:
   accessor-pairs: error
