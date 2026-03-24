@@ -1,5 +1,5 @@
 <% if params[:partial] == 'bulk_download' %>
-  <% if @product.product_tests.measure_tests.where(:state.nin => [:ready]).count.positive? %>
+  <% if (@product.product_tests.measure_tests.where(:state.nin => [:ready]).count.positive?) || (@product.c4_test && @product.product_tests.filtering_tests.empty? ) || (@product.c4_test && @product.product_tests.filtering_tests.length.positive? &&  @product.product_tests.filtering_tests.where(:state.nin => [:ready]).count.positive? ) %>
     <%= turbo_stream.replace "display_bulk_download" do %>
       <%= render "/products/bulk_download", :product => @product %>
     <% end %>
@@ -12,10 +12,14 @@
   <% end %>
 <% elsif params[:partial] == 'filtering_test_status_display' %>
   <% tests = @product.product_tests.filtering_tests %>
-  <%= turbo_stream.replace "filtering_test_status_display" do %>
-    <%= render "/products/filtering_test_status_display", :product => @product, :html_id => params[:html_id] %>
-  <% end %>
-  <% if !should_reload_product_test_status_display?(tests) %>
+  <% if should_reload_product_test_status_display?(tests) %>
+    <%= turbo_stream.replace "filtering_test_status_display" do %>
+      <%= render "/products/filtering_test_status_display", :product => @product, :html_id => params[:html_id] %>
+    <% end %>
+  <% else %>
+    <%= turbo_stream.replace "filtering_test_status_display" do %>
+      <%= render "/products/filtering_test_status_display", :product => @product, :html_id => params[:html_id] %>
+    <% end %>
     <%= turbo_stream.remove "#{params[:html_id]}filtering_tests_table_poller" %>
   <% end %>
 <% elsif params[:partial] == 'measure_tests_table' %>

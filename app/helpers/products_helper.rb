@@ -57,6 +57,8 @@ module ProductsHelper
   end
 
   def should_reload_product_test_status_display?(tests)
+    return true unless tests.length.positive?
+
     tests.each do |test|
       if should_reload_product_test_link?(tasks_status(with_c3_task(test.cat1_task)), test) ||
          should_reload_product_test_link?(tasks_status(with_c3_task(test.cat3_task)), test)
