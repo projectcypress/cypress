@@ -25,14 +25,14 @@ PreCommit:
     exclude: ['contrib/cookbooks/**/*']
   EsLint:
     enabled: true
-    exclude: ['vendor/assets/javascripts/**/*','vendor/javascripts/**/*', 'test/fixtures/**/*']
+    exclude: ['vendor/assets/javascripts/**/*','vendor/javascript/**/*', 'test/fixtures/**/*']
   ScssLint:
     # disable scss_lint check, incompatible with upgraded sass dependencies
     enabled: false
     exclude: ['vendor/assets/stylesheets/**/*']
   HardTabs:
     enabled: true
-    exclude: ['vendor/assets/stylesheets/**/*', 'vendor/assets/javascripts/**/*','vendor/javascripts/**/*', 'resources/schematron/**/*']
+    exclude: ['vendor/assets/stylesheets/**/*', 'vendor/assets/javascripts/**/*','vendor/javascript/**/*', 'resources/schematron/**/*']
   AuthorName:
     enabled: false
 CommitMsg:
