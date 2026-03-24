@@ -27,5 +27,5 @@ pin 'jasny-bootstrap', to: 'jasny-bootstrap.min.js'
 pin '@hotwired/turbo-rails', to: 'turbo.min.js'
 pin '@hotwired/stimulus', to: 'stimulus.min.js'
 pin '@hotwired/stimulus-loading', to: 'stimulus-loading.js'
-pin "dragon-drop/dragon-drop", to: "extensions/dragon_drop/dragon-drop.js"
+pin 'dragon-drop/dragon-drop', to: 'extensions/dragon_drop/dragon-drop.js'
 pin_all_from 'app/javascript/controllers', under: 'controllers'

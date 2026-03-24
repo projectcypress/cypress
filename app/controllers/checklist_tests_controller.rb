@@ -20,7 +20,6 @@ class ChecklistTestsController < ProductTestsController
         respond_with(@product, @product_test, &:js)
       end
     end
-
   end
 
   def update
