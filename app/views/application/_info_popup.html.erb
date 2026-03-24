@@ -1,3 +1,4 @@
-<div class="popup" id=<%="#{id}"%>><i class="fa fa-info-circle"></i>
-  <span class="popuptext" id=<%="popuptext-#{id}"%>><%= message %></span>
+<div data-controller="popup" data-action="click->popup#toggle" class="popup">
+  <i class="fa fa-info-circle"></i>
+  <span data-popup-target="text" class="popuptext"><%= message %></span>
 </div>

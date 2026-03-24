@@ -62,19 +62,19 @@ import "dragon-drop/dragon-drop";
 // window.$ = $;
 // window.jQuery = $;
 
-function popup(id) {
-  var popup_element = document.getElementById(id);
-  if (popup_element !== null) {
-    popup_element.classList.toggle("show");
-  }
-}
+// function popup(id) {
+//   var popup_element = document.getElementById(id);
+//   if (popup_element !== null) {
+//     popup_element.classList.toggle("show");
+//   }
+// }
 
-document.querySelectorAll(".popup").forEach((button) => {
-  button.addEventListener("click", (event) => {
-    const buttonId = event.currentTarget.id; // Get the ID of the clicked button
-    popup("popuptext-" + buttonId);
-  });
-});
+// document.querySelectorAll(".popup").forEach((button) => {
+//   button.addEventListener("click", (event) => {
+//     const buttonId = event.currentTarget.id; // Get the ID of the clicked button
+//     popup("popuptext-" + buttonId);
+//   });
+// });
 
 // $(document).on('page:load', cypress.initializeInfiniteScroll());
 // $(document).on('page:change', cypress.updateBundleStatus());
