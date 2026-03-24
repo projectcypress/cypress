@@ -36,19 +36,19 @@
 // any statically changed form elements will require a separate token refresh call
 
 import $ from "jquery2";
-
-//import jquery from "jquery2";
-//import "parsley";
 import * as cypress from "cypress";
-// import Turbolinks from "turbolinks";
 import * as bootstrap from "bootstrap";
 import "datatables";
-// import "jquery-ui/widgets/autocomplete";
 import "jquery-ui";
 import "jasny-bootstrap";
 import "@hotwired/turbo-rails";
 import "controllers";
 import "dragon-drop/dragon-drop";
+
+//import jquery from "jquery2";
+//import "parsley";
+// import Turbolinks from "turbolinks";
+// import "jquery-ui/widgets/autocomplete";
 // import "jquery-ui/widgets/accordion"
 // import "jquery-ui/widgets/button"
 // import "jquery-ui/widgets/dialog"
