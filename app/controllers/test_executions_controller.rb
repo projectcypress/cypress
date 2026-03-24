@@ -95,7 +95,6 @@ class TestExecutionsController < ApplicationController
         respond_with(@test_execution)
       end
     end
-
   end
 
   def destroy
