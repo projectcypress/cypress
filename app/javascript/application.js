@@ -37,7 +37,8 @@
 
 import $ from "jquery2";
 import * as cypress from "cypress";
-import * as bootstrap from "bootstrap";
+import "@popperjs/core";
+import "bootstrap";
 import "datatables";
 import "jquery-ui";
 import "jasny-bootstrap";

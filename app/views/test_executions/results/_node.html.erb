@@ -58,8 +58,8 @@
         <% # button to display popup with error message(s) %>
         <% btn_errors = '' %>
         <% errors.each { |error| btn_errors << " error_#{error.id}" } %>
-        <button type = "button" class="btn btn-warning error-popup-btn float-end <%= btn_errors %>" data-toggle="popover" data-placement = "bottom" title = '<%= popup_title %>' data-html = 'true' data-content = '<%= popup_content %>'>
-          <%= icon('fas fa-fw', 'comment', {:"aria-hidden" => true, :"data-error" => "error_#{error_id}"}) %> <span><%= popup_button_text %></span>
+        <button type = "button" class="btn btn-warning error-popup-btn float-end <%= btn_errors %>" data-bs-toggle="popover" data-bs-placement = "bottom" title = '<%= popup_title %>' data-bs-html = 'true' data-bs-content = '<%= popup_content %>' data-controller='popover' >
+          <%= icon('fas fa-fw', 'comment', {:"aria-hidden" => true, :"data-bs-error" => "error_#{error_id}"}) %> <span data-popover-target="text"><%= popup_button_text %></span>
         </button>
       <% end %>
     <% end %>

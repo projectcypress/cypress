@@ -82,9 +82,9 @@ var initializeTestExecutionResults = function () {
 
 function show_error_popup_and_jump(href) {
   if ($(href)) {
-    $("button.error-popup-btn").popover(
-      "hide",
-    ); /* hide all error popovers before showing the new one */
+    document.querySelectorAll("button.error-popup-btn").forEach((btn) => {
+      window.bootstrap?.Popover?.getInstance(btn).hide();
+    }); /* hide all error popovers before showing the new one */
 
     var scroll_time = 300; /* (milisec) time it takes to scroll from one error popover to another */
     var height_buffer = 20; /* number of pixels between the xml_nav_bar and the error after done scrolling */
@@ -104,9 +104,11 @@ function show_error_popup_and_jump(href) {
       )
       .promise()
       .done(function () {
-        $("button." + href.replace("#", "")).popover(
-          "toggle",
-        ); /* show popover for button with matching error id class */
+        const selector = "button." + href.replace("#", "");
+        const btn = document.querySelector(selector);
+        if (btn) {
+          window.bootstrap?.Popover?.getInstance(btn).toggle();
+        }; /* show popover for button with matching error id class */
 
         var $list_item = $("li." + href.replace("#", ""));
         if ($list_item.length) {

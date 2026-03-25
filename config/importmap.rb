@@ -6,7 +6,7 @@ pin 'application', preload: true
 pin 'jquery2-core', to: 'jquery2.js' # or whatever file jquery2 currently resolves to in your setup
 pin 'jquery2', to: 'jquery2_global.js'
 pin 'turbolinks' # @5.2.0
-pin '@popperjs/core', to: '@popperjs--core.js', preload: true # @2.11.8
+pin '@popperjs/core', to: 'popper.js', preload: true # @2.11.8
 pin 'bootstrap', to: 'bootstrap.bundle.js', preload: true # @5.3.8
 pin 'cypress', to: 'extensions/cypress.js'
 pin 'datatables', to: 'datatables.min.js'
