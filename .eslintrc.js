@@ -87,7 +87,7 @@ module.exports = {
     "no-implied-eval": "error",
     "no-inline-comments": "off",
     "no-inner-declarations": ["error", "functions"],
-    "no-invalid-this": "error",
+    "no-invalid-this": "off",
     "no-iterator": "error",
     "no-label-var": "error",
     "no-labels": "error",
