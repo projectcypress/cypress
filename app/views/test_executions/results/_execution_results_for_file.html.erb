@@ -60,7 +60,9 @@
 
         <% unless on_execution_show_page %>
           <div class="xml-view">
-            <%= render partial: "test_executions/results/xmlnav" %>
+            <div data-controller="navigator fixed-header" data-fixed-header-top-offset-value="0" data-action="navigator:navigate->app#onNavigate">
+              <%= render partial: "test_executions/results/xmlnav" %>
+            </div>
             <h3>Uploaded File</h3>
             <div class="xml-frame">
               <%= render partial: 'test_executions/results/node', :locals => error_hash %>

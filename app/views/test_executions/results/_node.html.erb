@@ -11,7 +11,7 @@
 <% return if doc.nil? %>
 
 <% error_id = (doc['error_id']) %>
-<div <%=  error_id ? %{id=xerror_#{error_id}} : '' %> class="indent ">
+<div href="<%="#xerror_#{error_id}"%>#one" data-navigator-target="item" <%=  error_id ? %{id=xerror_#{error_id}} : '' %> class="indent ">
   <% if error_id %>
     <% # create error message to be displayed in popup %>
     <% errors = execution_errors.select { |ee|  ee.location == error_map.invert[error_id] }.sort_by(&:msg_type) %>
