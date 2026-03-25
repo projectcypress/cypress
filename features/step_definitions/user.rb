@@ -119,7 +119,7 @@ Then(/^the user should be on the page with (.+) on it$/) do |page_text|
 end
 
 Then(/^the user should see an log in error message$/) do
-  page.assert_text 'Invalid Email or password.'
+  page.assert_text 'Invalid email or password.'
 end
 
 Then(/^the user should see an umls error message$/) do
