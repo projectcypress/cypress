@@ -3,9 +3,9 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   devise_for :users, controllers: { registrations: 'registrations', sessions: 'sessions' }
-  devise_scope :user do
-    get '/users', to: redirect('/users/sign_up')
-  end
+  # devise_scope :user do
+  #   get '/users', to: redirect('/users/sign_up')
+  # end
 
   root to: 'home#index'
 

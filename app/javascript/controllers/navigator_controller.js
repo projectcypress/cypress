@@ -56,7 +56,7 @@ export default class extends Controller {
     }))
 
     // Or, if you just want to go there:
-    // window.location.href = href
+    window.location.href = href
   }
 
   clampIndex() {

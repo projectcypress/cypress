@@ -116,7 +116,7 @@
                           </td>
                           <% if checked_criteria.attribute_index && criteria['dataElementAttributes'][checked_criteria.attribute_index]['attribute_name'] == "negationRationale" %>
                           <td class='show-me' style='display: none;'>
-                            <%= criteria_field.check_box :negated_valueset, label_class: 'label toggle', onclick: "lookupLabelFunction(#{criteria_field.index})" do %>
+                            <%= criteria_field.check_box :negated_valueset, class: 'toggle', label_class: 'label toggle', onclick: "lookupLabelFunction(#{criteria_field.index})" do %>
                               <div class="toggle-control"></div>
                             <% end %>
                             <div class='negation_toggle' id="<%= "code#{criteria_field.index}" %>" style='display: none;'>

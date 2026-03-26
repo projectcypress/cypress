@@ -51,7 +51,7 @@ And(/^the user should be able to click view results/) do
 end
 
 def upload_and_submit(file_path)
-  find('span', class: 'btn-file').click
+  page.find_button('Select file', disabled: false).click
   page.attach_file('results', file_path, visible: false)
-  page.find('#submit-upload').click
+  page.find_button('Upload', disabled: false).click
 end

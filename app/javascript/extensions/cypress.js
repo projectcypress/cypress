@@ -36,31 +36,31 @@ var initializeTestExecutionResults = function () {
   });
   $(".xml-error-tabs > ul > li").removeClass("ui-corner-top");
 
-  // set up interactions for the XML views
-  $(".xml-view").each(function () {
-    /* link subnav with the execution_error_link s */
-    var $error_links = $(this).parent().find("a.execution_error_link");
+  // // set up interactions for the XML views
+  // $(".xml-view").each(function () {
+  //   /* link subnav with the execution_error_link s */
+  //   var $error_links = $(this).parent().find("a.execution_error_link");
 
-    if ($error_links.length) {
-      $(this).fixedHeader();
+  //   if ($error_links.length) {
+  //     $(this).fixedHeader();
 
-      var targets = jQuery.map($error_links, function (el, i) {
-        return "[href='" + $(el).attr("href") + "']";
-      });
+  //     var targets = jQuery.map($error_links, function (el, i) {
+  //       return "[href='" + $(el).attr("href") + "']";
+  //     });
 
-      var navigation = $(this).find(".xml-nav").navigator({
-        targets: targets.join(),
-        action: show_error_popup_and_jump,
-      });
+  //     var navigation = $(this).find(".xml-nav").navigator({
+  //       targets: targets.join(),
+  //       action: show_error_popup_and_jump,
+  //     });
 
-      $error_links.on("click", function (event) {
-        var href = $(this).attr("href");
-        show_error_popup_and_jump(href);
-        navigation.data("navigator").setIndex(href);
-        return false;
-      });
-    }
-  });
+  //     $error_links.on("click", function (event) {
+  //       var href = $(this).attr("href");
+  //       show_error_popup_and_jump(href);
+  //       navigation.data("navigator").setIndex(href);
+  //       return false;
+  //     });
+  //   }
+  // });
 
   // enable each error popover
   //$('.error-popup-btn').popover();
@@ -825,6 +825,15 @@ export function updateBundleStatus() {
   }
 }
 
+function hideModalById(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  // If it's already initialized, get it; otherwise create it
+  const modal = bootstrap.Modal.getInstance(el) || new bootstrap.Modal(el);
+  modal.hide();
+}
+
 export function initializeChecklistTest() {
   // Enable changing measures
   $("#save_options")
@@ -852,27 +861,25 @@ export function initializeChecklistTest() {
     var attribute_value = $(currentTarget).data("attribute-value");
     var code_string = $(currentTarget).data("code-string");
     var input_box_type;
+    
     if (attribute_value == false) {
-      input_box_type = "code";
+      const input_box_type = "code";
       document.getElementById(
-        "product_test_checked_criteria_attributes_" +
-          index_value +
-          "_" +
-          input_box_type,
+        "product_test_checked_criteria_attributes_" + index_value + "_" + input_box_type
       ).value = code_string;
-      $("#lookupModal" + index_value).modal("hide");
+
+      hideModalById("lookupModal" + index_value);
     }
+
     if (attribute_value == true) {
-      input_box_type = "attribute_code";
+      const input_box_type = "attribute_code";
       document.getElementById(
-        "product_test_checked_criteria_attributes_" +
-          index_value +
-          "_" +
-          input_box_type,
+        "product_test_checked_criteria_attributes_" + index_value + "_" + input_box_type
       ).value = code_string;
-      $("#lookupModal-negation" + index_value).modal("hide") &&
-        $("#lookupModal-fieldvalues" + index_value).modal("hide") &&
-        $("#lookupModal-result" + index_value).modal("hide");
+
+      hideModalById("lookupModal-negation" + index_value);
+      hideModalById("lookupModal-fieldvalues" + index_value);
+      hideModalById("lookupModal-result" + index_value);
     }
   });
 }

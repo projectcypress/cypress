@@ -59,13 +59,13 @@
         <%= render partial: 'test_executions/results/supplemental_data_error_table', locals: { errors: report_sup_data_errors + pop_errors + pop_sum_errors, pop_errors_hash: population_error_hash(pop_errors + pop_sum_errors, report_sup_data_errors), task: @task } %>
 
         <% unless on_execution_show_page %>
-          <div class="xml-view">
-            <div data-controller="navigator fixed-header" data-fixed-header-top-offset-value="0" data-action="navigator:navigate->app#onNavigate">
+          <div data-controller="navigator fixed-header" data-fixed-header-top-offset-value="0" data-action="navigator:navigate->app#onNavigate">
+            <div class="xml-view">            
               <%= render partial: "test_executions/results/xmlnav" %>
-            </div>
-            <h3>Uploaded File</h3>
-            <div class="xml-frame">
-              <%= render partial: 'test_executions/results/node', :locals => error_hash %>
+              <h3>Uploaded File</h3>
+              <div class="xml-frame">
+                <%= render partial: 'test_executions/results/node', :locals => error_hash %>
+              </div>
             </div>
           </div>
         <% end %>
