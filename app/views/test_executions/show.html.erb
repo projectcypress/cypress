@@ -23,8 +23,8 @@
             class: "btn btn-default float-end",
             data: { turbo_frame: "_top" } do
               safe_join([
-                content_tag(:i, "", class: "fas fa-fw fa-step-forward", "aria-hidden": "true"),
-                " Next Test: #{iterate_task(@task, 'next').product_test.button_short_name}"
+                " Next Test: #{iterate_task(@task, 'next').product_test.button_short_name}",
+                content_tag(:i, "", class: "fas fa-fw fa-step-forward", "aria-hidden": "true")
               ]) end %>
   </div>
 <% end %>
