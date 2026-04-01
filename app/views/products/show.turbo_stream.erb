@@ -10,15 +10,15 @@
       <%= turbo_stream.remove "bulk_download_poller" %>
     <% end %>
   <% end %>
-<% elsif params[:partial] == 'filtering_test_status_display' %>
+<% elsif params[:partial] == 'filtering_test_status_display_body' %>
   <% tests = @product.product_tests.filtering_tests %>
   <% if should_reload_product_test_status_display?(tests) %>
-    <%= turbo_stream.replace "filtering_test_status_display" do %>
-      <%= render "/products/filtering_test_status_display", :product => @product, :html_id => params[:html_id] %>
+    <%= turbo_stream.replace "display_filtering_test_status_display_body" do %>
+      <%= render "/products/filtering_test_status_display_body", :product => @product, :html_id => params[:html_id] %>
     <% end %>
   <% else %>
-    <%= turbo_stream.replace "filtering_test_status_display" do %>
-      <%= render "/products/filtering_test_status_display", :product => @product, :html_id => params[:html_id] %>
+    <%= turbo_stream.replace "display_filtering_test_status_display_body" do %>
+      <%= render "/products/filtering_test_status_display_body", :product => @product, :html_id => params[:html_id] %>
     <% end %>
     <%= turbo_stream.remove "#{params[:html_id]}filtering_tests_table_poller" %>
   <% end %>

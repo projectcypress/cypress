@@ -516,12 +516,14 @@ export function initializeProductTable() {
     info: false,
   });
 
-  $("#filtering_test_status_display").DataTable({
-    searching: false,
-    paging: false,
-    stateSave: true /* preserves order on reload */,
-    info: false,
-  });
+  if ($("#display_filtering_test_status_display_body").length && !$.fn.dataTable.isDataTable("#filtering_test_status_display")) {
+    $("#filtering_test_status_display").DataTable({
+      searching: false,
+      paging: false,
+      stateSave: true /* preserves order on reload */,
+      info: false,
+    });
+  }
 
   $(".user_table").DataTable({
     destroy: true,

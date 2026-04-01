@@ -13,26 +13,6 @@
       <th class="no-wrap" scope="col">QRDA Category III</th>
       <th class="no-wrap" scope="col">Last Updated</th>
     </thead>
-    <tbody>
-      <% tests.each do |test| %>
-        <tr>
-          <td class="no-wrap">
-            <% if test.display_name.to_s == '' %>
-              <%= test.options.filters.keys.join('/').titleize %>
-            <% else %>
-              <%= test.display_name %>
-            <% end %>
-          </td>
-          <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(test.cat1_task) %>">
-            <%= render 'filtering_test_link', :test => test, :task => test.cat1_task, :parent_reloading => true, :html_id => html_id %>
-          </td>
-          <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(test.cat3_task) %>">
-            <%= render 'filtering_test_link', :test => test, :task => test.cat3_task, :parent_reloading => true, :html_id => html_id %>
-          </td>
-          <td class="no-wrap"><%= icon('far fa-fw', 'clock', :"aria-hidden" => true) %>
-            <%= local_time_ago(test.updated_at) %></td>
-        </tr>
-      <% end %>
-    </tbody>
+    <%= render 'filtering_test_status_display_body', :product => @product, :html_id => html_id %>
   </table>
 </div>
