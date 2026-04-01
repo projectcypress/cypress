@@ -43,6 +43,7 @@
       <% if !execution.nil? && status_with_sibling == 'incomplete' %>
         <div id="<%= "checklist_execution_results_poller" %>"
           data-controller="turbo-stream-poller"
+          data-turbo-temporary
           data-turbo-stream-poller-url-value="<%= request.path %>"
           data-turbo-stream-poller-params-value="<%= { partial: "checklist_execution_results", task_id: @product_test.tasks.c1_checklist_task.id }.to_json %>"
           data-turbo-stream-poller-interval-value="2000"></div>
@@ -51,6 +52,7 @@
       <% if @product_test.most_recent_task_execution_incomplete? %>
         <div id="<%= "checklist_status_display_poller" %>"
           data-controller="turbo-stream-poller"
+          data-turbo-temporary
           data-turbo-stream-poller-url-value="<%= request.path %>"
           data-turbo-stream-poller-params-value="<%= { partial: "checklist_status_display" }.to_json %>"
           data-turbo-stream-poller-interval-value="2000"></div>
@@ -63,6 +65,7 @@
   <% if @product_test.tasks.first.most_recent_execution && @product_test.tasks.first.most_recent_execution.incomplete? %>
     <div id="<%= "checklist_measures_poller" %>"
       data-controller="turbo-stream-poller"
+      data-turbo-temporary
       data-turbo-stream-poller-url-value="<%= request.path %>"
       data-turbo-stream-poller-params-value="<%= { partial: "checklist_measures" }.to_json %>"
       data-turbo-stream-poller-interval-value="2000"></div>

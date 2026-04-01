@@ -12,6 +12,7 @@
 <% if (num_measure_tests_ready != num_measure_tests) && !(product.product_tests.measure_tests.where(state: :errored).count.positive?) %>
   <div id="<%= "bulk_download_poller" %>"
       data-controller="turbo-stream-poller"
+      data-turbo-temporary
       data-turbo-stream-poller-url-value="<%= request.path %>"
       data-turbo-stream-poller-params-value="<%= { partial: "bulk_download" }.to_json %>"
       data-turbo-stream-poller-interval-value="10000"></div>

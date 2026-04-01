@@ -30,6 +30,7 @@
       <% if trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
         <div id="<%= "vendor_upload_jobs_poller" %>"
           data-controller="turbo-stream-poller"
+          data-turbo-temporary
           data-turbo-stream-poller-url-value="<%= request.path %>"
           data-turbo-stream-poller-params-value="<%= { partial: "vendor_upload_jobs" }.to_json %>"
           data-turbo-stream-poller-interval-value="2000"></div>
@@ -92,6 +93,7 @@
                       <% unless current_mpl_status == :ready %>
                         <div id="<%= "mpl_poller" %>"
                           data-controller="turbo-stream-poller"
+                          data-turbo-temporary
                           data-turbo-stream-poller-url-value="<%= request.path %>"
                           data-turbo-stream-poller-params-value="<%= { partial: "mpl_download", mpl_bundle_id: bundle.id.to_s }.to_json %>"
                           data-turbo-stream-poller-interval-value="2000"></div>

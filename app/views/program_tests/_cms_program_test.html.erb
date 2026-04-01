@@ -12,6 +12,7 @@
 <% if product_test.tasks.first.most_recent_execution && product_test.tasks.first.most_recent_execution.incomplete? %>
   <div id="<%= "program_fields_poller" %>"
           data-controller="turbo-stream-poller"
+          data-turbo-temporary
           data-turbo-stream-poller-url-value="<%= request.path %>"
           data-turbo-stream-poller-params-value="<%= { partial: "program_fields", task: product_test.tasks.first.id.to_s }.to_json %>"
           data-turbo-stream-poller-interval-value="2000"></div>

@@ -5,6 +5,7 @@
   <% if reload %>
     <div id="<%= "#{html_id}measure_tests_table_poller" %>"
       data-controller="turbo-stream-poller"
+      data-turbo-temporary
       data-turbo-stream-poller-url-value="<%= product_url %>"
       data-turbo-stream-poller-params-value="<%= { partial: "measure_tests_table", html_id: html_id, get_c1_tasks: get_c1_tasks, reload: reload }.to_json %>"
       data-turbo-stream-poller-interval-value="15000"></div>
