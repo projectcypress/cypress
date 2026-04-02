@@ -1,5 +1,5 @@
-import { Controller } from "@hotwired/stimulus"
 import "parsleyjs" // ensures window.Parsley is available (depending on your setup)
+import { Controller } from "@hotwired/stimulus"
 
 let validatorsRegistered = false
 

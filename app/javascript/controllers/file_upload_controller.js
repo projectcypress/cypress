@@ -15,7 +15,7 @@ export default class extends Controller {
 
   refresh() {
     const file = this.inputTarget.files?.[0]
-    const hasFile = !!file
+    const hasFile = Boolean(file)
 
     this.filenameTarget.value = hasFile ? file.name : ""
     this.pickLabelTarget.textContent = hasFile ? "Change" : "Select file"

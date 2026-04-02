@@ -80,47 +80,47 @@ var initializeTestExecutionResults = function () {
   });
 };
 
-function show_error_popup_and_jump(href) {
-  if ($(href)) {
-    document.querySelectorAll("button.error-popup-btn").forEach((btn) => {
-      window.bootstrap?.Popover?.getInstance(btn).hide();
-    }); /* hide all error popovers before showing the new one */
+// function show_error_popup_and_jump(href) {
+//   if ($(href)) {
+//     document.querySelectorAll("button.error-popup-btn").forEach((btn) => {
+//       window.bootstrap?.Popover?.getInstance(btn).hide();
+//     }); /* hide all error popovers before showing the new one */
 
-    var scroll_time = 300; /* (milisec) time it takes to scroll from one error popover to another */
-    var height_buffer = 20; /* number of pixels between the xml_nav_bar and the error after done scrolling */
+//     var scroll_time = 300; /* (milisec) time it takes to scroll from one error popover to another */
+//     var height_buffer = 20; /* number of pixels between the xml_nav_bar and the error after done scrolling */
 
-    var height_of_xmlnav_div = $(".xml-nav").outerHeight();
-    var height_of_error_div = $(href).siblings(".error").outerHeight();
-    var pixels_down_page =
-      height_of_xmlnav_div +
-      height_buffer +
-      height_of_error_div; /* number of pixels down the page the error will apear after scrolling */
+//     var height_of_xmlnav_div = $(".xml-nav").outerHeight();
+//     var height_of_error_div = $(href).siblings(".error").outerHeight();
+//     var pixels_down_page =
+//       height_of_xmlnav_div +
+//       height_buffer +
+//       height_of_error_div; /* number of pixels down the page the error will apear after scrolling */
 
-    /* scroll to error popover */
-    $("html,body")
-      .animate(
-        { scrollTop: $(href).offset().top - pixels_down_page },
-        { duration: scroll_time, easing: "swing" },
-      )
-      .promise()
-      .done(function () {
-        const selector = "button." + href.replace("#", "");
-        const btn = document.querySelector(selector);
-        if (btn) {
-          window.bootstrap?.Popover?.getInstance(btn).toggle();
-        }; /* show popover for button with matching error id class */
+//     /* scroll to error popover */
+//     $("html,body")
+//       .animate(
+//         { scrollTop: $(href).offset().top - pixels_down_page },
+//         { duration: scroll_time, easing: "swing" },
+//       )
+//       .promise()
+//       .done(function () {
+//         const selector = "button." + href.replace("#", "");
+//         const btn = document.querySelector(selector);
+//         if (btn) {
+//           window.bootstrap?.Popover?.getInstance(btn).toggle();
+//         } /* show popover for button with matching error id class */
 
-        var $list_item = $("li." + href.replace("#", ""));
-        if ($list_item.length) {
-          $list_item.effect(
-            "highlight",
-            {},
-            2000,
-          ); /* temporarily highlight the error if there are a list of errors in the popover */
-        }
-      });
-  }
-}
+//         var $list_item = $("li." + href.replace("#", ""));
+//         if ($list_item.length) {
+//           $list_item.effect(
+//             "highlight",
+//             {},
+//             2000,
+//           ); /* temporarily highlight the error if there are a list of errors in the popover */
+//         }
+//       });
+//   }
+// }
 
 var approachingBottomOfPage,
   loadNextPageAt,
@@ -803,9 +803,9 @@ export function initializeAdmin() {
 
   $customModeButtons.trigger("change");
 
-  $(".activity-paginate").click(function (event) {
-    Turbolinks.ProgressBar.start();
-    Turbolinks.ProgressBar.advanceTo(25);
+  $(".activity-paginate").click(function () {
+    window.Turbolinks?.ProgressBar?.start?.()
+    window.Turbolinks?.ProgressBar?.advanceTo?.(25)
   });
 }
 
@@ -828,12 +828,13 @@ export function updateBundleStatus() {
 }
 
 function hideModalById(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
+  const el = document.getElementById(id)
+  if (!el) return
+  if (!window.bootstrap?.Modal) return
 
-  // If it's already initialized, get it; otherwise create it
-  const modal = bootstrap.Modal.getInstance(el) || new bootstrap.Modal(el);
-  modal.hide();
+  const modal =
+    window.bootstrap.Modal.getInstance(el) || new window.bootstrap.Modal(el)
+  modal.hide()
 }
 
 export function initializeChecklistTest() {
@@ -862,8 +863,7 @@ export function initializeChecklistTest() {
     var index_value = $(currentTarget).data("index-value");
     var attribute_value = $(currentTarget).data("attribute-value");
     var code_string = $(currentTarget).data("code-string");
-    var input_box_type;
-    
+
     if (attribute_value == false) {
       const input_box_type = "code";
       document.getElementById(
@@ -942,17 +942,18 @@ export function initializeRecord() {
   // just take them to the new page
   // use Turbolinks so it doesn't full refresh
   $(document).on("change", 'input[name="bundle_id"]', function () {
-    var bundle_id = $(this).val();
+    var bundle_id = $(this).val()
     if ($(this).next(".bundle-checkbox").length > 0) {
-      Turbo.visit("/bundles/" + bundle_id + "/records");
+      window.Turbo?.visit?.("/bundles/" + bundle_id + "/records")
     }
-  });
+  })
+
   $(document).on("change", 'input[name="bundle_id"]', function () {
-    var bundle_id = $(this).val();
+    var bundle_id = $(this).val()
     if ($(this).next(".vendor-checkbox").length > 0) {
-      Turbo.visit("?bundle_id=" + bundle_id);
+      window.Turbo?.visit?.("?bundle_id=" + bundle_id)
     }
-  });
+  })
 
   // This is its own unique checkbox panel danger class, so should not affect
   // behavior of other danger panels

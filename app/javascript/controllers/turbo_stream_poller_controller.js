@@ -1,5 +1,5 @@
-import { Controller } from "@hotwired/stimulus"
 import "@hotwired/turbo-rails"
+import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static values = {
@@ -57,7 +57,9 @@ export default class extends Controller {
 
   abortInFlight() {
     if (this.abortController) {
-      try { this.abortController.abort() } catch (_) {}
+      try { this.abortController.abort() } catch (_) {
+        // ignore (may already be aborted / not abortable)
+      }
       this.abortController = null
     }
   }
@@ -101,11 +103,11 @@ export default class extends Controller {
 
     if (this.hasParamsValue && this.paramsValue) {
       Object.entries(this.paramsValue).forEach(([key, value]) => {
-        if (value === null || value === undefined) return
+        if (value === null || value === "undefined") return
 
         if (Array.isArray(value)) {
           url.searchParams.delete(key)
-          value.forEach(v => url.searchParams.append(key, String(v)))
+          value.forEach((v) => url.searchParams.append(key, String(v)))
         } else {
           url.searchParams.set(key, String(value))
         }

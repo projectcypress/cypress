@@ -1,5 +1,5 @@
-import { Controller } from "@hotwired/stimulus";
 import * as cypress from "cypress";
+import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static values = { initialized: Boolean };

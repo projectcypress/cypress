@@ -39,7 +39,7 @@ export default class extends Controller {
   }
 
   setIndexFromHref(href) {
-    const idx = this.itemTargets.findIndex(el => el.getAttribute("href") === href)
+    const idx = this.itemTargets.findIndex((el) => el.getAttribute("href") === href)
     if (idx !== -1) this.indexValue = idx
   }
 
