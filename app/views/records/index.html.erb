@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <meta name="turbo-cache-control" content="no-preview">
+<% end %>
+
 <% if @task && @product_test %>
   <div class="float-end button-row">
     <% if (@measure && @measure.population_sets_and_stratifications_for_measure.size > 1) || (@product_test && @product_test.measure_ids.size > 1) %>

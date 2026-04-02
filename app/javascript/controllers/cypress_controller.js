@@ -1,32 +1,35 @@
-import * as cypress from "cypress";
-import { Controller } from "@hotwired/stimulus";
+import * as cypress from "cypress"
+import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static values = { initialized: Boolean };
+  static values = { initialized: Boolean }
 
   connect() {
-    // Optional: run once on first connect
-    if (!this.initializedValue) this.init();
-  }
+    if (this.initializedValue) return
+    this.initializedValue = true
 
-  init() {
-    cypress.initializeJqueryCvuRadio?.();
-    cypress.initializeProductTable?.();
-    cypress.reticulateSplines?.();
-    cypress.initializeMeasureSelection?.();
-    cypress.initializeActionModal?.();
-    cypress.initializeAdmin?.();
-    cypress.initializeChecklistTest?.();
-    cypress.initializeCollapsible?.();
-    cypress.initializeTestExecution?.();
-    cypress.initializeRecord?.();
-    cypress.initializeInfiniteScroll?.();
-    cypress.updateBundleStatus?.();
-    this.initializedValue = true;
+    cypress.initializeJqueryCvuRadio?.()
+    cypress.initializeProductTable?.()
+    cypress.reticulateSplines?.()
+    cypress.initializeMeasureSelection?.()
+    cypress.initializeActionModal?.()
+    cypress.initializeAdmin?.()
+    cypress.initializeChecklistTest?.()
+    cypress.initializeCollapsible?.()
+    cypress.initializeTestExecution?.()
+    cypress.initializeRecord?.()
+    cypress.initializeInfiniteScroll?.()
+    cypress.updateBundleStatus?.()
   }
 
   teardown() {
-    cypress.teardown?.();
-    this.initializedValue = false;
+    cypress.teardown?.()
+    this.initializedValue = false
+  }
+
+  disconnect() {
+    // optional: if you want cleanup when controller is removed
+    // cypress.teardown?.()
+    // this.initializedValue = false
   }
 }

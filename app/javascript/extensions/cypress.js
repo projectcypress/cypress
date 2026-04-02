@@ -938,57 +938,57 @@ export function initializeInfiniteScroll() {
 }
 
 export function initializeRecord() {
-  // when the user selects a different bundle
-  // just take them to the new page
-  // use Turbolinks so it doesn't full refresh
-  $(document).on("change", 'input[name="bundle_id"]', function () {
-    var bundle_id = $(this).val()
-    if ($(this).next(".bundle-checkbox").length > 0) {
-      window.Turbo?.visit?.("/bundles/" + bundle_id + "/records")
-    }
-  })
+  // Bundle selection handlers (idempotent)
+  $(document)
+    .off("change.cypressBundle", 'input[name="bundle_id"]')
+    .on("click.cypressBundle", 'input[name="bundle_id"]', function () {
+      const bundle_id = $(this).val()
 
-  $(document).on("change", 'input[name="bundle_id"]', function () {
-    var bundle_id = $(this).val()
-    if ($(this).next(".vendor-checkbox").length > 0) {
-      window.Turbo?.visit?.("?bundle_id=" + bundle_id)
-    }
-  })
+      // ensure UI state updates immediately
+      this.checked = true
 
-  // This is its own unique checkbox panel danger class, so should not affect
-  // behavior of other danger panels
-  $(document).on(
-    "change",
-    ".delete_vendor_patients_form input:checkbox",
-    changePanel,
-  );
+      let url = null
+      if ($(this).next(".bundle-checkbox").length > 0) {
+        url = `/bundles/${bundle_id}/records`
+      } else if ($(this).next(".vendor-checkbox").length > 0) {
+        url = `?bundle_id=${bundle_id}`
+      }
+      if (!url) return
 
-  $(document).on("click", "#vendor-patient-select-all", function () {
-    // alert("alert!");
-    var button_font = $(this).find("i");
-    var checkbox = $(".delete_vendor_patients_form input:checkbox");
-    if ($(this).val() == "unchecked") {
-      checkbox.each(function () {
-        $(this).prop("checked", true);
-      });
-      button_font.removeClass("fa-square");
-      button_font.addClass("fa-check-square");
-      $(this).prop("title", "Unselect All");
-      $("#vendor-patient-select-all-text").text("Unselect All");
-      $(this).val("checked");
-    } else {
-      checkbox.each(function () {
-        $(this).prop("checked", false);
-      });
-      button_font.removeClass("fa-check-square");
-      button_font.addClass("fa-square");
-      $(this).prop("title", "Select All");
-      $("#vendor-patient-select-all-text").text("Select All");
-      $(this).val("unchecked");
-    }
-    changePanel();
-  });
+      // let the browser paint the checked state, then navigate
+      requestAnimationFrame(() => window.Turbo?.visit?.(url))
+    })
+
+  // Danger panel checkbox changes (idempotent)
+  $(document)
+    .off("change.cypressVendorPatients", ".delete_vendor_patients_form input:checkbox")
+    .on("change.cypressVendorPatients", ".delete_vendor_patients_form input:checkbox", changePanel)
+
+  // Select-all button (idempotent)
+  $(document)
+    .off("click.cypressVendorSelectAll", "#vendor-patient-select-all")
+    .on("click.cypressVendorSelectAll", "#vendor-patient-select-all", function () {
+      const button_font = $(this).find("i")
+      const checkbox = $(".delete_vendor_patients_form input:checkbox")
+
+      if ($(this).val() == "unchecked") {
+        checkbox.prop("checked", true)
+        button_font.removeClass("fa-square").addClass("fa-check-square")
+        $(this).prop("title", "Unselect All")
+        $("#vendor-patient-select-all-text").text("Unselect All")
+        $(this).val("checked")
+      } else {
+        checkbox.prop("checked", false)
+        button_font.removeClass("fa-check-square").addClass("fa-square")
+        $(this).prop("title", "Select All")
+        $("#vendor-patient-select-all-text").text("Select All")
+        $(this).val("unchecked")
+      }
+
+      changePanel()
+    })
 }
+
 
 export function initializeTestExecution() {
   // switch view to selected test execution
@@ -1001,4 +1001,14 @@ export function initializeTestExecution() {
     $("#new_test_execution").submit();
   });
   initializeTestExecutionResults();
+}
+
+export function teardown() {
+  // remove delegated event handlers bound on document
+  $(document).off(".cypressBundle")
+  $(document).off(".cypressVendorPatients")
+  $(document).off(".cypressVendorSelectAll")
+
+  // or, equivalently, in one line:
+  // $(document).off(".cypressBundle .cypressVendorPatients .cypressVendorSelectAll")
 }
