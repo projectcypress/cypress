@@ -1,5 +1,9 @@
 <%= content_for(:body_attributes) do %>data-no-turbolink<% end %>
 
+<div
+  data-controller="test-execution"
+  data-test-execution-target="root"
+>
 <% displaying_cat1 = displaying_cat1?(@task) %>
 <% viewing_measure_test = @task.product_test.is_a? MeasureTest %>
 <% if viewing_measure_test %>
@@ -83,13 +87,13 @@
       <h1 class='card-title lead'>
         Results
         <div class = 'float-end'>
-          <select id="select_execution" aria-label="View test execution">
+          <select id="select_execution" aria-label="View test execution" data-test-execution-target="selectExecution">
             <% total_test_executions = @task.test_executions.size %>
             <% @task.test_executions.sort_by { |obj| obj.created_at }.reverse.each_with_index do |execution, i| %>
               <option value = <%= task_test_execution_path(@task, execution) %> <%= 'selected="selected"' if execution.id == @test_execution.id %>><%= get_select_history_message(execution, i, total_test_executions) %></option>
             <% end %>
           </select>
-          <button id="view_execution" class="btn btn-xs btn-<%= execution_status_class(@test_execution) %>">Refresh View</button>
+          <button id="view_execution" data-action="click->test-execution#viewExecution" class="btn btn-xs btn-<%= execution_status_class(@test_execution) %>">Refresh View</button>
         </div>
       </h1>
     </div>
@@ -105,3 +109,4 @@
     <% end %>
   </div>
 <% end %>
+</div>

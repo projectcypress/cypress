@@ -78,7 +78,7 @@ end %>
 
   <% if collected_errors.files.values.any? { |err| err.count.positive? } || (@task.is_a? CMSProgramTask) %>
     <h2><%= "Errors and " unless passing %>Warnings</h2>
-    <div id="xml-tabs" class="hidden file-error-tabs short-tabs">
+    <div id="xml-tabs" class="hidden file-error-tabs short-tabs" data-test-execution-target="fileErrorTabs">
       <ul>
         <% collected_errors.files.each do |file_name, error_result| %>
           <li>

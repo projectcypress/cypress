@@ -16,7 +16,6 @@ export default class extends Controller {
     cypress.initializeAdmin?.()
     cypress.initializeChecklistTest?.()
     cypress.initializeCollapsible?.()
-    cypress.initializeTestExecution?.()
     cypress.initializeRecord?.()
     cypress.initializeInfiniteScroll?.()
     cypress.updateBundleStatus?.()

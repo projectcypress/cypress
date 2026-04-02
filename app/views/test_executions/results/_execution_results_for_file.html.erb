@@ -33,7 +33,7 @@
 <% end %>
 
 <% identifier = "#{execution.id}_#{file_name.gsub(/[\W]/,'_')}" %>
-<div class="xml-error-tabs">
+<div class="xml-error-tabs" data-test-execution-target="xmlErrorTabs">
   <ul>
     <% error_result.each do |error_type, error_hash| %>
       <li>
