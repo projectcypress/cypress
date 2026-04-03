@@ -280,24 +280,6 @@ export function initializeAdmin() {
   });
 }
 
-export function updateBundleStatus() {
-  function elementContainsText(selector, text) {
-    return $(selector).text().indexOf(text) > -1;
-  }
-
-  if (
-    elementContainsText(".tracker-status", "queued") ||
-    elementContainsText(".tracker-status", "working")
-  ) {
-    $.ajax({
-      url: window.location.pathname,
-      type: "GET",
-      dataType: "script",
-      data: { partial: "bundle_list" },
-    });
-  }
-}
-
 function hideModalById(id) {
   const el = document.getElementById(id)
   if (!el) return

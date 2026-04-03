@@ -14,7 +14,6 @@ export default class extends Controller {
     cypress.initializeChecklistTest?.()
     cypress.initializeRecord?.()
     cypress.initializeInfiniteScroll?.()
-    cypress.updateBundleStatus?.()
   }
 
   teardown() {
