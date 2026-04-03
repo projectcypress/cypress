@@ -95,6 +95,7 @@ export default class extends Controller {
     this.element.addEventListener("click", this._boundHandleClick, true)
   }
 
+  /* eslint-disable max-statements */
   handleChange(event) {
     const el = event.target
 
@@ -161,6 +162,7 @@ export default class extends Controller {
       return
     }
   }
+  /* eslint-enable max-statements */
 
   handleClick(event) {
     // Enable changing measures

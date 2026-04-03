@@ -47,6 +47,7 @@ export default class extends Controller {
     this.$(".settings-tabs > ul > li").removeClass("ui-corner-top")
   }
 
+  /* eslint-disable max-statements */
   addAssignment(e) {
     e.preventDefault()
     this.assignmentIndexValue += 1
@@ -100,6 +101,7 @@ export default class extends Controller {
 
     assignments.appendChild(tr)
   }
+  /* eslint-enable max-statements */
 
   onModeChange() {
     const buttons = Array.from(document.querySelectorAll("input[name='mode']"))

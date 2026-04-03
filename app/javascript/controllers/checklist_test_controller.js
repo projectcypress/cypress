@@ -26,6 +26,7 @@ export default class extends Controller {
   // -----------------------------
   // Events (delegated)
   // -----------------------------
+  /* eslint-disable max-statements */
   onClick(event) {
     // Enable save options -> enable danger buttons
     const saveBtn = event.target.closest("#save_options button")
@@ -82,6 +83,7 @@ export default class extends Controller {
       }
     }
   }
+  /* eslint-enable max-statements */
 
   // -----------------------------
   // Helpers (ported from your functions)

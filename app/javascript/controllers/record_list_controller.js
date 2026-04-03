@@ -18,6 +18,7 @@ export default class extends Controller {
     document.removeEventListener("change", this._boundChange, true)
   }
 
+  /* eslint-disable max-statements */
   onClick(event) {
     // Bundle selection (click handler)
     const bundleInput = event.target.closest('input[name="bundle_id"]')
@@ -66,6 +67,7 @@ export default class extends Controller {
       this.changePanel()
     }
   }
+  /* eslint-enable max-statements */
 
   onChange(event) {
     const cb = event.target.closest(".delete_vendor_patients_form input[type='checkbox']")
