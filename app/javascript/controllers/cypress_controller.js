@@ -8,11 +8,9 @@ export default class extends Controller {
     if (this.initializedValue) return
     this.initializedValue = true
 
-    cypress.initializeInfiniteScroll?.()
   }
 
   teardown() {
-    cypress.teardown?.()
     this.initializedValue = false
   }
 
