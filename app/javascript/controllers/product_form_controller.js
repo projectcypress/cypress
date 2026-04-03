@@ -124,7 +124,7 @@ export default class extends Controller {
     if (el.matches('.form-check input[name="product[c2_test]"][type="checkbox"]')) {
       if (el.disabled) return
 
-      const c2Checked = !!el.checked
+      const c2Checked = Boolean(el.checked)
       const dup = document.querySelector("#product_duplicate_patients")
       if (dup) {
         this.setCheckboxDisabled(dup, !c2Checked)
@@ -139,7 +139,7 @@ export default class extends Controller {
 
       const cvuPlus = el.value // "true"/"false"
       const c2Checkbox = this.getCheckboxByName("product[c2_test]")
-      const c2Checked = !!(c2Checkbox && c2Checkbox.checked)
+      const c2Checked = Boolean(c2Checkbox && c2Checkbox.checked)
 
       const dup = document.querySelector("#product_duplicate_patients")
       if (dup) {
@@ -341,7 +341,7 @@ export default class extends Controller {
 
     tabs.forEach((tab) => {
       const current_tab_name = tab.getAttribute("aria-controls")
-      if (current_tab_name && Object.prototype.hasOwnProperty.call(measure_tabs_response, current_tab_name)) {
+      if (current_tab_name && Reflect.apply(Object.prototype.hasOwnProperty, measure_tabs_response, [current_tab_name])) {
         tab.style.display = ""
         const link = tab.querySelector("a")
         if (link) {
@@ -450,7 +450,7 @@ export default class extends Controller {
         : inputOrSelector
     if (!inputEl) return
 
-    const disabled = !!state
+    const disabled = Boolean(state)
     const container =
       inputEl.closest(".form-check") ||
       inputEl.closest(".radio") ||

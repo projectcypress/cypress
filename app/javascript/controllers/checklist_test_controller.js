@@ -56,7 +56,7 @@ export default class extends Controller {
       const attributeValue = modalBtn.dataset.attributeValue
       const codeString = modalBtn.dataset.codeString || ""
 
-      if (indexValue == null) return
+      if (indexValue === null) return
 
       if (attributeValue === "false" || attributeValue === false) {
         const inputBoxType = "code"

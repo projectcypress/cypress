@@ -51,7 +51,11 @@ export default class extends Controller {
         credentials: "same-origin",
       })
       const js = await resp.text()
-      ;(0, eval)(js)
+      const script = document.createElement('script')
+      script.type = 'text/javascript'
+      script.text = js
+      document.head.appendChild(script)
+      document.head.removeChild(script)
     } finally {
       this._nextPageFnRunning = false
       viewMore?.classList.remove("d-none")

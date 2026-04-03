@@ -8,7 +8,7 @@ export default class extends Controller {
 
     const filterValue = (input.value || "").toUpperCase()
     const { index, suffix } = this.resolveIndexAndSuffix(input)
-    if (index == null) return
+    if (index === null) return
 
     const ul = document.getElementById(`lookup_codes${index}${suffix}`)
     if (!ul) return
@@ -26,7 +26,7 @@ export default class extends Controller {
   resolveIndexAndSuffix(input) {
     const index = input.dataset.index
     const suffix = input.dataset.suffix ?? ""
-    if (index != null) return { index, suffix }
+    if (index !== null) return { index, suffix }
 
     const id = input.id || ""
     if (!id.startsWith("lookupFilter")) return { index: null, suffix: "" }

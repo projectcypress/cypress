@@ -23,12 +23,6 @@ export default class extends Controller {
     if (url) window.location.href = url
   }
 
-  // TODO: Not Sure this is used?
-  // submitUpload(event) {
-  //   event.preventDefault()
-  //   this.formTarget?.requestSubmit?.() || this.formTarget?.submit?.()
-  // }
-
   popoverShow(event) {
     // event.target is the button
     const labelNode = event.target?.children?.[1]
