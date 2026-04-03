@@ -83,7 +83,9 @@ export default class extends Controller {
     if (this.hasWarningMessageTarget) this.warningMessageTarget.textContent = get("data-message")
     if (this.hasObjectTypeTarget) this.objectTypeTarget.textContent = get("data-object-type")
     if (this.hasObjectNameTarget) this.objectNameTarget.textContent = get("data-object-name")
-    if (this.hasObjectActionTarget) this.objectActionTarget.textContent = get("data-object-action")
+    this.objectActionTargets.forEach((el) => {
+      el.textContent = get("data-object-action")
+    })
     if (this.hasConfirmInputTarget) this.confirmInputTarget.placeholder = get("data-object-type")
 
     this._relatedForm = trigger.closest("form")
