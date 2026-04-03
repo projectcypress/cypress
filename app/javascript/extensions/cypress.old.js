@@ -469,3 +469,103 @@ function UpdateGroupSelections(event) {
     }
   });
 }
+
+//**** initializeProductTable ****//
+// $(document).ready(ready);
+// $(document).on('page:load', ready);
+
+export function initializeProductTable() {
+  // Also see measure_selection.js
+
+  $(".product-test-tabs").tabs();
+  $(".product-test-tabs > ul > li").removeClass("ui-corner-top");
+
+  $(".user_tests_table").DataTable({
+    searching: false,
+    paging: false,
+    stateSave: true /* preserves order on reload */,
+    info: false,
+    order: [[4, "desc"]],
+  });
+
+  $(".vendor-table").DataTable({
+    searching: false,
+    paging: false,
+    stateSave: true /* preserves order on reload */,
+    info: false,
+  });
+
+  $(".vendor-table-favorite").DataTable({
+    searching: false,
+    paging: false,
+    stateSave: true /* preserves order on reload */,
+    info: false,
+  });
+
+  if ($("#display_filtering_test_status_display_body").length && !$.fn.dataTable.isDataTable("#filtering_test_status_display")) {
+    $("#filtering_test_status_display").DataTable({
+      searching: false,
+      paging: false,
+      stateSave: true /* preserves order on reload */,
+      info: false,
+    });
+  }
+
+  $(".user_table").DataTable({
+    destroy: true,
+    searching: false,
+    paging: true,
+    lengthMenu: [
+      [10, 25, 50, 100, -1],
+      [10, 25, 50, 100, "All"],
+    ],
+    stateSave: true /* preserves order on reload */,
+    info: false,
+    columnDefs: [
+      { orderable: true, className: "reorder", targets: [0, 1, 2] },
+      { orderable: false, targets: "_all" },
+    ],
+  });
+
+  $(".patient_table").DataTable({
+    destroy: true,
+    searching: false,
+    paging: true,
+    lengthMenu: [
+      [10, 25, 50, 100, -1],
+      [10, 25, 50, 100, "All"],
+    ],
+    stateSave: true /* preserves order on reload */,
+    info: false,
+  });
+
+  $(".measure_tests_table").DataTable({
+    destroy: true,
+    searching: false,
+    paging: false,
+    stateSave: true,
+    info: false,
+  });
+
+  /* submit upload when file is attached */
+  $(document).on("change", ".multi-upload-field", function (ev) {
+    $(this).parent().siblings(".multi-upload-submit").click();
+  });
+}
+
+//**** initializeCollapsible ****//
+export function initializeCollapsible() {
+  var collapse_ready;
+  collapse_ready = function () {
+    $(document).on("click", ".collapsible", function (e) {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  };
+  $(document).ready(collapse_ready);
+}

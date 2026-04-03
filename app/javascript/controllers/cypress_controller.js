@@ -8,12 +8,10 @@ export default class extends Controller {
     if (this.initializedValue) return
     this.initializedValue = true
 
-    cypress.initializeProductTable?.()
     cypress.reticulateSplines?.()
     cypress.initializeActionModal?.()
     cypress.initializeAdmin?.()
     cypress.initializeChecklistTest?.()
-    cypress.initializeCollapsible?.()
     cypress.initializeRecord?.()
     cypress.initializeInfiniteScroll?.()
     cypress.updateBundleStatus?.()
