@@ -493,7 +493,7 @@ Then(/^there should be (\d+) measures selected$/) do |selected_measure_count|
 end
 
 Then(/^all measures should still be selected$/) do
-  assert page.all('#measure_tabs fieldset .checkbox input').all?(&:checked?)
+  assert page.all('#measure_tabs input.measure-checkbox', visible: :all).all?(&:checked?)
 end
 
 Then(/^"([^"]*)" is active on the screen$/) do |measure|

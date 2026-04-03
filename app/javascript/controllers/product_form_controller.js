@@ -391,15 +391,30 @@ export default class extends Controller {
     }
   }
 
-  handleMeasureGroupAllChanged(groupAllEl) {
+  handleMeasureGroupAllChanged(eOrEl) {
+    const groupAllEl =
+      eOrEl?.target
+        ? eOrEl.target.closest('input.measure-group-all')
+        : eOrEl
+
+    if (!groupAllEl) return
+
     const group = groupAllEl.closest(".measure-group")
     if (!group) return
 
-    const category = this.escapeCSS(groupAllEl.getAttribute("id") || "")
-    const boxes = Array.from(group.querySelectorAll(`.measure-checkbox[data-category="${category}"]`))
+    const newState = groupAllEl.checked // <-- snapshot
+    const boxes = Array.from(group.querySelectorAll("input.measure-checkbox"))
 
+    // 1) update all states first
     boxes.forEach((cb) => {
-      cb.checked = groupAllEl.checked
+      if (cb.disabled) return
+      cb.checked = newState
+    })
+
+    // 2) then notify listeners (optional but often needed)
+    boxes.forEach((cb) => {
+      if (cb.disabled) return
+      cb.dispatchEvent(new Event("input", { bubbles: true }))
       cb.dispatchEvent(new Event("change", { bubbles: true }))
       cb.dispatchEvent(new Event("groupclick", { bubbles: true }))
     })
