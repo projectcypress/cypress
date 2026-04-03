@@ -1,15 +1,3 @@
-function changePanel() {
-  var checked = $("input:checked");
-  if (checked.length > 0) {
-    // Make remove panel visable
-    $(".checkbox-danger-panel").toggleClass("d-none");
-  } else {
-    // Make remove panel invisible
-    $(".checkbox-danger-panel").toggleClass("d-none");
-  }
-}
-
-
 
 // function show_error_popup_and_jump(href) {
 //   if ($(href)) {
@@ -140,58 +128,6 @@ export function initializeInfiniteScroll() {
       nextPage();
       return e.preventDefault();
     });
-}
-
-export function initializeRecord() {
-  // Bundle selection handlers (idempotent)
-  $(document)
-    .off("change.cypressBundle", 'input[name="bundle_id"]')
-    .on("click.cypressBundle", 'input[name="bundle_id"]', function () {
-      const bundle_id = $(this).val()
-
-      // ensure UI state updates immediately
-      this.checked = true
-
-      let url = null
-      if ($(this).next(".bundle-checkbox").length > 0) {
-        url = `/bundles/${bundle_id}/records`
-      } else if ($(this).next(".vendor-checkbox").length > 0) {
-        url = `?bundle_id=${bundle_id}`
-      }
-      if (!url) return
-
-      // let the browser paint the checked state, then navigate
-      requestAnimationFrame(() => window.Turbo?.visit?.(url))
-    })
-
-  // Danger panel checkbox changes (idempotent)
-  $(document)
-    .off("change.cypressVendorPatients", ".delete_vendor_patients_form input:checkbox")
-    .on("change.cypressVendorPatients", ".delete_vendor_patients_form input:checkbox", changePanel)
-
-  // Select-all button (idempotent)
-  $(document)
-    .off("click.cypressVendorSelectAll", "#vendor-patient-select-all")
-    .on("click.cypressVendorSelectAll", "#vendor-patient-select-all", function () {
-      const button_font = $(this).find("i")
-      const checkbox = $(".delete_vendor_patients_form input:checkbox")
-
-      if ($(this).val() == "unchecked") {
-        checkbox.prop("checked", true)
-        button_font.removeClass("fa-square").addClass("fa-check-square")
-        $(this).prop("title", "Unselect All")
-        $("#vendor-patient-select-all-text").text("Unselect All")
-        $(this).val("checked")
-      } else {
-        checkbox.prop("checked", false)
-        button_font.removeClass("fa-check-square").addClass("fa-square")
-        $(this).prop("title", "Select All")
-        $("#vendor-patient-select-all-text").text("Select All")
-        $(this).val("unchecked")
-      }
-
-      changePanel()
-    })
 }
 
 export function teardown() {

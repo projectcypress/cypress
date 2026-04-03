@@ -8,7 +8,6 @@ export default class extends Controller {
     if (this.initializedValue) return
     this.initializedValue = true
 
-    cypress.initializeRecord?.()
     cypress.initializeInfiniteScroll?.()
   }
 
