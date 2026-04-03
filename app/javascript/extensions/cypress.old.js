@@ -569,3 +569,4 @@ export function initializeCollapsible() {
   };
   $(document).ready(collapse_ready);
 }
+

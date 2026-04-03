@@ -121,28 +121,6 @@ function lookupLabelFunction(index) {
   }
 }
 
-
-// Product Form
-// $(document).ready(ready_run_once);
-// $(document).on('page:load', ready_run_once);
-
-
-// $(document).on('page:change', reticulateSplines);
-export function reticulateSplines() {
-  if (
-    $("#display_bulk_download").length &&
-    $("#display_bulk_download").find("p:first").text().indexOf("being built") >
-      -1
-  ) {
-    $.ajax({
-      url: window.location.pathname,
-      type: "GET",
-      dataType: "script",
-      data: { partial: "bulk_download" },
-    });
-  }
-}
-
 export function initializeActionModal() {
   /* edit text in modal with text from specific object form */
   $(document).on("show.bs.modal", "#action_modal", function (e) {
