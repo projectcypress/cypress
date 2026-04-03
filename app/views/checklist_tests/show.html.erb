@@ -2,7 +2,7 @@
 <% has_many_measures = @product_test.measures.count > CAT1_CONFIG['number_of_checklist_measures'] %>
 
 <%= render 'application/certification_bar', :product => product, :active_certs => [true, false, product.c3_test && @product_test.eh_measures?, false] %>
-
+<div data-controller="checklist-test">
 <div class="card-actions float-end">
   <%= button_to print_criteria_product_checklist_test_path(@product, @product_test), :method => :get, :class => "btn btn-default" do %>
     <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download Criteria List
@@ -59,6 +59,7 @@
       <% end %>
     </div>
   </div>
+</div>
 </div>
 <% unless has_many_measures %>
   <%= render 'checklist_measures', :product_test => @product_test, :product => @product_test.product, :measures => @measures %>

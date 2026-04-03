@@ -708,3 +708,82 @@ export function initializeActionModal() {
     $(this).data("form").submit();
   });
 }
+
+//**** initializeChecklistTest ****//
+
+export function initializeChecklistTest() {
+  // Enable changing measures
+  $("#save_options")
+    .find("button")
+    .on("click", function (event) {
+      event.preventDefault();
+      $(".btn-danger").attr("disabled", false);
+    });
+
+  // For each criteria, lookup if its a negated code or vs, to set toggle lable
+  var li = document.getElementsByClassName("data-criteria");
+  for (var i = 0; i < li.length; i++) {
+    lookupLabelFunction(i);
+  }
+  $(document).on("click", "#modify_record", function (event) {
+    event.preventDefault();
+    $(".hide-me").hide();
+    $(".show-me").show();
+  });
+
+  $(document).on("click", "button.modal-btn", function (event) {
+    event.preventDefault();
+    var currentTarget = event.currentTarget;
+    var index_value = $(currentTarget).data("index-value");
+    var attribute_value = $(currentTarget).data("attribute-value");
+    var code_string = $(currentTarget).data("code-string");
+
+    if (attribute_value == false) {
+      const input_box_type = "code";
+      document.getElementById(
+        "product_test_checked_criteria_attributes_" + index_value + "_" + input_box_type
+      ).value = code_string;
+
+      hideModalById("lookupModal" + index_value);
+    }
+
+    if (attribute_value == true) {
+      const input_box_type = "attribute_code";
+      document.getElementById(
+        "product_test_checked_criteria_attributes_" + index_value + "_" + input_box_type
+      ).value = code_string;
+
+      hideModalById("lookupModal-negation" + index_value);
+      hideModalById("lookupModal-fieldvalues" + index_value);
+      hideModalById("lookupModal-result" + index_value);
+    }
+  });
+}
+
+function hideModalById(id) {
+  const el = document.getElementById(id)
+  if (!el) return
+  if (!window.bootstrap?.Modal) return
+
+  const modal =
+    window.bootstrap.Modal.getInstance(el) || new window.bootstrap.Modal(el)
+  modal.hide()
+}
+
+function lookupLabelFunction(index) {
+  // Declare variables
+  var input, checkbox;
+  input = document.getElementById("code" + index);
+  if (input !== null) {
+    checkbox = document.getElementById(
+      "product_test_checked_criteria_attributes_" + index + "_negated_valueset",
+    );
+    if (checkbox.checked == true) {
+      $("div#code" + index).hide();
+      $("div#vs" + index).show();
+    } else {
+      $("div#vs" + index).hide();
+      $("div#code" + index).show();
+    }
+  }
+}
