@@ -437,7 +437,7 @@ export default class extends Controller {
 
   escapeCSS(value) {
     if (window.CSS && typeof window.CSS.escape === "function") return window.CSS.escape(value)
-    return String(value).replace(/[^a-zA-Z0-9_-]/g, "\\$&")
+    return String(value).replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, "\\$&")
   }
 
   // -----------------------------
