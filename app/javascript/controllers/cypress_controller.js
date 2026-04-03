@@ -10,7 +10,6 @@ export default class extends Controller {
 
     cypress.initializeProductTable?.()
     cypress.reticulateSplines?.()
-    cypress.initializeMeasureSelection?.()
     cypress.initializeActionModal?.()
     cypress.initializeAdmin?.()
     cypress.initializeChecklistTest?.()
