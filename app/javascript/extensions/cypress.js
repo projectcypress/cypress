@@ -103,44 +103,6 @@ function escapeCSS(str) {
   return str.replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]/g, "\\$&");
 }
 
-function setCheckboxDisabledNoUncheck(element, state) {
-  var children = $(element).closest("div.form-check").find("*").addBack();
-  if (state) {
-    $(children).addClass("disabled");
-    $(children).prop("disabled", true);
-  } else {
-    $(children).removeClass("disabled");
-    $(children).prop("disabled", false);
-  }
-}
-
-function setElementHidden(element, state) {
-  if (state) {
-    $(element).addClass("hidden");
-    $(element).prop("hidden", true);
-  } else {
-    $(element).removeClass("hidden");
-    $(element).prop("hidden", false);
-  }
-}
-
-// Allows the enabling or disabling of a checkbox by passing true or false
-// as the second parameter. True means disabled and false means enabled.
-function setCheckboxDisabled(element, state) {
-  var children = $(element)
-    .closest("input.form-check-input")
-    .find("*")
-    .addBack();
-  if (state) {
-    $(children).addClass("disabled");
-    $(children).prop("disabled", true);
-    $(element).prop("checked", false);
-  } else {
-    $(children).removeClass("disabled");
-    $(children).prop("disabled", false);
-  }
-}
-
 // This function is called whenever a successful measure filter ajax request is made.
 // It hides the measures that do not match the search parameters.
 function filterVisibleMeasures(searchbox, returned_measures) {
@@ -195,43 +157,6 @@ function filterVisibleMeasureTabs(searchbox, measure_tabs_response) {
   }
 }
 
-function CheckMany(group) {
-  if (group == "all") {
-    $(".measure-group .measure-checkbox:not(:checked)")
-      .prop("checked", true)
-      .change()
-      .filter("[data-category=Retired]")
-      .prop("checked", false)
-      .change();
-  } else {
-    $(".measure-group .measure-checkbox")
-      .filter(":not([data-measure-type=" + group + "])")
-      .prop("checked", false)
-      .change()
-      .end()
-      .filter("[data-measure-type=" + group + "]")
-      .prop("checked", true)
-      .change()
-      .filter("[data-category=Retired]")
-      .prop("checked", false)
-      .change();
-  }
-}
-
-function ToggleCustomSelection(task) {
-  var shouldHideView = function () {
-    if (task == "close" && !$(".select-measures").hasClass("d-none")) {
-      return true;
-    } else if (task == "open" && $(".select-measures").hasClass("d-none")) {
-      return false;
-    }
-  };
-
-  if (typeof shouldHideView() !== "undefined") {
-    $(".select-measures").toggleClass("d-none", shouldHideView());
-  }
-}
-
 function UpdateGroupSelections(event) {
   var measure_category = escapeCSS(
     $(event.currentTarget).attr("data-category"),
@@ -275,24 +200,6 @@ function UpdateGroupSelections(event) {
   });
 }
 
-function UpdateMeasureSet(bundle_id) {
-  $("#measure_selection_section").empty();
-  // get the measures for this type of test
-  $.ajax({
-    url: "/bundles/" + bundle_id + "/measures/grouped",
-    type: "GET",
-    dataType: "html",
-    success: function (data, textStatus, xhr) {
-      $("#measure_selection_section").html(data);
-      ready_run_on_refresh_bundle();
-    },
-    error: function (xhr, textStatus, err) {
-      alert(
-        "Sorry, we can't currently produce measures for that bundle. " + err,
-      );
-    },
-  });
-}
 
 function HookupProductSearch() {
   // Get all bundles listed on the page
@@ -394,28 +301,7 @@ ready_run_on_refresh_bundle = function () {
 // Product Form
 // $(document).ready(ready_run_once);
 // $(document).on('page:load', ready_run_once);
-export function initializeJqueryCvuRadio() {
-  $('.form-check input[name="product[cvuplus]"]').on("change", function () {
-    var cvuplus_checked = $(this).val() == "true";
-    if ($(this).attr("disabled") != "disabled") {
-      setCheckboxDisabledNoUncheck(
-        "#product_vendor_patients",
-        !cvuplus_checked,
-      );
-      setCheckboxDisabledNoUncheck(
-        "#product_bundle_patients",
-        !cvuplus_checked,
-      );
-      setCheckboxDisabledNoUncheck("#product_c1_test", cvuplus_checked);
-      setCheckboxDisabledNoUncheck("#product_c2_test", cvuplus_checked);
-      setCheckboxDisabledNoUncheck("#product_c3_test", cvuplus_checked);
-      setCheckboxDisabledNoUncheck("#product_c4_test", cvuplus_checked);
-    }
-    setElementHidden("#bundle_options", !cvuplus_checked);
-    setElementHidden("#certification_options", cvuplus_checked);
-    setElementHidden("#certification_edition", cvuplus_checked);
-  });
-}
+
 
 // $(document).ready(ready);
 // $(document).on('page:load', ready);
@@ -512,95 +398,6 @@ export function reticulateSplines() {
       data: { partial: "bulk_download" },
     });
   }
-}
-
-export function initializeMeasureSelection() {
-  ////////////////////////////
-  // Set up event listeners //
-  ////////////////////////////
-  // make sure front-end form validations happen when needed
-  //$('form[data-parsley-validate]').find('input[type="checkbox"], input[type="radio"]').on('click groupclick', function() {
-  //$(this).parsley().validate(); // force re-validation
-  // sometimes when a field is found to be invalid, it doesn't
-  // trigger further validations on its own. so we do this manually.
-  // set on click and custom groupclick event to avoid triggering this
-  // every time inputs are changed programmatically
-  //});
-
-  // Checking a radio button indicating measure selection
-  $('.form-check input[name="product[measure_selection]"]').on(
-    "change",
-    function () {
-      if ($(this).attr("disabled") != true) {
-        var selection = $(this).val();
-
-        if (selection == "custom") {
-          ToggleCustomSelection("open");
-        } else {
-          ToggleCustomSelection("close");
-          CheckMany(selection);
-        }
-      }
-    },
-  );
-
-  // Enable changing measures
-  $("#measures_options")
-    .find("button")
-    .on("click", function (event) {
-      event.preventDefault();
-      $('.measure-group [type="checkbox"]').attr("disabled", false);
-      $('input[name="product[measure_selection]"]').attr("disabled", false);
-      $('input[name="product[measure_selection]"]')
-        .closest(".radio")
-        .removeClass("disabled");
-      $(event.currentTarget).closest("alert").find(".close").click();
-    });
-
-  $(document).on("click", ".clear-measures-btn", function (event) {
-    $(".measure-group .measure-checkbox").prop("checked", false).change();
-    this.blur();
-    // $('clear-measures-btn').setAttribute("aria-pressed", false);
-  });
-
-  // Changing the bundle
-  $('.form-check input[name="product[bundle_id]"]').on("change", function () {
-    if ($(this).attr("disabled") != true) {
-      var selection = $(this).val();
-      UpdateMeasureSet(selection);
-    }
-  });
-
-  // Check Duplicate Records on C2 Test check
-  $('.form-check input[name="product[c2_test]"]').on("change", function () {
-    if ($(this).attr("disabled") != true) {
-      var c2_checked = $(this).prop("checked");
-      setCheckboxDisabled("#product_duplicate_patients", !c2_checked);
-      $(".form-check-input#product_duplicate_patients").prop(
-        "checked",
-        c2_checked,
-      );
-    }
-  });
-
-  // Check Duplicate Records on CVU+ check
-  $('.form-check input[name="product[cvuplus]"]').on("change", function () {
-    if ($(this).attr("disabled") != true) {
-      var cvu_plus = $(this).val();
-      var c2_checked = $('input[name="product[c2_test]"]')[1].checked;
-      setCheckboxDisabled(
-        "#product_duplicate_patients",
-        cvu_plus == "false" && !c2_checked,
-      );
-      $(".form-check-input#product_duplicate_patients").prop(
-        "checked",
-        cvu_plus == "true" || c2_checked,
-      );
-    }
-  });
-
-  // run this piece once too
-  ready_run_on_refresh_bundle();
 }
 
 export function initializeActionModal() {
