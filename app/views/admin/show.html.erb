@@ -7,7 +7,7 @@
   <%= render 'alert', :alert_type => 'warning', :messages => 'Please restart your Cypress service or reboot your Cypress instance when convenient in order to apply settings.' %>
 <% end %>
 
-<div class="settings-tabs">
+<div class="settings-tabs" data-controller="admin">
   <ul>
     <% ['application_settings', 'user_management', 'bundles', 'application_status'].each do |target_id| %>
       <li><a href = '#<%= target_id %>'><%= target_id.humanize.titleize %></a></li>

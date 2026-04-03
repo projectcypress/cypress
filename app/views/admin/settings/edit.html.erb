@@ -4,7 +4,7 @@
   #   banner, banner_message, smtp_settings, mode, mode_settings, roles
 %>
 
-<div class="card card-default">
+<div class="card card-default" data-controller="admin">
   <div class="card-header"><h1 class='card-title lead'>Edit Settings</h1></div>
   <%= bootstrap_form_tag url: admin_settings_path, method: :put do |f| %>
     <div class="card-body">
