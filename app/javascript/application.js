@@ -1,5 +1,3 @@
-// import $ from "jquery2";
-// import * as cypress from "cypress";
 import "@popperjs/core";
 import "bootstrap";
 import "datatables";

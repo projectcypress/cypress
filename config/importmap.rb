@@ -7,7 +7,6 @@ pin 'jquery2-core', to: 'jquery2.min.js' # or whatever file jquery2 currently re
 pin 'jquery2', to: 'jquery2_global.js'
 pin '@popperjs/core', to: 'popper.min.js', preload: true # @2.11.8
 pin 'bootstrap', to: 'bootstrap.bundle.min.js', preload: true # @5.3.8
-pin 'cypress', to: 'extensions/cypress.js'
 pin 'datatables', to: 'datatables.min.js'
 pin 'assets.core', to: 'assets_framework/assets.core.js'
 pin 'jquery-ui', to: 'jquery-ui.min.js' # @1.14.1
