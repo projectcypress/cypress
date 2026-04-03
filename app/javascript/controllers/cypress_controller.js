@@ -8,7 +8,6 @@ export default class extends Controller {
     if (this.initializedValue) return
     this.initializedValue = true
 
-    cypress.initializeActionModal?.()
     cypress.initializeChecklistTest?.()
     cypress.initializeRecord?.()
     cypress.initializeInfiniteScroll?.()
