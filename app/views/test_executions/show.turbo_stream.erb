@@ -8,10 +8,13 @@
     <%= turbo_stream.replace "display_execution_results" do %>
       <%= render "/test_executions/execution_results", :execution => @test_execution %>
     <% end %>
+    <%= turbo_stream.replace "task_status_display" do %>
+      <%= render "/test_executions/task_status_wrapper", :task => @task, :current_task => true %>
+    <% end %>
     <%= turbo_stream.remove "execution_results_poller" %>
     <%= turbo_stream.append "display_execution_results" do %>
       <script>
-        document.dispatchEvent(new CustomEvent("cypress:init"))
+        document.dispatchEvent(new CustomEvent("test-execution:initializeResultsUI"))
       </script>
     <% end %>
   <% end %>

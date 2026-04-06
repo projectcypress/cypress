@@ -97,16 +97,17 @@
         </div>
       </h1>
     </div>
-    <div data-controller="cypress" data-action="cypress:init@document->cypress#init"></div>
-    <%= render 'execution_results', :execution => @test_execution %>
-    <% if @test_execution.status_with_sibling == 'incomplete' %>
-      <div id="<%= "execution_results_poller" %>"
-        data-controller="turbo-stream-poller"
-        data-turbo-temporary
-        data-turbo-stream-poller-url-value="<%= request.path %>"
-        data-turbo-stream-poller-params-value="<%= { partial: "execution_results", execution: @test_execution }.to_json %>"
-        data-turbo-stream-poller-interval-value="2000"></div>
-    <% end %>
+    <div data-controller="test-execution" data-action="test-execution:initializeResultsUI@document->test-execution#initializeResultsUI">
+      <%= render 'execution_results', :execution => @test_execution %>
+      <% if @test_execution.status_with_sibling == 'incomplete' %>
+        <div id="<%= "execution_results_poller" %>"
+          data-controller="turbo-stream-poller"
+          data-turbo-temporary
+          data-turbo-stream-poller-url-value="<%= request.path %>"
+          data-turbo-stream-poller-params-value="<%= { partial: "execution_results", execution: @test_execution }.to_json %>"
+          data-turbo-stream-poller-interval-value="2000"></div>
+      <% end %>
+    </div>
   </div>
 <% end %>
 </div>
