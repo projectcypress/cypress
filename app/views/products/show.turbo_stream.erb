@@ -29,6 +29,9 @@
     <%= render "/products/measure_tests_table", :product => @product, :get_c1_tasks => params[:get_c1_tasks], :html_id => params[:html_id] %>
   <% end %>
   <% if !reload %>
+    <%= turbo_stream.replace "display_measure_tests_table_#{params[:html_id]}" do %>
+      <%= render "/products/measure_tests_table", :product => @product, :get_c1_tasks => params[:get_c1_tasks], :html_id => params[:html_id] %>
+    <% end %>
     <%= turbo_stream.remove "#{params[:html_id]}measure_tests_table_poller" %>
   <% end %>
 <% end %>
