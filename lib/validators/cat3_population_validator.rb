@@ -107,7 +107,7 @@ module Validators
       verify_all_codes_reported(reported_result, pop_key, 'ETHNICITY', options) unless @missing_codes['ETHNICITY']
     end
 
-    # Verifiy that all demographic codes for a sup_key (e.g., RACE) are present for a pop_key (e.g., DENOM) in a reported result
+    # Verify that all demographic codes for a sup_key (e.g., RACE) are present for a pop_key (e.g., DENOM) in a reported result
     def verify_all_codes_reported(reported_result, pop_key, sup_key, options)
       gender_codes = options['test_execution'].task.bundle.randomization['genders']&.map(&:code)
       required_codes = { 'PAYER' => %w[A B C D], 'SEX' => gender_codes, 'RACE' => %w[2106-3 2076-8 2054-5 2028-9 1002-5 2131-1],
