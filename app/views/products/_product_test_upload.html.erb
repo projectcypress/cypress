@@ -6,7 +6,6 @@
 #   label_class [optional]
 
 %>
-<% include_c1 = local_assigns.fetch(:include_c1, false) %>
 
 <% frame_id = "product_#{html_id}_upload_frame" %>
 
@@ -24,7 +23,6 @@
 
     <%= f.hidden_field :product_url, value: product_url %>
     <%= f.hidden_field :html_id, value: html_id %>
-    <%= f.hidden_field :include_c1, value: include_c1 %>
 
     <%= f.label :results, "upload",
                 class: "inline label #{label_class} pointer-on-hover btn-sm",

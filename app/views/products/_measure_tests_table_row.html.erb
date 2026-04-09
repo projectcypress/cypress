@@ -34,7 +34,7 @@
   </td>
 <% end %>
 <td id = "<%= id_for_html_wrapper_of_task(task) %>" class="no-wrap" data-order="<%= set_sorting(test, task.status) %>">
-  <%= render partial: '/products/measure_test_link', locals: { test: test, task: task, html_id: html_id, include_c1: include_c1, product_url: product_url } %>
+  <%= render partial: '/products/measure_test_link', locals: { test: test, task: task, html_id: html_id, product_url: product_url } %>
 </td>
 <td class="no-wrap" data-order="<%= task.updated_at %>">
   <%= icon('far fa-fw', 'clock', :"aria-hidden" => true) %><%= local_time_ago(task.updated_at) %>

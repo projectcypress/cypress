@@ -37,11 +37,7 @@ class TestExecutionJob < ApplicationJob
       partial: "products/measure_tests_table_row",
       locals: {
         task: task,
-        parent_reloading: options[:reload],
-        has_eh_tests: options[:has_eh_tests],
-        has_ep_tests: options[:has_ep_tests],
         html_id: options[:html_id],
-        include_c1: options[:include_c1],
         product_url: options[:product_url]
       }
     )

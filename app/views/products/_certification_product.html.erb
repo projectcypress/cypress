@@ -41,7 +41,6 @@
       <% if test_type == 'MeasureTest' %>
         <% get_c1_tasks = (title.include?('C1') || title.include?('C3') && !title.include?('QRDA-III')) %>
         <% tasks = measure_test_tasks(product, get_c1_tasks: get_c1_tasks) %>
-        <% reload = should_reload_measure_test_table?(tasks) %>
 
         <%= render 'measure_tests_table', :product => @product, :get_c1_tasks => get_c1_tasks, :html_id => html_id %>
       <% end %>
