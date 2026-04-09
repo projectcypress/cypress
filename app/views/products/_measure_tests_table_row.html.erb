@@ -6,6 +6,8 @@
 %>
 
 <% test = task.product_test %>
+<% has_eh_tests ||= task.product_test.product.eh_tests?
+   has_ep_tests ||= task.product_test.product.ep_tests? %>
 <% include_c3 = include_c3_column(task, has_eh_tests, has_ep_tests) %>
 
 <td data-sort="<%= cms_int(test.cms_id) %>"><%= test.cms_id %></td>
@@ -37,3 +39,4 @@
 <td class="no-wrap" data-order="<%= task.updated_at %>">
   <%= icon('far fa-fw', 'clock', :"aria-hidden" => true) %><%= local_time_ago(task.updated_at) %>
 </td>
+

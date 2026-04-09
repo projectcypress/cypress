@@ -19,7 +19,7 @@
   <% include_c3 = include_c3_column(tasks.first, has_eh_tests, has_ep_tests) %>
 
   <% reload = should_reload_measure_test_table?(tasks) %>
-  
+    <%= turbo_stream_from [product, :measure_tests] %>
     <table class = 'table table-hover measure_tests_table'>
       <thead>
         <th scope = 'col' class = 'col-sm-1 no-wrap pointer-on-hover'>CMS ID</th>
@@ -42,20 +42,5 @@
       </tbody>
     </table>
 
-  <%# <script>
-    $('.measure_tests_table').DataTable({
-      destroy: true,
-      searching: false,
-      paging: false,
-      stateSave: true, /* preserves order on reload */
-      info: false
-    });
-  </script> %>
-
-  <!--table class="measure_tests_table" data-controller="datatable"></table-->
-
-  <%# if should_reload_measure_test_table?(tasks) %>
-    <!--div data-controller="measure-tests-table" data-url="<%= request.path %>" data-include-c1="<%= get_c1_tasks %>" data-html="<%= html_id %>"></div-->
-  <%# end %>
 <% end %>
 </div>

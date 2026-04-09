@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '3.4.5'
+ruby '3.4.9'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 8.0.0', '>= 8.0.2.1'
@@ -11,6 +11,8 @@ gem 'propshaft'
 
 gem 'delayed_job_mongoid', '~> 3.0.0'
 gem 'mongoid', '~> 9.0.0'
+
+gem "redis"
 
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson'

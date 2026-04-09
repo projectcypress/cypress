@@ -39,10 +39,10 @@ class TestExecutionsController < ApplicationController
           )
         else
           render turbo_stream: turbo_stream.replace(
-            frame_id,
-            partial: 'products/measure_tests_table_controller', # <- your partial path
-            locals: { product_url: params['test_execution']['product_url'], task: @task, product: @task.product_test.product,
-                      html_id: params['test_execution']['html_id'], get_c1_tasks: params['test_execution']['include_c1'], reload: true }
+            frame_id
+            # partial: 'products/measure_tests_table_controller', # <- your partial path
+            # locals: { product_url: params['test_execution']['product_url'], task: @task, product: @task.product_test.product,
+            #           html_id: params['test_execution']['html_id'], get_c1_tasks: params['test_execution']['include_c1'], reload: true }
           )
         end
       end

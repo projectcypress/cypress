@@ -9,14 +9,20 @@ export default class extends Controller {
     this.initializeTabs()
     this.initializeDataTables()
 
-    // delegated handler for dynamically-added upload fields
     this._boundMultiUploadChange = this.onMultiUploadChange.bind(this)
     document.addEventListener("change", this._boundMultiUploadChange, true)
+
+    this._boundBeforeStreamRender = this.onBeforeStreamRender.bind(this)
+    document.addEventListener("turbo:before-stream-render", this._boundBeforeStreamRender)
   }
 
   disconnect() {
     if (this._boundMultiUploadChange) {
       document.removeEventListener("change", this._boundMultiUploadChange, true)
+    }
+
+    if (this._boundBeforeStreamRender) {
+      document.removeEventListener("turbo:before-stream-render", this._boundBeforeStreamRender)
     }
   }
 
@@ -25,7 +31,6 @@ export default class extends Controller {
 
     this.$(".product-test-tabs").each((_i, el) => {
       const $el = this.$(el)
-      // avoid double-init
       if (!$el.hasClass("ui-tabs")) $el.tabs()
       $el.find("> ul > li").removeClass("ui-corner-top")
     })
@@ -35,7 +40,6 @@ export default class extends Controller {
     if (!this.$.fn || typeof this.$.fn.DataTable !== "function") return
     const isDT = (elOrSelector) => this.$.fn.dataTable.isDataTable(elOrSelector)
 
-    // user_tests_table
     this.$(".user_tests_table").each((_i, el) => {
       if (isDT(el)) return
       this.$(el).DataTable({
@@ -47,7 +51,6 @@ export default class extends Controller {
       })
     })
 
-    // vendor-table
     this.$(".vendor-table").each((_i, el) => {
       if (isDT(el)) return
       this.$(el).DataTable({
@@ -58,7 +61,6 @@ export default class extends Controller {
       })
     })
 
-    // vendor-table-favorite
     this.$(".vendor-table-favorite").each((_i, el) => {
       if (isDT(el)) return
       this.$(el).DataTable({
@@ -69,7 +71,6 @@ export default class extends Controller {
       })
     })
 
-    // filtering_test_status_display (special case)
     if (
       this.$("#display_filtering_test_status_display_body").length &&
       !isDT("#filtering_test_status_display")
@@ -82,7 +83,6 @@ export default class extends Controller {
       })
     }
 
-    // user_table
     this.$(".user_table").DataTable({
       destroy: true,
       searching: false,
@@ -99,7 +99,6 @@ export default class extends Controller {
       ],
     })
 
-    // patient_table
     this.$(".patient_table").DataTable({
       destroy: true,
       searching: false,
@@ -112,7 +111,6 @@ export default class extends Controller {
       info: false,
     })
 
-    // measure_tests_table
     this.$(".measure_tests_table").DataTable({
       destroy: true,
       searching: false,
@@ -122,12 +120,47 @@ export default class extends Controller {
     })
   }
 
+  onBeforeStreamRender(event) {
+    const streamElement = event.target
+    const action = streamElement.getAttribute("action")
+    const targetId = streamElement.getAttribute("target")
+
+    if (action !== "update") return
+    if (!targetId || !targetId.startsWith("measure-tests-table-row-wrapper-")) return
+
+    const originalRender = event.detail.render
+
+    event.detail.render = (stream) => {
+      const row = document.getElementById(targetId)
+      const table = row?.closest("table.measure_tests_table")
+      let hadDataTable = false
+
+      if (table && this.$.fn.dataTable.isDataTable(table)) {
+        this.$(table).DataTable().destroy()
+        hadDataTable = true
+      }
+
+      originalRender(stream)
+
+      requestAnimationFrame(() => {
+        if (hadDataTable && table) {
+          this.$(table).DataTable({
+            destroy: true,
+            searching: false,
+            paging: false,
+            stateSave: true,
+            info: false,
+          })
+        }
+      })
+    }
+  }
+
   onMultiUploadChange(ev) {
     const input = ev.target
     if (!(input instanceof Element)) return
     if (!input.matches(".multi-upload-field")) return
 
-    // mimic: $(this).parent().siblings(".multi-upload-submit").click();
     const parent = input.parentElement
     const submit = parent && parent.parentElement
       ? parent.parentElement.querySelector(":scope > .multi-upload-submit")
