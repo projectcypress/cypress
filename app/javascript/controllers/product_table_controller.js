@@ -120,41 +120,105 @@ export default class extends Controller {
     })
   }
 
-  onBeforeStreamRender(event) {
-    const streamElement = event.target
-    const action = streamElement.getAttribute("action")
-    const targetId = streamElement.getAttribute("target")
+onBeforeStreamRender(event) {
+  const streamElement = event.target
+  const action = streamElement.getAttribute("action")
+  const targetId = streamElement.getAttribute("target")
 
-    if (action !== "update") return
-    if (!targetId || !targetId.startsWith("measure-tests-table-row-wrapper-")) return
+  if (action !== "update") return
+  if (!targetId?.startsWith("measure-tests-table-row-wrapper-")) return
 
-    const originalRender = event.detail.render
+  const originalRender = event.detail.render
 
-    event.detail.render = (stream) => {
-      const row = document.getElementById(targetId)
-      const table = row?.closest("table.measure_tests_table")
-      let hadDataTable = false
+  event.detail.render = (stream) => {
+    const rowWrapper = document.getElementById(targetId)
+    const table = rowWrapper?.closest("table.measure_tests_table")
 
-      if (table && this.$.fn.dataTable.isDataTable(table)) {
-        this.$(table).DataTable().destroy()
-        hadDataTable = true
-      }
-
+    if (!table || !this.$.fn.dataTable.isDataTable(table)) {
       originalRender(stream)
+      return
+    }
 
-      requestAnimationFrame(() => {
-        if (hadDataTable && table) {
-          this.$(table).DataTable({
-            destroy: true,
-            searching: false,
-            paging: false,
-            stateSave: true,
-            info: false,
-          })
-        }
+    const dataTable = this.$(table).DataTable()
+    const headerCells = Array.from(table.querySelectorAll("thead th"))
+    const tableRect = table.getBoundingClientRect()
+
+    const previousTableWidth = table.style.width
+    const previousTableLayout = table.style.tableLayout
+
+    const lockedHeaderStyles = headerCells.map((cell) => ({
+      cell,
+      width: cell.style.width,
+      minWidth: cell.style.minWidth,
+      maxWidth: cell.style.maxWidth,
+      measuredWidth: `${cell.getBoundingClientRect().width}px`,
+    }))
+
+    const lockLayout = () => {
+      table.style.width = `${tableRect.width}px`
+      table.style.tableLayout = "fixed"
+
+      lockedHeaderStyles.forEach(({ cell, measuredWidth }) => {
+        cell.style.width = measuredWidth
+        cell.style.minWidth = measuredWidth
+        cell.style.maxWidth = measuredWidth
       })
     }
+
+    const unlockLayout = () => {
+      table.style.width = previousTableWidth
+      table.style.tableLayout = previousTableLayout
+
+      const currentHeaderCells = Array.from(table.querySelectorAll("thead th"))
+
+      lockedHeaderStyles.forEach((saved, index) => {
+        const cell = currentHeaderCells[index]
+        if (!cell) return
+
+        cell.style.width = saved.width
+        cell.style.minWidth = saved.minWidth
+        cell.style.maxWidth = saved.maxWidth
+      })
+    }
+
+    lockLayout()
+
+    try {
+      dataTable.destroy()
+      originalRender(stream)
+
+      const currentHeaderCells = Array.from(table.querySelectorAll("thead th"))
+      lockedHeaderStyles.forEach((saved, index) => {
+        const cell = currentHeaderCells[index]
+        if (!cell) return
+
+        cell.style.width = saved.measuredWidth
+        cell.style.minWidth = saved.measuredWidth
+        cell.style.maxWidth = saved.measuredWidth
+      })
+
+      const rebuilt = this.$(table).DataTable({
+        destroy: true,
+        searching: false,
+        paging: false,
+        stateSave: true,
+        info: false,
+        autoWidth: false,
+      })
+
+      requestAnimationFrame(() => {
+        try {
+          rebuilt.columns.adjust().draw(false)
+        } finally {
+          unlockLayout()
+        }
+      })
+    } catch (error) {
+      unlockLayout()
+      throw error
+    }
   }
+}
 
   onMultiUploadChange(ev) {
     const input = ev.target
