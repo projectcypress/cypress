@@ -1,7 +1,7 @@
 <div class="card card-default">
 <div class="card-header"><h1>Import Patients</h1></div>
 
-<%= bootstrap_form_tag url: vendor_records_path(@vendor), html: {id: "add_vendor_patients_form"} do |f| %>
+<%= bootstrap_form_tag url: vendor_records_path(@vendor), html: {id: "add_vendor_patients_form"}, data: { turbo: false } do |f| %>
   <div class="card-body">
     <%# select default as bundle selected from previous page (unless deprecated) or Bundle active default#%>
     <% default_selection = @default.deprecated ? Bundle.default : @default %>

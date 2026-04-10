@@ -9,9 +9,7 @@
         <div class = 'card-header'>
           <h1 class='card-title lead'>Download Full Test Deck</h1>
         </div>
-        <div class = 'card-body' id = 'display_bulk_download'>
-          <%= render 'bulk_download', :product => @product %>
-        </div>
+        <%= render 'bulk_download_wrapper', :product => @product %>
       </div>
     <% end %>
   </div>
@@ -31,7 +29,7 @@
       <% # Record Sample Tab %>
       <% if test_type == 'ChecklistTest' %>
         <% checklist_test = @product.product_tests.checklist_tests.first %>
-        <%= button_to 'View Record Sample', product_checklist_test_path(@product, checklist_test), class: 'btn btn-primary', method: :get %><p></p>
+        <%= button_to 'View Record Sample', product_checklist_test_path(@product, checklist_test), class: 'btn btn-primary', method: :get, data: { turbo: false } %><p></p>
         <div id = 'display_checklist_execution_results'>
           <%= render 'checklist_execution_results', :task => @product.product_tests.checklist_tests.first.tasks.c1_checklist_task %>
         </div>
@@ -41,17 +39,19 @@
 
       <% # Measure Test Tabs (both C1 or C2 tabs) %>
       <% if test_type == 'MeasureTest' %>
-        <div id="display_measure_tests_table">
-          <%= render 'measure_tests_table', :product => @product, :get_c1_tasks => (title.include?('C1') || title.include?('C3') && !title.include?('QRDA-III')),
-            :html_id => html_id  %>
-        </div>
+        <% get_c1_tasks = (title.include?('C1') || title.include?('C3') && !title.include?('QRDA-III')) %>
+        <% tasks = measure_test_tasks(product, get_c1_tasks: get_c1_tasks) %>
+        <% reload = should_reload_measure_test_table?(tasks) %>
+
+        <%= render 'measure_tests_table', :product => @product, :get_c1_tasks => get_c1_tasks, :html_id => html_id %>
+        <%= render 'products/measure_tests_table_controller', :product_url => request.path, :get_c1_tasks => get_c1_tasks, :html_id => html_id, :reload => reload %>
       <% end %>
 
       <% # Filtering Test Tab %>
       <% if test_type == 'FilteringTest' %>
-        <div id="display_filtering_test_status_display">
-          <%= render 'filtering_test_status_display', :product => @product, :html_id => html_id %>
-        </div>
+        <%= render 'filtering_test_status_display', :product => @product, :html_id => html_id %>
+        <% tests = @product.product_tests.filtering_tests %>
+        <%= render 'products/filtering_test_status_display_controller', :product_url => request.path, :html_id => html_id, :reload => should_reload_product_test_status_display?(tests) %>
       <% end %>
 
     </div>

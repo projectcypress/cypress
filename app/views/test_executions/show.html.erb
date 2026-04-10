@@ -1,5 +1,9 @@
 <%= content_for(:body_attributes) do %>data-no-turbolink<% end %>
 
+<div
+  data-controller="test-execution"
+  data-test-execution-target="root"
+>
 <% displaying_cat1 = displaying_cat1?(@task) %>
 <% viewing_measure_test = @task.product_test.is_a? MeasureTest %>
 <% if viewing_measure_test %>
@@ -12,12 +16,20 @@
 <%= render partial: 'application/certification_bar', locals: { product: @product_test.product, active_certs: current_certifications(@task._type, @product_test.c3_test, @product_test.eh_measures?, @product_test.ep_measures?) } %>
 <% unless @task.is_a?(C1ChecklistTask) || @task.is_a?(C3ChecklistTask) %>
   <div class="clearfix">
-    <%= button_to new_task_test_execution_path(iterate_task(@task, 'prev').id), :method => :get, :class => "btn btn-default float-start" do %>
-      <%= icon('fas fa-fw', 'step-backward', :"aria-hidden" => true) %> Previous Test: <%= iterate_task(@task, 'prev').product_test.button_short_name %>
-    <% end %>
-    <%= button_to new_task_test_execution_path(iterate_task(@task, 'next').id), :method => :get, :class => "btn btn-default float-end" do %>
-      Next Test: <%= iterate_task(@task, 'next').product_test.button_short_name %> <%= icon('fas fa-fw', 'step-forward', :"aria-hidden" => true) %>
-    <% end %>
+    <%= link_to new_task_test_execution_path(iterate_task(@task, 'prev').id),
+            class: "btn btn-default float-start",
+            data: { turbo_frame: "_top" } do
+              safe_join([
+                content_tag(:i, "", class: "fas fa-fw fa-step-backward", "aria-hidden": "true"),
+                " Previous Test: #{iterate_task(@task, 'prev').product_test.button_short_name}"
+              ]) end %>
+    <%= link_to new_task_test_execution_path(iterate_task(@task, 'next').id),
+            class: "btn btn-default float-end",
+            data: { turbo_frame: "_top" } do
+              safe_join([
+                " Next Test: #{iterate_task(@task, 'next').product_test.button_short_name}",
+                content_tag(:i, "", class: "fas fa-fw fa-step-forward", "aria-hidden": "true")
+              ]) end %>
   </div>
 <% end %>
 <div class = 'row'>
@@ -29,12 +41,12 @@
 <div class = 'test-steps'>
   <% if viewing_measure_test %>
     <% steps = [
-      { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },
+      { title: 'Download Test Deck', partial: 'execution_download_wrapper', disable: false, disable_msg: '' },
       { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test_state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
    <% elsif @task.product_test.is_a? MultiMeasureTest %>
     <% steps = [
-      { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },
+      { title: 'Download Test Deck', partial: 'execution_download_wrapper', disable: false, disable_msg: '' },
       { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test_state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
   <% elsif @task.product_test.is_a? CMSProgramTest %>
@@ -43,7 +55,7 @@
       ] %>
   <% elsif @task.product_test.is_a? FilteringTest %>
     <% steps = [
-      { title: 'Download Test Deck', partial: 'execution_download', disable: false, disable_msg: '' },
+      { title: 'Download Test Deck', partial: 'execution_download_wrapper', disable: false, disable_msg: '' },
       { title: 'Filter Patients', partial: 'filter_instructions', disable: false, disable_msg: '' },
       { title: 'Upload Files', partial: 'execution_upload', disable: @task.product_test_state == :errored, disable_msg: 'Cannot upload files to an errored test.' }
       ] %>
@@ -75,18 +87,27 @@
       <h1 class='card-title lead'>
         Results
         <div class = 'float-end'>
-          <select id="select_execution" aria-label="View test execution">
+          <select id="select_execution" aria-label="View test execution" data-test-execution-target="selectExecution">
             <% total_test_executions = @task.test_executions.size %>
             <% @task.test_executions.sort_by { |obj| obj.created_at }.reverse.each_with_index do |execution, i| %>
               <option value = <%= task_test_execution_path(@task, execution) %> <%= 'selected="selected"' if execution.id == @test_execution.id %>><%= get_select_history_message(execution, i, total_test_executions) %></option>
             <% end %>
           </select>
-          <button id="view_execution" class="btn btn-xs btn-<%= execution_status_class(@test_execution) %>">Refresh View</button>
+          <button id="view_execution" data-action="click->test-execution#viewExecution" class="btn btn-xs btn-<%= execution_status_class(@test_execution) %>">Refresh View</button>
         </div>
       </h1>
     </div>
-    <div class = 'card-body' id = 'display_execution_results' >
+    <div data-controller="test-execution" data-action="test-execution:initializeResultsUI@document->test-execution#initializeResultsUI">
       <%= render 'execution_results', :execution => @test_execution %>
+      <% if @test_execution.status_with_sibling == 'incomplete' %>
+        <div id="<%= "execution_results_poller" %>"
+          data-controller="turbo-stream-poller"
+          data-turbo-temporary
+          data-turbo-stream-poller-url-value="<%= request.path %>"
+          data-turbo-stream-poller-params-value="<%= { partial: "execution_results", execution: @test_execution }.to_json %>"
+          data-turbo-stream-poller-interval-value="2000"></div>
+      <% end %>
     </div>
   </div>
 <% end %>
+</div>

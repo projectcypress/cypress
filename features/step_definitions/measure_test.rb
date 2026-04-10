@@ -105,32 +105,24 @@ end
 
 And(/^the user uploads a CAT 1 zip file$/) do
   zip_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_good.zip')
-  find('span', class: 'btn-file').click
-  page.attach_file('results', zip_path, visible: false)
-  page.find('#submit-upload').click
+  upload_and_submit(zip_path)
 end
 
 And(/^the user uploads a CAT 3 XML file$/) do
   xml_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')
-  find('span', class: 'btn-file').click
-  page.attach_file('results', xml_path, visible: false)
-  page.find('#submit-upload').click
+  upload_and_submit(xml_path)
   wait_for_all_delayed_jobs_to_run
 end
 
 And(/^the user uploads a CAT 3 XML file with errors$/) do
   xml_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_bad_strat.xml')
-  find('span', class: 'btn-file').click
-  page.attach_file('results', xml_path, visible: false)
-  page.find('#submit-upload').click
+  upload_and_submit(xml_path)
   wait_for_all_delayed_jobs_to_run
 end
 
 And(/^the user uploads an invalid file$/) do
   invalid_file_path = Rails.root.join('app', 'assets', 'images', 'icon.svg')
-  find('span', class: 'btn-file').click
-  page.attach_file('results', invalid_file_path, visible: false)
-  page.find('#submit-upload').click
+  upload_and_submit(invalid_file_path)
 end
 
 And(/^the user should see no execution results$/) do

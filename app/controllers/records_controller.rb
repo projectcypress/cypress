@@ -173,7 +173,7 @@ class RecordsController < ApplicationController
 
           { label: label_str, value: val }
         end
-      end.flatten.to_json.html_safe
+      end.flatten.to_json
     end
   end
 end

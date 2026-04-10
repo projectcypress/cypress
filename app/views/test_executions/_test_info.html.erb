@@ -40,7 +40,7 @@
     <% end %>
     <% if Settings.current.enable_debug_features %>
       <br/>
-      <%= link_to 'Get Known Good Result', good_results_task_path(task), data: { no_turbolink: true } %>
+      <%= link_to 'Get Known Good Result', good_results_task_path(task), data: { turbo: false } %>
     <% end %>
   <% end %>
 </div>
