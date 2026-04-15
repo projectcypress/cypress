@@ -78,7 +78,8 @@
           html_id: html_id,
           get_c1_tasks: include_c1
         }.to_json %>"
-        data-turbo-stream-poller-interval-value="5000"></div>
+        data-turbo-stream-poller-immediate-value="false"
+        data-turbo-stream-poller-interval-value="10000"></div>
     <% end %>
   </td>
 
