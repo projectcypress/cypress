@@ -131,6 +131,7 @@ export default class extends Controller {
     });
   }
 
+  /* eslint-disable max-statements */
   onBeforeStreamRender(event) {
     const streamElement = event.target;
     const action = streamElement.getAttribute("action");
@@ -239,6 +240,7 @@ export default class extends Controller {
       }
     };
   }
+  /* eslint-enable max-statements */
 
   onMultiUploadChange(ev) {
     const input = ev.target;

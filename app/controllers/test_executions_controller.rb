@@ -20,6 +20,7 @@ class TestExecutionsController < ApplicationController
   end
 
   # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/BlockLength
   def create
     authorize! :execute_task, @task.product_test.product.vendor
 
@@ -86,6 +87,7 @@ class TestExecutionsController < ApplicationController
     rescue_create
   end
   # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/BlockLength
 
   def new
     authorize! :execute_task, @product_test.product.vendor
