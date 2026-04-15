@@ -29,20 +29,37 @@ class TestExecutionsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
-        frame_id = "product_#{params['test_execution']['html_id']}_upload_frame"
         if @task.is_a?(Cat1FilterTask) || @task.is_a?(Cat3FilterTask)
+          frame_id = "product_#{params['test_execution']['html_id']}_upload_frame"
+
           render turbo_stream: turbo_stream.replace(
             frame_id,
-            partial: 'products/filtering_test_status_display_controller', # <- your partial path
-            locals: { product_url: params['test_execution']['product_url'], task: @task, product: @task.product_test.product,
-                      html_id: params['test_execution']['html_id'], reload: true }
+            partial: 'products/filtering_test_status_display_controller',
+            locals: {
+              product_url: params['test_execution']['product_url'],
+              task: @task,
+              product: @task.product_test.product,
+              html_id: params['test_execution']['html_id'],
+              reload: true
+            }
           )
         else
+          product = @task.product_test.product
+          html_id = params.dig('test_execution', 'html_id')
+          include_c1 = params.dig('test_execution', 'include_c1')
+          product_url = params.dig('test_execution', 'product_url')
+
           render turbo_stream: turbo_stream.replace(
-            frame_id,
-            partial: 'products/measure_tests_table_controller', # <- your partial path
-            locals: { product_url: params['test_execution']['product_url'], task: @task, product: @task.product_test.product,
-                      html_id: params['test_execution']['html_id'], get_c1_tasks: params['test_execution']['include_c1'], reload: true }
+            view_context.measure_tests_table_row_wrapper_id(@task),
+            partial: 'products/measure_tests_table_row',
+            locals: {
+              task: @task,
+              has_eh_tests: product.eh_tests?,
+              has_ep_tests: product.ep_tests?,
+              html_id: html_id,
+              include_c1: include_c1,
+              product_url: product_url
+            }
           )
         end
       end

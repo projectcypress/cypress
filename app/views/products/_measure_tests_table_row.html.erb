@@ -1,39 +1,89 @@
 <%
-
 # local variables
 #
-#   task       (Task)
+#   task
+#   has_eh_tests
+#   has_ep_tests
+#   html_id
+#   include_c1
+#   product_url
 %>
 
 <% test = task.product_test %>
 <% include_c3 = include_c3_column(task, has_eh_tests, has_ep_tests) %>
+<% row_id = measure_tests_table_row_wrapper_id(task) %>
 
-<td data-sort="<%= cms_int(test.cms_id) %>"><%= test.cms_id %></td>
-<td><%= link_to test.name, new_task_test_execution_path(task) %></td>
-<% if include_first_task(test.product, task._type) %>
-  <td data-order="<%= set_sorting(test, task.status) %>">
-    <%= render 'execution_status_message', :execution => task.most_recent_execution, :test_state => test.state %>
+<%
+  row_reload =
+    if defined?(should_reload_measure_test_row?)
+      should_reload_measure_test_row?(task)
+    else
+      task.state.to_sym != :ready
+    end
+%>
+
+<tr id="<%= row_id %>">
+  <td data-sort="<%= cms_int(test.cms_id) %>"><%= test.cms_id %></td>
+
+  <td><%= link_to test.name, new_task_test_execution_path(task) %></td>
+
+  <% if include_first_task(test.product, task._type) %>
+    <td data-order="<%= set_sorting(test, task.status) %>">
+      <%= render "execution_status_message",
+        execution: task.most_recent_execution,
+        test_state: test.state %>
+    </td>
+  <% end %>
+
+  <% if include_c3 %>
+    <%
+      test_state =
+        if task._type == "C1Task" && !test.c3_cat1_task?
+          :na
+        elsif task._type == "C2Task" && !test.c3_cat3_task?
+          :na
+        else
+          test.state
+        end
+    %>
+
+    <% sibling_execution = task.most_recent_execution ? task.most_recent_execution.sibling_execution : nil %>
+
+    <td data-order="<%= set_sorting(test, task.status) %>">
+      <%= render "execution_status_message",
+        execution: sibling_execution,
+        test_state: test_state %>
+    </td>
+  <% end %>
+
+  <td id="<%= id_for_html_wrapper_of_task(task) %>" class="no-wrap" data-order="<%= set_sorting(test, task.status) %>">
+    <%= render partial: "/products/measure_test_link",
+      locals: {
+        test: test,
+        task: task,
+        html_id: html_id,
+        include_c1: include_c1,
+        product_url: product_url
+      } %>
+
+    <% if row_reload %>
+      <div
+        id="<%= "#{row_id}_poller" %>"
+        data-controller="turbo-stream-poller"
+        data-turbo-temporary
+        data-turbo-stream-poller-url-value="<%= product_url %>"
+        data-turbo-stream-poller-params-value="<%= {
+          partial: "measure_tests_table_row",
+          task_id: task.id.to_s,
+          html_id: html_id,
+          get_c1_tasks: include_c1
+        }.to_json %>"
+        data-turbo-stream-poller-immediate-value="false"
+        data-turbo-stream-poller-interval-value="10000"></div>
+    <% end %>
   </td>
-<% end %>
-<% if include_c3 %>
-  <!-- If the Task is C1 and the Test does not have a C3 Cat I task (i.e., EP eCQM), the C3 task is not applicable -->
-  <!-- If the Task is C2 and the Test does not have a C3 Cat III task (i..e, EH eCQM), the C3 task is not applicable -->
-  <% test_state = if task._type == 'C1Task' && !test.c3_cat1_task?
-                    :na
-                  elsif task._type == 'C2Task' && !test.c3_cat3_task?
-                    :na
-                  else
-                    test.state
-                  end
-  %>
-  <% sibling_execution = task.most_recent_execution ? task.most_recent_execution.sibling_execution : nil %>
-  <td data-order="<%= set_sorting(test, task.status) %>">
-    <%= render 'execution_status_message', :execution => sibling_execution, :test_state => test_state %>
+
+  <td class="no-wrap" data-order="<%= task.updated_at.to_i %>">
+    <%= icon("far fa-fw", "clock", :"aria-hidden" => true) %><%= local_time_ago(task.updated_at) %>
   </td>
-<% end %>
-<td id = "<%= id_for_html_wrapper_of_task(task) %>" class="no-wrap" data-order="<%= set_sorting(test, task.status) %>">
-  <%= render partial: '/products/measure_test_link', locals: { test: test, task: task, html_id: html_id, include_c1: include_c1, product_url: product_url } %>
-</td>
-<td class="no-wrap" data-order="<%= task.updated_at %>">
-  <%= icon('far fa-fw', 'clock', :"aria-hidden" => true) %><%= local_time_ago(task.updated_at) %>
-</td>
+</tr>

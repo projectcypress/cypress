@@ -87,6 +87,12 @@ module ProductsHelper
     false
   end
 
+  def should_reload_measure_test_row?(task)
+    return true if measure_test_running_for_row?(task)
+
+    false
+  end
+
   # returns the status of the combined tasks for a product test
   #   all tasks must pass to return 'passing'
   #   if one test fails, return 'failing'
