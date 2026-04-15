@@ -1,5 +1,4 @@
 @use 'variables' as *;
-@use 'font-awesome' as *;
 
 .parsley-success {
   // color: $success-text-emphasis;
@@ -30,10 +29,10 @@
     opacity: 1;
     padding: 1em 0;
 
-    &::before {
-      font-family: FontAwesome;
-      content: $fa-var-wrench;
-    }
+    // &::before {
+    //  font-family: FontAwesome;
+    //  content: $fa-var-wrench;
+    // }
 
     li {
       display: inline-block;

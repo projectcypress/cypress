@@ -9,9 +9,7 @@
         <div class = 'card-header'>
           <h1 class='card-title lead'>Download Full Test Deck</h1>
         </div>
-        <div class = 'card-body' id = 'display_bulk_download'>
-          <%= render 'bulk_download', :product => @product %>
-        </div>
+        <%= render 'bulk_download_wrapper', :product => @product %>
       </div>
     <% end %>
   </div>
@@ -51,7 +49,7 @@
                   <% end %>
                 </td>
                 <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(task) %>">
-                  <%= render 'filtering_test_link', :test => product_test, :task => task, :parent_reloading => true %>
+                  <%= render 'filtering_test_link', :html_id => html_id, :test => product_test, :task => task, :parent_reloading => true %>
                 </td>
                 <td class="no-wrap" data-order="<%= task.updated_at %>">
                   <%= icon('far fa-fw', 'clock', :"aria-hidden" => true) %><%= local_time_ago(task.updated_at) %>
@@ -79,7 +77,7 @@
               <tr>
                 <td><%= link_to cms_program_test_display_name(program_test), product_program_test_path(@product, program_test) %></td>
                 <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(task) %>">
-                  <%= render 'filtering_test_link', :test => program_test, :task => task, :parent_reloading => true %>
+                  <%= render 'filtering_test_link', :html_id => html_id, :test => program_test, :task => task, :parent_reloading => true %>
                 </td>
                 <td class="no-wrap" data-order="<%= task.updated_at %>">
                   <%= icon('far fa-fw', 'clock', :"aria-hidden" => true) %><%= local_time_ago(task.updated_at) %>
