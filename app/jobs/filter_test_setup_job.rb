@@ -28,7 +28,7 @@ class FilterTestSetupJob < ApplicationJob
   def build_filtering_test(product, measure, criteria, display_name = '', incl_addr: true)
     # construct options hash from criteria array and create the test
     options = { 'filters' => criteria.to_h { |c| [c, []] } }
-    product.product_tests.create({ name: measure.description, product:, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,
+    product.product_tests.create({ name: measure.title, product:, measure_ids: [measure.hqmf_id], cms_id: measure.cms_id,
                                    incl_addr:, display_name:, options: }, FilteringTest)
   end
 
