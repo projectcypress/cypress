@@ -27,7 +27,7 @@ class Cat3FilterTask < Task
                               end
     options = { provider: product_test.patients.first.providers.first, submission_program: cat3_submission_program,
                 start_time: start_date, end_time: end_date, ry2025_submission: product_test.bundle.major_version == '2024',
-                ry2026_submission: product_test.bundle.major_version == '2025' }
+                ry2026_submission: product_test.bundle.major_version == '2025', ry2027_submission: product_test.bundle.major_version == '2026' }
     Qrda3.new(product_test.expected_results_with_all_supplemental_codes, product_test.measures, options).render
   end
 end

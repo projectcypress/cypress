@@ -489,9 +489,9 @@ module Cypress
       patient_scoop_and_filter = Cypress::ScoopAndFilter.new(pt.measures)
       Zip::ZipOutputStream.open("tmp/#{file_name}_dedupe.zip") do |z|
         patient_telecoms.each_value do |entry_hash|
-          options = { ry2026_submission: pt.bundle.major_version == '2025', submission_program: pt.submission_program,
-                      start_time: pt.start_date, end_time: pt.end_date, patient_telecoms: [entry_hash[:phone_number]],
-                      medicare_beneficiary_identifier: entry_hash[:mbi] }
+          options = { ry2026_submission: pt.bundle.major_version == '2025', ry2027_submission: pt.bundle.major_version == '2026',
+                      submission_program: pt.submission_program, start_time: pt.start_date, end_time: pt.end_date,
+                      patient_telecoms: [entry_hash[:phone_number]], medicare_beneficiary_identifier: entry_hash[:mbi] }
           z.put_next_entry(entry_hash[:file_name])
           # Since we are round tripping, we need to do some of the QRDA post processing and scoop and filter to get consistent files.
           Cypress::QrdaPostProcessor.replace_negated_codes(entry_hash[:record], pt.bundle)
