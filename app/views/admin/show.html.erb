@@ -25,7 +25,7 @@
   <div id="bundles">
     
     <%= render "bundle_list", :bundles => @bundles %>
-    <% if BundleUploadJob.trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
+    <% if Tracker.where('job_class'=> { '$in' => ['BundleUploadJob','BundleDestroyJob','BundleDeprecateJob'] }, 'status' => { '$in' => [:queued, :working] }).count.positive? %>
       <div id="bundle_list_poller"
        data-controller="turbo-stream-poller"
        data-turbo-temporary

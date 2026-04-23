@@ -21,7 +21,7 @@
           <% end %>
         </td>
         <td>
-          <%= link_to "", admin_tracker_path(tracker), :method => :delete, :class => "close fa fa-fw fa-times" if tracker.status == :failed %>
+          <%= link_to "", admin_tracker_path(tracker), data: { turbo_method: :delete }, class: "close fa fa-fw fa-times" if tracker.status == :failed %>
         </td>
       </tr>
       <% end %>

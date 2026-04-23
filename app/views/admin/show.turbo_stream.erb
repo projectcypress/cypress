@@ -1,5 +1,5 @@
 <% if params[:partial] == 'bundle_list' %>
-  <% if BundleUploadJob.trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
+  <% if Tracker.where(:job_class.in => ['BundleUploadJob', 'BundleDestroyJob', 'BundleDeprecateJob'], :status.in => [:queued, :working]).count.positive? %>
     <%= turbo_stream.replace "display_bundle_list" do %>
       <%= render "/admin/bundle_list", bundles: @bundles %>
     <% end %>
