@@ -51,7 +51,7 @@ export default class extends Controller {
     const isDT = (elOrSelector) =>
       this.$.fn.dataTable.isDataTable(elOrSelector);
 
-    this.$(".user_tests_table").each((_i, el) => {
+    this.$(".user_tests_table:visible").each((_i, el) => {
       if (isDT(el)) return;
       this.$(el).DataTable({
         searching: false,
@@ -59,26 +59,32 @@ export default class extends Controller {
         stateSave: true,
         info: false,
         order: [[4, "desc"]],
+        autoWidth: false,
+        deferRender: true,
       });
     });
 
-    this.$(".vendor-table").each((_i, el) => {
+    this.$(".vendor-table:visible").each((_i, el) => {
       if (isDT(el)) return;
       this.$(el).DataTable({
         searching: false,
         paging: false,
         stateSave: true,
         info: false,
+        autoWidth: false,
+        deferRender: true,
       });
     });
 
-    this.$(".vendor-table-favorite").each((_i, el) => {
+    this.$(".vendor-table-favorite:visible").each((_i, el) => {
       if (isDT(el)) return;
       this.$(el).DataTable({
         searching: false,
         paging: false,
         stateSave: true,
         info: false,
+        autoWidth: false,
+        deferRender: true,
       });
     });
 
@@ -91,43 +97,63 @@ export default class extends Controller {
         paging: false,
         stateSave: true,
         info: false,
+        autoWidth: false,
+        deferRender: true,
       });
     }
 
-    this.$(".user_table").DataTable({
-      destroy: true,
-      searching: false,
-      paging: true,
-      lengthMenu: [
-        [10, 25, 50, 100, -1],
-        [10, 25, 50, 100, "All"],
-      ],
-      stateSave: true,
-      info: false,
-      columnDefs: [
-        { orderable: true, className: "reorder", targets: [0, 1, 2] },
-        { orderable: false, targets: "_all" },
-      ],
+    this.$(".user_table:visible").each((_i, el) => {
+      if (isDT(el)) {
+        this.$(el).DataTable().columns.adjust().draw(false);
+        return;
+      }
+      this.$(el).DataTable({
+        searching: false,
+        paging: true,
+        lengthMenu: [
+          [10, 25, 50, 100, -1],
+          [10, 25, 50, 100, "All"],
+        ],
+        stateSave: true,
+        info: false,
+        columnDefs: [
+          { orderable: true, className: "reorder", targets: [0, 1, 2] },
+          { orderable: false, targets: "_all" },
+        ],
+        autoWidth: false,
+        deferRender: true,
+      });
     });
 
-    this.$(".patient_table").DataTable({
-      destroy: true,
-      searching: false,
-      paging: true,
-      lengthMenu: [
-        [10, 25, 50, 100, -1],
-        [10, 25, 50, 100, "All"],
-      ],
-      stateSave: true,
-      info: false,
+    this.$(".patient_table:visible").each((_i, el) => {
+      if (isDT(el)) {
+        this.$(el).DataTable().columns.adjust().draw(false);
+        return;
+      }
+      this.$(el).DataTable({
+        searching: false,
+        paging: true,
+        lengthMenu: [
+          [10, 25, 50, 100, -1],
+          [10, 25, 50, 100, "All"],
+        ],
+        stateSave: true,
+        info: false,
+        autoWidth: false,
+        deferRender: true,
+      });
     });
 
-    this.$(".measure_tests_table").DataTable({
-      destroy: true,
-      searching: false,
-      paging: false,
-      stateSave: true,
-      info: false,
+    this.$(".measure_tests_table:visible").each((_i, el) => {
+      if (isDT(el)) return;
+      this.$(el).DataTable({
+        searching: false,
+        paging: false,
+        stateSave: true,
+        info: false,
+        autoWidth: false,
+        deferRender: true,
+      });
     });
   }
 
