@@ -14,3 +14,7 @@ import "parsleyjs";
 import "@hotwired/turbo-rails";
 import "dragon-drop/dragon-drop";
 import "controllers";
+
+// import local-time
+import LocalTime from "local-time";
+LocalTime.start();

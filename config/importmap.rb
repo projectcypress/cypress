@@ -23,3 +23,4 @@ pin 'dragon-drop/dragon-drop', to: 'dragon_drop/dragon-drop.js', preload: true
 pin 'assets.core', to: 'assets_framework/assets.core.js'
 
 pin_all_from 'app/javascript/controllers', under: 'controllers'
+pin 'local-time' # @3.0.3
