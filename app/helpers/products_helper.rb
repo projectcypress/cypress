@@ -57,6 +57,8 @@ module ProductsHelper
   end
 
   def should_reload_product_test_status_display?(tests)
+    return true unless tests.length.positive?
+
     tests.each do |test|
       if should_reload_product_test_link?(tasks_status(with_c3_task(test.cat1_task)), test) ||
          should_reload_product_test_link?(tasks_status(with_c3_task(test.cat3_task)), test)
@@ -69,9 +71,9 @@ module ProductsHelper
   def measure_test_running_for_row?(task)
     return true unless %i[ready errored].include? task.product_test_state
     return true if task.most_recent_execution && task.most_recent_execution.status_with_sibling == 'incomplete'
-    # Check if the task has been refreshed within the past 30 seconds. If it has then keep refreshing until
+    # Check if the task has been refreshed within the past 10 seconds. If it has then keep refreshing until
     # the database has a chance to settle.
-    return true if task.most_recent_execution && (Time.now.utc - task.most_recent_execution.last_updated_with_sibling) < 30
+    return true if task.most_recent_execution && (Time.now.utc - task.most_recent_execution.last_updated_with_sibling) < 10
 
     false
   end
@@ -82,6 +84,12 @@ module ProductsHelper
     tasks.each do |task|
       return true if measure_test_running_for_row?(task)
     end
+    false
+  end
+
+  def should_reload_measure_test_row?(task)
+    return true if measure_test_running_for_row?(task)
+
     false
   end
 

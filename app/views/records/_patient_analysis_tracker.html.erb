@@ -1,6 +1,6 @@
+<div id="patient-analysis-tracker">
 <% trackers = PatientAnalysisJob.trackers.where('options.vendor_id': @vendor.id.to_s, 'options.bundle_id': @bundle.id.to_s,) %>
 <% if trackers.count.positive?  %>
-  <p>
   <h1>Current Patient Analysis</h1>
   <table class="table table-hover">
     <thead>
@@ -21,22 +21,11 @@
           <% end %>
         </td>
         <td>
-          <%= link_to "", admin_tracker_path(tracker), :method => :delete, :class => "close fa fa-fw fa-times" if tracker.status == :failed %>
+          <%= link_to "", admin_tracker_path(tracker), data: { turbo_method: :delete }, class: "close fa fa-fw fa-times" if tracker.status == :failed %>
         </td>
       </tr>
       <% end %>
     </tbody>
   </table>
-  <% if trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
-    <script>
-      $(document).ready(function() {
-        $.ajax({
-          url: "<%= request.env['PATH_INFO'] %>",
-          type: "GET",
-          dataType: 'script',
-          data: { partial: 'patient_analysis_jobs' }
-        });
-      });
-    </script>
-  <% end %>
 <% end %>
+</div>

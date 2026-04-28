@@ -2,7 +2,7 @@
 <% has_many_measures = @product_test.measures.count > CAT1_CONFIG['number_of_checklist_measures'] %>
 
 <%= render 'application/certification_bar', :product => product, :active_certs => [true, false, product.c3_test && @product_test.eh_measures?, false] %>
-
+<div data-controller="checklist-test">
 <div class="card-actions float-end">
   <%= button_to print_criteria_product_checklist_test_path(@product, @product_test), :method => :get, :class => "btn btn-default" do %>
     <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download Criteria List
@@ -37,17 +37,38 @@
       </h1>
     </div>
     <div class = 'card-body'>
-      <div id = 'display_checklist_execution_results'>
-        <%= render 'checklist_execution_results', :task => @product_test.tasks.c1_checklist_task %>
-      </div>
-      <div id = 'display_checklist_status' >
-        <%= render 'checklist_status_display', :product => product, :product_test => @product_test, :has_many_measures => has_many_measures %>
-      </div>
+      <%= render 'checklist_execution_results', :task => @product_test.tasks.c1_checklist_task %>
+      <% execution = @product_test.tasks.c1_checklist_task.most_recent_execution %>
+      <% status_with_sibling = execution ? execution.status_with_sibling : nil %>
+      <% if !execution.nil? && status_with_sibling == 'incomplete' %>
+        <div id="<%= "checklist_execution_results_poller" %>"
+          data-controller="turbo-stream-poller"
+          data-turbo-temporary
+          data-turbo-stream-poller-url-value="<%= request.path %>"
+          data-turbo-stream-poller-params-value="<%= { partial: "checklist_execution_results", task_id: @product_test.tasks.c1_checklist_task.id }.to_json %>"
+          data-turbo-stream-poller-interval-value="2000"></div>
+      <% end %>
+      <%= render 'checklist_status_display', :product => product, :product_test => @product_test, :has_many_measures => has_many_measures %>
+      <% if @product_test.most_recent_task_execution_incomplete? %>
+        <div id="<%= "checklist_status_display_poller" %>"
+          data-controller="turbo-stream-poller"
+          data-turbo-temporary
+          data-turbo-stream-poller-url-value="<%= request.path %>"
+          data-turbo-stream-poller-params-value="<%= { partial: "checklist_status_display" }.to_json %>"
+          data-turbo-stream-poller-interval-value="2000"></div>
+      <% end %>
     </div>
   </div>
 </div>
+</div>
 <% unless has_many_measures %>
-  <div id = 'display_checklist_measures' >
-    <%= render 'checklist_measures', :product_test => @product_test, :product => @product_test.product, :measures => @measures %>
-  </div>
+  <%= render 'checklist_measures', :product_test => @product_test, :product => @product_test.product, :measures => @measures %>
+  <% if @product_test.tasks.first.most_recent_execution && @product_test.tasks.first.most_recent_execution.incomplete? %>
+    <div id="<%= "checklist_measures_poller" %>"
+      data-controller="turbo-stream-poller"
+      data-turbo-temporary
+      data-turbo-stream-poller-url-value="<%= request.path %>"
+      data-turbo-stream-poller-params-value="<%= { partial: "checklist_measures" }.to_json %>"
+      data-turbo-stream-poller-interval-value="2000"></div>
+  <% end %>
 <% end %>

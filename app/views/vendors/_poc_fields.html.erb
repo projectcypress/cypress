@@ -5,6 +5,6 @@
   <%= poc_field.text_field :contact_type, wrapper: { class: 'col-sm-2' }, label_class: 'label-block', label: 'Type of Contact' %>
   <%= poc_field.hidden_field :_destroy %>
   <div class="d-grid gap-2 col-3 d-md-block">
-    <button type="button" class="btn btn-danger remove-poc">Remove</button>
+    <button type="button" class="btn btn-danger remove-poc" data-action="pocs#remove">Remove</button>
   </div>
 </div>

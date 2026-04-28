@@ -1,0 +1,9 @@
+<%= render partial: 'execution_download', locals: { product_test: @product_test } %>
+<% if product_test.state != :ready %>
+  <div id="<%= "execution_download_poller" %>"
+    data-controller="turbo-stream-poller"
+    data-turbo-temporary
+    data-turbo-stream-poller-url-value="<%= request.path %>"
+    data-turbo-stream-poller-params-value="<%= { partial: "execution_download", product_test: @product_test }.to_json %>"
+    data-turbo-stream-poller-interval-value="2000"></div>
+<% end %>
