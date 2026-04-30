@@ -9,10 +9,10 @@
 
 %>
 
-<% parent_reloading = false unless (defined? parent_reloading) %>
+<!-- parent_reloading = false unless (defined? parent_reloading) -->
 <% tasks = with_c3_task(task) %>
 <% status = tasks_status(tasks) %>
-<% should_reload = should_reload_product_test_link?(status, test) %>
+<!-- should_reload = should_reload_product_test_link?(status, test) -->
 
 <% if test.state != :ready %>
   <% if test.state == :queued %>
@@ -30,21 +30,21 @@
   <% when 'passing' %>
     <%= icon('fas fa-fw text-success', 'check-circle', :"aria-hidden" => true) %>
     <%= link_to 'view', new_task_test_execution_path(task), :class => "inline label btn btn-success btn-sm" %>
-    <%= render partial: '/products/product_test_upload', locals: { task: task, label_class: 'btn btn-outline-info', html_id: html_id } %>
+    <%= render partial: '/products/product_test_upload', locals: { task: task, label_class: 'btn btn-outline-info', html_id: html_id, product_page_url: product_page_url } %>
   <% when 'failing'%>
     <%= icon('fas fa-fw text-danger', 'play-circle', :"aria-hidden" => true) %>
     <%= link_to 'retry', new_task_test_execution_path(task), :class => "inline label btn btn-danger btn-sm" %>
-    <%= render partial: '/products/product_test_upload', locals: { task: task, label_class: 'btn btn-outline-info', html_id: html_id } %>
+    <%= render partial: '/products/product_test_upload', locals: { task: task, label_class: 'btn btn-outline-info', html_id: html_id, product_page_url: product_page_url } %>
   <% when 'errored'%>
     <%= icon('fas fa-fw text-warning', 'exclamation-circle', :"aria-hidden" => true) %>
     <%= link_to 'retry', new_task_test_execution_path(task), :class => "inline label btn btn-warning btn-sm" %>
-    <%= render partial: '/products/product_test_upload', locals: { task: task, label_class: 'btn btn-outline-info', html_id: html_id } %>
+    <%= render partial: '/products/product_test_upload', locals: { task: task, label_class: 'btn btn-outline-info', html_id: html_id, product_page_url: product_page_url } %>
   <% when 'pending'%>
     <%= icon('fas fa-fw fa-spin text-testing', 'gavel', :"aria-hidden" => true) %>
     <%= link_to 'testing...', new_task_test_execution_path(task), :class => 'inline label btn btn-primary btn-sm' %>
   <% else %>
     <%= icon('fas fa-fw text-info', 'play-circle', :"aria-hidden" => true) %>
     <%= link_to 'start', new_task_test_execution_path(task), :class => "inline label btn btn-info btn-sm" %>
-    <%= render partial: '/products/product_test_upload', locals: { task: task, label_class: 'btn btn-outline-info', html_id: html_id } %>
+    <%= render partial: '/products/product_test_upload', locals: { task: task, label_class: 'btn btn-outline-info', html_id: html_id, product_page_url: product_page_url } %>
   <% end %>
 <% end %>

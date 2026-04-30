@@ -9,7 +9,30 @@
       <%= turbo_stream.remove "bulk_download_poller" %>
     <% end %>
   <% end %>
-
+<% elsif params[:partial] == 'cvu_program_display' %>
+  <% tests = @product.product_tests.cms_program_tests %>
+  <% if should_reload_measure_test_table?(tests.map(&:tasks).flatten) %>
+    <%= turbo_stream.replace "cvu_program_display_body" do %>
+      <%= render "/products/cvu_program_display_body", product: @product, html_id: params[:html_id], product_page_url: params[:product_page_url] %>
+    <% end %>
+  <% else %>
+    <%= turbo_stream.replace "cvu_program_display_body" do %>
+      <%= render "/products/cvu_program_display_body", product: @product, html_id: params[:html_id], product_page_url: params[:product_page_url] %>
+    <% end %>
+    <%= turbo_stream.remove "#{params[:html_id]}filtering_tests_table_poller" %>
+  <% end %>
+<% elsif params[:partial] == 'cvu_multi_display' %>
+  <% tests = @product.product_tests.multi_measure_tests %>
+  <% if should_reload_measure_test_table?(tests.map(&:tasks).flatten) %>
+    <%= turbo_stream.replace "cvu_multi_display_body" do %>
+      <%= render "/products/cvu_multi_display_body", product: @product, html_id: params[:html_id], product_page_url: params[:product_page_url] %>
+    <% end %>
+  <% else %>
+    <%= turbo_stream.replace "cvu_multi_display_body" do %>
+      <%= render "/products/cvu_multi_display_body", product: @product, html_id: params[:html_id], product_page_url: params[:product_page_url] %>
+    <% end %>
+    <%= turbo_stream.remove "#{params[:html_id]}filtering_tests_table_poller" %>
+  <% end %>
 <% elsif params[:partial] == 'filtering_test_status_display_body' %>
   <% tests = @product.product_tests.filtering_tests %>
   <% if should_reload_product_test_status_display?(tests) %>
@@ -43,7 +66,7 @@
       has_ep_tests: has_ep_tests,
       html_id: params[:html_id],
       include_c1: params[:get_c1_tasks],
-      product_url: request.path %>
+      product_page_url: request.path %>
   <% end %>
 
   <% unless row_reload %>
