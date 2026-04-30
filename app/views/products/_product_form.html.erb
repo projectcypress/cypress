@@ -22,7 +22,7 @@
               <legend class="control-label">Certification Types</legend>
               <div id="certifications_errors_container"></div>
 
-              <% if product.product_tests.blank? %>
+              <% if product.product_tests.none?(&:persisted?) %>
                 <%= f.form_group help: "Select the certification type Cypress should use to certify this product" do %>
                   <% APP_CONSTANTS['certifications'].each do |c, certification| %>
                     <% if c == 'C1' || c == 'C2' || c == 'C3' || c == 'C4'%>
