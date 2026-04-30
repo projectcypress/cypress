@@ -49,7 +49,7 @@
 
       <% # Filtering Test Tab %>
       <% if test_type == 'FilteringTest' %>
-        <%= render 'filtering_test_status_display', :product => @product, :html_id => html_id %>
+        <%= render 'filtering_test_status_display', :product => @product, :html_id => html_id, :product_page_url => request.path %>
         <% tests = @product.product_tests.filtering_tests %>
         <%= render 'products/filtering_test_status_display_controller', :product_page_url => request.path, :html_id => html_id, :reload => should_reload_product_test_status_display?(tests) %>
       <% end %>
