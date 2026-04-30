@@ -37,10 +37,44 @@ class TestExecutionsController < ApplicationController
             frame_id,
             partial: 'products/filtering_test_status_display_controller',
             locals: {
-              product_url: params['test_execution']['product_url'],
+              product_page_url: params['test_execution']['product_page_url'],
               task: @task,
               product: @task.product_test.product,
               html_id: params['test_execution']['html_id'],
+              reload: true
+            }
+          )
+        elsif @task.is_a?(CMSProgramTask)
+          frame_id = "product_#{params['test_execution']['html_id']}_upload_frame"
+          @product = @task.product_test.product
+          product_page_url = params['test_execution']['product_page_url']
+          html_id = params['test_execution']['html_id']
+
+          render turbo_stream: turbo_stream.replace(
+            frame_id,
+            partial: 'products/cvu_program_display_body_controller',
+            locals: {
+              product_page_url: product_page_url,
+              task: @task,
+              product: @product,
+              html_id: html_id,
+              reload: true
+            }
+          )
+        elsif @task.is_a?(MultiMeasureCat1Task) || @task.is_a?(MultiMeasureCat3Task)
+          frame_id = "product_#{params['test_execution']['html_id']}_upload_frame"
+          @product = @task.product_test.product
+          product_page_url = params['test_execution']['product_page_url']
+          html_id = params['test_execution']['html_id']
+
+          render turbo_stream: turbo_stream.replace(
+            frame_id,
+            partial: 'products/cvu_multi_display_body_controller',
+            locals: {
+              product_page_url: product_page_url,
+              task: @task,
+              product: @product,
+              html_id: html_id,
               reload: true
             }
           )
@@ -48,7 +82,7 @@ class TestExecutionsController < ApplicationController
           product = @task.product_test.product
           html_id = params.dig('test_execution', 'html_id')
           include_c1 = params.dig('test_execution', 'include_c1')
-          product_url = params.dig('test_execution', 'product_url')
+          product_page_url = params.dig('test_execution', 'product_page_url')
 
           render turbo_stream: turbo_stream.replace(
             view_context.measure_tests_table_row_wrapper_id(@task),
@@ -59,7 +93,7 @@ class TestExecutionsController < ApplicationController
               has_ep_tests: product.ep_tests?,
               html_id: html_id,
               include_c1: include_c1,
-              product_url: product_url
+              product_page_url: product_page_url
             }
           )
         end

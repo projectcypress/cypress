@@ -1,0 +1,20 @@
+<tbody id="cvu_multi_display_body">
+  <% @product.product_tests.multi_measure_tests.each do |product_test| %>
+  <% # A Multi Measure Test only has a single task %>
+  <% task = product_test.tasks.first %>
+  <tr>
+    <td><%= link_to product_test.name, new_task_test_execution_path(task) %></td>
+    <td>
+      <% task.measures.collect(&:cms_id).each_with_index do |cms_id, index| %>
+        <%= index == task.measures.size - 1 ? cms_id : "#{cms_id}, " %>
+      <% end %>
+    </td>
+    <td class="no-wrap" id = "<%= id_for_html_wrapper_of_task(task) %>">
+      <%= render 'filtering_test_link', :html_id => html_id, :test => product_test, :task => task, :parent_reloading => true, product_page_url: request.path %>
+    </td>
+    <td class="no-wrap" data-order="<%= task.updated_at %>">
+      <%= icon('far fa-fw', 'clock', :"aria-hidden" => true) %><%= local_time_ago(task.updated_at) %>
+    </td>
+  </tr>
+  <% end %> 
+</tbody>

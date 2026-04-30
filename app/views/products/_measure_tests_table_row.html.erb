@@ -6,7 +6,7 @@
 #   has_ep_tests
 #   html_id
 #   include_c1
-#   product_url
+#   product_page_url
 %>
 
 <% test = task.product_test %>
@@ -63,7 +63,7 @@
         task: task,
         html_id: html_id,
         include_c1: include_c1,
-        product_url: product_url
+        product_page_url: product_page_url
       } %>
 
     <% if row_reload %>
@@ -71,7 +71,7 @@
         id="<%= "#{row_id}_poller" %>"
         data-controller="turbo-stream-poller"
         data-turbo-temporary
-        data-turbo-stream-poller-url-value="<%= product_url %>"
+        data-turbo-stream-poller-url-value="<%= product_page_url %>"
         data-turbo-stream-poller-params-value="<%= {
           partial: "measure_tests_table_row",
           task_id: task.id.to_s,
