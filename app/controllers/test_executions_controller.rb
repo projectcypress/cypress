@@ -151,7 +151,7 @@ class TestExecutionsController < ApplicationController
     {
       product_page_url: test_execution_param(:product_page_url),
       task: @task,
-      product: product,
+      product: @product,
       html_id: test_execution_param(:html_id),
       reload: true
     }
