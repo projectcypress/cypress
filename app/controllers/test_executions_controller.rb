@@ -19,75 +19,23 @@ class TestExecutionsController < ApplicationController
     respond_with(@test_executions.to_a)
   end
 
-  # rubocop:disable Metrics/MethodLength
-  # rubocop:disable Metrics/BlockLength
   def create
     authorize! :execute_task, @task.product_test.product.vendor
 
     @task.latest_test_execution_id = nil
     @task.save
     @test_execution = @task.execute(results_params, current_user)
+    @product = @task.product_test.product
 
     respond_to do |format|
-      format.turbo_stream do
-        if @task.is_a?(Cat1FilterTask) || @task.is_a?(Cat3FilterTask)
-          frame_id = "product_#{params['test_execution']['html_id']}_upload_frame"
-
-          render turbo_stream: turbo_stream.replace(
-            frame_id,
-            partial: 'products/filtering_test_status_display_controller',
-            locals: {
-              product_url: params['test_execution']['product_url'],
-              task: @task,
-              product: @task.product_test.product,
-              html_id: params['test_execution']['html_id'],
-              reload: true
-            }
-          )
-        else
-          product = @task.product_test.product
-          html_id = params.dig('test_execution', 'html_id')
-          include_c1 = params.dig('test_execution', 'include_c1')
-          product_url = params.dig('test_execution', 'product_url')
-
-          render turbo_stream: turbo_stream.replace(
-            view_context.measure_tests_table_row_wrapper_id(@task),
-            partial: 'products/measure_tests_table_row',
-            locals: {
-              task: @task,
-              has_eh_tests: product.eh_tests?,
-              has_ep_tests: product.ep_tests?,
-              html_id: html_id,
-              include_c1: include_c1,
-              product_url: product_url
-            }
-          )
-        end
-      end
-
-      format.html do
-        if @task.is_a? C1ChecklistTask
-          redirect_to product_checklist_test_path(@task.product_test.product, @task.product_test), status: :see_other
-        elsif @task.is_a? CMSProgramTask
-          redirect_to product_program_test_path(@task.product_test.product, @task.product_test), status: :see_other
-        else
-          redirect_to task_test_execution_path(task_id: @task.id, id: @test_execution.id), status: :see_other
-        end
-      end
-
-      format.xml do
-        respond_with(@test_execution)
-      end
-
-      format.json do
-        respond_with(@test_execution)
-      end
+      format.turbo_stream { render_turbo_stream_response }
+      format.html         { redirect_html_response }
+      format.xml          { respond_with(@test_execution) }
+      format.json         { respond_with(@test_execution) }
     end
   rescue Mongoid::Errors::Validations
     rescue_create
   end
-  # rubocop:enable Metrics/MethodLength
-  # rubocop:enable Metrics/BlockLength
 
   def new
     authorize! :execute_task, @product_test.product.vendor
@@ -135,6 +83,83 @@ class TestExecutionsController < ApplicationController
   end
 
   private
+
+  def redirect_html_response
+    if @task.is_a? C1ChecklistTask
+      redirect_to product_checklist_test_path(@task.product_test.product, @task.product_test), status: :see_other
+    elsif @task.is_a? CMSProgramTask
+      redirect_to product_program_test_path(@task.product_test.product, @task.product_test), status: :see_other
+    else
+      redirect_to task_test_execution_path(task_id: @task.id, id: @test_execution.id), status: :see_other
+    end
+  end
+
+  def render_turbo_stream_response
+    if @task.is_a?(Cat1FilterTask) || @task.is_a?(Cat3FilterTask)
+      render_filtering_task_stream
+    elsif @task.is_a?(CMSProgramTask)
+      render_cms_program_stream
+    elsif @task.is_a?(MultiMeasureCat1Task) || @task.is_a?(MultiMeasureCat3Task)
+      render_multi_measure_stream
+    else
+      render_measure_tests_table_row_stream
+    end
+  end
+
+  def render_filtering_task_stream
+    render turbo_stream: turbo_stream.replace(
+      upload_frame_id,
+      partial: 'products/filtering_test_status_display_controller',
+      locals: upload_frame_locals
+    )
+  end
+
+  def render_cms_program_stream
+    render turbo_stream: turbo_stream.replace(
+      upload_frame_id,
+      partial: 'products/cvu_program_display_body_controller',
+      locals: upload_frame_locals
+    )
+  end
+
+  def render_multi_measure_stream
+    render turbo_stream: turbo_stream.replace(
+      upload_frame_id,
+      partial: 'products/cvu_multi_display_body_controller',
+      locals: upload_frame_locals
+    )
+  end
+
+  def render_measure_tests_table_row_stream
+    render turbo_stream: turbo_stream.replace(
+      view_context.measure_tests_table_row_wrapper_id(@task),
+      partial: 'products/measure_tests_table_row',
+      locals: { task: @task,
+                has_eh_tests: @product.eh_tests?,
+                has_ep_tests: @product.ep_tests?,
+                html_id: test_execution_param(:html_id),
+                include_c1: test_execution_param(:include_c1),
+                product_page_url: test_execution_param(:product_page_url) }
+    )
+  end
+
+  def upload_frame_id
+    "product_#{test_execution_param(:html_id)}_upload_frame"
+  end
+
+  def upload_frame_locals
+    {
+      product_page_url: test_execution_param(:product_page_url),
+      task: @task,
+      product: @product,
+      html_id: test_execution_param(:html_id),
+      reload: true
+    }
+  end
+
+  def test_execution_param(key)
+    params.dig('test_execution', key.to_s)
+  end
 
   def rescue_create
     alert = 'Invalid file upload. Please make sure you upload an XML or zip file.'
