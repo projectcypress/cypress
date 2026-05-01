@@ -12,7 +12,7 @@
     <div class="card-actions">
       <% if current_user.user_role?(:atl) || current_user.user_role?(:admin) || Settings.current.enable_debug_features  %>
         <% unless product.supplemental_test_artifact.file.nil? %>
-          <%= button_to supplemental_test_artifact_vendor_product_path(product.vendor_id, product), :method => :get, :class => "btn btn-default float-end" do %>
+          <%= button_to supplemental_test_artifact_vendor_product_path(product.vendor_id, product), :method => :get, :class => "btn btn-default float-end", data: { turbo: false } do %>
             <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download Supplemental Test Artifact
           <% end %>
         <% end %>
