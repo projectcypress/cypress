@@ -12,14 +12,14 @@ module Cypress
 
     def ep_status_values(product)
       h = {}
-      ep_measure_tests = product.product_tests.only(:tasks, :name).multi_measure_tests.where(name: 'EC Measures')
+      ep_measure_tests = product.product_tests.multi_measure_tests.where(name: 'EC Measures')
       h['EC Measure Test'] = STATUS_NAMES.zip(product_test_statuses(ep_measure_tests, 'MultiMeasureCat3Task')).to_h
       h
     end
 
     def eh_status_values(product)
       h = {}
-      eh_measure_tests = product.product_tests.only(:tasks, :name).multi_measure_tests.where(name: 'EH Measures')
+      eh_measure_tests = product.product_tests.multi_measure_tests.where(name: 'EH Measures')
       h['EH Measure Test'] = STATUS_NAMES.zip(product_test_statuses(eh_measure_tests, 'MultiMeasureCat1Task')).to_h
       h
     end
@@ -31,13 +31,13 @@ module Cypress
         default_number = CAT1_CONFIG['number_of_checklist_measures']
         h['Checklist']['not_started'] = [product.measure_ids.size, default_number].min
       end
-      h['QRDA Category I'] = STATUS_NAMES.zip(product_test_statuses(product.product_tests.only(:tasks).measure_tests, 'C1Task')).to_h
+      h['QRDA Category I'] = STATUS_NAMES.zip(product_test_statuses(product.product_tests.measure_tests, 'C1Task')).to_h
       h
     end
 
     def c2_status_values(product)
       h = {}
-      h['QRDA Category III'] = STATUS_NAMES.zip(product_test_statuses(product.product_tests.only(:tasks).measure_tests, 'C2Task')).to_h
+      h['QRDA Category III'] = STATUS_NAMES.zip(product_test_statuses(product.product_tests.measure_tests, 'C2Task')).to_h
       h
     end
 
@@ -49,8 +49,8 @@ module Cypress
         h['Checklist']['not_started'] = [product.measure_ids.size, default_number].min
         h['Checklist']['not_started'] = 0 unless product.eh_tests?
       end
-      cat1_status_values = product_test_statuses(product.product_tests.only(:tasks, :measure_ids).measure_tests.filter(&:eh_measures?), 'C3Cat1Task')
-      cat3_status_values = product_test_statuses(product.product_tests.only(:tasks, :measure_ids).measure_tests.filter(&:ep_measures?), 'C3Cat3Task')
+      cat1_status_values = product_test_statuses(product.product_tests.measure_tests.filter(&:eh_measures?), 'C3Cat1Task')
+      cat3_status_values = product_test_statuses(product.product_tests.measure_tests.filter(&:ep_measures?), 'C3Cat3Task')
       h['QRDA Category I'] = STATUS_NAMES.zip(cat1_status_values).to_h
       h['QRDA Category III'] = STATUS_NAMES.zip(cat3_status_values).to_h
       h
@@ -58,8 +58,8 @@ module Cypress
 
     def c4_status_values(filtering_tests)
       h = {}
-      h['QRDA Category I'] = STATUS_NAMES.zip(product_test_statuses(filtering_tests.only(:tasks), 'Cat1FilterTask')).to_h
-      h['QRDA Category III'] = STATUS_NAMES.zip(product_test_statuses(filtering_tests.only(:tasks), 'Cat3FilterTask')).to_h
+      h['QRDA Category I'] = STATUS_NAMES.zip(product_test_statuses(filtering_tests, 'Cat1FilterTask')).to_h
+      h['QRDA Category III'] = STATUS_NAMES.zip(product_test_statuses(filtering_tests, 'Cat3FilterTask')).to_h
       h
     end
 
@@ -91,18 +91,15 @@ module Cypress
     end
 
     def product_test_statuses(tests, task_type)
-      tasks = tests.map { |test| test.tasks.only(:status, :updated_at, :latest_test_execution_id).where(_type: task_type).to_a }
-      tasks.empty? ? [0, 0, 0, 0, 0] : tasks_values(tasks)
+      tests = tests.to_a
+      tests.empty? ? [0, 0, 0, 0, 0] : tasks_values(tests, task_type)
     end
 
-    def tasks_values(tasks)
-      status_values = []
-      begin
-        %w[passing failing errored incomplete].each { |status| status_values << tasks.count { |task| task.first.status == status } }
-      rescue StandardError
-        status_values = [0, 0, 0, tasks.count] # if this breaks, they are all "incomplete"
+    def tasks_values(tests, task_type)
+      status_values = %w[passing failing errored incomplete].map do |status|
+        tests.count { |test| test.task_status(task_type) == status }
       end
-      status_values << tasks.count # total number of product tests
+      status_values << tests.count # total number of product tests
     end
   end
 end

@@ -12,6 +12,7 @@
 <% test = task.product_test %>
 <% include_c3 = include_c3_column(task, has_eh_tests, has_ep_tests) %>
 <% row_id = measure_tests_table_row_wrapper_id(task) %>
+<% task_status = task.status %>
 
 <%
   row_reload =
@@ -28,9 +29,9 @@
   <td><%= link_to test.name, new_task_test_execution_path(task) %></td>
 
   <% if include_first_task(test.product, task._type) %>
-    <td data-order="<%= set_sorting(test, task.status) %>">
+    <td data-order="<%= set_sorting(test, task_status) %>">
       <%= render "execution_status_message",
-        execution: task.most_recent_execution,
+        status: task_status,
         test_state: test.state %>
     </td>
   <% end %>
@@ -47,16 +48,23 @@
         end
     %>
 
-    <% sibling_execution = task.most_recent_execution ? task.most_recent_execution.sibling_execution : nil %>
+    <%
+      sibling_status =
+        if task.is_a?(C1Task)
+          test.task_status("C3Cat1Task")
+        elsif task.is_a?(C2Task)
+          test.task_status("C3Cat3Task")
+        end
+    %>
 
-    <td data-order="<%= set_sorting(test, task.status) %>">
+    <td data-order="<%= set_sorting(test, sibling_status) %>">
       <%= render "execution_status_message",
-        execution: sibling_execution,
+        status: sibling_status,
         test_state: test_state %>
     </td>
   <% end %>
 
-  <td id="<%= id_for_html_wrapper_of_task(task) %>" class="no-wrap" data-order="<%= set_sorting(test, task.status) %>">
+  <td id="<%= id_for_html_wrapper_of_task(task) %>" class="no-wrap" data-order="<%= set_sorting(test, task_status) %>">
     <%= render partial: "/products/measure_test_link",
       locals: {
         test: test,

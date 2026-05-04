@@ -10,6 +10,10 @@ class Task
 
   belongs_to :product_test, inverse_of: :tasks, touch: true
   has_many :test_executions, dependent: :destroy
+
+  after_create :refresh_product_test_status
+  after_destroy :remove_product_test_status
+
   delegate :start_date, to: :product_test
   delegate :end_date, to: :product_test
   delegate :measures, :measure_ids, to: :product_test
@@ -42,19 +46,29 @@ class Task
   end
 
   def status
-    Rails.cache.fetch("#{cache_key}/status") do
-      recent_execution = most_recent_execution
-      return 'incomplete' unless recent_execution
+    cached_status = product_test&.most_recent_task_status(_type)
+    return cached_status if cached_status && _type != 'Task'
 
-      if recent_execution.passing?
-        'passing'
-      elsif recent_execution.failing?
-        'failing'
-      elsif recent_execution.errored?
-        'errored'
-      else # Test is not any of the above states but does exist, assume pending state
-        'pending'
-      end
+    Rails.cache.fetch("#{cache_key}/status") do
+      computed_status
+    end
+  end
+
+  def computed_status
+    status_for_execution(most_recent_execution)
+  end
+
+  def status_for_execution(execution)
+    return 'incomplete' unless execution
+
+    if execution.passing?
+      'passing'
+    elsif execution.failing?
+      'failing'
+    elsif execution.errored?
+      'errored'
+    else # Test is not any of the above states but does exist, assume pending state
+      'pending'
     end
   end
 
@@ -67,5 +81,13 @@ class Task
     else
       test_executions.any? ? test_executions.order_by(created_at: 'desc').limit(1).first : nil
     end
+  end
+
+  def refresh_product_test_status
+    product_test.refresh_most_recent_task_status!(self)
+  end
+
+  def remove_product_test_status
+    product_test.remove_most_recent_task_status!(self)
   end
 end
