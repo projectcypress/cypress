@@ -1,6 +1,6 @@
 <div id="application_status_inner" >
 <div>
-  <%= button_to admin_download_logs_path, :method => :get, :class => "btn btn-default" do %>
+  <%= button_to admin_download_logs_path, :method => :get, :class => "btn btn-default", data: { turbo: false } do %>
     <%= icon('fas', 'download', :"aria-hidden" => true) %> Download Application Logs
   <% end %>
 </div>

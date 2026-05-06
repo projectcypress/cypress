@@ -9,7 +9,7 @@
 <div id = 'display_execution_download'>
   <% if product_test.state == :ready %>
     <p>Download and import this data into your EHR clinical quality measure calculator.</p>
-    <%= form_tag(patients_product_test_path(product_test), method: 'get') do |f| %>
+    <%= form_tag(patients_product_test_path(product_test), method: 'get', data: { turbo: false }) do |f| %>
       <%= hidden_field_tag :id, :value => product_test.id %>
       <%= button_tag(type: 'submit', class: 'btn btn-info') do %>
         <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download QRDA Category I (.zip)
