@@ -97,6 +97,12 @@ CMS Programs:
       - HQR_IQR
       - HQR_PI_IQR
       - HQR_OQR
+    '2026':
+      - HQR_PI
+      - HQR_IQR
+      - HQR_PI_IQR
+      - HQR_OQR
+      - HQR_REHQR
 Program Specific Measures:
   PCF:
     # CMS122v9, CMS130v9, CMS165v9
@@ -137,6 +143,7 @@ Program Criterion:
       - HQR_PI_IQR
       - HQR_IQR_VOL
       - HQR_OQR
+      - HQR_REHQR
   HIC:
     name: 'Medicare HIC Number'
     optional:
@@ -145,6 +152,7 @@ Program Criterion:
       - HQR_PI_IQR
       - HQR_IQR_VOL
       - HQR_OQR
+      - HQR_REHQR
     description:
       eh: 'Medicare HIC Number is not required for HQR but should be submitted if the payer is Medicare and the patient has an HIC number assigned.'
     conf:
@@ -155,6 +163,7 @@ Program Criterion:
       - HQR_PI_IQR
       - HQR_IQR_VOL
       - HQR_OQR
+      - HQR_REHQR
   Patient Identification Number:
     name: 'Patient Identification Number'
     description:
@@ -167,6 +176,7 @@ Program Criterion:
       - HQR_PI_IQR
       - HQR_IQR_VOL
       - HQR_OQR
+      - HQR_REHQR
   MBI:
     name: 'Medicare Beneficiary Identifier'
     optional:
@@ -175,6 +185,7 @@ Program Criterion:
       - HQR_PI_IQR
       - HQR_IQR_VOL
       - HQR_OQR
+      - HQR_REHQR
     description:
       eh: 'Medicare Beneficiary Identifier (MBI) is not required for HQR but should be submitted if the payer is Medicare and the patient has an MBI number assigned.'
     conf:
@@ -185,6 +196,7 @@ Program Criterion:
       - HQR_PI_IQR
       - HQR_IQR_VOL
       - HQR_OQR
+      - HQR_REHQR
   CMS EHR Certification ID:
     name: 'CMS EHR Certification ID'
     optional:
@@ -215,6 +227,7 @@ Program Criterion:
       - HQR_PI_IQR
       - HQR_IQR_VOL
       - HQR_OQR
+      - HQR_REHQR
       - CPCPLUS
       - PCF
       - MIPS_GROUP
@@ -243,6 +256,7 @@ Program Criterion:
       - HQR_PI_IQR
       - HQR_IQR_VOL
       - HQR_OQR
+      - HQR_REHQR
       - MIPS_GROUP
       - MIPS_APP1_GROUP
       - MIPS_INDIV
@@ -278,6 +292,7 @@ Program Criterion:
       - HQR_PI_IQR
       - HQR_IQR_VOL
       - HQR_OQR
+      - HQR_REHQR
       - MIPS_INDIV
       - MIPS_APP1_INDIV
       - CPCPLUS
