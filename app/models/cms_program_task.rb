@@ -31,6 +31,7 @@ class CMSProgramTask < Task
     return hqr_pi_iqr_validators if product_test.cms_program == 'HQR_PI_IQR'
     return hqr_iqr_vol_validators if product_test.cms_program == 'HQR_IQR_VOL'
     return hqr_oqr_validators if product_test.cms_program == 'HQR_OQR'
+    return hqr_rehqr_validators if product_test.cms_program == 'HQR_REHQR'
 
     []
   end
@@ -85,6 +86,10 @@ class CMSProgramTask < Task
   end
 
   def hqr_oqr_validators
+    eh_validators
+  end
+
+  def hqr_rehqr_validators
     eh_validators
   end
 
