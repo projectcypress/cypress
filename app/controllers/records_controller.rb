@@ -88,7 +88,7 @@ class RecordsController < ApplicationController
   def highlighted_results
     ir = IndividualResult.find(params[:calculation_result_id])
     ir.recalculate_with_highlighting
-    redirect_back(fallback_location: record_path(id: params[:id]))
+    redirect_to record_path(id: params[:id]), status: :see_other
   end
 
   private
