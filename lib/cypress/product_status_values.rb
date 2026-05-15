@@ -49,8 +49,10 @@ module Cypress
         h['Checklist']['not_started'] = [product.measure_ids.size, default_number].min
         h['Checklist']['not_started'] = 0 unless product.eh_tests?
       end
-      cat1_status_values = product_test_statuses(product.product_tests.measure_tests.filter(&:eh_measures?), 'C3Cat1Task')
-      cat3_status_values = product_test_statuses(product.product_tests.measure_tests.filter(&:ep_measures?), 'C3Cat3Task')
+      cat1_tests = product_tests_with_task_status(product.product_tests.measure_tests, 'C3Cat1Task')
+      cat3_tests = product_tests_with_task_status(product.product_tests.measure_tests, 'C3Cat3Task')
+      cat1_status_values = product_test_statuses(cat1_tests, 'C3Cat1Task')
+      cat3_status_values = product_test_statuses(cat3_tests, 'C3Cat3Task')
       h['QRDA Category I'] = STATUS_NAMES.zip(cat1_status_values).to_h
       h['QRDA Category III'] = STATUS_NAMES.zip(cat3_status_values).to_h
       h
@@ -93,6 +95,10 @@ module Cypress
     def product_test_statuses(tests, task_type)
       tests = tests.to_a
       tests.empty? ? [0, 0, 0, 0, 0] : tasks_values(tests, task_type)
+    end
+
+    def product_tests_with_task_status(tests, task_type)
+      tests.select { |test| test.most_recent_product_test_status&.key?(task_type.to_s) }
     end
 
     def tasks_values(tests, task_type)

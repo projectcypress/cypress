@@ -9,7 +9,11 @@ class ProductTestSetupJob < ApplicationJob
     5.times do
       product_test.generate_patients(@job_id) if product_test.patients.count.zero?
       results = calculate_product_test(product_test)
-      break if results.any? { |result| result.IPP.positive? }
+      break if product_test.is_a?(FilteringTest)
+
+      raise 'Calculation returned no product test results' if Array(results).compact.empty?
+
+      break if ipp_result?(results)
 
       Patient.delete_all(correlation_id: product_test.id)
       product_test.rand_seed = Random.new_seed.to_s
@@ -51,6 +55,10 @@ class ProductTestSetupJob < ApplicationJob
   end
 
   private
+
+  def ipp_result?(results)
+    Array(results).compact.any? { |result| result.IPP.to_i.positive? }
+  end
 
   def error_message(error)
     "#{error.message} on #{error.backtrace.first.remove(Rails.root.to_s)}"

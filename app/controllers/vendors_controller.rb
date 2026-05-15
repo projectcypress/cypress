@@ -24,9 +24,9 @@ class VendorsController < ApplicationController
     @products_fav = @vendor.favorite_products(current_user)
 
     # paginate non-favorites
-    products_nonfav = @vendor.products.ordered_for_vendors.reject { |p| (p.favorite_user_ids.include? current_user.id) }
+    products_nonfav = @vendor.non_favorite_products(current_user)
     @nonfav_count = products_nonfav.count
-    @products_nonfav = Kaminari.paginate_array(products_nonfav).page(params[:page]).per(5)
+    @products_nonfav = products_nonfav.page(params[:page]).per(5)
     @products = @vendor.products.ordered_for_vendors
     respond_with(@vendor)
   end

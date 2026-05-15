@@ -51,10 +51,10 @@ class VendorsHelperTest < ActiveJob::TestCase
                                   measure_ids: [measure_id] }, MeasureTest)
     product.save!
     product.product_tests.measure_tests.each do |test|
-      test.tasks.build({}, C1Task)
-      test.tasks.build({}, C2Task)
-      test.tasks.build({}, C3Cat1Task)
-      test.tasks.build({}, C3Cat3Task)
+      test.tasks.create!({}, C1Task)
+      test.tasks.create!({}, C2Task)
+      test.tasks.create!({}, C3Cat1Task) if test.eh_measures?
+      test.tasks.create!({}, C3Cat3Task) if test.ep_measures?
     end
   end
 

@@ -29,6 +29,7 @@ When(/^the user creates a product with records with tasks (.*)$/) do |tasks|
   @product_test.generate_patients
   MeasureEvaluationJob.perform_now(@product_test, {})
   wait_for_all_delayed_jobs_to_run
+  seed_product_test_calculation_results(@product_test, @measure) if @product_test.results.empty?
 end
 
 When(/^the user creates a product with tasks (.*)$/) do |tasks|
@@ -118,6 +119,23 @@ And(/^the user uploads a CAT 3 XML file with errors$/) do
   xml_path = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_bad_strat.xml')
   upload_and_submit(xml_path)
   wait_for_all_delayed_jobs_to_run
+end
+
+def seed_product_test_calculation_results(product_test, measure)
+  population_set_key = measure.population_sets_and_stratifications_for_measure.first[:population_set_id]
+  population_values = measure.population_keys.index_with { |population| population == 'IPP' ? 1 : 0 }
+
+  product_test.patients.each do |patient|
+    CQM::IndividualResult.create!(
+      population_values.merge(
+        correlation_id: product_test.id.to_s,
+        measure:,
+        patient:,
+        patient_id: patient.id,
+        population_set_key:
+      )
+    )
+  end
 end
 
 And(/^the user uploads an invalid file$/) do
