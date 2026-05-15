@@ -23,9 +23,15 @@ class TestExecution
   belongs_to :task, touch: true
 
   before_save :verify_artifact
+  after_save :refresh_product_test_status
+  after_destroy :refresh_product_test_status
 
   def verify_artifact
     artifact&.save
+  end
+
+  def refresh_product_test_status
+    task&.refresh_product_test_status
   end
 
   def build_document(file)

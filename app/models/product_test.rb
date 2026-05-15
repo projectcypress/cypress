@@ -33,6 +33,8 @@ class ProductTest
   field :description, type: String
   field :state, type: Symbol, default: :pending
   field :rand_seed, type: String
+  field :most_recent_product_test_status, type: Hash, default: {}
+  field :most_recent_product_test_status_updated_at, type: Hash, default: {}
 
   field :backtrace, type: String
   field :status_message, type: String
@@ -189,6 +191,54 @@ class ProductTest
         'incomplete'
       end
     end
+  end
+
+  def most_recent_task_status(task_type)
+    most_recent_product_test_status&.[](task_type.to_s)
+  end
+
+  def most_recent_task_status_updated_at(task_type)
+    most_recent_product_test_status_updated_at&.[](task_type.to_s)
+  end
+
+  def task_status(task_type)
+    cached_status = most_recent_task_status(task_type)
+    return cached_status if cached_status
+
+    task = tasks.find_by(_type: task_type.to_s)
+    task&.computed_status || 'incomplete'
+  rescue StandardError
+    'incomplete'
+  end
+
+  def refresh_most_recent_task_status!(task)
+    return unless task&._type
+
+    self.most_recent_product_test_status ||= {}
+    self.most_recent_product_test_status_updated_at ||= {}
+    recent_execution = task.most_recent_execution
+    most_recent_product_test_status[task._type] = task.status_for_execution(recent_execution)
+    most_recent_product_test_status_updated_at[task._type] = recent_execution&.updated_at
+    save!
+  end
+
+  def remove_most_recent_task_status!(task)
+    return unless task&._type && most_recent_product_test_status
+
+    most_recent_product_test_status.delete(task._type)
+    most_recent_product_test_status_updated_at&.delete(task._type)
+    save!
+  end
+
+  def rebuild_most_recent_product_test_status!
+    self.most_recent_product_test_status = {}
+    self.most_recent_product_test_status_updated_at = {}
+    tasks.each do |task|
+      recent_execution = task.most_recent_execution
+      most_recent_product_test_status[task._type] = task.status_for_execution(recent_execution)
+      most_recent_product_test_status_updated_at[task._type] = recent_execution&.updated_at
+    end
+    save!
   end
 
   # The name to display on a button to view this test (e.g., Previous/Next Test)

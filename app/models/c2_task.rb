@@ -48,7 +48,7 @@ class C2Task < Task
   end
 
   def last_updated_with_sibling
-    sibling = product_test.tasks.c3_cat3_task
+    sibling = product_test.tasks.detect { |task| task._type == 'C3Cat3Task' }
     return updated_at unless sibling
 
     [updated_at, sibling.updated_at].max
@@ -56,7 +56,7 @@ class C2Task < Task
 
   # returns combined status including c3_cat3 task
   def status_with_sibling
-    sibling = product_test.tasks.c3_cat3_task
+    sibling = product_test.tasks.detect { |task| task._type == 'C3Cat3Task' }
     return status unless sibling
     return status if status == sibling.status
     return 'errored' if errored? || sibling.errored?
