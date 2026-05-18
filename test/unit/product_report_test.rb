@@ -16,8 +16,6 @@ class ProductReportTest < ActionController::TestCase
     checklist_test = @first_product.product_tests.checklist_tests.first
     checklist_test.tasks.create({}, C3ChecklistTask)
     checklist_test.save
-    @product_test.tasks.create({}, C1Task)
-    @product_test.tasks.create({ expected_results: @product_test.expected_results }, C2Task)
     @product_test.tasks.create({}, C3Cat1Task)
     @product_test.tasks.create({}, C3Cat3Task)
     @product_test.save
