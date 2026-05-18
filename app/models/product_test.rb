@@ -217,9 +217,14 @@ class ProductTest
     self.most_recent_product_test_status ||= {}
     self.most_recent_product_test_status_updated_at ||= {}
     recent_execution = task.most_recent_execution
-    most_recent_product_test_status[task._type] = task.status_for_execution(recent_execution)
-    most_recent_product_test_status_updated_at[task._type] = recent_execution&.updated_at
-    save!
+    status = task.status_for_execution(recent_execution)
+    updated_at = recent_execution&.updated_at
+    most_recent_product_test_status[task._type] = status
+    most_recent_product_test_status_updated_at[task._type] = updated_at
+    self.class.where(id:).set(
+      "most_recent_product_test_status.#{task._type}" => status,
+      "most_recent_product_test_status_updated_at.#{task._type}" => updated_at
+    )
   end
 
   def remove_most_recent_task_status!(task)
@@ -227,7 +232,10 @@ class ProductTest
 
     most_recent_product_test_status.delete(task._type)
     most_recent_product_test_status_updated_at&.delete(task._type)
-    save!
+    self.class.where(id:).unset(
+      "most_recent_product_test_status.#{task._type}",
+      "most_recent_product_test_status_updated_at.#{task._type}"
+    )
   end
 
   def rebuild_most_recent_product_test_status!

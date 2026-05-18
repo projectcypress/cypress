@@ -57,11 +57,14 @@ class C2Task < Task
   # returns combined status including c3_cat3 task
   def status_with_sibling
     sibling = product_test.tasks.detect { |task| task._type == 'C3Cat3Task' }
-    return status unless sibling
-    return status if status == sibling.status
-    return 'errored' if errored? || sibling.errored?
-    return 'incomplete' if incomplete? || sibling.incomplete?
-    return 'pending' if pending? || sibling.pending?
+    task_status = computed_status
+    return task_status unless sibling
+
+    sibling_status = sibling.computed_status
+    return task_status if task_status == sibling_status
+    return 'errored' if task_status == 'errored' || sibling_status == 'errored'
+    return 'incomplete' if task_status == 'incomplete' || sibling_status == 'incomplete'
+    return 'pending' if task_status == 'pending' || sibling_status == 'pending'
 
     'failing'
   end

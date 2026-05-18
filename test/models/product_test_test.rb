@@ -55,6 +55,21 @@ class ProductTestTest < ActiveJob::TestCase
     assert_equal 'failing', product_test.most_recent_product_test_status['C2Task']
   end
 
+  def test_most_recent_product_test_status_preserves_other_task_statuses
+    product_test = @product.product_tests.create!(name: 'status cache preserves siblings', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+    c2_task = product_test.tasks.create!({}, C2Task)
+    c3_task = product_test.tasks.create!({}, C3Cat3Task)
+
+    c3_task.test_executions.create!(state: :failed, user: @vendor_user)
+    product_test.reload
+    assert_equal 'failing', product_test.most_recent_product_test_status['C3Cat3Task']
+
+    c2_task.test_executions.create!(state: :passed, user: @vendor_user)
+    product_test.reload
+    assert_equal 'passing', product_test.most_recent_product_test_status['C2Task']
+    assert_equal 'failing', product_test.most_recent_product_test_status['C3Cat3Task']
+  end
+
   def test_status_passing
     measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
     vendor = Vendor.create!(name: 'my vendor')
