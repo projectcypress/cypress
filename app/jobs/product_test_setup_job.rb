@@ -5,29 +5,10 @@ class ProductTestSetupJob < ApplicationJob
   include Job::Status
   def perform(product_test)
     product_test.building
-    # Try to build a test deck.  Retry 5 times if a test deck results in an IPP of 0
-    5.times do
-      product_test.generate_patients(@job_id) if product_test.patients.count.zero?
-      results = calculate_product_test(product_test)
-      break if product_test.is_a?(FilteringTest)
-
-      raise 'Calculation returned no product test results' if Array(results).compact.empty?
-
-      break if ipp_result?(results)
-
-      Patient.delete_all(correlation_id: product_test.id)
-      product_test.rand_seed = Random.new_seed.to_s
-      product_test.save!
-      product_test.reload
-    end
-    MeasureEvaluationJob.perform_now(product_test, {})
-    product_test.archive_patients if product_test.patient_archive.path.nil?
-    product_test.ready
+    build_test_deck(product_test)
+    evaluate_and_archive_product_test(product_test)
   rescue StandardError => e
-    product_test.backtrace = e.backtrace.join("\n")
-    product_test.status_message = error_message(e)
-    product_test.errored
-    product_test.save!
+    fail_product_test(product_test, e)
   end
 
   def calculate_product_test(product_test)
@@ -55,6 +36,45 @@ class ProductTestSetupJob < ApplicationJob
   end
 
   private
+
+  def build_test_deck(product_test)
+    # Try to build a test deck. Retry 5 times if a test deck results in an IPP of 0.
+    5.times do
+      product_test.generate_patients(@job_id) if product_test.patients.count.zero?
+      results = calculate_product_test(product_test)
+      break if valid_product_test_results?(product_test, results)
+
+      reset_product_test_patients(product_test)
+    end
+  end
+
+  def valid_product_test_results?(product_test, results)
+    return true if product_test.is_a?(FilteringTest)
+
+    raise 'Calculation returned no product test results' if Array(results).compact.empty?
+
+    ipp_result?(results)
+  end
+
+  def reset_product_test_patients(product_test)
+    Patient.delete_all(correlation_id: product_test.id)
+    product_test.rand_seed = Random.new_seed.to_s
+    product_test.save!
+    product_test.reload
+  end
+
+  def evaluate_and_archive_product_test(product_test)
+    MeasureEvaluationJob.perform_now(product_test, {})
+    product_test.archive_patients if product_test.patient_archive.path.nil?
+    product_test.ready
+  end
+
+  def fail_product_test(product_test, error)
+    product_test.backtrace = error.backtrace.join("\n")
+    product_test.status_message = error_message(error)
+    product_test.errored
+    product_test.save!
+  end
 
   def ipp_result?(results)
     Array(results).compact.any? { |result| result.IPP.to_i.positive? }
