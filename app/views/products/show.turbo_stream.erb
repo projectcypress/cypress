@@ -13,11 +13,11 @@
   <% tests = @product.product_tests.cms_program_tests %>
   <% if should_reload_measure_test_table?(tests.map(&:tasks).flatten) %>
     <%= turbo_stream.replace "cvu_program_display_body" do %>
-      <%= render "/products/cvu_program_display_body", product: @product, html_id: params[:html_id], product_page_url: params[:product_page_url] %>
+      <%= render "/products/cvu_program_display_body", product: @product, html_id: params[:html_id], product_page_url: request.path %>
     <% end %>
   <% else %>
     <%= turbo_stream.replace "cvu_program_display_body" do %>
-      <%= render "/products/cvu_program_display_body", product: @product, html_id: params[:html_id], product_page_url: params[:product_page_url] %>
+      <%= render "/products/cvu_program_display_body", product: @product, html_id: params[:html_id], product_page_url: request.path %>
     <% end %>
     <%= turbo_stream.remove "#{params[:html_id]}filtering_tests_table_poller" %>
   <% end %>
@@ -25,11 +25,11 @@
   <% tests = @product.product_tests.multi_measure_tests %>
   <% if should_reload_measure_test_table?(tests.map(&:tasks).flatten) %>
     <%= turbo_stream.replace "cvu_multi_display_body" do %>
-      <%= render "/products/cvu_multi_display_body", product: @product, html_id: params[:html_id], product_page_url: params[:product_page_url] %>
+      <%= render "/products/cvu_multi_display_body", product: @product, html_id: params[:html_id], product_page_url: request.path %>
     <% end %>
   <% else %>
     <%= turbo_stream.replace "cvu_multi_display_body" do %>
-      <%= render "/products/cvu_multi_display_body", product: @product, html_id: params[:html_id], product_page_url: params[:product_page_url] %>
+      <%= render "/products/cvu_multi_display_body", product: @product, html_id: params[:html_id], product_page_url: request.path %>
     <% end %>
     <%= turbo_stream.remove "#{params[:html_id]}filtering_tests_table_poller" %>
   <% end %>
