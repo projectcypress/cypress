@@ -2,7 +2,7 @@
   <div class="card card-default">
     <div class="card-header"><h1 class='card-title lead'><%= submit_text %><%= product.name ? ": "+ product.name : "" %></h1></div>
 
-    <%= bootstrap_form_for [product.vendor, product], html: { multipart: true, "data-parsley-validate": '','data-parsley-excluded': "input.disabled" }, data: { turbo: false } do |f| %>
+    <%= bootstrap_form_for [product.vendor, product], html: { multipart: true, data: { turbo: false }, "data-parsley-validate": true, "data-parsley-excluded": "[disabled], input[type=hidden]" } do |f| %>
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
@@ -22,7 +22,7 @@
               <legend class="control-label">Certification Types</legend>
               <div id="certifications_errors_container"></div>
 
-              <% if product.product_tests.blank? %>
+              <% if product.product_tests.none?(&:persisted?) %>
                 <%= f.form_group help: "Select the certification type Cypress should use to certify this product" do %>
                   <% APP_CONSTANTS['certifications'].each do |c, certification| %>
                     <% if c == 'C1' || c == 'C2' || c == 'C3' || c == 'C4'%>
