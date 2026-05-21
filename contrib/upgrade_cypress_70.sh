@@ -37,6 +37,31 @@ then
 else
   printf "${RED}---> Cypress not found, continuing...${NC}\n"
 fi
+
+# Ensure regenerate-secrets.service exists, then enable and run it
+SERVICE_FILE="/etc/systemd/system/regenerate-secrets.service"
+if [[ ! -f "$SERVICE_FILE" ]]; then
+    printf "${GREEN}---> Creating regenerate-secrets.service...${NC}\n"
+    cat > "$SERVICE_FILE" <<'EOF'
+[Unit]
+Description=Regenerate cypress secret keys
+Before=cypress.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "/usr/bin/cypress config:set SECRET_KEY_BASE=$(/usr/bin/cypress run rails secret)"
+ExecStartPost=/bin/systemctl disable regenerate-secrets.service
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+  printf "${GREEN}---> Enabling and running regenerate-secrets.service...${NC}\n"
+  systemctl daemon-reload
+  systemctl enable --now regenerate-secrets.service
+  systemctl start regenerate-secrets
+fi
+
 #if description import flag true
 if [ "$desc" ]
 then
