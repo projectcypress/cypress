@@ -18,7 +18,8 @@ module Validators
 
         if augmented_field[0] == code
           expect_diff[1] += 1
-        elsif augmented_field[1] == code
+        # Also allow for the "Other" code to be used when a patient may have multiple races
+        elsif (augmented_field[1] == code) || (code == '2131-1' && keys_and_ids[:sup_key] == 'RACE')
           expect_diff[0] -= 1
         end
       end
