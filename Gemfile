@@ -65,7 +65,7 @@ gem 'multi_json'
 gem 'representable', '~> 3.0.0'
 gem 'roar-rails'
 
-gem 'carrierwave', '~> 2.2.5'
+gem 'carrierwave', '~> 2.2.7'
 gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 
 # AJAX file uploads
