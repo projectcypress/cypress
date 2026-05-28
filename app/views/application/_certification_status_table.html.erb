@@ -1,5 +1,9 @@
   <% product_status_values = get_product_status_values(product) %>
 
+  <% if product.product_tests.first.tasks.first.current_cached_status.nil? %>
+    <% product.product_tests.each(&:rebuild_most_recent_product_test_status!) %>
+  <% end %>
+
   <% not_certifying = '' %>
   <% not_certifying << 'hide-c1 ' unless product.c1_test %>
   <% not_certifying << 'hide-c2 ' unless product.c2_test %>

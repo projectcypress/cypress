@@ -46,12 +46,19 @@ class Task
   end
 
   def status
-    cached_status = product_test&.most_recent_task_status(_type)
-    return cached_status if cached_status && _type != 'Task'
+    cached_status = current_cached_status
+    return cached_status unless cached_status.nil?
 
-    Rails.cache.fetch("#{cache_key}/status") do
+    refresh_product_test_status if product_test && _type != 'Task'
+    product_test&.reload
+    current_cached_status || Rails.cache.fetch("#{cache_key}/status") do
       computed_status
     end
+  end
+
+  def current_cached_status
+    cached_status = product_test&.most_recent_task_status(_type)
+    cached_status if cached_status && _type != 'Task'
   end
 
   def computed_status

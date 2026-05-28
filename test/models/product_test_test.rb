@@ -42,6 +42,19 @@ class ProductTestTest < ActiveJob::TestCase
     assert_equal 'failing', task.reload.status
   end
 
+  def test_task_status_backfills_missing_most_recent_product_test_status
+    product_test = @product.product_tests.create!(name: 'status cache backfill', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+    task = product_test.tasks.create!({}, C2Task)
+    task.test_executions.create!(state: :passed, user: @vendor_user)
+    product_test.set(most_recent_product_test_status: {}, most_recent_product_test_status_updated_at: {})
+
+    assert_equal 'passing', task.reload.status
+
+    product_test.reload
+    assert_equal 'passing', product_test.most_recent_product_test_status['C2Task']
+    assert product_test.most_recent_product_test_status_updated_at.key?('C2Task')
+  end
+
   def test_most_recent_product_test_status_ignores_older_execution_updates
     product_test = @product.product_tests.create!(name: 'status cache ignores old', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
     task = product_test.tasks.create!({}, C2Task)
