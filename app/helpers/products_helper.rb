@@ -70,12 +70,22 @@ module ProductsHelper
 
   def measure_test_running_for_row?(task)
     return true unless %i[ready errored].include? task.product_test_state
-    return true if task.most_recent_execution && task.most_recent_execution.status_with_sibling == 'incomplete'
+    return true if task.respond_to?(:status_with_sibling) && task.status_with_sibling == 'pending'
+
     # Check if the task has been refreshed within the past 10 seconds. If it has then keep refreshing until
     # the database has a chance to settle.
-    return true if task.most_recent_execution && (Time.now.utc - task.most_recent_execution.last_updated_with_sibling) < 10
+    status_updated_at = most_recent_status_updated_at_for(task)
+    return true if task.status != 'incomplete' && status_updated_at && (Time.now.utc - status_updated_at) < 10
 
     false
+  end
+
+  def most_recent_status_updated_at_for(task)
+    task_types = [task._type]
+    task_types << 'C3Cat1Task' if task.is_a?(C1Task)
+    task_types << 'C3Cat3Task' if task.is_a?(C2Task)
+
+    task_types.filter_map { |task_type| task.product_test.most_recent_task_status_updated_at(task_type) }.max
   end
 
   # Takes a collection of tasks and determines if a measure test is running for any of the tasks.
@@ -126,9 +136,9 @@ module ProductsHelper
 
     case task
     when C1Task
-      return [task, task.product_test.tasks.c3_cat1_task].compact
+      return [task, task.product_test.tasks.detect { |product_test_task| product_test_task._type == 'C3Cat1Task' }].compact
     when C2Task
-      return [task, task.product_test.tasks.c3_cat3_task].compact
+      return [task, task.product_test.tasks.detect { |product_test_task| product_test_task._type == 'C3Cat3Task' }].compact
     end
     [task]
   end
@@ -251,11 +261,10 @@ module ProductsHelper
     # and it would look something like [false, <Task...>], which was then causing problems because
     # we call .first on the returned data. This was causing intermittent test failures, by rejecting
     # blank values we avoid this problem.
-    if get_c1_tasks
-      product.product_tests.measure_tests.collect { |test| test.tasks.c1_task }.reject(&:blank?)
-    else
-      product.product_tests.measure_tests.collect { |test| test.tasks.c2_task }.reject(&:blank?)
-    end
+    task_type = get_c1_tasks ? 'C1Task' : 'C2Task'
+    product.product_tests.measure_tests.includes(:tasks).collect do |test|
+      test.tasks.detect { |task| task._type == task_type }
+    end.reject(&:blank?)
   end
 
   def measure_tests_table_row_wrapper_id(task)

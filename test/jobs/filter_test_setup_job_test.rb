@@ -16,6 +16,9 @@ class FilterTestSetupJobTest < ActiveJob::TestCase
     end
     patients = @product.product_tests.filtering_tests.find_by(cms_id: 'CMS32v7').patients
     @product.product_tests.filtering_tests.each do |ft|
+      ft.reload
+      assert_equal :ready, ft.state
+      assert_nil ft.status_message
       # each filtering test should share the same patients
       assert ft.patients.map { |p| "#{p.first_names} #{p.familyName}" } == patients.map { |p| "#{p.first_names} #{p.familyName}" }
     end

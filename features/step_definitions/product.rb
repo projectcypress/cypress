@@ -342,11 +342,13 @@ end
 And(/^the user uploads a cat I document to filtering test (.*)$/) do |filtering_test_number|
   html_id = td_div_id_for_cat1_task_for_filtering_test(filtering_test_number)
   attach_zip_to_multi_upload(html_id)
+  assert_task_link_text(html_id, 'testing')
 end
 
 And(/^the user uploads a cat III document to filtering test (.*)$/) do |filtering_test_number|
   html_id = td_div_id_for_cat3_task_for_filtering_test(filtering_test_number)
   attach_xml_to_multi_upload(html_id)
+  assert_task_link_text(html_id, 'testing')
 end
 
 And(/^the user chooses the "(.*)" Certification Type$/) do |certification_type|
@@ -629,17 +631,11 @@ Then(/^the user should see a cat III test (.*) for product test (.*)$/) do |task
 end
 
 Then(/^the user should see a cat I test (.*) for filtering test (.*)$/) do |task_status, filtering_test_number|
-  html_id = td_div_id_for_cat1_task_for_filtering_test(filtering_test_number)
-  html_elem = page.find(html_id, visible: false)
-  html_elem.assert_text task_status_to_task_link_text(task_status)
+  assert_task_link_text(td_div_id_for_cat1_task_for_filtering_test(filtering_test_number), task_status)
 end
 
 Then(/^the user should see a cat III test (.*) for filtering test (.*)$/) do |task_status, filtering_test_number|
-  html_id = td_div_id_for_cat3_task_for_filtering_test(filtering_test_number)
-  html_elem = page.find(html_id, visible: false)
-  using_wait_time 35 do # This can take significantly longer than other tests due to the 10 second ajax wait for some requests
-    html_elem.assert_text task_status_to_task_link_text(task_status)
-  end
+  assert_task_link_text(td_div_id_for_cat3_task_for_filtering_test(filtering_test_number), task_status)
 end
 
 Then(/^the user should see the Measures Options heading$/) do
@@ -652,6 +648,17 @@ end
 
 Then(/^the product value for (.*) should be (.*)$/) do |method, value|
   assert_equal value.to_s, @product.send(method).to_s
+end
+
+def assert_task_link_text(html_id, task_status)
+  using_wait_time 35 do
+    page.assert_selector(
+      :css,
+      html_id,
+      text: task_status_to_task_link_text(task_status),
+      visible: false
+    )
+  end
 end
 
 def task_status_to_execution_status_message(task_status)

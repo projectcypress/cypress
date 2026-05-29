@@ -43,7 +43,7 @@
         <% tasks = measure_test_tasks(product, get_c1_tasks: get_c1_tasks) %>
         <% reload = should_reload_measure_test_table?(tasks) %>
 
-        <%= render 'measure_tests_table', :product => @product, :get_c1_tasks => get_c1_tasks, :html_id => html_id %>
+        <%= render 'measure_tests_table', :product => @product, :get_c1_tasks => get_c1_tasks, :html_id => html_id, tasks: tasks %>
         <%= render 'products/measure_tests_table_controller', :product_url => request.path, :get_c1_tasks => get_c1_tasks, :html_id => html_id, :reload => reload %>
       <% end %>
 

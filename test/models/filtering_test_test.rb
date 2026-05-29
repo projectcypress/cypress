@@ -74,6 +74,7 @@ class FilteringTestTest < ActiveJob::TestCase
     test_executions = test.tasks.find_by(_type: 'Cat1FilterTask').test_executions.build(state: :passed)
     user.test_executions << test_executions
     test_executions.save!
+    test.reload
     assert_equal 'passing', test.task_status('Cat1FilterTask')
     assert_equal 'incomplete', test.task_status('Cat3FilterTask')
   end

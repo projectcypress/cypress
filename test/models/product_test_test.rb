@@ -25,6 +25,64 @@ class ProductTestTest < ActiveJob::TestCase
     assert errors.key?(:measure_ids)
   end
 
+  def test_most_recent_product_test_status_updates_from_task_executions
+    product_test = @product.product_tests.create!(name: 'status cache', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+    task = product_test.tasks.create!({}, C2Task)
+    product_test.reload
+    assert_equal 'incomplete', product_test.most_recent_product_test_status['C2Task']
+
+    execution = task.test_executions.create!(state: :passed, user: @vendor_user, updated_at: Time.now.utc - 1.minute)
+    product_test.reload
+    assert_equal 'passing', product_test.most_recent_product_test_status['C2Task']
+    assert_equal execution.updated_at.to_i, product_test.most_recent_product_test_status_updated_at['C2Task'].to_i
+
+    execution.update!(state: :failed)
+    product_test.reload
+    assert_equal 'failing', product_test.most_recent_product_test_status['C2Task']
+    assert_equal 'failing', task.reload.status
+  end
+
+  def test_task_status_backfills_missing_most_recent_product_test_status
+    product_test = @product.product_tests.create!(name: 'status cache backfill', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+    task = product_test.tasks.create!({}, C2Task)
+    task.test_executions.create!(state: :passed, user: @vendor_user)
+    product_test.set(most_recent_product_test_status: {}, most_recent_product_test_status_updated_at: {})
+
+    assert_equal 'passing', task.reload.status
+
+    product_test.reload
+    assert_equal 'passing', product_test.most_recent_product_test_status['C2Task']
+    assert product_test.most_recent_product_test_status_updated_at.key?('C2Task')
+  end
+
+  def test_most_recent_product_test_status_ignores_older_execution_updates
+    product_test = @product.product_tests.create!(name: 'status cache ignores old', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+    task = product_test.tasks.create!({}, C2Task)
+    old_execution = task.test_executions.create!(state: :passed, user: @vendor_user, created_at: Time.now.utc - 2.minutes)
+    task.test_executions.create!(state: :failed, user: @vendor_user, created_at: Time.now.utc - 1.minute)
+    product_test.reload
+    assert_equal 'failing', product_test.most_recent_product_test_status['C2Task']
+
+    old_execution.update!(state: :errored)
+    product_test.reload
+    assert_equal 'failing', product_test.most_recent_product_test_status['C2Task']
+  end
+
+  def test_most_recent_product_test_status_preserves_other_task_statuses
+    product_test = @product.product_tests.create!(name: 'status cache preserves siblings', measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+    c2_task = product_test.tasks.create!({}, C2Task)
+    c3_task = product_test.tasks.create!({}, C3Cat3Task)
+
+    c3_task.test_executions.create!(state: :failed, user: @vendor_user)
+    product_test.reload
+    assert_equal 'failing', product_test.most_recent_product_test_status['C3Cat3Task']
+
+    c2_task.test_executions.create!(state: :passed, user: @vendor_user)
+    product_test.reload
+    assert_equal 'passing', product_test.most_recent_product_test_status['C2Task']
+    assert_equal 'failing', product_test.most_recent_product_test_status['C3Cat3Task']
+  end
+
   def test_status_passing
     measure_id = 'BE65090C-EB1F-11E7-8C3F-9A214CF093AE'
     vendor = Vendor.create!(name: 'my vendor')

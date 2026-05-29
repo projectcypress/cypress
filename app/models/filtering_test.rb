@@ -32,15 +32,6 @@ class FilteringTest < ProductTest
     end
   end
 
-  def task_status(task_type)
-    begin
-      task = tasks.find_by(_type: task_type)
-    rescue StandardError
-      return 'incomplete'
-    end
-    task.status
-  end
-
   def pick_filter_criteria
     return unless options && options['filters']
 
