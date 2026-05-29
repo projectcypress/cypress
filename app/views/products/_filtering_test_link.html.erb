@@ -9,10 +9,8 @@
 
 %>
 
-<!-- parent_reloading = false unless (defined? parent_reloading) -->
 <% tasks = with_c3_task(task) %>
 <% status = tasks_status(tasks) %>
-<!-- should_reload = should_reload_product_test_link?(status, test) -->
 
 <% if test.state != :ready %>
   <% if test.state == :queued %>
