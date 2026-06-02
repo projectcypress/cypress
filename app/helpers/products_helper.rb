@@ -70,7 +70,13 @@ module ProductsHelper
 
   def measure_test_running_for_row?(task)
     return true unless %i[ready errored].include? task.product_test_state
-    return true if task.respond_to?(:status_with_sibling) && task.status_with_sibling == 'pending'
+
+    pending_task = if task.respond_to?(:status_with_sibling)
+                     task.status_with_sibling == 'pending'
+                   else
+                     task.status == 'pending'
+                   end
+    return true if pending_task
 
     # Check if the task has been refreshed within the past 10 seconds. If it has then keep refreshing until
     # the database has a chance to settle.
