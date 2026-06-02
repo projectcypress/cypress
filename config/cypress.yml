@@ -651,6 +651,15 @@ result_measures:
   - hqmf_id : '186EF9BD-230D-411C-B6E5-376A0BD4FC8C'
     statement_name : 'SDE Results'
     encounter_tuple_name : 'EncounterId'
+  # 2026 Bundle
+  # CMS529v7
+  - hqmf_id : '68170AE9-0BB8-4CC6-9B75-E859193433EE'
+    statement_name : 'SDE Results'
+    encounter_tuple_name : 'EncounterId'
+  # CMS844v7
+  - hqmf_id : 'F0E0DB3C-C35E-49DF-90AD-34F4FD233A14'
+    statement_name : 'SDE Results'
+    encounter_tuple_name : 'EncounterId'
 
 # These eCQMs store a list of "Risk Variables" within the statement_results of an Individual Result
 risk_variable_measures:
@@ -679,6 +688,17 @@ risk_variable_measures:
   - hqmf_id : '50EA2F4E-A952-47AF-AC5B-C3530F5D792C'
   # CMS1218v2
   - hqmf_id : 'DD1BDCA8-0A5E-4252-A0C3-87810C784321'
+  # 2026 Bundle
+  # CMS1028v4
+  - hqmf_id : 'AEF788D6-1423-4C2C-8114-6FEF40999D2B'
+  # CMS832v3
+  - hqmf_id : 'EEFF8BCA-A259-4746-B578-34F252C261A9'
+  # CMS1017v3
+  - hqmf_id : '096B9FE1-6E42-4604-950A-2E655C95E4C4'
+  # CMS1218v3
+  - hqmf_id : '083A6807-B8A8-4623-8CE6-643204A9040F'
+  # CMS1061v1
+  - hqmf_id : 'EAD19CAE-EDFC-4BBC-BAD9-9ED03DD8ACEA'
 
 # These eCQMs can have patients that are relevant to IPP even when they don't calculation into the IPP
 ipp_relevant:
@@ -739,6 +759,29 @@ ipp_relevant:
   # CMS1206v3
   - hqmf_id : 'AE5FE43D-8A38-4309-B098-231246CF5373'
     statements : [ 'Qualified Scan']
+  # 2026 Bundle
+  # CMS136v16
+  - hqmf_id : '0191CB89-8317-4D83-9248-7D5C564908FF'
+    statements : [ 'Inpatient Stay with Qualifying Diagnosis During Initiation Phase',
+                   'Inpatient Stay with Qualifying Diagnosis During Continuation and Maintenance Phase']
+  # CMS137v15
+  - hqmf_id : 'E3EF1F22-916B-4B6A-9FDE-AB1A21B7AFAC'
+    statements : [ 'History of SUD Diagnosis or Treatment']
+  # CMS108v15
+  - hqmf_id : '32D78A7D-3FA0-4284-8932-409296633EAD'
+    statements : [ 'Admission without VTE or Obstetrical Conditions']
+  # CMS190v15
+  - hqmf_id : '1BEAAE20-E3E0-4F80-9270-BB01A0345636'
+    statements : [ 'Admission without VTE or Obstetrical Conditions']
+  # CMS819v5
+  - hqmf_id : '47235DF5-ACF2-4EE2-8409-922CD51420D4'
+    statements : [ 'Opioid Administration']
+  # CMS832v4
+  - hqmf_id : 'EEFF8BCA-A259-4746-B578-34F252C261A9'
+    statements : [ 'Inpatient Encounter with Creatinine']
+  # CMS1206v4
+  - hqmf_id : '03E3A89E-BE09-4529-B484-A25969913EEA'
+    statements : [ 'Qualified Scan']
 
 # CMS2, CMS122, CMS165
 aco_measures_hqmf_set_ids:
@@ -780,6 +823,7 @@ measures_without_future_data:
 # CMS996v3, CMS996v4, CMS1206v1
 # 2024 AU - CMS996v5, CMS1206v2
 # 2025 AU - CMS996v6, CMS1206v3
+# 2026 AU - CMS996v7, CMS1206v4, CMS1244v2, CMS1264v2
 oqr_measures:
   [ '2C928083-7F47-C81F-017F-79354C281550',
     '2C928084-83D3-1B44-0184-77AC447D2178',
@@ -787,7 +831,11 @@ oqr_measures:
     '8A6D040F-8B1E-D837-018B-8C58F1D61E33',
     '8A6D044D-8DB3-0572-018D-D65FA5DC0737',
     '70B5C339-FC50-458A-9D5F-511535DE72C6',
-    'AE5FE43D-8A38-4309-B098-231246CF5373' ]
+    'AE5FE43D-8A38-4309-B098-231246CF5373',
+    '8C40D3EE-B791-491E-B4EE-8FD1DFB63C32',
+    '03E3A89E-BE09-4529-B484-A25969913EEA',
+    'EB7BA066-A0E4-4575-97C4-88B9F96B74E3',
+    '4E63DF5D-46A2-462F-B228-844EE0984BD8']
 
 # These measures have specific timing constraints
 timing_constraints:
@@ -861,6 +909,25 @@ timing_constraints:
     start_time : '20260701'
     end_time : '20270630'
     quarters : [['20260701', '20260930'],['20261001', '20261231'], ['20270101', '20270331'],['20270401', '20270630']]
+  # 2026 Bundle
+  # CMS529v7
+  - hqmf_id : '68170AE9-0BB8-4CC6-9B75-E859193433EE'
+    start_time : '20270701'
+    end_time : '20280630'
+    quarters : [['20270701', '20270930'],['20271001', '20271231'], ['20280101', '20280331'],['20280401', '20280630']]
+  # CMS844v7
+  - hqmf_id : 'F0E0DB3C-C35E-49DF-90AD-34F4FD233A14'
+    start_time : '20270701'
+    end_time : '20280630'
+    quarters : [['20270701', '20270930'],['20271001', '20271231'], ['20280101', '20280331'],['20280401', '20280630']]
+  # CMS1317v1
+  - hqmf_id : 'D085DBEE-A314-468C-87B6-776360E90070'
+    start_time : '20280101'
+    end_time : '20281231'
+  # CMS1061v1
+  - hqmf_id : 'EAD19CAE-EDFC-4BBC-BAD9-9ED03DD8ACEA'
+    start_time : '20280101'
+    end_time : '20281231'
 
 telehealth_modifier_codes:
   [ '95', 'GQ', 'GT' ]
@@ -984,6 +1051,9 @@ problematic_record_sample_criteria:
     ['QDM::AllergyIntolerance|type|2.16.840.1.113762.1.4.1170.6']
   # CMS996v6 (2025 AU)
   70B5C339-FC50-458A-9D5F-511535DE72C6:
+    ['QDM::AllergyIntolerance|type|2.16.840.1.113762.1.4.1170.6']
+  # CMS996v7 (2026 AU)
+  8C40D3EE-B791-491E-B4EE-8FD1DFB63C32:
     ['QDM::AllergyIntolerance|type|2.16.840.1.113762.1.4.1170.6']
 
 eki_tickets:
