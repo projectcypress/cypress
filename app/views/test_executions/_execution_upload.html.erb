@@ -36,8 +36,9 @@
 
     <div class="input-group">
       <input type="text"
-             class="form-control"
+             class="form-control pointer-on-hover"
              data-file-upload-target="filename"
+             data-action="click->file-upload#pick keydown.enter->file-upload#pick keydown.space->file-upload#pick"
              placeholder="No file selected"
              readonly>
 
