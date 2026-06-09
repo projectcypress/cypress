@@ -89,7 +89,7 @@ gem 'devise_invitable'
 gem 'rolify'
 
 # Use Puma as the app server
-gem 'puma', '~> 6.6'
+gem 'puma', '~> 7.2'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
