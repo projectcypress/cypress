@@ -155,6 +155,36 @@ class TestExecutionsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'turbo create shows c2 and c3 results in progress after rerun' do
+    sign_in User.find(ADMIN)
+    @first_product.update!(c3_test: true)
+    c3_task = @first_test.tasks.create!({}, C3Cat3Task)
+    @first_c2_task.test_executions.create!(state: :passed, user: @vendor_user)
+    c3_task.test_executions.create!(state: :passed, user: @vendor_user)
+
+    post :create, params: turbo_create_params(@first_c2_task, xml_upload, include_c1: false)
+
+    assert_response :success
+    assert_equal 2, response.body.scan('In Progress').count
+  end
+
+  test 'turbo create shows c1 and c3 results in progress after rerun' do
+    sign_in User.find(ADMIN)
+    measure_ids = ['AE65090C-EB1F-11E7-8C3F-9A214CF093AE']
+    product = @vendor.products.create!(name: "my product #{rand}", c1_test: true, c3_test: true, bundle_id: @bundle_id,
+                                       measure_ids:)
+    test = product.product_tests.create!({ name: "my measure test #{rand}", measure_ids: }, MeasureTest)
+    c1_task = test.tasks.c1_task
+    c3_task = test.tasks.c3_cat1_task
+    c1_task.test_executions.create!(state: :passed, user: @vendor_user)
+    c3_task.test_executions.create!(state: :passed, user: @vendor_user)
+
+    post :create, params: turbo_create_params(c1_task, zip_upload, include_c1: true)
+
+    assert_response :success
+    assert_equal 2, response.body.scan('In Progress').count
+  end
+
   # need negative tests for user that does not have owner or vendor access
   test 'should be able to restrict access to create unauthorized users ' do
     C1Task.any_instance.stubs(:validators).returns([])
@@ -586,6 +616,19 @@ class TestExecutionsControllerTest < ActionController::TestCase
   def xml_upload
     xmlfile = Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_good.xml')
     Rack::Test::UploadedFile.new(xmlfile, 'application/xml')
+  end
+
+  def turbo_create_params(task, upload, include_c1:)
+    {
+      format: :turbo_stream,
+      task_id: task.id,
+      test_execution: {
+        results: upload,
+        html_id: include_c1 ? 'c1_c3_qrda_i' : 'c2_c3_qrda_iii',
+        include_c1: include_c1.to_s,
+        product_page_url: vendor_product_path(task.product_test.product.vendor, task.product_test.product)
+      }
+    }
   end
 
   def accepted_execution_show_attributes

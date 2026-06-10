@@ -23,11 +23,19 @@ class TestExecution
   belongs_to :task, touch: true
 
   before_save :verify_artifact
+  before_create :mark_task_latest_execution
   after_save :refresh_product_test_status
   after_destroy :refresh_product_test_status
 
   def verify_artifact
     artifact&.save
+  end
+
+  def mark_task_latest_execution
+    return unless task
+
+    task.latest_test_execution_id = id.to_s
+    task.set(latest_test_execution_id: id.to_s) if task.persisted?
   end
 
   def refresh_product_test_status

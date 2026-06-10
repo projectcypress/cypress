@@ -16,6 +16,16 @@ class C3Cat1TaskTest < ActiveSupport::TestCase
     assert(@task.validators.any? { |v| v.is_a?(MeasurePeriodValidator) })
   end
 
+  def test_new_execution_updates_cached_status_when_previous_execution_was_latest
+    @task.test_executions.create!(state: :passed, user: @user)
+    assert_equal 'passing', @test.reload.task_status('C3Cat1Task')
+
+    new_execution = @task.test_executions.create!(user: @user)
+
+    assert_equal new_execution.id.to_s, @task.reload.latest_test_execution_id
+    assert_equal 'pending', @test.reload.task_status('C3Cat1Task')
+  end
+
   def test_task_should_not_error_when_extra_record_included
     c1_task = @test.tasks.create!({}, C1Task)
     zip = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'ep_qrda_test_too_many_files.zip'))

@@ -131,10 +131,11 @@ class TestExecutionsController < ApplicationController
   end
 
   def render_measure_tests_table_row_stream
+    task = Task.find(@task.id)
     render turbo_stream: turbo_stream.replace(
-      view_context.measure_tests_table_row_wrapper_id(@task),
+      view_context.measure_tests_table_row_wrapper_id(task),
       partial: 'products/measure_tests_table_row',
-      locals: { task: @task,
+      locals: { task: task,
                 has_eh_tests: @product.eh_tests?,
                 has_ep_tests: @product.ep_tests?,
                 html_id: test_execution_param(:html_id),
