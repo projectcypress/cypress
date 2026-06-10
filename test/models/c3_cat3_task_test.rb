@@ -17,6 +17,16 @@ class C3Cat3TaskTest < ActiveSupport::TestCase
     assert(@task.validators.any? { |v| v.is_a?(MeasurePeriodValidator) })
   end
 
+  def test_new_execution_updates_cached_status_when_previous_execution_was_latest
+    @task.test_executions.create!(state: :passed, user: @user)
+    assert_equal 'passing', @test.reload.task_status('C3Cat3Task')
+
+    new_execution = @task.test_executions.create!(user: @user)
+
+    assert_equal new_execution.id.to_s, @task.reload.latest_test_execution_id
+    assert_equal 'pending', @test.reload.task_status('C3Cat3Task')
+  end
+
   def test_task_good_results_should_pass
     c2_task = @test.tasks.create({ expected_results: @test.expected_results }, C2Task)
     xml = Tempfile.new(['good_results_debug_file', '.xml'])
