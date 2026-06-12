@@ -1,6 +1,7 @@
-import $ from "jquery2-core";
+import "jquery2-core";
 
-// Make the imported instance the global one used by plugins
+const $ = window.jQuery || window.$;
+
 window.$ = $;
 window.jQuery = $;
 
