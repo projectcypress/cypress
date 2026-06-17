@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div class="col-md-12" data-controller="admin">
 <table class="table">
   <thead>
     <tr>
@@ -17,9 +17,9 @@
     <tr>
       <td><%= user.email %></td>
       <td><%= role.name if role %></td>
-      <td><a href="<%= toggle_approved_admin_user_path(user) %>" data-turbolinks-action="replace"><%= user.approved %></a></td>
+      <td><a href="<%= toggle_approved_admin_user_path(user) %>" data-turbo-action="replace"><%= user.approved %></a></td>
       <td>
-        <table class"table">
+        <table class="table">
           <% assignments.each do |ass|
             if ass.resource
           %>

@@ -135,12 +135,6 @@ When(/^the user uploads a Cat I file that produces a qrda error on (.*) task's e
   execution.execution_errors.create!(message: "my execution error #{rand}", msg_type: 'error')
 end
 
-def upload_and_submit(file_path)
-  find('span', class: 'btn-file').click
-  page.attach_file('results', file_path, visible: false)
-  page.find('#submit-upload').click
-end
-
 When(/^the user visits the individual measure checklist page for measure (.*)$/) do |measure_number|
   measure = nth_measure(measure_number)
   visit measure_checklist_test_path(@test, measure)
@@ -184,7 +178,7 @@ Then(/^the user should see they are (.*) the checklist test$/) do |status|
 end
 
 Then(/^the user should not be able to upload a Cat I file$/) do
-  assert page.find('span.input-group-addon.info-disabled')
+  assert page.has_button?('Select file', disabled: true)
 end
 
 Then(/^the user should see checkmarks next to each complete data criteria$/) do
@@ -195,7 +189,7 @@ Then(/^the user should see checkmarks next to each complete data criteria$/) do
 end
 
 Then(/^the user should be able to upload a Cat I file$/) do
-  assert page.find('span.input-group-addon.active')
+  assert page.has_button?('Select file', disabled: false)
 end
 
 Then(/^the save button should be (\w*)$/) do |state|

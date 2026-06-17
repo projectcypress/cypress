@@ -37,44 +37,52 @@
 </div>
 
 <script>
+(() => {
   function createPreferences(){
     var preferences = {};
-    //find all elements with class code_system (in document order)
-    $('.code-system').each(function(element){
-      debugger;
+    $('.code-system').each(function(){
       var split_id = $(this).attr('id').split(':');
-      //initialize array for key
       if(!(split_id[0] in preferences)){
         preferences[split_id[0]] = [];
       }
       preferences[split_id[0]].push(split_id[1]);
     });
-    debugger;
-    //return preferences as json-style string
     return JSON.stringify(preferences);
   }
 
-  var ready;
-  ready = function() {
+  function initPreferences() {
+    // prevent duplicate handler on Turbo visits
+    $(document)
+      .off('click.preferences', '#preferences_submit_button')
+      .on('click.preferences', '#preferences_submit_button', function() {
+        var preferences = createPreferences();
+        var input = $("<input>")
+          .attr("type", "hidden")
+          .attr("name", "vendor_preferences")
+          .val(preferences);
+        $(this).closest('form').append(input);
+      });
 
-    $(document).on('click', '#preferences_submit_button', function() {
-      var preferences = createPreferences();//TODO: change from test
-      var input = $("<input>")
-                 .attr("type", "hidden")
-                 .attr("name", "vendor_preferences").val(preferences);
-      $(this).closest('form').append(input);
-    });
+    // DragonDrop init (scoped, no global const redeclare)
+    const DragonDrop = window.DragonDrop;
+    if (!DragonDrop) return;
 
-  };
+    <% @vendor.preferred_code_systems.keys.each do |data_criteria| %>
+      (function() {
+        const el = document.getElementById("<%= "#{data_criteria}_list" %>");
+        if (!el) return;
 
-  $(document).ready(ready);
-  $(document).on('page:load page:restore page:partial-load', ready);
+        // guard so it doesn't initialize twice on the same element
+        if (el.dataset.dragonDropInitialized === "1") return;
+        el.dataset.dragonDropInitialized = "1";
 
-  const DragonDrop = window.DragonDrop;
-  <% @vendor.preferred_code_systems.keys.each do |data_criteria| %>
-    const <%= "#{data_criteria}_dragon" %> = new DragonDrop(
-      document.getElementById(<%= "\'#{data_criteria}_list\'".html_safe %>),
-      {handle: '.handle'});
-  <% end %>
+        new DragonDrop(el, { handle: ".handle" });
+      })();
+    <% end %>
+  }
 
+  document.addEventListener("turbo:load", initPreferences);
+  document.addEventListener("turbo:frame-load", initPreferences);
+})();
 </script>
+

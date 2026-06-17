@@ -1,23 +1,55 @@
-<div id = "action_modal" class = "modal fade" tabindex="-1" role = "dialog">
-  <div class = "modal-dialog">
-    <div class = "modal-content">
-      <div class = "modal-header">
-        <h1 class = "modal-title"></h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close modal"><span class="sr-only">Close modal</span></button>
+<div id="action_modal"
+     class="modal fade"
+     tabindex="-1"
+     role="dialog"
+     data-controller="action-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" data-action-modal-target="title"></h1>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close modal">
+          <span class="sr-only">Close modal</span>
+        </button>
       </div>
-      <div class = "modal-body">
-        <p class = "warning_message"></p>
+
+      <div class="modal-body">
+        <p class="warning_message" data-action-modal-target="warningMessage"></p>
+
         <p>
-          Enter <strong class = "object_name"></strong> to <span class = "object_action"></span> <span class = "object_type"></span>.
+          Enter <strong class="object_name" data-action-modal-target="objectName"></strong>
+          to <span class="object_action" data-action-modal-target="objectAction"></span>
+          <span class="object_type" data-action-modal-target="objectType"></span>.
         </p>
+
         <p>
-          <label class = "d-none" for = "modal_name_input"><span class = "object_action"></span> name</label>
-          <input class = "confirm_object_name form-control" id = "modal_name_input" type = "text-field" />
+          <label class="d-none" for="modal_name_input">
+            <span class="object_action" data-action-modal-target="objectAction"></span> name
+          </label>
+          <input class="confirm_object_name form-control"
+                 data-action-modal-target="confirmInput"
+                 id="modal_name_input"
+                 type="text" />
         </p>
       </div>
-      <div class = "modal-footer">
-        <button type = "button" class = "btn btn-danger" id = "modal_confirm_remove" disabled = true>Continue</button>
-        <button type = "button" class = "btn btn-default" aria-label="Cancel" data-bs-dismiss = "modal">Cancel</button>
+
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-danger"
+                id="modal_confirm_remove"
+                data-action-modal-target="confirmButton"
+                disabled="true">
+          Continue
+        </button>
+
+        <button type="button"
+                class="btn btn-default"
+                aria-label="Cancel"
+                data-bs-dismiss="modal">
+          Cancel
+        </button>
       </div>
     </div>
   </div>

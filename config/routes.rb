@@ -3,6 +3,10 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   devise_for :users, controllers: { registrations: 'registrations', sessions: 'sessions' }
+  # devise_scope :user do
+  #   get '/users', to: redirect('/users/sign_up')
+  # end
+
   root to: 'home#index'
 
   get '404', to: 'application#page_not_found'
@@ -97,7 +101,7 @@ Rails.application.routes.draw do
       get :download_mpl
     end
     member do
-      get 'highlighted_results/:calculation_result_id', action: 'highlighted_results', as: 'highlighted_results'
+      post 'highlighted_results/:calculation_result_id', action: 'highlighted_results', as: 'highlighted_results'
     end
   end
 

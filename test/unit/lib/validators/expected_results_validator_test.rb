@@ -19,7 +19,7 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     @patient1 = ProductTestPatient.create(givenNames: ['Jill'], familyName: 'Mcguire', medical_record_number: '198718e0-4d42-0135-8680-12999b0ed66f')
     CQM::IndividualResult.create(IPP: 1, patient_id: @patient1.id, patient: @patient1, measure: @measure)
     @augmented_patient1 = { 'original_patient_id' => @patient1.id, 'medical_record_number' => '198718e0-4d42-0135-8680-12999b0ed66f',
-                            'first' => %w[Jill J], 'last' => %w[Mcguire Mcguirn], :gender => %w[F M] }
+                            'first' => %w[Jill J], 'last' => %w[Mcguire Mcguirn], :gender => %w[F M], :race => %w[1002-5 2028-9] }
 
     @patient2 = ProductTestPatient.create(givenNames: ['Ivan'], familyName: 'Mcguire', medical_record_number: '098718e0-4d42-0135-8680-12999b0ed66f')
     CQM::IndividualResult.create(IPP: 1, patient_id: @patient2.id, patient: @patient2, measure: @measure)
@@ -80,6 +80,17 @@ class ExpectedResultsValidatorTest < ActiveSupport::TestCase
     errors = @validator.errors
 
     assert_empty errors, 'should be no errors when changing the gender count in accordance with the augmented patients'
+  end
+
+  def test_validate_augmented_results_one_unknown_race
+    file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_III', 'ep_test_qrda_cat3_unknown_race.xml')).read
+    @task.product_test.augmented_patients = [@augmented_patient1]
+    @patient1.correlation_id = @task.product_test.id
+    @patient1.save!
+    @validator.validate(file, 'task' => @task)
+    errors = @validator.errors
+
+    assert_empty errors, 'should be no errors when changing the race count in accordance with the augmented patients'
   end
 
   def test_validate_augmented_results_two_augmented_patients

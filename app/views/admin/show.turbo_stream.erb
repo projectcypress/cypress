@@ -1,0 +1,16 @@
+<% if params[:partial] == 'bundle_list' %>
+  <% if Tracker.where(:job_class.in => ['BundleUploadJob', 'BundleDestroyJob', 'BundleDeprecateJob'], :status.in => [:queued, :working]).count.positive? %>
+    <%= turbo_stream.replace "display_bundle_list" do %>
+      <%= render "/admin/bundle_list", bundles: @bundles %>
+    <% end %>
+  <% else %>
+    <%= turbo_stream.remove "bundle_list_poller" %>
+    <%= turbo_stream.replace "display_bundle_list" do %>
+      <%= render "/admin/bundle_list", bundles: @bundles %>
+    <% end %>
+  <% end %>
+<% elsif params[:partial] == 'application_status' %>
+  <%= turbo_stream.replace "application_status_inner" do %>
+    <%= render "/admin/application_status", system_usage_stats: @system_usage_stats %>
+  <% end %>
+<% end %>

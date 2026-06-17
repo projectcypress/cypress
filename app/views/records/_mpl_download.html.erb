@@ -1,3 +1,4 @@
+<div id="mpl-download<%= bundle.id %>">
 <% current_mpl_status = bundle.mpl_prepare %>
 <% if current_mpl_status == :ready %>
   <span class="sr-only">Download <%= bundle.title %></span>
@@ -8,20 +9,4 @@
   <span class="sr-only">Preparing download for <%= bundle.title %></span>
   <%= icon('fas fa-fw fa-spin', 'sync-alt', :"aria-hidden" => true) %> Preparing Download
 <% end %>
-<% unless current_mpl_status == :ready %>
-  <script>
-    $(document).ready(function() {
-      $.ajax({
-        url: "<%= request.env['PATH_INFO'] %>",
-        type: "GET",
-        dataType: 'script',
-        data: { partial: 'mpl_download', mpl_bundle_id: '<%= bundle.id %>' },
-        complete: function(data) {
-          if(data.status != 200) {
-            $('.download-btn#<%= bundle.id %>').html('<b>Error:</b> Please reload webpage')
-          }
-        }
-      });
-    });
-  </script>
-<% end %>
+</div>

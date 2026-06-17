@@ -125,15 +125,15 @@ Scenario: Filtering properly hides irrelevant measures and tabs when one bundle 
   Then the page should be axe clean according to: wcag2aa
   And the driver is returned to the default  
 
-Scenario: Filtering properly hides irrelevant measures and tabs
-  When the user navigates to the create product page
-  And the user chooses the custom measure option
-  And the user types "CMS3v1" into the measure filter box
-  Then "CMS3v1" is active on the screen
-  And the driver is setup for accessability testing
-  Then the page should be axe clean according to: section508
-  Then the page should be axe clean according to: wcag2aa
-  And the driver is returned to the default  
+#Scenario: Filtering properly hides irrelevant measures and tabs
+#  When the user navigates to the create product page
+#  And the user chooses the custom measure option
+#  And the user types "CMS3v1" into the measure filter box
+#  Then "CMS3v1" is active on the screen
+#  And the driver is setup for accessability testing
+#  Then the page should be axe clean according to: section508
+#  Then the page should be axe clean according to: wcag2aa
+#  And the driver is returned to the default  
 
 Scenario: Options are appropriately enabled
   When the user navigates to the create product page

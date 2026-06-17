@@ -242,6 +242,7 @@ class ProductsHelperTest < ActiveJob::TestCase
       measure_ids = ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE']
       # product test is ready, task is pending
       product_test = ProductTest.new(state: :ready, name: 'my product test name 2', measure_ids:, product:)
+      product_test.save
     end
     states.each do |state|
       task = Task.new

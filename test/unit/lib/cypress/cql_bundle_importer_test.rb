@@ -8,7 +8,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     err = assert_raises(RuntimeError) do
       Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new)
     end
-    assert_equal('Please use bundles for year(s) 2022, 2023, 2024, 2025.', err.message)
+    assert_equal('Please use bundles for year(s) 2022, 2023, 2024, 2025, 2026.', err.message)
   end
 
   test 'should successfully import bundle and perform calculations' do
@@ -20,7 +20,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new)
     assert_equal (before_measure_count + 2), Measure.count
     # 21 valuesets from csv file, 3 direct reference codes
-    assert_equal (before_value_set_count + 25), ValueSet.count
+    assert_equal (before_value_set_count + 27), ValueSet.count
     assert_equal (before_patient_count + 1), Patient.count
     # only 2 individual results are saved
     assert_equal (before_results_count + 2), IndividualResult.count
@@ -46,7 +46,7 @@ class CqlBundleImporterTest < ActiveSupport::TestCase
     Cypress::CqlBundleImporter.import(bundle_zip, Tracker.new, include_highlighting: true)
     assert_equal (before_measure_count + 2), Measure.count
     # 21 valuesets from csv file, 3 direct reference codes
-    assert_equal (before_value_set_count + 25), ValueSet.count
+    assert_equal (before_value_set_count + 27), ValueSet.count
     assert_equal (before_patient_count + 1), Patient.count
     # only 2 individual results are saved
     assert_equal (before_results_count + 2), IndividualResult.count

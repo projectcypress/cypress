@@ -129,5 +129,9 @@ namespace :cypress do
         task.save
       end
     end
+
+    task most_recent_product_test_statuses: :setup do
+      ProductTest.all.each(&:rebuild_most_recent_product_test_status!)
+    end
   end
 end

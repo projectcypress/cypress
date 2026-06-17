@@ -89,4 +89,8 @@ class Vendor
   def favorite_products(current_user)
     products.ordered_for_vendors.where(favorite_user_ids: current_user.id)
   end
+
+  def non_favorite_products(current_user)
+    products.ordered_for_vendors.where(:favorite_user_ids.nin => [current_user.id])
+  end
 end

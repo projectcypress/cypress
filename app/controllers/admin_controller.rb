@@ -10,7 +10,11 @@ class AdminController < ApplicationController
     @users = User.excludes(id: current_user.id).order_by(email: 1)
     @system_usage_stats = Vmstat.snapshot
     locals_admin_show = Settings.locals_admin_show(application_mode_settings)
-    render locals: { locals_admin_show:, server_needs_restart: locals_admin_show.server_needs_restart }
+
+    respond_to do |format|
+      format.html { render locals: { locals_admin_show:, server_needs_restart: locals_admin_show.server_needs_restart } }
+      format.turbo_stream
+    end
   end
 
   def download_logs

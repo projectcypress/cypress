@@ -5,6 +5,7 @@
 # must specify local variable "execution"
 #
 %>
+<div class = 'card-body' id = 'display_execution_results' >
 <% uploaded_patients = Patient.where(correlation_id: params['id']) %>
 <% file_name_id_hash = {} %>
 <% uploaded_patients.each { |uploaded_patient| file_name_id_hash[uploaded_patient['file_name']] = uploaded_patient if uploaded_patient['file_name'] } %>
@@ -22,10 +23,6 @@ end %>
   <% msg = tracker ? tracker.log_message.last : 'complete' %>
   <p class="lead bg-info execution-status  bg-opacity-25"><%= icon('fas fa-fw fa-spin text-info', 'sync-alt', :"aria-hidden" => true) %> In Progress (<%= msg %>)</p>
   <p>You do not need to reload your browser. Results will automatically display when the tests are done running.</p>
-  <% # ajax contacts test_execution's show controller action with format: 'js'. controller then directs to show.js.erb which will wait, then re-render %>
-  <script>
-    $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'execution_results' }});
-  </script>
 
 <% else %>
   <% if passing = execution.status_with_sibling == 'passing'%>
@@ -81,7 +78,7 @@ end %>
 
   <% if collected_errors.files.values.any? { |err| err.count.positive? } || (@task.is_a? CMSProgramTask) %>
     <h2><%= "Errors and " unless passing %>Warnings</h2>
-    <div id="xml-tabs" class="hidden file-error-tabs short-tabs">
+    <div id="xml-tabs" class="hidden file-error-tabs short-tabs" data-test-execution-target="fileErrorTabs">
       <ul>
         <% collected_errors.files.each do |file_name, error_result| %>
           <li>
@@ -163,3 +160,4 @@ end %>
     </div>
   <% end %>
 <% end %>
+</div>

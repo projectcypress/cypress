@@ -7,7 +7,16 @@ class ProgramTestsController < ProductTestsController
     @product = @product_test.product
     set_breadcrumbs
     @task = Task.find(params[:task_id]) if params[:task_id]
-    respond_with(@product, @product_test, &:js)
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+      format.xml do
+        respond_with(@product_test)
+      end
+      format.json do
+        respond_with(@product_test)
+      end
+    end
   end
 
   def update

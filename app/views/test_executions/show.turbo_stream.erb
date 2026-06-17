@@ -1,0 +1,33 @@
+
+<% if params[:partial] == 'execution_results' %>
+  <% if @test_execution.incomplete_or_sibling_incomplete? %>
+    <%= turbo_stream.replace "display_execution_results" do %>
+      <%= render "/test_executions/execution_results", :execution => @test_execution %>
+    <% end %>
+  <% else %>
+    <%= turbo_stream.replace "display_execution_results" do %>
+      <%= render "/test_executions/execution_results", :execution => @test_execution %>
+    <% end %>
+    <%= turbo_stream.replace "task_status_display" do %>
+      <%= render "/test_executions/task_status_wrapper", :task => @task, :current_task => true %>
+    <% end %>
+    <%= turbo_stream.remove "execution_results_poller" %>
+    <%= turbo_stream.append "display_execution_results" do %>
+      <script>
+        document.dispatchEvent(new CustomEvent("test-execution:initializeResultsUI"))
+      </script>
+    <% end %>
+  <% end %>
+
+<% elsif params[:partial] == 'execution_download' %>
+  <% unless @product_test.state == :ready %>
+    <%= turbo_stream.replace "display_execution_download" do %>
+      <%= render "/test_executions/execution_download", :product_test => @product_test %>
+    <% end %>
+    <%= turbo_stream.remove "execution_download_poller" %>
+  <% else %>
+    <%= turbo_stream.replace "display_execution_download" do %>
+      <%= render "/test_executions/execution_download", :product_test => @product_test %>
+    <% end %>
+  <% end %>
+<% end %>

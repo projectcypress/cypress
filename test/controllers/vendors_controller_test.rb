@@ -33,6 +33,34 @@ class VendorsControllerTest < ActionController::TestCase
     end
   end
 
+  test 'show paginates non-favorite products in the database' do
+    bundle = FactoryBot.create(:static_bundle)
+    user = User.find(ADMIN)
+    favorite_product = Product.create!(name: 'Favorite Product',
+                                       vendor: @vendor,
+                                       bundle:,
+                                       c1_test: true,
+                                       measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'],
+                                       favorite_user_ids: [user.id])
+    6.times do |index|
+      Product.create!(name: "Non-Favorite Product #{index}",
+                      vendor: @vendor,
+                      bundle:,
+                      c1_test: true,
+                      measure_ids: ['BE65090C-EB1F-11E7-8C3F-9A214CF093AE'])
+    end
+
+    sign_in user
+    get :show, params: { id: @vendor.id }
+
+    assert_response :success
+    assert_equal [favorite_product], assigns(:products_fav).to_a
+    assert_equal 6, assigns(:nonfav_count)
+    assert_equal 5, assigns(:products_nonfav).to_a.size
+    assert_not_includes assigns(:products_nonfav).to_a, favorite_product
+    assert_kind_of Mongoid::Criteria, assigns(:products_nonfav)
+  end
+
   test 'should restrict access to show' do
     for_each_logged_in_user([OTHER_VENDOR]) do
       get :show, params: { id: @vendor.id }

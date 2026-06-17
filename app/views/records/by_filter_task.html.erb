@@ -11,7 +11,7 @@
       </ul>
     </div>
   <% end %>
-  <%= button_to html_filter_patients_product_test_task_path(@task.product_test, @task, hqmf_id: @measure.hqmf_id), method: :get, :class => "btn btn-default" do %>
+  <%= button_to html_filter_patients_product_test_task_path(@task.product_test, @task, hqmf_id: @measure.hqmf_id), method: :get, :class => "btn btn-default", data: { turbo: false } do %>
     <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download HTML Patients
   <% end %>
 </div>

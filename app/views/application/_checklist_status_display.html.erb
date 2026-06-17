@@ -6,16 +6,13 @@
 #   has_many_measures (bool)    [optional]
 
 %>
-
+<div id = 'display_checklist_status' >
 <% has_many_measures ||= false %>
 <% is_report ||= false %>
 <% return unless product_test %>
 <% if product_test.most_recent_task_execution_incomplete? %>
   <% tracker = product_test.most_recent_task_execution.tracker %>
   <% msg = tracker ? tracker.log_message.last : 'complete' %>
-  <script>
-    $.ajax({url: "<%= request.env['PATH_INFO'] %>", type: "GET", dataType: 'script', data: { partial: 'checklist_status_display' }});
-  </script>
   <p class="lead bg-info execution-status  bg-opacity-25"><%= icon('fas fa-fw fa-spin text-info', 'sync-alt', :"aria-hidden" => true) %> In Progress (<%= msg %>)</p>
 <% end %>
 
@@ -51,3 +48,4 @@
     </tbody>
   </table>
 <% end %>
+</div>

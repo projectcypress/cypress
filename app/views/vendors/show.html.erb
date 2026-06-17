@@ -1,5 +1,5 @@
 <%= render 'header_vendor', :vendor => @vendor %>
-
+<div data-controller="infinite-scroll">
 <% if @vendor.products.empty? %>
   <p class="lead">
     Start EHR Certification with
@@ -25,7 +25,7 @@
           <!-- Error should only show up when the page is not properly infinitely scrolling -->
           <%= link_to('Loading Error - Try Again?', url_for(page: @products_nonfav.current_page + 1)) %>
         </p>
-        <p id="loading-more" class="default-hidden">
+        <p id="loading-more" class="d-none">
           <%= icon('fas fa-fw fa-spin', 'sync-alt', :"aria-hidden" => true) %>
           Loading More Products
         </p>
@@ -33,3 +33,4 @@
     <% end %>
   <% end %>
 <% end %>
+</div>

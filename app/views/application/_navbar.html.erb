@@ -70,7 +70,7 @@
         <% end %>
         <li class="nav-item">
           <% li_class = 'nav-link' %>
-          <%= link_to destroy_user_session_path, class: "#{li_class}" do %>
+          <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "#{li_class}" do %>
           <%= icon('fas fa-fw', 'sign-out-alt', :"aria-hidden" => true) %>
           Log Out
           <% end %>

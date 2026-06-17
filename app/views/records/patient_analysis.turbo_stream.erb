@@ -1,0 +1,13 @@
+<% if params[:partial] == 'patient_analysis_tracker' %>
+  <% trackers = PatientAnalysisJob.trackers.where('options.vendor_id': @vendor.id.to_s, 'options.bundle_id': @bundle.id.to_s)  %>
+  <% if trackers.or({ :status => :queued }, { :status => :working }).count.positive? %>
+    <%= turbo_stream.replace "patient-analysis-tracker" do %>
+      <%= render "/records/patient_analysis_tracker", :vendor => @vendor, :bundle => @bundle %>
+    <% end %>
+  <% else %>
+    <%= turbo_stream.replace "patient-analysis-tracker" do %>
+      <%= render "/records/patient_analysis_tracker", :vendor => @vendor, :bundle => @bundle %>
+    <% end %>
+    <%= turbo_stream.remove "patient_analysis_tracker_poller" %>
+  <% end %>
+<% end %>

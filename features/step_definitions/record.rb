@@ -92,9 +92,9 @@ end
 And(/^the user selects a measure from the dropdown$/) do
   page.execute_script "$('#search_measures').trigger('focus')"
   page.execute_script "$('#search_measures').trigger('keydown')"
-  assert page.has_selector?('.ui-autocomplete .list-group-item'), 'no dropdown result'
+  assert page.has_selector?('.ui-autocomplete .ui-menu-item'), 'no dropdown result'
 
-  page.find('.ui-autocomplete .list-group-item', match: :first).click
+  page.find('.ui-autocomplete .ui-menu-item', match: :first).click
 end
 
 Then(/^the user should see results for that measure$/) do

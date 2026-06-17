@@ -5,6 +5,18 @@
 # files.
 # frozen_string_literal: true
 
+module Warning
+  class << self
+    alias __orig_warn warn
+    def warn(msg)
+      return if msg.include?('mustache/generator.rb') &&
+                msg.include?('literal string will be frozen in the future')
+
+      __orig_warn(msg)
+    end
+  end
+end
+
 require 'simplecov'
 # require 'phantomjs'
 SimpleCov.start 'rails'
@@ -51,9 +63,6 @@ def default_drivers
     # or (to have a pause of 1 second between each step):
     # IN_BROWSER=true PAUSE=1 bundle exec cucumber
     Capybara.default_driver = :selenium_chrome
-    AfterStep do
-      sleep(ENV['PAUSE'].to_i || 0)
-    end
   elsif ENV['CI'] == 'true'
     Capybara.register_driver :headless_chrome do |app|
       options = Selenium::WebDriver::Chrome::Options.new

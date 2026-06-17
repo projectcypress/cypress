@@ -39,7 +39,7 @@ module Cypress
     #
     # config.time_zone = "Central Time (US & Canada)"
     config.eager_load_paths << Rails.root.join('lib')
-    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+    # config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 
     # prevent rails from wrapping inputs with errors in a div of class "field_with_errors"
     config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag }

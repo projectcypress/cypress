@@ -11,7 +11,7 @@
   <meta name="keywords" content="" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <style type="text/css">
-    <%= Rails.application.assets_manifest.find_sources('application.css').first.to_s.html_safe %>
+    <%= inline_stylesheet("application") %>
   </style>
 </head>
 <body>

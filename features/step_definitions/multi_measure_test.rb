@@ -40,7 +40,7 @@ And(/^the user views multi measure cat3 task$/) do
 end
 
 And(/^the user views a task record$/) do
-  find(:xpath, "//a[@href='/records/#{@product_test.patients.first.id}?task_id=#{@product_test.tasks.first.id}']").click
+  find(:xpath, "//a[@href='/records/#{@product_test.patients.first.id}?task_id=#{@product_test.tasks.first.id}']", wait: 10).click
 end
 
 # # # # # # # #
