@@ -2,9 +2,10 @@
   "variables": {
     "aws_access_key": "",
     "aws_secret_key": "",
+    "aws_session_token": "",
     "default_user": "ubuntu",
     "default_pwd": "CypressPwd",
-    "cypress_version": "cypress_7.1.0",
+    "cypress_version": "cypress_7.5.0",
     "cvu_version": "cypress-validation-utility_3.2.2-production-1510258734",
     "chef_version": "13.8.5",
     "vpc_id": "",
@@ -13,29 +14,33 @@
   "builders": [
     {
       "name": "cypress.amazonaws",
+      "profile": "default",
       "type": "amazon-ebs",
-      "access_key": "{{user `aws_access_key`}}",
-      "secret_key": "{{user `aws_secret_key`}}",
       "region": "us-east-1",
       "source_ami": "ami-003d3d03cfe1b0468",
       "instance_type": "t2.small",
-      "vpc_id": "{{user `vpc_id`}}",
-      "subnet_id": "{{user `subnet_id`}}",
+      "vpc_id": "vpc-cf3986aa",
+      "subnet_id": "subnet-93b749ca",
       "ami_virtualization_type": "hvm",
       "ssh_username": "ubuntu",
-      "temporary_key_pair_type": "ed25519",
+      "ssh_timeout": "15m",
+      "temporary_key_pair_type": "rsa",
       "ami_name": "cypress_{{ user `cypress_version` }}",
       "ami_groups": "all",
-      "ami_block_device_mappings": [ {
-        "device_name": "/dev/sda1",
-        "volume_size": 40,
-        "delete_on_termination": "true"
-      }],
-      "launch_block_device_mappings": [ {
-        "device_name": "/dev/sda1",
-        "volume_size": 40,
-        "delete_on_termination": "true"
-      }]
+      "ami_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "volume_size": 40,
+          "delete_on_termination": "true"
+        }
+      ],
+      "launch_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "volume_size": 40,
+          "delete_on_termination": "true"
+        }
+      ]
     },
     {
       "name": "cypress.cvu.amazonaws",
@@ -50,16 +55,20 @@
       "ami_virtualization_type": "hvm",
       "ssh_username": "ubuntu",
       "ami_name": "cypress_cvu_{{ user `cypress_version` }}",
-      "ami_block_device_mappings": [ {
-        "device_name": "/dev/sda1",
-        "volume_size": 40,
-        "delete_on_termination": "true"
-      }],
-      "launch_block_device_mappings": [ {
-        "device_name": "/dev/sda1",
-        "volume_size": 40,
-        "delete_on_termination": "true"
-      }]
+      "ami_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "volume_size": 40,
+          "delete_on_termination": "true"
+        }
+      ],
+      "launch_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "volume_size": 40,
+          "delete_on_termination": "true"
+        }
+      ]
     },
     {
       "name": "cvu.amazonaws",
@@ -74,16 +83,20 @@
       "ami_virtualization_type": "hvm",
       "ssh_username": "ubuntu",
       "ami_name": "cvu_{{ user `cvu_version` }}",
-      "ami_block_device_mappings": [ {
-        "device_name": "/dev/sda1",
-        "volume_size": 40,
-        "delete_on_termination": "true"
-      }],
-      "launch_block_device_mappings": [ {
-        "device_name": "/dev/sda1",
-        "volume_size": 40,
-        "delete_on_termination": "true"
-      }]
+      "ami_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "volume_size": 40,
+          "delete_on_termination": "true"
+        }
+      ],
+      "launch_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "volume_size": 40,
+          "delete_on_termination": "true"
+        }
+      ]
     },
     {
       "name": "cypress.vmware",
@@ -222,89 +235,162 @@
       "disk_size": "100000"
     }
   ],
-
-  "provisioners": [{
-    "type": "shell",
-    "inline": [ "sleep 10" ]
-  },
-  {
-    "type": "shell",
-    "environment_vars": [ "DEBIAN_FRONTEND=noninteractive" ],
-    "execute_command": "echo '{{user `default_pwd`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
-    "inline": [
-      "apt-get update",
-      "apt-get -y upgrade"
-    ]
-  },
-  {
-    "type": "shell",
-    "inline": ["echo '{{user `default_pwd`}}' | sudo -S sed -i 's/^%sudo\\s\\+ALL=(ALL:ALL)\\s\\+ALL/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/' /etc/sudoers"],
-    "only": ["cypress.vmware", "cypress.cvu.vmware", "cvu.vmware"]
-  },
-  {
-    "type": "shell",
-    "execute_command": "echo '{{user `default_pwd`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
-    "expect_disconnect": true,
-    "inline": [ "shutdown -r now" ]
-  },
-  {
-    "type": "shell",
-    "expect_disconnect": true,
-    "inline": [ "sleep 10" ]
-  },
-  {
-    "type": "chef-solo",
-    "cookbook_paths": ["cookbooks"],
-    "install_command": "set -x; curl -L https://www.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v {{ user `chef_version` }}",
-    "run_list": [ "recipe[apt]", "recipe[cypress::install_cypress]" ],
-    "json": {
-      "cypress": {
-          "generate_secrets_on_restart": true
-      }
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sleep 10"
+      ]
     },
-    "only": ["cypress.vmware", "cypress.amazonaws"]
-  },
-  {
-    "type": "chef-solo",
-    "cookbook_paths": ["cookbooks"],
-    "install_command": "set -x; curl -L https://www.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v {{ user `chef_version` }}",
-    "run_list": [ "recipe[apt]", "recipe[cypress::install_cvu]" ],
-    "json": {
-      "cypress": {
-          "generate_secrets_on_restart": true
-      }
+    {
+      "type": "shell",
+      "environment_vars": [
+        "DEBIAN_FRONTEND=noninteractive"
+      ],
+      "execute_command": "echo '{{user `default_pwd`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "inline": [
+        "apt-get update",
+        "apt-get -y upgrade"
+      ]
     },
-    "only": ["cvu.vmware", "cvu.amazonaws"]
-  },
-  {
-    "type": "chef-solo",
-    "cookbook_paths": ["cookbooks"],
-    "install_command": "set -x; curl -L https://www.chef.io/chef/install.sh | {{if .Sudo}}sudo{{end}} bash -s -- -v {{ user `chef_version` }}",
-    "run_list": [ "recipe[apt]", "recipe[cypress::default]" ],
-    "json": {
-      "cypress": {
-          "generate_secrets_on_restart": true
-      }
+    {
+      "type": "shell",
+      "inline": [
+        "echo '{{user `default_pwd`}}' | sudo -S sed -i 's/^%sudo\\s\\+ALL=(ALL:ALL)\\s\\+ALL/%sudo ALL=(ALL:ALL) NOPASSWD:ALL/' /etc/sudoers"
+      ],
+      "only": [
+        "cypress.vmware",
+        "cypress.cvu.vmware",
+        "cvu.vmware"
+      ]
     },
-    "only": ["cypress.cvu.vmware", "cypress.cvu.amazonaws"]
-  },
-  {
-    "type": "shell",
-    "inline": ["sudo -S sed -i 's/^%sudo\\s\\+ALL=(ALL:ALL)\\s\\+NOPASSWD:ALL/%sudo ALL=(ALL:ALL) ALL/' /etc/sudoers"],
-    "only": ["cypress.vmware", "cypress.cvu.vmware", "cvu.vmware"]
-  },
-  {
-    "type": "shell",
-    "execute_command": "echo '{{user `default_pwd`}}' | sudo -S -E bash '{{.Path}}'",
-    "script": "scripts/cleanup.sh",
-    "only": ["cypress.vmware", "cypress.cvu.vmware", "cvu.vmware"]
-  }],
-
+    {
+      "type": "shell",
+      "execute_command": "echo '{{user `default_pwd`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "expect_disconnect": true,
+      "inline": [
+        "shutdown -r now"
+      ]
+    },
+    {
+      "type": "shell",
+      "expect_disconnect": true,
+      "inline": [
+        "sleep 10"
+      ]
+    },
+    {
+      "type": "shell",
+      "environment_vars": [
+        "DEBIAN_FRONTEND=noninteractive"
+      ],
+      "execute_command": "echo '{{user `default_pwd`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "inline": [
+        "set -eux",
+        "curl -fL -o /tmp/chef.deb https://packages.chef.io/files/stable/chef/{{ user `chef_version` }}/ubuntu16.04/chef_{{ user `chef_version` }}-1_amd64.deb",
+        "dpkg -i /tmp/chef.deb || apt-get install -f -y",
+        "/opt/chef/bin/chef-solo --version"
+      ],
+      "only": [
+        "cypress.vmware",
+        "cypress.amazonaws",
+        "cvu.vmware",
+        "cvu.amazonaws",
+        "cypress.cvu.vmware",
+        "cypress.cvu.amazonaws"
+      ]
+    },
+    {
+      "type": "chef-solo",
+      "skip_install": true,
+      "cookbook_paths": [
+        "cookbooks"
+      ],
+      "run_list": [
+        "recipe[apt]",
+        "recipe[cypress::install_cypress]"
+      ],
+      "json": {
+        "cypress": {
+          "generate_secrets_on_restart": true
+        }
+      },
+      "only": [
+        "cypress.vmware",
+        "cypress.amazonaws"
+      ]
+    },
+    {
+      "type": "chef-solo",
+      "skip_install": true,
+      "cookbook_paths": [
+        "cookbooks"
+      ],
+      "run_list": [
+        "recipe[apt]",
+        "recipe[cypress::install_cvu]"
+      ],
+      "json": {
+        "cypress": {
+          "generate_secrets_on_restart": true
+        }
+      },
+      "only": [
+        "cvu.vmware",
+        "cvu.amazonaws"
+      ]
+    },
+    {
+      "type": "chef-solo",
+      "skip_install": true,
+      "cookbook_paths": [
+        "cookbooks"
+      ],
+      "run_list": [
+        "recipe[apt]",
+        "recipe[cypress::default]"
+      ],
+      "json": {
+        "cypress": {
+          "generate_secrets_on_restart": true
+        }
+      },
+      "only": [
+        "cypress.cvu.vmware",
+        "cypress.cvu.amazonaws"
+      ]
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo -S sed -i 's/^%sudo\\s\\+ALL=(ALL:ALL)\\s\\+NOPASSWD:ALL/%sudo ALL=(ALL:ALL) ALL/' /etc/sudoers"
+      ],
+      "only": [
+        "cypress.vmware",
+        "cypress.cvu.vmware",
+        "cvu.vmware"
+      ]
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo '{{user `default_pwd`}}' | sudo -S -E bash '{{.Path}}'",
+      "script": "scripts/cleanup.sh",
+      "only": [
+        "cypress.vmware",
+        "cypress.cvu.vmware",
+        "cvu.vmware"
+      ]
+    }
+  ],
   "post-processors": [
     {
       "type": "shell-local",
       "script": "scripts/vmx_to_ova.sh",
-      "only": ["cypress.vmware", "cypress.cvu.vmware", "cvu.vmware"]
+      "only": [
+        "cypress.vmware",
+        "cypress.cvu.vmware",
+        "cvu.vmware"
+      ]
     }
   ]
 }
