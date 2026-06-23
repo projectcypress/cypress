@@ -2,7 +2,8 @@
 
 module Cypress
   class ScoopAndFilter
-    def initialize(measures)
+    def initialize(measures, for_calculation = false)
+      @for_calculation = for_calculation
       @valuesets = measures.collect(&:value_sets).flatten.uniq
       @relevant_codes = codes_in_measures
       @de_category_statuses_for_measures = get_non_demographic_category_statuses(measures)
@@ -50,12 +51,29 @@ module Cypress
       # Return if all codes have been removed
       return if data_element.dataElementCodes.blank?
 
+      data_element.fields.keys.each do |field_name|
+        next if data_element[field_name] == nil
+
+        if field_name == 'diagnoses'
+          data_element.diagnoses.keep_if do |diagnosis|
+            @relevant_codes.include?(code: diagnosis.code.code, system: diagnosis.code.system)
+          end
+        elsif field_name == 'facilityLocations'
+          data_element.facilityLocations.keep_if do |facility_location|
+            @relevant_codes.include?(code: facility_location.code.code, system: facility_location.code.system)
+          end
+        end
+        next unless data_element.fields[field_name].type == QDM::Code
+
+        data_element[field_name] = nil unless @relevant_codes.include?(code: data_element[field_name].code, system: data_element[field_name].system)
+      end
+
       remove_irrelevant_valuesets_and_add_description_to_data_element(data_element)
       # Return if all codes and valuesets have been removed
       return if data_element.dataElementCodes.blank?
       return unless data_element.respond_to?('negationRationale') && data_element.negationRationale
 
-      replace_negated_code_with_valueset(data_element, multi_vs_negation_elements)
+      replace_negated_code_with_valueset(data_element, multi_vs_negation_elements) unless @for_calculation
       return if data_element.dataElementCodes.blank?
 
       # add data element valueset and other potentially relevant valueset descriptions
@@ -88,7 +106,7 @@ module Cypress
       end
 
       vs = vsets.first
-      de.description = vs.display_name
+      de.description = vs.display_name unless @for_calculation
     end
 
     def value_set_appropriate_for_data_element(data_element, valueset_oid)

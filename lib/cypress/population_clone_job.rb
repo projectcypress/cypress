@@ -47,6 +47,8 @@ module Cypress
         end
       end
 
+      @patient_scoop_and_filter = Cypress::ScoopAndFilter.new(@test.measures, true)
+
       # get single provider if @test is a measure test. measure tests have a single provider for each patient while filtering tests can have different
       # providers for each patient
       provider = @test.provider if @test.instance_of?(MeasureTest)
@@ -96,6 +98,7 @@ module Cypress
         original_patient_id: patient.id,
         correlation_id: options['test_id']
       }
+      @patient_scoop_and_filter.scoop_and_filter(cloned_patient)
       unnumerify cloned_patient if patient.givenNames.map { |n| n =~ /\d/ }.any? || patient.familyName =~ /\d/
       cloned_patient.medical_record_number = next_medical_record_number unless options['disable_randomization']
       @test.reload
