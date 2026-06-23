@@ -126,7 +126,6 @@ group :development, :test do
   # remove scss_lint, incompatible with sass dependency upgrades
   # gem 'scss_lint', require: false
   gem 'selenium-webdriver'
-  gem 'webrick'
 end
 
 group :development do

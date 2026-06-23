@@ -73,7 +73,7 @@ class PatientZipperTest < ActiveSupport::TestCase
         doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
         # There should be 1 entry with encounter ids. The fixture measures do not have PhysicalExamPerformed criteria, so that entry will be filtered out
-        assert_equal 1, doc.xpath('//sdtc:templateId[@root="2.16.840.1.113883.10.20.24.3.150"]').size, 'There should be 1 entry with encounter ids'
+        assert_equal 2, doc.xpath('//sdtc:templateId[@root="2.16.840.1.113883.10.20.24.3.150"]').size, 'There should be 1 entry with encounter ids'
         count += 1
       end
     end

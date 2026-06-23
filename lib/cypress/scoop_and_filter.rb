@@ -20,20 +20,44 @@ module Cypress
       end.flatten.uniq.compact
     end
 
-    def scoop_and_filter(patient)
-      demographic_criteria = patient.qdmPatient.dataElements.collect { |de| de if de.qdmCategory == 'patient_characteristic' }.compact
+    def scoop_and_filter(patient, replace_negations: true, persist_scoop: false)
+      de_to_delete = []
+      de_to_delete += patient.qdmPatient.dataElements.map { |de| de unless data_element_used_by_measure(de) }
+      patient.qdmPatient.dataElements.each do |data_element|
+        scoop_and_filter_data_element_codes(data_element, persist_scoop)
+      end
+      # keep data element if codes is not empty
+      de_to_delete += patient.qdmPatient.dataElements.map { |de| de unless de.dataElementCodes.present? }
+      if persist_scoop
+        de_to_delete.compact.each(&:destroy)
+      else
+        ids_to_delete = de_to_delete.compact.map(&:id)
+        patient.qdmPatient.dataElements.keep_if { |data_element| !ids_to_delete.include?(data_element.id) }
+      end
+      replace_negated_codes_with_valueset(patient) if replace_negations
+      patient
+    end
+
+    def replace_negated_codes_with_valueset(patient)
       # If a negated code belongs to multiple valuesets, we need to add a cloned entry for each valueset.
       # This array stores the cloned entries to be added
       multi_vs_negation_elements = []
-      patient.qdmPatient.dataElements.keep_if { |de| data_element_used_by_measure(de) }
+      ids_to_delete = []
       patient.qdmPatient.dataElements.each do |data_element|
-        scoop_and_filter_data_element_codes(data_element, multi_vs_negation_elements, patient)
-        data_element.dataElementCodes.first
+        next unless data_element.respond_to?('negationRationale') && data_element.negationRationale
+
+        replace_negated_code_with_valueset(data_element, multi_vs_negation_elements)
+        if data_element.dataElementCodes.blank?
+          ids_to_delete << data_element.id
+          next
+        end
+
+        # add data element valueset and other potentially relevant valueset descriptions
+        codes = (multi_vs_negation_elements + [data_element]).map { |de| "#{de.dataElementCodes.first.code}:#{de.dataElementCodes.first.system}" }
+        Cypress::QrdaPostProcessor.build_code_descriptions(codes, patient, patient.bundle)
       end
-      # keep data element if codes is not empty
-      patient.qdmPatient.dataElements.keep_if { |data_element| data_element.dataElementCodes.present? }
-      patient.qdmPatient.dataElements.concat(demographic_criteria)
       patient.qdmPatient.dataElements.concat(multi_vs_negation_elements)
+      patient.qdmPatient.dataElements.keep_if { |data_element| !ids_to_delete.include?(data_element.id) }
       patient
     end
 
@@ -41,26 +65,47 @@ module Cypress
 
     # Method to remove codes from a data element that are not relevant to measure.
     # Multi_vs_negation_elements is an array of cloned elements to add to patient record to capture all of the negated valuesets
-    def scoop_and_filter_data_element_codes(data_element, multi_vs_negation_elements, patient)
+    def scoop_and_filter_data_element_codes(data_element, persist_scoop)
+      return if data_element.qdmCategory == 'patient_characteristic'
+
       # keep if data_element code and codesystem is in one of the relevant_codes
       # Also keep all negated valuesets, we'll deal with those later
       data_element.dataElementCodes.keep_if do |de_code|
-        @relevant_codes.include?(code: de_code.code, system: de_code.system) || de_code.system == '1.2.3.4.5.6.7.8.9.10'
+        relevant_code?(de_code) || de_code.system == '1.2.3.4.5.6.7.8.9.10'
       end
       # Return if all codes have been removed
       return if data_element.dataElementCodes.blank?
 
-      remove_irrelevant_valuesets_and_add_description_to_data_element(data_element)
-      # Return if all codes and valuesets have been removed
-      return if data_element.dataElementCodes.blank?
-      return unless data_element.respond_to?('negationRationale') && data_element.negationRationale
+      scoop_and_filter_data_element_fields(data_element)
+      # For repeatability, don't do this if you are saving the record
+      remove_irrelevant_valuesets_and_add_description_to_data_element(data_element) unless persist_scoop
+    end
 
-      replace_negated_code_with_valueset(data_element, multi_vs_negation_elements)
-      return if data_element.dataElementCodes.blank?
+    def scoop_and_filter_data_element_fields(data_element)
+      # Iterate through each field to see coded fields include relevant codes
+      data_element.fields.keys.each do |field_name|
+        next if data_element[field_name].nil?
 
-      # add data element valueset and other potentially relevant valueset descriptions
-      codes = (multi_vs_negation_elements + [data_element]).map { |de| "#{de.dataElementCodes.first.code}:#{de.dataElementCodes.first.system}" }
-      Cypress::QrdaPostProcessor.build_code_descriptions(codes, patient, patient.bundle)
+        # Dianoses and Facility Locations are unique because they are arrays
+        if field_name == 'diagnoses'
+          data_element.diagnoses.keep_if do |diagnosis|
+            relevant_code?(diagnosis.code)
+          end
+          data_element.diagnoses = nil if data_element.diagnoses.blank?
+        elsif field_name == 'facilityLocations'
+          data_element.facilityLocations.keep_if do |facility_location|
+            relevant_code?(facility_location.code)
+          end
+          data_element.facilityLocations = nil if data_element.facilityLocations.blank?
+        end
+        next unless data_element.fields[field_name].type == QDM::Code
+
+        data_element[field_name] = nil unless relevant_code?(data_element[field_name])
+      end
+    end
+
+    def relevant_code?(code)
+      @relevant_codes.include?(code: code.code, system: code.system)
     end
 
     def data_element_category_and_status(data_element)
@@ -69,6 +114,8 @@ module Cypress
 
     # returns true if a patients data element is used by a measure
     def data_element_used_by_measure(data_element)
+      return true if data_element.qdmCategory == 'patient_characteristic'
+
       !@de_category_statuses_for_measures.index do |dcs|
         dcs[:category] == data_element['qdmCategory'] && dcs[:status] == data_element['qdmStatus']
       end.nil?
