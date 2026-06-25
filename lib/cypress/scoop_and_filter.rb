@@ -58,10 +58,12 @@ module Cypress
           data_element.diagnoses.keep_if do |diagnosis|
             @relevant_codes.include?(code: diagnosis.code.code, system: diagnosis.code.system)
           end
+          data_element.diagnoses = nil if data_element.diagnoses.blank?
         elsif field_name == 'facilityLocations'
           data_element.facilityLocations.keep_if do |facility_location|
             @relevant_codes.include?(code: facility_location.code.code, system: facility_location.code.system)
           end
+          data_element.facilityLocations = nil if data_element.facilityLocations.blank?
         end
         next unless data_element.fields[field_name].type == QDM::Code
 
