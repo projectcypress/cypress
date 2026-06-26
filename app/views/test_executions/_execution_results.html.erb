@@ -60,7 +60,7 @@ end %>
     </div>
   <% end %>
 
-  <% collected_errors = Cypress::ErrorCollector.collected_errors(execution) %>
+  <% collected_errors = Cypress::ErrorCollector.collected_errors(execution, include_locations: false ) %>
 
   <% if collected_errors[:exception] %>
     <h2>An internal error occurred when loading this page</h2>
