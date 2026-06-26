@@ -6,10 +6,12 @@ module Cypress
     end
 
     # include_locations (default true) to include the xml locations mapping with collected errors
-    def self.collected_errors(execution, include_locations: true)
+    def self.collected_errors(execution, include_locations: true, file_name: nil)
       # gonna return all the errors for this execution, structured in a reasonable way.
       collected_errors = { nonfile: get_nonfile_errors(execution), files: {} }
       execution.artifact.file_names.each do |this_name|
+        next unless file_name.nil? || file_name == ApplicationController.helpers.route_file_name(this_name)
+
         all_errs = execution.execution_errors.by_file(this_name.force_encoding('UTF-8'))
         related_errs = execution.sibling_execution ? execution.sibling_execution.execution_errors.by_file(this_name) : [] # c3
         next unless (all_errs.count + related_errs.count).positive?
