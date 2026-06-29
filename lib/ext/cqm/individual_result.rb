@@ -6,6 +6,9 @@ module CQM
   class IndividualResult
     store_in collection: 'individual_results'
 
+    index({ patient_id: 1, measure_id: 1, population_set_key: 1 }, { name: 'patient_measure_popset_idx' })
+    index({ patient_id: 1, measure_id: 1 }, { name: 'patient_measure_idx' })
+
     field :population_set_key, type: String
     field :correlation_id, type: String
     field :file_name, type: String
