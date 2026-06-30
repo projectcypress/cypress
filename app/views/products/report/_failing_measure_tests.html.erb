@@ -34,7 +34,7 @@
       <% errors = execution.execution_errors %>
       <!-- C2 Tasks have complex error messages for population/demographic errors -->
       <% if task.is_a? C2Task
-        collected_errors = Cypress::ErrorCollector.collected_errors(execution)
+        collected_errors = Cypress::ErrorCollector.collected_errors(execution, include_locations: false)
         collected_errors.files.each do |file_name, error_result| %>
           <% error_result.each do |error_type, error_hash| %>
             <% report_sup_data_errors = population_data_errors(error_hash.execution_errors, 'supplemental_data') %>
