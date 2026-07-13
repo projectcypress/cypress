@@ -29,7 +29,7 @@ module Cypress
       post_data = { patients: @patients, measure:, valueSets: measure.value_sets, options: @options }
       # cqm-execution-service expects a field called value_set_oids which is really just our
       # oids field. There is a value_set_oids on the measure for this explicit purpose.
-      post_data = post_data.to_json(methods: %i[_type])
+      post_data = JSON.generate(post_data.as_json(methods: %i[_type]), max_nesting: 200)
       begin
         response = RestClient::Request.execute(method: :post, url: @connection_string, timeout: 120,
                                                payload: post_data, headers: { content_type: 'application/json' })
