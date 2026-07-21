@@ -23,9 +23,13 @@ test:
 production:
   clients:
     default:
-      database: cypress_production
-      hosts:
-        - <%= ENV.fetch('MONGO_PORT_27017_TCP_ADDR', '127.0.0.1') %>:<%= ENV.fetch('MONGO_PORT_27017_TCP_PORT', '27017') %>
+      <% if ENV['MONGODB_URI'].present? %>
+        uri: <%= ENV['MONGODB_URI'] %>
+      <% else %>
+        database: cypress_production
+        hosts:
+          - <%= ENV.fetch('MONGO_PORT_27017_TCP_ADDR', '127.0.0.1') %>:<%= ENV.fetch('MONGO_PORT_27017_TCP_PORT', '27017') %>
+      <% end %>
 
   options:
     raise_not_found_error: false
