@@ -92,11 +92,13 @@ class ProductTest
     if product.randomize_patients
       # If we're using a "slim test deck", don't pass in any random IDs
       random_ids = slim_test_deck? ? [] : gather_patient_ids
-      Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'randomization_ids' => random_ids,
+      Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids,
+                                      'scoop_and_filter' => true, 'randomization_ids' => random_ids,
                                       'include_virtual' => (measure_ids & APP_CONSTANTS['telehealth_ineligible_measures']),
                                       'randomize_demographics' => true, 'generate_provider' => product.c4_test, 'job_id' => job_id).perform
     else
-      Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids, 'disable_randomization' => true).perform
+      Cypress::PopulationCloneJob.new('test_id' => id, 'patient_ids' => master_patient_ids,
+                                      'scoop_and_filter' => true, 'disable_randomization' => true).perform
     end
   end
 
