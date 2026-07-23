@@ -264,6 +264,10 @@ Program Criterion:
       PCF: 'For PCF: it must contain at least one performer, each performer contains one TIN and one NPI'
       MIPS_GROUP: 'For MIPS group reporting: it must contain exactly one performer, which contains one TIN. No NPI is allowed.'
       MIPS_INDIV: 'For MIPS individual reporting: it must contain exactly one performer, which contains one TIN and one NPI.'
+      APP_PLUS_INDIV: 'Required for APP Plus group reporting and APP Plus individual reporting'
+      APP_PLUS_GROUP: 'Required for APP Plus group reporting and APP Plus individual reporting'
+      ASM_INDIV: 'Required for ASM individual and group reporting'
+      ASM_GROUP: 'Required for ASM individual and group reporting'
       eh: 'For HQR, TIN may not be applicable. If TIN is submitted for HQR, then it SHALL conform to the constraints specified for TIN. and the TIN must be in valid format (9 decimal digits).'
     conf:
       eh: '(CMS_0119)'
@@ -308,6 +312,9 @@ Program Criterion:
       CPCPLUS: 'For CPC+: it must contain at least one performer, each performer contains one TIN and one NPI'
       PCF: 'For PCF: it must contain at least one performer, each performer contains one TIN and one NPI'
       MIPS_INDIV: 'For MIPS individual reporting: it must contain exactly one performer, which contains one TIN and one NPI.'
+      APP_PLUS_INDIV: 'Required for APP Plus individual reporting'
+      ASM_INDIV: 'Required for ASM individual and group reporting'
+      ASM_GROUP: 'Required for ASM individual and group reporting'
       eh: 'For HQR, NPI may not be applicable. If NPI is submitted for HQR, then the NPI SHALL conform to the constraints specified for NPI and the NPI must be in the correct format.'
       ep:
     conf:
