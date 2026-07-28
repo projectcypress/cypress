@@ -86,7 +86,7 @@ module Cypress
       data_element.fields.keys.each do |field_name|
         next if data_element[field_name].nil?
 
-        # Dianoses and Facility Locations are unique because they are arrays
+        # Diagnoses and Facility Locations are unique because they are arrays
         if field_name == 'diagnoses'
           data_element.diagnoses.keep_if do |diagnosis|
             relevant_code?(diagnosis.code)
