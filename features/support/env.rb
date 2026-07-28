@@ -86,7 +86,7 @@ Mongo::Logger.logger.level = Logger::INFO
 
 default_drivers
 
-Capybara.server = :webrick
+Capybara.server = :puma, { Silent: true }
 Capybara.default_max_wait_time = 15
 # Capybara.ignore_hidden_elements = false
 
