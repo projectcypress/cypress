@@ -7,7 +7,7 @@
   <% observation_values = get_observation_values(patients, [measure], pop_set_key, 'patient_id') %>
 <% end %>
 <h1><%= measure ? measure_display_name(measure, population_set_hash, pop_set_key) : 'All' %> Patients</h1>
-<% if (measure && measure_records.length.positive?) || (!measure  && patients.length.positive?) %>
+<% if (measure && measure_records&.length&.positive?) || (!measure  && patients.length.positive?) %>
 
 <% if @vendor %>
   <%= link_to "View Patient Analytics", patient_analysis_vendor_records_path(:vendor_id => @vendor.id, :bundle_id => @bundle.id) %>
