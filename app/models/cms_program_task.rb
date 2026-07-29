@@ -54,6 +54,9 @@ class CMSProgramTask < Task
     return app_plus_indiv_validators if product_test.cms_program == 'APP_PLUS_INDIV'
     return app_plus_group_validators if product_test.cms_program == 'APP_PLUS_GROUP'
     return app_plus_entity_validators if product_test.cms_program == 'APP_PLUS_APMENTITY'
+    return asm_indiv_validators if product_test.cms_program == 'ASM_INDIV'
+    return asm_group_validators if product_test.cms_program == 'ASM_GROUP'
+    return lead_apm_entity_validators if product_test.cms_program == 'LEAD_APM_ENTITY'
 
     []
   end
@@ -150,6 +153,18 @@ class CMSProgramTask < Task
   end
 
   def mips_subgroup_validators
+    ep_validators
+  end
+
+  def asm_indiv_validators
+    ep_validators
+  end
+
+  def asm_group_validators
+    ep_validators
+  end
+
+  def lead_apm_entity_validators
     ep_validators
   end
 

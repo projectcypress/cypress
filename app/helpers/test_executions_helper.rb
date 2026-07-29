@@ -112,7 +112,7 @@ module TestExecutionsHelper
 
   # returns [file_name, error_result]
   def file_name_and_error_result_from_execution(execution)
-    errs = Cypress::ErrorCollector.collected_errors(execution)
+    errs = Cypress::ErrorCollector.collected_errors(execution, file_name: params[:file_name])
     files = errs.files.select { |file_name, _| route_file_name(file_name) == params[:file_name] }
     file_name_and_error_result_from_files(files, params[:file_name])
   end

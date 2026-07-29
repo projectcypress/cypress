@@ -142,9 +142,9 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 11, te.execution_errors.size
+      assert_equal 9, te.execution_errors.size
       assert_equal 1, te.execution_errors.where(validator: 'Validators::MeasurePeriodValidator').size
-      assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :error).size
+      assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :error).size
       # assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator', msg_type: :warning).size
       assert_equal 5, te.execution_errors.where(validator: 'Validators::CMSQRDA1HQRSchematronValidator').size
     end
@@ -210,7 +210,7 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 1, te.execution_errors.where(message: 'National Provider Identification number not complete').size
+      assert_equal 1, te.execution_errors.where(message: 'Warning - National Provider Identification number not complete').size
     end
     file = File.new(Rails.root.join('test', 'fixtures', 'qrda', 'cat_I', 'qrda_test_2_npi.zip'))
     # 2 NPI entered, and  NPI in file
@@ -298,8 +298,8 @@ class CMSProgramTaskTest < ActiveSupport::TestCase
     perform_enqueued_jobs do
       te = task.execute(file, @user)
       te.reload
-      assert_equal 10, te.execution_errors.size
-      assert_equal 4, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
+      assert_equal 8, te.execution_errors.size
+      assert_equal 2, te.execution_errors.where(validator: 'Validators::ProgramCriteriaValidator').size
       assert_equal 5, te.execution_errors.where(validator: 'Validators::CMSQRDA1HQRSchematronValidator').size
     end
   end

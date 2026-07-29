@@ -16,12 +16,19 @@
       <% message_title = 'Error' if message_title == 'Errors'
          message_title = 'Warning' if message_title == 'Warnings' %>
       <th scope="col"><%= "#{message_title} message" %></th>
-      <% unless export %>
+      <% unless export || on_execution_show_page %>
         <th scope="col" class = 'col-sm-2'>Go To in XML</th>
       <% end %>
     </tr>
   </thead>
   <tbody>
+  <% if on_execution_show_page %>
+    <% errors.each do |error| %>
+      <tr>
+        <td><%= error.message %></td>
+      </tr>
+    <% end %>
+  <% else %>
     <% errors.sort { |a, b| compare_error_locations_across_files(a, b) }.each do |error| %>
       <tr>
         <td><%= error.message %></td>
@@ -33,5 +40,6 @@
         </td>
       </tr>
     <% end %>
+  <% end %>
   </tbody>
 </table>

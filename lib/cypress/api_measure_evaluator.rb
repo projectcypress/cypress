@@ -609,7 +609,7 @@ module Cypress
                                 end
       options = { provider: pt.patients.first.providers.first, submission_program: cat3_submission_program,
                   start_time: pt.start_date, end_time: pt.end_date, ry2025_submission: pt.bundle.major_version == '2024',
-                  ry2026_submission: pt.bundle.major_version == '2025' }
+                  ry2026_submission: pt.bundle.major_version == '2025', ry2027_submission: pt.bundle.major_version == '2026' }
       # To pass C3 tests, all populations and supplemental codes need to be reported
       xml = Qrda3.new(cloned_pt.send(:expected_results_with_all_supplemental_codes), pt.measures, options).render
 

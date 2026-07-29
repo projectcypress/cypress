@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 ruby '3.4.9'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 8.0.0', '>= 8.0.2.1'
+gem 'rails', '~> 8.1.0'
 
 gem 'propshaft'
 
@@ -20,7 +20,7 @@ gem 'mustache'
 
 gem 'cqm-models', '~> 4.2.0'
 gem 'cqm-parsers', '~> 4.1.1.2'
-gem 'cqm-reports', '~> 4.1.6'
+gem 'cqm-reports', '~> 4.1.9'
 gem 'cqm-validators', '~> 4.0.6'
 
 # # Use faker to generate addresses
@@ -126,7 +126,6 @@ group :development, :test do
   # remove scss_lint, incompatible with sass dependency upgrades
   # gem 'scss_lint', require: false
   gem 'selenium-webdriver'
-  gem 'webrick'
 end
 
 group :development do
