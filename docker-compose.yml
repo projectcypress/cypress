@@ -12,12 +12,10 @@ services:
       - ./docker/nginx:/docker/nginx:ro
       - ./docker/nginx/nginx-init.sh:/docker-entrypoint.d/nginx-init.sh:ro
   cypress:
-    image: mitrehealthdocker/cypress:latest
     platform: linux/amd64
-    # Uncomment build section below to build a new image from source
-    # build:
-    #   context: .
-    #   target: prod
+    build:
+      context: .
+      target: prod
     volumes:
       - cypress-vol:/app/public/data
       - ./config/puma.rb:/docker/config/puma.rb
