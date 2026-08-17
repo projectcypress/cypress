@@ -48,6 +48,7 @@ class User
 
   has_many :test_executions, dependent: :nullify
 
+  index(email: 1)
   index(invitation_token: 1)
   index(invitation_by_id: 1)
 

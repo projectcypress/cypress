@@ -10,9 +10,9 @@
     </tr>
   </thead>
   <tbody>
-    <% User.order_by(email:  1).each do |user|
-    role = user.roles.where({resource_id: nil}).first
-    assignments = user.roles.where({resource_id: {"$ne"=> nil}})
+    <% @users.each do |user|
+    role = user.roles.find { |user_role| user_role.resource_id.nil? }
+    assignments = user.roles.reject { |user_role| user_role.resource_id.nil? }
     %>
     <tr>
       <td><%= user.email %></td>
