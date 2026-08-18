@@ -22,8 +22,7 @@
           <%= render 'filtering_test_link', :test => test, :task => test.cat3_task, :parent_reloading => true, :html_id => html_id, :product_page_url => request.path %>
         </td>
         <td class="no-wrap"><%= icon('far fa-fw', 'clock', :"aria-hidden" => true) %>
-          <% updated_at_time = [test.cat3_task.updated_at, test.cat1_task.updated_at].max %>
-          <%= local_time_ago(updated_at_time) %></td>
+          <%= local_time_ago(test.updated_at) %></td>
       </tr>
     <% end %>
   </tbody>
