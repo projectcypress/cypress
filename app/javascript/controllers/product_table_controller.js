@@ -7,7 +7,7 @@ export default class extends Controller {
     if (!this.$) return;
 
     this.initializeTabs();
-    this.initializeDataTables();
+    // this.initializeDataTables();
 
     this._boundMultiUploadChange = this.onMultiUploadChange.bind(this);
     document.addEventListener("change", this._boundMultiUploadChange, true);
@@ -46,6 +46,7 @@ export default class extends Controller {
     });
   }
 
+  // TODO: Remove when finished
   initializeDataTables() {
     if (!this.$.fn || typeof this.$.fn.DataTable !== "function") return;
     const isDT = (elOrSelector) =>
