@@ -19,7 +19,7 @@
   <br>
   <br>
 <% end %>
-<table class="table table-condensed table-hover patient_table">
+<table class="table table-condensed table-hover patient_table" data-controller="datatable" data-datatable-paging-value="true" data-datatable-length-menu-value='[[10,25,50,100,-1],[10,25,50,100,"All"]]'>
   <thead>
     <tr>
       <% if vendor %>
@@ -95,5 +95,4 @@
   </div>
   <%= render 'action_modal' %>
 
-<table class="patients_table" data-controller="datatable"></table>
 <% end%>
