@@ -7,7 +7,6 @@ export default class extends Controller {
     if (!this.$) return;
 
     this.initializeTabs();
-    // this.initializeDataTables();
 
     this._boundMultiUploadChange = this.onMultiUploadChange.bind(this);
     document.addEventListener("change", this._boundMultiUploadChange, true);
@@ -43,118 +42,6 @@ export default class extends Controller {
       const $el = this.$(el);
       if (!$el.hasClass("ui-tabs")) $el.tabs();
       $el.find("> ul > li").removeClass("ui-corner-top");
-    });
-  }
-
-  // TODO: Remove when finished
-  initializeDataTables() {
-    if (!this.$.fn || typeof this.$.fn.DataTable !== "function") return;
-    const isDT = (elOrSelector) =>
-      this.$.fn.dataTable.isDataTable(elOrSelector);
-
-    this.$(".user_tests_table:visible").each((_i, el) => {
-      if (isDT(el)) return;
-      this.$(el).DataTable({
-        searching: false,
-        paging: false,
-        stateSave: true,
-        info: false,
-        order: [[4, "desc"]],
-        autoWidth: false,
-        deferRender: true,
-      });
-    });
-
-    this.$(".vendor-table:visible").each((_i, el) => {
-      if (isDT(el)) return;
-      this.$(el).DataTable({
-        searching: false,
-        paging: false,
-        stateSave: true,
-        info: false,
-        autoWidth: false,
-        deferRender: true,
-      });
-    });
-
-    this.$(".vendor-table-favorite:visible").each((_i, el) => {
-      if (isDT(el)) return;
-      this.$(el).DataTable({
-        searching: false,
-        paging: false,
-        stateSave: true,
-        info: false,
-        autoWidth: false,
-        deferRender: true,
-      });
-    });
-
-    if (
-      this.$("#display_filtering_test_status_display_body").length &&
-      !isDT("#filtering_test_status_display")
-    ) {
-      this.$("#filtering_test_status_display").DataTable({
-        searching: false,
-        paging: false,
-        stateSave: true,
-        info: false,
-        autoWidth: false,
-        deferRender: true,
-      });
-    }
-
-    this.$(".user_table:visible").each((_i, el) => {
-      if (isDT(el)) {
-        this.$(el).DataTable().columns.adjust().draw(false);
-        return;
-      }
-      this.$(el).DataTable({
-        searching: false,
-        paging: true,
-        lengthMenu: [
-          [10, 25, 50, 100, -1],
-          [10, 25, 50, 100, "All"],
-        ],
-        stateSave: true,
-        info: false,
-        columnDefs: [
-          { orderable: true, className: "reorder", targets: [0, 1, 2] },
-          { orderable: false, targets: "_all" },
-        ],
-        autoWidth: false,
-        deferRender: true,
-      });
-    });
-
-    this.$(".patient_table:visible").each((_i, el) => {
-      if (isDT(el)) {
-        this.$(el).DataTable().columns.adjust().draw(false);
-        return;
-      }
-      this.$(el).DataTable({
-        searching: false,
-        paging: true,
-        lengthMenu: [
-          [10, 25, 50, 100, -1],
-          [10, 25, 50, 100, "All"],
-        ],
-        stateSave: true,
-        info: false,
-        autoWidth: false,
-        deferRender: true,
-      });
-    });
-
-    this.$(".measure_tests_table:visible").each((_i, el) => {
-      if (isDT(el)) return;
-      this.$(el).DataTable({
-        searching: false,
-        paging: false,
-        stateSave: true,
-        info: false,
-        autoWidth: false,
-        deferRender: true,
-      });
     });
   }
 
