@@ -17,11 +17,7 @@ export default class extends Controller {
     this.$ = window.jQuery;
     if (!this.$?.fn || typeof this.$.fn.DataTable !== "function") return;
 
-    this.handleShown = this.handleShown.bind(this);
-
-    if (this.$.fn.dataTable.isDataTable(this.element)) {
-      this.adjustTable();
-    } else {
+    if (!this.$.fn.dataTable.isDataTable(this.element)) {
       const options = {
         searching: this.searchingValue,
         paging: this.pagingValue,
@@ -36,23 +32,21 @@ export default class extends Controller {
       if (this.hasColumnDefsValue) options.columnDefs = this.columnDefsValue;
 
       this.$(this.element).DataTable(options);
-      this.adjustTable();
     }
 
-    document.addEventListener("shown.bs.tab", this.handleShown);
-    this.$(document).on("tabsactivate", this.handleShown);
+    this.adjustTableBound = this.adjustTable.bind(this);
+
+    this.adjustTable();
+    document.addEventListener("shown.bs.tab", this.adjustTableBound);
+    this.$(document).on("tabsactivate", this.adjustTableBound);
   }
 
   disconnect() {
-    document.removeEventListener("shown.bs.tab", this.handleShown);
+    document.removeEventListener("shown.bs.tab", this.adjustTableBound);
 
     if (this.$) {
-      this.$(document).off("tabsactivate", this.handleShown);
+      this.$(document).off("tabsactivate", this.adjustTableBound);
     }
-  }
-
-  handleShown() {
-    this.adjustTable();
   }
 
   adjustTable() {
