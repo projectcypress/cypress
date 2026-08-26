@@ -1,3 +1,6 @@
+<div class="d-flex justify-content-center mt-4">
+  <%= paginate @users, params: request.query_parameters.merge(tab: 'user_management') %>
+</div>
 
 <table class="table user_table">
   <thead>
@@ -43,5 +46,3 @@
   </tbody>
 
 </table>
-
-<%= paginate @users, params: request.query_parameters.merge(tab: 'user_management') %>
