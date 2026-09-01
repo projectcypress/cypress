@@ -54,7 +54,10 @@ export default class extends Controller {
 
     setTimeout(() => {
       if (!document.body.contains(this.element)) return;
-      this.$(this.element).DataTable().columns.adjust().draw(false);
+
+      const table = this.$(this.element).DataTable();
+      table.rows().invalidate("dom");
+      table.columns.adjust();
     }, 0);
   }
 }
