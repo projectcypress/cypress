@@ -6,12 +6,14 @@
 <% tests = product.product_tests.filtering_tests %>
 
 <div id="display_filtering_test_status_display">
-  <table class = 'table' id = 'filtering_test_status_display'>
+  <table class = 'table' id = 'filtering_test_status_display' data-controller="datatable">
     <thead>
-      <th class="no-wrap" scope="col">Filtering Criteria</th>
-      <th class="no-wrap" scope="col">QRDA Category I</th>
-      <th class="no-wrap" scope="col">QRDA Category III</th>
-      <th class="no-wrap" scope="col">Last Updated</th>
+      <tr>
+        <th class="no-wrap" scope="col">Filtering Criteria</th>
+        <th class="no-wrap" scope="col">QRDA Category I</th>
+        <th class="no-wrap" scope="col">QRDA Category III</th>
+        <th class="no-wrap" scope="col">Last Updated</th>
+      </tr>
     </thead>
     <%= render 'filtering_test_status_display_body', :product => @product, :html_id => html_id, :product_page_url => request.path %>
   </table>

@@ -1,3 +1,7 @@
+<% content_for :turbo_cache_control do %>
+  <meta name="turbo-cache-control" content="no-cache">
+<% end %>
+
 <%= render 'header_product', :product => @product %>
 <div data-controller="product-table">
   <% if @product.cvuplus %>
