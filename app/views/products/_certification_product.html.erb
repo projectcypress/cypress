@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<div class="product-test-tabs">
+<div id="product-test-tabs" class="product-test-tabs" data-controller="tab-state">
   <ul>
     <% each_tab(@product) do |test_type, title, _, html_id| %>
       <li><a href = '<%= "##{html_id}" %>'><%= title %></a></li>

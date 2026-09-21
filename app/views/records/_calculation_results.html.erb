@@ -23,6 +23,11 @@
     <% end %>
     <!-- will show calculation results for product test records -->
     <% if measure && !(product_test && hide_patient_calculation?) %>
+      <% if result_values[r.id].nil? %>
+        <% population_column_count.times do %>
+          <td/>
+        <% end %>
+      <% end %>
       <% result_values[r.id]&.each do |population, value| %>
         <!-- Observations are dealt with separately since there can be more than one per measure. -->
         <% next if population == 'OBSERV' %>

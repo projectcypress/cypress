@@ -3,6 +3,7 @@
 <% if measure && patients.length.positive? %>
   <% measure_records = records_by_measure(patients, measure, product_test, vendor, pop_set_key) %>
   <% population_keys = measure.population_keys %>
+  <% population_column_count = 0 %>
   <% result_values = get_result_values(patients, [measure], pop_set_key, population_keys, 'patient_id') %>
   <% observation_values = get_observation_values(patients, [measure], pop_set_key, 'patient_id') %>
 <% end %>
@@ -19,7 +20,7 @@
   <br>
   <br>
 <% end %>
-<table class="table table-condensed table-hover patient_table">
+<table class="table table-condensed table-hover patient_table" data-controller="datatable" data-datatable-paging-value="true" data-datatable-length-menu-value='[[50,100,-1],[50,100,"All"]]'>
   <thead>
     <tr>
       <% if vendor %>
@@ -36,10 +37,12 @@
       <% end%>
       <% if measure && !hide_patient_calculation?%>
         <% population_keys.each do |population| %>
+          <% population_column_count += 1 %>
           <th scope="col" class="text-center"><%= population_label(bundle, population) %></th>
         <% end %>
         <!-- If measure calculations include observation_values, include a column to display them. -->
         <% unless observation_values.values.compact.empty? %>
+          <% population_column_count += 1 %>
           <th scope="col" class="text-center"><%= "OBSERV" %></th>
         <% end %>
       <% end %>
@@ -79,7 +82,8 @@
       :observation_values => observation_values,
       :bundle => bundle,
       :measure => measure,
-      :task => task
+      :task => task,
+      :population_column_count => population_column_count
     %>
   </tbody>
 </table>
@@ -95,5 +99,4 @@
   </div>
   <%= render 'action_modal' %>
 
-<table class="patients_table" data-controller="datatable"></table>
 <% end%>

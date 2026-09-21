@@ -4,6 +4,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static values = {
     assignmentIndex: { type: Number, default: 1000 },
+    tab: String,
   }
 
   connect() {
@@ -43,8 +44,26 @@ export default class extends Controller {
 
   initializeTabs() {
     if (!this.$ || !this.$.fn || typeof this.$.fn.tabs !== "function") return
-    this.$(".settings-tabs").tabs()
-    this.$(".settings-tabs > ul > li").removeClass("ui-corner-top")
+
+    const $tabs = this.$(this.element)
+    $tabs.tabs()
+
+    let targetTab = this.hasTabValue ? this.tabValue : null
+
+    if (!targetTab && window.location.hash) {
+      targetTab = window.location.hash.replace("#", "")
+    }
+
+    if (targetTab) {
+      const links = Array.from(this.element.querySelectorAll("ul a"))
+      const index = links.findIndex((link) => link.getAttribute("href") === `#${targetTab}`)
+
+      if (index >= 0) {
+        $tabs.tabs("option", "active", index)
+      }
+    }
+
+    $tabs.find("> ul > li").removeClass("ui-corner-top")
   }
 
   /* eslint-disable max-statements */
@@ -61,7 +80,6 @@ export default class extends Controller {
     const role = roleSelect.selectedOptions[0]
     if (!vendor || !role) return
 
-    // prevent duplicates: does a hidden vendor_id already exist for this vendor?
     const existing = document.querySelectorAll(
       `input[name*='[vendor_id]'][value="${CSS.escape(vendor.value)}"]`,
     )

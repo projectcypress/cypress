@@ -15,7 +15,7 @@
   <% @favorites = @vendors.select{ |v| v.favorite_user_ids.include? current_user.id} %>
   <% unless @favorites.empty? %>
     <h1>Favorite Vendors</h1>
-    <table class="table vendor-table-favorite">
+    <table class="table vendor-table-favorite" data-controller="datatable">
       <thead>
         <tr>
           <th scope="col"><span class="sr-only">Actions</span></th>
@@ -37,7 +37,7 @@
   <% @non_favorites = @vendors.select{ |v| !v.favorite_user_ids.include? current_user.id} %>
   <% unless @non_favorites.empty? %>
     <h1>Vendors</h1>
-    <table class="table vendor-table">
+    <table class="table vendor-table" data-controller="datatable">
       <thead>
         <tr>
           <th scope="col"><span class="sr-only">Actions</span></th>
