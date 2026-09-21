@@ -99,7 +99,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
         # do not include patient if they do not have required criteria
         next unless @apime.filter_out_patients(doc, filter_test_parameters)
 
-        Zip::ZipFile.open("tmp/#{filter_test.id}.zip", Zip::File::CREATE) do |z|
+        Zip::ZipFile.open("tmp/#{filter_test.id}.zip", create: true) do |z|
           z.get_output_stream(entry) { |f| f.puts zipfile.read(entry) }
         end
       end
@@ -162,7 +162,7 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
         doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
         next unless CQM::IndividualResult.where(patient_id: patient_id_file_map[entry.name]).map(&:relevant?).include? true
 
-        Zip::ZipFile.open("tmp/#{product_test.id}_only_ipp.zip", Zip::File::CREATE) do |z|
+        Zip::ZipFile.open("tmp/#{product_test.id}_only_ipp.zip", create: true) do |z|
           z.get_output_stream(entry) { |f| f.puts zipfile.read(entry) }
         end
       end

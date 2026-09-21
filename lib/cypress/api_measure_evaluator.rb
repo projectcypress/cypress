@@ -203,7 +203,7 @@ module Cypress
             doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
             next unless filter_out_patients(doc, parsed_product_test)
 
-            Zip::ZipFile.open("tmp/#{product_test.split('/')[4]}.zip", Zip::File::CREATE) do |z|
+            Zip::ZipFile.open("tmp/#{product_test.split('/')[4]}.zip", create: true) do |z|
               z.get_output_stream(entry) { |f| f.puts zipfile.read(entry) }
             end
           end
@@ -621,7 +621,7 @@ module Cypress
           doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
           next unless CQM::IndividualResult.where(patient_id: patient_id_file_map[entry.name]).map(&:relevant?).include? true
 
-          Zip::ZipFile.open("tmp/#{patient_zip_file_name}_only_ipp.zip", Zip::File::CREATE) do |z|
+          Zip::ZipFile.open("tmp/#{patient_zip_file_name}_only_ipp.zip", create: true) do |z|
             z.get_output_stream(entry) { |f| f.puts zipfile.read(entry) }
           end
         end
