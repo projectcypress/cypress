@@ -22,7 +22,7 @@
   <%= csrf_meta_tags %>
   <%= javascript_importmap_tags %>
 </head>
-<body style="overscroll-behavior: none;" <%= yield(:body_attributes) %> data-controller="cypress" data-action="turbo:before-cache@document->cypress#teardown">
+<body style="overscroll-behavior: none;" <%= yield(:body_attributes) %>>
   <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
 
   <% if Settings.current.banner %>
