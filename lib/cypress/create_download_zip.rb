@@ -101,6 +101,7 @@ module Cypress
           # TODO: R2P: format patients for export
           sf_patient = patient.clone
           sf_patient.id = patient.id
+          sf_patient.qdmPatient.shift_dates(checklist_test.shift_amount) if checklist_test.product.shift_patients
           sf_measures = Measure.where(cms_id: measure_id)
           Cypress::ScoopAndFilter.new(sf_measures).scoop_and_filter(sf_patient)
           add_file_to_zip(z, "sample patient for #{measure_id}.html", formatter.export(sf_patient))

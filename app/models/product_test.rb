@@ -284,6 +284,13 @@ class ProductTest
     APP_CONSTANTS['timing_constraints'].any? { |tc| measure_ids.include? tc['hqmf_id'] }
   end
 
+  def shift_amount
+    date_shift = bundle.start_date_offset
+    # for hybrid_measures, shift an additional 6 months to account for July-June Measurement Period
+    date_shift += additional_shift if timing_constraint?
+    date_shift
+  end
+
   def additional_shift
     shifted_start = Date.parse(APP_CONSTANTS['timing_constraints'].detect { |tc| measure_ids.include? tc['hqmf_id'] }.start_time).in_time_zone
     product_start = Time.at(product.measure_period_start).in_time_zone
