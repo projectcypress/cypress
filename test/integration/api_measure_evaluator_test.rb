@@ -90,17 +90,25 @@ class ApiMeasureEvaluatorTest < ActionController::TestCase
 
   # Filter the 'filter_patients.zip' using the filter test parameters to create a new filtred zip file
   def filter_and_save_cat_1_zip(filter_test_parameters, filter_test)
-    # Loop through all entries in filter_patients.zip
-    Zip::ZipFile.open('tmp/filter_patients.zip') do |zipfile|
-      zipfile.entries.each do |entry|
-        doc = Nokogiri::XML(zipfile.read(entry))
-        doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-        doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
-        # do not include patient if they do not have required criteria
-        next unless @apime.filter_out_patients(doc, filter_test_parameters)
+    output_path = "tmp/#{filter_test.id}.zip"
+    FileUtils.rm_f(output_path)
 
-        Zip::ZipFile.open("tmp/#{filter_test.id}.zip", create: true) do |z|
-          z.get_output_stream(entry) { |f| f.puts zipfile.read(entry) }
+    Zip::File.open('tmp/filter_patients.zip') do |zipfile|
+      Zip::File.open(output_path, create: true) do |out_zip|
+        zipfile.each do |entry|
+          next if entry.directory?
+
+          xml = zipfile.read(entry.name)
+
+          doc = Nokogiri::XML(xml)
+          doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+          doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+
+          next unless @apime.filter_out_patients(doc, filter_test_parameters)
+
+          out_zip.get_output_stream(entry.name) do |f|
+            f.write(xml)
+          end
         end
       end
     end

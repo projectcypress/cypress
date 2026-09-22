@@ -196,14 +196,14 @@ module Cypress
           sleep(1)
         end
         parsed_product_test = parsed_api_object(call_get_product_test(product_test))
-        Zip::ZipFile.open('tmp/filter_patients.zip') do |zipfile|
-          zipfile.entries.each do |entry|
-            doc = Nokogiri::XML(zipfile.read(entry))
-            doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-            doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
-            next unless filter_out_patients(doc, parsed_product_test)
+        Zip::ZipFile.open("tmp/#{product_test.split('/')[4]}.zip", create: true) do |z|
+          Zip::ZipFile.open('tmp/filter_patients.zip') do |zipfile|
+            zipfile.entries.each do |entry|
+              doc = Nokogiri::XML(zipfile.read(entry))
+              doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+              doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+              next unless filter_out_patients(doc, parsed_product_test)
 
-            Zip::ZipFile.open("tmp/#{product_test.split('/')[4]}.zip", create: true) do |z|
               z.get_output_stream(entry) { |f| f.puts zipfile.read(entry) }
             end
           end
@@ -614,14 +614,14 @@ module Cypress
       xml = Qrda3.new(cloned_pt.send(:expected_results_with_all_supplemental_codes), pt.measures, options).render
 
       # Loop through all entries in product_test.zip to remove patients that do not meed IPP (i.e., do not have IndividualResult)
-      Zip::ZipFile.open("tmp/#{patient_zip_file_name}.zip") do |zipfile|
-        zipfile.entries.each do |entry|
-          doc = Nokogiri::XML(zipfile.read(entry))
-          doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
-          doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
-          next unless CQM::IndividualResult.where(patient_id: patient_id_file_map[entry.name]).map(&:relevant?).include? true
+      Zip::ZipFile.open("tmp/#{patient_zip_file_name}_only_ipp.zip", create: true) do |z|
+        Zip::ZipFile.open("tmp/#{patient_zip_file_name}.zip") do |zipfile|
+          zipfile.entries.each do |entry|
+            doc = Nokogiri::XML(zipfile.read(entry))
+            doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
+            doc.root.add_namespace_definition('sdtc', 'urn:hl7-org:sdtc')
+            next unless CQM::IndividualResult.where(patient_id: patient_id_file_map[entry.name]).map(&:relevant?).include? true
 
-          Zip::ZipFile.open("tmp/#{patient_zip_file_name}_only_ipp.zip", create: true) do |z|
             z.get_output_stream(entry) { |f| f.puts zipfile.read(entry) }
           end
         end
