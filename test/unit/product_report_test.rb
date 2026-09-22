@@ -209,7 +209,7 @@ class ProductReportTest < ActionController::TestCase
           testfile.write response.body
         end
         # Open zipfile to find report
-        Zip::File.open(testfile.path, Zip::File::CREATE) do |zip|
+        Zip::File.open(testfile.path, create: true) do |zip|
           report_html = Nokogiri::HTML.parse(zip.read('product_report.html'))
           # Un-comment line below to print out the report (for easier debugging)
           # File.write("script/report_#{sample_error_hash['factory_name']}.html", report_html)
@@ -240,7 +240,7 @@ class ProductReportTest < ActionController::TestCase
       testfile.write response.body
     end
     # Open zipfile to find report
-    Zip::File.open(testfile.path, Zip::File::CREATE) do |zip|
+    Zip::File.open(testfile.path, create: true) do |zip|
       report_html = Nokogiri::HTML.parse(zip.read('product_report.html'))
       # Un-comment line below to print out the report (for easier debugging)
       # File.write("script/report_#{sample_error_hash['factory_name']}.html", report_html)
@@ -277,7 +277,7 @@ class ProductReportTest < ActionController::TestCase
       testfile.write response.body
     end
     # Open zipfile to find report
-    Zip::File.open(testfile.path, Zip::File::CREATE) do |zip|
+    Zip::File.open(testfile.path, create: true) do |zip|
       report_html = Nokogiri::HTML.parse(zip.read('cms-program-tests/hl7-cat-i/calculations/0_Dental_Peds_A.xml.html'))
       assert report_html.at("th:contains('CMS32v7 - PopulationCriteria1')"), 'calculations missing for upload'
     end
