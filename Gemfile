@@ -20,7 +20,7 @@ gem 'mustache'
 ## gem 'os'
 
 gem 'cqm-models', '~> 4.2.0'
-gem 'cqm-parsers', '~> 4.1.1.2'
+gem 'cqm-parsers', git: 'https://github.com/projecttacoma/cqm-parsers', branch: 'update_rubyzip'
 gem 'cqm-reports', '~> 4.1.9'
 gem 'cqm-validators', '~> 4.0.6'
 

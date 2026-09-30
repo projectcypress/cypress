@@ -20,7 +20,7 @@ namespace :bundle do
         csv << [patient.id.to_s, patient.givenNames[0], patient.familyName]
       end
     end
-    Zip::File.open(args.file, Zip::File::CREATE) do |zip|
+    Zip::File.open(args.file, create: true) do |zip|
       if zip.find_entry('calculations/measure-id-mapping.csv')
         puts 'Bundle already has calculations'
         break
