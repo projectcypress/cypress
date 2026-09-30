@@ -1,11 +1,4 @@
-env:
-  DISABLE_DB: "true"
-  SECRET_KEY_BASE_DUMMY: "1"
-dependencies:
-  - libcurl4
-before:
-  - mkdir -p /tmp/db
 targets:
-  ubuntu-24.04: {}
-  ubuntu-22.04: {}
-  ubuntu-20.04: {}
+  ubuntu-22.04:
+  ubuntu-20.04:
+  ubuntu-18.04:
