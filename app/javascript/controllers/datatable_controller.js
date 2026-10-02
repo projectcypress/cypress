@@ -35,18 +35,26 @@ export default class extends Controller {
     }
 
     this.adjustTableBound = this.adjustTable.bind(this);
+    this.beforeCacheBound = this.beforeCache.bind(this);
 
     this.adjustTable();
     document.addEventListener("shown.bs.tab", this.adjustTableBound);
+    document.addEventListener("turbo:before-cache", this.beforeCacheBound);
     this.$(document).on("tabsactivate", this.adjustTableBound);
   }
 
   disconnect() {
     document.removeEventListener("shown.bs.tab", this.adjustTableBound);
+    document.removeEventListener("turbo:before-cache", this.beforeCacheBound);
 
     if (this.$) {
       this.$(document).off("tabsactivate", this.adjustTableBound);
     }
+  }
+
+  beforeCache() {
+    if (!this.$?.fn?.dataTable?.isDataTable(this.element)) return;
+    this.$(this.element).DataTable().destroy();
   }
 
   adjustTable() {
