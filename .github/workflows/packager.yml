@@ -1,0 +1,34 @@
+name: Build package
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'packager_migration/*'
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read app version
+        run: |
+          VERSION=$(ruby -e "content = File.read('config/initializers/version.rb'); puts content[/VERSION\s*=\s*['\"]([^'\"]+)['\"]/, 1]")
+          echo "APP_VERSION=$VERSION" >> $GITHUB_ENV
+      
+      - uses: pkgr/action/package@v1
+        id: package
+        with:
+          target: ubuntu/22.04
+          version: ${{ env.APP_VERSION }}
+
+      - uses: pkgr/action/publish@v1
+        with:
+          file: ${{ steps.package.outputs.package_path }}
+          target: ubuntu/22.04
+          repository: projectcypress/cypress
+          channel: packager_migration
+          token: ${{ secrets.PACKAGER_PUBLISH_TOKEN }}
