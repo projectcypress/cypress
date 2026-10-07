@@ -5,9 +5,11 @@ on:
   push:
     branches:
       - 'packager_migration'
+      - 'master'
 
 jobs:
   package:
+    if: github.ref_name == 'packager_migration' || github.ref_name == 'master'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -30,5 +32,5 @@ jobs:
           file: ${{ steps.package.outputs.package_path }}
           target: ubuntu/22.04
           repository: projectcypress/cypress
-          channel: packager_migration
+          channel: ${{ github.ref_name }}
           token: ${{ secrets.PACKAGER_PUBLISH_TOKEN }}
