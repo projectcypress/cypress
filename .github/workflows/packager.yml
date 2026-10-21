@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - packager_migration
+      - cypress_v7
       - master
 
 jobs:
   package:
-    if: github.ref_name == 'packager_migration' || github.ref_name == 'master'
+    if: github.ref_name == 'cypress_v7' || github.ref_name == 'master'
     runs-on: ubuntu-latest
     strategy:
       matrix:
