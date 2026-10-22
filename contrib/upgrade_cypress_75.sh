@@ -19,6 +19,28 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+CYPRESS_SOURCE_FILE="/etc/apt/sources.list.d/cypress.list"
+OLD_CYPRESS_REPO="https://dl.packager.io/srv/deb/projectcypress/cypress/cypress_v7/ubuntu"
+NEW_CYPRESS_REPO="https://go.packager.io/srv/deb/projectcypress/cypress/cypress_v7/ubuntu"
+
+if [[ -f "$CYPRESS_SOURCE_FILE" ]]; then
+  printf "${GREEN}---> Updating Cypress apt source...${NC}\n"
+  sed -i "s|$OLD_CYPRESS_REPO|$NEW_CYPRESS_REPO|g" "$CYPRESS_SOURCE_FILE"
+else
+  printf "${RED}---> Cypress apt source file not found: $CYPRESS_SOURCE_FILE${NC}\n"
+fi
+
+CQM_SOURCE_FILE="/etc/apt/sources.list.d/cqm-execution-service.list"
+OLD_CQM_REPO="https://dl.packager.io/srv/deb/projecttacoma/cqm-execution-service/cypress_v7/ubuntu"
+NEW_CQM_REPO="https://dl.packager.io/srv/deb/projecttacoma/cqm-execution-service/cypress_v7/ubuntu"
+
+if [[ -f "$CQM_SOURCE_FILE" ]]; then
+  printf "${GREEN}---> Updating CQM Execution Service apt source...${NC}\n"
+  sed -i "s|$OLD_CQM_REPO|$NEW_CQM_REPO|g" "$CQM_SOURCE_FILE"
+else
+  printf "${RED}---> CQM Execution Service apt source file not found: $CQM_SOURCE_FILE${NC}\n"
+fi
+
 printf "${GREEN}---> Running apt update...${NC}\n"
 apt-get update
 
