@@ -32,7 +32,7 @@ fi
 
 CQM_SOURCE_FILE="/etc/apt/sources.list.d/cqm-execution-service.list"
 OLD_CQM_REPO="https://dl.packager.io/srv/deb/projecttacoma/cqm-execution-service/cypress_v7/ubuntu"
-NEW_CQM_REPO="https://dl.packager.io/srv/deb/projecttacoma/cqm-execution-service/cypress_v7/ubuntu"
+NEW_CQM_REPO="https://go.packager.io/srv/deb/projecttacoma/cqm-execution-service/cypress_v7/ubuntu"
 
 if [[ -f "$CQM_SOURCE_FILE" ]]; then
   printf "${GREEN}---> Updating CQM Execution Service apt source...${NC}\n"
@@ -40,6 +40,14 @@ if [[ -f "$CQM_SOURCE_FILE" ]]; then
 else
   printf "${RED}---> CQM Execution Service apt source file not found: $CQM_SOURCE_FILE${NC}\n"
 fi
+
+printf "${GREEN}---> Downloading CQM Execution Service GPG key...${NC}\n"
+curl -fsSL "https://go.packager.io/srv/deb/projecttacoma/cqm-execution-service/gpg-key.gpg" \
+  -o /usr/share/keyrings/cqm-execution-service.gpg
+
+printf "${GREEN}---> Downloading Cypress GPG key...${NC}\n"
+curl -fsSL "https://go.packager.io/srv/deb/projectcypress/cypress/gpg-key.gpg" \
+  -o /usr/share/keyrings/cypress.gpg
 
 printf "${GREEN}---> Running apt update...${NC}\n"
 apt-get update
