@@ -40,7 +40,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
     apt-get install -y --no-install-recommends \
     libcurl4 \
     # updates necessary to address cves
-    openssl libssl3 libc6 libc-bin \ 
+    openssl libssl3 libc6 libc-bin \
     tzdata procps
     # nodejs
 
@@ -51,15 +51,15 @@ WORKDIR $APP_HOME
 COPY --from=builder --chown=app:app ${APP_HOME} ${APP_HOME}
 COPY --from=builder --chown=app:app /usr/local/bin/docker_entrypoint.sh /usr/local/bin/docker_entrypoint.sh
 COPY --from=builder /usr/local/bundle /usr/local/bundle
-RUN mkdir -p /app/tmp/bundles && chown -R app:app /app
+
+RUN chmod +x /usr/local/bin/docker_entrypoint.sh \
+    && mkdir -p /app/tmp/bundles \
+    && chown -R app:app /app
 
 # Environment hints for Rails & Bundler
 ENV RAILS_ENV=production \
     RAILS_SERVE_STATIC_FILES=true \
     BUNDLE_WITHOUT='development test production'
-
-# Run as non-root
-USER app
 
 # Puma listens on 0.0.0.0:3000
 EXPOSE 3000
